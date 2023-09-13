@@ -1,0 +1,13 @@
+
+<link rel="stylesheet" href="test.css">
+
+<h1>Basics</h1>
+
+<div id="basics"></div>
+
+<script type="module">
+  import createApp from '../../src/nue.js'
+  import { lib } from '../dist/basics.js'
+  const [ App, ...deps ] = lib
+  createApp(App, {}, deps).mount(basics)
+</script>

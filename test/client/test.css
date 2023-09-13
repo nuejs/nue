@@ -1,0 +1,177 @@
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont;
+  background-color: #f9f9f9;
+  padding: 6%;
+}
+
+a {
+  color: blue;
+  cursor: pointer;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+h3, h4, h5 {
+  margin: 0 0 .3em;
+}
+
+h4 {
+  color: #789;
+}
+
+.card > h3:first-child {
+  margin-bottom: 1em;
+}
+
+p {
+  margin: 0 0 1.2em;
+  color: #777;
+}
+
+.mb {
+  margin-bottom: 1.2em;
+}
+
+hr {
+  border-width: 0 0 1px;
+  margin-bottom: 1em;
+}
+
+.icon {
+  width: 5em;
+  margin-bottom: 1em;
+}
+
+input {
+  padding: .8em;
+  font-family: inherit;
+  font-size: 95%;
+}
+
+button {
+  border: 1px solid #f9f9f9;
+  background-color: #f2f2f2;
+  font-family: inherit;
+  padding: .3em 1em;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-right: .6em;
+  font-weight: 500;
+}
+
+button:hover {
+  border-color: #bbb;
+}
+
+button:active {
+  box-shadow: 0 0 4px #ccc inset;
+  transform: scale(0.97);
+}
+
+.primary {
+  background-color: #2196f3;
+  color: white;
+}
+
+.field {
+  margin-bottom: 1.5em;
+  display: block;
+}
+
+.field input {
+  width: 100%;
+}
+
+.error input {
+  border-color: red;
+}
+
+.is-fatal h5:after {
+  content: " \01F525";
+  font-size: 120%;
+}
+
+.required h5:after {
+  content: ' *';
+  color: orange;
+  font-size: 110%;
+}
+
+.tag {
+  background-color: #d0f3ff;
+  margin-right: .6em;
+  font-size: 90%;
+  padding: .3em .6em;
+  border-radius: 5px;
+  color: #21718b;
+  font-weight: 500;
+}
+
+/* grid */
+.grid {
+  grid-template-columns: repeat( auto-fit, minmax(320px, 1fr));
+  display: grid;
+  gap: 2.2em;
+}
+
+.card {
+  background-color: white;
+  box-shadow: 1px 1px .3em #ddd;
+  border-radius: 4px;
+  padding: 2em;
+  max-width: 350px;
+}
+
+
+/* loop items */
+.row {
+  border-bottom: 1px solid #eee;
+  align-items: center;
+  display: flex;
+  padding: .3em;
+  font-size: 90%;
+}
+
+.row > * {
+  flex: 1;
+}
+
+.right {
+  text-align: right;
+}
+
+.fade-in {
+  transition: .4s;
+  max-height: 0;
+  opacity: 0;
+}
+
+.faded-in {
+  max-height: 40px;
+  opacity: 1;
+}
+
+/* tabs */
+.tabs {
+  margin-bottom: 1em;
+  display: flex;
+  gap: 1em;
+}
+
+.selected {
+  border-bottom: 3px solid black;
+}
+
+
+/* dark mode */
+.dark {
+  background-color: #222;
+  color: #c9d1d9;
+}
+
+.dark h3 {
+  color: white;
+}

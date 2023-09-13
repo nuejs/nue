@@ -1,0 +1,184 @@
+
+<main class="grid">
+  <component-loop class="card"/>
+  <loop-bind class="card"/>
+  <if-loop class="card"/>
+  <nested-loop class="card"/>
+  <array-methods class="card"/>
+  <object-loop class="card"/>
+  <loop-tabs class="card"/>
+</main>
+
+<section @name="if-loop">
+  <h3>Conditional loops</h3>
+  <p :if="false" :for="name in ['show', 'these', 'items']">Name: { name }</p>
+  <p :else-if="false">Else if</p>
+  <p :else>Else</p>
+</section>
+
+<section @name="loop-tabs">
+  <h3>Tabs test</h3>
+
+  <div class="tabs">
+    <span :for="name, i in items"
+      :class="{ selected: i == index }" @click="ontab(name, i)">{ name }</span>
+  </div>
+
+  <p>Index: { index }</p>
+
+  <script>
+    index = 0
+    items = ['First', 'Second', 'Third']
+
+    ontab(name, i) {
+      this.index = i
+    }
+  </script>
+
+</section>
+
+
+<section @name="loop-bind">
+  <h3>Loop binding</h3>
+
+  <bind-item :for="el in items" :bind="el"/>
+
+  <hr>
+
+  <bind-item :bind="item"/>
+
+  <script>
+    item = { title: 'Normal bind', desc: 'Normal desc' }
+
+    items = [
+      { title: 'Looped #1', desc: 'Desc 1' },
+      { title: 'Looped #2', desc: 'Desc 2' }
+    ]
+  </script>
+
+</section>
+
+<div @name="bind-item">
+  <h4>{ title }</h4>
+  <p>{ desc }</p>
+</div>
+
+<section @name="nested-loop">
+
+  <h3>Nested loop</h3>
+
+  <div :for="{ title, tags }, $i in items" class="mb">
+    <h5>{ $i }: { title } <sup>{ star }</sup></h5>
+    <span :for="tag, i in tags" class="tag">{ tag } <sup>({ i }{ star })</sup></span>
+  </div>
+
+  <script>
+    // access to all parent scopes
+    star = '*'
+
+    items = [
+      { title: 'First', tags: 'foo bar baz'.split(' ') },
+      { title: 'Second', tags: 'lol bruh lmao'.split(' ') },
+    ]
+  </script>
+
+</section>
+
+<section @name="component-loop">
+
+  <loop-item :item="item"/>
+
+  <h5>Loop items</h5>
+  <loop-item :for="item in items" :item="item"/>
+
+  <script>
+    items = [{ title: 'Loop item #1' }]
+    item = { title: 'Self item' }
+  </script>
+
+</section>
+
+<div @name="loop-item">
+  <h3>{ item.title }</h3>
+  <p>{ desc }</p>
+
+  <script>
+    constructor({ item }) {
+      this.desc = `Lower: ${ item.title.toLowerCase() }`
+    }
+  </script>
+</div>
+
+
+<section @name="object-loop">
+
+  <h3>Object loop</h3>
+
+  <p><button @click="change">Change values</button></p>
+
+  <p :for="[key, value, i] in Object.entries(person)" class="row">
+    <b>{ i }</b>
+    <label>{ key }</label>
+    <strong>{ value }</strong>
+  </p>
+
+  <script>
+    person = {
+      name: 'Nick',
+      email: 'nick@acme.org',
+      age: 10
+    }
+
+    change() {
+      this.person.name = 'Alice'
+      this.person.email = 'alic@police.com'
+      this.person.age = '89'
+    }
+  </script>
+</section>
+
+<section @name="array-methods">
+  <h3>Animation</h3>
+  <p>
+    <button @click="push">Push</button>
+    <button @click="unshift">Unshift</button>
+    <button @click="items.reverse()">Reverse</button>
+    <button @click="reset" :if="items[2]">Reset</button>
+  </p>
+
+  <!-- items -->
+  <p :for="el in items" class="row fade-in">
+    <label>{ el.name }</label>
+    <a @click="items.remove(el)" class="right">Remove</a>
+  </p>
+
+  <script>
+    push() {
+      this.items.push({ name: 'Push: ' + this.items.length })
+    }
+
+    unshift() {
+      this.items.unshift({ name: 'Unshift: ' + this.items.length })
+    }
+
+    // transition
+    oninsert(node, item, loop) {
+      const fadeIn = () => node.classList.add('faded-in')
+      if (loop.is_repaint) fadeIn()
+      else setTimeout(fadeIn, 1)
+    }
+
+    reset() {
+      this.items = [{ name: 'John Doe' }, { name: 'Mick Jagger' }]
+    }
+
+    constructor() {
+      this.reset()
+    }
+  </script>
+
+</section>
+
+
+
+

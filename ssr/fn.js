@@ -1,0 +1,107 @@
+
+import { parseDocument, DomUtils } from 'htmlparser2'
+
+// shared by render.js and compile.js
+
+export const STD = 'a abbr acronym address applet area article aside audio b base basefont bdi bdo big\
+ blockquote body br button canvas caption center cite code col colgroup data datalist dd del\
+ details dfn dialog dir div dl dt em embed fieldset figcaption figure font footer form frame\
+ frameset head header hgroup h1 h2 h3 h4 h5 h6 hr html i iframe img input ins kbd keygen label\
+ legend li link main map mark menu menuitem meta meter nav noframes noscript object ol optgroup\
+ option output p param picture pre progress q rp rt ruby s samp script section select small\
+ source span strike strong style sub summary sup svg table tbody td template textarea tfoot th\
+ thead time title tr track tt u ul var video wbr'.split(' ')
+
+const BOOLEAN = `allowfullscreen async autofocus autoplay checked controls default
+  defer disabled formnovalidate hidden ismap itemscope loop multiple muted nomodule novalidate
+  open playsinline readonly required reversed selected truespeed`.trim().split(/\s+/)
+
+export function isBoolean(key) {
+  return BOOLEAN.includes(key)
+}
+
+export function getComponentName(root) {
+  const { attribs } = root
+  const name = attribs['@name'] || attribs['data-name'] || attribs.id
+  delete attribs['@name']
+  return name
+}
+
+export function selfClose(str) {
+  return str.replace(/\/>/g, function(match, i) {
+    const tag = str.slice(str.lastIndexOf('<', i), i)
+    const name = /<([\w-]+)/.exec(tag)
+    return `></${name[1]}>`
+  })
+}
+
+export function walk(node, fn) {
+  fn(node)
+  node = node.firstChild
+  while (node) {
+    walk(node, fn)
+    node = node.nextSibling
+  }
+}
+
+export function objToString(obj, minify) {
+  if (!obj) return null
+
+  const prefix = minify ? '' : '  '
+  const keys = Object.keys(obj)
+  const ret = ['{']
+
+  keys.forEach((key, i) => {
+    const comma = i + 1 < keys.length ? ',' : ''
+    const val = obj[key]
+    if (val) ret.push(`${prefix}${key}: ${quote(val)}${comma}`)
+  })
+
+  ret.push('}')
+  return ret.join(minify ? '' : '\n')
+}
+
+function quote(val) {
+  return val.endsWith('}') || val.endsWith(']') || 1 * val ? val : `'${val}'`
+}
+
+export function mkdom(src) {
+  const dom = parseDocument(selfClose(src))
+  walk(dom, (el) => { if (el.type == 'comment') DomUtils.removeElement(el) }) // strip comments
+  return dom
+}
+
+// render.js only
+const isJS = val => val?.constructor === Object || Array.isArray(val) || typeof val == 'function'
+
+
+// exec('`font-size:${_.size + "px"}`;', data)
+export function exec(expr, data={}) {
+  const fn = new Function('_', 'return ' + expr)
+  try {
+    const val = fn(data)
+    return val == null ? '' : isJS(val) ? val : '' + val
+
+  } catch (e) {
+    console.info('🔻 expr', expr, e)
+    return ''
+  }
+}
+
+
+function isStdAttr(name) {
+  return ['style', 'class', 'id', 'hidden'].includes(name) || name.startsWith('data-')
+}
+
+export function mergeAttribs(to, from) {
+  for (const name in from) {
+    if (isStdAttr(name)) {
+      let val = from[name]
+      const toval = to[name]
+      if (toval && ['class'].includes(name)) val += ' ' + toval
+      to[name] = val
+    }
+  }
+}
+
+

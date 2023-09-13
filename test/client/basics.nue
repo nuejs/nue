@@ -1,0 +1,103 @@
+
+<main class="grid">
+  <refs-test class="card"/>
+  <if-test class="card"/>
+  <slot-test class="card"/>
+  <inherit-test class="card"/>
+</main>
+
+<div @name="refs-test">
+  <h3>Ref: { $refs.email.placeholder }</h3>
+  <input name="email" placeholder="Your email">
+
+  <script>
+    mounted(args) {
+      args.$refs.email.value = 'Hey'
+    }
+  </script>
+</div>
+
+<div @name="if-test">
+  <h2>Count: { count }</h2>
+  <p>
+    <img :if="!count" class="icon" src="img/box.svg">
+    <img :else-if="count % 2 == 0" class="icon" src="img/spray.svg">
+    <img :else class="icon" src="img/pin.svg">
+  </p>
+
+  <p>
+    <button @click="toggle" :if="!flag">Set flag</button>
+    <button @click="toggle" :else>Unset</button>
+  </p>
+
+  <div :if="flag"><media :bind="item"/></div>
+
+  <script>
+    item = { title: 'Item title', desc: 'Item desc' }
+    count = 0
+
+    toggle() {
+      this.flag = !this.flag
+      this.count++
+    }
+  </script>
+</div>
+
+<div @name="slot-test">
+
+  <media :bind="item" desc="Desc override">
+    <h2>${ price }.00</h2>
+    <field type="number" value="1"/>
+    <button @click="buy" :hidden="bought">Add to bag</button>
+    <b :if="bought" class="tag">🛒 In the bag</b>
+  </media>
+
+  <script>
+    item = { title: 'Item title', desc: 'Item desc', img: 'img/paint.svg' }
+    price = 50
+
+    buy() {
+      this.bought = true
+    }
+  </script>
+</div>
+
+
+<div @name="media">
+  <img :if="img" :src="img" class="icon">
+
+  <aside>
+    <h3>{ title || 'Default title'}</h3>
+    <p>{ desc || 'Default desc'}</p>
+    <slot/>
+  </aside>
+</div>
+
+
+<form @name="inherit-test">
+  <h3>Inheritance tests</h3>
+  <field title="Email" type="email" placeholder="your@email.org" required/>
+  <field title="Email" class="error" :style="max-width: { max_width }%"/>
+  <field title="Email" class="error { severity }" id="my-error"
+    data-min="10" :data-max="max_val"/>
+
+  <script>
+    severity = 'is-fatal'
+    max_width = 90
+    max_val = 100
+  </script>
+
+</form>
+
+<label @name="field" class="field { required: required }">
+  <h5>{ label }</h5>
+  <input :attr="attr">
+
+  <script>
+    constructor(data) {
+      this.attr = { type: 'text', ...data.$attrs }
+      delete this.attr.label
+    }
+  </script>
+</label>
+

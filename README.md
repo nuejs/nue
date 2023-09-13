@@ -1,0 +1,133 @@
+
+
+![Nue logo](https://nuejs.org/global/logo/logo.png)
+
+
+[Documentation](//nuejs.org/docs/nuejs/) •
+[Backstory](//nuejs.org/backstory/) •
+[Ecosystem](//nuejs.org/ecosystem/)
+
+
+# What is Nue?
+
+Nue JS is an exceptionally small (2.3kb minzipped) JavaScript library for building web interfaces. It is the core of the upcoming [Nue ecosystem](//nuejs.org/ecosystem/). It’s like **Vue.js, React.js**, or **Svelte** but there are no hooks, effects, props, portals, watchers, provides, injects, suspension, or other internal abstractions on your way. Learn the basics of HTML, CSS, and JavaScript and you are good to go.
+
+Maybe the biggest benefit is that you need less code to do the same thing:
+
+![The amount of code required to build a basic listbox UI component](https://nuejs.org/docs/img/react-listbox-big.jpg)
+
+
+
+It's not unusual to see 10x differences in the amount of code you need to write. For example, a listbox component written with Nue is around [ten times smaller](//nuejs.org/compare/component) than the [React version](https://headlessui.com/react/listbox) from the Headless UI project.
+
+
+## "It's just HTML"
+Nue uses an HTML-based template syntax:
+
+``` html
+<div @name="media-object" class="{ type }">
+  <img src="{ img }">
+  <aside>
+    <h3>{ title }</h3>
+    <p :if="desc">{ desc }</h3>
+    <slot/>
+  </aside>
+</div>
+```
+
+While React and JXS claim to be "Just JavaScript", Nue can be thought of as "Just HTML". Nue is perfect for [UX developers][divide] focusing on interaction design, accessibility, and user experience.
+
+
+## Built to scale
+Tree reasons why Nue scales extremely well:
+
+1. [Separation of concerns](//nuejs.org//why/#soc), easy-to-understand code is easier to scale than "spaghetti code"
+
+1. [Minimalism](//nuejs.org/why/#minimalism), a hundred lines of code is easier to scale than a thousand lines of code
+
+1. **Separation of talent**, when UX developers focus on the [front of the frontend][back] and JS/TS developers focus on the back of the frontend your team skills are optimally aligned:
+
+![The best results are gained when UX developers and JavaScript developers work together without overlaps](https://nuejs.org/docs/img/ux-developer-big.png)
+
+
+### Decoupled styling
+Nue does not promote the use of Scoped CSS, style attribute, Tailwind, or other CSS-in-JS gymnastics:
+
+1. **More reusable code**: When styling is not hardcoded to the component, the same component can look different depending on the page or context.
+
+1. **No spaghetti code**: pure HTML or pure CSS is easier to read than mixed spaghetti code
+
+1. **Faster page loads**: With decoupled styling it's easier to extract primary CSS from the secondary and keep your HTML page under the critical [14kb limit][fourteen].
+
+Learn more about [styling](//nuejs.org/docs/styling-components)
+
+
+## Reactive and isomorphic
+Nue has a rich component model and it allows you to create all kinds of applications using different kinds of components:
+
+1. [Server components](//nuejs.org/docs/server-components) are rendered on the server. They help you build content-focused websites that load faster without JavaScript and are crawlable by search engines.
+
+2. [Reactive components](//nuejs.org/docs/reactive-components) are rendered on the client. They help you build dynamic islands or single-page applications.
+
+3. [Hybrid components](//nuejs.org/docs/isomorphic-components#hybrid) are partly rendered on the server side, and partly on the client side. These components help you build reactive, SEO-friendly components like video tags or image galleries.
+
+3. [Universal components](//nuejs.org/docs/isomorphic-components#universal-components) are used identically on both server- and client side.
+
+
+
+## UI library files
+Nue allows you to define multiple components on a single file. This is a great way to group related components together and simplify dependency management.
+
+
+``` html
+<!-- shared variables and methods -->
+<script>
+  import { someMethod } from './util.js'
+</script>
+
+<!-- first component -->
+<article @name="todo">
+  ...
+</article>
+
+<!-- second component -->
+<div @name="todo-item">
+  ...
+</div>
+
+<!-- third component -->
+<time @name="cute-date">
+  ...
+</time>
+```
+
+With library files, your filesystem hierarchy looks cleaner and you need less boilerplate code to tie connected pieces together. They help in packaging libraries for others.
+
+
+## Simpler tooling
+Nue JS comes with a simple `render` function for server-side rendering and a `compile` function to generate components for the browser. You don't need complex bundlers like Webpack or Vite to take control of your development environment. Just import Nue to your project and you are good to go.
+
+You can of course use a bundler on the business model if your application becomes more complex with tons of dependencies. [Bun](//bun.sh) and [esbuild](//esbuild.github.io/) are great, performant options.
+
+
+## Use cases
+Nue JS is a versatile tool that supports both server- and client-side rendering and helps you build both content-focused websites and reactive single-page applications.
+
+1. **UI library development** Create reusable components for reactive frontends or server-generated content.
+
+2. **Progressive enhancement** Nue JS is a perfect micro library to enhance your content-focused website with dynamic components or "islands"
+
+3. **Static website generators** Just import it into your project and you are ready to render. No bundlers are needed.
+
+4. **Single-page applications** Build simpler and more scalable apps together with an upcoming *Nue MVC*- project.
+
+5. **Templating** Nue is a generic tool to generate your websites and HTML emails.
+
+
+[fourteen]: https://developer.mozilla.org/en-US/docs/Web/Performance/How_browsers_work#tcp_slow_start_14kb_rule
+
+[divide]: https://css-tricks.com/the-great-divide/
+
+[back]: https://bradfrost.com/blog/post/front-of-the-front-end-and-back-of-the-front-end-web-development/
+
+
