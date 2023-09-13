@@ -1,22 +1,23 @@
 
 
-![Nue logo](https://nuejs.org/global/logo/logo.png)
+<a href="https://nuejs.org">
+  <img src="https://nuejs.org/global/logo/logo.png" width="275" alt="Nue logo">
+</a>
+
+[Ecosystem](//nuejs.org/ecosystem/) •
+[Nue JS docs](//nuejs.org/docs/nuejs/) •
+[Backstory](//nuejs.org/backstory/)
 
 
-[Documentation](//nuejs.org/docs/nuejs/) •
-[Backstory](//nuejs.org/backstory/) •
-[Ecosystem](//nuejs.org/ecosystem/)
+# What is Nue JS?
+
+Nue JS is an exceptionally small (2.3kb minzipped) JavaScript library for building web interfaces. It is the core of the upcoming [Nue ecosystem](//nuejs.org/ecosystem/). It’s like **Vue.js, React.js**, or **Svelte** but there are no hooks, effects, props, portals, watchers, provides, injects, suspension, or other unusual abstractions on your way. Learn the basics of HTML, CSS, and JavaScript and you are good to go.
 
 
-# What is Nue?
-
-Nue JS is an exceptionally small (2.3kb minzipped) JavaScript library for building web interfaces. It is the core of the upcoming [Nue ecosystem](//nuejs.org/ecosystem/). It’s like **Vue.js, React.js**, or **Svelte** but there are no hooks, effects, props, portals, watchers, provides, injects, suspension, or other internal abstractions on your way. Learn the basics of HTML, CSS, and JavaScript and you are good to go.
-
-Maybe the biggest benefit is that you need less code to do the same thing:
+## Build user interfaces with 10x less code
+The biggest benefit with Nue is that you need less code to do the same thing:
 
 ![The amount of code required to build a basic listbox UI component](https://nuejs.org/docs/img/react-listbox-big.jpg)
-
-
 
 It's not unusual to see 10x differences in the amount of code you need to write. For example, a listbox component written with Nue is around [ten times smaller](//nuejs.org/compare/component) than the [React version](https://headlessui.com/react/listbox) from the Headless UI project.
 
