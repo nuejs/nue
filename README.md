@@ -60,19 +60,19 @@ Nue does not promote the use of Scoped CSS, style attribute, Tailwind, or other 
 
 1. **Faster page loads**: With decoupled styling it's easier to extract primary CSS from the secondary and keep your HTML page under the critical [14kb limit][fourteen].
 
-Learn more about [styling](//nuejs.org/docs/styling-components)
+Learn more about [styling](//nuejs.org/docs/nuejs/styling-components.html)
 
 
 ## Reactive and isomorphic
 Nue has a rich component model and it allows you to create all kinds of applications using different kinds of components:
 
-1. [Server components](//nuejs.org/docs/server-components) are rendered on the server. They help you build content-focused websites that load faster without JavaScript and are crawlable by search engines.
+1. [Server components](//nuejs.org/docs/nuejs/server-components.html) are rendered on the server. They help you build content-focused websites that load faster without JavaScript and are crawlable by search engines.
 
-2. [Reactive components](//nuejs.org/docs/reactive-components) are rendered on the client. They help you build dynamic islands or single-page applications.
+2. [Reactive components](//nuejs.org/docs/nuejs/reactive-components.html) are rendered on the client. They help you build dynamic islands or single-page applications.
 
-3. [Hybrid components](//nuejs.org/docs/isomorphic-components#hybrid) are partly rendered on the server side, and partly on the client side. These components help you build reactive, SEO-friendly components like video tags or image galleries.
+3. [Hybrid components](//nuejs.org/docs/nuejs/isomorphic-components.html#hybrid) are partly rendered on the server side, and partly on the client side. These components help you build reactive, SEO-friendly components like video tags or image galleries.
 
-3. [Universal components](//nuejs.org/docs/isomorphic-components#universal-components) are used identically on both server- and client side.
+3. [Universal components](//nuejs.org/docs/nuejs/isomorphic-components.html) are used identically on both server- and client side.
 
 
 
