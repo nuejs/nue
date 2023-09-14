@@ -1,5 +1,5 @@
 
-import { compile } from '../ssr/compile.js'
+import { compile, compileFile } from '../ssr/compile.js'
 
 
 /*
@@ -63,6 +63,9 @@ const TESTS = [
   [`<a @click="say('yo', $event)"/>`, '@click', "_.say('yo', e)"],
   [`<a @click="say($event, 'yo')"/>`, '@click', "_.say(e, 'yo')"],
 
+  // newline
+  ['<a>\n<b @click="open"></b></a>', '@click="0"', '_.open.call'],
+
 ]
 
 function testOne([src, ...matches]) {
@@ -86,4 +89,5 @@ test('Unit test', () => {
   const last = TESTS.slice(-1)[0]
   testOne(last)
 })
+
 

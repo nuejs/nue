@@ -20,8 +20,6 @@ function compileNode(root) {
     const content = node.data
 
     if (node.type == 'comment' || attribs.server || tagName == 'noscript') removeElement(node)
-    if (content && !content.trim()) removeElement(node)
-
 
     // attributes
     for (let key in attribs) {
@@ -79,7 +77,7 @@ function compileNode(root) {
     return el.is_handler ? `(_,e) => { ${el.fn} }` : `_ => ${el.fn}`
   })
 
-  return { tmpl: getOuterHTML(root), fns }
+  return { tmpl: getOuterHTML(root).replace(/\s{2,}/g, ' '), fns }
 }
 
 const quote = str => `'${str}'`

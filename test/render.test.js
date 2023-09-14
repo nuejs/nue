@@ -151,3 +151,19 @@ test('Global script', () => {
 })
 
 
+const IF_SIBLING = `
+<nav @name="navi">
+  <a :for="el in els">
+    <img :if="el.img">
+    <span :if="el.label">{ el.label }</span>
+  </a>
+</nav>
+`
+
+test('If sibling', () => {
+  const els = [{ label: 'First'}]
+  const html = render(IF_SIBLING, { els })
+  expect(html).toInclude('First')
+})
+
+

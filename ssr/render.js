@@ -142,7 +142,7 @@ function processNode(opts) {
   const { root, data, deps, inner } = opts
 
   function walk(node) {
-    const { name, type, attribs } = node
+    const { name, type, attribs, nextSibling } = node
 
     // root
     if (type == 'root') {
@@ -157,7 +157,7 @@ function processNode(opts) {
 
       // if
       let expr = getDel(':if', attribs)
-      if (expr && !processIf(node, expr, data)) return
+      if (expr && !processIf(node, expr, data)) return nextSibling
 
       // for
       expr = getDel(':for', attribs)

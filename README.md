@@ -7,7 +7,7 @@
 [Backstory](//nuejs.org/backstory/) •
 [Ecosystem](//nuejs.org/ecosystem/) •
 [Documentation](//nuejs.org/docs/nuejs/) •
-[Getting started](//nuejs.org/docs/nuejs/getting-started.html) •
+[Getting started](//nuejs.org/docs/nuejs/getting-started.html)
 
 
 # What is Nue JS?
