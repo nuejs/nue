@@ -4,9 +4,10 @@
   <img src="https://nuejs.org/global/logo/logo.png" width="275" alt="Nue logo">
 </a>
 
+[Backstory](//nuejs.org/backstory/) •
 [Ecosystem](//nuejs.org/ecosystem/) •
-[Nue JS docs](//nuejs.org/docs/nuejs/) •
-[Backstory](//nuejs.org/backstory/)
+[Documentation](//nuejs.org/docs/nuejs/) •
+[Getting started](//nuejs.org/docs/nuejs/getting-started.html) •
 
 
 # What is Nue JS?
@@ -19,7 +20,7 @@ The biggest benefit with Nue is that you need less code to do the same thing:
 
 ![The amount of code required to build a basic listbox UI component](https://nuejs.org/docs/img/react-listbox-big.jpg)
 
-It's not unusual to see 10x differences in the amount of code you need to write. For example, a listbox component written with Nue is around [ten times smaller](//nuejs.org/compare/component) than the [React version](https://headlessui.com/react/listbox) from the Headless UI project.
+It's not unusual to see 10x differences in the amount of code you need to write. For example, a listbox component written with Nue is around [ten times smaller](//nuejs.org/compare/component.html) than the [React version](https://headlessui.com/react/listbox) from the Headless UI project.
 
 
 ## "It's just HTML"

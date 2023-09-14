@@ -1,4 +1,6 @@
 
+// Internal use only
+
 import createApp from './nue.js'
 
 export default function(opts) {

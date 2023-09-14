@@ -6,12 +6,18 @@ const CONTROL_FLOW = { ':if': If, ':for': For } // :if must be first
 const CORE_ATTR = ['class', 'style', 'id']
 
 
-// Tha last argument ($parent) is for internal use only
+/**
+ * Creates a new application instance (aka. reactive component)
+ *
+ * https://nuejs.org/docs/nuejs/reactive-components.html
+ *
+ * @typedef {{ name: string, tagName: string, tmpl: string, ... }} Component
+ * @param { Component } component - a (compiled) component instance to be mounted
+ * @param { Object } data? - optional data or data model for the component
+ * @param { Array<Component> } deps - optional array of nested/dependant components
+ * @param { Object } $parent - (for internal use only)
+*/
 export default function createApp(component, data={}, deps=[], $parent={}) {
-
-  // library provided as the first argument
-  if (Array.isArray(component)) { deps = component.slice(1); component = component[0] }
-
   const { Impl, tmpl, fns=[], dom, inner } = component
   const expr = []
 
