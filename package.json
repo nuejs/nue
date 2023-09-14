@@ -1,6 +1,6 @@
 {
-	"name": "nuejs",
 	"type": "module",
+	"name": "nuejs-core",
 	"main": "ssr/index.js",
 	"version": "0.1.0",
 	"scripts": {
