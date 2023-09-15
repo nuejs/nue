@@ -41,7 +41,7 @@ While React and JXS claim to be "Just JavaScript", Nue can be thought of as "Jus
 
 
 ## Built to scale
-Tree reasons why Nue scales extremely well:
+Three reasons why Nue scales extremely well:
 
 1. [Separation of concerns](//nuejs.org//why/#soc), easy-to-understand code is easier to scale than "spaghetti code"
 
