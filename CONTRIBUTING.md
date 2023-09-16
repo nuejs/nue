@@ -9,7 +9,7 @@ Nues's codebase has two distinct parts:
 [Bun](//bun.sh) is the preferred test and development environment because it's noticeably faster than Node or Deno.
 
 
-## Best practises
+## Best practices
 
 1. If you are adding a new feature, please add a test. If you are fixing a bug, please add a test that fails before your fix and passes after your fix.
 
