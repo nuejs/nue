@@ -3,6 +3,7 @@ import { mkdom, getComponentName, isBoolean, walk, objToString, STD } from './fn
 import { parseExpr, parseFor, setContext, setContextTo } from './expr.js'
 import { promises as fs } from 'node:fs'
 import { DomUtils } from 'htmlparser2'
+import { dirname } from 'node:path'
 const { getOuterHTML, getInnerHTML, removeElement } = DomUtils
 
 function compileNode(root) {
@@ -205,10 +206,10 @@ export function compile(src) {
 export async function compileFile(path, dest) {
   const template = await fs.readFile(path, 'utf-8')
   const js = compile(template)
-  if (dest) await fs.writeFile(dest, js)
+  if (dest) {
+    const destDir = dirname(dest)
+    await fs.mkdir(destDir, { recursive: true })
+    await fs.writeFile(dest, js)
+  }
   return js
 }
-
-
-
-
