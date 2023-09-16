@@ -37,7 +37,7 @@ Nue uses an HTML-based template syntax:
 </div>
 ```
 
-While React and JXS claim to be "Just JavaScript", Nue can be thought of as "Just HTML". Nue is perfect for [UX developers][divide] focusing on interaction design, accessibility, and user experience.
+While React and JSX claim to be "Just JavaScript", Nue can be thought of as "Just HTML". Nue is perfect for [UX developers][divide] focusing on interaction design, accessibility, and user experience.
 
 
 ## Built to scale
