@@ -16,7 +16,7 @@ Nue JS is an exceptionally small (2.3kb minzipped) JavaScript library for buildi
 
 
 ## Build user interfaces with 10x less code
-The biggest benefit with Nue is that you need less code to do the same thing:
+The biggest benefit of Nue is that you need less code to do the same thing:
 
 ![The amount of code required to build a basic listbox UI component](https://nuejs.org/docs/img/react-listbox-big.jpg)
 
