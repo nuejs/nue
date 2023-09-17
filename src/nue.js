@@ -28,7 +28,7 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
     if (type == 3) {
       const [_, i] = /:(\d+):/.exec(node.textContent.trim()) || []
       const fn = fns[i]
-      if (fn) expr.push(() => node.textContent = renderVal(fn(ctx)))
+      if (fn) expr.push(_ => node.textContent = renderVal(fn(ctx)))
     }
 
     // element
@@ -83,7 +83,7 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
         // Root node changes -> re-point to the new DOM element
         if (dom?.tagName.toLowerCase() == child.name) self.$el = comp.$el
 
-        expr.push(() => setAttrs(comp.$el, parent))
+        expr.push(_ => setAttrs(comp.$el, parent))
 
         // component refs (TODO: into mount?)
         self.$refs[node.getAttribute('ref') || tagName] = comp.impl
@@ -123,7 +123,7 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
 
     // set all attributes from object
     if (real == 'attr') {
-      return expr.push(() => {
+      return expr.push(_=> {
         for (const [name, val] of Object.entries(fn(ctx))) {
           setAttr(node, name, val === true ? '' : val)
         }
@@ -132,7 +132,7 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
 
     // dynamic attributes
     if (char == ':' && real != 'bind') {
-      expr.push(() => {
+      expr.push(_=> {
         let val = fn(ctx)
         setAttr(node, real, renderVal(val))
       })
@@ -148,11 +148,14 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
 
     // boolean attribute
     if (char == '$') {
-      expr.push(() => fn(ctx) ? node[real] = real : node.removeAttribute(real))
+      expr.push(_=> {
+        const flag = node[real] = !!fn(ctx)
+        if (!flag) node.removeAttribute(real)
+      })
     }
 
     // html
-    if (real == 'html') expr.push(() => node.innerHTML = fn(ctx))
+    if (real == 'html') expr.push(_=> node.innerHTML = fn(ctx))
 
   }
 
