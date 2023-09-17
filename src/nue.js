@@ -327,7 +327,7 @@ function mkdom(tmpl) {
 
 // render expression return value
 function renderVal(val, separ='') {
-  return val?.join ? val.filter(el => el != null).join(separ).trim().replace(/\s+/g, ' ') : val || ''
+  return val?.join ? val.filter(el => el || el === 0).join(separ).trim().replace(/\s+/g, ' ') : val || ''
 }
 
 // to merge the class attribute from original mount point
