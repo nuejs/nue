@@ -12,7 +12,7 @@ export default function(opts) {
 
   function addBlock(node, fn) {
     opts.processAttrs(node) // run event handlers on the parent context
-    const impl = createApp({ fns, dom: node }, ctx, deps)
+    const impl = createApp({ fns, dom: node }, ctx, deps, ctx)
     blocks.push(impl)
     impl.fn = fn
   }
@@ -34,6 +34,8 @@ export default function(opts) {
       break
     }
   }
+
+  var _prev
 
   function update() {
     if (!anchor) {

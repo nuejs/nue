@@ -51,7 +51,7 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
         if (fn) {
           node.removeAttribute(key)
           const ext = CONTROL_FLOW[key]({ root: node, fn, fns, deps, ctx, processAttrs })
-          expr.push(ext.update || ext)
+          expr.push(ext.update)
           return ext
         }
       }
@@ -85,7 +85,7 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
 
         expr.push(_ => setAttrs(comp.$el, parent))
 
-        // component refs (TODO: into mount?)
+        // component refs
         self.$refs[node.getAttribute('ref') || tagName] = comp.impl
 
         return { next }
@@ -142,7 +142,8 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
     if (char == '@') {
       node[`on${real}`] = evt => {
         fn.call(ctx, ctx, evt)
-        update()
+        const up = $parent?.update || update
+        up()
       }
     }
 
@@ -274,14 +275,18 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
     before(anchor) {
       if (dom) {
         self.$el = dom
-        anchor.before(dom)
+
+        // TODO: more performant check?
+        if (!document.body.contains(dom)) anchor.before(dom)
         if (!dom.walked) { walk(dom); dom.walked = 1 }
         return update()
       }
     },
 
     unmount() {
-      self.root.remove()
+      try {
+        self.root.remove()
+      } catch (e) {}
       impl.unmounted?.call(ctx, ctx)
       update()
     }
