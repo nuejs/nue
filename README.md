@@ -67,7 +67,7 @@ Learn more about [styling](//nuejs.org/docs/nuejs/styling-components.html)
 ## Reactive and isomorphic
 Nue has a rich component model and it allows you to create all kinds of applications using different kinds of components:
 
-1. [Server components](//nuejs.org/docs/nuejs/server-components.html) are rendered on the server. They help you build content-focused websites that load faster without JavaScript and are crawlable by search engines.
+1. [Server components](//nuejs.org/docs/nuejs/server-components.html) are rendered on the server. They help you build content-focused websites that load faster without JavaScript and are crawled by search engines.
 
 2. [Reactive components](//nuejs.org/docs/nuejs/reactive-components.html) are rendered on the client. They help you build dynamic islands or single-page applications.
 
