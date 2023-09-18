@@ -293,7 +293,7 @@ export async function parseFile(path) {
 
 export async function renderFile(path, data, deps) {
   const src = await fs.readFile(path, 'utf-8')
-  return render(path, data, deps)
+  return render(src, data, deps)
 }
 
 
