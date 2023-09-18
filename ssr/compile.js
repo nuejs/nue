@@ -127,7 +127,7 @@ function getModifiers(name, mods) {
 
   }).filter(el => !!el)
 
-  if (name.startsWith('@key')) {
+  if (name.startsWith('@key') && keycode) {
     const code = keycode.replace('-', '')
     const codes = [`'${code}'`]
     const alias = KEY_ALIAS[code]
