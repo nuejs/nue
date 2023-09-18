@@ -6,7 +6,7 @@ const EXPR = /\{([^}]+)\}/g
 
 // https://github.com/vuejs/core/blob/main/packages/shared/src/globalsWhitelist.ts
 const RESERVED = `
-  alert arguments Array as BigInt Boolean confirm console Date decodeURI decodeURIComponent
+  alert arguments Array as BigInt Boolean confirm console delete Date decodeURI decodeURIComponent
   document else encodeURI encodeURIComponent false get history if in Infinity instanceof
   Intl isFinite isNaN JSON localStorage location Map Math NaN navigator new null Number
   number Object of parseFloat parseInt prompt RegExp sessionStorage Set String this
