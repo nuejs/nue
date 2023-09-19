@@ -10,5 +10,8 @@
 	},
 	"dependencies": {
 		"htmlparser2": "^9.0.0"
-	}
+	},
+	"engines": {
+        "bun": ">= 1"
+    }
 }
