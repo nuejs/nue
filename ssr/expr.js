@@ -17,7 +17,7 @@ const RESERVED = `
 export function setContextTo(expr) {
   return expr.replace(VARIABLE, function(match, prefix, varname, i) {
     const is_reserved = RESERVED.includes(varname)
-    return prefix + (is_reserved ? varname == '$event' ? 'e' : varname : '_.' + varname.trimLeft())
+    return prefix + (is_reserved ? varname == '$event' ? 'e' : varname : '_.' + varname.trimStart())
   })
 }
 
