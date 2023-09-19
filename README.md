@@ -31,7 +31,7 @@ Nue uses an HTML-based template syntax:
   <img src="{ img }">
   <aside>
     <h3>{ title }</h3>
-    <p :if="desc">{ desc }</h3>
+    <p :if="desc">{ desc }</p>
     <slot/>
   </aside>
 </div>
