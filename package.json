@@ -2,7 +2,7 @@
 	"type": "module",
 	"name": "nuejs-core",
 	"main": "ssr/index.js",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"scripts": {
 		"test": "cd test && bun test",
 		"minify": "bun scripts/minify.js",

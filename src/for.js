@@ -29,7 +29,7 @@ export default function(opts) {
     blocks[first ? 'unshift' : 'push'](block)
     block.before(first || anchor)
 
-    // on insert (anomation)
+    // oninsert callback for transition/animation purposes
     ctx.oninsert?.call(ctx, block.$el, item, {
       index: i,
       is_repaint: !!arr,

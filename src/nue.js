@@ -28,7 +28,7 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
     if (type == 3) {
       const [_, i] = /:(\d+):/.exec(node.textContent.trim()) || []
       const fn = fns[i]
-      if (fn) expr.push(() => node.textContent = renderVal(fn(ctx)))
+      if (fn) expr.push(_ => node.textContent = renderVal(fn(ctx)))
     }
 
     // element
@@ -51,7 +51,7 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
         if (fn) {
           node.removeAttribute(key)
           const ext = CONTROL_FLOW[key]({ root: node, fn, fns, deps, ctx, processAttrs })
-          expr.push(ext.update || ext)
+          expr.push(ext.update)
           return ext
         }
       }
@@ -83,9 +83,9 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
         // Root node changes -> re-point to the new DOM element
         if (dom?.tagName.toLowerCase() == child.name) self.$el = comp.$el
 
-        expr.push(() => setAttrs(comp.$el, parent))
+        expr.push(_ => setAttrs(comp.$el, parent))
 
-        // component refs (TODO: into mount?)
+        // component refs
         self.$refs[node.getAttribute('ref') || tagName] = comp.impl
 
         return { next }
@@ -123,7 +123,7 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
 
     // set all attributes from object
     if (real == 'attr') {
-      return expr.push(() => {
+      return expr.push(_=> {
         for (const [name, val] of Object.entries(fn(ctx))) {
           setAttr(node, name, val === true ? '' : val)
         }
@@ -132,7 +132,7 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
 
     // dynamic attributes
     if (char == ':' && real != 'bind') {
-      expr.push(() => {
+      expr.push(_=> {
         let val = fn(ctx)
         setAttr(node, real, renderVal(val))
       })
@@ -142,17 +142,21 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
     if (char == '@') {
       node[`on${real}`] = evt => {
         fn.call(ctx, ctx, evt)
-        update()
+        const up = $parent?.update || update
+        up()
       }
     }
 
     // boolean attribute
     if (char == '$') {
-      expr.push(() => fn(ctx) ? node[real] = real : node.removeAttribute(real))
+      expr.push(_=> {
+        const flag = node[real] = !!fn(ctx)
+        if (!flag) node.removeAttribute(real)
+      })
     }
 
     // html
-    if (real == 'html') expr.push(() => node.innerHTML = fn(ctx))
+    if (real == 'html') expr.push(_=> node.innerHTML = fn(ctx))
 
   }
 
@@ -271,14 +275,18 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
     before(anchor) {
       if (dom) {
         self.$el = dom
-        anchor.before(dom)
+
+        // TODO: more performant check?
+        if (!document.body.contains(dom)) anchor.before(dom)
         if (!dom.walked) { walk(dom); dom.walked = 1 }
         return update()
       }
     },
 
     unmount() {
-      self.root.remove()
+      try {
+        self.root.remove()
+      } catch (e) {}
       impl.unmounted?.call(ctx, ctx)
       update()
     }
@@ -327,7 +335,7 @@ function mkdom(tmpl) {
 
 // render expression return value
 function renderVal(val, separ='') {
-  return val?.join ? val.filter(el => el != null).join(separ).trim().replace(/\s+/g, ' ') : val || ''
+  return val?.join ? val.filter(el => el || el === 0).join(separ).trim().replace(/\s+/g, ' ') : val || ''
 }
 
 // to merge the class attribute from original mount point

@@ -15,12 +15,12 @@
 Nue JS is an exceptionally small (2.3kb minzipped) JavaScript library for building web interfaces. It is the core of the upcoming [Nue ecosystem](//nuejs.org/ecosystem/). It’s like **Vue.js, React.js**, or **Svelte** but there are no hooks, effects, props, portals, watchers, provides, injects, suspension, or other unusual abstractions on your way. Learn the basics of HTML, CSS, and JavaScript and you are good to go.
 
 
-## Build user interfaces with 10x less code
+## Build user interfaces with less code
 The biggest benefit of Nue is that you need less code to do the same thing:
 
-![The amount of code required to build a basic listbox UI component](https://nuejs.org/docs/img/react-listbox-big.jpg)
+![The amount of code required to build a basic listbox UI component](https://nuejs.org/docs/img/react-listbox.jpg?1)
 
-It's not unusual to see 10x differences in the amount of code you need to write. For example, a listbox component written with Nue is around [ten times smaller](//nuejs.org/compare/component.html) than the [React version](https://headlessui.com/react/listbox) from the Headless UI project.
+It's not unusual to see 2x-10x differences in the amount of code you need to write. For example, a listbox component written with Nue is around [ten times smaller](//nuejs.org/compare/component.html) than the [React version](https://headlessui.com/react/listbox) from the Headless UI project.
 
 
 ## "It's just HTML"
@@ -31,7 +31,7 @@ Nue uses an HTML-based template syntax:
   <img src="{ img }">
   <aside>
     <h3>{ title }</h3>
-    <p :if="desc">{ desc }</h3>
+    <p :if="desc">{ desc }</p>
     <slot/>
   </aside>
 </div>
@@ -67,7 +67,7 @@ Learn more about [styling](//nuejs.org/docs/nuejs/styling-components.html)
 ## Reactive and isomorphic
 Nue has a rich component model and it allows you to create all kinds of applications using different kinds of components:
 
-1. [Server components](//nuejs.org/docs/nuejs/server-components.html) are rendered on the server. They help you build content-focused websites that load faster without JavaScript and are crawlable by search engines.
+1. [Server components](//nuejs.org/docs/nuejs/server-components.html) are rendered on the server. They help you build content-focused websites that load faster without JavaScript and are crawled by search engines.
 
 2. [Reactive components](//nuejs.org/docs/nuejs/reactive-components.html) are rendered on the client. They help you build dynamic islands or single-page applications.
 
