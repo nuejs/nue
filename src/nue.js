@@ -169,8 +169,9 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
 
   // node[key] --> dataset, node.title = '' -> undefined (to not override :bind)
   function getAttr(node, key) {
-    const fn = fns[node.getAttribute(':' + key)]
-    return fn ? fn(ctx) : node.getAttribute(key) || node[key] || undefined
+    const val = node.getAttribute(':' + key)
+    const fn = fns[val]
+    return fn ? fn(ctx) : ctx[val] || node.getAttribute(key) || node[key] || undefined
   }
 
   // non-core (id, class, style) attributes with primitive value
