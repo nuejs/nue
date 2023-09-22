@@ -6,7 +6,7 @@
 
 [Backstory](//nuejs.org/backstory/) •
 [Documentation](//nuejs.org/docs/nuejs/) •
-[Examples](//nuejs.org/docs/examples/) •
+[Examples](//nuejs.org/docs/nuejs/examples/) •
 [Getting started](//nuejs.org/docs/nuejs/getting-started.html)
 
 
