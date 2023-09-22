@@ -5,8 +5,8 @@
 </a>
 
 [Backstory](//nuejs.org/backstory/) •
-[Ecosystem](//nuejs.org/ecosystem/) •
 [Documentation](//nuejs.org/docs/nuejs/) •
+[Examples](//nuejs.org/docs/examples/) •
 [Getting started](//nuejs.org/docs/nuejs/getting-started.html)
 
 
@@ -15,12 +15,12 @@
 Nue JS is an exceptionally small (2.3kb minzipped) JavaScript library for building web interfaces. It is the core of the upcoming [Nue ecosystem](//nuejs.org/ecosystem/). It’s like **Vue.js, React.js**, or **Svelte** but there are no hooks, effects, props, portals, watchers, provides, injects, suspension, or other unusual abstractions on your way. Learn the basics of HTML, CSS, and JavaScript and you are good to go.
 
 
-## Build user interfaces with less code
-The biggest benefit of Nue is that you need less code to do the same thing:
+## Build user interfaces with cleaner code
+With Nue your UI code is cleaner and usually smaller:
 
-![The amount of code required to build a basic listbox UI component](https://nuejs.org/docs/img/react-listbox.jpg?1)
+![The difference in coding style](https://nuejs.org/docs/img/react-listbox.jpg?1)
 
-It's not unusual to see 2x-10x differences in the amount of code you need to write. For example, a listbox component written with Nue is around [ten times smaller](//nuejs.org/compare/component.html) than the [React version](https://headlessui.com/react/listbox) from the Headless UI project.
+It's not unusual to see [2x-10x differences](//nuejs.org/compare/component.html) in the amount of code you need to write.
 
 
 ## "It's just HTML"
