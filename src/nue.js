@@ -20,20 +20,19 @@ const CORE_ATTR = ['class', 'style', 'id']
 export default function createApp(component, data={}, deps=[], $parent={}) {
   const { Impl, tmpl, fns=[], dom, inner } = component
   const expr = []
+  const TEXT_NODE = 3
+  const ELEMENT_NODE = 1
 
   function walk(node) {
     const type = node.nodeType
 
-    // text content
-    if (type == 3) {
+    if (type == TEXT_NODE) {
       const [_, i] = /:(\d+):/.exec(node.textContent.trim()) || []
       const fn = fns[i]
       if (fn) expr.push(_ => node.textContent = renderVal(fn(ctx)))
     }
 
-    // element
-    if (type == 1) {
-
+    if (type == ELEMENT_NODE) {
       // loops & conditionals
       for (const key in CONTROL_FLOW) {
         const fn = fns[node.getAttribute(key)]
