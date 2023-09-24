@@ -1,17 +1,20 @@
 {
-	"type": "module",
-	"name": "nuejs-core",
-	"main": "ssr/index.js",
-	"version": "0.1.1",
-	"scripts": {
-		"test": "cd test && bun test",
-		"minify": "bun scripts/minify.js",
-		"compile": "cd test && bun compile.js"
-	},
-	"dependencies": {
-		"htmlparser2": "^9.0.0"
-	},
-	"engines": {
-		"bun": ">= 1"
-	}
+  "type": "module",
+  "name": "nuejs-core",
+  "main": "ssr/index.js",
+  "version": "0.1.1",
+  "scripts": {
+    "test": "cd test && bun test",
+    "minify": "bun scripts/minify.js",
+    "compile": "cd test && bun compile.js"
+  },
+  "dependencies": {
+    "htmlparser2": "^9.0.0"
+  },
+  "engines": {
+    "bun": ">= 1"
+  },
+  "devDependencies": {
+    "prettier": "^3.0.3"
+  }
 }
