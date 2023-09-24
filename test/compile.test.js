@@ -1,6 +1,4 @@
-
 import { compile, compileFile } from '../ssr/compile.js'
-
 
 /*
   Format of individual tests on the TESTS array:
@@ -11,7 +9,6 @@ import { compile, compileFile } from '../ssr/compile.js'
   ]
 */
 const TESTS = [
-
   // basics
   ['<div :data-node="item"/>', '<div :data-node="0"></div>', '_.item'],
 
@@ -19,53 +16,71 @@ const TESTS = [
 
   ['<img :class="`_ || src`"/>', '<img :class="0">', '`_ || _.src`'],
 
-  ['<img loading="lazy" :alt="alt" :src="_ || src">',
-   '<img loading="lazy" :alt="0" :src="1">', '_._ || _.src'],
+  [
+    '<img loading="lazy" :alt="alt" :src="_ || src">',
+    '<img loading="lazy" :alt="0" :src="1">',
+    '_._ || _.src'
+  ],
   [`<a>{ time || '12:00' }</a>`, '<a>:0:</a>', "[_.time || '12:00']"],
 
   // class name
-  ['<div class="item { is-active: isActive(el) }">{ flag ? "ok" : "fail"}</div>',
-    '<div :class="0">:1:</div>', "['item ',_.isActive(_.el) && 'is-active ']"],
+  [
+    '<div class="item { is-active: isActive(el) }">{ flag ? "ok" : "fail"}</div>',
+    '<div :class="0">:1:</div>',
+    "['item ',_.isActive(_.el) && 'is-active ']"
+  ],
 
   // for loop
-  ['<span @name="loop" :for="{ foo, bar } in items">{ foo }</span>',
-    '<span :for="0">:1:</span>', "[['foo','bar'], _.items, '$index']"],
+  [
+    '<span @name="loop" :for="{ foo, bar } in items">{ foo }</span>',
+    '<span :for="0">:1:</span>',
+    "[['foo','bar'], _.items, '$index']"
+  ],
 
-  ['<label :for="el, j in survey.sources">{ el }</label>',
-    ':for="0"', "['el', _.survey.sources, 'j']"],
+  [
+    '<label :for="el, j in survey.sources">{ el }</label>',
+    ':for="0"',
+    "['el', _.survey.sources, 'j']"
+  ],
 
-  ['<p :for="[key, value, i] in Object.entries(person)"></p>',
-    ':for="0"', "[['key','value'], Object.entries(_.person), 'i', true]"],
-
+  [
+    '<p :for="[key, value, i] in Object.entries(person)"></p>',
+    ':for="0"',
+    "[['key','value'], Object.entries(_.person), 'i', true]"
+  ],
 
   // global script tag
   ['<script>const a = 10</script>', 'const a = 10', 'lib = [\n]'],
 
-  ['<b><noscript>Ignore</noscript><script>s = 1</script><script>g = 1</script></b>',
-    '<b></b>', 'class { s = 1\ng = 1 }'],
+  [
+    '<b><noscript>Ignore</noscript><script>s = 1</script><script>g = 1</script></b>',
+    '<b></b>',
+    'class { s = 1\ng = 1 }'
+  ],
 
   // event handlers
   ['<button @click="count++">{ count }</button>', '<button @click="0">:1:</button>', '_.count++'],
-  ['<a @click="foo(); bar()">{ baz }</a>', '@click="0"', "{ _.foo(); _.bar() }"],
+  ['<a @click="foo(); bar()">{ baz }</a>', '@click="0"', '{ _.foo(); _.bar() }'],
 
   // click modifiers
-  ['<a @click.prevent.once="do"/>',
-    '@click="0"', 'e.preventDefault();_.do.call(_, e);e.target.onclick = null'],
+  [
+    '<a @click.prevent.once="do"/>',
+    '@click="0"',
+    'e.preventDefault();_.do.call(_, e);e.target.onclick = null'
+  ],
 
   ['<a @keyup.space="do"/>', '@keyup="0"', "if (!['space'"],
 
-  ['<a @keyup.up="do"/>','@keyup="0"', "if (!['up'"],
+  ['<a @keyup.up="do"/>', '@keyup="0"', "if (!['up'"],
 
-  ['<a @click.self="do"/>','@click="0"', "if (e.target != this)"],
-
+  ['<a @click.self="do"/>', '@click="0"', 'if (e.target != this)'],
 
   // event argument
   [`<a @click="say('yo', $event)"/>`, '@click', "_.say('yo', e)"],
   [`<a @click="say($event, 'yo')"/>`, '@click', "_.say(e, 'yo')"],
 
   // newline
-  ['<a>\n<b @click="open"></b></a>', '@click="0"', '_.open.call'],
-
+  ['<a>\n<b @click="open"></b></a>', '@click="0"', '_.open.call']
 ]
 
 function testOne([src, ...matches]) {
@@ -89,5 +104,3 @@ test('Unit test', () => {
   const last = TESTS.slice(-1)[0]
   testOne(last)
 })
-
-

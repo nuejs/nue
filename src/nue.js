@@ -1,10 +1,8 @@
-
 import For from './for.js'
 import If from './if.js'
 
 const CONTROL_FLOW = { ':if': If, ':for': For } // :if must be first
 const CORE_ATTR = ['class', 'style', 'id']
-
 
 /**
  * Creates a new application instance (aka. reactive component)
@@ -16,9 +14,9 @@ const CORE_ATTR = ['class', 'style', 'id']
  * @param { Object } data? - optional data or data model for the component
  * @param { Array<Component> } deps - optional array of nested/dependant components
  * @param { Object } $parent - (for internal use only)
-*/
-export default function createApp(component, data={}, deps=[], $parent={}) {
-  const { Impl, tmpl, fns=[], dom, inner } = component
+ */
+export default function createApp(component, data = {}, deps = [], $parent = {}) {
+  const { Impl, tmpl, fns = [], dom, inner } = component
   const expr = []
 
   function walk(node) {
@@ -28,22 +26,19 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
     if (type == 3) {
       const [_, i] = /:(\d+):/.exec(node.textContent.trim()) || []
       const fn = fns[i]
-      if (fn) expr.push(_ => node.textContent = renderVal(fn(ctx)))
+      if (fn) expr.push(_ => (node.textContent = renderVal(fn(ctx))))
     }
 
     // element
     if (type == 1) {
-
       // loops & conditionals
       for (const key in CONTROL_FLOW) {
         const fn = fns[node.getAttribute(key)]
 
         // TODO: for + if work reactively on the same node
         if (key == ':if' && fn && node.getAttribute(':for')) {
-
           // if (true) -> quick continue
           if (fn(ctx)) continue
-
           // if (false) -> disable for loop
           else node.removeAttribute(':for')
         }
@@ -69,7 +64,6 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
       const child = deps.find(el => el.name == tagName)
 
       if (child) {
-
         // inner <slot/> content
         if (node.firstChild) {
           const dom = document.createElement('_')
@@ -89,7 +83,6 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
         self.$refs[node.getAttribute('ref') || tagName] = comp.impl
 
         return { next }
-
       } else {
         processAttrs(node)
         walkChildren(node, walk)
@@ -120,10 +113,9 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
     // remove special attributes
     if (':@$'.includes(char)) node.removeAttribute(name)
 
-
     // set all attributes from object
     if (real == 'attr') {
-      return expr.push(_=> {
+      return expr.push(_ => {
         for (const [name, val] of Object.entries(fn(ctx))) {
           setAttr(node, name, val === true ? '' : val)
         }
@@ -132,7 +124,7 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
 
     // dynamic attributes
     if (char == ':' && real != 'bind') {
-      expr.push(_=> {
+      expr.push(_ => {
         let val = fn(ctx)
         setAttr(node, real, renderVal(val))
       })
@@ -149,15 +141,14 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
 
     // boolean attribute
     if (char == '$') {
-      expr.push(_=> {
-        const flag = node[real] = !!fn(ctx)
+      expr.push(_ => {
+        const flag = (node[real] = !!fn(ctx))
         if (!flag) node.removeAttribute(real)
       })
     }
 
     // html
-    if (real == 'html') expr.push(_=> node.innerHTML = fn(ctx))
-
+    if (real == 'html') expr.push(_ => (node.innerHTML = fn(ctx)))
   }
 
   function walkChildren(node, fn) {
@@ -180,7 +171,7 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
     for (const el of [...node.attributes]) {
       const name = el.name.replace(':', '')
       const val = getAttr(node, name)
-      if (!CORE_ATTR.includes(name) && typeof(val) != 'object') {
+      if (!CORE_ATTR.includes(name) && typeof val != 'object') {
         attr[name] = val == null ? true : val
       }
     }
@@ -212,7 +203,6 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
     return self
   }
 
-
   // context
   let impl = {}
 
@@ -222,14 +212,15 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
     $el: dom,
 
     // root === $el
-    get root() { return self.$el },
+    get root() {
+      return self.$el
+    },
 
     $refs: {},
 
     $parent,
 
     impl,
-
 
     mount(wrap) {
       const root = dom || (self.$el = mkdom(tmpl))
@@ -279,7 +270,10 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
 
         // TODO: more performant check?
         if (!document.body.contains(dom)) anchor.before(dom)
-        if (!dom.walked) { walk(dom); dom.walked = 1 }
+        if (!dom.walked) {
+          walk(dom)
+          dom.walked = 1
+        }
         return update()
       }
     },
@@ -291,41 +285,37 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
       impl.unmounted?.call(ctx, ctx)
       update()
     }
-
   }
 
-  const ctx = new Proxy({}, {
-    get(__, key) {
+  const ctx = new Proxy(
+    {},
+    {
+      get(__, key) {
+        // keep this order
+        for (const el of [self, impl, data, $parent, $parent.bind]) {
+          const val = el && el[key]
+          if (val != null) return val
+        }
+      },
 
-      // keep this order
-      for (const el of [self, impl, data, $parent, $parent.bind]) {
-        const val = el && el[key]
-        if (val != null) return val
+      set(__, key, val) {
+        // parent key? (loop items)
+        if ($parent && $parent[key] !== undefined) {
+          $parent[key] = val
+          $parent.update()
+        } else {
+          self[key] = val
+        }
+        return true
       }
-    },
-
-    set(__, key, val) {
-
-      // parent key? (loop items)
-      if ($parent && $parent[key] !== undefined) {
-        $parent[key] = val
-        $parent.update()
-
-      } else {
-        self[key] = val
-      }
-      return true
     }
-
-  })
+  )
 
   return self
-
 }
 
 // good for async import
 export { createApp }
-
 
 function mkdom(tmpl) {
   const el = document.createElement('_')
@@ -333,10 +323,15 @@ function mkdom(tmpl) {
   return el.firstChild
 }
 
-
 // render expression return value
-function renderVal(val, separ='') {
-  return val?.join ? val.filter(el => el || el === 0).join(separ).trim().replace(/\s+/g, ' ') : val || ''
+function renderVal(val, separ = '') {
+  return val?.join
+    ? val
+        .filter(el => el || el === 0)
+        .join(separ)
+        .trim()
+        .replace(/\s+/g, ' ')
+    : val || ''
 }
 
 // to merge the class attribute from original mount point
@@ -346,4 +341,3 @@ function mergeVals(a, b) {
   if (b && !b.join) b = [b]
   return a.concat(b)
 }
-

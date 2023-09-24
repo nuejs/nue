@@ -1,5 +1,3 @@
-
-
 import { mkdom, getComponentName, mergeAttribs, exec, STD } from './fn.js'
 import { parseExpr, parseFor, setContext } from './expr.js'
 import { parseDocument, DomUtils as DOM } from 'htmlparser2'
@@ -7,13 +5,14 @@ import { promises as fs } from 'node:fs'
 
 const { getInnerHTML, getOuterHTML, removeElement } = DOM
 
-
 // name == optional
 function renderExpr(str, data, is_class) {
   const arr = exec('[' + parseExpr(str) + ']', data)
-  return arr.filter(el => is_class ? el : el != null).join('').trim()
+  return arr
+    .filter(el => (is_class ? el : el != null))
+    .join('')
+    .trim()
 }
-
 
 function setContent(node, data) {
   const str = node.data || ''
@@ -25,7 +24,6 @@ function setContent(node, data) {
         const expr = setContext(str.slice(2, -2))
         DOM.appendChild(node.parentNode, parseDocument(exec(expr, data)))
       }
-
     } else {
       node.data = renderExpr(str, data)
     }
@@ -42,7 +40,6 @@ function setAttribute(key, attribs, data) {
 
   // attributes must be strings
   if (1 * val) val = attribs[key] = '' + val
-
 
   const has_expr = val.includes('{')
 
@@ -63,12 +60,11 @@ function setAttribute(key, attribs, data) {
     else delete attribs[name]
     delete attribs[key]
   }
-
 }
 
 function getIfBlocks(root, expr) {
   const arr = [{ root, expr }]
-  while (root = DOM.nextElementSibling(root)) {
+  while ((root = DOM.nextElementSibling(root))) {
     const { attribs } = root
     const expr = getDel(':else-if', attribs) || getDel(':else', attribs) != null
     if (expr) arr.push({ root, expr })
@@ -84,32 +80,38 @@ function processIf(node, expr, data) {
     return val && val != 'false'
   })
 
-  blocks.forEach(el => { if (el != flag) removeElement(el.root) })
+  blocks.forEach(el => {
+    if (el != flag) removeElement(el.root)
+  })
   return flag
 }
 
-
 // for
 function processFor(node, expr, data, deps) {
-  const [ $keys, for_expr, $index, is_object_loop ] = parseFor(expr)
+  const [$keys, for_expr, $index, is_object_loop] = parseFor(expr)
   const items = exec(for_expr, data) || []
 
   items.forEach((item, i) => {
-
     // proxy
-    const proxy = new Proxy({}, {
-      get(_, key) {
-        if (is_object_loop) {
-          const i = $keys.indexOf(key)
-          if (i >= 0) return item[i]
-        }
+    const proxy = new Proxy(
+      {},
+      {
+        get(_, key) {
+          if (is_object_loop) {
+            const i = $keys.indexOf(key)
+            if (i >= 0) return item[i]
+          }
 
-        return key === $keys ? item || data[key] :
-          key == $index ? items.indexOf(item) :
-          $keys.includes(key) ? item[key] :
-          data[key]
+          return key === $keys
+            ? item || data[key]
+            : key == $index
+            ? items.indexOf(item)
+            : $keys.includes(key)
+            ? item[key]
+            : data[key]
+        }
       }
-    })
+    )
 
     // clone
     const root = parseDocument(getOuterHTML(node))
@@ -137,7 +139,6 @@ function getDel(key, attribs) {
   return val
 }
 
-
 function processNode(opts) {
   const { root, data, deps, inner } = opts
 
@@ -148,13 +149,12 @@ function processNode(opts) {
     if (type == 'root') {
       walkChildren(node)
 
-    // content
+      // content
     } else if (type == 'text') {
       setContent(node, data)
 
-    // element
+      // element
     } else if (type == 'tag' || type == 'style') {
-
       // if
       let expr = getDel(':if', attribs)
       if (expr && !processIf(node, expr, data)) return nextSibling
@@ -202,7 +202,6 @@ function processNode(opts) {
 
       // server side component
       if (component) processChild(component, node, deps)
-
     }
   }
 
@@ -224,15 +223,15 @@ function getJS(nodes) {
   return js.join('\n')
 }
 
-function createComponent(node, global_js='') {
+function createComponent(node, global_js = '') {
   const name = getComponentName(node)
 
   // javascript
   const js = getJS(node.children)
-  const Impl = js[0] && exec(`class Impl { ${ js } }\n${global_js}`)
+  const Impl = js[0] && exec(`class Impl { ${js} }\n${global_js}`)
   const tmpl = getOuterHTML(node)
 
-  function create(data, deps=[], inner) {
+  function create(data, deps = [], inner) {
     if (Impl) data = Object.assign(new Impl(data), data) // ...spread won't work
     return processNode({ root: mkdom(tmpl), data, deps, inner })
   }
@@ -242,7 +241,7 @@ function createComponent(node, global_js='') {
     tagName: node.tagName,
     create,
 
-    render: function(data, deps) {
+    render: function (data, deps) {
       const node = create(data, deps)
       return getOuterHTML(node)
     }
@@ -272,7 +271,6 @@ function setJSONData(node, ctx) {
   if (Object.keys(json)[0]) appendData(node, json)
 }
 
-
 export function parse(template) {
   const { children } = mkdom(template)
   const nodes = children.filter(el => el.type == 'tag')
@@ -295,5 +293,3 @@ export async function renderFile(path, data, deps) {
   const src = await fs.readFile(path, 'utf-8')
   return render(src, data, deps)
 }
-
-

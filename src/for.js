@@ -1,26 +1,36 @@
-
 // Internal use only
 
 import createApp from './nue.js'
 
-export default function(opts) {
+export default function (opts) {
   const { root, fn, fns, deps, ctx } = opts
-  var anchor, current, items, $keys, $index, is_object_loop, blocks = []
-
+  var anchor,
+    current,
+    items,
+    $keys,
+    $index,
+    is_object_loop,
+    blocks = []
 
   function createProxy(item) {
-    return new Proxy({}, {
-      get(__, key) {
-        if (is_object_loop) {
-          const i = $keys.indexOf(key)
-          if (i >= 0) return item[i]
+    return new Proxy(
+      {},
+      {
+        get(__, key) {
+          if (is_object_loop) {
+            const i = $keys.indexOf(key)
+            if (i >= 0) return item[i]
+          }
+          return key === $keys
+            ? item
+            : $keys.includes(key)
+            ? item[key]
+            : key == $index
+            ? items.indexOf(item)
+            : ctx[key]
         }
-        return key === $keys ? item :
-          $keys.includes(key) ? item[key] :
-          key == $index ? items.indexOf(item) :
-          ctx[key]
       }
-    })
+    )
   }
 
   function mountItem(item, i, arr, first) {
@@ -34,10 +44,9 @@ export default function(opts) {
       index: i,
       is_repaint: !!arr,
       is_first: !i,
-      is_last: i == items.length -1,
+      is_last: i == items.length - 1,
       items
     })
-
   }
 
   function repaint() {
@@ -50,7 +59,6 @@ export default function(opts) {
     const { unshift, splice, push, sort, reverse } = arr
 
     return Object.assign(arr, {
-
       // adding
       push(item) {
         push.call(items, item)
@@ -80,9 +88,13 @@ export default function(opts) {
         splice.call(items, i, len)
       },
 
-      shift() { arr.splice(0, 1) },
+      shift() {
+        arr.splice(0, 1)
+      },
 
-      pop() { arr.splice(arr.length -1, 1) },
+      pop() {
+        arr.splice(arr.length - 1, 1)
+      },
 
       // handy shortcut for a common operation
       remove(item) {
@@ -95,12 +107,14 @@ export default function(opts) {
   // update function
   function update() {
     var arr
-    [$keys, arr, $index, is_object_loop] = fn(ctx)
+    ;[$keys, arr, $index, is_object_loop] = fn(ctx)
 
     if (items) {
       // change of current array --> repaint
       if (arr !== current) {
-        items = arrProxy(arr); repaint(); current = arr
+        items = arrProxy(arr)
+        repaint()
+        current = arr
       }
       return blocks.forEach(el => el.update())
     }
@@ -119,5 +133,4 @@ export default function(opts) {
   }
 
   return { update }
-
 }

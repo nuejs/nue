@@ -1,9 +1,9 @@
-
 import { parseDocument, DomUtils } from 'htmlparser2'
 
 // shared by render.js and compile.js
 
-export const STD = 'a abbr acronym address applet area article aside audio b base basefont bdi bdo big\
+export const STD =
+  'a abbr acronym address applet area article aside audio b base basefont bdi bdo big\
  blockquote body br button canvas caption center cite code col colgroup data datalist dd del\
  details dfn dialog dir div dl dt em embed fieldset figcaption figure font footer form frame\
  frameset head header hgroup h1 h2 h3 h4 h5 h6 hr html i iframe img input ins kbd keygen label\
@@ -14,7 +14,9 @@ export const STD = 'a abbr acronym address applet area article aside audio b bas
 
 const BOOLEAN = `allowfullscreen async autofocus autoplay checked controls default
   defer disabled formnovalidate hidden ismap itemscope loop multiple muted nomodule novalidate
-  open playsinline readonly required reversed selected truespeed`.trim().split(/\s+/)
+  open playsinline readonly required reversed selected truespeed`
+  .trim()
+  .split(/\s+/)
 
 export function isBoolean(key) {
   return BOOLEAN.includes(key)
@@ -28,7 +30,7 @@ export function getComponentName(root) {
 }
 
 export function selfClose(str) {
-  return str.replace(/\/>/g, function(match, i) {
+  return str.replace(/\/>/g, function (match, i) {
     const tag = str.slice(str.lastIndexOf('<', i), i)
     const name = /<([\w-]+)/.exec(tag)
     return `></${name[1]}>`
@@ -67,27 +69,26 @@ function quote(val) {
 
 export function mkdom(src) {
   const dom = parseDocument(selfClose(src))
-  walk(dom, (el) => { if (el.type == 'comment') DomUtils.removeElement(el) }) // strip comments
+  walk(dom, el => {
+    if (el.type == 'comment') DomUtils.removeElement(el)
+  }) // strip comments
   return dom
 }
 
 // render.js only
 const isJS = val => val?.constructor === Object || Array.isArray(val) || typeof val == 'function'
 
-
 // exec('`font-size:${_.size + "px"}`;', data)
-export function exec(expr, data={}) {
+export function exec(expr, data = {}) {
   const fn = new Function('_', 'return ' + expr)
   try {
     const val = fn(data)
     return val == null ? '' : isJS(val) ? val : '' + val
-
   } catch (e) {
     console.info('🔻 expr', expr, e)
     return ''
   }
 }
-
 
 function isStdAttr(name) {
   return ['style', 'class', 'id', 'hidden'].includes(name) || name.startsWith('data-')
@@ -103,5 +104,3 @@ export function mergeAttribs(to, from) {
     }
   }
 }
-
-

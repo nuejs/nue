@@ -1,4 +1,3 @@
-
 import { compileFile } from '..'
 
 for (const name of ['basics', 'loops']) {

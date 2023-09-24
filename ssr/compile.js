@@ -1,4 +1,3 @@
-
 import { mkdom, getComponentName, isBoolean, walk, objToString, STD } from './fn.js'
 import { parseExpr, parseFor, setContext, setContextTo } from './expr.js'
 import { promises as fs } from 'node:fs'
@@ -16,8 +15,8 @@ function compileNode(root) {
     return '' + len
   }
 
-  walk(root, function(node) {
-    const { attribs={}, tagName } = node
+  walk(root, function (node) {
+    const { attribs = {}, tagName } = node
     const content = node.data
 
     if (node.type == 'comment' || attribs.server || tagName == 'noscript') removeElement(node)
@@ -52,11 +51,11 @@ function compileNode(root) {
           attribs[name] = push(body, true)
         }
 
-      // for expression
+        // for expression
       } else if (key == ':for') {
         attribs[key] = push(compileLoop(val))
 
-      // attributes
+        // attributes
       } else if (':$'.includes(char) && val && key != ':is') {
         const expr = has_expr ? arrwrap(parseExpr(val)) : setContext(val)
         attribs[key] = push(expr)
@@ -98,12 +97,11 @@ export function compileLoop(str) {
   return '[' + [keys, expr, quote(index)].join(', ') + (is_object ? ', true' : '') + ']'
 }
 
-
 // event handlers
 const MODIFIERS = {
   stop: 'e.stopPropagation()',
   prevent: 'e.preventDefault()',
-  self: 'if (e.target != this) return',
+  self: 'if (e.target != this) return'
 }
 
 const KEY_ALIAS = {
@@ -114,18 +112,19 @@ const KEY_ALIAS = {
   up: ['arrowup'],
   down: ['arrowdown'],
   left: ['arrowleft'],
-  right: ['arrowright'],
+  right: ['arrowright']
 }
 
 function getModifiers(name, mods) {
   let keycode = ''
 
-  const ret = mods.map((key) => {
-    const mod = MODIFIERS[key]
-    if (!mod && key != 'once') keycode = key
-    return mod
-
-  }).filter(el => !!el)
+  const ret = mods
+    .map(key => {
+      const mod = MODIFIERS[key]
+      if (!mod && key != 'once') keycode = key
+      return mod
+    })
+    .filter(el => !!el)
 
   if (name.startsWith('@key') && keycode) {
     const code = keycode.replace('-', '')
@@ -164,7 +163,6 @@ function getJS(nodes) {
   return js.join('\n')
 }
 
-
 function createComponent(node) {
   const name = getComponentName(node)
 
@@ -195,11 +193,9 @@ export function parse(src) {
 
 export function compile(src) {
   const { js, components } = parse(src)
-  return [ js,
-    'export const lib = [', components.join(',') + ']',
-    'export default lib[0]'
-
-  ].join('\n')
+  return [js, 'export const lib = [', components.join(',') + ']', 'export default lib[0]'].join(
+    '\n'
+  )
 }
 
 // optional dest

@@ -7,7 +7,6 @@
 import { promises as fs } from 'node:fs'
 import { join } from 'node:path'
 
-
 try {
   let Bundler = process.isBun ? Bun : await import('esbuild')
 
@@ -20,12 +19,10 @@ try {
     outdir: 'dist',
     format: 'esm',
     minify: true,
-    bundle: true,
+    bundle: true
   })
 
   console.log('Minified Nue to dist/nue.js with', process.isBun ? 'Bun' : 'ESBuild')
-
 } catch (e) {
   console.log('No bundler found. Please install Bun or ESbuild')
-
 }
