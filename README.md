@@ -12,7 +12,7 @@
 
 # What is Nue JS?
 
-Nue JS is an exceptionally small (2.3kb minzipped) JavaScript library for building web interfaces. It is the core of the upcoming [Nue ecosystem](//nuejs.org/ecosystem/). It’s like **Vue.js, React.js**, or **Svelte** but there are no hooks, effects, props, portals, watchers, provides, injects, suspension, or other unusual abstractions on your way. Learn the basics of HTML, CSS, and JavaScript and you are good to go.
+Nue JS is an exceptionally small (2.3kb minzipped) JavaScript library for building web interfaces. It is the core of the upcoming [Nue toolset](//nuejs.org/tools/). It’s like **Vue.js, React.js**, or **Svelte** but there are no hooks, effects, props, portals, watchers, provides, injects, suspension, or other unusual abstractions on your way. Learn the basics of HTML, CSS, and JavaScript and you are good to go.
 
 
 ## Build user interfaces with cleaner code
@@ -27,7 +27,7 @@ It's not unusual to see [2x-10x differences](//nuejs.org/compare/component.html)
 Nue uses an HTML-based template syntax:
 
 ``` html
-<div @name="media-object" class="{ type }">
+<div class="{ type }">
   <img src="{ img }">
   <aside>
     <h3>{ title }</h3>
@@ -43,28 +43,17 @@ While React and JSX claim to be "Just JavaScript", Nue can be thought of as "Jus
 ## Built to scale
 Three reasons why Nue scales extremely well:
 
-1. [Separation of concerns](//nuejs.org//why/#soc), easy-to-understand code is easier to scale than "spaghetti code"
-
 1. [Minimalism](//nuejs.org/why/#minimalism), a hundred lines of code is easier to scale than a thousand lines of code
+
+1. [Separation of concerns](//nuejs.org//why/#soc), easy-to-understand code is easier to scale than "spaghetti code"
 
 1. **Separation of talent**, when UX developers focus on the [front of the frontend][back] and JS/TS developers focus on the back of the frontend your team skills are optimally aligned:
 
 ![The best results are gained when UX developers and JavaScript developers work together without overlaps](https://nuejs.org/docs/img/ux-developer-big.png)
 
 
-### Decoupled styling
-Nue does not promote the use of Scoped CSS, style attribute, Tailwind, or other CSS-in-JS gymnastics:
 
-1. **More reusable code**: When styling is not hardcoded to the component, the same component can look different depending on the page or context.
-
-1. **No spaghetti code**: pure HTML or pure CSS is easier to read than mixed spaghetti code
-
-1. **Faster page loads**: With decoupled styling it's easier to extract primary CSS from the secondary and keep your HTML page under the critical [14kb limit][fourteen].
-
-Learn more about [styling](//nuejs.org/docs/nuejs/styling-components.html)
-
-
-## Reactive and isomorphic
+## Reactive, hybrid, and isomorphic
 Nue has a rich component model and it allows you to create all kinds of applications using different kinds of components:
 
 1. [Server components](//nuejs.org/docs/nuejs/server-components.html) are rendered on the server. They help you build content-focused websites that load faster without JavaScript and are crawled by search engines.
@@ -107,9 +96,9 @@ With library files, your filesystem hierarchy looks cleaner and you need less bo
 
 
 ## Simpler tooling
-Nue JS comes with a simple `render` function for server-side rendering and a `compile` function to generate components for the browser. You don't need complex bundlers like Webpack or Vite to take control of your development environment. Just import Nue to your project and you are good to go.
+Nue JS comes with a simple `render` function for server-side rendering and a `compile` function to generate components for the browser. There is no need for toolchains like Webpack or Vite to hijack your natural workflow. Just import Nue to your project and you are good to go.
 
-You can of course use a bundler on the business model if your application becomes more complex with tons of dependencies. [Bun](//bun.sh) and [esbuild](//esbuild.github.io/) are great, performant options.
+You can of course use a bundler on the business model if your application becomes more complex with tons of dependencies. [Bun](//bun.sh) and [esbuild](//esbuild.github.io/) are great options.
 
 
 ## Use cases
