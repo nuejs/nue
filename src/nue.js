@@ -13,8 +13,8 @@ const CORE_ATTR = ['class', 'style', 'id']
  *
  * @typedef {{ name: string, tagName: string, tmpl: string, ... }} Component
  * @param { Component } component - a (compiled) component instance to be mounted
- * @param { Object } [data] - optional data or data model for the component
- * @param { Array<Component> } [deps] - optional array of nested/dependant components
+ * @param { Object } [data = {}] - optional data or data model for the component
+ * @param { Array<Component> } [deps = {}] - optional array of nested/dependant components
  * @param { Object } $parent - (for internal use only)
 */
 export default function createApp(component, data={}, deps=[], $parent={}) {
