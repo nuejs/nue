@@ -1,7 +1,7 @@
 
 
 # Contributing to Nue
-Nues's codebase has two distinct parts:
+Nues JS codebase has two distinct parts:
 
 * The reactive client is under [src](src) directory
 * Server parts are under [ssr](ssr) directory (SSR: "Server Side Rendering")
@@ -9,15 +9,16 @@ Nues's codebase has two distinct parts:
 [Bun](//bun.sh) is the preferred test and development environment because it's noticeably faster than Node or Deno.
 
 
-## Best practices
+## Guidelines
 
-1. If you are adding a new feature, please add a test. If you are fixing a bug, please add a test that fails before your fix and passes after your fix.
+1. *Most important:* If you are adding a new feature, please discuss it first by creating a new issue with a tag "New feature". This way you avoid doing redundant work, because not all features are automatically accepted. Nue JS strives for minimalism.
 
-2. Nue is a minimalistic project. The goal is to stay lean in all areas of development. Keep things simple and depend on as little dependencies as possible.
+2. Features that add lots of new code, complexity, or several new/heavy NPM packages are most likely rejected.
 
-3. JavaScript is preferred over TypeScript because of minimalism, dynamic typing and it's standards-based. TypeScript should be used if there is a clear use case or a problem it solves.
+3. If you are fixing a bug, please add a test that fails before your fix and passes after your fix.
 
-4. New features add complexity. They must always be discussed before implemented.
+3. The code is written in JavaScript (Not TypeScript).
+
 
 ### Running server test
 Nue uses [Bun](//bun.sh) for running tests:
