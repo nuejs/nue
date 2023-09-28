@@ -4,13 +4,14 @@ import { parseDocument, DomUtils } from 'htmlparser2'
 // shared by render.js and compile.js
 
 export const STD = 'a abbr acronym address applet area article aside audio b base basefont bdi bdo big\
- blockquote body br button canvas caption center cite code col colgroup data datalist dd del\
- details dfn dialog dir div dl dt em embed fieldset figcaption figure font footer form frame\
- frameset head header hgroup h1 h2 h3 h4 h5 h6 hr html i iframe img input ins kbd keygen label\
- legend li link main map mark menu menuitem meta meter nav noframes noscript object ol optgroup\
- option output p param picture pre progress q rp rt ruby s samp script section select small\
- source span strike strong style sub summary sup svg table tbody td template textarea tfoot th\
- thead time title tr track tt u ul var video wbr'.split(' ')
+ blockquote body br button canvas caption center circle cite clipPath code col colgroup data datalist\
+ dd defs del details dfn dialog dir div dl dt ellipse em embed fieldset figcaption figure font footer\
+ foreignObject form frame frameset g head header hgroup h1 h2 h3 h4 h5 h6 hr html i iframe image img\
+ input ins kbd keygen label legend li line link main map mark marker mask menu menuitem meta meter\
+ nav noframes noscript object ol optgroup option output p param path pattern picture polygon polyline\
+ pre progress q rect rp rt ruby s samp script section select small source span strike strong style sub\
+ summary sup svg switch symbol table tbody td template text textarea textPath tfoot th thead time\
+ title tr track tspan tt u ul use var video wbr'.split(' ')
 
 const BOOLEAN = `allowfullscreen async autofocus autoplay checked controls default
   defer disabled formnovalidate hidden ismap itemscope loop multiple muted nomodule novalidate
