@@ -1,5 +1,5 @@
 
-const VARIABLE = /(^|[\-\+\*\/\!\s\(\[]+)([\$,a-z,_]\w*)\b/g
+const VARIABLE = /(^|[\-\+\*\/\!\s\(\[]+)([\$a-z_]\w*)\b/g
 const STRING = /('[^']+'|"[^"]+")/
 const EXPR = /\{([^}]+)\}/g
 
