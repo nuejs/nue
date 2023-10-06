@@ -40,8 +40,9 @@ export function walk(node, fn) {
   fn(node)
   node = node.firstChild
   while (node) {
+    const next = node.nextSibling
     walk(node, fn)
-    node = node.nextSibling
+    node = next
   }
 }
 
