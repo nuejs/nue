@@ -39,8 +39,9 @@ export function selfClose(str) {
 export function walk(node, fn) {
   fn(node)
   node = node.firstChild
+  let next = null
   while (node) {
-    const next = node.nextSibling
+    next = node.nextSibling
     walk(node, fn)
     node = next
   }
