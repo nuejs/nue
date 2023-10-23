@@ -1,7 +1,7 @@
 
 const VARIABLE = /(^|[\-\+\*\/\!\s\(\[]+)([\$a-z_]\w*)\b/g
 const STRING = /('[^']+'|"[^"]+")/
-const EXPR = /\{([^}]+)\}/g
+const EXPR = /\{([^{}]+)\}/g
 
 
 // https://github.com/vuejs/core/blob/main/packages/shared/src/globalsWhitelist.ts
