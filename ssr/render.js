@@ -16,6 +16,9 @@ function renderExpr(str, data, is_class) {
 
 
 function setContent(node, data) {
+  // run once
+  if (node.__is_set) return
+
   const str = node.data || ''
 
   if (str.includes('{')) {
@@ -28,6 +31,7 @@ function setContent(node, data) {
 
     } else {
       node.data = renderExpr(str, data)
+      node.__is_set = true
     }
   }
 }
@@ -90,6 +94,7 @@ function getIfBlocks(root, expr) {
 
 function processIf(node, expr, data, deps) {
   const blocks = getIfBlocks(node, expr)
+
   const active = blocks.find(el => {
     const val = exec(setContext(el.expr), data)
     return val && val != 'false'

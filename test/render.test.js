@@ -50,14 +50,17 @@ test('Conditionals', () => {
 
   runTests({
     '<b :if="flag">{ val }</b>': '',
+    '<html><style :if="nope">{ nope }</style></html>': '<html></html>',
+    '<html><style :if="css">{ css }</style></html>': '<html><style>body { font-family: 100; }</style></html>',
     '<div><b :if="am > 100">No</b><p>Yes</p></div>': '<div><p>Yes</p></div>',
     '<a><em :if="flag"></em><b :else>{ val }</b></a>': '<a><b>A</b></a>',
     '<div><b :if="am > 100">No</b><b :else-if="am == 100">Yes</b><b :else>No</b></div>': '<div><b>Yes</b></div>',
     '<div><custom :if="bad"/></div> <b @name="custom">Hey</b>': '<div></div>',
     '<div><custom :if="am > 10"/></div> <b @name="custom">Yes</b>': '<div><b>Yes</b></div>',
   }, {
+    css: 'body { font-family: 100; }',
     am: 100,
-    val: 'A'
+    val: 'A',
   })
 })
 
@@ -156,6 +159,7 @@ test('Advanced', () => {
     nums: [1, 2],
     val: 1
   })
+
 })
 
 

@@ -91,6 +91,7 @@ const isJS = val => val?.constructor === Object || Array.isArray(val) || typeof 
 // exec('`font-size:${_.size + "px"}`;', data)
 export function exec(expr, data={}) {
   const fn = new Function('_', 'return ' + expr)
+
   try {
     const val = fn(data)
     return val == null ? '' : isJS(val) ? val : '' + val
