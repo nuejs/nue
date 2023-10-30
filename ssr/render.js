@@ -88,15 +88,19 @@ function getIfBlocks(root, expr) {
   return arr
 }
 
-function processIf(node, expr, data) {
+function processIf(node, expr, data, deps) {
   const blocks = getIfBlocks(node, expr)
-  const flag = blocks.find(el => {
+  const active = blocks.find(el => {
     const val = exec(setContext(el.expr), data)
     return val && val != 'false'
   })
 
-  blocks.forEach(el => { if (el != flag) removeElement(el.root) })
-  return flag
+  blocks.forEach(el => {
+    const { root } = el
+    if (el == active) processNode({ root, data, deps })
+    else removeElement(root)
+  })
+  return active
 }
 
 
@@ -174,7 +178,7 @@ function processNode(opts) {
 
       // if
       let expr = getDel(':if', attribs)
-      if (expr && !processIf(node, expr, data)) return nextSibling
+      if (expr && !processIf(node, expr, data, deps)) return nextSibling
 
       // for
       expr = getDel(':for', attribs)
