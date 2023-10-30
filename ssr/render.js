@@ -56,14 +56,22 @@ function setAttribute(key, attribs, data) {
   }
 
   // expression
-  if (key[0] == ':') {
-    const name = key.slice(1)
-    const value = has_expr ? renderExpr(val, data, name == 'class') : exec(setContext(val), data)
-    if (value) attribs[name] = value
+  if (key[0] != ':') return
+
+  const name = key.slice(1)
+  const value = has_expr ? renderExpr(val, data, name == 'class') : exec(setContext(val), data)
+
+  // boolean attribute
+  if (isBoolean(name)) {
+    if (value != 'false') attribs[name] = ''
     else delete attribs[name]
-    delete attribs[key]
+    return delete attribs[key]
   }
 
+  // other attribute
+  if (value) attribs[name] = value
+  else delete attribs[name]
+  delete attribs[key]
 }
 
 function getIfBlocks(root, expr) {
