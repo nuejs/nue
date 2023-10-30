@@ -4,10 +4,10 @@
   <img src="https://nuejs.org/global/logo/logo.png" width="275" alt="Nue logo">
 </a>
 
-[Backstory](//nuejs.org/backstory/) •
 [Documentation](//nuejs.org/docs/nuejs/) •
 [Examples](//nuejs.org/docs/nuejs/examples/) •
 [Getting started](//nuejs.org/docs/nuejs/getting-started.html)
+[Rethinking reactivity](//nuejs.org/blog/blog/rethinking-reactivity/) •
 
 
 # What is Nue JS?

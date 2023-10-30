@@ -1,6 +1,6 @@
 
 
-import { mkdom, getComponentName, mergeAttribs, exec, STD } from './fn.js'
+import { mkdom, getComponentName, mergeAttribs, isBoolean, exec, STD } from './fn.js'
 import { parseExpr, parseFor, setContext } from './expr.js'
 import { parseDocument, DomUtils as DOM } from 'htmlparser2'
 import { promises as fs } from 'node:fs'
@@ -40,9 +40,12 @@ function toString(val) {
 function setAttribute(key, attribs, data) {
   let val = attribs[key]
 
+
+  // TODO: check all non-strings here
+  if (val.constructor === Object) return
+
   // attributes must be strings
   if (1 * val) val = attribs[key] = '' + val
-
 
   const has_expr = val.includes('{')
 
@@ -129,11 +132,11 @@ function processFor(node, expr, data, deps) {
 }
 
 // child component
-function processChild(comp, node, deps) {
+function processChild(comp, node, deps, data) {
   const { attribs } = node
 
   // merge attributes
-  const child = comp.create(attribs, deps, node.children)
+  const child = comp.create({ ...data, ...attribs }, deps, node.children)
   if (child.children.length == 1) mergeAttribs(child.firstChild.attribs, attribs)
 
   DOM.replaceElement(node, child)
@@ -161,7 +164,7 @@ function processNode(opts) {
       setContent(node, data)
 
     // element
-    } else if (type == 'tag' || type == 'style') {
+    } else if (type == 'tag' || type == 'style' || type == 'script') {
 
       // if
       let expr = getDel(':if', attribs)
@@ -209,7 +212,7 @@ function processNode(opts) {
       for (let key in attribs) setAttribute(key, attribs, data)
 
       // server side component
-      if (component) processChild(component, node, deps)
+      if (component) processChild(component, node, deps, data)
 
     }
   }

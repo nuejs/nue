@@ -13,9 +13,19 @@ export const STD = 'a abbr acronym address applet area article aside audio b bas
  summary sup svg switch symbol table tbody td template text textarea textPath tfoot th thead time\
  title tr track tspan tt u ul use var video wbr'.split(' ')
 
-const BOOLEAN = `allowfullscreen async autofocus autoplay checked controls default
-  defer disabled formnovalidate hidden ismap itemscope loop multiple muted nomodule novalidate
-  open playsinline readonly required reversed selected truespeed`.trim().split(/\s+/)
+const SVG = 'animate animateMotion animateTransform circle clipPath defs desc ellipse\
+ feBlend feColorMatrix feComponentTransfer feComposite feConvolveMatrix feDiffuseLighting\
+ feDisplacementMap feDistantLight feDropShadow feFlood feFuncA feFuncB feFuncG feFuncR\
+ feGaussianBlur feImage feMerge feMergeNode feMorphology feOffset fePointLight feSpecularLighting\
+ feSpotLight feTile feTurbulence filter foreignObject g hatch hatchpath image line linearGradient\
+ marker mask metadata mpath path pattern polygon polyline radialGradient rect set stop style svg\
+ switch symbol text textPath title tspan use view'.split(' ')
+
+STD.push(...SVG)
+
+const BOOLEAN = 'allowfullscreen async autofocus autoplay checked controls default\
+ defer disabled formnovalidate hidden ismap itemscope loop multiple muted nomodule\
+ novalidate open playsinline readonly required reversed selected truespeed'.split(/\s+/)
 
 export function isBoolean(key) {
   return BOOLEAN.includes(key)
