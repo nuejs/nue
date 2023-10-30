@@ -49,6 +49,7 @@ test('Comments', () => {
 test('Conditionals', () => {
 
   runTests({
+    '<b :if="flag">{ val }</b>': '',
     '<div><b :if="am > 100">No</b><p>Yes</p></div>': '<div><p>Yes</p></div>',
     '<a><em :if="flag"></em><b :else>{ val }</b></a>': '<a><b>A</b></a>',
     '<div><b :if="am > 100">No</b><b :else-if="am == 100">Yes</b><b :else>No</b></div>': '<div><b>Yes</b></div>',
@@ -78,7 +79,7 @@ test('Class and style', () => {
 
   }, {
     color: '#ccc',
-    thing: 'thing'
+    thing: 'thing',
   })
 })
 

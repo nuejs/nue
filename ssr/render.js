@@ -315,7 +315,7 @@ export function parse(template) {
 export function render(template, data, deps) {
   const comps = parse(template)
   if (Array.isArray(deps)) comps.push(...deps)
-  return comps[0].render(data, comps)
+  return comps[0] ? comps[0].render(data, comps) : ''
 }
 
 export async function parseFile(path) {
