@@ -11,8 +11,12 @@ function runTests(tests, data) {
   }
 }
 
+function debug(tmpl, data) {
+  console.info(render(tmpl, data))
+}
 
-test('Expressions', () => {
+
+test.only('Expressions', () => {
   runTests({
     '<b :class="type">Hey</b>': "<b class=\"bold\">Hey</b>",
     '<b class="item { type }"/>': "<b class=\"item bold\"></b>",
@@ -22,6 +26,8 @@ test('Expressions', () => {
 
     // skip event attributes
     '<a @click="click"/>': '<a></a>',
+
+    '<input :type>': '<input type="bold">',
 
     // HTML
     '<h2>{ title }</h2>': '<h2>Hey &lt;em&gt;!&lt;/em&gt;</h2>',
@@ -74,7 +80,7 @@ test('Class and style', () => {
 })
 
 
-test.only('Loops', () => {
+test('Loops', () => {
 
   runTests({
 
@@ -119,12 +125,14 @@ test('Custom tags', () => {
 })
 
 
-test('Advanced', () => {
+test.only('Advanced', () => {
 
   runTests({
 
     // :attr (:bind works the same on server side)
     '<dd :attr="person"></dd>': '<dd name="Nick" age="10"></dd>',
+
+    '<hey :val/>': '<nue-island island="hey">\n  <script type="application/json">{"val":"1"}</script>\n</nue-island>',
 
     // nue element
     // '<foo :nums="nums" :person="person" data-x="bar"/>':
@@ -137,6 +145,7 @@ test('Advanced', () => {
   }, {
     person: { name: 'Nick', age: 10 },
     nums: [1, 2],
+    val: 1
   })
 })
 

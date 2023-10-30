@@ -156,6 +156,11 @@ function processNode(opts) {
   function walk(node) {
     const { name, type, attribs, nextSibling } = node
 
+    // setup empty attributes (:date --> :date="date")
+    for (let key in attribs) {
+      if (key[0] == ':' && attribs[key] == '') attribs[key] = key.slice(1)
+    }
+
     // root
     if (type == 'root') {
       walkChildren(node)
