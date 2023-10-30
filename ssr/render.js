@@ -1,6 +1,6 @@
 
 
-import { mkdom, getComponentName, mergeAttribs, isBoolean, exec, STD } from './fn.js'
+import { mkdom, getComponentName, mergeAttribs, isBoolean, exec, STD, walk } from './fn.js'
 import { parseExpr, parseFor, setContext } from './expr.js'
 import { parseDocument, DomUtils as DOM } from 'htmlparser2'
 import { promises as fs } from 'node:fs'
@@ -128,7 +128,8 @@ function processFor(node, expr, data, deps) {
     DOM.prepend(node, processNode({ root, data: proxy, deps, inner: node.children }))
   })
 
-  removeElement(node)
+  // mark as dummy (removeElement(node) does not work here)
+  node.attribs.__dummy = 'true'
 }
 
 // child component
@@ -255,6 +256,10 @@ function createComponent(node, global_js='') {
 
     render: function(data, deps) {
       const node = create(data, deps)
+
+      // cleanup / remove dummy elements
+      walk(node, el => { if (el.attribs?.__dummy) removeElement(el) })
+
       return getOuterHTML(node)
     }
   }

@@ -74,8 +74,10 @@ test('Class and style', () => {
 })
 
 
-test('Loops', () => {
+test.only('Loops', () => {
+
   runTests({
+
     '<p :for="n in nums">{ n }</p>': '<p>1</p><p>2</p><p>3</p>',
 
     '<p :for="[key, value, i] in Object.entries(person)">{ i }: { key } = { value }</p>':
@@ -91,6 +93,9 @@ test('Loops', () => {
     '<thing :for="el in items" :bind="el"><b>{ el.age }</b></thing><u @name="thing">{name}: <slot/></u>' :
       '<u>John:<b>22</b></u><u>Alice:<b>33</b></u>',
 
+    // successive loops
+    '<div><p :for="x in nums">{ x }</p><a :for="y in nums">{ y }</a></div>':
+      '<div><p>1</p><p>2</p><p>3</p><a>1</a><a>2</a><a>3</a></div>',
 
   }, {
     items: [ { name: 'John', age: 22 }, { name: 'Alice', age: 33 }],
