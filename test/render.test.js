@@ -16,7 +16,7 @@ function debug(tmpl, data) {
 }
 
 
-test.only('Expressions', () => {
+test('Expressions', () => {
   runTests({
     '<b :class="type">Hey</b>': "<b class=\"bold\">Hey</b>",
     '<b class="item { type }"/>': "<b class=\"item bold\"></b>",
@@ -125,7 +125,9 @@ test('Custom tags', () => {
 })
 
 
-test.only('Advanced', () => {
+test('Advanced', () => {
+
+  // return debug('<html><slot for="page"/></html>', { page: '<main>Hello</main>' })
 
   runTests({
 
@@ -138,12 +140,15 @@ test.only('Advanced', () => {
     // '<foo :nums="nums" :person="person" data-x="bar"/>':
     //   '<nue-island island="foo" data-x="bar">\n  <script type="application/json">{"nums":[1,2],"person":{"name":"Nick","age":10}}</script>\n</nue-island>',
 
+    '<html><slot for="page"/></html>': '<html><main>Hello</main></html>',
+
     // custom tag and slots
     '<parent><p>{{ am }}</p><p>{ person.name }</p></parent><div @name="parent"><h3>Parent</h3><slot/></div>':
       '<div><h3>Parent</h3><p></p><p>Nick</p></div>',
 
   }, {
     person: { name: 'Nick', age: 10 },
+    page: '<main>Hello</main>',
     nums: [1, 2],
     val: 1
   })

@@ -196,11 +196,18 @@ function processNode(opts) {
         Object.assign(attribs, attr)
       }
 
-      // slot
-      if (inner && name == 'slot') {
-        while (inner[0]) DOM.prepend(node, inner[0])
-        removeElement(node)
+      // slots
+      if (name == 'slot') {
+        if (attribs.for) {
+          const html = data[attribs.for]
+          if (html) DOM.replaceElement(node, mkdom(html))
+
+        } else if (inner) {
+          while (inner[0]) DOM.prepend(node, inner[0])
+          removeElement(node)
+        }
       }
+
 
       // custom component
       const is_custom = !STD.includes(name)
