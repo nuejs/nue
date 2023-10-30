@@ -35,8 +35,6 @@ export default function(opts) {
     }
   }
 
-  var _prev
-
   function update() {
     if (!anchor) {
       const wrap = root.parentElement
