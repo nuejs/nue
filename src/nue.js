@@ -130,26 +130,24 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
       })
     }
 
-    // dynamic attributes
-    if (char == ':' && real != 'bind') {
-      expr.push(_=> {
-        let val = fn(ctx)
-        setAttr(node, real, renderVal(val))
-      })
-    }
-
-    // event handler
-    if (char == '@') {
+    if (char == ':') {
+      if (real != 'bind') {
+        // dynamic attributes
+        expr.push(_ => {
+          let val = fn(ctx)
+          setAttr(node, real, renderVal(val))
+        })
+      }
+    } else if (char == '@') {
+      // event handler
       node[`on${real}`] = evt => {
         fn.call(ctx, ctx, evt)
         const up = $parent?.update || update
         up()
       }
-    }
-
-    // boolean attribute
-    if (char == '$') {
-      expr.push(_=> {
+    } else if (char == '$') {
+      // boolean attribute
+      expr.push(_ => {
         const flag = node[real] = !!fn(ctx)
         if (!flag) node.removeAttribute(real)
       })
