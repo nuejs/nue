@@ -35,6 +35,11 @@ test('Expressions', () => {
   })
 })
 
+test('Comments', () => {
+  runTests({ '<!-- hello --><b>World</b>': '<b>World</b>' })
+  runTests({ '<!-- hello --><!-- Another --><b>World</b>': '<b>World</b>' })
+})
+
 test('Conditionals', () => {
   runTests({
     '<div><b :if="am > 100">No</b><p>Yes</p></div>': '<div><p>Yes</p></div>',
