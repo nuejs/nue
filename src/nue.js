@@ -205,7 +205,13 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
 
   function update(obj) {
     if (obj) Object.assign(impl, obj)
-    expr.map(el => animationFrameScheduler.pushTask(el, { callback: impl.updated?.bind(ctx, ctx) }))
+    expr.forEach((el, index) => {
+      if(index == expr.length - 1){
+        animationFrameScheduler.pushTask(el, { callback: impl.updated?.bind(ctx, ctx) })
+      } else {
+        animationFrameScheduler.pushTask(el)
+      }
+    })
     return self
   }
 
