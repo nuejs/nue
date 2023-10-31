@@ -9,7 +9,8 @@
 		"compile": "cd test && bun compile.js"
 	},
 	"dependencies": {
-		"htmlparser2": "^9.0.0"
+		"htmlparser2": "^9.0.0",
+		"web-scheduler": "^1.5.0"
 	},
 	"engines": {
 		"bun": ">= 1"

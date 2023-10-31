@@ -1,4 +1,4 @@
-
+import { animationFrameScheduler } from 'web-scheduler'
 import For from './for.js'
 import If from './if.js'
 
@@ -205,8 +205,7 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
 
   function update(obj) {
     if (obj) Object.assign(impl, obj)
-    expr.map(el => el())
-    impl.updated?.call(ctx, ctx)
+    expr.map(el => animationFrameScheduler.pushTask(el, { callback: impl.updated?.bind(ctx, ctx) }))
     return self
   }
 
