@@ -6,8 +6,8 @@
 
 [Documentation](//nuejs.org/docs/nuejs/) •
 [Examples](//nuejs.org/docs/nuejs/examples/) •
-[Getting started](//nuejs.org/docs/nuejs/getting-started.html)
-[Rethinking reactivity](//nuejs.org/blog/blog/rethinking-reactivity/) •
+[Getting started](//nuejs.org/docs/nuejs/getting-started.html) •
+[Rethinking reactivity](//nuejs.org/blog/rethinking-reactivity/)
 
 
 # What is Nue JS?
