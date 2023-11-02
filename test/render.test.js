@@ -52,8 +52,8 @@ test('Conditionals', () => {
     '<b :if="flag">{ val }</b>': '',
     '<html><style :if="nope">{ nope }</style></html>': '<html></html>',
     '<html><style :if="css">{ css }</style></html>': '<html><style>body { font-family: 100; }</style></html>',
-    '<div><b :if="am > 100">No</b><p><a href="{\'#\' + val}">Yes</a></p></div>': '<div><p><a href="#A">Yes</a></p></div>',
-    '<div><b :if="am > 100">No</b><p :else><a href="{\'#\' + val}">Yes</a></p></div>': '<div><p><a href="#A">Yes</a></p></div>',
+    '<div><b :if="am > 100">No</b><p><a href="#{val}">Yes</a></p></div>': '<div><p><a href="#A">Yes</a></p></div>',
+    '<div><b :if="am > 100">No</b><p :else><a href="#{val}">Yes</a></p></div>': '<div><p><a href="#A">Yes</a></p></div>',
     '<a><em :if="flag"></em><b :else>{ val }</b></a>': '<a><b>A</b></a>',
     '<div><b :if="am > 100">No</b><b :else-if="am == 100">Yes</b><b :else>No</b></div>': '<div><b>Yes</b></div>',
     '<div><custom :if="bad"/></div> <b @name="custom">Hey</b>': '<div></div>',
@@ -135,7 +135,7 @@ test('Custom tags', () => {
 
 test('Advanced', () => {
 
-  // return debug('<html><slot for="page"/></html>', { page: '<main>Hello</main>' })
+  // return debug('', { val: 1 })
 
   runTests({
 
@@ -148,6 +148,7 @@ test('Advanced', () => {
     // '<foo :nums="nums" :person="person" data-x="bar"/>':
     //   '<nue-island island="foo" data-x="bar">\n  <script type="application/json">{"nums":[1,2],"person":{"name":"Nick","age":10}}</script>\n</nue-island>',
 
+    '<html><slot for="none"/><b>{ val }</b></html>': '<html><b>1</b></html>',
     '<html><slot for="page"/></html>': '<html><main>Hello</main></html>',
 
     // custom tag and slots

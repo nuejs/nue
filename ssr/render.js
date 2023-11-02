@@ -103,7 +103,7 @@ function processIf(node, expr, data, deps) {
   blocks.forEach(el => {
     const { root } = el
     if (el == active) processNode({ root, data, deps })
-    else removeElement(root)
+    else removeNode(root)
   })
   return active
 }
@@ -137,8 +137,7 @@ function processFor(node, expr, data, deps) {
     DOM.prepend(node, processNode({ root, data: proxy, deps, inner: node.children }))
   })
 
-  // mark as dummy (removeElement(node) does not work here)
-  node.attribs.__dummy = 'true'
+  removeNode(node)
 }
 
 // child component
@@ -156,6 +155,11 @@ function getDel(key, attribs) {
   const val = attribs[key]
   delete attribs[key]
   return val
+}
+
+// mark as removed (removeElement disturbs node traversal on the first run)
+function removeNode(node) {
+  node.attribs.__remove = 'true'
 }
 
 
@@ -210,6 +214,7 @@ function processNode(opts) {
         if (attribs.for) {
           const html = data[attribs.for]
           if (html) DOM.replaceElement(node, mkdom(html))
+          else removeNode(node)
 
         } else if (inner) {
           while (inner[0]) DOM.prepend(node, inner[0])
@@ -279,7 +284,7 @@ function createComponent(node, global_js='') {
       const node = create(data, deps)
 
       // cleanup / remove dummy elements
-      walk(node, el => { if (el.attribs?.__dummy) removeElement(el) })
+      walk(node, el => { if (el.attribs?.__remove) removeElement(el) })
 
       return getOuterHTML(node)
     }
