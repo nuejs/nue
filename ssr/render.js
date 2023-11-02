@@ -85,9 +85,10 @@ function getIfBlocks(root, expr) {
   const arr = [{ root, expr }]
   while (root = DOM.nextElementSibling(root)) {
     const { attribs } = root
-    const expr = getDel(':else-if', attribs) || getDel(':else', attribs) != null
+    // get sibling expression or default to true
+    const expr = getDel(':else-if', attribs) || getDel(':else', attribs)
     if (expr) arr.push({ root, expr })
-    else break
+    else arr.push({ root, expr: 'true' })
   }
   return arr
 }
