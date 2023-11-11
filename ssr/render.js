@@ -43,7 +43,7 @@ function toString(val) {
 
 function setAttribute(key, attribs, data) {
   let val = attribs[key]
-
+  if (!val) return
 
   // TODO: check all non-strings here
   if (val.constructor === Object) return
@@ -56,7 +56,7 @@ function setAttribute(key, attribs, data) {
   // strip event handlers
   if (key[0] == '@') return delete attribs[key]
 
-  // foo="{}" --> :foo="{}"
+  // foo="{ val }" --> :foo="{ val }"
   if (key[0] != ':' && has_expr) {
     delete attribs[key]
     key = ':' + key

@@ -78,7 +78,7 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
         }
 
         const parent = createParent(node)
-        const comp = createApp(child, data, deps, parent).mount(node)
+        const comp = createApp(child, ctx, deps, parent).mount(node)
 
         // Root node changes -> re-point to the new DOM element
         if (dom?.tagName.toLowerCase() == child.name) self.$el = comp.$el
@@ -228,6 +228,13 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
 
     impl,
 
+    mountChild(name, wrap, data) {
+      const comp = deps.find(el => el.name == name)
+      if (comp) {
+        const app = createApp(comp, data, deps, ctx)
+        app.mount(wrap)
+      }
+    },
 
     mount(wrap) {
       const root = dom || (self.$el = mkdom(tmpl))
@@ -246,6 +253,7 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
         impl = self.impl = new Impl(ctx)
 
         // for
+        impl.mountChild = self.mountChild
         impl.$refs = self.$refs
         impl.update = update
       }

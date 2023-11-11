@@ -1,5 +1,6 @@
 
 <main class="grid">
+  <mount-child class="card"/>
   <component-loop class="card"/>
   <loop-bind class="card"/>
   <if-loop class="card"/>
@@ -7,7 +8,38 @@
   <array-methods class="card"/>
   <object-loop class="card"/>
   <loop-tabs class="card"/>
+  <!--
+  -->
 </main>
+
+<section @name="mount-child">
+
+  <h3>{ entries?.length } rows:</h3>
+
+  <article ref="article"/>
+
+  <inner-table/>
+
+  <script>
+    updated() {
+      setTimeout(() => {
+        this.entries = [
+          { name: 'Clash Discs', location: 'Finland' },
+          { name: 'Discmania', location: 'Finland' },
+          { name: 'Dynamic Discs', location: 'Sweden' },
+        ]
+        this.mountChild('inner-table', this.$refs.article)
+      }, 100)
+    }
+  </script>
+</section>
+
+<table @name="inner-table">
+  <tr :for="el in entries || []">
+    <td><b>{ el.name }</b></td>
+    <td>{ el.location }</td>
+  </tr>
+</table>
 
 <section @name="if-loop">
   <h3>Conditional loops</h3>
