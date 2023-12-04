@@ -1,6 +1,5 @@
 
-import { compile, compileFile } from '../ssr/compile.js'
-
+import { compile } from '../ssr/compile.js'
 
 /*
   Format of individual tests on the TESTS array:
@@ -83,6 +82,17 @@ function testOne([src, ...matches]) {
 test('All compile tests', () => {
   TESTS.forEach(testOne)
 })
+
+test(':for error', () => {
+  try {
+    compile('<h1>Hey</h1>\n<b :for="foo bar"></b>')
+  } catch (e) {
+    expect(e.expr).toBe('foo bar')
+    expect(e.column).toBe(9)
+    expect(e.line).toBe(2)
+  }
+})
+
 
 // good for testing a single thing with test.only()
 test('Unit test', () => {

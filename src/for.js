@@ -95,7 +95,7 @@ export default function(opts) {
   // update function
   function update() {
     var arr
-    [$keys, arr, $index, is_object_loop] = fn(ctx)
+    [$keys, arr=[], $index, is_object_loop] = fn(ctx)
 
     if (items) {
       // change of current array --> repaint

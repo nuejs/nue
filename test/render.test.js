@@ -1,5 +1,5 @@
 
-import { parse, render } from '../ssr/render.js'
+import { render } from '../ssr/render.js'
 
 
 // helper function to run multiple tests at once
@@ -200,4 +200,27 @@ test('If sibling', () => {
   expect(html).toInclude('First')
 })
 
+
+
+test(':for error', () => {
+  try {
+    render('<div>\n<h1>Hey</h1>\n<b :for="foo bar"></b></div>')
+
+  } catch (e) {
+    expect(e.lineText).toBe(':for="foo bar"')
+    expect(e.column).toBeGreaterThan(1)
+    expect(e.line).toBe(3)
+  }
+})
+
+test('{ expr } error', () => {
+  try {
+    render('<div>\n<b>Hey { foo[0] } { title }</b></div>')
+
+  } catch (e) {
+    expect(e.subexpr).toBe('foo[0]')
+    expect(e.line).toBe(2)
+    expect(e.column).toBe(9)
+  }
+})
 

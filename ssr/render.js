@@ -1,6 +1,6 @@
 
 
-import { mkdom, getComponentName, mergeAttribs, isBoolean, exec, STD, walk } from './fn.js'
+import { mkdom, getComponentName, mergeAttribs, isBoolean, exec, STD, getPosition, walk } from './fn.js'
 import { parseExpr, parseFor, setContext } from './expr.js'
 import { parseDocument, DomUtils as DOM } from 'htmlparser2'
 import { promises as fs } from 'node:fs'
@@ -8,10 +8,22 @@ import { promises as fs } from 'node:fs'
 const { getInnerHTML, getOuterHTML, removeElement } = DOM
 
 
+// TypeError (evaluating '_.foo[0]') --> { text: 'TypeError', subexpr: 'foo[0]' }
+function parseError(e) {
+  const [msg, sub] = e.toString().split("'")
+  const text = msg.slice(0, msg.indexOf(' ('))
+  const subexpr = sub.replaceAll('_.', '')
+  return { subexpr, text }
+}
+
 // name == optional
 function renderExpr(str, data, is_class) {
-  const arr = exec('[' + parseExpr(str) + ']', data)
-  return arr.filter(el => is_class ? el : el != null).join('').trim()
+  try {
+    const arr = exec('[' + parseExpr(str) + ']', data)
+    return arr.filter(el => is_class ? el : el != null).join('').trim()
+  } catch (e) {
+    throw { title: 'Rendering error', expr: str, ...parseError(e) }
+  }
 }
 
 
@@ -112,6 +124,14 @@ function processIf(node, expr, data, deps) {
 // for
 function processFor(node, expr, data, deps) {
   const [ $keys, for_expr, $index, is_object_loop ] = parseFor(expr)
+
+  // syntax error
+  if (!for_expr) throw {
+    title: 'Template error',
+    text: `Syntax error in :for expression`,
+    expr: expr,
+  }
+
   const items = exec(for_expr, data) || []
 
   items.forEach((item, i) => {
@@ -262,7 +282,7 @@ function getJS(nodes) {
   return js.join('\n')
 }
 
-function createComponent(node, global_js='') {
+function createComponent(node, global_js='', template) {
   const name = getComponentName(node)
 
   // javascript
@@ -272,7 +292,12 @@ function createComponent(node, global_js='') {
 
   function create(data, deps=[], inner) {
     if (Impl) data = Object.assign(new Impl(data), data) // ...spread won't work
-    return processNode({ root: mkdom(tmpl), data, deps, inner })
+    try {
+      return processNode({ root: mkdom(tmpl), data, deps, inner })
+    } catch (e) {
+      if (e.expr) Object.assign(e, getPosition(template, e))
+      throw e
+    }
   }
 
   return {
@@ -319,13 +344,18 @@ export function parse(template) {
   const { children } = mkdom(template)
   const nodes = children.filter(el => el.type == 'tag')
   const global_js = getJS(children)
-  return nodes.map(node => createComponent(node, global_js))
+  return nodes.map(node => createComponent(node, global_js, template))
 }
 
 export function render(template, data, deps) {
-  const comps = parse(template)
-  if (Array.isArray(deps)) comps.push(...deps)
-  return comps[0] ? comps[0].render(data, comps) : ''
+  try {
+    const comps = parse(template)
+    if (Array.isArray(deps)) comps.push(...deps)
+    return comps[0] ? comps[0].render(data, comps) : ''
+  } catch (e) {
+    if (e.expr) Object.assign(e, getPosition(template, e))
+    throw e
+  }
 }
 
 export async function parseFile(path) {

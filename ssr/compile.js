@@ -1,5 +1,5 @@
 
-import { mkdom, getComponentName, isBoolean, walk, objToString, STD } from './fn.js'
+import { mkdom, getComponentName, isBoolean, walk, objToString, getPosition, STD } from './fn.js'
 import { parseExpr, parseFor, setContext, setContextTo } from './expr.js'
 import { promises as fs } from 'node:fs'
 import { DomUtils } from 'htmlparser2'
@@ -54,7 +54,7 @@ function compileNode(root) {
 
       // for expression
       } else if (key == ':for') {
-        attribs[key] = push(compileLoop(val))
+        attribs[key] = push(compileLoop(val, node))
 
       // attributes
       } else if (':$'.includes(char) && val && key != ':is') {
@@ -91,10 +91,17 @@ function getHTML(str) {
   }
 }
 
-export function compileLoop(str) {
+export function compileLoop(str, node) {
   const [key, expr, index, is_object] = parseFor(str)
-  const keys = Array.isArray(key) ? '[' + key.map(quote) + ']' : quote(key)
 
+  // syntax error
+  if (!expr) throw {
+    title: 'Transpile error',
+    text: `Syntax error in :for expression`,
+    expr: str,
+  }
+
+  const keys = Array.isArray(key) ? '[' + key.map(quote) + ']' : quote(key)
   return '[' + [keys, expr, quote(index)].join(', ') + (is_object ? ', true' : '') + ']'
 }
 
@@ -186,11 +193,20 @@ function createComponent(node) {
   })
 }
 
+
 export function parse(src) {
   const { children } = mkdom(src)
-  const components = children.filter(el => el.type == 'tag').map(el => createComponent(el))
-  const js = getJS(children)
-  return { js, components }
+
+  try {
+    const components = children.filter(el => el.type == 'tag').map(el => createComponent(el))
+    const js = getJS(children)
+    return { js, components }
+
+  } catch (e) {
+    if (e.expr) Object.assign(e, getPosition(src, e))
+    throw e
+  }
+
 }
 
 export function compile(src) {

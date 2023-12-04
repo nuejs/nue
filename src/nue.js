@@ -271,6 +271,12 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
       return update()
     },
 
+    append(to) {
+      const wrap = document.createElement('b')
+      to.append(wrap)
+      return self.mount(wrap)
+    },
+
     // used by slots
     replace(wrap) {
       walk(dom)

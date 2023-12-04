@@ -91,15 +91,8 @@ const isJS = val => val?.constructor === Object || Array.isArray(val) || typeof 
 // exec('`font-size:${_.size + "px"}`;', data)
 export function exec(expr, data={}) {
   const fn = new Function('_', 'return ' + expr)
-
-  try {
-    const val = fn(data)
-    return val == null ? '' : isJS(val) ? val : '' + val
-
-  } catch (e) {
-    console.info('🔻 expr', expr, e)
-    return ''
-  }
+  const val = fn(data)
+  return val == null ? '' : isJS(val) ? val : '' + val
 }
 
 
@@ -118,4 +111,22 @@ export function mergeAttribs(to, from) {
   }
 }
 
+
+// get error position: { line, column }
+export function getPosition(template, error) {
+  const { expr, subexpr=expr } = error
+  const lines = template.split('\n')
+  const ret = { line: 1 }
+
+  for (const line of lines) {
+    if (line.includes(expr)) {
+      ret.lineText = line
+      ret.column = line.indexOf(subexpr)
+      ret.offset = subexpr.length
+      return ret
+    }
+    ret.line++
+  }
+  return ret
+}
 
