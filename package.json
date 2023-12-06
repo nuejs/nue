@@ -2,10 +2,13 @@
 	"type": "module",
 	"name": "nuejs-core",
 	"main": "ssr/index.js",
+
+  "bin": {
+    "nue": "./nuekit/cli.js"
+  },
 	"version": "0.2.0",
 	"scripts": {
 		"test": "cd test && bun test",
-		"minify": "bun scripts/minify.js",
 		"compile": "cd test && bun compile.js"
 	},
 	"dependencies": {

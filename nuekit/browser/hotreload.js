@@ -18,7 +18,6 @@ sse.onmessage = function(e) {
     Object.assign(error, { path, ext: data.ext?.slice(1) })
     import('./error.js').then(el => el.showError(error))
   } else {
-    console.info('heree')
     $('.nuerr')?.remove()
   }
 

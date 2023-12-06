@@ -89,8 +89,6 @@ async function runCommand(args) {
   // build
   const { cmd='serve' } = args
 
-  console.info('here', cmd)
-
   if (cmd == 'build') await nue.build(args.paths, args.dryrun)
 
   // serve

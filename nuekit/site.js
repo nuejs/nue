@@ -80,7 +80,7 @@ export async function createSite(args) {
     try {
       const to = join(todir, filename)
       await fs.writeFile(to, content)
-      !is_bulk && log(join(dir, filename))
+      !is_bulk && !self.is_empty && log(join(dir, filename))
       return to
 
     } catch (e) {
@@ -96,7 +96,7 @@ export async function createSite(args) {
 
     try {
       await fs.copyFile(join(root, dir, base), to)
-      !is_bulk && log(join(dir, base))
+      !is_bulk && !self.is_empty && log(join(dir, base))
 
     } catch (e) {
       if (e.errno != NOT_FOUND) throw e

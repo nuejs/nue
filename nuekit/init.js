@@ -41,7 +41,7 @@ export async function syncNueDir(dist, is_prod) {
 
   } else {
 
-    await symlink(join(root, '../src'), 'js')
+    await symlink(join(root, 'src'), 'js')
     await symlink(join(assets, 'page-router.js'))
     await symlink(join(assets, 'app-router.js'))
     await symlink(join(assets, 'hotreload.js'))
