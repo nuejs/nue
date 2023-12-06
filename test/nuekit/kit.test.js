@@ -181,7 +181,7 @@ test('inline CSS', async () => {
 
 
   expect(data.inline_css[0]).toEqual({ path: "/inline/style.css", content: "body { margin: 0 }"})
-  const html = await kit.renderContent('inline/index.md', data)
+  const html = await kit.renderPage('inline/index.md', data)
   expect(html).toInclude('<style href="/inline/style.css">body { margin: 0 }</style>')
 })
 

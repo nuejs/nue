@@ -79,7 +79,7 @@ export async function createKit(args) {
     const dir = meta.appdir || file.dir || '.'
 
     // YAML data
-    const data = { ...await site.getData(dir), ...meta, content, ...getParts(path) }
+    const data = { ...await site.getData(dir), content, ...getParts(path), ...meta }
 
     // content collection
     const cdir = data.content_collection
@@ -124,7 +124,7 @@ export async function createKit(args) {
   }
 
   // Markdown- based multi-page application page
-  async function renderContent(path, data) {
+  async function renderPage(path, data) {
     const appdir = data.appdir || getAppDir(path)
     const lib = await site.getLayoutComponents(appdir)
 
@@ -152,7 +152,7 @@ export async function createKit(args) {
   async function writePage(file) {
     const { dir, name, path } = file
     const data = await getPageData(path)
-    const html = await renderContent(path, data)
+    const html = await renderPage(path, data)
     await write(html, dir, `${name}.html`)
     return html
   }
@@ -166,7 +166,7 @@ export async function createKit(args) {
   async function readAllCSS(paths) {
     const arr = []
     for (const path of paths) {
-      const content = extname(path) == '.css' ? await read(path) : renderNueCSS(path)
+      const content = extname(path) == '.css' ? await read(path) : await renderNueCSS(path)
       arr.push({ path, content })
     }
     return arr
@@ -358,7 +358,7 @@ export async function createKit(args) {
   return {
 
     // for testing only
-    gen, getPageData, renderContent, renderSPA,
+    gen, getPageData, renderPage, renderSPA,
 
     // public API
     build, serve, stats, dist,
