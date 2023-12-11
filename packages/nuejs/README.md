@@ -1,25 +1,13 @@
 
+<a href="https://nuejs.org"><img src="https://nuejs.org/logo.svg" width="80"></a>
+
 # Nue JS
 
-Nue JS is an exceptionally small (2.3kb minzipped) JavaScript library for building web interfaces. It is the core of the upcoming [Nue toolset](//nuejs.org/tools/). It’s like **Vue.js, React.js**, or **Svelte** but there are no hooks, effects, props, portals, watchers, provides, injects, suspension, or other unusual abstractions on your way. Learn the basics of HTML, CSS, and JavaScript and you are good to go.
-
-
-1. [Server components](//nuejs.org/docs/nuejs/server-components.html) are rendered on the server. They help you build content-focused websites that load faster without JavaScript and are crawled by search engines.
-
-2. [Reactive components](//nuejs.org/docs/nuejs/reactive-components.html) are rendered on the client. They help you build dynamic islands or single-page applications.
-
-
-
-[Rethinking reactivity](//nuejs.org/blog/rethinking-reactivity/)
-
-[Template syntax](//nuejs.org/docs/nuejs/) •
-
-[Examples](//nuejs.org/docs/nuejs/examples/) •
-
+Nue JS is a tiny (2.3kb minzipped) JavaScript library for building web interfaces. It is the core layout engine in [Nue](https://nuejs.org) providing both server-side templating and client-side reactive islands.
 
 
 ## "It's just HTML"
-Nue uses an HTML-based template syntax:
+Nue uses a simple HTML-based template syntax that you can use for both server-side layouts and reactive, client-side components. For example:
 
 ``` html
 <div class="{ type }">
@@ -32,16 +20,35 @@ Nue uses an HTML-based template syntax:
 </div>
 ```
 
-While React and JSX claim to be "Just JavaScript", Nue can be thought of as "Just HTML". Nue is perfect for [UX developers][divide] focusing on interaction design, accessibility, and user experience.
+If React is __"just JavaScript"__, then Nue is __"just HTML"__ because any valid HTML is also valid Nue. You can extend the standard HTML with [template expressions](https://nuejs.org/docs/reference/template-syntax.html) that help you build modern websites and web- applications in a simple, declarative way.
 
-With Nue your UI code is cleaner and usually smaller:
+Nue is best suited for *UX developers* dealing with the [front of the frontend](https://bradfrost.com/blog/post/front-of-the-front-end-and-back-of-the-front-end-web-development/) and with topics like interaction design, accessibility, and user experience.
 
-![The difference in coding style](https://nuejs.org/docs/img/react-listbox.jpg?1)
 
-It's not unusual to see [2x-10x differences](//nuejs.org/compare/component.html) in the amount of code you need to write.
+## Class- based
+Nue uses ES6 classes to make web development feel more natural and standards-based. Here is an example Nue- component with a `submit()` _instance method_:
 
-[divide]: https://css-tricks.com/the-great-divide/
 
-[back]: https://bradfrost.com/blog/post/front-of-the-front-end-and-back-of-the-front-end-web-development/
+```
+<form @submit.prevent="submit">
+  <input type="email" name="email" placeholder="your@address.com" required>
+  <button>Submit</button>
+
+  <script>
+    // input validation is natively taken care of by the browser
+    async submit({ target }) {
+      await fetch(`/api/leads?email=${target.email.value}`)
+      location.href = '/thank-you'
+    }
+  </script>
+
+</form>
+```
+
+The most notable thing is the `<script>` tag, which is now nested _inside_ the component. This is the place for your ES6 class variables and methods.
+
+ES6 classes make your code look amazingly compact and clean. You can add variables, methods, [getters][getters], [setters][setters], and `async` methods with the cute and short syntax. There are no hooks, effects, props, portals, watchers, provides, injects, suspension, or other unusual abstractions on your way. Learn the basics of HTML, CSS, and JavaScript and you are good to go.
+
+Learn the reasoning behind HTML- and class based syntax from our Blog article: [rethinking reactivity](https://nuejs.org/blog/rethinking-reactivity/)
 
 
