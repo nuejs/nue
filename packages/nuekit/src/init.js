@@ -7,8 +7,8 @@ import { log } from './util.js'
 
 
 export async function syncNueDir(dist, is_prod) {
-  const root = new URL('..', import.meta.url).pathname
-  const assets = join(root, 'nuekit', 'browser')
+  const root = new URL('.', import.meta.url).pathname
+  const assets = join(root, 'browser')
   const nuedir = join(dist, '@nue')
 
   // make sure JS minifier exist in production

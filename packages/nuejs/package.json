@@ -1,0 +1,24 @@
+{
+	"name": "@nue/nuejs",
+	"version": "0.1.3",
+
+	"description": "The Nue framework for building user interfaces",
+  "homepage": "https://nuejs.org",
+  "repository": "nuejs/nue",
+	"license": "MIT",
+	"type": "module",
+
+	"main": "index.js",
+
+	"scripts": {
+		"test": "cd test && bun test",
+		"compile": "cd test && bun compile.js"
+	},
+	"dependencies": {
+		"htmlparser2": "^9.0.0"
+	},
+	"engines": {
+		"bun": ">= 1",
+		"node": ">= 18"
+	}
+}
