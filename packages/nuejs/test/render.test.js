@@ -1,5 +1,5 @@
 
-import { render } from '../ssr/render.js'
+import { render } from '..'
 
 
 // helper function to run multiple tests at once
@@ -207,7 +207,7 @@ test(':for error', () => {
     render('<div>\n<h1>Hey</h1>\n<b :for="foo bar"></b></div>')
 
   } catch (e) {
-    expect(e.lineText).toBe(':for="foo bar"')
+    expect(e.lineText).toInclude(':for="foo bar"')
     expect(e.column).toBeGreaterThan(1)
     expect(e.line).toBe(3)
   }

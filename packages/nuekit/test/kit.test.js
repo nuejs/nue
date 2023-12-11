@@ -1,9 +1,9 @@
 
-import { buildJS } from '../../nuekit/builder.js'
-import { createSite } from '../../nuekit/site.js'
+import { buildJS } from '../src/builder.js'
+import { createSite } from '../src/site.js'
 
-import { createKit } from '../../nuekit/nuekit.js'
-import { syncNueDir } from '../../nuekit/init.js'
+import { createKit } from '../src/nuekit.js'
+import { syncNueDir } from '../src/init.js'
 import { promises as fs } from 'node:fs'
 import { join, parse } from 'node:path'
 

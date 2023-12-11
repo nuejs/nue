@@ -1,5 +1,5 @@
 
-import { compile } from '../ssr/compile.js'
+import { compile } from '..'
 
 /*
   Format of individual tests on the TESTS array:

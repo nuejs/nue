@@ -1,9 +1,9 @@
 
 
-import { parseMarkdown, getParts } from '../../nuekit/util.js'
-import { match } from '../../nuekit/browser/app-router.js'
-import { renderHead } from '../../nuekit/layout.js'
-import { getArgs } from '../../nuekit/cli.js'
+import { parseMarkdown, getParts } from '../src/util.js'
+import { match } from '../src/browser/app-router.js'
+import { renderHead } from '../src/layout.js'
+import { getArgs } from '../src/cli.js'
 
 
 

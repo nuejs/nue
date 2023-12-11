@@ -5,7 +5,7 @@
   a layout.html that loops top 10 pages
 */
 
-import { createKit } from '../../nuekit/nuekit.js'
+import { createKit } from '../src/nuekit.js'
 import { promises as fs } from 'node:fs'
 import { join } from 'node:path'
 
