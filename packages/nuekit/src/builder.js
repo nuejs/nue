@@ -6,14 +6,17 @@ export async function getBuilder(use_esbuild) {
 }
 
 export async function buildJS(opts) {
-  const { path, outdir, minify, bundle, esbuild } = opts
+  const { outdir, minify, bundle, esbuild } = opts
   const builder = await getBuilder(esbuild)
+  let { path } = opts
   let ret
+
+  if (path[0] != '/') path = './' + path
 
   try {
     ret = await builder.build({
       external: bundle ? ['../@nue/*', '/@nue/*'] : esbuild || !process.isBun ? undefined : ['*'],
-      entryPoints: [ './' + path ],
+      entryPoints: [ path ],
       outdir, bundle, minify,
 
       // esbuild
@@ -28,8 +31,8 @@ export async function buildJS(opts) {
   // console.log('Built', path)
 }
 
-export async function minifyJS(path, outdir) {
-  return await buildJS({ path, outdir, minify: true })
+export async function minifyJS(path, outdir, bundle) {
+  return await buildJS({ path, outdir, minify: true, bundle })
 }
 
 export function parseError(buildResult) {

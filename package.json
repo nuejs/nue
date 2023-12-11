@@ -1,23 +1,16 @@
 {
-	"type": "module",
-	"name": "nuejs-core",
-	"main": "ssr/index.js",
+  "name": "nue",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
 
-  "bin": {
-    "nue": "./nuekit/cli.js"
-  },
-	"version": "0.2.0",
-	"scripts": {
-		"test": "cd test && bun test",
-		"compile": "cd test && bun compile.js"
-	},
-	"dependencies": {
-		"diff-dom": "^5.0.6",
-		"htmlparser2": "^9.0.0",
-		"js-yaml": "^4.1.0",
-    "marked": "^9.1.2"
-	},
-	"engines": {
-		"bun": ">= 1"
-	}
+
+  "workspaces": [
+    "packages/nuejs"
+  ],
+
+  "engines": {
+    "bun": ">=1",
+    "node": ">=18"
+  }
 }

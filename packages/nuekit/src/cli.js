@@ -96,9 +96,6 @@ async function runCommand(args) {
 
   // stats
   else if (cmd == 'stats') await nue.stats()
-
-  // init (rarely used)
-  else if (cmd == 'init') await nue.init()
 }
 
 const args = getArgs(process.argv)

@@ -2,7 +2,7 @@
 import { getBuilder, minifyJS } from './builder.js'
 import { join, basename } from 'node:path'
 import { promises as fs } from 'node:fs'
-import { compileFile } from 'nuejs-core'
+import { compileFile } from '@nue/nuejs'
 import { log } from './util.js'
 
 
@@ -33,11 +33,13 @@ export async function syncNueDir(dist, is_prod) {
 
   if (is_prod) {
     const jsdir = join(nuedir, 'js')
-    await fs.mkdir(jsdir, { recursive: true })
-    await minifyJS(join(root, '../src/nue.js'), jsdir)
     await minifyJS(join(assets, 'page-router.js'), nuedir)
     await minifyJS(join(assets, 'app-router.js'), nuedir)
     await minifyJS(join(assets, 'mount.js'), nuedir)
+
+    // nue.js
+    await fs.mkdir(jsdir, { recursive: true })
+    await minifyJS(join(root, '../../nuejs/src/browser/nue.js'), jsdir, true)
 
   } else {
 

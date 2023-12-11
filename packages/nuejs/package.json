@@ -3,8 +3,8 @@
 	"version": "0.1.3",
 
 	"description": "The Nue framework for building user interfaces",
-  "homepage": "https://nuejs.org",
-  "repository": "nuejs/nue",
+	"homepage": "https://nuejs.org",
+	"repository": "nuejs/nue",
 	"license": "MIT",
 	"type": "module",
 

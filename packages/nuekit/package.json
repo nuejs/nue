@@ -1,5 +1,5 @@
 {
-	"name": "@nue/nuekit",
+	"name": "nuekit",
 	"version": "0.1.0",
 
 	"description": "The Nue framework for building websites and webapps",
@@ -8,16 +8,17 @@
 	"license": "MIT",
 	"type": "module",
 
-  "bin": {
-    "nue": "./src/cli.js"
+	"bin": {
+		"nue": "./src/cli.js"
   },
 	"scripts": {
 		"test": "cd test && bun test"
 	},
 	"dependencies": {
+		"@nue/nuejs": "workspace:*",
 		"diff-dom": "^5.0.6",
 		"js-yaml": "^4.1.0",
-    "marked": "^9.1.2"
+		"marked": "^9.1.2"
 	},
 	"engines": {
 		"bun": ">= 1",
