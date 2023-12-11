@@ -29,7 +29,7 @@ Nue is best suited for *UX developers* dealing with the [front of the frontend](
 Nue uses ES6 classes to make web development feel more natural and standards-based. Here is an example Nue- component with a `submit()` _instance method_:
 
 
-```
+``` html
 <form @submit.prevent="submit">
   <input type="email" name="email" placeholder="your@address.com" required>
   <button>Submit</button>
@@ -47,8 +47,10 @@ Nue uses ES6 classes to make web development feel more natural and standards-bas
 
 The most notable thing is the `<script>` tag, which is now nested _inside_ the component. This is the place for your ES6 class variables and methods.
 
-ES6 classes make your code look amazingly compact and clean. You can add variables, methods, [getters][getters], [setters][setters], and `async` methods with the cute and short syntax. There are no hooks, effects, props, portals, watchers, provides, injects, suspension, or other unusual abstractions on your way. Learn the basics of HTML, CSS, and JavaScript and you are good to go.
+ES6 classes make your code look amazingly compact and clean. You can add variables, methods, [getters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get), [setters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set), and `async` methods with the cute and short syntax. There are no hooks, effects, props, portals, watchers, provides, injects, suspension, or other unusual abstractions on your way. Learn the basics of HTML, CSS, and JavaScript and you are good to go.
 
 Learn the reasoning behind HTML- and class based syntax from our Blog article: [rethinking reactivity](https://nuejs.org/blog/rethinking-reactivity/)
+
+
 
 
