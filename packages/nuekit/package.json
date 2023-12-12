@@ -20,7 +20,7 @@
 		"test": "cd test && bun test"
 	},
 	"dependencies": {
-		"@nue/nuejs": "workspace:*",
+		"nuejs-core": "workspace:*",
 		"diff-dom": "^5.0.6",
 		"js-yaml": "^4.1.0",
 		"marked": "^9.1.2"

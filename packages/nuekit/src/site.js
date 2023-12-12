@@ -1,7 +1,7 @@
 
 import { log, parseMarkdown, getParts, getAppDir, getDirs, colors } from './util.js'
 import { join, extname, basename, sep, parse as parsePath } from 'node:path'
-import { parse as parseNue } from '@nue/nuejs'
+import { parse as parseNue } from 'nuejs-core'
 import { promises as fs } from 'node:fs'
 import { fswalk } from './nuefs.js'
 import yaml from 'js-yaml'

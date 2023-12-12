@@ -1,7 +1,7 @@
 
 import { log, colors, parseMarkdown, getAppDir, getParts } from './util.js'
 import { renderHead, getDefaultHTML, getDefaultSPA } from './layout.js'
-import { parse as parseNue, compile as compileNue } from '@nue/nuejs'
+import { parse as parseNue, compile as compileNue } from 'nuejs-core'
 import { join, parse as parsePath, extname } from 'node:path'
 import { readStats, printTable, categorize } from './stats.js'
 import { minifyCSS, buildJS, minifyJS,  } from './builder.js'

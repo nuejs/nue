@@ -2,7 +2,7 @@
 import { getBuilder, minifyJS } from './builder.js'
 import { join, basename } from 'node:path'
 import { promises as fs } from 'node:fs'
-import { compileFile } from '@nue/nuejs'
+import { compileFile } from 'nuejs-core'
 import { log } from './util.js'
 
 
