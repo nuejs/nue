@@ -31,19 +31,23 @@ export async function syncNueDir(dist, is_prod) {
     }
   }
 
+  // nue JS
+  const jsdir = join(nuedir, 'js')
+  await fs.mkdir(jsdir, { recursive: true })
+  await fs.copyFile(join(assets, 'nue.js'), join(jsdir, 'nue.js'))
+
+  // production
   if (is_prod) {
-    const jsdir = join(nuedir, 'js')
     await minifyJS(join(assets, 'page-router.js'), nuedir)
     await minifyJS(join(assets, 'app-router.js'), nuedir)
     await minifyJS(join(assets, 'mount.js'), nuedir)
 
-    // nue.js
-    await fs.mkdir(jsdir, { recursive: true })
-    await minifyJS(join(root, '../../nuejs/src/browser/nue.js'), jsdir, true)
+    // do this later
+    // await minifyJS(join(root, '../../nuejs/src/browser/nue.js'), jsdir, true)
 
   } else {
+    // await symlink(join(root, 'src'), 'js')
 
-    await symlink(join(root, 'src'), 'js')
     await symlink(join(assets, 'page-router.js'))
     await symlink(join(assets, 'app-router.js'))
     await symlink(join(assets, 'hotreload.js'))
