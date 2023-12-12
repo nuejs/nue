@@ -52,11 +52,9 @@ export async function syncNueDir(dist, is_prod) {
     await symlink(join(assets, 'app-router.js'))
     await symlink(join(assets, 'hotreload.js'))
     await symlink(join(assets, 'mount.js'))
-
-    // dev only
-    await symlink(join(root, 'node_modules/diff-dom/dist/module.js'), 'diffdom.js')
-    await compileFile(join(assets, 'error.nue'), join(nuedir, 'error.js'))
+    await symlink(join(assets, 'diffdom.js'))
     await symlink(join(assets, 'error.css'))
+    await compileFile(join(assets, 'error.nue'), join(nuedir, 'error.js'))
   }
 
 
