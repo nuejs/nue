@@ -4,9 +4,14 @@
 
 	"description": "The Nue framework for building websites and webapps",
 	"homepage": "https://nuejs.org",
-	"repository": "nuejs/nue",
 	"license": "MIT",
 	"type": "module",
+
+	"repository": {
+		"url": "https://github.com/nuejs/nue",
+		"directory": "packages/nuekit",
+		"type": "git"
+  },
 
 	"bin": {
 		"nue": "./src/cli.js"
