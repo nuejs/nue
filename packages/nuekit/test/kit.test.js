@@ -3,15 +3,15 @@ import { buildJS } from '../src/builder.js'
 import { createSite } from '../src/site.js'
 
 import { createKit } from '../src/nuekit.js'
-import { syncNueDir } from '../src/init.js'
 import { promises as fs } from 'node:fs'
 import { join, parse } from 'node:path'
+import { init } from '../src/init.js'
 
 // temporary directory
 const root = '_test'
 
 // setup and teardown
-beforeAll(async () => await fs.mkdir(root))
+beforeAll(async () => await fs.mkdir(root, { recursive: true }))
 afterAll(async () => await fs.rm(root, { recursive: true, force: true }))
 
 // helper function for creating files to the root directory
@@ -165,10 +165,11 @@ test('getRequestPaths', async () => {
 })
 
 
-test('@nue files', async () => {
-  await syncNueDir(root)
+
+test('init dist/@nue dir', async () => {
+  await init({ dist: root, is_dev: true, esbuild: false })
   const names = await fs.readdir(join(root, '@nue'))
-  expect(names.length).toBeGreaterThan(5)
+  expect(names.length).toBeGreaterThan(7)
 })
 
 
@@ -227,7 +228,7 @@ test('bundle', async() => {
   write('b.ts', 'import { foo } from "./a.js"; const bar = 10 + foo')
 
   // bun bundle
-  const opts = { path: `${root}/b.ts`, outdir: root, bundle: true }
+  const opts = { path: `./${root}/b.ts`, outdir: root, bundle: true }
   await buildJS(opts)
   expect(await read('b.js')).toInclude('var foo = 30')
 
@@ -239,11 +240,12 @@ test('bundle', async() => {
 test('syntax errors', async() => {
   const code = 'konst foo = 1'
   write('a.js', code)
-  const opts = { path: `${root}/a.js`, outdir: root }
+  const opts = { path: `./${root}/a.js`, outdir: root, silent: true }
 
   try {
     await buildJS(opts)
   } catch (e) {
+    console.info(e)
     expect(e.lineText).toBe(code)
   }
 

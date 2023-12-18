@@ -1,15 +1,15 @@
 
+import { parse as parseNue, compile as compileNue } from 'nuejs-core/index.js'
 import { log, colors, parseMarkdown, getAppDir, getParts } from './util.js'
 import { renderHead, getDefaultHTML, getDefaultSPA } from './layout.js'
-import { parse as parseNue, compile as compileNue } from 'nuejs-core'
 import { join, parse as parsePath, extname } from 'node:path'
 import { readStats, printTable, categorize } from './stats.js'
-import { minifyCSS, buildJS, minifyJS,  } from './builder.js'
 import { createServer, send } from './nueserver.js'
+import { minifyCSS, buildJS } from './builder.js'
 import { promises as fs } from 'node:fs'
 import { createSite } from './site.js'
-import { syncNueDir } from './init.js'
 import { fswatch } from './nuefs.js'
+import { init } from './init.js'
 
 // the HTML5 doctype
 const DOCTYPE = '<!doctype html>\n\n'
@@ -26,14 +26,10 @@ export async function createKit(args) {
   const { dist, port, read, copy, write, is_empty } = site
   const is_dev = !is_prod
 
-
   // make sure @nue dir has all the latest
-  try {
-    if (!args.dryrun) await fs.stat(join(dist, '@nue', 'app-router.js'))
+  if (!args.dryrun) await init({ dist, is_dev })
 
-  } catch {
-    await syncNueDir(dist, is_prod)
-  }
+
 
   async function setupStyles(dir, data) {
     const paths = await site.getAssets(dir, ['style', 'css'])
@@ -181,7 +177,7 @@ export async function createKit(args) {
     // else -> build()
     await buildJS({
       outdir: join(dist, file.dir),
-      path: join(root, path),
+      path: join('.', root, path),
       minify: is_prod,
       bundle
     })

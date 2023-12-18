@@ -27,7 +27,7 @@ export async function mountAll(reload_path) {
   const lib = els[0] ? await importAll(reload_path) : []
   if (!lib[0]) return
 
-  const { createApp } = await import('./js/nue.js')
+  const { createApp } = await import('./nue.js')
 
   for (const node of [...els]) {
     const name = node.getAttribute('island')

@@ -1,6 +1,6 @@
 {
 	"name": "nuekit",
-	"version": "0.1.3",
+	"version": "0.1.4",
 
 	"description": "The Nue framework for building websites and webapps",
 	"homepage": "https://nuejs.org",
@@ -16,11 +16,12 @@
 	"bin": {
 		"nue": "./src/cli.js"
   },
+
 	"scripts": {
 		"test": "cd test && bun test"
 	},
 	"dependencies": {
-		"nuejs-core": "^0.2.0",
+		"nuejs-core": "^0.3.0",
 		"diff-dom": "^5.0.6",
 		"js-yaml": "^4.1.0",
 		"marked": "^9.1.2"

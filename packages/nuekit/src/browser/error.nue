@@ -31,7 +31,7 @@
   }
 
   export async function showError(data) {
-    const { createApp } = await import('/@nue/js/nue.js')
+    const { createApp } = await import('/@nue/nue.js')
     // data.context = hilite(data).trim()
     const app = createApp(lib[0], data).append(document.body)
     loadCSS('/@nue/error.css', () => app.root.showModal())

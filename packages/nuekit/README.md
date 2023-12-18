@@ -26,7 +26,7 @@ Please see https://nuejs.org/docs/
 ### Roadmap
 The ultimate goal of Nue is to create a simpler and more powerful alternative to **Vercel**, **Gatsby**, and **Netlify**.
 
-![Nue Roadmap](https://nuejs.org/img/roadmap2-big.png)
+![Nue Roadmap](https://nuejs.org/img/roadmap3-big.png)
 
 
 ### Contributing

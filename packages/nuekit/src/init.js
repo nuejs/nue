@@ -1,72 +1,80 @@
 
-import { getBuilder, minifyJS } from './builder.js'
+import { compileFile as nueCompile} from 'nuejs-core/index.js'
 import { join, basename } from 'node:path'
 import { promises as fs } from 'node:fs'
-import { compileFile } from 'nuejs-core'
-import { log } from './util.js'
+import { log, colors } from './util.js'
+import { buildJS } from './builder.js'
 
 
-export async function syncNueDir(dist, is_prod) {
-  const root = new URL('.', import.meta.url).pathname
-  const assets = join(root, 'browser')
-  const nuedir = join(dist, '@nue')
+export async function init({ dist, is_dev, esbuild }) {
 
-  // make sure JS minifier exist in production
+  // directories
+  const cwd = process.cwd()
+  const srcdir = new URL('.', import.meta.url).pathname
+  const fromdir = join(srcdir, 'browser')
+  const outdir = join(cwd, dist, '@nue')
+  const minify = !is_dev
+
+  // init already done?
   try {
-    if (is_prod) await getBuilder()
-  } catch {
-    throw 'Bundler not found. Use Bun or install esbuild'
+    return await fs.stat(join(outdir, 'nue.js'))
+  } catch {}
+
+  // chdir hack (Bun does not support absWorkingDir)
+  process.chdir(srcdir)
+
+  // create outdir
+  await fs.mkdir(outdir, { recursive: true })
+
+  function print(name) {
+    console.log('  ', colors.gray(name))
   }
 
-  await fs.mkdir(nuedir, { recursive: true })
-
-  async function symlink(src, name) {
-    const target = join(nuedir, name || basename(src))
-    try {
-      await fs.symlink(src, target)
-      log('Created symlink', target)
-    } catch (e) {
-      if (e.code != 'EEXIST') throw e
-      else log('Exists', basename(src))
-    }
+  // file copy
+  async function copy(base, todir) {
+    await fs.copyFile(join(fromdir, base), join(todir, base))
+    print(base)
   }
 
-  // nue JS
-  const jsdir = join(nuedir, 'js')
-  await fs.mkdir(jsdir, { recursive: true })
-  await fs.copyFile(join(assets, 'nue.js'), join(jsdir, 'nue.js'))
+  // build/minify single file
+  async function buildFile(name) {
+    await buildJS({ path: join(fromdir, `${name}.js`), outdir, esbuild, minify })
+    print(`${name}.js`)
+  }
 
-  // production
-  if (is_prod) {
-    await minifyJS(join(assets, 'page-router.js'), nuedir)
-    await minifyJS(join(assets, 'app-router.js'), nuedir)
-    await minifyJS(join(assets, 'mount.js'), nuedir)
-
-    // do this later
-    // await minifyJS(join(root, '../../nuejs/src/browser/nue.js'), jsdir, true)
-
-  } else {
-    // await symlink(join(root, 'src'), 'js')
-
-    await symlink(join(assets, 'page-router.js'))
-    await symlink(join(assets, 'app-router.js'))
-    await symlink(join(assets, 'hotreload.js'))
-    await symlink(join(assets, 'mount.js'))
-    await symlink(join(assets, 'diffdom.js'))
-    await symlink(join(assets, 'error.css'))
-    await compileFile(join(assets, 'error.nue'), join(nuedir, 'error.js'))
+  // build package (from node_modules)
+  async function buildPackage(name, toname) {
+    await buildJS({
+      path: name,
+      bundle: true,
+      esbuild,
+      minify,
+      outdir,
+      toname
+    })
+    print(toname)
   }
 
 
+  // lets do it
+  log(`Initialize ${dist}`)
+
+  await buildPackage('nuejs-core', 'nue.js')
+  await buildPackage('diff-dom', 'diffdom.js')
+
+  await buildFile('page-router')
+  await buildFile('app-router')
+  await buildFile('mount')
+
+  // dev only
+  if (is_dev) {
+    await buildFile('hotreload')
+    await copy('error.css', outdir)
+    await nueCompile(join(fromdir, 'error.nue'), join(outdir, 'error.js'))
+  }
 
   // favicon
-  const favicon = join(dist, 'favicon.ico')
-  try {
-    await fs.stat(favicon)
+  await copy('favicon.ico', join(cwd, dist))
 
-  } catch {
-    await fs.copyFile(join(assets, 'favicon.ico'), favicon)
-    log('Added default /favicon.ico')
-  }
-
+  process.chdir(cwd)
 }
