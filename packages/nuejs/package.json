@@ -1,6 +1,6 @@
 {
 	"name": "nuejs-core",
-	"version": "0.2.0",
+	"version": "0.3.0",
 
 	"description": "The Nue framework for building user interfaces",
 	"homepage": "https://nuejs.org",
@@ -14,7 +14,7 @@
 	"license": "MIT",
 	"type": "module",
 
-	"main": "index.js",
+	"main": "src/browser/nue.js",
 
 	"scripts": {
 		"test": "cd test && bun test",

@@ -1,5 +1,7 @@
 
-<a href="https://nuejs.org"><img src="https://nuejs.org/logo.svg" width="80"></a>
+<a href="https://nuejs.org">
+  <img src="https://nuejs.org/img/nuejs-banner-big.png">
+</a>
 
 # Nue JS
 
