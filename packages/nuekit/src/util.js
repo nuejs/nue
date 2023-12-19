@@ -9,7 +9,7 @@ import yaml from 'js-yaml'
 export function parseMarkdown(raw, meta_only) {
   const [_, front, md] = raw.split(/---+\n/)
   const matter = front?.endsWith('---') ? front.slice(0, -3) : front
-  const meta = front ? yaml.load(matter) : {}
+  const meta = front && yaml.load(matter) || {}
 
   if (!meta.title) {
     marked.use({ walkTokens: function({ type, text }) {
