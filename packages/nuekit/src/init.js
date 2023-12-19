@@ -15,16 +15,20 @@ export async function init({ dist, is_dev, esbuild }) {
   const outdir = join(cwd, dist, '@nue')
   const minify = !is_dev
 
-  // init already done?
+  // create outdir
+  await fs.mkdir(outdir, { recursive: true })
+
+  // has all latest?
+  const latest = join(outdir, '.015')
   try {
-    return await fs.stat(join(outdir, 'nue.js'))
-  } catch {}
+    return await fs.stat(latest)
+  } catch {
+    await fs.writeFile(latest, '')
+  }
 
   // chdir hack (Bun does not support absWorkingDir)
   process.chdir(srcdir)
 
-  // create outdir
-  await fs.mkdir(outdir, { recursive: true })
 
   function print(name) {
     console.log('  ', colors.gray(name))

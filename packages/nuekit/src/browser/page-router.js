@@ -87,13 +87,17 @@ function $$(query, root=document) {
   return [ ...root.querySelectorAll(query)]
 }
 
+function hasStyle(sheet, sheets) {
+  return sheets.find(el => el.getAttribute('href') == sheet.getAttribute('href'))
+}
+
 function swapStyles(orig, styles) {
 
   // disable / enable
-  orig.forEach((el, i) => el.disabled = !styles.find(s => s.href == el.href))
+  orig.forEach((el, i) => el.disabled = !hasStyle(el, styles))
 
   // add new
-  return styles.filter(el => !orig.find(s => s.href == el.href))
+  return styles.filter(el => !hasStyle(el, orig))
 }
 
 const cache = {}
