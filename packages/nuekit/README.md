@@ -1,26 +1,31 @@
-<div align="center">
-  <a href="https://nuejs.org"><img src="https://nuejs.org/logo.svg" width="80"></a>
-  <h1 align="center" style="border:0">Nue</h1>
-  <h3 align="center">Simple Next.js and Astro alternative with universal hot-reloading</h3>
-</div>
 
-<p align="center">
-  <a aria-label="NPM version" href="https://www.npmjs.com/package/nuekit">
-    <img alt="" src="https://img.shields.io/npm/v/nuekit.svg?style=for-the-badge&labelColor=000000">
-  </a>
-  <a aria-label="License" href="https://github.com/nuejs/nue/blob/master/LICENSE">
-    <img alt="" src="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge&labelColor=000000">
-  </a>
-  <a aria-label="Join the community on GitHub" href="https://github.com/nuejs/nue/discussions">
-    <img alt="" src="https://img.shields.io/badge/Join%20the%20community-blueviolet.svg?style=for-the-badge&labelColor=000000&logoWidth=20">
-  </a>
-</p>
+<a href="https://nuejs.org">
+  <img src="https://nuejs.org/img/nue-banner-big.png">
+</a>
 
-<br>
+# Nue
+Nue(kit) is a static website generator and web application builder. It's an amazingly simple and powerful alternative to **Next.js** and **Astro**:
+
 
 ### Getting Started
 
 Please see https://nuejs.org/docs/
+
+
+### Why Nue?
+
+- [Improved development experience](https://nuejs.org/docs/why-nue/developer-experience.html)
+- [Standards-based development model](https://nuejs.org/docs/why-nue/closer-to-standards.html)
+- [Improved website performance](https://nuejs.org/docs/why-nue/website-performance.html)
+
+#### Notable features
+
+- [Universal hot-reloading](https://nuejs.org/docs/concepts/universal-hot-reloading.html)
+- [Hybrid app routing and page routing](https://nuejs.org/docs/concepts/client-side-navigation.html)
+- [Modular layout components](https://nuejs.org/docs/concepts/layout-components.html)
+- [JS/TypeScript modules](https://nuejs.org/docs/concepts/js-modules.html)
+- [Content collections](https://nuejs.org/docs/concepts/content-collections.html)
+- [Reactive islands](https://nuejs.org/docs/concepts/reactive-islands.html)
 
 
 ### Roadmap
