@@ -80,11 +80,15 @@ async function printHelp() {
   console.info(getHelp())
 }
 
+async function printVersion() {
+  log(`Nue ${await getVersion()} ${colors.green('•')} ${getEngine()}`)
+}
+
 async function runCommand(args) {
   const { createKit } = await import('./nuekit.js')
   const nue = await createKit(args)
   console.info('')
-  log('Engine:', colors.cyan(getEngine()))
+  await printVersion()
 
   // build
   const { cmd='serve' } = args
@@ -106,7 +110,7 @@ if (args.help) {
 
 // version
 } else if (args.version) {
-  console.info('Nue', await getVersion(), colors.gray('/'), getEngine())
+  await printVersion()
 
 // root is required
 } else if (!args.root) {
