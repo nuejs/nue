@@ -15,14 +15,15 @@ export async function init({ dist, is_dev, esbuild }) {
   const outdir = join(cwd, dist, '@nue')
   const minify = !is_dev
 
-  // create outdir
-  await fs.mkdir(outdir, { recursive: true })
 
   // has all latest?
-  const latest = join(outdir, '.015')
+  const latest = join(outdir, '.016')
   try {
     return await fs.stat(latest)
+
   } catch {
+    await fs.rmdir(outdir, { recursive: true })
+    await fs.mkdir(outdir)
     await fs.writeFile(latest, '')
   }
 
