@@ -24,7 +24,7 @@ export function getArgs(argv) {
   expandArgs(argv.slice(1)).forEach((arg, i) => {
 
     // skip
-    if (arg.endsWith('/cli.js') || arg == '--') {
+    if (arg.endsWith('/cli.js') || arg.endsWith('/nue') || arg == '--') {
 
     // test suite
     } else if (arg.endsWith('.test.js')) {

@@ -1,11 +1,11 @@
 
 import { parse as parseNue, compile as compileNue } from 'nuejs-core/index.js'
 import { log, colors, parseMarkdown, getAppDir, getParts } from './util.js'
+import { join, parse as parsePath, extname, basename } from 'node:path'
 import { renderHead, getDefaultHTML, getDefaultSPA } from './layout.js'
-import { join, parse as parsePath, extname } from 'node:path'
 import { readStats, printTable, categorize } from './stats.js'
 import { createServer, send } from './nueserver.js'
-import { minifyCSS, buildJS } from './builder.js'
+import { buildCSS, buildJS } from './builder.js'
 import { promises as fs } from 'node:fs'
 import { createSite } from './site.js'
 import { fswatch } from './nuefs.js'
@@ -35,7 +35,7 @@ export async function createKit(args) {
     const paths = await site.getAssets(dir, ['style', 'css'])
 
     if (data.inline_css) {
-      data.inline_css = await readAllCSS(paths)
+      data.inline_css = await buildAllCSS(paths)
 
       // prefetch global CSS
       if (data.prefetch_global_css) data.prefetch = await site.getStyles()
@@ -43,6 +43,15 @@ export async function createKit(args) {
     } else {
       data.styles = paths.map(path => path.replace('.style', '.css'))
     }
+  }
+
+  async function buildAllCSS(paths) {
+    const arr = []
+    for (const path of paths) {
+      const { css } = await processStyle({ path, ...parsePath(path)})
+      arr.push({ path, css })
+    }
+    return arr
   }
 
   async function setupScripts(dir, data) {
@@ -145,27 +154,13 @@ export async function createKit(args) {
   }
 
 
-  async function writePage(file) {
+  // processor methods
+  async function processPage(file) {
     const { dir, name, path } = file
     const data = await getPageData(path)
     const html = await renderPage(path, data)
     await write(html, dir, `${name}.html`)
     return html
-  }
-
-  async function renderNueCSS(path) {
-    const nuecss = await import('nuecss')
-    const raw = await read(path)
-    return nuecss.default(raw, { minify: is_prod })
-  }
-
-  async function readAllCSS(paths) {
-    const arr = []
-    for (const path of paths) {
-      const content = extname(path) == '.css' ? await read(path) : await renderNueCSS(path)
-      arr.push({ path, content })
-    }
-    return arr
   }
 
 
@@ -185,6 +180,13 @@ export async function createKit(args) {
     return { bundle }
   }
 
+  async function processStyle({ path, ext, name, dir}) {
+    const raw = await read(path)
+    const css = await buildCSS({ css: raw, ext, minify: is_prod })
+    await write(css, dir, `${name}.css`)
+    return { css }
+  }
+
 
   // the page user is currently working on
   let active_page
@@ -202,7 +204,7 @@ export async function createKit(args) {
 
     // markdown content
     if (file.is_md) {
-      const html = await writePage(file)
+      const html = await processPage(file)
       active_page = file
       return { html }
     }
@@ -218,24 +220,9 @@ export async function createKit(args) {
     // script
     if (file.is_ts || file.is_js) return await processScript(file)
 
-    // Nue CSS (not official yet)
-    if (file.is_style) {
-      const css = await renderNueCSS(path)
-      await write(css, dir, `${name}.css`)
-      return { css }
-    }
-
-    // Plain CSS
-    if (file.is_css) {
-      const css = await read(path)
-
-      // production -> minify
-      if (is_prod) return await write(minifyCSS(css), dir, base)
-
-      // development -> return for hot-reload
-      await copy(file)
-      return { css }
-    }
+    // style
+    const is_style = ['.css', '.styl', '.style'].includes(ext)
+    if (is_style) return await processStyle(file)
 
     // reactive component
     if (file.is_nue) {

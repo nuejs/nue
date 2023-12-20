@@ -1,7 +1,7 @@
 {
 	"name": "nuekit",
-	"version": "0.1.8",
-	"description": "The Nue framework for building websites and webapps",
+	"version": "0.2.0-dev",
+	"description": "The closer-to-standards web framework. Build sites and apps with less effort.",
 	"homepage": "https://nuejs.org",
 	"license": "MIT",
 	"type": "module",

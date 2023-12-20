@@ -44,7 +44,7 @@ export async function fswalk(root, _dir='', _ret=[]) {
   const files = await fs.readdir(join(root, _dir), { withFileTypes: true })
 
   for (const f of files) {
-    if (!ignore(f.name[0])) {
+    if (!ignore(f.name)) {
       const path = join(_dir, f.name)
       if (isDir(f)) await fswalk(root, path, _ret)
       else _ret.push(path)
@@ -54,8 +54,10 @@ export async function fswalk(root, _dir='', _ret=[]) {
 }
 
 
+const IGNORE = ['node_modules', 'package.json', 'bun.lockb', 'pnpm-lock.yaml']
+
 function ignore(name) {
-  return '._'.includes(name[0])
+  return '._'.includes(name[0]) || IGNORE.includes(name)
 }
 
 // TODO: real symdir detection

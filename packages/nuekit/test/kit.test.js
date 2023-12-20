@@ -179,11 +179,10 @@ test('inline CSS', async () => {
   await write('inline/app.yaml', 'inline_css: true')
   await write('inline/index.md', '# Hey')
   const data = await kit.getPageData('inline/index.md')
-
-
-  expect(data.inline_css[0]).toEqual({ path: "/inline/style.css", content: "body { margin: 0 }"})
+  expect(data.inline_css[0].path).toEqual('/inline/style.css')
   const html = await kit.renderPage('inline/index.md', data)
-  expect(html).toInclude('<style href="/inline/style.css">body { margin: 0 }</style>')
+  expect(html).toInclude('<style href="/inline/style.css">')
+  expect(html).toInclude('margin:')
 })
 
 
@@ -237,7 +236,7 @@ test('bundle', async() => {
   expect(await read('b.js')).toInclude('var foo = 30')
 })
 
-test('syntax errors', async() => {
+test('JS errors', async() => {
   const code = 'konst foo = 1'
   await write('a.js', code)
   const opts = { path: `./${root}/a.js`, outdir: root, silent: true }
@@ -245,7 +244,7 @@ test('syntax errors', async() => {
   try {
     await buildJS(opts)
   } catch (e) {
-    console.info(e)
+    // console.info(e)
     expect(e.lineText).toBe(code)
   }
 

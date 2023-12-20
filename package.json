@@ -3,11 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "license": "MIT",
-
   "workspaces": [
     "packages/*"
   ],
-
   "engines": {
     "bun": ">=1",
     "node": ">=18"

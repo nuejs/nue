@@ -21,20 +21,9 @@
     el.onload = fn
   }
 
-  function hilite({ lineText, column, length=1 }) {
-    const str = lineText
-    const offset = column + length
-
-    return str.slice(0, column) +
-      '<u>' + str.slice(column, offset) + '</u>' +
-      str.slice(offset)
-  }
-
   export async function showError(data) {
     const { createApp } = await import('/@nue/nue.js')
-    // data.context = hilite(data).trim()
     const app = createApp(lib[0], data).append(document.body)
     loadCSS('/@nue/error.css', () => app.root.showModal())
   }
-
 </script>

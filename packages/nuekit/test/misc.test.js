@@ -1,11 +1,29 @@
 
 
+import { buildCSS, findModule } from '../src/builder.js'
 import { parseMarkdown, getParts } from '../src/util.js'
 import { match } from '../src/browser/app-router.js'
 import { renderHead } from '../src/layout.js'
 import { getArgs } from '../src/cli.js'
 
 
+test('Lightning CSS errors', async () => {
+  if (!lcss) return
+
+  try {
+    await buildCSS({ css: 'body margin: 0 }', minify: true })
+  } catch (e) {
+    expect(e.lineText).toBe('body margin: 0 }')
+    expect(e.line).toBe(1)
+  }
+})
+
+test('Lightning CSS', async () => {
+  if (lcss) {
+    const css = await buildCSS({ css: 'body { margin: 0 }', minify: true })
+    expect(css).toBe('body{margin:0}')
+  }
+})
 
 test('CLI args', () => {
   const args = getArgs(['nue', 'build', '--verbose', '-pnve', 'joku.yaml'])
