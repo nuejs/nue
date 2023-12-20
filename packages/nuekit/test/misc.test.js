@@ -9,6 +9,23 @@ import { getArgs } from '../src/cli.js'
 const lcss = await findModule('lightningcss')
 const stylus = await findModule('stylus')
 
+test('Lightning CSS errors', async () => {
+  if (!lcss) return
+
+  try {
+    await buildCSS({ css: 'body margin: 0 }', minify: true })
+  } catch (e) {
+    expect(e.lineText).toBe('body margin: 0 }')
+    expect(e.line).toBe(1)
+  }
+})
+
+test('Lightning CSS', async () => {
+  if (lcss) {
+    const css = await buildCSS({ css: 'body { margin: 0 }', minify: true })
+    expect(css).toBe('body{margin:0}')
+  }
+})
 
 test('Stylus error', async () => {
   if (!stylus) return

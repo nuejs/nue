@@ -19,8 +19,8 @@
 	"dependencies": {
 		"diff-dom": "^5.0.6",
 		"js-yaml": "^4.1.0",
-		"marked": "^9.1.6",
-		"nuejs-core": "^0.3.0"
+		"nuejs-core": "^0.3.0",
+		"nuemark": "^0.1.0"
 	},
 	"engines": {
 		"bun": ">= 1",
