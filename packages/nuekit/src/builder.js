@@ -91,26 +91,39 @@ export async function findModule(name, path='') {
   not_found[name] = true
 }
 
-// convert Lightning errors to Nue errors to be displayed on client
-function parseCSSError({ source, loc, data}) {
-  return {
-    title: 'CSS syntax error',
-    text: `Type: ${data.type}`,
-    lineText: source.split('\n')[loc.line -1],
-    ...loc
-  }
-}
-
 
 export async function buildCSS({ css, ext, minify }) {
 
-  // not in use currently
+  // stylus
+  if (ext == '.styl') {
+    const stylus = await findModule('stylus')
+    if (!stylus) throw 'Module not found: "stylus"'
+
+    try {
+      process.stdout.write('🖌️')
+      return stylus.render(css, { compress: minify })
+
+    } catch({ message, stack }) {
+      const [l, col] = message.slice(7, message.indexOf('\n')).split(':')
+      throw {
+        title: 'Stylus syntax error',
+        text: stack.split('\n')[0],
+        lineText: css.split('\n')[l -1],
+        column: 1 * col,
+        line: 1 * l,
+      }
+    }
+  }
+
+  // Nue CSS (not public yet)
   if (ext == '.style') {
     const nuecss = await import('nuecss')
     return nuecss.default(css, { minify })
   }
 
   const mod = await findModule('lightningcss', 'node/index.mjs')
+
+  // Standard CSS
   if (!mod) return minify ? minifyCSS(css) : css
 
   // Lightning CSS
@@ -120,8 +133,13 @@ export async function buildCSS({ css, ext, minify }) {
     const include = mod.Features.Colors | mod.Features.Nesting
     return mod.transform({ code: Buffer.from(css), include, minify }).code?.toString()
 
-  } catch(e) {
-    throw parseCSSError(e)
+  } catch({ source, loc, data}) {
+    throw {
+      title: 'CSS syntax error',
+      lineText: source.split('\n')[loc.line -1],
+      text: data.type,
+      ...loc
+    }
   }
 }
 
