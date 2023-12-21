@@ -58,6 +58,7 @@ export function getAppDir(path) {
   return appdir == path ? '.' : appdir
 }
 
+// getDirs('a/b/c') --> ['a', 'a/b', 'a/b/c']
 export function getDirs(dir) {
   if (!dir) return []
   const els = dir.split(sep)

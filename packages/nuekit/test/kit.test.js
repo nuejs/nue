@@ -87,7 +87,7 @@ test('root styles', async () => {
 })
 
 
-test('subdirs', async () => {
+test('page assets', async () => {
   const site = await getSite()
   await write('blog/b.js')
   await write('blog/entry/c.js')
@@ -98,11 +98,15 @@ test('subdirs', async () => {
 })
 
 
-test('app data', async () => {
+test('get data', async () => {
+  await write('site.yaml', 'foo: 1')
+
   const site = await getSite()
-  await write('some/app.yaml', 'title: World')
-  const app_data = await site.getData('some')
-  expect(app_data.title).toBe('World')
+  await write('some/app.yaml', 'bar: 1')
+  await write('some/page/app.yaml', 'baz: 1')
+  const data = await site.getData('some/page')
+
+  expect(data).toEqual({ foo: 1, bar: 1, baz: 1 })
 })
 
 
@@ -128,21 +132,23 @@ test('content collection', async () => {
 test('layout components', async () => {
   const site = await getSite()
 
-  // global layout
   await write('layout.html', '<header/>')
-  const comps = await site.getLayoutComponents('blog')
+  await write('blog/layout.html', '<header/>')
+  await write('blog/entry/layout.html', '<header @name="c"/>')
+
+  // root layout
+  const comps = await site.getLayoutComponents()
   expect(comps.length).toBe(1)
   expect(comps[0].tagName).toBe('header')
 
-  // blog layout
-  await write('blog/layout.html', '<header/>')
+  // app layout
   const comps2 = await site.getLayoutComponents('blog')
   expect(comps2.length).toBe(2)
 
-  // two levels
-  await write('blog/second/layout.html', '<header/>')
-  const comps3 = await site.getLayoutComponents('blog/second')
-  expect(comps3.length).toBe(2)
+  // page layout
+  const comps3 = await site.getLayoutComponents('blog/entry')
+  expect(comps3.length).toBe(3)
+  expect(comps3[0].name).toBe('c')
 })
 
 

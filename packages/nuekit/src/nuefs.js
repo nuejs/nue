@@ -35,7 +35,7 @@ export async function fswatch(dir, onfile, onremove) {
 
     } catch (e) {
       if (e.errno == -2) await onremove(path)
-      else console.info(e)
+      else console.error(e)
     }
   })
 }

@@ -108,7 +108,7 @@ export async function createSite(args) {
 
 
   async function getAssets(dir, exts, to_ext) {
-    const dirs = [...self.globals, ...getDirs(dir)]
+    const dirs = [...self.globals, ...getDirs(dir || '.')]
     const key = ':' + dir + exts
     const arr = []
 
@@ -146,11 +146,12 @@ export async function createSite(args) {
     }
   }
 
-  self.getData = async function (appdir) {
-    if (!appdir || appdir == '.') return site_data
-
-    const app_data = await readData(`${appdir}/app.yaml`)
-    return { ...site_data, ...app_data }
+  self.getData = async function (pagedir) {
+    const data = { ...site_data }
+    for (const dir of getDirs(pagedir)) {
+      Object.assign(data, await readData(`${dir}/app.yaml`))
+    }
+    return data
   }
 
   self.walk = async function() {
@@ -163,13 +164,12 @@ export async function createSite(args) {
   }
 
   // get fromt matter data from all .md files on a directory
-  self.getContentCollection = async function (appdir) {
-    const key = 'coll:' + appdir
+  self.getContentCollection = async function (dir) {
+    const key = 'coll:' + dir
     if (cache[key]) return cache[key]
 
-
-    const paths = await fswalk(join(root, appdir))
-    const mds = paths.filter(el => el.endsWith('.md')).map(el => join(appdir, el))
+    const paths = await fswalk(join(root, dir))
+    const mds = paths.filter(el => el.endsWith('.md')).map(el => join(dir, el))
 
     const arr = []
     for (const path of mds) {
@@ -188,16 +188,14 @@ export async function createSite(args) {
     return await getAssets(dir, ['style', 'css'], 'css')
   }
 
-  self.getLayoutComponents = async function (appdir) {
-    const dirs = ['.']
-    if (appdir && appdir != '.') dirs.unshift(appdir)
+  self.getLayoutComponents = async function (pagedir) {
     const lib = []
 
-    for (const dir of dirs) {
+    for (const dir of ['.', ...getDirs(pagedir)]) {
       const path = join(dir, `layout.html`)
       try {
         const html = await read(path)
-        lib.push(...parseNue(html))
+        lib.unshift(...parseNue(html))
       } catch (e) {
         if (e.errno != NOT_FOUND && e.errno != ENOENT) {
           log.error('parse error', path)

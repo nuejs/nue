@@ -81,7 +81,7 @@ export async function createKit(args) {
     const { meta, content } = parseMarkdown(raw)
 
     const file = parsePath(path)
-    const dir = meta.appdir || file.dir || '.'
+    const dir = meta.appdir || file.dir
 
     // YAML data
     const data = { ...await site.getData(dir), content, ...getParts(path), ...meta }
