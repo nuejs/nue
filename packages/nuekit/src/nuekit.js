@@ -314,8 +314,8 @@ export async function createKit(args) {
         const ret = await processFile(file)
         if (ret) send({ ...file, ...getParts(file.path), ...ret })
       } catch (e) {
-        console.error(e)
         send({ error: e, ...file })
+        console.error(e)
       }
 
     // when a file/dir was removed
@@ -326,10 +326,15 @@ export async function createKit(args) {
       log('Removed', dpath)
     })
 
-    // server.once('error', e => { if (e.code == 'EADDRINUSE') {} })
+    try {
+      server.listen(port)
+      log(`http://localhost:${port}/`)
 
-    server.listen(port)
-    log(`http://localhost:${port}/`)
+    } catch (e) {
+      if (e.code != 'EADDRINUSE') console.error(e)
+      log.error(e.message, '\n')
+      process.exit()
+    }
   }
 
   async function stats() {
