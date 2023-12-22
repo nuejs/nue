@@ -11,7 +11,7 @@ export function parseComponent(input) {
   const self = { attr: {}, data: {} }
 
   // #id or .class
-  const i = name.search(/[\#\.!]/)
+  const i = name.search(/[\#\.]/)
 
   if (!i) {
     attribs.unshift(name)

@@ -5,27 +5,6 @@ import { renderIsland, render } from '../src/render.js'
 import { tags } from '../src/tags.js'
 
 
-test('syntax highlight', async () => {
-  try {
-    const nuecolor = await import('nuecolor')
-    const opts = { highlight: nuecolor.default }
-
-    // syntax block
-    const { html } = render(['``` md', '# hey', '```'], opts)
-    expect(html).toInclude('<pre><code class="language-md">')
-    expect(html).toInclude('<b class=hl-heading> hey</b>')
-
-    // code tabs
-    const tabs = tags.codetabs({ _: 't1, t2', content: ['# c1', '*c2*'], type: 'md' }, opts)
-    expect(tabs).toInclude('<a href="#tab-1">t1</a>')
-    expect(tabs).toInclude('<b class=hl-heading> c1</b>')
-    expect(tabs).toInclude('</code></pre>')
-
-  } catch(ignore) { console.info(ignore) /* highlighter not found */}
-
-
-})
-
 test('[!] img', () => {
   const img = tags['!']({ _: 'img.png' })
   expect(img).toStartWith('<img src="img.png"')
@@ -173,6 +152,14 @@ test('page island', () => {
 
 // page parsing
 
+test('[!] parse', () => {
+  const page = parsePage(['[! "/foo"]'])
+  const { data, name } = page.sections[0]
+  expect(data._).toBe('/foo')
+  expect(name).toBe('!')
+})
+
+
 test('parse page', () => {
   const page = parsePage(['# Hello', '## World', '[foo]: bar', '[hey foo=1]', '  bar: 2'])
   const { sections } = page
@@ -226,6 +213,7 @@ test('renderIsland', () => {
 
 // parsing components
 
+
 test('valueGetter', () => {
   const { str, getValue } = valueGetter(`foo="yo" bar="hey dude"`)
   expect(str).toBe('foo=:1: bar=:2:')
@@ -268,3 +256,23 @@ test('parseComponent', () => {
 
 })
 
+
+test('syntax highlight', async () => {
+  try {
+    const nuecolor = await import('nuecolor')
+    const opts = { highlight: nuecolor.default }
+
+    // syntax block
+    const { html } = render(['``` md', '# hey', '```'], opts)
+    expect(html).toInclude('<pre><code class="language-md">')
+    expect(html).toInclude('<b class=hl-heading> hey</b>')
+
+    // code tabs
+    const tabs = tags.codetabs({ _: 't1, t2', content: ['# c1', '*c2*'], type: 'md' }, opts)
+    expect(tabs).toInclude('<a href="#tab-1">t1</a>')
+    expect(tabs).toInclude('<b class=hl-heading> c1</b>')
+    expect(tabs).toInclude('</code></pre>')
+
+  } catch(ignore) { console.info(ignore) /* highlighter not found */ }
+
+})
