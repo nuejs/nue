@@ -1,14 +1,15 @@
 
 import { parse as parseNue, compile as compileNue } from 'nuejs-core/index.js'
-import { log, colors, parseMarkdown, getAppDir, getParts } from './util.js'
 import { join, parse as parsePath, extname, basename } from 'node:path'
 import { renderHead, getDefaultHTML, getDefaultSPA } from './layout.js'
 import { readStats, printTable, categorize } from './stats.js'
+import { log, colors, getAppDir, getParts } from './util.js'
 import { createServer, send } from './nueserver.js'
 import { buildCSS, buildJS } from './builder.js'
 import { promises as fs } from 'node:fs'
 import { createSite } from './site.js'
 import { fswatch } from './nuefs.js'
+import { nuemark } from 'nuemark'
 import { init } from './init.js'
 
 // the HTML5 doctype
@@ -76,15 +77,15 @@ export async function createKit(args) {
 
   async function getPageData(path) {
 
+    const file = parsePath(path)
+    const area_data = await site.getData(file.dir)
+
     // markdown
     const raw = await read(path)
-    const { meta, content } = parseMarkdown(raw)
-
-    const file = parsePath(path)
-    const dir = meta.appdir || file.dir
+    const { meta, html } = nuemark(raw, area_data)
 
     // YAML data
-    const data = { ...await site.getData(dir), content, ...getParts(path), ...meta }
+    const data = { ...area_data, content: html, ...getParts(path), ...meta }
 
     // content collection
     const cdir = data.content_collection
@@ -94,6 +95,7 @@ export async function createKit(args) {
     }
 
     // scripts & styling
+    const dir = meta.appdir || file.dir
     await setupScripts(dir, data)
     await setupStyles(dir, data)
 

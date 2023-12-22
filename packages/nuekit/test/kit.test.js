@@ -224,7 +224,7 @@ test('index.md', async() => {
 
   expect(html).toInclude('hotreload.js')
   expect(html).toInclude('<title>Hey</title>')
-  expect(html).toInclude('<h1>Hey</h1>')
+  expect(html).toInclude('<h1 id="hey">Hey')
 })
 
 

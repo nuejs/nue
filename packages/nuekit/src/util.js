@@ -1,24 +1,7 @@
 
 /* misc stuff. think shame.css */
 import { sep, parse } from 'node:path'
-import { marked } from 'marked'
-import yaml from 'js-yaml'
 
-
-// .md stuff will be lot cooler with Nuemark
-export function parseMarkdown(raw, meta_only) {
-  const [_, front, md] = raw.split(/---+\n/)
-  const matter = front?.endsWith('---') ? front.slice(0, -3) : front
-  const meta = front && yaml.load(matter) || {}
-
-  if (!meta.title) {
-    marked.use({ walkTokens: function({ type, text }) {
-      if (!meta.title && type == 'heading') meta.title = text
-    }})
-  }
-
-  return meta_only ? meta : { meta, content: marked(md || _) }
-}
 
 export function log(msg, extra='') {
   console.log(colors.green('✓'), msg, extra)

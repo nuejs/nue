@@ -1,0 +1,17 @@
+{
+  "name": "nuemark",
+  "version": "0.1.0-dev",
+  "description": "Markdown variant for rich, interactive content",
+  "homepage": "https://nuejs.org",
+  "license": "MIT",
+  "type": "module",
+  "repository": {
+    "url": "https://github.com/nuejs/nue",
+    "directory": "packages/nuemark",
+    "type": "git"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0",
+    "marked": "^9.1.2"
+  }
+}
