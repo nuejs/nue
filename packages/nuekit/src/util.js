@@ -38,7 +38,7 @@ export function getParts(path) {
 
 export function getAppDir(path) {
   const [ appdir ] = path.split(sep)
-  return appdir == path ? '.' : appdir
+  return appdir == path ? '' : appdir
 }
 
 // getDirs('a/b/c') --> ['a', 'a/b', 'a/b/c']

@@ -6,10 +6,10 @@ import { readStats, printTable, categorize } from './stats.js'
 import { log, colors, getAppDir, getParts } from './util.js'
 import { createServer, send } from './nueserver.js'
 import { buildCSS, buildJS } from './builder.js'
+import { parsePage, renderPage } from 'nuemark'
 import { promises as fs } from 'node:fs'
 import { createSite } from './site.js'
 import { fswatch } from './nuefs.js'
-import { nuemark } from 'nuemark'
 import { init } from './init.js'
 
 // the HTML5 doctype
@@ -77,15 +77,18 @@ export async function createKit(args) {
 
   async function getPageData(path) {
 
-    const file = parsePath(path)
-    const area_data = await site.getData(file.dir)
+    const { dir } = parsePath(path)
+    const data = await site.getData(dir)
 
     // markdown
     const raw = await read(path)
-    const { meta, html } = nuemark(raw, area_data)
+
+    // { meta, sections, headings, links }
+    const page = parsePage(raw.split('\n'), data)
+    const { meta } = page
 
     // YAML data
-    const data = { ...area_data, content: html, ...getParts(path), ...meta }
+    Object.assign(data, getParts(path), meta, { page })
 
     // content collection
     const cdir = data.content_collection
@@ -95,9 +98,9 @@ export async function createKit(args) {
     }
 
     // scripts & styling
-    const dir = meta.appdir || file.dir
-    await setupScripts(dir, data)
-    await setupStyles(dir, data)
+    const asset_dir = meta.appdir || dir
+    await setupScripts(asset_dir, data)
+    await setupStyles(asset_dir, data)
 
     return data
   }
@@ -106,10 +109,10 @@ export async function createKit(args) {
   async function renderSPA(index_path) {
 
     // data
+    const file = parsePath(index_path)
+    const dir = file.dir
     const appdir = getAppDir(index_path)
     const data = { ...await site.getData(appdir), ...getParts(index_path), is_spa: true }
-    const file = parsePath(index_path)
-    const dir = file.dir || '.'
 
     // scripts & styling
     await setupScripts(dir, data)
@@ -131,9 +134,13 @@ export async function createKit(args) {
   }
 
   // Markdown- based multi-page application page
-  async function renderPage(path, data) {
-    const appdir = data.appdir || getAppDir(path)
-    const lib = await site.getLayoutComponents(appdir)
+  async function renderMPA(path, data) {
+    const file = parsePath(path)
+    const dir = data.appdir || file.dir
+    const lib = await site.getLayoutComponents(dir)
+
+    const { html } = renderPage(data.page, { data, lib })
+    data.content = html
 
     function render(name, def) {
       const layout = lib.find(el => el.tagName == name) || def && parseNue(def)[0]
@@ -160,7 +167,7 @@ export async function createKit(args) {
   async function processPage(file) {
     const { dir, name, path } = file
     const data = await getPageData(path)
-    const html = await renderPage(path, data)
+    const html = await renderMPA(path, data)
     await write(html, dir, `${name}.html`)
     return html
   }
@@ -254,7 +261,8 @@ export async function createKit(args) {
 
   // generate single path
   async function gen(path, is_bulk) {
-    await processFile({ path, ...parsePath(path) }, is_bulk)
+    const page = await processFile({ path, ...parsePath(path) }, is_bulk)
+    return page.html
   }
 
   // collect data
@@ -348,7 +356,7 @@ export async function createKit(args) {
   return {
 
     // for testing only
-    gen, getPageData, renderPage, renderSPA,
+    gen, getPageData, renderMPA, renderSPA,
 
     // public API
     build, serve, stats, dist,

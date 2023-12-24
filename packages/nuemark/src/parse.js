@@ -4,6 +4,7 @@ import { parseComponent } from './component.js'
 import { marked } from 'marked'
 
 
+// { meta, sections, headings, links }
 export function parsePage(lines) {
   const sections = [], headings = [], links = {}
   const { meta, rest } = parseMeta(lines)

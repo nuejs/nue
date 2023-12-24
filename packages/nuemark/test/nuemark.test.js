@@ -2,10 +2,25 @@
 import { parseComponent, valueGetter, parseAttr } from '../src/component.js'
 import { parseMeta, parseBlocks, parsePage } from '../src/parse.js'
 import { renderIsland, render } from '../src/render.js'
-import { tags } from '../src/tags.js'
+import { tags, getGridCols } from '../src/tags.js'
 
+
+test('[grid]', () => {
+  const html = tags.grid({ content: 'abcdefg'.split(''), attr: { class: 'foo' } })
+  expect(html).toInclude('<section class="grid foo" style="--cols: 1fr 1fr 1fr"')
+  expect(html).toInclude('<div style="--colspan: 3"><p>g</p>')
+})
+
+test('grid columns', () => {
+  const grid = getGridCols(5, 'a')
+  expect(grid.cols).toBe('1fr 1fr')
+  expect(grid.colspan).toBe(2)
+})
 
 test('[!] img', () => {
+  const icon = tags['!']({ _: 'cat' })
+  expect(icon).toStartWith('<img src="/img/cat.svg"')
+
   const img = tags['!']({ _: 'img.png' })
   expect(img).toStartWith('<img src="img.png"')
 
@@ -91,14 +106,13 @@ test('[section]', () => {
 
   const double = tags.section({ attr, data, content: ['foo', 'bar'] })
   expect(double).toInclude('<section id="epic">')
-  expect(double).toInclude('block block-2')
 })
 
 test('[section] with nested component', () => {
   const content = ['# Hello', '## World\n[image "joo.png"]']
   const html = tags.section({ content })
   expect(html).toInclude('<h1 id="hello">')
-  expect(html).toInclude('block block-2')
+  expect(html).toInclude('<div><h2 id="world">')
   expect(html).toInclude('img src="joo.png"')
 })
 
@@ -111,9 +125,9 @@ test('[table]', () => {
 })
 
 test('[button]', () => {
-  const html = tags.button({ label: 'Hey'})
+  const html = tags.button({ label: '*Hey*'})
   expect(html).toInclude('<a href="#" role="button">')
-  expect(html).toInclude('Hey')
+  expect(html).toInclude('<em>Hey</em>')
 })
 
 
@@ -121,7 +135,7 @@ test('[button]', () => {
 
 test('generic section', () => {
   const { html } = render(['[.info]', '  # Hello', '  para', '  ---', '  World'])
-  expect(html).toInclude('block block-2')
+  expect(html).toInclude('<section class="info">')
   expect(html).toInclude('<p>para</p>')
 })
 
@@ -187,9 +201,10 @@ test('parse single content block', () => {
 
 
 test('parseMeta', () => {
-  expect(parseMeta([''])).toEqual({ rest: [''] })
 
-  expect(parseMeta(['# Hey'])).toEqual({ rest: ['# Hey'] })
+  expect(parseMeta(['']).rest).toEqual([''])
+
+  expect(parseMeta(['# Hey']).rest).toEqual(['# Hey'])
 
   expect(parseMeta(['---', 'title: foo', '---']))
     .toEqual({ meta: { title: "foo" }, rest: [] })

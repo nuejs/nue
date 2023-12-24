@@ -4,16 +4,15 @@ import { tags, elem } from './tags.js'
 import { marked } from 'marked'
 
 
-export function render(lines, opts={}) {
+export function renderPage(page, opts) {
   const { data={}, lib=[], highlight } = opts
 
   // syntax highlighter
   marked.setOptions({ highlight })
 
-  const page = parsePage(lines)
-
   const html = page.sections.map(el => {
     const { name, md, attr } = el
+
     const comp = name && lib.find(el => el.name == name)
     const alldata = { ...data, ...el.data, attr }
     const tag = tags[name]
@@ -22,7 +21,7 @@ export function render(lines, opts={}) {
     return tag ? tag(alldata, opts) :
 
       // server component
-      comp ? comp.render(alldata, opts) :
+      comp ? comp.render(alldata, lib) :
 
       // markdown
       md ? renderMD(md, mergeLinks(page.links, data.links)) :
@@ -37,6 +36,13 @@ export function render(lines, opts={}) {
 
   return { ...page, html }
 }
+
+export function render(lines, opts={}) {
+  const page = parsePage(lines)
+  return renderPage(page, opts)
+}
+
+// export function renderPage()
 
 
 export function renderIsland({ name, attr, data }) {

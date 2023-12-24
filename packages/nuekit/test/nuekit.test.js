@@ -129,6 +129,15 @@ test('content collection', async () => {
 })
 
 
+test('nuemark components', async () => {
+  await write('layout.html', '<a @name="foo">Hey</a>')
+  await write('index.md', '[foo]')
+
+  const kit = await getKit()
+  const html = await kit.gen('index.md')
+  expect(html).toInclude('<a>Hey</a>')
+})
+
 test('layout components', async () => {
   const site = await getSite()
 
@@ -186,7 +195,7 @@ test('inline CSS', async () => {
   await write('inline/index.md', '# Hey')
   const data = await kit.getPageData('inline/index.md')
   expect(data.inline_css[0].path).toEqual('/inline/style.css')
-  const html = await kit.renderPage('inline/index.md', data)
+  const html = await kit.renderMPA('inline/index.md', data)
   expect(html).toInclude('<style href="/inline/style.css">')
   expect(html).toInclude('margin:')
 })

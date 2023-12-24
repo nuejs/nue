@@ -1,6 +1,7 @@
 
 import { render } from './src/render.js'
 
+
 // returns { html, meta, sections, headings, links }
 export function nuemark(str, opts) {
   return render(str.split('\n'), opts)
@@ -11,3 +12,5 @@ export function nuemarkdown(str, opts) {
   return nuemark(str, opts).html
 }
 
+export { renderPage } from './src/render.js'
+export { parsePage } from './src/parse.js'

@@ -28,7 +28,9 @@ import { nuemarkdown } from '..'
 export const tags = {
 
   // [button href="/kamaa" "Jotain"]
-  button({ attr, href="#", label, _ }) {
+  button(data, opts) {
+    const { attr, href="#", content=[] } = data
+    const label = parseInline(data.label || data._ || content[0] || '')
     return elem('a', { ...attr, href, role: 'button' }, label || _)
   },
 
@@ -49,13 +51,26 @@ export const tags = {
     return elem('table', attr, thead + elem('tbody', join(trs)))
   },
 
-  section(data, opts) {
-    const { content=[]} = data
-    const bc = data.block_class || 'block'
+  grid(data, opts) {
+    const { attr, content=[], _='a'} = data
+    const { cols, colspan } = getGridCols(content.length, _)
+    const extra = { style: `--cols: ${cols}`, class: concat('grid', attr.class) }
 
     const divs = content.map((str, i) => {
+      const attr = colspan && i + 1 == content.length ? { style: `--colspan: ${colspan}` } : {}
+      return elem('div', attr, nuemarkdown(str, opts))
+    })
+
+    return elem('section', { ...attr, ...extra }, join(divs))
+  },
+
+  section(data, opts) {
+    const { content=[]} = data
+    // const bc = data.block_class || 'block'
+    // { class: `${bc} ${bc}-${i + 1}` }
+    const divs = content.map((str, i) => {
       const html = nuemarkdown(str, opts)
-      return content[1] ? elem('div', { class: `${bc} ${bc}-${i + 1}` }, html) : html
+      return content[1] ? elem('div', html) : html
     })
 
     return elem('section', data.attr, join(divs))
@@ -159,9 +174,12 @@ export const tags = {
 
 // ! shortcut
 tags['!'] = function(data, opts) {
-  const mime = getMimeType(data._ || '')
-  const tag = data.sources || mime?.startsWith('video') ? tags.video : tags.image
-  return tag(data, opts)
+  const src = data._
+  const mime = getMimeType(src)
+
+  return data.sources || mime.startsWith('video') ? tags.video(data, opts) :
+    src?.indexOf('.') == -1 ? tags.icon(data) :
+    tags.image(data, opts)
 }
 
 
@@ -194,6 +212,10 @@ function join(els, separ='\n') {
   return els?.join ? els.join(separ) : els
 }
 
+// concat two strings (for class attribute)
+function concat(a, b) {
+  return join([a || '', b || ''], ' ').trim()
+}
 
 export function createPicture(img_attr, data) {
   const { small, offset=768 } = data
@@ -206,6 +228,19 @@ export function createPicture(img_attr, data) {
 
   sources.push(elem('img', img_attr))
   return elem('picture', !data.caption && data.attr, join(sources))
+}
+
+// more complex grids later
+const GRID = {
+  a: [2, 3, 2, '2/2', 3, '3/3', 4, 3],
+  b: [2, '2/2', '3/3']
+}
+
+export function getGridCols(am, variant='a') {
+  const val = GRID[variant][am -2]
+  if (!val) return { cols: '1fr 1fr' }
+  const [count, span] = val.toString().split('/')
+  return { cols: Array(1 * count).fill('1fr').join(' '), colspan: 1 * span }
 }
 
 
@@ -227,7 +262,7 @@ const MIME = {
   mp4: 'video/mp4',
 }
 
-function getMimeType(path) {
+function getMimeType(path='') {
   const type = path.slice(path.lastIndexOf('.') + 1)
   return MIME[type] || `image/${type}`
 }
