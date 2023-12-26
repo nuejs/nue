@@ -1,34 +1,41 @@
 
+import { parseAttr, parseComponent } from './component.js'
 import { loadAll, load as parseYAML } from 'js-yaml'
-import { parseComponent } from './component.js'
 import { marked } from 'marked'
 
 
 // { meta, sections, headings, links }
 export function parsePage(lines) {
-  const sections = [], headings = [], links = {}
   const { meta, rest } = parseMeta(lines)
 
-  for (const block of parseBlocks(rest)) {
-    const { name, data, body } = block
+  const sections = parseSections(rest)
+  const headings = [], links = {}
 
-    if (body) {
-      const content = body.join('\n')
-      if (name) Object.assign(data, getNestedData(content))
-      else data.content = content.split('---')
-      delete block.body
-    }
+  for (const section of sections) {
+    const blocks = section.blocks = []
 
-    // component
-    if (data) {
-      sections.push(block)
+    for (const block of parseBlocks(section.lines)) {
+      const { name, data, body } = block
 
-    // markdown
-    } else {
-      const tokens = marked.lexer(block.join('\n'))
-      Object.assign(links, tokens.links)
-      headings.push(...tokens.filter(el => el.type == 'heading').map(parseHeading))
-      sections.push({ md: block, tokens })
+      // component body
+      if (body) {
+        const content = body.join('\n')
+        if (name) Object.assign(data, getNestedData(content))
+        else data.content = content.split('---')
+        delete block.body
+      }
+
+      // component
+      if (data) {
+        blocks.push(block)
+
+      // markdown
+      } else {
+        const tokens = marked.lexer(block.join('\n'))
+        Object.assign(links, tokens.links)
+        headings.push(...tokens.filter(el => el.type == 'heading').map(parseHeading))
+        blocks.push({ md: block, tokens })
+      }
     }
   }
 
@@ -59,13 +66,16 @@ export function createHeaderId(text) {
 
 // front matter
 export function parseMeta(lines) {
-  const isFront = (line) => line == '---'
   var start = 0, end = -1
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i]
-    if (!start) { if (isFront(line)) start = i + 1 }
-    else if (isFront(line)) { end = i; break }
+    const is_front = line == '---'
+    if (!start) {
+      if (is_front) start = i + 1
+      else if (line.trim()) return { rest: lines, meta: {} }
+    }
+    else if (is_front) { end = i; break }
   }
 
   const front = start ? lines.slice(start, end).join('\n') : ''
@@ -91,6 +101,30 @@ function isYAML(str) {
   if (str.trimLeft()[0] == '-') return true
   const i = str.indexOf(':')
   return i > 0 && /^\w+$/.test(str.slice(0, i))
+}
+
+
+export function parseSections(lines) {
+  const len = lines.length
+  const sections = []
+  let section = []
+
+  function push(attr) {
+    sections.push({ lines: section, attr })
+  }
+  push()
+
+  lines.forEach((line, i) => {
+    if (line.startsWith('---')) {
+      section = [] // must be before push
+      push(line.length > 3 ? parseAttr(line.slice(3).trim()) : null)
+
+    } else {
+      section.push(line)
+    }
+  })
+
+  return sections
 }
 
 export function parseBlocks(lines) {

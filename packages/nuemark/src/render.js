@@ -1,43 +1,55 @@
 
 import { parsePage, parseHeading } from './parse.js'
+import { parseAttr } from './component.js'
 import { tags, elem } from './tags.js'
 import { marked } from 'marked'
 
 
 export function renderPage(page, opts) {
-  const { data={}, lib=[], highlight } = opts
+  const { lib=[], highlight } = opts
+  const data = { ...opts.data, ...page.meta }
+  const draw_sections = data?.draw_sections || page.sections[1]
+  const section_attr = data.sections || []
+  const ret = []
 
   // syntax highlighter
   marked.setOptions({ highlight })
 
-  const html = page.sections.map(el => {
-    const { name, md, attr } = el
+  // section_attr
+  page.sections.forEach((section, i) => {
 
-    const comp = name && lib.find(el => el.name == name)
-    const alldata = { ...data, ...el.data, attr }
-    const tag = tags[name]
+    const html = section.blocks.map(el => {
+      const { name, md, attr } = el
 
-    // tag
-    return tag ? tag(alldata, opts) :
+      const comp = name && lib.find(el => el.name == name)
+      const alldata = { ...data, ...el.data, attr }
+      const tag = tags[name]
 
-      // server component
-      comp ? comp.render(alldata, lib) :
+      // tag
+      return tag ? tag(alldata, opts) :
 
-      // markdown
-      md ? renderMD(md, mergeLinks(page.links, data.links)) :
+        // server component
+        comp ? comp.render(alldata, lib) :
 
-      // island
-      name ? renderIsland(el) :
+        // markdown
+        md ? renderMarkdown(md, mergeLinks(page.links, data.links)) :
 
-      // section
-      tags.section(alldata, opts)
+        // island
+        name ? renderIsland(el) :
 
-  }).join('\n')
+        // section
+        tags.section(alldata, opts)
 
-  return { ...page, html }
+    }).join('\n')
+
+    const attr = section.attr || parseAttr(section_attr[i] || '')
+    ret.push(draw_sections ? elem('section', attr, html) : html)
+  })
+
+  return { ...page, html: ret.join('\n') }
 }
 
-export function render(lines, opts={}) {
+export function renderLines(lines, opts={}) {
   const page = parsePage(lines)
   return renderPage(page, opts)
 }
@@ -58,7 +70,7 @@ export function renderIsland({ name, attr, data }) {
 
   https://github.com/markedjs/marked/issues/3135
 */
-export function renderMD(md, links) {
+export function renderMarkdown(md, links) {
   md.push('')
 
   for (const key in links) {

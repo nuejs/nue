@@ -1,7 +1,7 @@
 
+import { parseMeta, parseBlocks, parseSections, parsePage } from '../src/parse.js'
 import { parseComponent, valueGetter, parseAttr } from '../src/component.js'
-import { parseMeta, parseBlocks, parsePage } from '../src/parse.js'
-import { renderIsland, render } from '../src/render.js'
+import { renderIsland, renderLines } from '../src/render.js'
 import { tags, getGridCols } from '../src/tags.js'
 
 
@@ -41,14 +41,14 @@ test('[video] simple', () => {
 
 test('[tabs] attr', () => {
   const html = tags.tabs({ _: 't1, t2', name: 'hey', content: ['c1', 'c2'] })
-  expect(html).toInclude('<section is="nue-tabs" class="tabs">')
+  expect(html).toInclude('<section is="nuemark-tabs" class="tabs">')
   expect(html).toInclude('<nav><a href="#hey-1">t1</a>')
   expect(html).toInclude('<li id="hey-2"><p>c2</p>')
 })
 
 test('[tabs] body', () => {
   const html = tags.tabs({ content: 'abcd'.split(''), attr: { id: 'hey' } })
-  expect(html).toInclude('<section is="nue-tabs" class="tabs" id="hey">')
+  expect(html).toInclude('<section is="nuemark-tabs" class="tabs" id="hey">')
   expect(html).toInclude('<nav><a href="#tab-1"><p>a</p>')
   expect(html).toInclude('<li id="tab-2"><p>d</p>')
 })
@@ -131,59 +131,94 @@ test('[button]', () => {
 })
 
 
+
 // page rendering
+test('render sections', () => {
+  const lines = ['a', 'a', '--- #a.b', 'b', 'b', '---', 'c', 'c']
+  const { html } = renderLines(lines, { data: { sections: ['#foo']}})
+  expect(html).toStartWith('<section id="foo"><p>a')
+  expect(html).toInclude('<section id="a" class="b"><p>b')
+  expect(html).toInclude('<section><p>c')
+})
 
 test('generic section', () => {
-  const { html } = render(['[.info]', '  # Hello', '  para', '  ---', '  World'])
+  const { html } = renderLines(['[.info]', '  # Hello', '  para', '  ---', '  World'])
   expect(html).toInclude('<section class="info">')
   expect(html).toInclude('<p>para</p>')
 })
 
-
 test('reflinks', () => {
   const links = { dude: '//hey.net "boom"' }
   const lines = ['[hey][yolo] [dude][dude]', '[.foo]', '[yolo]: yolo.co "lol"']
-  const { html } = render(lines, { data: { links } })
+  const { html } = renderLines(lines, { data: { links } })
 
   expect(html).toInclude('<a href="yolo.co" title="lol">hey</a>')
   expect(html).toInclude('<a href="//hey.net" title="boom">dude</a>')
 })
 
 test('header id', () => {
-  const { html } = render(['# Hey baari on jotain {#custom}'])
+  const { html } = renderLines(['# Hey baari on jotain {#custom}'])
   expect(html).toInclude('<h1 id="custom">')
   expect(html).toInclude('<a href="#custom"')
 })
 
 
 test('page island', () => {
-  const { html } = render(['yo', '[hey]', '  bar: 2'])
+  const { html } = renderLines(['yo', '[hey]', '  bar: 2'])
   expect(html).toInclude('<p>yo</p>')
   expect(html).toInclude('nue-island island="hey"')
   expect(html).toInclude('{"bar":2}')
 })
 
+// rendering blocks
+test('renderIsland', () => {
+  const attr = { id: 'epic' }
+  const data = { count: 10 }
+  const island = renderIsland({ name: 'foo', attr, data })
+  expect(island).toInclude('id="epic" island="foo"')
+  expect(island).toInclude('{"count":10}')
+})
+
+
 
 // page parsing
+test('parse sections', () => {
+  const els = parseSections(['a', 'a'])
+  expect(els[0].lines).toEqual(['a', 'a'])
+  expect(els.length).toBe(1)
+})
 
-test('[!] parse', () => {
-  const page = parsePage(['[! "/foo"]'])
-  const { data, name } = page.sections[0]
-  expect(data._).toBe('/foo')
-  expect(name).toBe('!')
+test('parse sections', () => {
+  const lines = ['a', 'a', '--- #a.b', 'b', 'b', '---', 'c', 'c']
+  const sections = parseSections(lines)
+  const [a, b, c] = sections
+  expect(sections.length).toBe(3)
+  expect(a.lines).toEqual(['a', 'a'])
+  expect(b.attr).toEqual({ id: "a", class: "b" })
+  expect(c.lines).toEqual(['c', 'c'])
 })
 
 
 test('parse page', () => {
   const page = parsePage(['# Hello', '## World', '[foo]: bar', '[hey foo=1]', '  bar: 2'])
-  const { sections } = page
 
   expect(page.links).toHaveProperty('foo')
   expect(page.headings.length).toBe(2)
-  expect(sections.length).toBe(2)
-  expect(sections[1].data).toEqual({ foo: 1, bar: 2 })
+
+  const { blocks } = page.sections[0]
+  expect(blocks.length).toBe(2)
+  expect(blocks[1].data).toEqual({ foo: 1, bar: 2 })
 })
 
+
+test('parse page: ! component', () => {
+  const page = parsePage(['[! "/foo"]'])
+  const { data, name } = page.sections[0].blocks[0]
+  expect(data._).toBe('/foo')
+  expect(name).toBe('!')
+})
+
+// blocks within sections
 test('parse blocks', () => {
   const blocks = parseBlocks(['Hello', '[foo]', '  bar: 10', 'World'])
   const [intro, comp, outro] = blocks
@@ -215,15 +250,7 @@ test('parseMeta', () => {
 
 
 
-// rendering blocks
 
-test('renderIsland', () => {
-  const attr = { id: 'epic' }
-  const data = { count: 10 }
-  const island = renderIsland({ name: 'foo', attr, data })
-  expect(island).toInclude('id="epic" island="foo"')
-  expect(island).toInclude('{"count":10}')
-})
 
 
 // parsing components
@@ -272,13 +299,15 @@ test('parseComponent', () => {
 })
 
 
+// Nuemark syntax hilite (later)
+
 test('syntax highlight', async () => {
   try {
     const nuecolor = await import('nuecolor')
     const opts = { highlight: nuecolor.default }
 
     // syntax block
-    const { html } = render(['``` md', '# hey', '```'], opts)
+    const { html } = renderLines(['``` md', '# hey', '```'], opts)
     expect(html).toInclude('<pre><code class="language-md">')
     expect(html).toInclude('<b class=hl-heading> hey</b>')
 

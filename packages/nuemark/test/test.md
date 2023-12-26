@@ -1,12 +1,14 @@
 
+---
+draw_sections: true
+sections: [.a#b, .c#d]
+---
 
-# Hey
+First
 
+--- #hey.man
 
-[codetabs tabs="yo | boy"]
-  hey
-  ---
-  joe
+Secondly
 
-[.some#dorg]
-  kamaa
+[! foo]
+  alt: jotain

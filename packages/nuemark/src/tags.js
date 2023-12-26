@@ -148,7 +148,7 @@ export const tags = {
       return elem('li', { id: `${name}-${i+1}` }, html )
     })
 
-    return elem('section', { is: 'nue-tabs', class: 'tabs', ...attr },
+    return elem('section', { is: 'nuemark-tabs', class: 'tabs', ...attr },
       elem('nav', join(tabs)) +
       elem('ul', join(panes))
     )
