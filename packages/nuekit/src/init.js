@@ -10,7 +10,8 @@ export async function init({ dist, is_dev, esbuild }) {
 
   // directories
   const cwd = process.cwd()
-  const srcdir = new URL('.', import.meta.url).pathname
+  const pathname = new URL('.', import.meta.url).pathname
+  const srcdir = process.platform === "win32" && pathname.startsWith('/') ? pathname.slice(1) : pathname
   const fromdir = join(srcdir, 'browser')
   const outdir = join(cwd, dist, '@nue')
   const minify = !is_dev
@@ -22,7 +23,7 @@ export async function init({ dist, is_dev, esbuild }) {
     return await fs.stat(latest)
 
   } catch {
-    await fs.rmdir(outdir, { recursive: true })
+    await fs.rm(outdir, { recursive: true, force: true })
     await fs.mkdir(outdir, { recursive: true })
     await fs.writeFile(latest, '')
   }
