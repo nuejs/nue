@@ -65,7 +65,8 @@ export function getArgs(argv) {
 // read from package.json
 async function getVersion() {
   const { promises } = await import('fs')
-  const path = new URL('../package.json', import.meta.url).pathname
+  const pathname = new URL('../package.json', import.meta.url).pathname
+  const path = pathname.startsWith('/') ? pathname.slice(1) : pathname
   const json = await promises.readFile(path, 'utf-8')
   return JSON.parse(json).version
 }

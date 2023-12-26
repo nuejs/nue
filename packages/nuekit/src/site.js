@@ -9,6 +9,8 @@ import yaml from 'js-yaml'
 
 // file not found error code
 const NOT_FOUND = -2
+// file not found error code in windows
+const ENOENT = -4058
 
 export async function createSite(args) {
 
@@ -38,7 +40,7 @@ export async function createSite(args) {
       const raw = await read(path)
       return yaml.load(raw)
     } catch (e) {
-      if (e.errno != NOT_FOUND) {
+      if (e.errno != NOT_FOUND && e.errno!= ENOENT) {
         throw `YAML parse error in ${path}`
       } else if (path == env) throw e
     }
@@ -73,7 +75,6 @@ export async function createSite(args) {
     self.is_empty = true
   }
 
-
   async function write(content, dir, filename) {
     const todir = join(dist, dir)
 
@@ -84,7 +85,7 @@ export async function createSite(args) {
       return to
 
     } catch (e) {
-      if (e.errno != NOT_FOUND) throw e
+      if (e.errno != NOT_FOUND && e.errno!= ENOENT) throw e
       await fs.mkdir(todir, { recursive: true })
       return await write(content, dir, filename)
     }
@@ -99,7 +100,7 @@ export async function createSite(args) {
       !is_bulk && !self.is_empty && log(join(dir, base))
 
     } catch (e) {
-      if (e.errno != NOT_FOUND) throw e
+      if (e.errno != NOT_FOUND && e.errno!= ENOENT) throw e
       await fs.mkdir(join(dist, dir), { recursive: true })
       await copy(file)
     }
@@ -127,7 +128,7 @@ export async function createSite(args) {
         })
 
       } catch (e) {
-        if (e.errno != NOT_FOUND) return console.error(e)
+        if (e.errno != NOT_FOUND && e.errno!= ENOENT) return console.error(e)
       }
     }
 
@@ -198,7 +199,7 @@ export async function createSite(args) {
         const html = await read(path)
         lib.push(...parseNue(html))
       } catch (e) {
-        if (e.errno != NOT_FOUND) {
+        if (e.errno != NOT_FOUND && e.errno!= ENOENT) {
           log.error('parse error', path)
           console.error(e)
         }
