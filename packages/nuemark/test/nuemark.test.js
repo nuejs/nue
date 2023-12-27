@@ -3,7 +3,7 @@ import { parseMeta, parseBlocks, parseSections, parsePage } from '../src/parse.j
 import { parseComponent, valueGetter, parseAttr } from '../src/component.js'
 import { renderIsland, renderLines } from '../src/render.js'
 import { tags, getGridCols } from '../src/tags.js'
-
+import { nuemarkdown } from '..'
 
 test('[grid]', () => {
   const html = tags.grid({ content: 'abcdefg'.split(''), attr: { class: 'foo' } })
@@ -96,21 +96,21 @@ test('[image] basics', () => {
 })
 
 
-test('[section]', () => {
+test('[block]', () => {
   const attr = { id: 'epic' }
   const data = { count: 10 }
-  const single = tags.section({ attr, data, content: ['foo'] })
+  const single = tags.block({ attr, data, content: ['foo'] })
 
   expect(single).toInclude('<section id="epic">')
   expect(single).toInclude('<p>foo</p>')
 
-  const double = tags.section({ attr, data, content: ['foo', 'bar'] })
+  const double = tags.block({ attr, data, content: ['foo', 'bar'] })
   expect(double).toInclude('<section id="epic">')
 })
 
-test('[section] with nested component', () => {
+test('[block] with nested component', () => {
   const content = ['# Hello', '## World\n[image "joo.png"]']
-  const html = tags.section({ content })
+  const html = tags.block({ content })
   expect(html).toInclude('<h1 id="hello">')
   expect(html).toInclude('<div><h2 id="world">')
   expect(html).toInclude('img src="joo.png"')
@@ -298,6 +298,34 @@ test('parseComponent', () => {
 
 })
 
+/*
+  Required:
+
+    bun add react
+    bun add react-dom
+*/
+test('JSX component', async () => {
+  try {
+    // import React SSR (server side rendering) API method
+    const { renderToString } = await import('react-dom/server')
+
+    // import custom JSX components
+    const jsx = await import('./react-lib')
+
+    // make them compatible with Nuemark
+    const lib = Object.keys(jsx).map(name => {
+      return { name, render: (data) => renderToString(jsx[name](data)) }
+    })
+
+    // render JSX with Nuemark
+    const html = nuemarkdown('[Test]', { lib, data: { message: 'Hello' } })
+
+    expect(html).toBe('<h1 style="color:red">Hello</h1>')
+
+
+  // react not imported
+  } catch (ignored) {}
+})
 
 // Nuemark syntax hilite (later)
 
@@ -317,6 +345,8 @@ test('syntax highlight', async () => {
     expect(tabs).toInclude('<b class=hl-heading> c1</b>')
     expect(tabs).toInclude('</code></pre>')
 
-  } catch(ignore) { console.info(ignore) /* highlighter not found */ }
+  // highlighter not found
+  } catch(ignore) {}
 
 })
+

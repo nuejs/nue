@@ -51,20 +51,8 @@ export const tags = {
     return elem('table', attr, thead + elem('tbody', join(trs)))
   },
 
-  grid(data, opts) {
-    const { attr, content=[], _='a'} = data
-    const { cols, colspan } = getGridCols(content.length, _)
-    const extra = { style: `--cols: ${cols}`, class: concat('grid', attr.class) }
 
-    const divs = content.map((str, i) => {
-      const attr = colspan && i + 1 == content.length ? { style: `--colspan: ${colspan}` } : {}
-      return elem('div', attr, nuemarkdown(str, opts))
-    })
-
-    return elem('section', { ...attr, ...extra }, join(divs))
-  },
-
-  section(data, opts) {
+  block(data, opts) {
     const { content=[]} = data
     // const bc = data.block_class || 'block'
     // { class: `${bc} ${bc}-${i + 1}` }
@@ -168,6 +156,20 @@ export const tags = {
     })
 
     return tags.tabs(data, opts)
+  },
+
+  // maybe later
+  grid(data, opts) {
+    const { attr, content=[], _='a'} = data
+    const { cols, colspan } = getGridCols(content.length, _)
+    const extra = { style: `--cols: ${cols}`, class: concat('grid', attr.class) }
+
+    const divs = content.map((str, i) => {
+      const attr = colspan && i + 1 == content.length ? { style: `--colspan: ${colspan}` } : {}
+      return elem('div', attr, nuemarkdown(str, opts))
+    })
+
+    return elem('section', { ...attr, ...extra }, join(divs))
   },
 
 }

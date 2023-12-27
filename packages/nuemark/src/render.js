@@ -12,6 +12,7 @@ export function renderPage(page, opts) {
   const section_attr = data.sections || []
   const ret = []
 
+
   // syntax highlighter
   marked.setOptions({ highlight })
 
@@ -20,7 +21,6 @@ export function renderPage(page, opts) {
 
     const html = section.blocks.map(el => {
       const { name, md, attr } = el
-
       const comp = name && lib.find(el => el.name == name)
       const alldata = { ...data, ...el.data, attr }
       const tag = tags[name]
@@ -28,7 +28,7 @@ export function renderPage(page, opts) {
       // tag
       return tag ? tag(alldata, opts) :
 
-        // server component
+        // component
         comp ? comp.render(alldata, lib) :
 
         // markdown
@@ -37,13 +37,14 @@ export function renderPage(page, opts) {
         // island
         name ? renderIsland(el) :
 
-        // section
-        tags.section(alldata, opts)
+        // generic block
+        tags.block(alldata, opts)
 
     }).join('\n')
 
     const attr = section.attr || parseAttr(section_attr[i] || '')
     ret.push(draw_sections ? elem('section', attr, html) : html)
+
   })
 
   return { ...page, html: ret.join('\n') }

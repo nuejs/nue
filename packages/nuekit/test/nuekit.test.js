@@ -39,6 +39,10 @@ async function getKit() {
   return await createKit({ root, dryrun: true })
 }
 
+function createFront(title) {
+  return ['---', `title: ${title}`, '---'].join('\n')
+}
+
 test('defaults', async () => {
   const site = await getSite()
   expect(site.is_empty).toBe(true)
@@ -109,20 +113,16 @@ test('get data', async () => {
   expect(data).toEqual({ foo: 1, bar: 1, baz: 1 })
 })
 
-
-function front(title) {
-  return ['---', `title: ${title}`, '---'].join('\n')
-}
-
 test('content collection', async () => {
-  await write('blog/first.md', front('First'))
-  await write('blog/nested/hey.md', front('Second'))
+  await write('blog/first.md', '# First')
+  await write('blog/nested/hey.md', createFront('Second'))
 
   const site = await getSite()
   const coll = await site.getContentCollection('blog')
 
   expect(coll.length).toBe(2)
   expect(coll[0].url).toBe('/blog/first.html')
+  expect(coll[0].title).toBe('First')
   expect(coll[1].title).toBe('Second')
   expect(coll[1].dir).toBe('blog/nested')
   expect(coll[1].slug).toBe('hey.html')
@@ -200,6 +200,13 @@ test('inline CSS', async () => {
   expect(html).toInclude('margin:')
 })
 
+test('page data', async () => {
+  const kit = await getKit()
+  await write('index.md', createFront('Hello') + '\n\nWorld')
+  const data = await kit.getPageData('index.md')
+  expect(data.title).toBe('Hello')
+  expect(data.page.meta.title).toBe('Hello')
+})
 
 test('page scripts', async() => {
   const kit = await getKit()
