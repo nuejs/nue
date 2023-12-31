@@ -3,7 +3,7 @@
   <img src="https://nuejs.org/img/nue-banner-big.png">
 </a>
 
-# Nue
+# Nue &nbsp;[![test](https://github.com/nuejs/nue/actions/workflows/test.yaml/badge.svg?branch=master)](https://github.com/nuejs/nue/actions/workflows/test.yaml)
 Nue(kit) is a static website generator and web application builder. It's an amazingly simple and powerful alternative to **Next.js** and **Astro**:
 
 
