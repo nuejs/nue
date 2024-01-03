@@ -114,10 +114,11 @@ export function parseSections(lines) {
   }
   push()
 
-  lines.forEach((line, i) => {
+  lines.forEach(line => {
     if (line.startsWith('---')) {
       section = [] // must be before push
-      push(line.length > 3 ? parseAttr(line.slice(3).trim()) : null)
+      const i = line.indexOf('- ')
+      push(i > 0 ? parseAttr(line.slice(i + 2).trim()) : null)
 
     } else {
       section.push(line)

@@ -66,10 +66,12 @@ export function renderIsland({ name, attr, data }) {
 }
 
 /*
-  Marked does not support editing of the AST abstract syntax tree regarding links
-  So we have no use of the already tokenized tree and have to re-parse here :(
+  Sadly, Marked does not have a modifiable abstract syntax tree (AST) so
+  internally we must render all markdown blocks twice:
 
   https://github.com/markedjs/marked/issues/3135
+
+  Looking for other Markdown implementations if this becomes a performance bottleneck.
 */
 export function renderMarkdown(md, links) {
   md.push('')

@@ -40,11 +40,11 @@ export const tags = {
   },
 
   table({ attr, head, items=[] }) {
-    const ths = toArray(head).map(val => elem('th', val))
+    const ths = toArray(head).map(val => elem('th', parseInline(val.trim())))
     const thead = elem('thead', elem('tr', join(ths)))
 
     const trs = items.map(row => {
-      const tds = toArray(row).map(val => elem('td', val))
+      const tds = toArray(row).map(val => elem('td', parseInline(val.trim())))
       return elem('tr', join(tds))
     })
 

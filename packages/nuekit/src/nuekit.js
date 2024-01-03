@@ -35,6 +35,9 @@ export async function createKit(args) {
   async function setupStyles(dir, data) {
     const paths = await site.getAssets(dir, ['style', 'css'])
 
+    // alphabtical order
+    paths.sort()
+
     if (data.inline_css) {
       data.inline_css = await buildAllCSS(paths)
 
@@ -262,7 +265,7 @@ export async function createKit(args) {
   // generate single path
   async function gen(path, is_bulk) {
     const page = await processFile({ path, ...parsePath(path) }, is_bulk)
-    return page.html
+    return page?.html
   }
 
   // collect data
