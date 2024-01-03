@@ -12,7 +12,7 @@ import http from 'node:http'
 let sessions = []
 
 
-const TYPES = {
+export const TYPES = {
   html: 'text/html; charset=UTF-8',
   js:   'application/javascript',
   json: 'application/json',
