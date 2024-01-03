@@ -40,8 +40,10 @@ export function createServer(root, callback) {
       })
     }
 
-    const [ url, _ ] = req.url.split('?')
+    let [ url, _ ] = req.url.split('?')
     const ext = extname(url).slice(1)
+
+    if (!ext) url = join(url, 'index.html')
 
     try {
       const { code, path } = !ext || ext == 'html' ? await callback(url, _) : { path: url }
