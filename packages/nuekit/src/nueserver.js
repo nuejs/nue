@@ -12,7 +12,7 @@ import http from 'node:http'
 let sessions = []
 
 
-const TYPES = {
+export const TYPES = {
   html: 'text/html; charset=UTF-8',
   js:   'application/javascript',
   json: 'application/json',
@@ -40,8 +40,10 @@ export function createServer(root, callback) {
       })
     }
 
-    const [ url, _ ] = req.url.split('?')
+    let [ url, _ ] = req.url.split('?')
     const ext = extname(url).slice(1)
+
+    if (!ext) url = join(url, 'index.html')
 
     try {
       const { code, path } = !ext || ext == 'html' ? await callback(url, _) : { path: url }

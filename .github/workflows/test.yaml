@@ -1,0 +1,12 @@
+name: Test
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: oven-sh/setup-bun@v1
+      - run: |
+          bun install
+          bun install --no-save esbuild@^0.19.11
+          bun test --coverage

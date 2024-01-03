@@ -1,30 +1,26 @@
 {
 	"name": "nuekit",
-	"version": "0.1.6",
-
+	"version": "0.1.8",
 	"description": "The Nue framework for building websites and webapps",
 	"homepage": "https://nuejs.org",
 	"license": "MIT",
 	"type": "module",
-
 	"repository": {
 		"url": "https://github.com/nuejs/nue",
 		"directory": "packages/nuekit",
 		"type": "git"
-  },
-
+	},
 	"bin": {
 		"nue": "./src/cli.js"
-  },
-
+	},
 	"scripts": {
 		"test": "cd test && bun test"
 	},
 	"dependencies": {
-		"nuejs-core": "^0.3.0",
 		"diff-dom": "^5.0.6",
 		"js-yaml": "^4.1.0",
-		"marked": "^9.1.2"
+		"marked": "^9.1.6",
+		"nuejs-core": "^0.3.0"
 	},
 	"engines": {
 		"bun": ">= 1",

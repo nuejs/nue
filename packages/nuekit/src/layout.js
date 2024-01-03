@@ -1,10 +1,12 @@
-
+import { extname } from 'node:path'
+import { TYPES } from './nueserver.js'
 
 export function renderHead(data, is_prod) {
   const {
     viewport    = 'width=device-width,initial-scale=1',
     generator   = 'Nue (nuejs.org)',
     charset     = 'utf-8',
+    title_template = '%s',
     scripts     = [],
     styles      = [],
     inline_css  = [],
@@ -18,7 +20,7 @@ export function renderHead(data, is_prod) {
   } = data
 
   const head = [`<meta charset="${charset}">`]
-  if (title) head.push(`<title>${title}</title>`)
+  if (title) head.push(`<title>${title_template.replace(/%s/gi, title)}</title>`)
 
   // meta
   const pushMeta = (key, val) => val && head.push(`<meta name="${key}" content="${val}">`)
@@ -53,7 +55,7 @@ export function renderHead(data, is_prod) {
   if (components) pushMeta('nue:components', components.map(uri => `${base}${uri}`).join(' '))
 
   // misc
-  if (favicon) head.push(`<link rel="shortcut icon" src="${favicon}">`)
+  if (favicon) head.push(`<link rel="shortcut icon" type="${TYPES[extname(favicon).slice(1)]}" src="${favicon}">`)
 
   // inline style
   inline_css.forEach(css => head.push(`<style href="${base}${css.path}">${ css.content }</style>`))
