@@ -71,6 +71,11 @@ export function setSelected(path, className='selected') {
 }
 
 
+// Fix: window.onpopstate, event.state == null?
+// https://stackoverflow.com/questions/11092736/window-onpopstate-event-state-null
+is_browser && history.pushState({ path: location.pathname }, 0)
+
+
 // autoroute / document clicks
 is_browser && onclick(document, (path) => {
   loadPage(path)
