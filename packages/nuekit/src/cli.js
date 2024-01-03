@@ -117,7 +117,7 @@ if (args.help) {
   try {
     await runCommand(args)
   } catch (e) {
-    if (e.errno != -2) console.info(e)
+    console.info(e)
   }
 }
 

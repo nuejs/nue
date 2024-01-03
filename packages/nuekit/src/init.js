@@ -23,7 +23,7 @@ export async function init({ dist, is_dev, esbuild }) {
 
   } catch {
     await fs.rmdir(outdir, { recursive: true })
-    await fs.mkdir(outdir)
+    await fs.mkdir(outdir, { recursive: true })
     await fs.writeFile(latest, '')
   }
 
