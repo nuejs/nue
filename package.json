@@ -5,7 +5,7 @@
   "license": "MIT",
 
   "workspaces": [
-    "packages/nuejs"
+    "packages/*"
   ],
 
   "engines": {

@@ -1,5 +1,5 @@
 
-import { render } from '..'
+import { render } from '../index.js'
 
 
 // helper function to run multiple tests at once

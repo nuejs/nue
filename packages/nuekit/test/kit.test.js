@@ -202,7 +202,7 @@ test('page scripts', async() => {
 
 
 test('index.html', async() => {
-  write('index.html', '<test/>')
+  await write('index.html', '<test/>')
   const kit = await getKit()
   await kit.gen('index.html')
   const html = await readDist(kit.dist, 'index.html')
@@ -212,7 +212,7 @@ test('index.html', async() => {
 })
 
 test('index.md', async() => {
-  write('index.md', '# Hey')
+  await write('index.md', '# Hey')
   const kit = await getKit()
   await kit.gen('index.md')
   const html = await readDist(kit.dist, 'index.html')
@@ -224,8 +224,8 @@ test('index.md', async() => {
 
 
 test('bundle', async() => {
-  write('a.ts', 'export const foo = 30')
-  write('b.ts', 'import { foo } from "./a.js"; const bar = 10 + foo')
+  await write('a.ts', 'export const foo = 30')
+  await write('b.ts', 'import { foo } from "./a.js"; const bar = 10 + foo')
 
   // bun bundle
   const opts = { path: `./${root}/b.ts`, outdir: root, bundle: true }
@@ -239,7 +239,7 @@ test('bundle', async() => {
 
 test('syntax errors', async() => {
   const code = 'konst foo = 1'
-  write('a.js', code)
+  await write('a.js', code)
   const opts = { path: `./${root}/a.js`, outdir: root, silent: true }
 
   try {

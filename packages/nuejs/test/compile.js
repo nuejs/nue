@@ -1,5 +1,5 @@
 
-import { compileFile } from '..'
+import { compileFile } from '../index.js'
 
 for (const name of ['basics', 'loops']) {
   const to = `dist/${name}.js`

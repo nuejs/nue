@@ -26,6 +26,9 @@
 		"js-yaml": "^4.1.0",
 		"marked": "^9.1.2"
 	},
+	"devDependencies": {
+		"esbuild": "^0.19.11"
+	},
 	"engines": {
 		"bun": ">= 1",
 		"node": ">= 18"
