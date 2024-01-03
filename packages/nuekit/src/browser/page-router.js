@@ -50,10 +50,12 @@ export function onclick(root, fn) {
   root.addEventListener('click', e => {
     const el = e.target.closest('[href]')
     const path = el?.getAttribute('href')
+    const target = el?.getAttribute('target')
 
     // event ignore
     if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey ||
-      !path || path[0] == '#' || path.includes('//') || path.startsWith('mailto:')) return
+      !path || path[0] == '#' || path.includes('//') || path.startsWith('mailto:') ||
+      target == '_blank') return
 
     // all good
     if (path != location.pathname) fn(path)
