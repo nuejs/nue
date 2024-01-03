@@ -8,4 +8,5 @@ jobs:
       - uses: oven-sh/setup-bun@v1
       - run: |
           bun install
+          bun install --no-save esbuild@^0.19.11
           bun test --coverage

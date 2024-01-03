@@ -22,9 +22,6 @@
 		"marked": "^9.1.6",
 		"nuejs-core": "^0.3.0"
 	},
-	"devDependencies": {
-		"esbuild": "^0.19.11"
-	},
 	"engines": {
 		"bun": ">= 1",
 		"node": ">= 18"
