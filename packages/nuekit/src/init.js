@@ -65,7 +65,6 @@ export async function init({ dist, is_dev, esbuild }) {
   log(`Initialize ${dist}`)
 
   await buildPackage('nuejs-core', 'nue.js')
-  await buildPackage('diff-dom', 'diffdom.js')
 
   await buildFile('page-router')
   await buildFile('app-router')
@@ -73,6 +72,7 @@ export async function init({ dist, is_dev, esbuild }) {
 
   // dev only
   if (is_dev) {
+    await buildPackage('diff-dom', 'diffdom.js')
     await buildFile('hotreload')
     await copy('error.css', outdir)
     await nueCompile(join(fromdir, 'error.nue'), join(outdir, 'error.js'))
