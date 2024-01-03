@@ -6,6 +6,7 @@ export function renderHead(data, is_prod) {
     viewport    = 'width=device-width,initial-scale=1',
     generator   = 'Nue (nuejs.org)',
     charset     = 'utf-8',
+    title_template = '%s',
     scripts     = [],
     styles      = [],
     inline_css  = [],
@@ -19,7 +20,7 @@ export function renderHead(data, is_prod) {
   } = data
 
   const head = [`<meta charset="${charset}">`]
-  if (title) head.push(`<title>${title}</title>`)
+  if (title) head.push(`<title>${title_template.replace(/%s/gi, title)}</title>`)
 
   // meta
   const pushMeta = (key, val) => val && head.push(`<meta name="${key}" content="${val}">`)
