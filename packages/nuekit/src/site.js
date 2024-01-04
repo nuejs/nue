@@ -100,7 +100,7 @@ export async function createSite(args) {
       !is_bulk && !self.is_empty && log(join(dir, base))
 
     } catch (e) {
-      if (e.errno != NOT_FOUND && e.errno!= ENOENT) throw e
+      if (e.errno != NOT_FOUND && e.errno != ENOENT) throw e
       await fs.mkdir(join(dist, dir), { recursive: true })
       await copy(file)
     }
