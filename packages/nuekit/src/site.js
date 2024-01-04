@@ -199,7 +199,7 @@ export async function createSite(args) {
         const html = await read(path)
         lib.push(...parseNue(html))
       } catch (e) {
-        if (e.errno != NOT_FOUND && e.errno!= ENOENT) {
+        if (e.errno != NOT_FOUND && e.errno != ENOENT) {
           log.error('parse error', path)
           console.error(e)
         }
