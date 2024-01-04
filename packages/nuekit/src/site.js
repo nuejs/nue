@@ -128,7 +128,7 @@ export async function createSite(args) {
         })
 
       } catch (e) {
-        if (e.errno != NOT_FOUND && e.errno!= ENOENT) return console.error(e)
+        if (e.errno != NOT_FOUND && e.errno != ENOENT) return console.error(e)
       }
     }
 
