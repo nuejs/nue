@@ -85,7 +85,7 @@ export async function createSite(args) {
       return to
 
     } catch (e) {
-      if (e.errno != NOT_FOUND && e.errno!= ENOENT) throw e
+      if (e.errno != NOT_FOUND && e.errno != ENOENT) throw e
       await fs.mkdir(todir, { recursive: true })
       return await write(content, dir, filename)
     }
