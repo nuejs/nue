@@ -11,7 +11,7 @@ export async function init({ dist, is_dev, esbuild }) {
   // directories
   const cwd = process.cwd()
   const pathname = new URL('.', import.meta.url).pathname
-  const srcdir = process.platform === "win32" && pathname.startsWith('/')  ? pathname.slice(1) : pathname
+  const srcdir = process.platform === "win32" && pathname.startsWith('/') ? pathname.slice(1) : pathname
   const fromdir = join(srcdir, 'browser')
   const outdir = join(cwd, dist, '@nue')
   const minify = !is_dev
