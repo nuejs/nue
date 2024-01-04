@@ -23,9 +23,7 @@ export async function init({ dist, is_dev, esbuild }) {
     return await fs.stat(latest)
 
   } catch {
-    try {
-      await fs.rm(outdir, { recursive: true })
-    } catch {}
+    await fs.rm(outdir, { recursive: true, force: true })
 
     await fs.mkdir(outdir, { recursive: true })
     await fs.writeFile(latest, '')
