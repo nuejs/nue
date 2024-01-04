@@ -66,7 +66,7 @@ export function getArgs(argv) {
 async function getVersion() {
   const { promises } = await import('fs')
   const pathname = new URL('../package.json', import.meta.url).pathname
-  const path = pathname.startsWith('/') ? pathname.slice(1) : pathname
+  const path = process.platform === "win32" && pathname.startsWith('/') ? pathname.slice(1) : pathname
   const json = await promises.readFile(path, 'utf-8')
   return JSON.parse(json).version
 }
