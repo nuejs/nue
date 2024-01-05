@@ -1,25 +1,22 @@
 
+import { tags, elem, join, concat } from './tags.js'
 import { parsePage, parseHeading } from './parse.js'
 import { parseAttr } from './component.js'
-import { tags, elem } from './tags.js'
 import { marked } from 'marked'
 
 
 export function renderPage(page, opts) {
-  const { lib=[], highlight } = opts
+  const { lib=[] } = opts
   const data = { ...opts.data, ...page.meta }
   const draw_sections = data?.draw_sections || page.sections[1]
   const section_attr = data.sections || []
   const ret = []
 
 
-  // syntax highlighter
-  marked.setOptions({ highlight })
-
   // section_attr
   page.sections.forEach((section, i) => {
 
-    const html = section.blocks.map(el => {
+    const html = join(section.blocks.map(el => {
       const { name, md, attr } = el
       const comp = name && lib.find(el => el.name == name)
       const alldata = { ...data, ...el.data, attr }
@@ -31,6 +28,9 @@ export function renderPage(page, opts) {
         // component
         comp ? comp.render(alldata, lib) :
 
+        // fenced code
+        el.code ? renderCodeBlock(el, opts.highlight) :
+
         // markdown
         md ? renderMarkdown(md, mergeLinks(page.links, data.links)) :
 
@@ -40,19 +40,27 @@ export function renderPage(page, opts) {
         // generic block
         tags.block(alldata, opts)
 
-    }).join('\n')
+    }))
 
     const attr = section.attr || parseAttr(section_attr[i] || '')
     ret.push(draw_sections ? elem('section', attr, html) : html)
 
   })
 
-  return { ...page, html: ret.join('\n') }
+  return { ...page, html: join(ret) }
 }
 
 export function renderLines(lines, opts={}) {
   const page = parsePage(lines)
   return renderPage(page, opts)
+}
+
+export function renderCodeBlock({ name, code, attr }, fn) {
+  // console.info(name, code, attr, fn)
+  if (name) attr.class = concat(`syntax-${name}`, attr.class)
+  const body = join(code)
+
+  return elem('pre', attr, fn ? fn(body) : body)
 }
 
 // export function renderPage()
@@ -80,7 +88,7 @@ export function renderMarkdown(md, links) {
     const { href, title='' } = links[key]
     md.push(`[${key}]: ${href} "${title}"`)
   }
-  return marked.parse(md.join('\n'))
+  return marked.parse(join(md))
 }
 
 function mergeLinks(a, b) {
@@ -110,11 +118,12 @@ const renderer = {
     const plain = parseHeading({ text: raw })
     const rich = parseHeading({ text: html })
 
-    return [
-      `<h${level} id="${plain.id}">${rich.text}`,
-      `<a href="#${plain.id}" title='Permlink for "${plain.text}"'></a>`,
+    return join([
+      `<h${level} id="${plain.id}">`,
+      `  <a href="#${plain.id}" title='Permlink for "${plain.text}"'></a>`,
+      `  ${rich.text}`,
       `</h${level}>\n`
-    ].join('')
+    ])
   },
 
   // lazyload images by default

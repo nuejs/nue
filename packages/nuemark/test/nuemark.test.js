@@ -1,11 +1,31 @@
 
+import { parseComponent, valueGetter, parseAttr, parseSpecs } from '../src/component.js'
 import { parseMeta, parseBlocks, parseSections, parsePage } from '../src/parse.js'
-import { parseComponent, valueGetter, parseAttr } from '../src/component.js'
 import { renderIsland, renderLines } from '../src/render.js'
 import { tags, getGridCols } from '../src/tags.js'
 import { nuemarkdown } from '..'
 
-test('[grid]', () => {
+
+test('nested code with comment', () => {
+  const { html } = renderLines(['[.hey]', '  // not rendered', '  ```', '  // here', '  ```'])
+  expect(html).toBe('<section class="hey"><pre>// here</pre></section>')
+})
+
+test('render fenced code', () => {
+  const { html } = renderLines(['``` md.foo#bar', '// hey', '```'])
+  expect(html).toBe('<pre class="syntax-md foo" id="bar">// hey</pre>')
+})
+
+
+test('parse fenced code', () => {
+  const blocks = parseBlocks(['# Hey', '``` md.foo#bar', '// hey', '[foo]', '```'])
+  const [ hey, fenced ] = blocks
+  expect(fenced.name).toBe('md')
+  expect(fenced.attr).toEqual({ class: 'foo', id: 'bar' })
+  expect(fenced.code).toEqual([ "// hey", "[foo]" ])
+})
+
+test.skip('[grid]', () => {
   const html = tags.grid({ content: 'abcdefg'.split(''), attr: { class: 'foo' } })
   expect(html).toInclude('<section class="grid foo" style="--cols: 1fr 1fr 1fr"')
   expect(html).toInclude('<div style="--colspan: 3"><p>g</p>')
@@ -131,13 +151,12 @@ test('[button]', () => {
 })
 
 
-
 // page rendering
 test('render sections', () => {
   const lines = ['a', 'a', '--- #a.b', 'b', 'b', '---', 'c', 'c']
   const { html } = renderLines(lines, { data: { sections: ['#foo']}})
   expect(html).toStartWith('<section id="foo"><p>a')
-  expect(html).toInclude('<section id="a" class="b"><p>b')
+  expect(html).toInclude('<section class="b" id="a"><p>b')
   expect(html).toInclude('<section><p>c')
 })
 
@@ -156,12 +175,11 @@ test('reflinks', () => {
   expect(html).toInclude('<a href="//hey.net" title="boom">dude</a>')
 })
 
-test('header id', () => {
-  const { html } = renderLines(['# Hey baari on jotain {#custom}'])
-  expect(html).toInclude('<h1 id="custom">')
-  expect(html).toInclude('<a href="#custom"')
+test('heading id', () => {
+  const { html } = renderLines(['# Hey {#  me-too  }'])
+  expect(html).toInclude('<h1 id="me-too">')
+  expect(html).toInclude('<a href="#me-too"')
 })
-
 
 test('page island', () => {
   const { html } = renderLines(['yo', '[hey]', '  bar: 2'])
@@ -249,13 +267,7 @@ test('parseMeta', () => {
 })
 
 
-
-
-
-
 // parsing components
-
-
 test('valueGetter', () => {
   const { str, getValue } = valueGetter(`foo="yo" bar="hey dude"`)
   expect(str).toBe('foo=:1: bar=:2:')
@@ -264,16 +276,19 @@ test('valueGetter', () => {
 })
 
 test('parseAttr', () => {
-  expect(parseAttr('#foo.bar')).toEqual({ id: 'foo', class: 'bar'})
   expect(parseAttr('.bar#foo')).toEqual({ id: 'foo', class: 'bar'})
   expect(parseAttr('.bar#foo.baz')).toEqual({ id: 'foo', class: 'bar baz'})
 })
 
+test('parseSpecs', () => {
+  expect(parseSpecs('tabs')).toEqual({ name: 'tabs', attr: {} })
+  expect(parseSpecs('tabs.#foo.bar')).toEqual({ name: 'tabs', attr: { id: 'foo', class: 'bar' }})
+})
 
 test('parseComponent', () => {
 
   expect(parseComponent('#foo.bar')).toEqual({
-    attr: { id: "foo", class: "bar" }, data: {},
+    name: null, attr: { id: "foo", class: "bar" }, data: {},
   })
 
   expect(parseComponent('list.tweets')).toEqual({
@@ -292,7 +307,7 @@ test('parseComponent', () => {
     name: 'item', attr: {}, data: { cols: 3, _: 'grayed' },
   })
 
-  expect(parseComponent('info "Sure ??" #alert class="boss"')).toEqual({
+  expect(parseComponent('info#alert "Sure ??" class="boss"')).toEqual({
     name: 'info', attr: { class:'boss', id: 'alert' }, data: { _: 'Sure ??' },
   })
 
@@ -327,26 +342,30 @@ test('JSX component', async () => {
   } catch (ignored) {}
 })
 
-// Nuemark syntax hilite (later)
 
-test('syntax highlight', async () => {
+test('nue color', async () => {
+  // Nuecolor is released later
+
   try {
     const nuecolor = await import('nuecolor')
     const opts = { highlight: nuecolor.default }
 
     // syntax block
-    const { html } = renderLines(['``` md', '# hey', '```'], opts)
-    expect(html).toInclude('<pre><code class="language-md">')
-    expect(html).toInclude('<b class=hl-heading> hey</b>')
+    const { html } = renderLines(['``` md.foo', '# hey', '```'], opts)
+
+    expect(html).toInclude('<pre class="syntax-md foo">')
+    expect(html).toInclude('<b class=hl-char>#</b> hey<')
 
     // code tabs
     const tabs = tags.codetabs({ _: 't1, t2', content: ['# c1', '*c2*'], type: 'md' }, opts)
+
     expect(tabs).toInclude('<a href="#tab-1">t1</a>')
-    expect(tabs).toInclude('<b class=hl-heading> c1</b>')
-    expect(tabs).toInclude('</code></pre>')
+    expect(tabs).toInclude('<b class=hl-char>*</b>')
+    expect(tabs).toInclude('</pre>')
 
   // highlighter not found
-  } catch(ignore) {}
+  } catch(ignore) {
+    console.info('nuecolor not found')
+  }
 
 })
-

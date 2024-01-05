@@ -7,22 +7,8 @@ const ATTR = 'id is class style'.split(' ')
 */
 export function parseComponent(input) {
   const { str, getValue } = valueGetter(input)
-  let [name, ...attribs] = str.split(/\s+/)
-  const self = { attr: {}, data: {} }
-
-  // #id or .class
-  const i = name.search(/[\#\.]/)
-
-  if (!i) {
-    attribs.unshift(name)
-    name = undefined
-
-  // <name>.class
-  } else if (i > 0) {
-    attribs.unshift(name.slice(i))
-    name = name.slice(0, i)
-  }
-
+  const [specs, ...attribs] = str.split(/\s+/)
+  const self = { ...parseSpecs(specs), data: {} }
 
   for (const el of attribs) {
     const [key, val] = el.split('=')
@@ -34,19 +20,12 @@ export function parseComponent(input) {
 
     // key only
     } else {
-
-      // #id.foo.bar
-      if ('.#'.includes(key[0])) {
-        Object.assign(self.attr, parseAttr(key))
-
-      } else  {
-        if (self.data._) self.data[key] = true
-        else self.data._ = getValue(key) || key
-      }
+      if (self.data._) self.data[key] = true
+      else self.data._ = getValue(key) || key
     }
   }
 
-  return { ...self, name }
+  return self
 }
 
 
@@ -71,16 +50,31 @@ export function valueGetter(input) {
   return { str, getValue }
 }
 
-// .foo#bar.baz -> class: ['foo', 'bar'], id: 'bar'
+// tabs.foo#bar.baz -> { name: 'tabs', class: ['foo', 'bar'], id: 'bar' }
+export function parseSpecs(str) {
+  const self = { name: str, attr: {} }
+  const i = str.search(/[\#\.]/)
+
+  if (i >= 0) {
+    self.name = str.slice(0, i) || null
+    self.attr = parseAttr(str.slice(i))
+  }
+
+  return self
+}
+
 export function parseAttr(str) {
+  const attr = {}
+
+  // classes
   const classes = []
-  const ret = {}
-
   str.replace(/\.([\w\-]+)/g, (_, el) => classes.push(el))
-  str.replace(/#([\w\-]+)/, (_, el) => ret.id = el)
-  if (classes[0]) ret.class = classes.join(' ')
+  if (classes[0]) attr.class = classes.join(' ')
 
-  return Object.keys(ret)[0] && ret
+  // id
+  str.replace(/#([\w\-]+)/, (_, el) => attr.id = el)
+
+  return attr
 }
 
 

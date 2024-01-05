@@ -87,7 +87,7 @@ export async function createKit(args) {
     const raw = await read(path)
 
     // { meta, sections, headings, links }
-    const page = parsePage(raw.split('\n'), data)
+    const page = parsePage(raw, data)
     const { meta } = page
 
     // YAML data

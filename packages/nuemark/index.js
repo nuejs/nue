@@ -13,5 +13,8 @@ export function nuemarkdown(str, opts) {
   return nuemark(str, opts).html
 }
 
-export { renderPage } from './src/render.js'
+// returns { meta, sections, headings, links }
 export { parsePage } from './src/parse.js'
+
+
+export { renderPage } from './src/render.js'

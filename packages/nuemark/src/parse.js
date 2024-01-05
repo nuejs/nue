@@ -1,11 +1,13 @@
 
-import { parseAttr, parseComponent } from './component.js'
+import { parseAttr, parseSpecs, parseComponent } from './component.js'
 import { loadAll, load as parseYAML } from 'js-yaml'
 import { marked } from 'marked'
+const NL = '\n'
 
-
-// { meta, sections, headings, links }
+// returns { meta, sections, headings, links }
 export function parsePage(lines) {
+  if (typeof lines == 'string') lines = lines.split(NL)
+
   const { meta, rest } = parseMeta(lines)
 
   const sections = parseSections(rest)
@@ -19,19 +21,19 @@ export function parsePage(lines) {
 
       // component body
       if (body) {
-        const content = body.join('\n')
+        const content = body.join(NL)
         if (name) Object.assign(data, getNestedData(content))
         else data.content = content.split('---')
         delete block.body
       }
 
-      // component
-      if (data) {
+      // component or fenced code block
+      if (data || block.code) {
         blocks.push(block)
 
       // markdown
       } else {
-        const tokens = marked.lexer(block.join('\n'))
+        const tokens = marked.lexer(block.join(NL))
         Object.assign(links, tokens.links)
         headings.push(...tokens.filter(el => el.type == 'heading').map(parseHeading))
         blocks.push({ md: block, tokens })
@@ -49,16 +51,17 @@ export function parsePage(lines) {
 
 
 export function parseHeading({ depth, text, id }) {
-  const i = text.indexOf(' {#')
-  if (i > 0 && text.endsWith('}')) {
-    id = text.slice(i + 3, -1)
-    text = text.slice(0, i)
+  const re = text.match(/{#\s?/)
+
+  if (re && text.endsWith('}')) {
+    id = text.slice(re.index + re[0].length, -1).trim()
+    text = text.slice(0, re.index).trim()
   }
   return { level: depth, text, id: id || createHeaderId(text) }
 }
 
 export function createHeaderId(text) {
-  let hash = text.replace(/\W/g, '-').replace(/-+/g, '-').toLowerCase()
+  let hash = text.replace(/'/g, '').replace(/\W/g, '-').replace(/-+/g, '-').toLowerCase()
   if (hash[0] == '-') hash = hash.slice(1)
   if (hash.endsWith('-')) hash = hash.slice(0, -1)
   return hash
@@ -78,10 +81,10 @@ export function parseMeta(lines) {
     else if (is_front) { end = i; break }
   }
 
-  const front = start ? lines.slice(start, end).join('\n') : ''
+  const front = start ? lines.slice(start, end).join(NL) : ''
 
   return {
-    meta: front ? parseYAML(front) : {},
+    meta: front ? parseYAML(front) || {} : {},
     rest: lines.slice(end + 1)
   }
 }
@@ -130,16 +133,25 @@ export function parseSections(lines) {
 
 export function parseBlocks(lines) {
   const blocks = []
-  let md, comp
+  let md, fenced, comp
   let spacing
 
   lines.forEach((line, i) => {
 
-    // fenced code start
-    const ltrim = line.trimStart()
+    // fenced code start/end
+    if (line.startsWith('```')) {
+      if (!fenced) {
+        fenced = { code: [], ...parseSpecs(line.slice(3).trim()) }
+      } else {
+        blocks.push(fenced)
+        fenced = null
+      }
+      return
+    }
 
-    // comment
-    if (ltrim.startsWith('//# ')) return
+    // code line
+    if (fenced) return fenced.code.push(line)
+
 
     // component
     if (line[0] == '[' && line.slice(-1) == ']' && !line.includes('][')) {
@@ -158,23 +170,25 @@ export function parseBlocks(lines) {
         comp.body.push(line.slice(spacing))
       }
 
-      if (!ltrim) comp.body?.push(line)
+      if (!line.trimStart()) comp.body?.push(line)
       else if (!getIndent(line)) comp = null
     }
 
     // markdown
     if (!comp) {
+      if (line.trimStart().startsWith('//')) return
       if (!md) blocks.push(md = [])
       md.push(line)
     }
+
   })
 
   return blocks
 }
 
 function getIndent(line='') {
-  const ltrim = line.trimStart()
-  return line.length - ltrim.length
+  const trim = line.trimStart()
+  return line.length - trim.length
 }
 
 function getNext(lines, i) {

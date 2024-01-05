@@ -21,6 +21,7 @@
 
 */
 
+import { renderCodeBlock } from './render.js'
 import { parseInline } from 'marked'
 import { nuemarkdown } from '..'
 
@@ -51,7 +52,7 @@ export const tags = {
     return elem('table', attr, thead + elem('tbody', join(trs)))
   },
 
-
+  // generic fallback block
   block(data, opts) {
     const { content=[]} = data
     // const bc = data.block_class || 'block'
@@ -151,14 +152,14 @@ export const tags = {
 
     // wrap content with fenced code blocks
     content.forEach((code, i) => {
-      const type = types[i] || data.type || ''
-      content[i] = join([('``` ' + type).trim(), code, '```'])
+      const name = types[i] || data.type || ''
+      content[i] = renderCodeBlock({ name, code, attr: {} }, opts.highlight)
     })
 
     return tags.tabs(data, opts)
   },
 
-  // maybe later
+  /* later
   grid(data, opts) {
     const { attr, content=[], _='a'} = data
     const { cols, colspan } = getGridCols(content.length, _)
@@ -171,6 +172,7 @@ export const tags = {
 
     return elem('section', { ...attr, ...extra }, join(divs))
   },
+  */
 
 }
 
@@ -210,12 +212,12 @@ function toArray(items) {
   return items?.split ? items.split(/ ?[,;|] ?/) : items
 }
 
-function join(els, separ='\n') {
+export function join(els, separ='\n') {
   return els?.join ? els.join(separ) : els
 }
 
 // concat two strings (for class attribute)
-function concat(a, b) {
+export function concat(a, b) {
   return join([a || '', b || ''], ' ').trim()
 }
 

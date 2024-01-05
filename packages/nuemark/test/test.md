@@ -1,14 +1,12 @@
 
 ---
-draw_sections: true
-sections: [.a#b, .c#d]
+# draw_sections: true
+# sections: [.a#b, .c#d]
 ---
 
-First
+[.hey]
+  // not rendered
+  ```
+  // render
+  ```
 
---- #hey.man
-
-Secondly
-
-[! foo]
-  alt: jotain
