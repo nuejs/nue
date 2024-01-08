@@ -1,6 +1,7 @@
 
 import { parseAttr, parseSpecs, parseComponent } from './component.js'
 import { loadAll, load as parseYAML } from 'js-yaml'
+import { ISOMORPHIC } from './tags.js'
 import { marked } from 'marked'
 const NL = '\n'
 
@@ -12,12 +13,15 @@ export function parsePage(lines) {
 
   const sections = parseSections(rest)
   const headings = [], links = {}
+  let isomorphic
 
   for (const section of sections) {
     const blocks = section.blocks = []
 
     for (const block of parseBlocks(section.lines)) {
       const { name, data, body } = block
+
+      if (name && ISOMORPHIC.includes(name)) isomorphic = true
 
       // component body
       if (body) {
@@ -46,7 +50,7 @@ export function parsePage(lines) {
     meta.title = h1?.text
   }
 
-  return { meta, sections, headings, links }
+  return { meta, sections, headings, links, isomorphic }
 }
 
 

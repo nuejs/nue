@@ -4,9 +4,9 @@ import { join, parse as parsePath, extname, basename } from 'node:path'
 import { renderHead, getDefaultHTML, getDefaultSPA } from './layout.js'
 import { readStats, printTable, categorize } from './stats.js'
 import { log, colors, getAppDir, getParts } from './util.js'
+import { parsePage, renderPage } from 'nuemark/index.js'
 import { createServer, send } from './nueserver.js'
 import { buildCSS, buildJS } from './builder.js'
-import { parsePage, renderPage } from 'nuemark'
 import { promises as fs } from 'node:fs'
 import { createSite } from './site.js'
 import { fswatch } from './nuefs.js'
@@ -74,6 +74,7 @@ export async function createKit(args) {
     // system scripts
     if (!data.is_spa && data.page_router) push('page-router')
     if (is_dev && !data.no_hotreload) push('hotreload')
+    if (data.page?.isomorphic) push('nuemark')
     if (data.components?.length) push('mount')
   }
 
@@ -142,8 +143,7 @@ export async function createKit(args) {
     const dir = data.appdir || file.dir
     const lib = await site.getLayoutComponents(dir)
 
-    const { html } = renderPage(data.page, { data, lib })
-    data.content = html
+    data.content = renderPage(data.page, { data, lib })
 
     function render(name, def) {
       const layout = lib.find(el => el.tagName == name) || def && parseNue(def)[0]

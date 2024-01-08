@@ -18,7 +18,7 @@ export async function init({ dist, is_dev, esbuild }) {
 
 
   // has all latest?
-  const latest = join(outdir, '.016')
+  const latest = join(outdir, '.020')
   try {
     return await fs.stat(latest)
 
@@ -65,8 +65,8 @@ export async function init({ dist, is_dev, esbuild }) {
   // lets do it
   log(`Initialize ${dist}`)
 
+  await buildPackage('nuemark', 'nuemark.js')
   await buildPackage('nuejs-core', 'nue.js')
-
   await buildFile('page-router')
   await buildFile('app-router')
   await buildFile('mount')

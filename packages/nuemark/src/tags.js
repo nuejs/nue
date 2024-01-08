@@ -22,9 +22,11 @@
 */
 
 import { renderCodeBlock } from './render.js'
+import { nuemarkdown } from '../index.js'
 import { parseInline } from 'marked'
-import { nuemarkdown } from '..'
 
+// list all tags that require a client-side Web Component
+export const ISOMORPHIC = ['tabs']
 
 export const tags = {
 
@@ -40,8 +42,8 @@ export const tags = {
     return elem('img', { src, alt: alt || `${_} icon` })
   },
 
-  table({ attr, head, items=[] }) {
-    const ths = toArray(head).map(val => elem('th', parseInline(val.trim())))
+  table({ attr, head, _, items=[] }) {
+    const ths = toArray(head || _).map(val => elem('th', parseInline(val.trim())))
     const thead = elem('thead', elem('tr', join(ths)))
 
     const trs = items.map(row => {
@@ -52,8 +54,8 @@ export const tags = {
     return elem('table', attr, thead + elem('tbody', join(trs)))
   },
 
-  // generic fallback block
-  block(data, opts) {
+  // generic layout block
+  layout(data, opts) {
     const { content=[]} = data
     // const bc = data.block_class || 'block'
     // { class: `${bc} ${bc}-${i + 1}` }
@@ -62,7 +64,7 @@ export const tags = {
       return content[1] ? elem('div', html) : html
     })
 
-    return elem('section', data.attr, join(divs))
+    return elem(divs[1] ? 'section' : 'div', data.attr, join(divs))
   },
 
   /*
@@ -106,7 +108,7 @@ export const tags = {
   video(data, opts) {
     const { _, sources=[] } = data
 
-    // inneer <source> tags
+    // inner <source> tags
     const html = sources.map(src => elem('source', { src, type: getMimeType(src) }) )
 
     // fallback content
@@ -122,19 +124,19 @@ export const tags = {
       2. [tabs "First, Second, Third"]
   */
   tabs(data, opts) {
-    const { attr, name='tab', content=[], _ } = data
+    const { attr, key='tab', content=[], _ } = data
     const half = Math.round(content.length / 2)
     const t = _ || data.tabs
     const tabs_arr = t ? toArray(t) : content.slice(0, half)
 
     const tabs = tabs_arr.map((el, i) => {
       const html = t ? el : nuemarkdown(el, opts)
-      return elem('a', { href: `#${name}-${i+1}` }, html )
+      return elem('a', { href: `#${key}-${i+1}` }, html )
     })
 
     const panes = content.slice(t ? 0 : half).map((el, i) => {
       const html = nuemarkdown(el, opts)
-      return elem('li', { id: `${name}-${i+1}` }, html )
+      return elem('li', { id: `${key}-${i+1}` }, html )
     })
 
     return elem('section', { is: 'nuemark-tabs', class: 'tabs', ...attr },
@@ -142,6 +144,9 @@ export const tags = {
       elem('ul', join(panes))
     )
   },
+
+
+  /* later
 
   codetabs(data, opts) {
     const { content=[] } = data
@@ -159,7 +164,6 @@ export const tags = {
     return tags.tabs(data, opts)
   },
 
-  /* later
   grid(data, opts) {
     const { attr, content=[], _='a'} = data
     const { cols, colspan } = getGridCols(content.length, _)
@@ -222,11 +226,11 @@ export function concat(a, b) {
 }
 
 export function createPicture(img_attr, data) {
-  const { small, offset=768 } = data
+  const { small, offset=750 } = data
 
   const sources = [small, img_attr.src].map(src => {
     const prefix = src == small ? 'max' : 'min'
-    const media = `(${prefix}-width: ${offset}px)`
+    const media = `(${prefix}-width: ${parseInt(offset)}px)`
     return elem('source', { src, media, type: getMimeType(src) })
   })
 
@@ -234,7 +238,8 @@ export function createPicture(img_attr, data) {
   return elem('picture', !data.caption && data.attr, join(sources))
 }
 
-// more complex grids later
+
+/* more complex grids later
 const GRID = {
   a: [2, 3, 2, '2/2', 3, '3/3', 4, 3],
   b: [2, '2/2', '3/3']
@@ -246,6 +251,7 @@ export function getGridCols(am, variant='a') {
   const [count, span] = val.toString().split('/')
   return { cols: Array(1 * count).fill('1fr').join(' '), colspan: 1 * span }
 }
+*/
 
 
 function getVideoAttrs(data) {

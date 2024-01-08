@@ -4,9 +4,4 @@
 # sections: [.a#b, .c#d]
 ---
 
-[.hey]
-  // not rendered
-  ```
-  // render
-  ```
-
+Hello

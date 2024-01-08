@@ -1,6 +1,6 @@
 
+import { nuemarkdown } from '../index.js'
 import { promises as fs } from 'node:fs'
-import { nuemarkdown } from '..'
 
 const opts = {}
 

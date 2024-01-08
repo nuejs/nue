@@ -2,13 +2,13 @@
 import { parseComponent, valueGetter, parseAttr, parseSpecs } from '../src/component.js'
 import { parseMeta, parseBlocks, parseSections, parsePage } from '../src/parse.js'
 import { renderIsland, renderLines } from '../src/render.js'
-import { tags, getGridCols } from '../src/tags.js'
-import { nuemarkdown } from '..'
+import { nuemarkdown } from '../index.js'
+import { tags } from '../src/tags.js'
 
 
 test('nested code with comment', () => {
   const { html } = renderLines(['[.hey]', '  // not rendered', '  ```', '  // here', '  ```'])
-  expect(html).toBe('<section class="hey"><pre>// here</pre></section>')
+  expect(html).toBe('<div class="hey"><pre>// here</pre></div>')
 })
 
 test('render fenced code', () => {
@@ -25,17 +25,6 @@ test('parse fenced code', () => {
   expect(fenced.code).toEqual([ "// hey", "[foo]" ])
 })
 
-test.skip('[grid]', () => {
-  const html = tags.grid({ content: 'abcdefg'.split(''), attr: { class: 'foo' } })
-  expect(html).toInclude('<section class="grid foo" style="--cols: 1fr 1fr 1fr"')
-  expect(html).toInclude('<div style="--colspan: 3"><p>g</p>')
-})
-
-test('grid columns', () => {
-  const grid = getGridCols(5, 'a')
-  expect(grid.cols).toBe('1fr 1fr')
-  expect(grid.colspan).toBe(2)
-})
 
 test('[!] img', () => {
   const icon = tags['!']({ _: 'cat' })
@@ -60,7 +49,7 @@ test('[video] simple', () => {
 })
 
 test('[tabs] attr', () => {
-  const html = tags.tabs({ _: 't1, t2', name: 'hey', content: ['c1', 'c2'] })
+  const html = tags.tabs({ _: 't1, t2', key: 'hey', content: ['c1', 'c2'] })
   expect(html).toInclude('<section is="nuemark-tabs" class="tabs">')
   expect(html).toInclude('<nav><a href="#hey-1">t1</a>')
   expect(html).toInclude('<li id="hey-2"><p>c2</p>')
@@ -116,21 +105,21 @@ test('[image] basics', () => {
 })
 
 
-test('[block]', () => {
+test('[layout]', () => {
   const attr = { id: 'epic' }
   const data = { count: 10 }
-  const single = tags.block({ attr, data, content: ['foo'] })
+  const single = tags.layout({ attr, data, content: ['foo'] })
 
-  expect(single).toInclude('<section id="epic">')
+  expect(single).toInclude('<div id="epic">')
   expect(single).toInclude('<p>foo</p>')
 
-  const double = tags.block({ attr, data, content: ['foo', 'bar'] })
+  const double = tags.layout({ attr, data, content: ['foo', 'bar'] })
   expect(double).toInclude('<section id="epic">')
 })
 
-test('[block] with nested component', () => {
+test('[layout] with nested component', () => {
   const content = ['# Hello', '## World\n[image "joo.png"]']
-  const html = tags.block({ content })
+  const html = tags.layout({ content })
   expect(html).toInclude('<h1 id="hello">')
   expect(html).toInclude('<div><h2 id="world">')
   expect(html).toInclude('img src="joo.png"')
@@ -218,8 +207,9 @@ test('parse sections', () => {
 
 
 test('parse page', () => {
-  const page = parsePage(['# Hello', '## World', '[foo]: bar', '[hey foo=1]', '  bar: 2'])
+  const page = parsePage(['# Hello', '## World', '[foo]: bar', '[tabs foo=1]', '  bar: 2'])
 
+  expect(page.isomorphic).toBe(true)
   expect(page.links).toHaveProperty('foo')
   expect(page.headings.length).toBe(2)
 
@@ -333,18 +323,36 @@ test('JSX component', async () => {
     })
 
     // render JSX with Nuemark
-    const html = nuemarkdown('[Test]', { lib, data: { message: 'Hello' } })
+    const html = nuemarkdown('[my-test]', { lib, data: { message: 'Hello' } })
 
     expect(html).toBe('<h1 style="color:red">Hello</h1>')
 
 
   // react not imported
-  } catch (ignored) {}
+  } catch (ignored) {
+    console.info('JSX test skipped')
+  }
 })
 
 
-test('nue color', async () => {
-  // Nuecolor is released later
+
+// The following tags are released later
+
+test.skip('[grid]', () => {
+  const html = tags.grid({ content: 'abcdefg'.split(''), attr: { class: 'foo' } })
+  expect(html).toInclude('<section class="grid foo" style="--cols: 1fr 1fr 1fr"')
+  expect(html).toInclude('<div style="--colspan: 3"><p>g</p>')
+})
+
+
+test.skip('grid columns', () => {
+  const grid = getGridCols(5, 'a')
+  expect(grid.cols).toBe('1fr 1fr')
+  expect(grid.colspan).toBe(2)
+})
+
+
+test.skip('nue color', async () => {
 
   try {
     const nuecolor = await import('nuecolor')

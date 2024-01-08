@@ -18,7 +18,7 @@ export function renderPage(page, opts) {
 
     const html = join(section.blocks.map(el => {
       const { name, md, attr } = el
-      const comp = name && lib.find(el => el.name == name)
+      const comp = name && lib.find(el => [name, toCamelCase(name)].includes(el.name))
       const alldata = { ...data, ...el.data, attr }
       const tag = tags[name]
 
@@ -37,8 +37,8 @@ export function renderPage(page, opts) {
         // island
         name ? renderIsland(el) :
 
-        // generic block
-        tags.block(alldata, opts)
+        // generic layout
+        tags.layout(alldata, opts)
 
     }))
 
@@ -48,6 +48,10 @@ export function renderPage(page, opts) {
   })
 
   return { ...page, html: join(ret) }
+}
+
+function toCamelCase(str) {
+  return str.split('-').map(el => el[0].toUpperCase() + el.slice(1)).join('')
 }
 
 export function renderLines(lines, opts={}) {
