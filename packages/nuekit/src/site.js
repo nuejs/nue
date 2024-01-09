@@ -40,7 +40,7 @@ export async function createSite(args) {
       const raw = await read(path)
       return yaml.load(raw)
     } catch (e) {
-      if (e.errno != NOT_FOUND && e.errno!= ENOENT) {
+      if (e.errno != NOT_FOUND && e.errno != ENOENT) {
         throw `YAML parse error in ${path}`
       } else if (path == env) throw e
     }
@@ -239,4 +239,3 @@ export async function createSite(args) {
   return { ...self, dist, port, read, write, copy, getAssets }
 
 }
-
