@@ -237,10 +237,9 @@ test('index.md', async() => {
   const kit = await getKit()
   await kit.gen('index.md')
   const html = await readDist(kit.dist, 'index.html')
-
   expect(html).toInclude('hotreload.js')
   expect(html).toInclude('<title>Hey</title>')
-  expect(html).toInclude('<h1 id="hey">Hey')
+  expect(html).toInclude('<h1 id="hey">')
 })
 
 

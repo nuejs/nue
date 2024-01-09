@@ -143,10 +143,11 @@ export async function createKit(args) {
     const dir = data.appdir || file.dir
     const lib = await site.getLayoutComponents(dir)
 
-    data.content = renderPage(data.page, { data, lib })
+    data.content = renderPage(data.page, { data, lib }).html
 
     function render(name, def) {
       const layout = lib.find(el => el.tagName == name) || def && parseNue(def)[0]
+
       try {
         return layout ? layout.render(data, lib) : ''
       } catch (e) {

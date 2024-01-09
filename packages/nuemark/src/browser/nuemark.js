@@ -27,12 +27,14 @@ class Tabs extends HTMLElement {
 
     links.forEach((link, i) => {
       link.onclick = (e) => {
+        history.replaceState({}, 0, link.getAttribute('href'))
         e.preventDefault()
         toggle(i)
       }
     })
 
-    toggle(0)
+    const i = links.findIndex(el => el.getAttribute('href') == location.hash)
+    toggle(i != -1 ? i : 0)
   }
 }
 
