@@ -176,8 +176,8 @@ export async function createKit(args) {
 
     // else -> build()
     await buildJS({
-      outdir: join(dist, file.dir),
-      path: join('.', root, path),
+      outdir: join(process.cwd(), dist, file.dir),
+      path: join(process.cwd(), root, path),
       minify: is_prod,
       bundle
     })
