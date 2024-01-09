@@ -1,6 +1,6 @@
 
 import { compileFile as nueCompile} from 'nuejs-core/index.js'
-import { join, basename } from 'node:path'
+import { join, normalize } from 'node:path'
 import { promises as fs } from 'node:fs'
 import { log, colors } from './util.js'
 import { buildJS } from './builder.js'
@@ -11,7 +11,8 @@ export async function init({ dist, is_dev, esbuild }) {
   // directories
   const cwd = process.cwd()
   const pathname = new URL('.', import.meta.url).pathname
-  const srcdir = process.platform === "win32" && pathname.startsWith('/') ? pathname.slice(1) : pathname
+  const fixwin = process.platform === 'win32' && pathname.startsWith('/') ? pathname.slice(1) : pathname
+  const srcdir = normalize(fixwin)
   const fromdir = join(srcdir, 'browser')
   const outdir = join(cwd, dist, '@nue')
   const minify = !is_dev

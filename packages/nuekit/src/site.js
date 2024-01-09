@@ -1,6 +1,7 @@
 
 import { log, parseMarkdown, getParts, getAppDir, getDirs, colors } from './util.js'
 import { join, extname, basename, sep, parse as parsePath } from 'node:path'
+import { join as urlJoin } from 'node:path/posix'
 import { parse as parseNue } from 'nuejs-core/index.js'
 import { promises as fs } from 'node:fs'
 import { fswalk } from './nuefs.js'
@@ -124,7 +125,8 @@ export async function createSite(args) {
 
         }).forEach(path => {
           const ext = extname(path)
-          arr.push('/' + join(dir, to_ext ? path.replace(ext, '.' + to_ext) : path))
+          const subpath = to_ext ? path.replace(ext, '.' + to_ext) : path
+          arr.push('/' + urlJoin(dir, subpath).replace(/\\/g, '/'))
         })
 
       } catch (e) {

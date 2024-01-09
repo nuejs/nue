@@ -1,6 +1,8 @@
 
 import { onclick, loadPage, setSelected } from './page-router.js'
 
+const is_browser = typeof window == 'object'
+
 const fns = []
 
 async function fire(path) {
@@ -12,7 +14,7 @@ async function fire(path) {
 }
 
 // clear existing routes
-addEventListener('before:route', () => {
+is_browser && addEventListener('before:route', () => {
   fns.splice(0, fns.length)
 })
 

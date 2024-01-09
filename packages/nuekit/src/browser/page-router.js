@@ -38,7 +38,7 @@ export async function loadPage(path) {
 
 
 // back button
-addEventListener('popstate', e => {
+is_browser && addEventListener('popstate', e => {
   const { path, is_spa } = e.state || {}
   if (path) loadPage(path)
 })

@@ -5,6 +5,9 @@ import { match } from '../src/browser/app-router.js'
 import { renderHead } from '../src/layout.js'
 import { getArgs } from '../src/cli.js'
 
+import { toMatchOSPath } from './match-ospath.js'
+
+expect.extend({ toMatchOSPath })
 
 
 test('CLI args', () => {
@@ -16,9 +19,9 @@ test('CLI args', () => {
 
 test('head', () => {
   const head = renderHead({ charset: 'foo', title: 'Hey', preload_image: 'hey.png' })
-  expect(head).toInclude('meta charset="foo"')
-  expect(head).toInclude('<title>Hey</title>')
-  expect(head).toInclude('<link rel="preload" as="image" href="hey.png">')
+  expect(head).toContain('meta charset="foo"')
+  expect(head).toContain('<title>Hey</title>')
+  expect(head).toContain('<link rel="preload" as="image" href="hey.png">')
 })
 
 
@@ -38,8 +41,8 @@ test('app router', async () => {
 test('path parts', () => {
   const parts = getParts('docs/glossary/semantic-css.md')
   expect(parts.url).toBe('/docs/glossary/semantic-css.html')
-  expect(parts.dir).toBe('docs/glossary')
-  expect(parts.appdir).toBe('docs')
+  expect(parts.dir).toMatchOSPath('docs/glossary')
+  expect(parts.appdir).toMatchOSPath('docs')
   expect(parts.slug).toBe('semantic-css.html')
 })
 

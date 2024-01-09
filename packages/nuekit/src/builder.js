@@ -1,5 +1,5 @@
 
-import { join, extname } from 'node:path'
+import { join, normalize } from 'node:path'
 
 export async function getBuilder(is_esbuild) {
   try {
@@ -10,14 +10,20 @@ export async function getBuilder(is_esbuild) {
 }
 
 export async function buildJS(args) {
-  const { outdir, toname, minify, bundle } = args
+
+  const { toname, minify, bundle } = args
+  const path = normalize(args.path)
+  const outdir = normalize(args.outdir)
+
+  console.info('buildJS args', args, { path, outdir })
+
   const is_esbuild = args.esbuild || !process.isBun
   const builder = await getBuilder(is_esbuild)
   let ret
 
   const opts = {
     external: bundle ? ['../@nue/*', '/@nue/*'] : is_esbuild ? undefined : ['*'],
-    entryPoints: [ args.path ],
+    entryPoints: [ path ],
     format: 'esm',
     outdir,
     bundle,
