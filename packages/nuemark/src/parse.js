@@ -39,7 +39,11 @@ export function parsePage(lines) {
       } else {
         const tokens = marked.lexer(block.join(NL))
         Object.assign(links, tokens.links)
-        headings.push(...tokens.filter(el => el.type == 'heading').map(parseHeading))
+
+        headings.push(...tokens.filter(el => el.type == 'heading').map(el => {
+          return { level: el.depth, ...parseHeading(el.text) }
+        }))
+
         blocks.push({ md: block, tokens })
       }
     }
@@ -54,14 +58,15 @@ export function parsePage(lines) {
 }
 
 
-export function parseHeading({ depth, text, id }) {
-  const re = text.match(/{#\s?/)
+export function parseHeading(text) {
+  const i = text.indexOf('{')
 
-  if (re && text.endsWith('}')) {
-    id = text.slice(re.index + re[0].length, -1).trim()
-    text = text.slice(0, re.index).trim()
+  if (i > 0 && text.endsWith('}')) {
+    const attr = parseAttr(text.slice(i+1, -1).trim())
+    return { text: text.slice(0, i).trim(), ...attr }
   }
-  return { level: depth, text, id: id || createHeaderId(text) }
+
+  return { text, id: createHeaderId(text) }
 }
 
 export function createHeaderId(text) {

@@ -1,6 +1,6 @@
 
+import { parseMeta, parseBlocks, parseSections, parsePage, parseHeading } from '../src/parse.js'
 import { parseComponent, valueGetter, parseAttr, parseSpecs } from '../src/component.js'
-import { parseMeta, parseBlocks, parseSections, parsePage } from '../src/parse.js'
 import { renderIsland, renderLines } from '../src/render.js'
 import { nuemarkdown } from '../index.js'
 import { tags } from '../src/tags.js'
@@ -164,10 +164,22 @@ test('reflinks', () => {
   expect(html).toInclude('<a href="//hey.net" title="boom">dude</a>')
 })
 
+test('parseHeading', () => {
+  const h1 = parseHeading('# Hey { #me-too.hey.yo }')
+  expect(h1.text).toBe('# Hey')
+  expect(h1.id).toBe('me-too')
+  expect(h1.class).toBe('hey yo')
+
+  const h2 = parseHeading('## Hey')
+  expect(h2.text).toBe('## Hey')
+  expect(h2.id).toBe('hey')
+})
+
 test('heading id', () => {
-  const { html } = renderLines(['# Hey {#  me-too  }'])
-  expect(html).toInclude('<h1 id="me-too">')
-  expect(html).toInclude('<a href="#me-too"')
+  const { html } = renderLines(['# Hey _boy_ { #me.too }'])
+  expect(html).toInclude('<h1 class="too" id="me">')
+  expect(html).toInclude('<a href="#me"')
+  expect(html).toInclude('Hey <em>boy</em>')
 })
 
 test('page island', () => {
