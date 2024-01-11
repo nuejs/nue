@@ -14,9 +14,9 @@ Please see https://nuejs.org/docs/
 
 ### Why Nue?
 
-- [Improved development experience](https://nuejs.org/docs/why-nue/developer-experience.html)
-- [Standards-based development model](https://nuejs.org/docs/why-nue/closer-to-standards.html)
-- [Improved website performance](https://nuejs.org/docs/why-nue/website-performance.html)
+- [Content first](https://nuejs.org/docs/why-nue/content-first.html)
+- [Extreme performance](https://nuejs.org/docs/why-nue/extreme-performance.html)
+- [Closer to standards](https://nuejs.org/docs/why-nue/closer-to-standards.html)
 
 #### Notable features
 
@@ -29,9 +29,9 @@ Please see https://nuejs.org/docs/
 
 
 ### Roadmap
-The ultimate goal of Nue is to create a simpler and more powerful alternative to **Vercel**, **Gatsby**, and **Netlify**.
+The ultimate goal of Nue is to build a content first alternative to **Vercel** and **Netlify**, which is extremely fast and ridiculously easy to use.
 
-![Nue Roadmap](https://nuejs.org/img/roadmap3-big.png)
+![Nue Roadmap](https://nuejs.org/img/roadmap4-big.png)
 
 
 ### Contributing

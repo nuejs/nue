@@ -54,5 +54,32 @@ ES6 classes make your code look amazingly compact and clean. You can add variabl
 Learn the reasoning behind HTML- and class based syntax from our Blog article: [rethinking reactivity](https://nuejs.org/blog/rethinking-reactivity/)
 
 
+### Getting Started
+
+Please see https://nuejs.org/docs/
+
+
+### The big picture
+The ultimate goal of Nue is to build a content first alternative to **Vercel** and **Netlify**, which is extremely fast and ridiculously easy to use.
+
+![Nue Roadmap](https://nuejs.org/img/roadmap4-big.png)
+
+
+#### Why Nue?
+
+- [Content first](https://nuejs.org/docs/why-nue/content-first.html)
+- [Extreme performance](https://nuejs.org/docs/why-nue/extreme-performance.html)
+- [Closer to standards](https://nuejs.org/docs/why-nue/closer-to-standards.html)
+
+
+### Contributing
+
+Please see [contributing.md](/CONTRIBUTING.md)
+
+
+### Community
+
+Please see [GitHub discussions](https://github.com/nuejs/nue/discussions)
+
 
 
