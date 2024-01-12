@@ -1,7 +1,7 @@
 {
   "name": "nuemark",
-  "version": "0.1.0-dev",
-  "description": "Markdown variant for rich, interactive content",
+  "version": "0.1.0",
+  "description": "Markdown dialect for rich, interactive web content",
   "homepage": "https://nuejs.org",
   "license": "MIT",
   "type": "module",
