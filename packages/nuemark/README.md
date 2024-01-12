@@ -9,7 +9,7 @@ Nuemark is a Markdown dialect for rich, interactive content. Use it to create ma
 
 ![Web page in read and edit mode](https://nuejs.org/img/nuemark-content-big.png)
 
-*In above*: Web page being edited on the left and it's content on the right.
+*In above*: The content and the result. Nuemark puts you into content-first mindset.
 
 
 ### Documentation
