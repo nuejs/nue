@@ -125,7 +125,7 @@ const renderer = {
     const rich = parseHeading(html)
 
     delete plain.text
-    const a = elem('a', { href: `#${plain.id}`, title: `Permlink for '${title}'` })
+    const a = elem('a', { href: `#${plain.id}`, title: `Permalink for '${title}'` })
     return elem(`h${level}`, plain, a + rich.text)
   },
 
