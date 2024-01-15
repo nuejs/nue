@@ -1,33 +1,44 @@
 
-// MPA router
-
+// Router for multi-page applications
 const is_browser = typeof window == 'object'
 
 export async function loadPage(path) {
   dispatchEvent(new Event('before:route'))
 
+  // DOM of the new page
   const dom = mkdom(await getHTML(path))
 
-  // title
+  // change title
   document.title = $('title', dom)?.textContent
-
-  // main / body
-  const main = $('main')
-  const main2 = $('main', dom)
-
-  if (main && main2) {
-    main.replaceWith(main2)
-  } else {
-    $('body').innerHTML = $('body2', dom).innerHTML
-    $('body').classList = $('body2', dom).classList
-  }
 
   // inline CSS
   const new_styles = swapStyles($$('style'), $$('style', dom))
   new_styles.forEach(style => $('head').appendChild(style))
 
+  // body class
+  $('body').classList = $('body2', dom).classList
 
-  // stylesheets
+  // content
+  for (const query of ['header', 'main', 'footer']) {
+    const a = $('body >' + query)
+    const b = $('body2 >' + query, dom)
+
+    // update (if changed)
+    if (a && b) {
+      if (a.outerHTML != b.outerHTML) a.replaceWith(b)
+
+    // remove
+    } else if (a) {
+      a.remove()
+
+    // add
+    } else {
+      const fn = query == 'footer' ? 'append' : 'prepend'
+      document.body[fn](b)
+    }
+  }
+
+  // external CSS
   const paths = swapStyles($$('link'), $$('link', dom))
 
   loadCSS(paths, () => {

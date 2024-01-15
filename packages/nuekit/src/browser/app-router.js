@@ -1,4 +1,5 @@
 
+// Router for single-page applications
 import { onclick, loadPage, setSelected } from './page-router.js'
 
 const fns = []
