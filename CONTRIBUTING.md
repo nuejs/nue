@@ -31,6 +31,38 @@ Please try to use the original style in the codebase. Do not introduce new rules
 Nue is not using Prettier or ESLint because they will increase the project size to 40MB. The `.prettierrc.yaml` file on the root directory does the job well enough.
 
 
+### Testing
+
+```sh
+# if using bun
+bun install
+bun install --no-save esbuild
+bun test
+
+# if using node
+npm install
+npm install --no-save jest jest-extended esbuild
+node --experimental-vm-modules node_modules/jest/bin/jest --runInBand
+```
 
 
+### Linking
 
+```sh
+# if using bun
+bun install
+cd packages/nuekit
+bun link
+cd my/nue/project
+nue
+nue build --production
+
+# if using node
+npm install
+cd packages/nuekit
+npm link
+cd my/nue/project
+npm install --save-dev esbuild
+node $(which nue)
+node $(which nue) build --production
+```

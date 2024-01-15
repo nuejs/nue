@@ -2,10 +2,11 @@
 /* Builders for CSS, JS, and TS */
 
 import { join, extname } from 'node:path'
+import { resolve } from 'import-meta-resolve'
 
 export async function getBuilder(is_esbuild) {
   try {
-    return is_esbuild ? await import('esbuild') : Bun
+    return is_esbuild ? await import(await resolve('esbuild', `file://${process.cwd()}/`)) : Bun
   } catch {
     throw 'Bundler not found. Please use Bun or install esbuild'
   }
