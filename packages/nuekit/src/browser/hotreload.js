@@ -23,7 +23,7 @@ sse.onmessage = function(e) {
 
   // content
   if (html) {
-    if (data.is_md && location.pathname != url) location.href = url
+    if (data.is_md && location.pathname != url) location.href = url.replace('/index.html', '/')
     else patch(html)
   }
 
