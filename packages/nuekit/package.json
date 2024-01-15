@@ -1,6 +1,6 @@
 {
 	"name": "nuekit",
-	"version": "0.2.0",
+	"version": "0.3.0",
 	"description": "The closer-to-standards web framework. Build sites and apps with less effort.",
 	"homepage": "https://nuejs.org",
 	"license": "MIT",

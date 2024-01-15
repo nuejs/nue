@@ -61,7 +61,7 @@ export async function createKit(args) {
   async function setupScripts(dir, data) {
 
     // components
-    if (!data.no_automount) data.components = await site.getAssets(dir, ['nue'], 'js')
+    if (data.automount !== false) data.components = await site.getAssets(dir, ['nue'], 'js')
 
     // scripts
     const scripts = data.scripts = await site.getScripts(dir, data.include)
@@ -72,8 +72,8 @@ export async function createKit(args) {
     }
 
     // system scripts
-    if (!data.is_spa && data.page_router) push('page-router')
-    if (is_dev && !data.no_hotreload) push('hotreload')
+    if (!data.is_spa && data.router) push('page-router')
+    if (is_dev && data.hotreload !== false) push('hotreload')
     if (data.page?.isomorphic) push('nuemark')
     if (data.components?.length) push('mount')
   }
