@@ -19,15 +19,18 @@ importers:
       diff-dom:
         specifier: ^5.0.6
         version: 5.1.2
+      import-meta-resolve:
+        specifier: ^4.0.0
+        version: 4.0.0
       js-yaml:
         specifier: ^4.1.0
         version: 4.1.0
-      marked:
-        specifier: ^9.1.6
-        version: 9.1.6
       nuejs-core:
         specifier: ^0.3.0
         version: link:../nuejs
+      nuemark:
+        specifier: ^0.1.0
+        version: link:../nuemark
 
   packages/nuemark:
     dependencies:
@@ -87,6 +90,10 @@ packages:
       domhandler: 5.0.3
       domutils: 3.1.0
       entities: 4.5.0
+    dev: false
+
+  /import-meta-resolve@4.0.0:
+    resolution: {integrity: sha512-okYUR7ZQPH+efeuMJGlq4f8ubUgO50kByRPyt/Cy1Io4PSRsPjxME+YlVaCOx+NIToW7hCsZNFJyTPFFKepRSA==}
     dev: false
 
   /js-yaml@4.1.0:

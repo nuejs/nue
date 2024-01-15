@@ -5,7 +5,7 @@ import { join, parse, sep } from 'node:path'
 /*
   Super minimalistic file system watcher.
 
-  Auto-follows new directories and symbolic links
+  Auto-follows new directories and symbolic (file) links
 
   Simple alternative to Chokidar and Nodemon when you "just want to watch"
 
@@ -28,10 +28,23 @@ export async function fswatch(dir, onfile, onremove) {
 
       // regular flie -> callback
       const stat = await fs.lstat(join(dir, path))
-      if (!stat.isDirectory()) {
+
+      if (stat.isDirectory()) {
+        const paths = await fswalk(dir, path)
+
+        // deploy everything on the directory
+        for (const path of paths) {
+          const file = parse(path)
+          if (!ignore(file.name) && !ignore(file.dir)) {
+            await onfile({ ...file, path })
+          }
+        }
+
+      } else {
         await onfile({ ...file, path, size: stat.size })
-        last = { path, ts: Date.now() }
       }
+
+      last = { path, ts: Date.now() }
 
     } catch (e) {
       if (e.errno == -2) await onremove(path)
