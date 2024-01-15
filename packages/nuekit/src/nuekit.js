@@ -19,7 +19,7 @@ const DOCTYPE = '<!doctype html>\n\n'
 const NOT_FOUND = -2
 
 export async function createKit(args) {
-  const { root, is_prod, env } = args
+  const { root, is_prod, esbuild } = args
 
   // site: various file based functions
   const site = await createSite(args)
@@ -28,7 +28,7 @@ export async function createKit(args) {
   const is_dev = !is_prod
 
   // make sure @nue dir has all the latest
-  if (!args.dryrun) await init({ dist, is_dev })
+  if (!args.dryrun) await init({ dist, is_dev, esbuild })
 
 
 
@@ -186,6 +186,7 @@ export async function createKit(args) {
     await buildJS({
       outdir: join(process.cwd(), dist, file.dir),
       path: join(process.cwd(), root, path),
+      esbuild,
       minify: is_prod,
       bundle
     })

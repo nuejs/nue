@@ -44,6 +44,7 @@ export function getArgs(argv) {
       else if (['-h', '--help'].includes(arg)) args.help = true
       else if (['-v', '--verbose'].includes(arg)) args.verbose = true
       else if (['-s', '--stats'].includes(arg)) args.stats = true
+      else if (['-b', '--esbuild'].includes(arg)) args.esbuild = true
 
       // string values
       else if (['-e', '--environment'].includes(arg)) opt = 'env'
