@@ -1,6 +1,6 @@
 
 <a href="https://nuejs.org">
-  <img src="https://nuejs.org/img/nue-banner-big.png">
+  <img src="https://nuejs.org/img/nue-banner-big.png?1">
 </a>
 
 # Nue &nbsp;[![test](https://github.com/nuejs/nue/actions/workflows/test.yaml/badge.svg?branch=master)](https://github.com/nuejs/nue/actions/workflows/test.yaml)
