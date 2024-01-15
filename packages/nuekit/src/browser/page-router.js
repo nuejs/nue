@@ -1,6 +1,5 @@
 
 // Router for multi-page applications
-const is_browser = typeof window == 'object'
 
 export async function loadPage(path) {
   dispatchEvent(new Event('before:route'))
@@ -43,6 +42,7 @@ export async function loadPage(path) {
 
   loadCSS(paths, () => {
     scrollTo(0, 0)
+    setSelected(path)
     dispatchEvent(new Event('route'))
   })
 }
@@ -75,24 +75,37 @@ export function onclick(root, fn) {
   })
 }
 
+// TODO: switch to aria-selected
 export function setSelected(path, className='selected') {
-  const el = $(`[href="${path}"]`)
+
+  // remove old selections
   $$('.' + className).forEach(el => el.classList.remove(className))
-  el?.classList.add(className)
+
+  // add new ones
+  $$(`[href="${path}"]`).forEach(el => el.classList.add(className))
 }
 
 
-// Fix: window.onpopstate, event.state == null?
-// https://stackoverflow.com/questions/11092736/window-onpopstate-event-state-null
-is_browser && history.pushState({ path: location.pathname }, 0)
+// browser environment
+const is_browser = typeof window == 'object'
+
+if (is_browser) {
+
+  // Fix: window.onpopstate, event.state == null?
+  // https://stackoverflow.com/questions/11092736/window-onpopstate-event-state-null
+  history.pushState({ path: location.pathname }, 0)
+
+  // autoroute / document clicks
+  onclick(document, async path => {
+    await loadPage(path)
+    history.pushState({ path }, 0, path)
+  })
+
+  // initial selected
+  setSelected(location.pathname)
+}
 
 
-// autoroute / document clicks
-is_browser && onclick(document, (path) => {
-  loadPage(path)
-  history.pushState({ path }, 0, path)
-  setSelected(path)
-})
 
 
 /* -------- utilities ---------- */
