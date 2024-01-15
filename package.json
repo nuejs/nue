@@ -9,5 +9,8 @@
   "engines": {
     "bun": ">=1",
     "node": ">=18"
+  },
+  "jest": {
+    "setupFilesAfterEnv": ["jest-extended/all"]
   }
 }

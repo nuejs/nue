@@ -1,6 +1,6 @@
 
 import { join, extname, basename, sep, parse as parsePath } from 'node:path'
-import { log, getParts, getAppDir, getDirs, colors } from './util.js'
+import { log, getParts, getAppDir, getDirs, colors, getPosixPath } from './util.js'
 import { parse as parseNue } from 'nuejs-core/index.js'
 import { nuemark } from 'nuemark/index.js'
 import { promises as fs } from 'node:fs'
@@ -125,7 +125,8 @@ export async function createSite(args) {
 
         }).forEach(path => {
           const ext = extname(path)
-          arr.push('/' + join(dir, to_ext ? path.replace(ext, '.' + to_ext) : path))
+          const subpath = to_ext ? path.replace(ext, '.' + to_ext) : path
+          arr.push('/' + getPosixPath(join(dir, subpath)))
         })
 
       } catch (e) {

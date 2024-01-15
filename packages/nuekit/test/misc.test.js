@@ -6,6 +6,10 @@ import { match } from '../src/browser/app-router.js'
 import { renderHead } from '../src/layout.js'
 import { getArgs } from '../src/cli.js'
 
+import { toMatchPath } from './match-path.js'
+
+expect.extend({ toMatchPath })
+
 const lcss = await findModule('lightningcss')
 const stylus = await findModule('stylus')
 
@@ -85,8 +89,8 @@ test('app router', async () => {
 test('path parts', () => {
   const parts = getParts('docs/glossary/semantic-css.md')
   expect(parts.url).toBe('/docs/glossary/semantic-css.html')
-  expect(parts.dir).toBe('docs/glossary')
-  expect(parts.appdir).toBe('docs')
+  expect(parts.dir).toMatchPath('docs/glossary')
+  expect(parts.appdir).toMatchPath('docs')
   expect(parts.slug).toBe('semantic-css.html')
 })
 

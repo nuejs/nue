@@ -1,6 +1,6 @@
 
 /* misc stuff. think shame.css */
-import { sep, parse } from 'node:path'
+import { sep, parse, normalize } from 'node:path'
 
 
 export function log(msg, extra='') {
@@ -29,6 +29,7 @@ export const colors = getColorFunctions()
 /* path parts */
 
 export function getParts(path) {
+  path = normalize(path)
   const { dir, name, base } = parse(path)
   const appdir = getAppDir(path)
   const url = getUrl(dir, name)
@@ -37,6 +38,7 @@ export function getParts(path) {
 
 
 export function getAppDir(path) {
+  path = normalize(path)
   const [ appdir ] = path.split(sep)
   return appdir == path ? '' : appdir
 }
@@ -44,14 +46,19 @@ export function getAppDir(path) {
 // getDirs('a/b/c') --> ['a', 'a/b', 'a/b/c']
 export function getDirs(dir) {
   if (!dir) return []
+  dir = normalize(dir)
   const els = dir.split(sep)
   return els.map((el, i) => els.slice(0, i + 1).join(sep))
 }
 
 export function getUrl(dir, name) {
-  let url = dir.replace('\\', '/') + '/'
+  let url = getPosixPath(dir) + '/'
   if (url[0] != '/') url = '/' + url
   // if (name != 'index')
   url += name + '.html'
   return url
+}
+
+export function getPosixPath(path) {
+  return path.replaceAll('\\', '/')
 }

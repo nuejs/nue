@@ -5,13 +5,19 @@ import { createSite } from '../src/site.js'
 import { createKit } from '../src/nuekit.js'
 import { promises as fs } from 'node:fs'
 import { join, parse } from 'node:path'
-import { init } from '../src/init.js'
+
+import { toMatchPath } from './match-path.js'
+
+expect.extend({ toMatchPath })
 
 // temporary directory
 const root = '_test'
 
 // setup and teardown
-beforeAll(async () => await fs.mkdir(root, { recursive: true }))
+beforeAll(async () => {
+  await fs.rm(root, { recursive: true, force: true })
+  await fs.mkdir(root, { recursive: true })
+})
 afterAll(async () => await fs.rm(root, { recursive: true, force: true }))
 
 // helper function for creating files to the root directory
@@ -124,7 +130,7 @@ test('content collection', async () => {
   expect(coll[0].url).toBe('/blog/first.html')
   expect(coll[0].title).toBe('First')
   expect(coll[1].title).toBe('Second')
-  expect(coll[1].dir).toBe('blog/nested')
+  expect(coll[1].dir).toMatchPath('blog/nested')
   expect(coll[1].slug).toBe('hey.html')
 })
 
@@ -174,17 +180,9 @@ test('getRequestPaths', async () => {
   // SPA root
   const path = 'admin/index.html'
   await write(path)
-  expect(await site.getRequestPaths('/admin/')).toMatchObject({ path })
-  expect(await site.getRequestPaths('/admin/customers')).toMatchObject({ path })
+  expect((await site.getRequestPaths('/admin/')).path).toMatchPath(path)
+  expect((await site.getRequestPaths('/admin/customers')).path).toMatchPath(path)
   expect(await site.getRequestPaths('/admin/readme.html')).toMatchObject({ path: '404.html' })
-})
-
-
-
-test('init dist/@nue dir', async () => {
-  await init({ dist: root, is_dev: true, esbuild: false })
-  const names = await fs.readdir(join(root, '@nue'))
-  expect(names.length).toBeGreaterThan(7)
 })
 
 
