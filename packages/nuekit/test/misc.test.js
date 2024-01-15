@@ -1,7 +1,7 @@
 
 
 import { buildCSS, findModule } from '../src/builder.js'
-import { parseMarkdown, getParts } from '../src/util.js'
+import { getParts } from '../src/util.js'
 import { match } from '../src/browser/app-router.js'
 import { renderHead } from '../src/layout.js'
 import { getArgs } from '../src/cli.js'
@@ -73,13 +73,6 @@ test('head', () => {
   expect(head).toInclude('meta charset="foo"')
   expect(head).toInclude('<title>Hey</title>')
   expect(head).toInclude('<link rel="preload" as="image" href="hey.png">')
-})
-
-
-test('markdown', async () => {
-  const { meta, content } = parseMarkdown('---\nog: og.png\n---\n# Hey')
-  expect(meta.og).toBe('og.png')
-  expect(content.trim()).toBe('<h1>Hey</h1>')
 })
 
 test('app router', async () => {
