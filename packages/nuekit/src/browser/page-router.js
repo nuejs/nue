@@ -48,13 +48,6 @@ export async function loadPage(path) {
 }
 
 
-// back button
-addEventListener('popstate', e => {
-  const { path, is_spa } = e.state || {}
-  if (path) loadPage(path)
-})
-
-
 // setup linking
 export function onclick(root, fn) {
 
@@ -103,6 +96,12 @@ if (is_browser) {
 
   // initial selected
   setSelected(location.pathname)
+
+  // back button
+  addEventListener('popstate', e => {
+    const { path } = e.state || {}
+    if (path) loadPage(path)
+  })
 }
 
 

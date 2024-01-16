@@ -10,11 +10,35 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        env:
+          - { os: 'ubuntu-22.04', tool: 'bun' }
+          - { os: 'macos-12', tool: 'bun' }
+          # Windows support for bun install is not implemented yet
+          # - { os: 'windows-2022', tool: 'bun' }
+          # - { os: 'ubuntu-22.04', tool: 'node+jest' }
+          # - { os: 'macos-12', tool: 'node+jest' }
+          - { os: 'windows-2022', tool: 'node+jest' }
+    runs-on: ${{ matrix.env.os }}
     steps:
       - uses: actions/checkout@v3
+
+      # Testing `bun`
       - uses: oven-sh/setup-bun@v1
+        if: ${{ matrix.env.tool == 'bun' }}
       - run: |
+          bun -v
           bun install
           bun install --no-save esbuild@^0.19.11
           bun test --coverage
+        if: ${{ matrix.env.tool == 'bun' }}
+
+      # Testing `node+jest`
+      - run: |
+          node -v && npm -v
+          npm install
+          npm install --no-save jest jest-extended esbuild@^0.19.11
+          # https://jestjs.io/docs/ecmascript-modules
+          node --experimental-vm-modules node_modules/jest/bin/jest --runInBand --coverage
+        if: ${{ matrix.env.tool == 'node+jest' }}
