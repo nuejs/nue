@@ -337,8 +337,10 @@ export async function createKit(args) {
     }, async path => {
       const dpath = join(dist, path)
       await fs.rm(dpath, { recursive: true, force: true })
-      send({ remove: true, path, ...parsePath(path) })
       log('Removed', dpath)
+
+      const file = parsePath(path)
+      if (file.ext) send({ remove: true, path, ...file })
     })
 
     try {

@@ -21,7 +21,7 @@ export async function fswatch(dir, onfile, onremove) {
       const file = parse(path)
 
       // skip dotfiles and files that start with "_"
-      if (ignore(file.name) || ignore(file.dir)) return
+      if (!isLegit(file)) return
 
       // skip double events
       if (last.path == path && Date.now() - last.ts < 50) return
@@ -35,13 +35,11 @@ export async function fswatch(dir, onfile, onremove) {
         // deploy everything on the directory
         for (const path of paths) {
           const file = parse(path)
-          if (!ignore(file.name) && !ignore(file.dir)) {
-            await onfile({ ...file, path })
-          }
+          if (isLegit(file)) await onfile({ ...file, path })
         }
 
       } else {
-        await onfile({ ...file, path, size: stat.size })
+        if (file.ext) await onfile({ ...file, path, size: stat.size })
       }
 
       last = { path, ts: Date.now() }
@@ -53,11 +51,14 @@ export async function fswatch(dir, onfile, onremove) {
   })
 }
 
+
+
+
 export async function fswalk(root, _dir='', _ret=[]) {
   const files = await fs.readdir(join(root, _dir), { withFileTypes: true })
 
   for (const f of files) {
-    if (!ignore(f.name)) {
+    if (isLegit(f)) {
       const path = join(_dir, f.name)
       if (isDir(f)) await fswalk(root, path, _ret)
       else _ret.push(path)
@@ -69,8 +70,12 @@ export async function fswalk(root, _dir='', _ret=[]) {
 
 const IGNORE = ['node_modules', 'package.json', 'bun.lockb', 'pnpm-lock.yaml']
 
-function ignore(name) {
+function ignore(name='') {
   return '._'.includes(name[0]) || IGNORE.includes(name)
+}
+
+function isLegit(file) {
+  return !ignore(file.name) && !ignore(file.dir)
 }
 
 // TODO: real symdir detection
