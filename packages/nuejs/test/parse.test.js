@@ -46,6 +46,7 @@ test('Expressions', () => {
 
   runTests(parseExpr, {
     'Hey { name }': [ "'Hey '", '_.name' ],
+    "Hey, I'm { name }": [ '"Hey, I\'m "', '_.name' ],
     'foo { alarm } is-alert': [ "'foo '", '_.alarm', "' is-alert'" ],
     'is-cool { danger: hasError }': [ "'is-cool '", "_.hasError && 'danger '" ],
 

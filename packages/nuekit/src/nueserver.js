@@ -48,8 +48,9 @@ export function createServer(root, callback) {
     try {
       const { code, path } = !ext || ext == 'html' ? await callback(url, _) : { path: url }
       if (!path) throw { errno: -2 }
+      const buffer = await fs.readFile(join(root, path))
       res.writeHead(code || 200, { 'content-type': TYPES[ext] || TYPES.html })
-      res.end(await fs.readFile(join(root, path)))
+      res.end(buffer)
   
     } catch(e) {
       const nf = e.errno == -2 // not found

@@ -35,7 +35,7 @@ export function parseExpr(str, is_style) {
 
     // normal string
     if (i % 2 == 0) {
-      if (str) ret.push(`'${str}'`)
+      if (str) ret.push(str.includes("'") ? JSON.stringify(str) : `'${str}'`)
 
     // Object: { is-active: isActive() }
     } else if (isObject(str.trim())) {
