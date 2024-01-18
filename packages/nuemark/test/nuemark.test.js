@@ -16,13 +16,17 @@ test('render fenced code', () => {
   expect(html).toBe('<pre class="syntax-md foo" id="bar">// hey</pre>')
 })
 
-
 test('parse fenced code', () => {
   const blocks = parseBlocks(['# Hey', '``` md.foo#bar', '// hey', '[foo]', '```'])
   const [ hey, fenced ] = blocks
   expect(fenced.name).toBe('md')
   expect(fenced.attr).toEqual({ class: 'foo', id: 'bar' })
   expect(fenced.code).toEqual([ "// hey", "[foo]" ])
+})
+
+test('escape fenced code', () => {
+  const { html } = renderLines(['```', `<h1 id="title-name"><a href="#title-name" title="Permalink for 'Title & Name'">Title & Name</h1>`, '```'])
+  expect(html).toBe(`<pre>&lt;h1 id=&quot;title-name&quot;&gt;&lt;a href=&quot;#title-name&quot; title=&quot;Permalink for &apos;Title &amp; Name&apos;&quot;&gt;Title &amp; Name&lt;/h1&gt;</pre>`)
 })
 
 
