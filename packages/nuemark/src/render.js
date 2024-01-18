@@ -59,10 +59,20 @@ export function renderLines(lines, opts={}) {
   return renderPage(page, opts)
 }
 
+const specialChars = {
+  '&': '&amp;',
+  '>': '&gt;',
+  '<': '&lt;',
+  '"': '&quot;',
+  "'": '&apos;',
+}
+
+const replaceSpecialChars = new RegExp(`[${Object.keys(specialChars).join('')}]`, 'g')
+
 export function renderCodeBlock({ name, code, attr }, fn) {
   // console.info(name, code, attr, fn)
   if (name) attr.class = concat(`syntax-${name}`, attr.class)
-  const body = join(code)
+  const body = join(code).replace(replaceSpecialChars, c => specialChars[c])
 
   return elem('pre', attr, fn ? fn(body) : body)
 }
