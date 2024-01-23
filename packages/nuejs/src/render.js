@@ -193,10 +193,13 @@ function processNode(opts) {
     for (let key in attribs) {
       if (key[0] == ':' && attribs[key] == '') attribs[key] = key.slice(1)
     }
-
     // root
     if (type == 'root') {
       walkChildren(node)
+
+    } else if (type == 'script' || attribs?.client) {
+      delete attribs.client
+      // do nothing: pass content as is
 
     // content
     } else if (type == 'text') {
@@ -276,7 +279,7 @@ function processNode(opts) {
 }
 
 function getJS(nodes) {
-  const scripts = nodes.filter(el => el.type == 'script' && !el.attribs.type)
+  const scripts = nodes.filter(el => el.type == 'script' && !Object.keys(el.attribs)[0])
   const js = scripts.map(getInnerHTML)
   scripts.forEach(removeElement)
   return js.join('\n')

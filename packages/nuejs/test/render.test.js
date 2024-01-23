@@ -184,6 +184,24 @@ test('Global script', () => {
   expect(html).toBe('<div>hey</div>')
 })
 
+const GA = `
+<body>
+  <script async src="https://ga.com/js?id=666"></script>
+
+  <script client>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments)}
+  </script>
+</body>
+`
+
+test('GA', () => {
+  const html = render(GA)
+  expect(html).toInclude('<script async src')
+  expect(html).toInclude('<script>')
+  expect(html).toInclude('(){dataLayer.push(arguments)}')
+})
+
 
 const IF_SIBLING = `
 <nav @name="navi">
