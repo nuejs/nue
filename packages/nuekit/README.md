@@ -28,11 +28,18 @@ Please see https://nuejs.org/docs/
 - [Reactive islands](https://nuejs.org/docs/concepts/reactive-islands.html)
 
 
+### The Goal
+Eventually, Nue is a content-first alternative to **Vercel** and **Netlify**, which is extremely fast and ridiculously easy to use. The goal is to be a so-called [perfect framework](https://nuejs.org/blog/perfect-web-framework/):
+
+<a href="https://nuejs.org/blog/perfect-web-framework/">
+<img src="https://nuejs.org/img/perfect-banner-big.jpg" width="500"></a>
+
+
 ### Roadmap
-The ultimate goal of Nue is to build a content first alternative to **Vercel** and **Netlify**, which is extremely fast and ridiculously easy to use.
+Here's the high-level roadmap. Click for a [more detailed](https://nuejs.org/blog/perfect-web-framework/#product-roadmap) version.
 
-![Nue Roadmap](https://nuejs.org/img/roadmap4-big.png)
-
+<a href="https://nuejs.org/blog/perfect-web-framework/#product-roadmap">
+<img src="https://nuejs.org/img/roadmap4-big.png" width="800"></a>
 
 ### Contributing
 
