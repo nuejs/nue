@@ -213,7 +213,7 @@ function renderAttrs(attr) {
 
 
 function toArray(items) {
-  return items?.split ? items.split(/ ?[,;|] ?/) : items
+  return items?.split ? items.split(/ ?[;|] ?/) : items
 }
 
 export function join(els, separ='\n') {

@@ -53,7 +53,7 @@ test('[video] simple', () => {
 })
 
 test('[tabs] attr', () => {
-  const html = tags.tabs({ _: 't1, t2', key: 'hey', content: ['c1', 'c2'] })
+  const html = tags.tabs({ _: 't1 ; t2', key: 'hey', content: ['c1', 'c2'] })
   expect(html).toInclude('<section is="nuemark-tabs" class="tabs">')
   expect(html).toInclude('<nav><a href="#hey-1">t1</a>')
   expect(html).toInclude('<li id="hey-2"><p>c2</p>')
@@ -130,11 +130,13 @@ test('[layout] with nested component', () => {
 })
 
 test('[table]', () => {
-  const html = tags.table({ head: 'Name, Age', items: ['John, 30', 'Mary, 28']})
+  const html = tags.table({ head: 'Name | Age', items: ['John | 30', 'Mary | 28,5']})
+  console.info(html)
   expect(html).toInclude('<th>Name</th>')
   expect(html).toInclude('<th>Age</th>')
   expect(html).toInclude('<td>John</td>')
   expect(html).toInclude('<td>Mary</td>')
+  expect(html).toInclude('<td>28,5</td>')
 })
 
 test('[button]', () => {
@@ -381,7 +383,7 @@ test.skip('nue color', async () => {
     expect(html).toInclude('<b class=hl-char>#</b> hey<')
 
     // code tabs
-    const tabs = tags.codetabs({ _: 't1, t2', content: ['# c1', '*c2*'], type: 'md' }, opts)
+    const tabs = tags.codetabs({ _: 't1 | t2', content: ['# c1', '*c2*'], type: 'md' }, opts)
 
     expect(tabs).toInclude('<a href="#tab-1">t1</a>')
     expect(tabs).toInclude('<b class=hl-char>*</b>')
