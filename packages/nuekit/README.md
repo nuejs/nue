@@ -22,7 +22,7 @@ Please see https://nuejs.org/docs/
 
 - [Universal hot-reloading](https://nuejs.org/docs/concepts/universal-hot-reloading.html)
 - [Hybrid app routing and page routing](https://nuejs.org/docs/concepts/client-side-navigation.html)
-- [Modular layout components](https://nuejs.org/docs/concepts/layout-components.html)
+- [layout components](https://nuejs.org/docs/concepts/layout-components.html)
 - [JS/TypeScript modules](https://nuejs.org/docs/concepts/js-modules.html)
 - [Content collections](https://nuejs.org/docs/concepts/content-collections.html)
 - [Reactive islands](https://nuejs.org/docs/concepts/reactive-islands.html)

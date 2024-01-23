@@ -22,15 +22,15 @@ export async function loadPage(path) {
     const a = $('body >' + query)
     const b = $('body2 >' + query, dom)
 
-    // update (if changed)
+    // patch (with primitive DOM diffing)
     if (a && b) {
       if (a.outerHTML != b.outerHTML) a.replaceWith(b)
 
-    // remove
+    // remove original
     } else if (a) {
       a.remove()
 
-    // add
+    // add new one
     } else {
       const fn = query == 'footer' ? 'append' : 'prepend'
       document.body[fn](b)
