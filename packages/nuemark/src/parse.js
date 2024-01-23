@@ -27,7 +27,7 @@ export function parsePage(lines) {
       if (body) {
         const content = body.join(NL)
         if (name) Object.assign(data, getNestedData(content))
-        else data.content = content.split('---')
+        else data.content = content.split(/\n---/)
         delete block.body
       }
 
@@ -105,8 +105,7 @@ function getNestedData(body) {
     const [ item ] = items
     return items[1] ? { items } : Array.isArray(item) ? { items: item } : item
   }
-
-  return { content: body.split('---') }
+  return { content: body.split(/\n---/) }
 }
 
 function isYAML(str) {

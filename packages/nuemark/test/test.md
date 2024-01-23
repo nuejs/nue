@@ -4,4 +4,12 @@
 # sections: [.a#b, .c#d]
 ---
 
-Hello
+[tabs "Foo | Bar"]
+  First
+  ---
+  Second
+
+  [tabs "Foo | Bar"]
+    Inner 1
+    ---
+    Inner 2

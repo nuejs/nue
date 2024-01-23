@@ -66,6 +66,25 @@ test('[tabs] body', () => {
   expect(html).toInclude('<li id="tab-2"><p>d</p>')
 })
 
+const NESTED_TABS = `
+[tabs "Foo | Bar"]
+  First
+  ---
+  Second
+
+  [tabs "Baz | Bruh" key="zoo"]
+    Inner 1
+    ---
+    Inner 2
+`
+
+test('Nested [tabs]', () => {
+  const html = nuemarkdown(NESTED_TABS)
+  expect(html).toInclude('<a href="#tab-2">Bar')
+  expect(html).toInclude('<li id="tab-2">')
+  expect(html).toInclude('<a href="#zoo-2">Bruh')
+  expect(html).toInclude('<li id="zoo-2">')
+})
 
 test('[image] content', () => {
   const html = tags.image({ src: 'a.png', content: ['Hey'] })
