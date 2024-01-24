@@ -145,9 +145,6 @@ export const tags = {
     )
   },
 
-
-  /* later
-
   codetabs(data, opts) {
     const { content=[] } = data
     const types = toArray(data.types) || []
@@ -164,6 +161,7 @@ export const tags = {
     return tags.tabs(data, opts)
   },
 
+  /* later
   grid(data, opts) {
     const { attr, content=[], _='a'} = data
     const { cols, colspan } = getGridCols(content.length, _)

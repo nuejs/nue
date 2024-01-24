@@ -69,12 +69,15 @@ const specialChars = {
 
 const replaceSpecialChars = new RegExp(`[${Object.keys(specialChars).join('')}]`, 'g')
 
-export function renderCodeBlock({ name, code, attr }, fn) {
-  // console.info(name, code, attr, fn)
-  if (name) attr.class = concat(`syntax-${name}`, attr.class)
-  const body = join(code).replace(replaceSpecialChars, c => specialChars[c])
+function encode(code) {
+  return code.replace(replaceSpecialChars, c => specialChars[c])
+}
 
-  return elem('pre', attr, fn ? fn(body) : body)
+export function renderCodeBlock({ name, code, attr }, fn) {
+  if (name) attr.class = concat(`syntax-${name}`, attr.class)
+  const body = join(code)
+
+  return elem('pre', attr, fn ? fn(body) : encode(body))
 }
 
 // export function renderPage()
