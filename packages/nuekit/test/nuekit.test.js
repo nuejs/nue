@@ -46,7 +46,7 @@ async function getKit() {
 }
 
 function createFront(title, pubDate) {
-    return ['---', `title: ${title}`, `pubDate: ${pubDate ?? '2020-01-20'}`, '---'].join('\n')  
+  return ['---', `title: ${title}`, `pubDate: ${pubDate ?? '2020-01-20'}`, '---'].join('\n')
 }
 
 test('defaults', async () => {
