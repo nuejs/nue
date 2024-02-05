@@ -121,6 +121,10 @@ test('get data', async () => {
 
 test('content collection', async () => {
   // Default sorting is on pubDate returning most recent first.
+  await write('blog/without-front-d.md', '# dddd')
+  await write('blog/without-front-a.md', '# a')
+  await write('blog/without-front-c.md', '# ccc')
+  await write('blog/without-front-b.md', '# bb')
   await write('blog/first-a.md', createFront('First'))
   await write('blog/first-b.md', createFront('Second', '2020-01-04'))
   await write('blog/nested/hey1.md', createFront('Third', '2020-01-02'))
@@ -135,6 +139,10 @@ test('content collection', async () => {
     { url: '/blog/first-b.html', title: 'Second', dir: 'blog', slug: 'first-b.html' },
     { url: '/blog/nested/hey2.html', title: 'Fourth', dir: join('blog', 'nested'), slug: 'hey2.html' },
     { url: '/blog/nested/hey1.html', title: 'Third', dir: join('blog', 'nested'), slug: 'hey1.html' },
+    { url: '/blog/without-front-d.html', title: 'dddd', dir: 'blog', slug: 'without-front-d.html' },
+    { url: '/blog/without-front-c.html', title: 'ccc', dir: 'blog', slug: 'without-front-c.html' },
+    { url: '/blog/without-front-b.html', title: 'bb', dir: 'blog', slug: 'without-front-b.html' },
+    { url: '/blog/without-front-a.html', title: 'a', dir: 'blog', slug: 'without-front-a.html' },
   ])
 })
 
