@@ -2,28 +2,25 @@
 /*
   Build-in tag library
 
-    Why
-      - Common, familiar syntax for content creators
-      - No-need to re-implement the same thing accross websites
-      - Radically reduces the amount of custom code
-      - Shared semantics for design systems
+  Why
+    - Common syntax for content teams
+    - Re-usable components accross projects
+    - Shared semantics for design systems
 
-    Features
-      - Fully headless / semantic, minimal amount of class names
-      - Fast, reliable, unit tested
-      - Globally customizable
-      - Can be combined to form more complex layouts
-      - Outermost tag can change depending on use-case
-      - Nuekit Error reporting
-      - auto-detect attributes vs data
-      - Usable outside Nuekit
-      - Available on templates with "-tag" suffix: <image-tag>
+  Features
+    - Can be combined to form more complex layouts
+    - Fully headless & semantic = externally styleable
+    - Fast, reliable, unit tested
+    - Globally & local configuration
+    - Usable outside Nue
 
+  TODO
+    - Available on templates with "-tag" suffix: <image-tag>
+    - Nuekit Error reporting
 */
-
-import { renderCodeBlock } from './render.js'
 import { nuemarkdown } from '../index.js'
 import { parseInline } from 'marked'
+import { glow } from 'nue-glow'
 
 // list all tags that require a client-side Web Component
 export const ISOMORPHIC = ['tabs']
@@ -145,23 +142,60 @@ export const tags = {
     )
   },
 
-  codetabs(data, opts) {
-    const { content=[] } = data
-    const types = toArray(data.types) || []
+  code(data) {
+    const { title, attr } = data
 
-    // tabs are required
-    if (!data._ && !data.tabs) throw 'codetabs: "tabs" attribute is required'
-
-    // wrap content with fenced code blocks
-    content.forEach((code, i) => {
-      const name = types[i] || data.type || ''
-      content[i] = renderCodeBlock({ name, code, attr: {} }, opts.highlight)
-    })
-
-    return tags.tabs(data, opts)
+    // { content, language, numbered }
+    const pre = createCodeBlock(data)
+    const head = title ? elem('header', elem('h3', title)) : ''
+    return elem('div', attr, head + pre)
   },
 
-  /* later
+  codeblocks(data) {
+    const { content, attr, numbered } = data
+    const titles = toArray(data.titles) || []
+    const languages = toArray(data.languages) || []
+    const classes = toArray(data.classes) || []
+
+    const blocks = content.map((code, i) => {
+      return tags.code({
+        attr: { class: classes[i] },
+        language: languages[i],
+        title: titles[i],
+        content: code,
+        numbered
+      })
+    })
+
+    return elem('section', attr, join(blocks))
+  },
+
+
+  // developer.mozilla.org/en-US/docs/Web/HTML/Element/figure#code_snippets
+  codetabs(data) {
+    const { attr, numbered, key } = data
+    const languages = toArray(data.languages) || []
+    const titles = toArray(data.titles) || []
+
+    const tabs = titles.map((title, i) => {
+      const [ id, target ] = createTabIds(key, i)
+      const prop = { role: 'tab', 'aria-selected': i == 0, id, 'aria-controls': target }
+      return elem('a', prop, title)
+    })
+
+    const panes = data.content.map((content, i) => {
+      const [ tabId, id ] = createTabIds(key, i)
+      const prop = { role: 'tabpanel', id, 'aria-labelledby': tabId, hidden: i ? 'hidden' : null }
+      return elem('li', prop, createCodeBlock({ content, language: languages[i], numbered }))
+    })
+
+    return elem('section', attr,
+      elem('div', { role: 'tablist' }, tabs.join('\n')) +
+      elem('ul', panes.join('\n'))
+    )
+  }
+
+  /* maybe later
   grid(data, opts) {
     const { attr, content=[], _='a'} = data
     const { cols, colspan } = getGridCols(content.length, _)
@@ -176,6 +210,10 @@ export const tags = {
   },
   */
 
+}
+
+function createTabIds(key, i) {
+  return key ? [ `${key}-tab-${i+1}`, `${key}-panel-${i+1}`] : []
 }
 
 // ! shortcut
@@ -234,6 +272,11 @@ export function createPicture(img_attr, data) {
 
   sources.push(elem('img', img_attr))
   return elem('picture', !data.caption && data.attr, join(sources))
+}
+
+function createCodeBlock({ content, language, numbered }) {
+  const code = glow(join(content), { language, numbered })
+  return elem('pre', { glow: language || '*' }, elem('code', code))
 }
 
 
