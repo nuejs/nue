@@ -1,0 +1,19 @@
+<link rel="stylesheet" href="test.css">
+
+      <div class="syntax editing-demo">
+        <header><h2>SQL</h2></header>
+        <pre glow="sql">
+          <code><span><b>SELECT</b></span>
+<span>  <b>date_trunc</b><i>(</i><em>'week'</em><i>,</i> orderdate<i>)</i><i>,</i></span>
+<span>  <mark><b>count</b><i>(</i><em>1</em><i>)</i></mark></span>
+<span></span>
+<span><b>FROM</b> orders</span>
+<span></span>
+<span><mark><b>WHERE</b> orderdate between</mark> <em>'2024-01-01'</em> <b>AND</b> <em>'2024-02-01'</em></span>
+<span></span>
+<span><b>RANK</b><i>(</i><i>)</i> <b>OVER</b> <i>(</i><b>ORDER</b> <u><b>BY</b> __ order_amount <b>DESC</b></u><i>)</i></span>
+<span></span>
+<span><b>INNER</b> <b>JOIN</b> payment_status p <b>ON</b> o<i>.</i><b>status_id</b> <i>=</i> p<i>.</i>id<i>;</i></span></code>
+        </pre>
+      </div>
+    

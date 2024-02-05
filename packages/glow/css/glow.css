@@ -1,0 +1,73 @@
+
+[glow] {
+  color: var(--glow-base-color, #555);
+  counter-reset: line-counter 0;
+  font-family: monospace;
+  line-height: 1.7;
+
+  code {
+    * {
+      font-weight: 400;
+      font-style: inherit;
+      text-decoration: inherit
+    }
+  }
+
+  /* primary accent color */
+  b { color: var(--glow-primary-color, #0068d6) }
+
+  /* secondary accent color */
+  em { color: var(--glow-secondary-color, #bd2864) }
+
+  /* special emphasis */
+  strong { color: var(--glow-accent-color, #7820bc) }
+
+  /* brackets, special characters */
+  i { color: var(--glow-char-color, #8e989c) }
+
+
+  /* vawy error message */
+  u {
+    text-decoration: underline wavy var(--glow-error-color, red);
+    text-decoration-thickness: .15em;
+    text-underline-offset: .5em;
+  }
+  /* comments */
+  sup {
+    color: var(--glow-comment-color, #9aa1a3);
+    font-size: inherit;
+    vertical-align: inherit;
+    font-style: italic;
+  }
+
+  /* special */
+  label { font-weight: bold; color: var(--glow-special-color, #7820bc); }
+
+  /* marked code */
+  mark {
+    color: unset;
+    background-color: var(--glow-selected-color, #51c6fe29);
+    border-radius: .2em;
+    padding: .3em .4em;
+    margin: -.3em -.4em;
+  }
+
+  /* line numbers */
+  span {
+    counter-increment: line-counter 1;
+
+    &:before {
+      color: var(--glow-counter-color, #bbb);
+      content: counter(line-counter);
+      display: inline-block;
+      margin-right: 1em;
+      text-align: right;
+      padding-right: 1em;
+      width: 2.5em;
+    }
+  }
+
+  span:has(u):before {
+    color: var(--glow-error-color, red);
+  }
+}

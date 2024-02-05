@@ -1,0 +1,106 @@
+
+@import "../css/glow.css";
+@import "../css/markers.css";
+
+/*@import "../css/dark.css";*/
+
+
+.syntax {
+  border-radius: 6px;
+  margin-bottom: 3em;
+  header { padding: .7em 1.5em; }
+
+
+  [glow] {
+    --glow-line-opacity: 0.2;
+    --glow-padding: 1.5em;
+    padding: 0 var(--glow-padding);
+  }
+
+  h2 {
+    letter-spacing: 0.02em;
+    font-weight: 400;
+    font-size: 90%;
+    text-align: center;
+    margin: .0;
+  }
+}
+
+body {
+  font-family: sf pro display;
+  margin: 3em;
+/*  column-count: 2;*/
+  gap: 3em;
+  .syntax { break-inside: avoid; }
+}
+
+*, *::before, *::after {
+  box-sizing: border-box
+}
+
+
+body {
+  background: #f3f8fa;
+  color: #444;
+}
+
+.syntax {
+  border: 1px solid #eee;
+  box-shadow: 0 0 .5em #eee;
+  background-color: #fff;
+  header { border-bottom: 1px solid #eee; }
+}
+
+.editing-demo {
+  code { color: #786951 }
+  span { font-weight: bold }
+  b { color: #e29439 }
+  em { color: #2aa1ff }
+  mark {
+    background-color: #F9E9EF;
+    border-right: 2px solid #EB466F;
+    border-radius: .3em 0 0 .3em;
+    position: relative;
+
+    &:after {
+      background: #EB466F url(http://localhost:8082/img/emma-round.png) .5em 50% no-repeat;
+      background-size: 1.4em;
+      font-family: sf pro display;
+      box-shadow: 1px 1px 4px #ccc;
+      position: absolute;
+      content: "Caroline";
+      padding: .1em .6em .1em 2.3em;
+      border-radius: .3em;
+      border-bottom-left-radius: 0;
+      color: white;
+      font-weight: 500;
+      font-size: 90%;
+      left: 100%;
+      top: -1.9em;
+    }
+  }
+
+  span:nth-child(3) mark {
+    background-color: #FAEAE1;
+    border-color: #EE8351;
+
+    &:after {
+      background-image: url(http://localhost:8082/img/john-round.png);
+      background-color: #EE8351;
+      content: "Dave";
+    }
+  }
+}
+
+/*
+body {
+  background: #111729;
+  color: #e2e8f0;
+}
+
+.syntax {
+  border: 1px solid #fff1;
+  background-color: #20293A;
+  header { border-bottom: 1px solid #fff1; }
+}
+*/

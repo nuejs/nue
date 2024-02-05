@@ -32,7 +32,7 @@ export function parsePage(lines) {
       }
 
       // component or fenced code block
-      if (data || block.code) {
+      if (data || block.is_code) {
         blocks.push(block)
 
       // markdown
@@ -149,7 +149,7 @@ export function parseBlocks(lines) {
     // fenced code start/end
     if (line.startsWith('```')) {
       if (!fenced) {
-        fenced = { code: [], ...parseSpecs(line.slice(3).trim()) }
+        fenced = { is_code: true, content: [], ...parseSpecs(line.slice(3).trim()) }
       } else {
         blocks.push(fenced)
         fenced = null
@@ -158,7 +158,7 @@ export function parseBlocks(lines) {
     }
 
     // code line
-    if (fenced) return fenced.code.push(line)
+    if (fenced) return fenced.content.push(line)
 
 
     // component

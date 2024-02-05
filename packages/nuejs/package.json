@@ -20,9 +20,11 @@
 		"test": "cd test && bun test",
 		"compile": "cd test && bun compile.js"
 	},
+
 	"dependencies": {
 		"htmlparser2": "^9.0.0"
 	},
+
 	"engines": {
 		"bun": ">= 1",
 		"node": ">= 18"

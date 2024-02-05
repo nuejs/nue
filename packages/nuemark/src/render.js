@@ -25,11 +25,10 @@ export function renderPage(page, opts) {
       // tag
       return tag ? tag(alldata, opts) :
 
+        el.is_code ? tags.code({ ...data, language: el.name, ...el }) :
+
         // component
         comp ? comp.render(alldata, lib) :
-
-        // fenced code
-        el.code ? renderCodeBlock(el, opts.highlight) :
 
         // markdown
         md ? renderMarkdown(md, mergeLinks(page.links, data.links)) :
@@ -58,30 +57,6 @@ export function renderLines(lines, opts={}) {
   const page = parsePage(lines)
   return renderPage(page, opts)
 }
-
-const specialChars = {
-  '&': '&amp;',
-  '>': '&gt;',
-  '<': '&lt;',
-  '"': '&quot;',
-  "'": '&apos;',
-}
-
-const replaceSpecialChars = new RegExp(`[${Object.keys(specialChars).join('')}]`, 'g')
-
-function encode(code) {
-  return code.replace(replaceSpecialChars, c => specialChars[c])
-}
-
-export function renderCodeBlock({ name, code, attr }, fn) {
-  if (name) attr.class = concat(`syntax-${name}`, attr.class)
-  const body = join(code)
-
-  return elem('pre', attr, fn ? fn(body) : encode(body))
-}
-
-// export function renderPage()
-
 
 export function renderIsland({ name, attr, data }) {
   const json = !Object.keys(data)[0] ? '' : elem('script',
@@ -119,7 +94,6 @@ function parseLink(href) {
   if (title) href = href.slice(0, i)
   return { href, title }
 }
-
 
 marked.setOptions({
   smartypants: true,

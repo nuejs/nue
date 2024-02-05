@@ -1,0 +1,28 @@
+{
+  "name": "nue-glow",
+  "version": "0.1.0",
+
+  "description": "Tiny, pixel-perfect Markdown syntax highlighter",
+  "homepage": "https://nuejs.org/blog/introducing-glow",
+
+  "repository": {
+    "url": "https://github.com/nuejs/nue",
+    "directory": "packages/glow",
+    "type": "git"
+  },
+
+  "license": "MIT",
+  "type": "module",
+
+  "main": "src/glow.js",
+
+  "devDependencies": {
+    "lightningcss": "^1.23"
+  },
+
+  "engines": {
+    "bun": ">= 1",
+    "node": ">= 18"
+  }
+}
+

@@ -6,27 +6,50 @@ import { nuemarkdown } from '../index.js'
 import { tags } from '../src/tags.js'
 
 
-test('nested code with comment', () => {
-  const { html } = renderLines(['[.hey]', '  // not rendered', '  ```', '  // here', '  ```'])
-  expect(html).toBe('<div class="hey"><pre>// here</pre></div>')
+test('fenced code', () => {
+  const { html } = renderLines(['``` md.foo.bar', `<h1>hey</h1>`, '```'])
+  expect(html).toStartWith('<div class="foo bar"><pre glow="md">')
+  expect(html).toInclude('<i>')
 })
 
-test('render fenced code', () => {
-  const { html } = renderLines(['``` md.foo#bar', '// hey', '```'])
-  expect(html).toBe('<pre class="syntax-md foo" id="bar">// hey</pre>')
+test('[code]', () => {
+  const html = tags.code({ content: ['<p>Hey</p>'], language: 'xml', numbered: true })
+  expect(html).toStartWith('<div><pre glow="xml">')
+  expect(html).toInclude('<i>')
+})
+
+test('[code title]', () => {
+  const html = tags.code({ content: ['<!-- Hey -->'], title: 'Boss' })
+  expect(html).toInclude('<header><h3>Boss')
+  expect(html).toInclude('<sup>&lt;!-- Hey')
+})
+
+test('[codeblocks]', () => {
+  const html = tags.codeblocks({ content: ['a', 'b'], titles: 'A; B', classes: 'foo; bar' })
+  expect(html).toStartWith('<section><div class="foo">')
+  expect(html).toInclude('<div class="bar"><header><h3>B</h3>')
+  expect(html).toInclude('<pre glow')
+})
+
+test('[codetabs]', () => {
+  const html = tags.codetabs({ content: ['a', 'b'], titles: 'A; B', languages: 'jsx; md' })
+  expect(html).toStartWith('<section><div role="tablist">')
+  expect(html).toInclude('<li role="tabpanel"><pre glow="jsx">')
+})
+
+test('nested code with comment', () => {
+  const { html } = renderLines(['[.test]', '  // not rendered', '  ```', '  // hey', '  ```'])
+  expect(html).toStartWith('<div class="test">')
+  expect(html).toInclude('<sup>// hey</sup>')
 })
 
 test('parse fenced code', () => {
   const blocks = parseBlocks(['# Hey', '``` md.foo#bar', '// hey', '[foo]', '```'])
   const [ hey, fenced ] = blocks
+  expect(fenced.is_code).toBe(true)
   expect(fenced.name).toBe('md')
   expect(fenced.attr).toEqual({ class: 'foo', id: 'bar' })
-  expect(fenced.code).toEqual([ "// hey", "[foo]" ])
-})
-
-test('escape fenced code', () => {
-  const { html } = renderLines(['```', `<h1 id="title-name"><a href="#title-name" title="Permalink for 'Title & Name'">Title & Name</h1>`, '```'])
-  expect(html).toBe(`<pre>&lt;h1 id=&quot;title-name&quot;&gt;&lt;a href=&quot;#title-name&quot; title=&quot;Permalink for &apos;Title &amp; Name&apos;&quot;&gt;Title &amp; Name&lt;/h1&gt;</pre>`)
+  expect(fenced.content).toEqual([ "// hey", "[foo]" ])
 })
 
 
@@ -150,7 +173,6 @@ test('[layout] with nested component', () => {
 
 test('[table]', () => {
   const html = tags.table({ head: 'Name | Age', items: ['John | 30', 'Mary | 28,5']})
-  console.info(html)
   expect(html).toInclude('<th>Name</th>')
   expect(html).toInclude('<th>Age</th>')
   expect(html).toInclude('<td>John</td>')
@@ -371,46 +393,3 @@ test('JSX component', async () => {
   }
 })
 
-
-
-// The following tags are released later
-
-test.skip('[grid]', () => {
-  const html = tags.grid({ content: 'abcdefg'.split(''), attr: { class: 'foo' } })
-  expect(html).toInclude('<section class="grid foo" style="--cols: 1fr 1fr 1fr"')
-  expect(html).toInclude('<div style="--colspan: 3"><p>g</p>')
-})
-
-
-test.skip('grid columns', () => {
-  const grid = getGridCols(5, 'a')
-  expect(grid.cols).toBe('1fr 1fr')
-  expect(grid.colspan).toBe(2)
-})
-
-
-test.skip('nue color', async () => {
-
-  try {
-    const nuecolor = await import('nuecolor')
-    const opts = { highlight: nuecolor.default }
-
-    // syntax block
-    const { html } = renderLines(['``` md.foo', '# hey', '```'], opts)
-
-    expect(html).toInclude('<pre class="syntax-md foo">')
-    expect(html).toInclude('<b class=hl-char>#</b> hey<')
-
-    // code tabs
-    const tabs = tags.codetabs({ _: 't1 | t2', content: ['# c1', '*c2*'], type: 'md' }, opts)
-
-    expect(tabs).toInclude('<a href="#tab-1">t1</a>')
-    expect(tabs).toInclude('<b class=hl-char>*</b>')
-    expect(tabs).toInclude('</pre>')
-
-  // highlighter not found
-  } catch(ignore) {
-    console.info('nuecolor not found')
-  }
-
-})
