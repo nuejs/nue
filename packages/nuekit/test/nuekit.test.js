@@ -45,8 +45,8 @@ async function getKit() {
   return await createKit({ root, dryrun: true })
 }
 
-function createFront(title) {
-  return ['---', `title: ${title}`, '---'].join('\n')
+function createFront(title, pubDate) {
+    return ['---', `title: ${title}`, `pubDate: ${pubDate ?? '2020-01-20'}`, '---'].join('\n')  
 }
 
 test('defaults', async () => {
@@ -120,20 +120,23 @@ test('get data', async () => {
 })
 
 test('content collection', async () => {
-  await write('blog/first.md', '# First')
-  await write('blog/nested/hey.md', createFront('Second'))
+  // Default sorting is on pubDate returning most recent first.
+  await write('blog/first-a.md', '# First')
+  await write('blog/first-b.md', createFront('Second', '2020-01-04'))
+  await write('blog/nested/hey1.md', createFront('Third', '2020-01-02'))
+  await write('blog/nested/hey2.md', createFront('Fourth', '2020-01-03'))
 
   const site = await getSite()
   const coll = await site.getContentCollection('blog')
-
-  expect(coll.length).toBe(2)
-  expect(coll[0].url).toBe('/blog/first.html')
-  expect(coll[0].title).toBe('First')
-  expect(coll[1].title).toBe('Second')
-  expect(coll[1].dir).toMatchPath('blog/nested')
-  expect(coll[1].slug).toBe('hey.html')
+  const actual = coll.map(c => { return { url: c.url, title: c.title, dir: c.dir, slug: c.slug }; });
+  // expected order is : First, Second, Fourth, Third.
+  expect(actual).toEqual([
+    { url: '/blog/first-a.html', title: 'First', dir: 'blog', slug: 'first-a.html' },
+    { url: '/blog/first-b.html', title: 'Second', dir: 'blog', slug: 'first-b.html' },
+    { url: '/blog/nested/hey2.html', title: 'Fourth', dir: 'blog/nested', slug: 'hey2.html' },
+    { url: '/blog/nested/hey1.html', title: 'Third', dir: 'blog/nested', slug: 'hey1.html' },
+  ])
 })
-
 
 test('nuemark components', async () => {
   await write('layout.html', '<a @name="foo">Hey</a>')
