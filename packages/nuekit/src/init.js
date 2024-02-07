@@ -1,17 +1,16 @@
 
-import { compileFile as nueCompile} from 'nuejs-core/index.js'
+import { compileFile as nueCompile} from 'nuejs-core'
 import { join, basename } from 'node:path'
 import { promises as fs } from 'node:fs'
-import { log, colors } from './util.js'
 import { buildJS } from './builder.js'
+import { colors } from './util.js'
 
 
 export async function init({ dist, is_dev, esbuild }) {
 
   // directories
   const cwd = process.cwd()
-  const pathname = new URL('.', import.meta.url).pathname
-  const srcdir = process.platform === "win32" && pathname.startsWith('/') ? pathname.slice(1) : pathname
+  const srcdir = getSourceDir()
   const fromdir = join(srcdir, 'browser')
   const outdir = join(cwd, dist, '@nue')
   const minify = !is_dev
@@ -31,45 +30,49 @@ export async function init({ dist, is_dev, esbuild }) {
   // chdir hack (Bun does not support absWorkingDir)
   process.chdir(srcdir)
 
+  // simple function to wtite dot
+  function dot() { process.stdout.write('•') }
 
-  function print(name) {
-    console.log('  ', colors.gray(name))
-  }
-
-  // file copy
+  // copy from <fromdir>
   async function copy(base, todir) {
     await fs.copyFile(join(fromdir, base), join(todir, base))
-    print(base)
+    dot()
+  }
+
+  // copy from NPM path
+  async function copyAsset(npm_path, toname) {
+    const path = await resolvePath(npm_path)
+    await fs.copyFile(path, join(outdir, toname))
+    dot()
   }
 
   // build/minify single file
   async function buildFile(name) {
     await buildJS({ path: join(fromdir, `${name}.js`), outdir, esbuild, minify })
-    print(`${name}.js`)
+    dot()
   }
 
   // build package (from node_modules)
-  async function buildPackage(name, toname) {
+  async function buildPackage(npm_path, toname) {
     await buildJS({
-      path: name,
-      bundle: true,
-      esbuild,
-      minify,
-      outdir,
-      toname
+      bundle: true, esbuild, minify, outdir, toname,
+      path: await resolvePath(npm_path),
     })
-    print(toname)
+    dot()
   }
 
 
   // lets do it
-  log(`Initialize ${dist}`)
+  process.stdout.write(colors.green('✓') + ` Initialize ${dist}: `)
 
-  await buildPackage('nuemark', 'nuemark.js')
-  await buildPackage('nuejs-core', 'nue.js')
+  await buildPackage('nuemark/src/browser/nuemark.js', 'nuemark.js')
+  await buildPackage('nuejs-core/src/browser/nue.js', 'nue.js')
   await buildFile('page-router')
   await buildFile('app-router')
   await buildFile('mount')
+
+  // glow.css
+  await copyAsset('nue-glow/minified/glow.css', 'glow.css')
 
   // dev only
   if (is_dev) {
@@ -83,4 +86,16 @@ export async function init({ dist, is_dev, esbuild }) {
   await copy('favicon.ico', join(cwd, dist))
 
   process.chdir(cwd)
+}
+
+
+async function resolvePath(npm_path) {
+  const [ npm_name, ...parts ] = npm_path.split('/')
+  const main = await import.meta.resolve(npm_name)
+  return main.replace('index.js', parts.join('/'))
+}
+
+function getSourceDir() {
+  const path = new URL('.', import.meta.url).pathname
+  return process.platform === "win32" && path.startsWith('/') ? path.slice(1) : path
 }

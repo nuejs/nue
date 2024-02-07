@@ -196,7 +196,7 @@ function createARIATabs(data, fn) {
     return elem('li', prop, fn(content, i))
   })
 
-  const root = elem('section', { role: 'tabs', is: 'aria-tabs', ...data.attr },
+  const root = elem('section', { tabs: tabs.length, is: 'aria-tabs', ...data.attr },
     elem('div', { role: 'tablist' }, tabs.join('\n')) +
     elem('ul', panes.join('\n'))
   )

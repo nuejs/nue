@@ -691,6 +691,8 @@ await renderPage([
   { title: 'TypeScript', code: TS, lang: 'ts', },
   { title: 'ZIG', code: ZIG, lang: 'zig', },
 
-].slice(0, 100))
+  ] // .filter(el => el.lang == 'html')
+
+)
 
 

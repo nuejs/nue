@@ -1,10 +1,10 @@
 
 import { join, extname, basename, sep, parse as parsePath } from 'node:path'
 import { log, getParts, getAppDir, getDirs, colors, getPosixPath } from './util.js'
-import { parse as parseNue } from 'nuejs-core/index.js'
-import { nuemark } from 'nuemark/index.js'
+import { parse as parseNue } from 'nuejs-core'
 import { promises as fs } from 'node:fs'
 import { fswalk } from './nuefs.js'
+import { nuemark } from 'nuemark'
 import yaml from 'js-yaml'
 
 

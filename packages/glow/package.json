@@ -14,8 +14,6 @@
   "license": "MIT",
   "type": "module",
 
-  "main": "src/glow.js",
-
   "devDependencies": {
     "lightningcss": "^1.23"
   },

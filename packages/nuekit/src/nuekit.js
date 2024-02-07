@@ -1,7 +1,7 @@
 
-import { parse as parseNue, compile as compileNue } from 'nuejs-core/index.js'
 import { join, parse as parsePath, extname, basename } from 'node:path'
 import { renderHead, getDefaultHTML, getDefaultSPA } from './layout.js'
+import { parse as parseNue, compile as compileNue } from 'nuejs-core'
 import { readStats, printTable, categorize } from './stats.js'
 import { log, colors, getAppDir, getParts } from './util.js'
 import { parsePage, renderPage } from 'nuemark/index.js'
@@ -38,6 +38,10 @@ export async function createKit(args) {
     // alphabtical order
     paths.sort()
 
+    // glow syntax
+    if (data.has_code_blocks && data.glow_css !== false) paths.push(`/@nue/glow.css`)
+
+
     if (data.inline_css) {
       data.inline_css = await buildAllCSS(paths)
 
@@ -47,6 +51,7 @@ export async function createKit(args) {
     } else {
       data.styles = paths.map(path => path.replace('.style', '.css'))
     }
+
   }
 
   async function buildAllCSS(paths) {

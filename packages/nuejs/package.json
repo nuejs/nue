@@ -14,8 +14,6 @@
 	"license": "MIT",
 	"type": "module",
 
-	"main": "src/browser/nue.js",
-
 	"scripts": {
 		"test": "cd test && bun test",
 		"compile": "cd test && bun compile.js"

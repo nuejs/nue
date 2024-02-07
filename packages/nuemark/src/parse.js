@@ -13,6 +13,7 @@ export function parsePage(lines) {
 
   const sections = parseSections(rest)
   const headings = [], links = {}
+  let has_code_blocks
   let isomorphic
 
   for (const section of sections) {
@@ -22,6 +23,7 @@ export function parsePage(lines) {
       const { name, data, body } = block
 
       if (name && ISOMORPHIC.includes(name)) isomorphic = true
+      if (name?.startsWith('code')) has_code_blocks = true
 
       // component body
       if (body) {
@@ -33,6 +35,7 @@ export function parsePage(lines) {
 
       // component or fenced code block
       if (data || block.is_code) {
+        has_code_blocks = true
         blocks.push(block)
 
       // markdown
