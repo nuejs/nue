@@ -630,7 +630,9 @@ INNER JOIN payment_status p ON o.status_id = p.id;
 `
 
 async function renderPage(items) {
-  const html = ['<link rel="stylesheet" href="test.css">']
+  const html = ['<link rel="stylesheet" href="glow-test.css">']
+
+  html.push('<body class="is-dark">')
 
   items.forEach(opts => {
     const { title } = opts
@@ -640,25 +642,21 @@ async function renderPage(items) {
     html.push(`
       <div class="syntax ${opts.class || ''}">
         <header><h2>${opts.title || language }</h2></header>
-        <pre glow="${language}">
-          <code>${code}</code>
-        </pre>
+        <pre glow="${language}"><code>${code}</code></pre>
       </div>
     `)
   })
 
+  html.push('</body>')
+
   // save
-  const path = 'test-page.html'
+  const path = 'glow-test.html'
   await fs.writeFile(path, html.join('\n'), 'utf-8')
   console.info('wrote', path)
 }
 
 
 await renderPage([
-  { title: 'SQL', code: SQL, class: 'editing-demo' },
-  { title: 'Nuemark', code: NUEMARK, lang: 'nuemark', },
-  { title: 'MDX', code: MDX, lang: 'mdx', },
-  { title: 'Markdown', code: MARKDOWN, lang: 'md', },
   { title: 'Astro', code: ASTRO, },
   { title: 'C#', code: CSHARP },
   { title: 'C++', code: CPP, lang: 'cpp', },
@@ -676,19 +674,23 @@ await renderPage([
   { title: 'Julia', code: JULIA, lang: 'julia' },
   { title: 'Kotlin', code: KOTLIN, lang: 'java' },
   { title: 'Lua', code: LUA, lang: 'lua' },
+  { title: 'Markdown', code: MARKDOWN, lang: 'md', },
+  { title: 'MDX', code: MDX, lang: 'mdx', },
   { title: 'Nim', code: NIM, lang: 'nim' },
+  { title: 'Nuemark', code: NUEMARK, lang: 'nuemark', },
   { title: 'Perl', code: PERL, lang: 'perl' },
   { title: 'PHP', code: PHP, lang: 'php' },
   { title: 'Python', code: PYTHON, lang: 'python', },
   { title: 'Ruby', code: RUBY, lang: 'ruby' },
   { title: 'Rust', code: RUST, lang: 'rust' },
   { title: 'Shell', code: SHELL, lang: 'sh', },
+  { title: 'SQL', code: SQL, class: '_editing-demo' },
   { title: 'Styled component', code: STYLED, lang: 'jsx', },
   { title: 'Svelte', code: SVELTE },
   { title: 'TOML', code: TOML, lang: 'toml', },
   { title: 'TypeScript', code: TS, lang: 'ts', },
   { title: 'ZIG', code: ZIG, lang: 'zig', },
 
-].slice(0, 1))
+].slice(0, 100))
 
 

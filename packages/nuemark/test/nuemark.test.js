@@ -1,4 +1,3 @@
-
 import { parseMeta, parseBlocks, parseSections, parsePage, parseHeading } from '../src/parse.js'
 import { parseComponent, valueGetter, parseAttr, parseSpecs } from '../src/component.js'
 import { renderIsland, renderLines } from '../src/render.js'
@@ -8,32 +7,33 @@ import { tags } from '../src/tags.js'
 
 test('fenced code', () => {
   const { html } = renderLines(['``` md.foo.bar', `<h1>hey</h1>`, '```'])
-  expect(html).toStartWith('<div class="foo bar"><pre glow="md">')
+  expect(html).toStartWith('<figure class="foo bar"><pre glow="md">')
   expect(html).toInclude('<i>')
 })
 
 test('[code]', () => {
-  const html = tags.code({ content: ['<p>Hey</p>'], language: 'xml', numbered: true })
-  expect(html).toStartWith('<div><pre glow="xml">')
+  const html = tags.code({ content: ['<p>Hey</p>'], language: 'xml', numbered: true, wrapper: 'foo' })
+  expect(html).toStartWith('<div class="foo"><figure><pre glow="xml">')
   expect(html).toInclude('<i>')
 })
 
-test('[code title]', () => {
-  const html = tags.code({ content: ['<!-- Hey -->'], title: 'Boss' })
-  expect(html).toInclude('<header><h3>Boss')
+test('[code caption]', () => {
+  const html = tags.code({ content: ['<!-- Hey -->'], caption: 'Boss' })
+  expect(html).toInclude('<figcaption><h3>Boss')
   expect(html).toInclude('<sup>&lt;!-- Hey')
 })
 
 test('[codeblocks]', () => {
-  const html = tags.codeblocks({ content: ['a', 'b'], titles: 'A; B', classes: 'foo; bar' })
-  expect(html).toStartWith('<section><div class="foo">')
-  expect(html).toInclude('<div class="bar"><header><h3>B</h3>')
+  const html = tags.codeblocks({ content: ['a', 'b'], captions: 'A; B', classes: 'foo; bar' })
+  expect(html).toStartWith('<section><figure class="foo">')
+  expect(html).toInclude('<figure class="bar"><figcaption><h3>B</h3>')
   expect(html).toInclude('<pre glow')
 })
 
 test('[codetabs]', () => {
-  const html = tags.codetabs({ content: ['a', 'b'], titles: 'A; B', languages: 'jsx; md' })
-  expect(html).toStartWith('<section><div role="tablist">')
+  const html = tags.codetabs({ content: ['a', 'b'], captions: 'A; B', languages: 'jsx; md' })
+  expect(html).toStartWith('<section role="tabs" is="aria-tabs">')
+  expect(html).toInclude('<div role="tablist">')
   expect(html).toInclude('<li role="tabpanel"><pre glow="jsx">')
 })
 
@@ -45,11 +45,11 @@ test('nested code with comment', () => {
 
 test('parse fenced code', () => {
   const blocks = parseBlocks(['# Hey', '``` md.foo#bar', '// hey', '[foo]', '```'])
-  const [ hey, fenced ] = blocks
+  const [hey, fenced] = blocks
   expect(fenced.is_code).toBe(true)
   expect(fenced.name).toBe('md')
   expect(fenced.attr).toEqual({ class: 'foo', id: 'bar' })
-  expect(fenced.content).toEqual([ "// hey", "[foo]" ])
+  expect(fenced.content).toEqual(["// hey", "[foo]"])
 })
 
 
@@ -76,18 +76,14 @@ test('[video] simple', () => {
 })
 
 test('[tabs] attr', () => {
-  const html = tags.tabs({ _: 't1 ; t2', key: 'hey', content: ['c1', 'c2'] })
-  expect(html).toInclude('<section is="nuemark-tabs" class="tabs">')
-  expect(html).toInclude('<nav><a href="#hey-1">t1</a>')
-  expect(html).toInclude('<li id="hey-2"><p>c2</p>')
+  const html = tags.tabs({ _: 't1 ; t2', content: ['c1', 'c2'], attr: {} })
+  expect(html).toInclude('<section role="tabs" is="aria-tabs" class="tabs">')
+  expect(html).toInclude('<div role="tablist">')
+  expect(html).toInclude('<a role="tab" aria-selected="true">t1</a>')
+  expect(html).toInclude('<li role="tabpanel">')
+  expect(html).toInclude('<p>c1</p>')
 })
 
-test('[tabs] body', () => {
-  const html = tags.tabs({ content: 'abcd'.split(''), attr: { id: 'hey' } })
-  expect(html).toInclude('<section is="nuemark-tabs" class="tabs" id="hey">')
-  expect(html).toInclude('<nav><a href="#tab-1"><p>a</p>')
-  expect(html).toInclude('<li id="tab-2"><p>d</p>')
-})
 
 const NESTED_TABS = `
 [tabs "Foo | Bar"]
@@ -95,7 +91,7 @@ const NESTED_TABS = `
   ---
   Second
 
-  [tabs "Baz | Bruh" key="zoo"]
+  [tabs "Baz | Bruh" key="inner"]
     Inner 1
     ---
     Inner 2
@@ -103,10 +99,12 @@ const NESTED_TABS = `
 
 test('Nested [tabs]', () => {
   const html = nuemarkdown(NESTED_TABS)
-  expect(html).toInclude('<a href="#tab-2">Bar')
-  expect(html).toInclude('<li id="tab-2">')
-  expect(html).toInclude('<a href="#zoo-2">Bruh')
-  expect(html).toInclude('<li id="zoo-2">')
+  expect(html).toInclude('aria-selected="true">Foo</a>')
+  expect(html).toInclude('<a role="tab">Bar</a>')
+
+  expect(html).toInclude('aria-controls="inner-panel-1">Baz</a>')
+  expect(html).toInclude('id="inner-tab-2"')
+  expect(html).toInclude('id="inner-panel-2"')
 })
 
 test('[image] content', () => {
@@ -141,10 +139,10 @@ test('[image] basics', () => {
   expect(img).toBe('<img src="a.png" alt="Hey" loading="lazy">')
 
   const img2 = tags.image({
-    attr: { class: 'big' },
-    srcset: ['a.jpg 20vw', 'b.jpg'],
-    loading: null,
-    sizes: '4em'
+      attr: { class: 'big' },
+      srcset: ['a.jpg 20vw', 'b.jpg'],
+      loading: null,
+      sizes: '4em'
   })
 
   expect(img2).toBe('<img srcset="a.jpg 20vw, b.jpg" sizes="4em" class="big">')
@@ -160,7 +158,7 @@ test('[layout]', () => {
   expect(single).toInclude('<p>foo</p>')
 
   const double = tags.layout({ attr, data, content: ['foo', 'bar'] })
-  expect(double).toInclude('<section id="epic">')
+    expect(double).toInclude('<section id="epic">')
 })
 
 test('[layout] with nested component', () => {
@@ -172,7 +170,7 @@ test('[layout] with nested component', () => {
 })
 
 test('[table]', () => {
-  const html = tags.table({ head: 'Name | Age', items: ['John | 30', 'Mary | 28,5']})
+  const html = tags.table({ head: 'Name | Age', items: ['John | 30', 'Mary | 28,5'] })
   expect(html).toInclude('<th>Name</th>')
   expect(html).toInclude('<th>Age</th>')
   expect(html).toInclude('<td>John</td>')
@@ -181,7 +179,7 @@ test('[table]', () => {
 })
 
 test('[button]', () => {
-  const html = tags.button({ label: '*Hey*'})
+  const html = tags.button({ label: '*Hey*' })
   expect(html).toInclude('<a href="#" role="button">')
   expect(html).toInclude('<em>Hey</em>')
 })
@@ -190,7 +188,7 @@ test('[button]', () => {
 // page rendering
 test('render sections', () => {
   const lines = ['a', 'a', '--- #a.b', 'b', 'b', '---', 'c', 'c']
-  const { html } = renderLines(lines, { data: { sections: ['#foo']}})
+  const { html } = renderLines(lines, { data: { sections: ['#foo'] } })
   expect(html).toStartWith('<section id="foo"><p>a')
   expect(html).toInclude('<section class="b" id="a"><p>b')
   expect(html).toInclude('<section><p>c')
@@ -291,19 +289,18 @@ test('parse blocks', () => {
   const [intro, comp, outro] = blocks
   expect(intro).toEqual(['Hello'])
   expect(comp.name).toEqual('foo')
-  expect(comp.body).toEqual([ "bar: 10" ])
+  expect(comp.body).toEqual(["bar: 10"])
   expect(outro).toEqual(['World'])
 })
 
 test('parse single content block', () => {
   const [intro, comp] = parseBlocks(['Yo', '[.info]', '  Hello', '  World'])
   expect(comp.attr.class).toBe('info')
-  expect(comp.body).toEqual([ "Hello", "World" ])
+  expect(comp.body).toEqual(["Hello", "World"])
 })
 
 
 test('parseMeta', () => {
-
   expect(parseMeta(['']).rest).toEqual([''])
 
   expect(parseMeta(['# Hey']).rest).toEqual(['# Hey'])
@@ -325,48 +322,59 @@ test('valueGetter', () => {
 })
 
 test('parseAttr', () => {
-  expect(parseAttr('.bar#foo')).toEqual({ id: 'foo', class: 'bar'})
-  expect(parseAttr('.bar#foo.baz')).toEqual({ id: 'foo', class: 'bar baz'})
+  expect(parseAttr('.bar#foo')).toEqual({ id: 'foo', class: 'bar' })
+  expect(parseAttr('.bar#foo.baz')).toEqual({ id: 'foo', class: 'bar baz' })
 })
 
 test('parseSpecs', () => {
   expect(parseSpecs('tabs')).toEqual({ name: 'tabs', attr: {} })
-  expect(parseSpecs('tabs.#foo.bar')).toEqual({ name: 'tabs', attr: { id: 'foo', class: 'bar' }})
+  expect(parseSpecs('tabs.#foo.bar')).toEqual({ name: 'tabs', attr: { id: 'foo', class: 'bar' } })
 })
 
 test('parseComponent', () => {
 
   expect(parseComponent('#foo.bar')).toEqual({
-    name: null, attr: { id: "foo", class: "bar" }, data: {},
+    name: null,
+    attr: { id: "foo", class: "bar" },
+    data: {},
   })
 
   expect(parseComponent('list.tweets')).toEqual({
-    name: 'list', attr: { class: "tweets" }, data: {},
+    name: 'list',
+    attr: { class: "tweets" },
+    data: {},
   })
 
   expect(parseComponent('tip "Hey there"')).toEqual({
-    name: 'tip', attr: {}, data: {_: 'Hey there'},
+    name: 'tip',
+    attr: {},
+    data: { _: 'Hey there' },
   })
 
   expect(parseComponent('img /foo')).toEqual({
-    name: 'img', attr: {}, data: { _: '/foo' },
+    name: 'img',
+    attr: {},
+    data: { _: '/foo' },
   })
 
   expect(parseComponent('item cols=3 grayed')).toEqual({
-    name: 'item', attr: {}, data: { cols: 3, _: 'grayed' },
+    name: 'item',
+    attr: {},
+    data: { cols: 3, _: 'grayed' },
   })
 
   expect(parseComponent('info#alert "Sure ??" class="boss"')).toEqual({
-    name: 'info', attr: { class:'boss', id: 'alert' }, data: { _: 'Sure ??' },
+    name: 'info',
+    attr: { class: 'boss', id: 'alert' },
+    data: { _: 'Sure ??' },
   })
 
 })
 
 /*
   Required:
-
-    bun add react
-    bun add react-dom
+  bun add react
+  bun add react-dom
 */
 test('JSX component', async () => {
   try {
@@ -378,7 +386,7 @@ test('JSX component', async () => {
 
     // make them compatible with Nuemark
     const lib = Object.keys(jsx).map(name => {
-      return { name, render: (data) => renderToString(jsx[name](data)) }
+        return { name, render: (data) => renderToString(jsx[name](data)) }
     })
 
     // render JSX with Nuemark
@@ -386,10 +394,8 @@ test('JSX component', async () => {
 
     expect(html).toBe('<h1 style="color:red">Hello</h1>')
 
-
-  // react not imported
+      // react not imported
   } catch (ignored) {
-    console.info('JSX test skipped')
+      console.info('JSX test skipped')
   }
 })
-
