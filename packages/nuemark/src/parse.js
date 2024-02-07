@@ -1,7 +1,6 @@
 
 import { parseAttr, parseSpecs, parseComponent } from './component.js'
 import { loadAll, load as parseYAML } from 'js-yaml'
-import { ISOMORPHIC } from './tags.js'
 import { marked } from 'marked'
 const NL = '\n'
 
@@ -20,10 +19,10 @@ export function parsePage(lines) {
     const blocks = section.blocks = []
 
     for (const block of parseBlocks(section.lines)) {
-      const { name, data, body } = block
+      const { name, data, body, is_code } = block
 
-      if (name && ISOMORPHIC.includes(name)) isomorphic = true
-      if (name?.startsWith('code')) has_code_blocks = true
+      if (name?.includes('tabs')) isomorphic = true
+      if (name?.startsWith('code') || is_code) has_code_blocks = true
 
       // component body
       if (body) {
@@ -34,7 +33,7 @@ export function parsePage(lines) {
       }
 
       // component or fenced code block
-      if (data || block.is_code) {
+      if (data || is_code) {
         has_code_blocks = true
         blocks.push(block)
 
@@ -57,7 +56,7 @@ export function parsePage(lines) {
     meta.title = h1?.text
   }
 
-  return { meta, sections, headings, links, isomorphic }
+  return { meta, sections, headings, links, isomorphic, has_code_blocks }
 }
 
 
@@ -153,6 +152,7 @@ export function parseBlocks(lines) {
     if (line.startsWith('```')) {
       if (!fenced) {
         fenced = { is_code: true, content: [], ...parseSpecs(line.slice(3).trim()) }
+        md = null
       } else {
         blocks.push(fenced)
         fenced = null
@@ -193,6 +193,7 @@ export function parseBlocks(lines) {
     }
 
   })
+
 
   return blocks
 }

@@ -5,7 +5,6 @@
   --glow-del-color: 250, 110, 130;
   --glow-ins-color: 50, 210, 190;
   --glow-line-opacity: 0.15;
-  --glow-padding: 1em;
 
   ins, del, dfn {
     min-width: calc(100% + calc(var(--glow-padding) * 2));
