@@ -181,7 +181,7 @@ export function renderRow(row, lang) {
 
 
 // comment start & end
-const COMMENT = [/(\/\*|^ *{#|<!--|'''|=begin)/, /(\*\/|#}|-->|'''|=end)$/]
+const COMMENT = [/(\/\*|^ *{# |<!--|'''|=begin)/, /(\*\/|#}|-->|'''|=end)$/]
 
 export function parseSyntax(str, lang) {
   const [comm_start, comm_end] = COMMENT

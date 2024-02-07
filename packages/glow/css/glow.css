@@ -67,7 +67,11 @@
     }
   }
 
+  /* error line number */
   span:has(u):before {
-    color: var(--glow-error-color, red);
+    background-color: var(--glow-error-color, red);
+    border-radius: .2em;
+    font-weight: bold;
+    color: white;
   }
 }

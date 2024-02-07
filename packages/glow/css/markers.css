@@ -40,6 +40,8 @@
   del {
     border-color: rgb(var(--glow-del-color));
     background-color: rgba(var(--glow-del-color), var(--glow-line-opacity));
+    border-radius: 0;
+
     &:before {
       content: '-';
       color: rgb(var(--glow-del-color));

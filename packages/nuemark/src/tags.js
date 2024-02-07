@@ -27,7 +27,6 @@ export const ISOMORPHIC = ['tabs']
 
 export const tags = {
 
-  // [button href="/kamaa" "Jotain"]
   button(data, opts) {
     const { attr, href="#", content=[] } = data
     const label = parseInline(data.label || data._ || content[0] || '')
@@ -51,7 +50,7 @@ export const tags = {
     return elem('table', attr, thead + elem('tbody', join(trs)))
   },
 
-  // generic layout block
+  // generic layout block. used for "unnamed" blocks like [.grid]
   layout(data, opts) {
     const { content=[]} = data
     // const bc = data.block_class || 'block'
@@ -64,15 +63,7 @@ export const tags = {
     return elem(divs[1] ? 'section' : 'div', data.attr, join(divs))
   },
 
-  /*
-    # coderpad.io/blog/development/the-definitive-guide-to-responsive-images-on-the-web/
 
-    * responsive: srcset, sizes
-    * caption --> img -> <figure>
-    * art direction: small, large, offset -> <picture>
-    * href -> <a> wrapper
-    * content -> tags.section()
-  */
   image(data, opts) {
     const { attr, caption, width, href, content, loading='lazy' } = data
 
@@ -115,45 +106,36 @@ export const tags = {
     return elem('video', { ...data.attr, src: _, ...getVideoAttrs(data) }, join(html))
   },
 
-  /*
-    Use CSS :target selector
-      1. [tabs] (split body blocks in two)
-      2. [tabs "First, Second, Third"]
-  */
+
   tabs(data, opts) {
-    const { attr, key='tab', content=[], _ } = data
-    const half = Math.round(content.length / 2)
-    const t = _ || data.tabs
-    const tabs_arr = t ? toArray(t) : content.slice(0, half)
+    const { attr } = data
 
-    const tabs = tabs_arr.map((el, i) => {
-      const html = t ? el : nuemarkdown(el, opts)
-      return elem('a', { href: `#${key}-${i+1}` }, html )
+    // @depreciated: "tabs" default class name
+    if (attr && !attr.class) attr.class = 'tabs'
+
+    return createARIATabs(data, content => nuemarkdown(content, opts))
+  },
+
+
+  // developer.mozilla.org/en-US/docs/Web/HTML/Element/figure#code_snippets
+  codetabs(data) {
+    const languages = toArray(data.languages) || []
+    return createARIATabs(data, (content, i) => {
+      return createCodeBlock({ content, language: languages[i], data: data.numbered })
     })
-
-    const panes = content.slice(t ? 0 : half).map((el, i) => {
-      const html = nuemarkdown(el, opts)
-      return elem('li', { id: `${key}-${i+1}` }, html )
-    })
-
-    return elem('section', { is: 'nuemark-tabs', class: 'tabs', ...attr },
-      elem('nav', join(tabs)) +
-      elem('ul', join(panes))
-    )
   },
 
   code(data) {
-    const { title, attr } = data
-
-    // { content, language, numbered }
-    const pre = createCodeBlock(data)
-    const head = title ? elem('header', elem('h3', title)) : ''
-    return elem('div', attr, head + pre)
+    const { caption, attr } = data
+    const pre = createCodeBlock(data) // { content, language, numbered }
+    const head = caption ? elem('figcaption', elem('h3', caption)) : ''
+    return createWrapper(data.wrapper, elem('figure', attr, head + pre))
   },
+
 
   codeblocks(data) {
     const { content, attr, numbered } = data
-    const titles = toArray(data.titles) || []
+    const captions = toArray(data.captions) || []
     const languages = toArray(data.languages) || []
     const classes = toArray(data.classes) || []
 
@@ -161,7 +143,7 @@ export const tags = {
       return tags.code({
         attr: { class: classes[i] },
         language: languages[i],
-        title: titles[i],
+        caption: captions[i],
         content: code,
         numbered
       })
@@ -171,29 +153,6 @@ export const tags = {
   },
 
 
-  // developer.mozilla.org/en-US/docs/Web/HTML/Element/figure#code_snippets
-  codetabs(data) {
-    const { attr, numbered, key } = data
-    const languages = toArray(data.languages) || []
-    const titles = toArray(data.titles) || []
-
-    const tabs = titles.map((title, i) => {
-      const [ id, target ] = createTabIds(key, i)
-      const prop = { role: 'tab', 'aria-selected': i == 0, id, 'aria-controls': target }
-      return elem('a', prop, title)
-    })
-
-    const panes = data.content.map((content, i) => {
-      const [ tabId, id ] = createTabIds(key, i)
-      const prop = { role: 'tabpanel', id, 'aria-labelledby': tabId, hidden: i ? 'hidden' : null }
-      return elem('li', prop, createCodeBlock({ content, language: languages[i], numbered }))
-    })
-
-    return elem('section', attr,
-      elem('div', { role: 'tablist' }, tabs.join('\n')) +
-      elem('ul', panes.join('\n'))
-    )
-  }
 
   /* maybe later
   grid(data, opts) {
@@ -215,6 +174,36 @@ export const tags = {
 function createTabIds(key, i) {
   return key ? [ `${key}-tab-${i+1}`, `${key}-panel-${i+1}`] : []
 }
+
+function createWrapper(className, root) {
+  return className ? elem('div', { class: className }, root) : root
+}
+
+//
+function createARIATabs(data, fn) {
+  const { key } = data
+  const captions = toArray(data.captions || data.tabs || data._) || []
+
+  const tabs = captions.map((caption, i) => {
+    const [ id, target ] = createTabIds(key, i)
+    const prop = { role: 'tab', 'aria-selected': i == 0, id, 'aria-controls': target }
+    return elem('a', prop, parseInline(caption))
+  })
+
+  const panes = data.content.map((content, i) => {
+    const [ tabId, id ] = createTabIds(key, i)
+    const prop = { role: 'tabpanel', id, 'aria-labelledby': tabId, hidden: i ? 'hidden' : null }
+    return elem('li', prop, fn(content, i))
+  })
+
+  const root = elem('section', { role: 'tabs', is: 'aria-tabs', ...data.attr },
+    elem('div', { role: 'tablist' }, tabs.join('\n')) +
+    elem('ul', panes.join('\n'))
+  )
+
+  return createWrapper(data.wrapper, root)
+}
+
 
 // ! shortcut
 tags['!'] = function(data, opts) {
