@@ -9,6 +9,8 @@
 
   ins, del, dfn {
     min-width: calc(100% + calc(var(--glow-padding) * 2));
+    margin-left: calc(var(--glow-padding) * -1);
+    padding-left: var(--glow-padding);
     border-left: .2em solid white;
     display: inline-block;
     position: relative;
@@ -16,15 +18,20 @@
 
     :first-child { margin-left: -.2em; }
 
+    /* plus & minus characters  */
     &:before {
-      left: calc(var(--glow-padding) + 2em);
       position: absolute;
+      left: 95%;
     }
 
-    /* line numbered */
+    /* with line numbers */
     span & {
       margin-left: calc(-3.7em - var(--glow-padding));
       padding-left: calc(3.5em + var(--glow-padding));
+
+      &:before {
+        left: calc(var(--glow-padding) + 2em);
+      }
     }
   }
 

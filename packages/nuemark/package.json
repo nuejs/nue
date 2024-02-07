@@ -11,8 +11,6 @@
     "type": "git"
   },
 
-  "main": "src/browser/nuemark.js",
-
   "dependencies": {
     "nue-glow": "^0.1.0",
     "js-yaml": "^4.1.0",
