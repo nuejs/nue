@@ -39,7 +39,7 @@ export async function createKit(args) {
     paths.sort()
 
     // glow syntax
-    if (data.has_code_blocks && data.glow_css !== false) paths.push(`/@nue/glow.css`)
+    if (data.page?.has_code_blocks && data.glow_css !== false) paths.push(`/@nue/glow.css`)
 
 
     if (data.inline_css) {

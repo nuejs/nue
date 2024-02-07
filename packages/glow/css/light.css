@@ -1,0 +1,24 @@
+
+/* example light mode */
+
+[glow] {
+  --glow-bg-color: #fff;
+  --glow-font-color: #555;
+
+
+  /* brand coloring */
+  --glow-primary-color: #0068d6;
+  --glow-secondary-color: #bd2864;
+  --glow-accent-color: #7820bc;
+
+  /* rare case. make it "pop" */
+  --glow-special-color: #7820bc;
+
+  /* shades of gray */
+  --glow-char-color: #8e989c;
+  --glow-comment-color: #9aa1a3;
+  --glow-counter-color: #bbb;
+
+  /* selection color */
+  --glow-selected-color: #51c6fe29;
+}

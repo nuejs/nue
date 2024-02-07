@@ -3,6 +3,7 @@ import { mountAll } from './mount.js'
 
 const sse = new EventSource(location.origin)
 
+const $$ = (query, root=document) => [ ...root.querySelectorAll(query) ]
 const $ = (query, root=document) => root.querySelector(query)
 
 
@@ -98,10 +99,31 @@ async function patch(html) {
   if (title) document.title = title
 
   const diff = Diff.diff(old_body, body)
-  Diff.apply(old_body, diff)
-  await mountAll()
 
+  // tab state
+  const flags = $$('[role=tab]').map(el => el.getAttribute('aria-selected'))
+
+  Diff.apply(old_body, diff)
+
+  // restore tabs
+  restoreTabs(flags)
+
+  await mountAll()
 }
+
+function toggleAttr(el, name, flag) {
+  flag ? el.setAttribute(name, 1) :  el.removeAttribute(name)
+}
+
+function restoreTabs(flags) {
+  const panels = $$('[role=tabpanel]')
+
+  $$('[role=tab]').forEach((el, i) => {
+    toggleAttr(el, 'aria-selected', flags[i])
+    toggleAttr(panels[i], 'hidden', !flags[i])
+  })
+}
+
 
 /*
 

@@ -22,8 +22,6 @@ import { nuemarkdown } from '../index.js'
 import { parseInline } from 'marked'
 import { glow } from 'nue-glow'
 
-// list all tags that require a client-side Web Component
-export const ISOMORPHIC = ['tabs']
 
 export const tags = {
 
@@ -121,15 +119,15 @@ export const tags = {
   codetabs(data) {
     const languages = toArray(data.languages) || []
     return createARIATabs(data, (content, i) => {
-      return createCodeBlock({ content, language: languages[i], data: data.numbered })
+      return createCodeBlock({ content, language: languages[i], numbered: data.numbered })
     })
   },
 
   code(data) {
     const { caption, attr } = data
-    const pre = createCodeBlock(data) // { content, language, numbered }
     const head = caption ? elem('figcaption', elem('h3', caption)) : ''
-    return createWrapper(data.wrapper, elem('figure', attr, head + pre))
+    const root = head ? elem('figure', attr, head + createCodeBlock(data)) : createCodeBlock(data, attr)
+    return createWrapper(data.wrapper, root)
   },
 
 
@@ -263,9 +261,9 @@ export function createPicture(img_attr, data) {
   return elem('picture', !data.caption && data.attr, join(sources))
 }
 
-function createCodeBlock({ content, language, numbered }) {
+function createCodeBlock({ content, language, numbered }, attr={}) {
   const code = glow(join(content), { language, numbered })
-  return elem('pre', { glow: language || '*' }, elem('code', code))
+  return elem('pre', { glow: language || '*', ...attr }, elem('code', code))
 }
 
 

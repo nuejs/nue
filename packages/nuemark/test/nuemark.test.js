@@ -6,14 +6,15 @@ import { tags } from '../src/tags.js'
 
 
 test('fenced code', () => {
-  const { html } = renderLines(['``` md.foo.bar', `<h1>hey</h1>`, '```'])
-  expect(html).toStartWith('<figure class="foo bar"><pre glow="md">')
+  const { html } = renderLines(['``` md.foo', `<h1>hey</h1>`, '```', 'after'])
+  expect(html).toStartWith('<pre glow="md" class="foo">')
   expect(html).toInclude('<i>')
+  expect(html.trim()).toEndWith('<p>after</p>')
 })
 
 test('[code]', () => {
   const html = tags.code({ content: ['<p>Hey</p>'], language: 'xml', numbered: true, wrapper: 'foo' })
-  expect(html).toStartWith('<div class="foo"><figure><pre glow="xml">')
+  expect(html).toStartWith('<div class="foo"><pre glow="xml">')
   expect(html).toInclude('<i>')
 })
 
@@ -32,7 +33,7 @@ test('[codeblocks]', () => {
 
 test('[codetabs]', () => {
   const html = tags.codetabs({ content: ['a', 'b'], captions: 'A; B', languages: 'jsx; md' })
-  expect(html).toStartWith('<section role="tabs" is="aria-tabs">')
+  expect(html).toStartWith('<section tabs="2" is="aria-tabs">')
   expect(html).toInclude('<div role="tablist">')
   expect(html).toInclude('<li role="tabpanel"><pre glow="jsx">')
 })
@@ -77,7 +78,7 @@ test('[video] simple', () => {
 
 test('[tabs] attr', () => {
   const html = tags.tabs({ _: 't1 ; t2', content: ['c1', 'c2'], attr: {} })
-  expect(html).toInclude('<section role="tabs" is="aria-tabs" class="tabs">')
+  expect(html).toInclude('<section tabs="2" is="aria-tabs" class="tabs">')
   expect(html).toInclude('<div role="tablist">')
   expect(html).toInclude('<a role="tab" aria-selected="true">t1</a>')
   expect(html).toInclude('<li role="tabpanel">')

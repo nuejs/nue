@@ -2,7 +2,7 @@
 @import "../css/glow.css";
 @import "../css/markers.css";
 
-@import "../css/dark.css";
+@import "../css/light.css";
 
 .syntax {
   border-radius: 6px;
@@ -55,8 +55,6 @@ body {
 
 
 .is-dark {
-  background: #111729;
-  color: #e2e8f0;
 
   .syntax {
     border-color:  #fff1;
