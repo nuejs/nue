@@ -2,14 +2,12 @@
 /* example light mode */
 
 [glow] {
-  --glow-bg-color: #fff;
-  --glow-font-color: #555;
-
+  --glow-base-color: #555;
 
   /* brand coloring */
   --glow-primary-color: #0068d6;
   --glow-secondary-color: #bd2864;
-  --glow-accent-color: #7820bc;
+  --glow-accent-color: #456aff;
 
   /* rare case. make it "pop" */
   --glow-special-color: #7820bc;
@@ -20,5 +18,5 @@
   --glow-counter-color: #bbb;
 
   /* selection color */
-  --glow-selected-color: #51c6fe29;
+  --glow-marked-color: #51c6fe29;
 }

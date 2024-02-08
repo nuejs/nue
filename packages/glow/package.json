@@ -11,6 +11,8 @@
     "type": "git"
   },
 
+  "main": "index.js",
+
   "license": "MIT",
   "type": "module",
 

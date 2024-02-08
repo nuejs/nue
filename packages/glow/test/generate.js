@@ -5,8 +5,9 @@ import { glow } from '../src/glow.js'
 
 // Nue / html
 const HTML = `
-<figure @name="img" :class="class" :id="id">
+\\><figure @name="img" :class="class" :id="id">
   <img loading="lazy" :alt="alt" :src="_ || src">
+
 
   <!--
     Inner comment and another
@@ -98,6 +99,11 @@ adaptogen. Iceland **chambray** raclette stumptown
 `
 
 const NUEMARK = `
+---
+title: Noel's cringe content
+|description: Not much to say
+draft: true
+---
 
 # Lets get magical
 I'm baby truffaut umami wolf small batch iceland
@@ -119,7 +125,7 @@ adaptogen. Iceland **chambray** raclette stumptown
   ![Hello](/banger.png)
 
 [image loading="eager"]
-+ small: "/img/explainer-tall.png"
+| small: "/img/explainer-tall.png"
   src: "/img/explainer.png"
   hidden: true
   width: 800
@@ -642,7 +648,7 @@ async function renderPage(items) {
     html.push(`
       <div class="syntax ${opts.class || ''}">
         <header><h2>${opts.title || language }</h2></header>
-        <pre glow="${language}"><code>${code}</code></pre>
+        <pre glow>${code}</pre>
       </div>
     `)
   })
@@ -691,7 +697,7 @@ await renderPage([
   { title: 'TypeScript', code: TS, lang: 'ts', },
   { title: 'ZIG', code: ZIG, lang: 'zig', },
 
-  ] // .filter(el => el.lang == 'html')
+  ].filter(el => el.lang == 'nuemark')
 
 )
 
