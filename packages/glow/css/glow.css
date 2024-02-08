@@ -1,18 +1,16 @@
 
 [glow] {
-  background-color: var(--glow-bg-color, #111729);
-  color: var(--glow-font-color, #a2aab1);
+  color: var(--glow-base-color, #a2aab1);
   counter-reset: line-counter 0;
   padding: var(--glow-padding);
   font-family: monospace;
   line-height: 1.7;
 
-  code {
-    * {
-      font-weight: 400;
-      font-style: inherit;
-      text-decoration: inherit
-    }
+  /* reset */
+  * {
+    font-weight: 400;
+    font-style: inherit;
+    text-decoration: inherit
   }
 
   /* primary accent color */
@@ -34,6 +32,7 @@
     text-decoration-thickness: .15em;
     text-underline-offset: .5em;
   }
+
   /* comments */
   sup {
     color: var(--glow-comment-color, #4e5d61);
@@ -47,8 +46,8 @@
 
   /* marked code */
   mark {
+    background-color: var(--glow-marked-color, #2dd4bf26);
     color: unset;
-    background-color: var(--glow-selected-color, #2dd4bf26);
     border-radius: .2em;
     padding: .3em .4em;
     margin: -.3em -.4em;
@@ -62,14 +61,14 @@
       color: var(--glow-counter-color, #475569);
       content: counter(line-counter);
       display: inline-block;
-      margin-right: 1em;
       text-align: right;
       padding-right: 1em;
+      margin-right: 1em;
       width: 2.5em;
     }
   }
 
-  /* error line number */
+  /* errorneous line number styling */
   span:has(u):before {
     background-color: var(--glow-error-color, red);
     border-radius: .2em;

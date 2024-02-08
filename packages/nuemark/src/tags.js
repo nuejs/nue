@@ -194,7 +194,7 @@ function createARIATabs(data, fn) {
     return elem('li', prop, fn(content, i))
   })
 
-  const root = elem('section', { tabs: tabs.length, is: 'aria-tabs', ...data.attr },
+  const root = elem('section', { tabs: true, is: 'aria-tabs', ...data.attr },
     elem('div', { role: 'tablist' }, tabs.join('\n')) +
     elem('ul', panes.join('\n'))
   )
@@ -225,11 +225,12 @@ export function elem(name, attr, body) {
   return html.join('')
 }
 
+
 function renderAttrs(attr) {
   const arr = []
   for (const key in attr) {
     const val = attr[key]
-    if (val) arr.push(`${key}="${val}"`)
+    if (val) arr.push(val === true ? key :`${key}="${val}"`)
   }
   return arr[0] ? ' ' + arr.join(' ') : ''
 }
@@ -263,7 +264,7 @@ export function createPicture(img_attr, data) {
 
 function createCodeBlock({ content, language, numbered }, attr={}) {
   const code = glow(join(content), { language, numbered })
-  return elem('pre', { glow: language || '*', ...attr }, elem('code', code))
+  return elem('pre', { glow: true, ...attr }, code)
 }
 
 

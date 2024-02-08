@@ -25,12 +25,10 @@
 
     /* with line numbers */
     span & {
-      margin-left: calc(-3.7em - var(--glow-padding));
+      margin-left: calc(-3.5em - var(--glow-padding));
       padding-left: calc(3.5em + var(--glow-padding));
 
-      &:before {
-        left: calc(var(--glow-padding) + 2em);
-      }
+      /* &:before { left: calc(var(--glow-padding) - 1.5em); } */
     }
   }
 

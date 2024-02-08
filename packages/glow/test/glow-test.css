@@ -1,14 +1,26 @@
 
 @import "../css/glow.css";
 @import "../css/markers.css";
+/*@import "../css/light.css";*/
 
-@import "../css/light.css";
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sf pro display;
+  margin: 3em;
+  gap: 3em;
+  .syntax { break-inside: avoid; }
+  @media (min-width: 1000px) {
+    column-count: 2;
+  }
+}
 
 .syntax {
   border-radius: 6px;
   margin-bottom: 3em;
   header { padding: .7em 1.5em; }
-
 
   [glow] {
     --glow-line-opacity: 0.2;
@@ -26,41 +38,30 @@
   }
 }
 
+/* dark == default */
 body {
-  font-family: sf pro display;
-  margin: 3em;
-  gap: 3em;
-  .syntax { break-inside: avoid; }
-  @media (min-width: 1000px) {
-    column-count: 2;
+  background: #111729;
+  color: #fff;
+
+  .syntax {
+    background-color: #20293A;
+    border-color:  #fff1;
+    box-shadow: none;
+    header { border-bottom: 1px solid #fff1; }
   }
 }
-
-*, *::before, *::after {
-  box-sizing: border-box
-}
-
 
 .is-light {
   background: #f3f8fa;
   color: #444;
 
   .syntax {
+    background-color: #fff;
     border: 1px solid #eee;
     box-shadow: 0 0 .5em #eee;
-    background-color: #fff;
     header { border-bottom: 1px solid #eee; }
   }
 }
 
 
-.is-dark {
-
-  .syntax {
-    border-color:  #fff1;
-    box-shadow: none;
-    background-color: #20293A;
-    header { border-bottom: 1px solid #fff1; }
-  }
-}
 

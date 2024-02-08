@@ -8,7 +8,7 @@ const RESERVED = 'null|true|false|undefined|import|from|async|await|package|begi
 |using|namespace|cout|cin'
 
 const MIXED_HTML = ['html', 'jsx', 'php', 'astro', 'nue', 'vue', 'svelte', 'hb']
-const MARKERS = {'+': 'ins', '-': 'del', '>': 'dfn', '|': 'dfn' }
+const PREFIXES = {'+': 'ins', '-': 'del', '>': 'dfn' }
 const LINE_COMMENT = { clojure: ';;', lua: '--' }
 const MARK = /(••?)([^•]+)\1/g   // ALT + q
 const NL = '\n'
@@ -210,12 +210,15 @@ export function parseSyntax(str, lang) {
         comment = [line]
         if (comm_end.test(line) && line?.trim() != "'''") endComment()
       } else {
-        let wrap = line[1] == ' ' && MARKERS[line[0]]
 
-        // Markdown blockquote hack
-        if (isMD(lang) && line[0] == '>') wrap = null
+        // highlighted line
+        const c = line[0]
+        const wrap = isMD(lang) ? (c == '|' && 'dfn') : PREFIXES[c]
+        if (wrap) line = (line[1] == ' ' ? ' ' : '') + line.slice(1)
 
-        if (wrap) line = ' ' + line.slice(1)
+        // escape character
+        if (c == '\\') line = line.slice(1)
+
         lines.push({ line, wrap })
       }
 
@@ -267,7 +270,7 @@ export function glow(str, opts={}) {
     push(line)
   })
 
-  return lines.join(NL)
+  return `<code language="${lang || '*'}">${lines.join(NL)}</code>`
 }
 
 
