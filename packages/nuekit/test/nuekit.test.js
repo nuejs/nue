@@ -121,7 +121,7 @@ test('get data', async () => {
 
 test('content collection', async () => {
   // Default sorting is on pubDate returning most recent first.
-  await write('blog/first-a.md', '# First')
+  await write('blog/first-a.md', createFront('First'))
   await write('blog/first-b.md', createFront('Second', '2020-01-04'))
   await write('blog/nested/hey1.md', createFront('Third', '2020-01-02'))
   await write('blog/nested/hey2.md', createFront('Fourth', '2020-01-03'))
@@ -133,8 +133,8 @@ test('content collection', async () => {
   expect(actual).toEqual([
     { url: '/blog/first-a.html', title: 'First', dir: 'blog', slug: 'first-a.html' },
     { url: '/blog/first-b.html', title: 'Second', dir: 'blog', slug: 'first-b.html' },
-    { url: '/blog/nested/hey2.html', title: 'Fourth', dir: 'blog/nested', slug: 'hey2.html' },
-    { url: '/blog/nested/hey1.html', title: 'Third', dir: 'blog/nested', slug: 'hey1.html' },
+    { url: '/blog/nested/hey2.html', title: 'Fourth', dir: join('blog', 'nested'), slug: 'hey2.html' },
+    { url: '/blog/nested/hey1.html', title: 'Third', dir: join('blog', 'nested'), slug: 'hey1.html' },
   ])
 })
 
