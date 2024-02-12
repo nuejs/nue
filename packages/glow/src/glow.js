@@ -1,5 +1,11 @@
 
 
+const MIXED_HTML = ['html', 'jsx', 'php', 'astro', 'nue', 'vue', 'svelte', 'hb']
+const PREFIXES = {'+': 'ins', '-': 'del', '>': 'dfn' }
+const LINE_COMMENT = { clojure: ';;', lua: '--' }
+const MARK = /(••?)([^•]+)\1/g   // ALT + q
+const NL = '\n'
+
 const RESERVED = 'null|true|false|undefined|import|from|async|await|package|begin\
 |interface|class|new|int|func|function|get|set|export|default|const|var|let\
 |return|for|while|defer|if|then|fi|int|string|number|def|public|static|void\
@@ -7,24 +13,20 @@ const RESERVED = 'null|true|false|undefined|import|from|async|await|package|begi
 |throw|fun|val|use|fn|my|end|local|until|next|bool|ns|defn|puts|require|each\
 |using|namespace|cout|cin'
 
-const MIXED_HTML = ['html', 'jsx', 'php', 'astro', 'nue', 'vue', 'svelte', 'hb']
-const PREFIXES = {'+': 'ins', '-': 'del', '>': 'dfn' }
-const LINE_COMMENT = { clojure: ';;', lua: '--' }
-const MARK = /(••?)([^•]+)\1/g   // ALT + q
-const NL = '\n'
 
 const HTML_TAGS = [
 
   { tag: 'label', re: /\[([a-z\-]+)/g, lang: ['md', 'toml'], shift: true },
 
-  // string value (keep first on the list)
+  // string value (keep second on the list)
   { tag: 'em', re: /'[^']*'|"[^"]*"/g, is_string: true },
 
   // HTML tag name
   { tag: 'strong', re: /<([\w\-]+ )/g, shift: true, lang: MIXED_HTML },
+
   { tag: 'strong', re: /<\/?([\w\-]+)>/g, shift: true, lang: MIXED_HTML },
 
-  // ALL CAPS
+  // ALL CAPS (constants)
   { tag: 'b', re: /\b[A-Z]+\b/g },
 
   // @special
@@ -44,7 +46,6 @@ const HTML_TAGS = [
 
   // function name
   { tag: 'b', re: /([\w]+)\(/gi },
-
 
   // numeric value
   { tag: 'em', re: /\b\d+\.?[%\w\b]*/g },
@@ -71,18 +72,14 @@ function elem(name, str) {
   return `<${name}>${str}</${name}>`
 }
 
-// wrap comment
-function comm (str) {
-  return elem('sup', encode(str))
-}
-
-
-// too different / mostly content
+/*
+  Markdown code block inside Markdown is so different,
+  that it requires a special treatment
+*/
 function isMD(lang) {
   return ['md', 'mdx', 'nuemark'].includes(lang)
 }
 
-// TODO: make this more generic
 function getMDTags(str) {
   const s = str.trim()
   const c = s[0]
@@ -259,11 +256,12 @@ export function glow(str, opts={}) {
 
     // EOL comment
     if (comment) {
-      return comment.forEach(el => push(comm(el)))
+      return comment.forEach(el => push(elem('sup', encode(el))))
 
     } else {
       const i = findCommentIndex(line, lang)
-      line = i < 0 ? renderRow(line, lang) : renderRow(line.slice(0, i), lang) + comm(line.slice(i))
+      line = i < 0 ? renderRow(line, lang) :
+        renderRow(line.slice(0, i), lang) + elem('sup', encode(line.slice(i)))
     }
 
     if (wrap) line = elem(wrap, line)

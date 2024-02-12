@@ -23,6 +23,6 @@ async function minify(names, toname, include=0) {
 
 
 await minify(['glow', 'markers'], 'glow', Features.Nesting)
-await minify(['glow', 'markers'], 'glow.modern')
-await minify(['glow'], 'glow.nano')
+await minify(['glow'], 'glow.nano', Features.Nesting)
 
+// await minify(['glow', 'markers'], 'glow.modern')

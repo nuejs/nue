@@ -118,11 +118,13 @@ export const tags = {
   // developer.mozilla.org/en-US/docs/Web/HTML/Element/figure#code_snippets
   codetabs(data) {
     const languages = toArray(data.languages) || []
+
     return createARIATabs(data, (content, i) => {
       return createCodeBlock({ content, language: languages[i], numbered: data.numbered })
     })
   },
 
+  // caption, wrapper, language, numbered
   code(data) {
     const { caption, attr } = data
     const head = caption ? elem('figcaption', elem('h3', caption)) : ''
@@ -131,6 +133,7 @@ export const tags = {
   },
 
 
+  // captions, languages, classes, numbered
   codeblocks(data) {
     const { content, attr, numbered } = data
     const captions = toArray(data.captions) || []
@@ -288,7 +291,7 @@ function getVideoAttrs(data) {
   const attr = {}
   for (const key of keys) {
     const val = data[key]
-    if (val) attr[key] = val === true ? key : val
+    if (val) attr[key] = val
   }
   return attr
 }
