@@ -7,20 +7,20 @@ import { tags } from '../src/tags.js'
 
 test('fenced code', () => {
   const { html } = renderLines(['``` md.foo', `<h1>hey</h1>`, '```', 'after'])
-  expect(html).toStartWith('<pre glow="md" class="foo">')
+  expect(html).toStartWith('<pre glow class="foo">')
   expect(html).toInclude('<i>')
   expect(html.trim()).toEndWith('<p>after</p>')
 })
 
 test('[code]', () => {
   const html = tags.code({ content: ['<p>Hey</p>'], language: 'xml', numbered: true, wrapper: 'foo' })
-  expect(html).toStartWith('<div class="foo"><pre glow="xml">')
+  expect(html).toStartWith('<div class="foo"><pre glow><code language="xml">')
   expect(html).toInclude('<i>')
 })
 
-test('[code caption]', () => {
-  const html = tags.code({ content: ['<!-- Hey -->'], caption: 'Boss' })
-  expect(html).toInclude('<figcaption><h3>Boss')
+test('[code caption wrapper]', () => {
+  const html = tags.code({ content: ['<!-- Hey -->'], caption: 'index.js', wrapper: 'shiny', numbered: 1 })
+  expect(html).toInclude('<figcaption><h3>index.js')
   expect(html).toInclude('<sup>&lt;!-- Hey')
 })
 
@@ -33,9 +33,9 @@ test('[codeblocks]', () => {
 
 test('[codetabs]', () => {
   const html = tags.codetabs({ content: ['a', 'b'], captions: 'A; B', languages: 'jsx; md' })
-  expect(html).toStartWith('<section tabs="2" is="aria-tabs">')
+  expect(html).toStartWith('<section tabs is="aria-tabs">')
   expect(html).toInclude('<div role="tablist">')
-  expect(html).toInclude('<li role="tabpanel"><pre glow="jsx">')
+  expect(html).toInclude('<li role="tabpanel"><pre glow>')
 })
 
 test('nested code with comment', () => {
@@ -73,16 +73,29 @@ test('[video] sources', () => {
 
 test('[video] simple', () => {
   const html = tags.video({ _: '/test.mp4', width: 500, loop: true, muted: true, joku: 899 })
-  expect(html).toBe('<video src="/test.mp4" loop="loop" muted="muted" width="500"></video>')
+  expect(html).toBe('<video src="/test.mp4" loop muted width="500"></video>')
 })
 
 test('[tabs] attr', () => {
   const html = tags.tabs({ _: 't1 ; t2', content: ['c1', 'c2'], attr: {} })
-  expect(html).toInclude('<section tabs="2" is="aria-tabs" class="tabs">')
+  expect(html).toInclude('<section tabs is="aria-tabs" class="tabs">')
   expect(html).toInclude('<div role="tablist">')
-  expect(html).toInclude('<a role="tab" aria-selected="true">t1</a>')
+  expect(html).toInclude('<a role="tab" aria-selected>t1</a>')
   expect(html).toInclude('<li role="tabpanel">')
   expect(html).toInclude('<p>c1</p>')
+})
+
+test('[tabs] key and wrapper', () => {
+  const html = tags.tabs({
+    tabs: 'Tab 1 | Tab 2',
+    content: ['Content 1', 'Content 2'],
+    wrapper: 'gradient',
+    key: 'tab',
+  })
+
+  expect(html).toStartWith('<div class="gradient">')
+  expect(html).toInclude('id="tab-tab-1" aria-controls="tab-panel-1"')
+  expect(html).toInclude('id="tab-panel-2" aria-labelledby="tab-tab-2"')
 })
 
 
@@ -100,7 +113,7 @@ const NESTED_TABS = `
 
 test('Nested [tabs]', () => {
   const html = nuemarkdown(NESTED_TABS)
-  expect(html).toInclude('aria-selected="true">Foo</a>')
+  expect(html).toInclude('aria-selected>Foo</a>')
   expect(html).toInclude('<a role="tab">Bar</a>')
 
   expect(html).toInclude('aria-controls="inner-panel-1">Baz</a>')
