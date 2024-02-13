@@ -35,7 +35,7 @@
 
   /* comments */
   sup {
-    color: var(--glow-comment-color, #4e5d61);
+    color: var(--glow-comment-color, #6f7a7d);
     font-size: inherit;
     vertical-align: inherit;
     font-style: italic;
