@@ -22,7 +22,7 @@ npm i nue-glow
 
 #### With Nue
 
-Nue uses Glow in markdown code blocks and it offers [three Nuemark tags](/reference/nuemark-tags.html#code): `[code]`, `[codeblocks]`, and `[codetabs]` for more advanced usage. Try them out as follows:
+Nue uses Glow in markdown code blocks and it offers [three Nuemark tags](//nuejs.org/reference/nuemark-tags.html#code): `[code]`, `[codeblocks]`, and `[codetabs]` for more advanced usage. Try them out as follows:
 
 ``` sh
 # Install Bun (if not done yet)
