@@ -1,6 +1,6 @@
 {
   "name": "nuemark",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Markdown dialect for rich, interactive web content",
   "homepage": "https://nuejs.org",
   "license": "MIT",
@@ -12,7 +12,7 @@
   },
 
   "dependencies": {
-    "nue-glow": "^0.1.0",
+    "nue-glow": "workspace:^",
     "js-yaml": "^4.1.0",
     "marked": "^9.1.2"
   }
