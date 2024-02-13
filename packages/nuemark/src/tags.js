@@ -127,7 +127,7 @@ export const tags = {
   // caption, wrapper, language, numbered
   code(data) {
     const { caption, attr } = data
-    const head = caption ? elem('figcaption', elem('h3', caption)) : ''
+    const head = caption ? elem('figcaption', elem('h3', parseInline(caption))) : ''
     const root = head ? elem('figure', attr, head + createCodeBlock(data)) : createCodeBlock(data, attr)
     return createWrapper(data.wrapper, root)
   },
