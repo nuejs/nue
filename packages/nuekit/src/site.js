@@ -13,6 +13,16 @@ const NOT_FOUND = -2
 // file not found error code in windows
 const ENOENT = -4058
 
+/**
+ * Initializes and configures a site based on YAML configuration files.
+ * - Reads site-wide and environment-specific configurations from 'site.yaml' and optional '[env].yaml'.
+ * - Handles file reading, parsing YAML to JSON, and merging configurations.
+ * - Manages site assets, scripts, styles, and layout components with support for live updates and bulk processing.
+ * - Provides utility methods for file operations (read, write, copy) and content collection from markdown files.
+ * - Errors during initialization or file operations will throw with descriptive messages.
+ * @param {Object} args - Contains 'root' (site root directory), 'is_prod' (production flag), 'env' (optional environment config file name), 'cmd' (optional command, e.g. 'build')
+ * @returns {Object} Site object with methods for site operations and properties including 'dist' (distribution directory) and 'port' merged with (site.yaml) and optional provided 'env' file in args.
+ */
 export async function createSite(args) {
 
   const { root, is_prod, env } = args
