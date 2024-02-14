@@ -120,21 +120,27 @@ test('get data', async () => {
 })
 
 test('content collection', async () => {
-  // Default sorting is on pubDate returning most recent first.
-  await write('blog/first-a.md', createFront('First'))
+  // This test proves
+  // ----------------
+  // 1. Default sorting is on pubDate returning most recent first.
+  // 2. Collection returns parent folders, then child folders.
+  // 3. Posts with null dates, e.g. First, come before posts with dates.
+  await write('blog/first-a.md', '# First')
   await write('blog/first-b.md', createFront('Second', '2020-01-04'))
   await write('blog/nested/hey1.md', createFront('Third', '2020-01-02'))
   await write('blog/nested/hey2.md', createFront('Fourth', '2020-01-03'))
 
   const site = await getSite()
   const coll = await site.getContentCollection('blog')
-  const actual = coll.map(c => { return { url: c.url, title: c.title, dir: c.dir, slug: c.slug }; });
+  const actual = coll.map(c => {
+    return { pubDate: c.pubDate, url: c.url, title: c.title, dir: c.dir, slug: c.slug }
+  })
   // expected order is : First, Second, Fourth, Third.
   expect(actual).toEqual([
-    { url: '/blog/first-a.html', title: 'First', dir: 'blog', slug: 'first-a.html' },
-    { url: '/blog/first-b.html', title: 'Second', dir: 'blog', slug: 'first-b.html' },
-    { url: '/blog/nested/hey2.html', title: 'Fourth', dir: join('blog', 'nested'), slug: 'hey2.html' },
-    { url: '/blog/nested/hey1.html', title: 'Third', dir: join('blog', 'nested'), slug: 'hey1.html' },
+    { pubDate: undefined, url: '/blog/first-a.html', title: 'First', dir: 'blog', slug: 'first-a.html' },
+    { pubDate: new Date('2020-01-04T00:00:00.000Z'), url: '/blog/first-b.html', title: 'Second', dir: 'blog', slug: 'first-b.html' },
+    { pubDate: new Date('2020-01-03T00:00:00.000Z'), url: '/blog/nested/hey2.html', title: 'Fourth', dir: 'blog/nested', slug: 'hey2.html' },
+    { pubDate: new Date('2020-01-02T00:00:00.000Z'), url: '/blog/nested/hey1.html', title: 'Third', dir: 'blog/nested', slug: 'hey1.html' },
   ])
 })
 
