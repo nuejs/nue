@@ -4,6 +4,7 @@ import { log, getParts, getAppDir, getDirs, colors, getPosixPath } from './util.
 import { parse as parseNue } from 'nuejs-core'
 import { promises as fs } from 'node:fs'
 import { fswalk } from './nuefs.js'
+import { makeIsLegit} from './isLegit'
 import { nuemark } from 'nuemark'
 import yaml from 'js-yaml'
 
@@ -49,7 +50,6 @@ export async function createSite(args) {
 
   async function readOpts() {
     const data = await readData('site.yaml') || {}
-
     // environment
     try {
       if (env) Object.assign(data, await readData(env))
@@ -61,7 +61,11 @@ export async function createSite(args) {
   }
 
   let site_data = await readOpts()
-  const self = { globals: site_data.globals || [] }
+  const self = { 
+      globals: site_data.globals || [], 
+      ignores: site_data.ignores || [],
+      isLegit: makeIsLegit(site_data.ignores),
+    }
 
   const {
     dist = `${root}/.dist/${is_prod ? 'prod' : 'dev'}`,
@@ -117,7 +121,7 @@ export async function createSite(args) {
 
     for (const dir of dirs) {
       try {
-        const paths = self.globals.includes(dir) ? await fswalk(join(root, dir)) : await fs.readdir(join(root, dir))
+        const paths = self.globals.includes(dir) ? await fswalk(self.isLegit, join(root, isLegit, dir)) : await fs.readdir(join(root, dir))
 
         paths.filter(path => {
           const ext = extname(path).slice(1)
@@ -157,7 +161,7 @@ export async function createSite(args) {
   }
 
   self.walk = async function() {
-    return await fswalk(root)
+    return await fswalk(self.isLegit, root)
   }
 
   self.getScripts = async function (dir, include=['main.js']) {
@@ -170,7 +174,7 @@ export async function createSite(args) {
     const key = 'coll:' + dir
     if (cache[key]) return cache[key]
 
-    const paths = await fswalk(join(root, dir))
+    const paths = await fswalk(self.isLegit, join(root, dir))
     const mds = paths.filter(el => el.endsWith('.md')).map(el => join(dir, el))
 
     const arr = []

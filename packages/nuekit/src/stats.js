@@ -9,8 +9,8 @@ async function readSize(dist, path) {
   return raw.length
 }
 
-export async function readStats(dist, globals) {
-  const paths = await fswalk(dist)
+export async function readStats(isLegit, dist, globals) {
+  const paths = await fswalk(isLegit, dist)
 
   async function getSize(appdir, ext) {
     let total = 0

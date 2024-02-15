@@ -1,6 +1,7 @@
 
 import { watch, promises as fs } from 'node:fs'
 import { join, parse, sep } from 'node:path'
+import { makeIsLegit } from './isLegit'
 
 /*
   Super minimalistic file system watcher.
@@ -15,7 +16,10 @@ import { join, parse, sep } from 'node:path'
 // avoid double events and looping (seen on Bun only)
 let last = {}
 
-export async function fswatch(dir, onfile, onremove) {
+export async function fswatch(dir, ignores, onfile, onremove) {
+  
+  const isLegit = makeIsLegit(ignores)
+  
   watch(dir, { recursive: true }, async function(e, path) {
     try {
       const file = parse(path)
@@ -30,7 +34,7 @@ export async function fswatch(dir, onfile, onremove) {
       const stat = await fs.lstat(join(dir, path))
 
       if (stat.isDirectory()) {
-        const paths = await fswalk(dir, path)
+        const paths = await fswalk(isLegit, dir, path)
 
         // deploy everything on the directory
         for (const path of paths) {
@@ -54,34 +58,19 @@ export async function fswatch(dir, onfile, onremove) {
 
 
 
-export async function fswalk(root, _dir='', _ret=[]) {
+export async function fswalk(isLegit, root, _dir='', _ret=[]) {
   const files = await fs.readdir(join(root, _dir), { withFileTypes: true })
 
   for (const f of files) {
     if (isLegit(f)) {
       const path = join(_dir, f.name)
-      if (isDir(f)) await fswalk(root, path, _ret)
+      if (isDir(f)) await fswalk(isLegit, root, path, _ret)
       else _ret.push(path)
     }
   }
   return _ret
 }
 
-
-const IGNORE = ['node_modules', 'package.json', 'bun.lockb', 'pnpm-lock.yaml']
-
-function ignore(name='') {
-  return '._'.includes(name[0]) || IGNORE.includes(name)
-}
-
-function isLegit(file) {
-  return !ignore(file.name) && !ignore(file.dir)
-}
-
-// TODO: real symdir detection
 function isDir(f) {
   return f.isDirectory() || f.isSymbolicLink() && !f.name.includes('.')
 }
-
-
-

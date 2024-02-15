@@ -360,7 +360,7 @@ export async function createKit(args) {
   }
 
   async function stats() {
-    const rows = await readStats(dist, site.globals)
+    const rows = await readStats(site.isLegit, dist, site.globals)
     printTable(['Page', 'HTML', 'CSS', 'JS'], rows)
     return rows
   }

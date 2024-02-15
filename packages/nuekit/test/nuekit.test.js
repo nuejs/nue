@@ -14,11 +14,11 @@ expect.extend({ toMatchPath })
 const root = '_test'
 
 // setup and teardown
-beforeAll(async () => {
+beforeEach(async () => {
   await fs.rm(root, { recursive: true, force: true })
   await fs.mkdir(root, { recursive: true })
 })
-afterAll(async () => await fs.rm(root, { recursive: true, force: true }))
+afterEach(async () => await fs.rm(root, { recursive: true, force: true }))
 
 // helper function for creating files to the root directory
 async function write(path, content='') {
@@ -55,11 +55,13 @@ test('defaults', async () => {
   expect(site.dist).toBe('_test/.dist/dev')
   expect(site.port).toBe(8080)
   expect(site.globals).toEqual([])
+  expect(site.ignores).toEqual([])
 })
 
 const CONF = `
 
 globals: [global]
+ignores: [private-folder]
 dist:    .mydist
 port:    1500
 title:   Hey
@@ -73,6 +75,7 @@ test('site.yaml', async () => {
   expect(site.globals).toEqual(['global'])
   expect(site.dist).toBe('.mydist')
   expect(site.port).toBe(1500)
+  expect(site.ignores).toEqual([ "private-folder" ])
 
   // teardown
   await fs.rm(join(root, 'site.yaml'))
@@ -120,6 +123,7 @@ test('get data', async () => {
 })
 
 test('content collection', async () => {
+  await write('site.yaml', CONF)
   // This test proves
   // ----------------
   // 1. Default sorting is on pubDate returning most recent first.
@@ -129,18 +133,30 @@ test('content collection', async () => {
   await write('blog/first-b.md', createFront('Second', '2020-01-04'))
   await write('blog/nested/hey1.md', createFront('Third', '2020-01-02'))
   await write('blog/nested/hey2.md', createFront('Fourth', '2020-01-03'))
+  // 4. User defined ignore'd directories at any level are excluded
+  await write('blog/nested/private-folder/hey3.md', createFront('Fifth', '2020-01-03'))
+  // 5. System files starting with '_' or '.' are excluded.
+  await write('blog/.item6.md', createFront('Sixth', '2020-01-03'))
+  await write('blog/_item7.md', createFront('Seventh', '2020-01-03'))
+  // 6. User defined ignore is an exact match, not partial, so the following should not be ignored.
+  await write('blog/nested/not-private-folder/item8.md', createFront('Eighth', '2020-01-01'))
 
   const site = await getSite()
+
   const coll = await site.getContentCollection('blog')
   const actual = coll.map(c => {
     return { pubDate: c.pubDate, url: c.url, title: c.title, dir: c.dir, slug: c.slug }
   })
-  // expected order is : First, Second, Fourth, Third.
+  // expected order is : First, Second, Fourth, Third, Eigth
+  // The rest are are ignored due to custom ignore in test's site.yaml -> ignore: [private-folder]
   expect(actual).toEqual([
     { pubDate: undefined, url: '/blog/first-a.html', title: 'First', dir: 'blog', slug: 'first-a.html' },
-    { pubDate: new Date('2020-01-04T00:00:00.000Z'), url: '/blog/first-b.html', title: 'Second', dir: 'blog', slug: 'first-b.html' },
-    { pubDate: new Date('2020-01-03T00:00:00.000Z'), url: '/blog/nested/hey2.html', title: 'Fourth', dir: 'blog/nested', slug: 'hey2.html' },
-    { pubDate: new Date('2020-01-02T00:00:00.000Z'), url: '/blog/nested/hey1.html', title: 'Third', dir: 'blog/nested', slug: 'hey1.html' },
+    { pubDate: new Date('2020-01-04'), url: '/blog/first-b.html', title: 'Second', dir: 'blog', slug: 'first-b.html' },
+    { pubDate: new Date('2020-01-03'), url: '/blog/nested/hey2.html', title: 'Fourth', dir: 'blog/nested', slug: 'hey2.html' },
+    { pubDate: new Date('2020-01-02'), url: '/blog/nested/hey1.html', title: 'Third', dir: 'blog/nested', slug: 'hey1.html' },
+    { pubDate: new Date('2020-01-01'), url: '/blog/nested/not-private-folder/item8.html', title: 'Eighth', 
+      dir: 'blog/nested/not-private-folder', slug: 'item8.html' 
+    },
   ])
 })
 
