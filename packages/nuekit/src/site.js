@@ -121,7 +121,7 @@ export async function createSite(args) {
 
     for (const dir of dirs) {
       try {
-        const paths = self.globals.includes(dir) ? await fswalk(self.isLegit, join(root, isLegit, dir)) : await fs.readdir(join(root, dir))
+        const paths = self.globals.includes(dir) ? await fswalk(self.isLegit, join(root, self.isLegit, dir)) : await fs.readdir(join(root, dir))
 
         paths.filter(path => {
           const ext = extname(path).slice(1)
