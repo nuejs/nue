@@ -67,8 +67,8 @@ export async function fswalk(root, _dir='', _ret=[]) {
   return _ret
 }
 
-
-const IGNORE = ['node_modules', 'package.json', 'bun.lockb', 'pnpm-lock.yaml']
+const CLOUDFLARE_SERVERSIDE_DIRS = [ `functions` ] 
+const IGNORE = ['node_modules', 'package.json', 'bun.lockb', 'pnpm-lock.yaml', ... CLOUDFLARE_SERVERSIDE_DIRS]
 
 function ignore(name='') {
   return '._'.includes(name[0]) || IGNORE.includes(name)
