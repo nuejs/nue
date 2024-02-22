@@ -94,6 +94,7 @@ async function resolvePath(npm_path) {
   const [ npm_name, ...parts ] = npm_path.split('/')
   let main = await resolve(npm_name, `file://${process.cwd()}/`)
   main = main.replace(/^file:\/\//, '')
+  main = process.platform === 'win32' && main.startsWith('/') ? main.slice(1) : main
   return main.replace('index.js', parts.join('/'))
 }
 
