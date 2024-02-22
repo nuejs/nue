@@ -180,7 +180,10 @@ export async function createSite(args) {
       arr.push({ ...meta, ...getParts(path) })
     }
 
-    arr.sort((a, b) => b.pubDate - a.pubDate)
+    arr.sort((a, b) => {
+      const [d1, d2] = [a, b].map(v => v.pubDate || Infinity)
+      return d2 - d1
+    })
     if (is_bulk) cache[key] = arr
     return arr
   }
