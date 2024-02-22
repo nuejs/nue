@@ -147,7 +147,8 @@ function getMDTags(str) {
   ]
 }
 
-export function parseRow(row, tags) {
+export function parseRow(row, lang) {
+  const tags = isMD(lang) ? getMDTags(row) : getTags(lang)
   const ret = []
 
 
@@ -170,8 +171,7 @@ export function parseRow(row, tags) {
 export function renderRow(row, lang) {
   if (!row) return ''
 
-  const tags = isMD(lang) ? getMDTags(row) : getTags(lang)
-  const els = parseRow(row, tags)
+  const els = parseRow(row, lang)
   const ret = []
   var index = 0
 
