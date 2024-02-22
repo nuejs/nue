@@ -1,12 +1,12 @@
 
 
 const MIXED_HTML = ['html', 'jsx', 'php', 'astro', 'nue', 'vue', 'svelte', 'hb']
+const LINE_COMMENT = { clojure: ';;', lua: '--', python: '#' }
 const PREFIXES = {'+': 'ins', '-': 'del', '>': 'dfn' }
-const LINE_COMMENT = { clojure: ';;', lua: '--' }
 const MARK = /(••?)([^•]+)\1/g   // ALT + q
 const NL = '\n'
 
-const RESERVED = 'null|true|false|undefined|import|from|async|await|package|begin\
+const WORDS = 'null|true|false|undefined|import|from|async|await|package|begin\
 |interface|class|new|int|func|function|get|set|export|default|const|var|let\
 |return|for|while|defer|if|then|fi|int|string|number|def|public|static|void\
 |continue|break|switch|case|final|finally|try|catch|while|super|long|float\
@@ -36,7 +36,7 @@ const HTML_TAGS = [
   { tag: 'i', re: /[^\w •]/g },
 
   // keyword
-  { tag: 'strong', re: new RegExp(`\\b(${RESERVED})\\b`, 'gi'), not: ['html'] },
+  { tag: 'strong', re: new RegExp(`\\b(${WORDS})\\b`, 'gi'), not: ['html'] },
 
   // variable name
   { tag: 'b', re: /\b([a-z][\w\-]+)\s*[:=\(!\[]/gi },

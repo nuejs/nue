@@ -345,7 +345,7 @@ delete :: Int -> [a] -> Maybe [a]
 `
 
 const PYTHON = `
-# function definition
+# Function definition
 def find_square(num):
     result = num * num
     return result
@@ -353,7 +353,7 @@ def find_square(num):
 '''
 This is a multiline comment
 '''
-square = find_square(3)
+square = find_square(3) // 2
 
 print('Square:', square)
 `
@@ -697,7 +697,7 @@ await renderPage([
   { title: 'TypeScript', code: TS, lang: 'ts', },
   { title: 'ZIG', code: ZIG, lang: 'zig', },
 
-  ].filter(el => el.lang == 'nuemark')
+  ].filter(el => el.lang == 'python')
 
 )
 
