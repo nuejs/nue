@@ -2,6 +2,7 @@
 import { compileFile as nueCompile} from 'nuejs-core'
 import { join, basename } from 'node:path'
 import { promises as fs } from 'node:fs'
+import { resolve } from 'import-meta-resolve'
 import { buildJS } from './builder.js'
 import { colors } from './util.js'
 
@@ -91,7 +92,8 @@ export async function init({ dist, is_dev, esbuild }) {
 
 async function resolvePath(npm_path) {
   const [ npm_name, ...parts ] = npm_path.split('/')
-  const main = await import.meta.resolve(npm_name)
+  let main = await resolve(npm_name, `file://${process.cwd()}/`)
+  main = main.replace(/^file:\/\//, '')
   return main.replace('index.js', parts.join('/'))
 }
 
