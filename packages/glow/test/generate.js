@@ -5,7 +5,7 @@ import { glow } from '../src/glow.js'
 
 // Nue / html
 const HTML = `
-\\><figure @name="img" :class="class" :id="id">
+><figure @name="img" :class="class" :id="id">
   <img loading="lazy" :alt="alt" :src="_ || src">
 
 
@@ -52,7 +52,7 @@ const CSS = `
 
 /* Let's check out CSS code */
 .syntax {
-  border: 1px solid #fff1;
+  border: 1px solid #fff1 !important;
   background-color: #20293A;
   border-radius: 4px;
   margin-bottom: 3em;
@@ -354,6 +354,11 @@ def find_square(num):
 This is a multiline comment
 '''
 square = find_square(3) // 2
+
+# Weirdoes
+if (False) continue
+elif (True) nonlocal + zoo
+else None
 
 print('Square:', square)
 `
@@ -668,7 +673,7 @@ await renderPage([
   { title: 'C++', code: CPP, lang: 'cpp', },
   { title: 'Clojure Script', code: CLOJURE, lang: 'clojure' },
   { title: 'Crystal', code: CRYSTAL, lang: 'crystal' },
-  { title: 'CSS', code: CSS },
+  { title: 'CSS', lang: 'css', code: CSS },
   { title: 'GO', code: GO, lang: 'go', },
   { title: 'Handlebars', code: HB, lang: 'hb' },
   { title: 'Haskell', code: HASKELL, },
@@ -697,7 +702,7 @@ await renderPage([
   { title: 'TypeScript', code: TS, lang: 'ts', },
   { title: 'ZIG', code: ZIG, lang: 'zig', },
 
-  ].filter(el => el.lang == 'python')
+  ].filter(el => el.lang == 'html')
 
 )
 

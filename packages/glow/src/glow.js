@@ -6,12 +6,26 @@ const PREFIXES = {'+': 'ins', '-': 'del', '>': 'dfn' }
 const MARK = /(••?)([^•]+)\1/g   // ALT + q
 const NL = '\n'
 
-const WORDS = 'null|true|false|undefined|import|from|async|await|package|begin\
+const COMMON_WORDS = 'null|true|false|undefined|import|from|async|await|package|begin\
 |interface|class|new|int|func|function|get|set|export|default|const|var|let\
-|return|for|while|defer|if|then|fi|int|string|number|def|public|static|void\
+|return|for|while|defer|if|then|else|elif|fi|int|string|number|def|public|static|void\
 |continue|break|switch|case|final|finally|try|catch|while|super|long|float\
-|throw|fun|val|use|fn|my|end|local|until|next|bool|ns|defn|puts|require|each\
-|using|namespace|cout|cin'
+|throw|fun|val|use|fn|my|end|local|until|next|bool|ns|defn|puts|require|each'
+
+// Implement most~50% of words to cover 95% of cases
+const SPECIAL_WORDS = {
+  cpp: 'cout|cin|using|namespace',
+  python: 'None|nonlocal|lambda',
+  go: 'chan|fallthrough',
+  css: 'important'
+}
+
+// special rules (growing list)
+const RULES = {
+  css: [
+    { tag: 'strong', re: /#[0-9a-f]{3,7}/gi },
+  ]
+}
 
 
 const HTML_TAGS = [
@@ -35,9 +49,6 @@ const HTML_TAGS = [
   // char
   { tag: 'i', re: /[^\w •]/g },
 
-  // keyword
-  { tag: 'strong', re: new RegExp(`\\b(${WORDS})\\b`, 'gi'), not: ['html'] },
-
   // variable name
   { tag: 'b', re: /\b([a-z][\w\-]+)\s*[:=\(!\[]/gi },
 
@@ -56,9 +67,21 @@ const HTML_TAGS = [
 
 
 function getTags(lang) {
-  return HTML_TAGS.filter(el =>
-    (!el.lang || el.lang.includes(lang)) && !el.not?.includes(lang)
-  )
+  const tags = HTML_TAGS.filter(el => !el.lang || el.lang.includes(lang))
+
+  // custom keywords
+  if (lang != 'html') {
+    const w = SPECIAL_WORDS[lang]
+    const words = (w ? w + '|' : '') + COMMON_WORDS
+    const re = new RegExp(`\\b(${words})\\b`, 'gi')
+    tags.splice(4, 0, { tag: 'strong', re })
+  }
+
+  // custom rules
+  const rules = RULES[lang]
+  if (rules) tags.unshift(...rules)
+
+  return tags
 }
 
 function encode(str) {
@@ -124,8 +147,7 @@ function getMDTags(str) {
   ]
 }
 
-export function parseRow(row, lang) {
-  const tags = isMD(lang) ? getMDTags(row) : getTags(lang)
+export function parseRow(row, tags) {
   const ret = []
 
 
@@ -148,7 +170,8 @@ export function parseRow(row, lang) {
 export function renderRow(row, lang) {
   if (!row) return ''
 
-  const els = parseRow(row, lang)
+  const tags = isMD(lang) ? getMDTags(row) : getTags(lang)
+  const els = parseRow(row, tags)
   const ret = []
   var index = 0
 
