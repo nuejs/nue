@@ -144,8 +144,8 @@ test('content collection', async () => {
   expect(actual).toEqual([
     { pubDate: undefined, url: '/blog/first-a.html', title: 'First', dir: 'blog', slug: 'first-a.html' },
     { pubDate: new Date('2020-01-04'), url: '/blog/first-b.html', title: 'Second', dir: 'blog', slug: 'first-b.html' },
-    { pubDate: new Date('2020-01-03'), url: '/blog/nested/hey2.html', title: 'Fourth', dir: 'blog/nested', slug: 'hey2.html' },
-    { pubDate: new Date('2020-01-02'), url: '/blog/nested/hey1.html', title: 'Third', dir: 'blog/nested', slug: 'hey1.html' },
+    { pubDate: new Date('2020-01-03'), url: '/blog/nested/hey2.html', title: 'Fourth', dir: join('blog', 'nested'), slug: 'hey2.html' },
+    { pubDate: new Date('2020-01-02'), url: '/blog/nested/hey1.html', title: 'Third', dir: join('blog', 'nested'), slug: 'hey1.html' },
   ])
 })
 
