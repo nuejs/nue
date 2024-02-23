@@ -1,5 +1,4 @@
 
-
 const MIXED_HTML = ['html', 'jsx', 'php', 'astro', 'nue', 'vue', 'svelte', 'hb']
 const LINE_COMMENT = { clojure: ';;', lua: '--', python: '#' }
 const PREFIXES = {'+': 'ins', '-': 'del', '>': 'dfn' }
@@ -29,6 +28,9 @@ const RULES = {
 
 
 const HTML_TAGS = [
+
+  // line comment
+  { tag: 'sup', re: /# .+/ },
 
   { tag: 'label', re: /\[([a-z\-]+)/g, lang: ['md', 'toml'], shift: true },
 
@@ -147,9 +149,14 @@ function getMDTags(str) {
   ]
 }
 
+
 export function parseRow(row, lang) {
   const tags = isMD(lang) ? getMDTags(row) : getTags(lang)
-  const ret = []
+  const tokens = []
+
+  // line comment (language specific)
+  const re = new RegExp(`${LINE_COMMENT[lang] || '//'} .+`)
+  tags.unshift({ tag: 'sup', re })
 
 
   for (const el of tags) {
@@ -161,16 +168,15 @@ export function parseRow(row, lang) {
         match = start; start = n + more
       }
       const end = start + match.length
-      ret.push({ start, end, ...el })
+      tokens.push({ start, end, ...el })
     })
   }
-  return ret.sort((a, b) => a.start - b.start)
+  return tokens.sort((a, b) => a.start - b.start)
 }
 
 // exported for testing purposes
 export function renderRow(row, lang) {
   if (!row) return ''
-
 
   const els = parseRow(row, lang)
   const ret = []
@@ -252,15 +258,6 @@ export function parseSyntax(str, lang) {
   return lines
 }
 
-function findCommentIndex(line, lang) {
-  if (isMD(lang)) return -1
-
-  for (const prefix of [LINE_COMMENT[lang] || '//', '#']) {
-    const i = line.indexOf(prefix + ' ')
-    if (i >= 0) return i
-  }
-  return -1
-}
 
 // code, { language: 'js', numbered: true }
 export function glow(str, opts={}) {
@@ -283,9 +280,7 @@ export function glow(str, opts={}) {
       return comment.forEach(el => push(elem('sup', encode(el))))
 
     } else {
-      const i = findCommentIndex(line, lang)
-      line = i < 0 ? renderRow(line, lang) :
-        renderRow(line.slice(0, i), lang) + elem('sup', encode(line.slice(i)))
+      line = renderRow(line, lang)
     }
 
     if (wrap) line = elem(wrap, line)

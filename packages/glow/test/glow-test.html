@@ -686,13 +686,7 @@
 <span>    <strong>var</strong> <b>it</b> <i>=</i> std<i>.</i>mem<i>.</i><b>tokenizeAny</b><i>(</i>u8<i>,</i> input<i>,</i> <em>" ,"</em><i>)</i><i>;</i></span>
 <span>    <strong>while</strong> <i>(</i>it<i>.</i><strong>next</strong><i>(</i><i>)</i><i>)</i> <i>|</i>num<i>|</i> <i>{</i></span>
 <span>        <strong>const</strong> n <i>=</i> <strong>try</strong> <b>parseInt</b><i>(</i>u32<i>,</i> num<i>,</i> <em>10</em><i>)</i><i>;</i></span>
-<span>        <strong>try</strong> list<i>.</i><b>append</b><i>(</i>n<i>)</i><i>;</i></span>
-<span>    <i>}</i></span>
-<span></span>
-<span>    <strong>const</strong> <b>expected</b> <i>=</i> <i>[</i>_<i>]</i>u32<i>{</i> <em>123</em><i>,</i> <em>67</em><i>,</i> <em>89</em><i>,</i> <em>99</em> <i>}</i><i>;</i></span>
-<span></span>
-<span>    <strong>for</strong> <i>(</i>expected<i>,</i> list<i>.</i>items<i>)</i> <i>|</i>exp<i>,</i> actual<i>|</i> <i>{</i></span>
-<span>        <strong>try</strong> std<i>.</i>testing<i>.</i><b>expectEqual</b><i>(</i>exp<i>,</i> actual<i>)</i><i>;</i></span>
+<span>        <strong>try</strong> list<i>.</i><b>append</b><i>(</i>n<i>)</i><i>;</i> <sup>// EOL comment</sup></span>
 <span>    <i>}</i></span>
 <span><i>}</i></span></code></pre>
       </div>

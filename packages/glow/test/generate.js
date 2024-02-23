@@ -201,13 +201,7 @@ test "parse integers" {
     var it = std.mem.tokenizeAny(u8, input, " ,");
     while (it.next()) |num| {
         const n = try parseInt(u32, num, 10);
-        try list.append(n);
-    }
-
-    const expected = [_]u32{ 123, 67, 89, 99 };
-
-    for (expected, list.items) |exp, actual| {
-        try std.testing.expectEqual(exp, actual);
+        try list.append(n); // EOL comment
     }
 }
 `
@@ -702,7 +696,7 @@ await renderPage([
   { title: 'TypeScript', code: TS, lang: 'ts', },
   { title: 'ZIG', code: ZIG, lang: 'zig', },
 
-  ] // .filter(el => el.lang == 'html')
+  ] // .filter(el => ['zig','clojure'].includes(el.lang))
 
 )
 
