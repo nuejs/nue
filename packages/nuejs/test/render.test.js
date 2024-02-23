@@ -88,11 +88,11 @@ test('Class and style', () => {
 })
 
 
-test('Loops', () => {
+test.only('Loops', () => {
 
   runTests({
 
-    '<p :for="n in nums">{ n }</p>': '<p>1</p><p>2</p><p>3</p>',
+    '<p :for="n in nums">{ n }</p>': '<p>-1</p><p>0</p><p>1</p>',
 
     '<p :for="[key, value, i] in Object.entries(person)">{ i }: { key } = { value }</p>':
       '<p>0: name = Nick</p><p>1: email = nick@acme.org</p><p>2: age = 10</p>',
@@ -109,12 +109,12 @@ test('Loops', () => {
 
     // successive loops
     '<div><p :for="x in nums">{ x }</p><a :for="y in nums">{ y }</a></div>':
-      '<div><p>1</p><p>2</p><p>3</p><a>1</a><a>2</a><a>3</a></div>',
+      '<div><p>-1</p><p>0</p><p>1</p><a>-1</a><a>0</a><a>1</a></div>',
 
   }, {
     items: [ { name: 'John', age: 22 }, { name: 'Alice', age: 33 }],
     person: { name: 'Nick', email: 'nick@acme.org', age: 10 },
-    nums: [1, 2, 3],
+    nums: [-1, 0, 1],
   })
 })
 

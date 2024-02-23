@@ -61,7 +61,7 @@ function setAttribute(key, attribs, data) {
   if (val.constructor === Object) return
 
   // attributes must be strings
-  if (1 * val) val = attribs[key] = '' + val
+  if (val === 0 || 1 * val) val = attribs[key] = '' + val
 
   const has_expr = val.includes('{')
 
@@ -144,7 +144,7 @@ function processFor(node, expr, data, deps) {
           if (i >= 0) return item[i]
         }
 
-        return key === $keys ? item || data[key] :
+        return key === $keys ? (item == null ? data[key] : item) :
           key == $index ? items.indexOf(item) :
           $keys.includes(key) ? item[key] :
           data[key]
