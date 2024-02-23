@@ -1,6 +1,6 @@
 {
   "name": "nue-glow",
-  "version": "0.1.2",
+  "version": "0.1.3",
 
   "description": "Tiny, pixel-perfect Markdown syntax highlighter",
   "homepage": "https://nuejs.org/blog/introducing-glow",
