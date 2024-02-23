@@ -43,7 +43,7 @@ const HTML_TAGS = [
   { tag: 'strong', re: /<\/?([\w\-]+)>/g, shift: true, lang: MIXED_HTML },
 
   // ALL CAPS (constants)
-  { tag: 'b', re: /\b[A-Z]+\b/g },
+  { tag: 'b', re: /\b[A-Z]{2,}\b/g },
 
   // @special
   { tag: 'label', re: /\B@[\w]+/gi },
@@ -174,6 +174,13 @@ export function parseRow(row, lang) {
   return tokens.sort((a, b) => a.start - b.start)
 }
 
+function renderString(str) {
+  return encode(str).replace(/\$?\{([^\}]+)\}/g, function(_, content) {
+    return elem('i', _.replace(content, elem('b', content)))
+  })
+}
+
+
 // exported for testing purposes
 export function renderRow(row, lang) {
   if (!row) return ''
@@ -194,7 +201,7 @@ export function renderRow(row, lang) {
     // construct final result
     ret.push(row.substring(index, start))
     const code = row.substring(start, end)
-    ret.push(elem(el.tag, el.is_string ? encode(code) : code))
+    ret.push(elem(el.tag, el.is_string ? renderString(code) : code))
 
     index = end
   }

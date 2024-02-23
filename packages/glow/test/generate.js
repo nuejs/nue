@@ -5,17 +5,13 @@ import { glow } from '../src/glow.js'
 
 // Nue / html
 const HTML = `
-><figure @name="img" :class="class" :id="id">
+<figure @name="img" class=•"baz { foo } \${ bar }"•>
   <img loading="lazy" :alt="alt" :src="_ || src">
 
-
-  <!--
-    Inner comment and another
-  -->
+  <!-- HTML comment here -->
   <p>I finally made it to the public</p>
 
-+ <figcaption :if="caption">{{ caption }}</figcaption>
-- <figcaption :if="caption">{{ caption }}</figcaption>
+  <figcaption :if="caption">{{ caption }}</figcaption>
 
   <script>
     •constructor(data)• {
@@ -696,7 +692,7 @@ await renderPage([
   { title: 'TypeScript', code: TS, lang: 'ts', },
   { title: 'ZIG', code: ZIG, lang: 'zig', },
 
-  ] // .filter(el => ['zig','clojure'].includes(el.lang))
+  ] // .filter(el => ['html'].includes(el.lang))
 
 )
 

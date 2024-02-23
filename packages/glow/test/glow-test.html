@@ -97,7 +97,7 @@
 <span></span>
 <span><b>server</b> <i>=</i> <b>HTTP</b><i>:</i><i>:</i>Server<i>.</i><strong>new</strong> do <i>|</i>context<i>|</i></span>
 <span>  context<i>.</i>response<i>.</i><b>content_type</b> <i>=</i> <em>"text/plain"</em></span>
-<span>  context<i>.</i>response<i>.</i>print <em>"Hello world, got #{context}"</em></span>
+<span>  context<i>.</i>response<i>.</i>print <em>"Hello world, got #<i>{<b>context</b>}</i>"</em></span>
 <span><strong>end</strong></span>
 <span></span>
 <span><strong>puts</strong> <em>"Listening http://127.0.0.1:8080"</em></span>
@@ -187,17 +187,13 @@
 
       <div class="syntax ">
         <header><h2>HTML</h2></header>
-        <pre glow><code language="html"><span><dfn><i>&lt;</i><strong>figure </strong><label>@name</label><i>=</i><em>"img"</em> <i>:</i><b>class</b><i>=</i><em>"class"</em> <i>:</i><b>id</b><i>=</i><em>"id"</em><i>&gt;</i></dfn></span>
+        <pre glow><code language="html"><span><i>&lt;</i><strong>figure </strong><label>@name</label><i>=</i><em>"img"</em> <b>class</b><i>=</i><mark><em>"baz <i>{<b> foo </b>}</i> <i>${<b> bar </b>}</i>"</em></mark><i>&gt;</i></span>
 <span>  <i>&lt;</i><strong>img </strong><b>loading</b><i>=</i><em>"lazy"</em> <i>:</i><b>alt</b><i>=</i><em>"alt"</em> <i>:</i><b>src</b><i>=</i><em>"_ || src"</em><i>&gt;</i></span>
 <span></span>
+<span><sup>  &lt;!-- HTML comment here --&gt;</sup></span>
+<span>  <i>&lt;</i><strong>p</strong><i>&gt;</i>I finally made it to the public<i>&lt;</i><i>/</i><strong>p</strong><i>&gt;</i></span>
 <span></span>
-<span><sup>  &lt;!--</sup></span>
-<span><sup>    Inner comment and another</sup></span>
-<span><sup>  --&gt;</sup></span>
-<span>  <i>&lt;</i><strong>p</strong><i>&gt;</i><b>I</b> finally made it to the public<i>&lt;</i><i>/</i><strong>p</strong><i>&gt;</i></span>
-<span></span>
-<span><ins>  <i>&lt;</i><strong>figcaption </strong><i>:</i><b>if</b><i>=</i><em>"caption"</em><i>&gt;</i><i>{</i><i>{</i> caption <i>}</i><i>}</i><i>&lt;</i><i>/</i><strong>figcaption</strong><i>&gt;</i></ins></span>
-<span><del>  <i>&lt;</i><strong>figcaption </strong><i>:</i><b>if</b><i>=</i><em>"caption"</em><i>&gt;</i><i>{</i><i>{</i> caption <i>}</i><i>}</i><i>&lt;</i><i>/</i><strong>figcaption</strong><i>&gt;</i></del></span>
+<span>  <i>&lt;</i><strong>figcaption </strong><i>:</i><b>if</b><i>=</i><em>"caption"</em><i>&gt;</i><i>{</i><i>{</i> caption <i>}</i><i>}</i><i>&lt;</i><i>/</i><strong>figcaption</strong><i>&gt;</i></span>
 <span></span>
 <span>  <i>&lt;</i><strong>script</strong><i>&gt;</i></span>
 <span>    <mark><b>constructor</b><i>(</i>data<i>)</i></mark> <i>{</i></span>
@@ -414,7 +410,7 @@
 <span><strong>for</strong> person in <b>people</b><i>:</i></span>
 <span>  <sup># Type-safe string interpolation,</sup></span>
 <span>  <sup># evaluated at compile time.</sup></span>
-<span>  <b>echo</b><i>(</i>fmt<em>"{person.name} is {person.age} years old"</em><i>)</i></span></code></pre>
+<span>  <b>echo</b><i>(</i>fmt<em>"<i>{<b>person.name</b>}</i> is <i>{<b>person.age</b>}</i> years old"</em><i>)</i></span></code></pre>
       </div>
     
 
@@ -539,12 +535,12 @@
         <pre glow><code language="rust"><span><strong>use</strong> <b>std</b><i>:</i><i>:</i><b>fmt</b><i>:</i><i>:</i><i>{</i> Debug<i>,</i> Display <i>}</i><i>;</i></span>
 <span></span>
 <span><sup>// all drinks are emptied</sup></span>
-<span><strong>fn</strong> compare_prints<i>&lt;</i><b>T</b><i>:</i> Debug <i>+</i> Display<i>&gt;</i><i>(</i>t<i>:</i> <i>&</i><b>T</b><i>)</i> <i>{</i></span>
-<span>  <b>println</b><i>!</i><i>(</i><em>"Debug: `{:?}`"</em><i>,</i> t<i>)</i><i>;</i></span>
+<span><strong>fn</strong> compare_prints<i>&lt;</i>T<i>:</i> Debug <i>+</i> Display<i>&gt;</i><i>(</i>t<i>:</i> <i>&</i>T<i>)</i> <i>{</i></span>
+<span>  <b>println</b><i>!</i><i>(</i><em>"Debug: `<i>{<b>:?</b>}</i>`"</em><i>,</i> t<i>)</i><i>;</i></span>
 <span><i>}</i></span>
 <span></span>
-<span><strong>fn</strong> compare_types<i>&lt;</i><b>T</b><i>:</i> Debug<i>,</i> <b>U</b><i>:</i> Debug<i>&gt;</i><i>(</i>t<i>:</i> <i>&</i><b>T</b><i>,</i> u<i>:</i> <i>&</i><b>U</b><i>)</i> <i>{</i></span>
-<span>  <b>println</b><i>!</i><i>(</i><em>"t: `{:?}`"</em><i>,</i> t<i>)</i><i>;</i></span>
+<span><strong>fn</strong> compare_types<i>&lt;</i>T<i>:</i> Debug<i>,</i> U<i>:</i> Debug<i>&gt;</i><i>(</i>t<i>:</i> <i>&</i>T<i>,</i> u<i>:</i> <i>&</i>U<i>)</i> <i>{</i></span>
+<span>  <b>println</b><i>!</i><i>(</i><em>"t: `<i>{<b>:?</b>}</i>`"</em><i>,</i> t<i>)</i><i>;</i></span>
 <span><i>}</i></span></code></pre>
       </div>
     
