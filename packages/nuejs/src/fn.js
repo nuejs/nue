@@ -85,14 +85,15 @@ export function mkdom(src) {
 }
 
 // render.js only
-const isJS = val => val?.constructor === Object || Array.isArray(val) || typeof val == 'function'
-
+function isJSObject(val) {
+  return val?.constructor === Object || Array.isArray(val) || typeof val == 'function'
+}
 
 // exec('`font-size:${_.size + "px"}`;', data)
 export function exec(expr, data={}) {
   const fn = new Function('_', 'return ' + expr)
   const val = fn(data)
-  return val == null ? '' : isJS(val) ? val : '' + val
+  return val == null ? '' : isJSObject(val) ? val : '' + val
 }
 
 

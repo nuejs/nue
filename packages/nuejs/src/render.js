@@ -8,7 +8,6 @@ import { promises as fs } from 'node:fs'
 const { getInnerHTML, getOuterHTML, removeElement } = DOM
 
 
-// TypeError (evaluating '_.foo[0]') --> { text: 'TypeError', subexpr: 'foo[0]' }
 function parseError(e) {
   const [msg, sub] = e.toString().split("'")
   const text = msg.slice(0, msg.indexOf(' ('))
@@ -18,9 +17,12 @@ function parseError(e) {
 
 // name == optional
 function renderExpr(str, data, is_class) {
+  str = str.replaceAll('\n', '\\n')
+
   try {
     const arr = exec('[' + parseExpr(str) + ']', data)
-    return arr.filter(el => is_class ? el : el != null).join('').trim()
+    return arr.filter(el => is_class ? el : el != null).join('')
+
   } catch (e) {
     throw { title: 'Rendering error', expr: str, ...parseError(e) }
   }
@@ -48,10 +50,11 @@ function setContent(node, data) {
   }
 }
 
-// attributes must be strings
+/* attributes must be strings
 function toString(val) {
   return 1 * val ? '' + val : typeof val != 'string' ? val.toString() : val
 }
+*/
 
 function setAttribute(key, attribs, data) {
   let val = attribs[key]
@@ -88,8 +91,12 @@ function setAttribute(key, attribs, data) {
   }
 
   // other attribute
-  if (value) attribs[name] = value
-  else delete attribs[name]
+  if (value) {
+    attribs[name] = typeof value == 'string' ? value.trim() : value
+  } else {
+    delete attribs[name]
+  }
+
   delete attribs[key]
 }
 

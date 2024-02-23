@@ -31,7 +31,7 @@ export function setContext(expr) {
 export function parseExpr(str, is_style) {
   const ret = []
 
-  str.trim().split(EXPR).map((str, i) => {
+  str.split(EXPR).map((str, i) => {
 
     // normal string
     if (i % 2 == 0) {

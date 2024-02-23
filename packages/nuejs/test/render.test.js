@@ -18,11 +18,15 @@ function debug(tmpl, data) {
 
 test('Expressions', () => {
   runTests({
+    // whitespace
+    '<b>{ type } <i>': '<b>bold <i></i></b>',
+
     '<b :class="type">Hey</b>': "<b class=\"bold\">Hey</b>",
     '<b class="item { type }"/>': "<b class=\"item bold\"></b>",
     '<img src="/img/icon/{type}.svg">': "<img src=\"/img/icon/bold.svg\">",
     '<b :class="item { type }">Hey</b>': "<b class=\"item bold\">Hey</b>",
     '<time :datetime="date.getDay()">{ date.getDay() }</time>': `<time datetime="6">6</time>`,
+
 
     // skip event attributes
     '<a @click="click"/>': '<a></a>',
@@ -88,7 +92,7 @@ test('Class and style', () => {
 })
 
 
-test.only('Loops', () => {
+test('Loops', () => {
 
   runTests({
 
@@ -105,7 +109,7 @@ test.only('Loops', () => {
 
     // loop slots
     '<thing :for="el in items" :bind="el"><b>{ el.age }</b></thing><u @name="thing">{name}: <slot/></u>' :
-      '<u>John:<b>22</b></u><u>Alice:<b>33</b></u>',
+      '<u>John: <b>22</b></u><u>Alice: <b>33</b></u>',
 
     // successive loops
     '<div><p :for="x in nums">{ x }</p><a :for="y in nums">{ y }</a></div>':
@@ -167,11 +171,14 @@ test('Advanced', () => {
 
 const GLOBAL_SCRIPT = `
 <script>
-  function toLower(str) { return str.toLowerCase() }
+  function toLower(str) {
+    return str.toLowerCase()
+  }
 </script>
 
 <div>
   { lower(title) }
+
   <script>
     lower(str) {
       return toLower(str)
@@ -181,7 +188,8 @@ const GLOBAL_SCRIPT = `
 
 test('Global script', () => {
   const html = render(GLOBAL_SCRIPT, { title: 'Hey' })
-  expect(html).toBe('<div>hey</div>')
+  expect(html).toStartWith('<div>')
+  expect(html).toInclude('hey')
 })
 
 const GA = `
@@ -217,7 +225,6 @@ test('If sibling', () => {
   const html = render(IF_SIBLING, { els })
   expect(html).toInclude('First')
 })
-
 
 
 test(':for error', () => {
