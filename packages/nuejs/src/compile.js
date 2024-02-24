@@ -82,7 +82,10 @@ function compileNode(root) {
 }
 
 const quote = str => `'${str}'`
-const arrwrap = str => '[' + str + ']'
+
+function arrwrap(str) {
+  return '[' + str + ']'
+}
 
 function getHTML(str) {
   str = str.trim()

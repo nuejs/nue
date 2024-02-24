@@ -7,7 +7,9 @@
 </main>
 
 <div @name="refs-test">
-  <h3>Ref: { $refs.email.placeholder }</h3>
+  <h3>
+    Ref: { $refs.email.placeholder }
+  </h3>
   <input name="email" placeholder="Your email">
 
   <script>

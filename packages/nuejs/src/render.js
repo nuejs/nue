@@ -17,8 +17,6 @@ function parseError(e) {
 
 // name == optional
 function renderExpr(str, data, is_class) {
-  str = str.replaceAll('\n', '\\n')
-
   try {
     const arr = exec('[' + parseExpr(str) + ']', data)
     return arr.filter(el => is_class ? el : el != null).join('')
