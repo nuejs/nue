@@ -3,8 +3,8 @@ import { TYPES } from './nueserver.js'
 
 export function renderHead(data, is_prod) {
   const {
+    generator   = `Nue v${data.nuekit_version} (nuejs.org)`,
     viewport    = 'width=device-width,initial-scale=1',
-    generator   = 'Nue (nuejs.org)',
     charset     = 'utf-8',
     title_template = '%s',
     scripts     = [],
@@ -25,11 +25,8 @@ export function renderHead(data, is_prod) {
   // meta
   const pushMeta = (key, val) => val && head.push(`<meta name="${key}" content="${val}">`)
 
-  if (is_prod) {
-    pushMeta('generator', generator)
-    pushMeta('date.updated', new Date().toISOString())
-  }
-
+  pushMeta('generator', generator)
+  pushMeta('date.updated', new Date().toISOString())
   pushMeta('viewport', viewport)
   pushMeta('description', data.description)
   pushMeta('author', data.author)

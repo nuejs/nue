@@ -84,14 +84,17 @@ async function printHelp() {
 }
 
 async function printVersion() {
-  log(`Nue ${await getVersion()} ${colors.green('•')} ${getEngine()}`)
+  const v = await getVersion()
+  log(`Nue ${v} ${colors.green('•')} ${getEngine()}`)
+  return v
 }
 
 async function runCommand(args) {
   const { createKit } = await import('./nuekit.js')
-  const nue = await createKit(args)
   console.info('')
-  await printVersion()
+
+  args.nuekit_version = await printVersion()
+  const nue = await createKit(args)
 
   // build
   const { cmd='serve' } = args

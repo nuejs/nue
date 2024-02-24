@@ -15,7 +15,7 @@ const ENOENT = -4058
 
 export async function createSite(args) {
 
-  const { root, is_prod, env } = args
+  const { root, is_prod, env, nuekit_version } = args
   const { is_bulk = args.cmd == 'build' } = args
   const cache = {}
 
@@ -149,7 +149,7 @@ export async function createSite(args) {
   }
 
   self.getData = async function (pagedir) {
-    const data = { ...site_data }
+    const data = { nuekit_version, ...site_data }
     for (const dir of getDirs(pagedir)) {
       Object.assign(data, await readData(`${dir}/app.yaml`))
     }
