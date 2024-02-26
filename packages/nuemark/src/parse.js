@@ -34,7 +34,7 @@ export function parsePage(lines) {
 
       // component or fenced code block
       if (data || is_code) {
-        has_code_blocks = true
+        if (is_code) has_code_blocks = true
         blocks.push(block)
 
       // markdown
