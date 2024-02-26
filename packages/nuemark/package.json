@@ -5,6 +5,8 @@
   "homepage": "https://nuejs.org",
   "license": "MIT",
   "type": "module",
+  "main": "index.js",
+
   "repository": {
     "url": "https://github.com/nuejs/nue",
     "directory": "packages/nuemark",

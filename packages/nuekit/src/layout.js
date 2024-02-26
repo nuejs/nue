@@ -52,7 +52,7 @@ export function renderHead(data, is_prod) {
   if (components) pushMeta('nue:components', components.map(uri => `${base}${uri}`).join(' '))
 
   // misc
-  if (favicon) head.push(`<link rel="shortcut icon" type="${TYPES[extname(favicon).slice(1)]}" src="${favicon}">`)
+  if (favicon) head.push(`<link rel="icon" type="${TYPES[extname(favicon).slice(1)]}" href="${favicon}">`)
 
   // inline style
   inline_css.forEach(el => head.push(`<style href="${base}${el.path}">${ el.css }</style>`))
