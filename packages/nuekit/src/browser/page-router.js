@@ -31,7 +31,7 @@ export async function loadPage(path) {
       a.remove()
 
     // add new one
-    } else {
+    } else if (b) {
       const fn = query == 'footer' ? 'append' : 'prepend'
       document.body[fn](b)
     }
