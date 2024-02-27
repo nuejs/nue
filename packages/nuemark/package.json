@@ -14,7 +14,7 @@
   },
 
   "dependencies": {
-    "nue-glow": "^0.1.0",
+    "nue-glow": "latest",
     "js-yaml": "^4.1.0",
     "marked": "^9.1.2"
   }

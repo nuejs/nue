@@ -50,12 +50,12 @@ export const tags = {
 
   // generic layout block. used for "unnamed" blocks like [.grid]
   layout(data, opts) {
-    const { content=[]} = data
-    // const bc = data.block_class || 'block'
-    // { class: `${bc} ${bc}-${i + 1}` }
+    const { content=[] } = data
+    const items = toArray(data.items) || []
+
     const divs = content.map((str, i) => {
       const html = nuemarkdown(str, opts)
-      return content[1] ? elem('div', html) : html
+      return content[1] ? elem('div', { class: items[i] || data.item }, html) : html
     })
 
     return elem(divs[1] ? 'section' : 'div', data.attr, join(divs))
