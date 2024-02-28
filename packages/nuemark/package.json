@@ -10,7 +10,7 @@
     "directory": "packages/nuemark",
     "type": "git"
   },
-
+  "main": "./index.js",
   "dependencies": {
     "nue-glow": "workspace:^",
     "js-yaml": "^4.1.0",
