@@ -18,7 +18,7 @@ export async function init({ dist, is_dev, esbuild }) {
 
 
   // has all latest?
-  const latest = join(outdir, '.034')
+  const latest = join(outdir, '.043')
   try {
     return await fs.stat(latest)
 

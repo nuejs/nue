@@ -24,7 +24,8 @@ sse.onmessage = function(e) {
 
   // content
   if (html) {
-    if (data.is_md && location.pathname != url) location.href = url.replace('/index.html', '/')
+    const uri = url.replace('/index.html', '/')
+    if (data.is_md && location.pathname != uri) location.href = uri
     else patch(html)
   }
 
