@@ -121,6 +121,13 @@ test('Nested [tabs]', () => {
   expect(html).toInclude('id="inner-panel-2"')
 })
 
+
+test('long divider', () => {
+  const { html } = renderLines(['[.a]', '  foo', '  ------', '  bar'])
+  expect(html).toInclude('<div><p>foo</p>\n</div>')
+  expect(html).not.toInclude('<ul>')
+})
+
 test('[image] content', () => {
   const html = tags.image({ src: 'a.png', content: ['Hey'] })
   expect(html).toInclude('<figcaption><p>Hey</p>')

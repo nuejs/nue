@@ -107,7 +107,7 @@ function getNestedData(body) {
     const [ item ] = items
     return items[1] ? { items } : Array.isArray(item) ? { items: item } : item
   }
-  return { content: body.split(/\n---/) }
+  return { content: body.split(/\n-{3,}/) }
 }
 
 function isYAML(str) {
