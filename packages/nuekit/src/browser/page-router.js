@@ -17,7 +17,20 @@ export async function loadPage(path) {
   // body class
   $('body').classList = $('body2', dom).classList
 
-  // content
+  // external CSS
+  const paths = swapStyles($$('link'), $$('link', dom))
+
+
+  loadCSS(paths, () => {
+    updateHTML(dom)
+    setSelected(path)
+    scrollTo(0, 0)
+    dispatchEvent(new Event('route'))
+  })
+}
+
+function updateHTML(dom) {
+
   for (const query of ['header', 'main', 'footer']) {
     const a = $('body >' + query)
     const b = $('body2 >' + query, dom)
@@ -36,16 +49,8 @@ export async function loadPage(path) {
       document.body[fn](b)
     }
   }
-
-  // external CSS
-  const paths = swapStyles($$('link'), $$('link', dom))
-
-  loadCSS(paths, () => {
-    scrollTo(0, 0)
-    setSelected(path)
-    dispatchEvent(new Event('route'))
-  })
 }
+
 
 
 // setup linking

@@ -1,7 +1,7 @@
 
 
 import { buildCSS, findModule } from '../src/builder.js'
-import { getParts } from '../src/util.js'
+import { getParts, sortCSS } from '../src/util.js'
 import { match } from '../src/browser/app-router.js'
 import { renderHead } from '../src/layout.js'
 import { getArgs } from '../src/cli.js'
@@ -12,6 +12,29 @@ expect.extend({ toMatchPath })
 
 const lcss = await findModule('lightningcss')
 const stylus = await findModule('stylus')
+
+
+
+// sort CSS files by cascade priority
+test('sortCSS', function() {
+  const paths = [
+    'blog/entry/last.css',
+    'blog/blog-area.css',
+    'global/button.css',
+    'global/forms.css',
+    'lib/syntax.css',
+    'ext/motion.css',
+  ]
+  sortCSS({ paths, globals: ['global'], dir: 'blog' })
+  const [button, forms, syntax, motion, area, entry] = paths
+
+  expect(button).toInclude('button')
+  expect(forms).toInclude('forms')
+  expect(area).toInclude('area')
+  expect(entry).toInclude('entry')
+})
+
+
 
 test('Lightning CSS errors', async () => {
   if (!lcss) return

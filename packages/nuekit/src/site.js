@@ -107,7 +107,7 @@ export async function createSite(args) {
     }
   }
 
-
+  // getAssets(dir, ['style', 'css'])
   async function getAssets(dir, exts, to_ext) {
     const dirs = [...self.globals, ...getDirs(dir || '.')]
     const key = ':' + dir + exts

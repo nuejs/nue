@@ -2,8 +2,8 @@
 import { join, parse as parsePath, extname, basename } from 'node:path'
 import { renderHead, getDefaultHTML, getDefaultSPA } from './layout.js'
 import { parse as parseNue, compile as compileNue } from 'nuejs-core'
+import { log, colors, getAppDir, getParts, sortCSS } from './util.js'
 import { readStats, printTable, categorize } from './stats.js'
-import { log, colors, getAppDir, getParts } from './util.js'
 import { parsePage, renderPage } from 'nuemark/index.js'
 import { createServer, send } from './nueserver.js'
 import { buildCSS, buildJS } from './builder.js'
@@ -35,8 +35,8 @@ export async function createKit(args) {
   async function setupStyles(dir, data) {
     const paths = await site.getAssets(dir, ['style', 'css'])
 
-    // alphabtical order
-    paths.sort()
+    // sort: globals -> area -> page
+    sortCSS({ paths, globals: site.globals, dir })
 
     // glow syntax
     if (data.page?.has_code_blocks && data.glow_css !== false) paths.push(`/@nue/glow.css`)

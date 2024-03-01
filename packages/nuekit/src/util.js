@@ -62,3 +62,15 @@ export function getUrl(dir, name) {
 export function getPosixPath(path) {
   return path.replaceAll('\\', '/')
 }
+
+
+export function sortCSS({ paths, globals, dir }) {
+
+  function score(path) {
+    const appdir = getAppDir(path)
+    const els = path.split(sep)
+    return globals.includes(appdir) ? 0 : dir == appdir ? (els[2] ? 3 : 2) : 1
+  }
+
+  paths.sort((a, b) => score(a)-score(b))
+}
