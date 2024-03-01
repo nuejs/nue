@@ -20,7 +20,7 @@ export async function fswatch(dir, onfile, onremove) {
     try {
       const file = parse(path)
 
-      // skip dotfiles and files that start with "_"
+      // skip paths (files and dirs) that start with _ or .
       if (!isLegit(file)) return
 
       // skip double events
