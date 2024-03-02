@@ -73,14 +73,13 @@ export function onclick(root, fn) {
   })
 }
 
-// TODO: switch to aria-selected
-export function setSelected(path, className='selected') {
+export function setSelected(path, attrname='selected') {
 
   // remove old selections
-  $$('.' + className).forEach(el => el.classList.remove(className))
+  $$(`[${attrname}]`).forEach(el => el.removeAttribute(attrname))
 
   // add new ones
-  $$(`[href="${path}"]`).forEach(el => el.classList.add(className))
+  $$(`[href="${path}"]`).forEach(el => el.toggleAttribute(attrname, true))
 }
 
 
