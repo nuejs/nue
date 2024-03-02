@@ -251,7 +251,7 @@ test('heading id', () => {
 test('page island', () => {
   const { html } = renderLines(['yo', '[hey]', '  bar: 2'])
   expect(html).toInclude('<p>yo</p>')
-  expect(html).toInclude('nue-island island="hey"')
+  expect(html).toInclude('is="hey"')
   expect(html).toInclude('{"bar":2}')
 })
 
@@ -260,7 +260,7 @@ test('renderIsland', () => {
   const attr = { id: 'epic' }
   const data = { count: 10 }
   const island = renderIsland({ name: 'foo', attr, data })
-  expect(island).toInclude('id="epic" island="foo"')
+  expect(island).toInclude('<div id="epic" is="foo"')
   expect(island).toInclude('{"count":10}')
 })
 

@@ -196,6 +196,8 @@ export async function createKit(args) {
       bundle
     })
 
+    log(path)
+
     return { bundle }
   }
 

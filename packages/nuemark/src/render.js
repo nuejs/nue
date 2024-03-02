@@ -62,7 +62,7 @@ export function renderIsland({ name, attr, data }) {
   const json = !Object.keys(data)[0] ? '' : elem('script',
     { type: 'application/json' }, JSON.stringify(data)
   )
-  return elem('nue-island', { ...attr, island: name }, json)
+  return elem('div', { ...attr, is: name }, json)
 }
 
 /*

@@ -146,11 +146,7 @@ test('Advanced', () => {
     // :attr (:bind works the same on server side)
     '<dd :attr="person"></dd>': '<dd name="Nick" age="10"></dd>',
 
-    '<hey :val/>': '<nue-island island="hey">\n  <script type="application/json">{"val":"1"}</script>\n</nue-island>',
-
-    // nue element
-    // '<foo :nums="nums" :person="person" data-x="bar"/>':
-    //   '<nue-island island="foo" data-x="bar">\n  <script type="application/json">{"nums":[1,2],"person":{"name":"Nick","age":10}}</script>\n</nue-island>',
+    '<hey :val/>': '<div is="hey">\n  <script type="application/json">{"val":"1"}</script>\n</div>',
 
     '<html><slot for="none"/><b>{ val }</b></html>': '<html><b>1</b></html>',
     '<html><slot for="page"/></html>': '<html><main>Hello</main></html>',

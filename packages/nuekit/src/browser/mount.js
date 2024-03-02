@@ -23,22 +23,27 @@ async function importAll(reload_path) {
 
 
 export async function mountAll(reload_path) {
-  const els = document.querySelectorAll('[island]')
+  const els = document.querySelectorAll('[is]')
   const lib = els[0] ? await importAll(reload_path) : []
   if (!lib[0]) return
 
   const { createApp } = await import('./nue.js')
 
   for (const node of [...els]) {
-    const name = node.getAttribute('island')
+    const name = node.getAttribute('is')
     const next = node.nextElementSibling
     const data = next?.type == 'application/json' ? JSON.parse(next.textContent) : {}
     const comp = lib.find(a => a.name == name)
+
     if (comp) {
       const app = createApp(comp, data, lib).mount(node)
       apps.push(app)
+
+    } else if (customElements.get(name)) {
+      // web component -> do nothing
+
     } else {
-      console.error('Component not defined:', name)
+      console.error(`Web or Nue component not fouind: "${name}"`)
     }
   }
 }

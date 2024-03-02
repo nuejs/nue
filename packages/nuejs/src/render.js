@@ -258,8 +258,8 @@ function processNode(opts) {
       // client side component
       if (is_custom && !component) {
         setJSONData(node, data)
-        node.attribs.island = name
-        node.name = 'nue-island'
+        node.attribs.is = name
+        node.name = 'div'
         return // must return
       }
 

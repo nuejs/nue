@@ -29,7 +29,10 @@ sse.onmessage = function(e) {
     else patch(html)
   }
 
-  // component
+  // web components cannot be re-defined :(
+  // if (data.is_js) import('/' + path + '?' + Math.random())
+
+  // reactive component
   if (data.is_nue) remount('/' + data.path.replace('.nue', '.js'))
 
   // styling (inline && stylesheets)
