@@ -1,8 +1,10 @@
 
 /* Builders for CSS, JS, and TS */
 
+import { Features, transform } from 'lightningcss'
 import { join, extname } from 'node:path'
 import { resolve } from 'import-meta-resolve'
+
 
 export async function getBuilder(is_esbuild) {
   try {
@@ -72,67 +74,12 @@ export function parseError(buildResult) {
 
 }
 
-const not_found = {}
-
-export async function findModule(name, path='') {
-  if (not_found[name]) return
-
-  const attempts = [
-    join(process.cwd(), 'node_modules', name, path),
-    join(process.cwd(), '..', 'node_modules', name, path),
-    name,
-  ]
-
-  for (const path of attempts) {
-    try {
-      return await import(path)
-    } catch {}
-  }
-
-  not_found[name] = true
-}
-
-
-export async function buildCSS({ css, ext, minify }) {
-
-  // stylus
-  if (ext == '.styl') {
-    const stylus = await findModule('stylus')
-    if (!stylus) throw 'Module not found: "stylus"'
-
-    try {
-      process.stdout.write('🖌️')
-      return stylus.render(css, { compress: minify })
-
-    } catch({ message, stack }) {
-      const [l, col] = message.slice(7, message.indexOf('\n')).split(':')
-      throw {
-        title: 'Stylus syntax error',
-        text: stack.split('\n')[0],
-        lineText: css.split('\n')[l -1],
-        column: 1 * col,
-        line: 1 * l,
-      }
-    }
-  }
-
-  // Nue CSS (not public yet)
-  if (ext == '.style') {
-    const nuecss = await import('nuecss')
-    return nuecss.default(css, { minify })
-  }
-
-  const mod = await findModule('lightningcss', 'node/index.mjs')
-
-  // Standard CSS
-  if (!mod) return minify ? minifyCSS(css) : css
-
-  // Lightning CSS
-  process.stdout.write('⚡️')
+export async function lightningCSS(css, minify) {
+  const include = Features.Colors | Features.Nesting
 
   try {
-    const include = mod.Features.Colors | mod.Features.Nesting
-    return mod.transform({ code: Buffer.from(css), include, minify }).code?.toString()
+    process.stdout.write('⚡️')
+    return transform({ code: Buffer.from(css), include, minify }).code?.toString()
 
   } catch({ source, loc, data}) {
     throw {
@@ -145,10 +92,3 @@ export async function buildCSS({ css, ext, minify }) {
 }
 
 
-// temporary hack, until Bun does this natively
-export function minifyCSS(code) {
-  return code.replace(/\s+/g, ' ')
-    .replace(/ ?([:{}]) /g, '$1')
-    // .replace(/\**?(.|\n)*?\*\//g, '')
-    .trim()
-}

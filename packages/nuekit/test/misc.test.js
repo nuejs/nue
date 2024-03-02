@@ -1,6 +1,6 @@
 
 
-import { buildCSS, findModule } from '../src/builder.js'
+import { lightningCSS } from '../src/builder.js'
 import { getParts, sortCSS } from '../src/util.js'
 import { match } from '../src/browser/app-router.js'
 import { renderHead } from '../src/layout.js'
@@ -8,11 +8,8 @@ import { getArgs } from '../src/cli.js'
 
 import { toMatchPath } from './match-path.js'
 
+
 expect.extend({ toMatchPath })
-
-const lcss = await findModule('lightningcss')
-const stylus = await findModule('stylus')
-
 
 
 // sort CSS files by cascade priority
@@ -35,12 +32,9 @@ test('sortCSS', function() {
 })
 
 
-
 test('Lightning CSS errors', async () => {
-  if (!lcss) return
-
   try {
-    await buildCSS({ css: 'body margin: 0 }', minify: true })
+    await lightningCSS('body margin: 0 }', true)
   } catch (e) {
     expect(e.lineText).toBe('body margin: 0 }')
     expect(e.line).toBe(1)
@@ -48,43 +42,7 @@ test('Lightning CSS errors', async () => {
 })
 
 test('Lightning CSS', async () => {
-  if (lcss) {
-    const css = await buildCSS({ css: 'body { margin: 0 }', minify: true })
-    expect(css).toBe('body{margin:0}')
-  }
-})
-
-test('Stylus error', async () => {
-  if (!stylus) return
-  try {
-    const css = await buildCSS({ css: 'foo { mb: 0', ext: '.styl' })
-  } catch (e) {
-    expect(e.line).toBe(1)
-    expect(e.column).toBe(12)
-    expect(e.lineText).toBe('foo { mb: 0')
-  }
-})
-
-test('Stylus', async () => {
-  if (!stylus) return
-  const css = await buildCSS({ css: 'body\n  margin: 0', ext: '.styl', minify: true })
-  expect(css).toBe('body{margin:0}')
-})
-
-test('Lightning CSS errors', async () => {
-  if (!lcss) return
-
-  try {
-    await buildCSS({ css: 'body margin: 0 }', minify: true })
-  } catch (e) {
-    expect(e.lineText).toBe('body margin: 0 }')
-    expect(e.line).toBe(1)
-  }
-})
-
-test('Lightning CSS', async () => {
-  if (!lcss) return
-  const css = await buildCSS({ css: 'body { margin: 0 }', minify: true })
+  const css = await lightningCSS('body { margin: 0 }', true)
   expect(css).toBe('body{margin:0}')
 })
 

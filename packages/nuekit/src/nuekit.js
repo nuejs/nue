@@ -6,7 +6,7 @@ import { log, colors, getAppDir, getParts, sortCSS } from './util.js'
 import { readStats, printTable, categorize } from './stats.js'
 import { parsePage, renderPage } from 'nuemark/index.js'
 import { createServer, send } from './nueserver.js'
-import { buildCSS, buildJS } from './builder.js'
+import { lightningCSS, buildJS } from './builder.js'
 import { promises as fs } from 'node:fs'
 import { createSite } from './site.js'
 import { fswatch } from './nuefs.js'
@@ -33,7 +33,7 @@ export async function createKit(args) {
 
 
   async function setupStyles(dir, data) {
-    const paths = await site.getAssets(dir, ['style', 'css'])
+    const paths = await site.getAssets(dir, ['css'])
 
     // sort: globals -> area -> page
     sortCSS({ paths, globals: site.globals, dir })
@@ -49,7 +49,7 @@ export async function createKit(args) {
       if (data.prefetch_global_css) data.prefetch = await site.getStyles()
 
     } else {
-      data.styles = paths.map(path => path.replace('.style', '.css'))
+      data.styles = paths
     }
 
   }
@@ -57,7 +57,7 @@ export async function createKit(args) {
   async function buildAllCSS(paths) {
     const arr = []
     for (const path of paths) {
-      const { css } = await processStyle({ path, ...parsePath(path)})
+      const { css } = await processCSS({ path, ...parsePath(path)})
       arr.push({ path, css })
     }
     return arr
@@ -199,10 +199,9 @@ export async function createKit(args) {
     return { bundle }
   }
 
-  async function processStyle({ path, ext, name, dir}) {
-    const raw = await read(path)
-    const css = await buildCSS({ css: raw, ext, minify: is_prod })
-    await write(css, dir, `${name}.css`)
+  async function processCSS({ path, base, dir}) {
+    const css = await lightningCSS(await read(path), is_prod)
+    await write(css, dir, base)
     return { css }
   }
 
@@ -239,9 +238,8 @@ export async function createKit(args) {
     // script
     if (file.is_ts || file.is_js) return await processScript(file)
 
-    // style
-    const is_style = ['.css', '.styl', '.style'].includes(ext)
-    if (is_style) return await processStyle(file)
+    // css
+    if (ext == '.css') return await processCSS(file)
 
     // reactive component
     if (file.is_nue) {

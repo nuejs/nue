@@ -84,7 +84,7 @@ export function categorize(paths) {
     const ext = extname(path).slice(1)
     const { base } = parsePath(path)
 
-    const cat = ['style', 'css', 'styl'].includes(ext) ? cats.style :
+    const cat = ext == 'css' ? cats.style :
       ['js', 'ts'].includes(ext) ? cats.scripts :
       ext == 'yaml' || base == 'layout.html' ? misc :
       base == 'index.html' ? cats.spa :
