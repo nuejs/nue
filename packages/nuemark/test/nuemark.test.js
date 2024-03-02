@@ -156,8 +156,8 @@ test('[image] caption', () => {
 })
 
 test('[image] basics', () => {
-  const img = tags.image({ _: 'a.png', alt: 'Hey' })
-  expect(img).toBe('<img src="a.png" alt="Hey" loading="lazy">')
+  const img = tags.image({ _: 'a.png', alt: 'Hey', width: 10, height: 10 })
+  expect(img).toBe('<img src="a.png" alt="Hey" loading="lazy" width="10" height="10">')
 
   const img2 = tags.image({
       attr: { class: 'big' },

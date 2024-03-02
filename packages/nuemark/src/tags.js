@@ -63,7 +63,7 @@ export const tags = {
 
 
   image(data, opts) {
-    const { attr, caption, width, href, content, loading='lazy' } = data
+    const { attr, caption, width, height, href, content, loading='lazy' } = data
 
     const aside = caption ? elem('figcaption', parseInline(caption)) :
       content ? elem('figcaption', nuemarkdown(content[0], opts)) :
@@ -76,6 +76,7 @@ export const tags = {
       alt: data.alt || caption,
       loading,
       width,
+      height
     }
 
     // img tag
