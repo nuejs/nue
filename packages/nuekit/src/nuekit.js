@@ -2,8 +2,8 @@
 import { join, parse as parsePath, extname, basename } from 'node:path'
 import { renderHead, getDefaultHTML, getDefaultSPA } from './layout.js'
 import { parse as parseNue, compile as compileNue } from 'nuejs-core'
-import { log, colors, getAppDir, getParts, sortCSS } from './util.js'
 import { readStats, printTable, categorize } from './stats.js'
+import { log, colors, getAppDir, getParts } from './util.js'
 import { parsePage, renderPage } from 'nuemark/index.js'
 import { createServer, send } from './nueserver.js'
 import { lightningCSS, buildJS } from './builder.js'
@@ -31,27 +31,18 @@ export async function createKit(args) {
   if (!args.dryrun) await init({ dist, is_dev, esbuild })
 
 
-
   async function setupStyles(dir, data) {
-    const paths = await site.getAssets(dir, ['css'])
-
-    // sort: globals -> area -> page
-    sortCSS({ paths, globals: site.globals, dir })
-
-    // glow syntax
-    if (data.page?.has_code_blocks && data.glow_css !== false) paths.push(`/@nue/glow.css`)
-
+    const paths = await site.getStyles(dir, data)
 
     if (data.inline_css) {
       data.inline_css = await buildAllCSS(paths)
 
       // prefetch global CSS
-      if (data.prefetch_global_css) data.prefetch = await site.getStyles()
+      // if (data.prefetch_global_css) data.prefetch = await site.getGlobalStyles()
 
     } else {
       data.styles = paths
     }
-
   }
 
   async function buildAllCSS(paths) {
@@ -65,22 +56,22 @@ export async function createKit(args) {
 
   async function setupScripts(dir, data) {
 
-    // components
-    if (data.automount !== false) data.components = await site.getAssets(dir, ['nue'], 'js')
-
     // scripts
     const scripts = data.scripts = await site.getScripts(dir, data.include)
 
+    // components
+    if (data.automount !== false) data.components = await site.getComponents(dir)
+
+    // system scripts
     function push(name) {
       const url = `/@nue/${name}.js`
       if (!scripts.includes(url)) scripts.push(url)
     }
 
-    // system scripts
-    if (!data.is_spa && data.router) push('page-router')
     if (is_dev && data.hotreload !== false) push('hotreload')
-    if (data.page?.isomorphic) push('nuemark')
     if (data.components?.length) push('mount')
+    if (data.page?.isomorphic) push('nuemark')
+    if (data.router) push('page-router')
   }
 
 

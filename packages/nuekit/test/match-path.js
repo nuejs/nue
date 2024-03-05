@@ -1,11 +1,11 @@
-import { getPosixPath } from '../src/util.js'
+import { toPosix } from '../src/util.js'
 
 // https://stackoverflow.com/questions/67325342/how-to-run-os-agnostic-jest-test-files-that-check-paths
 // https://jestjs.io/docs/expect#expectextendmatchers
 export function toMatchPath(actual, expected) {
   const { printReceived, printExpected, matcherHint } = this.utils
 
-  const pass = getPosixPath(actual) == expected
+  const pass = toPosix(actual) == expected
 
   return {
     pass,
