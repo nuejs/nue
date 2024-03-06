@@ -53,7 +53,7 @@ export function parsePage(lines) {
 
   if (!meta.title) {
     const h1 = headings.find(el => el.level == 1)
-    meta.title = h1?.text
+    if (h1) meta.title = h1?.text
   }
 
   return { meta, sections, headings, links, isomorphic, has_code_blocks }
