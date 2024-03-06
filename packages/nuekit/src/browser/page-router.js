@@ -23,7 +23,7 @@ export async function loadPage(path) {
 
   loadCSS(paths, () => {
     updateHTML(dom)
-    setSelected(path)
+    setActive(path)
     scrollTo(0, 0)
     dispatchEvent(new Event('route'))
   })
@@ -73,7 +73,7 @@ export function onclick(root, fn) {
   })
 }
 
-export function setSelected(path, attrname='selected') {
+export function setActive(path, attrname='active') {
 
   // remove old selections
   $$(`[${attrname}]`).forEach(el => el.removeAttribute(attrname))
@@ -94,12 +94,15 @@ if (is_browser) {
 
   // autoroute / document clicks
   onclick(document, async path => {
-    await loadPage(path)
-    history.pushState({ path }, 0, path)
+    document.startViewTransition(async function() {
+      console.info('asdlfkjasd')
+      await loadPage(path)
+      history.pushState({ path }, 0, path)
+    })
   })
 
-  // initial selected
-  setSelected(location.pathname)
+  // initial active
+  setActive(location.pathname)
 
   // back button
   addEventListener('popstate', e => {
@@ -112,6 +115,11 @@ if (is_browser) {
 
 
 /* -------- utilities ---------- */
+
+// view transition fallback (Safari, Firefox) • caniuse.com/view-transitions
+if (!document.startViewTransition) {
+  document.startViewTransition = (fn) => fn()
+}
 
 function $(query, root=document) {
   return root.querySelector(query)
