@@ -88,6 +88,11 @@ const is_browser = typeof window == 'object'
 
 if (is_browser) {
 
+  // view transition fallback (Safari, Firefox) • caniuse.com/view-transitions
+  if (!document.startViewTransition) {
+    document.startViewTransition = (fn) => fn()
+  }
+
   // Fix: window.onpopstate, event.state == null?
   // https://stackoverflow.com/questions/11092736/window-onpopstate-event-state-null
   history.pushState({ path: location.pathname }, 0)
@@ -115,11 +120,6 @@ if (is_browser) {
 
 
 /* -------- utilities ---------- */
-
-// view transition fallback (Safari, Firefox) • caniuse.com/view-transitions
-if (!document.startViewTransition) {
-  document.startViewTransition = (fn) => fn()
-}
 
 function $(query, root=document) {
   return root.querySelector(query)
