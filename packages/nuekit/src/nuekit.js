@@ -32,16 +32,11 @@ export async function createKit(args) {
 
 
   async function setupStyles(dir, data) {
-    const paths = await site.getStyles(dir, data)
+    const paths = data.styles = await site.getStyles(dir, data)
 
     if (data.inline_css) {
       data.inline_css = await buildAllCSS(paths)
-
-      // prefetch global CSS
-      // if (data.prefetch_global_css) data.prefetch = await site.getGlobalStyles()
-
-    } else {
-      data.styles = paths
+      delete data.styles
     }
   }
 
@@ -112,7 +107,7 @@ export async function createKit(args) {
     const file = parsePath(index_path)
     const dir = file.dir
     const appdir = getAppDir(index_path)
-    const data = { ...await site.getData(appdir), ...getParts(index_path), is_spa: true }
+    const data = { ...await site.getData(appdir), ...getParts(index_path) }
 
     // scripts & styling
     await setupScripts(dir, data)
@@ -193,7 +188,9 @@ export async function createKit(args) {
   }
 
   async function processCSS({ path, base, dir}) {
-    const css = await lightningCSS(await read(path), is_prod)
+    const raw = await read(path)
+    const data = await site.getData()
+    const css = data.lightning_css === false ? raw : await lightningCSS(raw, is_prod)
     await write(css, dir, base)
     return { css }
   }
