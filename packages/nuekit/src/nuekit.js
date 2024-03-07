@@ -28,7 +28,7 @@ export async function createKit(args) {
   const is_dev = !is_prod
 
   // make sure @nue dir has all the latest
-  if (!args.dryrun) await init({ dist, is_dev, esbuild })
+  if (!args.dryrun) await init({ dist, is_dev, esbuild, force: args.init })
 
 
   async function setupStyles(dir, data) {
