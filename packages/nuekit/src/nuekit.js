@@ -303,6 +303,9 @@ export async function createKit(args) {
     const elapsed = Date.now() - begin
 
     console.log(`\nTime taken: ${colors.yellow(elapsed + 'ms')}\n`)
+
+    // returned for deploying etc..
+    return paths
   }
 
   async function serve() {

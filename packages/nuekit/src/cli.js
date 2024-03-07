@@ -46,6 +46,7 @@ export function getArgs(argv) {
       else if (['-v', '--verbose'].includes(arg)) args.verbose = true
       else if (['-s', '--stats'].includes(arg)) args.stats = true
       else if (['-b', '--esbuild'].includes(arg)) args.esbuild = true
+      else if (['-P', '--push'].includes(arg)) args.push = true
 
       // string values
       else if (['-e', '--environment'].includes(arg)) opt = 'env'
@@ -96,16 +97,24 @@ async function runCommand(args) {
   args.nuekit_version = await printVersion()
   const nue = await createKit(args)
 
-  // build
-  const { cmd='serve' } = args
+  const { cmd='serve', dryrun } = args
 
-  if (cmd == 'build') await nue.build(args.paths, args.dryrun)
+  // build
+  if (cmd == 'build') {
+    const paths = await nue.build(args.paths, dryrun)
+
+    // deploy
+    if (!dryrun && args.push) {
+      const { push } = await import('nue-deployer') // private repo ATM
+      await push(paths, { root: nue.dist })
+    }
 
   // serve
-  else if (cmd == 'serve') await nue.serve()
+  } else if (cmd == 'serve') await nue.serve()
 
   // stats
   else if (cmd == 'stats') await nue.stats()
+
 }
 
 // Only run main when called as real CLI
