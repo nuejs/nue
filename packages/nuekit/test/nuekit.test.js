@@ -243,7 +243,7 @@ test('page data', async () => {
 
 test('page assets', async() => {
   const kit = await getKit()
-  await write('scripts/app.yaml', 'include: [hello.js]\nhotreload: false')
+  await write('scripts/app.yaml', 'main: [hello.js]\nhotreload: false')
   await write('scripts/index.md', '# Hey')
   await write('scripts/hello.nue', '<div/>')
   await write('scripts/hello.ts', 'var a')
