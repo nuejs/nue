@@ -206,9 +206,9 @@ export async function createSite(args) {
     return await fswalk(root)
   }
 
-  self.getScripts = async function (dir, include=['main.js']) {
+  self.getScripts = async function (dir, main=['main.js']) {
     const arr = await getAssets({ dir, exts: ['js', 'ts'], to_ext: 'js' })
-    return arr.filter(path => include.includes(basename(path)))
+    return arr.filter(path => main.includes(basename(path)))
   }
 
   self.getComponents = async function(dir) {

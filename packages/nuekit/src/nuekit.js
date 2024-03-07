@@ -52,7 +52,7 @@ export async function createKit(args) {
   async function setupScripts(dir, data) {
 
     // scripts
-    const scripts = data.scripts = await site.getScripts(dir, data.include)
+    const scripts = data.scripts = await site.getScripts(dir, data.main)
 
     // components
     if (data.automount !== false) data.components = await site.getComponents(dir)
