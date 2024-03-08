@@ -21,7 +21,8 @@ export async function init({ dist, is_dev, esbuild, force }) {
   const latest = join(outdir, '.043')
   try {
     if (force) doError()
-    return await fs.stat(latest)
+    await fs.stat(latest)
+    return false
 
   } catch {
     await fs.rm(outdir, { recursive: true, force: true })

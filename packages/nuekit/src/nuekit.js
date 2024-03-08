@@ -280,7 +280,9 @@ export async function createKit(args) {
 
     // paths
     let paths = await site.walk()
-    if (matches?.length) paths = paths.filter(p => matches.find(m => p.includes(m)))
+    if (matches[0]) {
+      paths = paths.filter(p => matches.find(m => m == '.' ? p == 'index.md' : p.includes(m)))
+    }
 
     // categories
     const cats = categorize(paths)

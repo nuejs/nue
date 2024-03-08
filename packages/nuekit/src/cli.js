@@ -107,8 +107,9 @@ async function runCommand(args) {
     // deploy
     if (!dryrun && args.push) {
       const { push } = await import('nue-deployer') // private repo ATM
-      await push(paths, { root: nue.dist })
+      await push(paths, { root: nue.dist, init: args.init })
     }
+
 
   // serve
   } else if (cmd == 'serve') await nue.serve()
@@ -116,32 +117,34 @@ async function runCommand(args) {
   // stats
   else if (cmd == 'stats') await nue.stats()
 
+
+
 }
 
 // Only run main when called as real CLI
 if (esMain(import.meta)) {
 
-const args = getArgs(process.argv)
+  const args = getArgs(process.argv)
 
-// help
-if (args.help) {
-  await printHelp()
+  // help
+  if (args.help) {
+    await printHelp()
 
-// version
-} else if (args.version) {
-  await printVersion()
+  // version
+  } else if (args.version) {
+    await printVersion()
 
-// root is required
-} else if (!args.root) {
-  console.info('Project root not specified')
+  // root is required
+  } else if (!args.root) {
+    console.info('Project root not specified')
 
-// command
-} else if (!args.test) {
-  try {
-    await runCommand(args)
-  } catch (e) {
-    console.info(e)
+  // command
+  } else if (!args.test) {
+    try {
+      await runCommand(args)
+    } catch (e) {
+      console.info(e)
+    }
   }
-}
 
 }
