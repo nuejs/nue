@@ -98,26 +98,23 @@ async function runCommand(args) {
   args.nuekit_version = await printVersion()
   const nue = await createKit(args)
 
-  const { cmd='serve', dryrun } = args
+  const { cmd='serve', dryrun, push } = args
 
   // build
-  if (cmd == 'build') {
+  if (cmd == 'build' || push) {
     const paths = await nue.build(args.paths, dryrun)
 
     // deploy
-    if (!dryrun && args.push) {
-      const { push } = await import('nue-deployer') // private repo ATM
-      await push(paths, { root: nue.dist, init: args.init })
+    if (!dryrun && push) {
+      const { deploy } = await import('nue-deployer') // private repo ATM
+      await deploy(paths, { root: nue.dist, init: args.init })
     }
-
 
   // serve
   } else if (cmd == 'serve') await nue.serve()
 
   // stats
   else if (cmd == 'stats') await nue.stats()
-
-
 
 }
 
