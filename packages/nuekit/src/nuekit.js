@@ -280,6 +280,10 @@ export async function createKit(args) {
 
     // paths
     let paths = await site.walk()
+
+    // ignore layouts
+    paths = paths.filter(p => !p.endsWith('layout.html'))
+
     if (matches[0]) {
       paths = paths.filter(p => matches.find(m => m == '.' ? p == 'index.md' : p.includes(m)))
     }

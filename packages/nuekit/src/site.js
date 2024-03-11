@@ -16,7 +16,7 @@ function fileNotFound({ errno }) {
 export async function createSite(args) {
 
   const { root, is_prod, env, nuekit_version } = args
-  const { build_all = args.cmd == 'build' } = args
+  const { is_bulk = args.cmd == 'build' || args.push } = args
   const cache = {}
 
   // make sure root exists
@@ -86,7 +86,7 @@ export async function createSite(args) {
     try {
       const to = join(todir, filename)
       await fs.writeFile(to, content)
-      !build_all && !self.is_empty && log(join(dir, filename))
+      !is_bulk && !self.is_empty && log(join(dir, filename))
       return to
 
     } catch (e) {
@@ -102,7 +102,7 @@ export async function createSite(args) {
 
     try {
       await fs.copyFile(join(root, dir, base), to)
-      !build_all && !self.is_empty && log(join(dir, base))
+      !is_bulk && !self.is_empty && log(join(dir, base))
 
     } catch (e) {
       if (!fileNotFound(e)) throw e
@@ -126,7 +126,7 @@ export async function createSite(args) {
       }
     }
 
-    if (build_all) cache[key] = arr
+    if (is_bulk) cache[key] = arr
     return arr
   }
 
@@ -145,7 +145,7 @@ export async function createSite(args) {
       }
     }
 
-    if (build_all) cache[key] = arr
+    if (is_bulk) cache[key] = arr
     return arr
   }
 
@@ -235,7 +235,7 @@ export async function createSite(args) {
       const [d1, d2] = [a, b].map(v => v.pubDate || Infinity)
       return d2 - d1
     })
-    if (build_all) cache[key] = arr
+    if (is_bulk) cache[key] = arr
     return arr
   }
 
