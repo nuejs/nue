@@ -27,7 +27,8 @@ jobs:
       # Testing `bun`
       - uses: oven-sh/setup-bun@v1
         if: ${{ matrix.env.tool == 'bun' }}
-      - run: |
+      - name: Install and test with Bun
+        run: |
           bun -v
           bun install
           bun install --no-save esbuild@^0.19.11
@@ -35,7 +36,8 @@ jobs:
         if: ${{ matrix.env.tool == 'bun' }}
 
       # Testing `node+jest`
-      - run: |
+      - name: Install and test with Node
+        run: |
           node -v && npm -v
           npm install
           npm install --no-save jest jest-extended esbuild@^0.19.11
