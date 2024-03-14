@@ -24,7 +24,7 @@ export async function createKit(args) {
   // site: various file based functions
   const site = await createSite(args)
 
-  const { dist, port, read, copy, write, is_empty } = site
+  const { dist, port, read, copy, write, is_empty, marked_extensions } = site
   const is_dev = !is_prod
 
   // make sure @nue dir has all the latest
@@ -134,7 +134,7 @@ export async function createKit(args) {
     const dir = data.appdir || file.dir
     const lib = await site.getLayoutComponents(dir)
 
-    data.content = renderPage(data.page, { data, lib }).html
+    data.content = renderPage(data.page, { data, lib, marked_extensions }).html
 
     function render(name, def) {
       const layout = lib.find(el => el.tagName == name) || def && parseNue(def)[0]
