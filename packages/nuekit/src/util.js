@@ -29,7 +29,7 @@ export const colors = getColorFunctions()
 /* path parts */
 
 export function joinRootPath(root, path) {
-  return join(isAbsolute(path) ? '' : join(process.cwd(), root), path)
+  return join(isAbsolute(path) ? '' : root, path)
 }
 
 export function getParts(path) {
