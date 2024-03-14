@@ -1,6 +1,6 @@
 
 /* misc stuff. think shame.css */
-import { sep, parse, normalize } from 'node:path'
+import { sep, parse, normalize, join, isAbsolute } from 'node:path'
 
 
 export function log(msg, extra='') {
@@ -27,6 +27,10 @@ export const colors = getColorFunctions()
 
 
 /* path parts */
+
+export function joinRootPath(root, path) {
+  return join(isAbsolute(path) ? '' : join(process.cwd(), root), path)
+}
 
 export function getParts(path) {
   path = normalize(path)
