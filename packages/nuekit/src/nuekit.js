@@ -2,11 +2,11 @@
 import { join, parse as parsePath, extname, basename } from 'node:path'
 import { renderHead, getDefaultHTML, getDefaultSPA } from './layout.js'
 import { parse as parseNue, compile as compileNue } from 'nuejs-core'
-import { readStats, printTable, categorize } from './stats.js'
 import { log, colors, getAppDir, getParts } from './util.js'
 import { parsePage, renderPage } from 'nuemark/index.js'
 import { createServer, send } from './nueserver.js'
 import { lightningCSS, buildJS } from './builder.js'
+import { printStats, categorize } from './stats.js'
 import { promises as fs } from 'node:fs'
 import { createSite } from './site.js'
 import { fswatch } from './nuefs.js'
@@ -190,7 +190,7 @@ export async function createKit(args) {
   async function processCSS({ path, base, dir}) {
     const raw = await read(path)
     const data = await site.getData()
-    const css = data.lightning_css === false ? raw : await lightningCSS(raw, is_prod)
+    const css = data.lightning_css === false ? raw : await lightningCSS(raw, is_prod, data)
     await write(css, dir, base)
     return { css }
   }
@@ -305,13 +305,18 @@ export async function createKit(args) {
     }
 
     // stats
-    if (args.stats) await stats()
+    if (args.stats) await stats(args)
+
     const elapsed = Date.now() - begin
 
     console.log(`\nTime taken: ${colors.yellow(elapsed + 'ms')}\n`)
 
     // returned for deploying etc..
     return paths
+  }
+
+  async function stats(args) {
+    await printStats(site, args)
   }
 
   async function serve() {
@@ -354,12 +359,6 @@ export async function createKit(args) {
       log.error(e.message, '\n')
       process.exit()
     }
-  }
-
-  async function stats() {
-    const rows = await readStats(dist, site.globals)
-    printTable(['Page', 'HTML', 'CSS', 'JS'], rows)
-    return rows
   }
 
   return {
