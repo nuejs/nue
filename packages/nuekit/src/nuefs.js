@@ -15,6 +15,7 @@ import { join, parse, sep } from 'node:path'
 // avoid double events and looping (seen on Bun only)
 let last = {}
 
+
 export async function fswatch(dir, onfile, onremove) {
   watch(dir, { recursive: true }, async function(e, path) {
     try {
@@ -52,8 +53,6 @@ export async function fswatch(dir, onfile, onremove) {
 }
 
 
-
-
 export async function fswalk(root, _dir='', _ret=[]) {
   const files = await fs.readdir(join(root, _dir), { withFileTypes: true })
 
@@ -67,8 +66,7 @@ export async function fswalk(root, _dir='', _ret=[]) {
   return _ret
 }
 
-const CLOUDFLARE_SERVERSIDE_DIRS = [ `functions` ] 
-const IGNORE = ['node_modules', 'package.json', 'bun.lockb', 'pnpm-lock.yaml', ... CLOUDFLARE_SERVERSIDE_DIRS]
+const IGNORE = ['node_modules', 'functions', 'package.json', 'bun.lockb', 'pnpm-lock.yaml']
 
 function ignore(name='') {
   return '._'.includes(name[0]) || IGNORE.includes(name)

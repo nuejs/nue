@@ -1,6 +1,5 @@
 
 import { parseDocument, DomUtils } from 'htmlparser2'
-
 // shared by render.js and compile.js
 
 export const STD = 'a abbr acronym address applet area article aside audio b base basefont bdi bdo big\
@@ -11,7 +10,7 @@ export const STD = 'a abbr acronym address applet area article aside audio b bas
  nav noframes noscript object ol optgroup option output p param path pattern picture polygon polyline\
  pre progress q rect rp rt ruby s samp script section select small source span strike strong style sub\
  summary sup svg switch symbol table tbody td template text textarea textPath tfoot th thead time\
- title tr track tspan tt u ul use var video wbr'.split(' ')
+ title tr track tspan tt u ul use var video wbr !--'.split(' ')
 
 const SVG = 'animate animateMotion animateTransform circle clipPath defs desc ellipse\
  feBlend feColorMatrix feComponentTransfer feComposite feConvolveMatrix feDiffuseLighting\
@@ -78,9 +77,29 @@ function quote(val) {
   return val.endsWith('}') || val.endsWith(']') || 1 * val ? val : `'${val}'`
 }
 
+function addCompNameAttrToSrc(src){
+  let newSrcArray = src.split(' ').map(item => item.replace(/ref-component=w+/, ''));
+
+  return newSrcArray.map(item => {
+    const matches = item.match(/<\s*([^/\s>]+)/);
+    const tag = matches ? matches[1] : null;
+
+    if (tag && !STD.includes(tag)) {
+      
+      // Add the ref-component attribute to the tag
+      const attributeStr = `ref-component="${tag}"`;
+      return item.replace(new RegExp(`<(${tag})`), `<$1 ${attributeStr}`);
+    } else {
+      return item;
+    }
+  }).join(' '); 
+}
+
 export function mkdom(src) {
-  const dom = parseDocument(selfClose(src))
-  walk(dom, (el) => { if (el.type == 'comment') DomUtils.removeElement(el) }) // strip comments
+  const newSrc = addCompNameAttrToSrc(src)
+  const dom = parseDocument(selfClose(newSrc))
+  walk(dom, (el) => {
+    if (el.type == 'comment') DomUtils.removeElement(el) }) // strip comments
   return dom
 }
 

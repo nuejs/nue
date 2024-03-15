@@ -1,35 +1,14 @@
 
 
-import { lightningCSS } from '../src/builder.js'
-import { getParts, sortCSS } from '../src/util.js'
 import { match } from '../src/browser/app-router.js'
+import { getParts, sortCSS } from '../src/util.js'
+import { lightningCSS } from '../src/builder.js'
 import { renderHead } from '../src/layout.js'
 import { getArgs } from '../src/cli.js'
 
 import { toMatchPath } from './match-path.js'
 
-
 expect.extend({ toMatchPath })
-
-
-// sort CSS files by cascade priority
-test('sortCSS', function() {
-  const paths = [
-    'blog/entry/last.css',
-    'blog/blog-area.css',
-    'global/button.css',
-    'global/forms.css',
-    'lib/syntax.css',
-    'ext/motion.css',
-  ]
-  sortCSS({ paths, globals: ['global'], dir: 'blog' })
-  const [button, forms, syntax, motion, area, entry] = paths
-
-  expect(button).toInclude('button')
-  expect(forms).toInclude('forms')
-  expect(area).toInclude('area')
-  expect(entry).toInclude('entry')
-})
 
 
 test('Lightning CSS errors', async () => {

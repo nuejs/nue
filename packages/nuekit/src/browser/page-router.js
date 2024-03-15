@@ -23,7 +23,7 @@ export async function loadPage(path) {
 
   loadCSS(paths, () => {
     updateHTML(dom)
-    setSelected(path)
+    setActive(path)
     scrollTo(0, 0)
     dispatchEvent(new Event('route'))
   })
@@ -73,7 +73,7 @@ export function onclick(root, fn) {
   })
 }
 
-export function setSelected(path, attrname='selected') {
+export function setActive(path, attrname='active') {
 
   // remove old selections
   $$(`[${attrname}]`).forEach(el => el.removeAttribute(attrname))
@@ -88,18 +88,25 @@ const is_browser = typeof window == 'object'
 
 if (is_browser) {
 
+  // view transition fallback (Safari, Firefox) • caniuse.com/view-transitions
+  if (!document.startViewTransition) {
+    document.startViewTransition = (fn) => fn()
+  }
+
   // Fix: window.onpopstate, event.state == null?
   // https://stackoverflow.com/questions/11092736/window-onpopstate-event-state-null
   history.pushState({ path: location.pathname }, 0)
 
   // autoroute / document clicks
   onclick(document, async path => {
-    await loadPage(path)
-    history.pushState({ path }, 0, path)
+    document.startViewTransition(async function() {
+      await loadPage(path)
+      history.pushState({ path }, 0, path)
+    })
   })
 
-  // initial selected
-  setSelected(location.pathname)
+  // initial active
+  setActive(location.pathname)
 
   // back button
   addEventListener('popstate', e => {

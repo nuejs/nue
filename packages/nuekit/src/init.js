@@ -7,7 +7,7 @@ import { buildJS } from './builder.js'
 import { colors } from './util.js'
 
 
-export async function init({ dist, is_dev, esbuild }) {
+export async function init({ dist, is_dev, esbuild, force }) {
 
   // directories
   const cwd = process.cwd()
@@ -20,7 +20,9 @@ export async function init({ dist, is_dev, esbuild }) {
   // has all latest?
   const latest = join(outdir, '.043')
   try {
-    return await fs.stat(latest)
+    if (force) doError()
+    await fs.stat(latest)
+    return false
 
   } catch {
     await fs.rm(outdir, { recursive: true, force: true })
@@ -87,6 +89,9 @@ export async function init({ dist, is_dev, esbuild }) {
   await copy('favicon.ico', join(cwd, dist))
 
   process.chdir(cwd)
+
+  // new line
+  console.log('')
 }
 
 

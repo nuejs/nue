@@ -63,20 +63,22 @@ export const tags = {
 
 
   image(data, opts) {
-    const { attr, caption, width, height, href, content, loading='lazy' } = data
+    const { attr, caption, href, content, loading='lazy', size='' } = data
+    const [width, height] = size.trim().split(/\s*\D\s*/)
 
     const aside = caption ? elem('figcaption', parseInline(caption)) :
       content ? elem('figcaption', nuemarkdown(content[0], opts)) :
       null
 
+    // don't change the order
     const img_attr = {
       src: data.src || data._ || data.large,
       srcset: join(data.srcset, ', '),
       sizes: join(data.sizes, ', '),
+      width: width || data.width,
+      height: height || data.height,
       alt: data.alt || caption,
       loading,
-      width,
-      height
     }
 
     // img tag
@@ -259,11 +261,11 @@ export function createPicture(img_attr, data) {
   const sources = [small, img_attr.src].map(src => {
     const prefix = src == small ? 'max' : 'min'
     const media = `(${prefix}-width: ${parseInt(offset)}px)`
-    return elem('source', { src, media, type: getMimeType(src) })
+    return elem('source', { srcset: src, media, type: getMimeType(src) })
   })
 
   sources.push(elem('img', img_attr))
-  return elem('picture', !data.caption && data.attr, join(sources))
+  return elem('picture', null, join(sources))
 }
 
 function createCodeBlock({ content, language, numbered }, attr={}) {

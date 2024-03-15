@@ -1,6 +1,6 @@
 
+import { log, getParts, getAppDir, getDirs, colors, toPosix, sortCSS } from './util.js'
 import { join, extname, basename, sep, parse as parsePath } from 'node:path'
-import { log, getParts, getAppDir, getDirs, colors, getPosixPath } from './util.js'
 import { parse as parseNue } from 'nuejs-core'
 import { promises as fs } from 'node:fs'
 import { fswalk } from './nuefs.js'
@@ -8,15 +8,15 @@ import { nuemark } from 'nuemark'
 import yaml from 'js-yaml'
 
 
-// file not found error code
-const NOT_FOUND = -2
-// file not found error code in windows
-const ENOENT = -4058
+// file not found error
+function fileNotFound({ errno }) {
+  return [-2, -4058].includes(errno)
+}
 
 export async function createSite(args) {
 
   const { root, is_prod, env, nuekit_version } = args
-  const { is_bulk = args.cmd == 'build' } = args
+  const { is_bulk = args.cmd == 'build' || args.push } = args
   const cache = {}
 
   // make sure root exists
@@ -41,7 +41,7 @@ export async function createSite(args) {
       const raw = await read(path)
       return yaml.load(raw)
     } catch (e) {
-      if (e.errno != NOT_FOUND && e.errno != ENOENT) {
+      if (!fileNotFound(e)) {
         throw `YAML parse error in ${path}`
       } else if (path == env) throw e
     }
@@ -61,7 +61,11 @@ export async function createSite(args) {
   }
 
   let site_data = await readOpts()
-  const self = { globals: site_data.globals || [] }
+
+  const self = {
+    globals: site_data.globals || [],
+    libs: site_data.libs || [],
+  }
 
   const {
     dist = `${root}/.dist/${is_prod ? 'prod' : 'dev'}`,
@@ -86,7 +90,7 @@ export async function createSite(args) {
       return to
 
     } catch (e) {
-      if (e.errno != NOT_FOUND && e.errno != ENOENT) throw e
+      if (!fileNotFound(e)) throw e
       await fs.mkdir(todir, { recursive: true })
       return await write(content, dir, filename)
     }
@@ -101,36 +105,24 @@ export async function createSite(args) {
       !is_bulk && !self.is_empty && log(join(dir, base))
 
     } catch (e) {
-      if (e.errno != NOT_FOUND && e.errno != ENOENT) throw e
+      if (!fileNotFound(e)) throw e
       await fs.mkdir(join(dist, dir), { recursive: true })
       await copy(file)
     }
   }
 
-  // getAssets(dir, ['style', 'css'])
-  async function getAssets(dir, exts, to_ext) {
-    const dirs = [...self.globals, ...getDirs(dir || '.')]
-    const key = ':' + dir + exts
+  async function getPageFiles(page_dir) {
+    const key = ':' + page_dir
+    if (cache[key]) return cache[key]
     const arr = []
 
-    if (cache[key]) return cache[key]
-
-    for (const dir of dirs) {
+    for (const dir of getDirs(page_dir || '.')) {
       try {
-        const paths = self.globals.includes(dir) ? await fswalk(join(root, dir)) : await fs.readdir(join(root, dir))
-
-        paths.filter(path => {
-          const ext = extname(path).slice(1)
-          return exts.includes(ext)
-
-        }).forEach(path => {
-          const ext = extname(path)
-          const subpath = to_ext ? path.replace(ext, '.' + to_ext) : path
-          arr.push('/' + getPosixPath(join(dir, subpath)))
-        })
+        const paths = await fs.readdir(join(root, dir))
+        paths.forEach(path => arr.push(join(dir, path)))
 
       } catch (e) {
-        if (e.errno != NOT_FOUND && e.errno != ENOENT) return console.error(e)
+        if (!fileNotFound(e)) return console.error(e)
       }
     }
 
@@ -138,12 +130,66 @@ export async function createSite(args) {
     return arr
   }
 
+
+  async function getAllFiles(from_dirs) {
+    const key = '@' + from_dirs
+    if (cache[key]) return cache[key]
+    const arr = []
+
+    for (const dir of from_dirs) {
+      try {
+        const paths = await fswalk(join(root, dir))
+        paths.forEach(path => arr.push(join(dir, path)))
+      } catch (e) {
+        if (!fileNotFound(e)) return console.error(e)
+      }
+    }
+
+    if (is_bulk) cache[key] = arr
+    return arr
+  }
+
+
+  async function getAssets({ dir, exts, to_ext, data={} }) {
+    const { include=[], exclude=[] } = data
+    let paths = [...await getAllFiles(self.globals), ...await getPageFiles(dir)]
+    const ret = []
+
+    // library files
+    if (include[0]) {
+      for (const path of await getAllFiles(self.libs)) {
+
+        // included only
+        if (include.find(match => toPosix(path).includes(match))) paths.push(path)
+      }
+    }
+
+    paths.forEach(path => {
+      const ext = extname(path)
+      path = '/' + toPosix(path)
+
+      // include / exclude
+      if (exts.includes(ext.slice(1)) && !exclude.find(match => path.includes(match))) {
+        if (to_ext) path = path.replace(ext, '.' + to_ext)
+        ret.push(path)
+      }
+    })
+
+    return ret
+  }
+
+
   self.update = async function() {
     site_data = await readOpts()
-    const { globals=[] } = site_data
+    const { globals=[], libs=[] } = site_data
 
     if ('' + self.globals != '' + globals) {
       self.globals = globals
+      return true
+    }
+
+    if ('' + self.libs != '' + libs) {
+      self.libs = libs
       return true
     }
   }
@@ -160,10 +206,15 @@ export async function createSite(args) {
     return await fswalk(root)
   }
 
-  self.getScripts = async function (dir, include=['main.js']) {
-    const arr = await getAssets(dir, ['js', 'ts'], 'js')
-    return arr.filter(path => include.includes(basename(path)))
+  self.getScripts = async function (dir, main=['main.js']) {
+    const arr = await getAssets({ dir, exts: ['js', 'ts'], to_ext: 'js' })
+    return arr.filter(path => main.includes(basename(path)))
   }
+
+  self.getComponents = async function(dir) {
+    return await getAssets({ dir, exts: ['nue'], to_ext: 'js' })
+  }
+
 
   // get fromt matter data from all .md files on a directory
   self.getContentCollection = async function (dir) {
@@ -189,9 +240,19 @@ export async function createSite(args) {
   }
 
 
-  self.getStyles = async function (dir) {
-    return await getAssets(dir, ['style', 'css'], 'css')
+
+  self.getStyles = async function (dir, data={}) {
+    let paths = await getAssets({ dir, exts: ['css'], data })
+
+    // syntax highlighting
+    if (data.page?.has_code_blocks && data.glow_css !== false) paths.push(`/@nue/glow.css`)
+
+    // cascading order: globals -> area -> page
+    sortCSS({ paths, globals: self.globals, dir })
+
+    return paths
   }
+
 
   self.getLayoutComponents = async function (pagedir) {
     const lib = []
@@ -202,7 +263,7 @@ export async function createSite(args) {
         const html = await read(path)
         lib.unshift(...parseNue(html))
       } catch (e) {
-        if (e.errno != NOT_FOUND && e.errno != ENOENT) {
+        if (!fileNotFound(e)) {
           log.error('parse error', path)
           console.error(e)
         }
@@ -239,6 +300,6 @@ export async function createSite(args) {
     }
   }
 
-  return { ...self, dist, port, read, write, copy, getAssets }
+  return { ...self, dist, port, read, write, copy }
 
 }

@@ -52,25 +52,32 @@ export function getDirs(dir) {
 }
 
 export function getUrl(dir, name) {
-  let url = getPosixPath(dir) + '/'
+  let url = toPosix(dir) + '/'
   if (url[0] != '/') url = '/' + url
   // if (name != 'index')
   url += name + '.html'
   return url
 }
 
-export function getPosixPath(path) {
+export function toPosix(path) {
   return path.replaceAll('\\', '/')
 }
 
 
 export function sortCSS({ paths, globals, dir }) {
-
   function score(path) {
+    if (path[0] == '/') path = path.slice(1)
     const appdir = getAppDir(path)
     const els = path.split(sep)
     return globals.includes(appdir) ? 0 : dir == appdir ? (els[2] ? 3 : 2) : 1
   }
 
+  // alphabetical first
+  paths.sort()
+
+  // then by directory
   paths.sort((a, b) => score(a)-score(b))
 }
+
+
+

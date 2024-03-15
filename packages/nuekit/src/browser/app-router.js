@@ -1,6 +1,6 @@
 
 // Router for single-page applications
-import { onclick, loadPage, setSelected } from './page-router.js'
+import { onclick, loadPage, setActive } from './page-router.js'
 
 const is_browser = typeof window == 'object'
 
@@ -11,7 +11,7 @@ async function fire(path) {
     const data = match(pattern, path)
     if (data) await fn(data)
   }
-  setSelected(path)
+  setActive(path)
 }
 
 // clear existing routes

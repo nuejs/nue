@@ -2,8 +2,8 @@
 import { join, parse as parsePath, extname, basename } from 'node:path'
 import { renderHead, getDefaultHTML, getDefaultSPA } from './layout.js'
 import { parse as parseNue, compile as compileNue } from 'nuejs-core'
-import { log, colors, getAppDir, getParts, sortCSS } from './util.js'
 import { readStats, printTable, categorize } from './stats.js'
+import { log, colors, getAppDir, getParts } from './util.js'
 import { parsePage, renderPage } from 'nuemark/index.js'
 import { createServer, send } from './nueserver.js'
 import { lightningCSS, buildJS } from './builder.js'
@@ -28,30 +28,16 @@ export async function createKit(args) {
   const is_dev = !is_prod
 
   // make sure @nue dir has all the latest
-  if (!args.dryrun) await init({ dist, is_dev, esbuild })
-
+  if (!args.dryrun) await init({ dist, is_dev, esbuild, force: args.init })
 
 
   async function setupStyles(dir, data) {
-    const paths = await site.getAssets(dir, ['css'])
-
-    // sort: globals -> area -> page
-    sortCSS({ paths, globals: site.globals, dir })
-
-    // glow syntax
-    if (data.page?.has_code_blocks && data.glow_css !== false) paths.push(`/@nue/glow.css`)
-
+    const paths = data.styles = await site.getStyles(dir, data)
 
     if (data.inline_css) {
       data.inline_css = await buildAllCSS(paths)
-
-      // prefetch global CSS
-      if (data.prefetch_global_css) data.prefetch = await site.getStyles()
-
-    } else {
-      data.styles = paths
+      delete data.styles
     }
-
   }
 
   async function buildAllCSS(paths) {
@@ -65,22 +51,22 @@ export async function createKit(args) {
 
   async function setupScripts(dir, data) {
 
-    // components
-    if (data.automount !== false) data.components = await site.getAssets(dir, ['nue'], 'js')
-
     // scripts
-    const scripts = data.scripts = await site.getScripts(dir, data.include)
+    const scripts = data.scripts = await site.getScripts(dir, data.main)
 
+    // components
+    if (data.automount !== false) data.components = await site.getComponents(dir)
+
+    // system scripts
     function push(name) {
       const url = `/@nue/${name}.js`
       if (!scripts.includes(url)) scripts.push(url)
     }
 
-    // system scripts
-    if (!data.is_spa && data.router) push('page-router')
     if (is_dev && data.hotreload !== false) push('hotreload')
-    if (data.page?.isomorphic) push('nuemark')
     if (data.components?.length) push('mount')
+    if (data.page?.isomorphic) push('nuemark')
+    if (data.router) push('page-router')
   }
 
 
@@ -121,7 +107,7 @@ export async function createKit(args) {
     const file = parsePath(index_path)
     const dir = file.dir
     const appdir = getAppDir(index_path)
-    const data = { ...await site.getData(appdir), ...getParts(index_path), is_spa: true }
+    const data = { ...await site.getData(appdir), ...getParts(index_path) }
 
     // scripts & styling
     await setupScripts(dir, data)
@@ -202,7 +188,9 @@ export async function createKit(args) {
   }
 
   async function processCSS({ path, base, dir}) {
-    const css = await lightningCSS(await read(path), is_prod)
+    const raw = await read(path)
+    const data = await site.getData()
+    const css = data.lightning_css === false ? raw : await lightningCSS(raw, is_prod)
     await write(css, dir, base)
     return { css }
   }
@@ -292,7 +280,13 @@ export async function createKit(args) {
 
     // paths
     let paths = await site.walk()
-    if (matches?.length) paths = paths.filter(p => matches.find(m => p.includes(m)))
+
+    // ignore layouts
+    paths = paths.filter(p => !p.endsWith('layout.html'))
+
+    if (matches[0]) {
+      paths = paths.filter(p => matches.find(m => m == '.' ? p == 'index.md' : p.includes(m)))
+    }
 
     // categories
     const cats = categorize(paths)
@@ -315,6 +309,9 @@ export async function createKit(args) {
     const elapsed = Date.now() - begin
 
     console.log(`\nTime taken: ${colors.yellow(elapsed + 'ms')}\n`)
+
+    // returned for deploying etc..
+    return paths
   }
 
   async function serve() {

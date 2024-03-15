@@ -46,6 +46,8 @@ export function getArgs(argv) {
       else if (['-v', '--verbose'].includes(arg)) args.verbose = true
       else if (['-s', '--stats'].includes(arg)) args.stats = true
       else if (['-b', '--esbuild'].includes(arg)) args.esbuild = true
+      else if (['-P', '--push'].includes(arg)) args.push = true
+      else if (['-I', '--init'].includes(arg)) args.init = true
 
       // string values
       else if (['-e', '--environment'].includes(arg)) opt = 'env'
@@ -96,42 +98,50 @@ async function runCommand(args) {
   args.nuekit_version = await printVersion()
   const nue = await createKit(args)
 
-  // build
-  const { cmd='serve' } = args
+  const { cmd='serve', dryrun, push } = args
 
-  if (cmd == 'build') await nue.build(args.paths, args.dryrun)
+  // build
+  if (cmd == 'build' || push) {
+    const paths = await nue.build(args.paths, dryrun)
+
+    // deploy
+    if (!dryrun && push) {
+      const { deploy } = await import('nue-deployer') // private repo ATM
+      await deploy(paths, { root: nue.dist, init: args.init })
+    }
 
   // serve
-  else if (cmd == 'serve') await nue.serve()
+  } else if (cmd == 'serve') await nue.serve()
 
   // stats
   else if (cmd == 'stats') await nue.stats()
+
 }
 
 // Only run main when called as real CLI
 if (esMain(import.meta)) {
 
-const args = getArgs(process.argv)
+  const args = getArgs(process.argv)
 
-// help
-if (args.help) {
-  await printHelp()
+  // help
+  if (args.help) {
+    await printHelp()
 
-// version
-} else if (args.version) {
-  await printVersion()
+  // version
+  } else if (args.version) {
+    await printVersion()
 
-// root is required
-} else if (!args.root) {
-  console.info('Project root not specified')
+  // root is required
+  } else if (!args.root) {
+    console.info('Project root not specified')
 
-// command
-} else if (!args.test) {
-  try {
-    await runCommand(args)
-  } catch (e) {
-    console.info(e)
+  // command
+  } else if (!args.test) {
+    try {
+      await runCommand(args)
+    } catch (e) {
+      console.info(e)
+    }
   }
-}
 
 }

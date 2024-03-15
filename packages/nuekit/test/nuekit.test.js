@@ -46,7 +46,7 @@ async function getKit() {
 }
 
 function createFront(title, pubDate) {
-    return ['---', `title: ${title}`, `pubDate: ${pubDate ?? '2020-01-20'}`, '---'].join('\n')  
+  return ['---', `title: ${title}`, `pubDate: ${pubDate ?? '2020-01-20'}`, '---'].join('\n')
 }
 
 test('defaults', async () => {
@@ -87,24 +87,45 @@ test('environment', async () => {
   expect(site.port).toBe(8080)
 })
 
+
+test('page styles', async () => {
+  await write('site.yaml', 'globals: [globals]')
+
+  const site = await getSite()
+  await write('globals/foo.css')
+  await write('blog/b.css')
+  await write('blog/entry/c.css')
+
+  const arr = await site.getStyles('blog')
+  expect(arr).toEqual([ '/globals/foo.css', '/blog/b.css' ])
+
+  const arr2 = await site.getStyles('blog/entry')
+  expect(arr2.length).toBe(3)
+})
+
+
 test('root styles', async () => {
   const kit = await getKit()
+  await write('globals/bar.css')
   await write('home.css')
   await write('index.md')
   const { styles } = await kit.getPageData('index.md')
   expect(styles).toEqual([ "/home.css" ])
-
 })
 
 
-test('page assets', async () => {
-  const site = await getSite()
-  await write('blog/b.js')
-  await write('blog/entry/c.js')
-  expect(await site.getAssets('blog', ['js'])).toEqual(['/blog/b.js'])
+test('include / exclude', async () => {
+  await write('site.yaml', 'globals: [global]\nlibs: [lib, ext]\n')
+  await write('global/global.css')
+  await write('global/kama.css')
+  await write('lib/zoo.css')
+  await write('blog/index.md')
+  await write('blog/app.yaml', 'include: [lib]\nexclude: [kama]')
 
-  expect(await site.getAssets('blog/entry', ['js']))
-    .toEqual(['/blog/b.js', '/blog/entry/c.js'])
+  const kit = await getKit()
+  const data = await kit.getPageData('blog/index.md')
+
+  expect(data.styles).toEqual([ "/global/global.css", "/lib/zoo.css" ])
 })
 
 
@@ -220,9 +241,9 @@ test('page data', async () => {
   expect(data.page.meta.title).toBe('Hello')
 })
 
-test('page scripts', async() => {
+test('page assets', async() => {
   const kit = await getKit()
-  await write('scripts/app.yaml', 'include: [hello.js]\nhotreload: false')
+  await write('scripts/app.yaml', 'main: [hello.js]\nhotreload: false')
   await write('scripts/index.md', '# Hey')
   await write('scripts/hello.nue', '<div/>')
   await write('scripts/hello.ts', 'var a')
@@ -241,7 +262,7 @@ test('index.html', async() => {
   const html = await readDist(kit.dist, 'index.html')
 
   expect(html).toInclude('hotreload.js')
-  expect(html).toInclude('island="test"')
+  expect(html).toInclude('is="test"')
 })
 
 test('index.md', async() => {

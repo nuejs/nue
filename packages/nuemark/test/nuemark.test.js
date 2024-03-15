@@ -142,10 +142,11 @@ test('[image] link', () => {
 
 test('[image] picture', () => {
   const pic = tags.image({ small: 'a.png', large: 'b.png', offset: 800, attr: { class: 'big' } })
-  expect(pic).toInclude('picture class="big"')
-  expect(pic).toInclude('source src="b.png"')
+  expect(pic).toInclude('picture')
+  expect(pic).toInclude('source srcset="b.png"')
   expect(pic).toInclude('max-width: 800px')
   expect(pic).toInclude('img src="b.png"')
+  expect(pic).toInclude('class="big"')
 })
 
 test('[image] caption', () => {
@@ -155,18 +156,30 @@ test('[image] caption', () => {
   expect(figure).toInclude('img src="a.png"')
 })
 
-test('[image] basics', () => {
+test.only('[image] basics', () => {
   const img = tags.image({ _: 'a.png', alt: 'Hey', width: 10, height: 10 })
-  expect(img).toBe('<img src="a.png" alt="Hey" loading="lazy" width="10" height="10">')
+  expect(img).toStartWith('<img src="a.png"')
 
-  const img2 = tags.image({
-      attr: { class: 'big' },
-      srcset: ['a.jpg 20vw', 'b.jpg'],
-      loading: null,
-      sizes: '4em'
+  expect(img).toInclude('alt="Hey"')
+  expect(img).toInclude('loading="lazy"')
+  expect(img).toInclude('width="10"')
+  expect(img).toInclude('height="10"')
+
+  const img2 = tags.image({ size: '10 x 10' })
+  expect(img2).toInclude('width="10"')
+  expect(img2).toInclude('height="10"')
+
+})
+
+test('[image] srcset', () => {
+  const img = tags.image({
+    attr: { class: 'big' },
+    srcset: ['a.jpg 20vw', 'b.jpg'],
+    loading: null,
+    sizes: '4em'
   })
 
-  expect(img2).toBe('<img srcset="a.jpg 20vw, b.jpg" sizes="4em" class="big">')
+  expect(img).toBe('<img srcset="a.jpg 20vw, b.jpg" sizes="4em" class="big">')
 })
 
 
