@@ -132,7 +132,7 @@ test('Custom tags', () => {
 
     // $attrs
     '<field name="foo" value="bar"/><label @name="field"><input :attr="$attrs"/></label>':
-      '<label><input name="foo" value="bar"></label>',
+      '<label><input ref-component="field" name="foo" value="bar"></label>',
   })
 })
 
@@ -146,7 +146,7 @@ test('Advanced', () => {
     // :attr (:bind works the same on server side)
     '<dd :attr="person"></dd>': '<dd name="Nick" age="10"></dd>',
 
-    '<hey :val/>': '<div is="hey">\n  <script type="application/json">{"val":"1"}</script>\n</div>',
+    '<hey :val/>': '<div ref-component="hey" is="hey">\n  <script type="application/json">{"val":"1"}</script>\n</div>',
 
     '<html><slot for="none"/><b>{ val }</b></html>': '<html><b>1</b></html>',
     '<html><slot for="page"/></html>': '<html><main>Hello</main></html>',
