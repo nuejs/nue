@@ -2,6 +2,7 @@
 import For from './for.js'
 import If from './if.js'
 
+
 const CONTROL_FLOW = { ':if': If, ':for': For } // :if must be first
 const CORE_ATTR = ['class', 'style', 'id']
 
@@ -56,9 +57,10 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
         }
       }
 
-      const tagName = node.tagName.toLowerCase()
+      const tagName = getAttrRefComponent(node) || node.tagName.toLowerCase() 
       const next = node.nextSibling
 
+     
       // slot
       if (inner && tagName == 'slot') {
         inner.replace(node)
@@ -76,15 +78,16 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
           dom.append(...node.childNodes)
           child.inner = createApp({ fns, dom }, ctx, deps)
         }
-
+        
         const parent = createParent(node)
         const comp = createApp(child, ctx, deps, parent).mount(node)
-
         // Root node changes -> re-point to the new DOM element
-        if (dom?.tagName.toLowerCase() == child.name) self.$el = comp.$el
+        const tagName = getAttrRefComponent(dom) || dom?.tagName.toLowerCase()
+        if (tagName == child.name) {
+          self.$el = comp.$el
+        }
 
         expr.push(_ => setAttrs(comp.$el, parent))
-
         // component refs
         self.$refs[node.getAttribute('ref') || tagName] = comp.impl
 
@@ -238,7 +241,6 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
 
     mount(wrap) {
       const root = dom || (self.$el = mkdom(tmpl))
-
       // Isomorphic JSON. Saved for later hot-reloading
       let script = wrap.querySelector('script')
       if (script) {
@@ -359,3 +361,9 @@ function mergeVals(a, b) {
   return a.concat(b)
 }
 
+function getAttrRefComponent(node){
+  const attributeName = 'ref-component'; 
+  if(node && node.attributes)
+   return node.getAttribute(attributeName);
+  return null
+}
