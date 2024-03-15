@@ -76,7 +76,7 @@ export function sortCSS({ paths, globals, dir }) {
   paths.sort()
 
   // then by directory
-  paths.sort((a, b) => score(a)-score(b))
+  paths.sort((a, b) => score(a) - score(b))
 }
 
 

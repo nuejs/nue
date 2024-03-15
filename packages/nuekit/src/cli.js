@@ -100,21 +100,21 @@ async function runCommand(args) {
 
   const { cmd='serve', dryrun, push } = args
 
+  // stats
+  if (cmd == 'stats') await nue.stats(args)
+
   // build
-  if (cmd == 'build' || push) {
+  else if (push || args.paths[0] || cmd == 'build') {
     const paths = await nue.build(args.paths, dryrun)
 
-    // deploy
+    // deploy (private repo ATM)
     if (!dryrun && push) {
-      const { deploy } = await import('nue-deployer') // private repo ATM
+      const { deploy } = await import('nue-deployer')
       await deploy(paths, { root: nue.dist, init: args.init })
     }
 
   // serve
-  } else if (cmd == 'serve') await nue.serve()
-
-  // stats
-  else if (cmd == 'stats') await nue.stats()
+  } else await nue.serve()
 
 }
 

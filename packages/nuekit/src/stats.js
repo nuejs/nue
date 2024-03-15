@@ -1,6 +1,6 @@
 
 import { join, extname, parse as parsePath } from 'node:path'
-import { log, colors, getAppDir } from './util.js'
+import { log, colors, getAppDir, sortCSS } from './util.js'
 import { promises as fs } from 'node:fs'
 import { fswalk } from './nuefs.js'
 
@@ -9,72 +9,41 @@ async function readSize(dist, path) {
   return raw.length
 }
 
-export async function readStats(dist, globals) {
-  const paths = await fswalk(dist)
+export async function printStats(site, args) {
+  const { dist, globals } = site
+  let paths = await fswalk(dist)
 
-  async function getSize(appdir, ext) {
-    let total = 0
+  // filter paths
+  if (args.paths[0]) paths = paths.filter(p => args.paths.find(m => p.includes(m)))
 
-    for (const path of paths.filter(p => p.startsWith(appdir) && p.endsWith(ext))) {
-      total += await readSize(dist, path)
-    }
-    return total
+  // no @nue stuff
+  paths = paths.filter(p => !p.startsWith('@nue'))
+
+  const longest = paths.sort((a, b) => b.length - a.length)[0]
+
+  // CSS sort
+  sortCSS({ paths, globals, dir: '.' })
+
+  let total = 0
+
+  function print(title, size) {
+    const padding = ' '.repeat(longest.length - title.length + 2)
+    console.log(title + padding, colors.gray(size), colors.yellow(fmt(size)))
   }
 
-  async function getGlobals(ext) {
-    let total = 0
-    for (const dir of globals) total += await getSize(dir, ext)
-    return total
+  for (const path of paths) {
+    const size = await readSize(dist, path)
+    print(path, size)
+    total += size
   }
 
-  // returned data
-  const data = []
-
-  // globals
-  const gcss = await getGlobals('.css')
-  const gjs = await getGlobals('.js')
-
-  data.push(['Globals', '-', fmt(gcss), fmt(gjs)])
-
-  // pages
-  for (const path of paths.filter(el => el.endsWith('.html'))) {
-    const { dir } = parsePath(path)
-    const appdir = getAppDir(dir)
-    const html = await readSize(dist, path)
-    const css = await getSize(appdir, '.css')
-    const js = await getSize(appdir, '.js')
-    const label = path.replace('index.html', '') || 'Front page (/)'
-    data.push([label, fmt(html), fmt(gcss + css), fmt(gjs + js)])
-  }
-
-  return data
+  print('Total', total)
 }
 
 
-export function printTable(head, rows) {
-  const PADDING = 7
-
-  rows.unshift(head)
-
-  const maxes = new Array(rows[0].length).fill(0).map((_, i) => {
-    const vals = rows.map(row => row[i].toString().length)
-    return Math.max(...vals)
-  })
-
-  console.info('\n')
-
-  rows.forEach((row, i) => {
-    const { cyan, green, gray } = colors
-    const cols = row.map((val, j) => {
-      const color_val = !i ? val : val == 'Globals' ? green(val) : !j ? cyan(val) : gray(val)
-      return color_val + ' '.repeat(maxes[j] - val.toString().length)
-    })
-
-    console.info(cols.join(' '.repeat(PADDING)))
-    if (!i) console.info('–'.repeat(sum(maxes) + (maxes.length-1) * PADDING))
-  })
+function fmt(size) {
+  return !size ? '-' : Math.round(size / 100) / 10 + 'k'
 }
-
 
 export function categorize(paths) {
   const cats = { style: [], scripts: [], islands: [], pages: [], media: [], spa: [] }
