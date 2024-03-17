@@ -82,15 +82,14 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
         const parent = createParent(node)
         const comp = createApp(child, ctx, deps, parent).mount(node)
         // Root node changes -> re-point to the new DOM element
-        const tagName = getAttrRefComponent(dom) || dom?.tagName.toLowerCase()
-        if (tagName == child.name) {
+        if ((getAttrRefComponent(dom) || dom?.tagName.toLowerCase()) == child.name) {
           self.$el = comp.$el
         }
 
         expr.push(_ => setAttrs(comp.$el, parent))
         // component refs
         self.$refs[node.getAttribute('ref') || tagName] = comp.impl
-
+        
         return { next }
 
       } else {
