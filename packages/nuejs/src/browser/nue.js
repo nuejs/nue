@@ -249,15 +249,13 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
       // setup refs
 
       // constructor
-      if (Impl) {
-        impl = self.impl = new Impl(ctx)
-
+      if (Impl) impl = self.impl = new Impl(ctx)
+        
         // for
         impl.mountChild = self.mountChild
         impl.$refs = self.$refs
         impl.update = update
-      }
-
+      
       walk(root)
 
       wrap.replaceWith(root)
