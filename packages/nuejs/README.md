@@ -62,7 +62,7 @@ Please see https://nuejs.org/docs/
 ### The big picture
 The ultimate goal of Nue is to build a content first alternative to **Vercel** and **Netlify**, which is extremely fast and ridiculously easy to use.
 
-![Nue Roadmap](https://nuejs.org/img/roadmap4-big.png)
+![Nue Roadmap](https://nuejs.org/img/roadmap6-big.png)
 
 
 #### Why Nue?
