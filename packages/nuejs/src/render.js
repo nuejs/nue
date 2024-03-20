@@ -296,6 +296,8 @@ function createComponent(node, global_js='', template) {
   // javascript
   const js = getJS(node.children)
   const Impl = js[0] && exec(`class Impl { ${ js } }\n${global_js}`)
+
+  // must be after getJS()
   const tmpl = getOuterHTML(node)
 
   function create(data, deps=[], inner) {
