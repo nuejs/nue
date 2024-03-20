@@ -74,7 +74,7 @@ export function parseError(buildResult) {
 
 }
 
-export async function lightningCSS(css, minify, opts) {
+export async function lightningCSS(css, minify, opts={}) {
   let include = Features.Colors
   if (!opts.css_2023) include |= Features.Nesting
 

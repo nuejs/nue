@@ -156,7 +156,7 @@ test('[image] caption', () => {
   expect(figure).toInclude('img src="a.png"')
 })
 
-test.only('[image] basics', () => {
+test('[image] basics', () => {
   const img = tags.image({ _: 'a.png', alt: 'Hey', width: 10, height: 10 })
   expect(img).toStartWith('<img src="a.png"')
 

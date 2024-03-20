@@ -165,17 +165,28 @@ test('Advanced', () => {
 })
 
 
-const GLOBAL_SCRIPT = `
+const GLOBAL_FUNCTIONS = `
 <script>
+  // only functions are allowed globally. so no variables or import statements ATM
   function toLower(str) {
     return str.toLowerCase()
+  }
+
+  function getArray() {
+    return [1, 2, 3]
   }
 </script>
 
 <div>
   { lower(title) }
 
+  <p :for="num in iterator()">* { num }</p>
+
   <script>
+    iterator() {
+      return getArray()
+    }
+
     lower(str) {
       return toLower(str)
     }
@@ -183,10 +194,14 @@ const GLOBAL_SCRIPT = `
 </div>`
 
 test('Global script', () => {
-  const html = render(GLOBAL_SCRIPT, { title: 'Hey' })
+  const html = render(GLOBAL_FUNCTIONS, { title: 'Hey' })
+
   expect(html).toStartWith('<div>')
   expect(html).toInclude('hey')
+  expect(html).toInclude('<p>* 1</p><p>* 2</p>')
+
 })
+
 
 const GA = `
 <body>
