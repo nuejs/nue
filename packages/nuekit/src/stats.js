@@ -40,11 +40,6 @@ export async function printStats(site, args) {
   print('Total', total)
 }
 
-
-function fmt(size) {
-  return !size ? '-' : Math.round(size / 100) / 10 + 'k'
-}
-
 export function categorize(paths) {
   const cats = { style: [], scripts: [], islands: [], pages: [], media: [], spa: [] }
   const misc = []
