@@ -314,3 +314,14 @@ test.skip('random unit test', async() => {
   const kit = await createKit({ root: '../nextjs-blog', dryrun: true })
 })
 
+test('the project was started for the first time', async () => {
+  const kit = await getKit()
+  await write('globals/bar.css')
+  await write('home.css')
+  await write('index.md')
+
+  await kit.serve()
+  const html = await readDist(kit.dist, 'index.html')
+  expect(html).toInclude('hotreload.js')
+  process.exit()
+})
