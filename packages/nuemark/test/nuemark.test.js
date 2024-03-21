@@ -213,7 +213,8 @@ test('[layout] with nested component', () => {
 })
 
 test('[table]', () => {
-  const html = tags.table({ head: 'Name | Age', items: ['John | 30', 'Mary | 28,5'] })
+  const html = tags.table({ head: 'Name | Age', items: ['John | 30', 'Mary | 28,5'], wrapper: 'foo' })
+  expect(html).toStartWith('<div class="foo"><table>')
   expect(html).toInclude('<th>Name</th>')
   expect(html).toInclude('<th>Age</th>')
   expect(html).toInclude('<td>John</td>')

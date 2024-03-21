@@ -36,7 +36,8 @@ export const tags = {
     return elem('img', { src, alt: alt || `${_} icon` })
   },
 
-  table({ attr, head, _, items=[] }) {
+  table(data) {
+    const { attr, head, _, items=[] } = data
     const ths = toArray(head || _).map(val => elem('th', parseInline(val.trim())))
     const thead = elem('thead', elem('tr', join(ths)))
 
@@ -45,7 +46,9 @@ export const tags = {
       return elem('tr', join(tds))
     })
 
-    return elem('table', attr, thead + elem('tbody', join(trs)))
+    const table = elem('table', attr, thead + elem('tbody', join(trs)))
+
+    return createWrapper(data.wrapper, table)
   },
 
   // generic layout block. used for "unnamed" blocks like [.grid]
