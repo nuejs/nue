@@ -2,6 +2,7 @@
 
 import { log, colors } from './util.js'
 import esMain from 'es-main'
+import { sep } from 'node:path'
 
 // [-npe] --> [-n, -p, -e]
 export function expandArgs(args) {
@@ -25,7 +26,7 @@ export function getArgs(argv) {
   expandArgs(argv.slice(1)).forEach((arg, i) => {
 
     // skip
-    if (arg.endsWith('/cli.js') || arg.endsWith('/nue') || arg == '--') {
+    if (arg.endsWith(sep + 'cli.js') || arg.endsWith('/nue') || arg == '--') {
 
     // test suite
     } else if (arg.endsWith('.test.js')) {
