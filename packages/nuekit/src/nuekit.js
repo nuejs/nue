@@ -322,7 +322,7 @@ export async function createKit(args) {
   async function serve() {
     log('Serving site from', colors.cyan(dist))
 
-    if (is_empty) await build()
+    if (is_empty) await build([])
 
     const server = createServer(dist, async (req_url) => {
       const { src, path, name } = await site.getRequestPaths(req_url) || {}
