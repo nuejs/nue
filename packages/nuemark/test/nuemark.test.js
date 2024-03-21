@@ -1,8 +1,8 @@
 import { parseMeta, parseBlocks, parseSections, parsePage, parseHeading } from '../src/parse.js'
 import { parseComponent, valueGetter, parseAttr, parseSpecs } from '../src/component.js'
 import { renderIsland, renderLines } from '../src/render.js'
+import { tags, parseSize } from '../src/tags.js'
 import { nuemarkdown } from '../index.js'
-import { tags } from '../src/tags.js'
 
 
 test('fenced code', () => {
@@ -156,8 +156,17 @@ test('[image] caption', () => {
   expect(figure).toInclude('img src="a.png"')
 })
 
+
+
+test('parseSize', () => {
+  const { width, height } = parseSize({ size: '10 x 10' })
+  expect(width).toBe('10')
+  expect(height).toBe('10')
+})
+
 test('[image] basics', () => {
   const img = tags.image({ _: 'a.png', alt: 'Hey', width: 10, height: 10 })
+
   expect(img).toStartWith('<img src="a.png"')
 
   expect(img).toInclude('alt="Hey"')
@@ -365,42 +374,49 @@ test('parseSpecs', () => {
   expect(parseSpecs('tabs.#foo.bar')).toEqual({ name: 'tabs', attr: { id: 'foo', class: 'bar' } })
 })
 
+test('parse plain args', () => {
+  const { name, data }= parseComponent('video src="/a.mp4" loop muted')
+  expect(name).toBe('video')
+  expect(data.loop).toBe(true)
+  expect(data.muted).toBe(true)
+})
+
 test('parseComponent', () => {
 
   expect(parseComponent('#foo.bar')).toEqual({
-    name: null,
     attr: { id: "foo", class: "bar" },
+    name: null,
     data: {},
   })
 
   expect(parseComponent('list.tweets')).toEqual({
-    name: 'list',
     attr: { class: "tweets" },
+    name: 'list',
     data: {},
   })
 
   expect(parseComponent('tip "Hey there"')).toEqual({
+    data: { _: 'Hey there' },
     name: 'tip',
     attr: {},
-    data: { _: 'Hey there' },
   })
 
   expect(parseComponent('img /foo')).toEqual({
+    data: { _: '/foo' },
     name: 'img',
     attr: {},
-    data: { _: '/foo' },
   })
 
   expect(parseComponent('item cols=3 grayed')).toEqual({
+    data: { cols: 3, _: 'grayed', grayed: true },
     name: 'item',
     attr: {},
-    data: { cols: 3, _: 'grayed' },
   })
 
   expect(parseComponent('info#alert "Sure ??" class="boss"')).toEqual({
-    name: 'info',
     attr: { class: 'boss', id: 'alert' },
     data: { _: 'Sure ??' },
+    name: 'info',
   })
 
 })

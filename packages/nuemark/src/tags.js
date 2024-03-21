@@ -63,22 +63,21 @@ export const tags = {
 
 
   image(data, opts) {
-    const { attr, caption, href, content, loading='lazy', size='' } = data
-    const [width, height] = size.trim().split(/\s*\D\s*/)
+    const { attr, caption, href, content, loading='lazy' } = data
+    const { width, height } = parseSize(data)
 
     const aside = caption ? elem('figcaption', parseInline(caption)) :
       content ? elem('figcaption', nuemarkdown(content[0], opts)) :
       null
 
-    // don't change the order
     const img_attr = {
       src: data.src || data._ || data.large,
       srcset: join(data.srcset, ', '),
       sizes: join(data.sizes, ', '),
-      width: width || data.width,
-      height: height || data.height,
       alt: data.alt || caption,
       loading,
+      height,
+      width,
     }
 
     // img tag
@@ -268,25 +267,16 @@ export function createPicture(img_attr, data) {
   return elem('picture', null, join(sources))
 }
 
+export function parseSize(data) {
+  const { size='' } = data
+  const [ w, h ] = size.trim().split(/\s*\D\s*/)
+  return { width: w || data.width, height: h || data.height }
+}
+
 function createCodeBlock({ content, language, numbered }, attr={}) {
   const code = glow(join(content), { language, numbered })
   return elem('pre', { glow: true, ...attr }, code)
 }
-
-
-/* more complex grids later
-const GRID = {
-  a: [2, 3, 2, '2/2', 3, '3/3', 4, 3],
-  b: [2, '2/2', '3/3']
-}
-
-export function getGridCols(am, variant='a') {
-  const val = GRID[variant][am -2]
-  if (!val) return { cols: '1fr 1fr' }
-  const [count, span] = val.toString().split('/')
-  return { cols: Array(1 * count).fill('1fr').join(' '), colspan: 1 * span }
-}
-*/
 
 
 function getVideoAttrs(data) {
