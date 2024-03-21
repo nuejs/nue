@@ -20,8 +20,9 @@ export function parseComponent(input) {
 
     // key only
     } else {
-      if (self.data._) self.data[key] = true
-      else self.data._ = getValue(key) || key
+      const val = getValue(key) || key
+      if (!self.data._) self.data._ = val
+      if (!/\W/.test(val)) self.data[val] = true
     }
   }
 
