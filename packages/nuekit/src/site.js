@@ -195,7 +195,7 @@ export async function createSite(args) {
     }
   }
 
-  self.getData = async function (pagedir) {
+  self.getData = async function(pagedir) {
     const data = { nuekit_version, ...site_data }
     for (const dir of getDirs(pagedir)) {
       Object.assign(data, await readData(`${dir}/app.yaml`))
@@ -207,7 +207,7 @@ export async function createSite(args) {
     return await fswalk(root)
   }
 
-  self.getScripts = async function (dir, main=['main.js']) {
+  self.getScripts = async function(dir, main=['main.js']) {
     const arr = await getAssets({ dir, exts: ['js', 'ts'], to_ext: 'js' })
     return arr.filter(path => main.includes(basename(path)))
   }
@@ -218,7 +218,7 @@ export async function createSite(args) {
 
 
   // get fromt matter data from all .md files on a directory
-  self.getContentCollection = async function (dir) {
+  self.getContentCollection = async function(dir) {
     const key = 'coll:' + dir
     if (cache[key]) return cache[key]
 
@@ -242,7 +242,7 @@ export async function createSite(args) {
 
 
 
-  self.getStyles = async function (dir, data={}) {
+  self.getStyles = async function(dir, data={}) {
     let paths = await getAssets({ dir, exts: ['css'], data })
 
     // syntax highlighting
@@ -255,7 +255,7 @@ export async function createSite(args) {
   }
 
 
-  self.getLayoutComponents = async function (pagedir) {
+  self.getLayoutComponents = async function(pagedir) {
     const lib = []
 
     for (const dir of ['.', ...getDirs(pagedir)]) {
@@ -275,7 +275,7 @@ export async function createSite(args) {
   }
 
   // @returns { src, path, code: 200 }
-  self.getRequestPaths = async function (url) {
+  self.getRequestPaths = async function(url) {
     let { dir, name, base, ext } = parsePath(url.slice(1))
     if (!name) name = 'index'
 

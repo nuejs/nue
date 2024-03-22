@@ -102,19 +102,26 @@ marked.setOptions({
   mangle: false
 })
 
+export function renderHeading(html, level, raw) {
+  const plain = parseHeading(raw)
+  const { id } = plain
+
+  // no id -> return plain heading
+  if (!id) return elem(`h${level}`, html)
+
+  // id given
+  const title = plain.text.replaceAll('"', '')
+  const { text } = parseHeading(html)
+
+  delete plain.text
+  const a = elem('a', { href: `#${id}`, title })
+  return elem(`h${level}`, plain, a + text)
+}
+
 // marked renderers
 const renderer = {
 
-  heading(html, level, raw) {
-    const plain = parseHeading(raw)
-    const cls = plain.class
-    const title = plain.text.replaceAll('"', '')
-    const rich = parseHeading(html)
-
-    delete plain.text
-    const a = elem('a', { href: `#${plain.id}`, title: title })
-    return elem(`h${level}`, plain, a + rich.text)
-  },
+  heading: renderHeading,
 
   // lazyload images by default
   image(src, title, alt) {

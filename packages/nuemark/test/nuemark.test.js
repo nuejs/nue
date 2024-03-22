@@ -1,6 +1,6 @@
 import { parseMeta, parseBlocks, parseSections, parsePage, parseHeading } from '../src/parse.js'
 import { parseComponent, valueGetter, parseAttr, parseSpecs } from '../src/component.js'
-import { renderIsland, renderLines } from '../src/render.js'
+import { renderIsland, renderLines, renderHeading } from '../src/render.js'
 import { tags, parseSize } from '../src/tags.js'
 import { nuemarkdown } from '../index.js'
 
@@ -204,6 +204,11 @@ test('[layout]', () => {
     expect(double).toInclude('<section id="epic">')
 })
 
+test('[section] alias', () => {
+  const html = tags.section({ content: ['a', 'b'] })
+  expect(html).toStartWith('<section>')
+})
+
 test('[layout] with nested component', () => {
   const content = ['# Hello', '## World\n[image "joo.png"]']
   const html = tags.layout({ content })
@@ -251,6 +256,19 @@ test('reflinks', () => {
 
   expect(html).toInclude('<a href="yolo.co" title="lol">hey</a>')
   expect(html).toInclude('<a href="//hey.net" title="boom">dude</a>')
+})
+
+test.only('H1 with inner <em>', () => {
+  const { id } = parseHeading('# Hey _bro_ *man*')
+  expect(id).toEqual('hey-bro-man')
+})
+
+test.only('render heading', () => {
+  const h1 = renderHeading('Hey', 1, 'This is a too long text version of it')
+  expect(h1).toEqual('<h1>Hey</h1>')
+
+  const h2 = renderHeading('Foo <em>bar</em> { #baz }', 2, 'Foo bar { #baz }')
+  expect(h2).toEqual('<h2 id="baz"><a href="#baz" title="Foo bar"></a>Foo <em>bar</em></h2>')
 })
 
 test('parseHeading', () => {
@@ -447,6 +465,6 @@ test('JSX component', async () => {
 
       // react not imported
   } catch (ignored) {
-      console.info('JSX test skipped')
+    console.info('JSX test skipped')
   }
 })

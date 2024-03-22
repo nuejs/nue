@@ -2,7 +2,6 @@
 /* misc stuff. think shame.css */
 import { sep, parse, normalize, join, isAbsolute } from 'node:path'
 
-
 export function log(msg, extra='') {
   console.log(colors.green('✓'), msg, extra)
 }
@@ -82,6 +81,5 @@ export function sortCSS({ paths, globals, dir }) {
   // then by directory
   paths.sort((a, b) => score(a) - score(b))
 }
-
 
 
