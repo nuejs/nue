@@ -324,7 +324,11 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
         $parent.update()
 
       } else {
-        self[key] = val
+        if (Object.prototype.hasOwnProperty.call(impl, key)) {
+          impl[key] = val
+        } else {
+          self[key] = val
+        }
       }
       return true
     }
