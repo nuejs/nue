@@ -71,7 +71,7 @@ test('site.yaml', async () => {
   const site = await getSite()
 
   expect(site.globals).toEqual(['global'])
-  expect(site.dist).toBe('.mydist')
+  expect(site.dist).toBe('_test/.mydist')
   expect(site.port).toBe(1500)
 
   // teardown
@@ -83,7 +83,7 @@ test('environment', async () => {
   await write(env, 'dist: .alt')
   const site = await createSite({ root, env })
 
-  expect(site.dist).toBe('.alt')
+  expect(site.dist).toBe('_test/.alt')
   expect(site.port).toBe(8080)
 })
 
