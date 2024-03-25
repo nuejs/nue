@@ -4,14 +4,41 @@ import { parsePage, parseHeading } from './parse.js'
 import { parseAttr } from './component.js'
 import { marked } from 'marked'
 
+let exts_loaded = false
+
+// marked renderers
+const renderer = {
+
+  heading(html, level, raw) {
+    const plain = parseHeading(raw)
+    const cls = plain.class
+    const title = plain.text.replaceAll('"', '')
+    const rich = parseHeading(html)
+
+    delete plain.text
+    const a = elem('a', { href: `#${plain.id}`, title: title })
+    return elem(`h${level}`, plain, a + rich.text)
+  },
+
+  // lazyload images by default
+  image(src, title, alt) {
+    return elem('img', { src, title, alt, loading: 'lazy' })
+  },
+}
+
+marked.use({ renderer })
 
 export function renderPage(page, opts) {
-  const { lib=[] } = opts
+  const { lib=[], marked_extensions=[] } = opts
   const data = { ...opts.data, ...page.meta }
   const draw_sections = data?.draw_sections || page.sections[1]
   const section_attr = data.sections || []
   const ret = []
 
+  if (!exts_loaded && marked_extensions.length) {
+    exts_loaded = true
+    marked.use(...marked_extensions)
+  }
 
   // section_attr
   page.sections.forEach((section, i) => {
@@ -94,32 +121,3 @@ function parseLink(href) {
   if (title) href = href.slice(0, i)
   return { href, title }
 }
-
-marked.setOptions({
-  smartypants: true,
-  headerIds: false,
-  smartLists: false,
-  mangle: false
-})
-
-// marked renderers
-const renderer = {
-
-  heading(html, level, raw) {
-    const plain = parseHeading(raw)
-    const cls = plain.class
-    const title = plain.text.replaceAll('"', '')
-    const rich = parseHeading(html)
-
-    delete plain.text
-    const a = elem('a', { href: `#${plain.id}`, title: title })
-    return elem(`h${level}`, plain, a + rich.text)
-  },
-
-  // lazyload images by default
-  image(src, title, alt) {
-    return elem('img', { src, title, alt, loading: 'lazy' })
-  },
-}
-
-marked.use({ renderer })

@@ -81,6 +81,10 @@ export async function createSite(args) {
     self.is_empty = true
   }
 
+  const markedConfig = joinRootPath(root, site_data.marked_config || 'marked.config.js', true)
+  const { default: marked_extensions=[] } = await import(markedConfig).catch(() => ({}))
+  // TODO: exclude `markedConfig` path from output dir
+
   async function write(content, dir, filename) {
     const todir = join(dist, dir)
 
@@ -301,6 +305,6 @@ export async function createSite(args) {
     }
   }
 
-  return { ...self, dist, port, read, write, copy }
+  return { ...self, dist, port, read, write, copy, marked_extensions }
 
 }
