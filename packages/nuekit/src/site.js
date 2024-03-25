@@ -1,5 +1,5 @@
 
-import { log, getParts, getAppDir, getDirs, colors, toPosix, sortCSS } from './util.js'
+import { log, getParts, getAppDir, getDirs, colors, toPosix, sortCSS, joinRootPath } from './util.js'
 import { join, extname, basename, sep, parse as parsePath } from 'node:path'
 import { parse as parseNue } from 'nuejs-core'
 import { promises as fs } from 'node:fs'
@@ -68,10 +68,11 @@ export async function createSite(args) {
   }
 
   const {
-    dist = `${root}/.dist/${is_prod ? 'prod' : 'dev'}`,
+    dist: rawDist,
     port = is_prod ? 8081 : 8080
-
   } = site_data
+
+  const dist = joinRootPath(root, rawDist || join('.dist', is_prod ? 'prod' : 'dev'))
 
   // flag if .dist is empty
   try {
