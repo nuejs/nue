@@ -6,13 +6,6 @@ import { marked } from 'marked'
 
 let exts_loaded = false
 
-marked.setOptions({
-  smartypants: true,
-  headerIds: false,
-  smartLists: false,
-  mangle: false
-})
-
 // marked renderers
 const renderer = {
 
