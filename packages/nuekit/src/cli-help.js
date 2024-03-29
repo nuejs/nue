@@ -16,10 +16,10 @@ Options
   -r or --root          Source directory. Default "." (current working dir)
   -p or --production    Build production version / Show production stats
   -e or --environment   Read extra options to override defaults in site.yaml
-  -n or --dry-run       x
   -s or --stats         Show site statistics after current command
-  -b or --esbuild       x
   -I or --init          Force clear and initialize output directory
+  -n or --dry-run       Show what would be built. Does not create outputs
+  -b or --esbuild       Use esbuild as bundler. Install esbuild manually
 
 File matches
   Only build files that match the rest of the arguments. For example:
