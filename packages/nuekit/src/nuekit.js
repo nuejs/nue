@@ -331,7 +331,8 @@ export async function createKit(args) {
     })
 
     // dev mode -> watch for changes
-    is_dev && fswatch(root, async file => {
+    let watcher
+    if (is_dev) watcher = fswatch(root, async file => {
       try {
         const ret = await processFile(file)
         if (ret) send({ ...file, ...getParts(file.path), ...ret })
@@ -350,9 +351,18 @@ export async function createKit(args) {
       if (file.ext) send({ remove: true, path, ...file })
     })
 
+    const cleanup = () => {
+      if (watcher) watcher.close()
+    }
+    const terminate = () => {
+      cleanup()
+      server.close()
+    }
+
     try {
       server.listen(port)
       log(`http://localhost:${port}/`)
+      return terminate
 
     } catch (e) {
       if (e.code != 'EADDRINUSE') console.error(e)

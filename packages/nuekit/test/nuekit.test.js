@@ -320,8 +320,11 @@ test('the project was started for the first time', async () => {
   await write('home.css')
   await write('index.md')
 
-  await kit.serve()
-  const html = await readDist(kit.dist, 'index.html')
-  expect(html).toInclude('hotreload.js')
-  process.exit()
+  const terminate = await kit.serve()
+  try {
+    const html = await readDist(kit.dist, 'index.html')
+    expect(html).toInclude('hotreload.js')
+  } finally {
+    terminate()
+  }
 })
