@@ -16,8 +16,8 @@ import { join, parse, sep } from 'node:path'
 let last = {}
 
 
-export async function fswatch(dir, onfile, onremove) {
-  watch(dir, { recursive: true }, async function(e, path) {
+export function fswatch(dir, onfile, onremove) {
+  return watch(dir, { recursive: true }, async function(e, path) {
     try {
       const file = parse(path)
 
