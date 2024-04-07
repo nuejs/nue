@@ -12,9 +12,7 @@ export async function init({ dist, is_dev, esbuild, force }) {
   // directories
   const cwd = process.cwd()
   const srcdir = getSourceDir()
-  const fromdir = join(srcdir, 'browser')
   const outdir = join(cwd, dist, '@nue')
-  const minify = !is_dev
 
 
   // has all latest?
@@ -30,8 +28,21 @@ export async function init({ dist, is_dev, esbuild, force }) {
     await fs.writeFile(latest, '')
   }
 
-  // chdir hack (Bun does not support absWorkingDir)
-  process.chdir(srcdir)
+  try {
+    // chdir hack (Bun does not support absWorkingDir)
+    process.chdir(srcdir)
+
+    await initUnderChdir({ dist, is_dev, esbuild, cwd, srcdir, outdir })
+  } finally {
+    // recover
+    process.chdir(cwd)
+  }
+}
+
+async function initUnderChdir({ dist, is_dev, esbuild, cwd, srcdir, outdir }) {
+
+  const fromdir = join(srcdir, 'browser')
+  const minify = !is_dev
 
   // simple function to wtite dot
   function dot() { process.stdout.write('•') }
@@ -87,8 +98,6 @@ export async function init({ dist, is_dev, esbuild, force }) {
 
   // favicon
   await copy('favicon.ico', join(cwd, dist))
-
-  process.chdir(cwd)
 
   // new line
   console.log('')
