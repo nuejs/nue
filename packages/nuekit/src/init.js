@@ -31,10 +31,12 @@ export async function init({ dist, is_dev, esbuild, force }) {
   try {
     // chdir hack (Bun does not support absWorkingDir)
     process.chdir(srcdir)
+    process.env.ACTUAL_CWD = cwd
 
     await initUnderChdir({ dist, is_dev, esbuild, cwd, srcdir, outdir })
   } finally {
     // recover
+    process.env.ACTUAL_CWD = ''
     process.chdir(cwd)
   }
 }
