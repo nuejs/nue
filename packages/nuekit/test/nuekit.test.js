@@ -155,7 +155,7 @@ test('content collection', async () => {
   // 5. System files starting with '_' or '.' are excluded.
   await write('blog/.item6.md', createFront('Sixth', '2020-01-03'))
   await write('blog/_item7.md', createFront('Seventh', '2020-01-03'))
-  
+
   const site = await getSite()
   const coll = await site.getContentCollection('blog')
   const actual = coll.map(c => {
@@ -324,4 +324,24 @@ test('the project was started for the first time', async () => {
   const html = await readDist(kit.dist, 'index.html')
   expect(html).toInclude('hotreload.js')
   process.exit()
+})
+
+test('marked extension config file', async() => {
+  const marked_config = `export default [{
+    tokenizer: {
+      inlineText(src) {
+        const text = src.replace(/\\.{3}/g, '\\u2026')
+        return { type: 'text', raw: src, text }
+      }
+    }
+  }]`
+
+  await write('marked.config.js', marked_config)
+  await write('index.md', 'This is a test, right?\n\n...\n\nRight?\n\n.....')
+  
+  const kit = await getKit()
+  const html = await kit.gen('index.md')
+  
+  const ellipsis = '&#x2026;'
+  expect(html).toInclude(`<p>This is a test, right?</p>\n<p>${ellipsis}</p>\n<p>Right?</p>\n<p>${ellipsis}..</p>\n`)
 })
