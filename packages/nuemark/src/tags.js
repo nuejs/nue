@@ -51,8 +51,8 @@ export const tags = {
     return createWrapper(data.wrapper, table)
   },
 
-  // generic layout block. used for "unnamed" blocks like [.grid]
-  layout(data, opts) {
+  // [section] or unnamed [.grid]
+  section(data, opts) {
     const { content=[] } = data
     const items = toArray(data.items) || []
 
@@ -222,7 +222,7 @@ tags['!'] = function(data, opts) {
 }
 
 // alias
-tags.section = tags.layout
+tags.layout = tags.section
 
 export function elem(name, attr, body) {
   if (typeof attr == 'string') { body = attr; attr = {}}

@@ -169,10 +169,11 @@ function processFor(node, expr, data, deps) {
 function processChild(comp, node, deps, data) {
   const { attribs } = node
 
-  // merge attributes
-  const child = comp.create({ ...data, ...attribs }, deps, node.children)
-  if (child.children.length == 1) mergeAttribs(child.firstChild.attribs, attribs)
+  let child = comp.create({ ...data, ...attribs }, deps, node.children) || ''
+  if (typeof child == 'string') child = parseDocument(child)
 
+  // merge attributes
+  if (child.children.length == 1) mergeAttribs(child.firstChild.attribs, attribs)
   DOM.replaceElement(node, child)
 }
 

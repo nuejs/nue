@@ -202,6 +202,16 @@ test('layout components', async () => {
 })
 
 
+test('custom navigation', async () => {
+  await write('site.yaml', 'header: { navi: [foo, bar] }')
+  await write('index.md')
+
+  const kit = await getKit()
+  const html = await kit.gen('index.md')
+  // console.info(html)
+})
+
+
 test('getRequestPaths', async () => {
   await write('index.md')
   const site = await getSite()
