@@ -1,6 +1,6 @@
 
+import { renderHead, getPageLayout, getSPALayout, getNueComponents, getHeaderLayout } from './layout/page.js'
 import { join, parse as parsePath, extname, basename } from 'node:path'
-import { renderHead, getDefaultHTML, getDefaultSPA } from './layout.js'
 import { parse as parseNue, compile as compileNue } from 'nuejs-core'
 import { log, colors, getAppDir, getParts } from './util.js'
 import { createServer, send } from './nueserver.js'
@@ -124,7 +124,7 @@ export async function createKit(args) {
       const [ spa, ...spa_lib ] = parseNue(html)
       return DOCTYPE + spa.render(data, [...lib, ...spa_lib])
     }
-    const [ spa ] = parseNue(getDefaultSPA(html, data))
+    const [ spa ] = parseNue(getSPALayout(html, data))
     return DOCTYPE + spa.render(data)
   }
 
@@ -133,6 +133,9 @@ export async function createKit(args) {
     const file = parsePath(path)
     const dir = data.appdir || file.dir
     const lib = await site.getLayoutComponents(dir)
+
+
+    lib.push(...getNueComponents())
 
     data.content = renderPage(data.page, { data, lib }).html
 
@@ -148,13 +151,12 @@ export async function createKit(args) {
       }
     }
 
-    data.header = render('header')
+    data.header = render('header', getHeaderLayout(data))
     data.footer = render('footer')
     data.main = render('main', '<slot for="content"/>')
     data.custom_head = render('head').slice(6, -7)
     data.head = renderHead(data, is_prod)
-
-    return DOCTYPE + render('html', getDefaultHTML(data))
+    return DOCTYPE + render('html', getPageLayout(data))
   }
 
 

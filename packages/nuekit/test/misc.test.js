@@ -1,9 +1,9 @@
 
 
 import { match } from '../src/browser/app-router.js'
+import { renderHead } from '../src/layout/page.js'
 import { getParts, sortCSS } from '../src/util.js'
 import { lightningCSS } from '../src/builder.js'
-import { renderHead } from '../src/layout.js'
 import { getArgs } from '../src/cli.js'
 
 import { toMatchPath } from './match-path.js'

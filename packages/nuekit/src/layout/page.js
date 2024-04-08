@@ -1,5 +1,6 @@
 import { extname } from 'node:path'
-import { TYPES } from './nueserver.js'
+import { TYPES } from '../nueserver.js'
+
 
 export function renderHead(data, is_prod) {
   const {
@@ -71,7 +72,20 @@ export function renderHead(data, is_prod) {
 }
 
 
-export function getDefaultHTML(data) {
+export function getHeaderLayout(data) {
+  if (!data.header) return
+
+  return `
+<header>
+  <navi :items="header.branding"/>
+  <navi :items="header.navi"/>
+  <navi :items="header.toolbar"/>
+  <burger :if="burger_menu"/>
+</header>
+`
+}
+
+export function getPageLayout(data) {
   const { language='en', direction='ltr' } = data
   const klass = data.class ? ` class="${data.class}"` : ''
 
@@ -93,7 +107,7 @@ export function getDefaultHTML(data) {
 `
 }
 
-export function getDefaultSPA(body='', data) {
+export function getSPALayout(body='', data) {
   const { language='en-US', direction='ltr' } = data
 
   return `
@@ -110,3 +124,11 @@ export function getDefaultSPA(body='', data) {
 }
 
 
+export function getNueComponents() {
+  return [
+    {
+      name: 'navi',
+      create({ items }) { return '<b>todo</b>' },
+    }
+  ]
+}
