@@ -52,7 +52,7 @@ function createFront(title, pubDate) {
 test('defaults', async () => {
   const site = await getSite()
   expect(site.is_empty).toBe(true)
-  expect(site.dist).toBe('_test/.dist/dev')
+  expect(site.dist).toMatchPath('_test/.dist/dev')
   expect(site.port).toBe(8080)
   expect(site.globals).toEqual([])
 })
@@ -71,7 +71,7 @@ test('site.yaml', async () => {
   const site = await getSite()
 
   expect(site.globals).toEqual(['global'])
-  expect(site.dist).toBe('_test/.mydist')
+  expect(site.dist).toMatchPath('_test/.mydist')
   expect(site.port).toBe(1500)
 
   // teardown
@@ -83,7 +83,7 @@ test('environment', async () => {
   await write(env, 'dist: .alt')
   const site = await createSite({ root, env })
 
-  expect(site.dist).toBe('_test/.alt')
+  expect(site.dist).toMatchPath('_test/.alt')
   expect(site.port).toBe(8080)
 })
 
@@ -320,8 +320,11 @@ test('the project was started for the first time', async () => {
   await write('home.css')
   await write('index.md')
 
-  await kit.serve()
-  const html = await readDist(kit.dist, 'index.html')
-  expect(html).toInclude('hotreload.js')
-  process.exit()
+  const terminate = await kit.serve()
+  try {
+    const html = await readDist(kit.dist, 'index.html')
+    expect(html).toInclude('hotreload.js')
+  } finally {
+    terminate()
+  }
 })
