@@ -112,6 +112,9 @@ export async function createKit(args) {
     // scripts & styling
     await setupScripts(dir, data)
     await setupStyles(dir, data)
+    
+    // write manifest
+    data.manifest && await write(JSON.stringify(data, null, '\t'), '', 'manifest.json')
 
     // head / meta tags
     data.head = renderHead(data, is_prod)
