@@ -333,18 +333,19 @@ test('marked extension config file', async() => {
   const marked_config = `export default [{
     tokenizer: {
       inlineText(src) {
-        const text = src.replace(/\\.{3}/g, '\\u2026')
-        return { type: 'text', raw: src, text }
+        const cap = this.rules.inline.text.exec(src)
+        const text = cap[0].replace(/\\.{3}/g, '\\u2026')
+        return { type: 'text', raw: cap[0], text }
       }
     }
   }]`
 
   await write('marked.config.js', marked_config)
   await write('index.md', 'This is a test, right?\n\n...\n\nRight?\n\n.....')
-  
+
   const kit = await getKit()
   const html = await kit.gen('index.md')
-  
+
   const ellipsis = '&#x2026;'
   expect(html).toInclude(`<p>This is a test, right?</p>\n<p>${ellipsis}</p>\n<p>Right?</p>\n<p>${ellipsis}..</p>\n`)
 })

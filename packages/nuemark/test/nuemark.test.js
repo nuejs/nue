@@ -427,8 +427,9 @@ test('marked extension', async () => {
   const marked_extensions = [{
     tokenizer: {
       inlineText(src) {
-        const text = src.replace(/\.{3}/g, ellipsis)
-        return { type: 'text', raw: src, text }
+        const cap = this.rules.inline.text.exec(src)
+        const text = cap[0].replace(/\.{3}/g, ellipsis)
+        return { type: 'text', raw: cap[0], text }
       }
     }
   }]
