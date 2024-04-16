@@ -36,10 +36,11 @@ Eventually, Nue is a content-first alternative to **Vercel** and **Netlify**, wh
 
 
 ### Roadmap
-Here's the high-level roadmap. Click for a [more detailed](https://nuejs.org/blog/perfect-web-framework/#product-roadmap) version.
+Here's the high-level roadmap. Click for the most recent [status update](https://nuejs.org/blog/status-update-01/) version.
 
-<a href="https://nuejs.org/blog/perfect-web-framework/#product-roadmap">
-<img src="https://nuejs.org/img/roadmap6-big.png" width="800"></a>
+
+<a href="https://nuejs.org/blog/status-update-01/">
+<img src="https://nuejs.org/img/roadmap-summer.png" width="800"></a>
 
 ### Contributing
 
