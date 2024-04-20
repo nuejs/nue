@@ -10,7 +10,7 @@ Glow is a syntax highligher for markdown.
 
 
 ### Get started
-Use Glow as a standalone library or together Nue
+Use Glow as a standalone library or together with Nue
 
 
 #### Standalone library
