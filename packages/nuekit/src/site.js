@@ -47,6 +47,7 @@ export async function createSite(args) {
     }
   }
 
+
   async function readOpts() {
     const data = await readData('site.yaml') || {}
 
@@ -270,7 +271,6 @@ export async function createSite(args) {
         }
       }
     }
-
     return lib
   }
 

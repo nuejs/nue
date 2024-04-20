@@ -1,15 +1,17 @@
 
-import { renderHead, getPageLayout, getSPALayout, getNueComponents, getHeaderLayout } from './layout/page.js'
+
 import { join, parse as parsePath, extname, basename } from 'node:path'
 import { parse as parseNue, compile as compileNue } from 'nuejs-core'
+import { renderPage, renderSinglePage } from './layout/page.js'
 import { log, colors, getAppDir, getParts } from './util.js'
-import { createServer, send } from './nueserver.js'
 import { lightningCSS, buildJS } from './builder.js'
+import { createServer, send } from './nueserver.js'
 import { printStats, categorize } from './stats.js'
-import { parsePage, renderPage } from 'nuemark'
+import { renderHead } from './layout/head.js'
 import { promises as fs } from 'node:fs'
 import { createSite } from './site.js'
 import { fswatch } from './nuefs.js'
+import { parsePage } from 'nuemark'
 import { init } from './init.js'
 
 // the HTML5 doctype
@@ -100,6 +102,18 @@ export async function createKit(args) {
     return data
   }
 
+
+  // Markdown page
+  async function renderMPA(path) {
+    const data = await getPageData(path)
+    const file = parsePath(path)
+    const dir = data.appdir || file.dir
+    const lib = await site.getLayoutComponents(dir)
+
+    return DOCTYPE + renderPage(data, lib)
+  }
+
+
   // index.html for single-page application
   async function renderSPA(index_path) {
 
@@ -113,9 +127,6 @@ export async function createKit(args) {
     await setupScripts(dir, data)
     await setupStyles(dir, data)
 
-    // head / meta tags
-    data.head = renderHead(data, is_prod)
-
     // SPA components and layout
     const html = await read(index_path)
 
@@ -124,49 +135,8 @@ export async function createKit(args) {
       const [ spa, ...spa_lib ] = parseNue(html)
       return DOCTYPE + spa.render(data, [...lib, ...spa_lib])
     }
-    const [ spa ] = parseNue(getSPALayout(html, data))
+    const [ spa ] = parseNue(renderSinglePage(html, data))
     return DOCTYPE + spa.render(data)
-  }
-
-  // Markdown- based multi-page application page
-  async function renderMPA(path, data) {
-    const file = parsePath(path)
-    const dir = data.appdir || file.dir
-    const lib = await site.getLayoutComponents(dir)
-
-
-    lib.push(...getNueComponents())
-
-    data.content = renderPage(data.page, { data, lib }).html
-
-    function render(name, def) {
-      const layout = lib.find(el => el.tagName == name) || def && parseNue(def)[0]
-
-      try {
-        return layout ? layout.render(data, lib) : ''
-      } catch (e) {
-        delete data.inline_css
-        log.error(`Error in ${path}, on <${name}> component`)
-        throw { component: name, ...e }
-      }
-    }
-
-    data.header = render('header', getHeaderLayout(data))
-    data.footer = render('footer')
-    data.main = render('main', '<slot for="content"/>')
-    data.custom_head = render('head').slice(6, -7)
-    data.head = renderHead(data, is_prod)
-    return DOCTYPE + render('html', getPageLayout(data))
-  }
-
-
-  // processor methods
-  async function processPage(file) {
-    const { dir, name, path } = file
-    const data = await getPageData(path)
-    const html = await renderMPA(path, data)
-    await write(html, dir, `${name}.html`)
-    return html
   }
 
 
@@ -214,7 +184,9 @@ export async function createKit(args) {
 
     // markdown content
     if (file.is_md) {
-      const html = await processPage(file)
+      const { dir, name, path } = file
+      const html = await renderMPA(path)
+      await write(html, dir, `${name}.html`)
       active_page = file
       return { html }
     }
