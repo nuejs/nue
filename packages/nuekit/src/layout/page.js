@@ -1,119 +1,111 @@
-import { extname } from 'node:path'
-import { TYPES } from '../nueserver.js'
+
+import { renderPage as renderArticle } from 'nuemark'
+import { parse as parseNue } from 'nuejs-core'
+import { renderHead } from './head.js'
+import { renderNav } from './navi.js'
+
+// default layouts
+const HEADER = `
+  <header>
+    <navi :items="header.branding"/>
+    <navi :items="header.navi"/>
+    <navi :items="header.toolbar"/>
+    <button type="button" aria-expanded="false" :if="header.burger_menu"/>
+  </header>
+`
+
+const FOOTER = `
+  <footer>
+    <navi :items="footer.branding"/>
+    <navi :items="footer.navi"/>
+    <navi :items="footer.toolbar"/>
+  </footer>
+`
+
+const MAIN = `
+  <main>
+    <slot for="layout.sidebar"/>
+    <article>
+      <slot for="layout.article"/>
+    </article>
+    <slot for="layout.aside"/>
+  </main>
+`
+
+const system_lib = [
+  {
+    // navi tag
+    name: 'navi',
+    create({ items }) {
+      return items?.length ? renderNav(items) : ''
+    }
+  }
+]
+
+export function renderPage(data, lib) {
 
 
-export function renderHead(data, is_prod) {
-  const {
-    generator   = `Nue v${data.nuekit_version} (nuejs.org)`,
-    viewport    = 'width=device-width,initial-scale=1',
-    charset     = 'utf-8',
-    title_template = '%s',
-    scripts     = [],
-    styles      = [],
-    inline_css  = [],
-    prefetch    = [],
-    base        = '',
-    origin      = '',
-    components,
-    favicon,
-    title
+  function renderBlock(compName, html) {
+    let comp = lib.find(el => [el.name, el.tagName].includes(compName))
+    if (!comp && html) comp = parseNue(html)[0]
 
-  } = data
-
-  const head = [`<meta charset="${charset}">`]
-  if (title) head.push(`<title>${title_template.replace(/%s/gi, title)}</title>`)
-
-  // meta
-  const pushMeta = (key, val) => val && head.push(`<meta name="${key}" content="${val}">`)
-
-  pushMeta('generator', generator)
-  pushMeta('date.updated', new Date().toISOString())
-  pushMeta('viewport', viewport)
-  pushMeta('description', data.description)
-  pushMeta('author', data.author)
-  pushMeta('robots', data.robots)
-  pushMeta('theme-color', data.theme_color)
-
-  // OG image
-  const og = data.og_image
-  if (og) {
-    let img = og[0] == '/' ? og : `/${data.dir}/${og}`
-    head.push(`<meta property="og:image" content="${origin}${img}">`)
+    try {
+      return comp ? comp.render(data, [...system_lib, ...lib]) : ''
+    } catch (e) {
+      delete data.inline_css
+      console.error(`Error on <${compName}> component`)
+      throw { component: compName, ...e }
+    }
   }
 
-  // preload image
-  const pi = data.preload_image
-  if (pi) head.push(`<link rel="preload" as="image" href="${pi}">`)
 
-  // Pub date
-  const pub = data.pubDate
-  if (pub) head.push(`<meta property="article:published_time" content="${pub}">`)
+  data.layout = {
+    head: renderHead(data),
+    article: renderArticle(data.page, { data, lib }).html,
+    header: renderBlock('header', data.header && HEADER),
+    footer: renderBlock('footer', data.header && FOOTER),
+    sidebar: renderBlock('sidebar'),
+    aside: renderBlock('aside'),
+    custom_head: renderBlock('head').slice(6, -7),
+  }
 
-  // components
-  if (components) pushMeta('nue:components', components.map(uri => `${base}${uri}`).join(' '))
+  data.layout.main = renderBlock('main', MAIN)
+  const html = renderRootHTML(data)
 
-  // misc
-  if (favicon) head.push(`<link rel="icon" type="${TYPES[extname(favicon).slice(1)]}" href="${favicon}">`)
-
-  // inline style
-  inline_css.forEach(el => head.push(`<style href="${base}${el.path}">${ el.css }</style>`))
-
-  // stylesheets
-  styles.forEach(href => head.push(`<link href="${base}${href}" rel="stylesheet">`))
-
-  // scripts (type=module)
-  scripts.forEach(src => head.push(`<script src="${base}${src}" type="module"></script>`))
-
-  // CSS prefetch
-  prefetch.forEach(href => head.push(`<link rel="prefetch" href="${base}${href}">`))
-
-
-  return head.join('\n')
+  return renderBlock('html', html)
 }
 
-
-export function getHeaderLayout(data) {
-  if (!data.header) return
-
-  return `
-<header>
-  <navi :items="header.branding"/>
-  <navi :items="header.navi"/>
-  <navi :items="header.toolbar"/>
-  <burger :if="burger_menu"/>
-</header>
-`
-}
-
-export function getPageLayout(data) {
-  const { language='en', direction='ltr' } = data
+export function renderRootHTML(data) {
+  const { language='en-US', direction='ltr' } = data
   const klass = data.class ? ` class="${data.class}"` : ''
 
   return `
 <html lang="${language}" dir="${direction}">
 
   <head>
-    <slot for="head"/>
-    <slot for="custom_head"/>
+    <slot for="layout.head"/>
+    <slot for="layout.custom_head"/>
   </head>
 
   <body${klass}>
-    <slot for="header"/>
-    <slot for="main"/>
-    <slot for="footer"/>
+    <slot for="layout.header"/>
+    <slot for="layout.main"/>
+    <slot for="layout.footer"/>
   </body>
 
 </html>
 `
 }
 
-export function getSPALayout(body='', data) {
+export function renderSinglePage(body='', data) {
   const { language='en-US', direction='ltr' } = data
+
+  data.layout = { head: renderHead(data) }
 
   return `
 <html lang="${language}" dir="${direction}">
   <head>
-    <slot for="head"/>
+    <slot for="layout.head"/>
   </head>
 
   <body>
@@ -123,12 +115,3 @@ export function getSPALayout(body='', data) {
 `
 }
 
-
-export function getNueComponents() {
-  return [
-    {
-      name: 'navi',
-      create({ items }) { return '<b>todo</b>' },
-    }
-  ]
-}

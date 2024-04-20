@@ -6,7 +6,7 @@ export function parseNavItem(item) {
 
   // plain string
   if (typeof item == 'string') {
-    return item.startsWith('---') ? { separator: item } : { text: item, url: `/${item.toLowerCase()}/`}
+    return item.startsWith('---') ? { separator: item } : { label: item, url: `/${item.toLowerCase()}/`}
   }
 
   const keys = Object.keys(item)
@@ -14,10 +14,11 @@ export function parseNavItem(item) {
 
   // [label]: string | object
   if (char == char.toUpperCase() && keys.length == 1) {
-    let [text, data] = Object.entries(item)[0]
+    let [label, data] = Object.entries(item)[0]
     if (typeof data == 'string') data = parseDescription(data)
+
     if (Array.isArray(data)) data = { items: data.map(parseNavItem) }
-    return { text, ...data }
+    return { label, ...data }
   }
 
   // { ... }
@@ -28,7 +29,7 @@ export function parseNavItem(item) {
 
 
 export function renderNavItem(item, opts) {
-  const { text, role, icon, items, url, image } = item
+  const { label, role, icon, items, url, image } = item
   const { icon_base='/img' } = opts || {}
   const html = []
 
@@ -39,7 +40,7 @@ export function renderNavItem(item, opts) {
   if (icon) {
     const { width = 24, height = width || 24 } = parseSize(item)
     const img = elem('img', { src: `${icon_base}/${icon}.svg`, width, height })
-    html.push(img, text && elem('span', renderInline(text)))
+    html.push(img, label && elem('span', renderInline(label)))
   }
 
   // image
@@ -48,8 +49,8 @@ export function renderNavItem(item, opts) {
     html.push(elem('img', { src: image, width, height }))
   }
 
-  // text
-  else if (text) html.push(renderInline(text))
+  // label
+  else if (label) html.push(renderInline(label))
 
   // attributes
   const attr = { href: url, role }
@@ -70,24 +71,39 @@ export function parseDescription(url) {
 }
 
 
-export function renderNav({ text, items }, opts) {
+export function renderNav(items, opts={}) {
+  const { label } = opts
   const html = []
-  if (text) html.push(elem('h3', text))
-  items.forEach(item => html.push(renderNavItem(parseNavItem(item), opts)))
-  return elem('nav', text && { 'aria-label': text }, join(html))
+  if (label) html.push(elem('h3', label))
+
+  items.forEach(el => {
+    const item = parseNavItem(el)
+    const { label, items } = item
+    if (items) {
+      html.push(renderExpandable(label, items, opts))
+    } else {
+      html.push(renderNavItem(item, opts))
+    }
+  })
+
+  return elem('nav', label && { 'aria-label': label }, join(html))
 }
 
-export function renderNavBlock(items, { label, expandable }) {
-  const fn = expandable ? renderExpandableItem : renderNav
 
-  const html = parseNavItems(items).map(item => {
-    return item.items ? fn(item) : renderNavItem(item)
+export function renderExpandable(label, items, opts={}) {
+  const nav = renderNav(items, opts)
+
+  const html = elem('a', { 'aria-expanded': 'false' }, label) + nav
+  return elem('span', { 'aria-haspopup': true }, html)
+}
+
+/*
+export function renderNavBlock(items, { label, expandable }) {
+  const fn = expandable ? renderExpandableNav : renderNav
+
+  const html = items.map(item => {
+    return fn(item) : renderNavItem(item)
   })
   return elem(expandable ? 'nav' : 'section', { 'aria-label': label }, join(html))
 }
-
-export function renderExpandableItem({ text, items}, opts) {
-  const nav = renderNav({ items })
-  const html = elem('a', { 'aria-expanded': 'false' }, text) + nav
-  return elem('span', { 'aria-haspopup': true }, html)
-}
+*/

@@ -202,13 +202,21 @@ test('layout components', async () => {
 })
 
 
-test.only('custom navigation', async () => {
-  await write('site.yaml', 'header: { navi: [foo, bar] }')
-  await write('index.md')
+test('page layout', async () => {
+  await write('site.yaml', 'header: { navi: [{ image: foo }, bar] }\nfooter: { navi: [bar] }')
+  await write('layout.html', '<div @name="sidebar">Sidebar</div><aside>Aside</aside>')
+  await write('index.md', '# Hey')
 
   const kit = await getKit()
   const html = await kit.gen('index.md')
-  console.info(html)
+
+  expect(html).toInclude('<header>')
+  expect(html).toInclude('<footer>')
+  expect(html).toInclude('<a href="/bar/">bar</a></nav>')
+  expect(html).toInclude('<div>Sidebar</div>')
+  expect(html).toInclude('<aside>Aside</aside>')
+
+  // console.info(html)
 })
 
 
@@ -238,7 +246,7 @@ test('inline CSS', async () => {
   await write('inline/index.md', '# Hey')
   const data = await kit.getPageData('inline/index.md')
   expect(data.inline_css[0].path).toEqual('/inline/style.css')
-  const html = await kit.renderMPA('inline/index.md', data)
+  const html = await kit.gen('inline/index.md')
   expect(html).toInclude('<style href="/inline/style.css">')
   expect(html).toInclude('margin:')
 })
@@ -265,11 +273,11 @@ test('page assets', async() => {
 })
 
 
-test('index.html', async() => {
+test('single-page app index', async() => {
   await write('index.html', '<test/>')
   const kit = await getKit()
-  await kit.gen('index.html')
-  const html = await readDist(kit.dist, 'index.html')
+  const html = await kit.renderSPA('index.html')
+  // const html = await readDist(kit.dist, 'index.html')
 
   expect(html).toInclude('hotreload.js')
   expect(html).toInclude('is="test"')

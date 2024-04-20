@@ -241,7 +241,7 @@ function processNode(opts) {
       // slots
       if (name == 'slot') {
         if (attribs.for) {
-          const html = data[attribs.for]
+          const html = exec(setContext(attribs.for), data)
           if (html) DOM.replaceElement(node, mkdom(html))
           else removeNode(node)
 
