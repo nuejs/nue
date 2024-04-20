@@ -3,7 +3,7 @@
   <img src="https://nuejs.org/img/nuemark-banner-big.png">
 </a>
 
-# Nuekit
+# Nuemark
 Nuemark is a Markdown dialect for rich, interactive content. Use it to create marketing pages, documentation pages, and blog entries without leaving the content. Even you all-mighty front page can be expressed with Nuemark:
 
 
