@@ -14,7 +14,7 @@ Use Glow as a standalone library or together with Nue
 
 
 #### Standalone library
-Install with NPM and and follow [Glow documentation](//nuejs.org/docs/concepts/syntax-highlighting.html)
+Install with NPM and follow [Glow documentation](//nuejs.org/docs/concepts/syntax-highlighting.html)
 
 ``` sh
 npm i nue-glow
