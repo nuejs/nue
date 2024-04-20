@@ -22,7 +22,7 @@ Nuemark is a Markdown dialect for rich, interactive content. Use it to create ma
 
 ### Getting Started
 
-```
+``` sh
 # Install Bun (if not done yet)
 curl -fsSL https://bun.sh/install | bash
 
