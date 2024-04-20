@@ -4,7 +4,7 @@
 </a>
 
 # Nuemark
-Nuemark is a Markdown dialect for rich, interactive content. Use it to create marketing pages, documentation pages, and blog entries without leaving the content. Even you all-mighty front page can be expressed with Nuemark:
+Nuemark is a Markdown dialect for rich, interactive content. Use it to create marketing pages, documentation pages, and blog entries without leaving the content. Even your all-mighty front page can be expressed with Nuemark:
 
 
 ![Web page in read and edit mode](https://nuejs.org/img/nuemark-content-big.png)
