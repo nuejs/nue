@@ -3,8 +3,8 @@
   <img src="https://nuejs.org/img/nuemark-banner-big.png">
 </a>
 
-# Nuekit
-Nuemark is a Markdown dialect for rich, interactive content. Use it to create marketing pages, documentation pages, and blog entries without leaving the content. Even you all-mighty front page can be expressed with Nuemark:
+# Nuemark
+Nuemark is a Markdown dialect for rich, interactive content. Use it to create marketing pages, documentation pages, and blog entries without leaving the content. Even your all-mighty front page can be expressed with Nuemark:
 
 
 ![Web page in read and edit mode](https://nuejs.org/img/nuemark-content-big.png)
@@ -22,7 +22,7 @@ Nuemark is a Markdown dialect for rich, interactive content. Use it to create ma
 
 ### Getting Started
 
-```
+``` sh
 # Install Bun (if not done yet)
 curl -fsSL https://bun.sh/install | bash
 
