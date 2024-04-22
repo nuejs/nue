@@ -10,11 +10,11 @@ Glow is a syntax highligher for markdown.
 
 
 ### Get started
-Use Glow as a standalone library or together Nue
+Use Glow as a standalone library or together with Nue
 
 
 #### Standalone library
-Install with NPM and and follow [Glow documentation](//nuejs.org/docs/concepts/syntax-highlighting.html)
+Install with NPM and follow [Glow documentation](//nuejs.org/docs/concepts/syntax-highlighting.html)
 
 ``` sh
 npm i nue-glow
@@ -22,7 +22,7 @@ npm i nue-glow
 
 #### With Nue
 
-Nue uses Glow in markdown code blocks and it offers [three Nuemark tags](//nuejs.org/reference/nuemark-tags.html#code): `[code]`, `[codeblocks]`, and `[codetabs]` for more advanced usage. Try them out as follows:
+Nue uses Glow in markdown code blocks and it offers [three Nuemark tags](//nuejs.org/docs/reference/nuemark-tags.html#code): `[code]`, `[codeblocks]`, and `[codetabs]` for more advanced usage. Try them out as follows:
 
 ``` sh
 # Install Bun (if not done yet)
