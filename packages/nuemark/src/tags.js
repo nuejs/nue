@@ -137,6 +137,12 @@ export const tags = {
     return createWrapper(data.wrapper, root)
   },
 
+  quote(data) {
+    const { content, cite, from, attr } = data
+    const html = [ parseInline(elem('p', join(content))) ]
+    if (from) html.push(elem('footer', parseInline(from)))
+    return elem('blockquote', { cite }, join(html))
+  },
 
   // captions, languages, classes, numbered
   codeblocks(data) {
