@@ -1,72 +1,102 @@
 
-import { renderPage as renderArticle } from 'nuemark'
+import { renderPageList, renderPrettyDate } from './pagelist.js'
+import { renderPage as nuemark } from 'nuemark'
 import { parse as parseNue } from 'nuejs-core'
+import { renderInline } from 'nuemark'
 import { renderHead } from './head.js'
 import { renderNav } from './navi.js'
 
 // default layouts
 const HEADER = `
   <header>
-    <navi :items="header.branding"/>
-    <navi :items="header.navi"/>
-    <navi :items="header.toolbar"/>
-    <button type="button" aria-expanded="false" :if="header.burger_menu"/>
+    <navi :items="header.branding" label="branding"/>
+    <navi :items="header.navi" label="main"/>
+    <navi :items="header.toolbar" label="toolbar"/>
+    <a href="#menu" aria-controls="menu" :if="header.burger_menu"/>
   </header>
 `
 
 const FOOTER = `
   <footer>
-    <navi :items="footer.branding"/>
+    <navi :items="footer.branding" label="branding"/>
     <navi :items="footer.navi"/>
-    <navi :items="footer.toolbar"/>
+    <navi :items="footer.toolbar" label="toolbar"/>
   </footer>
 `
 
 const MAIN = `
   <main>
-    <slot for="layout.sidebar"/>
+    <slot for="layout.aside"/>
+
     <article>
+      <slot for="layout.hero"/>
       <slot for="layout.article"/>
     </article>
-    <slot for="layout.aside"/>
+
+    <slot for="layout.context"/>
   </main>
 `
 
-const system_lib = [
-  {
-    // navi tag
-    name: 'navi',
-    create({ items }) {
-      return items?.length ? renderNav(items) : ''
-    }
-  }
+const PORTAL = `
+  <div id="portal">
+    <dialog id="menu">
+      <a href="#" class="close">&times;</a>
+      <navi :items="header.navi" label="main"/>
+      <navi :items="header.toolbar" label="toolbar"/>
+    </dialog>
+  </div>
+`
+
+// system components
+const html_tags = [
+  { name: 'navi',  create: renderNav },
+  { name: 'page-list', create: renderPageList },
+  { name: 'markdown', create: ({ content }) => renderInline(content) },
+  { name: 'pretty-date', create: (d) => renderPrettyDate(d.date || d.pubDate) },
 ]
+
+const nuemark_tags = {
+  'page-list': function(data) {
+    return renderPageList(data[data.items])
+  }
+}
+
 
 export function renderPage(data, lib) {
 
 
-  function renderBlock(compName, html) {
-    let comp = lib.find(el => [el.name, el.tagName].includes(compName))
+  function renderBlock(name, html) {
+    if (data[name] === false || data[name.slice(1)] === false) return null
+
+
+    let comp = lib.find(el => name[0] == '@' ? el.name == name.slice(1) : !el.name && el.tagName == name)
+
     if (!comp && html) comp = parseNue(html)[0]
 
+
     try {
-      return comp ? comp.render(data, [...system_lib, ...lib]) : ''
+      return comp ? comp.render(data, [...html_tags, ...lib]) : ''
     } catch (e) {
       delete data.inline_css
-      console.error(`Error on <${compName}> component`)
-      throw { component: compName, ...e }
+      console.error(`Error on <${name}> component`, e)
+      throw { component: name, ...e }
     }
   }
 
 
   data.layout = {
     head: renderHead(data),
-    article: renderArticle(data.page, { data, lib }).html,
-    header: renderBlock('header', data.header && HEADER),
-    footer: renderBlock('footer', data.header && FOOTER),
-    sidebar: renderBlock('sidebar'),
-    aside: renderBlock('aside'),
     custom_head: renderBlock('head').slice(6, -7),
+    article: nuemark(data.page, { data, lib, tags: nuemark_tags }).html,
+
+    header: renderBlock('header', data.header && HEADER),
+    footer: renderBlock('footer', data.footer && FOOTER),
+    aside: renderBlock('aside'),
+
+    hero: renderBlock('@hero'),
+    context: renderBlock('@context'),
+
+    portal: renderBlock('@portal', data.header && PORTAL),
   }
 
   data.layout.main = renderBlock('main', MAIN)
@@ -91,6 +121,7 @@ export function renderRootHTML(data) {
     <slot for="layout.header"/>
     <slot for="layout.main"/>
     <slot for="layout.footer"/>
+    <slot for="layout.portal"/>
   </body>
 
 </html>
