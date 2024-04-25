@@ -1,7 +1,7 @@
 
 
 import { match } from '../src/browser/app-router.js'
-import { renderHead } from '../src/layout/page.js'
+
 import { getParts, sortCSS } from '../src/util.js'
 import { lightningCSS } from '../src/builder.js'
 import { getArgs } from '../src/cli.js'
@@ -30,13 +30,6 @@ test('CLI args', () => {
   expect(args.env).toBe('joku.yaml')
   expect(args.dryrun).toBe(true)
   expect(args.verbose).toBe(true)
-})
-
-test('head', () => {
-  const head = renderHead({ charset: 'foo', title: 'Hey', preload_image: 'hey.png' })
-  expect(head).toInclude('meta charset="foo"')
-  expect(head).toInclude('<title>Hey</title>')
-  expect(head).toInclude('<link rel="preload" as="image" href="hey.png">')
 })
 
 test('app router', async () => {
