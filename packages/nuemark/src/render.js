@@ -10,6 +10,7 @@ export function renderPage(page, opts) {
   const data = { ...opts.data, ...page.meta }
   const draw_sections = data?.draw_sections || page.sections[1]
   const section_attr = data.sections || []
+  const custom_tags = opts.tags || {}
   const ret = []
 
 
@@ -20,7 +21,7 @@ export function renderPage(page, opts) {
       const { name, md, attr } = el
       const comp = name && lib.find(el => [name, toCamelCase(name)].includes(el.name))
       const alldata = { ...data, ...el.data, attr }
-      const tag = tags[name]
+      const tag = custom_tags[name] || tags[name]
 
       // tag
       return tag ? tag(alldata, opts) :
