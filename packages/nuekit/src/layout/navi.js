@@ -28,9 +28,9 @@ export function parseNavItem(item) {
 }
 
 
-export function renderNavItem(item, opts) {
+export function renderNavItem(item) {
   const { label, role, icon, items, url, image } = item
-  const { icon_base='/img' } = opts || {}
+  const { icon_base='/img' } = {}
   const html = []
 
   // hr
@@ -71,39 +71,46 @@ export function parseDescription(url) {
 }
 
 
-export function renderNav(items, opts={}) {
-  const { label } = opts
-  const html = []
-  if (label) html.push(elem('h3', label))
+export function renderNavItems(items, opts={}) {
+  const { heading, label } = opts
+  const nav = []
+
+  if (heading) nav.push(elem('h3', heading))
 
   items.forEach(el => {
     const item = parseNavItem(el)
     const { label, items } = item
     if (items) {
-      html.push(renderExpandable(label, items, opts))
+      nav.push(renderExpandable(label, items))
     } else {
-      html.push(renderNavItem(item, opts))
+      nav.push(renderNavItem(item))
     }
   })
-
-  return elem('nav', label && { 'aria-label': label }, join(html))
+  return elem('nav', label && { 'aria-label': label }, join(nav))
 }
 
 
-export function renderExpandable(label, items, opts={}) {
-  const nav = renderNav(items, opts)
+export function renderExpandable(label, items) {
+  const nav = renderNavItems(items)
 
   const html = elem('a', { 'aria-expanded': 'false' }, label) + nav
   return elem('span', { 'aria-haspopup': true }, html)
 }
 
-/*
-export function renderNavBlock(items, { label, expandable }) {
-  const fn = expandable ? renderExpandableNav : renderNav
+// <section>
+export function renderNavBlocks(data) {
+  const navs = []
 
-  const html = items.map(item => {
-    return fn(item) : renderNavItem(item)
-  })
-  return elem(expandable ? 'nav' : 'section', { 'aria-label': label }, join(html))
+  for (const heading in data) {
+    const nav = renderNavItems(data[heading], { heading })
+    navs.push(nav)
+  }
+
+  return elem('section', join(navs))
 }
-*/
+
+export function renderNav({ items, label }) {
+  return Array.isArray(items) ? renderNavItems(items, { label }) :
+    typeof items == 'object' ? renderNavBlocks(items) : ''
+}
+
