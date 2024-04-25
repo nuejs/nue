@@ -57,7 +57,8 @@ const html_tags = [
 
 const nuemark_tags = {
   'page-list': function(data) {
-    return renderPageList(data[data.items])
+    const key = data.collection_name || data.content_collection
+    return renderPageList(data[key])
   }
 }
 
