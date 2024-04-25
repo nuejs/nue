@@ -93,7 +93,8 @@ export function onclick(root, fn) {
   })
 }
 
-export function setActive(path, attrname='active') {
+// developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-selected
+export function setActive(path, attrname='aria-selected') {
 
   // remove old selections
   $$(`[${attrname}]`).forEach(el => el.removeAttribute(attrname))
