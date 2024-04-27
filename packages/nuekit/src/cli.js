@@ -21,12 +21,12 @@ export function expandArgs(args) {
 export function getArgs(argv) {
   const commands = ['serve', 'build', 'stats']
   const args = { paths: [], root: '.' }
+  const checkExecutable = new RegExp(sep + 'nue(\\.(cmd|ps1|bunx|exe))?$')
   let opt
 
   expandArgs(argv.slice(1)).forEach((arg, i) => {
-
     // skip
-    if (arg.endsWith(sep + 'cli.js') || arg.endsWith(sep + 'nue') || arg.endsWith(sep + 'nue.cmd') || arg.endsWith(sep + 'nue.ps1') || arg == '--') {
+    if (arg.endsWith(sep + 'cli.js') || checkExecutable.test(arg) || arg == '--') {
 
     // test suite
     } else if (arg.endsWith('.test.js')) {
