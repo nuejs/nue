@@ -21,7 +21,7 @@ export function expandArgs(args) {
 export function getArgs(argv) {
   const commands = ['serve', 'build', 'stats']
   const args = { paths: [], root: '.' }
-  const checkExecutable = new RegExp(sep + 'nue(\\.(cmd|ps1|bunx|exe))?$')
+  const checkExecutable = /[\\\/]nue(\.(cmd|ps1|bunx|exe))?$/
   let opt
 
   expandArgs(argv.slice(1)).forEach((arg, i) => {
