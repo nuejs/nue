@@ -36,7 +36,7 @@ export function renderHead(data) {
   pushMeta('theme-color', data.theme_color)
 
   // OG image
-  const og = data.og_image
+  const og = data.og_image || data.og
   if (og) {
     let img = og[0] == '/' ? og : `/${data.dir}/${og}`
     head.push(`<meta property="og:image" content="${origin}${img}">`)

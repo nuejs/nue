@@ -24,14 +24,8 @@ function getColorFunctions() {
 export const colors = getColorFunctions()
 
 
-
-/* path parts */
-
-export function joinRootPath(root, path, abs = false) {
-  return join(abs ? process.cwd() : '', isAbsolute(path) ? '' : root, path)
-}
-
-export function getParts(path) {
+// returns { url, dir, slug, appdir }
+export function parsePathParts(path) {
   path = normalize(path)
   const { dir, name, base } = parse(path)
   const appdir = getAppDir(path)
@@ -39,6 +33,9 @@ export function getParts(path) {
   return { url, dir, slug: name + '.html', appdir }
 }
 
+export function joinRootPath(root, path, abs = false) {
+  return join(abs ? process.cwd() : '', isAbsolute(path) ? '' : root, path)
+}
 
 export function getAppDir(path) {
   path = normalize(path)
@@ -46,8 +43,8 @@ export function getAppDir(path) {
   return appdir == path ? '' : appdir
 }
 
-// getDirs('a/b/c') --> ['a', 'a/b', 'a/b/c']
-export function getDirs(dir) {
+// traverseDirsUp('a/b/c') --> ['a', 'a/b', 'a/b/c']
+export function traverseDirsUp(dir) {
   if (!dir) return []
   dir = normalize(dir)
   const els = dir.split(sep)
@@ -64,6 +61,15 @@ export function getUrl(dir, name) {
 
 export function toPosix(path) {
   return path.replaceAll('\\', '/')
+}
+
+export function extendData(to, from={}) {
+  const { include = [], exclude = [] } = to
+  if (from.include) include.push(...from.include)
+  if (from.exclude) exclude.push(...from.exclude)
+  Object.assign(to, from)
+  to.include = include
+  to.exclude = exclude
 }
 
 

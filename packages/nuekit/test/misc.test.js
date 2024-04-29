@@ -2,7 +2,7 @@
 
 import { match } from '../src/browser/app-router.js'
 
-import { getParts, sortCSS } from '../src/util.js'
+import { parsePathParts, sortCSS } from '../src/util.js'
 import { lightningCSS } from '../src/builder.js'
 import { getArgs } from '../src/cli.js'
 
@@ -40,7 +40,7 @@ test('app router', async () => {
 })
 
 test('path parts', () => {
-  const parts = getParts('docs/glossary/semantic-css.md')
+  const parts = parsePathParts('docs/glossary/semantic-css.md')
   expect(parts.url).toBe('/docs/glossary/semantic-css.html')
   expect(parts.dir).toMatchPath('docs/glossary')
   expect(parts.appdir).toMatchPath('docs')

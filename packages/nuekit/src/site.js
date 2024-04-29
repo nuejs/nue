@@ -1,5 +1,15 @@
 
-import { log, getParts, getAppDir, getDirs, colors, toPosix, sortCSS, joinRootPath } from './util.js'
+import {
+  traverseDirsUp,
+  parsePathParts,
+  extendData,
+  getAppDir,
+  log,
+  colors,
+  toPosix,
+  sortCSS,
+  joinRootPath } from './util.js'
+
 import { join, extname, basename, sep, parse as parsePath } from 'node:path'
 import { parse as parseNue } from 'nuejs-core'
 import { promises as fs } from 'node:fs'
@@ -113,12 +123,12 @@ export async function createSite(args) {
     }
   }
 
-  async function getPageFiles(page_dir) {
+  async function getPageAssets(page_dir) {
     const key = ':' + page_dir
     if (cache[key]) return cache[key]
     const arr = []
 
-    for (const dir of getDirs(page_dir || '.')) {
+    for (const dir of traverseDirsUp(page_dir || '.')) {
       try {
         const paths = await fs.readdir(join(root, dir))
         paths.forEach(path => arr.push(join(dir, path)))
@@ -154,16 +164,16 @@ export async function createSite(args) {
 
   async function getAssets({ dir, exts, to_ext, data={} }) {
     const { include=[], exclude=[] } = data
-    let paths = [...await getAllFiles(self.globals), ...await getPageFiles(dir)]
+    let paths = [...await getAllFiles(self.globals), ...await getPageAssets(dir)]
     const ret = []
 
     // library files
     if (include[0]) {
       for (const path of await getAllFiles(self.libs)) {
-
         // included only
         if (include.find(match => toPosix(path).includes(match))) paths.push(path)
       }
+
     }
 
     paths.forEach(path => {
@@ -198,8 +208,9 @@ export async function createSite(args) {
 
   self.getData = async function(pagedir) {
     const data = { nuekit_version, ...site_data }
-    for (const dir of getDirs(pagedir)) {
-      Object.assign(data, await readData(`${dir}/app.yaml`))
+
+    for (const dir of traverseDirsUp(pagedir)) {
+      extendData(data, await readData(`${dir}/app.yaml`))
     }
     return data
   }
@@ -208,13 +219,14 @@ export async function createSite(args) {
     return await fswalk(root)
   }
 
-  self.getScripts = async function(dir, main=['main.js']) {
-    const arr = await getAssets({ dir, exts: ['js', 'ts'], to_ext: 'js' })
+  self.getScripts = async function(dir, data) {
+    const { main= ['main.js'] } = data
+    const arr = await getAssets({ dir, exts: ['js', 'ts'], to_ext: 'js', data})
     return arr.filter(path => main.includes(basename(path)))
   }
 
-  self.getComponents = async function(dir) {
-    return await getAssets({ dir, exts: ['nue'], to_ext: 'js' })
+  self.getClientComponents = async function(dir, data) {
+    return await getAssets({ dir, exts: ['nue'], to_ext: 'js', data })
   }
 
 
@@ -230,7 +242,7 @@ export async function createSite(args) {
     for (const path of mds) {
       const raw = await read(path)
       const { meta } = nuemark(raw)
-      arr.push({ ...meta, ...getParts(path) })
+      arr.push({ ...meta, ...parsePathParts(path) })
     }
 
     arr.sort((a, b) => {
@@ -257,10 +269,37 @@ export async function createSite(args) {
   }
 
 
+  self.getServerComponents = async function(dir, data) {
+    const paths = await getAssets({ dir, exts: ['html'], data })
+
+    if (dir && dir != '.') {
+      const more = await fs.readdir(root, dir)
+      more.forEach(p => {
+        if (p.endsWith('.html')) paths.unshift(p)
+      })
+    }
+
+    const lib = []
+
+    for (const path of paths) {
+      try {
+        const html = await read(path)
+        lib.unshift(...parseNue(html))
+      } catch (e) {
+        if (!fileNotFound(e)) {
+          log.error('parse error', path)
+          console.error(e)
+        }
+      }
+    }
+    return lib
+  }
+
+  /*
   self.getLayoutComponents = async function(pagedir) {
     const lib = []
 
-    for (const dir of ['.', ...getDirs(pagedir)]) {
+    for (const dir of ['.', ...traverseDirsUp(pagedir)]) {
       const path = join(dir, `layout.html`)
       try {
         const html = await read(path)
@@ -274,6 +313,8 @@ export async function createSite(args) {
     }
     return lib
   }
+  */
+
 
   // @returns { src, path, code: 200 }
   self.getRequestPaths = async function(url) {
