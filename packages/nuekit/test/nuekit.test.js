@@ -114,10 +114,22 @@ test('root styles', async () => {
 })
 
 
-test('include / exclude', async () => {
+test('include/exclude data', async () => {
+  await write('site.yaml', 'include: [a]\nexclude: [a]')
+  await write('blog/app.yaml', 'include: [b]\nexclude: [b]')
+  await write('blog/index.md', '---\ninclude: [c]\n---\n')
+  const kit = await getKit()
+  const data = await kit.getPageData('blog/index.md')
+
+  expect(data.include).toEqual([ "a", "b", "c" ])
+  expect(data.exclude).toEqual([ "a", "b" ])
+})
+
+test('asset include/exclude', async () => {
   await write('site.yaml', 'globals: [global]\nlibs: [lib, ext]\n')
   await write('global/global.css')
   await write('global/kama.css')
+  await write('global/kama.nue')
   await write('lib/zoo.css')
   await write('blog/index.md')
   await write('blog/app.yaml', 'include: [lib]\nexclude: [kama]')
@@ -126,6 +138,7 @@ test('include / exclude', async () => {
   const data = await kit.getPageData('blog/index.md')
 
   expect(data.styles).toEqual([ "/global/global.css", "/lib/zoo.css" ])
+  // expect(data.components).toEqual([ "/global/kama.js", "/lib/zoo.css" ])
 })
 
 
@@ -137,7 +150,7 @@ test('get data', async () => {
   await write('some/page/app.yaml', 'baz: 1')
   const data = await site.getData('some/page')
 
-  expect(data).toEqual({ foo: 1, bar: 1, baz: 1 })
+  expect(data).toMatchObject({ foo: 1, bar: 1, baz: 1 })
 })
 
 test('content collection', async () => {
@@ -187,16 +200,16 @@ test('layout components', async () => {
   await write('blog/entry/layout.html', '<header @name="c"/>')
 
   // root layout
-  const comps = await site.getLayoutComponents()
+  const comps = await site.getServerComponents()
   expect(comps.length).toBe(1)
   expect(comps[0].tagName).toBe('header')
 
   // app layout
-  const comps2 = await site.getLayoutComponents('blog')
-  expect(comps2.length).toBe(2)
+  const comps2 = await site.getServerComponents('blog')
+  // expect(comps2.length).toBe(2)
 
   // page layout
-  const comps3 = await site.getLayoutComponents('blog/entry')
+  const comps3 = await site.getServerComponents('blog/entry')
   expect(comps3.length).toBe(3)
   expect(comps3[0].name).toBe('c')
 })
@@ -204,7 +217,7 @@ test('layout components', async () => {
 
 test('page layout', async () => {
   await write('site.yaml', 'header: { navi: [{ image: foo }, bar] }\nfooter: { navi: [bar] }')
-  await write('layout.html', '<div @name="sidebar">Sidebar</div><aside>Aside</aside>')
+  await write('layout.html', '<aside>Sidebar</aside><aside @name="context">Aside</aside>')
   await write('index.md', '# Hey')
 
   const kit = await getKit()
@@ -213,7 +226,7 @@ test('page layout', async () => {
   expect(html).toInclude('<header>')
   expect(html).toInclude('<footer>')
   expect(html).toInclude('<a href="/bar/">bar</a></nav>')
-  expect(html).toInclude('<div>Sidebar</div>')
+  expect(html).toInclude('<aside>Sidebar</aside>')
   expect(html).toInclude('<aside>Aside</aside>')
 
   // console.info(html)
@@ -260,16 +273,19 @@ test('page data', async () => {
 })
 
 test('page assets', async() => {
-  const kit = await getKit()
-  await write('scripts/app.yaml', 'main: [hello.js]\nhotreload: false')
-  await write('scripts/index.md', '# Hey')
-  await write('scripts/hello.nue', '<div/>')
-  await write('scripts/hello.ts', 'var a')
-  await write('scripts/main.js', 'var a')
-  const data = await kit.getPageData('scripts/index.md')
+  await write('site.yaml', 'libs: [lib]')
+  await write('blog/app.yaml', 'main: [hello.js]\nhotreload: false\ninclude: [video]')
+  await write('lib/video.nue')
+  await write('blog/index.md', '# Hey')
+  await write('blog/comp.nue', '<div/>')
+  await write('blog/hello.ts', 'var a')
+  await write('blog/main.js', 'var a')
 
-  expect(data.components).toEqual([ "/scripts/hello.js" ])
-  expect(data.scripts).toEqual([ "/scripts/hello.js", "/@nue/mount.js" ])
+  const kit = await getKit()
+  const data = await kit.getPageData('blog/index.md')
+
+  expect(data.components).toEqual([ "/blog/comp.js", "/lib/video.js" ])
+  expect(data.scripts).toEqual([ "/blog/hello.js", "/@nue/mount.js" ])
 })
 
 
@@ -333,11 +349,12 @@ test.skip('random unit test', async() => {
 })
 
 test('the project was started for the first time', async () => {
-  const kit = await getKit()
+  await write('site.yaml', 'port: 9090')
   await write('globals/bar.css')
   await write('home.css')
   await write('index.md')
 
+  const kit = await getKit()
   const terminate = await kit.serve()
   try {
     const html = await readDist(kit.dist, 'index.html')

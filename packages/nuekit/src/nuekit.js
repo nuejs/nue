@@ -1,9 +1,9 @@
 
 
+import { log, colors, getAppDir, parsePathParts, extendData } from './util.js'
 import { join, parse as parsePath, extname, basename } from 'node:path'
 import { parse as parseNue, compile as compileNue } from 'nuejs-core'
 import { renderPage, renderSinglePage } from './layout/page.js'
-import { log, colors, getAppDir, getParts } from './util.js'
 import { lightningCSS, buildJS } from './builder.js'
 import { createServer, send } from './nueserver.js'
 import { printStats, categorize } from './stats.js'
@@ -54,10 +54,10 @@ export async function createKit(args) {
   async function setupScripts(dir, data) {
 
     // scripts
-    const scripts = data.scripts = await site.getScripts(dir, data.main)
+    const scripts = data.scripts = await site.getScripts(dir, data)
 
     // components
-    if (data.automount !== false) data.components = await site.getComponents(dir)
+    if (data.automount !== false) data.components = await site.getClientComponents(dir, data)
 
     // system scripts
     function push(name) {
@@ -85,7 +85,8 @@ export async function createKit(args) {
     const { meta } = page
 
     // YAML data
-    Object.assign(data, getParts(path), meta, { page })
+    Object.assign(data, parsePathParts(path), { page })
+    extendData(data, meta)
 
     // content collection
     const cdir = data.content_collection
@@ -108,7 +109,7 @@ export async function createKit(args) {
     const data = await getPageData(path)
     const file = parsePath(path)
     const dir = data.appdir || file.dir
-    const lib = await site.getLayoutComponents(dir)
+    const lib = await site.getServerComponents(dir)
 
     return DOCTYPE + renderPage(data, lib)
   }
@@ -121,7 +122,7 @@ export async function createKit(args) {
     const file = parsePath(index_path)
     const dir = file.dir
     const appdir = getAppDir(index_path)
-    const data = { ...await site.getData(appdir), ...getParts(index_path) }
+    const data = { ...await site.getData(appdir), ...parsePathParts(index_path) }
 
     // scripts & styling
     await setupScripts(dir, data)
@@ -131,7 +132,7 @@ export async function createKit(args) {
     const html = await read(index_path)
 
     if (html.includes('<html')) {
-      const lib = await site.getLayoutComponents(appdir)
+      const lib = await site.getServerComponents(appdir)
       const [ spa, ...spa_lib ] = parseNue(html)
       return DOCTYPE + spa.render(data, [...lib, ...spa_lib])
     }
@@ -309,7 +310,7 @@ export async function createKit(args) {
     if (is_dev) watcher = fswatch(root, async file => {
       try {
         const ret = await processFile(file)
-        if (ret) send({ ...file, ...getParts(file.path), ...ret })
+        if (ret) send({ ...file, ...parsePathParts(file.path), ...ret })
       } catch (e) {
         send({ error: e, ...file })
         console.error(e)

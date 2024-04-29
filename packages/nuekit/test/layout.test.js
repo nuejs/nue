@@ -28,9 +28,10 @@ test('render page', () => {
   expect(html).toEndWith('<p>Wassup <em>bro</em></p></a></li>')
 })
 
-test.only('render pages', () => {
-  const page = { title: 'Yo', desc: 'Bro', url: '/'}
-  const html = renderPageList({ items: [page, page] })
+test('render pages', () => {
+  const page = { title: 'Yo', desc: 'Bro', url: '/', date: new Date() }
+  const html = renderPageList([ page, page ])
+
   expect(html).toStartWith('<ul><li')
   expect(html.length).toBeGreaterThan(250)
 })
