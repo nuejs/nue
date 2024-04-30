@@ -105,7 +105,7 @@ async function runCommand(args) {
   if (cmd == 'stats') await nue.stats(args)
 
   // build
-  else if (push || args.paths[0] || cmd == 'build') {
+  else if (dryrun || push || args.paths[0] || cmd == 'build') {
     const paths = await nue.build(args.paths, dryrun)
 
     // deploy (private repo ATM)
