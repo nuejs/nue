@@ -19,7 +19,7 @@ Options
   -s or --stats         Show site statistics after current command
   -I or --init          Force clear and initialize output directory
   -n or --dry-run       Show what would be built. Does not create outputs
-  -b or --esbuild       Use esbuild as bundler. Install esbuild manually
+  -b or --esbuild       Use esbuild as bundler. Please install it manually
 
 File matches
   Only build files that match the rest of the arguments. For example:
