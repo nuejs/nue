@@ -1,0 +1,3 @@
+title: Page Router Test
+globals: [style]
+router: true
