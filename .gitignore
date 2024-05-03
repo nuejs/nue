@@ -4,3 +4,4 @@ dist
 .idea
 .vscode
 _test
+coverage
