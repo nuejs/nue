@@ -114,3 +114,11 @@ export function renderNav({ items, label }) {
     typeof items == 'object' ? renderNavBlocks(items) : ''
 }
 
+
+export function renderTOC(data) {
+
+  const items = data.page.headings.filter(el => [2, 3].includes(el.level))
+    .map(el => elem('a', { href: '#' + el.id, class: 'level-' + el.level }, el.text))
+
+  return elem('nav', { class: data.class, id: data.id }, join(items))
+}

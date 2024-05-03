@@ -1,10 +1,10 @@
 
 import { renderPageList, renderPrettyDate } from './pagelist.js'
+import { renderNav, renderTOC } from './navi.js'
 import { renderPage as nuemark } from 'nuemark'
 import { parse as parseNue } from 'nuejs-core'
 import { renderInline } from 'nuemark'
 import { renderHead } from './head.js'
-import { renderNav } from './navi.js'
 
 // default layouts
 const HEADER = `
@@ -29,8 +29,9 @@ const MAIN = `
     <slot for="layout.aside"/>
 
     <article>
-      <slot for="layout.hero"/>
+      <slot for="layout.pagehead"/>
       <slot for="layout.article"/>
+      <slot for="layout.pagefoot"/>
     </article>
 
     <slot for="layout.context"/>
@@ -53,6 +54,7 @@ const html_tags = [
   { name: 'page-list', create: renderPageList },
   { name: 'markdown', create: ({ content }) => renderInline(content) },
   { name: 'pretty-date', create: (d) => renderPrettyDate(d.date || d.pubDate) },
+  { name: 'toc', create: (d) => renderTOC(d) },
 ]
 
 const nuemark_tags = {
@@ -92,10 +94,12 @@ export function renderPage(data, lib) {
 
     header: renderBlock('header', data.header && HEADER),
     footer: renderBlock('footer', data.footer && FOOTER),
-    aside: renderBlock('aside'),
 
-    hero: renderBlock('@hero'),
+    aside: renderBlock('aside'),
     context: renderBlock('@context'),
+
+    pagehead: renderBlock('@pagehead'),
+    pagefoot: renderBlock('@pagefoot'),
 
     portal: renderBlock('@portal', data.header && PORTAL),
   }
