@@ -143,12 +143,12 @@ export async function createSite(args) {
   }
 
 
-  async function getAllFiles(from_dirs) {
-    const key = '@' + from_dirs
+  async function walkDirs(dirs) {
+    const key = '@' + dirs
     if (cache[key]) return cache[key]
     const arr = []
 
-    for (const dir of from_dirs) {
+    for (const dir of dirs) {
       try {
         const paths = await fswalk(join(root, dir))
         paths.forEach(path => arr.push(join(dir, path)))
@@ -164,12 +164,19 @@ export async function createSite(args) {
 
   async function getAssets({ dir, exts, to_ext, data={} }) {
     const { include=[], exclude=[] } = data
-    let paths = [...await getAllFiles(self.globals), ...await getPageAssets(dir)]
+    const subdirs = !dir ? [] : self.globals.map(el => join(dir, el))
+
+    let paths = [
+      ...await walkDirs(self.globals),
+      ...await walkDirs(subdirs),
+      ...await getPageAssets(dir)
+    ]
+
     const ret = []
 
     // library files
     if (include[0]) {
-      for (const path of await getAllFiles(self.libs)) {
+      for (const path of await walkDirs(self.libs)) {
         // included only
         if (include.find(match => toPosix(path).includes(match))) paths.push(path)
       }
@@ -246,9 +253,10 @@ export async function createSite(args) {
     }
 
     arr.sort((a, b) => {
-      const [d1, d2] = [a, b].map(v => v.pubDate || Infinity)
+      const [d1, d2] = [a, b].map(v => v.pubDate || v.date || Infinity)
       return d2 - d1
     })
+
     if (is_bulk) cache[key] = arr
 
     return arr

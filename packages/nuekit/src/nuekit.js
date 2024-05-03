@@ -108,9 +108,7 @@ export async function createKit(args) {
   async function renderMPA(path) {
     const data = await getPageData(path)
     const file = parsePath(path)
-    const dir = data.appdir || file.dir
-    const lib = await site.getServerComponents(dir)
-
+    const lib = await site.getServerComponents(file.dir)
     return DOCTYPE + renderPage(data, lib)
   }
 
