@@ -37,7 +37,7 @@ export function getArgs(argv) {
       args.cmd = arg
 
     // options
-    } else if (arg[0] == '-') {
+    } else if (!opt && arg[0] == '-') {
 
       // booleans
       if (['-p', '--production'].includes(arg)) args.is_prod = true
@@ -55,14 +55,15 @@ export function getArgs(argv) {
       else if (['-r', '--root'].includes(arg)) opt = 'root'
 
       // bad options
-      else if (opt) throw `"${opt}" option is not set`
       else throw `Unknown option: "${arg}"`
 
-    } else if (arg) {
+    } else if (arg && arg[0] != '-') {
       if (opt) { args[opt] = arg; opt = null }
       else args.paths.push(arg)
-    }
+    } else if (opt) throw `"${opt}" option is not set`
   })
+
+  if (opt) throw `"${opt}" option is not set`
 
   return args
 }
@@ -105,7 +106,7 @@ async function runCommand(args) {
   if (cmd == 'stats') await nue.stats(args)
 
   // build
-  else if (push || args.paths[0] || cmd == 'build') {
+  else if (dryrun || push || args.paths[0] || cmd == 'build') {
     const paths = await nue.build(args.paths, dryrun)
 
     // deploy (private repo ATM)
