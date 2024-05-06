@@ -115,10 +115,12 @@ test('Loops', () => {
     '<div><p :for="x in nums">{ x }</p><a :for="y in nums">{ y }</a></div>':
       '<div><p>-1</p><p>0</p><p>1</p><a>-1</a><a>0</a><a>1</a></div>',
 
+    '<i :for="el in falsy">{el}</i>': '<i></i><i>false</i><i>0</i><i>NaN</i><i></i><i></i>'
   }, {
     items: [{ name: 'John', age: 22 }, { name: 'Alice', age: 33 }],
     person: { name: 'Nick', email: 'nick@acme.org', age: 10 },
     nums: [-1, 0, 1],
+    falsy: ['', false, 0, NaN, null, undefined],
   })
 })
 
