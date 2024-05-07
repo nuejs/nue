@@ -1,4 +1,3 @@
-import { beforeAll, afterEach, afterAll, test, expect, spyOn, jest } from 'bun:test'
 import * as path from 'node:path'
 import * as fs from 'node:fs/promises'
 
@@ -99,7 +98,7 @@ test('renders "/" route and mount component', async () => {
   // imitating loaded page
   window.dispatchEvent(new Event('DOMContentLoaded'))
 
-  const logSpy = spyOn(console, 'log')
+  const logSpy = jest.spyOn(console, 'log')
 
   await waitFor(() => {
     expect(document.body.querySelector('[is="app"]').innerHTML.trim()).toBe('<h2>App mounted</h2>')
@@ -120,9 +119,9 @@ test('renders "/page" route and mount component when click in a link', async () 
   // imitating loaded page
   window.dispatchEvent(new Event('DOMContentLoaded'))
 
-  const logSpy = spyOn(console, 'log')
+  const logSpy = jest.spyOn(console, 'log')
   // mocking window.fetch API
-  spyOn(window, 'fetch').mockImplementation(async () => {
+  jest.spyOn(window, 'fetch').mockImplementation(async () => {
     const pageHtml = (await readFile('./page/index.html')).toString()
     const pageFragment = preparePage(pageHtml)
 
