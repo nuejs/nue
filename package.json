@@ -8,9 +8,10 @@
   ],
   "engines": {
     "bun": ">=1",
-    "node": ">=18"
+    "node": ">=20"
   },
   "jest": {
-    "setupFilesAfterEnv": ["jest-extended/all"]
+    "setupFilesAfterEnv": ["jest-extended/all", "<rootDir>/setup-jest.mjs"],
+    "testEnvironment": "@happy-dom/jest-environment"
   }
 }

@@ -1,7 +1,11 @@
+import { fileURLToPath } from 'node:url'
 import * as path from 'node:path'
 import * as fs from 'node:fs/promises'
 
 import { createKit } from '../src/nuekit.js'
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // temporary directory
 const dist = path.join(__dirname, './page-router-test/.dist')

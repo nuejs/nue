@@ -28,9 +28,10 @@
 	},
 	"engines": {
 		"bun": ">= 1",
-		"node": ">= 18"
+		"node": ">= 20"
 	},
-  "devDependencies": {
-    "@happy-dom/global-registrator": "^14.7.1"
-  }
+	"devDependencies": {
+		"@happy-dom/global-registrator": "^14.7.1",
+		"@happy-dom/jest-environment": "^14.10.1"
+	}
 }

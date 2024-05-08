@@ -1,5 +1,5 @@
 name: Test
-on: 
+on:
   push:
     branches:
       - master
@@ -22,7 +22,7 @@ jobs:
           - { os: 'windows-2022', tool: 'node+jest' }
     runs-on: ${{ matrix.env.os }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       # Testing `bun`
       - uses: oven-sh/setup-bun@v1
@@ -36,6 +36,10 @@ jobs:
         if: ${{ matrix.env.tool == 'bun' }}
 
       # Testing `node+jest`
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+        if: ${{ matrix.env.tool == 'node+jest' }}
       - name: Install and test with Node
         run: |
           node -v && npm -v
