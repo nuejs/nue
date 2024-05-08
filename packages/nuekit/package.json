@@ -29,5 +29,8 @@
 	"engines": {
 		"bun": ">= 1",
 		"node": ">= 18"
-	}
+	},
+  "devDependencies": {
+    "@happy-dom/global-registrator": "^14.7.1"
+  }
 }

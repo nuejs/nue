@@ -10,12 +10,15 @@ export async function loadPage(path) {
   // change title
   document.title = $('title', dom)?.textContent
 
+  // update components in <meta> tag
+  updateComponents(dom)
+
   // inline CSS
   const new_styles = swapStyles($$('style'), $$('style', dom))
   new_styles.forEach(style => $('head').appendChild(style))
 
   // body class
-  $('body').classList = $('body2', dom).classList
+  $('body').classList.value = $('body2', dom).classList.value || ''
 
   // external CSS
   const paths = swapStyles($$('link'), $$('link', dom))
@@ -27,6 +30,23 @@ export async function loadPage(path) {
     scrollTo(0, 0)
     dispatchEvent(new Event('route'))
   })
+}
+
+function updateComponents(dom) {
+  const a = $('[name="nue:components"]')
+  const b = $('[name="nue:components"]', dom)
+
+  if (a && b) {
+    if (a.content != b.content) {
+      a.content = b.content
+    }
+
+  } else if (a) {
+    a.remove()
+
+  } else if (b) {
+    document.head.append(b)
+  }
 }
 
 function updateHTML(dom) {
@@ -176,6 +196,3 @@ function loadSheet(path, fn) {
   $('head').appendChild(el)
   el.onload = fn
 }
-
-
-
