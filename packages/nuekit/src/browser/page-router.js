@@ -121,8 +121,8 @@ if (is_browser) {
   // autoroute / document clicks
   onclick(document, async path => {
     document.startViewTransition(async function() {
-      await loadPage(path)
       history.pushState({ path }, 0, path)
+      await loadPage(path)
     })
   })
 
