@@ -18,9 +18,11 @@
     - Available on templates with "-tag" suffix: <image-tag>
     - Nuekit Error reporting
 */
+import { readFileSync } from 'node:fs'
 import { nuemarkdown } from '../index.js'
 import { parseInline } from 'marked'
 import { glow } from 'nue-glow'
+import path from 'node:path'
 
 
 export const tags = {
@@ -66,22 +68,31 @@ export const tags = {
 
 
   image(data, opts) {
+    const src = data.src || data._ || data.large
+
+    // inline SVG
+    if (data.inline && src.endsWith('.svg')) {
+      return readFileSync(path.join('.', src), 'utf-8')
+    }
+
     const { attr, caption, href, content, loading='lazy' } = data
     const { width, height } = parseSize(data)
 
-    const aside = caption ? elem('figcaption', parseInline(caption)) :
-      content ? elem('figcaption', nuemarkdown(content[0], opts)) :
-      null
-
     const img_attr = {
-      src: data.src || data._ || data.large,
       srcset: join(data.srcset, ', '),
       sizes: join(data.sizes, ', '),
       alt: data.alt || caption,
       loading,
       height,
       width,
+      src,
     }
+
+
+    // caption
+    const aside = caption ? elem('figcaption', parseInline(caption)) :
+      content ? elem('figcaption', nuemarkdown(content[0], opts)) :
+      null
 
     // img tag
     if (!aside) Object.assign(img_attr, attr)

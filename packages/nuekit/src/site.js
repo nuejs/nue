@@ -303,27 +303,6 @@ export async function createSite(args) {
     return lib
   }
 
-  /*
-  self.getLayoutComponents = async function(pagedir) {
-    const lib = []
-
-    for (const dir of ['.', ...traverseDirsUp(pagedir)]) {
-      const path = join(dir, `layout.html`)
-      try {
-        const html = await read(path)
-        lib.unshift(...parseNue(html))
-      } catch (e) {
-        if (!fileNotFound(e)) {
-          log.error('parse error', path)
-          console.error(e)
-        }
-      }
-    }
-    return lib
-  }
-  */
-
-
   // @returns { src, path, code: 200 }
   self.getRequestPaths = async function(url) {
     let { dir, name, base, ext } = parsePath(url.slice(1))
