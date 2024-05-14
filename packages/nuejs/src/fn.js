@@ -13,13 +13,13 @@ export const STD = 'a abbr acronym address applet area article aside audio b bas
  summary sup svg switch symbol table tbody td template text textarea textPath tfoot th thead time\
  title tr track tspan tt u ul use var video wbr'.split(' ')
 
-const SVG = 'animate animateMotion animateTransform circle clipPath defs desc ellipse\
- feBlend feColorMatrix feComponentTransfer feComposite feConvolveMatrix feDiffuseLighting\
- feDisplacementMap feDistantLight feDropShadow feFlood feFuncA feFuncB feFuncG feFuncR\
- feGaussianBlur feImage feMerge feMergeNode feMorphology feOffset fePointLight feSpecularLighting\
- feSpotLight feTile feTurbulence filter foreignObject g hatch hatchpath image line linearGradient\
- marker mask metadata mpath path pattern polygon polyline radialGradient rect set stop style svg\
- switch symbol text textPath title tspan use view'.split(' ')
+const SVG = 'animate animatemotion animatetransform circle clippath defs desc ellipse\
+ feblend fecolormatrix fecomponenttransfer fecomposite feconvolvematrix fediffuselighting\
+ fedisplacementmap fedistantlight fedropshadow feflood fefunca fefuncb fefuncg fefuncr\
+ fegaussianblur feimage femerge femergenode femorphology feoffset fepointlight fespecularlighting\
+ fespotlight fetile feturbulence filter foreignobject g hatch hatchpath image line lineargradient\
+ marker mask metadata mpath path pattern polygon polyline radialgradient rect set stop style svg\
+ switch symbol text textpath title tspan use view'.split(' ')
 
 STD.push(...SVG)
 
@@ -33,7 +33,7 @@ export function isBoolean(key) {
 
 export function getComponentName(root) {
   const { attribs } = root
-  const name = attribs['@name'] || attribs['data-name'] || attribs.id
+  const name = attribs['@name'] || attribs['data-name'] // || attribs.id
   delete attribs['@name']
   return name
 }
