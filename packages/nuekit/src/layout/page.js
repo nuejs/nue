@@ -6,7 +6,7 @@ import { parse as parseNue } from 'nuejs-core'
 import { renderInline } from 'nuemark'
 import { renderHead } from './head.js'
 
-// default layouts
+// Standadized layouts / Modernized "CSS Zen Garden"
 const HEADER = `
   <header>
     <navi :items="header.branding" label="branding"/>
@@ -47,6 +47,53 @@ const PORTAL = `
     </dialog>
   </div>
 `
+
+
+export function renderRootHTML(data) {
+  const { language='en-US', direction='ltr' } = data
+  const body_class = data.class ? ` class="${data.class}"` : ''
+
+  return `
+<html lang="${language}" dir="${direction}">
+
+  <head>
+    <slot for="layout.head"/>
+    <slot for="layout.custom_head"/>
+  </head>
+
+  <body${body_class}>
+    <slot for="layout.header"/>
+    <slot for="layout.subnav"/>
+
+    <slot for="layout.main"/>
+
+    <slot for="layout.footer"/>
+    <slot for="layout.portal"/>
+  </body>
+
+</html>
+`
+}
+
+
+export function renderSinglePage(body='', data) {
+  const { language='en-US', direction='ltr' } = data
+
+  data.layout = { head: renderHead(data) }
+
+  return `
+<html lang="${language}" dir="${direction}">
+  <head>
+    <slot for="layout.head"/>
+  </head>
+
+  <body>
+    ${body}
+  </body>
+</html>
+`
+}
+
 
 // system components
 const html_tags = [
@@ -91,8 +138,9 @@ export function renderPage(data, lib) {
     head: renderHead(data),
     custom_head: renderBlock('head').slice(6, -7),
     article: nuemark(data.page, { data, lib, tags: nuemark_tags }).html,
-
     header: renderBlock('header', data.header && HEADER),
+    subnav: renderBlock('@subnav'),
+
     footer: renderBlock('footer', data.footer && FOOTER),
 
     aside: renderBlock('aside'),
@@ -110,44 +158,6 @@ export function renderPage(data, lib) {
   return renderBlock('html', html)
 }
 
-export function renderRootHTML(data) {
-  const { language='en-US', direction='ltr' } = data
-  const klass = data.class ? ` class="${data.class}"` : ''
 
-  return `
-<html lang="${language}" dir="${direction}">
 
-  <head>
-    <slot for="layout.head"/>
-    <slot for="layout.custom_head"/>
-  </head>
-
-  <body${klass}>
-    <slot for="layout.header"/>
-    <slot for="layout.main"/>
-    <slot for="layout.footer"/>
-    <slot for="layout.portal"/>
-  </body>
-
-</html>
-`
-}
-
-export function renderSinglePage(body='', data) {
-  const { language='en-US', direction='ltr' } = data
-
-  data.layout = { head: renderHead(data) }
-
-  return `
-<html lang="${language}" dir="${direction}">
-  <head>
-    <slot for="layout.head"/>
-  </head>
-
-  <body>
-    ${body}
-  </body>
-</html>
-`
-}
 

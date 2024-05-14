@@ -108,7 +108,7 @@ export async function createKit(args) {
   async function renderMPA(path) {
     const data = await getPageData(path)
     const file = parsePath(path)
-    const lib = await site.getServerComponents(file.dir)
+    const lib = await site.getServerComponents(data.appdir || file.dir)
     return DOCTYPE + renderPage(data, lib)
   }
 
@@ -223,7 +223,7 @@ export async function createKit(args) {
   }
 
   function isAssetFor(page, asset) {
-    if (['layout.html', 'site.yaml', 'app.yaml'].includes(asset.base)) {
+    if (asset.ext == '.html' || ['site.yaml', 'app.yaml'].includes(asset.base)) {
       const appdir = getAppDir(asset.dir)
       return ['', '.', ...site.globals].includes(appdir) || getAppDir(page.dir) == appdir
     }
