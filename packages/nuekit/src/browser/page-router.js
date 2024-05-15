@@ -37,13 +37,16 @@ export async function loadPage(path) {
 
 function updateHTML(dom) {
 
-  for (const query of ['header', 'main', 'footer']) {
+  ;['header', 'main', 'footer', 'header + :not(main)'].forEach(function(query, i) {
     const a = $('body >' + query)
     const b = $('body2 >' + query, dom)
+    const clone = b && b.cloneNode(true)
 
-    // patch (with primitive DOM diffing)
+    // update
     if (a && b) {
-      if (a.outerHTML != b.outerHTML) a.replaceWith(b)
+
+      // primitive DOM diffing
+      if (a.outerHTML != b.outerHTML) a.replaceWith(clone)
 
     // remove original
     } else if (a) {
@@ -51,10 +54,12 @@ function updateHTML(dom) {
 
     // add new one
     } else if (b) {
-      const fn = query == 'footer' ? 'append' : 'prepend'
-      document.body[fn](b)
+      if (i == 0) document.body.prepend(clone)
+      if (i == 2) document.body.append(clone)
+      if (i == 3) $('body > header').after(clone)
     }
-  }
+  })
+
 }
 
 
@@ -151,11 +156,19 @@ function swapStyles(orig, styles) {
 const cache = {}
 
 async function getHTML(path) {
-  if (!cache[path]) {
-    const resp = await fetch(path)
-    cache[path] = await resp.text()
+  let html = cache[path]
+  if (html) return html
+
+  const resp = await fetch(path)
+  html = await resp.text()
+
+  if (resp.status == 404 && html?.trim()[0] != '<') {
+    $('article').innerHTML = '<h1>Page not found</h1>'
+  } else {
+    cache[path] = html
   }
-  return cache[path]
+
+  return html
 }
 
 function mkdom(html) {
