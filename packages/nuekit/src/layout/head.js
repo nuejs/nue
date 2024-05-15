@@ -15,7 +15,7 @@ export function renderHead(data) {
     prefetch    = [],
     base        = '',
     origin      = '',
-    components,
+    components  = [],
     favicon,
     title
 
@@ -51,7 +51,7 @@ export function renderHead(data) {
   if (pub) head.push(`<meta property="article:published_time" content="${pub}">`)
 
   // components
-  if (components) pushMeta('nue:components', components.map(uri => `${base}${uri}`).join(' '))
+  pushMeta('nue:components', components.map(uri => `${base}${uri}`).join(' '))
 
   // misc
   if (favicon) head.push(`<link rel="icon" type="${TYPES[extname(favicon).slice(1)]}" href="${favicon}">`)

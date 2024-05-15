@@ -10,8 +10,10 @@ export async function loadPage(path) {
   // change title
   document.title = $('title', dom)?.textContent
 
-  // update components in <meta> tag
-  updateComponents(dom)
+  // update <meta name="nue:components"/>
+  const query = '[name="nue:components"]'
+  $(query).content = $(query, dom).content
+
 
   // inline CSS
   const new_styles = swapStyles($$('style'), $$('style', dom))
@@ -32,22 +34,6 @@ export async function loadPage(path) {
   })
 }
 
-function updateComponents(dom) {
-  const a = $('[name="nue:components"]')
-  const b = $('[name="nue:components"]', dom)
-
-  if (a && b) {
-    if (a.content != b.content) {
-      a.content = b.content
-    }
-
-  } else if (a) {
-    a.remove()
-
-  } else if (b) {
-    document.head.append(b)
-  }
-}
 
 function updateHTML(dom) {
 
