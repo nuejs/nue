@@ -1,4 +1,14 @@
 
+// exported
+export function $(query, root=document) {
+  return root.querySelector(query)
+}
+
+export function $$(query, root=document) {
+  return [ ...root.querySelectorAll(query)]
+}
+
+
 // Router for multi-page applications
 
 export async function loadPage(path) {
@@ -14,6 +24,10 @@ export async function loadPage(path) {
   const query = '[name="nue:components"]'
   $(query).content = $(query, dom).content
 
+  // scripts
+  $$('script[src]', dom).forEach(async script => {
+    await import(script.getAttribute('src'))
+  })
 
   // inline CSS
   const new_styles = swapStyles($$('style'), $$('style', dom))
@@ -127,18 +141,14 @@ if (is_browser) {
   })
 }
 
+addEventListener("DOMContentLoaded", () => {
+  dispatchEvent(new Event('route'))
+})
 
 
 
 /* -------- utilities ---------- */
 
-function $(query, root=document) {
-  return root.querySelector(query)
-}
-
-function $$(query, root=document) {
-  return [ ...root.querySelectorAll(query)]
-}
 
 function hasStyle(sheet, sheets) {
   return sheets.find(el => el.getAttribute('href') == sheet.getAttribute('href'))
