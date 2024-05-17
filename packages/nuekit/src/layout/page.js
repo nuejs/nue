@@ -12,7 +12,7 @@ const HEADER = `
     <navi :items="header.branding" label="branding"/>
     <navi :items="header.navi" label="main"/>
     <navi :items="header.toolbar" label="toolbar"/>
-    <a href="#menu" aria-controls="menu" :if="header.burger_menu"/>
+    <button popovertarget="menu" :if="burger_menu"/>
   </header>
 `
 
@@ -39,11 +39,11 @@ const MAIN = `
 `
 
 const PORTAL = `
-  <div id="portal">
-    <dialog id="menu">
-      <a href="#" class="close">&times;</a>
-      <navi :items="header.navi" label="main"/>
-      <navi :items="header.toolbar" label="toolbar"/>
+  <!-- portal -->
+  <div>
+    <dialog popover id="menu" :if="burger_menu">
+      <button popovertarget="menu">&times;</button>
+      <navi :items="burger_menu"/>
     </dialog>
   </div>
 `
