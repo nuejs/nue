@@ -8,6 +8,7 @@ import { getArgs } from '../src/cli.js'
 import { toMatchPath } from './match-path.js'
 
 import { promises as fs } from 'node:fs'
+import { join } from 'node:path'
 
 expect.extend({ toMatchPath })
 
@@ -15,25 +16,38 @@ expect.extend({ toMatchPath })
 const root = '_test'
 
 // setup and teardown
-beforeAll(async () => {
+beforeEach(async () => {
   await fs.rm(root, { recursive: true, force: true })
   await fs.mkdir(root, { recursive: true })
 })
 
-afterAll(async () => await fs.rm(root, { recursive: true, force: true }))
+afterEach(async () => await fs.rm(root, { recursive: true, force: true }))
+
+async function write(filename, code) {
+  const file = join(root, filename)
+  await fs.writeFile(file, code)
+  return file
+}
+
 
 test('Lightning CSS errors', async () => {
+  const code = 'body margin: 0 }'
+  const filename = await write('lcss.css', code)
+
   try {
-    await lightningCSS('body margin: 0 }', true)
+    await lightningCSS(filename, true)
   } catch (e) {
-    expect(e.lineText).toBe('body margin: 0 }')
+    expect(e.lineText).toBe(code)
     expect(e.line).toBe(1)
   }
 })
 
 test('Lightning CSS', async () => {
-  const css = await lightningCSS('body { margin: 0 }', true)
-  expect(css).toBe('body{margin:0}')
+  const code = 'body { margin: 0 }'
+  const filename = await write('lcss.css', code)
+
+  const css = await lightningCSS(filename, true)
+  expect(css).toBe(code.replace(/\s/g, ''))
 })
 
 test('CLI args', () => {
