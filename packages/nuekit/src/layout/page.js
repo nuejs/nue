@@ -38,14 +38,12 @@ const MAIN = `
   </main>
 `
 
-const PORTAL = `
-  <!-- portal -->
-  <div>
-    <dialog popover id="menu" :if="burger_menu">
-      <button popovertarget="menu">&times;</button>
-      <navi :items="burger_menu"/>
-    </dialog>
-  </div>
+const MENU = `
+  <!-- burger menu -->
+  <dialog popover id="menu">
+    <button popovertarget="menu">&times;</button>
+    <navi :items="burger_menu"/>
+  </dialog>
 `
 
 
@@ -62,13 +60,15 @@ export function renderRootHTML(data) {
   </head>
 
   <body${body_class}>
+    <slot for="layout.top"/>
     <slot for="layout.header"/>
     <slot for="layout.subnav"/>
 
     <slot for="layout.main"/>
 
     <slot for="layout.footer"/>
-    <slot for="layout.portal"/>
+    <slot for="layout.bottom"/>
+    <slot for="layout.menu"/>
   </body>
 
 </html>
@@ -138,6 +138,7 @@ export function renderPage(data, lib) {
     head: renderHead(data),
     custom_head: renderBlock('head').slice(6, -7),
     article: nuemark(data.page, { data, lib, tags: nuemark_tags }).html,
+    top: renderBlock('@top'),
     header: renderBlock('header', data.header && HEADER),
     subnav: renderBlock('@subnav'),
 
@@ -149,7 +150,8 @@ export function renderPage(data, lib) {
     pagehead: renderBlock('@pagehead'),
     pagefoot: renderBlock('@pagefoot'),
 
-    portal: renderBlock('@portal', data.header && PORTAL),
+    bottom: renderBlock('@bottom'),
+    menu: renderBlock('@menu', data.burger_menu && MENU),
   }
 
   data.layout.main = renderBlock('main', MAIN)
