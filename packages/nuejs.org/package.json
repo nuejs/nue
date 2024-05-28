@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "name": "nuejs.org",
+  "description": "The official Nue website",
+  "homepage": "https://nuejs.org",
+  "engines": {
+    "bun": ">= 1"
+  }
+}
+

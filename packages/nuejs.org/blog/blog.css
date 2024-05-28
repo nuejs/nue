@@ -1,0 +1,67 @@
+
+main > aside {
+  position: relative;
+  top: -3em;
+  a {
+    color: black;
+    font-size: 95%;
+  }
+}
+
+article {
+  max-width: 44rem;
+  margin: 0 auto;
+
+  > header {
+    margin-bottom: 3em;
+  }
+}
+
+time {
+  color: var(--gray-500);
+  font-size: 85%;
+}
+
+h1 {
+  margin: .75em 0;
+
+  em {
+    font-style: normal;
+    color: var(--main-500);
+    font-weight: inherit;
+  }
+}
+
+.author {
+  display: flex;
+  gap: .8em;
+
+  aside {
+    font-size: 85%;
+  }
+
+  img {
+    border-radius: 99em;
+  }
+
+  b {
+    font-weight: 550;
+    display: block;
+    margin-bottom: .20em;
+  }
+}
+
+
+@media (min-width: 950px) {
+  .hero {
+    margin-inline: -12vw;
+    img { width: 999% }
+  }
+}
+
+.footnote {
+  margin-top: var(--section-gap);
+  color: var(--gray-500);
+  line-height: 1.5;
+  font-size: 95%;
+}

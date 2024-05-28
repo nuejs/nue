@@ -1,0 +1,111 @@
+/* background animation */
+body {
+  background-image: url(/home/img/bg-animation.svg);
+  background-repeat: no-repeat;
+  background-size: 100% 600px;
+}
+
+/* hero area with call-to-action buttons */
+.hero {
+  max-width: 800px;
+  margin: 0 auto;
+  height: 450px;
+
+  a {
+    font-size: 105%;
+    margin: 0 .3em;
+  }
+}
+
+
+/* dark version of the global header */
+body > header {
+  margin-bottom: calc(5rem + 8vw);
+
+  a {
+    color: #fffb;
+    &:hover { color: white }
+  }
+
+  img { filter: brightness(100) }
+  hr { border-color: #fff3 }
+
+  /* burger menu trigger */
+  [popovertarget] {
+    filter: invert(1);
+
+    &:hover {
+      background-color: #9999;
+    }
+  }
+
+  /* badges */
+  .badge {
+    &.status {
+      background-color: #002d46b3;
+      border-color: transparent;
+      color: white;
+    }
+
+    &.github {
+      border-color: transparent;
+      background-color: var(--purple);
+      background-image: url(/icon/github-white.svg);
+
+      em {
+        background-color: #0004;
+        color: #fffc;
+      }
+    }
+  }
+
+}
+
+@media (min-width: 1200px) {
+  body {
+    background-size: 100% 100vh;
+  }
+
+  .hero {
+    height: calc(100vh - 10em);
+  }
+}
+
+
+
+main {
+  text-align: center;
+  text-wrap: balance;
+  max-width: 1150px;
+  margin: 0 auto;
+}
+
+
+.herobox {
+  background-color: #111;
+  padding: calc(1.5em + 5vw);
+  border-radius: 1em;
+  margin-bottom: 5em;
+  text-align: left;
+  display: flex;
+  gap: 3em;
+
+  h2 { color: white }
+  p {
+    color: var(--gray-200);
+    font-size: 1.2em;
+    line-height: 1.4;
+  }
+
+  > * {
+    flex: 1;
+  }
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+    gap: .5em
+  }
+}
+
+
+

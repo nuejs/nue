@@ -1,0 +1,127 @@
+<!doctype html>
+
+<html lang="en-US" dir="ltr">
+
+  <head>
+    <meta charset="utf-8">
+<title>Nue &#x2022; Content-first web framework</title>
+<meta name="generator" content="Nue v0.5.3 (nuejs.org)">
+<meta name="date.updated" content="2024-05-15T06:05:04.360Z">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="nue:components" content="/@global/form.js /@lib/video.js">
+<link rel="icon" type="image/png" href="/icon/favicon.png">
+<link href="/@global/badge.css" rel="stylesheet">
+<link href="/@global/button.css" rel="stylesheet">
+<link href="/@global/components.css" rel="stylesheet">
+<link href="/@global/dialog.css" rel="stylesheet">
+<link href="/@global/form.css" rel="stylesheet">
+<link href="/@global/global.css" rel="stylesheet">
+<link href="/@global/navigation.css" rel="stylesheet">
+<link href="/@lib/article.css" rel="stylesheet">
+<link href="/@lib/glow-syntax.css" rel="stylesheet">
+<link href="/@lib/switchbox.css" rel="stylesheet">
+<link href="/@lib/video.css" rel="stylesheet">
+<link href="/docs/css/fixed-layout.css" rel="stylesheet">
+<link href="/docs/css/mobile-layout.css" rel="stylesheet">
+<link href="/docs/css/sidebars.css" rel="stylesheet">
+<script src="/docs/main.js" type="module"></script>
+<script src="/@nue/hotreload.js" type="module"></script>
+<script src="/@nue/mount.js" type="module"></script>
+<script src="/@nue/page-router.js" type="module"></script>
+    
+  </head>
+
+  <body>
+    <header>
+    <nav aria-label="branding"><a href="/"><img src="/img/logo.svg" width="60" height="18"></a></nav>
+    <nav aria-label="main"><a href="/docs/">Docs</a>
+<a href="/blog/">Blog</a>
+<a href="/blog/status-update-01/" class="status badge">Nue 1.0 Alpha is here! &#x203a;</a></nav>
+    <nav aria-label="toolbar"><a href="/docs/">Try beta</a>
+<hr>
+<a href="//github.com/nuejs/nue" class="github badge"><em>6.0k</em></a></nav>
+    <a href="#menu" aria-controls="menu"></a>
+  </header>
+    <nav>
+  <a href="#sidebar"><strong>Menu</strong> Nue</a>
+</nav>
+
+    <main>
+    <aside id="sidebar">
+  <a href="#" class="close">&#xd7;</a>
+  <section><nav><h3>Content-first framework</h3>
+<a href="/docs/">Content-first framework</a>
+<a href="getting-started.html">Getting started</a>
+<a href="/files and directories/">Files and directories</a>
+<a href="/settings and configuration/">Settings and configuration</a></nav>
+<nav><h3>Design</h3>
+<a href="/global design system/">Global Design System</a>
+<a href="/information architecture/">Information Architecture</a>
+<a href="/universal site layout/">Universal site layout</a>
+<a href="/components/">Components</a>
+<a href="/custom layouts/">Custom layouts</a>
+<a href="/code formatting/">Code formatting</a>
+<a href="/css architecture/">CSS Architecture</a>
+<a href="/css best practices/">CSS Best Practices</a></nav>
+<nav><h3>Content Management</h3>
+<a href="/content management/">Content Management</a>
+<a href="/seo and metadata/">SEO and metadata</a>
+<a href="/images and videos/">Images and videos</a>
+<a href="/complex layouts/">Complex layouts</a>
+<a href="/components/">Components</a>
+<a href="/code blocks/">Code blocks</a></nav>
+<nav><h3>Reactivity</h3>
+<a href="/reactivity fundamentals/">Reactivity fundamentals</a>
+<a href="/view transitions/">View transitions</a>
+<a href="/scroll transitions/">Scroll transitions</a>
+<a href="/web components/">Web Components</a>
+<a href="/reactive components/">Reactive components</a></nav>
+<nav><h3>Single-page Applications</h3>
+<a href="/spa fundamentals/">SPA fundamentals</a>
+<a href="/creating a model/">Creating a model</a>
+<a href="/views and routing/">Views and routing</a>
+<a href="/look and feel/">Look and feel</a></nav>
+<nav><h3>Reference</h3>
+<a href="/settings index/">Settings index</a>
+<a href="/component index/">Component index</a>
+<a href="/template syntax/">Template syntax</a>
+<a href="/universal hot-reloading/">Universal hot-reloading</a>
+<a href="/command line interface/">Command line interface</a>
+<a href="/syntax highlighting/">Syntax highlighting</a>
+<a href="/content collections/">Content collections</a>
+<a href="/nuemark api/">Nuemark API</a></nav></section>
+</aside>
+
+    <article>
+      
+      <p>lkj</p>
+
+      
+    </article>
+
+    <aside>
+  <h3>On this page</h3>
+  <nav class="toc"></nav>
+
+  <div class="zen-switch">
+    <h5>Zen Mode</h5>
+    <label class="switch"><input type="checkbox"></label>
+  </div>
+</aside>
+  </main>
+
+    
+    <div id="portal">
+    <dialog id="menu">
+      <a href="#" class="close">&#xd7;</a>
+      <nav aria-label="main"><a href="/docs/">Docs</a>
+<a href="/blog/">Blog</a>
+<a href="/blog/status-update-01/" class="status badge">Nue 1.0 Alpha is here! &#x203a;</a></nav>
+      <nav aria-label="toolbar"><a href="/docs/">Try beta</a>
+<hr>
+<a href="//github.com/nuejs/nue" class="github badge"><em>6.0k</em></a></nav>
+    </dialog>
+  </div>
+  </body>
+
+</html>

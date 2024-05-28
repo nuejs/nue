@@ -1,0 +1,46 @@
+
+[popover] {
+  border: 0;
+
+  &::backdrop {
+    background-color: #0005;
+    backdrop-filter: blur(4px);
+  }
+
+  /* close  */
+  [popovertarget] {
+    color: var(--gray-600);
+    position: absolute;
+    font-weight: 400;
+    font-size: 1.8em;
+    width: 1.1em;
+    padding: 0;
+    right: .4em;
+    top: .4em;
+
+    &:hover { color: var(--gray-800) }
+  }
+}
+
+
+dialog {
+  position: fixed; left: inherit; top: 1em; right: 1em;
+  transition: opacity .1s;
+  border-radius: .5em;
+  padding: 1em 2em;
+  min-width: 14em;
+  display: none;
+  margin: 0;
+
+  nav a {
+    display: block;
+    padding: .8em 0;
+    font-weight: bold;
+  }
+
+  /* toggle visibility */
+  &:popover-open {
+    display: block;
+    z-index: 1;;
+  }
+}

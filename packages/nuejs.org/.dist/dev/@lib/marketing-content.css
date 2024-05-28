@@ -1,0 +1,43 @@
+h1 {
+  color: var(--gray-50);
+  letter-spacing: -.02em;
+  margin: 0;
+  font-size: calc(2em + 2.5vw);
+  font-weight: 900;
+  line-height: 1;
+
+  & + p {
+    color: var(--gray-300);
+    font-size: calc(1.2em + .7vw);
+    font-weight: 300;
+    line-height: 1.3;
+  }
+}
+
+h2 {
+  letter-spacing: -.02em;
+  margin-bottom: 0;
+  font-size: calc(1.15em + 1vw);
+  line-height: 1.1;
+
+  & + p {
+    margin-top: .5em;
+    font-size: 110%;
+  }
+}
+
+h3 {
+  margin-bottom: -.5em;
+}
+
+p {
+  color: var(--gray-700);
+  font-size: 95%;
+  line-height: 1.5;
+
+  & em {
+    color: var(--gray-950);
+    font-style: normal;
+    font-weight: 500;
+  }
+}

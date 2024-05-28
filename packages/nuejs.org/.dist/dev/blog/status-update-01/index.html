@@ -1,0 +1,166 @@
+<!doctype html>
+
+<html lang="en-US" dir="ltr">
+
+  <head>
+    <meta charset="utf-8">
+<title>Nue - &#x2600;&#xfe0f; Summer 2024 status update</title>
+<meta name="generator" content="Nue v0.5.3 (nuejs.org)">
+<meta name="date.updated" content="2024-05-25T06:13:21.791Z">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Nue is a web framework for UX focused projects. It&apos;s the best choice for designers and UX developers.">
+<meta property="og:image" content="/img/designers-vs-engineers.png">
+<meta name="nue:components" content="/@global/form.js /@lib/video.js">
+<link rel="icon" type="image/png" href="/icon/favicon.png">
+<link href="/@global/badge.css" rel="stylesheet">
+<link href="/@global/button.css" rel="stylesheet">
+<link href="/@global/components.css" rel="stylesheet">
+<link href="/@global/form.css" rel="stylesheet">
+<link href="/@global/global.css" rel="stylesheet">
+<link href="/@global/navigation.css" rel="stylesheet">
+<link href="/@global/popover.css" rel="stylesheet">
+<link href="/@lib/syntax-highlight.css" rel="stylesheet">
+<link href="/@lib/technical-content.css" rel="stylesheet">
+<link href="/@lib/video.css" rel="stylesheet">
+<link href="/blog/blog.css" rel="stylesheet">
+<link href="/blog/status-update-01/status-update.css" rel="stylesheet">
+<script src="/@global/main.js" type="module"></script>
+<script src="/@nue/hotreload.js" type="module"></script>
+<script src="/@nue/mount.js" type="module"></script>
+<script src="/@nue/page-router.js" type="module"></script>
+    
+  </head>
+
+  <body>
+    <header>
+    <nav aria-label="branding"><a href="/"><img src="/img/logo.svg" width="60" height="18"></a></nav>
+    <nav aria-label="main"><a href="/docs/">Docs</a>
+<a href="/blog/">Blog</a>
+<a href="/blog/status-update-01/" class="status badge">Nue 1.0 Alpha is here! &#x203a;</a></nav>
+    <nav aria-label="toolbar"><a href="/docs/">Try beta</a>
+<hr>
+<a href="//github.com/nuejs/nue" class="github badge"><em>6.0k</em></a></nav>
+    <button popovertarget="menu"></button>
+  </header>
+    
+
+    <main>
+    <aside>
+  <a href="/blog/">&#x2039; Go back</a>
+</aside>
+
+    <article>
+      <header>
+
+  <time datetime="2024-04-12T00:00:00.000Z">April 12, 2024</time>
+
+  <h1>&#x2600;&#xfe0f; Summer 2024 status update</h1>
+
+  <div class="author">
+  <span><img width="36" height="36" src="/img/tero.webp"></span>
+
+  <aside>
+    <b>Tero Piirainen</b>
+    <a href="//x.com/tipiirai">@tipiirai</a>
+  </aside>
+</div>
+
+</header>
+      <p>The goal of Nue is to be the <a href="/blog/perfect-web-framework/">perfect web framework</a> for UX developers and design-led organizations. We&apos;re not there yet, but here&apos;s how we keep the dream alive</p>
+
+<figure><picture><source srcset="/img/designers-vs-engineers.png" media="(max-width: 750px)" type="image/png">
+<source srcset="/img/designers-vs-engineers-big.png" media="(min-width: 750px)" type="image/png">
+<img alt="[The Great Divide](https://css-tricks.com/the-great-divide/): UX developers are design-oriented and JS engineers are technology-oriented" loading="lazy" src="/img/designers-vs-engineers-big.png"></picture><figcaption><a href="https://css-tricks.com/the-great-divide/">The Great Divide</a>: UX developers are design-oriented and JS engineers are technology-oriented</figcaption></figure>
+<h2>For the love &#x2764;&#xfe0f; of web standards</h2><p>Today, there is an unexpected resistance towards vanilla JS and CSS. Nue is an attempt to bring people closer to web standards by showcasing the obvious benefits:</p>
+<h4>October 2, 2023 <a href="/blog/rethinking-reactivity/">Rethinking reactivity</a></h4><p><a href="//github.com/nuejs/nue/tree/master/packages/nuejs">Nue JS</a> is a small micro-library for building user interfaces. While still buggy and in early beta, it showcases the value of separation of concerns and an HTML-first approach. That is: your code becomes easier to read.</p>
+
+<figure class="floating"><a href="//www.youtube.com/watch?v=yGBjXsrwK4M&amp;t=1s"><img alt="**Theo** is a famous JS/CSS hater and a passionate Tailwind promoter" loading="lazy" src="/img/theo-tailwind-promoter.jpg"></a><figcaption><strong>Theo</strong> is a famous JS/CSS hater and a passionate Tailwind promoter</figcaption></figure>
+<h4>October 23, 2023 <a href="/blog/tailwind-vs-semantic-css/">Tailwind vs Semantic CSS</a></h4><p>This article showcases the power of CSS and the web standards model by comparing the Tailwind &quot;Spotlight&quot; template (from the developers of Tailwind) with a version made with vanilla CSS.</p>
+<h4>February 18, 2024 <a href="/blog/tailwind-misinformation-engine/">Tailwind marketing and misinformation engine</a></h4><p>How Tailwind positions vanilla CSS as the problem and the &quot;utility first&quot; approach as the hero. Well-known framing for CSS experts, but strongly <a href="//www.youtube.com/watch?v=yGBjXsrwK4M&amp;t=1s">denied</a> by the Tailwind community.</p>
+<h4 id="march-20-2024-nue-css-preview"><a href="#march-20-2024-nue-css-preview" title="March 20, 2024 Nue CSS preview"></a>March 20, 2024 <a href="/blog/introducing-nue-css/">Nue CSS preview</a></h4><p>Sneak preview of the upcoming design system approach and the best practices of writing maintainable CSS. The article demonstrates some crazy size differences to Tailwind.</p>
+<h2 id="project-milestones"><a href="#project-milestones" title="Project milestones"></a>Project milestones</h2><h4>September 18, 2023 <a href="/blog/backstory/">&quot;Frontend troublesolver&quot;</a></h4><p>The idea of Nue was posted to Hacker News. Here&apos;s the <a href="/blog/backstory/">backstory</a> and why I decided to dedicate my career to this project.</p>
+<h4>December 14, 2023 <a href="/blog/nuekit-010/">Content-first framework core</a></h4><p><a href="/blog/nuekit-010/">Nuekit 0.1</a> turned the idea into reality. This closer-to-metal framework is an order of magnitude smaller and faster than the alternatives and gives a near-instant feedback loop through universal hot-reloading.</p>
+<h4>January 12, 2024 <a href="/blog/introducing-nuemark/">Markdown variant for rich content</a></h4><p><a href="/blog/introducing-nuemark/">Nuemark 0.1</a> is the cornerstone for the content-first development model, where content-heavy websites are primarily maintained by copywriters and technical writers. This project showcases the importance of the separation of concerns pattern.</p>
+<h4>February 13, 2024 <a href="/blog/introducing-glow/">Markdown syntax highlighter</a></h4><p><a href="/blog/introducing-glow/">Glow 0.1</a> A Markdown code block syntax highlighter to meet the aesthetics and extreme minimalistic demands of Nue.</p>
+<h2 id="current-status-beta"><a href="#current-status-beta" title="Current status: Beta"></a>Current status: Beta</h2><p>You can use Nue to build production-ready websites but with the following limitations:</p>
+<ol>
+<li>Windows support is sketchy</li>
+<li>No documentation for Nue CSS yet</li>
+<li>Nue JS&apos;s reactive parts are buggy and the issues are marked low priority.</li>
+</ol>
+
+<div class="note"><h4 id="help-wanted"><a href="#help-wanted" title="Help wanted"></a>Help wanted</h4><p>Please <a href="//github.com/nuejs/nue/discussions">contact us</a> if you are interested in building a HTML-first React alternative for UX developers. The reactive lib is our current development bottleneck.</p>
+</div>
+<a class="button" href="/docs/" role="button">Try beta now</a>
+<h2 id="up-next-summertime"><a href="#up-next-summertime" title="Up next: &#x2600;&#xfe0f; Summertime"></a>Up next: &#x2600;&#xfe0f; Summertime</h2><p>During the summer the focus will be on the following, but with a 33% pace:</p>
+
+<img loading="lazy" src="/img/sunflower.svg" class="floating">
+<h3 id="nue-design-system"><a href="#nue-design-system" title="Nue design system"></a>Nue design system</h3><p>Finalize the Nue design system with complete documentation including:</p>
+<ol>
+<li>Information Architecture</li>
+<li>Global Design System</li>
+<li>CSS architecture</li>
+<li>CSS best practices</li>
+<li>Design template</li>
+</ol>
+<h3 id="website-rewrite"><a href="#website-rewrite" title="Website rewrite"></a>Website rewrite</h3><p>Rewrite the website narrative and the documentation so that the content-first approach becomes crystal clear and why Nue is an obvious choice for UX developers and design-led organizations:</p>
+<ol>
+<li>What is a content-first framework</li>
+<li>Why is it important</li>
+<li>Pillars, values, principles</li>
+</ol>
+<h2 id="the-dream"><a href="#the-dream" title="&#x1f984; The Dream"></a>&#x1f984; The Dream</h2><p>Eventually Nue gives you the following:</p>
+<ol>
+<li>World-class design for everyone</li>
+<li>Ridiculously easy to maintain and scale</li>
+<li>New levels of performance</li>
+</ol>
+<p>We want everyone to have the ability to take the quality levels of <em>Stripe</em>, <em>Linear</em>, or <em>Apple</em> &#x2014; with the speed levels of a text-only website. Here are the missing pieces, before a solid 1.0 release:</p>
+<h2 id="huge-thanks-to"><a href="#huge-thanks-to" title="Huge thanks to:"></a>Huge thanks to:</h2><ul>
+<li><p><a href="//github.com/nobkd">Nobkd</a> and <a href="//github.com/fritx">Fritz Lin</a> for the very many updates and fixes. Thank you!</p>
+</li>
+<li><p><a href="//www.linkedin.com/in/mauriciowolff/?originalSubdomain=au">Mauricio Wolff</a> (Lead Product Designer @ Atlassian) for the extremely important, high-level design feedback.</p>
+</li>
+<li><p><a href="//github.com/goblinfactory">Alan Hemmings</a> for the developer feedback and the mental support. Much needed!</p>
+</li>
+<li><p>Thanks to all <a href="//github.com/nuejs/nue/graphs/contributors">25+ contributors</a> for improving Nue codebase.</p>
+</li>
+</ul>
+<h3 id="follow-the-progress"><a href="#follow-the-progress" title="Follow the progress"></a>Follow the progress</h3><p>Join Nue mailing list and get notified when we reach the next milestone</p>
+
+<div is="join-list"></div>
+      
+    </article>
+
+    
+  </main>
+
+    <footer>
+    <nav aria-label="branding"><a href="/"><img src="/img/logo.svg" width="65" height="19"></a></nav>
+    <section><nav><h3>Developers</h3>
+<a href="/getting started/">Getting started</a>
+<a href="/documentation/">Documentation</a>
+<a href="/roadmap/">Roadmap</a>
+<a href="/blog/">Blog</a>
+<a href="/faq/">FAQ</a></nav>
+<nav><h3>Core Concepts</h3>
+<a href="/content first framework/">Content First Framework</a>
+<a href="/global design system/">Global Design System</a>
+<a href="/content management system/">Content Management System</a>
+<a href="/progressive enhancement/">Progressive Enhancement</a>
+<a href="/single-page applications/">Single-Page Applications</a></nav></section>
+    
+  </footer>
+    <div>
+    <dialog popover id="menu">
+      <button popovertarget="menu">&#xd7;</button>
+      <nav><a href="/home/">Home</a>
+<a href="/docs/">Docs</a>
+<a href="/blog/">Blog</a>
+<hr>
+<a href="/github/">GitHub</a></nav>
+    </dialog>
+  </div>
+  </body>
+
+</html>

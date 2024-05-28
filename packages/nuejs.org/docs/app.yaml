@@ -1,0 +1,60 @@
+
+include: [technical-content, video, switchbox, syntax-highlight]
+footer: false
+
+lang:
+  menu: Menu
+  this_page: On this page
+
+sidenav:
+  Getting started:
+    - label: Content-first framework
+      url: /docs/
+    - label: Installation
+      url: getting-started
+    - Files and directories
+    - Settings and configuration
+
+  Design:
+    - Global Design System
+    - Information Architecture
+    - Universal site layout
+    - Components
+    - Custom layouts
+    - Code formatting
+    - CSS Architecture
+    - CSS Best Practices
+
+  Content Management:
+    - Content Management
+    - SEO and metadata
+    - Images and videos
+    - Complex layouts
+    - Components
+    - Code blocks
+
+
+  Reactivity:
+    - Reactivity fundamentals
+    - View transitions
+    - Scroll transitions
+    - Web Components
+    - Reactive components
+
+
+  Single-page Applications:
+    - SPA fundamentals
+    - Creating a model
+    - Views and routing
+    - Look and feel
+
+
+  Reference:
+    - Settings index
+    - Component index
+    - Template syntax
+    - Universal hot-reloading
+    - Command line interface
+    - Syntax highlighting
+    - Content collections
+    - Nuemark API

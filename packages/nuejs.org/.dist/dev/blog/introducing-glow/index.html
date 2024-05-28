@@ -1,0 +1,320 @@
+<!doctype html>
+
+<html lang="en-US" dir="ltr">
+
+  <head>
+    <meta charset="utf-8">
+<title>Introducing Glow</title>
+<meta name="generator" content="Nue v0.5.3 (nuejs.org)">
+<meta name="date.updated" content="2024-05-01T06:25:55.591Z">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta property="og:image" content="/img/glow-og.png">
+<meta name="nue:components" content="/global/components.js /@lib/video.js">
+<link href="/@base/base.css" rel="stylesheet">
+<link href="/@base/button.css" rel="stylesheet">
+<link href="/@base/dialog.css" rel="stylesheet">
+<link href="/@base/header-and-footer.css" rel="stylesheet">
+<link href="/global/badge.css" rel="stylesheet">
+<link href="/global/colors.css" rel="stylesheet">
+<link href="/global/components.css" rel="stylesheet">
+<link href="/global/form.css" rel="stylesheet">
+<link href="/global/global.css" rel="stylesheet">
+<link href="/@lib/article.css" rel="stylesheet">
+<link href="/@lib/glow-extras.css" rel="stylesheet">
+<link href="/@lib/glow-syntax.css" rel="stylesheet">
+<link href="/@lib/video.css" rel="stylesheet">
+<link href="/@nue/glow.css" rel="stylesheet">
+<link href="/blog/blog.css" rel="stylesheet">
+<link href="/blog/introducing-glow/pair-coding-demo.css" rel="stylesheet">
+<script src="/@nue/hotreload.js" type="module"></script>
+<script src="/@nue/mount.js" type="module"></script>
+<script src="/@nue/nuemark.js" type="module"></script>
+<script src="/@nue/page-router.js" type="module"></script>
+    
+  </head>
+
+  <body>
+    <header>
+    <nav aria-label="branding"><a href="/"><img src="/img/logo.svg" width="70" height="31"></a></nav>
+    <nav aria-label="main"><a href="/why/">Why</a>
+<a href="/docs/">Docs</a>
+<a href="/blog/">Blog</a>
+<a href="/blog/status-update-01/" class="status badge">Nue status update</a></nav>
+    <nav aria-label="toolbar"><a href="/docs/">Try beta</a>
+<hr>
+<a href="//github.com/nuejs/nue" class="github badge"><em>5.9k</em></a></nav>
+    <a href="#menu" aria-controls="menu"></a>
+  </header>
+    <main>
+    <aside>
+  <a href="/blog/index.html">&#x2039; Go back</a>
+</aside>
+
+    <article>
+      <header>
+
+  <time datetime="2024-02-13T00:00:00.000Z">February 13, 2024</time>
+
+  <h1><em>Introducing Glow:</em> Beautiful, pixel-perfect Markdown code blocks</h1>
+
+  <div class="author">
+  <span><img width="36" height="36" src="/img/tero.webp"></span>
+
+  <aside>
+    <b>Tero Piirainen</b>
+    <a href="//twitter.com/tipiirai">@tipiirai</a>
+  </aside>
+</div>
+
+</header>
+      <p>Today we&apos;re launching <em>Glow</em> &#x2014; a new take on syntax highlighting:</p>
+
+<figure class="hero"><a href="/glow-demo/"><picture><source srcset="/img/glow-og.png" media="(max-width: 750px)" type="image/png">
+<source srcset="/img/glow-og-big.png" media="(min-width: 750px)" type="image/png">
+<img src="/img/glow-og-big.png" alt="30+ languages colored. Click the image for a standalone view." loading="lazy"></picture></a><figcaption>30+ languages colored. Click the image for a standalone view.</figcaption></figure>
+<p><em>Glow is different</em>: Instead of attempting to understand language internals, Glow focuses solely on aesthetics and how your code looks.</p>
+<p><em>Glow is simple:</em> Glow makes all languages work with your brand colors by adjusting just a handful of CSS variables.</p>
+<p><em>Glow is small</em>. Glow is orders of magnitude smaller than the mainstream alternatives. We&apos;re talking <a href="//pkg-size.dev/nue-glow">5K</a> instead of <a href="//pkg-size.dev/shiki">5M</a>. It&apos;s by far the smallest implementation available.</p>
+
+<picture><source srcset="/img/shiki-vs-glow.png" media="(max-width: 750px)" type="image/png">
+<source srcset="/img/shiki-vs-glow-big.png" media="(min-width: 750px)" type="image/png">
+<img src="/img/shiki-vs-glow-big.png" loading="lazy" width="720"></picture>
+<h2 id="coloring-voodoo"><a href="#coloring-voodoo" title="Coloring voodoo"></a>Coloring voodoo</h2><p>Be it <em>Haskell</em>, <em>TypeScript</em>, or <em>Zig</em>. <em>React</em>, <em>Vue</em> or <em>Svelte</em>. Whatever Turing-free <em>Markdown</em> artifact is mixed with another tightly coupled language-of-the-year oddity. And they will all glow:</p>
+
+<figure><a href="/glow-demo/light.html"><picture><source srcset="/img/glow-light.png" media="(max-width: 750px)" type="image/png">
+<source srcset="/img/glow-light-big.png" media="(min-width: 750px)" type="image/png">
+<img src="/img/glow-light-big.png" alt="All the 30+ languages in light mode" loading="lazy"></picture></a><figcaption>All the 30+ languages in light mode</figcaption></figure>
+<p>Contrast this to grammar-aware highlighters like <em>Shiki</em>, where it&apos;s a large programming effort to add a new language to the mix. For example, the <a href="//github.com/shikijs/textmate-grammars-themes/blob/main/packages/tm-grammars/grammars/go.json">golang.json</a> grammar file has 2700 lines, and <a href="//github.com/shikijs/textmate-grammars-themes/blob/main/packages/tm-grammars/grammars/javascript.json">javascript.json</a> is a whopping 6000-line configuration file.</p>
+<h2 id="easy-brand-coloring"><a href="#easy-brand-coloring" title="Easy brand coloring"></a>Easy brand coloring</h2><p>If you look at the most recognizable brands on the internet, you&apos;ll notice that 80% of them are based on a single <a href="//blog.hubspot.com/marketing/brand-colors">brand color</a>. It is often coupled with a secondary color and a complementary accent color. This is exactly how Glow works. You can make the code blocks compatible with your brand just by adjusting a handful of CSS variables:</p>
+
+<div class="gradient"><pre glow class="is-dark"><code language="*"><sup>/* brand-aware CSS variables*/</sup>
+<i>[</i>glow<i>]</i> <i>{</i>
+  <i>-</i><i>-</i><b>glow-primary-color</b><i>:</i> <i>#</i><em>7dd3fc</em><i>;</i>
+  <i>-</i><i>-</i><b>glow-secondary-color</b><i>:</i> <i>#</i><em>4f72b6</em><i>;</i>
+  <i>-</i><i>-</i><b>glow-accent-color</b><i>:</i> <i>#</i><em>419fff</em><i>;</i>
+<i>}</i></code></pre></div>
+<p>It&apos;s a no-brainer to create new themes, both light and dark, after which all languages will automatically adapt your brand colors. No missing color tokens, no surprises.</p>
+<p>Contrast this to grammar-aware theming systems, like Shiki and <em>Prism</em>, where a single theme can have hundreds of color variables. <a href="//github.com/shikijs/textmate-grammars-themes/blob/main/packages/tm-themes/themes/monokai.json">Monokai theme</a>, for example, has 140 color variables, and <a href="//github.com/shikijs/textmate-grammars-themes/blob/main/packages/tm-themes/themes/material-theme.json">Material theme</a> has a whopping 296 variables. It&apos;s a huge development effort to build a new theme that works reliably across languages.</p>
+<h2 id="unlimited-possibilities"><a href="#unlimited-possibilities" title="Unlimited possibilities"></a>Unlimited possibilities</h2><p>Glow&apos;s unique, <a href="/docs/concepts/syntax-highlighting.html#system">classless design system</a> gives you line numbers, selections, error highlights, insertions, deletions, and much much more.</p>
+
+<div class="gradient sky"><pre glow class="is-dark browser-like"><code language="html"><span><i>&lt;</i><strong>script</strong><i>&gt;</i></span>
+<span>  <sup>// imports</sup></span>
+<span>  import <i>{</i> longpress <i>}</i> from <em>&apos;./longpress.js&apos;</em><i>;</i></span>
+<span></span>
+<span>  let <b>pressed</b> <i>=</i> false<i>;</i></span>
+<span>  <u>bet <b>glow_market</b> <i>=</i> <em>9999_99</em><i>+</i><i>+</i></u><i>;</i></span>
+<span><i>&lt;</i><i>/</i><strong>script</strong><i>&gt;</i></span>
+<span></span>
+<span><i>&lt;</i><strong>label</strong><i>&gt;</i></span>
+<span>  <i>&lt;</i><strong>input </strong><b>type</b><i>=</i>range <mark><b>bind</b><i>:</i><b>value</b><i>=</i><i>{</i>duration<i>}</i></mark> <b>max</b><i>=</i><i>{</i><em>2000</em><i>}</i> <b>step</b><i>=</i><i>{</i><em>100</em><i>}</i><i>&gt;</i></span>
+<span>  <i>{</i>duration<i>}</i>ms</span>
+<span><i>&lt;</i><i>/</i><strong>label</strong><i>&gt;</i></span>
+<span></span>
+<span><i>&lt;</i><strong>button </strong><b>use</b><i>:</i><b>longpress</b><i>=</i><i>{</i>duration<i>}</i></span>
+<span><del>   <b>on</b><i>:</i><b>mousedown</b><i>=</i><em>&quot;<i>{<b>() =&gt; pressed = true</b>}</i>&quot;</em></del></span>
+<span><ins>   <b>on</b><i>:</i><b>longpress</b><i>=</i><em>&quot;<i>{<b>() =&gt; pressed = true</b>}</i>&quot;</em><i>&gt;</i>Press me<i>&lt;</i><i>/</i><strong>button</strong><i>&gt;</i></ins></span>
+<span></span>
+<span><sup>&lt;!-- condition --&gt;</sup></span>
+<span><i>{</i><i>#</i>if pressed<i>}</i></span>
+<span>  <i>&lt;</i><strong>p</strong><i>&gt;</i><u>Yoou</u> pressed and held for <i>{</i>duration<i>}</i>ms<i>&lt;</i><i>/</i><strong>p</strong><i>&gt;</i></span>
+<span><i>{</i><i>/</i>if<i>}</i></span>
+<span></span>
+<span><i>&lt;</i><strong>style</strong><i>&gt;</i></span>
+<span><sup>  /* button style */</sup></span>
+<span>  <i>[</i><b>role</b><i>=</i><em>&quot;button&quot;</em><i>]</i><i>,</i> <mark>button</mark> <i>{</i></span>
+<span>    <b>background-color</b><i>:</i> <b>var</b><i>(</i><i>-</i><i>-</i>main<i>-</i>color<i>)</i><i>;</i></span>
+<span>    <b>color</b><i>:</i> <i>#</i><em>899</em><i>;</i></span>
+<span>  <i>}</i></span>
+<span><i>&lt;</i><i>/</i><strong>style</strong><i>&gt;</i></span></code></pre></div>
+<p>And when I say &quot;unlimited&quot;, it means that:</p>
+
+<div class="live-code"><pre glow><code language="md"><span><label># There&apos;s something about Lightning CSS</label></span>
+<span>Writing future CSS today has been a massive</span>
+<span><mark>productivity boost.</mark> You&apos;ll get nesting, <strong>`color-mix()`</strong>,</span>
+<span>variables, and whatnot. Natively, today.</span>
+<span></span>
+<span><em>![CSS, bro](/vanilla.png)</em></span>
+<span></span>
+<span><i>&gt;</i><sup> <mark>After I ditched all tooling</mark> I was able to</sup></span>
+<span><i>&gt;</i><sup> work closer to metal. Everything happened</sup></span>
+<span><i>&gt;</i><sup> sub-millisecond. I entered a new planet.</sup></span></code></pre></div>
+<h2 id="glow-nue-next-level"><a href="#glow-nue-next-level" title="Glow + Nue = Next level"></a>Glow + Nue = Next level</h2><p><a href="/">Nue</a> is a content-first web development framework. As of today, it has built-in support for Glow. You can do things like this inside your markdown content:</p>
+
+<section class="codestack"><figure><figcaption><h3>Content <em>YAML</em></h3></figcaption><pre glow><code language="*"><sup># View metadata</sup>
+<b>members</b><i>:</i>
+  <b>title</b><i>:</i> Members
+  <b>columns</b><i>:</i> <i>[</i>Source<i>,</i> Joined<i>]</i>
+  <b>sorting</b><i>:</i>
+    <b>created</b><i>:</i> Join date
+    <b>cc</b><i>:</i> Location
+    <b>email</b><i>:</i> Email
+
+<b>customers</b><i>:</i>
+  <b>title</b><i>:</i> Customers
+  <b>columns</b><i>:</i> <i>[</i>Plan<i>,</i> Subscribed<i>]</i>
+  <b>sorting</b><i>:</i>
+    <b>created</b><i>:</i> Date subscribed
+    <b>card</b><i>:</i> Card type</code></pre></figure>
+<figure><figcaption><h3>Styling <em>CSS</em></h3></figcaption><pre glow><code language="*"><sup>/* Tab styling */</sup>
+<i>[</i><b>role</b><i>=</i>tablist<i>]</i> <i>{</i>
+  <b>background</b><i>:</i> <b>rgba</b><i>(</i><em>0</em><i>,</i> <em>0</em><i>,</i> <em>0</em><i>,</i> <i>.</i><em>7</em><i>)</i><i>;</i>
+  <b>background-size</b><i>:</i> <em>3.5em</em><i>;</i>
+  <b>padding</b><i>:</i> <i>.</i><em>7em</em> <em>1.3em</em> <em>0</em><i>;</i>
+  <b>overflow</b><i>:</i> hidden<i>;</i>
+  <b>display</b><i>:</i> flex<i>;</i>
+
+  a <i>{</i>
+    <b>color</b><i>:</i> <i>#</i>fff9<i>;</i>
+    <b>padding</b><i>:</i> <i>.</i><em>2em</em> <em>1em</em> <i>.</i><em>4em</em><i>;</i>
+    <b>font-size</b><i>:</i> <em>90%</em><i>;</i>
+    <b>cursor</b><i>:</i> pointer<i>;</i>
+  <i>}</i>
+<i>}</i></code></pre></figure></section>
+<p>Or things like this:</p>
+
+<div class="gradient waves"><section tabs is="aria-tabs" class="is-dark"><div role="tablist"><a role="tab" aria-selected>HTML</a>
+<a role="tab">CSS</a>
+<a role="tab">Web Component</a></div><ul><li role="tabpanel"><pre glow><code language="html"><span><i>&lt;</i><strong>dialog</strong><i>&gt;</i></span>
+<span><sup>  &lt;!-- &quot;is&quot; attribute for binding to web component --&gt;</sup></span>
+<span>  <i>&lt;</i><strong>form </strong><b>action</b><i>=</i><em>&quot;/backend/leads&quot;</em> <b>is</b><i>=</i><em>&quot;post-component&quot;</em><i>&gt;</i></span>
+<span>    <i>&lt;</i><strong>header</strong><i>&gt;</i></span>
+<span>      <i>&lt;</i><strong>h2</strong><i>&gt;</i><i>{</i> title <i>}</i><i>&lt;</i><i>/</i><strong>h2</strong><i>&gt;</i></span>
+<span>    <i>&lt;</i><i>/</i><strong>header</strong><i>&gt;</i></span>
+<span></span>
+<span>    <i>&lt;</i><strong>label</strong><i>&gt;</i></span>
+<span>      <i>&lt;</i><strong>h3</strong><i>&gt;</i>Username<i>&lt;</i><i>/</i><strong>h3</strong><i>&gt;</i></span>
+<span>      <i>&lt;</i><strong>input </strong><b>name</b><i>=</i><em>&quot;username&quot;</em><i>&gt;</i></span>
+<span>    <i>&lt;</i><i>/</i><strong>label</strong><i>&gt;</i></span>
+<span>    <i>&lt;</i><strong>label</strong><i>&gt;</i></span>
+<span>      <i>&lt;</i><strong>h3</strong><i>&gt;</i>Password<i>&lt;</i><i>/</i><strong>h3</strong><i>&gt;</i></span>
+<span>      <i>&lt;</i><strong>input </strong><b>name</b><i>=</i><em>&quot;password&quot;</em> <b>type</b><i>=</i><em>&quot;password&quot;</em><i>&gt;</i></span>
+<span>    <i>&lt;</i><i>/</i><strong>label</strong><i>&gt;</i></span>
+<span></span>
+<span>    <i>&lt;</i><strong>footer</strong><i>&gt;</i></span>
+<span>      <i>&lt;</i><strong>button </strong><b>class</b><i>=</i><em>&quot;primary&quot;</em><i>&gt;</i>Sign in<i>&lt;</i><i>/</i><strong>button</strong><i>&gt;</i></span>
+<span>    <i>&lt;</i><i>/</i><strong>footer</strong><i>&gt;</i></span>
+<span>  <i>&lt;</i><i>/</i><strong>form</strong><i>&gt;</i></span>
+<span><i>&lt;</i><i>/</i><strong>dialog</strong><i>&gt;</i></span></code></pre></li>
+<li role="tabpanel" hidden="hidden"><pre glow><code language="*"><span>dialog <i>{</i></span>
+<span>  <b>background-color</b><i>:</i> <i>#</i><em>0004</em><i>;</i></span>
+<span>  <b>box-shadow</b><i>:</i> <em>0</em> <em>0</em> <em>2em</em> <i>#</i><em>9cc</em><i>;</i></span>
+<span>  <b>border-radius</b><i>:</i> <em>1em</em></span>
+<span><i>}</i></span>
+<span></span>
+<span>label <i>{</i></span>
+<span>  <b>display</b><i>:</i> block<i>;</i></span>
+<span>  <b>margin-bottom</b><i>:</i> <em>1em</em></span>
+<span>  input <i>{</i> <b>width</b><i>:</i> <em>100%</em> <i>}</i></span>
+<span><i>}</i></span>
+<span></span>
+<span>footer <i>{</i></span>
+<span>  <b>margin-top</b><i>:</i> <em>1em</em><i>;</i></span>
+<span>  button <i>{</i> <b>width</b><i>:</i> <em>100%</em><i>;</i> <i>}</i></span>
+<span><i>}</i></span></code></pre></li>
+<li role="tabpanel" hidden="hidden"><pre glow><code language="*"><span><sup>// Generic Web Component for sending data</sup></span>
+<span><strong>class</strong> HTXPost extends HTMLElement <i>{</i></span>
+<span>  <b>constructor</b><i>(</i>options<i>)</i> <i>{</i></span>
+<span>    <strong>super</strong><i>(</i><i>)</i></span>
+<span>    <strong>const</strong> <b>endpoint</b> <i>=</i> this<i>.</i><b>getAttribute</b><i>(</i><em>&apos;action&apos;</em><i>)</i></span>
+<span>    <strong>const</strong> <b>formData</b> <i>=</i> <strong>new</strong> <b>FormData</b><i>(</i>this<i>)</i></span>
+<span></span>
+<span>    this<i>.</i><b>onsubmit</b> <i>=</i> <i>(</i>e<i>)</i> <i>=</i><i>&gt;</i> <i>{</i></span>
+<span>      <strong>const</strong> <b>res</b> <i>=</i> <strong>await</strong> <b>fetch</b><i>(</i>endpoint<i>,</i> <i>{</i></span>
+<span>        <b>headers</b><i>:</i> <i>{</i> <b>AccessKey</b><i>:</i> options<i>.</i>access_key <i>}</i><i>,</i></span>
+<span>        <b>method</b><i>:</i> <em>&apos;POST&apos;</em></span>
+<span>      <i>}</i><i>)</i></span>
+<span>    <i>}</i></span>
+<span>  <i>}</i></span>
+<span><i>}</i></span>
+<span></span>
+<span>customElements<i>.</i><b>define</b><i>(</i><em>&apos;htx-post&apos;</em><i>,</i> HTXPost<i>,</i> <i>{</i></span>
+<span>  <b>extends</b><i>:</i> <em>&apos;form&apos;</em></span>
+<span><i>}</i><i>)</i></span></code></pre></li></ul></section></div>
+<h2 id="get-started-with-glow"><a href="#get-started-with-glow" title="Get started with Glow"></a>Get started with Glow</h2><p>You can try Glow either as a standalone library or together with the Nue framework.</p>
+<h4 id="standalone-library"><a href="#standalone-library" title="Standalone library"></a>Standalone library</h4><p>Install <a href="//github.com/nuejs/nue/tree/master/packages/glow">nue-glow</a> with npm, pnpm, or bun:</p>
+
+<pre glow><code language="sh">npm i nue<i>-</i>glow</code></pre>
+<p>And follow the <a href="/docs//concepts/syntax-highlighting.html">Glow documentation</a></p>
+<h4 id="with-nue"><a href="#with-nue" title="With Nue"></a>With Nue</h4><p>Nue has built-in support for Glow in markdown fenced code blocks and it offers <a href="/reference/nuemark-tags.html#code">three new tags</a>: <code>[code]</code>, <code>[codeblocks]</code>, and <code>[codetabs]</code> for content creators.</p>
+<p>You try out the tags as follows:</p>
+
+<pre glow><code language="sh"><sup># Install Bun (if not done yet)</sup>
+curl <i>-</i>fsSL <b>https</b><i>:</i><i>/</i><i>/</i>bun<i>.</i>sh<i>/</i>install <i>|</i> bash
+
+<sup># Install website generator (Nuemark playground)</sup>
+bun install nuekit <i>-</i><i>-</i>global
+
+<sup># Start a Nue project with a Glow-powered template</sup>
+bun create nue<i>@</i>latest</code></pre>
+<p>Choose <em>&quot;Simple blog&quot;</em> on the last step and you can enjoy goodies content hot-reloading when the code blocks are edited:</p>
+
+<div class="video wide">
+
+  <noscript>
+    <video type="video/mp4" controls src="https://video.nuejs.org/38caf489-74f1-416a-9f23-694baa5500bb/play_720p.mp4">
+  </video></noscript>
+
+  <div is="bunny-player">
+  <script type="application/json">{"videoid":"38caf489-74f1-416a-9f23-694baa5500bb","poster":"thumbnail_1ca1bd66.jpg","width":""}</script>
+</div>
+
+  <figcaption>Nue hot-reloading in action</figcaption>
+
+</div>
+<p>ps: Check out <a href="/docs/#node">Getting started docs</a> if you prefer Node.</p>
+
+<div>
+
+  <h2>What is Nue?</h2>
+
+  <p>
+    <a href="/">Nue</a> is an ambitious project to build a significantly easier, yet more powerful alternative to <strong>Vercel</strong>, <strong>Gatsby</strong>, and <strong>Netlify</strong>. It is released as follows:
+  </p>
+
+  
+
+  <img src="/img/roadmap-summer-big.png">
+
+  <p>
+    Join our mailing list and get notified when we reach the next milestone. And please give us your thoughts! We read them all with care.
+  </p>
+
+  <div is="join-list"></div>
+
+</div>
+      
+    </article>
+
+    
+  </main>
+    <footer>
+    <nav aria-label="branding"><a href="/"><img src="/img/logo.svg" width="90" height="40"></a></nav>
+    <section><nav><h3>Basics</h3>
+<a href="/getting started/">Getting started</a>
+<a href="/documentation/">Documentation</a>
+<a href="/roadmap/">Roadmap</a>
+<a href="/blog/">Blog</a>
+<a href="/faq/">FAQ</a></nav>
+<nav><h3>Core Concepts</h3>
+<a href="/content first framework/">Content First Framework</a>
+<a href="/global design system/">Global Design System</a>
+<a href="/content management/">Content Management</a>
+<a href="/reactive content/">Reactive content</a>
+<a href="/single-page apps/">Single-Page Apps</a></nav></section>
+    
+  </footer>
+    <div id="portal">
+    <dialog id="menu">
+      <a href="#" class="close">&#xd7;</a>
+      <nav aria-label="main"><a href="/why/">Why</a>
+<a href="/docs/">Docs</a>
+<a href="/blog/">Blog</a>
+<a href="/blog/status-update-01/" class="status badge">Nue status update</a></nav>
+      <nav aria-label="toolbar"><a href="/docs/">Try beta</a>
+<hr>
+<a href="//github.com/nuejs/nue" class="github badge"><em>5.9k</em></a></nav>
+    </dialog>
+  </div>
+  </body>
+
+</html>

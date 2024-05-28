@@ -1,0 +1,133 @@
+body {
+  background: url("/blog/blog-bg.svg") 0 0 / 100% 500px no-repeat;
+}
+
+main {
+  text-align: center;
+
+  & article {
+    max-width: 50em;
+  }
+}
+
+article h1 {
+  letter-spacing: -.025em;
+  margin: 0;
+  font-size: 2.2em;
+  font-weight: 800;
+
+  & + p {
+    color: var(--gray-600);
+    font-size: 1.2em;
+  }
+}
+
+ul {
+  margin: 5em 0;
+  padding: 0;
+}
+
+li {
+  text-wrap: balance;
+  text-align: left;
+  flex-direction: column;
+  gap: .5em;
+  margin-bottom: 2.5em;
+  font-size: 110%;
+  display: flex;
+
+  & time {
+    color: var(--gray-500);
+    font-size: 80%;
+  }
+
+  & h2 {
+    color: #000;
+    margin: -.1em 0 .3em;
+    font-size: 1em;
+  }
+
+  & p {
+    color: var(--gray-600);
+    margin: 0;
+    font-size: 90%;
+    font-weight: 400;
+    line-height: 1.5;
+
+    &:after {
+      content: "Read more ›";
+      color: var(--main-500);
+      margin-top: .6em;
+      font-weight: 500;
+      display: block;
+    }
+  }
+
+  & a:hover p:after {
+    text-decoration: underline;
+  }
+
+  &.is-new h2:before {
+    content: "NEW";
+    background-color: var(--red);
+    color: #fff;
+    border-radius: .3em;
+    margin-right: .5em;
+    padding: .2em .4em;
+    font-size: 70%;
+    font-weight: 800;
+    position: relative;
+    top: -.1em;
+  }
+
+  @media (width > 800px) {
+    & {
+      flex-direction: row;
+      gap: 1.5em;
+      margin-bottom: 0;
+    }
+
+    & a {
+      border-radius: .5em;
+      flex: 2;
+      margin: -1em 0 2em;
+      padding: 1em;
+
+      &:hover {
+        background-color: var(--gray-50);
+      }
+
+      &:active {
+        transform: scale(.99);
+      }
+    }
+
+    & time {
+      border-right: var(--border);
+      white-space: nowrap;
+      text-align: right;
+      flex: .8;
+      padding-right: 3em;
+
+      &:after {
+        color: #fff;
+        content: "";
+        border: 1px solid var(--gray-400);
+        background: #fff;
+        border-radius: 10em;
+        width: 10px;
+        height: 10px;
+        display: inline-block;
+        position: relative;
+        left: 3.38em;
+      }
+    }
+
+    &.is-new {
+      & time:after {
+        background-color: var(--red);
+        border-color: var(--red);
+      }
+    }
+  }
+}

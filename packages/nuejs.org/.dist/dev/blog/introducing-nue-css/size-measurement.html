@@ -1,0 +1,276 @@
+<!doctype html>
+
+<html lang="en-US" dir="ltr">
+
+  <head>
+    <meta charset="utf-8">
+<title>Introducing Nue CSS</title>
+<meta name="generator" content="Nue v0.5.3 (nuejs.org)">
+<meta name="date.updated" content="2024-04-30T03:50:20.975Z">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="nue:components" content="/global/components.js /@lib/video.js">
+<link href="/@base/base.css" rel="stylesheet">
+<link href="/@base/button.css" rel="stylesheet">
+<link href="/@base/dialog.css" rel="stylesheet">
+<link href="/@base/header-and-footer.css" rel="stylesheet">
+<link href="/global/badge.css" rel="stylesheet">
+<link href="/global/colors.css" rel="stylesheet">
+<link href="/global/components.css" rel="stylesheet">
+<link href="/global/form.css" rel="stylesheet">
+<link href="/global/global.css" rel="stylesheet">
+<link href="/@lib/article.css" rel="stylesheet">
+<link href="/@lib/glow.css" rel="stylesheet">
+<link href="/@lib/video.css" rel="stylesheet">
+<link href="/blog/blog.css" rel="stylesheet">
+<link href="/blog/introducing-nue-css/nue-css-intro.css" rel="stylesheet">
+<script src="/@nue/hotreload.js" type="module"></script>
+<script src="/@nue/mount.js" type="module"></script>
+<script src="/@nue/page-router.js" type="module"></script>
+    
+  </head>
+
+  <body>
+    <header>
+    <nav aria-label="branding"><a href="/"><img src="/img/logo.svg" width="70" height="31"></a></nav>
+    <nav aria-label="main"><a href="/why/">Why</a>
+<a href="/docs/">Docs</a>
+<a href="/blog/">Blog</a>
+<a href="/blog/status-update-01/" class="status badge">Nue status update</a></nav>
+    <nav aria-label="toolbar"><a href="/docs/">Try beta</a>
+<hr>
+<a href="//github.com/nuejs/nue" class="github badge"><em>5.9k</em></a></nav>
+    <a href="#menu" aria-controls="menu"></a>
+  </header>
+    <main>
+    <aside>
+  <a href="/blog/index.html">&#x2039; Go back</a>
+</aside>
+
+    <article>
+      <header>
+
+  <time datetime="2024-03-22T00:00:00.000Z">March 22, 2024</time>
+
+  <h1>Introducing Nue CSS</h1>
+
+  <div class="author">
+  <span><img width="36" height="36" src="/img/tero.webp"></span>
+
+  <aside>
+    <b>Tero Piirainen</b>
+    <a href="//twitter.com/tipiirai">@tipiirai</a>
+  </aside>
+</div>
+
+</header>
+      <h1 id="css-size-measurement"><a href="#css-size-measurement" title="CSS size measurement"></a>CSS size measurement</h1><p>CSS size details for the <a href=".#size-graphs">comparison graphs</a></p>
+<h2 id="tailwind-sizes"><a href="#tailwind-sizes" title="Tailwind sizes"></a>Tailwind sizes</h2>
+<table class="small">
+  <tr>
+    <th>Component</th><th>Base</th><th>Utiliities</th><th>DSL</th><th>Total</th>
+  </tr>
+  <tr>
+    <td><a href="//play.tailwindcss.com/FsJa6leQsP">Shadcn/UI button</a></td>
+    <td>3.3k</td>
+    <td>1.3k</td>
+    <td>0.3k</td>
+    <td>4.9k</td>
+  </tr><tr>
+    <td><a href="//play.tailwindcss.com/ZwvBhogvo4">Catalyst button</a></td>
+    <td>3.3k</td>
+    <td>5.3k</td>
+    <td>1.8k</td>
+    <td>10.4k</td>
+  </tr><tr>
+    <td><a href="//play.tailwindcss.com/fB60Uou5n1">Catalyst dialog</a></td>
+    <td>3.3k</td>
+    <td>10.9k</td>
+    <td>5.7k</td>
+    <td>19.9k</td>
+  </tr>
+
+  
+</table>
+<ul>
+<li><p>The sizes calculated by grabbing the code from <a href="//play.tailwindcss.com/">Tailwind Play</a> and minifying it with <a href="//lightningcss.dev/">Lightning CSS</a></p>
+</li>
+<li><p><strong>DSL</strong> refers to &quot;domain specific language&quot;, which is the inline styling (utility classes + expressions) inside the class name attribute</p>
+</li>
+</ul>
+<h2 id="nue-sizes"><a href="#nue-sizes" title="Nue sizes"></a>Nue sizes</h2>
+<table class="small">
+  <tr>
+    <th>Website</th><th>Shared</th><th>Design</th><th>Pages</th><th>Classes</th><th>Total</th>
+  </tr>
+  <tr>
+    <td><a href="//sofa-company.nuejs.org">The Sofa Company</a></td>
+    <td>1.5k</td>
+    <td>1.2k</td>
+    <td>2.2k</td>
+    <td>0.2k</td>
+    <td>5.2k</td>
+  </tr><tr>
+    <td><a href="//mona-editor.nuejs.org">Mona Editor</a></td>
+    <td>1.2k</td>
+    <td>0.7k</td>
+    <td>0.9k</td>
+    <td>0.018k</td>
+    <td>2.9k</td>
+  </tr><tr>
+    <td><a href="//aimee-app.nuejs.org">Aimee App</a></td>
+    <td>1.7k</td>
+    <td>0.9k</td>
+    <td>1.4k</td>
+    <td>0.1k</td>
+    <td>4.1k</td>
+  </tr>
+
+  
+</table>
+<h3 id="file-list"><a href="#file-list" title="File list"></a>File list</h3>
+<section class="file-list">
+
+  <div>
+    <h4>Shared files</h4>
+    <ul>
+  <li>
+    <a href="//github.com/nuejs/create-nue/blob/master/@base/header-and-footer.css">header-and-footer</a>
+    <b>0.5k</b>
+  </li><li>
+    <a href="//github.com/nuejs/create-nue/blob/master/@base/burger-menu.css">burger-menu</a>
+    <b>0.5k</b>
+  </li><li>
+    <a href="//github.com/nuejs/create-nue/blob/master/@base/button.css">button</a>
+    <b>0.4k</b>
+  </li><li>
+    <a href="//github.com/nuejs/create-nue/blob/master/@base/global.css">global</a>
+    <b>0.2k</b>
+  </li><li>
+    <a href="//github.com/nuejs/create-nue/blob/master/@base/stack.css">stack</a>
+    <b>0.2k</b>
+  </li>
+
+  
+</ul>
+  </div>
+
+  <div>
+    <h4>The Sofa Company</h4>
+    <ul>
+  <li>
+    <a href="//github.com/nuejs/create-nue/blob/master/sofa-company/global/sofa-company-design.css">global/sofa-company-design</a>
+    <b>1.2k</b>
+  </li><li>
+    <a href="//github.com/nuejs/create-nue/blob/master/sofa-company/home.css">home</a>
+    <b>0.4k</b>
+  </li><li>
+    <a href="//github.com/nuejs/create-nue/blob/master/sofa-company/about/about.css">about/about</a>
+    <b>0.3k</b>
+  </li><li>
+    <a href="//github.com/nuejs/create-nue/blob/master/sofa-company/buy/buy.css">buy/buy</a>
+    <b>0.4k</b>
+  </li><li>
+    <a href="//github.com/nuejs/create-nue/blob/master/sofa-company/sofas/sofas.css">sofas/sofas</a>
+    <b>1k</b>
+  </li><li>
+    <a href="//github.com/nuejs/create-nue/blob/master/sofa-company/sofas/stack.css">sofas/stack</a>
+    <b>0.2k</b>
+  </li>
+
+  
+</ul>
+  </div><div>
+    <h4>Mona Editor</h4>
+    <ul>
+  <li>
+    <a href="//github.com/nuejs/create-nue/blob/master/mona-editor/global/mona-design.css">global/mona-design</a>
+    <b>0.7k</b>
+  </li><li>
+    <a href="//github.com/nuejs/create-nue/blob/master/mona-editor/home.css">home</a>
+    <b>0.6k</b>
+  </li><li>
+    <a href="//github.com/nuejs/create-nue/blob/master/mona-editor/join/form.css">join/form</a>
+    <b>0.3k</b>
+  </li><li>
+    <a href="//github.com/nuejs/create-nue/blob/master/mona-editor/join/join.css">join/join</a>
+    <b>0.1k</b>
+  </li>
+
+  
+</ul>
+  </div><div>
+    <h4>Aimee App</h4>
+    <ul>
+  <li>
+    <a href="//github.com/nuejs/create-nue/blob/master/aimee-app/global/aimee-design.css">global/aimee-design</a>
+    <b>0.9k</b>
+  </li><li>
+    <a href="//github.com/nuejs/create-nue/blob/master/aimee-app/home.css">home</a>
+    <b>0.1k</b>
+  </li><li>
+    <a href="//github.com/nuejs/create-nue/blob/master/aimee-app/about/about.css">about/about</a>
+    <b>0.3k</b>
+  </li><li>
+    <a href="//github.com/nuejs/create-nue/blob/master/aimee-app/changelog/changelog.css">changelog/changelog</a>
+    <b>0.1k</b>
+  </li><li>
+    <a href="//github.com/nuejs/create-nue/blob/master/aimee-app/pricing/pricing.css">pricing/pricing</a>
+    <b>0.3k</b>
+  </li><li>
+    <a href="//github.com/nuejs/create-nue/blob/master/aimee-app/start/form.css">start/form</a>
+    <b>0.2k</b>
+  </li><li>
+    <a href="//github.com/nuejs/create-nue/blob/master/aimee-app/start/start.css">start/start</a>
+    <b>0.5k</b>
+  </li>
+
+  
+</ul>
+  </div>
+
+  
+
+</section>
+<p>You can see the size details by running <code>nue --production stats .css</code> on your project directory:</p>
+
+<picture><source srcset="/img/nue-stats.png" media="(max-width: 750px)" type="image/png">
+<source srcset="/img/nue-stats-big.png" media="(min-width: 750px)" type="image/png">
+<img src="/img/nue-stats-big.png" loading="lazy" width="400"></picture>
+<p>All files are minified with Lightning CSS</p>
+<p><a href=".">Back to the article</a></p>
+
+    </article>
+
+    
+  </main>
+    <footer>
+    <nav aria-label="branding"><a href="/"><img src="/img/logo.svg" width="90" height="40"></a></nav>
+    <section><nav><h3>Basics</h3>
+<a href="/getting started/">Getting started</a>
+<a href="/documentation/">Documentation</a>
+<a href="/roadmap/">Roadmap</a>
+<a href="/blog/">Blog</a>
+<a href="/faq/">FAQ</a></nav>
+<nav><h3>Core Concepts</h3>
+<a href="/content first framework/">Content First Framework</a>
+<a href="/global design system/">Global Design System</a>
+<a href="/content management/">Content Management</a>
+<a href="/reactive content/">Reactive content</a>
+<a href="/single-page apps/">Single-Page Apps</a></nav></section>
+    
+  </footer>
+    <div id="portal">
+    <dialog id="menu">
+      <a href="#" class="close">&#xd7;</a>
+      <nav aria-label="main"><a href="/why/">Why</a>
+<a href="/docs/">Docs</a>
+<a href="/blog/">Blog</a>
+<a href="/blog/status-update-01/" class="status badge">Nue status update</a></nav>
+      <nav aria-label="toolbar"><a href="/docs/">Try beta</a>
+<hr>
+<a href="//github.com/nuejs/nue" class="github badge"><em>5.9k</em></a></nav>
+    </dialog>
+  </div>
+  </body>
+
+</html>

@@ -1,0 +1,1211 @@
+<!doctype html>
+
+<html lang="en-US" dir="ltr">
+
+  <head>
+    <meta charset="utf-8">
+<title>Nue - Web Framework For UX Developers</title>
+<meta name="generator" content="Nue v0.5.3 (nuejs.org)">
+<meta name="date.updated" content="2024-05-28T05:52:04.860Z">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Nue is a content-first web framework for UX focused projects">
+<meta name="nue:components" content="/@global/form.js">
+<link rel="icon" type="image/png" href="/icon/favicon.png">
+<style href="/@global/badge.css">.badge {
+  color: var(--gray-700);
+  border: var(--border);
+  background-repeat: no-repeat;
+  border-radius: 9em;
+  padding: .5em;
+  font-size: 80%;
+  font-weight: 550;
+
+  &:hover {
+    border-color: var(--gray-400);
+    color: #000;
+  }
+
+  &:active {
+    border-color: var(--gray-200);
+    transform: scale(.97);
+  }
+
+  &.status {
+    background-image: url("/icon/cube.svg");
+    background-position: .5em;
+    background-size: 1.5em;
+    background-color: var(--main-50);
+    padding-left: 2.3em;
+  }
+
+  &.github {
+    background-image: url("/icon/github.svg");
+    background-position: .5em;
+    background-size: 1.2em;
+    padding-left: 2em;
+
+    & em {
+      background-color: var(--main-50);
+      border-radius: 1em;
+      padding: .2em .6em;
+      font-style: normal;
+      font-weight: 600;
+    }
+  }
+}
+</style>
+<style href="/@global/button.css">button, [role="button"] {
+  background-color: var(--gray-800);
+  text-align: center;
+  cursor: pointer;
+  color: var(--gray-100);
+  border: 0;
+  border-radius: .3em;
+  padding: .7em 1.4em;
+  font-weight: 550;
+  display: inline-block;
+
+  &:hover {
+    background-color: var(--gray-900);
+    color: #fff;
+    text-decoration: none;
+  }
+
+  &:active {
+    transform: scale(.98);
+  }
+
+  &.secondary {
+    box-shadow: 0 0 0 1px var(--gray-200);
+    color: inherit;
+    background-color: #fff;
+
+    &:hover {
+      box-shadow: 0 0 0 1px var(--gray-300);
+      color: var(--gray-900);
+      background-color: #fff;
+    }
+  }
+
+  &[popovertarget] {
+    background-color: var(--gray-50);
+    background-position: 50%;
+    background-repeat: no-repeat;
+
+    &:hover {
+      background-color: var(--gray-100);
+    }
+  }
+
+  &[disabled] {
+    background-color: var(--gray-200);
+    color: #fff;
+  }
+}
+</style>
+<style href="/@global/components.css">.card, .note {
+  & > :first-child {
+    margin-top: 0;
+  }
+
+  & > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+.grid {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5em;
+  margin: 3em 0;
+  display: grid;
+
+  @media (width <= 700px) {
+    & {
+      max-width: 400px;
+      margin-inline: auto;
+    }
+  }
+}
+
+.card {
+  border: var(--border);
+  border-radius: .5em;
+  padding: 1.5em;
+  font-size: 95%;
+  box-shadow: 0 0 2em rgba(0, 0, 0, .067);
+
+  & h3 {
+    margin-bottom: -.5em;
+  }
+
+  &.clickable {
+    cursor: pointer;
+
+    &:hover {
+      box-shadow: 0 0 0 2px white, 0 0 0 4px var(--main-500);
+    }
+  }
+}
+
+.note {
+  border-left: 4px solid var(--main-500);
+  margin: 2em 0;
+  padding: .5em 1.2em;
+
+  & > :first-child {
+    color: var(--main-600);
+    background: url("/icon/info.svg") 0 / .9em no-repeat;
+    margin: 0 0 .3em;
+    padding-left: 1.2em;
+  }
+}
+
+.stack {
+  gap: 1.5em;
+  margin: 2em 0;
+  display: flex;
+
+  & > * {
+    flex: 1;
+  }
+
+  @media (width <= 900px) {
+    & {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+}
+</style>
+<style href="/@global/form.css">:root {
+  accent-color: var(--main-500);
+}
+
+::placeholder {
+  color: var(--gray-400);
+}
+
+:focus-visible {
+  outline: 2px solid var(--main-500);
+  outline-offset: 1px;
+}
+
+input, textarea, select {
+  font-size: inherit;
+  color: inherit;
+  border: 1px solid var(--gray-200);
+  background-color: rgba(0, 0, 0, 0);
+  border-radius: 4px;
+  width: 100%;
+  padding: .8em 1.2em;
+  font-family: inherit;
+  transition: outline-width .1s;
+
+  &:focus {
+    border-color: var(--main-400);
+  }
+}
+
+[type="checkbox"], [type="radio"] {
+  width: inherit;
+  padding: 0;
+}
+
+textarea {
+  form-sizing: normal;
+  resize: none height: 6em;
+}
+
+.join-list {
+  max-width: 23em;
+  margin: 2em 0;
+
+  & input {
+    background: url("/img/email.svg") 95% 55% / 1.1em no-repeat;
+  }
+
+  & textarea {
+    margin: .5em 0;
+  }
+}
+</style>
+<style href="/@global/global.css">:root {
+  --gray-50: #f4f8f9;
+  --gray-100: #ebf3f4;
+  --gray-200: #dbe7ea;
+  --gray-300: #c5d7dc;
+  --gray-400: #acc4cd;
+  --gray-500: #97afbd;
+  --gray-600: #8099ab;
+  --gray-700: #657a8b;
+  --gray-800: #5a6b79;
+  --gray-900: #4c5963;
+  --gray-950: #2c343a;
+  --main-50: #f0f9ff;
+  --main-100: #e0f2fe;
+  --main-200: #bae6fd;
+  --main-300: #7dd3fc;
+  --main-400: #38bdf8;
+  --main-500: #0ea5e9;
+  --main-600: #0284c7;
+  --red: #ef4444;
+  --pink: #e200ff;
+  --purple: #a438ed;
+  --section-gap: calc(4em + 2vw);
+  --body-padding: 1em 2.5em;
+  --border: 1px solid var(--gray-200);
+}
+
+@media (width <= 600px) {
+  :root {
+    --body-padding: 1.2em;
+  }
+}
+
+*, :before, :after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  padding: var(--body-padding);
+  margin: 0;
+  font-family: system-ui;
+}
+
+figure {
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  text-underline-offset: 3px;
+  color: var(--main-500);
+  font-weight: 550;
+  text-decoration: none;
+
+  &:hover {
+    color: var(--main-600);
+  }
+}
+
+hr {
+  border: var(--border);
+  border-width: 1px 0 0;
+}
+
+h1, h2, h3, h4, h5 {
+  color: var(--gray-950);
+}
+</style>
+<style href="/@global/navigation.css">nav a {
+  color: var(--gray-600);
+
+  &:hover {
+    color: #000;
+  }
+
+  &[aria-selected] {
+    color: #000;
+    font-weight: bold;
+  }
+}
+
+body > header {
+  margin-bottom: var(--section-gap, 5em);
+
+  &, & > * {
+    align-items: center;
+    gap: 2em;
+    display: flex;
+  }
+
+  & [aria-label="toolbar"] {
+    gap: 1em;
+    margin-left: auto;
+  }
+
+  & nav a {
+    font-size: 85%;
+    font-weight: 600;
+  }
+
+  & hr {
+    border-width: 0 1px 0 0;
+    height: 1.2em;
+  }
+
+  & > [popovertarget] {
+    background-image: url("/icon/dots.svg");
+    background-size: 1.8em;
+    height: 2.4em;
+    margin-left: auto;
+    padding-inline: .8em;
+    display: none;
+  }
+
+  @media (width <= 800px) {
+    & > * {
+      display: none;
+    }
+
+    & > :first-child, & > [popovertarget] {
+      display: inline-block;
+    }
+  }
+}
+
+body > footer {
+  margin-top: var(--section-gap, 5em);
+  border-top: var(--border);
+  gap: 7em;
+  padding-block: 3em;
+  display: flex;
+
+  & h3 {
+    margin: 0 0 .5em;
+    font-size: 95%;
+  }
+
+  & nav a {
+    padding: .5em 0;
+    font-size: 90%;
+    font-weight: 400;
+    display: block;
+  }
+
+  & a:has(img) {
+    padding: 0;
+  }
+
+  @media (width <= 700px) {
+    & {
+      flex-direction: column;
+      gap: 3em;
+    }
+  }
+
+  & section {
+    gap: 6em;
+    display: flex;
+
+    @media (width <= 400px) {
+      & {
+        flex-direction: column;
+        gap: 3em;
+      }
+    }
+  }
+}
+</style>
+<style href="/@global/popover.css">[popover] {
+  border: 0;
+
+  &::backdrop {
+    backdrop-filter: blur(4px);
+    background-color: rgba(0, 0, 0, .333);
+  }
+
+  & [popovertarget] {
+    color: var(--gray-600);
+    width: 1.1em;
+    padding: 0;
+    font-size: 1.8em;
+    font-weight: 400;
+    position: absolute;
+    top: .4em;
+    right: .4em;
+
+    &:hover {
+      color: var(--gray-800);
+    }
+  }
+}
+
+dialog {
+  left: inherit;
+  border-radius: .5em;
+  min-width: 14em;
+  margin: 0;
+  padding: 1em 2em;
+  transition: opacity .1s;
+  display: none;
+  position: fixed;
+  top: 1em;
+  right: 1em;
+
+  & nav a {
+    padding: .8em 0;
+    font-weight: bold;
+    display: block;
+  }
+
+  &:popover-open {
+    z-index: 1;
+    display: block;
+  }
+}
+</style>
+<style href="/@lib/marketing-content.css">h1 {
+  color: var(--gray-50);
+  letter-spacing: -.02em;
+  margin: 0;
+  font-size: calc(2em + 2.5vw);
+  font-weight: 900;
+  line-height: 1;
+
+  & + p {
+    color: var(--gray-300);
+    font-size: calc(1.2em + .7vw);
+    font-weight: 300;
+    line-height: 1.3;
+  }
+}
+
+h2 {
+  letter-spacing: -.02em;
+  margin-bottom: 0;
+  font-size: calc(1.15em + 1vw);
+  line-height: 1.1;
+
+  & + p {
+    margin-top: .5em;
+    font-size: 110%;
+  }
+}
+
+h3 {
+  margin-bottom: -.5em;
+}
+
+p {
+  color: var(--gray-700);
+  font-size: 95%;
+  line-height: 1.5;
+
+  & em {
+    color: var(--gray-950);
+    font-style: normal;
+    font-weight: 500;
+  }
+}
+</style>
+<style href="/home/home-grids.css">.cpu {
+  width: 1000px;
+  margin: 0 -50% -4px;
+
+  @media (width <= 800px) {
+    & {
+      width: 700px;
+      margin-block: -2.3em;
+    }
+  }
+}
+
+.anim {
+  stroke-dashoffset: 80px;
+  stroke-dasharray: 80 4000;
+  stroke: #00c2ff;
+  stroke-width: 3px;
+  animation: 3s linear infinite dash;
+}
+
+.anim1 {
+  animation-delay: 0;
+  animation-duration: 10s;
+}
+
+.anim2 {
+  stroke: var(--purple);
+  opacity: .5;
+  animation-delay: .5s;
+}
+
+.anim3 {
+  animation-delay: 1s;
+}
+
+.anim4 {
+  animation-delay: 2.5s;
+}
+
+.anim5 {
+  animation-duration: 5s;
+  animation-delay: 1.5s;
+}
+
+.anim6 {
+  stroke: var(--purple);
+  opacity: .5;
+  animation-delay: 2s;
+}
+
+@keyframes dash {
+  0% {
+    stroke-dashoffset: 4000px;
+  }
+}
+
+.grid .card {
+  opacity: 0;
+  will-change: opacity;
+  transition: opacity 1s;
+
+  .in-viewport & {
+    opacity: 1;
+  }
+
+  &:first-child {
+    transition-delay: .1s;
+  }
+
+  &:nth-child(2) {
+    transition-delay: .2s;
+  }
+
+  &:nth-child(3) {
+    transition-delay: .3s;
+  }
+
+  &:nth-child(4) {
+    transition-delay: .6s;
+  }
+
+  &:nth-child(5) {
+    transition-delay: .7s;
+  }
+
+  &:nth-child(6) {
+    transition-delay: .8s;
+  }
+}
+
+.card {
+  text-align: left;
+  padding: 2.5em;
+
+  & img {
+    margin: 2em 0;
+    display: block;
+  }
+}
+
+.dx {
+  margin: 0 0 calc(4em + 5vw);
+
+  & > :first-child {
+    & img {
+      border-radius: 7px;
+    }
+  }
+
+  @media (width >= 1200px) {
+    & > :nth-child(4) {
+      grid-area: 2 / 1 / 3 / 3;
+
+      & img {
+        float: right;
+        width: 420px;
+        margin: 0 0 0 2em;
+      }
+    }
+  }
+
+  & > :nth-child(5) {
+    background-image: url("/home/img/black-bg.jpg");
+    background-size: cover;
+
+    & h3 {
+      color: var(--gray-200);
+    }
+
+    & p {
+      color: var(--gray-600);
+    }
+  }
+}
+
+.ux {
+  margin-top: 4em;
+
+  & img {
+    margin-bottom: 0;
+  }
+
+  & > :first-child {
+    background-image: linear-gradient(110deg, #008ff5, #68c1ff);
+    padding-bottom: 0;
+    padding-right: 0;
+    overflow: hidden;
+
+    & h3 {
+      color: #fff;
+    }
+
+    & p {
+      color: var(--gray-200);
+    }
+
+    & img {
+      border-radius: .5em 0 0;
+      box-shadow: -.5em -.5em 1em rgba(0, 0, 0, .15);
+    }
+  }
+}
+
+.nue-status, .love {
+  text-align: left;
+  max-width: 700px;
+  margin-bottom: 5em;
+}
+
+.hero-quote {
+  gap: 2em;
+  margin-top: 2em;
+  display: flex;
+
+  & p {
+    margin-top: -.3em;
+  }
+
+  & img {
+    border-radius: 4px;
+    min-width: 100px;
+    max-width: 100px;
+  }
+
+  @media (width <= 700px) {
+    & {
+      display: block;
+    }
+
+    & img {
+      float: right;
+      margin-left: 2em;
+    }
+  }
+}
+
+.quotes {
+  column-width: 17em;
+  column-gap: 1.5em;
+  padding: 0;
+  list-style: none;
+
+  & .card {
+    break-inside: avoid;
+    background: url("/icon/ycombinator.svg") right 1em top 1.3em / 1.4em no-repeat;
+    margin-bottom: 1.5em;
+    padding: 1.5em;
+  }
+
+  & .from-x {
+    background-image: url("/icon/x.svg");
+  }
+
+  & .from-feedback {
+    background-image: url("/icon/feedback.svg");
+  }
+
+  & .from-gh {
+    background-image: url("/icon/github.svg");
+  }
+
+  & .from-reddit {
+    background-image: url("/icon/reddit.svg");
+  }
+
+  & .from-lobster {
+    background-image: url("/icon/lobsters.png");
+  }
+}
+</style>
+<style href="/home/home.css">body {
+  background-image: url("/home/img/bg-animation.svg");
+  background-repeat: no-repeat;
+  background-size: 100% 600px;
+}
+
+.hero {
+  max-width: 800px;
+  height: 450px;
+  margin: 0 auto;
+
+  & a {
+    margin: 0 .3em;
+    font-size: 105%;
+  }
+}
+
+body > header {
+  margin-bottom: calc(5rem + 8vw);
+
+  & a {
+    color: rgba(255, 255, 255, .733);
+
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  & img {
+    filter: brightness(100);
+  }
+
+  & hr {
+    border-color: rgba(255, 255, 255, .2);
+  }
+
+  & [popovertarget] {
+    filter: invert();
+
+    &:hover {
+      background-color: rgba(153, 153, 153, .6);
+    }
+  }
+
+  & .badge {
+    &.status {
+      color: #fff;
+      background-color: rgba(0, 45, 70, .7);
+      border-color: rgba(0, 0, 0, 0);
+    }
+
+    &.github {
+      background-color: var(--purple);
+      background-image: url("/icon/github-white.svg");
+      border-color: rgba(0, 0, 0, 0);
+
+      & em {
+        color: rgba(255, 255, 255, .8);
+        background-color: rgba(0, 0, 0, .267);
+      }
+    }
+  }
+}
+
+@media (width >= 1200px) {
+  body {
+    background-size: 100% 100vh;
+  }
+
+  .hero {
+    height: calc(100vh - 10em);
+  }
+}
+
+main {
+  text-align: center;
+  text-wrap: balance;
+  max-width: 1150px;
+  margin: 0 auto;
+}
+
+.herobox {
+  text-align: left;
+  background-color: #111;
+  border-radius: 1em;
+  gap: 3em;
+  margin-bottom: 5em;
+  padding: calc(1.5em + 5vw);
+  display: flex;
+
+  & h2 {
+    color: #fff;
+  }
+
+  & p {
+    color: var(--gray-200);
+    font-size: 1.2em;
+    line-height: 1.4;
+  }
+
+  & > * {
+    flex: 1;
+  }
+
+  @media (width <= 900px) {
+    & {
+      flex-direction: column;
+      gap: .5em;
+    }
+  }
+}
+</style>
+<script src="/@global/main.js" type="module"></script>
+<script src="/home/main.js" type="module"></script>
+<script src="/@nue/hotreload.js" type="module"></script>
+<script src="/@nue/mount.js" type="module"></script>
+<script src="/@nue/page-router.js" type="module"></script>
+    
+  </head>
+
+  <body>
+    <header>
+    <nav aria-label="branding"><a href="/"><img src="/img/logo.svg" width="60" height="18"></a></nav>
+    <nav aria-label="main"><a href="/docs/">Docs</a>
+<a href="/blog/">Blog</a>
+<a href="/blog/status-update-01/" class="status badge">Nue 1.0 Alpha is here! &#x203a;</a></nav>
+    <nav aria-label="toolbar"><a href="/docs/">Try beta</a>
+<hr>
+<a href="//github.com/nuejs/nue" class="github badge"><em>6.0k</em></a></nav>
+    <button popovertarget="menu"></button>
+  </header>
+    
+
+    <main>
+    
+
+    <article>
+      
+      
+<div class="hero"><h1>Web Framework For UX Developers</h1><p>Nue is a content-first framework for rapidly building highly performant and pixel-perfect websites</p>
+
+<a class="secondary" href="/docs/" role="button">Learn Nue.js</a>
+<a href="/docs/try-beta" role="button">Try Beta</a></div>
+<h2 id="better-development-experience"><a href="#better-development-experience" title="Better development experience"></a>Better development experience</h2>
+<svg class="cpu" width="1000" height="230" viewBox="0 0 1713 400" fill="none">
+  <path d="M753.5 135V92.5a6 6 0 0 0-6-6h-102" stroke="url(#Linear_0)"/>
+  <path stroke="url(#Linear_1)" d="M793.5 135V0"/>
+  <path stroke="url(#Linear_2)" d="M833.5 135V38"/>
+  <path stroke="url(#Linear_3)" d="M873.5 135V74"/>
+  <path stroke="url(#Linear_4)" d="M913.5 135V54"/>
+  <path stroke="url(#Linear_5)" d="M833.5 301v35"/>
+  <path stroke="url(#Linear_6)" d="M794.5 301v98"/>
+  <path class="anim anim1" d="M795 301v98"/>
+  <path stroke="url(#Linear_7)" d="M873.5 301v81"/>
+  <path stroke="url(#Linear_8)" d="M913.5 301v64"/>
+  <path stroke="url(#Linear_9)" d="M953.5 301v53"/>
+  <path stroke="url(#Linear_10)" d="M993.5 301v81"/>
+  <path d="M753 299v34a7 7 0 0 1-7 7H229a7 7 0 0 0-7 7v53" stroke="url(#Linear_11)"/>
+  <path d="M753 299v34a7 7 0 0 1-7 7H229a7 7 0 0 0-7 7v53" class="anim anim2"/>
+  <path d="M953 135V27a7 7 0 0 1 7-7h65" stroke="url(#Linear_12)"/>
+  <path d="M993.5 134.999v-41.5a7 7 0 0 1 7-7H1660c3.87 0 7 3.134 7 7V399" stroke="url(#Linear_13)"/>
+  <path d="M993.5 134.999v-41.5a7 7 0 0 1 7-7H1660c3.87 0 7 3.134 7 7V399" class="anim anim3"/>
+  <rect x="868.5" y="63.5" width="10" height="10" rx="5" fill="#fff" stroke="#DADADA"/>
+  <rect x="868.5" y="375.5" width="10" height="10" rx="5" fill="#fff" stroke="#DADADA"/>
+  <rect x="828.5" y="334.5" width="10" height="10" rx="5" fill="#fff" stroke="#DADADA"/>
+  <rect x="636.5" y="81.5" width="10" height="10" rx="5" fill="#fff" stroke="#DADADA"/>
+  <path stroke="url(#Linear_14)" stroke-width="3" d="M1623 398.5h90"/>
+  <path stroke="url(#Linear_15)" stroke-width="3" d="M1444 398.5h90"/>
+  <path stroke="url(#Linear_16)" stroke-width="3" d="M1007 398.5h90"/>
+  <path stroke="url(#Linear_17)" stroke-width="3" d="M750 398.5h90"/>
+  <path stroke="url(#Linear_18)" stroke-width="3" d="M178 398.5h90"/>
+  <path stroke="url(#Linear_19)" stroke-width="3" d="M0 398.5h90"/>
+  <path d="M1057 181.5h425c3.87 0 7 3.134 7 7V399" stroke="url(#Linear_20)"/>
+  <path d="M1057 181.5h425c3.87 0 7 3.134 7 7V399" class="anim anim4"/>
+  <path d="M1055 253.5h180.5c3.87 0 7 3.134 7 7v66.25c0 3.866-3.13 7-7 7h-176c-3.87 0-7 3.134-7 7V399" stroke="url(#Linear_21)"/>
+  <path d="M1055 253.5h180.5c3.87 0 7 3.134 7 7v66.25c0 3.866-3.13 7-7 7h-176c-3.87 0-7 3.134-7 7V399" class="anim anim5"/>
+  <path d="M689 182H52a7 7 0 0 0-7 7v210" stroke="url(#Linear_22)"/>
+  <path d="M689 182H52a7 7 0 0 0-7 7v210" class="anim anim6"/>
+  <path d="M689 217H503.5a7 7 0 0 1-7-7v-88a7 7 0 0 0-7-7H201" stroke="url(#Linear_23)"/>
+  <path d="M689 255H570.559a7 7 0 0 0-7 7v8a7 7 0 0 1-7 7H371" stroke="url(#Linear_24)"/>
+  <rect x="988.5" y="377.5" width="10" height="10" rx="5" fill="#fff" stroke="#DADADA"/>
+  <rect x="949.5" y="348.5" width="10" height="10" rx="5" fill="#fff" stroke="#DADADA"/>
+  <rect x="194.5" y="110" width="10" height="10" rx="5" fill="#fff" stroke="#DADADA"/>
+  <rect x="366.5" y="272" width="10" height="10" rx="5" fill="#fff" stroke="#DADADA"/>
+  <image x="685" y="134" width="374" height="168" href="/home/img/cpu.webp"/>
+  <defs>
+    <linearGradient id="Linear_0" x1="754.5" y1="38" x2="754.5" y2="135" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EAEAEA"/>
+      <stop offset="1" stop-color="#B1B1B1"/>
+    </linearGradient>
+    <linearGradient id="Linear_1" x1="794.5" y1="0" x2="794.5" y2="135" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EAEAEA"/>
+      <stop offset="1" stop-color="#B1B1B1"/>
+    </linearGradient>
+    <linearGradient id="Linear_2" x1="834.5" y1="38" x2="834.5" y2="135" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EAEAEA"/>
+      <stop offset="1" stop-color="#B1B1B1"/>
+    </linearGradient>
+    <linearGradient id="Linear_3" x1="874.5" y1="74" x2="874.5" y2="135" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EAEAEA"/>
+      <stop offset="1" stop-color="#B1B1B1"/>
+    </linearGradient>
+    <linearGradient id="Linear_4" x1="914.5" y1="54" x2="914.5" y2="135" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EAEAEA"/>
+      <stop offset="1" stop-color="#B1B1B1"/>
+    </linearGradient>
+    <linearGradient id="Linear_5" x1="832.5" y1="336" x2="832.5" y2="301" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EAEAEA"/>
+      <stop offset="1" stop-color="#B1B1B1"/>
+    </linearGradient>
+    <linearGradient id="Linear_6" x1="793.5" y1="399" x2="793.5" y2="301" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EAEAEA"/>
+      <stop offset="1" stop-color="#B1B1B1"/>
+    </linearGradient>
+    <linearGradient id="Linear_7" x1="872.5" y1="382" x2="872.5" y2="301" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EAEAEA"/>
+      <stop offset="1" stop-color="#B1B1B1"/>
+    </linearGradient>
+    <linearGradient id="Linear_8" x1="912.5" y1="365" x2="912.5" y2="301" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EAEAEA"/>
+      <stop offset="1" stop-color="#B1B1B1"/>
+    </linearGradient>
+    <linearGradient id="Linear_9" x1="952.5" y1="354" x2="952.5" y2="301" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EAEAEA"/>
+      <stop offset="1" stop-color="#B1B1B1"/>
+    </linearGradient>
+    <linearGradient id="Linear_10" x1="992.5" y1="382" x2="992.5" y2="301" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EAEAEA"/>
+      <stop offset="1" stop-color="#B1B1B1"/>
+    </linearGradient>
+    <linearGradient id="Linear_11" x1="748.087" y1="381" x2="748.087" y2="299" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EAEAEA"/>
+      <stop offset="1" stop-color="#B1B1B1"/>
+    </linearGradient>
+    <linearGradient id="Linear_12" x1="989" y1="20" x2="989" y2="135" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EAEAEA"/>
+      <stop offset="1" stop-color="#B1B1B1"/>
+    </linearGradient>
+    <linearGradient id="Linear_13" x1="993" y1="357" x2="1667" y2="357" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#B5B5B5"/>
+      <stop offset="1" stop-color="#DBDBDB"/>
+    </linearGradient>
+    <linearGradient id="Linear_14" x1="1623" y1="400.5" x2="1713" y2="400.5" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff" stop-opacity="0"/>
+      <stop offset=".495" stop-color="#00C2FF"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="Linear_15" x1="1444" y1="400.5" x2="1534" y2="400.5" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff" stop-opacity="0"/>
+      <stop offset=".495" stop-color="#00C2FF"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="Linear_16" x1="1007" y1="400.5" x2="1097" y2="400.5" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff" stop-opacity="0"/>
+      <stop offset=".495" stop-color="#00C2FF"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="Linear_17" x1="750" y1="400.5" x2="840" y2="400.5" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff" stop-opacity="0"/>
+      <stop offset=".495" stop-color="#00C2FF"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="Linear_18" x1="178" y1="400.5" x2="268" y2="400.5" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff" stop-opacity="0"/>
+      <stop offset=".495" stop-color="#C463FF"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="Linear_19" x1="0" y1="400.5" x2="90" y2="400.5" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff" stop-opacity="0"/>
+      <stop offset=".495" stop-color="#C463FF"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="Linear_20" x1="1115.06" y1="181.339" x2="1489" y2="333" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#B5B5B5"/>
+      <stop offset="1" stop-color="#DBDBDB"/>
+    </linearGradient>
+    <linearGradient id="Linear_21" x1="1024.37" y1="253.392" x2="1024.37" y2="399" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#B5B5B5"/>
+      <stop offset="1" stop-color="#DBDBDB"/>
+    </linearGradient>
+    <linearGradient id="Linear_22" x1="620.715" y1="398.915" x2="220.252" y2="568.409" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#B5B5B5"/>
+      <stop offset="1" stop-color="#EEEBEB"/>
+    </linearGradient>
+    <linearGradient id="Linear_23" x1="637.256" y1="216.96" x2="393.105" y2="383.548" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#B5B5B5"/>
+      <stop offset="1" stop-color="#EEEBEB"/>
+    </linearGradient>
+    <linearGradient id="Linear_24" x1="655.282" y1="255.009" x2="642.853" y2="200.341" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#B5B5B5"/>
+      <stop offset="1" stop-color="#DBDBDB"/>
+    </linearGradient>
+  </defs>
+</svg>
+<section class="grid dx"><div class="card"><h3 id="for-ux-developers"><a href="#for-ux-developers" title="For UX developers"></a>For UX developers</h3><p>Nue is the best framework for design-led projects</p>
+
+<img loading="lazy" src="/home/img/cms.svg"></div>
+<div class="card">
+<img loading="lazy" src="/home/img/gds.svg">
+<h3 id="global-design-system"><a href="#global-design-system" title="Global Design System"></a>Global Design System</h3><p>Save development hours by not doing the same things over and over again</p>
+</div>
+<div class="card">
+<img loading="lazy" src="/home/img/hmr.svg">
+<h3 id="universal-hot-reloading"><a href="#universal-hot-reloading" title="Universal hot-reloading"></a>Universal hot-reloading</h3><p>Experience the slickest browser diffing system for all file types</p>
+</div>
+<div class="card">
+<picture><source srcset="/home/img/scale.svg" media="(max-width: 1200px)" type="image/svg+xml">
+<source srcset="/home/img/scale-wide.svg" media="(min-width: 1200px)" type="image/svg+xml">
+<img loading="lazy" src="/home/img/scale-wide.svg"></picture>
+<h3 id="maximum-scalability"><a href="#maximum-scalability" title="Maximum scalability"></a>Maximum scalability</h3><p>Unburden the engineer workload for the best talent available</p>
+</div>
+<div class="card">
+<img loading="lazy" src="/home/img/100x.svg">
+<h3 id="next-level-build-speed"><a href="#next-level-build-speed" title="Next-level build speed"></a>Next-level build speed</h3><p>Nue operates closer to metal</p>
+</div></section>
+<h2 id="build-better-user-experiences"><a href="#build-better-user-experiences" title="Build better user experiences"></a>Build better user experiences</h2>
+<section class="grid ux"><div class="card"><h3 id="centrally-controlled-design"><a href="#centrally-controlled-design" title="Centrally controlled design"></a>Centrally controlled design</h3><p>Ensure great, consistent design with a personal design system</p>
+<p><a href="/docs/design-system">Learn more</a></p>
+
+<img loading="lazy" src="/home/img/design-system.svg"></div>
+<div class="card"><h3 id="snappy-reactive-islands"><a href="#snappy-reactive-islands" title="Snappy, reactive islands"></a>Snappy, reactive islands</h3><p>Support for web components, reactive components, and isomorphic components</p>
+<p><a href="/docs/design-system">Learn more</a></p>
+
+<img loading="lazy" src="/home/img/islands.svg"></div>
+<div class="card"><h3 id="mother-cking-fast"><a href="#mother-cking-fast" title="Mother**cking FAST! "></a>Mother**cking FAST! &#x2122;</h3><p>Reach the levels of an ASCII-only website without compromising UX</p>
+<p><a href="/docs/design-system">Learn more</a></p>
+
+<img loading="lazy" src="/home/img/fast.svg"></div>
+<div class="card">
+<img loading="lazy" src="/home/img/stack.svg">
+<h3 id="progressive-enhancement"><a href="#progressive-enhancement" title="Progressive enhancement"></a>Progressive enhancement</h3><p>Deliver the best possible experience for the different devices</p>
+</div>
+<div class="card">
+<img loading="lazy" src="/home/img/transition.svg">
+<h3 id="smooth-page-switches"><a href="#smooth-page-switches" title="Smooth page switches"></a>Smooth page switches</h3><p>Silky smooth view transitions for all areas of your site</p>
+</div>
+<div class="card">
+<img loading="lazy" src="/home/img/css.svg">
+<h3 id="styling-superpowers"><a href="#styling-superpowers" title="Styling superpowers"></a>Styling superpowers</h3><p>Harness the power of modern, cascading CSS</p>
+</div></section>
+<section class="herobox"><div><h2 id="nue-is-for-ux-developers"><a href="#nue-is-for-ux-developers" title="Nue is for UX developers"></a>Nue is for UX developers</h2><p>What used to take a Next/React/Tailwind specialist and thousands of lines of TypeScript is now taken care by a UX developer with a few hundred lines of CSS:</p>
+<p><a href="/foob/">Learn more &#x203a;</a></p>
+</div>
+<div>
+<img loading="lazy" src="/home/img/ux-stack.svg"></div></section>
+<div class="nue-status"><h2 id="status"><a href="#status" title="Status"></a>Status</h2><p>The goal of Nue is to build a simple alternative to <em>Next.js</em>, <em>Gatsby</em>, and <em>Netlify</em>. It is released as follows:</p>
+
+<img loading="lazy" width="600" src="/img/roadmap-autumn.png">
+<h3 id="waiting-list"><a href="#waiting-list" title="Waiting list"></a>Waiting list</h3><p>Join the waiting list if you want to be notified about our next milestone. Please give us your feedback as well &#x2014; we read them all with care.</p>
+
+<div is="join-list"></div></div>
+<div class="love"><h2 id="feedback"><a href="#feedback" title="Feedback"></a>Feedback</h2>
+<section class="hero-quote"><div><img loading="lazy" src="/home/img/elliot-jay-stocks.jpg"></div>
+<div><p>At some point in the last decade, popular frameworks and platforms have eschewed semantic markup, and, as a result, the web has become way more bloated than it ever needed to be. Stripping away presentational markup and unreadable CSS is something all web developers once believed in. I&apos;m glad Nue is bringing back that power.</p>
+<p><a href="//elliotjaystocks.com/">Elliot Jay Stocks</a> /
+<em>Legendary designer and UX developer</em></p>
+</div></section></div>
+<ul class="quotes">
+  <li class="card from-x">
+    <a href="//twitter.com/snowcode/status/1747705814679167200">@snowcode</a>
+    
+    <p>I&apos;m totally loving Nue &#x2014; I like where this is going; it looks like you&apos;re creating an extensible &quot;better version&quot; of HTML built for content producers! Re-imagining what html could have been. txs for all the work! &#x2764;&#xfe0f;</p>
+  </li><li class="card from-x">
+    <a href="//twitter.com/retiagod/status/1706347206285083000">@retiagod</a>
+    
+    <p>What a great contribution to the world!</p>
+  </li><li class="card from-feedback">
+    
+    <a href="#status">Feedback</a>
+    <p>I love the vision behind this project!!! As a former front end dev who turned away from dev work due to a dislike for working entirely in JS I can see what I loved about UX dev work throughout the vision and roadmap of this project.</p>
+  </li><li class="card from-hn">
+    <a href="//news.ycombinator.com/item?id=37519741">@aziis98</a>
+    
+    <p>Awesome project, feels very refreshing even for me being a great fan of Vite and Astro.</p>
+  </li><li class="card from-feedback">
+    
+    <a href="#status">Feedback</a>
+    <p>I wish you to succeed because what you are trying to build is what I&apos;ve been dreaming of since long time.</p>
+  </li><li class="card from-feedback">
+    
+    <a href="#status">Feedback</a>
+    <p>Love what you are doing with the project, thank you! I also have a big passion for making the web a simpler place for developers. I work as a front-end developer by day, using React, and I&apos;ve thought over and over again, surely there must be a better, simpler way. So thank you!</p>
+  </li><li class="card from-feedback">
+    
+    <a href="#status">Feedback</a>
+    <p>Wow. I am so much loving the concepts you guys have introduced in Nue CSS and Nue Kit and all your projects are amazing. I am really falling in love with all of the projects.</p>
+  </li><li class="card from-feedback">
+    
+    <a href="#status">Feedback</a>
+    <p>Moi Tero! Eritt&#xe4;in hyv&#xe4;&#xe4; setti&#xe4;, mik&#xe4; resonoi t&#xe4;llaisen yli 25 vuotta webbi&#xe4; tehnyt &#x201d;UX devaajan&#x201d; ajatusten kanssa vahvasti. Toivotan menestyst&#xe4; Nue:lle &#x1f44d;</p>
+  </li><li class="card from-x">
+    <a href="//twitter.com/ulrischa/status/1702763687860162703">@ulrischa</a>
+    
+    <p>Seems like Nue could finally bring back something we lost all the way</p>
+  </li><li class="card from-lobster">
+    <a href="////lobste.rs/s/goxx8g/nue_react_vue_vite_astro_alternative#c_nfn3p0">@ondreian</a>
+    
+    <p>Nice to see you still out in the wild writing code and working to solve problems in our ecosystem @tipiirai</p>
+  </li><li class="card from-hn">
+    <a href="//news.ycombinator.com/item?id=37519371">@eh8</a>
+    
+    <p>It&apos;s really awesome to see this recent counter-revolution of developer tools emphasizing simplicity. Nue gives me the same optimistic, feel-good vibe that htmx and Alpine.js gave me when I first read about them.</p>
+  </li><li class="card from-gh">
+    <a href="////github.com/nuejs/nue/discussions/1#discussioncomment-7042460">@darkhorse007</a>
+    
+    <p>This is surprisingly good news for the frontend. I&apos;m looking forward to the release of Nue&apos;s entire ecosystem.</p>
+  </li><li class="card from-hn">
+    <a href="//news.ycombinator.com/item?id=37734713">@auraham</a>
+    
+    <p>I am very impressed by the examples, they are so easy to read. I have zero experience with React, Svelte and JS in general, but after reading the examples make me want to learn more.</p>
+  </li><li class="card from-hn">
+    <a href="//news.ycombinator.com/item?id=37518231">@ilrwbwrkhv</a>
+    
+    <p>More frontend devs needs to stop following the herd and think for themselves and look back at how hackers used to work back in the day to use as little memory as possible.</p>
+  </li><li class="card from-reddit">
+    <a href="//https://www.reddit.com/r/vuejs/comments/16ifij7/comment/k0jhbyl/?utm_source=reddit&amp;utm_medium=web2x&amp;context=3">@ctrlzkids</a>
+    
+    <p>Insanely impressive. Well done &#x1f44f;</p>
+  </li><li class="card from-reddit">
+    <a href="////www.reddit.com/r/vuejs/comments/16ifij7/comment/k0v49y7/?utm_source=reddit&amp;utm_medium=web2x&amp;context=3">@en_ka8</a>
+    
+    <p>I&apos;m really rooting for your project to grow. I&apos;m very excited about its concept. Because I think no framework has it figured out yet, so I really welcome every new solution to make web dev easier.</p>
+  </li><li class="card from-feedback">
+    
+    <a href="#status">Feedback</a>
+    <p>It&apos;s so wonderful to hear someone espouse the benefits of semantic CSS over all of this &quot;utility-first&quot; nonsense. I understand the draw of Tailwind but there&apos;s just so much overhead and the learning curve is steep. And if you&apos;re working with Tailwind all of the time, you&apos;ll forget what items-center means in CSS. Excited to follow Nue!</p>
+  </li><li class="card from-x">
+    <a href="//twitter.com/CoooolXyh/status/1703687501599347079">@CoooolXyh</a>
+    
+    <p>If you haven&#x2019;t tried Nuejs yet, you better hurry up and give it a go!</p>
+  </li><li class="card from-feedback">
+    
+    <a href="#status">Feedback</a>
+    <p>I just found your site, and am excited about the concepts of content first, separation of concern, and everything else. I have been looking and waiting for the RAD version of web development. Maybe Nue is it? Also, as a fellow Scandinavian, Finnish design doesn&apos;t hurt. Good luck forward!</p>
+  </li><li class="card from-gh">
+    <a href="////github.com/nuejs/nue/discussions/43#discussion-5657161">@edimoldovan</a>
+    
+    <p>Great job with Nue, you are hitting many of the pain points I had with the frontend tooling.</p>
+  </li><li class="card from-hn">
+    <a href="//news.ycombinator.com/item?id=37734990">@OsrsNeedsf2P</a>
+    
+    <p>It&apos;s funny how React and other frameworks spent so much effort abstracting the render loop, meanwhile Nue is just like &quot;call update()&quot;. And in the end, Nue looks a lot simpler to use.</p>
+  </li>
+  
+</ul>
+      
+    </article>
+
+    
+  </main>
+
+    <footer>
+    <nav aria-label="branding"><a href="/"><img src="/img/logo.svg" width="65" height="19"></a></nav>
+    <section><nav><h3>Developers</h3>
+<a href="/getting started/">Getting started</a>
+<a href="/documentation/">Documentation</a>
+<a href="/roadmap/">Roadmap</a>
+<a href="/blog/">Blog</a>
+<a href="/faq/">FAQ</a></nav>
+<nav><h3>Core Concepts</h3>
+<a href="/content first framework/">Content First Framework</a>
+<a href="/global design system/">Global Design System</a>
+<a href="/content management system/">Content Management System</a>
+<a href="/progressive enhancement/">Progressive Enhancement</a>
+<a href="/single-page applications/">Single-Page Applications</a></nav></section>
+    
+  </footer>
+    <div>
+    <dialog popover id="menu">
+      <button popovertarget="menu">&#xd7;</button>
+      <nav><a href="/home/">Home</a>
+<a href="/docs/">Docs</a>
+<a href="/blog/">Blog</a>
+<hr>
+<a href="/github/">GitHub</a></nav>
+    </dialog>
+  </div>
+  </body>
+
+</html>

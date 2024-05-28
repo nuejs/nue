@@ -1,0 +1,19 @@
+.demo {
+  & h3 {
+    margin: 1em 0;
+  }
+
+  & figcaption {
+    margin-top: 1em;
+  }
+
+  & img {
+    box-shadow: 0 0 4px$ gray-200;
+    width: 8em;
+  }
+
+  & [type="number"] {
+    width: 5em;
+    margin-right: 1em;
+  }
+}

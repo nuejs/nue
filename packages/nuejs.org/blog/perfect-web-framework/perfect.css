@@ -1,0 +1,27 @@
+
+h2 code {
+  background-color: var(--main-200);
+  font-size: 1.1rem;
+  color: var(--main-600);
+  line-height: 1;
+  font-family: courier new;
+  text-shadow: 1px 1px 1px white;
+  padding: .3em .6em;
+  border-radius: .3em;
+  float: right;
+  margin: .1em .3em 0 .2em;
+}
+
+.problem {
+  border-left: 5px solid var(--red);
+  color: var(--gray-600);
+  padding-left: 1em;
+}
+
+
+#design, #speed, #ux {
+  code {
+    background-color: #cdffdf;
+    color: #28ac6c;
+  }
+}

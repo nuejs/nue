@@ -1,0 +1,237 @@
+<!doctype html>
+
+<html lang="en-US" dir="ltr">
+
+  <head>
+    <meta charset="utf-8">
+<title>Nue - Tailwind vs Semantic CSS</title>
+<meta name="generator" content="Nue v0.5.3 (nuejs.org)">
+<meta name="date.updated" content="2024-05-28T03:11:22.678Z">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Nue is a web framework for UX focused projects. It&apos;s the best choice for designers and UX developers.">
+<meta property="og:image" content="/blog/tailwind-vs-semantic-css/img/markup-big.jpg">
+<meta name="nue:components" content="/@global/form.js /@lib/video.js">
+<link rel="icon" type="image/png" href="/icon/favicon.png">
+<link href="/@global/badge.css" rel="stylesheet">
+<link href="/@global/button.css" rel="stylesheet">
+<link href="/@global/components.css" rel="stylesheet">
+<link href="/@global/form.css" rel="stylesheet">
+<link href="/@global/global.css" rel="stylesheet">
+<link href="/@global/navigation.css" rel="stylesheet">
+<link href="/@global/popover.css" rel="stylesheet">
+<link href="/@lib/syntax-highlight.css" rel="stylesheet">
+<link href="/@lib/technical-content.css" rel="stylesheet">
+<link href="/@lib/video.css" rel="stylesheet">
+<link href="/@nue/glow.css" rel="stylesheet">
+<link href="/blog/blog.css" rel="stylesheet">
+<script src="/@global/main.js" type="module"></script>
+<script src="/@nue/hotreload.js" type="module"></script>
+<script src="/@nue/mount.js" type="module"></script>
+<script src="/@nue/page-router.js" type="module"></script>
+    
+  </head>
+
+  <body>
+    <header>
+    <nav aria-label="branding"><a href="/"><img src="/img/logo.svg" width="60" height="18"></a></nav>
+    <nav aria-label="main"><a href="/docs/">Docs</a>
+<a href="/blog/">Blog</a>
+<a href="/blog/status-update-01/" class="status badge">Nue 1.0 Alpha is here! &#x203a;</a></nav>
+    <nav aria-label="toolbar"><a href="/docs/">Try beta</a>
+<hr>
+<a href="//github.com/nuejs/nue" class="github badge"><em>6.0k</em></a></nav>
+    <button popovertarget="menu"></button>
+  </header>
+    
+
+    <main>
+    <aside>
+  <a href="/blog/">&#x2039; Go back</a>
+</aside>
+
+    <article>
+      <header>
+
+  <time datetime="2023-10-23T00:00:00.000Z">October 23, 2023</time>
+
+  <h1>Tailwind vs Semantic CSS</h1>
+
+  <div class="author">
+  <span><img width="36" height="36" src="/img/tero.webp"></span>
+
+  <aside>
+    <b>Tero Piirainen</b>
+    <a href="//x.com/tipiirai">@tipiirai</a>
+  </aside>
+</div>
+
+</header>
+      <p>This study compares two websites with similar design: the commercial Spotlight template from developers of Tailwind vs the same site with semantic CSS:</p>
+
+<section class="stack"><div><a href="//spotlight.tailwindui.com/"><picture><source srcset="img/tw-home.png" media="(max-width: 750px)" type="image/png">
+<source srcset="img/tw-home-big.png" media="(min-width: 750px)" type="image/png">
+<img loading="lazy" src="img/tw-home-big.png"></picture></a></div>
+<div>
+<a href="/@spotlight/"><picture><source srcset="img/nue-home.png" media="(max-width: 750px)" type="image/png">
+<source srcset="img/nue-home-big.png" media="(min-width: 750px)" type="image/png">
+<img loading="lazy" src="img/nue-home-big.png"></picture></a></div></section>
+<h2 id="front-page-html"><a href="#front-page-html" title="Front page HTML"></a>Front page HTML</h2><p>The main difference: Tailwind uses &quot;utility&quot; classes and the semantic version uses external stylesheets. That is: Tailwind styles elements inline, directly on the markup and the semantic version respects the <a href="//en.wikipedia.org/wiki/Separation_of_concerns">separation of concerns</a> principle.</p>
+<p>You can see the difference by drilling down to the first A-element:</p>
+
+<figure><picture><source srcset="img/markup.png" media="(max-width: 750px)" type="image/png">
+<source srcset="img/markup-big.png" media="(min-width: 750px)" type="image/png">
+<img alt="Drilling down to the first element on the main navigation" loading="lazy" src="img/markup-big.png"></picture><figcaption>Drilling down to the first element on the main navigation</figcaption></figure>
+<p>Tailwind needs significantly more coding because you are completely lacking the power of CSS: the way it cascades and the richness of the selectors. You are forced to wrap divs inside divs inside divs and fill the elements with Tailwind-specific class syntax.</p>
+<p>Here is the full HTML source code of the front page.</p>
+
+<figure><picture><source srcset="img/html.jpg" media="(max-width: 750px)" type="image/jpeg">
+<source srcset="img/html-big.jpg" media="(min-width: 750px)" type="image/jpeg">
+<img alt="Full HTML coding on the front page" loading="lazy" src="img/html-big.jpg"></picture><figcaption>Full HTML coding on the front page</figcaption></figure>
+<p>Tailwind (and Next.js) generate 75K of unminified HTML, while the semantic version is only 8K. While some parts come from Next, it&apos;s pretty clear that Tailwind requires significantly more HTML to render the same design than the semantic version.</p>
+<p>With Tailwind the <a href="//www.siteguru.co/free-seo-tools/text-to-html-ratio?url=spotlight.tailwindui.com">Text to HTML Ratio</a> is only 2.3%, which is &quot;Very low&quot; according to SiteGuru. <a href="//www.siteguru.co/free-seo-tools/text-to-html-ratio?url=nuejs.org/@spotlight/">Nue ratio</a>, however, is 20.3% which is &quot;Good&quot;.</p>
+<h2 id="front-page-css"><a href="#front-page-css" title="Front page CSS"></a>Front page CSS</h2><p>Let&apos;s study the difference in CSS coding:</p>
+
+<figure><picture><source srcset="img/css.jpg" media="(max-width: 750px)" type="image/jpeg">
+<source srcset="img/css-big.jpg" media="(min-width: 750px)" type="image/jpeg">
+<img alt="Full CSS coding on the front page" loading="lazy" src="img/css-big.jpg"></picture><figcaption>Full CSS coding on the front page</figcaption></figure>
+<p>Blue is semantic CSS, gray is utility classes, and black-bordered is primary CSS (which makes your pages render faster).</p>
+<p>Some key takes:</p>
+<ol>
+<li><p>Tailwind CSS is seven times larger: 33K vs 4.6K. Overall you need eight times more HTML/CSS code with Tailwind to render the page (108K vs 12.6K). While the design is not identical, but it&apos;s easy to see the ballpark figure in there. Tailwind- generated sites are multiple times larger.</p>
+</li>
+<li><p>Most of the semantic CSS is re-usable on other pages and only a fraction of the CSS is specific to the front page. It&apos;s easy to create new pages when the groundwork is already done.</p>
+</li>
+<li><p>&quot;Spotlight&quot; is just a <em>theme</em> extending a base design. There is an extremely minimalistic <a href="/@base/">base-version</a> of the website that can be used to create new themes, like our Spotlight theme.</p>
+</li>
+</ol>
+
+<figure><picture><source srcset="img/extending.png" media="(max-width: 750px)" type="image/png">
+<source srcset="img/extending-big.png" media="(min-width: 750px)" type="image/png">
+<img alt="Creating a new design by extending a semantic base design" loading="lazy" src="img/extending-big.png"></picture><figcaption>Creating a new design by extending a semantic base design</figcaption></figure>
+<p>Theming is a powerful concept in CSS. You can alter your design by swapping parts of your CSS with another one or overriding a <a href="/@base/">base version</a>. Theming is impossible with Tailwind because the design is tightly coupled to the markup. If you want a new design, you must edit your markup and override your earlier work.</p>
+<h2 id="rendering-speed"><a href="#rendering-speed" title="Rendering speed"></a>Rendering speed</h2><p>The two metrics that measure page rendering speed are <a href="//web.dev/articles/fcp">first contentful paint</a> (FCP) and <a href="//web.dev/articles/lcp">largest contentful paint</a> (LCP). The semantic version is faster than in both metrics and in both mobile and PC. Here&apos;s LCP on mobile for example:</p>
+
+<figure><picture><source srcset="img/lcp-mobile.png" media="(max-width: 750px)" type="image/png">
+<source srcset="img/lcp-mobile-big.png" media="(min-width: 750px)" type="image/png">
+<img alt="Largest Contentful Paint (LCP) rendering speed on mobile" loading="lazy" src="img/lcp-mobile-big.png"></picture><figcaption>Largest Contentful Paint (LCP) rendering speed on mobile</figcaption></figure>
+<p>Please compare <a href="//pagespeed.web.dev/analysis/https-spotlight-tailwindui-com/cqtnf4xxoy?form_factor=mobile">Tailwind metrics</a> with <a href="//pagespeed.web.dev/analysis/https-nuejs-org-spotlight/6nnhwwnz8b?form_factor=mobile">Semantic CSS metcis </a>.</p>
+<p>Two reasons why the semantic version is faster:</p>
+<ol>
+<li><p>The primary CSS is <a href="//imkev.dev/loading-css">inlined</a> on the HTML page so that all the assets for the first viewport are fetched in the initial request. This is probably the most important performance optimization for the perceived page-loading experience.</p>
+</li>
+<li><p>The first request is <a href="//endtimes.dev/why-your-website-should-be-under-14kb-in-size/">less than 14K</a>, which is the maximum size of the first TCP packet.</p>
+</li>
+</ol>
+<p>The Preview tab on the Developer console is a great way to debug FCP:</p>
+
+<figure><picture><source srcset="img/first-paint.png" media="(max-width: 750px)" type="image/png">
+<source srcset="img/first-paint-big.png" media="(min-width: 750px)" type="image/png">
+<img alt="Previewing the first paint on the developer console" loading="lazy" src="img/first-paint-big.png"></picture><figcaption>Previewing the first paint on the developer console</figcaption></figure>
+<h2 id="separation-of-concerns"><a href="#separation-of-concerns" title="Separation of concerns"></a>Separation of concerns</h2><p>Tailwind embraces <strong>tight coupling</strong>. That is: the structure and styling are tied together. The semantic approach is the opposite: the structure and styling are loosely coupled**. Here&apos;s what that means:</p>
+
+<figure><picture><source srcset="img/coupling.png" media="(max-width: 750px)" type="image/png">
+<source srcset="img/coupling-big.png" media="(min-width: 750px)" type="image/png">
+<img alt="Tight coupling vs Loose coupling" loading="lazy" src="img/coupling-big.png"></picture><figcaption>Tight coupling vs Loose coupling</figcaption></figure>
+<p>The semantic version, allows you to change the design of the gallery freely. You name the component and style it externally. With Tailwind the style cannot be separated from the structure.</p>
+<p>Here&apos;s a better example. Let&apos;s look at the &quot;Uses&quot; or &quot;Setup&quot; page on both implementations:</p>
+
+<section class="stack"><div><figure><a href="//spotlight.tailwindui.com/uses"><picture><source srcset="img/tw-uses.png" media="(max-width: 750px)" type="image/png">
+<source srcset="img/tw-uses-big.png" media="(min-width: 750px)" type="image/png">
+<img alt="Tailwind UI version &#x2192;" loading="lazy" src="img/tw-uses-big.png"></picture></a><figcaption>Tailwind UI version &#x2192;</figcaption></figure></div>
+<div>
+<figure><a href="/@spotlight/setup/"><picture><source srcset="img/nue-uses.png" media="(max-width: 750px)" type="image/png">
+<source srcset="img/nue-uses-big.png" media="(min-width: 750px)" type="image/png">
+<img alt="Semantic version &#x2192;" loading="lazy" src="img/nue-uses-big.png"></picture></a><figcaption>Semantic version &#x2192;</figcaption></figure></div></section>
+<p>With Tailwind you must create a JavaScript component to construct a suitable HTML structure for the design. With the semantic version, we can use Markdown in place of the custom JSX component because the generated HTML is semantic and can be styled externally with CSS selectors:</p>
+
+<figure><picture><source srcset="img/content-first.png" media="(max-width: 750px)" type="image/png">
+<source srcset="img/content-first-big.png" media="(min-width: 750px)" type="image/png">
+<img alt="Tight vs loose coupling from a different angle" loading="lazy" src="img/content-first-big.png"></picture><figcaption>Tight vs loose coupling from a different angle</figcaption></figure>
+<p>Loose coupling makes you think <strong>content first</strong>. There is no need to write a component for every situation because you can use external CSS to do the heavy lifting.</p>
+<p>&#xa0;</p>
+<h2 id="but"><a href="#but" title="But ..."></a>But ...</h2><h3>But naming things is unnecessary</h3><p>Naming things is a skill. You name things that repeat. Think of function names in JavaScript or component names in Figma. The same goes for CSS class names. Be good at naming, and you can move from repeating things to re-using things. That is: you can move from this:</p>
+
+<pre glow><code language="html"><sup>&lt;!-- utility- first css --&gt;</sup>
+<i>&lt;</i><strong>button </strong><b>className</b><i>=</i><i>&quot;</i>group mb<i>-</i><em>8</em> flex h<i>-</i><em>10</em> w<i>-</i><em>10</em>
+  items<i>-</i>center justify<i>-</i>center rounded<i>-</i>full
+  bg<i>-</i>white shadow<i>-</i>md shadow<i>-</i>zinc<i>-</i><em>800</em><i>/</i><em>5</em> ring<i>-</i><em>1</em>
+  ring<i>-</i>zinc<i>-</i><em>900</em><i>/</i><em>5</em> transition <b>dark</b><i>:</i>border
+  <b>dark</b><i>:</i>border<i>-</i>zinc<i>-</i><em>700</em><i>/</i><em>50</em> <b>dark</b><i>:</i>bg<i>-</i>zinc<i>-</i><em>800</em>
+  <b>dark</b><i>:</i>ring<i>-</i><em>0</em> <b>dark</b><i>:</i>ring<i>-</i>white<i>/</i><em>10</em>
+  <b>dark</b><i>:</i><b>hover</b><i>:</i>border<i>-</i>zinc<i>-</i><em>700</em>
+  <b>dark</b><i>:</i><b>hover</b><i>:</i>ring<i>-</i>white<i>/</i><em>20</em>
+  <b>lg</b><i>:</i>absolute <b>lg</b><i>:</i><i>-</i>left<i>-</i><em>5</em>
+  <b>lg</b><i>:</i>mb<i>-</i><em>0</em> <b>lg</b><i>:</i><i>-</i>mt<i>-</i><em>2</em>
+  <b>xl</b><i>:</i><i>-</i>top<i>-</i><em>1.5</em>
+  <b>xl</b><i>:</i>left<i>-</i><em>0</em>
+  <b>xl</b><i>:</i>mt<i>-</i><em>0</em><i>&quot;</i><i>&gt;</i></code></pre>
+<p>To this</p>
+
+<pre glow><code language="html"><sup>&lt;!-- semantic css --&gt;</sup>
+<i>&lt;</i><strong>button </strong><b>class</b><i>=</i><em>&quot;secondary&quot;</em><i>&gt;</i></code></pre>
+<p>Without turning into components.</p>
+<h3 id="but-co-location-is-important"><a href="#but-co-location-is-important" title="But co-location is important?"></a>But co-location is important?</h3><p>Co-location is a catchy name for tight coupling. A term to promote the idea that styling should be tied to the presentation. Repeating things vs. re-using things. See above.</p>
+<h3>But Tailwind is a great design system</h3><p>Tailwind has great defaults for colors, spacing, and responsive design. That part is roughly 3% of your Tailwind CSS file. It&apos;s easy to copy these defaults to your semantic design system if needed.</p>
+<h3>But I move faster with Tailwind</h3><p>Yes. You can move faster with Tailwind. But only when:</p>
+<ol>
+<li><p>You are comparing Tailwind with your earlier, bad experiences with CSS or you are new to CSS development.</p>
+</li>
+<li><p>You don&apos;t care about building reusable CSS for later use. That is: you are not naming things that repeat.</p>
+</li>
+</ol>
+<p>If you really want to move faster, you&apos;ll create a set of CSS components that you can reuse. Like <code>&lt;button class=&quot;secondary&quot;&gt;</code>.</p>
+<h3>But why is Tailwind so popular then?</h3><p>Because mastering CSS requires practice. It takes several failed attempts before you get it. Most developers haven&apos;t gone through that so they only remember the bad things.</p>
+<p>The fact is that Tailwind&apos;s popularity will eventually fade. CSS-in-JS is trending now, but standards are forever. At some point, we&apos;ll all experience a &quot;WTF moment&quot; when looking at the tightly coupled Tailwind code.</p>
+
+<div>
+
+  <h2>Nue Status</h2>
+
+  <p>
+    The goal of Nue is to build a perfect web framework for UX developers and design engineers. A [content-first](/) alternative to improve your design, UX, and developer experience. It is released as follows:
+  </p>
+
+  <img src="/img/roadmap-autumn.png">
+
+  <p>
+    Join the waiting list if you want to be notified about our next milestone. Please give us your thoughts as well &#x2014; we read them all with care.
+  </p>
+
+  <div is="join-list"></div>
+
+</div>
+      
+    </article>
+
+    
+  </main>
+
+    <footer>
+    <nav aria-label="branding"><a href="/"><img src="/img/logo.svg" width="65" height="19"></a></nav>
+    <section><nav><h3>Developers</h3>
+<a href="/getting started/">Getting started</a>
+<a href="/documentation/">Documentation</a>
+<a href="/roadmap/">Roadmap</a>
+<a href="/blog/">Blog</a>
+<a href="/faq/">FAQ</a></nav>
+<nav><h3>Core Concepts</h3>
+<a href="/content first framework/">Content First Framework</a>
+<a href="/global design system/">Global Design System</a>
+<a href="/content management system/">Content Management System</a>
+<a href="/progressive enhancement/">Progressive Enhancement</a>
+<a href="/single-page applications/">Single-Page Applications</a></nav></section>
+    
+  </footer>
+    <div>
+    <dialog popover id="menu">
+      <button popovertarget="menu">&#xd7;</button>
+      <nav><a href="/home/">Home</a>
+<a href="/docs/">Docs</a>
+<a href="/blog/">Blog</a>
+<hr>
+<a href="/github/">GitHub</a></nav>
+    </dialog>
+  </div>
+  </body>
+
+</html>

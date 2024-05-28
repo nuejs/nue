@@ -1,0 +1,67 @@
+
+globals: ["@global", css]
+libs: ["@lib"]
+
+router: true
+css_2023: true
+title: Web Framework For UX Developers
+description: Nue is a web framework for UX focused projects. It's the best choice for designers and UX developers.
+title_template: "Nue - %s"
+favicon: /icon/favicon.png
+
+links:
+  nuejs: //github.com/nuejs/nue/tree/master/packages/nuejs
+  divide: //css-tricks.com/the-great-divide/
+  standards: //www.w3.org/wiki/The_web_standards_model_-_HTML_CSS_and_JavaScript
+  brad: //bradfrost.com/blog/post/front-of-the-front-end-and-back-of-the-front-end-web-development/
+  gds: //bradfrost.com/blog/post/a-global-design-system/
+
+header:
+  branding:
+    - image: /img/logo.svg
+      size: 60 × 18
+      url: /
+
+  navi:
+    - Docs
+    - Blog
+    - label: Nue 1.0 Alpha is here! ›
+      url: /blog/status-update-01/
+      class: status badge
+
+  toolbar:
+    - label: Try beta
+      url: /docs/
+    - ---
+    - label: "*6.0k*"
+      url: //github.com/nuejs/nue
+      class: github badge
+
+burger_menu:
+  - Home
+  - Docs
+  - Blog
+  - ---
+  - GitHub
+
+footer:
+  branding:
+    - image: /img/logo.svg
+      size: 65 × 19
+      url: /
+
+  navi:
+    Developers:
+      - Getting started
+      - Documentation
+      - Roadmap
+      - Blog
+      - FAQ
+
+    Core Concepts:
+      - Content First Framework
+      - Global Design System
+      - Content Management System
+      - Progressive Enhancement
+      - Single-Page Applications
+

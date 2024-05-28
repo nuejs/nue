@@ -1,0 +1,32 @@
+<svg width="126" height="68" viewBox="0 0 126 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+  <defs>
+  <style>
+
+    @keyframes rotate {
+      0% { transform: rotate(0deg) }
+      100% { transform: rotate(360deg) }
+    }
+
+    .p1 {
+      animation: rotate 55s linear infinite;
+      transform-origin: 50% 10%;
+      stroke-width: 13px;
+      fill: #FAFAFA;
+    }
+
+    .p2 {
+      animation: rotate 70s linear infinite;
+      transform-origin: 50% 10%;
+      stroke: white;
+      stroke-width: 8px;
+      fill: #EEF8FF;
+    }
+  </style>
+  </defs>
+
+  <path d="M107.65 37.2214C114.564 24.3555 109.948 7.94992 103.753 -1.57813C89.5679 -23.6665 50.7738 -34.7414 30.8677 -14.6754C10.9615 5.3906 13.9099 37.6848 35 48C48.413 54.4656 72.3889 59.2176 84.2957 54.1896C94.42 49.9006 102.858 46.3428 107.65 37.2214Z" class="p1"/>
+
+  <path d="M96.9052 14.6795C96.3122 3.32084 86.6807 -5.04536 78.1778 -8.20136C60.5326 -14.5495 36.2587 -2.43942 34.82 13.3092C33.3813 29.0579 52.4488 44.825 70.7978 42.3282C83.9492 40.4601 97.6904 28.7238 96.9052 14.6795Z" class="p2"/>
+
+</svg>

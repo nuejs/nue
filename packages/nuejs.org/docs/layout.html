@@ -1,0 +1,21 @@
+
+<nav @name="subnav">
+  <button popovertarget="sidebar"/>
+  <strong>{ lang.menu } &rsaquo; { title }</strong>
+</nav>
+
+<aside id="sidebar" popover>
+  <button popovertarget="sidebar">&times;</button>
+  <navi :items="sidenav"/>
+</aside>
+
+
+<aside @name="context">
+  <h3>{ lang.this_page }</h3>
+  <toc class="toc"/>
+
+  <div class="zen-switch">
+    <h5>Zen Mode</h5>
+    <label class="switch"><input type="checkbox"></label>
+  </div>
+</aside>

@@ -1,0 +1,43 @@
+
+.badge {
+  background-repeat: no-repeat;
+  font-weight: 550;
+  color: var(--gray-700);
+  border: var(--border);
+  border-radius: 9em;
+  padding: .5em;
+  font-size: 80%;
+
+  &:hover {
+    border-color: var(--gray-400);
+    color: black
+  }
+
+  &:active {
+    border-color: var(--gray-200);
+    transform: scale(.97);
+  }
+
+  &.status {
+    background-image: url(/icon/cube.svg);
+    background-position: .5em 50%;
+    background-size: 1.5em;
+    padding-left: 2.3em;
+    background-color: var(--main-50);
+  }
+
+  &.github {
+    background-image: url(/icon/github.svg);
+    background-position: .5em 50%;
+    background-size: 1.2em;
+    padding-left: 2em;
+
+    em {
+      background-color: var(--main-50);
+      font-style: normal;
+      padding: .2em .6em;
+      border-radius: 1em;
+      font-weight: 600;
+    }
+  }
+}

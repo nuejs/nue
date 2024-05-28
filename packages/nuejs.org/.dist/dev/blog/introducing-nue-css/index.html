@@ -1,0 +1,390 @@
+<!doctype html>
+
+<html lang="en-US" dir="ltr">
+
+  <head>
+    <meta charset="utf-8">
+<title>Nue CSS (preview)</title>
+<meta name="generator" content="Nue v0.5.3 (nuejs.org)">
+<meta name="date.updated" content="2024-05-01T05:35:41.835Z">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta property="og:image" content="/img/nue-css-og.png">
+<meta name="nue:components" content="/global/components.js /@lib/video.js">
+<link href="/@base/base.css" rel="stylesheet">
+<link href="/@base/button.css" rel="stylesheet">
+<link href="/@base/dialog.css" rel="stylesheet">
+<link href="/@base/header-and-footer.css" rel="stylesheet">
+<link href="/global/badge.css" rel="stylesheet">
+<link href="/global/colors.css" rel="stylesheet">
+<link href="/global/components.css" rel="stylesheet">
+<link href="/global/form.css" rel="stylesheet">
+<link href="/global/global.css" rel="stylesheet">
+<link href="/@lib/article.css" rel="stylesheet">
+<link href="/@lib/glow-syntax.css" rel="stylesheet">
+<link href="/@lib/video.css" rel="stylesheet">
+<link href="/@nue/glow.css" rel="stylesheet">
+<link href="/blog/blog.css" rel="stylesheet">
+<link href="/blog/introducing-nue-css/nue-css-intro.css" rel="stylesheet">
+<script src="/@nue/hotreload.js" type="module"></script>
+<script src="/@nue/mount.js" type="module"></script>
+<script src="/@nue/page-router.js" type="module"></script>
+    
+  </head>
+
+  <body>
+    <header>
+    <nav aria-label="branding"><a href="/"><img src="/img/logo.svg" width="70" height="31"></a></nav>
+    <nav aria-label="main"><a href="/why/">Why</a>
+<a href="/docs/">Docs</a>
+<a href="/blog/">Blog</a>
+<a href="/blog/status-update-01/" class="status badge">Nue status update</a></nav>
+    <nav aria-label="toolbar"><a href="/docs/">Try beta</a>
+<hr>
+<a href="//github.com/nuejs/nue" class="github badge"><em>5.9k</em></a></nav>
+    <a href="#menu" aria-controls="menu"></a>
+  </header>
+    <main>
+    <aside>
+  <a href="/blog/index.html">&#x2039; Go back</a>
+</aside>
+
+    <article>
+      <header>
+
+  <time datetime="2024-03-20T00:00:00.000Z">March 20, 2024</time>
+
+  <h1><em>Nue CSS preview:</em> A scaleable alternative to Tailwind, BEM, and CSS-in-JS</h1>
+
+  <div class="author">
+  <span><img width="36" height="36" src="/img/tero.webp"></span>
+
+  <aside>
+    <b>Tero Piirainen</b>
+    <a href="//twitter.com/tipiirai">@tipiirai</a>
+  </aside>
+</div>
+
+</header>
+      <p>Here&apos;s a preview of Nue&apos;s approach to styling things on the web. The key difference to existing systems are <em>minimalism</em>, and extreme <em>re-usability</em>. The difference can be huge: you can build an entire website with the same amount of CSS that goes into a single <em>Tailwind</em> button. Or even crazier: three websites with a single <em>Tailwind Catalyst</em> button.</p>
+
+<figure class="hero"><picture><source srcset="/img/nue-css-hero.webp" media="(max-width: 750px)" type="image/webp">
+<source srcset="/img/nue-css-hero-big.webp" media="(min-width: 750px)" type="image/webp">
+<img src="/img/nue-css-hero-big.webp" alt="It&apos;s possible to write three entire websites with a size of a single Tailwind button" loading="lazy" height="451" width="720"></picture><figcaption>It&apos;s possible to write three entire websites with a size of a single Tailwind button</figcaption></figure>
+<p>To understand what&apos;s happening here, we need to step back and look closer at what has happened to CSS in the past few years:</p>
+<h3 id="bem-finding-order-to-chaos"><a href="#bem-finding-order-to-chaos" title="BEM: Finding order to chaos"></a><em>BEM:</em> Finding order to chaos</h3><p>CSS is notoriously hard to manage. It takes years to get a hold of it. Between 2008 and 2014 there were several attempts to bring order: <em>OOCSS</em>, <em>BEM</em>, and <em>SMACSS</em>.</p>
+<p>However, these systems failed due to their size and verbosity. Developers lost interest in naming patterns like <code>block-name__elem-name_mod-name_mod-val</code> or the 600 different class names introduced by Bootstrap, which was based on SMACSS.</p>
+
+<img src="/img/css-history.png" loading="lazy" height="83" width="720">
+<h3><em>CSS-in-JS:</em> Clean global namespace</h3><p>In 2014, <em>Christopher Chedeau</em> from <em>Facebook</em> gave birth to the CSS-in-JS movement. The main idea was to get rid of global namespace pollution. He showcased Bootstrap as the key example of a bad design.</p>
+<p>It was a huge success and developers started converting their CSS to JavaScript. We saw a flood of new CSS frameworks like <a href="//vanilla-extract.style/">Vanilla Extract</a>, <a href="//github.com/vercel/styled-jsx">Styled JSX</a>, and <a href="//emotion.sh">Emotion</a></p>
+<h3 id="tailwind-inline-styling"><a href="#tailwind-inline-styling" title="Tailwind: Inline styling"></a><em>Tailwind:</em> Inline styling</h3><p>In 2017, <em>Adam Wathan</em> introduced <a href="//tailwindcss.com/">Tailwind</a> &#x2014; a new kind of CSS framework with a special styling language. The idea was to inline all styling inside a class attribute so that everything could be expressed with HTML only.</p>
+<p>Developers loved it: it was an easy way to build good-looking user interfaces with a copy/paste mentality. Backend developers and junior frontend developers were able to build things without understanding how CSS cascade or specificity works.</p>
+<h2 id="the-tradeoffs"><a href="#the-tradeoffs" title="The tradeoffs"></a>The tradeoffs</h2><p>For the most part, CSS-in-JS and Tailwind worked nicely and frontend engineers were pleased. But it was far from roses.</p>
+<h3 id="massive-codebases"><a href="#massive-codebases" title="Massive codebases"></a>Massive codebases</h3><p>We&apos;re not talking about &quot;slightly more&quot;, or &quot;just double the size&quot;. We&apos;re talking about a situation where a single button has more CSS than a complete, professionally designed website. And the codebases just keep on growing due to <a href="/blog/tailwind-misinformation-engine/">the false beliefs</a> on how CSS works.</p>
+<p>Large codebases can draw you down: small styling changes trigger large compilation chains, potentially involving hundreds of JavaScript files and NPM modules before the browser is hot-reloaded. What should take milliseconds, is suddenly taking seconds.</p>
+<h3 id="debt"><a href="#debt" title="Technical debt"></a>Technical debt</h3><p>Things work well if you can just copy/paste components and tweak settings, but it gets wild pretty easily. You end up with a codebase that only specialists can understand:</p>
+
+<figure><img src="/img/inline-styling.png" alt="This sort of code is guaranteed technical debt." loading="lazy" height="460" width="450"><figcaption>This sort of code is guaranteed technical debt.</figcaption></figure>
+<h3 id="blocker"><a href="#blocker" title="Single point of responsibility"></a>Single point of responsibility</h3><p>Today, JavaScript/React developers are responsible for everything. The components are modern-day &quot;kitchen sinks&quot; where content, layout, styling, and business logic are stuffed together.</p>
+<p>Things that used to be separate, are now under the responsibility of a JavaScript developer. It&apos;s hard or impossible for content creators, designers, and CSS developers to participate.</p>
+<p>The talent is inefficiently spread when React developers work on issues outside of their interests. Engineers are not necessarily the best designers and many of them <em>hate</em> CSS.</p>
+<p>Your team could do so much better.</p>
+<h2 id="what-if"><a href="#what-if" title="What if..."></a>What if...</h2><p>What if we could break away from all these tradeoffs?</p>
+<p>Start building websites that look perfect inside out. Where your codebase is ten times smaller and is made out of clean, simple components.</p>
+<p>What if we get all the benefits of CSS-in-JS, but none of the problems? No trouble of naming things, nor worrying about cluttering the global namespace.</p>
+<p>What if we could offload the burden from JavaScript developers and hand all design/UX work to people who are the absolute masters of that craft?</p>
+<p>What would <em>that</em> look like?</p>
+<h2 id="1-cascading-css-architecture"><a href="#1-cascading-css-architecture" title="1. Cascading CSS architecture"></a>1. Cascading CSS architecture</h2><p>Nue offers a more maintainable and scaleable alternative to Tailwind, BEM, and CSS-in-JS. It&apos;s a new way to <em>write and structure your CSS</em>. Here are the key differences:</p>
+<h3 id="architecture"><a href="#architecture" title="Your design is based on a design system"></a>Your design is based on a design system</h3><p>Every Nue project starts with a design system. It&apos;s your &quot;single source of truth&quot;:</p>
+
+<picture><source srcset="/img/abstract-design-system.png" media="(max-width: 750px)" type="image/png">
+<source srcset="/img/abstract-design-system-big.png" media="(min-width: 750px)" type="image/png">
+<img src="/img/abstract-design-system-big.png" loading="lazy" height="410" width="600"></picture>
+<p>Design system is really a simple concept: you define the master look and feel in a central location and let all your pages inherit from that. Ideally, your design is just a single self-documenting CSS file that even non-technical people can understand. Here are three examples:</p>
+
+<section class="gallery">
+
+  <div>
+    <header>
+      <h3><em>Example 1:</em> The Sofa Company</h3>
+      <a href="//github.com/nuejs/create-nue/blob/master/sofa-company/global/sofa-company-design.css">
+        Design (CSS)</a> &#x2022;
+      <a href="//github.com/nuejs/create-nue/blob/master/sofa-company/">Full source</a> &#x2022;
+      <a href="//sofa-company.nuejs.org">Website</a>
+    </header>
+    <figure>
+      <a href="//sofa-company.nuejs.org">
+        <img loading="lazy" width="500" height="575" src="/img/sofa-company.png">
+      </a>
+    </figure>
+  </div><div>
+    <header>
+      <h3><em>Example 2:</em> Mona Editor</h3>
+      <a href="//github.com/nuejs/create-nue/blob/master/mona-editor/global/mona-design.css">
+        Design (CSS)</a> &#x2022;
+      <a href="//github.com/nuejs/create-nue/blob/master/mona-editor/">Full source</a> &#x2022;
+      <a href="//mona-editor.nuejs.org">Website</a>
+    </header>
+    <figure>
+      <a href="//mona-editor.nuejs.org">
+        <img loading="lazy" width="500" height="575" src="/img/mona-editor.png">
+      </a>
+    </figure>
+  </div><div>
+    <header>
+      <h3><em>Example 3:</em> Aimee App</h3>
+      <a href="//github.com/nuejs/create-nue/blob/master/aimee-app/global/aimee-design.css">
+        Design (CSS)</a> &#x2022;
+      <a href="//github.com/nuejs/create-nue/blob/master/aimee-app/">Full source</a> &#x2022;
+      <a href="//aimee-app.nuejs.org">Website</a>
+    </header>
+    <figure>
+      <a href="//aimee-app.nuejs.org">
+        <img loading="lazy" width="500" height="575" src="/img/aimee-app.png">
+      </a>
+    </figure>
+  </div>
+
+
+  
+
+</section>
+<p>Nue makes sure your design is consistently applied across all the pages and components on your website. It automatically binds the correct CSS files to your pages depending on where the page resides. There is no need to tinker with path names with JS/CSS import statements.</p>
+
+<picture><source srcset="/img/css-architecture.png" media="(max-width: 750px)" type="image/png">
+<source srcset="/img/css-architecture-big.png" media="(min-width: 750px)" type="image/png">
+<img src="/img/css-architecture-big.png" loading="lazy" height="556" width="720"></picture>
+<p>The design is separated from the HTML structure so that the system can be controlled by designers and UX developers. This way, non-technical people can create content so that the pages automatically inherit the correct design. And there is no way they can break the design system with local or inline styling.</p>
+<h2 id="minimalism"><a href="#minimalism" title="2. A new, minimalistic way to write vanilla CSS"></a>2. A new, minimalistic way to write vanilla CSS</h2><p>The key idea to leave out all class names that relate to styling and let external CSS take care of the element and/or component look and feel:</p>
+
+<pre glow><code language="html"><sup>&lt;!-- component name is all naming you need --&gt;</sup>
+<i>&lt;</i><strong>div </strong><b>class</b><i>=</i><em>&quot;gallery&quot;</em><i>&gt;</i>
+  <i>&lt;</i><strong>figure</strong><i>&gt;</i>
+  <i>&lt;</i><strong>figure</strong><i>&gt;</i>
+  <i>&lt;</i><strong>figure</strong><i>&gt;</i>
+  <i>.</i><i>.</i><i>.</i>
+<i>&lt;</i><i>/</i><strong>div</strong><i>&gt;</i></code></pre>
+<p>Naming things and minimalism go hand-in-hand. The more names you have, the more complex your design system API. In most cases, the component name is all the naming you need.</p>
+<p>Simple means lean and well-organized CSS that is easy to maintain and scale. There&apos;s less room for errors: no global namespace issues, no local breaking points, and no consistency issues.</p>
+
+<blockquote><p>Less, but better
+
+
+</p>
+<footer><strong>Dieter Rams</strong> &#x2022; The grandfather to Apple&apos;s design</footer></blockquote>
+<p>The simpler you design the system, the better. The fewer colors, font weights, elements, components, and variants you have, the better.</p>
+<h2 id="3-no-css-in-js-layer-needed"><a href="#3-no-css-in-js-layer-needed" title="3. No CSS-in-JS layer needed"></a>3. No CSS-in-JS layer needed</h2><p>When everything is based on a single source of truth, it&apos;s trivial to ditch the redundant CSS-in-JS layer in front of your design system, be it Tailwind, <em>CSS Modules</em>, or Vanilla Extract. This makes a simpler stack:</p>
+
+<table class="small"><thead><tr><th></th>
+<th>CSS-in-JS</th>
+<th>Tailwind</th>
+<th>Nue</th></tr></thead><tbody><tr><td>Key idea</td>
+<td>Local scoping</td>
+<td>Utility classes</td>
+<td>Design system</td></tr>
+<tr><td>Styling with</td>
+<td>JavaScript</td>
+<td>JavaScript</td>
+<td>CSS</td></tr>
+<tr><td>Conflict resolution</td>
+<td>Class name obfuscation</td>
+<td>Domain-specific language</td>
+<td>Single source of truth</td></tr>
+<tr><td>Optimization</td>
+<td>Tree-shaking + Bundling</td>
+<td>One large CSS bundle</td>
+<td>Minimalism + Code splitting + Page inlining</td></tr></tbody></table>
+<p>Done. Now let&apos;s see the benefits:</p>
+<h2 id="size-graphs"><a href="#size-graphs" title="Reach new levels of simplicity"></a>Reach new levels of simplicity</h2><p>Sites made with Nue have extremely little CSS. For example, a basic Tailwind button has more styling than a complete Nue-powered website:</p>
+
+<section>
+  <a href="size-measurement.html">
+    <ul class="bar-chart">
+
+  <li>
+    <h4>Shadcn/UI button</h4>
+    <p>
+      <span>Base <strong>3.3k</strong></span><span>CSS <strong>1.3k</strong></span><span>DSL <strong>0.3k</strong></span>
+      <span>Total <strong>4.9k</strong></span>
+    </p>
+
+    <div class="bar-cells">
+      <b style="width: 66.9%"></b><b style="width: 26.8%"></b><b style="width: 6.3%"></b>
+    </div>
+    
+  </li><li>
+    <h4>Aimee App website</h4>
+    <p>
+      <span>Globals <strong>1.7k</strong></span><span>Design <strong>0.9k</strong></span><span>Pages <strong>1.4k</strong></span><span>Classes <strong>0.1k</strong></span>
+      <span>Total <strong>4.1k</strong></span>
+    </p>
+
+    <div class="bar-cells">
+      <b style="width: 34%"></b><b style="width: 17.7%"></b><b style="width: 29.7%"></b><b style="width: 2.6%"></b>
+    </div>
+    <small>(16% smaller)</small>
+  </li>
+
+  
+</ul>
+    <figcaption>Click for measurement details</figcaption>
+  </a>
+
+  
+
+</section>
+<h3 id="its-easy-to-maintain"><a href="#its-easy-to-maintain" title="It&apos;s easy to maintain"></a>It&apos;s easy to maintain</h3><p>The combined amount of CSS in three Nue websites equals the size of a single Tailwind Catalyst button:</p>
+
+<section>
+  <a href="size-measurement.html">
+    <ul class="bar-chart">
+
+  <li>
+    <h4>Catalyst button</h4>
+    <p>
+      <span>Base <strong>3.3k</strong></span><span>CSS <strong>5.3k</strong></span><span>DSL <strong>1.8k</strong></span>
+      <span>Total <strong>10.4k</strong></span>
+    </p>
+
+    <div class="bar-cells">
+      <b style="width: 31.5%"></b><b style="width: 50.9%"></b><b style="width: 17.6%"></b>
+    </div>
+    
+  </li><li>
+    <h4>Three Nue sites combined</h4>
+    <p>
+      <span>Globals <strong>1.7k</strong></span><span>All designs <strong>2.8k</strong></span><span>All pages <strong>4.6k</strong></span><span>All classes <strong>0.4k</strong></span>
+      <span>Total <strong>9.1k</strong></span>
+    </p>
+
+    <div class="bar-cells">
+      <b style="width: 16%"></b><b style="width: 27.1%"></b><b style="width: 44.5%"></b><b style="width: 3.8%"></b>
+    </div>
+    <small>(12% smaller)</small>
+  </li>
+
+  
+</ul>
+    <figcaption>Click for measurement details</figcaption>
+  </a>
+
+  
+
+</section>
+<h3 id="keep-things-in-control"><a href="#keep-things-in-control" title="Keep things in control"></a>Keep things in control</h3><p>Design-system-powered websites stay lean as the site grows:</p>
+
+<section>
+  <a href="size-measurement.html">
+    <ul class="bar-chart">
+
+  <li>
+    <h4>Catalyst dialog</h4>
+    <p>
+      <span>Base <strong>3.3k</strong></span><span>CSS <strong>10.9k</strong></span><span>DSL <strong>5.7k</strong></span>
+      <span>Total <strong>19.9k</strong></span>
+    </p>
+
+    <div class="bar-cells">
+      <b style="width: 16.4%"></b><b style="width: 54.9%"></b><b style="width: 28.6%"></b>
+    </div>
+    
+  </li><li>
+    <h4>Mona Editor website</h4>
+    <p>
+      <span>Globals <strong>1.2k</strong></span><span>Design <strong>0.7k</strong></span><span>Pages <strong>0.9k</strong></span><span>Classes <strong>0.018k</strong></span>
+      <span>Total <strong>2.9k</strong></span>
+    </p>
+
+    <div class="bar-cells">
+      <b style="width: 5.9%"></b><b style="width: 3.7%"></b><b style="width: 4.7%"></b><b style="width: 0.1%"></b>
+    </div>
+    <small>(86% smaller)</small>
+  </li>
+
+  
+</ul>
+    <figcaption>Click for measurement details</figcaption>
+  </a>
+
+  
+
+</section>
+<blockquote><p>10 lines of CSS is easier to maintain than a 100 lines
+</p>
+<footer>Nue Best Practice</footer></blockquote>
+<p>Talk about maintainable CSS!</p>
+<h2>Create motherfu!!ng fast websites</h2><p><a href="//motherfuckingwebsite.com/">motherfuckingwebsite.com</a> is a developer meme from <em>Barry Smith</em> to demonstrate the power of minimalism. It&apos;s a text-only website that does not use CSS at all. Needless to say: it&apos;s motherfucking fast:</p>
+
+<figure><a href="//pagespeed.web.dev/analysis/https-motherfuckingwebsite-com/jjbk58sczm"><picture><source srcset="/img/mf-perf.png" media="(max-width: 750px)" type="image/png">
+<source srcset="/img/mf-perf-big.png" media="(min-width: 750px)" type="image/png">
+<img src="/img/mf-perf-big.png" alt="Click image for details" loading="lazy" width="650"></picture></a><figcaption>Click image for details</figcaption></figure>
+<p>A surprising fact is that minimal, inlined CSS gets you to the same performance levels with <em>zero compromises on design</em>:</p>
+
+<figure><a href="//pagespeed.web.dev/analysis/https-aimee-app-nuejs-org/qllf5ab934"><picture><source srcset="/img/nue-css-perf.png" media="(max-width: 750px)" type="image/png">
+<source srcset="/img/nue-css-perf-big.png" media="(min-width: 750px)" type="image/png">
+<img src="/img/nue-css-perf-big.png" alt="Click image for details" loading="lazy" width="650"></picture></a><figcaption>Click image for details</figcaption></figure>
+<p>No matter what sort of Turbo-Infuced-Rust-Bundler &#x2122; you use to optimize the irrelevant, nothing beats a tiny TCP packet that has everything to render the landing page.</p>
+<p>Talk about performance!</p>
+<h2 id="scale-like-the-best"><a href="#scale-like-the-best" title="Scale like the best"></a>Scale like the best</h2><p>Nue breaks you out from the <a href="#blocker">single point of responsibility</a> and offloads the burden from the JavaScript/React engineer for the more talented:</p>
+
+<img src="/img/without-js-bottleneck.svg" loading="lazy" width="600">
+<p>Separation of concerns equals scalability: marketers and technical writers proceed with content, designers and UX developers focus on the user experience, and JavaScript developers perfect the <a href="//bradfrost.com/blog/post/front-of-the-front-end-and-back-of-the-front-end-web-development/">back of the frontend</a>. The same applies for one person projects too &#x2014; all the UX talent just comes from one head.</p>
+<p>Talk about scalability!</p>
+<h2 id="stand-the-test-of-time"><a href="#stand-the-test-of-time" title="Stand the test of time"></a>Stand the test of time</h2><p>CSS is the styling language of The Web</p>
+
+<img src="/img/standard-styling.png" loading="lazy" width="500">
+<p>Any developer with a background in CSS can maintain the codebase. And when you come back later, even years later, the codebase is still sound and clear. There is no fear of <a href="#debt">technical debt</a> because the CSS you write today is valid forever.</p>
+<p>Talk about timeless web design!</p>
+<h2>We&apos;re building the CSS framework of the future</h2><p>Our next release is an actual design system: the kind of stuff that is currently employed in large, design-focused companies only, but we&apos;ll make it available for everyone. I&apos;m hoping to get a chance to talk with <em>Brad Frost</em> and get involved in the development of a <a href="//bradfrost.com/blog/post/a-global-design-system/">global design system</a>. It&apos;s important. It&apos;s the next big thing in CSS development:</p>
+
+<img src="/img/css-future.png" loading="lazy" width="650">
+<h3 id="then-templates"><a href="#then-templates" title="Then: Templates"></a><em>Then:</em> Templates</h3><p>Think complete website templates with marketing, documentation, registration, e-commerce, and blogging areas. Or copy/pasteable components ala Shadcn and Tailwind, with a ten times smaller codebase and seamless integration to your design system.</p>
+<p>Become the next <em>Stripe</em>, <em>Linear</em>, or <em>Apple</em> &#x2014; with the speed levels of a mother-effing website.</p>
+<p>These perfected templates will likely have a one-shot price tag because we want to secure the development of Nue for years to come without depending on 3rd party demands.</p>
+
+<div>
+  <h2>What&apos;s next</h2>
+  <p>
+    Receive an email when the next milestone is ready. And give us your thoughts! I read them all with care and I answer all questions.
+  </p>
+
+
+  <div is="join-list"></div>
+
+</div>
+      
+    </article>
+
+    
+  </main>
+    <footer>
+    <nav aria-label="branding"><a href="/"><img src="/img/logo.svg" width="90" height="40"></a></nav>
+    <section><nav><h3>Basics</h3>
+<a href="/getting started/">Getting started</a>
+<a href="/documentation/">Documentation</a>
+<a href="/roadmap/">Roadmap</a>
+<a href="/blog/">Blog</a>
+<a href="/faq/">FAQ</a></nav>
+<nav><h3>Core Concepts</h3>
+<a href="/content first framework/">Content First Framework</a>
+<a href="/global design system/">Global Design System</a>
+<a href="/content management/">Content Management</a>
+<a href="/reactive content/">Reactive content</a>
+<a href="/single-page apps/">Single-Page Apps</a></nav></section>
+    
+  </footer>
+    <div id="portal">
+    <dialog id="menu">
+      <a href="#" class="close">&#xd7;</a>
+      <nav aria-label="main"><a href="/why/">Why</a>
+<a href="/docs/">Docs</a>
+<a href="/blog/">Blog</a>
+<a href="/blog/status-update-01/" class="status badge">Nue status update</a></nav>
+      <nav aria-label="toolbar"><a href="/docs/">Try beta</a>
+<hr>
+<a href="//github.com/nuejs/nue" class="github badge"><em>5.9k</em></a></nav>
+    </dialog>
+  </div>
+  </body>
+
+</html>

@@ -1,0 +1,226 @@
+<!doctype html>
+
+<html lang="en-US" dir="ltr">
+
+  <head>
+    <meta charset="utf-8">
+<title>Introducing Nuemark</title>
+<meta name="generator" content="Nue v0.5.3 (nuejs.org)">
+<meta name="date.updated" content="2024-05-01T05:42:14.980Z">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta property="og:image" content="/img/nuemark-splash.jpg">
+<meta name="nue:components" content="/global/components.js /@lib/video.js">
+<link href="/@base/base.css" rel="stylesheet">
+<link href="/@base/button.css" rel="stylesheet">
+<link href="/@base/dialog.css" rel="stylesheet">
+<link href="/@base/header-and-footer.css" rel="stylesheet">
+<link href="/global/badge.css" rel="stylesheet">
+<link href="/global/colors.css" rel="stylesheet">
+<link href="/global/components.css" rel="stylesheet">
+<link href="/global/form.css" rel="stylesheet">
+<link href="/global/global.css" rel="stylesheet">
+<link href="/@lib/article.css" rel="stylesheet">
+<link href="/@lib/glow-syntax.css" rel="stylesheet">
+<link href="/@lib/video.css" rel="stylesheet">
+<link href="/@nue/glow.css" rel="stylesheet">
+<link href="/blog/blog.css" rel="stylesheet">
+<script src="/@nue/hotreload.js" type="module"></script>
+<script src="/@nue/mount.js" type="module"></script>
+<script src="/@nue/page-router.js" type="module"></script>
+    
+  </head>
+
+  <body>
+    <header>
+    <nav aria-label="branding"><a href="/"><img src="/img/logo.svg" width="70" height="31"></a></nav>
+    <nav aria-label="main"><a href="/why/">Why</a>
+<a href="/docs/">Docs</a>
+<a href="/blog/">Blog</a>
+<a href="/blog/status-update-01/" class="status badge">Nue status update</a></nav>
+    <nav aria-label="toolbar"><a href="/docs/">Try beta</a>
+<hr>
+<a href="//github.com/nuejs/nue" class="github badge"><em>5.9k</em></a></nav>
+    <a href="#menu" aria-controls="menu"></a>
+  </header>
+    <main>
+    <aside>
+  <a href="/blog/index.html">&#x2039; Go back</a>
+</aside>
+
+    <article>
+      <header>
+
+  <time datetime="2024-01-12T00:00:00.000Z">January 12, 2024</time>
+
+  <h1><em>Introducing Nuemark:</em> A Markdown dialect for rich, interactive content</h1>
+
+  <div class="author">
+  <span><img width="36" height="36" src="/img/tero.webp"></span>
+
+  <aside>
+    <b>Tero Piirainen</b>
+    <a href="//twitter.com/tipiirai">@tipiirai</a>
+  </aside>
+</div>
+
+</header>
+      <p>Today, I&apos;m excited to release Nuemark &#x2014; a Markdown-based text editing format for rich internet content. It places content at the heart of everything, and brings (back) a content-first approach to web development:</p>
+
+<figure><picture><source srcset="/img/nuemark-content.png" media="(max-width: 750px)" type="image/png">
+<source srcset="/img/nuemark-content-big.jpg" media="(min-width: 750px)" type="image/jpeg">
+<img src="/img/nuemark-content-big.jpg" alt="A content-first approach to web development" loading="lazy" width="700"></picture><figcaption>A content-first approach to web development</figcaption></figure>
+<h3 id="content-hot-reloading"><a href="#content-hot-reloading" title="Content hot-reloading"></a>Content hot-reloading</h3><p>Nuemark is a standalone library that works under Bun, Node, and Deno. However, it is best served together with Nue and its s <a href="/docs/concepts/universal-hot-reloading.html">universal hot-reloading</a> capability. Just edit your content freely and see the page shaping up in your browser in real time</p>
+
+<div class="video wide">
+
+  <noscript>
+    <video type="video/mp4" controls src="https://video.nuejs.org/3bf8f658-185a-449c-93b9-9bd5e1ad0d05/play_720p.mp4">
+  </video></noscript>
+
+  <div is="bunny-player">
+  <script type="application/json">{"videoid":"3bf8f658-185a-449c-93b9-9bd5e1ad0d05","poster":"/img/nuemark-splash.jpg","width":""}</script>
+</div>
+
+  
+
+</div>
+<div class="small"><p>Nue offers a genuine content-first, WYSIWYG experience.</p>
+<p>Image credits: <a href="//dribbble.com/ui8">UI8</a>. Thanks!</p>
+</div>
+<h2 id="hacker"><a href="#hacker" title="Manage content like a hacker"></a>Manage content like a hacker</h2><p>Nuemark lets you manage content <a href="//tom.preston-werner.com/2008/11/17/blogging-like-a-hacker">like a hacker</a> without the complexity of large systems like <em>WordPress</em> or <em>Contentful</em>. Instead, you&apos;ll approach content from a software development perspective: the content is stored in Git and you manage it with your preferred editor like <em>VS Code</em> or <em>Sublime Text</em>.</p>
+<p>Nuemark is designed for content creation. It&apos;s a simple, concise syntax that is easy to learn. It&apos;s pure content with no HTML, CSS, or JavaScript so it&apos;s hard to break things up.</p>
+
+<pre glow><code language="md">[.<label>stack</label>]
+<label>  # Content is king</label>
+  Web design is 100% content and 95% typography
+
+  <i>[</i><label>button</label> <em>&quot;Learn more&quot;</em> <b>href</b><i>=</i><em>&quot;/docs&quot;</em><i>]</i>
+  <i>---</i>
+<em>  [! typography.png ]</em></code></pre>
+
+<figure><picture><source srcset="/img/content-hero.png" media="(max-width: 750px)" type="image/png">
+<source srcset="/img/content-hero-big.png" media="(min-width: 750px)" type="image/png">
+<img src="/img/content-hero-big.png" alt="The content after applying some context-specific styling" loading="lazy"></picture><figcaption>The content after applying some context-specific styling</figcaption></figure>
+<p>With Nuemark, you start with pure content: text, images, and videos and only then move into layout and design. By starting with a content-first mindset, you will ensure that the page design evolves to support what&apos;s inside it. Not the other way around.</p>
+<h2 id="components"><a href="#components" title="Built-in set of headless UI components"></a>Built-in set of headless UI components</h2><p>Nuemark comes with a set of built-in components, which aim to tackle the most common content management use cases. There are buttons, icons, responsive images, videos, tables, tabs, and layout grids. And you can mix components to form more complex layouts.</p>
+
+<figure><picture><source srcset="/img/rich-content.png" media="(max-width: 750px)" type="image/png">
+<source srcset="/img/rich-content-big.png" media="(min-width: 750px)" type="image/png">
+<img src="/img/rich-content-big.png" alt="Nuemark content from the installable demo" loading="lazy"></picture><figcaption>Nuemark content from the installable demo</figcaption></figure>
+<h3 id="decoupled-design"><a href="#decoupled-design" title="Decoupled design"></a>Decoupled design</h3><p>All these components or &quot;tags&quot; are <em>headless</em> &#x2014; meaning that there are no inline styling, CSS modules, or utility classes to impact their appearance. There is only one, semantic class name on the root element of the component, which <em>names</em> the component. Otherwise, the components are <em>classless</em> and consist purely of semantic HTML elements.</p>
+<p>The semantic approach means that you can customize the look and feel of your components so that they look just right in the given context. For example, a tabbed layout may look completely different on your front page compared to what it looks like on the documentation area:</p>
+
+<figure><picture><source srcset="/img/tab-designs.jpg" media="(max-width: 750px)" type="image/jpeg">
+<source srcset="/img/tab-designs-big.jpg" media="(min-width: 750px)" type="image/jpeg">
+<img src="/img/tab-designs-big.jpg" alt="Same component, different CSS module" loading="lazy" width="500"></picture><figcaption>Same component, different CSS module</figcaption></figure>
+<p>This sort of content-first approach brings the legendary <a href="//www.csszengarden.com/">CSS Zen Garden</a> back to the game. When your components always have the same structure you can re-use your CSS across your pages, apps, websites, and projects.</p>
+<h2 id="driven-by-web-components"><a href="#driven-by-web-components" title="Driven by Web Components"></a>Driven by Web Components</h2><p>Some components are <em>isomorphic</em> meaning that the content is rendered on the server side for search engines and the behavior of the component is spiced up with with client-side JavaScript.</p>
+<p>Nuemark uses the standard <a href="//developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/is"><code>is</code> attribute</a> to tell the browser that a particular HTML structure should be spiced up with a Web Component. For example, the <code>[tabs]</code> component is implemented as follows:</p>
+
+<pre glow><code language="*"><sup>// implementation</sup>
+<strong>class</strong> Tabs extends HTMLElement <i>{</i>
+  <b>constructor</b><i>(</i><i>)</i> <i>{</i>
+    <sup>// Do the thing when the component is mounted</sup>
+  <i>}</i>
+<i>}</i>
+
+<sup>// registtration</sup>
+customElements<i>.</i><b>define</b><i>(</i><em>&apos;nuemark-tabs&apos;</em><i>,</i> Tabs<i>,</i> <i>{</i> <b>extends</b><i>:</i> <em>&apos;section&apos;</em> <i>}</i><i>)</i></code></pre>
+<p>This is a modern/standard way to implement <a href="//developer.mozilla.org/en-US/docs/Glossary/Progressive_Enhancement">progressive enhancement</a>, historically done with libraries like jQuery.</p>
+<h3 id="build-your-own-tags"><a href="#build-your-own-tags" title="Build your own tags"></a>Build your own tags</h3><p>You can extend Nuemark with custom tags. Any JavaScript object with a <code>name</code> property and <code>render()</code> method is a legit Nuemark component. Here&apos;s a dummy TSX example:</p>
+
+<pre glow><code language="*"><strong>export</strong> <strong>function</strong> <b>MyAlert</b><i>(</i><b>props</b><i>:</i> <i>{</i> <b>color</b><i>:</i> <strong>string</strong><i>,</i> <b>message</b><i>:</i> <strong>string</strong> <i>}</i><i>)</i> <i>{</i>
+  <strong>return</strong> <i>(</i>
+    <i>&lt;</i>p <b>style</b><i>=</i><i>{</i><i>{</i> <b>color</b><i>:</i> color <i>|</i><i>|</i> <em>&apos;red&apos;</em> <i>}</i><i>}</i><i>&gt;</i><i>{</i> props<i>.</i>message <i>}</i><i>&lt;</i><i>/</i>p<i>&gt;</i>
+  <i>)</i><i>;</i>
+<i>}</i></code></pre>
+<p>And here&apos;s the same with <a href="/docs/reference/template-syntax">Nue template syntax</a></p>
+
+<pre glow><code language="html"><i>&lt;</i><strong>p </strong><label>@name</label><i>=</i><em>&quot;my-alert&quot;</em> <b>style</b><i>=</i><em>&quot;color:<i>{<b> color || &apos;red&apos; </b>}</i>;&quot;</em><i>&gt;</i><i>{</i> message <i>}</i><i>&lt;</i><i>/</i><strong>p</strong><i>&gt;</i></code></pre>
+<p>Look for <a href="/docs/reference/nuemark-api.html">Nuemark API docs</a> for the details.</p>
+<p><em>NOTE</em>: Currently, only Nue components support hot-reloading.</p>
+<h2>Develop sites for content creators</h2><p>The primary purpose of a website is to present content. You want to raise awareness of your idea, generate sales, or just share information. The bottom line is that your website should be optimized for creating and managing content.</p>
+<p>Nuemark is a perfect choice for this purpose. After you have a proper design system in place, editors can create content that looks consistently great and fits your overall design. They can author new pages without ever leaving the content.</p>
+<p>Nuemark is an ideal choice for static site generators and flat-file systems.</p>
+<h3 id="try-now"><a href="#try-now" title="Try now"></a>Try now</h3><p><a href="//bun.sh">Bun</a> is the recommended engine for Nuemark:</p>
+
+<pre glow><code language="sh"><sup># Install Bun (if not done yet)</sup>
+curl <i>-</i>fsSL <b>https</b><i>:</i><i>/</i><i>/</i>bun<i>.</i>sh<i>/</i>install <i>|</i> bash
+
+<sup># Install website generator (Nuemark playground)</sup>
+bun install nuekit <i>-</i><i>-</i>global
+
+<sup># Install Nuemark demo (as seen on this page)</sup>
+bun create nue<i>@</i>latest</code></pre>
+<p>Choose &quot;nuemark-demo&quot; on the last step and off you go.</p>
+<p>ps: Check out <a href="/docs/#node">Getting started docs</a> if you prefer Node.</p>
+<h3 id="learn-nuemark"><a href="#learn-nuemark" title="Learn Nuemark"></a>Learn Nuemark</h3><ul>
+<li><a href="/docs/concepts/nuemark.html">User guide</a></li>
+<li><a href="/docs/reference/nuemark-tags.html">Tag reference</a></li>
+<li><a href="/docs/reference/nuemark-api.html">API docs</a></li>
+<li><a href="//news.ycombinator.com/item?id=38966085">Hacker News Discussion</a></li>
+</ul>
+<hr>
+<h2 id="faq"><a href="#faq" title="Frequently asked questions"></a>Frequently asked questions</h2><h3>How is this different from MDX?</h3><p>Nuemark differs from prior alternatives like <em>MDX</em> and <em>Markdoc</em> in the following ways:</p>
+<ol>
+<li><p>Nuemark is targeted at content creators. There are no &quot;scary&quot; JavaScript expressions or import statements that can break the page from rendering. Familiarity with Markdown and YAML front matters is enough for crafting rich, interactive content.</p>
+</li>
+<li><p>Nuemark comes with a rich set of built-in components that can be used inside standard Markdown or mixed together to form more complex layouts. Any modern web page can be expressed with Nuemark so that your content is neatly separated for editors.</p>
+</li>
+<li><p>When you edit Nuemark within the Nue framework you see your page update on the browser in real-time offering a true WYSIWYG experience for content creators.</p>
+</li>
+</ol>
+<p>Check <a href="/faq/">General FAQ</a> for more questions about Nue.</p>
+<h3>Where does the syntax come from?</h3><p>Nuemark takes inspiration from WordPress shortcodes, TOML configuration language, YAML front matter, and other Markdown elements like links and images. The goal make it approachable for people already familiar with Markdown and introduce as few new idioms as possible.</p>
+
+<div>
+
+  <h2>What&apos;s next?</h2>
+  <p>The ultimate goal of Nue is to build a significantly easier, yet more powerful alternative to *Vercel*, *Gatsby*, and *Netlify*.</p>
+
+  <img src="/img/roadmap-summer-big.png">
+
+  <p>
+    We can notify you when the next milestone is reached. And give us your thoughts! I read them all with care and I answer all questions.
+  </p>
+
+
+  <div is="join-list"></div>
+
+</div>
+      
+    </article>
+
+    
+  </main>
+    <footer>
+    <nav aria-label="branding"><a href="/"><img src="/img/logo.svg" width="90" height="40"></a></nav>
+    <section><nav><h3>Basics</h3>
+<a href="/getting started/">Getting started</a>
+<a href="/documentation/">Documentation</a>
+<a href="/roadmap/">Roadmap</a>
+<a href="/blog/">Blog</a>
+<a href="/faq/">FAQ</a></nav>
+<nav><h3>Core Concepts</h3>
+<a href="/content first framework/">Content First Framework</a>
+<a href="/global design system/">Global Design System</a>
+<a href="/content management/">Content Management</a>
+<a href="/reactive content/">Reactive content</a>
+<a href="/single-page apps/">Single-Page Apps</a></nav></section>
+    
+  </footer>
+    <div id="portal">
+    <dialog id="menu">
+      <a href="#" class="close">&#xd7;</a>
+      <nav aria-label="main"><a href="/why/">Why</a>
+<a href="/docs/">Docs</a>
+<a href="/blog/">Blog</a>
+<a href="/blog/status-update-01/" class="status badge">Nue status update</a></nav>
+      <nav aria-label="toolbar"><a href="/docs/">Try beta</a>
+<hr>
+<a href="//github.com/nuejs/nue" class="github badge"><em>5.9k</em></a></nav>
+    </dialog>
+  </div>
+  </body>
+
+</html>

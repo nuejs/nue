@@ -1,0 +1,111 @@
+
+
+/* mobile first strategy */
+main {
+  flex-direction: column;
+  display: flex;
+  gap: 1em;
+}
+
+article {
+  max-width: 48rem;
+  margin: 0 auto;
+
+  h2, h3 {
+    scroll-margin-top: 7.2rem;
+  }
+}
+
+/* subnavigation  */
+body > nav {
+  margin: -4em 0 3em;
+  border-bottom: var(--border);
+  align-items: center;
+  padding-bottom: .5em;
+  display: flex;
+  gap: .5em;
+
+  button {
+    background-image: url(/icon/menu.svg);
+    background-size: 1.3em;
+    height: 2.4em;
+  }
+
+  strong {
+    font-weight: 550;
+    font-size: 90%;
+  }
+}
+
+/* navigation ( sidebar + toc) */
+aside {
+
+  h3 {
+    font-size: 90%;
+    margin: .4em 0 1em;
+    margin-left: -.55em;
+  }
+
+  nav {
+    margin-bottom: 1em;
+  }
+
+  nav > a {
+    border-left: var(--border);;
+    padding: .5em 1em;
+    white-space: nowrap;
+    display: block;
+    font-size: 90%;
+
+    &[aria-selected] {
+      border-color: var(--main-400);
+      border-width: 2px;
+      color: var(--main-500);
+      font-weight: 550;
+      margin-left: -1px;
+    }
+  }
+}
+
+
+
+/* table of contents */
+article + aside {
+  display: none;
+
+  .level-2:not(:first-child) {
+    margin-top: 1em;
+  }
+
+  .level-3 {
+    color: var(--gray-500);
+    padding-left: 2rem;
+    font-weight: 400;
+    font-size: 85%;
+  }
+}
+
+
+.gridpaper {
+  background-image: url(/img/grid-paper.png);
+  border: 1px solid var(--gray-200);
+  border-radius: 5px;
+}
+
+.bordered img {
+  border: 1px solid var(--gray-100);
+  border-radius: 4px;
+  box-shadow: 0 .3em .5em #0001;
+}
+
+/* currently: TODO badge in SPA page */
+h1 code {
+  background-color: var(--main-100);
+  color: var(--main-600);
+  letter-spacing: .01em;
+  font-family: inherit;
+  border-radius: .2em;
+  padding: .2em .4em;
+  font-size: 1.2rem;
+  float: right;
+}

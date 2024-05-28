@@ -1,0 +1,150 @@
+<svg class="cpu" width="1000" height="230" viewBox="0 0 1713 400" fill="none">
+  <path d="M753.5 135V92.5a6 6 0 0 0-6-6h-102" stroke="url(#Linear_0)" />
+  <path stroke="url(#Linear_1)" d="M793.5 135V0" />
+  <path stroke="url(#Linear_2)" d="M833.5 135V38" />
+  <path stroke="url(#Linear_3)" d="M873.5 135V74" />
+  <path stroke="url(#Linear_4)" d="M913.5 135V54" />
+  <path stroke="url(#Linear_5)" d="M833.5 301v35" />
+  <path stroke="url(#Linear_6)" d="M794.5 301v98" />
+  <path class="anim anim1" d="M795 301v98" />
+  <path stroke="url(#Linear_7)" d="M873.5 301v81" />
+  <path stroke="url(#Linear_8)" d="M913.5 301v64" />
+  <path stroke="url(#Linear_9)" d="M953.5 301v53" />
+  <path stroke="url(#Linear_10)" d="M993.5 301v81" />
+  <path d="M753 299v34a7 7 0 0 1-7 7H229a7 7 0 0 0-7 7v53" stroke="url(#Linear_11)" />
+  <path d="M753 299v34a7 7 0 0 1-7 7H229a7 7 0 0 0-7 7v53" class="anim anim2" />
+  <path d="M953 135V27a7 7 0 0 1 7-7h65" stroke="url(#Linear_12)" />
+  <path d="M993.5 134.999v-41.5a7 7 0 0 1 7-7H1660c3.87 0 7 3.134 7 7V399" stroke="url(#Linear_13)" />
+  <path d="M993.5 134.999v-41.5a7 7 0 0 1 7-7H1660c3.87 0 7 3.134 7 7V399" class="anim anim3" />
+  <rect x="868.5" y="63.5" width="10" height="10" rx="5" fill="#fff" stroke="#DADADA" />
+  <rect x="868.5" y="375.5" width="10" height="10" rx="5" fill="#fff" stroke="#DADADA" />
+  <rect x="828.5" y="334.5" width="10" height="10" rx="5" fill="#fff" stroke="#DADADA" />
+  <rect x="636.5" y="81.5" width="10" height="10" rx="5" fill="#fff" stroke="#DADADA" />
+  <path stroke="url(#Linear_14)" stroke-width="3" d="M1623 398.5h90" />
+  <path stroke="url(#Linear_15)" stroke-width="3" d="M1444 398.5h90" />
+  <path stroke="url(#Linear_16)" stroke-width="3" d="M1007 398.5h90" />
+  <path stroke="url(#Linear_17)" stroke-width="3" d="M750 398.5h90" />
+  <path stroke="url(#Linear_18)" stroke-width="3" d="M178 398.5h90" />
+  <path stroke="url(#Linear_19)" stroke-width="3" d="M0 398.5h90" />
+  <path d="M1057 181.5h425c3.87 0 7 3.134 7 7V399" stroke="url(#Linear_20)" />
+  <path d="M1057 181.5h425c3.87 0 7 3.134 7 7V399" class="anim anim4" />
+  <path d="M1055 253.5h180.5c3.87 0 7 3.134 7 7v66.25c0 3.866-3.13 7-7 7h-176c-3.87 0-7 3.134-7 7V399" stroke="url(#Linear_21)" />
+  <path d="M1055 253.5h180.5c3.87 0 7 3.134 7 7v66.25c0 3.866-3.13 7-7 7h-176c-3.87 0-7 3.134-7 7V399" class="anim anim5" />
+  <path d="M689 182H52a7 7 0 0 0-7 7v210" stroke="url(#Linear_22)" />
+  <path d="M689 182H52a7 7 0 0 0-7 7v210" class="anim anim6" />
+  <path d="M689 217H503.5a7 7 0 0 1-7-7v-88a7 7 0 0 0-7-7H201" stroke="url(#Linear_23)" />
+  <path d="M689 255H570.559a7 7 0 0 0-7 7v8a7 7 0 0 1-7 7H371" stroke="url(#Linear_24)" />
+  <rect x="988.5" y="377.5" width="10" height="10" rx="5" fill="#fff" stroke="#DADADA" />
+  <rect x="949.5" y="348.5" width="10" height="10" rx="5" fill="#fff" stroke="#DADADA" />
+  <rect x="194.5" y="110" width="10" height="10" rx="5" fill="#fff" stroke="#DADADA" />
+  <rect x="366.5" y="272" width="10" height="10" rx="5" fill="#fff" stroke="#DADADA" />
+  <image x="685" y="134" width="374" height="168" href="/home/img/cpu.webp" />
+  <defs>
+    <linearGradient id="Linear_0" x1="754.5" y1="38" x2="754.5" y2="135" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EAEAEA" />
+      <stop offset="1" stop-color="#B1B1B1" />
+    </linearGradient>
+    <linearGradient id="Linear_1" x1="794.5" y1="0" x2="794.5" y2="135" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EAEAEA" />
+      <stop offset="1" stop-color="#B1B1B1" />
+    </linearGradient>
+    <linearGradient id="Linear_2" x1="834.5" y1="38" x2="834.5" y2="135" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EAEAEA" />
+      <stop offset="1" stop-color="#B1B1B1" />
+    </linearGradient>
+    <linearGradient id="Linear_3" x1="874.5" y1="74" x2="874.5" y2="135" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EAEAEA" />
+      <stop offset="1" stop-color="#B1B1B1" />
+    </linearGradient>
+    <linearGradient id="Linear_4" x1="914.5" y1="54" x2="914.5" y2="135" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EAEAEA" />
+      <stop offset="1" stop-color="#B1B1B1" />
+    </linearGradient>
+    <linearGradient id="Linear_5" x1="832.5" y1="336" x2="832.5" y2="301" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EAEAEA" />
+      <stop offset="1" stop-color="#B1B1B1" />
+    </linearGradient>
+    <linearGradient id="Linear_6" x1="793.5" y1="399" x2="793.5" y2="301" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EAEAEA" />
+      <stop offset="1" stop-color="#B1B1B1" />
+    </linearGradient>
+    <linearGradient id="Linear_7" x1="872.5" y1="382" x2="872.5" y2="301" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EAEAEA" />
+      <stop offset="1" stop-color="#B1B1B1" />
+    </linearGradient>
+    <linearGradient id="Linear_8" x1="912.5" y1="365" x2="912.5" y2="301" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EAEAEA" />
+      <stop offset="1" stop-color="#B1B1B1" />
+    </linearGradient>
+    <linearGradient id="Linear_9" x1="952.5" y1="354" x2="952.5" y2="301" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EAEAEA" />
+      <stop offset="1" stop-color="#B1B1B1" />
+    </linearGradient>
+    <linearGradient id="Linear_10" x1="992.5" y1="382" x2="992.5" y2="301" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EAEAEA" />
+      <stop offset="1" stop-color="#B1B1B1" />
+    </linearGradient>
+    <linearGradient id="Linear_11" x1="748.087" y1="381" x2="748.087" y2="299" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EAEAEA" />
+      <stop offset="1" stop-color="#B1B1B1" />
+    </linearGradient>
+    <linearGradient id="Linear_12" x1="989" y1="20" x2="989" y2="135" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EAEAEA" />
+      <stop offset="1" stop-color="#B1B1B1" />
+    </linearGradient>
+    <linearGradient id="Linear_13" x1="993" y1="357" x2="1667" y2="357" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#B5B5B5" />
+      <stop offset="1" stop-color="#DBDBDB" />
+    </linearGradient>
+    <linearGradient id="Linear_14" x1="1623" y1="400.5" x2="1713" y2="400.5" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff" stop-opacity="0" />
+      <stop offset=".495" stop-color="#00C2FF" />
+      <stop offset="1" stop-color="#fff" stop-opacity="0" />
+    </linearGradient>
+    <linearGradient id="Linear_15" x1="1444" y1="400.5" x2="1534" y2="400.5" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff" stop-opacity="0" />
+      <stop offset=".495" stop-color="#00C2FF" />
+      <stop offset="1" stop-color="#fff" stop-opacity="0" />
+    </linearGradient>
+    <linearGradient id="Linear_16" x1="1007" y1="400.5" x2="1097" y2="400.5" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff" stop-opacity="0" />
+      <stop offset=".495" stop-color="#00C2FF" />
+      <stop offset="1" stop-color="#fff" stop-opacity="0" />
+    </linearGradient>
+    <linearGradient id="Linear_17" x1="750" y1="400.5" x2="840" y2="400.5" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff" stop-opacity="0" />
+      <stop offset=".495" stop-color="#00C2FF" />
+      <stop offset="1" stop-color="#fff" stop-opacity="0" />
+    </linearGradient>
+    <linearGradient id="Linear_18" x1="178" y1="400.5" x2="268" y2="400.5" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff" stop-opacity="0" />
+      <stop offset=".495" stop-color="#C463FF" />
+      <stop offset="1" stop-color="#fff" stop-opacity="0" />
+    </linearGradient>
+    <linearGradient id="Linear_19" x1="0" y1="400.5" x2="90" y2="400.5" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff" stop-opacity="0" />
+      <stop offset=".495" stop-color="#C463FF" />
+      <stop offset="1" stop-color="#fff" stop-opacity="0" />
+    </linearGradient>
+    <linearGradient id="Linear_20" x1="1115.06" y1="181.339" x2="1489" y2="333" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#B5B5B5" />
+      <stop offset="1" stop-color="#DBDBDB" />
+    </linearGradient>
+    <linearGradient id="Linear_21" x1="1024.37" y1="253.392" x2="1024.37" y2="399" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#B5B5B5" />
+      <stop offset="1" stop-color="#DBDBDB" />
+    </linearGradient>
+    <linearGradient id="Linear_22" x1="620.715" y1="398.915" x2="220.252" y2="568.409" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#B5B5B5" />
+      <stop offset="1" stop-color="#EEEBEB" />
+    </linearGradient>
+    <linearGradient id="Linear_23" x1="637.256" y1="216.96" x2="393.105" y2="383.548" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#B5B5B5" />
+      <stop offset="1" stop-color="#EEEBEB" />
+    </linearGradient>
+    <linearGradient id="Linear_24" x1="655.282" y1="255.009" x2="642.853" y2="200.341" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#B5B5B5" />
+      <stop offset="1" stop-color="#DBDBDB" />
+    </linearGradient>
+  </defs>
+</svg>

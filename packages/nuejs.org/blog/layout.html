@@ -1,0 +1,46 @@
+
+
+<aside>
+  <a href="/blog/">&lsaquo; Go back</a>
+</aside>
+
+<header @name="pagehead">
+
+  <pretty-date/>
+
+  <h1><markdown :content="hero_title || title"/></h1>
+
+  <author :bind="authors[author || authors.default]"/>
+
+</header>
+
+<div @name="cta">
+
+  <h2>Nue Status</h2>
+
+  <p>
+    The goal of Nue is to build a perfect web framework for UX developers and design engineers. A [content-first](/) alternative to improve your design, UX, and developer experience. It is released as follows:
+  </p>
+
+  <img src="/img/roadmap-autumn.png">
+
+  <p>
+    Join the waiting list if you want to be notified about our next milestone. Please give us your thoughts as well — we read them all with care.
+  </p>
+
+  <join-list/>
+
+</div>
+
+
+
+<div @name="author" class="author">
+  <span><img :src="img" width="36" height="36"></span>
+
+  <aside>
+    <b>{ name }</b>
+    <a href="//x.com/{ x }">@{ x }</a>
+  </aside>
+</div>
+
+

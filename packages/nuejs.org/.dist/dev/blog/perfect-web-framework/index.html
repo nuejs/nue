@@ -1,0 +1,185 @@
+<!doctype html>
+
+<html lang="en-US" dir="ltr">
+
+  <head>
+    <meta charset="utf-8">
+<title>The perfect web framework for UX developers</title>
+<meta name="generator" content="Nue v0.5.3 (nuejs.org)">
+<meta name="date.updated" content="2024-05-01T06:25:19.843Z">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta property="og:image" content="/img/perfect-banner-big.jpg">
+<meta name="nue:components" content="/global/components.js /@lib/video.js">
+<link href="/@base/base.css" rel="stylesheet">
+<link href="/@base/button.css" rel="stylesheet">
+<link href="/@base/dialog.css" rel="stylesheet">
+<link href="/@base/header-and-footer.css" rel="stylesheet">
+<link href="/global/badge.css" rel="stylesheet">
+<link href="/global/colors.css" rel="stylesheet">
+<link href="/global/components.css" rel="stylesheet">
+<link href="/global/form.css" rel="stylesheet">
+<link href="/global/global.css" rel="stylesheet">
+<link href="/@lib/article.css" rel="stylesheet">
+<link href="/@lib/glow-syntax.css" rel="stylesheet">
+<link href="/@lib/video.css" rel="stylesheet">
+<link href="/blog/blog.css" rel="stylesheet">
+<link href="/blog/perfect-web-framework/perfect.css" rel="stylesheet">
+<script src="/@nue/hotreload.js" type="module"></script>
+<script src="/@nue/mount.js" type="module"></script>
+<script src="/@nue/page-router.js" type="module"></script>
+    
+  </head>
+
+  <body>
+    <header>
+    <nav aria-label="branding"><a href="/"><img src="/img/logo.svg" width="70" height="31"></a></nav>
+    <nav aria-label="main"><a href="/why/">Why</a>
+<a href="/docs/">Docs</a>
+<a href="/blog/">Blog</a>
+<a href="/blog/status-update-01/" class="status badge">Nue status update</a></nav>
+    <nav aria-label="toolbar"><a href="/docs/">Try beta</a>
+<hr>
+<a href="//github.com/nuejs/nue" class="github badge"><em>5.9k</em></a></nav>
+    <a href="#menu" aria-controls="menu"></a>
+  </header>
+    <main>
+    <aside>
+  <a href="/blog/index.html">&#x2039; Go back</a>
+</aside>
+
+    <article>
+      <header>
+
+  <time datetime="2024-01-23T00:00:00.000Z">January 23, 2024</time>
+
+  <h1>The perfect web framework for UX developers</h1>
+
+  <div class="author">
+  <span><img width="36" height="36" src="/img/tero.webp"></span>
+
+  <aside>
+    <b>Tero Piirainen</b>
+    <a href="//twitter.com/tipiirai">@tipiirai</a>
+  </aside>
+</div>
+
+</header>
+      <p>In June 2023 I had my final frontend rage quit moment. The anger was so intense that I decided to change the direction of my career from a startup founder to a full-time OSS developer. I would devote all my time to fixing everything that is wrong with the current front-end ecosystem.</p>
+<p>I created a <a href="https://github.com/nuejs/nue">project on GitHub</a> and called it <em>&quot;Nue&quot;</em>. I wanted it to be the best web framework for for <a href="//css-tricks.com/the-great-divide/">UX developers</a> and design-led organizations. It&apos;ll consist of following:</p>
+
+<picture><source srcset="/img/perfect-banner.jpg" media="(max-width: 750px)" type="image/jpeg">
+<source srcset="/img/perfect-banner-big.jpg" media="(min-width: 750px)" type="image/jpeg">
+<img src="/img/perfect-banner-big.jpg" loading="lazy"></picture>
+<div class="note"><h2 id="terms"><a href="#terms" title="Terms"></a>Terms</h2><p><code>UX</code> = improved user experience</p>
+<p><code>DX</code> = improved developer experience</p>
+</div>
+<h2 id="content"><a href="#content" title="Content-first core DX"></a>Content-first core <code>DX</code></h2><p>The purpose of a website is to present content. To spread your thoughts or generate sales. For this obvious reason, your website should be optimized for content producers.</p>
+<p>Ideally, content people should be able to create new content and update the information architecture without seeking assistance from designers or developers. Several authors could proceed in isolation and break nothing but their local language or grammar.</p>
+<p>The content-first approach is the most important thing in a framework. It defines the overall system architecture and forms a solid ground for a <a href="#cascade">semantic design system</a> and <a href="#template">universal template</a>.</p>
+<p>Note that single-page applications are no different: the content just comes from a database and not from a file. The design system can be shared.</p>
+
+<div class="problem"><p>Popular frameworks like <em>Next.js</em> or <em>Astro</em> are optimized for JavaScript developers with a deep understanding of <em>React</em>, <em>TypeScript</em>, <em>CSS-in-JS</em>, <em>Tailwind</em>, and whatnot. For example, you need hundreds of lines of code spanning 10-20 files to create a rich/interactive web page.</p>
+</div>
+<h2 id="design"><a href="#design" title="World-class design UX"></a>World-class design <code>UX</code></h2><p>World-class means the highest caliber design in the world. The top 1% of websites. The future <em>Stripes</em>, <em>Amies</em>, and <em>Linears</em>.</p>
+<p>Everything is pixel-perfect down to the tiniest detail. From design tokens to motion design. The underlying design system makes sure that all areas of your site have the same, consistent look and feel. Be it minimalistic, heroic, or playful.</p>
+<p>When a content-first design system is in place, content teams can ship great-looking content, without disturbing designers or developers.</p>
+
+<div class="problem"><p>Current frameworks like <em>Bootstrap</em> and Tailwind lack a global, content-first design system that spans the entire website. UX/CSS professionals have a hard time contributing because CSS is tightly coupled inside the JavaScript code.</p>
+</div>
+<figure><picture><source srcset="/img/designers-vs-engineers.png" media="(max-width: 750px)" type="image/png">
+<source srcset="/img/designers-vs-engineers-big.png" media="(min-width: 750px)" type="image/png">
+<img src="/img/designers-vs-engineers-big.png" alt="[The Great Divide](https://css-tricks.com/the-great-divide/): UX developers are design oriented and JS engineers are technology oriented" loading="lazy"></picture><figcaption><a href="https://css-tricks.com/the-great-divide/">The Great Divide</a>: UX developers are design oriented and JS engineers are technology oriented</figcaption></figure>
+<h2 id="speed"><a href="#speed" title="Motherf**king fast UX"></a>Motherf**king fast <code>UX</code></h2><p><a href="//motherfuckingwebsite.com/">motherfuckingwebsite.com</a> is a developer meme from <em>Barry Smith</em>. This plaintext website carries an important message: get rid of the clutter and focus on content and performance.</p>
+<p>The lesser-known fact is that you can build a design system that offers the performance levels of MF, and the design standards of Stripe and Linear.</p>
+<p>A perfect web framework gives you exactly that: the fastest possible website with a pixel-perfect design. A Moterf**king Stripe if you will.</p>
+
+<div class="problem"><p>Current frameworks resort to <a href="//idlewords.com/talks/website_obesity.htm#minimalism">chickenshit minimalism</a> &#x2014; the illusion of minimalism backed by megabytes of cruft. For example, the landing page of <em>create-next-app</em> uses 42,440 lines (363kb) of JavaScript to print &quot;Hello, World&quot;</p>
+</div>
+<h2 id="ux"><a href="#ux" title="Consistent MPA+SPA experience UX"></a>Consistent MPA+SPA experience <code>UX</code></h2><p>All areas of your website should offer a consistently great user experience. This includes your content-heavy areas like the documentation and blog, the customer-facing app, and your internal admin dashboard.</p>
+<p>The same &quot;motherf**king&quot; performance levels and the same pixel-perfect look and feel. And with a seamless &quot;turbo&quot; linking between your multi-page- and single-page apps.</p>
+
+<div class="problem"><p>Current frameworks lack a hybrid multi-page/single-page application development model. You end up mixing services and domain names. Say Astro for marketing pages, <em>Nuxt</em> for documentation, <em>Medium</em> for blog, and Vite for the SAAS app. It&apos;s impossible to offer a uniform design, performance, and user experience across the board.</p>
+</div>
+<h2 id="devloop"><a href="#devloop" title="Instant development loop DX"></a>Instant development loop <code>DX</code></h2><p>A perfect framework should show a live preview of your change after you save a file. Be it content, styling, layout, server component, or client-side reactive component &#x2014; you should see the change immediately. And if you make a mistake, the framework will tell you exactly what went wrong.</p>
+<p>This kind of <em>universal hot-reloading</em> offers a true WYSIWYG experience for content producers, designers, and developers. Instant development loop gives a significant boost to your daily productivity.</p>
+
+<div class="problem"><p><em>Vite</em> and Next.js projects can have hundreds, even thousands of NPM modules. As the number of modules increases, your Hot Module Replacement (HMR) operations become heavier and slower. A styling change on your JS file can take seconds before it reaches the browser. And because HMR is limited to JavaScript and TypeScript files, both content teams and UX/HTML/CSS developers are missing the benefits of hot-reloading.</p>
+</div>
+<h2 id="scale"><a href="#scale" title="Easy to scale DX"></a>Easy to scale <code>DX</code></h2><p>An ideal framework lets people with different backgrounds take part in scaling the system. Content teams scale the content, UX engineers focus on design and user experience, and JS developers work on the business model, networking, and infrastructure.</p>
+<p>They use the same system for content-focused apps and single-page apps and enjoy the productivity boost from universal hot-reloading. They share components and design elements so they can move faster and keep things consistent.</p>
+
+<div class="problem"><p>Vite and <em>React</em> place all the burden on the JavaScript developer. They develop React components where content, styling, and logic are all mixed. Scaling becomes hard when content teams and UX developers cannot participate. And if you use different systems for blogging, documentation, and single-page apps &#x2013; extra developer time is spent on keeping the external services together.</p>
+</div>
+<h2 id="ship"><a href="#ship" title="Sub-second deploy times DX"></a>Sub-second deploy times <code>DX</code></h2><p>When you push out a new blog entry or a product release, something always goes wrong: typos, wording issues, missing links, broken styling on mobile ... you name it. In this situation, it&apos;s critical to have a fast shipping engine in place. You want to fix your errors before the next bunch of visitors arrives.</p>
+<p>This sort of hot deployment engine is an extension to a full-blown git-based deployment system with support for versioned pushes, rollbacks, and staging environments.</p>
+
+<div class="problem"><p>Shipping with <em>Vercel</em> or <em>Netlify</em> is slow. Deployment always triggers a full rebuild: all the pages, styles, scripts, and images are re-pushed. Production pushes take several minutes, sometimes more than an hour. Even if it was just a small typo.</p>
+</div>
+<h2 id="universal"><a href="#universal" title="Universal template DX"></a>Universal template <code>DX</code></h2><p>The universal template is a central starting point for hybrid multi-page and single-page applications. It lets you quickly create a blog, startup, e-commerce site, or anything in between. First, you choose the desired apps, and then you link them to a chosen look and feel.</p>
+<p>For example, you might choose a rich front page, documentation area, blogging area, onboarding flow, admin dashboard, and login page. Then you choose the design: minimalistic, modern, playful, or heroic. Or perhaps abstract, brutal, pixelated, or retro.</p>
+<p>And of course, your site is automatically <a href="#">content-first</a>, <a href="#">pixel-perfect</a>, and <a href="#">motherf**king fast</a>.</p>
+
+<div class="problem"><p>Tailwind, Bootstrap, or <em>WordPress</em> templates have no concept of apps and the tightly coupled design has limited customization possibilities. You only get what&apos;s there and implement the missing pieces from scratch.</p>
+</div>
+<h2 id="complete"><a href="#complete" title="Built-in cloud services DX"></a>Built-in cloud services <code>DX</code></h2><p>A perfect SAAS template comes with integrated customer relationship management, billing,  and charging &#x2014; along with unified analytics for traffic, people, and revenue.</p>
+<p>This pack of services is connected to a desired cloud storage and the generated single-page application becomes part of your project directory. It automatically inherits your look and feel and extreme performance characteristics.</p>
+<p>The best part: you can use this generic single-page app as a template for your customer-facing app.</p>
+<p>We&apos;re looking at the fastest way to start a new, fully functional business.</p>
+
+<div class="problem"><p>Vercel, <em>Heroku</em>, or <em>Render</em> don&apos;t have integrated services. You need to build them yourself or fall back to external services like HubSpot or Google Analytics. It&apos;s impossible to get a consistent UX/DX across the board.</p>
+</div>
+<div>
+
+  <h2>What&apos;s next?</h2>
+
+  
+
+  <p>
+    Here&apos;s the current status of Nue:
+  </p>
+
+  <img src="/img/roadmap-summer-big.png">
+
+  <p>
+    Join our mailing list and get notified when we reach the next milestone. And please give us your thoughts! We read them all with care.
+  </p>
+
+  <div is="join-list"></div>
+
+</div>
+      
+    </article>
+
+    
+  </main>
+    <footer>
+    <nav aria-label="branding"><a href="/"><img src="/img/logo.svg" width="90" height="40"></a></nav>
+    <section><nav><h3>Basics</h3>
+<a href="/getting started/">Getting started</a>
+<a href="/documentation/">Documentation</a>
+<a href="/roadmap/">Roadmap</a>
+<a href="/blog/">Blog</a>
+<a href="/faq/">FAQ</a></nav>
+<nav><h3>Core Concepts</h3>
+<a href="/content first framework/">Content First Framework</a>
+<a href="/global design system/">Global Design System</a>
+<a href="/content management/">Content Management</a>
+<a href="/reactive content/">Reactive content</a>
+<a href="/single-page apps/">Single-Page Apps</a></nav></section>
+    
+  </footer>
+    <div id="portal">
+    <dialog id="menu">
+      <a href="#" class="close">&#xd7;</a>
+      <nav aria-label="main"><a href="/why/">Why</a>
+<a href="/docs/">Docs</a>
+<a href="/blog/">Blog</a>
+<a href="/blog/status-update-01/" class="status badge">Nue status update</a></nav>
+      <nav aria-label="toolbar"><a href="/docs/">Try beta</a>
+<hr>
+<a href="//github.com/nuejs/nue" class="github badge"><em>5.9k</em></a></nav>
+    </dialog>
+  </div>
+  </body>
+
+</html>

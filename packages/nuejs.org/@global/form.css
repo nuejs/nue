@@ -1,0 +1,57 @@
+
+:root {
+  accent-color: var(--main-500)
+}
+
+::placeholder {
+  color: var(--gray-400)
+}
+
+:focus-visible {
+  outline: 2px solid var(--main-500);
+  outline-offset: 1px
+}
+
+input, textarea, select {
+  font-size: inherit;
+  font-family: inherit;
+  color: inherit;
+  width: 100%;
+  padding: .8em 1.2em;
+  border: 1px solid var(--gray-200);
+  transition: outline-width .1s;
+  background-color: transparent;
+  border-radius: 4px;
+
+  &:focus {
+    border-color: var(--main-400)
+  }
+}
+
+[type=checkbox], [type=radio] {
+  width: inherit;
+  padding: 0;
+}
+
+textarea {
+  form-sizing: normal;
+  resize: none
+  height: 6em;
+}
+
+
+/* join mailing list */
+.join-list {
+  max-width: 23em;
+  margin: 2em 0;
+
+  input {
+    background: url(/img/email.svg) no-repeat;
+    background-position: 95% 55%;
+    background-size: 1.1em;
+  }
+
+  textarea {
+    margin: .5em 0;
+  }
+}

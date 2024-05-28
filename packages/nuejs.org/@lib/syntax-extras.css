@@ -1,0 +1,80 @@
+
+/* tabs root  */
+[tabs] {
+  background-color: var(--glow-bg-color);
+  font-size: .9rem;
+  overflow: hidden;
+
+  /* tablist */
+  [role=tablist] {
+    background: rgba(255,255,255, .07) url(/img/controls.svg) 96% 55%  no-repeat;
+    background-size: 3.5em;
+    padding: .7em 1.3em 0;
+    overflow: hidden;
+    display: flex;
+
+    a {
+      color: #fff9;
+      padding: .2em 1em .4em;
+      font-size: 90%;
+      cursor: pointer;
+
+      &:hover {
+        color: #fffc;
+      }
+    }
+
+    [aria-selected] {
+      border-bottom: 2px solid var(--main);
+      color: #fff;
+    }
+  }
+
+  [role=tabpanel] {
+    padding: 0;
+    list-style: none;
+    pre {
+      border: 0;
+      padding-left: .5em;
+    }
+  }
+}
+
+
+/* codestack */
+.codestack {
+  display: flex;
+  margin: 2em 0;
+  font-size: 90%;
+  gap: 1em;
+
+  > * {
+    background-color: var(--glow-bg-color);
+    border-radius: .5em;
+    flex: 1;
+  }
+
+  figcaption {
+    padding: 1em var(--glow-padding);
+    border-bottom: 1px solid var(--gray-600);
+    margin: 0;
+    em {
+      color: var(--gray-400);
+      float: right;
+    }
+    > * {
+      margin: 0;
+    }
+  }
+
+  [glow] { padding-top: .5em }
+
+  h3 { color: var(--gray-200) }
+
+  @media (max-width: 750px) {
+    flex-direction: column;
+  }
+}
+
+
+

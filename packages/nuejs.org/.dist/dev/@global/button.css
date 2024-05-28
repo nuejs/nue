@@ -1,0 +1,48 @@
+button, [role="button"] {
+  background-color: var(--gray-800);
+  text-align: center;
+  cursor: pointer;
+  color: var(--gray-100);
+  border: 0;
+  border-radius: .3em;
+  padding: .7em 1.4em;
+  font-weight: 550;
+  display: inline-block;
+
+  &:hover {
+    background-color: var(--gray-900);
+    color: #fff;
+    text-decoration: none;
+  }
+
+  &:active {
+    transform: scale(.98);
+  }
+
+  &.secondary {
+    box-shadow: 0 0 0 1px var(--gray-200);
+    color: inherit;
+    background-color: #fff;
+
+    &:hover {
+      box-shadow: 0 0 0 1px var(--gray-300);
+      color: var(--gray-900);
+      background-color: #fff;
+    }
+  }
+
+  &[popovertarget] {
+    background-color: var(--gray-50);
+    background-position: 50%;
+    background-repeat: no-repeat;
+
+    &:hover {
+      background-color: var(--gray-100);
+    }
+  }
+
+  &[disabled] {
+    background-color: var(--gray-200);
+    color: #fff;
+  }
+}
