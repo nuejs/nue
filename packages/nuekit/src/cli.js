@@ -47,7 +47,7 @@ export function getArgs(argv) {
       else if (['-v', '--verbose'].includes(arg)) args.verbose = true
       else if (['-s', '--stats'].includes(arg)) args.stats = true
       else if (['-b', '--esbuild'].includes(arg)) args.esbuild = true
-      else if (['-P', '--push'].includes(arg)) args.push = true
+      else if (['-P', '--push'].includes(arg)) args.push = args.is_prod = true
       else if (['-I', '--init'].includes(arg)) args.init = true
 
       // string values
