@@ -73,7 +73,7 @@ function ignore(name='') {
 }
 
 function isLegit(file) {
-  return !ignore(file.base) && !ignore(file.dir)
+  return !ignore(file.name) && !ignore(file.base) && !ignore(file.dir)
 }
 
 // TODO: real symdir detection
