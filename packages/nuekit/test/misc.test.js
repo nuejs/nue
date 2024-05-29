@@ -23,29 +23,39 @@ beforeAll(async () => {
 
 afterAll(async () => await fs.rm(dist, { recursive: true, force: true }))
 
-async function writeCSS(code) {
-  const filename = join(dist, 'lcss.css')
-  await fs.writeFile(filename, code)
-  return filename
+async function writeCSS(code, filename='lcss.css') {
+  const filepath = join(dist, filename)
+  await fs.writeFile(filepath, code)
+  return filepath
 }
 
 test('Lightning CSS errors', async () => {
   const code = 'body margin: 0 }'
-  const filename = await writeCSS(code)
+  const filepath = await writeCSS(code)
 
   try {
-    await lightningCSS(filename, true)
+    await lightningCSS(filepath, true)
   } catch (e) {
     expect(e.lineText).toBe(code)
     expect(e.line).toBe(1)
   }
 })
 
+test('Lightning CSS @import bundling', async () => {
+  const code = 'body { margin: 0 }'
+  const filename = 'cssimport.css'
+  await writeCSS(code, filename)
+  const filepath = await writeCSS(`@import "${filename}"`)
+
+  const css = await lightningCSS(filepath, true)
+  expect(css).toBe(code.replace(/\s/g, ''))
+})
+
 test('Lightning CSS', async () => {
   const code = 'body { margin: 0 }'
-  const filename = await writeCSS(code)
+  const filepath = await writeCSS(code)
 
-  const css = await lightningCSS(filename, true)
+  const css = await lightningCSS(filepath, true)
   expect(css).toBe(code.replace(/\s/g, ''))
 })
 
