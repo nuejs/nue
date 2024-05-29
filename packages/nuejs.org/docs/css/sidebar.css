@@ -28,7 +28,7 @@ aside:first-child h3 {
 
   /* Content Framework */
   nav:nth-child(1) & {
-    background-image: url(/icon/badge.svg)  /* shield, star */
+    background-image: url(/icon/cog.svg)  /* cog, badge, shield, star */
   }
 
   /* Design */
@@ -36,14 +36,14 @@ aside:first-child h3 {
     background-image: url(/icon/swatch.svg)
   }
 
-  /* Content Management */
+  /* Reactivity */
   nav:nth-child(3) & {
-    background-image: url(/icon/rectangles.svg)
+    background-image: url(/icon/bolt.svg)
   }
 
-  /* Reactivity */
+  /* Content Management */
   nav:nth-child(4) & {
-    background-image: url(/icon/bolt.svg)
+    background-image: url(/icon/rectangles.svg)
   }
 
   /* SPA */
@@ -51,9 +51,13 @@ aside:first-child h3 {
     background-image: url(/icon/squares.svg)
   }
 
+  /* Reference  */
   nav:nth-child(6) & {
-    background-image: url(/icon/document.svg)
+    background-image: url(/icon/document.svg);
   }
 }
 
-
+nav:nth-child(6) {
+  border-top: var(--border);
+  padding-top: 2em;
+}

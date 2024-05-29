@@ -8,31 +8,31 @@ View transitions, scroll animations, popover menus, tooltips, tabbed navigations
 
 
 ## Shift in focus
-Not all reactivity happens on a component level. Nue lets you choose the best technology based on the type of reactivity and it's scope.
+Nue lets you choose the right technology based on the type of reactivity and it's scope, because not all reactivity happens on a component level.
 
 [table "Example | Scope | Technology"]
-  * - View transitions
+  - - View transitions
     - Site-level
-    - [::view-transition](//developer.mozilla.org/en-US/docs/Web/CSS/::view-transition)
+    - "[::view-transition](//developer.mozilla.org/en-US/docs/Web/CSS/::view-transition)"
 
-  * - Popover menu
+  - - Popover menu
     - Site-level
-    - [Popover API](//developer.mozilla.org/en-US/docs/Web/API/Popover_API)
+    - "[Popover API](//developer.mozilla.org/en-US/docs/Web/API/Popover_API)"
 
-  * - Scroll transitions
+  - - Scroll transitions
     - Page-level
-    - [Intersection Observer API](//developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)
+    - "[Intersection Observer API](//developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)"
 
-  * - Tabbed navigation
+  - - Tabbed navigation
     - Web Component
-    - [Web Components API](//developer.mozilla.org/en-US/docs/Web/API/Web_components)
+    - "[Web Components API](//developer.mozilla.org/en-US/docs/Web/API/Web_components)"
 
-  * - Feedback form
+  - - Feedback form
     - Reactive Component
-    - [Nue JS](reactive-component)
+    - "[Nue JS](reactive-component)"
 
 
-Sometimes reactivity is best implemented with a small snippet of vanilla CSS and/or JavaScript. Sometimes Web Component is the right choice. Only the more complex components are best implemented with a reactive framework. Few examples:
+Sometimes reactivity is best implemented with a small snippet of vanilla CSS and/or JavaScript. Sometimes Web Component is the right choice. Only the more complex components are best implemented with a reactive framework.
 
 
 ### Work close to standards
@@ -40,19 +40,33 @@ Loading a heavy library like React is not always desired. It's a big system with
 
 
 ### Echoes from the jQuery era
-The simplest way to add reactivity to your page is to grab an element with `document.querySelector` and work directly with the DOM element. That's progressive enhancement to it's finest. And if you do that often, it's a nice trick to assign the call to a dollar character. The all-mighty `$` is back! Massive credits to *John Resig* and his API design mastery.
+The simplest way to add reactivity to your page is to grab an element with `document.querySelector` and work directly with the DOM element. That's progressive enhancement to it's finest. And if you do that often, it's a nice trick to assign the call to a dollar character.
+
+[code numbered]
+  // The all-mighty `$` is back
+  export function $(query, root=document) {
+  >  return root.querySelector(query)
+  }
+
+  // $$ to return multiple DOM nodes
+  export function $$(query, root=document) {
+    return [ ...root.querySelectorAll(query)]
+  }
 
 
 ## Types of reactivity
 
-### Page transitions
-Using CSS view transitions for smoother page switching
+[.grid item="card"]
+  ### Page transitions
+  Using CSS view transitions for smoother page switching
+  ---
 
-### In-page effects
-Adding page-level effects with modern CSS and JavaScript
+  ### In-page effects
+  Adding page-level effects with modern CSS and JavaScript
+  ---
 
-### Reactive islands
-Choose between web components, reactive components, and isomorphic components
+  ### Reactive islands
+  Choose between web-, reactive-, or isomorphic components
 
 
 

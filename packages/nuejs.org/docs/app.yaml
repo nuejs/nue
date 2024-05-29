@@ -11,50 +11,45 @@ sidenav:
     - label: Content-first framework
       url: /docs/
     - label: Installation
-      url: getting-started
-    - Files and directories
-    - Settings and configuration
+      url: installation.html
+    - label: Hello, World!
+      url: hello-world.html
+    - label: Files and directories
+      url: files-and-directories.html
+    - Command line interface
 
-  Design:
+  Design System:
     - Global Design System
-    - Information Architecture
-    - Universal site layout
-    - Components
-    - Custom layouts
-    - Code formatting
-    - CSS Architecture
-    - CSS Best Practices
-
-  Content Management:
-    - Content Management
-    - SEO and metadata
-    - Images and videos
-    - Complex layouts
-    - Components
-    - Code blocks
+    - Layout system
+    - Styling framework
+    - Syntax highlighting
+    - CSS best practices
+    - label: Performance optimization
+      url: performance-optimization.html
 
 
   Reactivity:
     - Reactivity fundamentals
-    - View transitions
-    - Scroll transitions
-    - Web Components
-    - Reactive components
+    - In-page reactivity
+    - Page transitions
+    - Reactive islands
+
+
+  Content authoring:
+    - Content Management System
+    - Writing rich content
+    - Component index
+
 
 
   Single-page Applications:
     - SPA fundamentals
-    - Creating a model
+    - Application logic
     - Views and routing
+    - Headless UI library
     - Look and feel
-
 
   Reference:
     - Settings index
-    - Component index
     - Template syntax
-    - Universal hot-reloading
-    - Command line interface
-    - Syntax highlighting
-    - Content collections
-    - Nuemark API
+    - Hot-reloaing

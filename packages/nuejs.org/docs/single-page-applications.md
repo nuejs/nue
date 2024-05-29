@@ -38,22 +38,23 @@ When styling and the application code is decoupled from the UI, the code becomes
 The more complex operations narrows down to simple JavaScript calls to the application API and updating the UI accordingly.
 
 
-### Controller code
-Nue comes with an app-router.js that acts as a _controller_ between the application code and the user interface.
 
-! Application -> Controller (dot) -> HTML- based UI (Nue) || TypeScript- based UI (React)
+## Building single-page apps
 
-React support is coming later.
+[.grid item=card]
+  ### Application logic
+  Content first: SPA developments starts with your data model
+  ---
 
+  ### Views and routing
+  Implement seamless routing between your pages and views
+  ---
 
+  ### Headless UI library
+  Library of common, reusable components for single-page apps
+  ---
 
-
-## Multi-page applications
-Global page transitions
-Seamless routing with page transitions: docs -> login -> SPA
-
-
-### Shared design system
-Shared design system as the rest of the site
+  ### Look and feel
+  Extending your design system for SPA development
 
 
