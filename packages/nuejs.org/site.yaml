@@ -15,6 +15,7 @@ links:
   standards: //www.w3.org/wiki/The_web_standards_model_-_HTML_CSS_and_JavaScript
   brad: //bradfrost.com/blog/post/front-of-the-front-end-and-back-of-the-front-end-web-development/
   gds: //bradfrost.com/blog/post/a-global-design-system/
+  spa: /docs/single-page-applications
 
 header:
   branding:

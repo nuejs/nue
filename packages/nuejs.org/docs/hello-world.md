@@ -1,7 +1,7 @@
 
 
 # Hello, World!
-In this tutorial, you’ll see Nue's key features by building a fully functioning blog from zero
+In this tutorial, you’ll see some Nue's key features by building a fully functioning blog from scratch
 
 [image]
   small: /img/simple-blog.png
@@ -25,7 +25,7 @@ cd simple-blog
 echo '# Hello, World!' > index.md
 ```
 
-Congrats! Your first Nue application is ready 🍻🍻. You can start working on it by running `nue` command inside the directory:
+Done. Our first Nue application is ready. You can run it by running `nue` inside the directory:
 
 ```
 # Start nue in "watch" mode

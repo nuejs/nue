@@ -1,7 +1,7 @@
 ---
 content_collection: blog
 include: [blog-index]
-exclude: [technical-content, video, glow-syntax]
+exclude: [technical-content, video, syntax]
 aside: false
 pagehead: false
 ---

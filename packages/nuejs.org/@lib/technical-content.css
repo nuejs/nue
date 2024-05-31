@@ -75,14 +75,22 @@ article {
 
   h2 {
     font-size: 1.25em;
+  }
+
+  h3, h4 {
+    font-size: 1.1em;
+    font-weight: 550;
+  }
+
+  h4 {
+    font-size: 1em;
+  }
+
+  h2, h3, h4 {
     margin: 3em 0 0;
   }
 
-  h3 {
-    font-size: 1.1em;
-    margin: 3em 0 0;
-    font-weight: 550;
-  }
+
 
   ul {
     padding-left: .9em;

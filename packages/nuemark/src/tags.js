@@ -245,7 +245,7 @@ export function elem(name, attr, body) {
   if (typeof attr == 'string') { body = attr; attr = {}}
 
   const html = [`<${name}${renderAttrs(attr)}>`]
-  const closed = ['img', 'source'].includes(name)
+  const closed = ['img', 'source', 'meta', 'link'].includes(name)
 
   if (body) html.push(body)
   if (!closed) html.push(`</${name}>`)

@@ -52,13 +52,13 @@ Nue changes the way you think about web development. Instead on learning all the
   - Highly valued | Type Safety | Minimalism
 
 
+UX developers approach development from the content side focusing on the problems and desires of it's audience:
+
 [image.gridpaper]
   small: /img/ux-development.png
   large: /img/ux-development-big.png
 
-
-UX developers approach development from the content side focusing on the problems and desires of it's audience. This reduces risk of over-engineering the technology stack. You may have the coolest technology choices in the world, with the sickest visual tricks possible, but if the content fails, everything fails. Or as [Steve Jobs says](//youtu.be/dI93BvrBxQ0?si=Ub2Q_S_E7uKVilVL&t=104):
-
+This reduces risk of over-engineering the technology stack. You may have the coolest technology choices in the world, with the sickest visual tricks possible, but if the content fails, everything fails. Or as [Steve Jobs says](//youtu.be/dI93BvrBxQ0?si=Ub2Q_S_E7uKVilVL&t=104):
 
 [quote.floating from="Steve Jobs"]
   You've got to start with the customer experience and work backwards for the technology
@@ -92,9 +92,7 @@ Content-first stack generates leaner and more performant websites. The resulting
 This is again, much different to what the other frameworks like Next.js and Vite are doing. They put most of their effort to Rust-based bundlres that can combine and minify hundreds, sometimes even thousands of JavaScript packages and NPM moules into one deliverable. This may work for single-page applications, but is suboptimal for content-heavy websites. No amount of JS bundling can beat a tiny packet that has all the HTML and CSS to to render the full experience.
 
 
-
-
-## Nue makes you move faster
+### Nue makes you move faster
 When the core parts of your web stack are neatly separated, people can focus on the areas they are natively interested in:
 
 [image.gridpaper]

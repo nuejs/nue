@@ -1,4 +1,5 @@
 
+import { elem, } from 'nuemark/src/tags.js'
 import { TYPES } from '../nueserver.js'
 import { extname } from 'node:path'
 
@@ -17,7 +18,8 @@ export function renderHead(data) {
     origin      = '',
     components  = [],
     favicon,
-    title
+    title,
+    is_prod
 
   } = data
 
@@ -39,7 +41,7 @@ export function renderHead(data) {
   const og = data.og_image || data.og
   if (og) {
     let img = og[0] == '/' ? og : `/${data.dir}/${og}`
-    head.push(`<meta property="og:image" content="${origin}${img}">`)
+    head.push(elem('meta', { property: 'og:image', content: origin + img }))
   }
 
   // preload image
@@ -57,7 +59,12 @@ export function renderHead(data) {
   if (favicon) head.push(`<link rel="icon" type="${TYPES[extname(favicon).slice(1)]}" href="${favicon}">`)
 
   // inline style
-  inline_css.forEach(el => head.push(`<style href="${base}${el.path}">${ el.css }</style>`))
+  if (is_prod) {
+    const css = inline_css.map(el => el.css).join('')
+    head.push(elem('style', css))
+  } else {
+    inline_css.forEach(el => head.push(elem('style', { href: base + el.path }, el.css)))
+  }
 
   // stylesheets
   styles.forEach(href => head.push(`<link href="${base}${href}" rel="stylesheet">`))

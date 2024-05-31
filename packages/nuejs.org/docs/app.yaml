@@ -14,8 +14,8 @@ sidenav:
       url: installation.html
     - label: Hello, World!
       url: hello-world.html
-    - label: Files and directories
-      url: files-and-directories.html
+    - label: Project Structure
+      url: project-structure.html
     - Command line interface
 
   Design System:
