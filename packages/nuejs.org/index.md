@@ -7,13 +7,13 @@ appdir: home
 
 [.hero]
   # Web Framework For UX Developers
-  Nue is a content-first framework for rapidly building highly performant and pixel-perfect websites
+  Nue is a rapid development environment for remarkably fast and pixel-perfect websites
 
   [button.secondary href="/docs/" "Learn Nue.js"]
   [button href="/docs/try-beta" "Try Beta"]
 
 
-## Better development experience
+## A rapid development environment
 
 [image inline]
   alt: Image of an CPU with animated arrows pointing to key Nue features

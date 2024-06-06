@@ -8,41 +8,36 @@ lang:
 
 sidenav:
   Getting started:
-    - label: Content-first framework
-      url: /docs/
-    - label: Installation
-      url: installation.html
-    - label: Hello, World!
-      url: hello-world.html
-    - label: Project Structure
-      url: project-structure.html
-    - Command line interface
+    - What is Nue?: /docs/
+    - Installation: installation.html
+    - Hello, World!: hello-world.html
+    - Project Structure: project-structure.html
+    - Command line interface: command-line-interface.html
 
-  Design System:
-    - Global Design System
-    - Layout system
+  Design:
+    - Global Design System: global-design-system.html
+    - Layout system: layout-system.html
     - Styling framework
     - Syntax highlighting
-    - CSS best practices
-    - label: Performance optimization
+    - label: Optimizations
       url: performance-optimization.html
+    - CSS best practices
 
 
   Reactivity:
-    - Reactivity fundamentals
-    - In-page reactivity
+    - Reactivity layer
     - Page transitions
     - Reactive islands
+    - JavaScript modules
 
 
-  Content authoring:
-    - Content Management System
-    - Writing rich content
-    - Component index
+  Content:
+    - Content management
+    - Components
 
 
 
-  Single-page Applications:
+  Single-page Apps:
     - SPA fundamentals
     - Application logic
     - Views and routing
