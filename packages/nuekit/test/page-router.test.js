@@ -1,3 +1,7 @@
+/**
+ * @jest-environment @happy-dom/jest-environment
+ */
+
 import { join, relative, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { promises as fs } from 'node:fs'
