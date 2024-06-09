@@ -1,30 +1,32 @@
-import * as path from 'node:path'
-import * as fs from 'node:fs/promises'
+import { join, relative, dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { promises as fs } from 'node:fs'
 
 import { createKit } from '../src/nuekit.js'
 
+
+const dir = fileURLToPath(dirname(import.meta.url))
+const reldir = relative(process.cwd(), dir)
+
 // temporary directory
-const dist = path.join(__dirname, './page-router-test/.dist')
-const distDev = `${dist}/dev`
+const root = join(reldir, 'page-router-test')
+const dist = join(dir, 'page-router-test/.dist')
+const distDev = join(dist, 'dev')
 
 // setup and teardown
 beforeAll(async () => {
   await fs.rm(dist, { recursive: true, force: true })
 
-  const nue = await createKit({ root: './packages/nuekit/test/page-router-test' })
+  const nue = await createKit({ root })
   await nue.build()
-})
-
-afterEach(() => {
-  jest.restoreAllMocks()
 })
 
 afterAll(async () => {
   await fs.rm(dist, { recursive: true, force: true })
 })
 
-function readFile(filePath) {
-  return fs.readFile(`${distDev}/${filePath}`)
+async function read(filePath) {
+  return await fs.readFile(join(distDev, filePath), 'utf-8')
 }
 
 function preparePage(html) {
@@ -52,7 +54,7 @@ function preparePage(html) {
 async function loadPage() {
   window.happyDOM.setURL('http://localhost:8080')
 
-  const html = (await readFile('./index.html')).toString()
+  const html = await read('index.html')
   const fragment = preparePage(html)
 
   document.replaceChildren(fragment.content.cloneNode(true))
@@ -93,7 +95,7 @@ test('renders "/" route and mount component', async () => {
   await loadPage()
 
   // importing scripts manually for side effects
-  await Promise.all([import(`${distDev}/@nue/mount.js`), import(`${distDev}/@nue/page-router.js`)])
+  await Promise.all([import(join(distDev, '@nue/mount.js')), import(join(distDev, '@nue/page-router.js'))])
 
   // imitating loaded page
   window.dispatchEvent(new Event('DOMContentLoaded'))
@@ -108,21 +110,23 @@ test('renders "/" route and mount component', async () => {
 
   expect(logSpy).toHaveBeenCalledTimes(1)
   expect(logSpy.mock.calls[0][0]).toBe('<app> mounted')
+
+  logSpy.mockRestore()
 })
 
 test('renders "/page" route and mount component when click in a link', async () => {
   await loadPage()
 
   // importing scripts manually for side effects
-  await Promise.all([import(`${distDev}/@nue/mount.js`), import(`${distDev}/@nue/page-router.js`)])
+  await Promise.all([import(join(distDev, '@nue/mount.js')), import(join(distDev, '@nue/page-router.js'))])
 
   // imitating loaded page
   window.dispatchEvent(new Event('DOMContentLoaded'))
 
   const logSpy = jest.spyOn(console, 'log')
   // mocking window.fetch API
-  jest.spyOn(window, 'fetch').mockImplementation(async () => {
-    const pageHtml = (await readFile('./page/index.html')).toString()
+  const windowSpy = jest.spyOn(window, 'fetch').mockImplementation(async () => {
+    const pageHtml = await read('page/index.html')
     const pageFragment = preparePage(pageHtml)
 
     return Promise.resolve({
@@ -161,4 +165,7 @@ test('renders "/page" route and mount component when click in a link', async () 
   expect(logSpy).toHaveBeenCalledTimes(2)
   expect(logSpy.mock.calls[0][0]).toBe('<app> mounted')
   expect(logSpy.mock.calls[1][0]).toBe('<component> mounted')
+
+  logSpy.mockRestore()
+  windowSpy.mockRestore()
 })
