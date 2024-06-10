@@ -1,13 +1,11 @@
-/**
- * @jest-environment @happy-dom/jest-environment
- */
+import { GlobalRegistrator } from '@happy-dom/global-registrator'
+GlobalRegistrator.register()
 
 import { join, relative, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { promises as fs } from 'node:fs'
 
 import { createKit } from '../src/nuekit.js'
-
 
 const dir = fileURLToPath(dirname(import.meta.url))
 const reldir = relative(process.cwd(), dir)

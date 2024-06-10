@@ -40,7 +40,7 @@ jobs:
         run: |
           node -v && npm -v
           npm install
-          npm install --no-save jest jest-extended esbuild@^0.19.11 @happy-dom/jest-environment
+          npm install --no-save jest jest-extended esbuild@^0.19.11
           # https://jestjs.io/docs/ecmascript-modules
           node --experimental-vm-modules node_modules/jest/bin/jest --runInBand --coverage
         if: ${{ matrix.env.tool == 'node+jest' }}
