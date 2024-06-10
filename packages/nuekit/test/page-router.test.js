@@ -13,13 +13,13 @@ const reldir = relative(process.cwd(), dir)
 // temporary directory
 const root = join(reldir, 'page-router-test')
 const dist = join(dir, 'page-router-test/.dist')
-const distDev = join(dist, 'dev')
+const out = join(dist, 'prod')
 
 // setup and teardown
 beforeAll(async () => {
   await fs.rm(dist, { recursive: true, force: true })
 
-  const nue = await createKit({ root })
+  const nue = await createKit({ root, is_prod: true })
   await nue.build()
 })
 
@@ -28,7 +28,7 @@ afterAll(async () => {
 })
 
 async function read(filePath) {
-  return await fs.readFile(join(distDev, filePath), 'utf-8')
+  return await fs.readFile(join(out, filePath), 'utf-8')
 }
 
 function preparePage(html) {
@@ -39,7 +39,7 @@ function preparePage(html) {
   // We need to adjust paths for component files to import correctly later.
   components.content = components.content
     .split(' ')
-    .map(compPath => `${distDev}${compPath}`)
+    .map(compPath => `${out}${compPath}`)
     .join(' ')
 
   /**
@@ -97,7 +97,7 @@ test('renders "/" route and mount component', async () => {
   await loadPage()
 
   // importing scripts manually for side effects
-  await Promise.all([import(join(distDev, '@nue/mount.js')), import(join(distDev, '@nue/page-router.js'))])
+  await Promise.all([import(join(out, '@nue/mount.js')), import(join(out, '@nue/page-router.js'))])
 
   // imitating loaded page
   window.dispatchEvent(new Event('DOMContentLoaded'))
@@ -120,7 +120,7 @@ test('renders "/page" route and mount component when click in a link', async () 
   await loadPage()
 
   // importing scripts manually for side effects
-  await Promise.all([import(join(distDev, '@nue/mount.js')), import(join(distDev, '@nue/page-router.js'))])
+  await Promise.all([import(join(out, '@nue/mount.js')), import(join(out, '@nue/page-router.js'))])
 
   // imitating loaded page
   window.dispatchEvent(new Event('DOMContentLoaded'))
