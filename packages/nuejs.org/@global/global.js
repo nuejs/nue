@@ -8,19 +8,23 @@ $$('[popover]').forEach(root => {
   }
 })
 
+class Clickable extends HTMLDivElement {
+  constructor() {
+    super()
 
-addEventListener('route', function() {
-
-  $$('.grid .card').forEach(card => {
-    const a = $('p a', card)
+    const a = $('p a', this)
     if (a) {
       a.parentNode.remove()
-      card.classList.add('clickable')
-      card.onclick = function() {
+      this.classList.add('clickable')
+      this.onclick = function() {
         location.href = a.getAttribute('href')
       }
     }
-  })
+  }
+}
+
+customElements.define('clickable-item', Clickable, { extends: 'div' })
 
 
-})
+
+

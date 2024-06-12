@@ -65,6 +65,11 @@ aside {
       font-weight: 550;
       margin-left: -1px;
     }
+
+    &:not([href]) {
+      color: var(--gray-300);
+      cursor: not-allowed;
+    }
   }
 }
 

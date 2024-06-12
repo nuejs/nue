@@ -60,7 +60,10 @@ export const tags = {
 
     const divs = content.map((str, i) => {
       const html = nuemarkdown(str, opts)
-      return content[1] ? elem('div', { class: items[i] || data.item }, html) : html
+      const attr = { class: items[i] || data.item || data.item_class }
+      if (data.item_component) attr.is = data.item_component
+
+      return content[1] ? elem('div', attr, html) : html
     })
 
     return elem(divs[1] ? 'section' : 'div', data.attr, join(divs))

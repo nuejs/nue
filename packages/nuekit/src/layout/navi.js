@@ -6,7 +6,7 @@ export function parseNavItem(item) {
 
   // plain string
   if (typeof item == 'string') {
-    return item.startsWith('---') ? { separator: item } : { label: item, url: `/${item.toLowerCase()}/`}
+    return item.startsWith('---') ? { separator: item } : { label: item, url: '' }
   }
 
   const keys = Object.keys(item)
@@ -56,7 +56,7 @@ export function renderNavItem(item) {
   const attr = { href: url, role }
   if (item.class) attr.class = item.class
 
-  return elem(url ? 'a' : 'p', attr, join(html))
+  return elem(url != null ? 'a' : 'p', attr, join(html))
 }
 
 
@@ -120,5 +120,5 @@ export function renderTOC(data) {
   const items = data.page.headings.filter(el => [2, 3].includes(el.level))
     .map(el => elem('a', { href: '#' + el.id, class: 'level-' + el.level }, el.text))
 
-  return elem('nav', join(items))
+  return elem('nav', { 'aria-label': 'Table of Contents', is: data.is }, join(items))
 }

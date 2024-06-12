@@ -1,4 +1,6 @@
 
+// Modern-day CSS Zen Garden
+
 import { renderPageList, renderPrettyDate } from './pagelist.js'
 import { renderNav, renderTOC } from './navi.js'
 import { renderPage as nuemark } from 'nuemark'
@@ -6,7 +8,6 @@ import { parse as parseNue } from 'nuejs-core'
 import { renderInline } from 'nuemark'
 import { renderHead } from './head.js'
 
-// Standadized layouts / Modernized "CSS Zen Garden"
 const HEADER = `
   <header>
     <navi :items="header.branding" label="branding"/>

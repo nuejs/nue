@@ -12,10 +12,12 @@
 
 <aside @name="context">
   <h3>{ lang.this_page }</h3>
-  <toc class="toc"/>
+  <toc is="observing-nav"/>
 
   <div class="zen-switch">
     <h5>Zen Mode</h5>
-    <label class="switch"><input type="checkbox"></label>
+    <label class="switch">
+      <input type="checkbox" is="zen-switch">
+    </label>
   </div>
 </aside>

@@ -8,8 +8,8 @@
     width: 100%;
     padding: var(--body-padding);
     border-bottom: var(--border);
-
-    background-color: #fffffff2;
+    background-image: radial-gradient(transparent 1px, white 1px);
+    background-size: 4px 4px;
     backdrop-filter: blur(4px);
     z-index: 1;
   }

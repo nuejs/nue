@@ -1,74 +1,83 @@
 
 
 # Global Design System
-
-## CSS Zen Garden
-Nue layout system is a modern-day [CSS Zen Graden](//csszengarden.com/). For those old enough to remember, it was a demonstration of what can be accomplished through CSS-based design. You always get the same layout for your pages and components, but the design can change wildly just by using a different stylesheet.
-
-Nue layout system is exactly the same idea, and extends it with the following
-
-1. Standard's based HTML layouts for most common scenarios: blog entries, documentation entries, index pages, and rich freeform layouts like the front page. Modern Semantic HTML elements, not available in the era of Zen Garden.
-
-1. Component library. A growing set. Focusing on content-heavy websites, and later expanding to SPA's as well. Perfected with accessibility guidelines. The HTML code in the standard componetns follow closely W3C..
+At its core Nue is based on a thing called [global design system][brad]. It provides designers, developers, and content creators a common way to structure web pages and user interfaces. On top of that, Nue also offers a styling framework for rapid application development and CSS best practices for writing scalable and easy-to-maintain web applications.
 
 
-1. Reactivity layyer: Complete web experiences with view transitions, web components, and reactive components.  after 20 years of advancement CSS and web technologies.
+## Modern-day CSS Zen Garden
+Think Nue like a modern-day [CSS Zen Graden](//csszengarden.com/): you get the same layout for your pages and components, but the design can change wildly just by using a different set of stylesheets. This allows you to build rich, content-focused websites with nothing but CSS.
+
+! video: hot-reloading content and CSS
+
+The idea of the global design system comes from [Brad Frost](//bradfrost.com/), a well-known UX/CSS developer:
+
+[quote from="Brad Frost" cite="gds"]
+  A Global Design System would improve the quality and accessibility of the world’s web experiences, save the world’s web designers and developers millions of hours, and make better use of our collective human potential.
 
 
-// blog.logrocket.com/ux-design/creating-global-design-system/
-### Don't repeat yourself
 
+### Standard page layouts
+Nue offers fixed, and standards- based page layouts for all the common use cases: blog entries, documentation, index pages, and freeform content. Developing websites narrows down to styling these layouts with Nue's powerful theming system:
+
+! IMG: docs layout + CSS = screenshot
+
+The generated HTML is carefully crafted to meet the W3C standards, semantics, and accessibility guidelines so you don't have to reinvent the wheel over and over again.
+
+[Learn more](page-layouts.html)
 
 
 
 ### Markdown extensions
-Nuemark = Markdown + Global Design System, ..
+Nue comes with a common set of Markdown extensions for building rich, content-focused websites. Things like buttons, tables, responsive images, tabbed content, and code blocks are supported out of the box. Once you make these components compatible with your design system, all the non-technical people can create rich, pixel-perfect content without any help from the developers:
+
+! IMG: content -> screenshot
+
+[.note]
+  ### Note
+  The global design system will later expand with UI components that help you build [single-page applications](single-page-applications.html). Right now, the focus is on content-related components.
 
 
-Global design system (GDS) is a styling framework to turn your personal design system into a functional website:
-
-[image.gridpaper]
-  small: /img/gds-flow.png
-  large: /img/gds-flow-big.png
+[Learn more](markdown-extensions.html)
 
 
 
+## Theming framework
+Nue comes with a powerful theming framework to effectively propagate your design system to all areas of your website.
+
+! IMG: globals -> areas -> pages
+
+* Dependency management
+  Nue automatically calculates your dependencies and loads the correct CSS files on your behalf.
+
+* Hot-reloading
+  auto-updates your browser when you update your styles. CSS error reporting
+
+* Modernization:
+  Nue is backed with [Lightning CSS](//lightningcss.dev/) to give support for modern/future CSS features like nesting and advanced color functions.
+
+* Optimizations
+  minififes your CSS for production, and packaging HTML and minified CSS into one, compact deliverable:
+
+
+[Learn more](performance-optimization.html)
 
 
 
-## Shift in focus
-Nue shifts you from building hundreds of site-specific React components to creating a personal design system that is effectively propagated to all areas on your website:
 
-[image.gridpaper]
-  small: /img/react-vs-ux-dev.png
-  large: /img/react-vs-ux-dev-big.png
+### Motion and Interactivity
+Implment smooth scrolling, view transitions, and scroll effects with nothing but CSS.
 
-Your job, as UX developer, is to convert the headless layouts in the global design system to match the rules on your personal design system.
+! video: scroll animation, click around, docs scroll, mobile menu
 
-
-### Control for designers
-Nue gives control back to design professionals who natively think in terms of a centrally manged design system. Disabling local/inline styling keeps things in the hands of a UX developer and ensures consistent look and feel accross the board.
-
-### Less to manage
-A centrally managed system reduces the amount of code you need to manage. This single source of truth maximizes code re-usability and minimizes duplication. You can easily end up in a situation where you have 10-100x less code than in a system where the styling code is distributed into components with no shared CSS.
+[Learn more](css-best-practices.html)
 
 
-## Features
 
-[.grid item="card"]
-  ### Layout system
-  Standardized HTML layout for pages and commonly used components
-  ---
 
-  ### Component library
-  Uninversally applicable component library to not repeat yourself on every project
-  ---
+### CSS best practices
+Nue offers recipes for writing CSS that are easy to manage and scale. You can easily end up in a situation where you have 10-100x less CSS than in a system where the code is distributed and into components:
 
-  ### Styling framework
-  To effectively propagate your design system to all areas of your website
-  ---
+> 10 lines of code is easier to manage than 100 lines of code
 
-  ### CSS best practices
-  Recipes for easily-maintainable CSS that stands the test of time
-
+[Learn more](css-best-practices.html)
 

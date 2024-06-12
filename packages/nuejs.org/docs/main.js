@@ -1,33 +1,42 @@
 
 import { $, $$ } from '/@nue/page-router.js'
 
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(el => {
-    if (el.isIntersecting) {
-      $('.toc [aria-selected]')?.removeAttribute('aria-selected')
-      $(`.toc [href="#${el.target.id}"]`)?.setAttribute('aria-selected', 1)
-    }
-  })
-}, {
-  rootMargin: '-50px'
-})
 
-function getHeaders() {
-  return $$('article > h2, article > h3')
+class ObservingNav extends HTMLElement {
+
+  constructor() {
+    super()
+
+    this.observer = new IntersectionObserver(entries => {
+      entries.forEach(el => {
+        if (el.isIntersecting) {
+          $('[aria-selected]', this)?.removeAttribute('aria-selected')
+          $(`[href="#${el.target.id}"]`, this)?.setAttribute('aria-selected', 1)
+        }
+      })
+    }, {
+      rootMargin: '-50px'
+    })
+
+    $$('article > h2, article > h3').forEach(el => this.observer.observe(el))
+  }
+
+  disconnectedCallback() {
+    this.observer.disconnect()
+  }
 }
 
-addEventListener('route', function() {
-  if (location.pathname.startsWith('/docs')) {
-    getHeaders().forEach(el => observer.observe(el))
+customElements.define('observing-nav', ObservingNav, { extends: 'nav' })
 
-    // zen mode
-    $('.switch input').onchange = function() {
+
+class ZenSwitch extends HTMLInputElement {
+  constructor() {
+    super()
+    this.onchange = function() {
       document.body.classList.toggle('zen', this.checked)
     }
   }
-})
+}
 
-// addEventListener('before:route', () => {
-//   getHeaders().forEach(el => observer.unobserve(el))
-// })
+customElements.define('zen-switch', ZenSwitch, { extends: 'input' })
 

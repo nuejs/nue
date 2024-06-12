@@ -9,6 +9,10 @@ description: Nue is a web framework for UX focused projects. It's the best choic
 title_template: "Nue - %s"
 favicon: /icon/favicon.png
 
+# grid items
+item_component: clickable-item
+item_class: card
+
 links:
   nuejs: //github.com/nuejs/nue/tree/master/packages/nuejs
   divide: //css-tricks.com/the-great-divide/
@@ -25,8 +29,8 @@ header:
       url: /
 
   navi:
-    - Docs
-    - Blog
+    - Docs: /docs/
+    - Blog: /blog/
     - label: Nue 1.0 Alpha is here! ›
       url: /blog/status-update-01/
       class: status badge
@@ -40,11 +44,11 @@ header:
       class: github badge
 
 burger_menu:
-  - Home
-  - Docs
-  - Blog
+  - Home: /home/
+  - Docs: /docs/
+  - Blog: /blog/
   - ---
-  - GitHub
+  - GitHub: //github.com/nuejs/nue
 
 footer:
   branding:
@@ -61,9 +65,8 @@ footer:
       - FAQ
 
     Core Concepts:
-      - Content First Framework
+      - UX development framework
       - Global Design System
-      - Content Management System
-      - Progressive Enhancement
-      - Single-Page Applications
+      - Content development
+      - Application development: /docs/single-page-applications.html
 

@@ -49,22 +49,21 @@
 }
 
 
-/* scroll fade in animations */
-.grid .card{
+
+article > section > * {
+  transition: .5s;
+  transform: translateY(2em);
   opacity: 0;
-  transition: opacity 1s;
-  will-change: opacity;
 
-  .in-viewport & {
-    opacity: 1;
-  }
-
-  &:nth-child(1) { transition-delay: .1s }
   &:nth-child(2) { transition-delay: .2s }
-  &:nth-child(3) { transition-delay: .3s }
-  &:nth-child(4) { transition-delay: .6s }
-  &:nth-child(5) { transition-delay: .7s }
-  &:nth-child(6) { transition-delay: .8s }
+  &:nth-child(3) { transition-delay: .5s }
+  &:nth-child(4) { transition-delay: .7s }
+  &:nth-child(5) { transition-delay: .8s }
+}
+
+.in-viewport > * {
+  transform: translate(0);
+  opacity: 1;
 }
 
 /* overrides global card styling */
@@ -80,7 +79,7 @@
 
 
 /* development experience */
-.dx {
+.dx .grid {
   margin: 0 0 calc(4em + 5vw);
 
   >:first-child {
@@ -113,7 +112,7 @@
 
 
 /* user experience */
-.ux {
+.ux .grid {
   margin-top: 4em;
 
   img {
@@ -135,13 +134,18 @@
 }
 
 
-.nue-status, .love  {
+
+.project-status, .heroquote  {
   margin-bottom: 5em;
   text-align: left;
   max-width: 700px;;
 }
 
-.hero-quote {
+.feedback {
+  text-align: left;
+}
+
+.heroquote {
   margin-top: 2em;
   display: flex;
   gap: 2em;

@@ -1,6 +1,16 @@
 
 # Content Management System
-Nue comes with a flat-file content management system for marketers, technical writers. All your pages, from rich landing pages to simple blog entries can be assembled in such way that the content is in the forefront and ditable by non-technical people. This is different from frameworks like *Next.js* or *Astro* where the more complex pages are written with *TypeScript* or *JavaScript*:
+Nue comes with a flat-file content management system for marketers, copywrites, and technical writers. All your pages, from rich landing pages to simple blog entries can be assembled in such way that the content is in the forefront and ditable by non-technical people.
+
+! video: editing front page
+
+All content supports hot-reloading: just edit your content and see the page shaping up in your browser in real time.
+
+
+### Text-based Notion
+Nue offers a rich *Markdown* and *Wordpress* inspired content format for assembling web pages of any complexity. It's like Notion, but editable with your favorite text editor.
+
+This is different from frameworks like *Next.js* or *Astro* where the more complex pages are written with *TypeScript* or *JavaScript*:
 
 [.stack]
   [image.bordered]
@@ -18,19 +28,17 @@ Nue comes with a flat-file content management system for marketers, technical wr
 
 
 
-### Extracted content
-Nue offers a rich *Markdown* and *Wordpress* inspired content format for assembling web pages of any complexity. It's like Notion, but editable with your favorite text editor.
-
-### Backed with a design system
+### Backed with your design system
 After the design system is in place any content you write looks great and consistent with the rest of the site.
 
-### Content hot-reloading support
-Just edit your content and see the page shaping up in your browser in real time.
+
+! blog entry image: markdown --> screenshot
+
 
 
 ## Learn more
 
-[.grid item="card"]
+[.grid]
   ### Writing rich content
   Basics for managing rich, interactive content
 

@@ -1,10 +1,23 @@
 
 [popover] {
   border: 0;
+  opacity: 1;
+  transition: all .5s;
+
 
   &::backdrop {
     background-color: #0005;
     backdrop-filter: blur(4px);
+    transition: .5s;
+  }
+
+  @starting-style {
+    opacity: 0;
+
+    &::backdrop {
+      background-color: #0001;
+      backdrop-filter: blur(0);
+    }
   }
 
   /* close  */

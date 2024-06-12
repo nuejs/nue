@@ -9,12 +9,10 @@ export function renderPage(page, opts) {
   const { lib=[] } = opts
   const data = { ...opts.data, ...page.meta }
   const draw_sections = data?.draw_sections || page.sections[1]
-  const section_attr = data.sections || []
   const custom_tags = opts.tags || {}
   const ret = []
 
 
-  // section_attr
   page.sections.forEach((section, i) => {
 
     const html = join(section.blocks.map(el => {
@@ -42,7 +40,9 @@ export function renderPage(page, opts) {
 
     }))
 
-    const attr = section.attr || parseAttr(section_attr[i] || '')
+    const attr = section.attr || {}
+    if (data.sections && !attr.class) attr.class = data.sections[i]
+    attr.is = data.section_component
     ret.push(draw_sections ? elem('section', attr, html) : html)
 
   })

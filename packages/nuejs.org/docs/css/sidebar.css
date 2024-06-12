@@ -4,18 +4,13 @@
 @media (max-width: 1000px) {
   aside:first-child {
     padding: 1em 2em 3em;
-    z-index: 1;
     overflow: auto;
     width: 22em;
     max-width: 100%;
     font-size: 110%;
-    transition: .2s;
     height: 100vh;
     margin: 0;
-
-    nav {
-      margin-bottom: 2em;
-    }
+    nav { margin-bottom: 2em; }
   }
 }
 
@@ -36,23 +31,24 @@ aside:first-child h3 {
     background-image: url(/icon/swatch.svg)
   }
 
-  /* Reactivity */
+  /* Reactivity
   nav:nth-child(3) & {
     background-image: url(/icon/bolt.svg)
   }
+  */
 
-  /* Content Management */
-  nav:nth-child(4) & {
+  /* Content development */
+  nav:nth-child(3) & {
     background-image: url(/icon/rectangles.svg)
   }
 
   /* SPA */
-  nav:nth-child(5) & {
+  nav:nth-child(4) & {
     background-image: url(/icon/squares.svg)
   }
 
   /* Reference  */
-  nav:nth-child(6) & {
+  nav:nth-child(5) & {
     background-image: url(/icon/document.svg);
   }
 }

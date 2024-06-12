@@ -226,16 +226,6 @@ export async function createSite(args) {
     return await fswalk(root)
   }
 
-  self.getScripts = async function(dir, data) {
-    const { main= ['main.js'] } = data
-    const arr = await getAssets({ dir, exts: ['js', 'ts'], to_ext: 'js', data})
-    return arr.filter(path => main.includes(basename(path)))
-  }
-
-  self.getClientComponents = async function(dir, data) {
-    return await getAssets({ dir, exts: ['nue'], to_ext: 'js', data })
-  }
-
 
   // get fromt matter data from all .md files on a directory
   self.getContentCollection = async function(dir) {
@@ -262,8 +252,6 @@ export async function createSite(args) {
     return arr
   }
 
-
-
   self.getStyles = async function(dir, data={}) {
     let paths = await getAssets({ dir, exts: ['css'], data })
 
@@ -274,6 +262,14 @@ export async function createSite(args) {
     sortCSS({ paths, globals: self.globals, dir })
 
     return paths
+  }
+
+  self.getScripts = async function(dir, data) {
+    return await getAssets({ dir, exts: ['js', 'ts'], to_ext: 'js', data })
+  }
+
+  self.getClientComponents = async function(dir, data) {
+    return await getAssets({ dir, exts: ['nue'], to_ext: 'js', data })
   }
 
 

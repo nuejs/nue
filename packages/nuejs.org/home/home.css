@@ -10,10 +10,16 @@ body {
   max-width: 800px;
   margin: 0 auto;
   height: 450px;
+  opacity: 1;
+  transition: 2s;
 
   a {
     font-size: 105%;
     margin: 0 .3em;
+  }
+
+  @starting-style {
+    opacity: 0;
   }
 }
 
@@ -59,6 +65,11 @@ body > header {
     }
   }
 
+  /* delayed appear */
+  transition: opacity .4s 2s;
+  opacity: 1;
+  @starting-style { opacity: 0 }
+
 }
 
 @media (min-width: 1200px) {
@@ -81,24 +92,24 @@ main {
 }
 
 
-.herobox {
-  background-color: #111;
+.explainer {
+  background-color: var(--gray-950);
   padding: calc(1.5em + 5vw);
-  border-radius: 1em;
-  margin-bottom: 5em;
+  margin: 5em 0;
   text-align: left;
-  display: flex;
-  gap: 3em;
 
-  h2 { color: white }
+
+  h2 { color: white; margin: 0 }
   p {
     color: var(--gray-200);
     font-size: 1.2em;
     line-height: 1.4;
   }
-
-  > * {
-    flex: 1;
+  img {
+    float: right;
+    width: 250px;
+    margin: -1em 0 0 2em;
+    display: inline-block;
   }
 
   @media (max-width: 900px) {

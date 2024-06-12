@@ -1,17 +1,21 @@
+
 ---
-description: Nue is a content-first web framework for UX focused projects
+sections: [hero, dx, ux, explainer card, project-status, feedback]
+section_component: observable-item
 include: [marketing-content]
-inline_css: true
+# inline_css: true
 appdir: home
 ---
 
-[.hero]
-  # Web Framework For UX Developers
-  Nue is a rapid development environment for remarkably fast and pixel-perfect websites
 
-  [button.secondary href="/docs/" "Learn Nue.js"]
-  [button href="/docs/try-beta" "Try Beta"]
+# Web Framework For UX Developers
+Nue is a rapid development environment for pixel-perfect websites with unmatched performance levels
 
+[button.secondary href="/docs/" "Learn Nue.js"]
+[button href="/docs/try-beta" "Try Beta"]
+
+
+------------
 
 ## A rapid development environment
 
@@ -20,7 +24,7 @@ appdir: home
   src: /home/img/nue-cpu.svg
 
 
-[.grid.dx item="card"]
+[.grid]
 
   ### For UX developers
   Nue is the best framework for design-led projects
@@ -49,17 +53,17 @@ appdir: home
   Unburden the engineer workload for the best talent available
   ---
 
-
   [! /home/img/100x.svg]
 
   ### Next-level build speed
   Nue operates closer to metal
 
 
+------------
 
 ## Build better user experiences
 
-[.grid.ux item="card"]
+[.grid]
 
   ### Centrally controlled design
   Ensure great, consistent design with a personal design system
@@ -105,45 +109,45 @@ appdir: home
   Harness the power of modern, cascading CSS
 
 
-[.herobox]
+------------
+[! /home/img/ux-stack.svg]
 
-  ## Nue is for UX developers
-  What used to take a Next/React/Tailwind specialist and thousands of lines of TypeScript is now taken care by a UX developer with a few hundred lines of CSS:
+## Nue is for UX developers
+What used to take a Next/React/Tailwind specialist and thousands of lines of TypeScript is now taken care by a UX developer with a few hundred lines of CSS:
 
 
-  [Learn more ›](/foob/)
+[Learn more ›](/docs/)
 
+
+
+
+------------
+
+## Status
+The goal of Nue is to build a simple alternative to *Next.js*, *Gatsby*, and *Netlify*. It is released as follows:
+
+[image]
+  src: /img/roadmap-autumn.png
+  width: 600
+
+
+### Waiting list
+Join the waiting list if you want to be notified about our next milestone. Please give us your feedback as well — we read them all with care.
+
+[join-list]
+
+
+------------
+
+## Feedback
+
+[.heroquote item_class=""]
+  [! /home/img/elliot-jay-stocks.jpg]
   ---
+  At some point in the last decade, popular frameworks and platforms have eschewed semantic markup, and, as a result, the web has become way more bloated than it ever needed to be. Stripping away presentational markup and unreadable CSS is something all web developers once believed in. I'm glad Nue is bringing back that power.
 
-  [! /home/img/ux-stack.svg]
-
-[.nue-status]
-  ## Status
-  The goal of Nue is to build a simple alternative to *Next.js*, *Gatsby*, and *Netlify*. It is released as follows:
-
-  [image]
-    src: /img/roadmap-autumn.png
-    width: 600
-
-
-  ### Waiting list
-  Join the waiting list if you want to be notified about our next milestone. Please give us your feedback as well — we read them all with care.
-
-  [join-list]
-
-
-
-
-[.love]
-  ## Feedback
-
-  [.hero-quote]
-    [! /home/img/elliot-jay-stocks.jpg]
-    ---
-    At some point in the last decade, popular frameworks and platforms have eschewed semantic markup, and, as a result, the web has become way more bloated than it ever needed to be. Stripping away presentational markup and unreadable CSS is something all web developers once believed in. I'm glad Nue is bringing back that power.
-
-    [Elliot Jay Stocks](//elliotjaystocks.com/) /
-    *Legendary designer and UX developer*
+  [Elliot Jay Stocks](//elliotjaystocks.com/) /
+  *Legendary designer and UX developer*
 
 
 [quotes]
