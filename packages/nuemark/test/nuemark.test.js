@@ -233,6 +233,11 @@ test('[button]', () => {
   expect(html).toInclude('<em>Hey</em>')
 })
 
+test('[button] with svg', () => {
+  const html = tags.button({ content: '[mysvg]\n' })
+  expect(html).toInclude('<a href="#" role="button"><div is="mysvg"></div></a>')
+})
+
 
 // page rendering
 test('render sections', () => {
