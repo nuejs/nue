@@ -1,19 +1,18 @@
 
 import { compileFile as nueCompile} from 'nuejs-core'
-import { join, basename } from 'node:path'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { promises as fs } from 'node:fs'
 import { resolve } from 'import-meta-resolve'
 import { buildJS } from './builder.js'
-import { colors } from './util.js'
+import { colors, srcdir } from './util.js'
 
 
 export async function init({ dist, is_dev, esbuild, force }) {
 
   // directories
   const cwd = process.cwd()
-  const srcdir = getSourceDir()
   const outdir = join(cwd, dist, '@nue')
-
 
   // has all latest?
   const latest = join(outdir, '.05')
@@ -28,20 +27,10 @@ export async function init({ dist, is_dev, esbuild, force }) {
     await fs.writeFile(latest, '')
   }
 
-  try {
-    // chdir hack (Bun does not support absWorkingDir)
-    process.chdir(srcdir)
-    process.env.ACTUAL_CWD = cwd
-
-    await initUnderChdir({ dist, is_dev, esbuild, cwd, srcdir, outdir })
-  } finally {
-    // recover
-    process.env.ACTUAL_CWD = ''
-    process.chdir(cwd)
-  }
+  await initDir({ dist, is_dev, esbuild, cwd, srcdir, outdir })
 }
 
-async function initUnderChdir({ dist, is_dev, esbuild, cwd, srcdir, outdir }) {
+async function initDir({ dist, is_dev, esbuild, cwd, srcdir, outdir }) {
 
   const fromdir = join(srcdir, 'browser')
   const minify = !is_dev
@@ -57,7 +46,7 @@ async function initUnderChdir({ dist, is_dev, esbuild, cwd, srcdir, outdir }) {
 
   // copy from NPM path
   async function copyAsset(npm_path, toname) {
-    const path = await resolvePath(npm_path)
+    const path = resolvePath(npm_path)
     await fs.copyFile(path, join(outdir, toname))
     dot()
   }
@@ -72,7 +61,7 @@ async function initUnderChdir({ dist, is_dev, esbuild, cwd, srcdir, outdir }) {
   async function buildPackage(npm_path, toname) {
     await buildJS({
       bundle: true, esbuild, minify, outdir, toname,
-      path: await resolvePath(npm_path),
+      path: resolvePath(npm_path),
     })
     dot()
   }
@@ -106,15 +95,8 @@ async function initUnderChdir({ dist, is_dev, esbuild, cwd, srcdir, outdir }) {
 }
 
 
-async function resolvePath(npm_path) {
+function resolvePath(npm_path) {
   const [ npm_name, ...parts ] = npm_path.split('/')
-  let main = await resolve(npm_name, `file://${process.cwd()}/`)
-  main = main.replace(/^file:\/\//, '')
-  main = process.platform === 'win32' && main.startsWith('/') ? main.slice(1) : main
-  return main.replace('index.js', parts.join('/'))
-}
-
-function getSourceDir() {
-  const path = new URL('.', import.meta.url).pathname
-  return process.platform === "win32" && path.startsWith('/') ? path.slice(1) : path
+  const module_path = dirname(fileURLToPath(resolve(npm_name, `file://${process.cwd()}/`)))
+  return join(module_path, ...parts)
 }

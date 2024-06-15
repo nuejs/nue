@@ -1,6 +1,24 @@
 
 /* misc stuff. think shame.css */
-import { sep, parse, normalize, join, isAbsolute } from 'node:path'
+import { sep, parse, normalize, join, isAbsolute, dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { promises as fs } from 'node:fs'
+
+export const srcdir = dirname(fileURLToPath(import.meta.url))
+
+export const openUrl = process.platform == 'darwin' ? 'open' : process.platform == 'win32' ? 'start' : 'xdg-open'
+
+// read from package.json
+export async function getVersion() {
+  const path = join(srcdir, '../package.json')
+  const json = await fs.readFile(path, 'utf-8')
+  return JSON.parse(json).version
+}
+
+export function getEngine() {
+  const v = process.versions
+  return process.isBun ? 'Bun ' + v.bun : 'Node ' + v.node
+}
 
 export function log(msg, extra='') {
   console.log(colors.green('✓'), msg, extra)

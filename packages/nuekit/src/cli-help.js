@@ -1,5 +1,4 @@
-
-import { colors } from './util.js'
+import { colors, openUrl, getVersion } from './util.js'
 
 const HELP = `
 Usage
@@ -39,18 +38,17 @@ Examples
   nue build .md .css
 
   # more examples
-  open https://nuejs.org/docs/cli
+  ${openUrl} https://nuejs.org/docs/cli
 
 Less is more
 
  ┏━┓┏┓┏┳━━┓
- ┃┏┓┫┃┃┃┃━┫
+ ┃┏┓┫┃┃┃┃━┫  v${await getVersion()}
  ┃┃┃┃┗┛┃┃━┫  nuejs.org
  ┗┛┗┻━━┻━━┛
-
 `
 
-const commands = ['serve', 'build', 'stats']
+const commands = ['serve', 'build', 'stats', 'create']
 
 function formatLine(line) {
   const { gray, magenta, cyan, green } = colors
@@ -72,6 +70,3 @@ export function getHelp() {
     return line[0] === ' ' ? formatLine(line) : line
   }).join('\n')
 }
-
-
-
