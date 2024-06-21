@@ -234,7 +234,7 @@ test('[button]', () => {
 })
 
 test('[button] with svg', () => {
-  const html = tags.button({ content: '[mysvg]\n' })
+  const html = tags.button({ content: [ '[mysvg]\n' ] })
   expect(html).toInclude('<a href="#" role="button"><div is="mysvg"></div></a>')
 })
 
