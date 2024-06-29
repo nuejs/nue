@@ -1,71 +1,4 @@
 
-.cpu {
-  width: 1000px;
-  margin: 0 -50% -4px -50%;
-
-  @media (max-width: 800px) {
-    width: 700px;
-    margin-block: -2.3em
-  }
-}
-
-.anim {
-  stroke-dashoffset: 80;
-  stroke-dasharray: 80 4000;
-  stroke: #00C2FF;
-  animation: dash 3s linear infinite;
-  stroke-width: 3
-}
-
-.anim1 {
-  animation-delay: 0;
-  animation-duration: 10s;
-}
-.anim2 {
-  animation-delay: .5s;
-  stroke: var(--purple);
-  opacity: .5;
-}
-.anim3 {
-  animation-delay: 1s;
-}
-.anim4 {
-  animation-delay: 2.5s;
-}
-.anim5 {
-  animation-duration: 5s;
-  animation-delay: 1.5s;
-}
-.anim6 {
-  animation-delay: 2s;
-  stroke: var(--purple);
-  opacity: .5;
-}
-
-@keyframes dash {
-  0% {
-    stroke-dashoffset: 4000;
-  }
-}
-
-
-
-article > section > * {
-  transition: .5s;
-  transform: translateY(2em);
-  opacity: 0;
-
-  &:nth-child(2) { transition-delay: .2s }
-  &:nth-child(3) { transition-delay: .5s }
-  &:nth-child(4) { transition-delay: .7s }
-  &:nth-child(5) { transition-delay: .8s }
-}
-
-.in-viewport > * {
-  transform: translate(0);
-  opacity: 1;
-}
-
 /* overrides global card styling */
 .card {
   text-align: left;
@@ -76,6 +9,51 @@ article > section > * {
     margin: 2em 0;
   }
 }
+
+/* hero area with call-to-action buttons */
+.hero {
+  max-width: 800px;
+  margin: 0 auto;
+  height: 450px;
+  opacity: 1;
+  transition: 2s;
+
+  a {
+    font-size: 105%;
+    margin: 0 .3em;
+  }
+
+  @starting-style {
+    opacity: 0;
+  }
+}
+
+.explainer {
+  background-color: var(--gray-950);
+  padding: calc(1.5em + 5vw);
+  margin: 5em 0;
+  text-align: left;
+
+
+  h2 { color: white; margin: 0 }
+  p {
+    color: var(--gray-200);
+    font-size: 1.2em;
+    line-height: 1.4;
+  }
+  img {
+    float: right;
+    width: 250px;
+    margin: -1em 0 0 2em;
+    display: inline-block;
+  }
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+    gap: .5em
+  }
+}
+
 
 
 /* development experience */
@@ -165,7 +143,6 @@ article > section > * {
     }
   }
 }
-
 
 .quotes {
   column-width: 17em;

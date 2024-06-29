@@ -2,9 +2,8 @@
 ---
 date: 2024-04-12
 og: /img/designers-vs-engineers.png
-title: ☀️ Summer 2024 status update
+title: Summer 2024 status update
 desc: The past, present, and the future of the Nue framework
-thumb: glow-thumb.jpg
 ---
 
 

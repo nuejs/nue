@@ -53,10 +53,22 @@ export const tags = {
     return createWrapper(data.wrapper, table)
   },
 
-  // [section] or unnamed [.grid]
-  section(data, opts) {
+  // generic <div> element with nested items
+  block(data, opts) {
+    const { content=[] } = data
+
+    const divs = content.map((str, i) => {
+      const html = nuemarkdown(str, opts)
+      return content[1] ? elem('div', html) : html
+    })
+
+    return elem('div', data.attr, join(divs))
+  },
+
+  grid(data, opts) {
     const { content=[] } = data
     const items = toArray(data.items) || []
+    if (!data.attr.class) data.attr.class = 'grid'
 
     const divs = content.map((str, i) => {
       const html = nuemarkdown(str, opts)
@@ -66,7 +78,7 @@ export const tags = {
       return content[1] ? elem('div', attr, html) : html
     })
 
-    return elem(divs[1] ? 'section' : 'div', data.attr, join(divs))
+    return elem('div', data.attr, join(divs))
   },
 
 
@@ -175,25 +187,8 @@ export const tags = {
       })
     })
 
-    return elem('section', attr, join(blocks))
-  },
-
-
-
-  /* maybe later
-  grid(data, opts) {
-    const { attr, content=[], _='a'} = data
-    const { cols, colspan } = getGridCols(content.length, _)
-    const extra = { style: `--cols: ${cols}`, class: concat('grid', attr.class) }
-
-    const divs = content.map((str, i) => {
-      const attr = colspan && i + 1 == content.length ? { style: `--colspan: ${colspan}` } : {}
-      return elem('div', attr, nuemarkdown(str, opts))
-    })
-
-    return elem('section', { ...attr, ...extra }, join(divs))
-  },
-  */
+    return elem('div', attr, join(blocks))
+  }
 
 }
 
@@ -222,7 +217,7 @@ function createARIATabs(data, fn) {
     return elem('li', prop, fn(content, i))
   })
 
-  const root = elem('section', { tabs: true, is: 'aria-tabs', ...data.attr },
+  const root = elem('div', { tabs: true, is: 'aria-tabs', ...data.attr },
     elem('div', { role: 'tablist' }, tabs.join('\n')) +
     elem('ul', panes.join('\n'))
   )
@@ -241,8 +236,9 @@ tags['!'] = function(data, opts) {
     tags.image(data, opts)
 }
 
-// alias
-tags.layout = tags.section
+
+// alias (depreciated)
+tags.layout = tags.block
 
 export function elem(name, attr, body) {
   if (typeof attr == 'string') { body = attr; attr = {}}

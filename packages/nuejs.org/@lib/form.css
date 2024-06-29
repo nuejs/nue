@@ -12,6 +12,11 @@
   outline-offset: 1px
 }
 
+form {
+  max-width: 23em;
+  margin: 2em 0;
+}
+
 input, textarea, select {
   font-size: inherit;
   font-family: inherit;
@@ -28,30 +33,20 @@ input, textarea, select {
   }
 }
 
+textarea {
+  form-sizing: normal;
+  margin: .6em 0;
+  resize: none
+  height: 6em;
+}
+
 [type=checkbox], [type=radio] {
   width: inherit;
   padding: 0;
 }
 
-textarea {
-  form-sizing: normal;
-  resize: none
-  height: 6em;
-}
-
-
-/* join mailing list */
-.join-list {
-  max-width: 23em;
-  margin: 2em 0;
-
-  input {
-    background: url(/img/email.svg) no-repeat;
-    background-position: 95% 55%;
-    background-size: 1.1em;
-  }
-
-  textarea {
-    margin: .5em 0;
-  }
+[type=email] {
+  background: url(/img/email.svg) no-repeat;
+  background-position: 95% 55%;
+  background-size: 1.1em;
 }

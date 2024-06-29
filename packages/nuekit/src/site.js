@@ -269,7 +269,7 @@ export async function createSite(args) {
   }
 
   self.getClientComponents = async function(dir, data) {
-    return await getAssets({ dir, exts: ['nue'], to_ext: 'js', data })
+    return await getAssets({ dir, exts: ['nue', 'htm'], to_ext: 'js', data })
   }
 
 

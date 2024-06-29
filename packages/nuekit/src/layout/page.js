@@ -10,18 +10,14 @@ import { renderHead } from './head.js'
 
 const HEADER = `
   <header>
-    <navi :items="header.branding" label="branding"/>
-    <navi :items="header.navi" label="main"/>
-    <navi :items="header.toolbar" label="toolbar"/>
+    <navi :for="[label, items] of Object.entries(header)" :label :items/>
     <button popovertarget="menu" :if="burger_menu"/>
   </header>
 `
 
 const FOOTER = `
   <footer>
-    <navi :items="footer.branding" label="branding"/>
-    <navi :items="footer.navi"/>
-    <navi :items="footer.toolbar" label="toolbar"/>
+    <navi :for="[label, items] of Object.entries(footer)" :label :items/>
   </footer>
 `
 

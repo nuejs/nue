@@ -140,11 +140,11 @@ article {
     margin: 2.5em 0;
 
     p {
-      border-left: .2em solid var(--gray-950);
+      border-left: .15em solid var(--gray-950);
       padding-left: .75em;
-      font-size: 140%;
+      font-size: 120%;
       font-weight: 600;
-      line-height: 1.35;
+      line-height: 1.45;
       text-wrap: balance;
       color: var(--gray-900);
     }

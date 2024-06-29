@@ -38,7 +38,7 @@ After the design system is in place any content you write looks great and consis
 
 ## Learn more
 
-[.grid]
+[grid]
   ### Writing rich content
   Basics for managing rich, interactive content
 

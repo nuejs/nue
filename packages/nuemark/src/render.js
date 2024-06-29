@@ -8,7 +8,6 @@ import { marked } from 'marked'
 export function renderPage(page, opts) {
   const { lib=[] } = opts
   const data = { ...opts.data, ...page.meta }
-  const draw_sections = data?.draw_sections || page.sections[1]
   const custom_tags = opts.tags || {}
   const ret = []
 
@@ -43,7 +42,7 @@ export function renderPage(page, opts) {
     const attr = section.attr || {}
     if (data.sections && !attr.class) attr.class = data.sections[i]
     attr.is = data.section_component
-    ret.push(draw_sections ? elem('section', attr, html) : html)
+    ret.push(elem('section', attr, html))
 
   })
 
@@ -108,7 +107,7 @@ export function renderHeading(html, level, raw) {
   const { id } = plain
 
   // no id -> return plain heading
-  if (!id) return elem(`h${level}`, html)
+  if (!id || level == 1) return elem(`h${level}`, html)
 
   // id given
   const title = plain.text.replaceAll('"', '')

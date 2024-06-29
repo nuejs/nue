@@ -5,13 +5,7 @@ const observer = new IntersectionObserver(entries => {
   entries.forEach(el =>
     el.target.classList.toggle('in-viewport', el.isIntersecting)
   )
-
-}, {
-  rootMargin: '-100px'
-})
-
-
-// addEventListener('reload', () => $$('.grid').forEach(show))
+}, { rootMargin: '-100px' })
 
 
 class Observer extends HTMLElement {
@@ -19,13 +13,9 @@ class Observer extends HTMLElement {
     super()
     observer.observe(this)
   }
-
   disconnectedCallback() {
     observer.unobserve(this)
   }
 }
 
 customElements.define('observable-item', Observer, { extends: 'section' })
-
-
-

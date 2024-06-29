@@ -1,13 +1,22 @@
+
 ---
+appdir: blog/@index
 content_collection: blog
-include: [blog-index]
-exclude: [technical-content, video, syntax]
 aside: false
 pagehead: false
+inline_css: true
+
+exclude:
+  - technical-content
+  - components
+  - blog.css
+  - syntax
+  - video
+  - form
 ---
 
 
-# Latest Updates
-Releases and writings from the Nue team
+# Announcements
+Writings and updates from the Nue team
 
 [page-list]

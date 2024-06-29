@@ -1,7 +1,7 @@
 
 /* background animation */
 body {
-  background: url(/blog/blog-bg.svg) 0 0 no-repeat;
+  background: url(/blog/@index/blog-bg.svg) 0 0 no-repeat;
   background-size: 100% 500px;
 }
 
@@ -10,8 +10,10 @@ main {
   text-align: center;
   article {
     max-width: 50em;
+    margin: 0 auto;
   }
 }
+
 
 article h1 {
   letter-spacing: -.025em;

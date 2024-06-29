@@ -15,7 +15,7 @@ class ObservingNav extends HTMLElement {
         }
       })
     }, {
-      rootMargin: '-50px'
+      rootMargin: '-300px'
     })
 
     $$('article > h2, article > h3').forEach(el => this.observer.observe(el))

@@ -41,7 +41,7 @@ The more complex operations narrows down to simple JavaScript calls to the appli
 
 ## Building single-page apps
 
-[.grid item=card]
+[grid]
   ### Application logic
   Content first: SPA developments starts with your data model
   ---

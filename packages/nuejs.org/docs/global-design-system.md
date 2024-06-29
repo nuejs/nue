@@ -1,83 +1,62 @@
 
 
 # Global Design System
-At its core Nue is based on a thing called [global design system][brad]. It provides designers, developers, and content creators a common way to structure web pages and user interfaces. On top of that, Nue also offers a styling framework for rapid application development and CSS best practices for writing scalable and easy-to-maintain web applications.
+Nue is powered by a global design system. It allows UX developers to rapidly create different designs using the same exact markup between projects.
 
 
 ## Modern-day CSS Zen Garden
-Think Nue like a modern-day [CSS Zen Graden](//csszengarden.com/): you get the same layout for your pages and components, but the design can change wildly just by using a different set of stylesheets. This allows you to build rich, content-focused websites with nothing but CSS.
+Think Nue like a modern-day [CSS Zen Graden](//csszengarden.com/): you get the exact same HTML markup, but you can write CSS to achieve wildly different designs. Or as a well-known UX developer [Brad Frost](//bradfrost.com/) puts it:
 
-! video: hot-reloading content and CSS
-
-The idea of the global design system comes from [Brad Frost](//bradfrost.com/), a well-known UX/CSS developer:
-
-[quote from="Brad Frost" cite="gds"]
+[quote from="Brad Frost"]
   A Global Design System would improve the quality and accessibility of the world’s web experiences, save the world’s web designers and developers millions of hours, and make better use of our collective human potential.
 
 
-
-### Standard page layouts
-Nue offers fixed, and standards- based page layouts for all the common use cases: blog entries, documentation, index pages, and freeform content. Developing websites narrows down to styling these layouts with Nue's powerful theming system:
-
-! IMG: docs layout + CSS = screenshot
-
-The generated HTML is carefully crafted to meet the W3C standards, semantics, and accessibility guidelines so you don't have to reinvent the wheel over and over again.
-
-[Learn more](page-layouts.html)
+### Shared page layout
+Nue lets you develop rich web pages declaratively with YAML and extended Markdown syntax without ever touching HTML. There are also hooks for customizing the layout for all the different page types like you may have like landing pages, blog entries, and technical documentation. Once the layout is in place, your work is to style it with CSS.
 
 
+[Learn more](page-layout.html)
 
-### Markdown extensions
-Nue comes with a common set of Markdown extensions for building rich, content-focused websites. Things like buttons, tables, responsive images, tabbed content, and code blocks are supported out of the box. Once you make these components compatible with your design system, all the non-technical people can create rich, pixel-perfect content without any help from the developers:
 
-! IMG: content -> screenshot
+### Shared components
+Nue comes with a rich set of headless UI components and Markdown extensions. Things like buttons, tables, responsive images, tabbed content, and code blocks are readily available for UX developers and content writers. The semantic markup is clean from inline styling so you are free to design the components the way you like.
+
+
+! img: article with sections and components
+
 
 [.note]
-  ### Note
-  The global design system will later expand with UI components that help you build [single-page applications](single-page-applications.html). Right now, the focus is on content-related components.
+  ### Single-page apps
+  The UI library will later expand with components that helps you rapidly build [single-page applications](single-page-applications.html). Right now, the focus is on content-focused components.
 
 
 [Learn more](markdown-extensions.html)
 
 
+## A theming system
+Nue offers a powerful system to rapidly create different designs for the markup in the global design system.
 
-## Theming framework
-Nue comes with a powerful theming framework to effectively propagate your design system to all areas of your website.
 
-! IMG: globals -> areas -> pages
+### Modernization
+Nue is backed with [Lightning CSS](//lightningcss.dev/) to give support for modern/future CSS features like nesting and color functions.
 
-* Dependency management
-  Nue automatically calculates your dependencies and loads the correct CSS files on your behalf.
 
-* Hot-reloading
-  auto-updates your browser when you update your styles. CSS error reporting
+### Hot-reloading
+Nue provies a universal solution for hot-reloading. It intelligently diffs and auto-updates your browser whenever you update your content, styles, or components.
 
-* Modernization:
-  Nue is backed with [Lightning CSS](//lightningcss.dev/) to give support for modern/future CSS features like nesting and advanced color functions.
 
-* Optimizations
-  minififes your CSS for production, and packaging HTML and minified CSS into one, compact deliverable:
+### Organization
+Nue keeps your CSS files in order and offers tips and recipes for writing CSS that is easy to manage and scale. You might end up in a situation where you have 10-100 times less code than in a system where the styling is scattered inside a large set of React components.
 
+[Learn more](ux-development.html)
+
+
+### Optimization
+Nue minififes your CSS for production, and packages your CSS and HTML together into one, compact deliverable:
 
 [Learn more](performance-optimization.html)
 
 
 
 
-### Motion and Interactivity
-Implment smooth scrolling, view transitions, and scroll effects with nothing but CSS.
-
-! video: scroll animation, click around, docs scroll, mobile menu
-
-[Learn more](css-best-practices.html)
-
-
-
-
-### CSS best practices
-Nue offers recipes for writing CSS that are easy to manage and scale. You can easily end up in a situation where you have 10-100x less CSS than in a system where the code is distributed and into components:
-
-> 10 lines of code is easier to manage than 100 lines of code
-
-[Learn more](css-best-practices.html)
 

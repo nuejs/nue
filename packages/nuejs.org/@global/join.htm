@@ -2,10 +2,10 @@
 <div @name="join-list" class="join-list">
 
   <h4 :if="sessionStorage.joined">
-    ✅ Nue mailing list joined
+    You have succesfully joined the mailing list. Thank you for your interest!
   </h4>
 
-  <form @submit.prevent="submit" :else>
+  <form :else @submit.prevent="submit">
     <p :if="desc">{ desc }</p>
     <input type="email" name="email" placeholder="Your email" required>
     <textarea name="comment" placeholder="Feedback (optional)"></textarea>

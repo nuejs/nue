@@ -1,28 +1,17 @@
-/* background animation */
+
+/* dark background animation */
 body {
   background-image: url(/home/img/bg-animation.svg);
   background-repeat: no-repeat;
   background-size: 100% 600px;
 }
 
-/* hero area with call-to-action buttons */
-.hero {
-  max-width: 800px;
+main {
+  text-align: center;
+  text-wrap: balance;
+  max-width: 1150px;
   margin: 0 auto;
-  height: 450px;
-  opacity: 1;
-  transition: 2s;
-
-  a {
-    font-size: 105%;
-    margin: 0 .3em;
-  }
-
-  @starting-style {
-    opacity: 0;
-  }
 }
-
 
 /* dark version of the global header */
 body > header {
@@ -64,12 +53,6 @@ body > header {
       }
     }
   }
-
-  /* delayed appear */
-  transition: opacity .4s 2s;
-  opacity: 1;
-  @starting-style { opacity: 0 }
-
 }
 
 @media (min-width: 1200px) {
@@ -84,39 +67,7 @@ body > header {
 
 
 
-main {
-  text-align: center;
-  text-wrap: balance;
-  max-width: 1150px;
-  margin: 0 auto;
-}
 
-
-.explainer {
-  background-color: var(--gray-950);
-  padding: calc(1.5em + 5vw);
-  margin: 5em 0;
-  text-align: left;
-
-
-  h2 { color: white; margin: 0 }
-  p {
-    color: var(--gray-200);
-    font-size: 1.2em;
-    line-height: 1.4;
-  }
-  img {
-    float: right;
-    width: 250px;
-    margin: -1em 0 0 2em;
-    display: inline-block;
-  }
-
-  @media (max-width: 900px) {
-    flex-direction: column;
-    gap: .5em
-  }
-}
 
 
 

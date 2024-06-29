@@ -1,8 +1,8 @@
 
 ---
+include: [marketing-content, button, form]
 sections: [hero, dx, ux, explainer card, project-status, feedback]
 section_component: observable-item
-include: [marketing-content]
 # inline_css: true
 appdir: home
 ---
@@ -24,7 +24,7 @@ Nue is a rapid development environment for pixel-perfect websites with unmatched
   src: /home/img/nue-cpu.svg
 
 
-[.grid]
+[grid]
 
   ### For UX developers
   Nue is the best framework for design-led projects
@@ -63,7 +63,7 @@ Nue is a rapid development environment for pixel-perfect websites with unmatched
 
 ## Build better user experiences
 
-[.grid]
+[grid]
 
   ### Centrally controlled design
   Ensure great, consistent design with a personal design system
@@ -141,7 +141,7 @@ Join the waiting list if you want to be notified about our next milestone. Pleas
 
 ## Feedback
 
-[.heroquote item_class=""]
+[.heroquote]
   [! /home/img/elliot-jay-stocks.jpg]
   ---
   At some point in the last decade, popular frameworks and platforms have eschewed semantic markup, and, as a result, the web has become way more bloated than it ever needed to be. Stripping away presentational markup and unreadable CSS is something all web developers once believed in. I'm glad Nue is bringing back that power.

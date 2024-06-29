@@ -8,7 +8,9 @@ $$('[popover]').forEach(root => {
   }
 })
 
-class Clickable extends HTMLDivElement {
+
+// clickable crid item
+class ClickableItem extends HTMLDivElement {
   constructor() {
     super()
 
@@ -23,7 +25,7 @@ class Clickable extends HTMLDivElement {
   }
 }
 
-customElements.define('clickable-item', Clickable, { extends: 'div' })
+customElements.define('clickable-item', ClickableItem, { extends: 'div' })
 
 
 

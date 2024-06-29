@@ -1,0 +1,73 @@
+
+/* delayed appear */
+body > header {
+  transition: opacity .4s 2s;
+  opacity: 1;
+  @starting-style { opacity: 0 }
+}
+
+
+.cpu {
+  width: 1000px;
+  margin: 0 -50% -4px -50%;
+
+  @media (max-width: 800px) {
+    width: 700px;
+    margin-block: -2.3em
+  }
+}
+
+.anim {
+  stroke-dashoffset: 80;
+  stroke-dasharray: 80 4000;
+  stroke: #00C2FF;
+  animation: dash 3s linear infinite;
+  stroke-width: 3
+}
+
+.anim1 {
+  animation-delay: 0;
+  animation-duration: 10s;
+}
+.anim2 {
+  animation-delay: .5s;
+  stroke: var(--purple);
+  opacity: .5;
+}
+.anim3 {
+  animation-delay: 1s;
+}
+.anim4 {
+  animation-delay: 2.5s;
+}
+.anim5 {
+  animation-duration: 5s;
+  animation-delay: 1.5s;
+}
+.anim6 {
+  animation-delay: 2s;
+  stroke: var(--purple);
+  opacity: .5;
+}
+
+@keyframes dash {
+  0% {
+    stroke-dashoffset: 4000;
+  }
+}
+
+article > section > * {
+  transition: .5s;
+  transform: translateY(2em);
+  opacity: 0;
+
+  &:nth-child(2) { transition-delay: .2s }
+  &:nth-child(3) { transition-delay: .5s }
+  &:nth-child(4) { transition-delay: .7s }
+  &:nth-child(5) { transition-delay: .8s }
+}
+
+.in-viewport > * {
+  transform: translate(0);
+  opacity: 1;
+}

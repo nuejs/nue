@@ -70,7 +70,6 @@ Your pages can have following kind of depenencies to enhance it's looks and beha
   - .nue | [Reactive components](reactive-components)
 
 
-
 All scripts, styles, and components are automatically included in page dependency tree similar to how data is propagated. The assets on the application root are included in all pages in the app and subdirectory assets are included for the pages in that subdirectory. For example:
 
 
@@ -79,7 +78,7 @@ All scripts, styles, and components are automatically included in page dependenc
   large: /img/dependencies-big.png
 
 
-### Global directories
+### Global directories { #globals }
 You can define directories that are global in `site.yaml`. For example:
 
 ```

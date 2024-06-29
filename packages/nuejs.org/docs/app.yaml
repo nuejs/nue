@@ -14,32 +14,28 @@ sidenav:
     - Project Structure: project-structure.html
     - Command line interface: command-line-interface.html
 
+
   UX development:
     - Global Design System: global-design-system.html
-    - Theming
-    - Motion
-    - Interactivity
-    - label: Optimization
-      url: performance-optimization.html
-    - CSS best practices
+    - UX development flow: ux-development.html
+    - Page layout
+    - Navigation
+    - Motion design
+    - Reactivity
+    - Optimization: performance-optimization.html
 
 
   Content development:
-    - Content design
-    - Content management
-    - Markdown extensions
+    - Writing rich content
+    - Component index
 
 
-  Application development:
+  App development:
     - Single-page applications
-    - API design
+    - Models and API design
     - Views and routing
-    - UI components
-
 
   Reference:
-    - Page layouts: page-layouts.html
-    - Component layouts: component-layouts.html
+    - Settings
+    - UI components
     - Template syntax
-    - Settings index
-    - Hot-reloaing
