@@ -2,8 +2,8 @@
 
 import { log, colors, getAppDir, parsePathParts, extendData } from './util.js'
 import { join, parse as parsePath, extname, basename } from 'node:path'
+import { renderPage, renderSinglePage } from './layout/page-layout.js'
 import { parse as parseNue, compile as compileNue } from 'nuejs-core'
-import { renderPage, renderSinglePage } from './layout/page.js'
 import { lightningCSS, buildJS } from './builder.js'
 import { createServer, send } from './nueserver.js'
 import { printStats, categorize } from './stats.js'

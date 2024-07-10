@@ -31,7 +31,7 @@ const MAIN = `
       <slot for="layout.pagefoot"/>
     </article>
 
-    <slot for="layout.context"/>
+    <slot for="layout.complementary"/>
   </main>
 `
 
@@ -57,9 +57,9 @@ export function renderRootHTML(data) {
   </head>
 
   <body${body_class}>
-    <slot for="layout.top"/>
+    <slot for="layout.banner"/>
     <slot for="layout.header"/>
-    <slot for="layout.subnav"/>
+    <slot for="layout.subheader"/>
 
     <slot for="layout.main"/>
 
@@ -97,8 +97,8 @@ const html_tags = [
   { name: 'navi',  create: renderNav },
   { name: 'page-list', create: renderPageList },
   { name: 'markdown', create: ({ content }) => renderInline(content) },
-  { name: 'pretty-date', create: (d) => renderPrettyDate(d.date || d.pubDate) },
-  { name: 'toc', create: (d) => renderTOC(d) },
+  { name: 'pretty-date', create: ({ date }) => renderPrettyDate(date) },
+  { name: 'toc', create: (data) => renderTOC(data) },
 ]
 
 const nuemark_tags = {
@@ -113,8 +113,8 @@ export function renderPage(data, lib) {
 
 
   function renderBlock(name, html) {
-    if (data[name] === false || data[name.slice(1)] === false) return null
 
+    if (data[name] === false || data[name.slice(1)] === false) return null
 
     let comp = lib.find(el => name[0] == '@' ? el.name == name.slice(1) : !el.name && el.tagName == name)
 
@@ -130,19 +130,18 @@ export function renderPage(data, lib) {
     }
   }
 
-
   data.layout = {
     head: renderHead(data),
     custom_head: renderBlock('head').slice(6, -7),
     article: nuemark(data.page, { data, lib, tags: nuemark_tags }).html,
-    top: renderBlock('@top'),
+    banner: renderBlock('@banner'),
     header: renderBlock('header', data.header && HEADER),
-    subnav: renderBlock('@subnav'),
+    subheader: renderBlock('@subheader'),
 
     footer: renderBlock('footer', data.footer && FOOTER),
 
     aside: renderBlock('aside'),
-    context: renderBlock('@context'),
+    complementary: renderBlock('@complementary'),
 
     pagehead: renderBlock('@pagehead'),
     pagefoot: renderBlock('@pagefoot'),

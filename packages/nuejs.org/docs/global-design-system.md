@@ -5,24 +5,30 @@ Nue is powered by a global design system. It allows UX developers to rapidly cre
 
 
 ## Modern-day CSS Zen Garden
-Think Nue like a modern-day [CSS Zen Graden](//csszengarden.com/): you get the exact same HTML markup, but you can write CSS to achieve wildly different designs. Or as a well-known UX developer [Brad Frost](//bradfrost.com/) puts it:
+Think Nue like a modern-day [CSS Zen Graden](//csszengarden.com/): you get the exact same HTML markup, but you can write CSS to achieve wildly different designs. Or as the well-known UX developer [Brad Frost](//bradfrost.com/) puts it:
 
 [quote from="Brad Frost"]
   A Global Design System would improve the quality and accessibility of the world’s web experiences, save the world’s web designers and developers millions of hours, and make better use of our collective human potential.
 
 
-### Shared page layout
-Nue lets you develop rich web pages declaratively with YAML and extended Markdown syntax without ever touching HTML. There are also hooks for customizing the layout for all the different page types like you may have like landing pages, blog entries, and technical documentation. Once the layout is in place, your work is to style it with CSS.
+### Declarative page layouts
+Nue lets you assemble rich web pages without touching a single line of code. Insteaad, you describe them with human-friendly text formats: YAML and Markdown.
+
+[Learn page layout](page-layout.html)
+
+There are also hooks for customizing the layout for all the different page types like you may have like landing pages, blog entries, and technical documentation.
+
+[Learn custom layouts](custom-layouts.html)
+
+Once the HTML layout is defined, your work is to [style it with CSS](ux-development.html) and enhance it with optional [reactivity](reactivity.html)
 
 
-[Learn more](page-layout.html)
-
-
-### Shared components
-Nue comes with a rich set of headless UI components and Markdown extensions. Things like buttons, tables, responsive images, tabbed content, and code blocks are readily available for UX developers and content writers. The semantic markup is clean from inline styling so you are free to design the components the way you like.
-
+### Markdown flavor for rich, interactive content
+Nue comes with a simple content assembly language for marketers, copywrites, and technical writers. You can rapidly build web pages without ever touching a single line of code. Things like buttons, tables, responsive images, tabbed content, and code blocks are readily available for UX developers and content writers.
 
 ! img: article with sections and components
+
+The semantic markup is clean from inline styling so you are free to design the components the way you like.
 
 
 [.note]

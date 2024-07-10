@@ -4,6 +4,7 @@ appdir: blog/@index
 content_collection: blog
 aside: false
 pagehead: false
+pagefoot: false
 inline_css: true
 
 exclude:

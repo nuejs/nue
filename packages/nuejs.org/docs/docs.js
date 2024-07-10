@@ -2,6 +2,7 @@
 import { $, $$ } from '/@nue/page-router.js'
 
 
+// scroll highlight for table of contents (on the right side)
 class ObservingNav extends HTMLElement {
 
   constructor() {
@@ -29,6 +30,7 @@ class ObservingNav extends HTMLElement {
 customElements.define('observing-nav', ObservingNav, { extends: 'nav' })
 
 
+// the "Zen switch" to toggle a more focused mode without distractions
 class ZenSwitch extends HTMLInputElement {
   constructor() {
     super()

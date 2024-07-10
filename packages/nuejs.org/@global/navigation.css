@@ -23,7 +23,7 @@ body > header {
     gap: 2em;
   }
 
-  [aria-label=toolbar] {
+  [aria-label=Toolbar] {
     margin-left: auto;
     gap: 1em;
   }

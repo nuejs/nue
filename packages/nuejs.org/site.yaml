@@ -23,19 +23,19 @@ links:
   soc: //en.wikipedia.org/wiki/Separation_of_concerns
 
 header:
-  branding:
+  Branding:
     - image: /img/logo.svg
       size: 60 × 18
       url: /
 
-  navi:
+  Site navigation:
     - Docs: /docs/
     - Blog: /blog/
     - label: Nue 1.0 Alpha is here! ›
       url: /blog/status-update-01/
       class: status badge
 
-  toolbar:
+  Toolbar:
     - label: Try beta
       url: /docs/
     - ---

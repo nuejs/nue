@@ -15,7 +15,7 @@ Nue does not force you to any fixed directory structure: there are no system fol
 ## Applications
 Nue is designed for building two kinds of applications:
 
-1. *Multi-page applications*. These consist of one or more Markdown files. Good examples are documentation, blogging area, or a feature tour. These apps are rendered server-side so that they can be easily consumed by search engines. The use of client-side JavaScript is optional.
+1. *Multi-page applications*. These are content-focused applications consisting of Markdown files. Good examples are documentation, blogging area, or a feature tour. These apps are rendered server-side so that they can be easily consumed by search engines. The use of client-side JavaScript is optional.
 
 2. [Single-page applications](single-page-applications) consist of a single `index.html` file that serves all the HTML requests within the app. Good examples are admin dashboards, onboarding flows, surveys, or login pages. The application is rendered on the client side with reactive components. These apps are usually hidden from search engines.
 
@@ -35,28 +35,33 @@ Each page is backed with different kinds of data:
 
 1. *Metadata* like title, description, theme color, favicon, and hero image. This data is made accessible for search engines and [content colllections](content-collections)
 
-1. *Component data* for rendering headers, footers, sidebars and other components inside or outside the page.
-
 1. *Settings* to fine tune rendering details like whether CSS should be inlined on the page or what styles can be excluded from the page.
 
 1. *Dependencies* — information about scripts, styles, components, and other assets that the page functionality depends on.
 
+1. *Components* for rendering headers, footers, sidebars and other components inside or outside the page.
 
-### Data propagation
+
+
+### Data propagation { #data }
 The data is defined in three levels:
 
 1. The global, site-wide data is defined in `site.yaml` at the root directory
 
-2. Application data is defined in `app.yaml` file inside the application directory. There can be multiple app.yaml files nested inside the application  subdirectories.
+2. Application data is defined in `app.yaml` file inside the application directory. Application subdirectories can have their own app.yaml files.
 
 3. Ppage-specific data is defined in the *frontmatter* section of the Markdown page.
 
-The data gets extended as you move from site level to page level.
+The data gets extended as you move from site level to the page level.
 
 [image.gridpaper]
   small: /img/data-propagation.png
   large: /img/data-propagation-big.png
 
+
+[.note]
+  ### Why YAML?
+  Nue uses YAML as the main configuration language. While it has some issues, it is the most content-focused format with least amount of special characters. It is by far the easiest data format for non-technical people.
 
 
 ## Page dependencies

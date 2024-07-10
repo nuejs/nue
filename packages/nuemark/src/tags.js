@@ -27,15 +27,10 @@ import path from 'node:path'
 
 export const tags = {
 
-  button(data, opts) {
+  button(data) {
     const { attr, href="#", content=[] } = data
     const label = parseInline(data.label || data._ || content[0] || '')
     return elem('a', { ...attr, href, role: 'button' }, label || _)
-  },
-
-  icon({ _, icon_base='/img', alt }) {
-    const src = `${icon_base}/${_}.svg`
-    return elem('img', { src, alt: alt || `${_} icon` })
   },
 
   table(data) {
@@ -161,13 +156,6 @@ export const tags = {
     const head = caption ? elem('figcaption', elem('h3', parseInline(caption))) : ''
     const root = head ? elem('figure', attr, head + createCodeBlock(data)) : createCodeBlock(data, attr)
     return createWrapper(data.wrapper, root)
-  },
-
-  quote(data) {
-    const { content, cite, from, attr } = data
-    const html = [ parseInline(elem('p', join(content))) ]
-    if (from) html.push(elem('footer', parseInline(from)))
-    return elem('blockquote', { cite }, join(html))
   },
 
   // captions, languages, classes, numbered

@@ -16,7 +16,7 @@ article {
   }
 }
 
-/* subnavigation  */
+/* @subheader (sub navigation)  */
 body > nav {
   margin: -4em 0 3em;
   border-bottom: var(--border);

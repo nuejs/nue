@@ -15,7 +15,7 @@ export function parseNavItem(item) {
   // [label]: string | object
   if (char == char.toUpperCase() && keys.length == 1) {
     let [label, data] = Object.entries(item)[0]
-    if (typeof data == 'string') data = parseDescription(data)
+    if (typeof data == 'string') data = parseClass(data)
 
     if (Array.isArray(data)) data = { items: data.map(parseNavItem) }
     return { label, ...data }
@@ -29,24 +29,16 @@ export function parseNavItem(item) {
 
 
 export function renderNavItem(item) {
-  const { label, role, icon, items, url, image } = item
-  const { icon_base='/img' } = {}
+  const { label, role, items, url, image, alt } = item
   const html = []
 
   // hr
   if (item.separator) return '<hr>'
 
-  // icon
-  if (icon) {
-    const { width = 24, height = width || 24 } = parseSize(item)
-    const img = elem('img', { src: `${icon_base}/${icon}.svg`, width, height })
-    html.push(img, label && elem('span', renderInline(label)))
-  }
-
   // image
   else if (image) {
     const { width, height } = parseSize(item)
-    html.push(elem('img', { src: image, width, height }))
+    html.push(elem('img', { src: image, width, height, alt }))
   }
 
   // label
@@ -60,12 +52,12 @@ export function renderNavItem(item) {
 }
 
 
-export function parseDescription(url) {
+export function parseClass(url) {
   const data = { url }
   const i = url.indexOf('"')
   if (i > 0) {
     data.url = url.slice(0, i).trim()
-    data.desc = url.slice(i + 1, -1).trim()
+    data.class = url.slice(i + 1, -1).trim()
   }
   return data
 }
@@ -98,7 +90,7 @@ export function renderExpandable(label, items) {
 }
 
 // <section>
-export function renderNavBlocks(data) {
+export function renderNavBlocks(data, label) {
   const navs = []
 
   for (const heading in data) {
@@ -106,12 +98,12 @@ export function renderNavBlocks(data) {
     navs.push(nav)
   }
 
-  return elem('section', join(navs))
+  return elem('div', { 'aria-label': label }, join(navs))
 }
 
 export function renderNav({ items, label }) {
   return Array.isArray(items) ? renderNavItems(items, { label }) :
-    typeof items == 'object' ? renderNavBlocks(items) : ''
+    typeof items == 'object' ? renderNavBlocks(items, label) : ''
 }
 
 

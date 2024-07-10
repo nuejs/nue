@@ -1,12 +1,12 @@
 
+<!--
+  Filling some of the slots on the global design system
+-->
 
-<aside>
-  <a href="/blog/">&lsaquo; Go back</a>
-</aside>
 
+<!-- the hero area for each blog entry -->
 <header @name="pagehead">
-
-  <pretty-date/>
+  <pretty-date :date/>
 
   <h1><markdown :content="hero_title || title"/></h1>
 
@@ -14,7 +14,14 @@
 
 </header>
 
-<div @name="cta">
+<!-- back button before the actual article -->
+<aside>
+  <a href="/blog/">&lsaquo; Go back</a>
+</aside>
+
+
+<!-- page footer: join mailing list / "call to action" -->
+<div @name="pagefoot">
 
   <h2>Nue Status</h2>
 
@@ -33,7 +40,7 @@
 </div>
 
 
-
+<!-- custom component: <author/> -->
 <div @name="author" class="author">
   <span><img :src="img" width="36" height="36"></span>
 

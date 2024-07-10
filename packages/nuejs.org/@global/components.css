@@ -27,7 +27,6 @@
     margin-bottom: -.5em;
   }
 
-
   &.clickable {
     cursor: pointer;
     &:hover {

@@ -31,7 +31,7 @@ You can enable view transitions globally in the `site.yaml` file:
 view_transitions: true
 ```
 
-Nue transitions are fast and smooth because it uses several optimizations made possible with the global design system: like partial diff/replacement of page segments and CSS enable and disable. You can [customize the transition](motion.html#view-transitions) with CSS.
+Nue transitions are fast and smooth because it uses several optimizations made possible with the global design system: like partial diff/replacement of page segments and CSS enable and disable. You can [customize the transition](reactivity.html#view-transitions) with CSS.
 
 
 ## Caching

@@ -217,7 +217,7 @@ test('layout components', async () => {
 
 test('page layout', async () => {
   await write('site.yaml', 'header: { navi: [{ image: foo }, bar] }\nfooter: { navi: [bar] }')
-  await write('layout.html', '<aside>Sidebar</aside><aside @name="context">Aside</aside>')
+  await write('layout.html', '<aside>Sidebar</aside><aside @name="complementary">Aside</aside>')
   await write('index.md', '# Hey')
 
   const kit = await getKit()
