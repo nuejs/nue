@@ -1,7 +1,7 @@
 
 /* delayed appear */
 body > header {
-  transition: opacity .4s 2s;
+  transition: opacity .4s .7s;
   opacity: 1;
   @starting-style { opacity: 0 }
 }

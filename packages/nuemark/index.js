@@ -10,7 +10,6 @@ export function nuemark(str, opts) {
 
 // returns HTML
 export function nuemarkdown(str, opts) {
-  delete opts?.data?.draw_sections
   return nuemark(str, opts).html
 }
 

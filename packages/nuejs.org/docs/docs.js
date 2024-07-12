@@ -1,5 +1,5 @@
 
-import { $, $$ } from '/@nue/page-router.js'
+import { $, $$ } from '/@nue/view-transitions.js'
 
 
 // scroll highlight for table of contents (on the right side)

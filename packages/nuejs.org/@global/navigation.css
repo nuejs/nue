@@ -84,7 +84,7 @@ body > footer {
     gap: 3em;
   }
 
-  section {
+  > div {
     display: flex;
     gap: 6em;
 

@@ -1,8 +1,9 @@
 
 [popover] {
-  border: 0;
+  transition: opacity .8s, transform .2s;
+  transform: scale(1);
   opacity: 1;
-  transition: all .5s;
+  border: 0;
 
 
   &::backdrop {
@@ -12,6 +13,7 @@
   }
 
   @starting-style {
+    transform: scale(.5);
     opacity: 0;
 
     &::backdrop {

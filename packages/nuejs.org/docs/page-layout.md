@@ -1,17 +1,16 @@
 
-
 # Page layout
-Nue standardizes the structure of your web pages so you can use the same HTML between projects, but you can [write CSS](ux-development.html) to achieve wildly different designs.
+Nue standardizes the structure of your web pages so you can use the same HTML, but write modern CSS to achieve wildly different designs.
 
 
 ## Headless markup
-Lets start by creating `index.md` to an empty project folder with the following content:
+Let's start by creating `index.md` to an empty project folder with the following content:
 
 ``` md
 # Hello, World!
 ```
 
-This will genererate the following HTML:
+This will generate the following HTML:
 
 ```
 <!DOCTYPE html>
@@ -41,23 +40,52 @@ This will genererate the following HTML:
 </html>
 ```
 
-This forms the basis for our _headless_ HTML markup, with absolutely no class names or styling included. This is the core idea of the global design system: you'll get the exact same markup between projects, but you can style them differently with CSS.
-
-
-## Global layout
-Nue offers a simple, [YAML-based syntax](#yaml) for defining all the site-wide navigation elements you may have: global header and footer, the burger menu, dropdown menus, and any other supporting menus and sidebars. This declarative method of describing your global elements is benefical for several reasons:
-
-1. You can define the skeleton of your website and start the design work immediately without going deep with the content development.
-
-1. You can define the basic website elements with YAML without ever touching HTML.
-
-1. It always produces the exact markup that can be re-used accross projects.
-
-1. It's easy to define new localized versions of your site by providing a different YAML file to override and extend the default locale. Note: this kind of localization is supported yet, but will be in the future.
+This forms the basis for our HTML markup, with absolutely no class names or styling included. This is the core idea of the global design system: you'll get a _headless_ markup that you can style in different ways.
 
 
 
-### Header
+### Head element
+The contents of your head element is auto-generated based on your [settings](settings.html) and [project structure](project-structure.html). For example, if you have the files `hello.css` and `hello.js` on your project root and  a `site.yaml` file with the following data:
+
+``` yaml
+favicon: /favicon.png
+description: A Nue demo
+```
+
+Your head element will be rendered as follows:
+
+```
+<head>
+  <!-- user data -->
+  <title>Hello, World!</title>
+  <meta name="description" content="A Nue demo">
+  <link rel="icon" type="image/png" href="/favicon.png">
+
+  <!-- scripts and styles -->
+  <link rel="stylesheet" href="/hello.css">
+  <script src="/hello.js" type="module"></script>
+
+  <!-- system metadata -->
+  <meta name="generator" content="Nue">
+  <meta name="date.updated" content="...">
+  <meta name="viewport" content="...">
+  ...
+</head>
+```
+
+
+## Global navigation
+Nue offers a simple, [YAML-based syntax](#nav-syntax) for defining all the site-wide navigation elements: global header and footer, the burger menu, dropdown menus, and any other complementary menus you may have. This declarative syntax is beneficial for several reasons:
+
+1. It always produces the same markup accross projects that you can rely on when styling your website.
+
+1. You can define your information architecture and start the CSS development immediately without going deep with the content.
+
+1. It's easy to define new localized versions of your site by providing a different YAML file to override and extend the default locale. Note: this kind of localization is not supported yet, but will be in the future.
+
+
+
+### Global header
 Let's add a global header to our document. This happens with a `header` property in the `site.yaml` file:
 
 ``` yaml
@@ -130,8 +158,8 @@ This generates three `<nav/>` elements inside the header:
 ```
 
 
-### Burger menu
-Next we add a "burger menu" to our application by adding a `burger_menu` property to the `site.yaml` file. We use the same [syntax](#yaml) as we used for the header. For example:
+### Burger menu { #burger }
+Next, we add a "burger menu" to our application by adding a `burger_menu` property to the `site.yaml` file. We use the same [syntax](#nav-syntax) as we used for the header. For example:
 
 ``` yaml
 burger_menu:
@@ -140,7 +168,7 @@ burger_menu:
   - Blog: /blog/
 ```
 
-This will add a a menu trigger element under the global header
+This will add a menu trigger element under the global header.
 
 ```
 <header>
@@ -149,7 +177,7 @@ This will add a a menu trigger element under the global header
 </header>
 ```
 
-And the actual popover menu is added to the end of the document body:
+The actual popover menu is added to the end of the document body:
 
 ```
 <body>
@@ -168,11 +196,11 @@ And the actual popover menu is added to the end of the document body:
 </body>
 ```
 
-Now we have an easily customizable menu that is compatible with the standard [Popover API][//developer.mozilla.org/en-US/docs/Web/API/Popover_API].
+Now we have an easily customizable menu that is compatible with the standard [Popover API](//developer.mozilla.org/en-US/docs/Web/API/Popover_API).
 
 
 
-### Footer
+### Global footer
 The global footer is defined similarly with a `footer` property in `site.yaml`. We'll add the following in there:
 
 ``` yaml
@@ -227,8 +255,8 @@ Now our website has a global footer element right after the `main` element. It h
 ```
 
 
-## Navigation syntax
-Nue offers an easy YAML-based syntax for defining navigational elements: inside your headers, footers, and sidebars. The basic syntax is this:
+## Navigation syntax { #nav-syntax }
+Here is the basic syntax for defining navigational elements:
 
 ``` yaml
 Navi title:
@@ -237,7 +265,7 @@ Navi title:
   - ...
 ```
 
-Which generates the following navigation layout:
+This generates the following HTML:
 
 ```
 <nav aria-label="Navi title">
@@ -284,7 +312,7 @@ The above generates this:
 ```
 
 ### Categorized navi
-Categorized navigations in footers and sidebars have the following YAML syntax:
+Categorized navigations are typically used in the global footer and in any sidebar you may have. You can define them as follows:
 
 ``` yaml
 Categories:
@@ -350,7 +378,7 @@ This will generate the following:
   </span>
 ```
 
-The standard [aria-haspopup](//developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-haspopup) and [aria-expanded](//developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-expanded) roles can be used on your CSS to implement the dropdown behaviour.
+The standard [aria-haspopup](//developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-haspopup) and [aria-expanded](//developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-expanded) roles can be used on your CSS to implement the dropdown behavior.
 
 
 [.note]
@@ -360,14 +388,16 @@ The standard [aria-haspopup](//developer.mozilla.org/en-US/docs/Web/Accessibilit
 
 
 ## Content area
-Nue [extends](content.html) the basic Markdown syntax to make it suitable for assembling web pages. This content is nested inside an `article` element:
+Nue [extends](content.html) the basic Markdown syntax to make it suitable for assembling rich web pages. This content is nested inside an `article` element:
 
 
 ```
 <body>
   <main>
-   <article>
->     <!-- the content goes here -->
+    <article>
+      <section>
+>       <!-- the content goes here -->
+      </section>
     </article>
   </main>
 </body>
@@ -375,7 +405,7 @@ Nue [extends](content.html) the basic Markdown syntax to make it suitable for as
 
 
 ### Sections
-Content writers can split the content area into sections. The HTML output looks like this:
+The content is always nested inside one or more section elements. A multi-section HTML output looks like this:
 
 ```
 <article>
@@ -393,12 +423,12 @@ Content writers can split the content area into sections. The HTML output looks 
 </article>
 ```
 
-The `section` elements are direct descendants to the article and cannot occur anywhere in the page.
+The `section` elements are direct descendants of the article and cannot occur anywhere on the page.
 
 
 
 ### Section classes
-You typically want to define classes for the sections for styling purposes. These classes (and id's) can be defined explicitly after the section separator. For example:
+You typically want to define classes for the sections for styling purposes. These classes (and IDs) can be defined explicitly after the section separator. For example:
 
 
 ``` yaml
@@ -417,7 +447,7 @@ This will generate the following:
 </article>
 ```
 
-However, it's better to define these classes in the application data or in the document's front matter. For example, the [front page](/) of this website has the following:
+However, it's better to define these classes in the application data or the document's front matter. For example, the [front page](/) of this website has the following:
 
 ```
 sections: [hero, features, explainer, status, feedback]
@@ -459,12 +489,11 @@ Content writers can create content blocks with nested items so that they form a 
 </div>
 ```
 
-Depdending on the semantics of your design system, the container can have a generic name such as "stack" or "flexbox" which can be shared across the different areas of your website. The name can also be area-specific such as "feature-cards", which is better suited for marketing content.
+Depending on the semantics of your design system, the container can have a generic name such as "stack" or "flexbox" which can be shared across the different areas of your website. The name can also be page-specific such as "feature-card", which is better suited for marketing content.
 
 
 ### Grid layouts
-[Grid](tags.html#grid) is a built-in Markdown extension for more complex [gird layouts](//developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Grids). It's like flex box, but allows you to setup class names and for the indiviual items and you can turn the items into web components so that they become [reactive](reactivity.html#web-components).
-
+[Grid](tags.html#grid) is a built-in Markdown extension for more complex [gird layouts](//developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Grids). It's like a flex box but allows you to set up class names for the individual items, and you can make the items [reactive](reactivity.html#web-components) by turning them into Web Components.
 
 ```
 <div class="grid">
@@ -489,37 +518,36 @@ Depdending on the semantics of your design system, the container can have a gene
 </div>
 ```
 
-You can setup class names and the component instance globally or locally on your [application data](project-structure.html#data):
+### Grid items
+You can set class names and the component instance globally or locally on your [application data](project-structure.html#data):
 
 ```
 item_class: card
 item_component: card_component
 ```
 
-You can also setup these properties directly on the grid tag, but it's better to setup these globally so that the syntax of adding grids narrows down to just writing `[grid]` without the need to remember the attributes. This keeps your content clean from extra, layout-specific definitions.
+You can also set up these properties directly on the grid tag, but it's better to set up these globally so that the syntax of adding grids narrows down to just writing `[grid]` without the need to remember the attributes. This keeps your content clean from extra, layout-specific definitions.
 
 
+### Markdown generated HTML
+Markdown content can reside within sections, blocks, and grid items. The generated HTML is restricted to: `h1`, `h2`, `h3`, `h4`, `h5`, `h6`, `p`, `strong`, `em`, `a`, `ul`, `li`, `blockquote`, and `code`.
+
+The design of these tags should be [context-specific](ux-development.html#fff). For example, technical content is typically styled differently than marketing content.
 
 
 ## Basic built-in tags
 
 
 ### Button
-Buttons are rendered like this:
+Buttons are rendered as follows:
 
 ```
 <a role="button" href="/docs/">Learn more</a>
 ```
 
-Buttons are implemented as links with `role="button"` because they don't require JavaScript to work. So you might want to this on your CSS code:
+Buttons are essentially links with a `role="button"` attribute because links don't require JavaScript to work.
 
-``` css
-button, [role="button"] {
-  ...
-}
-```
-
-Common modifier classes to implement are `.primary` and `.secondary`. You also might want to implement the `[disabled]` attribute.
+Design systems commonly have different styles for primary and secondary buttons so it's a common pattern to implement them in your CSS. You also might want to provide styling for the `[disabled]` attribute.
 
 
 ### Image
@@ -626,7 +654,7 @@ Tabbed layouts are rendered with the standard [tablist](//developer.mozilla.org/
 
 
 ```
-<section class="tabs" is="aria-tabs">
+<div class="tabs" is="aria-tabs">
 
   <div role="tablist">
     <a role="tab" aria-selected>First</a>
@@ -651,14 +679,14 @@ Tabbed layouts are rendered with the standard [tablist](//developer.mozilla.org/
     </li>
   </ul>
 
-</section>
+</div>
 ```
 
-Nue uses "aria-tabs" web component to implement the show/hide behaviour for the tabl panes. This implementation is found in [nuemark.js](//github.com/nuejs/nue/blob/master/packages/nuemark/src/browser/nuemark.js) which is automatically included when the tabs component is in use.
+Nue uses the "aria-tabs" web component to implement the show/hide behavior for the tab panes. This implementation is found in [nuemark.js](//github.com/nuejs/nue/blob/master/packages/nuemark/src/browser/nuemark.js) which is automatically included when the tabs component is in use.
 
 
 ## Code
-Nue has a built-in support for [syntax highlighting](syntax-highlighting.html) in the Markdown fenced code blocks. They are rendered as follows:
+Nue has built-in support for [syntax highlighting](syntax-highlighting.html) in the Markdown fenced code blocks. They are rendered as follows:
 
 ```
 <pre>
@@ -670,24 +698,59 @@ Nue has a built-in support for [syntax highlighting](syntax-highlighting.html) i
 </pre>
 ```
 
+Code blocks with a title are rendered as follows:
+
+```
+<figure>
+  <figcaption>
+    <h3>Title of the codeblock <b>with formatting</b></h3>
+  </figcaption>
+
+  <pre glow="">
+    <code language="rust">
+      ...
+    </code>
+  </pre>
+</figure>
+```
+
 
 ### Multi-code blocks
 Multiple code blocks can be nested inside a single parent element:
 
 ```
-
+<div class="my-class-for-multiblocks">
+  <figure>...</figure>
+  <figure>...</figure>
+  <figure>...</figure>
+</div>
 ```
 
 ### Code tabs
-Multiple code blocks can be tabbed so that maximum one code block is visible at once:
-
+Multiple code blocks can be tabbed so that a maximum of one code block is visible at once:
 
 ```
+<div class="tabs" is="aria-tabs">
+
+  <div role="tablist">
+    <a role="tab" aria-selected>First</a>
+    <a role="tab">Second</a>
+    <a role="tab">Third</a>
+  </nav>
+
+  <ul>
+    <li role="tabpanel"><figure>...</figure></li>
+    <li role="tabpanel" hidden><figure>...</figure></li>
+    <li role="tabpanel" hidden><figure>...</figure></li>
+  </ul>
+</div>
 ```
+
+The implementation is similar to standard [tabs](#tabs), but the markup is plain code and not generic content.
 
 
 ## Wrappers
-Tables, code blocks, and tabs can be nested inside a wrapper element to allow more visual design around them:
+Tables, code blocks, and tabs can be nested inside a wrapper element to allow more visual design around the element:
 
 
 ```
@@ -697,11 +760,5 @@ Tables, code blocks, and tabs can be nested inside a wrapper element to allow mo
   </table>
 </div>
 ```
-
-
-
-
-
-
 
 

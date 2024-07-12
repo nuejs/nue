@@ -133,7 +133,7 @@ export function renderPage(data, lib) {
   data.layout = {
     head: renderHead(data),
     custom_head: renderBlock('head').slice(6, -7),
-    article: nuemark(data.page, { data, lib, tags: nuemark_tags }).html,
+    article: nuemark(data.page, { data, lib, tags: nuemark_tags, draw_sections: true }).html,
     banner: renderBlock('@banner'),
     header: renderBlock('header', data.header && HEADER),
     subheader: renderBlock('@subheader'),

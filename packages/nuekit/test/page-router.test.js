@@ -93,7 +93,7 @@ test('renders "/" route and mount component', async () => {
   await loadPage()
 
   // importing scripts manually for side effects
-  await Promise.all([import(`${distDev}/@nue/mount.js`), import(`${distDev}/@nue/page-router.js`)])
+  await Promise.all([import(`${distDev}/@nue/mount.js`), import(`${distDev}/@nue/view-transitions.js`)])
 
   // imitating loaded page
   window.dispatchEvent(new Event('DOMContentLoaded'))
@@ -114,7 +114,7 @@ test('renders "/page" route and mount component when click in a link', async () 
   await loadPage()
 
   // importing scripts manually for side effects
-  await Promise.all([import(`${distDev}/@nue/mount.js`), import(`${distDev}/@nue/page-router.js`)])
+  await Promise.all([import(`${distDev}/@nue/mount.js`), import(`${distDev}/@nue/view-transitions.js`)])
 
   // imitating loaded page
   window.dispatchEvent(new Event('DOMContentLoaded'))

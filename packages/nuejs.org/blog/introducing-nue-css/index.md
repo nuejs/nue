@@ -128,10 +128,8 @@ Naming things and minimalism go hand-in-hand. The more names you have, the more 
 
 Simple means lean and well-organized CSS that is easy to maintain and scale. There's less room for errors: no global namespace issues, no local breaking points, and no consistency issues.
 
-[quote from="**Dieter Rams** • The grandfather to Apple's design"]
-  Less, but better
-
-
+> Less, but better
+> **Dieter Rams** • The grandfather to Apple's design
 
 The simpler you design the system, the better. The fewer colors, font weights, elements, components, and variants you have, the better.
 
@@ -184,8 +182,9 @@ Design-system-powered websites stay lean as the site grows:
 [size-compare a="dialog" b="mona-editor"]
 
 
-[quote from="Nue Best Practice"]
-  10 lines of CSS is easier to maintain than a 100 lines
+> 10 lines of CSS is easier to maintain than a 100 lines
+> *Nue Best Practice*
+
 
 Talk about maintainable CSS!
 

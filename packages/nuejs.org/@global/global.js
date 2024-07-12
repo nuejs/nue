@@ -1,32 +1,18 @@
 
-import { $, $$ } from '/@nue/page-router.js'
+addEventListener('click', e => {
+  const el = e.target
 
-$$('[popover]').forEach(root => {
+  // hide popover menus
+  const menu = el.closest('[popover]')
+  if (menu && el.matches('a')) menu.hidePopover()
 
-  root.onclick = function(e) {
-    if (e.target.matches('a')) root.hidePopover()
+  // make cards clickable
+  const card = el.closest('.card')
+  if (card) {
+    const a = card.querySelector('p a')
+    console.info(a.getAttribute('href'))
+    if (a) location.href = a.getAttribute('href')
   }
 })
-
-
-// clickable crid item
-class ClickableItem extends HTMLDivElement {
-  constructor() {
-    super()
-
-    const a = $('p a', this)
-    if (a) {
-      a.parentNode.remove()
-      this.classList.add('clickable')
-      this.onclick = function() {
-        location.href = a.getAttribute('href')
-      }
-    }
-  }
-}
-
-customElements.define('clickable-item', ClickableItem, { extends: 'div' })
-
-
 
 

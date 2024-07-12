@@ -1,8 +1,8 @@
 
 ---
 include: [marketing-content, button, form]
-sections: [hero, dx, ux, explainer card, project-status, feedback]
-section_component: observable-item
+section_classes: [hero, dx, ux, explainer card, project-status, feedback]
+section_component: scroll-transition
 # inline_css: true
 appdir: home
 ---
@@ -110,6 +110,7 @@ Nue is a rapid development environment for pixel-perfect websites with unmatched
 
 
 ------------
+
 [! /home/img/ux-stack.svg]
 
 ## Nue is for UX developers
@@ -117,8 +118,6 @@ What used to take a Next/React/Tailwind specialist and thousands of lines of Typ
 
 
 [Learn more ›](/docs/)
-
-
 
 
 ------------

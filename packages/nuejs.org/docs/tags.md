@@ -295,7 +295,7 @@ Displays a syntax highligted code block with support for line numbers, captions,
 
 
 ### Codeblocks
-Renders a single multi-code element where the blocks are separated with `---`:
+Renders a single multi-code element where the blocks are separated with a triple-dash:
 
 ```
 [codeblocks]

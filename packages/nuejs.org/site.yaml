@@ -2,25 +2,17 @@
 globals: ["@global", css]
 libs: ["@lib"]
 
-router: true
 css_2023: true
+view_transitions: true
 title: Web Framework For UX Developers
 description: Nue is a web framework for UX focused projects. It's the best choice for designers and UX developers.
 title_template: "Nue - %s"
 favicon: /icon/favicon.png
 
 # grid items
-item_component: clickable-item
+# item_component: clickable-item
 item_class: card
 
-links:
-  nuejs: //github.com/nuejs/nue/tree/master/packages/nuejs
-  divide: //css-tricks.com/the-great-divide/
-  standards: //developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/The_web_and_web_standards
-  brad: //bradfrost.com/blog/post/front-of-the-front-end-and-back-of-the-front-end-web-development/
-  gds: //bradfrost.com/blog/post/a-global-design-system/
-  spa: /docs/single-page-applications
-  soc: //en.wikipedia.org/wiki/Separation_of_concerns
 
 header:
   Branding:
@@ -70,3 +62,12 @@ footer:
       - Content development
       - Application development: /docs/single-page-applications.html
 
+
+links:
+  nuejs: //github.com/nuejs/nue/tree/master/packages/nuejs
+  divide: //css-tricks.com/the-great-divide/
+  standards: //developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/The_web_and_web_standards
+  brad: //bradfrost.com/blog/post/front-of-the-front-end-and-back-of-the-front-end-web-development/
+  gds: //bradfrost.com/blog/post/a-global-design-system/
+  spa: /docs/single-page-applications
+  soc: //en.wikipedia.org/wiki/Separation_of_concerns

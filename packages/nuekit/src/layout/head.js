@@ -44,12 +44,8 @@ export function renderHead(data) {
     head.push(elem('meta', { property: 'og:image', content: origin + img }))
   }
 
-  // preload image
-  const pi = data.preload_image
-  if (pi) head.push(`<link rel="preload" as="image" href="${pi}">`)
-
   // Pub date
-  const pub = data.pubDate
+  const pub = data.date || data.pubDate
   if (pub) head.push(`<meta property="article:published_time" content="${pub}">`)
 
   // components

@@ -27,10 +27,10 @@ Nue is designed for building two kinds of applications:
 
 
 ## Pages
-Pages are the building blocks of multi-page applications. These pages are written with a rich component-based Markdown dialect called "Nuemark", which is designed for non-technical people like marketers and copywriters.
+Pages are the building blocks of multi-page applications. These pages are written with an [extended Markdown syntax](content.html), which is designed for non-technical people like marketers and copywriters.
 
 
-### Page data
+### Page data { #data }
 Each page is backed with different kinds of data:
 
 1. *Metadata* like title, description, theme color, favicon, and hero image. This data is made accessible for search engines and [content colllections](content-collections)
@@ -43,7 +43,7 @@ Each page is backed with different kinds of data:
 
 
 
-### Data propagation { #data }
+### Data propagation
 The data is defined in three levels:
 
 1. The global, site-wide data is defined in `site.yaml` at the root directory
@@ -59,9 +59,63 @@ The data gets extended as you move from site level to the page level.
   large: /img/data-propagation-big.png
 
 
+
+### Data example
+Let's say you have a page called `blog/hello-world.md` and the following global data in the `site.yaml` file:
+
+
+```
+title: Emma Bennet
+description: A designer and UX engineer
+origin: https://emmabennet.co
+favicon: /img/favicon.png
+og_image: /img/og_emma.png
+```
+
+Then you have blog-specific metadata in `blog/app.yaml` extending/overriding the global data:
+
+```
+title: Emma Bennet / Blog
+author: Emma Bennet
+og_image: /img/og_blog.png
+```
+
+Finally, the page-specific data is set on the front of the "hello-world.md" file:
+
+```
+ ---
+ title: Hello, World
+ pubDate: 2023-12-05
+ ---
+```
+
+With the above configuration in place, the document's `<head>` section is rendered as follows:
+
+
+```
+<head>
+  <!-- Nue default values -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <!-- globals from site.yaml -->
+  <link rel="shortcut icon" src="/img/favicon.jpg">
+  <meta name="description" content="A designer and UX engineer">
+
+  <!-- directory specific values from app.yaml -->
+  <meta name="author" content="Emma Bennet">
+  <meta property="og:image" content="https://emmabennet.co/img/og_blog.png">
+
+  <!-- document specific values from the .md file -->
+  <title>Hello, World</title>
+  <meta property="article:published_time" content="2023-12-05">
+</head>
+```
+
+
 [.note]
   ### Why YAML?
-  Nue uses YAML as the main configuration language. While it has some issues, it is the most content-focused format with least amount of special characters. It is by far the easiest data format for non-technical people.
+  Nue uses YAML as the main configuration language. While it has some issues, it is the most content-focused format with least amount of special characters. It is by far the easiest data format for non-technical people and is widely in use in Markdown-powered site generators.
 
 
 ## Page dependencies

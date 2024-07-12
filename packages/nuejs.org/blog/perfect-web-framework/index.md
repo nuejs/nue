@@ -3,7 +3,6 @@
 date: 2024-01-23
 title: The perfect web framework for UX developers
 desc: Nue's ultimate goal and the development steps to get there
-thumb: perfect-thumb.png
 og: /img/perfect-banner-big.jpg
 ---
 

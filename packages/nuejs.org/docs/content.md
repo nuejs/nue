@@ -1,7 +1,8 @@
 
 
 # Content authoring
-Nue comes with a simple content assembly language for marketers, copywrites, and technical writers. You can rapidly build web pages without ever touching a single line of code.
+Nue comes with a simple content assembly language for marketers, copywrites, and technical writers. You can rapidly build complex web pages without ever touching a single line of code. You no longer need complex cloud-based content management systems. Just simple versionable text-files, directly accessible on your file system, and editable with your favourite editor.
+
 
 
 ## Markdown for rich, interactive content

@@ -16,7 +16,7 @@ export async function init({ dist, is_dev, esbuild, force }) {
 
 
   // has all latest?
-  const latest = join(outdir, '.043')
+  const latest = join(outdir, '.05')
   try {
     if (force) doError()
     await fs.stat(latest)
@@ -83,7 +83,7 @@ async function initUnderChdir({ dist, is_dev, esbuild, cwd, srcdir, outdir }) {
 
   await buildPackage('nuemark/src/browser/nuemark.js', 'nuemark.js')
   await buildPackage('nuejs-core/src/browser/nue.js', 'nue.js')
-  await buildFile('page-router')
+  await buildFile('view-transitions')
   await buildFile('app-router')
   await buildFile('mount')
 

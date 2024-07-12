@@ -8,9 +8,11 @@ import { marked } from 'marked'
 export function renderPage(page, opts) {
   const { lib=[] } = opts
   const data = { ...opts.data, ...page.meta }
+  const draw_sections = opts.draw_sections
   const custom_tags = opts.tags || {}
   const ret = []
 
+  delete opts.draw_sections
 
   page.sections.forEach((section, i) => {
 
@@ -40,9 +42,10 @@ export function renderPage(page, opts) {
     }))
 
     const attr = section.attr || {}
-    if (data.sections && !attr.class) attr.class = data.sections[i]
+    const classes = data.section_classes
+    if (classes && !attr.class) attr.class = classes[i]
     attr.is = data.section_component
-    ret.push(elem('section', attr, html))
+    ret.push(draw_sections ? elem('section', attr, html) : html)
 
   })
 

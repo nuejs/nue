@@ -12,7 +12,7 @@ sidenav:
     - Installation: installation.html
     - Hello, World!: hello-world.html
     - Project Structure: project-structure.html
-    - Settings and metadata
+    - Settings and metadata: settings.html
     - Command line interface: command-line-interface.html
 
   UX development:
@@ -20,7 +20,7 @@ sidenav:
     - UX development: ux-development.html
     - Page layout: page-layout.html
     - Custom layouts: custom-layouts.html
-    - Motion and Reactivity
+    - Motion and Reactivity: reactivity.md
     - Optimization: performance-optimization.html
 
 
@@ -30,7 +30,7 @@ sidenav:
 
 
   Application development:
-    - Single-page applications
+    - Single-page applications: single-page-applications.html
     - Model development
     - UI development
 

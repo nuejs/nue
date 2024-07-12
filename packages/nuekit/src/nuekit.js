@@ -56,7 +56,7 @@ export async function createKit(args) {
     const scripts = data.scripts = await site.getScripts(dir, data)
 
     // components
-    if (data.automount !== false) data.components = await site.getClientComponents(dir, data)
+    data.components = await site.getClientComponents(dir, data)
 
     // system scripts
     function push(name) {
@@ -67,7 +67,7 @@ export async function createKit(args) {
     if (is_dev && data.hotreload !== false) push('hotreload')
     if (data.components?.length) push('mount')
     if (data.page?.isomorphic) push('nuemark')
-    if (data.router) push('page-router')
+    if (data.view_transitions || data.router) push('view-transitions')
   }
 
 

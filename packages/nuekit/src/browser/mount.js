@@ -43,7 +43,7 @@ export async function mountAll(reload_path) {
       // web component -> do nothing
 
     } else {
-      console.error(`Web or Nue component not fouind: "${name}"`)
+      console.error(`Component not found: "${name}"`)
     }
   }
 }

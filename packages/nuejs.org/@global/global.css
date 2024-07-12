@@ -55,6 +55,13 @@
 }
 
 
+/* scale down the previous page */
+::view-transition-old(root) {
+  transform: scale(.8);
+  transition: .4s;
+}
+
+
 *, *::before, *::after {
   box-sizing: border-box
 }

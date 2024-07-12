@@ -148,10 +148,12 @@ article {
       text-wrap: balance;
       color: var(--gray-900);
     }
-    footer {
-      margin: -.75rem 0 0 1.5rem;
+    em {
       color: var(--gray-600);
-      font-size: 90%;
+      font-weight: 500;
+      margin-top: 1em;
+      display: block;
+      font-size: 1rem;
 
       &:before {
         content: '— ';

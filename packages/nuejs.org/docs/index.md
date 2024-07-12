@@ -8,14 +8,7 @@ Nue is a rapid website development environment for UX developers and other desig
 
 
 ## Less, but better
-Wat used to take a React specialists and a huge amount of JavaScript is now taken care of a UX developer and handful of CSS files:
-
-[image.gridpaper]
-  small: /img/react-vs-ux-dev.png
-  large: /img/react-vs-ux-dev-big.png
-
-
-To give you an idea of the difference, here are source codes for [tailwindcss.com](//tailwindcss.com) front page (a next.js app) and [nuejs.org](/) front page:
+Wat used to take a React specialists and thousands of lines of JavaScript is now assembed with a content file and vanilla CSS. To give you a rought idea, here are source codes for [tailwindcss.com](//tailwindcss.com) front page (a next.js app) and [nuejs.org](/) front page:
 
 
 [.stack]
@@ -35,10 +28,11 @@ To give you an idea of the difference, here are source codes for [tailwindcss.co
     href: //github.com/tipiirai/nue/blob/master/new-www/index.md?plain=1
 
 
-The first apparent difference is that is that in Nue the web page is driven by content, which is separated from the rest of the code. No matter how rich and complex your page is, the content is easily accessible for non-technical people — they can move edit it in isolation without blocking the developers.
+The first apparent difference is that is that Nue is content-first. No matter how rich and complex your page is, it is driven and assmebled with an easy-to-read — easy-to-write content format suitable for marketers, copywriter, and other non-technical people.
 
-The second, much more important thing is that you need significantly less effort to design and develop new things. Here's what is needed to build the front page:
+The second, much more important thing is that websites are mostly developed with CSS. You no longer need a React engineer, and the ... to create websites. Instead, the development goes to where it should be: UX developers — the people who master the craft of design and user experience.
 
+The third, and the most important difference is, that you need _significantly_ less effort to design and develop new things. Lets see what what is needed to build the above pages:
 
 // //github.com/tailwindlabs/tailwindcss.com/tree/master/src/components/home
 ! Line count: Next.js vs Nue
@@ -64,8 +58,8 @@ Nue's power leans heavily on a thing called _global design system_. It allows UX
 
 Nue frees you from implementing page layouts and basic UI elements over and over again or as a well-known UX developer [Brad Frost](//bradfrost.com/) puts it:
 
-[quote from="Brad Frost" cite="//bradfrost.com/blog/post/a-global-design-system/"]
-  Global Design System improves the quality and accessibility of the world’s web experiences, saves the world’s web designers and developers millions of hours, and makes better use of our collective human potential.
+> Global Design System improves the quality and accessibility of the world’s web experiences, saves the world’s web designers and developers millions of hours, and makes better use of our collective human potential. *Brad Frost*
+
 
 Think Nue as a modern-day [CSS Zen Graden](//csszengarden.com/) — a great demonstration of what can be accomplished through CSS. Nue just takes it a couple of steps further and expands the idea to a rapid UX development environment.
 
@@ -89,6 +83,9 @@ Over the years CSS has evolved from static styling language to a  powerhorse wit
 
 This totally changes your approach to web development. Instead of dealing with hundreds or thousands of JavaScript files, you now have a small, organized set of CSS files. The tooling, development flow, and optimization strategies are now _simpler_ in all meaning of the word.
 
+
+
+### Incresed performance
 The best part: your website can reach the same performance levels as text-only websites like [motherfuckingwebsite.com](//motherfuckingwebsite.com/), but without compromising on design. That is: you can get the fastest possible page loads with the design and user experience levels of Stripe or Linear.
 
 [image.gridpaper]
@@ -113,6 +110,7 @@ This makes a complete shift in your focus:
   - Building blocks | React components | Global Design System
   - Key strategy | Tight coupling | Separation of concerns
   - Primary language | TypeScript | CSS
+  - Optimization | JS bundling | HTML+CSS bundling
   - Highly valued | Type Safety | Minimalism
   - Key technologies | React + Tailwind | Web Standards
   - Styling approach | Local styling | External styling
@@ -121,8 +119,7 @@ This makes a complete shift in your focus:
 
 Keeping your focus on UX is vital because you may have chosen the latest and coolest tech, but if the UX fails, everything fails. Or as the master UX developer [Steve Jobs says](//youtu.be/dI93BvrBxQ0?si=Ub2Q_S_E7uKVilVL&t=104):
 
-[quote.floating from="Steve Jobs"]
-  You've got to start with the customer experience and work backwards for the technology
+> You've got to start with the customer experience and work backwards for the technology *Steve Jobs*
 
 
 

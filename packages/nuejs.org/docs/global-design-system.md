@@ -7,8 +7,7 @@ Nue is powered by a global design system. It allows UX developers to rapidly cre
 ## Modern-day CSS Zen Garden
 Think Nue like a modern-day [CSS Zen Graden](//csszengarden.com/): you get the exact same HTML markup, but you can write CSS to achieve wildly different designs. Or as the well-known UX developer [Brad Frost](//bradfrost.com/) puts it:
 
-[quote from="Brad Frost"]
-  A Global Design System would improve the quality and accessibility of the world’s web experiences, save the world’s web designers and developers millions of hours, and make better use of our collective human potential.
+> Global Design System improves the quality and accessibility of the world’s web experiences, saves the world’s web designers and developers millions of hours, and makes better use of our collective human potential. *Brad Frost*
 
 
 ### Declarative page layouts

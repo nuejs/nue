@@ -1,5 +1,4 @@
 
-import { $$ } from '/@nue/page-router.js'
 
 const observer = new IntersectionObserver(entries => {
   entries.forEach(el =>
@@ -8,7 +7,7 @@ const observer = new IntersectionObserver(entries => {
 }, { rootMargin: '-100px' })
 
 
-class Observer extends HTMLElement {
+class ScrollTransition extends HTMLElement {
   constructor() {
     super()
     observer.observe(this)
@@ -18,4 +17,4 @@ class Observer extends HTMLElement {
   }
 }
 
-customElements.define('observable-item', Observer, { extends: 'section' })
+customElements.define('scroll-transition', ScrollTransition, { extends: 'section' })
