@@ -31,7 +31,7 @@ customElements.define('observing-nav', ObservingNav, { extends: 'nav' })
 
 
 // the "Zen switch" to toggle a more focused mode without distractions
-class ZenSwitch extends HTMLInputElement {
+class ZenToggle extends HTMLInputElement {
   constructor() {
     super()
     this.onchange = function() {
@@ -40,5 +40,16 @@ class ZenSwitch extends HTMLInputElement {
   }
 }
 
-customElements.define('zen-switch', ZenSwitch, { extends: 'input' })
+customElements.define('zen-toggle', ZenToggle, { extends: 'input' })
 
+
+
+// demo
+class Counter extends HTMLDivElement {
+  constructor() {
+    super()
+    this.innerHTML = ++sessionStorage.counter || (sessionStorage.counter = 0)
+  }
+}
+
+customElements.define('view-counter', Counter, { extends: 'div' })

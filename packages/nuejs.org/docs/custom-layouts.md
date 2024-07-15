@@ -65,10 +65,10 @@ This documentation area, for example has the following directory- specific layou
   <h3>{ lang.this_page }</h3>
   <toc is="observing-nav"/>
 
-  <div class="zen-switch">
+  <div class="zen-toggle">
     <h5>Zen Mode</h5>
-    <label class="switch">
-      <input type="checkbox" is="zen-switch">
+    <label class="toggle">
+      <input type="checkbox" is="zen-toggle">
     </label>
   </div>
 </aside>

@@ -519,14 +519,15 @@ Depending on the semantics of your design system, the container can have a gener
 ```
 
 ### Grid items
-You can set class names and the component instance globally or locally on your [application data](project-structure.html#data):
+You can configure class names and a [web component instance](reactivity.html#grid-items) for your grid items:
 
 ```
-item_class: card
-item_component: card_component
+grid_item_class: card
+grid_item_component: gallery-item
 ```
 
-You can also set up these properties directly on the grid tag, but it's better to set up these globally so that the syntax of adding grids narrows down to just writing `[grid]` without the need to remember the attributes. This keeps your content clean from extra, layout-specific definitions.
+While you can also set up these properties directly on the grid tag, it's better to set up these globally so that the syntax of adding grids narrows down to just writing `[grid]` without the need to remember the attributes. This keeps your content clean from extra, layout-specific definitions.
+
 
 
 ### Markdown generated HTML

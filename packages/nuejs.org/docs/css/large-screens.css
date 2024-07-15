@@ -54,7 +54,7 @@
 }
 
 /* zen mode */
-.zen-switch {
+.zen-toggle {
   position: absolute;
   bottom: 1em;
   display: flex;

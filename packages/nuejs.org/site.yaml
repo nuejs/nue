@@ -10,7 +10,7 @@ title_template: "Nue - %s"
 favicon: /icon/favicon.png
 
 # grid items
-# item_component: clickable-item
+# grid_item_component: clickable-item
 item_class: card
 
 

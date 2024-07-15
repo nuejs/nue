@@ -1,10 +1,10 @@
 
 /*
-<label class="switch">
+<label class="toggle">
   <input type="checkbox">
 </label>
 */
-.switch {
+.toggle {
   background-color: var(--gray-200);
   transition: background-color .2s;
   display: inline-block;

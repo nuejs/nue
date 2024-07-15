@@ -122,11 +122,12 @@ With the above configuration in place, the document's `<head>` section is render
 Your pages can have following kind of depenencies to enhance it's looks and behaviour:
 
 [table.api "Extension | Type"]
-  - .js | [JavaScript files](scripting)
-  - .ts | [TypeScript files](scripting)
-  - .css | [Stylesheets](styling)
-  - .html | [Server-side components](layout-system) and layout files
-  - .nue | [Reactive components](reactive-components)
+  - .js   | JavaScript files for [motion and reactivity](reactivity.html)
+  - .ts   | TypeScript files for [motion and reactivity](reactivity.html)
+  - .css  | CSS files for [UX development](ux-development.html)
+  - .html | [Custom layouts](custom-layouts.html) and server-side components
+  - .htm  | [Reactive components](reactive-components.html)
+  - .nue  | [Reactive components](reactive-components.html)
 
 
 All scripts, styles, and components are automatically included in page dependency tree similar to how data is propagated. The assets on the application root are included in all pages in the app and subdirectory assets are included for the pages in that subdirectory. For example:
@@ -158,7 +159,7 @@ When a global directory resides inside an application directory, then all assets
 Library folders contain assets that can be explicitly included on a page with an `include` statement. You can define certain folders to be libraries in the `site.yaml` file. For example:
 
 ```
-libs: ["@lib"]
+libs: ["@lib", lib]
 ```
 
 Here's how you include assets in `site.yaml`, `app.yaml`, or in page's frontmatter:

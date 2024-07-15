@@ -123,18 +123,19 @@ List of typical area-specific settings inside an application file such as `blog/
 ### include
 A list of assets to be included from a [library directory](project-structure.html#libraries) to all pages on the area. For example, a value such`include: [highlight, motion]` would include all files matching a string "highlight" or "motion" on the file name.
 
+### grid_item_component
+Specifies a Web Component for your grid items. [Learn more](reactivity.html#grid-items)
+
+### grid_item_class
+Array of CSS class name for your grid items. [Learn more](page-layout.html#grid-items)
+
+
 ### section_classes
 Array of CSS class names for the page sections. [Learn more](page-layout.html#section-classes)
 
 ### section_component
 Specifies a Web Component for your page sections. [Learn more](reactivity.html#sections)
 
-### item_component
-Specifies a Web Component for your grid items. [Learn more](reactivity.html#grid-items)
-
-
-### item_class
-Array of CSS class name for your grid items. [Learn more](page-layout.html#grid-items)
 
 
 ===

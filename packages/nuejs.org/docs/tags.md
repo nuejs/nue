@@ -294,6 +294,46 @@ Displays a syntax highligted code block with support for line numbers, captions,
   `wrapper` wraps the code inside a parent element with a class name specifeid on this property
 
 
+### Special characters
+You can use a set of special characters in the code to highlight content:
+
+[code numbered="true"]
+  // This is a styled code block
+
+  >Highlight lines by prefixing them with ">", "+", or "-"
+
+  Here's a •highlighted region•
+
+  export default { ••bring out errors•• }
+
+  // enable line numbers with `numbered` property
+  const html = glow(code, { •numbered: true• })
+
+
+[.options]
+  `>` highlights the line. The default background color is blue.
+
+  `-` marks the line as removed with a red background (default)
+
+  `+` marks the line as inserted with green background (default)
+
+  `|` highlights the line. Similar to ">" but for markdown syntax only
+
+  `\` escapes the first character
+
+
+Use bullet character (`•`) to highlight text regions within a line. The following sentence
+
+`These •two words• are highlighted and ••these words•• are erroneous`
+
+Is rendered as:
+
+```
+These •two words• are highlighted and ••these words•• are erroneous
+```
+
+
+
 ### Codeblocks
 Renders a single multi-code element where the blocks are separated with a triple-dash:
 

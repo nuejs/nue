@@ -1,17 +1,16 @@
 
-
 # Motion and Reactivity
-Today you can build modern, reactive websites with nothing but CSS. However, sometimes a little bit of JavaScript can significanty enhance the user experience. Depending on what to build, Nue lets you choose the most suitable technology for the job: CSS, Web Components, reactive islands, isomorphic components, or vanilla JavaScript.
+Today you can build modern, reactive websites with nothing but CSS. However, sometimes a bit of JavaScript can significantly enhance the user experience. Depending on what to make, Nue lets you choose the most suitable technology for the job: CSS, Web Component, reactive island, isomorphic component, or vanilla JavaScript.
 
 
-## Modern CSS
-CSS have come a long way from its early days. Things like tooltips, dialogs, sliders, and popups no longer require JavaScript and are best implemented with CSS. Even the more advanced functionality from libraries like *Framer Motion* can mostly be [implemented with modern CSS](//motion.dev/blog/do-you-still-need-framer-motion).
+## CSS
+CSS has come a long way from its early days. Tooltips, dialogs, sliders, and popups no longer require JavaScript and are best implemented with CSS. Even the more advanced functionality from libraries like *Framer Motion* can mostly be [implemented with modern CSS](//motion.dev/blog/do-you-still-need-framer-motion).
 
-CSS offers better hardware acceleration than JavaScript and a simpler, more standards based programming model.
+CSS offers better hardware acceleration than JavaScript and a simpler, more standards-based programming model.
 
 
 ### View transitions
-One of the most significant features of Nue is the built-in support for view transitions. That is: the loading of the page and it's assets are internally controlled with JavaScript and the view transition can be customized with CSS [::view-transition](//developer.mozilla.org/en-US/docs/Web/CSS/::view-transition) property. This website, for example, has this simple CSS rule for the page switch transition effect:
+One of the most significant features of Nue is the built-in support for view transitions. That is: the loading of the page and its assets are internally controlled with JavaScript and the view transition can be customized with CSS [::view-transition](//developer.mozilla.org/en-US/docs/Web/CSS/::view-transition) property. This website, for example, has this simple CSS rule for the page switch transition effect:
 
 
 ``` css
@@ -64,12 +63,12 @@ Today popovers, dialogs, and [burger menus](page-layout.html#burger) can be nati
 }
 ```
 
-That's all. No JavaScript needed, the code looks clean, and all the necessary popover features and animations are in place, including keyboard support for the esc- key.
+That's all. No JavaScript is needed, the code looks clean, and all the necessary popover features and animations are in place, including keyboard support for the ESC- key.
 
 
 
 ### Scroll linked transitions
-Parallax effects, prorgress bars, image movements and skews, and other scroll-linked animations no longer require JavaScript, and can be implemented with native CSS keyframes and [animation-timeline](//developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline) property. The front page of this website, for example, has the following animation defined for the hero image:
+Parallax effects, progress bars, image movements and skews, and other scroll-linked animations no longer require JavaScript, and can be implemented with native CSS keyframes and [animation-timeline](//developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline) property. The front page of this website, for example, has the following animation defined for the hero image:
 
 
 ``` css
@@ -79,7 +78,7 @@ Parallax effects, prorgress bars, image movements and skews, and other scroll-li
 }
 ```
 
-This animation is then bind to the progress of scroll as follows:
+This animation is then bound to the progress of the scroll as follows:
 
 ``` css
 .progress {
@@ -88,23 +87,27 @@ This animation is then bind to the progress of scroll as follows:
 }
 ```
 
-Again, a super simple and clean syntax for defining a scoll-linked animation that would be a somewhat large programming effort with JavaScript.
+Again, this was a super simple and clean syntax for defining a scroll-linked animation that would be a rather large development effort with JavaScript.
 
 
 
 ## Web Components
-Loading a heavy frontend library is not always the best choice for simple reactivity. It's often better to go with native [Web Components](//developer.mozilla.org/en-US/docs/Web/API/Web_components), because they work natively on the browser and are are super simple to use.
+Loading a heavy front-end library is not always the best choice for simple reactivity. It's often better to go with native [Web Components](//developer.mozilla.org/en-US/docs/Web/API/Web_components) because they work natively on the browser and are super simple to use.
+
+
 
 
 ### Simple enhancements
-Web Components are perfect for simple things that [progressively enhance](//developer.mozilla.org/en-US/docs/Glossary/Progressive_Enhancement) the HTML markup that is already present on the document. For example, the "Zen Mode"- toggle on this documentation area is a simple checkbox whose behavioiur is implemented as a Web Component using the standard [is](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/is) attribute:
+Web Components are perfect for simple things that [progressively enhance](//developer.mozilla.org/en-US/docs/Glossary/Progressive_Enhancement) the HTML markup that is already present on the document. For example, the "Zen Mode"- toggle on this documentation area is a simple checkbox whose behavior is implemented as a Web Component by binding the behavior to the element with [is attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/is):
 
 
 ```
 <input type="checkbox" is="zen-toggle">
 ```
 
-Here is the web component implementation:
+
+Create a JavaScript file (with a .js extension) and create the components:
+
 
 ``` js
 class ZenToggle extends HTMLInputElement {
@@ -125,14 +128,15 @@ For this reason, they work nicely together with [view transitions](#view-transit
 
 
 
+
 ### Dynamic sections { #sections }
-You can assign a web component for all the [page sections](page-layout.html#sections) on your pages front matter or globally in the application data. The front page on this website, for example, is using a section component to implement all the scroll-triggered transitions:
+You can turn all the [page sections](page-layout.html#sections) into web components with a `section_component` configuration option. This can be assigned in the front matter or globally in the application data. On the front page of this website, for example, we have a "scroll-transition" component to help implement all the scroll-triggered CSS transitions:
 
 ```
 section_component: scroll-transition
 ```
 
-Then we write the following Web Component that uses an [Intersection Observer API](//developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) for assigning a "in-viewport" class to the section element whenever the user scrolls into it.
+The Web component uses an [Intersection Observer API](//developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) for assigning an "in-viewport" class to the section element whenever the user scrolls into it.
 
 
 ``` js
@@ -158,7 +162,7 @@ customElements.define(
 )
 ```
 
-After this you can develop whatever CSS transitions you wish using the "in-viewport" class name. For example:
+After this, you can develop whatever CSS transitions you wish using the "in-viewport" class name. For example:
 
 
 ```
@@ -174,7 +178,7 @@ section > * {
   &:nth-child(5) { transition-delay: .8s }
 }
 
-/* styling when user enters the viewport */
+/* styling when a user enters the viewport */
 .in-viewport > * {
   transform: translate(0);
   opacity: 1;
@@ -182,28 +186,54 @@ section > * {
 ```
 
 
-
-
-
 ### Dynamic grid items { #grid-items }
-HTML already exists
-  ...
+Similar to [sections](#sections), you can also turn your grid items into web components. This happens with a `grid_item_component` configuration option, which can be assigned in the front matter, globally in `site.yaml`, or for a specific area. Here, for example, we turn the grid items into dynamic gallery items.
 
+
+```
+grid_item_component: gallery-item
+```
+
+
+
+### Custom Markdown extensions
+You can implement custom Markdown extensions with web components. Here's a simple counter component:
+
+
+``` js
+class Counter extends HTMLDivElement {
+  constructor() {
+    super()
+    this.innerHTML = ++sessionStorage.counter || (sessionStorage.counter = 0)
+  }
+}
+
+customElements.define('view-counter', Counter, { extends: 'div' })
+```
+
+After this, we can use this component in a Markdown file:
+
+
+``` md
+### Your view counter
+
+[view-counter]
+```
 
 
 ## Reactive components
-If your component is more complex and has a lot of dynamically changing HTML markup, it's better to go with a Nue client-side component. These components support the same [template syntax][], as the server-side components but the component's layout can change depending on the state.
+More complex components with dynamically generated HTML are better implemented with a [reactive component](reactive-components.html). These components support the same [template syntax](template-syntax.html) as the server-side components but the components can respond to user input.
 
 
 
-### Islands of Interactivity
-Forms are best implemented with a reactive component
+### Islands of interactivity
+Reactive islands are interactive components within the server-rendered, static HTML. This progressively rendering pattern is called the [islands architecture](//www.patterns.dev/vanilla/islands-architecture/). On this website, we have "join mailing list" islands, that  are implemented as follows:
 
 ```
 <div @name="join-list">
 
   <h4 :if="sessionStorage.joined">
-    You have succesfully joined the mailing list. Thank you for your interest!
+    You have successfully joined the mailing list. Thank you for your interest!
   </h4>
 
   <form :else @submit.prevent="submit">
@@ -230,37 +260,31 @@ Forms are best implemented with a reactive component
 </div>
 ```
 
-Reactive components are defined in `.htm ` files as opposed to layout components, which are defined in `.html` files.
+
+After saving the component to a file with `.htm` or `.nue` extension, you can use it in your Markdown content as follows:
 
 
 ``` md
 ## Join our mailing list
-We'll let you know when there is a major update
 
-[join-list cta="Submit form"]
+>[join-list cta="Submit form"]
 ```
 
-You can also use these on the layout files, ... for example:
+The component can also be used on your [layout files](custom-layouts.html):
 
 ```
 <join-list cta="Submit form"/>
 ```
 
-Automatically mounted, when page switches
-
-They support hot-reloading, and form state keeps intact ...
-
-
-! hot-reloading island..
+Nue mounts reactive components automatically and hot-reloads them if you make changes. The dynamics are powered by a tiny, 2.5kb Nue.js script.
 
 
 
 ### Isomorphic components
-Hybrid client-side and server-side componets for reactive, yet search-engine friendly components.
-
-For example, this website uses a video component that .. it's quite versatile having support for m3u8 and quality switching depending on the screen resolution
+Isomorphic components are hybrid client-side and server-side components that are crawlable by search engines. For example, this website uses a video component with the following layout on the server side:
 
 ```
+<!-- isomorphic video component utilizing Bunny CDN -->
 <figure class="video" @name="bunny-video">
 
   <!-- client-side video player -->
@@ -277,19 +301,17 @@ For example, this website uses a video component that .. it's quite versatile ha
 </figure>
 ```
 
-
-The `<bunny-player>` is a reactive component defined in [video.htm] file ...
+The `<bunny-player>` is a reactive component defined in [@lib/video.htm](//github.com/nuejs/nue/blob/dev/packages/nuejs.org/%40lib/video.htm) file, which implements simple quality detection and [adaptive bitrate streaming](//en.wikipedia.org/wiki/Adaptive_bitrate_streaming) for browsers supporting the technology.
 
 
 
 
 ## Plain JavaScript
-Not all reactivity happens on a component level. Sometimes reactivity is best implemented with a small snippet of vanilla JavaScript.
+Not all reactivity requires a component and is better implemented with a simple JavaScript function.
 
 
 ### Global event handlers
-Keypresses, clicks,
-
+Sometimes you want to run JavaScript when a certain user clicks, scrolls, or keyboard event happens. This website, for example, has a global click handler that monitors user clicks and when the click target is a link nested inside a popover, the popover is closed:
 
 ```
 addEventListener('click', e => {
@@ -301,18 +323,25 @@ addEventListener('click', e => {
 })
 ```
 
-### External scripts
-Often need exteranl scripts like analytics, ..
+
+### Google Analytics
+Google Analytics and other scripts that must be imported externally should go to the head section of your website. This happens by adding a custom `head` element to a root level [layout file](custom-layouts.html):
+
 
 ```
 <head>
+  <script async src="//www.googletagmanager.com/gtag/js?id=•G-xxxxxxx•"></script>
 
-  <script  type="text/javascript">
-    console.info('koo')
+  <script client>
+    window.dataLayer = window.dataLayer || []
+    function gtag(){ dataLayer.push(arguments) }
+    gtag('js', new Date())
+    gtag('config', '•G-xxxxxxx•')
   </script>
-
 </head>
 ```
+
+Please replace the `G-xxxxxxx` with your tracking id.
 
 
 
