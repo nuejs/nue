@@ -1,7 +1,7 @@
 
 /* background animation */
 body {
-  background: url(/blog/@index/blog-bg.svg) 0 0 no-repeat;
+  background: url(/blog/lib/blog-bg.svg) 0 0 no-repeat;
   background-size: 100% 500px;
 }
 

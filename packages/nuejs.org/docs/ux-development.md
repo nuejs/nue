@@ -56,7 +56,24 @@ Limit yourself to as few fonts, font weights, colors, variables, elements, class
 
 
 
-## Nail your CSS hierarchy { #css-hierarchy }
+## Categorize your CSS { #categorize }
+Categorize your CSS in such way that the colors, elements and components are aligned with your design system. Name the files in such a way that everyone on your UX team can immediately see what's inside just by the name of the file. For example:
+
+- `typography.css` with all typographic elements like headings, paragraphs, text formatting, lists, links, blockquotes, etc.
+
+- `navigation.css` with settings for global header and footer
+
+- `form.css` with all form elements like inputs, text areas, select boxes, checkboxes, radios, sliders, etc.
+
+Organizing or "co-locating" your elements to match your design system makes an intuitive CSS architecture that is easy to maintain and scale.
+
+
+#### Links
+* [Oreilly: Classifying Different Types of Styles](https://www.oreilly.com/library/view/css-refactoring/9781491978528/ch04.html)
+* [Sparkbox: The Anatomy of a Design System](//sparkbox.com/foundry/design_system_makeup_design_system_layers_parts_of_a_design_system)
+
+
+## Setup CSS hierarchy { #css-hierarchy }
 Split your design into globals, libraries, areas, and pages.
 
 ! example folder hierarchy (two Finders above each other?)
@@ -79,20 +96,6 @@ Place all page-specific CSS under the leaf folder, where the `index.md` file res
 
 #### More info:
 * [MDN: Cascade, specificity, and inheritance](//developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Cascade_and_inheritance)
-
-
-
-## Group things by function { #grouping }
-Group similar things together into a single CSS file and name the files in such a way that everyone on your team can easily see what they do. For example:
-
-- `typography.css` with all typographic elements like headings, paragraphs, text formatting, lists, links, blockquotes, etc.
-
-- `navigation.css` with settings for global header and footer
-
-- `form.css` with all form elements like inputs, text areas, select boxes, checkboxes, radios, sliders, etc.
-
-Co-locating your elements by their intended function makes an intuitive CSS architecture that is easy to maintain and scale.
-
 
 
 ### Use simple selectors { #selectors }
@@ -274,12 +277,14 @@ Global design system together with external CSS is the perfect demonstration of 
 
 
 
-#### Prefer standard HTML { #html }
-Don't create a custom component for every possible situation where a standard HTML element would do the job fine.
+#### Prefer standard HTML elements { #html }
+Don't create a custom component for every possible situation where a standard HTML element would do the same job just fine.
 
-For example, in [Tailwind Catalyst](//catalyst.tailwindui.com/docs) there is a context-dependent component for every different context: `<DialogDescription>`, `<AlertDescription>`, `<Description>`, and `<Text>`. These could all be solved with a single `<p>` element.
+For example, in [Tailwind Catalyst](//catalyst.tailwindui.com/docs) there is a separate  component for every different context: `<Description>`, `<DialogDescription>`, `<Text>`, `<AlertDescription>`, etc.
 
-Standard HTML helps you avoid *component overload* — a situation where you are constantly creating more and more new components. It's not unusual to see extremely complex codebases with hundreds, even thousands of components. Don't do that. Use semantic HTML + CSS, and do the same thing with less time and effort.
+You could do the same with a single `<p>` element.
+
+Standard HTML helps you avoid *component overload* — a situation where you are constantly creating new components. It's not unusual to see massive codebases with hundreds, even thousands of components. Don't do that. Use semantic HTML and keep your codebase clean and lean.
 
 
 

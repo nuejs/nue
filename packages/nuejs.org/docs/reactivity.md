@@ -1,6 +1,6 @@
 
 # Motion and Reactivity
-Today you can build modern, reactive websites with nothing but CSS. However, sometimes a bit of JavaScript can significantly enhance the user experience. Depending on what to make, Nue lets you choose the most suitable technology for the job: CSS, Web Component, reactive island, isomorphic component, or vanilla JavaScript.
+Nue lets you build dynamic, motion-enriched websites with nothing but CSS. However, sometimes a bit of JavaScript can significantly enhance the user experience. Depending on what you want to build, Nue lets you choose the most suitable technology for the job: CSS, Web Component, reactive island, isomorphic component, or vanilla JavaScript.
 
 
 ## CSS

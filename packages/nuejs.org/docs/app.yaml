@@ -1,5 +1,5 @@
 
-include: [technical-content, video, switchbox, syntax-highlight]
+include: [technical-content, video, toggle-switch, syntax-highlight]
 footer: false
 
 lang:
@@ -8,7 +8,7 @@ lang:
 
 sidenav:
   Getting started:
-    - What is Nue?: /docs/
+    - What is Nue?: .
     - Installation: installation.html
     - Hello, World!: hello-world.html
     - Project Structure: project-structure.html
@@ -20,7 +20,7 @@ sidenav:
     - UX development: ux-development.html
     - Page layout: page-layout.html
     - Custom layouts: custom-layouts.html
-    - Motion and Reactivity: reactivity.md
+    - Motion and Reactivity: reactivity.html
     - Optimization: performance-optimization.html
 
 
@@ -36,7 +36,7 @@ sidenav:
 
 
   Reference:
-    - Syntax highlighting
-    - Template syntax
-    - Content collections
-    - Hot-reloading
+    - Syntax highlighting: syntax-highlighting.html
+    - Template syntax: template-syntax.html
+    - Content collections: content-collections.html
+    - Universal hot-reloading: hot-reloading.html

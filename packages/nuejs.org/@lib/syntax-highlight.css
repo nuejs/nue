@@ -1,20 +1,14 @@
-:root {
-  --glow-bg-color: #20293A;
-  --glow-padding: 1.5em;
-}
 
-[glow] {
-  background-color: var(--glow-bg-color);
+pre {
   border-radius: .5em;
-  padding: 1.5em;
+  /*  padding: 1.5em;*/
   font-size: .9rem;
-  overflow-x: auto;
 
   &.small {
     font-size: 85%;
   }
 
-  article > & {
+  section > & {
     margin: 2em 0;
   }
 }

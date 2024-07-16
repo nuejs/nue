@@ -7,9 +7,9 @@ authors:
   tero:
     name: Tero Piirainen
     img: /img/tero.webp
-    x: tipiirai
+    username: tipiirai
 
   john:
     name: John Doe
     img: /img/john.webp
-    x: johndoe
+    username: johndoe

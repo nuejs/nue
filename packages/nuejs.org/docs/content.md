@@ -5,8 +5,8 @@ Nue comes with a simple content assembly language for marketers, copywrites, and
 
 
 
-## Markdown for rich, interactive content
-Nue offers an expressive *Markdown* flavor with additional support for sections, content blocks, grids, stacked layouts, responsive images, videos, tabs, and more. All your content, from simple blog entries to rich landing pages are editable by non-technical people. Just edit the content and see your website shaping up in real time.
+## Extended Markdown
+Nue offers an expressive *Markdown* flavor for rich, interactive content. It comes with additional support for sections, content blocks, grids, stacked layouts, responsive images, videos, tabs, and more. All your content, from simple blog entries to rich landing pages are editable by non-technical people. Just edit the content and see your website shaping up in real time.
 
 ! video: editing front page
 
@@ -52,11 +52,11 @@ You can pass optional [settings and metadata](settings.html) in the "front matte
 
 
 ``` yaml
----
+\---
 title: Page title
 desc: Page description for search engines
 og: /img/hero-image.png
----
+\---
 ```
 
 
@@ -65,14 +65,14 @@ Just like books can be divided into chapters; your long-form articles and landin
 
 
 ``` yaml
----
+\---
 title: Page with sections
----
+\---
 
 # The hero section
 With an epic subtitle
 
----
+\---
 
 ## A second section
 With another great subtitle

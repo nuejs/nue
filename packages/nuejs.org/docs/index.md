@@ -4,11 +4,11 @@ exclude: [syntax, video]
 ---
 
 # Nue is a web framework for UX developers
-Nue is a rapid website development environment for UX developers and other design-minded people. It changes the way you think about frontends: instead of dealing with complex technical issues, your focus turns on to content, design, and the user experience.
+Nue is a rapid website development environment for UX developers, "design engineers", and other design-minded web developers. Instead of dealing with complex engineering issues in several layers of abstraction, your focus shifts to content, design, and user experience. You'll become great at UX and stay relevant for years to come.
 
 
 ## Less, but better
-Wat used to take a React specialists and thousands of lines of JavaScript is now assembed with a content file and vanilla CSS. To give you a rought idea, here are source codes for [tailwindcss.com](//tailwindcss.com) front page (a next.js app) and [nuejs.org](/) front page:
+What used to take a React specialists and thousands of lines of JavaScript is now assembled with content and styled with modern CSS. To give you a rough idea, here are source codes for [tailwindcss.com](//tailwindcss.com) front page (a next.js app) and [nuejs.org](/) front page:
 
 
 [.stack]
@@ -28,21 +28,21 @@ Wat used to take a React specialists and thousands of lines of JavaScript is now
     href: //github.com/tipiirai/nue/blob/master/new-www/index.md?plain=1
 
 
-The first apparent difference is that is that Nue is content-first. No matter how rich and complex your page is, it is driven and assmebled with an easy-to-read — easy-to-write content format suitable for marketers, copywriter, and other non-technical people.
+The first apparent difference is that Nue embraces *a content-first* approach. No matter how rich and complex your page is, it is first assembled with an easy-to-read — easy-to-write content format suitable for planning, marketing, and technical writing.
 
-The second, much more important thing is that websites are mostly developed with CSS. You no longer need a React engineer, and the ... to create websites. Instead, the development goes to where it should be: UX developers — the people who master the craft of design and user experience.
+The second important difference is that your website is mostly implemented with CSS. You no longer need a React specialist to develop websites. Instead, the work moves naturally to UX developers — the people who master the craft of design and user experience, where the responsibility should be in the first place.
 
-The third, and the most important difference is, that you need _significantly_ less effort to design and develop new things. Lets see what what is needed to build the above pages:
+The third, and the most important difference is, that you need _significantly_ less effort to design and develop new things. Let's check some numbers:
 
 // //github.com/tailwindlabs/tailwindcss.com/tree/master/src/components/home
 ! Line count: Next.js vs Nue
 
 
-1. Nue front page requires only 350 lines of code and 90% of it is pure CSS. This is less tnan what is needed to develop the Tailwind hero area alone. Nue front page is just 5% of the code in Tailwind front page.
+1. **Nue requires less code**. The front page requires only 350 lines of code and 90% is pure CSS. This is less than what is needed to develop the Tailwind hero area _alone_. Nue front page in total is just a fraction of the Tailwind codebase.
 
-1. Next.js is for React engineers, who specialize on JavaScript, JSX, and Tailwind. Nue is for UX developers, who are experts in design and UI development. They focus design systems´and CSS is their native language.
+1. **Nue is for UX developers**, who are fluent with **Figma**, they think in terms of design systems, and CSS is their native language. No complex JavaScript with embedded images, markup, styling, React idioms, or type definitions.
 
-3. Nue produces significantly leaner websites. For example, the combined weight of all the JavaScript and CSS on this page is only 7kb, which equals to a single Tailwind button component.
+3. **Nue sites are leaner**. Nue produces significantly leaner websites. For example, the combined weight of all the JavaScript and CSS on this page is only 7kb, which equals to a single Tailwind button component.
 
 
 How is this possible?
@@ -56,12 +56,12 @@ Nue's power leans heavily on a thing called _global design system_. It allows UX
 
 ! Global design system + CSS = UX
 
-Nue frees you from implementing page layouts and basic UI elements over and over again or as a well-known UX developer [Brad Frost](//bradfrost.com/) puts it:
+Nue frees you from implementing page layouts and basic UI elements over and over again so you can move faster with nothing but CSS. [Brad Frost](//bradfrost.com/), the man behind the global design system and a well-known UX developer puts it this way:
 
 > Global Design System improves the quality and accessibility of the world’s web experiences, saves the world’s web designers and developers millions of hours, and makes better use of our collective human potential. *Brad Frost*
 
 
-Think Nue as a modern-day [CSS Zen Graden](//csszengarden.com/) — a great demonstration of what can be accomplished through CSS. Nue just takes it a couple of steps further and expands the idea to a rapid UX development environment.
+Think Nue as a modern-day [CSS Zen Graden](//csszengarden.com/) — a demonstration of what can be accomplished through CSS. Nue takes this a couple of steps further and expands the idea to a rapid UX development environment and takes everything out of the modern web stack.
 
 
 ### Web Standards Model
@@ -70,43 +70,44 @@ Think Nue as a modern-day [CSS Zen Graden](//csszengarden.com/) — a great demo
   src: /img/ux-stack.png
   width: 300
 
-The grand idea behind the global design system is to separate the HTML markup from styling and logic. This allows you to build websites with vanilla CSS and JavaSript and you'll get to know [how the web works][standards]. The way CSS cascades, when to use Web Components, and how to go with responsive web design.
+Global design system separates the HTML markup from styling and logic. This allows you to build websites with vanilla CSS and enhance them with JavaSript. You'll get to know [how the web works][standards]: the way CSS cascades, when to use Web Components, and how to tackle responsive web design.
 
-You'll learn new things from MDN Web Docs instead of leaning towards commercially-biased 3rd parties. The code you writing now is something that all developers can understand — now and in the future. You want to stay competitive and relevant for years to come.
+Instead of trusting your career on commercially-biased 3rd parties, you'll stay closer to the [web standards model](//www.w3.org/wiki/The_web_standards_model_-_HTML_CSS_and_JavaScript). The code you writing now is something that all developers can understand — now and in the future.
 
-Because trends come and go, but standards are forever.
-
-
-
-### Focus on CSS
-Over the years CSS has evolved from static styling language to a  powerhorse with full support to all aspect of UX development including motion- and interaction design. Nue extracts this hidden power from the complex world of JavaScript and passes it directly to where it belongs: for UX developers. No extra layers, no third party idioms, no namespace issues. Just the raw power of modernized CSS with the bliss of instant hot-reloading.
-
-This totally changes your approach to web development. Instead of dealing with hundreds or thousands of JavaScript files, you now have a small, organized set of CSS files. The tooling, development flow, and optimization strategies are now _simpler_ in all meaning of the word.
+Become a professional UX developer and stay relevant for years to come.
 
 
 
-### Incresed performance
-The best part: your website can reach the same performance levels as text-only websites like [motherfuckingwebsite.com](//motherfuckingwebsite.com/), but without compromising on design. That is: you can get the fastest possible page loads with the design and user experience levels of Stripe or Linear.
+### Design and CSS
+Over the years CSS has evolved from static styling utility to an immensely powerful UX development language including support for motion- and interaction design. Nue extracts this hidden power from the complex world of JavaScript and passes it directly to where it belongs: for UX developers. No extra layers, no third-party idioms, no namespace issues. Just the raw power of modernized CSS with the bliss of instant hot-reloading.
+
+This totally changes your approach to web development. Instead of dealing with hundreds or thousands of JavaScript files, you now have a small, organized set of CSS files. The tooling, development flow, and optimization strategies are now _simpler_ in all meanings of the word.
+
+
+
+### Page performance
+Perhaps the most unique feature of Nue is that your website can reach the same performance levels as text-only websites like [motherfuckingwebsite.com](//motherfuckingwebsite.com/), but without compromising on design. That is: you can get the fastest possible page loads with the design and user experience levels of Stripe or Linear.
 
 [image.gridpaper]
   small: /img/first-paint.png
   large: /img/first-paint-big.png
 
-No matter how fast or clever your JavaScript bundler is, it can never beat  a single HTTP request that has everything to render the page.
+This is achieved by bundling your minified CSS together with the HTML and serving everything as one, small package. This is the most important [performance optimization](performance-optimization.html) method you can use. No matter how fast or clever your JavaScript bundler is, it can never beat a single HTTP request that has everything to render the page.
 
 
 
 ### The UX mindset
-Nue's [develoment flow](ux-development.html) focuses on design and user experience while keeping your CSS clean and organized:
+Nue's [development flow](ux-development.html) focuses on design and user experience while keeping your CSS clean and organized:
 
 [image.gridpaper]
   small: /img/ux-development.png
   large: /img/ux-development-big.png
+  href: ux-development.html
 
 
 This makes a complete shift in your focus:
 
-[table head="| React engineers | UX developers"]
+[table head="Topic | Engineers| UX developers"]
   - Building blocks | React components | Global Design System
   - Key strategy | Tight coupling | Separation of concerns
   - Primary language | TypeScript | CSS
@@ -137,13 +138,11 @@ Nue offers a clean development environment for all core tasks on your web stack.
 ### Content development
 *Marketers, copywriters* and *technical writers* can focus on content without blocking developers. All your pages, from simple blog entries to rich landing pages are editable by non-technical people.
 
-
 ### Application development
-Nue separates your business model from the rest of your frontend, so application developers can write pure, testable JavaScript APIs without burdening themselves with any custom 3rd party idioms and APIs. The code becomes cleaner and easier to deal with.
-
+Nue separates your business model from the rest of your frontend code, so application developers can write pure, testable JavaScript APIs without burdening themselves with 3rd party abstractions. The code becomes cleaner and significantly easier to deal with. There is absolutely no reason to uglify your application code with HTML or gigantic class attributes.
 
 ### UX development
-Nue brings back to the lost art of UX development for people who love design, UX development, and the power of modern CSS. It changes the way you think about web evelopment. You might not believe that until you actually try it. Chances are, that you start wondering why you ever started uglifying your clearly separated code in the first place.
+Nue is for people who love design, UX development, and the power of modern CSS. It changes the way you think about web development. You might not believe that until you actually try it. Chances are, that you start wondering why you ever built websites any other way.
 
 
 ## The UX framework
@@ -156,7 +155,7 @@ Nue brings back to the lost art of UX development for people who love design, UX
   ---
 
   ### UX development
-  Best practises for UX and CSS
+  Best practices for UX and CSS
 
   [Learn more](ux-development.html)
   ---

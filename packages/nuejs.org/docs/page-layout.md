@@ -432,7 +432,7 @@ You typically want to define classes for the sections for styling purposes. Thes
 
 
 ``` yaml
---- •#my-id.class-name•
+\--- •#my-id.class-name•
 
 # Section title
 And a description
@@ -707,7 +707,7 @@ Code blocks with a title are rendered as follows:
     <h3>Title of the codeblock <b>with formatting</b></h3>
   </figcaption>
 
-  <pre glow="">
+  <pre>
     <code language="rust">
       ...
     </code>

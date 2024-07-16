@@ -45,6 +45,9 @@ Setting this to `false` disables the default processing with [Lightning CSS](//l
 ### port
 The port number of the development server. Default is 8080
 
+### syntax_highlight
+Set this to `false` to disable the [built-in stylesheet](syntax-highlighting.html) for code blocks.
+
 ### view_transitions
 Setting this to `true` enables [view transitions](reactivity.html#view-transitions) for instant and smooth page switches
 

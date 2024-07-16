@@ -40,11 +40,6 @@ article {
     color: var(--gray-700);
   }
 
-  em {
-    font-style: normal;
-    font-weight: 550;
-    color: var(--gray-950);
-  }
 
   strong {
     font-weight: 600;

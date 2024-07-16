@@ -1,19 +1,21 @@
 
+# Nue settings
 globals: ["@global", css]
-libs: ["@lib"]
+libs: ["@lib", docs/lib, blog/lib]
 
 css_2023: true
 view_transitions: true
+grid_item_class: card
+
+
+# Content settings
 title: Web Framework For UX Developers
 description: Nue is a web framework for UX focused projects. It's the best choice for designers and UX developers.
 title_template: "Nue - %s"
 favicon: /icon/favicon.png
 
-# grid items
-# grid_item_component: clickable-item
-item_class: card
 
-
+# Navigation
 header:
   Branding:
     - image: /img/logo.svg
@@ -63,6 +65,7 @@ footer:
       - Application development: /docs/single-page-applications.html
 
 
+# Markdown link references
 links:
   nuejs: //github.com/nuejs/nue/tree/master/packages/nuejs
   divide: //css-tricks.com/the-great-divide/

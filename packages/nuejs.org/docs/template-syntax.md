@@ -123,13 +123,8 @@ You can pass data to your components with attributes. These can be static or dyn
 [image-gallery ]
 ```
 
-// access to data and arguments
 
-
-
-
-
-#### The <script> tag
+#### The `<script/>` tag
 The instance variables are defined on the script tag that is a direct descendant of the parent and other script tags are removed. However, any script tag with a `type` or `src` attribute is passed directly to the client:
 
 ```

@@ -1,6 +1,6 @@
 
 ---
-appdir: blog/@index
+include: [blog-index]
 content_collection: blog
 aside: false
 pagehead: false

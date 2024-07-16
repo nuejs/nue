@@ -180,7 +180,6 @@ export async function createSite(args) {
         // included only
         if (include.find(match => toPosix(path).includes(match))) paths.push(path)
       }
-
     }
 
     paths.forEach(path => {
@@ -256,7 +255,7 @@ export async function createSite(args) {
     let paths = await getAssets({ dir, exts: ['css'], data })
 
     // syntax highlighting
-    if (data.page?.has_code_blocks && data.glow_css !== false) paths.push(`/@nue/glow.css`)
+    if (data.page?.has_code_blocks && data.syntax_highlight !== false) paths.push(`/@nue/syntax.css`)
 
     // cascading order: globals -> area -> page
     sortCSS({ paths, globals: self.globals, dir })

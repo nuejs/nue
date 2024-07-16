@@ -11,7 +11,7 @@ nue --help
 
 This returns following output
 
-``` nuemark
+``` md
 Usage
   nue [command] [options] [file_matches]
   nue -v or --version

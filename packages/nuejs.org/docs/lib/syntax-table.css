@@ -1,0 +1,16 @@
+
+.syntax-table td {
+  font-family: monospace;
+
+
+  &:first-child {
+    font-weight: 600;
+    color: var(--main-600);
+    &:before { content: "--glow-" }
+  }
+
+  &:last-child {
+    font-family: inherit;
+    color: var(--gray-500);
+  }
+}

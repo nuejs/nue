@@ -285,7 +285,7 @@ export function parseSize(data) {
 
 function createCodeBlock({ content, language, numbered }, attr={}) {
   const code = glow(join(content), { language, numbered })
-  return elem('pre', { glow: true, ...attr }, code)
+  return elem('pre', attr, code)
 }
 
 

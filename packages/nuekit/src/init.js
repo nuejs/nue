@@ -88,7 +88,7 @@ async function initUnderChdir({ dist, is_dev, esbuild, cwd, srcdir, outdir }) {
   await buildFile('mount')
 
   // glow.css
-  await copyAsset('nue-glow/minified/glow.css', 'glow.css')
+  await copyAsset('nue-glow/minified/syntax.css', 'syntax.css')
 
   // dev only
   if (is_dev) {

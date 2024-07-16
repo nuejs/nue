@@ -67,7 +67,7 @@
     }
   }
 
-  [glow] { padding-top: .5em }
+  pre { padding-top: .5em }
 
   h3 { color: var(--gray-200) }
 

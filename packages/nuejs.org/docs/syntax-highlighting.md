@@ -1,13 +1,17 @@
 
+---
+include: [syntax-table]
+---
+
 # Syntax highlighting
-Nue uses automatically highlights syntax blocks with an internal [Glow](/blog/introducing-glow/)  syntax highlighter.
+Nue uses automatically highlights syntax blocks with [Glow](/blog/introducing-glow/). It's a classless and fully semantic library that is specifically designed to work well with the global design system.
 
 
-## Styling
+## Styling syntax blocks
 
 
 ### HTML markup
-Syntax blocks generate fully classless HTML where as the language tokens are marked up with standard HTML tags. For example:
+Syntax blocks consists of standard HTML tags only and there are not class names. For example:
 
 ```
 <pre>
@@ -20,20 +24,8 @@ Syntax blocks generate fully classless HTML where as the language tokens are mar
 ```
 
 
-### Color theme
-Glow uses a dark theme by default
-
-[dark]: //github.com/nuejs/nue/blob/dev/packages/glow/css/dark.css
-[light]: //github.com/nuejs/nue/blob/dev/packages/glow/css/light.css
-
-
-
-### Disabling
-You can skip the inclusion of glow.css by setting `glow_css: false` in the [configuration](/docs/reference/configuration-options.html).
-
-
-### CSS variables
-The styling of the syntax blocks are based on CSS variables. For example:
+### Built-in stylesheet
+Whenever you add a syntax blog or a [code tag](tags.md#code) on your page, Nue automatically includes a [stylesheet](//github.com/nuejs/nue/blob/dev/packages/glow/css/dark.css) for syntax highlighting. It is a highly configurable sytem based on CSS variables. For example:
 
 ```
 /* setting glow variables */
@@ -44,9 +36,18 @@ pre {
 }
 ```
 
-List of all CSS variable names and the associative HTML elements
 
-[table.glow-colors "CSS variable | Default value | HTML tag | Description"]
+If you want full control to your styling, you can disable the build-in stylesheet in `site.yaml`
+
+``` yaml
+syntax_highlight: false
+```
+
+
+### CSS variables and HTML elements
+Here's a list of all CSS variables and the associative HTML elements on a syntax block:
+
+[table.syntax-table "CSS variable | Default value | HTML tag | Description"]
   - accent-color    | \#419fff       | strong   | special emphasis
   - base-color      | \#555          |          | foreground color
   - char-color      | \#64748b       | i        | brackets, commas...
@@ -64,13 +65,13 @@ List of all CSS variable names and the associative HTML elements
   - special-color   | \#fff          | label    | special words to stand out
 
 
-#### Exceptions
+#### Notes
 
-* Some of the variables are attached to a root `pre`- element and others for HTML elements inside the root when the element name is explicitly given on the list.
+* Those CSS variables that have no associalted HTML element are attached to a root `pre`- element.
 
-* Each line is a `span` element and the `--glow-line-number` variable is attached to `span:before` pseudo- element.
+* When line numbers are enabled, each line wrapped inside a `span` element and the `--glow-line-number` variable is attached to `span:before` pseudo- element.
 
-* highlighted rows are colored with a comma comma-separated list of RGB values so that they can be manipulated with CSS color functions. These colors represent the bright border color on the left edge of the highlighted line, and the line background color is calculated with the RGB values and the `--glow-line-opacity` variable. Setting a value such as `rgb(1, 2, 3)` won't work.
+* Highlighted rows are colored with a comma comma-separated list of RGB values so that they can be manipulated with CSS color functions. These colors represent the bright border color on the left edge of the highlighted line, and the line background color is calculated with the RGB values and the `--glow-line-opacity` variable. Setting a value such as `rgb(1, 2, 3)` won't work.
 
 
 ### Language-specific styling
@@ -83,10 +84,11 @@ Use the `language` attribute for language-specific CSS tweaks:
 ```
 
 ### Bolding, italics, and other formatting
-By default glow uses bolding only together with `--glow-special-color`. Other than that all elements have no formatting. Use the HTML element selectors to fine-tune:
+By default glow uses bolding only together with `--glow-special-color`. Other than that all elements have no formatting, just color assignments. You can, of course, make any softs of CSS tweaks to fine tune syntax blocks. For example:
 
 ```
-[glow] {
+/* bold all secondary syntax elements */
+pre {
   em { font-weight: bold }
 }
 ```

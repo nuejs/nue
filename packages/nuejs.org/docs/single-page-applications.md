@@ -1,6 +1,6 @@
 
 # Single-page applications `TODO`
-Nue is a multi-page application builder. That is: you can use the same content-first approach to build content-heavy applications and single-page applications.
+Nue is a general- use web application builder. That is: you can use the same development approach to build content-heavy applications and single-page applications.
 
 [.note]
   ### Note
@@ -36,25 +36,5 @@ You can even use a true typed language like *Rust* or *Go* and compile the appli
 When styling and the application code is decoupled from the UI, the code becomes simple enough for UX developers to manage and scale. Instead of creating a custom components for the various context, the UX developer can use native HTML inputs, buttons, and other elements to build the layout. This dramatically reduces the amount of components and UI code.
 
 The more complex operations narrows down to simple JavaScript calls to the application API and updating the UI accordingly.
-
-
-
-## Building single-page apps
-
-[grid]
-  ### Application logic
-  Content first: SPA developments starts with your data model
-  ---
-
-  ### Views and routing
-  Implement seamless routing between your pages and views
-  ---
-
-  ### Headless UI library
-  Library of common, reusable components for single-page apps
-  ---
-
-  ### Look and feel
-  Extending your design system for SPA development
 
 

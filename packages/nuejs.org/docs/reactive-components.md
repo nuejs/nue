@@ -1,57 +1,48 @@
 
 ---
 # gallery, media-object
-include: [reactive-examples]
+include: [demos, button]
 ---
 
 # Reactive components
-Reactive components have the same [syntax](template-synta) and mounting techniques as the server-side components, but reactive components have the extra capabilities of being interactive: they can respond to user input and render themselves to a new state.
+Reactive components have the same [template syntax](template-syntax.html) and mounting techniques as the server-side components, but reactive components have  extra interactive capabilities: they can respond to user input and render themselves to a new state. They have two use-cases:
 
 
-1. *Islands of interactivity*: more rendering capabilities than what a standard web component can offer, feedback- and login forms, registration flows, or image galleries.
+1. *Islands of interactivity*: use a reactive component when you need more rendering capabilities than what a standard web component can offer. Things like feedback- and login forms, registration flows, or any sort of component with rich interactive features.
 
-2. *Single-page applications*: building blocks for highly interactive [single-page applications](single-page-applications.html)
+2. *Single-page applications*: reactive components are the building blocks for [single-page applications](single-page-applications.html)
 
 
 
-## Creating components
+## Components
 Here is a simple image gallery component. You can navigate the images with the arrow icons and the small gray dots:
 
 [image-gallery]
   images: [tomatoes.jpg, lemons.jpg, peas.jpg, popcorn.jpg]
-  basedir: /demo/img
+  basedir: /img
 
 
 Here's the source code for the reactive component:
 
 ```
-<section @name="image-gallery" class="gallery" translate="no">
+<div @name="image-gallery" class="image-gallery" translate="no">
 
-  <div>
-    <a class="seek prev" @click="index--" :if="index"></a>
-
-    <img src="{ basedir }/{ images[index] }">
-
-    <a class="seek next" @click="index++"
-      :if="images.length - index > 1"></a>
-  </div>
+  <a class="seek prev" @click="index--" :if="index"></a>
+  <img src="{ basedir }/{ images[index] }">
+  <a class="seek next" @click="index++" :if="index + 1 < images.length"></a>
 
   <nav>
-    <a :for="src, i in images"
-      class="{ current: i == index }"
-      @click="index = i"></a>
+    <a :for="src, i in images" class="{ current: i == index }" @click="index = i"></a>
   </nav>
 
   <script>
     index = 0
   </script>
 
-</section>
+</div>
 ```
 
-You can see some basic reactivity in there like loops, and conditionals, but this time these constructs are _reactive_ — they respond to user events and render themselves to a new "state". On this case the only state variable is a numeric `index` that changes as the user clicks the navigational elements.
-
-
+Inside the component, all the control flow operations like loops, and conditionals are _reactive_ — they respond to user events and render themselves to a new "state". Here we have a numeric state variable `index`, which gets updated as the user clicks the navigational elements and the UI automatically changes based on what the value of this variable.
 
 
 
@@ -209,45 +200,44 @@ search() {
 Nue lets you define an `oninsert` callback function that is called every time a new item is added to any of the array properties in the component. This gives you the possibility to add a CSS transition effect (among other things) for the newly added dom nodes. For example:
 
 [animation-demo]
-  items:
-    - title: Alex Martinez
-      desc: Lead frontend developer
-      img: /demo/img/face-3.jpg
-    - title: Sarah Park
-      desc: UI/UX Designer
-      img: /demo/img/face-4.jpg
-    - title: Jamie Huang
-      desc: JS/TS developer
-      img: /demo/img/face-2.jpg
-    - title: Heidi Blum
-      desc: UX developer
-      img: /demo/img/face-1.jpg
-    - title: Adam Nattie
-      desc: Backend developer
-      img: /demo/img/face-5.jpg
-    - title: Mila Harrison
-      desc: Senior frontend developer
-      img: /demo/img/face-6.jpg
+  - title: Alex Martinez
+    desc: Lead frontend developer
+    img: /img/face-3.jpg
+  - title: Sarah Park
+    desc: UI/UX Designer
+    img: /img/face-4.jpg
+  - title: Jamie Huang
+    desc: JS/TS developer
+    img: /img/face-2.jpg
+  - title: Heidi Blum
+    desc: UX developer
+    img: /img/face-1.jpg
+  - title: Adam Nattie
+    desc: Backend developer
+    img: /img/face-5.jpg
+  - title: Mila Harrison
+    desc: Senior frontend developer
+    img: /img/face-6.jpg
 
 
 Here's the source code for the above demo:
 
 ```
-<article @name="animation-demo" class="user-list">
+<div @name="animation-demo">
 
   <button @click="addUser" :disabled="users[5]">
     Add user
   </button>
 
-  <section class="user-list" translate="no">
+  <div class="grid">
     <media-object :for="user in users" :bind="user"/>
-  </section>
+  </div>
 
   <script>
 
     // fill list with the first three available items
     constructor({ items }) {
-      this.users = items.slice(0, 3)
+      this.users = items.slice(0, 2)
     }
 
     // insert a new user from the available items
@@ -259,36 +249,17 @@ Here's the source code for the above demo:
 
     // add a CSS transition class to a newly added dom nodes
     oninsert(node) {
-|     setTimeout(() => node.classList.add('fade-in'), 1)
+>     setTimeout(() => node.classList.add('fade-in'), 1)
     }
   </script>
 
-</article>
+</div>
 ```
 
 
 
 
-## Instance API { #api }
-The application instance is accessible as a return value to `createApp` and via `this` variable inside the lifecycle methods. It has the following attributes and methods:
-
-
-`$el` the root DOM node of the component instance
-
-`$parent` is the root DOM node of the parent instance
-
-`$refs` access to named DOM nodes and inner components inside the component
-
-`mount(root: DOMElement)` mount the instance to the given root element
-
-`unmount()` method to remove the component from the current component tree
-
-`update(data?: Object)` forces the component instance to re-render with optional data. You typically call this event after fetching data from the server or some other asynchronous event.
-
-`mountChild(name, wrap, data)` mounts a new child component on a DOM element inside the current component.
-
-The component re-renders itself automatically after calling an event handler, but you need to call this manually if there is no clear interaction to be detected.
-
+## Component instances
 
 ### Lifecycle methods
 Each component instance goes through a series of steps during its lifetime: first, it is created, then mounted on the page, and then it gets updated one or more times. Sometimes the component is removed or "unmounted" from the page.
@@ -323,9 +294,31 @@ You can hook custom functionality to these steps by creating instance methods wi
 Inside the callback function `this` points to [instance API](#api).
 
 
+### Instancer API { #api }
+The component API is accessible via `this` variable inside the lifecycle methods. It has the following attributes and methods:
+
+
+`root` the root DOM node of the component instance
+
+`$el` alias for "root"
+
+`$parent` is the root DOM node of the parent instance
+
+`$refs` access to named DOM nodes and inner components inside the component
+
+`mount(root: DOMElement)` mount the instance to the given root element
+
+`unmount()` method to remove the component from the current component tree
+
+`update(data?: Object)` forces the component instance to re-render with optional data. You typically call this event after fetching data from the server or some other asynchronous event.
+
+`mountChild(name, wrap, data)` mounts a new child component on a DOM element inside the current component.
+
+The component re-renders itself automatically after calling an event handler, but you need to call this manually if there is no clear interaction to be detected.
+
+
 ### References { #refs }
 You can get a handle to nested DOM element or components  via `$refs` property:
-
 
 ```
 <div @name="my-component">

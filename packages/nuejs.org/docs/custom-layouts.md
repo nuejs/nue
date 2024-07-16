@@ -206,7 +206,7 @@ You can create custom layout components and custom markown extensions for conten
 
   <aside>
     <b>{ name }</b>
-    <a href="//x.com/{ x }">@{ x }</a>
+    <a href="//x.com/{ username }">@{ username }</a>
   </aside>
 </div>
 ```
