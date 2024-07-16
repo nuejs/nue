@@ -9,30 +9,69 @@ Glow is a syntax highligher for markdown.
 [Read the introduction](//nuejs.org/blog/introducing-glow/)
 
 
-### Get started
-Use Glow as a standalone library or together with Nue
+
+## Usage
+Glow is the default highlighter for [Nue web framework](//nuejs.org) so and works "out of the box" in there. Here's how Glow works as a standalone library:
 
 
-#### Standalone library
-Install with NPM and follow [Glow documentation](//nuejs.org/docs/concepts/syntax-highlighting.html)
+### Installation
+First install glow
+
 
 ``` sh
 npm i nue-glow
 ```
 
-#### With Nue
+### Usage
+Here's how it works:
 
-Nue uses Glow in markdown code blocks and it offers [three Nuemark tags](//nuejs.org/docs/reference/nuemark-tags.html#code): `[code]`, `[codeblocks]`, and `[codetabs]` for more advanced usage. Try them out as follows:
+```
+// import highlighter
+import { glow } from 'nue-glow'
 
-``` sh
-# Install Bun (if not done yet)
-curl -fsSL https://bun.sh/install | bash
+const code = '<h1>Hello, World</h1>'
 
-# Install website generator (Nuemark playground)
-bun install nuekit --global
+// render code
+const html = glow(code, { language: 'html', numbered: true })
 
-# Start a Nue project with a Glow-powered template
-bun create nue@latest
+console.info(html) // <code language="html">...</code>
 ```
 
-Choose *"Simple blog"* and off you go.
+
+### Options
+1. `numbered` is a boolean flag indicating whether line numbers should be rendered
+
+1. `language` tells glow the language of the code. This is optional. When not provided, glow attempts to guess the language. If you are formatting markdown, the language parameter "md" must be given so that Glow can deal with all the special cases like "-" starts a new list item, instead of a deleted line.
+
+
+### Return value
+
+```
+<code language="html">...</code>
+```
+
+Note that the `<pre>` code is not returned. It is reserved for the potential Markdown processor who can assign any attributes an class names to it.
+
+
+## Marked integration
+Here's how you integrate Glow into [Marked](//github.com/markedjs/marked) markdown processor:
+
+```
+import { marked } from 'marked'
+import { glow } from 'nue-glow'
+
+// setup a custom renderer for code blocks
+const renderer = {
+  code(input, language) {
+    const html = glow(input, { language, numbered: true })
+    return `<pre>${ html }</pre>`
+  }
+}
+marked.use({ renderer })
+
+// read markdown with a Glow- formatted code block
+const content = '...'
+
+const html = marked.parse(content);
+```
+

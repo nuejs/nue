@@ -1,10 +1,13 @@
 
-[glow] {
+pre {
+  --glow-padding: 1.5em;
+  background-color: var(--glow-bg-color, #20293A);
   color: var(--glow-base-color, #a2aab1);
   counter-reset: line-counter 0;
   padding: var(--glow-padding);
   font-family: monospace;
   line-height: 1.7;
+  overflow-x: auto;
 
   /* reset */
   * {

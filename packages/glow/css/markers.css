@@ -1,6 +1,6 @@
 
 /* marked lines */
-[glow] {
+pre {
   --glow-line-color: 50, 180, 250;
   --glow-del-color: 250, 110, 130;
   --glow-ins-color: 50, 210, 190;

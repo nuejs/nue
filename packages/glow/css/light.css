@@ -1,7 +1,8 @@
 
 /* example light mode */
 
-[glow] {
+pre {
+  --glow-bg-color: #f9f9f9;
   --glow-base-color: #555;
 
   /* brand coloring */
