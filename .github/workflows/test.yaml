@@ -19,7 +19,7 @@ jobs:
           - { os: 'windows-2022', tool: 'node+jest' }
     runs-on: ${{ matrix.env.os }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       # Testing `bun`
       - uses: oven-sh/setup-bun@v1
