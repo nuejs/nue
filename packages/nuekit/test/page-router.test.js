@@ -23,6 +23,10 @@ beforeAll(async () => {
   await nue.build()
 })
 
+afterEach(() => {
+  jest.restoreAllMocks()
+})
+
 afterAll(async () => {
   await fs.rm(dist, { recursive: true, force: true })
 })
@@ -112,8 +116,6 @@ test('renders "/" route and mount component', async () => {
 
   expect(logSpy).toHaveBeenCalledTimes(1)
   expect(logSpy.mock.calls[0][0]).toBe('<app> mounted')
-
-  logSpy.mockRestore()
 })
 
 test('renders "/page" route and mount component when click in a link', async () => {
@@ -167,7 +169,4 @@ test('renders "/page" route and mount component when click in a link', async () 
   expect(logSpy).toHaveBeenCalledTimes(2)
   expect(logSpy.mock.calls[0][0]).toBe('<app> mounted')
   expect(logSpy.mock.calls[1][0]).toBe('<component> mounted')
-
-  logSpy.mockRestore()
-  windowSpy.mockRestore()
 })
