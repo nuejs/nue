@@ -2,6 +2,7 @@
 node_modules
 dist
 .dist
+.env
 .idea
 .vscode
 _test
