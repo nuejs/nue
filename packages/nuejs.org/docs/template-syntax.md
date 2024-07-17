@@ -1,12 +1,13 @@
 
 
 # Template syntax
-Nue comes with a powerful HTML-based template language for building server-side layouts and reactive, client-side components.
+Nue has a built-in template language for developing server-side layouts and reactive, client-side components.
 
 
+### HTML extensions
+Nue is designed for [UX developers](/docs/) who prefer to write user interfaces with clean, semantic HTML instead of spending time with complex React/TypeScript/Tailwind issues.
 
-### HTML extension language
-The syntax is heavily inspired by Vue, but you'll think in terms of HTML rather than JavaScript. For example:
+Think Nue as an HTML-based template language that you can use to extend the standard HTML vocabulary with custom components. These components help you build modern websites and web- applications in a simple, declarative way. For example:
 
 
 ``` html
@@ -20,18 +21,14 @@ The syntax is heavily inspired by Vue, but you'll think in terms of HTML rather 
 </div>
 ```
 
-Nue is designed for [UX developers](ux-development.html) who prefer to write user interfaces with clean, semantic HTML instead of sinking deep inside the React/TypeScript/Tailwind ecosystem.
-
-Think Nue as a HTML-based programming language which you can use to extend the standard HTML vocabularity with custom components. These components help you build modern websites and web- applications in simple, declarative way.
-
-If React is __"just JavaScript"__, then Nue is __"just HTML"__ because any valid HTML is also valid Nue.
+The syntax is heavily inspired by Vue, but you'll think in terms of HTML rather than JavaScript. If React is __"just JavaScript"__, then Nue is __"just HTML"__ because any valid HTML is also valid Nue.
 
 
 
 ### Custom components
 Custom components are the building blocks of your HTML-based layouts and reactive applications. You can loop them, render them conditionally, and they can be nested within other components. They can operate both server-side and client-side. The client-side, [reactive components](reactive-components.html) are interactive: they can respond to user input and render themselves to a new state.
 
-Essentially components are HTML fragments that have a name an this name is given in a `@name` attribute:
+Essentially components are HTML fragments that have a name and this name is given in a `@name` attribute:
 
 ```
 <div •@name="media-object"• class="{ class }">
@@ -58,25 +55,18 @@ You can place components inside other components to form more complex applicatio
 ```
 
 
-### Saving
-Nue allows you to define multiple components on a single file.
-
-.htm or .nue extension. As many components as you want.
-
-
 ### Mounting
-You can mount the gallery component on your Markdown files
+Nue allows you to define multiple components on a single file with a `.htm` or `.nue` extension. After being saved you can mount components on your Markdown files. For example:
 
 ```
 [image-gallery]
 ```
 
-Or you can mount them within your server-side [layout components](custom-layouts.html)
+You can also mount them within your server-side [layout components](custom-layouts.html)
 
 ```
 <image-gallery/>
 ```
-
 
 
 ### Scripting
@@ -116,16 +106,15 @@ Check out the reasoning behind classes and the HTML-based syntax from our blog e
 
 
 
-### Attributes and data
-You can pass data to your components with attributes. These can be static or dynamic, and the values can be anything: strings, numbers, arrays, and objects. Here we pass the business model object to the application header component in `:model` attribute.
+### Passing data
+You can pass data to your components with attributes. These can be static or dynamic, and the values can be anything: strings, numbers, arrays, and objects. Here we pass a simple number:
 
 ```
-[image-gallery ]
+[image-gallery index="1"]
 ```
 
-
-#### The `<script/>` tag
-The instance variables are defined on the script tag that is a direct descendant of the parent and other script tags are removed. However, any script tag with a `type` or `src` attribute is passed directly to the client:
+### The &lt;script&gt; tag { #script-tag }
+The instance variables are defined on the script tag that is a direct descendant of the parent. Other script tags are simply removed unless they have a `type` or `src` attribute:
 
 ```
 <!-- passed to the client directly -->
@@ -157,7 +146,7 @@ Is rendered as
 
 
 ### Slots
-Slots hellp you build highly reusable, multi-purpose components. They offer a way for the parent component to inherit functionality from a child:
+Slots help you build highly reusable, multi-purpose components. They offer a way for the parent component to inherit functionality from a child:
 
 
 ```
@@ -167,7 +156,7 @@ Slots hellp you build highly reusable, multi-purpose components. They offer a wa
   <aside>
     <h3>{ title }</h3>
     <p>{ desc }</p>
-|   <slot/>
+>   <slot/>
   </aside>
 </div>
 ```
@@ -385,7 +374,7 @@ This would be rendered as:
 
 
 ### `$attrs` property
-All parent attributes are available via the `$attrs` property. Here, the nested input field will inherit all parent attributes
+All parent attributes are available via the `$attrs` property. Here, the nested input field will inherit all parent attributes.
 
 ```
 <label @name="field">

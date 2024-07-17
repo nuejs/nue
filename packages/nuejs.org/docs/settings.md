@@ -3,7 +3,7 @@
 class: apidoc
 ---
 
-# Settings
+# Settings and metadata
 Nue has a [hierarchical system](project-structure.html#data) for settings and and configuration options. Here are all settings for Nue and your site, pages, and components.
 
 
@@ -53,7 +53,6 @@ Setting this to `true` enables [view transitions](reactivity.html#view-transitio
 
 
 
-===
 
 
 ## Site settings
@@ -97,7 +96,6 @@ The [viewport](//developer.mozilla.org/en-US/docs/Web/HTML/Viewport_meta_tag) va
 
 
 
-===
 
 ## Layout settings
 Settings to define the global navigational elements on your page with a common [YAML-based syntax](page-layout.html#nav-syntax).
@@ -116,7 +114,6 @@ You can [disable individual layouts](custom-layouts.html#disabling) for areas or
 
 
 
-===
 
 
 ## Area settings
@@ -141,7 +138,6 @@ Specifies a Web Component for your page sections. [Learn more](reactivity.html#s
 
 
 
-===
 
 
 

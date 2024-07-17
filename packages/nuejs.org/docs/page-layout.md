@@ -1,6 +1,6 @@
 
 # Page layout
-Nue standardizes the structure of your web pages so you can use the same HTML, but write modern CSS to achieve wildly different designs.
+Nue standardizes the structure of your web pages so you can use the same HTML markup, but vary your external CSS to achieve wildly different designs.
 
 
 ## Headless markup
@@ -77,7 +77,7 @@ Your head element will be rendered as follows:
 ## Global navigation
 Nue offers a simple, [YAML-based syntax](#nav-syntax) for defining all the site-wide navigation elements: global header and footer, the burger menu, dropdown menus, and any other complementary menus you may have. This declarative syntax is beneficial for several reasons:
 
-1. It always produces the same markup accross projects that you can rely on when styling your website.
+1. It always produces the same markup accross projects that you can rely on when styling your website. This adapts to the idea of the global design system.
 
 1. You can define your information architecture and start the CSS development immediately without going deep with the content.
 
@@ -395,9 +395,9 @@ Nue [extends](content.html) the basic Markdown syntax to make it suitable for as
 <body>
   <main>
     <article>
-      <section>
->       <!-- the content goes here -->
-      </section>
+>     <section>
+>       <p>The content goes here</p>
+>     </section>
     </article>
   </main>
 </body>
@@ -409,17 +409,19 @@ The content is always nested inside one or more section elements. A multi-sectio
 
 ```
 <article>
-  <section>
+
+> <section>
     <h1>Hello, World!</h1>
     <p>First section</p>
   </section>
 
-  <section>
+> <section>
     <h2 id="hello-again">
       <a href="#hello-again" title="Hello again"></a>Hello again
     </h2>
     <p>Another section</p>
   </section>
+
 </article>
 ```
 
@@ -431,7 +433,7 @@ The `section` elements are direct descendants of the article and cannot occur an
 You typically want to define classes for the sections for styling purposes. These classes (and IDs) can be defined explicitly after the section separator. For example:
 
 
-``` yaml
+``` md
 \--- •#my-id.class-name•
 
 # Section title
@@ -533,10 +535,10 @@ While you can also set up these properties directly on the grid tag, it's better
 ### Markdown generated HTML
 Markdown content can reside within sections, blocks, and grid items. The generated HTML is restricted to: `h1`, `h2`, `h3`, `h4`, `h5`, `h6`, `p`, `strong`, `em`, `a`, `ul`, `li`, `blockquote`, and `code`.
 
-The design of these tags should be [context-specific](ux-development.html#fff). For example, technical content is typically styled differently than marketing content.
+The design of these tags should be [context-specific](css-best-practices.html#fff). For example, technical content is typically styled differently than marketing content.
 
 
-## Basic built-in tags
+## Built-in tags
 
 
 ### Button
@@ -704,7 +706,7 @@ Code blocks with a title are rendered as follows:
 ```
 <figure>
   <figcaption>
-    <h3>Title of the codeblock <b>with formatting</b></h3>
+    Title of the codeblock <b>with formatting</b>
   </figcaption>
 
   <pre>

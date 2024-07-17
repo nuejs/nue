@@ -105,7 +105,7 @@ article {
     }
   }
 
-  figcaption {
+  > figcaption {
     color: var(--gray-600);
     margin: .7em 0 0 0;
     font-size: 80%;
@@ -132,24 +132,25 @@ article {
 
 
   blockquote {
-    margin: 2.5em 0;
+    margin: 2.5em 0 5em;
 
     p {
-      border-left: .15em solid var(--gray-950);
+      border-left: .15em solid var(--main-400);
       padding-left: .75em;
-      font-size: 120%;
+      font-size: 115%;
       font-weight: 600;
       line-height: 1.45;
       text-wrap: balance;
-      color: var(--gray-900);
+      color: black;
     }
     em {
       color: var(--gray-600);
       font-weight: 500;
-      margin-top: 1em;
+      margin-top: .5em;
       display: block;
-      font-size: 1rem;
-
+      font-size: .95rem;
+      font-style: normal;
+      position: absolute;
       &:before {
         content: '— ';
       }
@@ -158,9 +159,16 @@ article {
 
 }
 
+p del {
+  text-decoration: none;
+  background-color: var(--yellow);
+  font-weight: 550;
+  padding: .2em;
+  color: black;
+}
 
 /* permlinks */
-h2[id], article > h3[id] {
+h2[id], section > h3[id] {
   position: relative;
 
   a {

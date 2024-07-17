@@ -27,7 +27,7 @@
     margin-bottom: -.5em;
   }
 
-  &.clickable {
+  &:has(a) {
     cursor: pointer;
     &:hover {
       box-shadow: 0 0 0 2px white, 0 0 0 4px var(--main-500);
@@ -36,16 +36,18 @@
 }
 
 .note {
-  border-left: 4px solid var(--main-500);
-  padding: .5em 1.2em;
+  border: var(--border);
+  border-left: 2px solid var(--main-500);
+  background-color: var(--main-50);
+  padding: 1.2em;
   margin: 2em 0;
+  font-size: 95%;
 
   > :first-child {
     background: url(/icon/info.svg) no-repeat;
-    background-size: .9em;
     background-position: 0 center;
-    padding-left: 1.2em;
-    color: var(--main-600);
+    background-size: 1em;
+    padding-left: 1.3em;
     margin: 0 0 .3em;
   }
 }

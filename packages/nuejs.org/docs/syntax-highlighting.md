@@ -11,7 +11,7 @@ Nue uses automatically highlights syntax blocks with [Glow](/blog/introducing-gl
 
 
 ### HTML markup
-Syntax blocks consists of standard HTML tags only and there are not class names. For example:
+Syntax blocks consist of standard HTML tags only and there are no class names. For example:
 
 ```
 <pre>
@@ -25,7 +25,7 @@ Syntax blocks consists of standard HTML tags only and there are not class names.
 
 
 ### Built-in stylesheet
-Whenever you add a syntax blog or a [code tag](tags.md#code) on your page, Nue automatically includes a [stylesheet](//github.com/nuejs/nue/blob/dev/packages/glow/css/dark.css) for syntax highlighting. It is a highly configurable sytem based on CSS variables. For example:
+Whenever you add a syntax blog or a [code tag](tags.md#code) on your page, Nue automatically includes a [stylesheet](//github.com/nuejs/nue/blob/dev/packages/glow/css/dark.css) for syntax highlighting. It is a highly configurable system based on CSS variables. For example:
 
 ```
 /* setting glow variables */
@@ -37,7 +37,7 @@ pre {
 ```
 
 
-If you want full control to your styling, you can disable the build-in stylesheet in `site.yaml`
+If you want full control of your styling, you can disable the build-in stylesheet in `site.yaml`
 
 ``` yaml
 syntax_highlight: false
@@ -54,10 +54,10 @@ Here's a list of all CSS variables and the associative HTML elements on a syntax
   - comment-color   | \#4e5d61       | sup      | comments
   - counter-color   | \#475569       |          | line numbers
   - del-color       | 250, 110, 130  | del      | deleted lines
-  - error-color     | \#ff0          | u        | erroreous words
+  - error-color     | \#ff0          | u        | erroneous words
   - ins-color       | 50, 210, 190   | ins      | inserted lines
   - line-color      | 50, 180, 250   | dfn      | highlighted lines
-  - line-opacity    | 0.15           |          | highligted line opacity
+  - line-opacity    | 0.15           |          | highlighted line opacity
   - padding         | 1em            |          | container padding
   - primary-color   | \#7dd3fc       | b        | primary accent color
   - secondary-color | \#f472b6       | em       | secondary accent color
@@ -67,11 +67,11 @@ Here's a list of all CSS variables and the associative HTML elements on a syntax
 
 #### Notes
 
-* Those CSS variables that have no associalted HTML element are attached to a root `pre`- element.
+* CSS variables with no associated HTML element are attached to a root `pre`- element.
 
-* When line numbers are enabled, each line wrapped inside a `span` element and the `--glow-line-number` variable is attached to `span:before` pseudo- element.
+* When line numbers are enabled, each line is wrapped inside a `span` element, and the `--glow-line-number` variable is attached to the `span:before` pseudo-element.
 
-* Highlighted rows are colored with a comma comma-separated list of RGB values so that they can be manipulated with CSS color functions. These colors represent the bright border color on the left edge of the highlighted line, and the line background color is calculated with the RGB values and the `--glow-line-opacity` variable. Setting a value such as `rgb(1, 2, 3)` won't work.
+* Highlighted rows are colored with a comma-comma-separated list of RGB values so that they can be manipulated with CSS color functions. These colors represent the bright border color on the left edge of the highlighted line, and the line background color is calculated with the RGB values and the `--glow-line-opacity` variable. Setting a value such as `rgb(1, 2, 3)` won't work.
 
 
 ### Language-specific styling
@@ -84,7 +84,7 @@ Use the `language` attribute for language-specific CSS tweaks:
 ```
 
 ### Bolding, italics, and other formatting
-By default glow uses bolding only together with `--glow-special-color`. Other than that all elements have no formatting, just color assignments. You can, of course, make any softs of CSS tweaks to fine tune syntax blocks. For example:
+By default glow uses bolding only together with `--glow-special-color`. Other than that all elements have no formatting, just color assignments. You can, of course, make any softs of CSS tweaks to fine-tune syntax blocks. For example:
 
 ```
 /* bold all secondary syntax elements */
@@ -92,9 +92,5 @@ pre {
   em { font-weight: bold }
 }
 ```
-
-
-
-
 
 

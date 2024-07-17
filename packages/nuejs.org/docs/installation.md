@@ -1,18 +1,14 @@
 
----
-title: Getting started with Nue / Nue docs
-class: no-aside
----
 
 # Installing Nue
 
-[.note]
-  ### Status: Beta
-  You can use Nue to build production-ready websites, but with following limitations:
 
-  * **Sketchy Windows support.** Nue does not work under Windows but we're [working on it](https://github.com/nuejs/nue/issues/249)
+## Status: Beta
+You can use Nue to build production-ready websites, but with following limitations:
 
-  * **No support for single-page applications.** There is a tutorial on [building a simple SPA](//localhost:8082/docs/tutorials/build-a-simple-spa.html), but the support for full-blown reactive applications is very much in progress. All issues regarding Nue JS are marked as [low priority](https://github.com/nuejs/nue/labels/low%20priority) because the focus is currently on content-heavy multi-page applications.
+* **Sketchy Windows support.** Nue does not work under Windows but we're [working on it](https://github.com/nuejs/nue/issues/249)
+
+* [Single-page applications](single-page-applications.html) are a central part of Nue's roadmap, but the current focus is currently on content-heavy multi-page applications. All SPA-related issues are marked [low priority](https://github.com/nuejs/nue/labels/low%20priority).
 
 
 ## System Requirements
@@ -30,7 +26,7 @@ curl -fsSL https://bun.sh/install | bash
 ```
 
 ## 2. Install Nue
-Nue comes with a [command line interface](reference/command-line-interface.html) (CLI), which can be reused across multiple websitess. You only need to install it once and after that you have a generic `nue` executable available in your console:
+Nue comes with a [command line interface](reference/command-line-interface.html) (CLI), which can be reused across multiple websites. You only need to install it once and after that, you have a generic `nue` executable available in your console:
 
 
 ``` sh

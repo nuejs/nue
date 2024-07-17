@@ -1,7 +1,7 @@
 
 
 # Project Structure
-Nue projects consists of one or more _applications_. Each directory on the root of your project folder is a separate application with it's own configuration, layout, styling, and dynamics.
+Nue projects consist of one or more _applications_. Each directory on the root of your project folder is a separate application with its own configuration, layout, styling, and scripting.
 
 [image.gridpaper]
   small: /img/application-dirs.png
@@ -15,9 +15,9 @@ Nue does not force you to any fixed directory structure: there are no system fol
 ## Applications
 Nue is designed for building two kinds of applications:
 
-1. *Multi-page applications*. These are content-focused applications consisting of Markdown files. Good examples are documentation, blogging area, or a feature tour. These apps are rendered server-side so that they can be easily consumed by search engines. The use of client-side JavaScript is optional.
+1. **Multi-page applications**. These are content-focused applications consisting of Markdown files. Good examples are documentation, blogging area, or a feature tour. These apps are rendered server-side so that they can be easily consumed by search engines. The use of client-side JavaScript is optional.
 
-2. [Single-page applications](single-page-applications) consist of a single `index.html` file that serves all the HTML requests within the app. Good examples are admin dashboards, onboarding flows, surveys, or login pages. The application is rendered on the client side with reactive components. These apps are usually hidden from search engines.
+2. [Single-page applications](single-page applications) consist of a single `index.html` file that serves all the HTML requests within the app. Good examples are admin dashboards, onboarding flows, surveys, or login pages. The application is rendered on the client side with reactive components. These apps are usually hidden from search engines.
 
 
 [image.gridpaper]
@@ -33,13 +33,13 @@ Pages are the building blocks of multi-page applications. These pages are writte
 ### Page data { #data }
 Each page is backed with different kinds of data:
 
-1. *Metadata* like title, description, theme color, favicon, and hero image. This data is made accessible for search engines and [content colllections](content-collections)
+1. **Metadata** like title, description, theme color, favicon, and hero image. This data is made accessible for search engines and [content colllections](content-collections)
 
-1. *Settings* to fine tune rendering details like whether CSS should be inlined on the page or what styles can be excluded from the page.
+1. **Settings** to fine-tune rendering details like whether CSS should be inlined on the page or what styles can be excluded from the page.
 
-1. *Dependencies* — information about scripts, styles, components, and other assets that the page functionality depends on.
+1. **Dependencies** — information about scripts, styles, components, and other assets that the page functionality depends on.
 
-1. *Components* for rendering headers, footers, sidebars and other components inside or outside the page.
+1. **Components** for rendering headers, footers, sidebars, and other components inside or outside the page.
 
 
 
@@ -48,11 +48,11 @@ The data is defined in three levels:
 
 1. The global, site-wide data is defined in `site.yaml` at the root directory
 
-2. Application data is defined in `app.yaml` file inside the application directory. Application subdirectories can have their own app.yaml files.
+2. Application data is defined in `*.yaml` files inside the application directory. Each application subdirectory can also have its own data files.
 
 3. Ppage-specific data is defined in the *frontmatter* section of the Markdown page.
 
-The data gets extended as you move from site level to the page level.
+The data gets extended as you move from the site level to the page level.
 
 [image.gridpaper]
   small: /img/data-propagation.png
@@ -112,25 +112,25 @@ With the above configuration in place, the document's `<head>` section is render
 </head>
 ```
 
-
 [.note]
   ### Why YAML?
-  Nue uses YAML as the main configuration language. While it has some issues, it is the most content-focused format with least amount of special characters. It is by far the easiest data format for non-technical people and is widely in use in Markdown-powered site generators.
+  Nue uses YAML as the main configuration language. As a content-focused format, it is by far the easiest one to gasp by non-technical people. It is the default choice in most Markdown-powered website generators.
+
 
 
 ## Page dependencies
-Your pages can have following kind of depenencies to enhance it's looks and behaviour:
+All your pages have different kinds of dependencies to enhance their look and feel:
 
 [table.api "Extension | Type"]
   - .js   | JavaScript files for [motion and reactivity](reactivity.html)
   - .ts   | TypeScript files for [motion and reactivity](reactivity.html)
-  - .css  | CSS files for [UX development](ux-development.html)
+  - .css  | CSS files for [styling](css-best-practices.html)
   - .html | [Custom layouts](custom-layouts.html) and server-side components
   - .htm  | [Reactive components](reactive-components.html)
   - .nue  | [Reactive components](reactive-components.html)
 
 
-All scripts, styles, and components are automatically included in page dependency tree similar to how data is propagated. The assets on the application root are included in all pages in the app and subdirectory assets are included for the pages in that subdirectory. For example:
+The scripts, styles, and components are automatically included in the page dependency tree similar to how data is propagated. The assets on the application root are included in all pages in the app and subdirectory assets are included for the pages in that subdirectory. For example:
 
 
 [image.gridpaper]
@@ -145,9 +145,9 @@ You can define directories that are global in `site.yaml`. For example:
 globals: [ "@globals", "scripts", "styles" ]
 ```
 
-If a global directory resides on the root level, then all assets inside that directory are automatically included to every page, regardless of which app they belong to or how deeply they are nested on the file system.
+If a global directory resides on the root level, then all assets inside that directory are automatically included on every page, regardless of which app they belong to or how deeply they are nested in the file system.
 
-When a global directory resides inside an application directory, then all assets in the directory are included on all pages on the app. Here, for example, we have defined `@globals` and `css` as global dirs:
+When a global directory resides inside an application directory, then all assets in the directory are included on all pages of the app. Here, for example, we have defined `@globals` and `css` as global dirs:
 
 
 [image.gridpaper]
@@ -162,17 +162,17 @@ Library folders contain assets that can be explicitly included on a page with an
 libs: ["@lib", lib]
 ```
 
-Here's how you include assets in `site.yaml`, `app.yaml`, or in page's frontmatter:
+Here's how you include assets in `site.yaml`, `app.yaml`, or in the page's frontmatter:
 
 ``` yaml
 include: [syntax-highlight, video]
 ```
 
-The values from all scopes are _concatenated_ into a one single array and the matches are partial so that a value such as "syntax" will match both "syntax-highlight" and "syntax-extras".
+The values from all scopes are _concatenated_ into one single array and the matches are partial so that a value such as "syntax" will match both "syntax-highlight" and "syntax-extras".
 
 
-#### Exclulding assets
-Include on all blog entries, but not in the blog index page.
+#### Excluding assets
+Include on all blog entries, but not on the blog index page.
 
 
 ```
@@ -180,15 +180,15 @@ exclude: [syntax-highlight, video]
 ```
 
 #### Example
-Here's a more complex example to give you on idea how dependencies are calculated:
+Here's a more complex example to give you an idea how dependencies are calculated:
 
 [image.gridpaper]
   small: /img/libraries.png
   large: /img/libraries-big.png
 
 
-### Front page
-All scripts, styles, and components in the root level are dependencies for the front page and all other root level pages so they are not propageated onwards for the application directories.
+### Frontpage
+All scripts, styles, and components in the root level are dependencies for the front page and all other root level pages so they are not propagated onwards for the application directories.
 
 You may want to clean up the root directory from front page assets by placing them into some folder, like "home" and assigning the application directory in the frontmatter area of the front page:
 
@@ -201,7 +201,7 @@ With the above setting all assets inside the "home" directory become dependencie
 
 
 ### Static files
-Static files like `.png`, `.jpg`, `.txt`, `.csv`, or `.json` are simply copied from the source directory to the distribution directory without processing. They work outside the page dependency management system.
+Static files like `.png`, `.jpg`, `.txt`, `.csv`, or `.json` are copied directly from the source directory to the distribution directory without processing. They work outside the page dependency management system.
 
 
 

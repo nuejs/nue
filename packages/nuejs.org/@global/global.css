@@ -22,10 +22,12 @@
   --main-500: #3E8DEF;
   --main-600: #0284c7;
 
-  --red:      #ef4444;
+  /*  --red:      #ef4444;*/
+  --red:      #fb7185;
   --pink:     #e200ff;
   --purple:   #A438ED;
   --yellow:   #f5ff20;
+  --green:    #06d4a1;
 
 
   /*

@@ -1,7 +1,7 @@
 
 
 # Hello, World!
-In this tutorial, you’ll see some Nue's key features by building a fully functioning blog from scratch
+In this tutorial, you’ll see some Nue's key features by building a fully functioning blog from scratch.
 
 [image]
   small: /img/simple-blog.png
@@ -103,7 +103,7 @@ Again, as you edit the metadata you can see your page title change on the browse
 
 
 ### Complete the page
-Then we add a folder called `img` to hold all our images and complete editing the content and styling until we are happy. And we can watch the page evolve on the browser from start to finish in a "What you see is what you get" (WYSIWYG) manner.
+Next we style the page with Nue's [CSS best practices](css-best-practices.html) while enjoying the power of hot-reloading. You can watch the page evolve on the browser from start to finish.
 
 [image]
   small: /img/blog-entry.png
@@ -117,7 +117,7 @@ Next we turn our blog into something more usable
 
 
 ### Add headers and footers
-We start by creating a file called `layout.html` and adding global headers and footers to it:
+We start by creating a [custom layout file](custom-layouts.html) called `layout.html` and add our global header and footer to it:
 
 
 ```
@@ -140,7 +140,7 @@ We start by creating a file called `layout.html` and adding global headers and f
 
 
 ### Add shared data
-Then we add a data file called `site.yaml` with all the site-wide data to fill our personal information and other basic data being used on our header and footer:
+Then we add a data file called `site.yaml` with all the site-wide data to fill in our personal information and other basic data being used on our header and footer:
 
 
 ``` yaml
@@ -208,7 +208,7 @@ Pretty good. Of course, hot-reloading was there to provide a great content autho
 
 
 
-### Create blog index
+### Create a blog index
 Next, we move all our pages to the `posts` folder to make room for our new front page, which lists all our entries from newest to latest. Nue treats the `posts` directory as a separate *multi-page application* that can be configured with its layout and styling.
 
 We also add a new `global` folder to hold all our global components and styles. The root directory has assets for the front page only, and the posts directory has assets for our blog entries only. Here's what our folder structure looks like:

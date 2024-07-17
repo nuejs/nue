@@ -1,26 +1,30 @@
 
 
 # Content authoring
-Nue comes with a simple content assembly language for marketers, copywrites, and technical writers. You can rapidly build complex web pages without ever touching a single line of code. You no longer need complex cloud-based content management systems. Just simple versionable text-files, directly accessible on your file system, and editable with your favourite editor.
+Nue has a powerful content authoring syntax for marketers, copywriters, and technical writers. You can rapidly assemble complex web pages without ever touching a single line of code or the need to set up complex cloud-based content database systems—just simple versionable text files, directly accessible on your file system, and editable with your favorite editor.
 
+
+! video: editing front page content/documentation / blog entries
 
 
 ## Extended Markdown
-Nue offers an expressive *Markdown* flavor for rich, interactive content. It comes with additional support for sections, content blocks, grids, stacked layouts, responsive images, videos, tabs, and more. All your content, from simple blog entries to rich landing pages are editable by non-technical people. Just edit the content and see your website shaping up in real time.
+The content authoring syntax is based on *Markdown*, but extends its capabilities to make it suitable for authoring rich, interactive content. It supports sections, content blocks, grids, stacked layouts, responsive images, videos, tabs, and more. All your content, from simple blog entries to rich landing pages is editable by non-technical people.
 
-! video: editing front page
+Thanks to universal hot-reloading, the content authors can see the results in real time as they edit the content.
 
-Think Nue like *WordPress*, *Notion*, but the content is editable with your favorite text editor and is compatible with your design system. The versatile syntax allows you to build complex landing pages comparable to what you can build with tools like *Framer* or *WebFlow*.
+Think Nue like *WordPress*, *Notion*, but the content is editable with your favorite text editor and the results are compatible with your design system. The versatile syntax allows you to build complex landing pages comparable to what you can create with online authoring tools like *Framer* or *WebFlow*.
 
 
 
 ## Syntax
-Nue offers a full [Markdown support](https://daringfireball.net/projects/markdown/). You can manage your website content using an easy-to-read, easy-to-write plain text format. All the familiar things like headings, quotes, lists, and fenced code blocks are there:
+Nue offers a full [Markdown support](//daringfireball.net/projects/markdown/). That is: all the familiar things like headings, quotes, lists, and fenced code blocks are supported:
 
 
 ``` md
 # First level heading
 A paragraph with **bold** and _italics_ and `inline code`
+
+![An image](/path/to/image.webp)
 
 ## Second level heading
 
@@ -33,8 +37,7 @@ A paragraph with **bold** and _italics_ and `inline code`
 Followed with
 
 * An unordered
-* list of
-* items
+* list of items
 
 \```
 // here is a javascript code block
@@ -42,8 +45,6 @@ function hello() {
   return "world"
 }
 \```
-
-![An image](/path/to/image.webp)
 ```
 
 
@@ -90,7 +91,7 @@ Tags are like WordPress shortcodes, but the syntax is simpler and less verbose.
 
 
 ### Blocks
-Blocks are chunks of content with an alternate styling. Think highlighted content like tips, notes, and alerts. The syntax takes the form of `[.classname]`. For example:
+Blocks are chunks of content with an alternate styling. Think of highlighted content like tips, notes, and alerts. The syntax takes the form of `[.classname]`. For example:
 
 ``` md
 [.note]
@@ -102,7 +103,7 @@ The "note" must be specified on your design system and the design should be impl
 
 
 ### Stacks
-Block content can be dividied into multi-block layouts where each item is separated with a triple-dash. For example:
+Block content can be divided into multi-block layouts where each item is separated with a triple-dash. For example:
 
 ``` md
 [.stack]
@@ -118,7 +119,7 @@ Again, the name "stack" must be implemented in your website CSS by the UX develo
 
 
 ### Grids
-[Grid](tags.html#grids) is a built-in tag used like the stack but is meant for more complex layouts. They have more configuration options and their visual appearacnce and behaviour can be enhanced with JavaScript.
+[Grid](tags.html#grids) is a built-in tag used like the stack but is meant for more complex layouts. They have more configuration options and their visual appearance and behavior can be enhanced with JavaScript.
 
 
 ``` md
@@ -143,7 +144,7 @@ Blocks, stacks, and grids can be nested to form more complex layouts on your ric
 ``` md
 [.feature]
   ## Hello, World!
-  Lets put a nested stack here
+  Let's put a nested stack here
 
   [.stack]
     ### First item
@@ -156,7 +157,7 @@ Blocks, stacks, and grids can be nested to form more complex layouts on your ric
 
 
 ### Custom tags
-Your UX developer can easily [extend](custom-layouts.html#custom-md) the Markdown vocabularity with new tags that operate on the server-side, client-side, or both. Ask the UX developer for the list of available extensions.
+Your UX developer can easily [extend](custom-layouts.html#custom-md) the Markdown vocabulary with new tags that operate on the server-side, client side, or both. Ask the UX developer for the list of available extensions.
 
 
 

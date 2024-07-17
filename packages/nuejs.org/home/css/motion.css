@@ -56,7 +56,7 @@ body > header {
   }
 }
 
-article > section > * {
+section > * {
   transition: .5s;
   transform: translateY(2em);
   opacity: 0;

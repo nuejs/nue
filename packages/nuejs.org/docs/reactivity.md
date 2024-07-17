@@ -29,7 +29,7 @@ view_transitions: true
 
 [.note]
   ### Note
-  In the future version of Nue, the transitions are also supported in [single-page applications](single-page-applications.html), after which you can seamlessly transition between the content-focused pages and the views of the single-page application.
+  Future versions of Nue will also support view transitions in [single-page applications](single-page-applications.html). The user can seamlessly switch between the content-focused pages and the views of the single-page application and experience the transition effect defined on your design system.
 
 
 
@@ -92,13 +92,12 @@ Again, this was a super simple and clean syntax for defining a scroll-linked ani
 
 
 ## Web Components
-Loading a heavy front-end library is not always the best choice for simple reactivity. It's often better to go with native [Web Components](//developer.mozilla.org/en-US/docs/Web/API/Web_components) because they work natively on the browser and are super simple to use.
-
+Loading a heavy front-end library is not always the best choice for simple reactivity. It's often better to go with [Web Components](//developer.mozilla.org/en-US/docs/Web/API/Web_components) because they are mounted natively by the browser and are easy to write for simple things.
 
 
 
 ### Simple enhancements
-Web Components are perfect for simple things that [progressively enhance](//developer.mozilla.org/en-US/docs/Glossary/Progressive_Enhancement) the HTML markup that is already present on the document. For example, the "Zen Mode"- toggle on this documentation area is a simple checkbox whose behavior is implemented as a Web Component by binding the behavior to the element with [is attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/is):
+Web Components are great for simple things that [progressively enhance](//developer.mozilla.org/en-US/docs/Glossary/Progressive_Enhancement) the HTML markup that is already present on the document. For example, the "Zen Mode"- toggle on this documentation area is a simple checkbox whose behavior is implemented as a Web Component by binding the behavior to the element with [is attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/is):
 
 
 ```
@@ -106,7 +105,7 @@ Web Components are perfect for simple things that [progressively enhance](//deve
 ```
 
 
-Create a JavaScript file (with a .js extension) and create the components:
+The input behavior is implemented in a JavaScript file (with a .js extension) as follows:
 
 
 ``` js
@@ -122,9 +121,7 @@ class ZenToggle extends HTMLInputElement {
 customElements.define('zen-toggle', ZenToggle, { extends: 'input' })
 ```
 
-One major benefit of using a Web Component is that the browser automatically takes care of component mounting and you have hooks for cleaning up resources when the component is removed from the DOM.
-
-For this reason, they work nicely together with [view transitions](#view-transitions).
+One major benefit of using a Web Component is that the browser automatically takes care of component mounting and you have hooks for cleaning up resources when the component is removed from the DOM. They work nicely together with [view transitions](#view-transitions) without extra coding for setting things up
 
 
 
@@ -187,13 +184,12 @@ section > * {
 
 
 ### Dynamic grid items { #grid-items }
-Similar to [sections](#sections), you can also turn your grid items into web components. This happens with a `grid_item_component` configuration option, which can be assigned in the front matter, globally in `site.yaml`, or for a specific area. Here, for example, we turn the grid items into dynamic gallery items.
+Similar to [section dynamics](#sections), you can also turn your grid items into web components. This happens with a `grid_item_component` configuration option, which can be assigned in the front matter, globally in `site.yaml`, or for a specific area. Here, for example, we turn the grid items into dynamic gallery items.
 
 
 ```
 grid_item_component: gallery-item
 ```
-
 
 
 ### Custom Markdown extensions
@@ -226,7 +222,7 @@ More complex components with dynamically generated HTML are better implemented w
 
 
 
-### Islands of interactivity
+### Islands of Interactivity
 Reactive islands are interactive components within the server-rendered, static HTML. This progressively rendering pattern is called the [islands architecture](//www.patterns.dev/vanilla/islands-architecture/). On this website, we have "join mailing list" islands, that  are implemented as follows:
 
 ```

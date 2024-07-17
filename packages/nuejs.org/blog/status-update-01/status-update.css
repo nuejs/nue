@@ -16,7 +16,7 @@
   }
 }
 
-article > h4:has(a) {
+section > h4:has(a) {
   font-weight: 400;
   font-size: 85%;
   margin-top: 3em;

@@ -19,7 +19,7 @@ class ObservingNav extends HTMLElement {
       rootMargin: '-300px'
     })
 
-    $$('article > h2, article > h3').forEach(el => this.observer.observe(el))
+    $$('section > h2, section > h3').forEach(el => this.observer.observe(el))
   }
 
   disconnectedCallback() {

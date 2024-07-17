@@ -1,10 +1,7 @@
 
----
-class: apidoc
----
 
-# Custom layout
-You can alter the generated HTML by defining custom layout modules to the various slots in the global design system:
+# Custom layouts
+The design system consists of various "slots" that you can fill or replace with custom template content.
 
 ! slots
 
@@ -23,7 +20,7 @@ You can alter the generated HTML by defining custom layout modules to the variou
 // @menu
 
 
-For example, if we want to add a custom banner above the global header you'd create a layout module called "banner" as follows:
+For example, if you want to add a custom banner above the global header you'd create a layout module called "banner":
 
 ```
 <div •@name="banner"•>
@@ -32,7 +29,7 @@ For example, if we want to add a custom banner above the global header you'd cre
 </div>
 ```
 
-For more generic elements, that HTML tag name itself defines the slot. For example, a custom `aside` tag is always placed prior the `main` element:
+The header, footer, and sidebar don't require any specific name because the slot is identified directly from the HTML tag name. For example, a custom `aside` tag is always placed prior to the `main` element:
 
 ```
 <aside>
@@ -40,16 +37,16 @@ For more generic elements, that HTML tag name itself defines the slot. For examp
 </aside>
 ```
 
-The modules can be stored in any file with a `.html` suffix such as `layout.html`. The layout file can contain multiple layout components.
+The layouts are written with an HTML-based [template language](template-syntax.html) and the template variables have access to the [project data](project-structure.html#data).
 
-You can use a HTML-based [template language](template-syntax.html) when defining layouts and the template variables have have access to the [project data](project-structure.html#data).
+The modules can be stored in any file with a `.html` suffix such as `layout.html`and the file can contain multiple layout components.
 
 
 
-### Application layouts
-Yuu can customize the layout for all the different ares on your site like the documentation- or blogging area. You can, for example, define a custom sidebar under the documentation area or a blog hero component for the indiviual blog entries.
+### Area-specific layouts
+You can customize the layout for all the different areas on your website like the documentation- or blogging area. Think custom sidebars, blog entry "hero" layouts, or custom footers. The area-specific layouts override any existing layouts defined globally at the root level.
 
-This documentation area, for example has the following directory- specific layout components in [docs/layout.html](//github.com/nuejs/nue/blob/dev/packages/nuejs.org/docs/layout.html):
+This documentation area, for example, has the following documentation- specific layouts in [docs/layout.html](//github.com/nuejs/nue/blob/dev/packages/nuejs.org/docs/layout.html):
 
 
 ```
@@ -81,7 +78,7 @@ This documentation area, for example has the following directory- specific layou
 ```
 
 ### Leaving out layouts { #disabling }
-Sometimes you want to leave out some layouts. For example the blog index page might want to disable the layout components that are available on the actual blog entries. This happens by setting the desired layout componets to `false`. For example:
+Sometimes you want to leave out some layouts. For example, the blog index page might want to disable the layout components that are available on the actual blog entries. This happens by setting the desired layout components to `false`. For example:
 
 ``` yaml
 aside: false
@@ -91,7 +88,7 @@ pagefoot: false
 
 
 
-### Main layout
+### Main Layout
 You can override the `main` element by re-defining that in a layout file. For example:
 
 ```
@@ -105,7 +102,7 @@ You can override the `main` element by re-defining that in a layout file. For ex
 
 [.warning]
   ### Warning
-  Overriding the main element breaks you out from the global design system.
+  Overriding the main element breaks you out of the global design system.
 
 
 ### Root layout
@@ -114,7 +111,7 @@ You can go extreme and override the entire `html` element in which case you can 
 ```
 <html>
   <head>
-    <!-- system meta elements (auto generated) -->
+    <!-- system meta elements (auto-generated) -->
     <slot for="head"/>
 
     <!-- custom meta elements -->
@@ -135,8 +132,8 @@ You can go extreme and override the entire `html` element in which case you can 
 ```
 
 
-## Built-in layout components
-You can use several helper component when building your layouts. For example, the blogging area on this website utilizes several built-in components in the blog entry "hero" area:
+## Built-in helper components
+You can use several helper components when building your layouts. For example, the blogging area on this website utilizes several built-in components in the blog entry "hero" area:
 
 ```
 <header @name="pagehead">
@@ -156,8 +153,8 @@ You can use several helper component when building your layouts. For example, th
 Here are all the helper components:
 
 
-### navi
-Renders a ARIA compatible navigational element based on the data given in the `items` attribute. The data must be formatted in a specific [YAML format](page-layout.html#yaml) which suppports multiple types of navigation types: flat, hierarchical, and more complex dropdown navigation menus.
+### `<navi>`
+Renders an ARIA compatible navigational element based on the data given in the `items` attribute. The data must be formatted in a specific [YAML format](page-layout.html#yaml) which supports multiple types of navigation types: flat, hierarchical, and more complex dropdown navigation menus.
 
 This website, for example, uses the `<navi/>` component in the sidebar of the  documentation area:
 
@@ -170,14 +167,14 @@ This website, for example, uses the `<navi/>` component in the sidebar of the  d
 You can use an optional `label` attribute as the value for the `aria-label` HTML attribute for the generated `<nav/>` element.
 
 
-### markdown
-Renders a Markdown formatted string given in the `content` attribute.
+### `<markdown>`
+Renders a Markdown-formatted string given in the `content` attribute.
 
-### pretty-date
+### `<pretty-date>`
 Pretty-prints a date value given in the `date` attribute.
 
 
-### toc
+### `<toc>`
 Renders a table of contents from the current Markdown document.
 
 ```
@@ -190,7 +187,7 @@ Renders a table of contents from the current Markdown document.
 </nav>
 ```
 
-Only second- and third level headings (h2,  h3) are included in the navigation. You can enhance the component with JavaScript by assigning a web component with `is` attribute. For example:
+Only second and third level headings (h2,  h3) are included in the navigation. You can enhance the component with JavaScript by assigning a web component with an `is` attribute. For example:
 
 ```
 <toc is="observing-nav"/>
@@ -198,7 +195,7 @@ Only second- and third level headings (h2,  h3) are included in the navigation. 
 
 
 ### Custom components
-You can create custom layout components and custom markown extensions for content authors with Nue's layout syntax. Here, for example, is an generic author component:
+You can create custom layout components and custom markdown extensions for content authors with Nue's layout syntax. Here, for example, is a generic author component:
 
 ```
 <div @name="author" class="author">
@@ -211,7 +208,7 @@ You can create custom layout components and custom markown extensions for conten
 </div>
 ```
 
-Check out documentation for [custom components](template-syntax.html#custom-components).
+Check out the documentation for [custom components](template-syntax.html#custom-components).
 
 
 

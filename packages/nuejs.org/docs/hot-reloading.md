@@ -47,7 +47,7 @@ Hot-reloading is automatically enabled in development. The client-server communi
 
 
 ## Non-goals
-Nue hot-reloading applies to UI components only so updates to JavaScript/TypeScript extensions have no impact. These extensions are best developed and tested on the server side. Same goes to WebComponents — the browser does not have means to re-hydrate updated components.
+Nue hot-reloading applies to UI components only so updates to JavaScript/TypeScript extensions have no impact. These extensions are best developed and tested on the server side. The same goes to WebComponents — the browser does not have the means to re-hydrate updated components.
 
 
 ## Disable hot-reloading

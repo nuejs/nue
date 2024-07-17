@@ -1,83 +1,82 @@
 
+# Built-in tags
+Tags are Markdown extensions that allow content authors to create rich web pages. This is a list of all built-in tags.
 
-## Built-in tags
-List of all built-in tags for [content authors](content.html)
 
-
-## Tag syntax
-A "tag" is a Markdown extensions that allows the vocabularity of content authors to create rich web pages. The usage is pretty simple. Let’s say we want to add a video, we could write something like this:
+## Tag usage
+Tags are easy to read and write. They always start on a new line, with a square bracket, followed with a tag name and options. Let’s say we want to add a video, we would write something like this:
 
 ``` md
 [video /videos/explainer.mp4]
 ```
 
-A tag starts with a square bracket, followed with a tag name and options.
 
 
-### Options
+### Supplying options
 Tag options can be supplied in several ways:
 
 
 ``` md
 // named options
-[image src="hello.png" caption="Hello, World" alt="Hello image"]
+[image •src•="hello.png" •caption•="Hello, World" •alt•="Hello image"]
 
 // nested options
 [image]
-  caption: Hello, World!
-  large: hello-big.png
-  small: hello.png
-  alt: Hello Image
+|  caption: Hello, World!
+|  large: hello-big.png
+|  small: hello.png
+|  alt: Hello Image
 
 // plain value without the attribute name
-[image hello.png]
+[image •hello.png•]
 
 // handy syntax for id and class attributes
-[image#hero-image.heroic hero.webp]
+[image•#hero-image.heroic• hero.webp]
 ```
 
 ### Nested content
 Most tags like images, buttons, tabs, and grids accept nested content:
 
-```
+``` md
 [image explainer.png]
-  This nested content is the caption for the image. You can add Markdown here like *emphasis* and `inline code`
+| This nested content is the caption for the image.
+| You can add Markdown here like *emphasis* and `inline code`
 ```
 
 
 
 
-## Built-in tags
+## Tag reference
 
 ### Image
 Renders an image with optional caption. For example:
 
-```
+``` md
 [image hello.webp]
-  This content here is the caption. Markdown *formatting* is supported
+| This content here is the caption. Markdown *formatting* is supported
 ```
 
 Shortcut alias (!) is supported:
 
-```
+``` md
 [! hello.webp]
 ```
 
 Images can link to URL's with `href` attribute:
 
-```
-[! book.svg href="/docs/" caption="View documentation"]
+``` md
+[image book.svg href="/docs/" caption="View documentation"]
 ```
 
 [Art direction](//web.dev/articles/codelab-art-direction) is supported:
 
-```
-[! small="ui-tall.png" large="ui-wide.png" ]
+``` md
+[image small="ui-tall.png" large="ui-wide.png" ]
 ```
 
 [Responsive images](//developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images) are supported
 
-```
+``` md
 [image.heroic]
   srcset: planet.png 450w, planet-big.png 900w
   sizes: (max-width: 600px) 450px, 900px
@@ -86,6 +85,8 @@ Images can link to URL's with `href` attribute:
 ```
 
 [.options]
+  #### [image] options
+
   `alt` is an alternate text for the image
 
   `src` image source
@@ -125,6 +126,8 @@ Renders a button:
 ```
 
 [.options]
+  #### [button] options
+
   `label` the button label. Can also be given as plain value or as body content
 
   `href` the target link for the button
@@ -147,7 +150,7 @@ Renders an HTML table from the nested data:
 
 Another example with explicitly defined `head` and `items` attributes
 
-```
+``` md
 [table]
   head:
     - Name
@@ -162,6 +165,8 @@ Another example with explicitly defined `head` and `items` attributes
 
 
 [.options]
+  #### [table] options
+
   `head` table header items given as a YAML array or as a semicolon (";") or pipe ("|") separated string
 
   `items` table body items where rows start with "-" (a YAML list item) and columns are separated with a semicolon (";") or pipe ("|") character. The items can also be given directly on the body like in the first example above.
@@ -173,25 +178,25 @@ Another example with explicitly defined `head` and `items` attributes
 ### Video
 Renders a video:
 
-```
+``` md
 [video hello.mp4]
 ```
 
 Shortcut alias (!) is supported:
 
-```
+``` md
 [! world.mp4 ]
 ```
 
 All standard HTML5 video attributes are supported
 
-```
-[! intro.mp4 autoplay controls muted loop ]
+``` md
+[image intro.mp4 autoplay controls muted loop ]
 ```
 
 Options given as YAML:
 
-```
+``` md
 [video.heroic]
   sources: [ hello.webm, hello.mp4 ]
   poster: hello.png
@@ -200,7 +205,11 @@ Options given as YAML:
 
 
 [.options]
-  `autoplay` starts the video when the page is loaded. must be used together with `muted` or the autoplay does not work on all browsers.
+  #### [video] options
+
+  `autoplay` starts the video when the page is loaded. must be used together with
+
+  `muted` or the autoplay does not work on all browsers.
 
   `controls` displays the browser's built-in video controls
 
@@ -224,7 +233,7 @@ Options given as YAML:
 ### Grid
 Renders a grid of items separated by a triple-dash
 
-```
+``` md
 [grid]
   # First item
   [image first.png]
@@ -239,6 +248,8 @@ Renders a grid of items separated by a triple-dash
 ```
 
 [.options]
+  #### [grid] options
+
   `item_class` class name for the grid items. Typically set externally by the UX developer.
 
   `item_component` web component name for the grid items. Typically set externally by the UX developer.
@@ -248,7 +259,7 @@ Renders a grid of items separated by a triple-dash
 Render a [tabbed layout](//saadiam.medium.com/tabs-design-best-practices-8fafe936606f) for organizing the content into multiple panes where users can see one pane at a time:
 
 
-```
+``` md
 [tabs "First tab | Second tab | Third tab"]
 
   ## First pane
@@ -256,14 +267,16 @@ Render a [tabbed layout](//saadiam.medium.com/tabs-design-best-practices-8fafe93
 
   ---
   ## Second pane
-  [! hello.png]
+  [image hello.png]
 
   ---
   ## Third pane
-  [! world.mp4]
+  [image world.mp4]
 ```
 
 [.options]
+  #### [tabs] options
+
   `tabs` tab labels are separated with a semicolon (";") or pipe ("|") character. Can also be given as a plain value like in the above example.
 
   `wrapper` wraps the tabs inside a parent element with a class name specifeid on this property
@@ -276,7 +289,7 @@ Render a [tabbed layout](//saadiam.medium.com/tabs-design-best-practices-8fafe93
 Displays a syntax highligted code block with support for line numbers, captions, and wrapper elements:
 
 
-```
+``` md
 [code.heroic numbered caption="Some JavaScript"]
 
   function something() {
@@ -285,6 +298,8 @@ Displays a syntax highligted code block with support for line numbers, captions,
 ```
 
 [.options]
+  #### [code] options
+
   `caption` a caption for the code. Supports Markdown formatting
 
   `language` the language of the nested code
@@ -337,7 +352,7 @@ These •two words• are highlighted and ••these words•• are erroneous
 ### Codeblocks
 Renders a single multi-code element where the blocks are separated with a triple-dash:
 
-```
+``` md
 [codeblocks]
 
   <!-- first code block -->
@@ -350,6 +365,8 @@ Renders a single multi-code element where the blocks are separated with a triple
 ```
 
 [.options]
+  #### [codeblocks] options
+
   `numbered` draws line numbers when enebled
 
   `captions` list of captions for the individual blocks separated with ";" or "|"
@@ -364,6 +381,7 @@ Renders a single multi-code element where the blocks are separated with a triple
 Render a [tabbed layout](//saadiam.medium.com/tabs-design-best-practices-8fafe936606f) for organizing the code into multiple blocks where users can see one block at a time:
 
 
+``` md
 [codetabs "First | Second | Third" languages="js | html | css"]
 
   // First pane
@@ -381,6 +399,8 @@ Render a [tabbed layout](//saadiam.medium.com/tabs-design-best-practices-8fafe93
 ```
 
 [.options]
+  #### [codetabs] options
+
   `numbered` draws line numbers when enebled
 
   `captions` list of captions for the blocks separated with ";" or "|"

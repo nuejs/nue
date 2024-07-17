@@ -4,18 +4,29 @@ exclude: [syntax, video]
 ---
 
 # Nue is a web framework for UX developers
-Nue is a rapid website development environment for UX developers, "design engineers", and other design-minded web developers. Instead of dealing with complex engineering issues in several layers of abstraction, your focus shifts to content, design, and user experience. You'll become great at UX and stay relevant for years to come.
+Nue is a rapid website development environment focusing on content, design, and user experience. It changes the way you think about web development. Chances are that you'll become a professional UX/CSS developer and stay relevant for years to come.
+
+
+## Target audience
+Nue is a great fit for the following people:
+
+1. **UX developers**: who prefer to jump to CSS directly from **Figma** without the [complex](https://medium.com/design-warp/5-most-common-designer-developer-handoff-mishaps-ba96012be8a7) and time-consuming _developer-designer handoff_ process.
+
+2. **Beginner web developers**: who want to skip the redundant layers in the [frontend stack](https://roadmap.sh/frontend) and start building websites quickly with HTML, CSS, and JavaScript.
+
+3. **Experienced JS developers**: who are frustrated with the [absurd amount of layers](//roadmap.sh/react) in the current JavaScript stack and look for simpler ways to develop modern websites.
+
 
 
 ## Less, but better
-What used to take a React specialists and thousands of lines of JavaScript is now assembled with content and styled with modern CSS. To give you a rough idea, here are source codes for [tailwindcss.com](//tailwindcss.com) front page (a next.js app) and [nuejs.org](/) front page:
+If there's one word to describe Nue, it's _minimalism_ — what used to take React specialists and thousands of lines of JavaScript is now assembled with a content file and a small amount of CSS. To give you a rough idea, here are source codes for [tailwindcss.com](//tailwindcss.com) front page (a next.js app) and [nuejs.org](/) front page:
 
 
 [.stack]
   [image.bordered]
     small: /img/react-page.png
     large: /img/react-page-big.png
-    caption: "Next.js: mixed JavaScript, React, and Tailwind"
+    caption: Next.js
     width: 500
     href: //github.com/tailwindlabs/tailwindcss.com/blob/master/src/pages/index.js
 
@@ -23,7 +34,7 @@ What used to take a React specialists and thousands of lines of JavaScript is no
   [image.bordered]
     small: /img/nue-page.png
     large: /img/nue-page-big.png
-    caption: Nue is content driven
+    caption: Nue
     width: 500
     href: //github.com/tipiirai/nue/blob/master/new-www/index.md?plain=1
 
@@ -97,12 +108,12 @@ This is achieved by bundling your minified CSS together with the HTML and servin
 
 
 ### The UX mindset
-Nue's [development flow](ux-development.html) focuses on design and user experience while keeping your CSS clean and organized:
+Nue's [CSS best practices](css-best-practices.html) focus strongly on aesthetics and user experience while keeping your CSS clean and organized:
 
 [image.gridpaper]
   small: /img/ux-development.png
   large: /img/ux-development-big.png
-  href: ux-development.html
+  href: css-best-practices.html
 
 
 This makes a complete shift in your focus:
@@ -157,7 +168,7 @@ Nue is for people who love design, UX development, and the power of modern CSS. 
   ### UX development
   Best practices for UX and CSS
 
-  [Learn more](ux-development.html)
+  [Learn more](css-best-practices.html)
   ---
 
   ### Content development

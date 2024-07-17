@@ -17,9 +17,9 @@ sidenav:
 
   UX development:
     - Global Design System: global-design-system.html
-    - UX development: ux-development.html
     - Page layout: page-layout.html
     - Custom layouts: custom-layouts.html
+    - CSS best practises: css-best-practices.html
     - Motion and Reactivity: reactivity.html
     - Optimization: performance-optimization.html
 
