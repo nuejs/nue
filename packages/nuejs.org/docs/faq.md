@@ -37,9 +37,9 @@ Yes. With pixel-perfect, easy-to-use templates for individuals, businesses, and 
 
 - **Mies van Der Rohe**. His philosophy; "Less is more" defines my thinking.
 
-- **Jared Sumner**. His project [Bun](//bun.sh) showcases the power of dreaming big.
+- **Jarred Sumner** for [Bun](//bun.sh). It showcases the power of dreaming big.
 
-- **Salvatore Sanfilippo** for for the creative, minimalistic, and inspirational [coding style](//github.com/redis/redis/tree/unstable/src)
+- **Salvatore Sanfilippo** for the inspirational [coding style](//github.com/redis/redis/tree/unstable/src)
 
 
 ### Where does the word "Nue" come from?
@@ -47,3 +47,4 @@ Yes. With pixel-perfect, easy-to-use templates for individuals, businesses, and 
 
 ### Can I help?
 Please do! Send me email: tipiirai @ gmail com.
+
