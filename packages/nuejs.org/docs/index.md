@@ -10,9 +10,9 @@ Nue is a rapid website development environment focusing on content, design, and 
 ## Target audience
 Nue is a great fit for the following people:
 
-1. **UX developers**: who prefer to jump to CSS directly from **Figma** without the [complex](https://medium.com/design-warp/5-most-common-designer-developer-handoff-mishaps-ba96012be8a7) and time-consuming _developer-designer handoff_ process.
+1. **UX developers**: who prefer to jump to CSS directly from **Figma** without the [complex](//medium.com/design-warp/5-most-common-designer-developer-handoff-mishaps-ba96012be8a7) and time-consuming _developer-designer handoff_ process.
 
-2. **Beginner web developers**: who want to skip the redundant layers in the [frontend stack](https://roadmap.sh/frontend) and start building websites quickly with HTML, CSS, and JavaScript.
+2. **Beginner web developers**: who want to skip the redundant layers in the [frontend stack](//roadmap.sh/frontend) and start building websites quickly with HTML, CSS, and JavaScript.
 
 3. **Experienced JS developers**: who are frustrated with the [absurd amount of layers](//roadmap.sh/react) in the current JavaScript stack and look for simpler ways to develop modern websites.
 

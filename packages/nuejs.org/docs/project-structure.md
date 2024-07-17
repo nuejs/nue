@@ -17,7 +17,7 @@ Nue is designed for building two kinds of applications:
 
 1. **Multi-page applications**. These are content-focused applications consisting of Markdown files. Good examples are documentation, blogging area, or a feature tour. These apps are rendered server-side so that they can be easily consumed by search engines. The use of client-side JavaScript is optional.
 
-2. [Single-page applications](single-page applications) consist of a single `index.html` file that serves all the HTML requests within the app. Good examples are admin dashboards, onboarding flows, surveys, or login pages. The application is rendered on the client side with reactive components. These apps are usually hidden from search engines.
+2. [Single-page applications](single-page-applications.html) consist of a `index.html` file that serves all the HTML requests within the app. Good examples are admin dashboards, onboarding flows, surveys, or login pages. The application is rendered on the client side with reactive components. These apps are usually hidden from search engines.
 
 
 [image.gridpaper]
