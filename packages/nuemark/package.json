@@ -19,7 +19,7 @@
   "jest": {
     "setupFilesAfterEnv": [
       "jest-extended/all",
-      "../../setup-jest.js"
+      "<rootDir>/../../setup-jest.js"
     ]
   }
 }
