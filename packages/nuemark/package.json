@@ -6,16 +6,20 @@
   "license": "MIT",
   "type": "module",
   "main": "index.js",
-
   "repository": {
     "url": "https://github.com/nuejs/nue",
     "directory": "packages/nuemark",
     "type": "git"
   },
-
   "dependencies": {
     "nue-glow": "*",
     "js-yaml": "^4.1.0",
     "marked": "^9.1.2"
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "jest-extended/all",
+      "../../setup-jest.js"
+    ]
   }
 }

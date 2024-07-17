@@ -12,6 +12,9 @@
     "node": ">=18"
   },
   "jest": {
-    "setupFilesAfterEnv": ["jest-extended/all", "./setup-jest.js"]
+    "setupFilesAfterEnv": [
+      "jest-extended/all",
+      "./setup-jest.js"
+    ]
   }
 }
