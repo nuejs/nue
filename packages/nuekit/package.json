@@ -32,5 +32,8 @@
 	},
   "devDependencies": {
     "@happy-dom/global-registrator": "^14.7.1"
+  },
+  "jest": {
+    "setupFilesAfterEnv": ["jest-extended/all", "../../setup-jest.js"]
   }
 }

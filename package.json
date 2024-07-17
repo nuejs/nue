@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "license": "MIT",
+  "type": "module",
   "workspaces": [
     "packages/*"
   ],
@@ -11,6 +12,6 @@
     "node": ">=18"
   },
   "jest": {
-    "setupFilesAfterEnv": ["jest-extended/all"]
+    "setupFilesAfterEnv": ["jest-extended/all", "./setup-jest.js"]
   }
 }
