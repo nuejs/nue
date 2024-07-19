@@ -1,7 +1,12 @@
 
-<a href="https://nuejs.org">
-  <img src="https://nuejs.org/img/nue-banner-big.png?1">
-</a>
+# 📦 Monster update coming on August!
+The next major version of Nue is under work on the dev- branch, with over 70 commits and close to [400 files](https://github.com/nuejs/nue/compare/master...dev) changed. The launch date is estimated between August 10-15. I appreciate your patience — I won't disappoint you. It's going to be amazing.
+
+Cheers,
+
+[Tero Piirainen](//x.com/tipiirai) — Nue lead dev.
+
+---
 
 # Nue &nbsp;[![test](https://github.com/nuejs/nue/actions/workflows/test.yaml/badge.svg?branch=master)](https://github.com/nuejs/nue/actions/workflows/test.yaml)
 Nue(kit) is a static website generator and web application builder. It's an amazingly simple and powerful alternative to **Next.js** and **Astro**:
