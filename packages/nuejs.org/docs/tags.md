@@ -1,6 +1,6 @@
 
-# Built-in tags
-Tags are Markdown extensions that allow content authors to create rich web pages. This is a list of all built-in tags.
+# Markdown extensions
+Markdown extensions or "tags" allow content authors to create rich, interactive web pages. This is a list of all tags and their configuration options.
 
 
 ## Tag usage

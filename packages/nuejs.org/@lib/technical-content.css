@@ -57,6 +57,13 @@ article {
     }
   }
 
+  /* external links */
+  a[href*="//"] {
+    color: var(--gray-800);
+    text-decoration-color: var(--main-200);
+    font-weight: 450;
+  }
+
   p > code, li > code {
     font-weight: 600;
     font-size: 110%;
@@ -105,7 +112,7 @@ article {
     }
   }
 
-  > figcaption {
+  figcaption {
     color: var(--gray-600);
     margin: .7em 0 0 0;
     font-size: 80%;

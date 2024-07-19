@@ -25,8 +25,6 @@ Setting this globally is also possible, but then you need to re-compile all page
 The next most important performance setting is to enable view transitions.
 This causes your pages to load significantly faster, and the page is transitioned to another in an animated way.
 
-! video
-
 You can enable view transitions globally in the `site.yaml` file:
 
 ```

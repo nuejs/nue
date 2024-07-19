@@ -1,11 +1,11 @@
 
 .badge {
   background-repeat: no-repeat;
+  background-position: .5em 50%;
   font-weight: 550;
   color: var(--gray-700);
   border: var(--border);
   border-radius: 9em;
-  padding: .5em;
   font-size: 80%;
 
   &:hover {
@@ -20,20 +20,20 @@
 
   &.status {
     background-image: url(/icon/cube.svg);
-    background-position: .5em 50%;
-    background-size: 1.5em;
-    padding-left: 2.3em;
     background-color: var(--main-50);
+    padding: .5em 1em .5em 2.5em;
+    background-size: 1.5em;
   }
 
   &.github {
     background-image: url(/icon/github.svg);
-    background-position: .5em 50%;
-    background-size: 1.2em;
+    padding: .3em .4em .3em 2.4em;
+    background-size: 1.3em;
     padding-left: 2em;
 
     em {
-      background-color: var(--main-50);
+      background-color: var(--gray-100);
+      color: var(--gray-900);
       font-style: normal;
       padding: .2em .6em;
       border-radius: 1em;

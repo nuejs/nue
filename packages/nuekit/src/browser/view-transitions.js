@@ -105,7 +105,9 @@ export function setActive(path, attrname='aria-selected') {
   $$(`[${attrname}]`).forEach(el => el.removeAttribute(attrname))
 
   // add new ones
-  $$(`[href="${path}"]`).forEach(el => el.toggleAttribute(attrname, true))
+  $$('a').forEach(el => {
+    if (el.href.endsWith(path)) el.setAttribute(attrname, '')
+  })
 }
 
 

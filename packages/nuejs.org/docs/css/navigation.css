@@ -1,0 +1,174 @@
+
+
+/* @subheader (sub navigation)  */
+body > nav {
+  position: sticky;
+  top: -1px;
+  z-index: 1;
+
+  margin: -4em 0 3em; /* move closer to header */
+
+  align-items: center;
+  gap: .5em;
+
+  /* styling  */
+  background-color: white;
+  border: var(--border);
+  border-width: 1px 0;
+  padding: .75em 0;
+  width: 110%;
+
+  [popovertarget] {
+    background-image: url(/icon/menu.svg);
+    background-size: 1.2em;
+  }
+
+  /* label */
+  strong {
+    font-weight: 550;
+    font-size: 90%;
+  }
+}
+
+/* both sidebars (left and right) */
+aside {
+
+  h3 {
+    font-size: 90%;
+    margin: 0 0 1em;
+  }
+
+  /* link styling */
+  nav > a {
+    border-left: var(--border);;
+    padding: .5em 1em;
+    white-space: nowrap;
+    display: block;
+    font-size: 85%;
+    font-weight: 400;
+
+    &:hover { color: black }
+
+    &[aria-selected] {
+      border-color: var(--main-500);
+      border-width: 2px;
+      color: var(--main-500);
+      font-weight: 550;
+      margin-left: -1px;
+    }
+
+    &:not([href]) {
+      color: var(--gray-300);
+      cursor: not-allowed;
+    }
+  }
+}
+
+
+aside:first-child nav {
+  margin-bottom: 2.5em;
+}
+
+/* icons */
+aside:first-child h3 {
+  background: 0 50% no-repeat;
+  padding-left: 1.7em;
+  margin-left: -.55em;
+
+
+  /* Content Framework */
+  nav:nth-child(1) & {
+    background-image: url(/icon/cog.svg)  /* cog, badge, shield, star */
+  }
+
+  /* Design */
+  nav:nth-child(2) & {
+    background-image: url(/icon/swatch.svg)
+  }
+
+  /* Reactivity
+  nav:nth-child(3) & {
+    background-image: url(/icon/bolt.svg)
+  }
+  */
+
+  /* Content development */
+  nav:nth-child(3) & {
+    background-image: url(/icon/rectangles.svg)
+  }
+
+  /* SPA */
+  nav:nth-child(4) & {
+    background-image: url(/icon/squares.svg)
+  }
+
+  /* Reference  */
+  nav:nth-child(5) & {
+    background-image: url(/icon/document.svg);
+  }
+}
+
+
+/* table of contents */
+article + aside {
+
+  .level-2 {
+    margin-top: 1em;
+    font-weight: 550;
+    color: var(--gray-800);
+  }
+
+  .level-3 {
+    padding-left: 2rem;
+    font-weight: 400;
+    font-size: 85%;
+
+    &:has(+ .level-2) {
+      margin-bottom: 1.5em;
+    }
+  }
+
+  /* h2 without children */
+  .level-2:has(+ .level-2), .level-2:last-child {
+    border-color: transparent;
+    padding-left: 0;
+    font-weight: 400;
+    margin: .1em 0;
+
+    &[aria-selected] {
+      font-weight: 550;
+    }
+  }
+
+  code {
+    font-family: inherit;
+  }
+}
+
+
+/* zen mode */
+.zen-toggle {
+  position: fixed;
+  width: 17.5rem;
+  background-color: white;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 90%;
+  padding: 0em 2.5em;
+
+  h5 {
+    font-weight: 500;
+    color: var(--gray-600);
+  }
+}
+
+.zen {
+  main { margin-top: 1em }
+  aside { height: calc(100vh - 2em) }
+
+  body > header, body > nav, article + aside h3, .toc {
+    display: none
+  }
+}

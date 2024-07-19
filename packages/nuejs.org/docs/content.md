@@ -1,10 +1,11 @@
 
 
-# Content authoring
+# Content development
 Nue has a powerful content authoring syntax for marketers, copywriters, and technical writers. You can rapidly assemble complex web pages without ever touching a single line of code or the need to set up complex cloud-based content database systems—just simple versionable text files, directly accessible on your file system, and editable with your favorite editor.
 
-
-! video: editing front page content/documentation / blog entries
+[bunny-video]
+  videoId: 3bf8f658-185a-449c-93b9-9bd5e1ad0d05
+  poster: /img/nuemark-splash.jpg
 
 
 ## Extended Markdown

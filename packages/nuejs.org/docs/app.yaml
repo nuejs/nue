@@ -3,12 +3,11 @@ include: [technical-content, video, toggle-switch, syntax-highlight]
 footer: false
 
 lang:
-  menu: Menu
   this_page: On this page
 
 sidenav:
   Getting started:
-    - What is Nue?: .
+    - What is Nue?: /docs/
     - Installation: installation.html
     - Hello, World!: hello-world.html
     - Project Structure: project-structure.html
@@ -25,8 +24,8 @@ sidenav:
 
 
   Content development:
-    - Content authoring: content.html
-    - Built-in tags: tags.html
+    - Content development: content.html
+    - Markdown extensions: tags.html
 
 
   Application development:

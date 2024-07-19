@@ -35,7 +35,7 @@ class ZenToggle extends HTMLInputElement {
   constructor() {
     super()
     this.onchange = function() {
-      document.body.classList.toggle('zen', this.checked)
+      document.documentElement.classList.toggle('zen', this.checked)
     }
   }
 }

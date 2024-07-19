@@ -22,8 +22,9 @@ body > header {
     &:hover { color: white }
   }
 
-  img { filter: brightness(100) }
-  hr { border-color: #fff3 }
+
+  .logo { filter: brightness(10) }
+  hr { border-color: #fff4 }
 
   /* burger menu trigger */
   [popovertarget] {
@@ -37,15 +38,17 @@ body > header {
   /* badges */
   .badge {
     &.status {
-      background-color: #002d46b3;
+      background-color: var(--gray-950);
       border-color: transparent;
       color: white;
+      &:hover { background-color: black }
     }
 
     &.github {
       border-color: transparent;
-      background-color: var(--purple);
+      background-color: var(--main-500);
       background-image: url(/icon/github-white.svg);
+      &:hover { background-color: var(--main-600) }
 
       em {
         background-color: #0004;

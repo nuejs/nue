@@ -43,7 +43,9 @@ export function parsePage(lines) {
         Object.assign(links, tokens.links)
 
         headings.push(...tokens.filter(el => el.type == 'heading').map(el => {
-          return { level: el.depth, ...parseHeading(el.text) }
+          const attr = parseHeading(el.text)
+          const html = marked.parseInline(attr.text)
+          return { level: el.depth, raw: el.raw, html, ...attr }
         }))
 
         blocks.push({ md: block, tokens })

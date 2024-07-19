@@ -1,5 +1,47 @@
 
+/* mobile first */
+main {
+  flex-direction: column;
+  display: flex;
+  gap: 1em;
+}
 
+article {
+  max-width: 48rem;
+  margin: 0 auto;
+  width: 100%;
+  h2, h3 {
+    scroll-margin-top: 7.2rem;
+  }
+}
+
+/* subheader */
+body > nav {
+  display: flex;
+}
+
+/* right sidebar */
+article + aside {
+  display: none;
+}
+
+/* small screens  */
+@media (max-width: 1000px) {
+
+  /* left sidebar */
+  aside:first-child {
+    padding: 1em 2em 3em;
+    overflow: auto;
+    width: 22em;
+    max-width: 100%;
+    font-size: 110%;
+    height: 100vh;
+    margin: 0;
+    nav { margin-bottom: 2em; }
+  }
+}
+
+/* medium screens ( < 1300px) */
 @media (min-width: 1000px) {
   body > header {
     position: fixed;
@@ -14,12 +56,13 @@
     z-index: 1;
   }
 
-  main {
-    margin-top: 7.5em;
-  }
+  body > nav { display: none }
+
+  main { margin-top: 5.5em }
 
   article {
     margin-left: 19rem;
+    width: inherit;
   }
 
   aside {
@@ -40,7 +83,7 @@
   }
 }
 
-/* right sidebar */
+/* big screens */
 @media (min-width: 1300px) {
   article {
     max-width: 52vw;
@@ -53,31 +96,6 @@
   }
 }
 
-/* zen mode */
-.zen-toggle {
-  position: absolute;
-  bottom: 1em;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  width: 100%;
-  font-size: 90%;
-
-  h5 {
-    font-weight: 500;
-    color: var(--gray-600);
-    .zen & { visibility: hidden }
-  }
-}
-
-.zen {
-  main { margin-top: 1em }
-  aside { height: calc(100vh - 2.2em) }
-
-  body > nav, article + aside h3, .toc, & > header {
-    display: none
-  }
-}
 
 
 

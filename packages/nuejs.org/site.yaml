@@ -19,6 +19,8 @@ favicon: /icon/favicon.png
 header:
   Branding:
     - image: /img/logo.svg
+      class: logo
+      alt: Nue logo
       size: 60 × 18
       url: /
 
@@ -33,6 +35,12 @@ header:
     - label: Try beta
       url: /docs/
     - ---
+    - image: /icon/x-logo.svg
+      url: //x.com/tipiirai
+      class: social
+      alt: X logo
+      size: 39 x 39
+
     - label: "*6.0k*"
       url: //github.com/nuejs/nue
       class: github badge
@@ -52,17 +60,18 @@ footer:
 
   navi:
     Developers:
-      - Getting started
-      - Documentation
-      - Roadmap
-      - Blog
-      - FAQ
+      - Documentation: /docs/
+      - Installation: /docs/installation.html
+      - Blog: /blog/
+      - FAQ: /docs/faq.html
+      - GitHub: //github.com/nuejs/nue
 
-    Core Concepts:
-      - UX development framework
-      - Global Design System
-      - Content development
-      - Application development: /docs/single-page-applications.html
+    Key Concepts:
+      - Nue introduction: /docs/
+      - Global Design System: /docs/global-design-system.html
+      - CSS best practices: /docs/css-best-practises.html
+      - Content development: /docs/content.html
+      - Single-page apps: /docs/single-page-applications.html
 
 
 # Markdown link references

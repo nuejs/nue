@@ -1,98 +1,5 @@
 
 
-/* mobile first strategy */
-main {
-  flex-direction: column;
-  display: flex;
-  gap: 1em;
-}
-
-article {
-  max-width: 48rem;
-  margin: 0 auto;
-
-  h2, h3 {
-    scroll-margin-top: 7.2rem;
-  }
-}
-
-/* @subheader (sub navigation)  */
-body > nav {
-  margin: -4em 0 3em;
-  border-bottom: var(--border);
-  align-items: center;
-  padding-bottom: .5em;
-  display: flex;
-  gap: .5em;
-
-  button {
-    background-image: url(/icon/menu.svg);
-    background-size: 1.3em;
-    height: 2.4em;
-  }
-
-  strong {
-    font-weight: 550;
-    font-size: 90%;
-  }
-}
-
-/* navigation ( sidebar + toc) */
-aside {
-
-  h3 {
-    font-size: 90%;
-    margin: .4em 0 1em;
-    margin-left: -.55em;
-  }
-
-  nav {
-    margin-bottom: 2.5em;
-  }
-
-  nav > a {
-    border-left: var(--border);;
-    padding: .5em 1em;
-    white-space: nowrap;
-    display: block;
-    font-size: 85%;
-    font-weight: 400;
-
-    &[aria-selected] {
-      border-color: var(--main-500);
-      border-width: 2px;
-      color: var(--main-500);
-      font-weight: 550;
-      margin-left: -1px;
-    }
-
-    &:not([href]) {
-      color: var(--gray-300);
-      cursor: not-allowed;
-    }
-  }
-}
-
-
-
-/* table of contents */
-article + aside {
-  display: none;
-
-  .level-2 {
-    margin-top: 1em;
-    font-weight: 550;
-    color: var(--gray-800);
-  }
-
-  .level-3 {
-    padding-left: 2rem;
-    font-weight: 400;
-    font-size: 85%;
-  }
-}
-
-
 .gridpaper {
   background-image: url(/img/grid-paper.png);
   border: 1px solid var(--gray-200);
@@ -147,6 +54,7 @@ h1 code {
     background: url(/icon/bad.svg) -.2em center no-repeat;
     padding: .2em 0  .2em 1.8em;
     background-size: 1.6em;
+    color: var(--gray-900);
     text-align: left;
     font-weight: 550;
     font-size: 95%;

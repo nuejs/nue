@@ -4,8 +4,12 @@ exclude: [syntax, video]
 ---
 
 # Nue is a web framework for UX developers
-Nue is a rapid website development environment focusing on content, design, and user experience. It changes the way you think about web development. Chances are that you'll become a professional UX/CSS developer and stay relevant for years to come.
+Nue breaks you free from the JavaScript-first engineering mindset and places your focus on what matters: content, design, and user experience. You'll conquer new, timeless skills and become a professional UX/CSS developer while doing it.
 
+[image.gridpaper]
+  small: /img/ux-development.png
+  large: /img/ux-development-big.png
+  caption: UX development mindset
 
 ## Target audience
 Nue is a great fit for the following people:
@@ -74,30 +78,33 @@ Nue frees you from implementing page layouts and basic UI elements over and over
 
 Think Nue as a modern-day [CSS Zen Graden](//csszengarden.com/) — a demonstration of what can be accomplished through CSS. Nue takes this a couple of steps further and expands the idea to a rapid UX development environment and takes everything out of the modern web stack.
 
+It changes the way you think about web development.
+
+
+### Design and CSS
+Over the years CSS has evolved from static styling utility to an immensely powerful UX development language including support for motion- and interaction design. Nue extracts this hidden power from the complex world of JavaScript and passes it directly to where it belongs: for UX developers.
+
+! IMG: Figma -> CSS
+
+No extra layers, no third-party idioms, no namespace issues. Just the raw power of modernized CSS with the bliss of instant hot-reloading.
+
+This is a whole new model. Instead of dealing with hundreds or thousands of JavaScript files, you now have a small, organized set of CSS files. The tooling, development flow, and optimization strategies are now _simpler_ in all meanings of the word.
+
 
 ### Web Standards Model
 
 [image.floating]
-  src: /img/ux-stack.png
+  src: /img/standard-stack.png
   width: 300
 
 Global design system separates the HTML markup from styling and logic. This allows you to build websites with vanilla CSS and enhance them with JavaSript. You'll get to know [how the web works][standards]: the way CSS cascades, when to use Web Components, and how to tackle responsive web design.
 
-Instead of trusting your career on commercially-biased 3rd parties, you'll stay closer to the [web standards model](//www.w3.org/wiki/The_web_standards_model_-_HTML_CSS_and_JavaScript). The code you writing now is something that all developers can understand — now and in the future.
-
-Become a professional UX developer and stay relevant for years to come.
+Instead of trusting your career on commercially-biased 3rd parties, you'll stay closer to the [web standards model](//www.w3.org/wiki/The_web_standards_model_-_HTML_CSS_and_JavaScript) and learn universal skills that last forever. There is no fear of technical debt: the code you writing now is something that all developers can understand — now and in the future.
 
 
 
-### Design and CSS
-Over the years CSS has evolved from static styling utility to an immensely powerful UX development language including support for motion- and interaction design. Nue extracts this hidden power from the complex world of JavaScript and passes it directly to where it belongs: for UX developers. No extra layers, no third-party idioms, no namespace issues. Just the raw power of modernized CSS with the bliss of instant hot-reloading.
-
-This totally changes your approach to web development. Instead of dealing with hundreds or thousands of JavaScript files, you now have a small, organized set of CSS files. The tooling, development flow, and optimization strategies are now _simpler_ in all meanings of the word.
-
-
-
-### Page performance
-Perhaps the most unique feature of Nue is that your website can reach the same performance levels as text-only websites like [motherfuckingwebsite.com](//motherfuckingwebsite.com/), but without compromising on design. That is: you can get the fastest possible page loads with the design and user experience levels of Stripe or Linear.
+### HTML bundling
+Perhaps the most unique feature of Nue is that your website can reach the same performance levels as text-only websites like [motherfuckingwebsite.com](//motherfuckingwebsite.com/), but without compromising on design. That is: you can get the fastest possible page loads with the design and user experience levels of **Stripe** or **Linear**.
 
 [image.gridpaper]
   small: /img/first-paint.png
@@ -108,15 +115,7 @@ This is achieved by bundling your minified CSS together with the HTML and servin
 
 
 ### The UX mindset
-Nue's [CSS best practices](css-best-practices.html) focus strongly on aesthetics and user experience while keeping your CSS clean and organized:
-
-[image.gridpaper]
-  small: /img/ux-development.png
-  large: /img/ux-development-big.png
-  href: css-best-practices.html
-
-
-This makes a complete shift in your focus:
+Nue's [CSS best practices](css-best-practices.html) focus strongly on aesthetics and user experience while keeping your CSS clean and organized. Nue's UX development flow is a completely different development model:
 
 [table head="Topic | Engineers| UX developers"]
   - Building blocks | React components | Global Design System
@@ -135,25 +134,22 @@ Keeping your focus on UX is vital because you may have chosen the latest and coo
 
 
 
-
-## Increased productivity
-Nue offers a clean development environment for all core tasks on your web stack. Your team members can work on areas they are natively good at
-
+## Move faster
+Nue offers a clean development environment for all core tasks on your web stack. Your team members can work on areas they are natively good at:
 
 [image.gridpaper]
   small: /img/scale.png
   large: /img/scale-big.png
-  caption: Separation of concerns in action
 
 
-### Content development
-*Marketers, copywriters* and *technical writers* can focus on content without blocking developers. All your pages, from simple blog entries to rich landing pages are editable by non-technical people.
+- **Content development**: *Marketers, copywriters* and *technical writers* can focus on content without blocking developers. All your pages, from simple blog entries to rich landing pages are editable by non-technical people.
 
-### Application development
-Nue separates your business model from the rest of your frontend code, so application developers can write pure, testable JavaScript APIs without burdening themselves with 3rd party abstractions. The code becomes cleaner and significantly easier to deal with. There is absolutely no reason to uglify your application code with HTML or gigantic class attributes.
+- **Application development**: JavaScript developers can focus on building pure, testable APIs without burdening themselves with the frontend stuff. Their code becomes cleaner and significantly easier to deal with without the gigantic HTML class name text walls.
 
-### UX development
-Nue is for people who love design, UX development, and the power of modern CSS. It changes the way you think about web development. You might not believe that until you actually try it. Chances are, that you start wondering why you ever built websites any other way.
+- **UX development**: Nue brings UX development back to the forefront. It is the perfect chioce for people who love design, UX development, and the power of modern CSS.
+
+
+> You might not believe all this until you [try it](installation.html). Chances are, that you start wondering why you ever built websites any other way.
 
 
 ## The UX framework
@@ -165,20 +161,20 @@ Nue is for people who love design, UX development, and the power of modern CSS. 
   [Learn more](global-design-system.html)
   ---
 
-  ### UX development
-  Best practices for UX and CSS
+  ### CSS best practices
+  Become a professional UX developer
 
   [Learn more](css-best-practices.html)
   ---
 
   ### Content development
-  Develop content like a hacker
+  Assemble content like a hacker
 
   [Learn more](content-management-system.html)
   ---
 
   ### Application development
-  Build beautiful apps with less effort
+  Build single-page apps with less effort
 
   [Learn more](single-page-applications.html)
 

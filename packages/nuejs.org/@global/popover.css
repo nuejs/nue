@@ -24,16 +24,14 @@
 
   /* close  */
   [popovertarget] {
+    background-image: none;
     color: var(--gray-600);
     position: absolute;
     font-weight: 400;
-    font-size: 1.8em;
+    font-size: 1.6em;
     width: 1.1em;
-    padding: 0;
     right: .4em;
     top: .4em;
-
-    &:hover { color: var(--gray-800) }
   }
 }
 
