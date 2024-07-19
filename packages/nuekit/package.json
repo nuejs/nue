@@ -22,9 +22,9 @@
 		"import-meta-resolve": "^4.0.0",
 		"js-yaml": "^4.1.0",
 		"lightningcss": "^1.24.0",
-		"nue-glow": "latest",
-		"nuejs-core": "latest",
-		"nuemark": "latest"
+		"nue-glow": "*",
+		"nuejs-core": "*",
+		"nuemark": "*"
 	},
 	"engines": {
 		"bun": ">= 1",

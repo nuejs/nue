@@ -10,6 +10,8 @@ async function readSize(dist, path) {
 }
 
 export async function printStats(site, args) {
+  if (args.dryrun) return
+
   const { dist, globals } = site
   let paths = await fswalk(dist)
 

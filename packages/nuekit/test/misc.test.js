@@ -5,24 +5,58 @@ import { getParts, sortCSS } from '../src/util.js'
 import { lightningCSS } from '../src/builder.js'
 import { renderHead } from '../src/layout.js'
 import { getArgs } from '../src/cli.js'
+import { promises as fs } from 'node:fs'
 
 import { toMatchPath } from './match-path.js'
+import { join } from 'node:path'
 
 expect.extend({ toMatchPath })
 
+// temporary directory
+const dist = '_test'
+
+// setup and teardown
+beforeAll(async () => {
+  await fs.rm(dist, { recursive: true, force: true })
+  await fs.mkdir(dist)
+})
+
+afterAll(async () => await fs.rm(dist, { recursive: true, force: true }))
+
+async function writeCSS(code, filename='lcss.css') {
+  const filepath = join(dist, filename)
+  await fs.writeFile(filepath, code)
+  return filepath
+}
 
 test('Lightning CSS errors', async () => {
+  const code = 'body margin: 0 }'
+  const filepath = await writeCSS(code)
+
   try {
-    await lightningCSS('body margin: 0 }', true)
+    await lightningCSS(filepath, true)
   } catch (e) {
-    expect(e.lineText).toBe('body margin: 0 }')
+    expect(e.lineText).toBe(code)
     expect(e.line).toBe(1)
   }
 })
 
+test('Lightning CSS @import bundling', async () => {
+  const code = 'body { margin: 0 }'
+  const filename = 'cssimport.css'
+  await writeCSS(code, filename)
+  const filepath = await writeCSS(`@import "${filename}"`)
+
+  const css = await lightningCSS(filepath, true)
+  expect(css).toBe(code.replace(/\s/g, ''))
+})
+
 test('Lightning CSS', async () => {
-  const css = await lightningCSS('body { margin: 0 }', true)
-  expect(css).toBe('body{margin:0}')
+  const code = 'body { margin: 0 }'
+  const filepath = await writeCSS(code)
+
+  const css = await lightningCSS(filepath, true)
+  expect(css).toBe(code.replace(/\s/g, ''))
 })
 
 test('CLI args', () => {

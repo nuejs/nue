@@ -56,7 +56,7 @@ function toString(val) {
 
 function setAttribute(key, attribs, data) {
   let val = attribs[key]
-  if (!val) return
+  if (val === null || val === undefined) return
 
   // TODO: check all non-strings here
   if (val.constructor === Object) return

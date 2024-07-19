@@ -101,24 +101,26 @@ test('Loops', () => {
     '<p :for="[key, value, i] in Object.entries(person)">{ i }: { key } = { value }</p>':
       '<p>0: name = Nick</p><p>1: email = nick@acme.org</p><p>2: age = 10</p>',
 
-    '<p :for="({ name }, i) in items">{ i }. { name }</p>' : '<p>0. John</p><p>1. Alice</p>',
+    '<p :for="({ name }, i) in items">{ i }. { name }</p>': '<p>0. John</p><p>1. Alice</p>',
 
     // loop custom tag
-    '<show :for="el in items" :value="el.name"/> <b @name="show">{ value }</b>' :
+    '<show :for="el in items" :value="el.name"/> <b @name="show">{ value }</b>':
       '<b>John</b><b>Alice</b>',
 
     // loop slots
-    '<thing :for="el in items" :bind="el"><b>{ el.age }</b></thing><u @name="thing">{name}: <slot/></u>' :
+    '<thing :for="el in items" :bind="el"><b>{ el.age }</b></thing><u @name="thing">{name}: <slot/></u>':
       '<u>John: <b>22</b></u><u>Alice: <b>33</b></u>',
 
     // successive loops
     '<div><p :for="x in nums">{ x }</p><a :for="y in nums">{ y }</a></div>':
       '<div><p>-1</p><p>0</p><p>1</p><a>-1</a><a>0</a><a>1</a></div>',
 
+    '<i :for="el in falsy">{el}</i>': '<i></i><i>false</i><i>0</i><i>NaN</i><i></i><i></i>'
   }, {
-    items: [ { name: 'John', age: 22 }, { name: 'Alice', age: 33 }],
+    items: [{ name: 'John', age: 22 }, { name: 'Alice', age: 33 }],
     person: { name: 'Nick', email: 'nick@acme.org', age: 10 },
     nums: [-1, 0, 1],
+    falsy: ['', false, 0, NaN, null, undefined],
   })
 })
 
@@ -144,7 +146,7 @@ test('Advanced', () => {
   runTests({
 
     // :attr (:bind works the same on server side)
-    '<dd :attr="person"></dd>': '<dd name="Nick" age="10"></dd>',
+    '<dd :attr="person"></dd>': '<dd name="Nick" age="0"></dd>',
 
     '<hey :val/>': '<div is="hey">\n  <script type="application/json">{"val":"1"}</script>\n</div>',
 
@@ -156,10 +158,10 @@ test('Advanced', () => {
       '<div><h3>Parent</h3><p></p><p>Nick</p></div>',
 
   }, {
-    person: { name: 'Nick', age: 10 },
+    person: { name: 'Nick', age: 0 },
     page: '<main>Hello</main>',
     nums: [1, 2],
-    val: 1
+    val: 1,
   })
 
 })
@@ -232,7 +234,7 @@ const IF_SIBLING = `
 `
 
 test('If sibling', () => {
-  const els = [{ label: 'First'}]
+  const els = [{ label: 'First' }]
   const html = render(IF_SIBLING, { els })
   expect(html).toInclude('First')
 })
