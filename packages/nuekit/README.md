@@ -9,7 +9,12 @@ Cheers,
 ---
 
 # Nue &nbsp;[![test](https://github.com/nuejs/nue/actions/workflows/test.yaml/badge.svg?branch=master)](https://github.com/nuejs/nue/actions/workflows/test.yaml)
-Nue(kit) is a static website generator and web application builder. It's an amazingly simple and powerful alternative to **Next.js** and **Astro**:
+Nue(kit) is a static website generator and web application builder. It's a simple alternative to **Next.js** and **Astro**. The [ultimate goal](https://nuejs.org/blog/perfect-web-framework/) is to challenge **Vercel** and **Netlify** with a significantly leaner option:
+
+<img src="https://nuejs.org/img/roadmap-autumn-big.png" width="700"></a>
+
+<a href="https://nuejs.org/blog/perfect-web-framework/">
+<img src="https://nuejs.org/img/perfect-banner-big.jpg" width="500"></a>
 
 
 ### Getting Started
@@ -32,20 +37,6 @@ Please see https://nuejs.org/docs/
 - [Content collections](https://nuejs.org/docs/concepts/content-collections.html)
 - [Reactive islands](https://nuejs.org/docs/concepts/reactive-islands.html)
 
-
-### The Goal
-Eventually, Nue is a content-first alternative to **Vercel** and **Netlify**, which is extremely fast and ridiculously easy to use. The goal is to be a so-called [perfect framework](https://nuejs.org/blog/perfect-web-framework/):
-
-<a href="https://nuejs.org/blog/perfect-web-framework/">
-<img src="https://nuejs.org/img/perfect-banner-big.jpg" width="500"></a>
-
-
-### Roadmap
-Here's the high-level roadmap. Click for the most recent [status update](https://nuejs.org/blog/status-update-01/) version.
-
-
-<a href="https://nuejs.org/blog/status-update-01/">
-<img src="https://nuejs.org/img/roadmap-summer.png" width="800"></a>
 
 ### Contributing
 
