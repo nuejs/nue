@@ -68,11 +68,11 @@ export function parseHeading(text) {
     return { text: text.slice(0, i).trim(), ...attr }
   }
 
-  return { text, id: createHeaderId(text) }
+  return { text, id: text[30] ? null : createHeaderId(text) }
 }
 
 export function createHeaderId(text) {
-  let hash = text.replace(/'/g, '').replace(/\W/g, '-').replace(/-+/g, '-').toLowerCase()
+  let hash = text.replace(/'/g, '').replace(/[\W_]/g, '-').replace(/-+/g, '-').toLowerCase()
   if (hash[0] == '-') hash = hash.slice(1)
   if (hash.endsWith('-')) hash = hash.slice(0, -1)
   return hash

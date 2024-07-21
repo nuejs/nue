@@ -3,10 +3,10 @@ import { join, parse as parsePath, extname, basename } from 'node:path'
 import { renderHead, getDefaultHTML, getDefaultSPA } from './layout.js'
 import { parse as parseNue, compile as compileNue } from 'nuejs-core'
 import { log, colors, getAppDir, getParts } from './util.js'
-import { parsePage, renderPage } from 'nuemark/index.js'
 import { createServer, send } from './nueserver.js'
 import { lightningCSS, buildJS } from './builder.js'
 import { printStats, categorize } from './stats.js'
+import { parsePage, renderPage } from 'nuemark'
 import { promises as fs } from 'node:fs'
 import { createSite } from './site.js'
 import { fswatch } from './nuefs.js'
@@ -122,7 +122,7 @@ export async function createKit(args) {
     if (html.includes('<html')) {
       const lib = await site.getLayoutComponents(appdir)
       const [ spa, ...spa_lib ] = parseNue(html)
-      return DOCTYPE + spa.render(data, lib.concat(spa_lib))
+      return DOCTYPE + spa.render(data, [...lib, ...spa_lib])
     }
     const [ spa ] = parseNue(getDefaultSPA(html, data))
     return DOCTYPE + spa.render(data)

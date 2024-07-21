@@ -221,6 +221,8 @@ tags['!'] = function(data, opts) {
     tags.image(data, opts)
 }
 
+// alias
+tags.section = tags.layout
 
 export function elem(name, attr, body) {
   if (typeof attr == 'string') { body = attr; attr = {}}
