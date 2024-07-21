@@ -201,7 +201,7 @@ test('[layout]', () => {
   expect(single).toInclude('<p>foo</p>')
 
   const double = tags.layout({ attr, data, content: ['foo', 'bar'] })
-    expect(double).toInclude('<section id="epic">')
+  expect(double).toInclude('<section id="epic">')
 })
 
 test('[section] alias', () => {
@@ -394,7 +394,7 @@ test('parseSpecs', () => {
 })
 
 test('parse plain args', () => {
-  const { name, data }= parseComponent('video src="/a.mp4" loop muted')
+  const { name, data } = parseComponent('video src="/a.mp4" loop muted')
   expect(name).toBe('video')
   expect(data.loop).toBe(true)
   expect(data.muted).toBe(true)
@@ -440,6 +440,23 @@ test('parseComponent', () => {
 
 })
 
+test('marked extension', async () => {
+  const ellipsis = '\u2026'
+  const marked_extensions = [{
+    tokenizer: {
+      inlineText(src) {
+        const cap = this.rules.inline.text.exec(src)
+        const text = cap[0].replace(/\.{3}/g, ellipsis)
+        return { type: 'text', raw: cap[0], text }
+      }
+    }
+  }]
+
+  const { html } = renderLines(['This is a test, right?\n', '...\n', 'Right?\n', '.....'], { marked_extensions })
+
+  expect(html).toBe(`<p>This is a test, right?</p>\n<p>${ellipsis}</p>\n<p>Right?</p>\n<p>${ellipsis}..</p>\n`)
+})
+
 /*
   Required:
   bun add react
@@ -455,7 +472,7 @@ test('JSX component', async () => {
 
     // make them compatible with Nuemark
     const lib = Object.keys(jsx).map(name => {
-        return { name, render: (data) => renderToString(jsx[name](data)) }
+      return { name, render: (data) => renderToString(jsx[name](data)) }
     })
 
     // render JSX with Nuemark
@@ -463,7 +480,7 @@ test('JSX component', async () => {
 
     expect(html).toBe('<h1 style="color:red">Hello</h1>')
 
-      // react not imported
+    // react not imported
   } catch (ignored) {
     console.info('JSX test skipped')
   }
