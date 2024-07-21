@@ -82,7 +82,11 @@ export async function createSite(args) {
   }
 
   const markedConfig = joinRootPath(root, 'marked.config.js', true)
-  const { default: marked_extensions=[] } = await import(markedConfig).catch(() => ({}))
+  const markedConfigExists = await fs.stat(markedConfig).catch(() => false)
+  const { default: marked_extensions=[] } = markedConfigExists ? await import(markedConfig).catch(e => {
+    console.error(e)
+    return {}
+  }) : {}
 
   async function write(content, dir, filename) {
     const todir = join(dist, dir)
