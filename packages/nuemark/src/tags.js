@@ -28,7 +28,7 @@ export const tags = {
   button(data, opts) {
     const { attr, href="#", content=[] } = data
     const label = parseInline(data.label || data._ || content[0] || '')
-    return elem('a', { ...attr, href, role: 'button' }, label || _)
+    return elem('a', { ...attr, href, role: 'button' }, content[0] ? nuemarkdown(content[0]) : label || _)
   },
 
   icon({ _, icon_base='/img', alt }) {
