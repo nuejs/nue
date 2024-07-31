@@ -326,6 +326,3 @@ Learn to write clean HTML and CSS and stay relevant for years to come.
 [.footnote]
   Thanks to **Alan Hemmings, Janne Lehtinen, Anssi Piirainen, Anni Myllykangas, Courtney Couch, Lari Hotari, Joona Piirainen, Jukka Kujansivu, Lauri Heiskanen**, and **David Henzel** for reading drafts of this. And very special thanks to the friends (with no name) who use Tailwind daily. Your feedback was especially important.
 
-
-
-[cta newbie]

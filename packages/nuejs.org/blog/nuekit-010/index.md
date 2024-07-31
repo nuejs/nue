@@ -110,5 +110,3 @@ If you want, we can send you an email when a new milestone is reached:
 ## Thank you!
 Finally, I’d like to give a huge thanks to the [20+ developers](//github.com/nuejs/nue/graphs/contributors) who have participated in the early development of Nue JS. Your feedback has been essential in shaping Nue into the tool it is today. If you’re interested in getting involved please join the [Discussion @ Github](//github.com/nuejs/nue/discussions)
 
-
-[cta]

@@ -9,11 +9,11 @@ Nue has a powerful content authoring syntax for marketers, copywriters, and tech
 
 
 ## Extended Markdown
-The content authoring syntax is based on *Markdown*, but extends its capabilities to make it suitable for authoring rich, interactive content. It supports sections, content blocks, grids, stacked layouts, responsive images, videos, tabs, and more. All your content, from simple blog entries to rich landing pages is editable by non-technical people.
+The content authoring syntax is based on **Markdown**, but extends its capabilities to make it suitable for creating rich web pages. It supports sections, content blocks, grids, stacked layouts, responsive images, videos, tabs, and more. All your content, from simple blog entries to rich landing pages is editable by non-technical people.
 
 Thanks to universal hot-reloading, the content authors can see the results in real time as they edit the content.
 
-Think Nue like *WordPress*, *Notion*, but the content is editable with your favorite text editor and the results are compatible with your design system. The versatile syntax allows you to build complex landing pages comparable to what you can create with online authoring tools like *Framer* or *WebFlow*.
+Think Nue like **WordPress**, **Notion**, but the content is editable with your favorite text editor and the results are compatible with your design system. The versatile syntax allows you to build complex landing pages comparable to what you can create with online authoring tools like **Framer** or **WebFlow**.
 
 
 

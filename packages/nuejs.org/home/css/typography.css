@@ -1,0 +1,52 @@
+
+h1 {
+  font-size: calc(2em + 2.5vw);
+  letter-spacing: -.03em;
+  margin: 0 auto .3em;
+  font-weight: 950;
+  max-width: 15em;
+  line-height: 1.1;
+
+  + p {
+    font-size: calc(1.2em + .7vw);
+    margin: .5em auto 1.2em;
+    max-width: 35em;
+    font-weight: 300;
+    line-height: 1.3;
+
+    + [role=button] {
+      padding: 1em 2.5em;
+    }
+  }
+}
+
+
+h2 {
+  font-size: calc(1.8em + 2vw);
+  font-weight: 800;
+  letter-spacing: -.04em;
+  margin: 0;
+
+  + p {
+    font-size: calc(1.1em + .6vw);
+    margin-top: .5em;
+    font-weight: 300;
+    margin-bottom: 2em;
+    line-height: 1.5;
+  }
+}
+
+article  {
+  h3 {
+    margin-bottom: -.5em;
+    font-size: 1.3em;
+  }
+
+  p {
+    color: var(--gray-700);
+    line-height: 1.5;
+    strong {
+      color: var(--gray-900);
+    }
+  }
+}

@@ -1,5 +1,5 @@
 
-include: [technical-content, syntax-highlight, form, video]
+include: [technical-content, syntax-highlight, form, button, video]
 
 authors:
   default: tero

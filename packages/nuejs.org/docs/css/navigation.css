@@ -81,9 +81,9 @@ aside:first-child h3 {
     background-image: url(/icon/cog.svg)  /* cog, badge, shield, star */
   }
 
-  /* Design */
+  /* UX */
   nav:nth-child(2) & {
-    background-image: url(/icon/swatch.svg)
+    background-image: url(/icon/user.svg)  /* heart */
   }
 
   /* Reactivity
@@ -94,7 +94,7 @@ aside:first-child h3 {
 
   /* Content development */
   nav:nth-child(3) & {
-    background-image: url(/icon/rectangles.svg)
+    background-image: url(/icon/star.svg)
   }
 
   /* SPA */

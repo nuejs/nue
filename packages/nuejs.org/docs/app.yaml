@@ -9,18 +9,19 @@ sidenav:
   Getting started:
     - What is Nue?: /docs/
     - Installation: installation.html
-    - Hello, World!: hello-world.html
     - Project Structure: project-structure.html
     - Settings and metadata: settings.html
     - Command line interface: command-line-interface.html
 
   UX development:
+    - UX development flow: ux-development.html
     - Global Design System: global-design-system.html
     - Page layout: page-layout.html
     - Custom layouts: custom-layouts.html
     - CSS best practises: css-best-practices.html
     - Motion and Reactivity: reactivity.html
     - Optimization: performance-optimization.html
+    - Hello, World!: hello-world.html
 
 
   Content development:
@@ -35,7 +36,7 @@ sidenav:
 
 
   Reference:
-    - Syntax highlighting: syntax-highlighting.html
     - Template syntax: template-syntax.html
-    - Content collections: content-collections.html
     - Universal hot-reloading: hot-reloading.html
+    - Content collections: content-collections.html
+    - Syntax highlighting: syntax-highlighting.html

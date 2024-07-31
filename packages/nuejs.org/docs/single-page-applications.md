@@ -3,32 +3,34 @@ include: [form, button]
 ---
 
 # Single-page applications `Coming soon`
-Nue is a rapid web application builder. That is: you can take advantage of the global design system, and use the same development approach to build both content-heavy applications and single-page applications.
+Ultimately Nue brings the UX development model and the global design system to the world of single-page applications. This makes a better system architecture and a clearer coding style, and a more enjoyable way to build new things:
+
+! stack: view layer (GDS) + model + API layer --> backend
+
+With Nu, you can use the same development approach to build both content-heavy applications and single-page applications. This is a breath of fresh air also not just for the UX developer, but also for the application developer, who can switch to writing clean code without the "ugly" front end stuff. Just pure JavaScript, tested on the server side and served with a clean, documented API.
+
 
 [.note]
   ### Please note
-  The development of single-page applications starts after a major Templates release. All issues regarding Nue JS are marked as [low priority](https://github.com/nuejs/nue/labels/low%20priority) because the focus is currently on content-heavy multi-page applications.
+  The development of single-page applications starts later, because the focus is currently on content-heavy multi-page applications. All the related issues are marked as [low priority](https://github.com/nuejs/nue/labels/low%20priority).
 
 
-## Traditional model
-Today, single-page applications are made out of JavaScript or TypeScript components. There is a component for everything from links, buttons, inputs, and paragraphs to their compositions. The codebase keeps growing when the styling is hard-coded to the component, because you need multiple versions of the same component with slightly different styling. Tailwind's Catalyst UI library, for example, has four different paragraph components: `<Text>`, `<Description>`, `<DialogDescription>`, and `<AlertDescription>`.
 
-As you build more complex applications, the amount of components increases dramatically. It is not uncommon for large-scale projects to ~contain hundreds, even thousands of JavaScript modules~. **Vite**, for example, was specifically built to solve the issue with large codebases like that.
+## Separation of concerns
+Today, the codebases single-page applications are enormous. It's not unusual to see projects with hundreds, even thousands of JavaScript components where the markup, styling, and logic are mixed together forming a massive canvas of "spaghetti code". Projects like **Vite** are specifically built to solve the issues that come with with these massive component-heavy codebases.
 
-
-## Shift in focus
-**Nue is different**. It embraces the separation of concerns design pattern and splits your application into three major layers: application layer, UI layer, and styling:
+Nue is different. It splits you codebase in two: the application and the user interface:
 
 [image.gridpaper]
   small: /img/spa-stack.png
   large: /img/spa-stack-big.png
 
 
-This split makes a big difference in how you code looks:
+This split makes a big difference in how you code looks.
 
 
-### Application layer
-The application code becomes a separate entity with no complexities from the presentation layer: there is no knowledge of views nor state and the code is absent from framework-specific concepts like hooks, refs, or events. And there are no extra domain-specific idioms like *JSX* or *Tailwind*.
+### Application code
+The application code becomes a separate entity with no complexities from the UI layer: there is no knowledge of views nor state and the code is absent from framework-specific concepts like hooks, refs, or events. And there are no extra domain-specific idioms like *JSX* or *Tailwind*.
 
 This dramatically simplifies the code and makes it easier to read and maintain. The application can be an isolated *NPM* module, that can be tested separately.
 
@@ -37,19 +39,16 @@ But most importantly: you can use the exact same application code for different 
 You can even use a true typed language like *Rust* or *Go* and compile the application to *WASM* like *Figma* does. Decoupled application logic opens new doors for front-end developers.
 
 
-### View layer
-When styling and the application code are decoupled from the UI, the code becomes simple enough for UX developers to manage and scale. Instead of creating custom components for the various contexts, the UX developer can use native HTML inputs, buttons, and other elements to build the layout. This dramatically reduces the amount of components and UI code.
+### User interface code
+When styling and the application code are decoupled from the UI, the code becomes simple enough for UX developers to manage and scale. Instead of creating custom components for the various contexts, the UX developer can use native HTML inputs, buttons, and other elements to build the layout. Together with the global design system, you'll end up with a dramatically simpler codebase. You need less time and effort to implement new things.
 
-The more complex operations narrow down to simple JavaScript calls to the application API and update the UI accordingly.
-
-### Styling
-You can re-use the same CSS code that is already present on your content-heavy websites. This further reduces the amount of code you need to write.
+You can re-use the same global CSS code that is already present on your content-heavy website. This further reduces the amount of code you need to write.
 
 But most importantly: your styling code, its motion, and other effects are shared by both systems and are fully compliant with your design system.
-
 
 
 ## Get notified
 Join our mailing list to get notified when this new development model is available.
 
 [join-list]
+

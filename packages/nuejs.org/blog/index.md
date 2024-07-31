@@ -17,7 +17,8 @@ exclude:
 ---
 
 
-# Announcements
-Writings and updates from the Nue team
+# UX developer blog
+
+[button.secondary href="/#roadmap" "Join mailing list"]
 
 [page-list]

@@ -190,7 +190,7 @@
   </script>
 </ul>
 
-<section @name="css-files" class="file-list">
+<div @name="css-files" class="file-list">
 
   <div>
     <h4>Shared files</h4>
@@ -210,10 +210,10 @@
     })
   </script>
 
-</section>
+</div>
 
 
-<section @name="site-list" class="gallery">
+<div @name="site-list" class="gallery">
 
   <div :for="s, i in sites">
     <header>
@@ -237,7 +237,7 @@
     }
   </script>
 
-</section>
+</div>
 
 <ul @name="stacked-bars" class="bar-chart">
 
@@ -271,7 +271,7 @@
   </script>
 </ul>
 
-<section @name="size-compare">
+<div @name="size-compare">
   <a href="size-measurement.html">
     <stacked-bars :rows/>
     <figcaption>Click for measurement details</figcaption>
@@ -283,7 +283,7 @@
     }
   </script>
 
-</section>
+</div>
 
 
 <table @name="tailwind-table" class="small">

@@ -13,7 +13,7 @@
   }
 }
   
-.btn-play {
+.play {
   background: var(--main-500) url(/icon/play.svg) no-repeat;
   border: 4px solid var(--main-500);
   transform: translate(-50%, -50%);

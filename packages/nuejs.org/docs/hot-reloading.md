@@ -1,6 +1,6 @@
 
 # Universal hot-reloading
-Nue provides a unique hot-reloading feature that automatically updates *all* your website assets on the browser when you edit your content, styling, layout, data files, or components.
+Nue provides a powerful hot-reloading utility that automatically updates your browser as you edit your content, styling, layout, data files, or reactive components:
 
 [bunny-video]
   videoId: 18714305-d2f3-453d-83a9-0bd017166949
@@ -47,7 +47,7 @@ Hot-reloading is automatically enabled in development. The client-server communi
 
 
 ## Non-goals
-Nue hot-reloading applies to UI components only so updates to JavaScript/TypeScript extensions have no impact. These extensions are best developed and tested on the server side. The same goes to WebComponents — the browser does not have the means to re-hydrate updated components.
+Nue hot-reloading applies to UI components only so updates to JavaScript/TypeScript extensions have no impact. These extensions are best developed and tested on the server side. The same goes to Web Components — the browser does not have the means to re-hydrate updated components.
 
 
 ## Disable hot-reloading

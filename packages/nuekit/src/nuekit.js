@@ -107,7 +107,8 @@ export async function createKit(args) {
   async function renderMPA(path) {
     const data = await getPageData(path)
     const file = parsePath(path)
-    const lib = await site.getServerComponents(data.appdir || file.dir)
+
+    const lib = await site.getServerComponents(data.appdir || file.dir, data)
     return DOCTYPE + renderPage(data, lib)
   }
 
@@ -129,7 +130,7 @@ export async function createKit(args) {
     const html = await read(index_path)
 
     if (html.includes('<html')) {
-      const lib = await site.getServerComponents(appdir)
+      const lib = await site.getServerComponents(appdir, data)
       const [ spa, ...spa_lib ] = parseNue(html)
       return DOCTYPE + spa.render(data, [...lib, ...spa_lib])
     }

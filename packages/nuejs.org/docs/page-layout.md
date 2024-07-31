@@ -3,8 +3,13 @@
 Nue standardizes the structure of your web pages so you can use the same HTML markup, but vary your external CSS to achieve wildly different designs.
 
 
-## Headless markup
-Let's start by creating `index.md` to an empty project folder with the following content:
+## Standardized HTML
+After describing your headers and footers, the default page layout for Markdown content looks like this:
+
+[image.gridpaper /img/page-layout.svg]
+
+
+To see this in practice lets create an `index.md` file with the following content:
 
 ``` md
 # Hello, World!
@@ -40,12 +45,12 @@ This will generate the following HTML:
 </html>
 ```
 
-This forms the basis for our HTML markup, with absolutely no class names or styling included. This is the core idea of the global design system: you'll get a _headless_ markup that you can style in different ways.
+This forms the basis for our markup, which has no styling information included in any format: not in the style attribute, nor class name attribute. This is the core idea of the global design system: you'll get a _headless_ markup that you can style in different ways.
 
 
 
-### Head element
-The contents of your head element is auto-generated based on your [settings](settings.html) and [project structure](project-structure.html). For example, if you have the files `hello.css` and `hello.js` on your project root and  a `site.yaml` file with the following data:
+#### The head element
+The contents of your head element are auto-generated based on your [settings](settings.html) and [project structure](project-structure.html). For example, if you have the files `hello.css` and `hello.js` on your project root and  a `site.yaml` file with the following data:
 
 ``` yaml
 favicon: /favicon.png
@@ -77,7 +82,7 @@ Your head element will be rendered as follows:
 ## Global navigation
 Nue offers a simple, [YAML-based syntax](#nav-syntax) for defining all the site-wide navigation elements: global header and footer, the burger menu, dropdown menus, and any other complementary menus you may have. This declarative syntax is beneficial for several reasons:
 
-1. It always produces the same markup accross projects that you can rely on when styling your website. This adapts to the idea of the global design system.
+1. It always produces the same markup across projects that you can rely on when styling your website. This adapts to the idea of the global design system.
 
 1. You can define your information architecture and start the CSS development immediately without going deep with the content.
 

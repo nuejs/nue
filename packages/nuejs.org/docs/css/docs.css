@@ -1,5 +1,4 @@
 
-
 .gridpaper {
   background-image: url(/img/grid-paper.png);
   border: 1px solid var(--gray-200);
@@ -17,10 +16,17 @@
   }
 }
 
-.bordered img {
-  border: 1px solid var(--gray-100);
-  border-radius: 4px;
-  box-shadow: 0 .3em .5em #0001;
+.bordered {
+  margin: 1.5em 0;
+
+  img&, img {
+    border: 1px solid #0001;
+    border-radius: 6px;
+  }
+
+  &:has(figcaption) {
+    margin-bottom: 3em;
+  }
 }
 
 /* currently: TODO badge in SPA page */
@@ -97,6 +103,5 @@ h1 code {
   code {
     min-width: 8em;
   }
-
 
 }

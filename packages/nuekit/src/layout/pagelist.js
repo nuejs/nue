@@ -19,6 +19,7 @@ function prettyDate(date) {
 }
 
 export function renderPrettyDate(date) {
+  if (!date.getDate) date = new Date(date)
   return elem('time', { datetime: date.toISOString() }, prettyDate(date))
 }
 
@@ -30,9 +31,9 @@ export function renderPage(page) {
   let date = page.date || page.pubDate || new Date()
   if (!date.getDate) date = new Date(date)
 
+  const is_new = isNew(date)
   const time = renderPrettyDate(date)
 
-  const is_new = isNew(date)
 
   const body = elem('a', { href: url }, join([
     elem('h2', title ? renderInline(title) : ''),

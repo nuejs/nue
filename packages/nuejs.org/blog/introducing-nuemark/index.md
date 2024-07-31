@@ -181,5 +181,3 @@ Check [General FAQ](/faq/) for more questions about Nue.
 ### Where does the syntax come from?
 Nuemark takes inspiration from WordPress shortcodes, TOML configuration language, YAML front matter, and other Markdown elements like links and images. The goal make it approachable for people already familiar with Markdown and introduce as few new idioms as possible.
 
-
-[cta]

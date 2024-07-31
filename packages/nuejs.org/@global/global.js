@@ -7,9 +7,9 @@ addEventListener('click', e => {
   if (menu && el.matches('a')) menu.hidePopover()
 
   // make cards clickable
-  const card = el.closest('.card')
-  if (card) {
-    const a = card.querySelector('p a')
+  const wrap = el.closest('.card, .features div')
+  if (wrap) {
+    const a = wrap.querySelector('p a')
     console.info(a.getAttribute('href'))
     if (a) location.href = a.getAttribute('href')
   }

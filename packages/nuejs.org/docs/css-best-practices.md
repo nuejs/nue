@@ -1,43 +1,25 @@
 
 
 # Nue CSS best practices
-Best practices and recipes for UX development while keeping your CSS clean and organized. Becoming great at CSS might take years, but this document gives you some great pointers and shortcuts to speed up the learning curve.
-
-
-## Content comes first { #content-first }
-UX development starts by understanding your reader and perfecting the content for that audience. This content determines the design of your site;
-
-[image.gridpaper]
-  small: /img/ux-development.png
-  large: /img/ux-development-big.png
-
-Take an inventory of what needs to go on each page. Any element on the screen is content: text, images, lists, tables, navigation, code blocks, and components. The more you know about what will go into the site, the better you can plan the design.
-
-#### More info:
-* [Balsamiq: Content-First Design](//balsamiq.com/learn/articles/content-first-design/)
-* [PixelFridge: The benefits of a content-first approach](//www.pixelfridge.digital/the-benefits-of-a-content-first-approach/)
-* [UX Planet: Information Architecture Design](//uxplanet.org/information-architecture-design-a-step-by-step-guide-41dcd4405ee3)
-* [Bootcamp: Form follows Function](//bootcamp.uxdesign.cc/form-follows-function-48239b5cc19e)
+This document describes the best practices for writing clean CSS that is easy to maintain and scale. This is a result of decades of coding with CSS and HTML.
 
 
 
-## Create a design system { #design-system }
-After understanding your content it's time for design. Look for other, similar products on the market. How do you differentiate? What defines your unique look? Should it be minimalistic, functional, heroic, or playful?
+## Understand minimalism
+The key take from this document can be squeezed into one sentence:
 
-Put that all down to a *design system* — a set of rules and building blocks that define the design of your product:
+[.popup]
+  10 lines of code are easier to maintain than 100 lines of code
 
-1. **Globals**: typography, colors, and the use of whitespace.
-2. **Site layout**: global header, footer, and the content area
-3. **Components**: grids, forms, boxes, tables, buttons, etc.
-4. **Areas** — area specific layout and styling
+This website and Nue itself are a great demonstration of minimalism and it all comes from understanding and doing the following.
 
-The design system is usually a *Figma* or *Sketch* document shared with all the members of your UX team. Smaller, one-person projects can start developing the system directly with CSS.
+1. Respect constraints
+1. Write clean HTML and CSS
+1. Create reusable components
+1. Avoid inline styling
+1. Learn modern CSS
 
-#### More info:
-* [Figma: What is a design system?](//www.figma.com/blog/design-systems-101-what-is-a-design-system/)
-* [The Design System Guide](//thedesignsystem.guide/)
-* [Figma: Marketing of design systems](//www.figma.com/blog/the-future-of-design-systems-is-marketing/)
-
+These are all described in this document.
 
 
 ## Respect constraints { #constraints }
@@ -47,27 +29,33 @@ Limit yourself to as few fonts, font weights, colors, variables, elements, class
 
 1. **More creativity** — By narrowing the possibilities you allow for the quicker production of work and encourage developers to make creative combinations with the available options. With no limits, there are unlimited possibilities, similar to the effect a blank paper can have.
 
-1. **Better consistency** — If engineers can "do anything", they definitely use their creative freedom to work against your design system. But when they can only use the stuff available you'll ensure that the design goes as planned.
+1. **Better consistency** — If engineers can "do anything", they definitely use their creative freedom to work against your design system. But when they can only use the stuff available you'll ensure the design goes as planned.
 
 1. **Long-lasting products** — Simple things last longer. The design decisions you make early on have long-lasting implications. Keep your design system simple and you are rewarded with great design and easily maintainable CSS code that lasts for future generations.
 
 
 #### Links
 * [Figma: Constraints in design](//www.figma.com/resource-library/constraints-in-design/)
-* [LogRocket: Design constraints: Why they’re actually useful](//blog.logrocket.com/ux-design/design-constraints-why-theyre-useful/)
+* [LogRocket: Design constraints: Why they’re actually useful](//blog.logrocket.com/ux-design/design-constraints-why-they're-useful/)
 
 
 
-## Categorize your CSS { #categorize }
-Categorize your CSS in such a way that the colors, elements, and components are aligned with your design system. Name the files in such a way that everyone on your UX team can immediately see what's inside just by the name of the file. For example:
 
-- `typography.css` with all typographic elements like headings, paragraphs, text formatting, lists, links, blockquotes, etc.
+## Organize your CSS { #organize }
+Your CSS code is applied to a standardized [HTML layout](page-layout.html) in the global design system. This CSS should be organized your CSS in such a way that the colors, elements, and components are aligned with your design system.
+
+[image]
+  small: /img/figma-to-css.png
+  large: /img/figma-to-css-big.png
+
+Name the files in such a way that everyone can easily guess what's inside the file. The elements on these files should be related and easy to discover even when a UX developer sees the codebase for the first time. For example:
+
+- `typography.css` has all typographic elements like headings, paragraphs, text formatting, lists, links, blockquotes, etc.
 
 - `navigation.css` with settings for global header and footer
 
 - `form.css` with all form elements like inputs, text areas, select boxes, checkboxes, radios, sliders, etc.
 
-Organizing or "co-locating" your elements to match your design system makes an intuitive CSS architecture that is easy to maintain and scale.
 
 
 #### Links
@@ -75,10 +63,10 @@ Organizing or "co-locating" your elements to match your design system makes an i
 * [Sparkbox: The Anatomy of a Design System](//sparkbox.com/foundry/design_system_makeup_design_system_layers_parts_of_a_design_system)
 
 
-## Setup CSS cascade { #css-hierarchy }
-Split your design into globals, libraries, areas, and pages.
 
-! example folder hierarchy (two Finders above each other?)
+## Setup CSS cascade { #css-hierarchy }
+Split your design into globals, libraries, areas, and pages for maximum re-usability and minimum duplication of code:
+
 
 #### Globals
 Put all the globally available settings and styles into a [global directory](project-structure.html#globals). Things like colors, fonts, headers, footers, popover menus, and all the components that are shared across all the areas on your website.
@@ -96,6 +84,10 @@ Place all page-specific CSS under the leaf folder, where the `index.md` file res
 
 #### More info:
 * [MDN: Cascade, specificity, and inheritance](//developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Cascade_and_inheritance)
+
+
+
+
 
 
 ## Use simple selectors { #selectors }
@@ -126,11 +118,12 @@ article {
 }
 ```
 
-Simple selectors make easy-to-read and easy-to-maintain CSS, keep your file sizes to minimum, and use lower specifity for overrides.
+Simple selectors make easy-to-read and easy-to-maintain CSS, keep your file sizes to a minimum, and use lower specificity for overrides.
 
 
 #### Links
 [Specificity and Hierarchy in CSS](//kelvinofili.hashnode.dev/specificity-and-hierarchy-in-css)
+
 
 
 ## Write clean HTML { #clean-markup }
@@ -147,7 +140,7 @@ Avoid using unnecessary divs, spans, and class names in your [custom layouts](cu
     </div>
   </div>
 
-Do this instead:
+Instead, you should write clean and semantic HTML:
 
 [code.good caption="Clean, semantic markup"]
   <div class="•notification•">
@@ -156,9 +149,7 @@ Do this instead:
   </div>
 
 
-Clean HTML is significantly easier to work with. Just strip all redundancy. Use class names on the root element only and let CSS selectors do their job. It's surprising how little class names you need with clean, semantic markup. This website, for example, has only four class names on the global scope: "grid", "card", "stack", and "note".
-
-"Global namespace pollution" is a myth and is easy to avoid with a clean CSS structure.
+Clean HTML is significantly easier to read and work with. Only use a class name on the root element and let CSS selectors do the rest. It's surprising how little class names you need with clean, semantic markup. This website, for example, has only four class names on the global scope: "grid", "card", "stack", and "note". "Global namespace pollution" is essentially a myth and is trivial to avoid.
 
 
 
@@ -193,9 +184,7 @@ Here, the component was broken into two pieces: a highly re-usable "card" compon
 }
 ```
 
-The global design system, and simple, re-usable CSS makes a dramatically leaner codebase compared to component-based systems where the styling is inlined to the markup.
-
-This entire website, for example, has the same amount of CSS code as a single Tailwind button component.
+The global design system, and simple, re-usable CSS makes a dramatically leaner codebase compared to component-based systems where the styling is inlined to the markup. It's possible to [create entire websites](/blog/introducing-nue-css/) with the same amount of CSS code as a single Tailwind button component.
 
 
 #### Links:
@@ -203,8 +192,8 @@ This entire website, for example, has the same amount of CSS code as a single Ta
 
 
 
-## Use external styling { #external-css }
-Avoid inline styling. That is: don't style your components directly on the markup:
+## Avoid inline styling { #external-css }
+Don't style your components directly on the markup:
 
 [code.bad caption="Inline styling: the styles are written directly into the markup"]
   <div class="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-lg flex items-center space-x-4">
@@ -230,13 +219,13 @@ This brings more benefits than you could imagine:
 
 1. **Easier to maintain** — clean HTML and CSS are easier to read, write, teach, share, and maintain.
 
-1. **Less code to write** — external CSS leads to [maximum reuse](#reuse) and reduces the amount of code you need to write.
+1. **Less code to write** — external CSS leads to [maximum reuse](#reuse) and minimal duplication of code.
 
-1. **Central control** — with external CSS, the styling is centrally controlled by UX developers, and the look and feel is dictated by the design system.
+1. **Central control** — external CSS is centrally controlled by UX developers, and the look and feel are dictated by the design system.
 
 1. **Better SEO** — With clean HTML markup your [content to markup](//www.siteguru.co/free-seo-tools/text-to-html-ratio) ratio is significantly higher.
 
-1. **Long-lasting products** — use the CSS standard to style your products so the codebase stands the test of time. There is zero risk for technical debt.
+1. **Timeless skills and products** — CSS is a web standard. You'll learn universal skills that stand the test of time. There is zero risk for technical debt.
 
 
 #### Links
@@ -251,26 +240,21 @@ One killer feature of in external CSS is the ability to use the same markup, but
 
 - `marketing-content.css` for the front page, customer cases, and feature tours. Has a more "heroic" tone with more prominent headings and more complex layouts.
 
-Form follows function is a principle of design associated with late 19th- and early 20th-century industrial design, which states that the shape of a product should primarily relate to its intended function or purpose.
+**Form follows function** is a principle of design associated with late 19th- and early 20th-century industrial design, which states that the shape of a product should primarily relate to its intended function or purpose. Global design system together with external CSS is the perfect demonstration of this principle on a modern web stack.
 
-Global design system together with external CSS is the perfect demonstration of this principle on a modern web stack.
-
-
+#### Links
+* [Bootcamp: Form follows Function](//bootcamp.uxdesign.cc/form-follows-function-48239b5cc19e)
 
 
 ## Prefer standard HTML { #html }
-Don't create a custom component for every possible situation where a standard HTML element would do the same job just fine.
-
-For example, in [Tailwind Catalyst](//catalyst.tailwindui.com/docs) there is a separate component for every different context: `<Description>`, `<DialogDescription>`, `<Text>`, `<AlertDescription>`, etc.
-
-You could do the same with a single `<p>` element.
+Don't create a custom component for every possible situation where a standard HTML element would do the same job just fine. For example, the text components in [Tailwind Catalyst](//catalyst.tailwindui.com/docs): `<Description>`, `<DialogDescription>`, `<Text>`, `<AlertDescription>`, etc. could be all implemented with a single `<p>` element that is externally styled.
 
 Standard HTML helps you avoid *component overload* — a situation where you are constantly creating new components. It's not unusual to see massive codebases with hundreds, even thousands of components. Don't do that. Use semantic HTML and keep your codebase clean and lean.
 
 
 
-## Avoid CSS resets
-Avoid CSS resets. They just add extra complexity and baggage and very little value. First, you set everything to zero and then reset it to something you desire. It's better to only implement what's included in your design system and then stop. The only thing you need from a CSS reset library is this one sentence:
+## Avoid CSS reset libraries
+Avoid CSS reset libraries. They just add extra complexity and baggage and very little value. First, you set everything to zero and then reset it to something you desire. It's better to only implement what's included in your design system and that's all you need. The only CSS reset you need is this:
 
 ```
 *, *::before, *::after {
@@ -283,12 +267,8 @@ This sets your [CSS box model](//developer.mozilla.org/en-US/docs/Web/CSS/box-si
 
 
 ## Avoid CSS frameworks
-Avoid CSS frameworks. They just add extra layers of complexity and very little value. Once you've created your design system, and know exactly what you're doing, the CSS comes naturally. Any 3rd party library is just on your way by adding tons of things you don't need. For example, Bootstrap 4 has around 9000 lines of CSS, which is orders of magnitude more than what is needed for this website.
+Avoid CSS frameworks. They just add extra layers of complexity and very little value. Once you've created your design system, and know exactly what you're doing, the CSS comes naturally. Any 3rd party library is just on your way by adding tons of things you don't need. For example, Bootstrap 4 has around 9000 lines of CSS, which is orders of magnitude more than what is needed for this website. Minimalism might be the most undervalued development skill.
 
-Minimalism is probably the most undervalued development skill leading to significantly smaller and more manageable code.
-
-> 10 lines of code is easier to maintain than 100 lines of code
-> *Nue CSS best practise*
 
 
 
@@ -307,7 +287,7 @@ Modern CSS is surprisingly powerful. Things that used to require JavaScript can 
 * Smooth scrolling
 * View transitions
 
-Check [Motion and Reactivity](reactivity.html) for details.
+Check [motion and reactivity](reactivity.html) for details.
 
 
 ## Learn modern CSS

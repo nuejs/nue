@@ -265,5 +265,4 @@ Choose *"Simple blog"* on the last step and you can enjoy goodies content hot-re
 ps: Check out [Getting started docs](/docs/#node) if you prefer Node.
 
 
-[cta newbie]
 

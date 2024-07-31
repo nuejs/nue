@@ -374,5 +374,3 @@ I see that frontend development is trending into the following directions:
 
 Nue is designed from the ground up to be on par with the above trends.
 
-
-[cta newbie]

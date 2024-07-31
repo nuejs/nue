@@ -28,9 +28,9 @@ export const colors = getColorFunctions()
 export function parsePathParts(path) {
   path = normalize(path)
   const { dir, name, base } = parse(path)
-  const appdir = getAppDir(path)
+  const basedir = getAppDir(path)
   const url = getUrl(dir, name)
-  return { url, dir, slug: name + '.html', appdir }
+  return { url, dir, slug: name + '.html', basedir }
 }
 
 export function joinRootPath(root, path, abs = false) {

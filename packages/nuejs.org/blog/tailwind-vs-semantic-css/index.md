@@ -207,5 +207,3 @@ Because mastering CSS requires practice. It takes several failed attempts before
 
 The fact is that Tailwind's popularity will eventually fade. CSS-in-JS is trending now, but standards are forever. At some point, we'll all experience a "WTF moment" when looking at the tightly coupled Tailwind code.
 
-
-[cta newbie]

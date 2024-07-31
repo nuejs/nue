@@ -1,6 +1,8 @@
 
 /* https://uicolors.app/create  */
 :root {
+
+  /* grays */
   --gray-50:  #f4f8f9;
   --gray-100: #ebf3f4;
   --gray-200: #dbe7ea;
@@ -9,11 +11,11 @@
   --gray-500: #97afbd;
   --gray-600: #8099ab;
   --gray-700: #657a8b;
-  --gray-800: #5a6b79;
+  --gray-800: #5B6973;
   --gray-900: #4c5963;
   --gray-950: #2c343a;
 
-
+  /* main color */
   --main-50: #f0f9ff;
   --main-100: #e0f2fe;
   --main-200: #bae6fd;
@@ -22,47 +24,25 @@
   --main-500: #3E8DEF;
   --main-600: #0284c7;
 
-  /*  --red:      #ef4444;*/
+  /* accent colors */
   --red:      #fb7185;
   --pink:     #e200ff;
-  --purple:   #A438ED;
+  --purple:   #9E52FF;
   --yellow:   #f5ff20;
   --green:    #06d4a1;
 
-
-  /*
-  --main-700: #0369a1;
-  --main-800: #075985;
-  --main-900: #0c4a6e;
-  --main-950: #082f49;
-  --warning:  #fb923c;
-  --success:  #4ade80;
-  --marker:   #facc15;
-  */
-
-}
-
-
-/* variables */
-:root {
+  /* misc variables */
   --section-gap: calc(4em + 2vw);
   --body-padding: 1em 2.5em;
   --border: 1px solid var(--gray-200);
 }
+
 
 @media (max-width: 600px) {
   :root {
     --body-padding: 1.2em;
   }
 }
-
-
-/* scale down the previous page */
-::view-transition-old(root) {
-  transform: scale(.8);
-  transition: .4s;
-}
-
 
 *, *::before, *::after {
   box-sizing: border-box
@@ -78,6 +58,10 @@ body {
   padding: var(--body-padding);
   font-family: system-ui;
   margin: 0;
+}
+
+main {
+  min-height: 35vh;
 }
 
 figure {
@@ -107,4 +91,11 @@ hr {
 
 h1, h2, h3, h4, h5 {
   color: var(--gray-950);
+}
+
+
+/* view transition (scales down the old page) */
+::view-transition-old(root) {
+  transform: scale(.8);
+  transition: .4s;
 }

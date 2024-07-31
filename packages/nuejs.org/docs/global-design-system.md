@@ -1,17 +1,26 @@
 
 
 # Global Design System
-Nue is powered by a global design system. It allows UX developers to rapidly create different designs using the same exact markup between projects.
+Nue's power leans heavily on a thing called _global design system_. It allows UX developers to rapidly create different designs using the same exact markup between projects:
+
+[image.gridpaper]
+  small: /img/global-design-system.png
+  large: /img/global-design-system-big.png
+  caption: Shared layout, wildly different designs
 
 
 ## Modern-day CSS Zen Garden
-Think Nue like a modern-day [CSS Zen Graden](//csszengarden.com/): you get the exact same HTML markup, but you can write CSS to achieve wildly different designs. Or as the well-known UX developer [Brad Frost](//bradfrost.com/) puts it:
+Think Nue like a modern-day [CSS Zen Graden](//csszengarden.com/): you get the exact same HTML markup, but you can write CSS to achieve wildly different designs. Nue frees you from implementing page layouts and basic UI elements over and over again so you can move faster with nothing but CSS. Or as the well-known UX developer [Brad Frost](//bradfrost.com/) puts it:
 
 > Global Design System improves the quality and accessibility of the world’s web experiences, saves the world’s web designers and developers millions of hours, and makes better use of our collective human potential. *Brad Frost*
 
 
 ### Standardized layout
-Nue lets you assemble rich web pages without touching a single line of code. Instead, you describe them with human-friendly text formats: YAML and Markdown. You'll get the [same layout](page-layout.html), but style it differently based on the context.
+Nue lets you assemble rich web pages without touching a single line of code. Instead, you describe them with human-friendly text formats: YAML and Markdown. You'll get the [same layout](page-layout.html), but style it differently to meet the requirements of the context.
+
+
+[image.gridpaper]
+  src: /img/page-layout.svg
 
 You can also [customize the layout](](custom-layouts.html)) with a minimal amount of HTML for all the different page types you may have like landing pages, blog entries, and technical documentation.
 

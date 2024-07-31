@@ -22,7 +22,7 @@ In addition to these user-defined properties, Nue provides the following system 
   * *`url`* "/docs/glossary/copyleft.html" (example)
   * *`dir`* "docs/glossary"
   * *`slug`* "copyleft.html"
-  * *`appdir`* "docs"
+  * *`basedir`* "docs"
 
 
 

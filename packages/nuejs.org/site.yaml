@@ -27,7 +27,7 @@ header:
   Site navigation:
     - Docs: /docs/
     - Blog: /blog/
-    - label: Nue 1.0 Alpha is here! ›
+    - label: Nue beta is out ›
       url: /blog/status-update-01/
       class: status badge
 
@@ -41,7 +41,7 @@ header:
       alt: X logo
       size: 39 x 39
 
-    - label: "*6.0k*"
+    - label: 6.0k
       url: //github.com/nuejs/nue
       class: github badge
 
@@ -60,14 +60,14 @@ footer:
 
   navi:
     Developers:
-      - Documentation: /docs/
+      - Nue introduction: /docs/
       - Installation: /docs/installation.html
       - Blog: /blog/
       - FAQ: /docs/faq.html
       - GitHub: //github.com/nuejs/nue
 
     Key Concepts:
-      - Nue introduction: /docs/
+      - UX development flow: /docs/ux-development.html
       - Global Design System: /docs/global-design-system.html
       - CSS best practices: /docs/css-best-practises.html
       - Content development: /docs/content.html

@@ -1,144 +1,89 @@
 
 ---
-include: [marketing-content, button, form]
-section_classes: [hero, dx, ux, explainer card, project-status, feedback]
+section_classes: [hero, feature-area, project-status, feedback]
 section_component: scroll-transition
-# inline_css: true
+include: [button, form]
+inline_css: true
 appdir: home
 ---
 
 
 # Web Framework For UX Developers
-Nue is a rapid development environment for pixel-perfect websites with unmatched performance levels
+Build the slickest websites in the world and wonder why you ever did them any other way.
 
-[button.secondary href="/docs/" "Learn Nue.js"]
-[button href="/docs/try-beta" "Try Beta"]
-
-
-------------
-
-## A rapid development environment
-
-[image inline]
-  alt: Image of an CPU with animated arrows pointing to key Nue features
-  src: /home/img/nue-cpu.svg
-
-
-[grid]
-
-  ### For UX developers
-  Nue is the best framework for design-led projects
-  [! /home/img/cms.svg]
-
-  ---
-
-  [! /home/img/gds.svg]
-
-  ### Global Design System
-  Save development hours by not doing the same things over and over again
-  ---
-
-  [! /home/img/hmr.svg]
-
-  ### Universal hot-reloading
-  Experience the slickest browser diffing system for all file types
-  ---
-
-  [image]
-    large: /home/img/scale-wide.svg
-    small: /home/img/scale.svg
-    offset: 1200
-
-  ### Maximum scalability
-  Unburden the engineer workload for the best talent available
-  ---
-
-  [! /home/img/100x.svg]
-
-  ### Next-level build speed
-  Nue operates closer to metal
-
-
-------------
-
-## Build better user experiences
-
-[grid]
-
-  ### Centrally controlled design
-  Ensure great, consistent design with a personal design system
-
-  [Learn more](/docs/design-system)
-
-  [! /home/img/design-system.svg]
-
-  ---
-
-  ### Snappy, reactive islands
-  Support for web components, reactive components, and isomorphic components
-
-  [Learn more](/docs/design-system)
-
-  [! /home/img/islands.svg]
-  ---
-
-  ### Mother**cking FAST! &trade;
-  Reach the levels of an ASCII-only website without compromising UX
-
-  [Learn more](/docs/design-system)
-
-  [! /home/img/fast.svg]
-  ---
-
-
-  [! /home/img/stack.svg]
-
-  ### Progressive enhancement
-  Deliver the best possible experience for the different devices
-  ---
-
-  [! /home/img/transition.svg]
-
-  ### Smooth page switches
-  Silky smooth view transitions for all areas of your site
-  ---
-
-  [! /home/img/css.svg]
-
-  ### Styling superpowers
-  Harness the power of modern, cascading CSS
-
-
-------------
-
-[! /home/img/ux-stack.svg]
-
-## Nue is for UX developers
-What used to take a Next/React/Tailwind specialist and thousands of lines of TypeScript is now taken care by a UX developer with a few hundred lines of CSS:
-
-
-[Learn more ›](/docs/)
-
-
-------------
-
-## Status
-The goal of Nue is to build a simple alternative to *Next.js*, *Gatsby*, and *Netlify*. It is released as follows:
+[button "Try Beta"]
+  url: /docs/installation.html
 
 [image]
-  src: /img/roadmap-autumn.png
-  width: 600
+  small: /img/figma-to-css.png
+  large: /img/figma-to-css-big.png
+  alt: Figma design system converted to CSS
+  size: 1100 × 712
+
+------
+
+## Web developer's dream
+What used to take a separate designer, React engineer, and an absurd amount of JavaScript can now be done by a UX developer and a small amount of CSS
 
 
-### Waiting list
-Join the waiting list if you want to be notified about our next milestone. Please give us your feedback as well — we read them all with care.
+
+[.features]
+
+  ### Rapid UX development
+  No JavaScript ecosystem in your way
+
+  [! /home/img/typo-css.png]
+
+  [Learn more](/docs/)
+
+  ---
+
+  ### Easy customer handoff
+  All content is editable by non-technical people
+
+  [! /home/img/home-md.png]
+
+  [Learn more](/docs/content.html)
+
+
+  ---
+  ### Advanced reactivity
+  Go beyond the component model
+
+  [! /home/img/transition-css.png]
+
+  [Learn more](/docs/reactivity.html)
+
+  ---
+
+  ### Leaner, cleaner, and faster
+  Work closer to metal and web standards
+
+  [! /home/img/nextjs-vs-nue.png]
+
+  [Learn more](/docs/performance-optimization.html)
+
+
+
+------------
+
+## Roadmap and status { #roadmap }
+Ultimately Nue will be a ridiculously simpler alternative to **Next.js**, **Gatsby**, and **Astro**
+
+[image]
+  src: /img/roadmap-beta.png
+  width: 700
+
+
+### Receive a notification
+Be the first to know when the official 1.0 release, templates, and the cloud stuff are released
 
 [join-list]
 
 
 ------------
 
-## Feedback
+## Developer reactions
 
 [.heroquote]
   [! /home/img/elliot-jay-stocks.jpg]
@@ -146,7 +91,7 @@ Join the waiting list if you want to be notified about our next milestone. Pleas
   At some point in the last decade, popular frameworks and platforms have eschewed semantic markup, and, as a result, the web has become way more bloated than it ever needed to be. Stripping away presentational markup and unreadable CSS is something all web developers once believed in. I'm glad Nue is bringing back that power.
 
   [Elliot Jay Stocks](//elliotjaystocks.com/) /
-  *Legendary designer and UX developer*
+  **Legendary designer and UX developer**
 
 
 [quotes]
@@ -177,9 +122,8 @@ Join the waiting list if you want to be notified about our next milestone. Pleas
   - from: feedback
     text: Wow. I am so much loving the concepts you guys have introduced in Nue CSS and Nue Kit and all your projects are amazing. I am really falling in love with all of the projects.
 
-
   - from: feedback
-    text: "Moi Tero! Erittäin hyvää settiä, mikä resonoi tällaisen yli 25 vuotta webbiä tehnyt ”UX devaajan” ajatusten kanssa vahvasti. Toivotan menestystä Nue:lle 👍"
+    text: I just found your site, and am excited about the concepts of content first, separation of concern, and everything else. I have been looking and waiting for the RAD version of web development. Maybe Nue is it? Also, as a fellow Scandinavian, Finnish design doesn't hurt. Good luck forward!
 
   - user: ulrischa
     text: Seems like Nue could finally bring back something we lost all the way
@@ -194,6 +138,9 @@ Join the waiting list if you want to be notified about our next milestone. Pleas
     text: It's really awesome to see this recent counter-revolution of developer tools emphasizing simplicity. Nue gives me the same optimistic, feel-good vibe that htmx and Alpine.js gave me when I first read about them.
     id: "37519371"
     from: hn
+
+  - from: feedback
+    text: "Moi Tero! Erittäin hyvää settiä, mikä resonoi tällaisen yli 25 vuotta webbiä tehnyt ”UX devaajan” ajatusten kanssa vahvasti. Toivotan menestystä Nue:lle 👍"
 
   - user: darkhorse007
     url: //github.com/nuejs/nue/discussions/1#discussioncomment-7042460
@@ -227,8 +174,6 @@ Join the waiting list if you want to be notified about our next milestone. Pleas
     text: If you haven’t tried Nuejs yet, you better hurry up and give it a go!
     id: "1703687501599347079"
 
-  - from: feedback
-    text: I just found your site, and am excited about the concepts of content first, separation of concern, and everything else. I have been looking and waiting for the RAD version of web development. Maybe Nue is it? Also, as a fellow Scandinavian, Finnish design doesn't hurt. Good luck forward!
 
 
   - user: edimoldovan

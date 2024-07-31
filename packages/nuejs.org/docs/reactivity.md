@@ -4,9 +4,9 @@ Nue lets you build dynamic, motion-enriched websites with nothing but CSS. Howev
 
 
 ## CSS
-CSS has come a long way from its early days. Tooltips, dialogs, sliders, and popups no longer require JavaScript and are best implemented with CSS. Even the more advanced functionality from libraries like *Framer Motion* can mostly be [implemented with modern CSS](//motion.dev/blog/do-you-still-need-framer-motion).
+Over the years CSS has evolved from static styling utility to an immensely powerful UX development language. Things like tooltips, dialogs, sliders, and popups no longer require JavaScript and are best implemented with CSS. Even the more advanced functionality from libraries like *Framer Motion* can mostly be [implemented with modern CSS](//motion.dev/blog/do-you-still-need-framer-motion).
 
-CSS offers better hardware acceleration than JavaScript and a simpler, more standards-based programming model.
+CSS offers better hardware acceleration than JavaScript and a simpler, more standards-based programming model. There are no extra layers or third-party idioms in the way.
 
 
 ### View transitions

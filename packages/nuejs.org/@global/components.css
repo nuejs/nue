@@ -40,10 +40,10 @@
 }
 
 .note {
-  border: var(--border);
   border-left: 2px solid var(--main-500);
   background-color: var(--main-50);
-  padding: 1.2em;
+  border-radius: 0 8px 8px 0;
+  padding: 1.5em;
   margin: 2em 0;
   font-size: 95%;
 
@@ -56,6 +56,16 @@
   }
 }
 
+.popup {
+  background-color: var(--main-400);
+  padding: .5em 1.5em;
+
+  p {
+    color: white;
+    font-weight: 600;
+    font-size: 110%;
+  }
+}
 .stack {
   display: flex;
   margin: 2em 0;

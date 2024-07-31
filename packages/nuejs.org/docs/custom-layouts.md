@@ -1,23 +1,9 @@
 
 
 # Custom layouts
-The design system consists of various "slots" that you can fill or replace with custom template content.
+The design system consists of various "slots" that you can fill or replace with custom template content. The slots are named as follows:
 
-! slots
-
-// @banner
-// header
-// @subheader
-
-// aside
-// @complementary
-
-// @pagehead
-// @pagefoot
-
-// footer
-// @bottom
-// @menu
+[image.gridpaper /img/custom-layout.svg]
 
 
 For example, if you want to add a custom banner above the global header you'd create a layout module called "banner":
@@ -29,7 +15,7 @@ For example, if you want to add a custom banner above the global header you'd cr
 </div>
 ```
 
-The header, footer, and sidebar don't require any specific name because the slot is identified directly from the HTML tag name. For example, a custom `aside` tag is always placed prior to the `main` element:
+The bolded slot names (header, footer, and aside) don't require the `@name` attribute, because the slot is identified directly from the HTML tag name. For example, a custom `aside` tag is always placed prior to the `main` element:
 
 ```
 <aside>

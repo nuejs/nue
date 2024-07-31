@@ -4,10 +4,8 @@
 Nue has a built-in template language for developing server-side layouts and reactive, client-side components.
 
 
-### HTML extensions
-Nue is designed for [UX developers](/docs/) who prefer to write user interfaces with clean, semantic HTML instead of spending time with complex React/TypeScript/Tailwind issues.
-
-Think Nue as an HTML-based template language that you can use to extend the standard HTML vocabulary with custom components. These components help you build modern websites and web- applications in a simple, declarative way. For example:
+## Extended HTML
+Nue template syntax is designed for [UX developers](/docs/) who prefer to write user interfaces with clean, semantic HTML instead of JavaScript. Think Nue as standard HTML, that you can extend with custom HTML-based components. These components help you build modern web- applications in a simple, declarative way. For example:
 
 
 ``` html
@@ -21,14 +19,12 @@ Think Nue as an HTML-based template language that you can use to extend the stan
 </div>
 ```
 
-The syntax is heavily inspired by Vue, but you'll think in terms of HTML rather than JavaScript. If React is __"just JavaScript"__, then Nue is __"just HTML"__ because any valid HTML is also valid Nue.
+If React is "Just JavaScript", then Nue is "Just HTML" because any valid HTML is also valid Nue.
 
 
 
 ### Custom components
-Custom components are the building blocks of your HTML-based layouts and reactive applications. You can loop them, render them conditionally, and they can be nested within other components. They can operate both server-side and client-side. The client-side, [reactive components](reactive-components.html) are interactive: they can respond to user input and render themselves to a new state.
-
-Essentially components are HTML fragments that have a name and this name is given in a `@name` attribute:
+Custom components are the building blocks of your HTML-based layouts and apps. You can loop them, render them conditionally, and they can be nested within other components. They can operate both server-side and client-side. Essentially components are HTML fragments that have a name and this name is given in a `@name` attribute:
 
 ```
 <div •@name="media-object"• class="{ class }">
@@ -53,6 +49,8 @@ You can place components inside other components to form more complex applicatio
   <image-object :for="item in items" :bind="item"/>
 </section>
 ```
+
+The client-side, [reactive components](reactive-components.html) are interactive: they can respond to user input and render themselves to a new state.
 
 
 ### Mounting
