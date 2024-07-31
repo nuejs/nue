@@ -19,6 +19,7 @@ function prettyDate(date) {
 }
 
 export function renderPrettyDate(date) {
+  if (!date) date = new Date()
   if (!date.getDate) date = new Date(date)
   return elem('time', { datetime: date.toISOString() }, prettyDate(date))
 }

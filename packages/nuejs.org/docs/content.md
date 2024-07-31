@@ -63,7 +63,7 @@ og: /img/hero-image.png
 
 
 ### Sections
-Just like books can be divided into chapters; your long-form articles and landing pages are often divided into sections. These sections are separated with a triple-dash:
+Just like books can be divided into chapters; your long-form articles and landing pages are often divided into sections. These sections are separated with three or more dash (`---`) or equals (`===`) characters
 
 
 ``` yaml
@@ -74,7 +74,7 @@ title: Page with sections
 # The hero section
 With an epic subtitle
 
-\---
+\=====
 
 ## A second section
 With another great subtitle

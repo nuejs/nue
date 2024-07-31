@@ -130,7 +130,7 @@ export function parseSections(lines) {
   push()
 
   lines.forEach(line => {
-    if (line.startsWith('---')) {
+    if (line.startsWith('---') || line.startsWith('===')) {
       section = [] // must be before push
       const i = line.indexOf('- ')
       push(i > 0 ? parseAttr(line.slice(i + 2).trim()) : null)

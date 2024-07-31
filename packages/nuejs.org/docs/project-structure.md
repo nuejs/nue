@@ -162,13 +162,13 @@ Library folders contain assets that can be explicitly included on a page with an
 libs: ["@lib", lib]
 ```
 
-Here's how you include assets in `site.yaml`, `app.yaml`, or in the page's frontmatter:
+These libraries can reside both on the root level, and inside a specific application. Once the libraries have been defined, you include library assets in `site.yaml`, `app.yaml`, or in the page's frontmatter with an `include` statement as follows:
 
 ``` yaml
 include: [syntax-highlight, video]
 ```
 
-The values from all scopes are _concatenated_ into one single array and the matches are partial so that a value such as "syntax" will match both "syntax-highlight" and "syntax-extras".
+If you include assets in several levels, the vhe values of include statements are _concatenated_ into one single array and the matches are partial so that a value such as "syntax" will match both "syntax-highlight" and "syntax-extras".
 
 
 #### Excluding assets
@@ -205,7 +205,8 @@ Static files like `.png`, `.jpg`, `.txt`, `.csv`, or `.json` are copied directly
 
 
 
-
+### 404 file
+File named `404.md` on the root level acts as a target for non-existent files. You can use the `include` statement to customize it's styling and behaviour.
 
 
 

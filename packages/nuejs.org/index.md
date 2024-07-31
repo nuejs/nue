@@ -20,7 +20,9 @@ Build the slickest websites in the world and wonder why you ever did them any ot
   alt: Figma design system converted to CSS
   size: 1100 × 712
 
-------
+
+========
+
 
 ## Web developer's dream
 What used to take a separate designer, React engineer, and an absurd amount of JavaScript can now be done by a UX developer and a small amount of CSS
@@ -64,8 +66,8 @@ What used to take a separate designer, React engineer, and an absurd amount of J
   [Learn more](/docs/performance-optimization.html)
 
 
+========
 
-------------
 
 ## Roadmap and status { #roadmap }
 Ultimately Nue will be a ridiculously simpler alternative to **Next.js**, **Gatsby**, and **Astro**
@@ -81,7 +83,9 @@ Be the first to know when the official 1.0 release, templates, and the cloud stu
 [join-list]
 
 
-------------
+
+========
+
 
 ## Developer reactions
 
@@ -173,8 +177,6 @@ Be the first to know when the official 1.0 release, templates, and the cloud stu
   - user: CoooolXyh
     text: If you haven’t tried Nuejs yet, you better hurry up and give it a go!
     id: "1703687501599347079"
-
-
 
   - user: edimoldovan
     text: Great job with Nue, you are hitting many of the pain points I had with the frontend tooling.

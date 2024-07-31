@@ -67,13 +67,12 @@ Nue is in order of magnitude faster than its cousins. An identical blogging site
 
 ## Other notable highlights { #other }
 
-- [Hybrid app routing and page routing](/docs/concepts/client-side-navigation.html)
-- [Modular layout components](/docs/concepts/layout-components.html)
-- [JS/TypeScript modules](/docs/concepts/js-modules.html)
-- [Content collections](/docs/concepts/content-collections.html)
-- [Reactive islands](/docs/concepts/reactive-islands.html)
-- [Work closer to metal](/docs/why-nue/closer-to-standards.html)
-- [Extreme performance](/docs/why-nue/extreme-performance.html)
+- [View transitions](/docs/reactivity.html)
+- [Layout components](/docs/custom-layouts.html)
+- [JS/TypeScript modules](/docs/reactivity.html)
+- [Content collections](/docs/content-collections.html)
+- [Reactive components](/docs/reactive-components.html)
+- [Extreme performance](/docs/performance-optimization.html)
 
 
 ### New, beautiful documentation area
@@ -103,9 +102,6 @@ Check out our [Getting Started guide](/docs/) to learn the details
 ### Monorepo
 The "nuejs" GitHub repository was renamed to [nue](//github.com/nuejs/nue) and has been converted to a monrepo, now holding both [nuejs](//github.com/nuejs/nue/tree/master/packages/nuejs) and [nuekit](//github.com/nuejs/nue/tree/master/packages/nuekit) packages. This monorepo will hold all the upcoming Nue-related projects like *Nuemark* and *Nue CSS*.
 
-
-If you want, we can send you an email when a new milestone is reached:
-[join-list]
 
 ## Thank you!
 Finally, I’d like to give a huge thanks to the [20+ developers](//github.com/nuejs/nue/graphs/contributors) who have participated in the early development of Nue JS. Your feedback has been essential in shaping Nue into the tool it is today. If you’re interested in getting involved please join the [Discussion @ Github](//github.com/nuejs/nue/discussions)

@@ -50,7 +50,7 @@ If there is one word to describe Nue, it's _minimalism_. There's order of magnit
   caption: The total amount of HTML, CSS, and JavaScript loaded
 
 
-With Nue, the size of your website is usually so small, that it's in the ballpark of a [single Tailwind button](/blog/introducing-nue-css/size-measurement.html). You can reach the performance levels of a text-only website like [motherfuckingwebsite.com](//motherfuckingwebsite.com/) but with the design standards of **Stripe** or **Apple**.
+With Nue, the size of your website is usually so small, that it's in the ballpark of a [single Tailwind button](/blog/introducing-nue-css/). You can reach the performance levels of a text-only website like [motherfuckingwebsite.com](//motherfuckingwebsite.com/) but with the design standards of **Stripe** or **Apple**.
 
 But that's not all. Nue takes your website performance to new heights by combining your assets into [one, ultra-compact request](performance-optimization.html) which renders in a snap:
 

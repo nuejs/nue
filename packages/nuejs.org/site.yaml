@@ -3,9 +3,9 @@
 globals: ["@global", css]
 libs: ["@lib", docs/lib, blog/lib]
 
-css_2023: true
 view_transitions: true
 grid_item_class: card
+css_nesting: false
 
 
 # Content settings
@@ -27,8 +27,8 @@ header:
   Site navigation:
     - Docs: /docs/
     - Blog: /blog/
-    - label: Nue beta is out ›
-      url: /blog/status-update-01/
+    - label: Nue 1.0 beta ›
+      url: /blog/nue-1-beta/
       class: status badge
 
   Toolbar:

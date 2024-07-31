@@ -35,13 +35,18 @@ class ZenToggle extends HTMLInputElement {
   constructor() {
     super()
     this.onchange = function() {
-      document.documentElement.classList.toggle('zen', this.checked)
+      $('html').classList.toggle('zen', this.checked)
     }
   }
 }
 
 customElements.define('zen-toggle', ZenToggle, { extends: 'input' })
 
+
+// remember the zen state after the view transition
+addEventListener('route', function() {
+  $('[is=zen-toggle]').checked = !!$('.zen')
+})
 
 
 // demo

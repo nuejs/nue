@@ -219,10 +219,7 @@ function createARIATabs(data, fn) {
 tags['!'] = function(data, opts) {
   const src = data._
   const mime = getMimeType(src)
-
-  return data.sources || mime.startsWith('video') ? tags.video(data, opts) :
-    src?.indexOf('.') == -1 ? tags.icon(data) :
-    tags.image(data, opts)
+  return data.sources || mime.startsWith('video') ? tags.video(data, opts) : tags.image(data, opts)
 }
 
 

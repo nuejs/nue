@@ -54,8 +54,7 @@ export function traverseDirsUp(dir) {
 export function getUrl(dir, name) {
   let url = toPosix(dir) + '/'
   if (url[0] != '/') url = '/' + url
-  // if (name != 'index')
-  url += name + '.html'
+  if (name != 'index') url += name + '.html'
   return url
 }
 

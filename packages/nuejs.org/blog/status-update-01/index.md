@@ -115,8 +115,4 @@ We want everyone to have the ability to take the quality levels of *Stripe*, *Li
 * Thanks to all [25+ contributors](//github.com/nuejs/nue/graphs/contributors) for improving Nue codebase.
 
 
-### Follow the progress
-Join Nue mailing list and get notified when we reach the next milestone
-
-[join-list]
 

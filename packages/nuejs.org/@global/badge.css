@@ -20,4 +20,8 @@
   &.github {
     background-image: url(/icon/github.svg);
   }
+
+  &[aria-selected] {
+    display: none;
+  }
 }

@@ -13,7 +13,7 @@ Tailwind CSS was born out of this sentence:
   alt: The most reusable components are those with class names that are independent of the content.
 
 
-The [sentence](//youtu.be/CLkxRnRQtDE?t=109) is from *Nicolas Gallagher*'s article about [HTML semantics and front-end architecture](//nicolasgallagher.com/about-html-semantics-front-end-architecture/). It was a turning point for *Adam Wathan*, the creator and frontman of Tailwind. After reading the article he was ["fully convinced that optimizing for reusable CSS was going to be the right choice"](https://adamwathan.me/css-utility-classes-and-separation-of-concerns/)
+The [sentence](//youtu.be/CLkxRnRQtDE?t=109) is from **Nicolas Gallagher**'s article about [HTML semantics and front-end architecture](//nicolasgallagher.com/about-html-semantics-front-end-architecture/). It was a turning point for **Adam Wathan**, the creator and frontman of Tailwind. After reading the article he was ["fully convinced that optimizing for reusable CSS was going to be the right choice"](https://adamwathan.me/css-utility-classes-and-separation-of-concerns/)
 
 
 

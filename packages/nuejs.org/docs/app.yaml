@@ -12,6 +12,7 @@ sidenav:
     - Project Structure: project-structure.html
     - Settings and metadata: settings.html
     - Command line interface: command-line-interface.html
+    - Frequently asked questions: faq.html
 
   UX development:
     - UX development flow: ux-development.html

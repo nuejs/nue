@@ -52,8 +52,25 @@ h1 {
 }
 
 
-@media (min-width: 950px) {
-  .hero {
+section img {
+  margin: 1.5em 0;
+}
+
+figure {
+  figcaption {
+    margin: -1em 0 3em;
+  }
+
+  &:has( >img[width] ) {
+    display: inline-block;
+  }
+}
+
+
+.hero {
+  margin: 1em 0 3em;
+
+  @media (min-width: 950px) {
     margin-inline: -12vw;
     img { width: 999% }
   }

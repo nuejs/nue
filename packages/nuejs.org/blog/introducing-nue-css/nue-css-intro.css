@@ -50,6 +50,8 @@ table td:first-child {
   font-size: 90%;
   margin: 1.5em 0;
 
+  h4 { margin: 0 }
+
   + figcaption {
     margin: -1em 0 2em;
   }

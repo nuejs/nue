@@ -19,7 +19,7 @@ This website and Nue itself are a great demonstration of minimalism and it all c
 1. Avoid inline styling
 1. Learn modern CSS
 
-These are all described in this document.
+These are all described in this document. Once you harness the power of CSS you are able to build [create entire websites](/blog/introducing-nue-css/) with the same amount of CSS code as a _single Tailwind button_ component.
 
 
 ## Respect constraints { #constraints }
@@ -184,7 +184,7 @@ Here, the component was broken into two pieces: a highly re-usable "card" compon
 }
 ```
 
-The global design system, and simple, re-usable CSS makes a dramatically leaner codebase compared to component-based systems where the styling is inlined to the markup. It's possible to [create entire websites](/blog/introducing-nue-css/) with the same amount of CSS code as a single Tailwind button component.
+Now the "card" class can be applied to any element or component you desire reducing code duplication an making a smaller, and clearer codebase.
 
 
 #### Links:
