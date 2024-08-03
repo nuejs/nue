@@ -98,14 +98,12 @@ const html_tags = [
   { name: 'page-list', create: renderPageList },
   { name: 'markdown', create: ({ content }) => renderInline(content) },
   { name: 'pretty-date', create: ({ date }) => renderPrettyDate(date) },
-  { name: 'toc', create: (data) => renderTOC(data) },
+  { name: 'toc', create: renderTOC },
 ]
 
 const nuemark_tags = {
-  'page-list': function(data) {
-    const key = data.collection_name || data.content_collection
-    return renderPageList(data[key])
-  }
+  'page-list': renderPageList,
+  toc: renderTOC
 }
 
 

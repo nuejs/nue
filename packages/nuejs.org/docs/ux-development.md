@@ -43,11 +43,11 @@ One-person projects can implement the design system directly with HTML and CSS, 
 ## 3. Convert it to CSS
 Once you know exactly what you want to build, it's time to convert the design system into code. Nue's [global design system](global-design-system.html) allows developers to build websites so that the code is mostly just vanilla CSS that closely mimics what you have designed:
 
-[image.bordered]
+[image]
   small: /img/figma-to-css.png
   large: /img/figma-to-css-big.png
 
-Nue's [CSS best practises](css-best-practises.css) helps you organize the code in such a way that it is easy to read, reuse, and scale. Experienced UX developers can rapidly build websites with just a few lines of HTML and a handful of CSS files. There is no designer-developer handoff process in your way.
+Nue's [CSS best practises](css-best-practices.css) helps you organize the code in such a way that it is easy to read, reuse, and scale. Experienced UX developers can rapidly build websites with just a few lines of HTML and a handful of CSS files. There is no designer-developer handoff process in your way.
 
 [.note]
   ### Note

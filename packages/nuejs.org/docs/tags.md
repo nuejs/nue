@@ -306,8 +306,6 @@ Displays a syntax highligted code block with support for line numbers, captions,
 
   `numbered` draws line numbers when enebled
 
-  `wrapper` wraps the code inside a parent element with a class name specifeid on this property
-
 
 ### Special characters
 You can use a set of special characters in the code to highlight content:

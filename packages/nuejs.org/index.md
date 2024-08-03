@@ -9,10 +9,9 @@ appdir: home
 
 
 # Web Framework For UX Developers
-Build the slickest websites in the world and wonder why you ever did them any other way.
+Build the slickest websites in the world and wonder why you ever did them any other way
 
-[button "Try Beta"]
-  url: /docs/installation.html
+[button href="/docs/installation.html" "Get started"]
 
 [image]
   small: /img/figma-to-css.png
@@ -50,7 +49,7 @@ What used to take a separate designer, React engineer, and an absurd amount of J
 
   ---
   ### Advanced reactivity
-  Go beyond the component model
+  Go beyond the JavaScript component model
 
   [! /home/img/transition-css.png]
 

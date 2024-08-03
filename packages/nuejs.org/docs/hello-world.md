@@ -231,7 +231,7 @@ Here's our new front page/index.md:
    Here are my thoughts on design, UX engineering, and product thinking.
 
 
-The page is configured with a new [content collection](../concepts/content-collections.html) option to hold information on all our pages on the `posts`- folder. We use this information to render the posts on our updated `layout.html` file:
+The page is configured with a new [content collection](content-collections.html) option to hold information on all our pages on the `posts`- folder. We use this information to render the posts on our updated `layout.html` file:
 
 ```
 <!-- front page main layout -->

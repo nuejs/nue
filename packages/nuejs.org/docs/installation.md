@@ -26,7 +26,7 @@ curl -fsSL https://bun.sh/install | bash
 ```
 
 ## 2. Install Nue
-Nue comes with a [command line interface](reference/command-line-interface.html) (CLI), which can be reused across multiple websites. You only need to install it once and after that, you have a generic `nue` executable available in your console:
+Nue comes with a [command line interface](command-line-interface.html) (CLI), which can be reused across multiple websites. You only need to install it once and after that, you have a generic `nue` executable available in your console:
 
 
 ``` sh
@@ -34,7 +34,7 @@ Nue comes with a [command line interface](reference/command-line-interface.html)
 bun install nuekit --global
 ```
 
-You can verify the installation by running `nue --version`. If the output looks something like "Nue 0.5.2 • Bun 1.0.33", you can start building apps with Nue. You can either start from scratch with the help of a [tutorial](tutorials/build-a-simple-blog.html), or you can start with a template:
+You can verify the installation by running `nue --version`. If the output looks something like "Nue 0.5.2 • Bun 1.0.33", you can start building apps with Nue. You can either start from scratch with the help of a [tutorial](hello-world.html), or you can start with a template:
 
 
 

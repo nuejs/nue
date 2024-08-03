@@ -3,17 +3,20 @@
 globals: ["@global", css]
 libs: ["@lib", docs/lib, blog/lib]
 
+og: /img/og-blue-big.png
 view_transitions: true
 grid_item_class: card
 css_nesting: false
-
+origin: https://www2.nuejs.org
 
 # Content settings
 title: Web Framework For UX Developers
-description: Nue is a web framework for UX focused projects. It's the best choice for designers and UX developers.
+description: Build the slickest websites in the world and wonder why you ever did them any other way
 title_template: "Nue - %s"
 favicon: /icon/favicon.png
 
+# preload header hover image
+prefetch: [/icon/present-light.svg]
 
 # Navigation
 header:
@@ -32,9 +35,9 @@ header:
       class: status badge
 
   Toolbar:
-    - label: Try beta
-      url: /docs/
-    - ---
+    # - label: Try beta
+    #   url: /docs/installation.html
+    # - ---
     - image: /icon/x-logo.svg
       url: //x.com/tipiirai
       class: social
@@ -60,16 +63,16 @@ footer:
 
   navi:
     Developers:
-      - Nue introduction: /docs/
+      - What is Nue?: /docs/
       - Installation: /docs/installation.html
       - Blog: /blog/
       - FAQ: /docs/faq.html
       - GitHub: //github.com/nuejs/nue
 
     Key Concepts:
-      - UX development flow: /docs/ux-development.html
+      - UX development: /docs/ux-development.html
       - Global Design System: /docs/global-design-system.html
-      - CSS best practices: /docs/css-best-practises.html
+      - CSS best practices: /docs/css-best-practices.html
       - Content development: /docs/content.html
       - Single-page apps: /docs/single-page-applications.html
 

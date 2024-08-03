@@ -1,21 +1,16 @@
 
 nav a {
-  color: var(--gray-600);
+  color: var(--gray-500);
 
   &:hover {
-    color: black;
-  }
-
-  &[aria-selected] {
-    font-weight: bold;
-    color: black;
+    color: var(--gray-950);
   }
 }
 
 
 /* global header */
 body > header {
-  margin-bottom: var(--section-gap, 5em);
+  margin-bottom: 5em;
 
   &, > * {
     align-items: center;
@@ -30,8 +25,16 @@ body > header {
 
   nav a {
     font-size: 85%;
-    font-weight: 600;
+    font-weight: 550;
     display: inline-flex;
+  }
+
+  [aria-selected] {
+    text-decoration: var(--main-500) underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 8px;
+    color: var(--gray-900);
+    font-weight: 600;
   }
 
   .logo:hover {
@@ -39,10 +42,8 @@ body > header {
   }
 
   .social {
-    opacity: .7;
     &:hover {
       transform: scale(1.1);
-      opacity: 1;
     }
   }
 
@@ -84,11 +85,11 @@ button[popovertarget] {
 
 /* global footer */
 body > footer {
-  margin-top: var(--section-gap, 5em);
-  border-top: var(--border);
-  padding-block: 3em;
-  display: flex;
-  gap: 7em;
+  padding-block: 5em;
+
+  > :first-child {
+    margin-bottom: 2em;
+  }
 
   h3 {
     font-size: 95%;

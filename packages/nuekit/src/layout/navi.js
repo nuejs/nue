@@ -112,5 +112,5 @@ export function renderTOC(data) {
   const items = data.page.headings.filter(el => [2, 3].includes(el.level))
     .map(el => elem('a', { href: '#' + el.id, class: 'level-' + el.level }, el.html))
 
-  return elem('nav', { 'aria-label': 'Table of Contents', is: data.is }, join(items))
+  return elem('nav', { 'aria-label': 'Table of contents', is: data.is }, join(items))
 }

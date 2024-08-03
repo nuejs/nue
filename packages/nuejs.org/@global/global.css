@@ -1,28 +1,38 @@
 
 /* https://uicolors.app/create  */
+
 :root {
 
-  /* grays */
-  --gray-50:  #f4f8f9;
-  --gray-100: #ebf3f4;
-  --gray-200: #dbe7ea;
-  --gray-300: #c5d7dc;
-  --gray-400: #acc4cd;
-  --gray-500: #97afbd;
-  --gray-600: #8099ab;
-  --gray-700: #657a8b;
-  --gray-800: #5B6973;
-  --gray-900: #4c5963;
-  --gray-950: #2c343a;
-
   /* main color */
-  --main-50: #f0f9ff;
-  --main-100: #e0f2fe;
-  --main-200: #bae6fd;
-  --main-300: #7dd3fc;
-  --main-400: #38bdf8;
-  --main-500: #3E8DEF;
-  --main-600: #0284c7;
+  --main-50: #eff6ff;
+  --main-100: #dbeafe;
+  --main-200: #bfdbfe;
+  --main-300: #93c5fd;
+  --main-400: #60a5fa;
+  --main-500: #3b82f6;
+  --main-600: #2563eb;
+
+  /*
+    --main-700: #1d4ed8;
+    --main-800: #1e40af;
+    --main-900: #1e3a8a;
+    --main-950: #172554;
+  */
+
+  /* slate gray  */
+  --gray-50:  #f8fafc;
+  --gray-100: #f1f5f9;
+  --gray-200: #e2e8f0;
+  --gray-300: #cbd5e1;
+  --gray-400: #94a3b8;
+  --gray-500: #64748b;
+  --gray-600: #475569;
+  --gray-700: #334155;
+  --gray-800: #1e293b;
+  --gray-900: #0f172a;
+  --gray-950: #020617;
+
+
 
   /* accent colors */
   --red:      #fb7185;
@@ -31,10 +41,17 @@
   --yellow:   #f5ff20;
   --green:    #06d4a1;
 
-  /* misc variables */
-  --section-gap: calc(4em + 2vw);
+  /* syntax highlighting */
+  --glow-bg-color: var(--gray-800);
+  --glow-padding: 2em;
+
+
+  /* used in fixed navigation bars */
   --body-padding: 1em 2.5em;
+
+  /* shortcut */
   --border: 1px solid var(--gray-200);
+
 }
 
 
@@ -62,6 +79,8 @@ body {
 
 main {
   min-height: 35vh;
+  border-bottom: var(--border);
+  padding-bottom: 7em;
 }
 
 figure {
@@ -84,18 +103,26 @@ a {
   }
 }
 
+::selection {
+  background-color: var(--purple);
+  color: white;
+}
+
 hr {
   border: var(--border);
   border-width: 1px 0 0;
 }
 
 h1, h2, h3, h4, h5 {
-  color: var(--gray-950);
+  color: var(--gray-900);
 }
 
+article {
+  view-transition-name: article
+}
 
 /* view transition (scales down the old page) */
-::view-transition-old(root) {
+::view-transition-old(article) {
   transform: scale(.8);
   transition: .4s;
 }

@@ -49,13 +49,6 @@ aside {
 
     &:hover { color: black }
 
-    &[aria-selected] {
-      border-color: var(--main-500);
-      border-width: 2px;
-      color: var(--main-500);
-      font-weight: 550;
-      margin-left: -1px;
-    }
 
     &:not([href]) {
       color: var(--gray-300);
@@ -64,10 +57,71 @@ aside {
   }
 }
 
-
+/* sidebar only */
 aside:first-child nav {
   margin-bottom: 2.5em;
+
+  [aria-selected] {
+    background: var(--main-500);
+    color: white;
+    border-radius: 0 3px 3px 0;
+  }
 }
+
+/* table of contents */
+article + aside {
+
+  /* overlfow ellipsis */
+  nav a {
+    max-width: 16em;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .level-2 {
+    margin-top: 1em;
+    font-weight: 550;
+    color: var(--gray-800);
+  }
+
+  .level-3 {
+    padding-left: 2rem;
+    font-weight: 400;
+    font-size: 85%;
+
+    &:has(+ .level-2) {
+      margin-bottom: 1.5em;
+    }
+  }
+
+
+  nav [aria-selected] {
+    border-color: var(--main-500);
+    border-width: 2px;
+    color: var(--main-500);
+    font-weight: 550;
+    margin-left: -1px;
+  }
+
+  /* h2 without children */
+  .level-2:has(+ .level-2), .level-2:last-child {
+    border-color: transparent;
+    padding-left: 0;
+    font-weight: 400;
+    margin: .1em 0;
+
+    &[aria-selected] {
+      font-weight: 550;
+    }
+  }
+
+  code {
+    font-family: inherit;
+  }
+}
+
+
 
 /* icons */
 aside:first-child h3 {
@@ -78,7 +132,7 @@ aside:first-child h3 {
 
   /* Content Framework */
   nav:nth-child(1) & {
-    background-image: url(/icon/cog.svg)  /* cog, badge, shield, star */
+    background-image: url(/icon/badge.svg)  /* cog, badge, shield, star */
   }
 
   /* UX */
@@ -109,41 +163,6 @@ aside:first-child h3 {
 }
 
 
-/* table of contents */
-article + aside {
-
-  .level-2 {
-    margin-top: 1em;
-    font-weight: 550;
-    color: var(--gray-800);
-  }
-
-  .level-3 {
-    padding-left: 2rem;
-    font-weight: 400;
-    font-size: 85%;
-
-    &:has(+ .level-2) {
-      margin-bottom: 1.5em;
-    }
-  }
-
-  /* h2 without children */
-  .level-2:has(+ .level-2), .level-2:last-child {
-    border-color: transparent;
-    padding-left: 0;
-    font-weight: 400;
-    margin: .1em 0;
-
-    &[aria-selected] {
-      font-weight: 550;
-    }
-  }
-
-  code {
-    font-family: inherit;
-  }
-}
 
 
 /* zen mode */

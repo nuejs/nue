@@ -45,7 +45,15 @@ export function renderPage(page) {
 }
 
 
-export function renderPageList(items) {
+export function renderPageList(data) {
+  const key = data.collection_name || data.content_collection
+
+  if (!key) {
+    console.error('content collection not defined for page-list tag')
+    return ''
+  }
+
+  const items = data[key]
   const pages = items.filter(el => !el.draft && (el.date || el.pubDate)).map(renderPage)
   return elem('ul', join(pages))
 }

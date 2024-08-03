@@ -3,11 +3,13 @@ export function $$(query, root=document) {
   return [ ...root.querySelectorAll(query)]
 }
 
-class Tabs extends HTMLElement {
+class Tabs extends HTMLDivElement {
   constructor() {
     super()
     const tabs = $$('[role=tab]', this)
     const panels = $$('[role=tabpanel]', this)
+
+    console.info(tabs, panels)
 
     tabs.forEach((tab, i) => {
       tab.onclick = () =>  {
@@ -21,4 +23,4 @@ class Tabs extends HTMLElement {
   }
 }
 
-customElements.define('aria-tabs', Tabs, { extends: 'section' })
+customElements.define('aria-tabs', Tabs, { extends: 'div' })

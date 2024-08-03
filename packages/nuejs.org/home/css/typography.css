@@ -43,10 +43,10 @@ article  {
   }
 
   p {
-    color: var(--gray-700);
+    color: var(--gray-500);
     line-height: 1.5;
     strong {
-      color: var(--gray-900);
+      color: var(--gray-700);
     }
   }
 }

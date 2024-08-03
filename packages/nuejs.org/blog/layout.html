@@ -3,6 +3,10 @@
   Filling some of the slots on the global design system
 -->
 
+<!-- back button  -->
+<nav @name="subheader">
+  <a href="/blog/">&lsaquo; Go back</a>
+</nav>
 
 <!-- the hero area for each blog entry -->
 <header @name="pagehead">
@@ -14,18 +18,12 @@
 
 </header>
 
-<!-- back button before the actual article -->
-<aside>
-  <a href="/blog/">&lsaquo; Go back</a>
-</aside>
-
-
 <!-- page footer: join mailing list / "call to action" -->
-<div @name="pagefoot">
+<footer @name="pagefoot">
 
-  <h2>Nue roadmap and status</h2>
+  <h2>The grand vision</h2>
   <p>
-    Ultimately Nue will be a ridiculously simpler alternative to <b>Next.js</b>, <b>Gatsby</b>, and <b>Astro</b>
+    Ultimately Nue will be a ridiculously simpler alternative to <strong>Next.js</strong>, <strong>Gatsby</strong>, and <strong>Astro</strong>
   </p>
 
   <img src="/img/roadmap-beta.png" alt="Nue roadmap">
@@ -37,7 +35,7 @@
 
   <join-list/>
 
-</div>
+</footer>
 
 
 <!-- custom component: <author/> -->

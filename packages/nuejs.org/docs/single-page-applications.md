@@ -5,9 +5,12 @@ include: [form, button]
 # Single-page applications `Coming soon`
 Ultimately Nue brings the UX development model and the global design system to the world of single-page applications. This makes a better system architecture and a clearer coding style, and a more enjoyable way to build new things:
 
-! stack: view layer (GDS) + model + API layer --> backend
+[image.gridpaper]
+  small: /img/single-page-app.png
+  large: /img/single-page-app-big.png
+  width: 500
 
-With Nu, you can use the same development approach to build both content-heavy applications and single-page applications. This is a breath of fresh air also not just for the UX developer, but also for the application developer, who can switch to writing clean code without the "ugly" front end stuff. Just pure JavaScript, tested on the server side and served with a clean, documented API.
+With Nue, you can use the same development approach to build both content-heavy applications and single-page applications. This is a breath of fresh air also not just for the UX developer, but also for the application developer, who can switch to writing clean code without the "ugly" front end stuff. Just pure JavaScript, tested on the server side and served with a clean, documented API.
 
 
 [.note]
@@ -19,14 +22,7 @@ With Nu, you can use the same development approach to build both content-heavy a
 ## Separation of concerns
 Today, the codebases single-page applications are enormous. It's not unusual to see projects with hundreds, even thousands of JavaScript components where the markup, styling, and logic are mixed together forming a massive canvas of "spaghetti code". Projects like **Vite** are specifically built to solve the issues that come with with these massive component-heavy codebases.
 
-Nue is different. It splits you codebase in two: the application and the user interface:
-
-[image.gridpaper]
-  small: /img/spa-stack.png
-  large: /img/spa-stack-big.png
-
-
-This split makes a big difference in how you code looks.
+Nue is different. It splits you codebase in two: the application and the user interface. This split makes a big difference in how you code looks:
 
 
 ### Application code

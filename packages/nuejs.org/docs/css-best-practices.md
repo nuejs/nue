@@ -9,17 +9,17 @@ This document describes the best practices for writing clean CSS that is easy to
 The key take from this document can be squeezed into one sentence:
 
 [.popup]
-  10 lines of code are easier to maintain than 100 lines of code
+  10 lines of code is easier to maintain than 100 lines of code
 
-This website and Nue itself are a great demonstration of minimalism and it all comes from understanding and doing the following.
+This website and Nue itself are a great demonstration of minimalism and it all comes from practicing the following.
 
 1. Respect constraints
 1. Write clean HTML and CSS
-1. Create reusable components
+1. Write reusable CSS code
 1. Avoid inline styling
 1. Learn modern CSS
 
-These are all described in this document. Once you harness the power of CSS you are able to build [create entire websites](/blog/introducing-nue-css/) with the same amount of CSS code as a _single Tailwind button_ component.
+These are all described in this document. Once you harness the power of CSS you are able to [build entire websites](/blog/introducing-nue-css/) with the same amount of CSS code as a _single_ Tailwind button has.
 
 
 ## Respect constraints { #constraints }

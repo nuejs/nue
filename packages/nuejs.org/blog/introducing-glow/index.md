@@ -5,17 +5,16 @@ hero_title: "*Introducing Glow:* Beautiful, pixel-perfect Markdown code blocks"
 desc: Beautiful, pixel-perfect Markdown code blocks
 og: /img/glow-og.png
 date: 2024-02-13
-include: [glow-extras]
+include: [syntax-extras]
 ---
 
 Today we're launching *Glow* — a new take on syntax highlighting:
 
-[image.hero]
+[image.large]
   small: /img/glow-og.png
   large: /img/glow-og-big.png
-  class: wide hero-image
-  href: /glow-demo/
   caption: 30+ languages colored. Click the image for a standalone view.
+  href: /glow-demo/
 
 
 *Glow is different*: Instead of attempting to understand language internals, Glow focuses solely on aesthetics and how your code looks.
@@ -25,21 +24,19 @@ Today we're launching *Glow* — a new take on syntax highlighting:
 *Glow is small*. Glow is orders of magnitude smaller than the mainstream alternatives. We're talking [5K](//pkg-size.dev/nue-glow) instead of [5M](//pkg-size.dev/shiki). It's by far the smallest implementation available.
 
 
-[image]
+[image.tall]
   small: /img/shiki-vs-glow.png
   large: /img/shiki-vs-glow-big.png
-  class: tall comparison
-  width: 720
+  width: 600
 
 
 ## Coloring voodoo
-Be it *Haskell*, *TypeScript*, or *Zig*. *React*, *Vue* or *Svelte*. Whatever Turing-free *Markdown* artifact is mixed with another tightly coupled language-of-the-year oddity. And they will all glow:
+Be it **Haskell**, **TypeScript**, or **Zig**. **React**, **Vue** or **Svelte**. Whatever Turing-free **Markdown** artifact is mixed with another tightly coupled language-of-the-day oddity. And they will all glow:
 
-[image]
+[image.larger]
   small: /img/glow-light.png
   large: /img/glow-light-big.png
   href: /glow-demo/light.html
-  class: wider light-skins
   caption: All the 30+ languages in light mode
 
 Contrast this to grammar-aware highlighters like *Shiki*, where it's a large programming effort to add a new language to the mix. For example, the [golang.json][go] grammar file has 2700 lines, and [javascript.json][js] is a whopping 6000-line configuration file.
@@ -52,14 +49,14 @@ Contrast this to grammar-aware highlighters like *Shiki*, where it's a large pro
 ## Easy brand coloring
 If you look at the most recognizable brands on the internet, you'll notice that 80% of them are based on a single [brand color](//blog.hubspot.com/marketing/brand-colors). It is often coupled with a secondary color and a complementary accent color. This is exactly how Glow works. You can make the code blocks compatible with your brand just by adjusting a handful of CSS variables:
 
-[code.is-dark wrapper="gradient"]
-  /* brand-aware CSS variables*/
-  [glow] {
-    --glow-primary-color: #7dd3fc;
-    --glow-secondary-color: #4f72b6;
-    --glow-accent-color: #419fff;
-  }
-
+``` .blue
+/* brand-aware CSS variables*/
+:root {
+  --glow-primary-color: #7dd3fc;
+  --glow-secondary-color: #4f72b6;
+  --glow-accent-color: #419fff;
+}
+```
 
 It's a no-brainer to create new themes, both light and dark, after which all languages will automatically adapt your brand colors. No missing color tokens, no surprises.
 
@@ -121,10 +118,10 @@ And when I say "unlimited", it means that:
 
 
 ## Glow + Nue = Next level
-[Nue](/) is a content-first web development framework. As of today, it has built-in support for Glow. You can do things like this inside your markdown content:
+[Nue](/) is a web framework for UX developers and other design-minded people. As of today, it has built-in support for Glow. You can do things like this inside your markdown content:
 
 
-[codeblocks.codestack captions="Content *YAML* | Styling *CSS*"]
+[codeblocks.codestack.larger captions="Content *YAML* | Styling *CSS*"]
   # View metadata
   members:
     title: Members
@@ -161,7 +158,7 @@ And when I say "unlimited", it means that:
 Or things like this:
 
 
-[codetabs.is-dark "HTML | CSS | Web Component" wrapper="gradient waves" numbered="1"]
+[codetabs "HTML | CSS | JS" wrapper="pink" numbered="1"]
   <dialog>
     <!-- "is" attribute for binding to web component -->
     <form action="/backend/leads" is="post-component">
@@ -233,12 +230,12 @@ Install [nue-glow](//github.com/nuejs/nue/tree/master/packages/glow) with npm, p
 npm i nue-glow
 ```
 
-And follow the [Glow documentation](/docs//concepts/syntax-highlighting.html)
+And follow the [Glow documentation](/docs/syntax-highlighting.html)
 
 
 #### With Nue
 
-Nue has built-in support for Glow in markdown fenced code blocks and it offers [three new tags](/reference/nuemark-tags.html#code): `[code]`, `[codeblocks]`, and `[codetabs]` for content creators.
+Nue has built-in support for Glow in markdown fenced code blocks and it offers [three new tags](/docs/tags.html#code): `[code]`, `[codeblocks]`, and `[codetabs]` for content creators.
 
 You try out the tags as follows:
 
@@ -255,11 +252,10 @@ bun create nue@latest
 
 Choose *"Simple blog"* on the last step and you can enjoy goodies content hot-reloading when the code blocks are edited:
 
-[bunny-video]
+[bunny-video.larger]
   videoId: 38caf489-74f1-416a-9f23-694baa5500bb
   caption: Nue hot-reloading in action
   poster: thumbnail_1ca1bd66.jpg
-  class: wide
 
 
 ps: Check out [Getting started docs](/docs/#node) if you prefer Node.

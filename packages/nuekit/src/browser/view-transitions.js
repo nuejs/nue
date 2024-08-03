@@ -30,8 +30,14 @@ export async function loadPage(path) {
   })
 
   // inline CSS
-  const new_styles = swapStyles($$('style'), $$('style', dom))
-  new_styles.forEach(style => $('head').appendChild(style))
+  if ($('style[href]')) {
+    const new_styles = swapStyles($$('style'), $$('style', dom))
+    new_styles.forEach(style => $('head').appendChild(style))
+
+  } else {
+    // production
+    $('style').replaceWith($('style', dom))
+  }
 
   // body class
   $('body').classList.value = $('body2', dom).classList.value || ''
@@ -40,18 +46,19 @@ export async function loadPage(path) {
   const paths = swapStyles($$('link'), $$('link', dom))
 
 
+
   loadCSS(paths, () => {
-    updateHTML(dom)
+    updateBody(dom)
     setActive(path)
-    scrollTo(0, 0)
+    if (!location.hash) scrollTo(0, 0)
     dispatchEvent(new Event('route'))
   })
 }
 
+// TODO: make a recursive diff to support for all custom layouts
+function updateBody(dom) {
 
-function updateHTML(dom) {
-
-  ;['header', 'main', 'footer', 'header + :not(main)'].forEach(function(query, i) {
+  ;['header', 'main', 'footer', 'nav'].forEach(function(query) {
     const a = $('body >' + query)
     const b = $('body2 >' + query, dom)
     const clone = b && b.cloneNode(true)
@@ -59,8 +66,14 @@ function updateHTML(dom) {
     // update
     if (a && b) {
 
-      // primitive DOM diffing
-      if (a.outerHTML != b.outerHTML) a.replaceWith(clone)
+      if (query == 'main') {
+        updateMain(dom)
+
+      } else {
+        // primitive DOM diffing
+        if (a.outerHTML != b.outerHTML) a.replaceWith(clone)
+      }
+
 
     // remove original
     } else if (a) {
@@ -68,14 +81,37 @@ function updateHTML(dom) {
 
     // add new one
     } else if (b) {
-      if (i == 0) document.body.prepend(clone)
-      if (i == 2) document.body.append(clone)
-      if (i == 3) $('body > header').after(clone)
+      if (query == 'header') $('body').prepend(clone)
+      if (query == 'footer') $('body').append(clone)
+      if (query == 'nav') $('body > header').after(clone)
     }
   })
 
 }
 
+// TODO: remove this hack
+function updateMain(dom) {
+  ;['article', 'aside:first-child', 'article + aside'].forEach(function(query, i) {
+    const a = $('main >' + query)
+    const b = $('main >' + query, dom)
+    const clone = b && b.cloneNode(true)
+
+    // update
+    if (a && b) {
+      const orig = a.outerHTML.replace(' aria-selected=""', '')
+      if (orig != b.outerHTML) a.replaceWith(clone)
+
+    } else if (a) {
+      a.remove()
+
+    } else if (b) {
+      if (!i) $('main').append(clone)
+      if (i == 1) $('main').prepend(clone)
+      if (i == 2) $('article').after(clone)
+    }
+
+  })
+}
 
 
 // setup linking

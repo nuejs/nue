@@ -22,7 +22,7 @@ The output directory. The default is `.dist/dev` for the development version and
 Array of [global](site-structure.html#globals) directories. The scripts, styles, and components under global directories are automatically included on all your pages.
 
 ### hotreload
-Setting this to `false` disables [universal hot-reloading](../concepts/universal-hot-reloading.html). Hot-reloading is is enabled (`true`) by default.
+Setting this to `false` disables [universal hot-reloading](hot-reloading.html). Hot-reloading is is enabled (`true`) by default.
 
 
 ### libs

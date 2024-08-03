@@ -16,7 +16,7 @@ addEventListener('click', e => {
 })
 
 
-// analytics (released later)
+// analytics (released for public later)
 if (!location.port) {
   const { ping } = await import('/@lib/ping.js')
   ping()

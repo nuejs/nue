@@ -9,10 +9,10 @@ desc: A simple, minimalistic alternative to Next.js and Astro with universal hot
 
 Today I’m excited to share Nuekit: a new kind of static site generator and web application builder.
 
-[image]
+[image.larger]
   small: /img/nuekit-hero.jpg
   large: /img/nuekit-hero-big.jpg
-  class: blog-hero
+
 
 It's a very different beast than the other tools you see around. Particularly the developer experience is something new and special.
 
@@ -24,10 +24,9 @@ In other words: Nuekit is an amazingly simple and powerful alternative to *Next.
 ## Universal hot-reloading { #uhr }
 Build entire websites without ever touching your browser. Your browser is instantly updated as you make changes to your content, styling, layout, and reactive islands:
 
-[bunny-video]
+[bunny-video.larger]
   videoId: 18714305-d2f3-453d-83a9-0bd017166949
   poster: /img/hot-reload-hero.jpg
-  class: wider
 
 
 ## Great for websites and single-page apps { #multi }

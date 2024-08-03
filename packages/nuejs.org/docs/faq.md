@@ -6,7 +6,8 @@
 I'm [Tero Piirainen](//twitter.com/tipiirai), a JavaScript and UX developer from **Helsinki**. I've been around for 25+ years founding startups and creating open-source projects. I'm known for [Riot.js](//riot.js.org/), **Flowplayer**, and **jQuery Tools**. Right now I'm focusing solely on Nue, which is by far the most ambitious project I've started.
 
 [! /img/workplace.jpg]
-  My workplace in Helsinki
+  caption: My workplace in Helsinki
+  size: 749 × 308 px
 
 ### Why start all this?
 Because the current [frontend stack](//roadmap.sh/frontend) has too many redundant layers. We need a simpler way to build websites and single-page applications, and we must bring UX development back to the forefront.

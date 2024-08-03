@@ -33,19 +33,24 @@ export async function createKit(args) {
 
 
   async function setupStyles(dir, data) {
-    const paths = data.styles = await site.getStyles(dir, data)
+    const paths = await site.getStyles(dir, data)
 
     if (data.inline_css) {
       data.inline_css = await buildAllCSS(paths)
-      delete data.styles
+      data.styles = paths.filter(path => path.includes('@nue'))
+
+    } else {
+      data.styles = paths
     }
   }
 
   async function buildAllCSS(paths) {
     const arr = []
     for (const path of paths) {
-      const { css } = await processCSS({ path, ...parsePath(path)})
-      arr.push({ path, css })
+      if (!path.startsWith('/@nue')) {
+        const { css } = await processCSS({ path, ...parsePath(path)})
+        arr.push({ path, css })
+      }
     }
     return arr
   }

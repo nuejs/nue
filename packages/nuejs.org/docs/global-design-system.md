@@ -19,8 +19,7 @@ Think Nue like a modern-day [CSS Zen Graden](//csszengarden.com/): you get the e
 Nue lets you assemble rich web pages without touching a single line of code. Instead, you describe them with human-friendly text formats: YAML and Markdown. You'll get the [same layout](page-layout.html), but style it differently to meet the requirements of the context.
 
 
-[image.gridpaper]
-  src: /img/page-layout.svg
+[image.bordered /img/page-layout.svg width="600"]
 
 You can also [customize the layout](](custom-layouts.html)) with a minimal amount of HTML for all the different page types you may have like landing pages, blog entries, and technical documentation.
 
@@ -48,7 +47,7 @@ The standardized layout is coupled with a powerful system to rapidly create diff
 
 2. **Hot-reloading** Nue offers a universal solution for [hot-reloading](hot-reloading.html). It intelligently diffs and auto-updates your browser whenever you update your content, styles, or components.
 
-3. **Organization** Nue auto-calculates your page dependencies, keeps your CSS in order, and helps you take maximum advantage of the CSS cascade.
+3. **Organization** Nue [auto-calculates](project-structure.html#page-dependencies) your page dependencies, keeps your CSS in order, and helps you take maximum advantage of the CSS cascade.
 
 4. **Best practices** Nue offers [tips and recipes](css-best-practices.html) for writing reusable CSS that is easy to manage and scale. You typically end up with 10-100 times less code than in a traditional JavaScript-powered system.
 

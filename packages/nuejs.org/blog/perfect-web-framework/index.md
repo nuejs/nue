@@ -9,24 +9,22 @@ og: /img/perfect-banner-big.jpg
 
 In June 2023 I had my final frontend rage quit moment. The anger was so intense that I decided to change the direction of my career from a startup founder to a full-time OSS developer. I would devote all my time to fixing everything that is wrong with the current front-end ecosystem.
 
-I created a [project on GitHub](https://github.com/nuejs/nue) and called it *"Nue"*. I wanted it to be the best web framework for for [UX developers](//css-tricks.com/the-great-divide/) and design-led organizations. It'll consist of following:
+I created a [project on GitHub](https://github.com/nuejs/nue) and called it **"Nue"**. I wanted it to be the best web framework for for [UX developers](//css-tricks.com/the-great-divide/) and design-led organizations. It'll consist of following:
 
 
 [image]
   small: /img/perfect-banner.jpg
   large: /img/perfect-banner-big.jpg
+  width: 550
 
 
 
 [.note]
   ## Terms
-
-  `UX` = improved user experience
-
-  `DX` = improved developer experience
+  **UX** = improved user experience, **DX** = improved developer experience
 
 
-## Content-first core `DX` { #content }
+## Content focused `DX` { #content }
 The purpose of a website is to present content. To spread your thoughts or generate sales. For this obvious reason, your website should be optimized for content producers.
 
 Ideally, content people should be able to create new content and update the information architecture without seeking assistance from designers or developers. Several authors could proceed in isolation and break nothing but their local language or grammar.
@@ -37,29 +35,24 @@ Note that single-page applications are no different: the content just comes from
 
 
 [.problem]
-  Popular frameworks like *Next.js* or *Astro* are optimized for JavaScript developers with a deep understanding of *React*, *TypeScript*, *CSS-in-JS*, *Tailwind*, and whatnot. For example, you need hundreds of lines of code spanning 10-20 files to create a rich/interactive web page.
+  Popular frameworks like **Next.js** or **Astro** are optimized for JavaScript developers with a deep understanding of **React**, **TypeScript**, **CSS-in-JS**, **Tailwind**, and whatnot. For example, you need hundreds of lines of code spanning 10-20 files to create a rich/interactive web page.
 
 
 
 ## World-class design `UX` { #design }
-World-class means the highest caliber design in the world. The top 1% of websites. The future *Stripes*, *Amies*, and *Linears*.
+World-class means the highest caliber design in the world. The top 1% of websites. The future **Stripes**, **Amies**, and **Linears**.
 
 Everything is pixel-perfect down to the tiniest detail. From design tokens to motion design. The underlying design system makes sure that all areas of your site have the same, consistent look and feel. Be it minimalistic, heroic, or playful.
 
 When a content-first design system is in place, content teams can ship great-looking content, without disturbing designers or developers.
 
 [.problem]
-  Current frameworks like *Bootstrap* and Tailwind lack a global, content-first design system that spans the entire website. UX/CSS professionals have a hard time contributing because CSS is tightly coupled inside the JavaScript code.
+  Current frameworks like **Bootstrap** and Tailwind lack a global, content-first design system that spans the entire website. UX/CSS professionals have a hard time contributing because CSS is tightly coupled inside the JavaScript code.
 
-
-[image]
-  small: /img/designers-vs-engineers.png
-  large: /img/designers-vs-engineers-big.png
-  caption:  "[The Great Divide](https://css-tricks.com/the-great-divide/): UX developers are design oriented and JS engineers are technology oriented"
 
 
 ## Motherf**king fast `UX` { #speed }
-[motherfuckingwebsite.com](//motherfuckingwebsite.com/) is a developer meme from *Barry Smith*. This plaintext website carries an important message: get rid of the clutter and focus on content and performance.
+[motherfuckingwebsite.com](//motherfuckingwebsite.com/) is a developer meme from **Barry Smith**. This plaintext website carries an important message: get rid of the clutter and focus on content and performance.
 
 The lesser-known fact is that you can build a design system that offers the performance levels of MF, and the design standards of Stripe and Linear.
 
@@ -77,7 +70,7 @@ All areas of your website should offer a consistently great user experience. Thi
 The same "motherf**king" performance levels and the same pixel-perfect look and feel. And with a seamless "turbo" linking between your multi-page- and single-page apps.
 
 [.problem]
-  Current frameworks lack a hybrid multi-page/single-page application development model. You end up mixing services and domain names. Say Astro for marketing pages, *Nuxt* for documentation, *Medium* for blog, and Vite for the SAAS app. It's impossible to offer a uniform design, performance, and user experience across the board.
+  Current frameworks lack a hybrid multi-page/single-page application development model. You end up mixing services and domain names. Say Astro for marketing pages, **Nuxt** for documentation, **Medium** for blog, and Vite for the SAAS app. It's impossible to offer a uniform design, performance, and user experience across the board.
 
 
 ## Instant development loop `DX` { #devloop }
@@ -87,7 +80,7 @@ This kind of _universal hot-reloading_ offers a true WYSIWYG experience for cont
 
 
 [.problem]
-  *Vite* and Next.js projects can have hundreds, even thousands of NPM modules. As the number of modules increases, your Hot Module Replacement (HMR) operations become heavier and slower. A styling change on your JS file can take seconds before it reaches the browser. And because HMR is limited to JavaScript and TypeScript files, both content teams and UX/HTML/CSS developers are missing the benefits of hot-reloading.
+  **Vite** and Next.js projects can have hundreds, even thousands of NPM modules. As the number of modules increases, your Hot Module Replacement (HMR) operations become heavier and slower. A styling change on your JS file can take seconds before it reaches the browser. And because HMR is limited to JavaScript and TypeScript files, both content teams and UX/HTML/CSS developers are missing the benefits of hot-reloading.
 
 
 ## Easy to scale `DX` { #scale }
@@ -96,7 +89,7 @@ An ideal framework lets people with different backgrounds take part in scaling t
 They use the same system for content-focused apps and single-page apps and enjoy the productivity boost from universal hot-reloading. They share components and design elements so they can move faster and keep things consistent.
 
 [.problem]
-  Vite and *React* place all the burden on the JavaScript developer. They develop React components where content, styling, and logic are all mixed. Scaling becomes hard when content teams and UX developers cannot participate. And if you use different systems for blogging, documentation, and single-page apps – extra developer time is spent on keeping the external services together.
+  Vite and **React** place all the burden on the JavaScript developer. They develop React components where content, styling, and logic are all mixed. Scaling becomes hard when content teams and UX developers cannot participate. And if you use different systems for blogging, documentation, and single-page apps – extra developer time is spent on keeping the external services together.
 
 
 
@@ -106,7 +99,7 @@ When you push out a new blog entry or a product release, something always goes w
 This sort of hot deployment engine is an extension to a full-blown git-based deployment system with support for versioned pushes, rollbacks, and staging environments.
 
 [.problem]
-  Shipping with *Vercel* or *Netlify* is slow. Deployment always triggers a full rebuild: all the pages, styles, scripts, and images are re-pushed. Production pushes take several minutes, sometimes more than an hour. Even if it was just a small typo.
+  Shipping with **Vercel** or **Netlify** is slow. Deployment always triggers a full rebuild: all the pages, styles, scripts, and images are re-pushed. Production pushes take several minutes, sometimes more than an hour. Even if it was just a small typo.
 
 
 ## Universal template `DX` { #universal }

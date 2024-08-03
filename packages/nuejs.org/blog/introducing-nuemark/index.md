@@ -15,18 +15,13 @@ Today, I'm excited to release Nuemark — a Markdown-based text editing format f
   caption: A content-first approach to web development
   width: 700
 
+
 ### Content hot-reloading
 Nuemark is a standalone library that works under Bun, Node, and Deno. However, it is best served together with Nue and its s [universal hot-reloading](/docs/concepts/universal-hot-reloading.html) capability. Just edit your content freely and see the page shaping up in your browser in real time
 
-[bunny-video]
+[bunny-video.larger]
   videoId: 3bf8f658-185a-449c-93b9-9bd5e1ad0d05
   poster: /img/nuemark-splash.jpg
-  class: wide
-
-[.small]
-  Nue offers a genuine content-first, WYSIWYG experience.
-
-  Image credits: [UI8](//dribbble.com/ui8). Thanks!
 
 
 
@@ -50,7 +45,6 @@ Nuemark is designed for content creation. It's a simple, concise syntax that is 
   small: /img/content-hero.png
   large: /img/content-hero-big.png
   caption: The content after applying some context-specific styling
-  class: tall
 
 
 With Nuemark, you start with pure content: text, images, and videos and only then move into layout and design. By starting with a content-first mindset, you will ensure that the page design evolves to support what's inside it. Not the other way around.
@@ -115,17 +109,11 @@ export function MyAlert(props: { color: string, message: string }) {
 }
 ```
 
-And here's the same with [Nue template syntax](/docs/reference/template-syntax)
+And here's the same with [Nue template syntax](/docs/template-syntax.html)
 
 ```
 <p @name="my-alert" style="color:{ color || 'red' };">{ message }</p>
 ```
-
-Look for [Nuemark API docs](/docs/reference/nuemark-api.html) for the details.
-
-*NOTE*: Currently, only Nue components support hot-reloading.
-
-
 
 
 ## Develop sites for content creators
@@ -156,10 +144,10 @@ ps: Check out [Getting started docs](/docs/#node) if you prefer Node.
 
 ### Learn Nuemark
 
-- [User guide](/docs/concepts/nuemark.html)
-- [Tag reference](/docs/reference/nuemark-tags.html)
-- [API docs](/docs/reference/nuemark-api.html)
-- [Hacker News Discussion](//news.ycombinator.com/item?id=38966085)
+- [User guide](/docs/content.html)
+- [Tag reference](/docs/tags.html)
+- [HTML output](/docs/page-layout.html#md)
+
 
 - - -
 
@@ -175,7 +163,6 @@ Nuemark differs from prior alternatives like *MDX* and *Markdoc* in the followin
 
 3. When you edit Nuemark within the Nue framework you see your page update on the browser in real-time offering a true WYSIWYG experience for content creators.
 
-Check [General FAQ](/faq/) for more questions about Nue.
 
 
 ### Where does the syntax come from?

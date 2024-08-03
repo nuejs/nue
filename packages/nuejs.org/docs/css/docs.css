@@ -1,33 +1,4 @@
 
-.gridpaper {
-  background-image: url(/img/grid-paper.png);
-  border: 1px solid var(--gray-200);
-  border-radius: 5px;
-
-  figcaption {
-    margin: 0;
-    position: relative;
-    line-height: 0;
-    top: 2em;
-  }
-
-  &:has(figcaption) {
-    margin-bottom: 6em;
-  }
-}
-
-.bordered {
-  margin: 1.5em 0;
-
-  img&, img {
-    border: 1px solid #0001;
-    border-radius: 6px;
-  }
-
-  &:has(figcaption) {
-    margin-bottom: 3em;
-  }
-}
 
 /* currently: TODO badge in SPA page */
 h1 code {
@@ -49,6 +20,24 @@ h1 code {
   padding: .4em .6em;
   margin-bottom: -.5em;
   margin-left: -.6em;
+}
+
+
+.gridpaper {
+  background-image: url(/img/grid-paper.png);
+  border: 1px solid var(--gray-200);
+  border-radius: 5px;
+
+  figcaption {
+    margin: 0;
+    position: relative;
+    line-height: 0;
+    top: 2em;
+  }
+
+  &:has(figcaption) {
+    margin-bottom: 6em;
+  }
 }
 
 
@@ -104,4 +93,15 @@ h1 code {
     min-width: 8em;
   }
 
+}
+
+.popup {
+  background-color: var(--main-400);
+  padding: .5em 1.5em;
+
+  p {
+    color: white;
+    font-weight: 600;
+    font-size: 110%;
+  }
 }

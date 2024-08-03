@@ -1,9 +1,6 @@
 
-include: [technical-content, video, toggle-switch, syntax-highlight]
+include: [technical-content, video, toggle-switch]
 footer: false
-
-lang:
-  this_page: On this page
 
 sidenav:
   Getting started:

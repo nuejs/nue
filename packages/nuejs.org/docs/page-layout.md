@@ -1,12 +1,12 @@
 
 # Page layout
-Nue standardizes the structure of your web pages so you can use the same HTML markup, but vary your external CSS to achieve wildly different designs.
+Global design system standardizes the structure of your web pages so you can use the same HTML markup, but vary your external CSS to achieve wildly different designs.
 
 
 ## Standardized HTML
 After describing your headers and footers, the default page layout for Markdown content looks like this:
 
-[image.gridpaper /img/page-layout.svg]
+[image.bordered /img/page-layout.svg width="600"]
 
 
 To see this in practice lets create an `index.md` file with the following content:
@@ -127,27 +127,28 @@ The YAML syntax allows you to build navigation elements of any complexity. This 
 
 ``` yaml
 header:
-
-  # Nue logo
   Branding:
     - image: /img/logo.svg
+      class: logo
+      alt: Nue logo
       size: 60 × 18
       url: /
 
-  # Master navigation
   Site navigation:
     - Docs: /docs/
     - Blog: /blog/
-    - label: Nue 1.0 Alpha is here! ›
-      url: /blog/status-update-01/
+    - label: Nue 1.0 beta ›
+      url: /blog/nue-1-beta/
       class: status badge
 
-  # Call to actions
   Toolbar:
-    - label: Try beta
-      url: /docs/
-    - ---
-    - label: "*6.0k*"
+    - image: /icon/x-logo.svg
+      url: //x.com/tipiirai
+      class: social
+      alt: X logo
+      size: 39 x 39
+
+    - label: 6.0k
       url: //github.com/nuejs/nue
       class: github badge
 ```
@@ -392,7 +393,7 @@ The standard [aria-haspopup](//developer.mozilla.org/en-US/docs/Web/Accessibilit
 
 
 
-## Content area
+## Markdown content { #md }
 Nue [extends](content.html) the basic Markdown syntax to make it suitable for assembling rich web pages. This content is nested inside an `article` element:
 
 
@@ -562,10 +563,12 @@ Design systems commonly have different styles for primary and secondary buttons 
 Images are rendered as follows:
 
 ```
-<img src="hello.webp" loading="lazy">
+<figure>
+  <img src="hello.webp" loading="lazy">
+</figure>
 ```
 
-They can also have captions:
+They can have captions:
 
 ```
 <figure>
@@ -588,28 +591,34 @@ They can be nested inside a link:
 They can be [responsive](//developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images)
 
 ```
-<img
-  srcset="planet.png 450w, planet-big.png 900w"
-  sizes="(max-width: 600px) 450px, 900px"
-  alt="This is the alt text"
-  loading="eager"
-  class="tall">
+<figure>
+  <img
+    srcset="planet.png 450w, planet-big.png 900w"
+    sizes="(max-width: 600px) 450px, 900px"
+    alt="This is the alt text"
+    loading="eager"
+    class="tall">
+</figure>
 ```
 
 [Art direction](//web.dev/articles/codelab-art-direction) is supported:
 
 ```
-<picture>
-  <source src="ui-tall.png" media="(max-width: 750px)" type="image/png">
-  <source src="ui-wide.png" media="(min-width: 750px)" type="image/png">
-  <img src="ui-wide.png" loading="lazy">
-</picture>
+<figure>
+  <picture>
+    <source src="ui-tall.png" media="(max-width: 750px)" type="image/png">
+    <source src="ui-wide.png" media="(min-width: 750px)" type="image/png">
+    <img src="ui-wide.png" loading="lazy">
+  </picture>
+</figure>
 ```
 
 They can use classes from your design system:
 
 ```
-<img class=•"heroic"• src="hello.webp" loading="lazy">
+<figure class=•"heroic"•>
+  <img src="hello.webp" loading="lazy">
+</figure>
 ```
 
 
@@ -762,7 +771,7 @@ Tables, code blocks, and tabs can be nested inside a wrapper element to allow mo
 
 
 ```
-<div class="gradient-wrap">
+<div class="•gradient-wrap•">
   <table>
     ...
   </table>

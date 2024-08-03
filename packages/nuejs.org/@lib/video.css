@@ -14,8 +14,8 @@
 }
   
 .play {
-  background: var(--main-500) url(/icon/play.svg) no-repeat;
-  border: 4px solid var(--main-500);
+  background: #0009 url(/icon/play.svg) no-repeat;
+  border: 3px solid white;
   transform: translate(-50%, -50%);
   background-position: 62% 50%;
   box-shadow: 0 0 2em #0005;
@@ -24,16 +24,18 @@
   position: absolute;
   cursor: pointer;
   height: 5em;
+  opacity: .8;
   width: 5em;
   left: 50%;
   top: 45%;
 
   &:hover {
-    border-color: white
+    border-color: white;
+    opacity: 1;
   }
 
   &:active {
-    box-shadow: 0 0 .5em inset black
+    border-color: black;
   }
 
   .playing & {

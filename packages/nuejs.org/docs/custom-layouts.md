@@ -3,7 +3,7 @@
 # Custom layouts
 The design system consists of various "slots" that you can fill or replace with custom template content. The slots are named as follows:
 
-[image.gridpaper /img/custom-layout.svg]
+[image.bordered /img/custom-layout.svg]
 
 
 For example, if you want to add a custom banner above the global header you'd create a layout module called "banner":

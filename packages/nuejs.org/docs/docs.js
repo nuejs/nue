@@ -3,6 +3,12 @@ import { $, $$ } from '/@nue/view-transitions.js'
 
 
 // scroll highlight for table of contents (on the right side)
+
+function setSelected(root, el) {
+  $('[aria-selected]', root)?.removeAttribute('aria-selected')
+  el?.setAttribute('aria-selected', 1)
+}
+
 class ObservingNav extends HTMLElement {
 
   constructor() {
@@ -11,15 +17,28 @@ class ObservingNav extends HTMLElement {
     this.observer = new IntersectionObserver(entries => {
       entries.forEach(el => {
         if (el.isIntersecting) {
-          $('[aria-selected]', this)?.removeAttribute('aria-selected')
-          $(`[href="#${el.target.id}"]`, this)?.setAttribute('aria-selected', 1)
+          if (!this.disabled) setSelected(this, $(`[href="#${el.target.id}"]`, this))
         }
       })
     }, {
-      rootMargin: '-300px'
+
+      // the craziest option i've seen. makes no sense
+      rootMargin: `0px 0px -500px 0px`,
+
     })
 
     $$('section > h2, section > h3').forEach(el => this.observer.observe(el))
+
+    this.onclick = function(e) {
+      if (e.target.href) {
+        this.disabled = true
+        setSelected(this, e.target)
+        setTimeout(() => delete this.disabled, 2000)
+      }
+
+      // console.info(this, )
+      // setSelected
+    }
   }
 
   disconnectedCallback() {
@@ -45,7 +64,8 @@ customElements.define('zen-toggle', ZenToggle, { extends: 'input' })
 
 // remember the zen state after the view transition
 addEventListener('route', function() {
-  $('[is=zen-toggle]').checked = !!$('.zen')
+  const el = $('[is=zen-toggle]')
+  if (el) el.checked = !!$('.zen')
 })
 
 

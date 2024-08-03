@@ -1,46 +1,34 @@
 
-<a href="https://nuejs.org">
-  <img src="https://nuejs.org/img/nue-banner-big.png?1">
-</a>
 
 # Nue &nbsp;[![test](https://github.com/nuejs/nue/actions/workflows/test.yaml/badge.svg?branch=master)](https://github.com/nuejs/nue/actions/workflows/test.yaml)
-Nue(kit) is a static website generator and web application builder. It's an amazingly simple and powerful alternative to **Next.js** and **Astro**:
+
+<a href="https://nuejs.org/">
+  <img src="https://www2.nuejs.org/img/og-blue-big.png" width="900">
+</a>
+
+### What is Nue?
+Nue is a web framework for UX developers. What used to take a separate designer, React engineer, and an absurd amount of JavaScript can now be done by a UX developer and a small amount of CSS.
+
+[Learn how it works](https://nuejs.org/docs/)
 
 
-### Getting Started
+### Who is it for?
+Nue is designed for the following people:
 
-Please see https://nuejs.org/docs/
+1. **UX developers**: who natively jump between **Figma** and **CSS** without confusing [designer-developer handoff](//medium.com/design-warp/5-most-common-designer-developer-handoff-mishaps-ba96012be8a7) processes in the way.
 
+2. **Beginner web developers**: who want to skip the [redundant frontend layers](//roadmap.sh/frontend) and start building websites quickly with HTML, CSS, and JavaScript.
 
-### Why Nue?
+3. **Experienced JS developers**: frustrated with the absurd amount of layers in the [React stack](//roadmap.sh/react) and look for simpler ways to develop professional websites.
 
-- [Content first](https://nuejs.org/docs/why-nue/content-first.html)
-- [Extreme performance](https://nuejs.org/docs/why-nue/extreme-performance.html)
-- [Closer to standards](https://nuejs.org/docs/why-nue/closer-to-standards.html)
-
-#### Notable features
-
-- [Universal hot-reloading](https://nuejs.org/docs/concepts/universal-hot-reloading.html)
-- [Hybrid app routing and page routing](https://nuejs.org/docs/concepts/client-side-navigation.html)
-- [layout components](https://nuejs.org/docs/concepts/layout-components.html)
-- [JS/TypeScript modules](https://nuejs.org/docs/concepts/js-modules.html)
-- [Content collections](https://nuejs.org/docs/concepts/content-collections.html)
-- [Reactive islands](https://nuejs.org/docs/concepts/reactive-islands.html)
+4. **Designers**: aiming to learn web development, but find the React/JavaScript ecosystem impossible to grasp
 
 
-### The Goal
-Eventually, Nue is a content-first alternative to **Vercel** and **Netlify**, which is extremely fast and ridiculously easy to use. The goal is to be a so-called [perfect framework](https://nuejs.org/blog/perfect-web-framework/):
+### Ultimate goal
+Ultimately Nue will be a ridiculously simpler alternative to **Next.js**, **Gatsby**, and **Astro**
 
-<a href="https://nuejs.org/blog/perfect-web-framework/">
-<img src="https://nuejs.org/img/perfect-banner-big.jpg" width="500"></a>
+[Learn more about the vision](https://nuejs.org/blog/perfect-web-framework/)
 
-
-### Roadmap
-Here's the high-level roadmap. Click for the most recent [status update](https://nuejs.org/blog/status-update-01/) version.
-
-
-<a href="https://nuejs.org/blog/status-update-01/">
-<img src="https://nuejs.org/img/roadmap-summer.png" width="800"></a>
 
 ### Contributing
 

@@ -5,7 +5,7 @@
   display: grid;
   gap: 25px;
 
-  img + p { display: none }
+  figure + p { display: none }
 
   > div {
     grid-column: auto / span 2;

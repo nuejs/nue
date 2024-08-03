@@ -99,21 +99,18 @@ export const tags = {
       src,
     }
 
-
-    // caption
-    const aside = caption ? elem('figcaption', parseInline(caption)) :
-      content ? elem('figcaption', nuemarkdown(content[0], opts)) :
-      null
+    // figcaption
+    const figcaption = caption ? elem('figcaption', parseInline(caption)) :
+      content ? elem('figcaption', nuemarkdown(content[0], opts)) : ''
 
     // img tag
-    if (!aside) Object.assign(img_attr, attr)
     let img = data.small ? createPicture(img_attr, data) : elem('img', img_attr)
 
-    // link
+    // wrap image inside a link
     if (href) img = elem('a', { href }, img)
 
-    // figure
-    return aside ? elem('figure', attr, img + aside) : img
+    // always wrapped inside a figure
+    return elem('figure', attr, img + figcaption)
   },
 
 
@@ -151,12 +148,15 @@ export const tags = {
     })
   },
 
-  // caption, wrapper, language, numbered
+  // caption, language, numbered
   code(data) {
     const { caption, attr } = data
+    const klass = attr.class
+    delete attr.class
+
     const head = caption ? elem('figcaption', parseInline(caption)) : ''
     const root = head ? elem('figure', attr, head + createCodeBlock(data)) : createCodeBlock(data, attr)
-    return createWrapper(data.wrapper, root)
+    return createWrapper(klass, root)
   },
 
   // captions, languages, classes, numbered

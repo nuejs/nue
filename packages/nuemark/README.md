@@ -7,17 +7,17 @@
 Nuemark is a Markdown dialect for rich, interactive content. Use it to create marketing pages, documentation pages, and blog entries without leaving the content. Even your all-mighty front page can be expressed with Nuemark:
 
 
-![Web page in read and edit mode](https://nuejs.org/img/nuemark-content-big.png)
-
-*In above*: The content and the result. Nuemark puts you into content-first mindset.
-
-
 ### Documentation
 
 [What is Nuemark?](https://nuejs.org/blog/introducing-nuemark/)
-[User guide](https://nuejs.org/docs/concepts/nuemark.html)
-[Tag reference](https://nuejs.org/docs/reference/nuemark-tags.html)
-[API docs](https://nuejs.org/docs/reference/nuemark-api.html)
+[User guide](https://nuejs.org/docs/content.html)
+[Tag reference](https://nuejs.org/docs/tags.html)
+[HTML output](https://nuejs.org/docs/page-layout.html)
+
+
+![Web page in read and edit mode](https://nuejs.org/img/nuemark-content-big.png)
+
+*In above*: The content and the result. Nuemark puts you into content-first mindset.
 
 
 ### Getting Started
@@ -35,7 +35,7 @@ bun create nue@latest
 
 Choose “nuemark-demo” to see the above big screenshot in action.
 
-Refer to [getting started docs](https://nuejs.org/docs/#node) if you prefer Node.
+Refer to [getting started docs](https://nuejs.org/docs/installation.html#node) if you prefer Node.
 
 
 ### The big picture

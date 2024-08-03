@@ -1,13 +1,13 @@
 
 ---
-title: Nue's approach to CSS
-hero_title: "*Nue's approach to CSS:* more clarity and scalability trough minimalism"
-desc: Introducing a more scaleable approach to Tailwind, BEM, and CSS-in-JS
+title: Nue and CSS
+hero_title: "*Nue and CSS:* a more obvious approach to styling things"
+desc: Introducing a more obvious alternative to Tailwind, BEM, and CSS-in-JS
 og: /img/nue-css-og.png
 date: 2024-03-20
 ---
 
-Here's a preview of Nue's upcoming approach to styling things on the web. The key differences are _minimalism_, and _re-usability_. The difference can be significant: you can build an entire website with the same amount of CSS that goes into a single **Tailwind** button. Sometimes even crazier: you can fit three websites to a single **Tailwind Catalyst** button.
+Here's a preview of Nue's upcoming approach to styling things on the web. The key difference is _minimalism_: you can build an entire website with the same amount of CSS that goes into a single **Tailwind** button. Or even crazier: you can fit three websites to a single **Tailwind Catalyst** button.
 
 [image.hero]
   small: /img/nue-css-hero.webp
@@ -29,7 +29,7 @@ However, these systems failed due to their size and verbosity. Developers lost i
 ### *CSS-in-JS:* Clean global namespace
 In 2014, **Christopher Chedeau** from **Facebook** gave birth to the CSS-in-JS movement. The main idea was to get rid of global namespace pollution. He showcased **Bootstrap** a prime example of bad CSS design.
 
-The idea was a huge success and soon after developers rusted converting their CSS codebases to JavaScript. We saw a flood of new CSS frameworks like [Vanilla Extract](//vanilla-extract.style/), [Styled JSX](//github.com/vercel/styled-jsx), and [Emotion](//emotion.sh)
+The idea was a huge success and soon after developers rushed converting their CSS codebases to JavaScript. We saw a flood of new CSS frameworks like [Vanilla Extract](//vanilla-extract.style/), [Styled JSX](//github.com/vercel/styled-jsx), and [Emotion](//emotion.sh)
 
 
 ### *Tailwind:* Inline styling
@@ -130,7 +130,7 @@ Simple means lean and well-organized CSS that is easy to maintain and scale. The
 
 
 
-## 3. No JavaScript middleman
+## 3. Ditch JavaScript
 When everything is based on a single source of truth, it's trivial to ditch the redundant CSS-in-JS layer in front of your design system, be it Tailwind, **CSS Modules**, or Vanilla Extract. This makes a simpler stack:
 
 [table.small "| CSS-in-JS | Tailwind | Nue"]
@@ -156,6 +156,8 @@ When everything is based on a single source of truth, it's trivial to ditch the 
 
 
 
+Now, onto results:
+
 
 ## Less coding needed
 Sites made with Nue have extremely little CSS. For example, a basic Tailwind button has more styling than a complete Nue-powered website:
@@ -172,7 +174,7 @@ Design-system-powered websites stay lean as the site grows:
 
 
 
-## Leaner is faster
+## Leaner sites
 [motherfuckingwebsite.com](//motherfuckingwebsite.com/) is a developer meme from **Barry Smith** to demonstrate the power of minimalism. It's a text-only website that does not use CSS at all. It loads fast:
 
 [image]
@@ -221,13 +223,6 @@ We're building the next version of Nue which contains a thing called [global des
 [image "/img/css-future.png"]
 
 
-
-### Templates
-After a solid Nue 1.0 version, we're going to focus on website templates with marketing, documentation, registration, e-commerce, and blogging areas. Or copy/pasteable components ala Shadcn and Tailwind, with a ten times smaller codebase and seamless integration to your design system.
-
-Become the next **Stripe**, **Linear**, or **Apple** — with the speed levels of a mother-effing website.
-
-These perfected templates will likely have a one-shot price tag because we want to secure the development of Nue for years to come without depending on 3rd party demands.
 
 
 

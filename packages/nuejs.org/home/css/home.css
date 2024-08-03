@@ -6,10 +6,10 @@ body > header {
   @starting-style { opacity: 0 }
 }
 
-main {
+article, body > footer {
   text-wrap: balance;
   max-width: 1100px;
-  margin: 0 auto;
+  margin-inline: auto;
 }
 
 .hero {

@@ -8,7 +8,7 @@
   <form :else @submit.prevent="submit">
     <p :if="desc">{ desc }</p>
     <input type="email" name="email" placeholder="Your email" required>
-    <textarea name="comment" placeholder="Feedback (optional)"></textarea>
+    <textarea name="comment" placeholder="Optional feedback (appreciated!)"></textarea>
     <button>{ cta || 'Join mailing list' }</button>
   </form>
 

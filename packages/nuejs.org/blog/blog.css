@@ -1,5 +1,5 @@
 
-main > aside {
+body > nav {
   position: relative;
   top: -3em;
   a {
@@ -8,13 +8,14 @@ main > aside {
   }
 }
 
-article {
+article, body > footer  {
   max-width: 44rem;
   margin: 0 auto;
+}
 
-  > header {
-    margin-bottom: 3em;
-  }
+/* hero area */
+article > header {
+  margin-bottom: 3em;
 }
 
 time {
@@ -38,6 +39,7 @@ h1 {
 
   aside {
     font-size: 85%;
+    a { color: var(--gray-500) }
   }
 
   img {
@@ -45,6 +47,7 @@ h1 {
   }
 
   b {
+    color: var(--gray-700);
     font-weight: 550;
     display: block;
     margin-bottom: .20em;
@@ -52,33 +55,23 @@ h1 {
 }
 
 
-section img {
-  margin: 1.5em 0;
-}
-
-figure {
-  figcaption {
-    margin: -1em 0 3em;
-  }
-
-  &:has( >img[width] ) {
-    display: inline-block;
-  }
-}
-
-
-.hero {
-  margin: 1em 0 3em;
-
-  @media (min-width: 950px) {
+/* image.large, image.larger */
+@media (min-width: 950px) {
+  .large, .larger {
     margin-inline: -12vw;
     img { width: 999% }
   }
+
+  /*larger*/
+  .larger {
+    margin-inline: -6.85vw;
+  }
 }
 
+
 .footnote {
-  margin-top: var(--section-gap);
-  color: var(--gray-500);
+  color: var(--gray-400);
   line-height: 1.5;
+  margin-top: 6em;
   font-size: 95%;
 }
