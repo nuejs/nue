@@ -10,28 +10,26 @@ Nue's power leans heavily on a thing called _global design system_. It allows UX
 
 
 ## Modern-day CSS Zen Garden
-Think Nue like a modern-day [CSS Zen Graden](//csszengarden.com/): you get the exact same HTML markup, but you can write CSS to achieve wildly different designs. Nue frees you from implementing page layouts and basic UI elements over and over again so you can move faster with nothing but CSS. Or as the well-known UX developer [Brad Frost](//bradfrost.com/) puts it:
+Think Nue like a modern-day [CSS Zen Graden](//csszengarden.com/): you get the same HTML markup, but you can write CSS to achieve wildly different designs. Nue frees you from implementing page layouts and basic UI elements over and over again so you can move faster with nothing but CSS. Or as the well-known UX developer [Brad Frost](//bradfrost.com/) puts it:
 
 > Global Design System improves the quality and accessibility of the world’s web experiences, saves the world’s web designers and developers millions of hours, and makes better use of our collective human potential. *Brad Frost*
 
 
-### Standardized layout
+### Standardized page layout
 Nue lets you assemble rich web pages without touching a single line of code. Instead, you describe them with human-friendly text formats: YAML and Markdown. You'll get the [same layout](page-layout.html), but style it differently to meet the requirements of the context.
-
 
 [image.bordered /img/page-layout.svg width="600"]
 
 You can also [customize the layout](](custom-layouts.html)) with a minimal amount of HTML for all the different page types you may have like landing pages, blog entries, and technical documentation.
 
-
 Once the HTML layout is in place, your work is to [style it with CSS](css-best-practices.html) and perfect the user experience with [motion and reactivity ](reactivity.html)
 
 
-### Standardized content
-Nue comes with a rich [Markdown flavor](content.html) for rich, interactive content.
-Content authors and UX developers can rapidly build web pages without ever touching a single line of code. Things like buttons, tables, responsive images, tabbed content, and code blocks are built in.
+### Extended Markdown flavor
+Nue comes with a [Markdown flavor](content.html) for rich, interactive content.
+Content authors and UX developers can build web pages without ever touching a single line of code. Things like sections, grid layouts, buttons, tables, responsive images, videos, tabbed content, and code blocks are built in.
 
-This content assembly format always produces the exact same HTML output for the different components making it a perfect fit for the global design system. The produced markup is 100% headless so you are free to design the components the way you like.
+This content assembly format always produces the same HTML output making it a perfect fit for the global design system. The produced markup is 100% headless so you can give your content a wildly different look with CSS.
 
 
 [.note]
@@ -43,11 +41,11 @@ This content assembly format always produces the exact same HTML output for the 
 The standardized layout is coupled with a powerful system to rapidly create different designs. It has the following features:
 
 
-1. **Modernization** The CSS is processed with [Lightning CSS](//lightningcss.dev/) to give support for modern/future features like nesting and color functions.
+1. **Modernization** The CSS is processed with [Lightning CSS](//lightningcss.dev/) to give support for modern/future features like nesting and color functions. It also parses CSS for any errors and Nue displays them to you on the browser.
 
 2. **Hot-reloading** Nue offers a universal solution for [hot-reloading](hot-reloading.html). It intelligently diffs and auto-updates your browser whenever you update your content, styles, or components.
 
-3. **Organization** Nue [auto-calculates](project-structure.html#page-dependencies) your page dependencies, keeps your CSS in order, and helps you take maximum advantage of the CSS cascade.
+3. **Organization** Nue keeps track of your [page dependencies](project-structure.html#page-dependencies) and helps you take maximum advantage of the CSS cascade.
 
 4. **Best practices** Nue offers [tips and recipes](css-best-practices.html) for writing reusable CSS that is easy to manage and scale. You typically end up with 10-100 times less code than in a traditional JavaScript-powered system.
 

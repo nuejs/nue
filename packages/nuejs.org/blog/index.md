@@ -2,7 +2,7 @@
 ---
 include: [blog-index]
 content_collection: blog
-aside: false
+subheader: false
 pagehead: false
 pagefoot: false
 inline_css: true

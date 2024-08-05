@@ -213,11 +213,23 @@ export async function createSite(args) {
     }
   }
 
+
+  async function readDirData(dir) {
+    const paths = await getPageAssets(dir)
+    const data = {}
+    for (const path of paths) {
+      if (path.endsWith('.yaml')) {
+        Object.assign(data, await readData(path))
+      }
+    }
+    return data
+  }
+
   self.getData = async function(pagedir) {
     const data = { nuekit_version, ...site_data, is_prod }
 
     for (const dir of traverseDirsUp(pagedir)) {
-      extendData(data, await readData(`${dir}/app.yaml`))
+      extendData(data, await readDirData(dir))
     }
     return data
   }
@@ -277,7 +289,7 @@ export async function createSite(args) {
     const paths = await getAssets({ dir, exts: ['html'], data })
 
     if (dir && dir != '.') {
-      const more = await fs.readdir(root, dir)
+      const more = await fs.readdir(join(root, dir))
       more.forEach(p => {
         if (p.endsWith('.html')) paths.unshift(p)
       })

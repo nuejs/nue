@@ -78,15 +78,13 @@ export async function createKit(args) {
 
   async function getPageData(path) {
 
-    const { dir } = parsePath(path)
-    const data = await site.getData(dir)
-
-    // markdown
+    // markdown data: meta, sections, headings, links
     const raw = await read(path)
-
-    // { meta, sections, headings, links }
-    const page = parsePage(raw, data)
+    const page = parsePage(raw)
     const { meta } = page
+
+    const { dir } = parsePath(path)
+    const data = await site.getData(meta.appdir || dir)
 
     // YAML data
     Object.assign(data, parsePathParts(path), { page })

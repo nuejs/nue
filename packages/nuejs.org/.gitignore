@@ -1,3 +1,2 @@
 .dist
-.DS_Store
 @lib/ping.js

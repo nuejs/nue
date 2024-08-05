@@ -39,6 +39,7 @@ export async function loadPage(path) {
     $('style').replaceWith($('style', dom))
   }
 
+
   // body class
   $('body').classList.value = $('body2', dom).classList.value || ''
 

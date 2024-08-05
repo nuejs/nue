@@ -77,7 +77,7 @@ export function parseError(buildResult) {
 
 export async function lightningCSS(css, minify, opts={}) {
   let include = Features.Colors
-  if (opts.css_nesting !== false) include |= Features.Nesting
+  if (opts.native_css_nesting) include |= Features.Nesting
 
   try {
     process.stdout.write('⚡️')

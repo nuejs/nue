@@ -11,9 +11,6 @@ Nue has a [hierarchical system](project-structure.html#data) for settings and an
 List of all Nue-specific configuration options in `site.yaml` file. These settings impact the system behaviour and are always global. That is: they cannot be overwritten in app or page level.
 
 
-### css_nesting
-Compile all CSS nesting rules to un-nested style rules that are supported in all browsers. This defaults to `true`. Setting this to `false` generates a smaller CSS output, but is only compatible with ~90% of browsers. Check the current [Can I Use](https://caniuse.com/css-nesting) statistics.
-
 ### dist
 The output directory. The default is `.dist/dev` for the development version and `.dist/prod` for the production version.
 
@@ -41,6 +38,9 @@ links:
 
 ### lightning_css
 Setting this to `false` disables the default processing with [Lightning CSS](//lightningcss.dev/) and the CSS is served directly as is.
+
+### native_css_nesting
+Use native CSS nesting intead of converting them to un-nested style rules that are supported in all browsers. Setting this to `true` generates a smaller CSS output, but is not supported by the oldest of browsers. Check the current [Can I Use](//caniuse.com/css-nesting) statistics for details.
 
 ### port
 The port number of the development server. Default is 8080
@@ -113,11 +113,8 @@ HTML layout for the burger menu
 You can [disable individual layouts](custom-layouts.html#disabling) for areas or individual pages with settings such as `banner: false` or `footer: false`.
 
 
-
-
-
 ## Area settings
-List of typical area-specific settings inside an application file such as `blog/app.yaml`. These can also be set globally in `site.yaml` or individually for a specific page.
+List of typical area-specific settings inside an application file such as `blog/blog.yaml` or any other YAML file on the specific application directory. These can also be set globally in `site.yaml` or individually for a specific page.
 
 
 ### include

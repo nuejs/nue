@@ -3,7 +3,7 @@
 hero_title: "Announcing *Nue 1.0-beta*"
 ---
 
-Exactly one year ago I [decided](/blog/backstory/) to create the absolute _slickest_ website generator in the world. Today is the day — the vision becomes reality:
+Exactly one year ago I [decided](/blog/backstory/) to create the slickest website generator in the world. Today this vision is becoming a reality:
 
 [image.larger]
   small: /img/og-blue.png
@@ -13,17 +13,17 @@ Exactly one year ago I [decided](/blog/backstory/) to create the absolute _slick
 
 [.note]
   ### The gist
-  What used to take a separate designer, React engineer, and an absurd amount of JavaScript can now be done by a UX developer and a small amount of CSS.
+  Nue is simpler. What used to take a separate designer, React engineer, and an absurd amount of JavaScript can now be done by a UX developer and a small amount of CSS.
 
 
 ### Who is this for?
 Nue is designed for the following people:
 
-1. **UX developers**: who natively jump between **Figma** and **CSS** without confusing [designer-developer handoff](//medium.com/design-warp/5-most-common-designer-developer-handoff-mishaps-ba96012be8a7) processes in the way.
+1. **UX developers**: who natively jump between **Figma** and **CSS** without a confusing [designer-developer handoff](//medium.com/design-warp/5-most-common-designer-developer-handoff-mishaps-ba96012be8a7) processes in the way.
 
 2. **Beginner web developers**: who want to skip the [redundant frontend layers](//roadmap.sh/frontend) and start building websites quickly with HTML, CSS, and JavaScript.
 
-3. **Experienced JS developers**: frustrated with the absurd amount of layers in the [React stack](//roadmap.sh/react) and look for simpler ways to develop professional websites.
+3. **Experienced JS developers**: frustrated with the absurd amount of layers in the [React stack](//roadmap.sh/react) and looking for simpler ways to develop professional websites.
 
 4. **Designers**: aiming to learn web development, but find the React/JavaScript ecosystem impossible to grasp
 
@@ -32,141 +32,167 @@ Nue is designed for the following people:
 
 
 ## What's new?
-v1.0 Beta is by far the biggest release yet with xxx commits and xxx files changed.
+v1.0 Beta is by far the biggest release yet with xxx commits and xxx files changed. Here are the most important additions:
+
 
 ### Global design system
-Nue has always had the content-first idea of assembling .., but with this release this idea is taken further to something what Brad Frost calls a "global design system" (GDS).
+Nue provides an [extended Markdown flavor](/docs/content.html) for authoring web content. In addition to the basic text formatting, Nue supports sections, grids, responsive images, videos, tabbed content, and more. This makes the flavor suitable for the web, unlike the standard Markdown optimized for writing emails.
+
+UX developers love the idea behind Markdown because they can trust that the generated markup always has the same, limited set of elements and their HTML structure remains the same between pages and projects. This allows developers to use CSS to create wildly different designs between pages and projects. Be it blogging, marketing content, or technical documentation.
+
+With this release, Nue extends this basic idea to span the entire website. You continue using YAML data and the Markdown flavor for content, but with Nue 1.0-beta you can also use YAML to describe your information architecture. This includes all your navigational elements, like the global header, global footer, "burger menu", and any application-specific navigations you may have.
+
+This guarantees that you always get the kind of markup for your projects, but you can write CSS to achieve wildly different designs. We call this a [global design system](/docs/global-design-system.html):
 
 [image.lightgray]
   small: /img/global-design-system.png
   large: /img/global-design-system-big.png
   caption: Shared layout, wildly different designs
 
-GDS defines what Nue is. It allows you to Use the same exact layout but, ...
-
-Think this as modern-day [CSS Zen Garden](//www.csszengarden.com/) where... A more familiar concept is Markdown: it always gives the same  HTML, but you can alter how it looks with CSS. Nue takes this idea and turns it into a rapid web application development environment with the following new features:
-
-* standardized page layout
-* headers, footers, "burger menus", and custom navigational components can now be defined without
-* A new <navi/> tag to use the descriptive ..
-* custom layouts for defining..
-* <page-list/>, <toc/>, less HTML/JavaScript, and more CSS even with
-
-
-**Brad Frost**, a famous UX developer and the man behind the idea [says][gds]:
+The idea of a global design system comes from  **Brad Frost**, a well-known UX developer who [puts it this way][gds]
 
 > Global Design System improves the quality and accessibility of the world’s web experiences, saves the world’s web designers and developers millions of hours, and makes better use of our collective human potential. *Brad Frost*
 
-The global design system allows you to build modern websites with nothing but CSS.
 
 
-### CSS theming system
-This version improves Nue's CSS framework with the following features to make it an ideal companion for styling the standardized layouts on the global design system:
-
-* Lightning CSS enabled by default
-* New Library folders with include
-* Eexclude property to
-*
+### CSS theming improvements
+Nue has a powerful CSS theming system that supports [hot-reloading](/docs/hot-reloading.html), CSS inlining, error reporting, and automatic dependency management. This version improves the system with the following features:
 
 
+* [Lightning CSS](//lightningcss.dev/) is now enabled by default allowing you to use CSS nesting, color-mix, and other modern features now without browser-compatibility concerns.
 
-### Improved view transitions
-Great CSS support,
+* [Library folders](/docs/project-structure.html#libraries) to hold re-usable CSS which can be explicitly included on your pages with a new `include` property. You can include assets globally, at the application level, or page level. This helps you take maximum advantage of the [CSS cascade](//developer.mozilla.org/en-US/docs/Web/CSS/Cascade).
+
+* [Exclude property](/docs/project-structure.html#libraries#exclude) allows you to strip unneeded assets from the request and lighten the payload.
+
+
+
+
+### CSS best practices
+Nue's new [CSS best practices](/docs/best-practises.html) are targeted at UX developers who understand the power of external, cascaded styling. It's also a great resource for JavaScript engineers, who don't like the idea of bringing up a big JavaScript ecosystem in their way just to avoid the mythical "global namespace pollution".
+
+These best practices focus on writing clear, reusable CSS that is easy to read, maintain, and scale. It unpacks decades of CSS experience with a heavy focus on _minimalism_. All the practices could be squeezed into one sentence:
+
+> 10 lines of code is easier to maintain than 100 lines of code *Nue best practice*
+
+Nue helps you build professional websites with the same amount of CSS as you can find on a typical normalization library or Tailwind's "preflight" CSS.
+
+
+
+### View transitions
+View transitions can now be enabled with
+
+``` yaml
+view_transition: true
+```
+
+This option was previously called `router`, but this feature is now much more than just a router. First, it triggers a [view transition](//developer.mozilla.org/en-US/docs/Web/API/ViewTransition) on the document so you can use the [::view-transition](https://developer.mozilla.org/en-US/docs/Web/CSS/::view-transition) CSS pseudo-element. This website, for example, has a "scale down" transition effect on the page's `article` element. It's defined with this fairly simple CSS:
 
 
 ``` css.pink
 article {
-> view-transition-name: article;
+  view-transition-name: article;
 }
 
 /* view transition (scales down the old article) */
 ::view-transition-old(article) {
-  transform: scale(.8);
-  transition: .4s;
+> transform: scale(.8);
+> transition: .4s;
 }
 ```
 
-Unexplored area, together with @starting-style
+Nue's view transition mechanism implements a simple diffing algorithm to check which parts of the page have been added, changed, or removed and updates the page accordingly. This helps you take advantage of CSS [@starting-style](//developer.mozilla.org/en-US/docs/Web/CSS/@starting-style) to trigger animations when the page sections are updated. The non-updating elements stay in place. You can see this in action when you click the sidebar elements under the [documentation](/docs/) area.
 
-``` css.blue
-.hero {
-  /* sidebar */
-  @starting-style {
-    opacity: 0
-  }
-}
-```
+View transitions is a broad standard with tons of visual possibilities that are yet unexplored. Nue is going to stay at the forefront of this technology and you'll see tutorials, templates, and new features in the future.
 
-
-### CSS best practices
-To build .. with GDS
-
-! UX development category floating
-
-*
-* CSS best practices
 
 
 ### Dynamic sections and grid items
-[grid] tag
+You can turn your [page sections](/docs/page-layout.html#sections) into web components with a `section_component` configuration option. For example, on the front page of this website, we have a "scroll-transition" component to help implement all the scroll-triggered CSS transitions.
+
+```
+section_component: scroll-transition
+```
+
+The web component can be assigned globally in `site.yaml` for all page sections or it can be assigned on the area level, or at the page level (in front matter). Similar to dynamic sections, you can also create [dynamic grids](/docs/reactivity.html#grid-items) with a newly added [grid](/docs/tags.html#grid) component.
 
 
-### 99% freeform folder structure
-* no hardcoded app.yaml, layout.yaml, main.js
-* any .data file, any .js file (no main.js), any .html file,
+### Freeform file naming
+There are no longer hardcoded `app.yaml`, `layout.yaml`, or `main.js` file names to give them a special meaning. You can now freely name your CSS, YAML, JavaScript, or HTML files. You can also have multiple data and layout files and they are all grouped or concatenated together. You could, for example, create a `layout.html` file for layout-specific components and a `components.html` file for other server-side components.
 
 
-[image.purple]
-  small: /img/web-editor.png
-  large: /img/web-editor-big.png
+## Small updates
 
+* Inline SVG support: you can inline your SVG files with a new inline attribute. For example: `[image /img/my-animated.svg inline]`. This allows you to control the image and its transitions/animations with CSS.
 
-## Smaller updates
+* Files with a `.htm` suffix are treated as [client-side components](/docs/reactive-components.html). Now both `.nue` and `.htm` files are treated the same.
 
-* .nue --> .htm
-* pubDate -> date
-* inline SVG support
-* list all new configuration options...
+* Blog entries are now sorted by both `pubDate` and a new, shorter `date` property.
+
+* You can use both `og_image` and a new, shorter `og` property to assign an open graph image for the page.
+
 
 
 ## Breaking changes
-This version not backwards compatible.
-Semver in action after 1.0 is out. Before that "practical versioning"
+The major version number goes from zero to one, which means that ~this version of Nue is not backward compatible~. There are the following changes that might break your HTML or CSS from working:
+
+* The former `css_2023` configuration is now called `native_css_nesting`, which attempts to more accurately describe what it does: uses native CSS nesting. Setting this to `true` generates a smaller CSS output, but is not supported by the oldest of browsers. Check the current [Can I Use](//caniuse.com/css-nesting) statistics for details.
+
+* Syntax highlighted blocks are no longer marked with a `glow` attribute so you must change your `[glow]` CSS selector to `pre`. This change is in line with our goal to strive more standards-based HTML layout without exotic class- or attribute names.
+
+* Selected navigation links are no longer marked `active` attribute, but with `aria-selected` attribute to make them more compatible with the HTML standard.
+
+* HTML generated with the `[image]` Markdown extension (or "tag") has always a `<figure>` tag as the parent element to make it easier to style the different `figure`, `img`, `picture`, and `figcaption` combinations.
+
+* The content is always wrapped inside a `<section>` element, even if there is only a single section on the document. This generates always the same markup so it's easier to style.
+
+* Dropped the `[icon]` tag due to lack of usage. Use the `[image]` tag instead.
+
+* Fenced code blocks can now be assigned a classname as follows
+
+``` html
+\``` .blue
+<p>the code here is rendered bigger</p>
+\```
+```
+
+This will nest the generated `<pre>` element with a wrapper element like this:
 
 
-* [glow] --> pre
-* dropped icon tag
-* always figure tag
-* css.className creates a wrapping element
-* code wrapper not supported. provide with `[code.<className>]`
-* always draw_sections, no <section/> tags elsewhere
-* css_2023 --> css_nesting
-* [active] --> [aria-selected]
+``` html
+<div class="blue">
+  <pre>...</pre>
+</div>
+```
+
+Previously the class name would be set directly to the `pre` element. This makes a more consistent behavior with the `[code]` tag.
 
 
-## New website
-About 80% of the xxx commits relate to the new website, which documentation.
+## New website and documentation
+Unsurprisingly, the biggest job was the documentation area, which now focuses on [UX development](/docs/ux-development.html). About 80% of the documentation is completely rewritten and there are several new documents.
 
-! vertical widened hero image, labeled: "new front page"
+[image.larger.shadowed]
+  small: /img/new-docs.png
+  large: /img/new-docs-big.png
+  _size: 747 x 474
+  caption: The documentation focuses on UX development
 
-Unsurprisingly, the biggest job was the documentaion area, which now focuses on [UX development](/docs/ux-development.html)
+The most important thing, however, is that the website is generated with the public Nue version, forcing us to "eat our own dogfood".
 
-! UX development category floating: select UX development
 
 
 ## Towards 1.0 stable
-Feedback: global design system HTML, part of Open UI,
+At least the following things should be solved before the official 1.0 launch day:
 
-* create-nue / onboarding
-* view-transition is a fundamental feature and very much defines what Nue is. dom diffing, CSS examples, API docs,
+* Collect feedback from users and improve the product and the documentation so that everything is as easy and smooth as possible.
+
+* Easier product onboarding. The current `bun install` and `create-nue` combination is not the easiest solution. Ideally, this would be a single bash script similar to what Bun does. I'm not a shell scripter so help is appreciated here.
+
+* Extra smooth and solid view transition support. Improve the current implementation even more, fix all issues, expose the CSS and JavaScript API, and provide examples and better documentation. I want Nue to be the best web framework in the world and solid view transitions are a fundamental part of a great user experience.
 
 
 
 ## Installation
-
-[.info]
-  the focus is on websites and the dynamics pieces focus on reactive "islands"
-  SPA-stuff delayed: app-router docs, demo, and tutorial are still there, but
-
+Head over to [installation docs](/docs/installation.html) to try the new 1.0 beta. If something does not feel right, don't hesitate to give feedback in [Github Discussions](https://github.com/nuejs/nue/discussions).
 
 

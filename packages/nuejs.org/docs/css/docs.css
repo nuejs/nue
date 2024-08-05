@@ -1,27 +1,5 @@
 
-
-/* currently: TODO badge in SPA page */
-h1 code {
-  background-color: var(--main-100);
-  color: var(--main-600);
-  letter-spacing: .01em;
-  font-family: inherit;
-  border-radius: .2em;
-  padding: .2em .4em;
-  font-size: 1.2rem;
-  float: right;
-}
-
-.apidoc section h3 {
-  font-family: monospace;
-  color: var(--main-600);
-  background-color: var(--main-50);
-  display: inline-block;
-  padding: .4em .6em;
-  margin-bottom: -.5em;
-  margin-left: -.6em;
-}
-
+/* documentation-specific content widgets  */
 
 .gridpaper {
   background-image: url(/img/grid-paper.png);
@@ -104,4 +82,26 @@ h1 code {
     font-weight: 600;
     font-size: 110%;
   }
+}
+
+/* currently: TODO badge in SPA page */
+h1 code {
+  background-color: var(--main-100);
+  color: var(--main-600);
+  letter-spacing: .01em;
+  font-family: inherit;
+  border-radius: .2em;
+  padding: .2em .4em;
+  font-size: 1.2rem;
+  float: right;
+}
+
+.apidoc section h3 {
+  font-family: monospace;
+  color: var(--main-600);
+  background-color: var(--main-50);
+  display: inline-block;
+  padding: .4em .6em;
+  margin-bottom: -.5em;
+  margin-left: -.6em;
 }

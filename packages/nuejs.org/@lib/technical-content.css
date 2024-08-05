@@ -222,7 +222,7 @@ figure {
 /* figcaption */
 figcaption {
   color: var(--gray-400);
-  margin: .7em 0 0 0;
+  margin: 1em 0 0 0;
   font-size: 80%;
   text-align: center;
   text-wrap: balance;
@@ -270,6 +270,11 @@ figure > a {
 .bordered img {
   border: 1px solid #0001;
 }
+
+.shadowed img {
+  box-shadow: 0 1px 2px #0004, 0 0 15px #0001;
+}
+
 
 .gray {
   background-color: var(--gray-400)

@@ -244,7 +244,7 @@ The page is configured with a new [content collection](content-collections.html)
     <img src="{ post.dir }/{ post.hero }">
     <aside>
       <h2>{ post.title }</h2>
-      <p>{ post.pubDate }</p>
+      <p>{ post.date }</p>
     </aside>
   </a>
 </main>

@@ -48,8 +48,8 @@ export function renderHead(data) {
   const pub = data.date || data.pubDate
   if (pub) head.push(`<meta property="article:published_time" content="${pub}">`)
 
-  // components
-  pushMeta('nue:components', components.map(uri => `${base}${uri}`).join(' '))
+  // components (must always be rendered)
+  pushMeta('nue:components', components.map(uri => `${base}${uri}`).join(' ') || ' ')
 
   // misc
   if (favicon) head.push(`<link rel="icon" type="${TYPES[extname(favicon).slice(1)]}" href="${favicon}">`)

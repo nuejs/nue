@@ -72,7 +72,7 @@ favicon: /img/favicon.png
 og_image: /img/og_emma.png
 ```
 
-Then you have blog-specific metadata in `blog/app.yaml` extending/overriding the global data:
+Then you have blog-specific metadata in `blog/blog.yaml` extending/overriding the global data:
 
 ```
 title: Emma Bennet / Blog
@@ -85,7 +85,7 @@ Finally, the page-specific data is set on the front of the "hello-world.md" file
 ```
  ---
  title: Hello, World
- pubDate: 2023-12-05
+ date: 2023-12-05
  ---
 ```
 
@@ -162,7 +162,7 @@ Library folders contain assets that can be explicitly included on a page with an
 libs: ["@lib", lib]
 ```
 
-These libraries can reside both on the root level, and inside a specific application. Once the libraries have been defined, you include library assets in `site.yaml`, `app.yaml`, or in the page's frontmatter with an `include` statement as follows:
+These libraries can reside both on the root level, and inside a specific application. Once the libraries have been defined, you include library assets in `site.yaml`, application data (like `docs/app.yaml`), or in the page's frontmatter with an `include` statement as follows:
 
 ``` yaml
 include: [syntax-highlight, video]
@@ -171,13 +171,14 @@ include: [syntax-highlight, video]
 If you include assets in several levels, the vhe values of include statements are _concatenated_ into one single array and the matches are partial so that a value such as "syntax" will match both "syntax-highlight" and "syntax-extras".
 
 
-#### Excluding assets
-Include on all blog entries, but not on the blog index page.
-
+#### Excluding assets { #exclude }
+You can exclude assets from the pages with an `exclude` property, which works the same way as the include statement:
 
 ```
 exclude: [syntax-highlight, video]
 ```
+
+This allows you to strip unneeded assets from the request and lighten the payload.
 
 #### Example
 Here's a more complex example to give you an idea how dependencies are calculated:

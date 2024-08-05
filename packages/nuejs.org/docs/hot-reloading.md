@@ -15,7 +15,7 @@ Hot-reloading is automatically enabled in development. The client-server communi
 - Markdown content
 - Front matter (example: document.title updates)
 - Layout files: both root- and app-level `layout.html`
-- `site.yaml`, `app.yaml` data (example: master navigation updates)
+- `site.yaml` or application-specific YAML data (example: master navigation updates)
 - Updates to other than the active page routes automatically to the new page
 
 ### Styling
