@@ -23,14 +23,14 @@ The bolded slot names (header, footer, and aside) don't require the `@name` attr
 </aside>
 ```
 
-The layouts are written with an HTML-based [template language](template-syntax.html) and the template variables have access to the [project data](project-structure.html#data).
+The layouts are written in an HTML-based [template language](template-syntax.html) and the template variables have access to the [project data](project-structure.html#data).
 
-The modules can be stored in any file with a `.html` suffix such as `layout.html`and the file can contain multiple layout components.
+The modules can be stored in any file with a `.html` suffix such as `layout.html` and the file can contain multiple layout components.
 
 
 
 ### Area-specific layouts
-You can customize the layout for all the different areas on your website like the documentation- or blogging area. Think custom sidebars, blog entry "hero" layouts, or custom footers. The area-specific layouts override any existing layouts defined globally at the root level.
+You can customize the layout of all the different areas of your website like the documentation- or blogging area. Think custom sidebars, blog entry "hero" layouts, or custom footers. The area-specific layouts override any existing layouts defined globally at the root level.
 
 This documentation area, for example, has the following documentation- specific layouts in [docs/layout.html](//github.com/nuejs/nue/blob/dev/packages/nuejs.org/docs/layout.html):
 
@@ -75,7 +75,7 @@ pagefoot: false
 
 
 ### Main Layout
-You can override the `main` element by re-defining that in a layout file. For example:
+You can override the `main` element by re-defining it in a layout file. For example:
 
 ```
 <main>
@@ -92,7 +92,7 @@ You can override the `main` element by re-defining that in a layout file. For ex
 
 
 ### Root layout
-You can go extreme and override the entire `html` element in which case you can customize everything inside the html element including the document head:
+You can go extreme and override the entire `html` element in which case you can customize everything inside the html element, including the document head:
 
 ```
 <html>
@@ -119,7 +119,7 @@ You can go extreme and override the entire `html` element in which case you can 
 
 
 ## Built-in helper components
-You can use several helper components when building your layouts. For example, the blogging area on this website utilizes several built-in components in the blog entry "hero" area:
+You can use several built-in helper components when building your layouts. For example, the blogging area on this website takes advantage of several built-in components in the blog entry "hero" area:
 
 ```
 <header @name="pagehead">
@@ -173,7 +173,7 @@ Renders a table of contents from the current Markdown document.
 </nav>
 ```
 
-Only second and third level headings (h2,  h3) are included in the navigation. You can enhance the component with JavaScript by assigning a web component with an `is` attribute. For example:
+Only second and third level headings (h2,  h3) are included in the navigation. You can enhance a web component with JavaScript by adding an `is` attribute on the component. For example:
 
 ```
 <toc is="observing-nav"/>
