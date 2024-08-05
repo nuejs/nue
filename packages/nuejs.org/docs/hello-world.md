@@ -141,7 +141,7 @@ We start by creating a [custom layout file](custom-layouts.html) called `layout.
 
 
 ### Add shared data
-We then add a data file named site.yaml, containing all the site-wide data, to populate our personal information and other essential details used in the header and footer:
+We then add a data file named `site.yaml`, containing all the site-wide data, to populate our personal information and other essential details used in the header and footer:
 
 
 ``` yaml
