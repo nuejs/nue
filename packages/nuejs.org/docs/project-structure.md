@@ -181,7 +181,7 @@ exclude: [syntax-highlight, video]
 This allows you to strip unneeded assets from the request and reduce the payload.
 
 #### Example
-Here's a more complex example that can give you an idea how dependencies are calculated:
+Here's a more complex example that gives you an idea how dependencies are calculated:
 
 [image.gridpaper]
   small: /img/libraries.png
