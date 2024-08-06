@@ -75,7 +75,7 @@ Let's add a new file to our project folder called "blog.css", which will take ca
 touch blog.css
 ```
 
-Nue automatically adds the following line in the HTML without the need to reload your page:
+Nue automatically adds the following line to the HTML without the need to reload your page:
 
 ```
 <link href="/blog.css" rel="stylesheet">
