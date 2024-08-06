@@ -29,7 +29,7 @@ Once the HTML layout is in place, your work is to [style it with CSS](css-best-p
 Nue comes with a [Markdown flavor](content.html) for rich, interactive content.
 Content authors and UX developers can build web pages without ever touching a single line of code. Things like sections, grid layouts, buttons, tables, responsive images, videos, tabbed content or code blocks are built in.
 
-This content assembly format consistently generates identical HTML output, making it a perfect fit for the global design system. The resulting markup is 100% headless, allowing you to transform the appearance of your content only with CSS.
+This content assembly format consistently generates identical HTML output, making it a perfect fit for the global design system. The resulting markup is 100% headless, allowing you to transform the appearance of your content with only CSS.
 
 
 [.note]
