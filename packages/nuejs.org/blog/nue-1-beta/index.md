@@ -1,6 +1,8 @@
 
 ---
 hero_title: "*Nue 1.0 (Beta)* — A web framework for UX developers"
+title: Nue 1.0 (Beta)
+desc: A web framework for UX developers
 ---
 
 Exactly one year ago I [decided](/blog/backstory/) to create the slickest website generator in the world, that is easy enough for UX developers and other design-minded people. Today this vision is becoming a reality:
