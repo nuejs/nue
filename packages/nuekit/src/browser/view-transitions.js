@@ -24,35 +24,51 @@ export async function loadPage(path) {
   const query = '[name="nue:components"]'
   $(query).content = $(query, dom).content
 
-  // scripts
-  $$('script[src]', dom).forEach(async script => {
-    await import(script.getAttribute('src'))
-  })
+  // scripts (only loads once per script, that's how modules work)
+  loadScripts(dom).then(() => {
 
-  // inline CSS
-  if ($('style[href]')) {
+    // Inline CSS / development
     const new_styles = swapStyles($$('style'), $$('style', dom))
     new_styles.forEach(style => $('head').appendChild(style))
 
-  } else {
-    // production
-    $('style').replaceWith($('style', dom))
-  }
+    // external CSS
+    const paths = swapStyles($$('link'), $$('link', dom))
+
+    /* production (single style element) */
+    const orig_style = findPlainStyle()
+    const new_style = findPlainStyle(dom)
+
+    if (orig_style) orig_style.replaceWith(new_style)
+    else if (new_style) $('head').appendChild(new_style)
 
 
-  // body class
-  $('body').classList.value = $('body2', dom).classList.value || ''
-
-  // external CSS
-  const paths = swapStyles($$('link'), $$('link', dom))
+    // body class
+    $('body').classList.value = $('body2', dom).classList.value || ''
 
 
+    loadCSS(paths, () => {
+      updateBody(dom)
+      setActive(path)
 
-  loadCSS(paths, () => {
-    updateBody(dom)
-    setActive(path)
-    if (!location.hash) scrollTo(0, 0)
-    dispatchEvent(new Event('route'))
+      // scroll
+      const { hash } = location
+      const el = hash && $(hash)
+      scrollTo(0, el ? el.offsetTop - parseInt(getComputedStyle(el).scrollMarginTop) || 0 : 0)
+
+      // route event
+      dispatchEvent(new Event('route'))
+    })
+  })
+}
+
+function findPlainStyle(dom) {
+  return $$('style', dom).find(el => !el.attributes.length)
+}
+
+
+async function loadScripts(dom) {
+  $$('script[src]', dom).forEach(async script => {
+    await import(script.getAttribute('src'))
   })
 }
 
@@ -71,8 +87,7 @@ function updateBody(dom) {
         updateMain(dom)
 
       } else {
-        // primitive DOM diffing
-        if (a.outerHTML != b.outerHTML) a.replaceWith(clone)
+        updateBlock(a, clone)
       }
 
 
@@ -90,6 +105,13 @@ function updateBody(dom) {
 
 }
 
+// primitive DOM diffing
+function updateBlock(a, clone) {
+  const orig = a.outerHTML.replace(' aria-selected=""', '')
+  const diff = orig != clone.outerHTML
+  if (diff) a.replaceWith(clone)
+}
+
 // TODO: remove this hack
 function updateMain(dom) {
   ;['article', 'aside:first-child', 'article + aside'].forEach(function(query, i) {
@@ -99,8 +121,7 @@ function updateMain(dom) {
 
     // update
     if (a && b) {
-      const orig = a.outerHTML.replace(' aria-selected=""', '')
-      if (orig != b.outerHTML) a.replaceWith(clone)
+      updateBlock(a, clone)
 
     } else if (a) {
       a.remove()
@@ -137,14 +158,14 @@ export function onclick(root, fn) {
 
 // developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-selected
 export function setActive(path, attrname='aria-selected') {
-  if (path == '/') return
+
 
   // remove old selections
   $$(`[${attrname}]`).forEach(el => el.removeAttribute(attrname))
 
   // add new ones
   $$('a').forEach(el => {
-    if (el.href.endsWith(path)) el.setAttribute(attrname, '')
+    if (el.getAttribute('href') == path) el.setAttribute(attrname, '')
   })
 }
 
@@ -191,13 +212,17 @@ addEventListener("DOMContentLoaded", () => {
 
 
 function hasStyle(sheet, sheets) {
+
   return sheets.find(el => el.getAttribute('href') == sheet.getAttribute('href'))
 }
 
 function swapStyles(orig, styles) {
 
   // disable / enable
-  orig.forEach((el, i) => el.disabled = !hasStyle(el, styles))
+  orig.forEach((el, i) => {
+    el.disabled = !hasStyle(el, styles)
+  })
+
 
   // add new
   return styles.filter(el => !hasStyle(el, orig))

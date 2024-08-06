@@ -1,6 +1,4 @@
 
-
-
 /* technical / blog content */
 h1 {
   font-size: 2em;
@@ -138,8 +136,8 @@ blockquote {
   text-wrap: balance;
 
   p {
-    border-left: .15em solid var(--main-400);
-    padding-left: .75em;
+    border-left: .15em solid var(--main-500);
+    padding-left: 1em;
     font-size: 115%;
     font-weight: 600;
     line-height: 1.45;
@@ -157,6 +155,25 @@ blockquote {
     &:before {
       content: '— ';
     }
+  }
+}
+
+/* wrapped blockquote + details */
+.quote {
+  blockquote { margin: 0 }
+
+  > p {
+    font-size: 90%;
+    margin: -.5em 0 0 1.5em;
+  }
+
+  strong {
+    font-weight: bold;
+    font-style: italic;
+  }
+
+  ol + & {
+    margin: 1.7em;
   }
 }
 
@@ -310,5 +327,39 @@ pre {
     background-size: 1em;
     padding-left: 1.3em;
     margin: 0 0 .3em;
+  }
+  > :last-child { margin-bottom: 0 }
+}
+
+.blueprint {
+  background-color: var(--main-500);
+  background-image: linear-gradient(#fff1 2px, transparent 2px),
+    linear-gradient(90deg, #fff1 2px, transparent 1px),
+    linear-gradient(#fff1 1px, transparent 1px),
+    linear-gradient(90deg, #fff1 1px, transparent 1px);
+
+  background-size: 100px 100px, 100px 100px, 25px 25px, 25px 25px;
+  padding: .5em 1.5em;
+  border-radius: 6px;
+
+  p {
+    color: white;
+    font-weight: 600;
+    font-size: 110%;
+  }
+}
+
+.stack {
+  display: flex;
+  margin: 2em 0;
+  gap: 1.5em;
+
+  > * {
+    flex: 1;
+  }
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }

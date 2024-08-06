@@ -5,7 +5,6 @@ libs: ["@lib", docs/lib, blog/lib]
 
 og: /img/og-blue-big.png
 view_transitions: true
-grid_item_class: card
 native_css_nesting: true
 origin: https://www2.nuejs.org
 
@@ -32,7 +31,7 @@ header:
     - Blog: /blog/
     - label: Nue 1.0 beta ›
       url: /blog/nue-1-beta/
-      class: status badge
+      class: status pill
 
   Toolbar:
     # - label: Try beta
@@ -46,7 +45,7 @@ header:
 
     - label: 6.0k
       url: //github.com/nuejs/nue
-      class: github badge
+      class: github pill
 
 burger_menu:
   - Home: /home/
