@@ -61,7 +61,7 @@ Inline handlers are good for simple expressions.
 
 
 ### Method handlers
-More complex functionality should be relegated to an instance method:
+More complex functionality should be moved to an instance method:
 
 ```
 <dialog>
