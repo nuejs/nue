@@ -41,11 +41,11 @@ What used to take a UI designer, React engineer and an absurd amount of JavaScri
   large: /img/figma-to-css-big.png
 
 
-Nue allows you to take advantage of a [global design system](global-design-system.html)  and [modern, minimalistic CSS](css-best-practices.html) to build websites with significantly less code than with a JavaScript-based framework like **Next.js**. Your codebase can as small as a [single Tailwind button](/blog/introducing-nue-css/). This changes the way you think about web development. Chances are that Nue turns you into a professional UX developer, who thinks more like a designer and less than an engineer.
+Nue allows you to take advantage of a [global design system](global-design-system.html) and [modern, minimalistic CSS](css-best-practices.html) to build websites with significantly less code than with a JavaScript-based framework like **Next.js**. Your codebase can be as small as a [single Tailwind button](/blog/introducing-nue-css/). This changes the way you think about web development. Chances are that Nue turns you into a professional UX developer, who thinks more like a designer and less like an engineer.
 
 
 ### New levels of performance
-If there is one word to describe Nue, then it's _minimalism_. There's order of magnitude less of everything: NPM modules, API methods, configuration options and framework-specific idioms. This leads to significantly leaner websites with far less HTML, CSS and JavaScript generated from the final server response. Just take any professionally-designed website and compare it with Nue, and you'll see the difference. For example:
+If there is one word to describe Nue, then it's _minimalism_. There's order of magnitude less of everything: NPM modules, API methods, configuration options and framework-specific idioms. This leads to significantly leaner websites with far less HTML, CSS and JavaScript in the final server response. Just take any professionally-designed website and compare it with Nue, and you'll see the difference. For example:
 
 [image.gridpaper]
   small: /img/docs-sizes.png
@@ -107,7 +107,7 @@ Nue is a perfect system for freelancers and design agencies who want to offer th
 
 
 ### Try it
-You might not believe all these big claims until you [give Nue a try](installation.html). Chances are you will start wondering why you have ever built websites in any other way.
+You might not believe all these big claims until you [give Nue a try](installation.html). Chances are, you will start wondering why you have ever built websites in any other way.
 
 
 
