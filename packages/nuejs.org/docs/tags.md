@@ -4,7 +4,7 @@ Markdown extensions or "tags" allow content authors to create rich, interactive 
 
 
 ## Tag usage
-Tags are easy to read and write. They always start on a new line, with a square bracket, followed by a tag name and options, followed by a cloasing square bracket. Let’s say we want to add a video, we would write something like this:
+Tags are easy to read and write. They always start on a new line, with a square bracket, followed by a tag name and options, followed by a closing square bracket. Let’s say we want to add a video, we would write something like this:
 
 ``` md
 [video /videos/explainer.mp4]
@@ -93,7 +93,7 @@ Images can link to URL's with `href` attribute:
 
   `caption` image caption.
 
-  `href` a URL link to the image.
+  `href` adds a link on the image.
 
   `srcset` defines a set of responsive images for the browser to choose from.
 
@@ -397,7 +397,7 @@ Render a [tabbed layout](//saadiam.medium.com/tabs-design-best-practices-8fafe93
 ```
 
 [.options]
-  #### [codetabs] options.
+  #### [codetabs] options
 
   `numbered` draws line numbers when enebled.
 
