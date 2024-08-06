@@ -4,7 +4,7 @@ Markdown extensions or "tags" allow content authors to create rich, interactive 
 
 
 ## Tag usage
-Tags are easy to read and write. They always start on a new line, with a square bracket, followed with a tag name and options. Let’s say we want to add a video, we would write something like this:
+Tags are easy to read and write. They always start on a new line, with a square bracket, followed by a tag name and options, followed by a cloasing square bracket. Let’s say we want to add a video, we would write something like this:
 
 ``` md
 [video /videos/explainer.mp4]
@@ -35,7 +35,7 @@ Tag options can be supplied in several ways:
 ```
 
 ### Nested content
-Most tags like images, buttons, tabs, and grids accept nested content:
+Most tags like images, buttons, tabs and grids accept nested content:
 
 ``` md
 [image explainer.png]
@@ -49,7 +49,7 @@ Most tags like images, buttons, tabs, and grids accept nested content:
 ## Tag reference
 
 ### Image
-Renders an image with optional caption. For example:
+Image tag renders an image with an optional caption. For example:
 
 ``` md
 [image hello.webp]
@@ -87,25 +87,25 @@ Images can link to URL's with `href` attribute:
 [.options]
   #### [image] options
 
-  `alt` is an alternate text for the image
+  `alt` is an alternate text for the image.
 
-  `src` image source
+  `src` image source.
 
-  `caption` image caption
+  `caption` image caption.
 
-  `href` a link URL for the image
+  `href` a URL link to the image.
 
-  `srcset` defines a set of responsive images for the browser to choose from
+  `srcset` defines a set of responsive images for the browser to choose from.
 
   `sizes` defines screen widths to indicate what image size would be best to choose from the srcset.
 
   `large` the large version of the image. the large image can have a different aspect ratio than the small one, which is the difference between art direction and responsitivity.
 
-  `small` the small version of the image
+  `small` the small version of the image.
 
   `offset` the screen size when small turns to large. The default value is 750 (px).
 
-  `width` the image width
+  `width` the image width.
 
 
 
@@ -148,7 +148,7 @@ Renders an HTML table from the nested data:
   - Jessica Lee     |  jessica.lee@demo.ai     |  Project Manager
 ```
 
-Another example with explicitly defined `head` and `items` attributes
+Another example with explicitly defined `head` and `items` attributes:
 
 ``` md
 [table]
@@ -167,11 +167,11 @@ Another example with explicitly defined `head` and `items` attributes
 [.options]
   #### [table] options
 
-  `head` table header items given as a YAML array or as a semicolon (";") or pipe ("|") separated string
+  `head` table header items given as a YAML array or as a semicolon (";") or pipe ("|") separated string.
 
   `items` table body items where rows start with "-" (a YAML list item) and columns are separated with a semicolon (";") or pipe ("|") character. The items can also be given directly on the body like in the first example above.
 
-  `wrapper` wraps the table inside a parent element with a class name specifeid on this property
+  `wrapper` wraps the table inside a parent element with a class name specifeid on this property.
 
 
 
@@ -188,7 +188,7 @@ Shortcut alias (!) is supported:
 [! world.mp4 ]
 ```
 
-All standard HTML5 video attributes are supported
+All standard HTML5 video attributes are supported:
 
 ``` md
 [image intro.mp4 autoplay controls muted loop ]
@@ -207,31 +207,31 @@ Options given as YAML:
 [.options]
   #### [video] options
 
-  `autoplay` starts the video when the page is loaded. must be used together with
+  `autoplay` starts the video when the page is loaded. It must be used together with
 
   `muted` or the autoplay does not work on all browsers.
 
-  `controls` displays the browser's built-in video controls
+  `controls` displays the browser's built-in video controls.
 
-  `loop` seeks back to the start after reaching the end of the video
+  `loop` seeks back to the start after reaching the end of the video.
 
-  `muted` plays the video without sound
+  `muted` plays the video without sound.
 
-  `poster` a URL for an image to be shown before the playback starts
+  `poster` a URL for an image to be shown before the playback starts.
 
-  `preload` a [hint to the browser][preload] on what to load prior playback
+  `preload` a [hint to the browser][preload] on what to load prior playback.
 
-  `sources` a list of video files. the browser plays the first one it understands
+  `sources` a list of video files. the browser plays the first one it understands.
 
-  `src` a URL to the video file
+  `src` a URL to the video file.
 
-  `width` the video width
+  `width` the video width.
 
   [preload]: //developer.mozilla.org/en-US/docs/Web/HTML/Element/video#preload
 
 
 ### Grid
-Renders a grid of items separated by a triple-dash
+Renders a grid of items separated by a triple-dash.
 
 ``` md
 [grid]
@@ -279,9 +279,9 @@ Render a [tabbed layout](//saadiam.medium.com/tabs-design-best-practices-8fafe93
 
   `tabs` tab labels are separated with a semicolon (";") or pipe ("|") character. Can also be given as a plain value like in the above example.
 
-  `wrapper` wraps the tabs inside a parent element with a class name specifeid on this property
+  `wrapper` wraps the tabs inside a parent element with a class name specifeid on this property.
 
-  `key` optional key for "aria-controls" and "aria-labeled" attributes as specified on the [MDN documentation](//developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-controls#example)
+  `key` optional key for "aria-controls" and "aria-labeled" attributes as specified on the [MDN documentation](//developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-controls#example).
 
 
 
@@ -300,11 +300,11 @@ Displays a syntax highligted code block with support for line numbers, captions,
 [.options]
   #### [code] options
 
-  `caption` a caption for the code. Supports Markdown formatting
+  `caption` a caption for the code. Supports Markdown formatting.
 
-  `language` the language of the nested code
+  `language` the language of the nested code.
 
-  `numbered` draws line numbers when enebled
+  `numbered` draws line numbers when enebled.
 
 
 ### Special characters
@@ -339,7 +339,7 @@ Use bullet character (`•`) to highlight text regions within a line. The follow
 
 `These •two words• are highlighted and ••these words•• are erroneous`
 
-Is rendered as:
+is rendered as:
 
 ```
 These •two words• are highlighted and ••these words•• are erroneous
@@ -365,18 +365,18 @@ Renders a single multi-code element where the blocks are separated with a triple
 [.options]
   #### [codeblocks] options
 
-  `numbered` draws line numbers when enebled
+  `numbered` draws line numbers when enebled.
 
-  `captions` list of captions for the individual blocks separated with ";" or "|"
+  `captions` list of captions for the individual blocks separated with ";" or "|".
 
-  `languages` list of languages for the individual blocks separated with ";" or "|"
+  `languages` list of languages for the individual blocks separated with ";" or "|".
 
-  `classes` list of languages for the individual blocks separated with ";" or "|"
+  `classes` list of languages for the individual blocks separated with ";" or "|".
 
 
 
 ### Codetabs
-Render a [tabbed layout](//saadiam.medium.com/tabs-design-best-practices-8fafe936606f) for organizing the code into multiple blocks where users can see one block at a time:
+Render a [tabbed layout](//saadiam.medium.com/tabs-design-best-practices-8fafe936606f) to organize the code into multiple blocks where users can see one block at a time:
 
 
 ``` md
@@ -397,13 +397,13 @@ Render a [tabbed layout](//saadiam.medium.com/tabs-design-best-practices-8fafe93
 ```
 
 [.options]
-  #### [codetabs] options
+  #### [codetabs] options.
 
-  `numbered` draws line numbers when enebled
+  `numbered` draws line numbers when enebled.
 
-  `captions` list of captions for the blocks separated with ";" or "|"
+  `captions` list of captions for the blocks separated with ";" or "|".
 
-  `languages` list of languages for the blocks separated with ";" or "|"
+  `languages` list of languages for the blocks separated with ";" or "|".
 
-  `wrapper` creates a new parent element with a class name specifeid on this property
+  `wrapper` creates a new parent element with a class name specifeid on this property.
 
