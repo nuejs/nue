@@ -23,7 +23,7 @@ The bolded slot names (header, footer, and aside) don't require the `@name` attr
 </aside>
 ```
 
-The layouts are written in an HTML-based [template language](template-syntax.html) and the template variables have access to the [project data](project-structure.html#data).
+The layouts are written in a HTML-based [template language](template-syntax.html) and the template variables have access to the [project data](project-structure.html#data).
 
 The modules can be stored in any file with a `.html` suffix such as `layout.html` and the file can contain multiple layout components.
 
