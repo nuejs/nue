@@ -1,10 +1,10 @@
 
 # Page layout
-A global design system standardizes the structure of your web pages, allowing you to use the same HTML markup while applying different external CSS to achieve a wide range of designs.
+A global design system standardizes the structure of your web pages, allowing you to use the same HTML markup, while applying different external CSS, to achieve a wide range of designs.
 
 
 ## Standardized HTML
-After describing your headers and footers in `layout.html` file, the default page layout for Markdown content looks like this:
+After describing your headers and footers in the `layout.html` file, the default page layout for Markdown content looks like this:
 
 [image.bordered /img/page-layout.svg width="600"]
 
