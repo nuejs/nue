@@ -171,7 +171,7 @@ Now we can pass custom content for the parent:
 </media-object>
 ```
 
-The slot element in the media object is replaced with the nested content in the loop. The nested content can contain anything: text, HTML tags, other custom components like product rating, commenting or product metadata.
+The slot element in the media object is replaced with the nested content in the loop. The nested content can contain anything: Text, HTML tags, other custom components like product rating, a comment section or product metadata.
 
 
 
@@ -335,7 +335,7 @@ Then the final rendered button would merge both classes:
 
 
 ### Passing data with `:bind` { #bind }
-Bind directive makes every object property directly accessible to the component. Instead of writing `{ data.title }` inside the component, you can just write `{ title }`. This is particularly useful when looping components.
+The bind directive makes every object property directly accessible from the component. Instead of writing `{ data.title }` inside the component, you can just write `{ title }`. This is particularly useful when looping components.
 
 ```
 <!-- pass properties for the media object one by one -->
@@ -568,7 +568,7 @@ You can pass the iterated data to the component with attributes:
 />
 ```
 
-or you can use [:bind attribute](template-syntax.html#bind) to pass all the data at once:
+or you can use [:bind attribute](#bind) to pass all the data at once:
 
 ```
 <my-component :for="item in items" :bind="item"/>
