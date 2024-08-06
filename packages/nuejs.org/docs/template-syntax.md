@@ -5,7 +5,7 @@ Nue has a built-in template language for developing server-side layouts and reac
 
 
 ## Extended HTML
-Nue template syntax is designed for [UX developers](/docs/) who prefer to write user interfaces with clean, semantic HTML instead of JavaScript. Think Nue as standard HTML, that you can extend with custom HTML-based components. These components help you build modern web- applications in a simple, declarative way. For example:
+Nue template syntax is designed for [UX developers](/docs/) who prefer to write user interfaces with clean, semantic HTML instead of JavaScript. Think Nue as standard HTML, that you can extend with custom HTML-based components. These components help you build modern web applications in a simple, declarative way. For example:
 
 
 ``` html
@@ -24,7 +24,7 @@ If React is "Just JavaScript", then Nue is "Just HTML" because any valid HTML is
 
 
 ### Custom components
-Custom components are the building blocks of your HTML-based layouts and apps. You can loop them, render them conditionally, and they can be nested within other components. They can operate both server-side and client-side. Essentially components are HTML fragments that have a name and this name is given in a `@name` attribute:
+Custom components are the building blocks of your HTML-based layouts and apps. You can loop over them, render them conditionally, and they can be nested within other components. They can operate both server-side and client-side. Essentially components are HTML fragments that have a name and this name is given in a `@name` attribute:
 
 ```
 <div •@name="media-object"• class="{ class }">
@@ -54,7 +54,7 @@ The client-side, [reactive components](reactive-components.html) are interactive
 
 
 ### Mounting
-Nue allows you to define multiple components on a single file with a `.htm` or `.nue` extension. After being saved you can mount components on your Markdown files. For example:
+Nue allows you to define multiple components in a single file with a `.htm` or `.nue` extension. After being saved you can mount components in your Markdown files. For example:
 
 ```
 [image-gallery]
@@ -98,21 +98,21 @@ Nue components are like [ES6 classes](//developer.mozilla.org/en-US/docs/Web/Jav
 </div>
 ```
 
-ES6 classes make your code look amazingly compact and clean and you can use modern JavaScript powers like getters, setters, and `async` methods.
+ES6 classes make your code look amazingly compact and clean and you can use modern JavaScript powers like getters, setters and `async` methods.
 
 Check out the reasoning behind classes and the HTML-based syntax from our blog entry: [rethinking reactivity](/blog/rethinking-reactivity/)
 
 
 
 ### Passing data
-You can pass data to your components with attributes. These can be static or dynamic, and the values can be anything: strings, numbers, arrays, and objects. Here we pass a simple number:
+You can pass data to your components with attributes. These can be static or dynamic, and the values can be anything: strings, numbers, arrays and objects. Here we pass a simple number:
 
 ```
 [image-gallery index="1"]
 ```
 
 ### The &lt;script&gt; tag { #script-tag }
-The instance variables are defined on the script tag that is a direct descendant of the parent. Other script tags are simply removed unless they have a `type` or `src` attribute:
+The instance variables are defined in the script tag that is a direct descendant of the parent. Other script tags are simply removed unless they have a `type` or `src` attribute:
 
 ```
 <!-- passed to the client directly -->
@@ -125,7 +125,7 @@ The instance variables are defined on the script tag that is a direct descendant
 </script>
 ```
 
-You can also use a `client`- attribute in place of the old-school `type="text/javascript"`:
+You can also use a `client` attribute in place of the old-school `type="text/javascript"`:
 
 ```
 <script client>
@@ -144,7 +144,7 @@ Is rendered as
 
 
 ### Slots
-Slots help you build highly reusable, multi-purpose components. They offer a way for the parent component to inherit functionality from a child:
+Slots help you build highly reusable, multi-purpose components. They enable a parent component to inherit functionality from a child:
 
 
 ```
@@ -171,7 +171,7 @@ Now we can pass custom content for the parent:
 </media-object>
 ```
 
-The slot element on the media object is replaced with the nested content on the loop. The nested content can contain anything, including text, HTML tags, and other custom components, like product rating, commenting, or product metadata.
+The slot element in the media object is replaced with the nested content in the loop. The nested content can contain anything: text, HTML tags, other custom components like product rating, commenting or product metadata.
 
 
 
@@ -243,7 +243,7 @@ Functions inside expressions are called every time a reactive component updates,
 
 
 ## Attributes
-You can pass values to your components with attributes. These values can be static or dynamic, and the values can be anything: strings, numbers, arrays, and objects:
+You can pass values to your components with attributes. These values can be static or dynamic, and the values can be anything: strings, numbers, arrays and objects:
 
 ```
 <!-- static parameter -->
@@ -335,7 +335,7 @@ Then the final rendered button would merge both classes:
 
 
 ### Passing data with `:bind` { #bind }
-Bind directive makes every object property directly accessible on the component. Instead of writing `{ data.title }` inside the component, you can just write `{ title }`. This is particularly useful when looping components.
+Bind directive makes every object property directly accessible to the component. Instead of writing `{ data.title }` inside the component, you can just write `{ title }`. This is particularly useful when looping components.
 
 ```
 <!-- pass properties for the media object one by one -->
@@ -351,7 +351,7 @@ Bind directive makes every object property directly accessible on the component.
 
 
 ### Rendering attributes with `:attr` { #attr }
-Attr directive renders a DOM attribute for each property in an object. So following components:
+Attr directive renders a DOM attribute for each property in an object. So the following components:
 
 ```
 <p :attr="data">
@@ -364,7 +364,7 @@ Attr directive renders a DOM attribute for each property in an object. So follow
 </p>
 ```
 
-This would be rendered as:
+would be rendered as:
 
 ```
 <p title="My title" alt="My alt"></p>
@@ -387,7 +387,7 @@ When the above component is used as follows:
 <field title="Email" type="email" placeholder="me@acme.org" required="true"/>
 ```
 
-The rendered HTML would be:
+the rendered HTML would be:
 
 ```
 <label>
@@ -421,7 +421,7 @@ Use `:else` to indicate an "else block" for `:if`
 </div>
 ```
 
-A `:else` element must immediately follow a `:if` or a `:else-if` element - otherwise it will not be recognized.
+An `:else` element must immediately follow a `:if` or a `:else-if` element - otherwise it will not be recognized.
 
 
 ### :else-if condition
@@ -443,7 +443,7 @@ Similar to `:else`, a `:else-if` element must immediately follow a `:if` or a `:
 
 
 ### :for loop
-Nue uses `:for` attribute to render over lists and objects. Loops are defined with syntax like `item in items`, where `items` is the data array and `item` is the element being iterated:
+Nue uses `:for` attribute to itereate over lists and objects. Loops are defined with syntax like `item in items`, where `items` is the data array and `item` is the element being iterated:
 
 ```
 <ul>
@@ -470,7 +470,7 @@ Inside the loop, template expressions have access to the item being looped, as w
 </li>
 ```
 
-You can use destructuring for the item variable similar to destructuring function arguments:
+You can use destructuring for the item variable, similar to destructuring function arguments:
 
 ```
 <li :for="{ lang, text } in items">
@@ -534,7 +534,7 @@ You can provide an alias for the index variable as the third argument:
 
 
 ### Conditional loops
-When they exist on the same node, :if has a higher priority than :for. That means the :if is executed first.
+When they exist in the same node, :if has a higher priority than :for. That means the :if is executed first.
 
 ```
 <li :for="todo in todos" :if="todos">
@@ -568,14 +568,11 @@ You can pass the iterated data to the component with attributes:
 />
 ```
 
-Or you can use [:bind attribute](template-syntax.html#bind) to pass all the data at once:
+or you can use [:bind attribute](template-syntax.html#bind) to pass all the data at once:
 
 ```
 <my-component :for="item in items" :bind="item"/>
 ```
 
-The bind attribute makes the item properties accessible directly on the component. So instead of `{ item.title }` you can write `{ title }` inside the component.
-
-
-
+The bind attribute makes the item properties accessible directly to the component. So instead of `{ item.title }` you can write `{ title }` inside the component.
 
