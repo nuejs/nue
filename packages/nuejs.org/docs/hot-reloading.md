@@ -1,6 +1,6 @@
 
 # Universal hot-reloading
-Nue provides a powerful hot-reloading utility that automatically updates your browser as you edit your content, styling, layout, data files, or reactive components:
+Nue provides a powerful hot-reloading utility that automatically updates your browser as you edit your content, styling, layout, data files or reactive components:
 
 [bunny-video]
   videoId: 18714305-d2f3-453d-83a9-0bd017166949
@@ -8,7 +8,7 @@ Nue provides a powerful hot-reloading utility that automatically updates your br
 
 
 ## Updatable assets
-Hot-reloading is automatically enabled in development. The client-server communication is based on server-sent events. Instead of making a full reload, Nue uses a technique called *DOM diffing* to only update the parts on the page that have changed. Here are the details of what gets automatically updated:
+Hot-reloading is automatically enabled in development. The client-server communication is based on server-sent events. Instead of making a full reload, Nue uses a technique called *DOM diffing* to only update the parts of the page that have changed. Here are the details of what gets automatically updated:
 
 
 ### Content

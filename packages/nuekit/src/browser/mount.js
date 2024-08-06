@@ -43,7 +43,7 @@ export async function mountAll(reload_path) {
       // web component -> do nothing
 
     } else {
-      console.error(`Component not found: "${name}"`)
+      // console.error(`Component not found: "${name}"`)
     }
   }
 }

@@ -34,9 +34,8 @@ input, textarea, select {
 }
 
 textarea {
-  form-sizing: normal;
   margin: .6em 0;
-  resize: none
+  resize: none;
   height: 6em;
 }
 

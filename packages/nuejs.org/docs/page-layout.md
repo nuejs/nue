@@ -6,7 +6,9 @@ Global design system standardizes the structure of your web pages so you can use
 ## Standardized HTML
 After describing your headers and footers, the default page layout for Markdown content looks like this:
 
-[image.bordered /img/page-layout.svg width="600"]
+[image.bordered /img/page-layout.svg]
+  caption: Standard page layout blocks
+  size: 598 × 667 px
 
 
 To see this in practice lets create an `index.md` file with the following content:
@@ -139,7 +141,7 @@ header:
     - Blog: /blog/
     - label: Nue 1.0 beta ›
       url: /blog/nue-1-beta/
-      class: status badge
+      class: status pill
 
   Toolbar:
     - image: /icon/x-logo.svg
@@ -150,7 +152,7 @@ header:
 
     - label: 6.0k
       url: //github.com/nuejs/nue
-      class: github badge
+      class: github pill
 ```
 
 This generates three `<nav/>` elements inside the header:
@@ -267,7 +269,7 @@ Here is the basic syntax for defining navigational elements:
 ``` yaml
 Navi title:
   - Link 1 label: /first/link
-  - Link 2 label: /second/link "badge"
+  - Link 2 label: /second/link "pill"
   - ...
 ```
 
@@ -276,7 +278,7 @@ This generates the following HTML:
 ```
 <nav aria-label="Navi title">
   <a href="/first/link">Link 1 label</a>
-  <a href="/second/link" class="badge">Link 2 label</a>
+  <a href="/second/link" class="pill">Link 2 label</a>
   ...
 </hav>
 ```
@@ -295,7 +297,7 @@ Rich navigation:
 
   - label: Link label
     url: /link/url
-    class: badge
+    class: pill
     role: button
 
   - label: Just some text
@@ -310,7 +312,7 @@ The above generates this:
     <img src="/img/logo.png" width="100" height="30" alt="The logo">
   </a>
   <hr>
-  <a href="/link/url" class="badge" role="button">
+  <a href="/link/url" class="pill" role="button">
     Link 1 label
   </a>
   <p class="info">Just some text</p>

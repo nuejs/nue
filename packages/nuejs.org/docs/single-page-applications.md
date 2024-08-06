@@ -14,8 +14,8 @@ With Nue, you can use the same development approach to build both content-heavy 
 
 
 [.note]
-  ### Please note
-  The development of single-page applications starts later, because the focus is currently on content-heavy multi-page applications. All the related issues are marked as [low priority](https://github.com/nuejs/nue/labels/low%20priority).
+  ### Note
+  The development of single-page applications starts after the templates project is finished, which is pretty major. All the related issues are marked as [low priority](https://github.com/nuejs/nue/labels/low%20priority).
 
 
 

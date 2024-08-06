@@ -5,6 +5,7 @@
   background-image: url(/img/grid-paper.png);
   border: 1px solid var(--gray-200);
   border-radius: 5px;
+  text-align: center;
 
   figcaption {
     margin: 0;
@@ -73,16 +74,6 @@
 
 }
 
-.popup {
-  background-color: var(--main-400);
-  padding: .5em 1.5em;
-
-  p {
-    color: white;
-    font-weight: 600;
-    font-size: 110%;
-  }
-}
 
 /* currently: TODO badge in SPA page */
 h1 code {

@@ -1,6 +1,6 @@
 
 ---
-section_classes: [hero, feature-area, project-status, feedback]
+section_classes: [hero, feature-area, project-status]
 section_component: scroll-transition
 include: [button, form]
 inline_css: true
@@ -33,7 +33,7 @@ What used to take a separate designer, React engineer, and an absurd amount of J
   ### Rapid UX development
   No JavaScript ecosystem in your way
 
-  [! /home/img/typo-css.png]
+  [! /home/img/typo-css.png size="610 × 290 px"]
 
   [Learn more](/docs/)
 
@@ -42,7 +42,7 @@ What used to take a separate designer, React engineer, and an absurd amount of J
   ### Easy customer handoff
   All content is editable by non-technical people
 
-  [! /home/img/home-md.png]
+  [! /home/img/home-md.png size="415 × 337 px"]
 
   [Learn more](/docs/content.html)
 
@@ -51,7 +51,7 @@ What used to take a separate designer, React engineer, and an absurd amount of J
   ### Advanced reactivity
   Go beyond the JavaScript component model
 
-  [! /home/img/transition-css.png]
+  [! /home/img/transition-css.png size="367 × 155 px"]
 
   [Learn more](/docs/reactivity.html)
 
@@ -60,7 +60,7 @@ What used to take a separate designer, React engineer, and an absurd amount of J
   ### Leaner, cleaner, and faster
   Work closer to metal and web standards
 
-  [! /home/img/nextjs-vs-nue.png]
+  [! /home/img/nextjs-vs-nue.png size="611 × 94 px"]
 
   [Learn more](/docs/performance-optimization.html)
 
@@ -73,7 +73,7 @@ Ultimately Nue will be a ridiculously simpler alternative to **Next.js**, **Gats
 
 [image]
   src: /img/roadmap-beta.png
-  width: 700
+  size: 660 × 173 px
 
 
 ### Receive a notification

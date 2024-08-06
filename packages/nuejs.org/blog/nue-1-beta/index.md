@@ -1,9 +1,9 @@
 
 ---
-hero_title: "Announcing *Nue 1.0-beta*"
+hero_title: "*Nue 1.0 (Beta)* — A web framework for UX developers"
 ---
 
-Exactly one year ago I [decided](/blog/backstory/) to create the slickest website generator in the world. Today this vision is becoming a reality:
+Exactly one year ago I [decided](/blog/backstory/) to create the slickest website generator in the world, that is easy enough for UX developers and other design-minded people. Today this vision is becoming a reality:
 
 [image.larger]
   small: /img/og-blue.png
@@ -16,46 +16,49 @@ Exactly one year ago I [decided](/blog/backstory/) to create the slickest websit
   Nue is simpler. What used to take a separate designer, React engineer, and an absurd amount of JavaScript can now be done by a UX developer and a small amount of CSS.
 
 
-### Who is this for?
-Nue is designed for the following people:
+### Who is Nue for?
+Nue is a great fit for the following people:
+
 
 1. **UX developers**: who natively jump between **Figma** and **CSS** without a confusing [designer-developer handoff](//medium.com/design-warp/5-most-common-designer-developer-handoff-mishaps-ba96012be8a7) processes in the way.
+
 
 2. **Beginner web developers**: who want to skip the [redundant frontend layers](//roadmap.sh/frontend) and start building websites quickly with HTML, CSS, and JavaScript.
 
 3. **Experienced JS developers**: frustrated with the absurd amount of layers in the [React stack](//roadmap.sh/react) and looking for simpler ways to develop professional websites.
 
+[.quote]
+  > “Nue is **exactly** what I want. As a technical founder, I need easier ways to build websites. I don't want to hire devs and watch all my profits disappear in salaries.”
+
+  — Alan Hemmings / [BigNameHunter](//bignamehunter.com/?refer=nuejs) / CEO
+
 4. **Designers**: aiming to learn web development, but find the React/JavaScript ecosystem impossible to grasp
+
 
 
 - - -
 
 
 ## What's new?
-v1.0 Beta is by far the biggest release yet with xxx commits and xxx files changed. Here are the most important additions:
+v1.0 Beta is by far the biggest release yet with 80 commits commits and over 400 files changed. This is a breakdown of new features, updates, and breaking changes.
 
 
-### Global design system
-Nue provides an [extended Markdown flavor](/docs/content.html) for authoring web content. In addition to the basic text formatting, Nue supports sections, grids, responsive images, videos, tabbed content, and more. This makes the flavor suitable for the web, unlike the standard Markdown optimized for writing emails.
+## Global design system
+[Global design system](/docs/global-design-system.html) is by far the biggest new feature in this release. It guarantees that you always get the kind of markup for your projects, but you can write CSS to achieve wildly different designs.
 
-UX developers love the idea behind Markdown because they can trust that the generated markup always has the same, limited set of elements and their HTML structure remains the same between pages and projects. This allows developers to use CSS to create wildly different designs between pages and projects. Be it blogging, marketing content, or technical documentation.
-
-With this release, Nue extends this basic idea to span the entire website. You continue using YAML data and the Markdown flavor for content, but with Nue 1.0-beta you can also use YAML to describe your information architecture. This includes all your navigational elements, like the global header, global footer, "burger menu", and any application-specific navigations you may have.
-
-This guarantees that you always get the kind of markup for your projects, but you can write CSS to achieve wildly different designs. We call this a [global design system](/docs/global-design-system.html):
-
-[image.lightgray]
+[image]
   small: /img/global-design-system.png
   large: /img/global-design-system-big.png
-  caption: Shared layout, wildly different designs
+  caption: Same markup, but wildly different designs
+  href: /docs/global-design-system.html
 
-The idea of a global design system comes from  **Brad Frost**, a well-known UX developer who [puts it this way][gds]
+Think Nue like a modern-day [CSS Zen Graden](//csszengarden.com/): a demonstration of what you can accomplish with nothing but CSS. Nue frees you from implementing page layouts and basic UI elements over and over again so you can move faster with nothing but CSS. Or as Brad puts it:
 
 > Global Design System improves the quality and accessibility of the world’s web experiences, saves the world’s web designers and developers millions of hours, and makes better use of our collective human potential. *Brad Frost*
 
 
 
-### CSS theming improvements
+## CSS theming improvements
 Nue has a powerful CSS theming system that supports [hot-reloading](/docs/hot-reloading.html), CSS inlining, error reporting, and automatic dependency management. This version improves the system with the following features:
 
 
@@ -63,33 +66,35 @@ Nue has a powerful CSS theming system that supports [hot-reloading](/docs/hot-re
 
 * [Library folders](/docs/project-structure.html#libraries) to hold re-usable CSS which can be explicitly included on your pages with a new `include` property. You can include assets globally, at the application level, or page level. This helps you take maximum advantage of the [CSS cascade](//developer.mozilla.org/en-US/docs/Web/CSS/Cascade).
 
-* [Exclude property](/docs/project-structure.html#libraries#exclude) allows you to strip unneeded assets from the request and lighten the payload.
+* [Exclude property](/docs/project-structure.html#exclude) allows you to strip unneeded assets from the request and lighten the payload.
 
 
 
 
 ### CSS best practices
-Nue's new [CSS best practices](/docs/best-practises.html) are targeted at UX developers who understand the power of external, cascaded styling. It's also a great resource for JavaScript engineers, who don't like the idea of bringing up a big JavaScript ecosystem in their way just to avoid the mythical "global namespace pollution".
+Nue's new [CSS best practices](/docs/css-best-practices.html) are targeted at UX developers who understand the power of external, cascaded styling. It's also a great resource for engineers, who understand the benefits of using modern CSS instead of writing your styles with JavaScript in the name of "global namespace pollution".
 
 These best practices focus on writing clear, reusable CSS that is easy to read, maintain, and scale. It unpacks decades of CSS experience with a heavy focus on _minimalism_. All the practices could be squeezed into one sentence:
 
-> 10 lines of code is easier to maintain than 100 lines of code *Nue best practice*
+[.blueprint]
+  10 lines of code is easier to maintain than 100 lines of code
 
 Nue helps you build professional websites with the same amount of CSS as you can find on a typical normalization library or Tailwind's "preflight" CSS.
 
 
 
-### View transitions
-View transitions can now be enabled with
+## View transitions
+View transitions are an important part of a seamless user experience and obviously a key feature in the Nue framework. They can now be enabled with this simple configuration variable:
 
 ``` yaml
-view_transition: true
+# enable animated page switches globally
+view_transitions: true
 ```
 
-This option was previously called `router`, but this feature is now much more than just a router. First, it triggers a [view transition](//developer.mozilla.org/en-US/docs/Web/API/ViewTransition) on the document so you can use the [::view-transition](https://developer.mozilla.org/en-US/docs/Web/CSS/::view-transition) CSS pseudo-element. This website, for example, has a "scale down" transition effect on the page's `article` element. It's defined with this fairly simple CSS:
+This option was previously called `router`, but this feature is now much more than just a router. It now triggers a [view transition](//developer.mozilla.org/en-US/docs/Web/API/ViewTransition) effect that you can customize with [::view-transition](https://developer.mozilla.org/en-US/docs/Web/CSS/::view-transition) CSS pseudo-element. This website, for example, has a "scale down" transition effect on the page's `article` element. It's defined with this fairly simple CSS:
 
 
-``` css.pink
+``` css.blue
 article {
   view-transition-name: article;
 }
