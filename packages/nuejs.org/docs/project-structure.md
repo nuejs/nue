@@ -17,7 +17,7 @@ Nue is designed for building two kinds of applications:
 
 1. **Multi-page applications**. These are content-focused applications consisting of Markdown files. Good examples are documentation, blogging area or a feature tour. These apps are rendered server-side so that they can be easily consumed by search engines. The use of client-side JavaScript is optional.
 
-3. [Single-page applications](single-page-applications.html) consist of an `index.html` file that serves all the HTML requests within the app. Good examples are admin dashboards, onboarding flows, surveys or login pages. The application is rendered on the client side with reactive components. These apps are usually hidden from search engines.
+2. [Single-page applications](single-page-applications.html) consist of an `index.html` file that serves all the HTML requests within the app. Good examples are admin dashboards, onboarding flows, surveys or login pages. The application is rendered on the client side with reactive components. These apps are usually hidden from search engines.
 
 
 [image.gridpaper]
@@ -181,7 +181,7 @@ exclude: [syntax-highlight, video]
 This allows you to strip unneeded assets from the request and reduce the payload.
 
 #### Example
-Here's a more complex example that give you an idea how dependencies are calculated:
+Here's a more complex example that can give you an idea how dependencies are calculated:
 
 [image.gridpaper]
   small: /img/libraries.png
@@ -207,7 +207,7 @@ Static files like `.png`, `.jpg`, `.txt`, `.csv`, or `.json` are copied directly
 
 
 ### 404 file
-File named `404.md` in the root level acts as a target for non-existent files. You can use the `include` statement to customize its styling and behaviour.
+A file named `404.md` in the root level, acts as a target for non-existent files. You can use the `include` statement to customize its styling and behaviour.
 
 
 
