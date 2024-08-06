@@ -150,7 +150,7 @@ export const tags = {
 
   // caption, language, numbered
   code(data) {
-    const { caption, attr } = data
+    const { caption, attr={} } = data
     const klass = attr.class
     delete attr.class
 
