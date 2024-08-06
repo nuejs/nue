@@ -3,7 +3,7 @@
 Nue allows you to reach performance of a text-only website without compromising on design, in other words "as fast as you can get".
 
 ## Minimalism
-Lean, means, fast. Develop your site with [Nue CSS best practices](css-best-practices.html) to get the cleanest and smallest codebase possible with least amount of bloat. It's quite easy to achieve significant reduction in the amount of code that needs to be written:
+Lean, means fast. Develop your site with [Nue CSS best practices](css-best-practices.html) to get the cleanest and smallest codebase possible with the least amount of bloat. It's quite easy to achieve significant reduction in the amount of code that needs to be written:
 
 [image.bordered]
   small: /img/docs-sizes.png
@@ -30,7 +30,7 @@ Setting this globally is also possible, but then you need to re-compile all page
 
 ## View transitions
 The next most important performance setting is to enable view transitions.
-This causes your pages to load significantly faster, and the page transition in an animated way.
+This causes your pages to load significantly faster and transition in an animated way.
 
 You can enable view transitions globally in the `site.yaml` file:
 
