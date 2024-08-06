@@ -72,7 +72,7 @@ The value of `<html direction="{ direction }">` attribute. The default is "ltr" 
 Relative path to your favicon that overrides the "favicon.ico" on the browser tab.
 
 ### generator
-The generator meta tag. The default is "Nue (nuejs.org)" and is only rendered on the production pages.
+The generator meta tag. The default is "Nue (nuejs.org)" and is only rendered in production mode.
 
 
 ### language
