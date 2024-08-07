@@ -83,6 +83,43 @@ button[popovertarget] {
   }
 }
 
+.pill {
+  background: var(--main-50) url(/icon/present.svg) .6em 50% no-repeat;
+  padding: .6em 1em .6em 2.7em;
+  background-size: 1.5em;
+  color: var(--gray-600);
+  font-weight: 550;
+  border-radius: 9em;
+  font-size: 80%;
+
+  &:hover {
+    background-color: var(--main-500);
+    background-image: url(/icon/present-light.svg);
+    color: white;
+  }
+
+  &:active {
+    transform: scale(.97);
+  }
+
+  &.github {
+    background-image: url(/icon/github.svg);
+    background-color: #f4f4f4;
+    color: black;
+
+    &:hover {
+      filter: grayscale(1) invert(1);
+
+    }
+  }
+
+  &[aria-selected] {
+    display: none;
+  }
+}
+
+
+
 /* global footer */
 body > footer {
   padding-block: 5em;

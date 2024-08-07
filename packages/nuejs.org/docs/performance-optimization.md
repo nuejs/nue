@@ -3,7 +3,7 @@
 Nue allows you to reach performance of a text-only website without compromising on design, in other words "as fast as you can get".
 
 ## Minimalism
-Lean, means fast. Develop your site with [Nue CSS best practices](css-best-practices.html) to get the cleanest and smallest codebase possible with the least amount of bloat. It's quite easy to achieve significant reduction in the amount of code that needs to be written:
+Lean, means fast. We recommend you to develop your site with [Nue CSS best practices](css-best-practices.html) to get the cleanest and smallest codebase possible with the least amount of bloat. It's quite easy to achieve significant reduction in the amount of code that needs to be written. For example, here is the Next.js documentation area compared to this one:
 
 [image.bordered]
   small: /img/docs-sizes.png

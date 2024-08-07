@@ -7,6 +7,7 @@ Nue projects consist of one or more _applications_. Each directory on the root o
   small: /img/application-dirs.png
   large: /img/application-dirs-big.png
   caption: Two new areas were added as the project grew up
+  size: 747 × 519 px
 
 
 Nue does not force you to any fixed directory structure: there are no system folders and you can freely name your root-level application folders.
@@ -23,6 +24,7 @@ Nue is designed for building two kinds of applications:
 [image.gridpaper]
   small: /img/mpa-vs-spa.png
   large: /img/mpa-vs-spa-big.png
+  size: 747 x 512
 
 
 
@@ -57,7 +59,7 @@ The data gets extended as you move from the site level to the page level.
 [image.gridpaper]
   small: /img/data-propagation.png
   large: /img/data-propagation-big.png
-
+  size: 746 x 406
 
 
 ### Data example
@@ -136,7 +138,7 @@ The scripts, styles, and components are automatically included in the page depen
 [image.gridpaper]
   small: /img/dependencies.png
   large: /img/dependencies-big.png
-
+  size:   747 × 378 px
 
 ### Global directories { #globals }
 You can define directories that are global in `site.yaml`. For example:
@@ -153,6 +155,7 @@ When a global directory resides inside an application directory, then all assets
 [image.gridpaper]
   small: /img/global-dirs.png
   large: /img/global-dirs-big.png
+  size: 747 × 417 px
 
 
 ### Libraries
@@ -171,7 +174,7 @@ include: [syntax-highlight, video]
 If you include assets in several levels, the vhe values of include statements are _concatenated_ into one single array and the matches are partial so that a value such as "syntax" will match both "syntax-highlight" and "syntax-extras".
 
 
-#### Excluding assets { #exclude }
+### Excluding assets { #exclude }
 You can exclude assets from the pages with an `exclude` property, which works the same way as the include statement:
 
 ```
@@ -186,6 +189,7 @@ Here's a more complex example to give you an idea how dependencies are calculate
 [image.gridpaper]
   small: /img/libraries.png
   large: /img/libraries-big.png
+  size:  747 × 591 px
 
 
 ### Frontpage

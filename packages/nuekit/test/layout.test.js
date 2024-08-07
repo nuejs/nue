@@ -1,11 +1,11 @@
 
 // content collection rendering
-import { renderPage, renderPageList } from '../src/layout/pagelist.js'
+import { renderPage } from '../src/layout/pagelist.js'
 
 import { renderHead } from '../src/layout/head.js'
 
 import {
-  parseDescription,
+  parseClass,
   renderExpandable,
   parseNavItem,
   renderNavItem,
@@ -13,7 +13,6 @@ import {
   renderNavBlocks,
 
 } from '../src/layout/navi.js'
-
 
 
 test('render page', () => {
@@ -28,28 +27,26 @@ test('render page', () => {
   expect(html).toEndWith('<p>Wassup <em>bro</em></p></a></li>')
 })
 
-test('render pages', () => {
-  const page = { title: 'Yo', desc: 'Bro', url: '/', date: new Date() }
-  const html = renderPageList([ page, page ])
-
-  expect(html).toStartWith('<ul><li')
-  expect(html.length).toBeGreaterThan(250)
-})
-
 test('<head>', () => {
-  const head = renderHead({ charset: 'foo', title: 'Hey', preload_image: 'hey.png' })
+  const head = renderHead({ charset: 'foo', title: 'Hey' })
   expect(head).toInclude('meta charset="foo"')
   expect(head).toInclude('<title>Hey</title>')
-  expect(head).toInclude('<link rel="preload" as="image" href="hey.png">')
+  expect(head).toInclude('"nue:components" content=" "')
+  // expect(head).toInclude('<link rel="preload" as="image" href="hey.png">')
 })
 
+test('prefetch', () => {
+  const head = renderHead({ prefetch: ['hey.png', 'foo.css'] })
+  expect(head).toInclude('<link href="hey.png" rel="preload" as="image">')
+  expect(head).toInclude('<link href="foo.css" rel="prefetch">')
+})
 
-test('description', () => {
-  expect(parseDescription('About "We"')).toEqual({ url: "About", desc: "We" })
+test('navi class', () => {
+  expect(parseClass('/foo "bar"')).toEqual({ url: "/foo", class: "bar" })
 })
 
 test('navi string', () => {
-  expect(parseNavItem('FAQ')).toEqual({ label: "FAQ", url: "/faq/" })
+  expect(parseNavItem('FAQ')).toEqual({ label: "FAQ", url: "" })
   expect(parseNavItem('---')).toEqual({ separator: '---' })
 })
 
@@ -64,8 +61,8 @@ test('navi array', () => {
   expect(item.label).toBe('Company')
 
   expect(item.items).toEqual([
-    { label: "About", url: "/about/", },
-    { label: "Blog", url: "/blog/", }
+    { label: "About", url: "", },
+    { label: "Blog", url: "", }
   ])
 })
 
@@ -74,21 +71,10 @@ test('render item', () => {
   expect(renderNavItem(item)).toBe('<a href="/faq">FAQ</a>')
 })
 
-test('render icon', () => {
-  const item = { url: '/foo', icon: 'book', width: 32 }
-  const icon = renderNavItem(item)
-  expect(icon).toStartWith('<a href="/foo"><img src="/img/book.svg"')
-  expect(icon).toInclude('width="32"')
-  expect(icon).toInclude('height="32"')
-
-  // nested content
-  const icon2 = renderNavItem({ label: 'Yo', ...item })
-  expect(icon2).toEndWith('<span>Yo</span></a>')
-})
-
-test('render image', () => {
-  const img = renderNavItem({ image: '/bar', size: '100 x 50' })
-  expect(img).toBe('<p><img src="/bar" width="100" height="50"></p>')
+test('navi image', () => {
+  const item = { url: '/foo', image: 'book.jpg', size: '1 x 1' }
+  const html = renderNavItem(item)
+  expect(html).toBe('<a href="/foo"><img src="book.jpg" width="1" height="1"></a>')
 })
 
 
@@ -100,28 +86,28 @@ test('render label', () => {
 
 test('render nav items', () => {
   const nav = renderNavItems(['a', 'b'])
-  expect(nav).toStartWith('<nav><a href="/a/">a')
+  expect(nav).toStartWith('<nav><a>a</a>')
   const nav2 = renderNavItems(['a'], { label: 'main' })
-  expect(nav2).toStartWith('<nav aria-label="main">')
+  expect(nav2).toBe('<nav aria-label="main"><a>a</a></nav>')
 })
 
 
 test('render expandable nav items', () => {
   const nav = renderExpandable('Hey', ['a'])
   expect(nav).toStartWith('<span aria-haspopup><a aria-expanded="false">Hey</a>')
-  expect(nav).toEndWith('<nav><a href="/a/">a</a></nav></span>')
+  expect(nav).toEndWith('<nav><a>a</a></nav></span>')
 })
 
 test('hybrid nav with expandable', () => {
   const nav = renderNavItems(['Docs', { 'More': ['a', 'b'] }])
-  expect(nav).toStartWith('<nav><a href="/docs/">Docs</a>')
-  expect(nav).toInclude('<span aria-haspopup><a aria-expanded="false">More</a><nav><a href="/a/">a</a>')
+  expect(nav).toStartWith('<nav><a>Docs</a>')
+  expect(nav).toInclude('<span aria-haspopup><a aria-expanded="false">More</a><nav><a>a</a>')
 })
 
 test('nav blocks', () => {
   const nav = renderNavBlocks({ Basics: ['a']})
-  expect(nav).toStartWith('<section><nav><h3>Basics</h3>')
-  expect(nav).toEndWith('<a href="/a/">a</a></nav></section>')
+  expect(nav).toStartWith('<div><nav><h3>Basics</h3>')
+  expect(nav).toEndWith('<a>a</a></nav></div>')
 })
 
 

@@ -12,7 +12,8 @@ In this tutorial, you’ll see some Nue's key features by building a fully funct
 
 
 ## Create your first page
-First, we create a folder for our project and add a page in there:
+First, we create a folder for our project and add a page in there.
+Type the following in your terminal:
 
 ``` sh
 # create a folder for the project
@@ -25,7 +26,7 @@ cd simple-blog
 echo '# Hello, World!' > index.md
 ```
 
-Done. Our first Nue application is ready. You can run it by running `nue` inside the directory:
+Great. Our first Nue application is ready. You can run it by running `nue` inside the directory:
 
 ```
 # Start nue in "watch" mode
@@ -60,7 +61,7 @@ Let's view the source code of that page at `view-source:http://localhost:8080/`
 </html>
 ```
 
-Nue auto-generates an HTML skeleton, with basic meta tags and the page title, which is automatically parsed from the Markdown content.
+Nue auto-generates the HTML skeleton, with basic meta tags and the page title, which is automatically parsed from the Markdown content.
 
 The nicest thing, however, is the "hotreload.js" module, which is the key benefit of choosing Nue for your web development environment.
 
@@ -74,17 +75,17 @@ Let's add a new file to our project folder called "blog.css", which will take ca
 touch blog.css
 ```
 
-Nue automatically adds the following line on the HTML without the need to reload your page:
+Nue automatically adds the following line to the HTML without the need to reload your page:
 
 ```
 <link href="/blog.css" rel="stylesheet">
 ```
 
-Now, as you edit either of your files (blog.css or index.md) on your text editor you can see the browser magically morphing with your changes.
+Now, as you edit either of your files (blog.css or index.md) in your text editor you can see the browser magically morphing with your changes.
 
 // TODO: video: completing the page the first page
 
-Instead of making a full reload, Nue uses a technique called **DOM diffing** to only update the parts on the page that have changed. Be it the content, metadata, styling, global headers and footers, page layouts, or reactive components.
+Instead of making a full reload, Nue uses a technique called **DOM diffing** to only update the parts on the page that have changed. Be it the content, metadata, styling, global headers and footers, page layouts or reactive components.
 
 
 ### Frontmatter
@@ -99,7 +100,7 @@ description: "Just playing with with hot-reloading"
 # Hello, World!
 ```
 
-Again, as you edit the metadata you can see your page title change on the browser tab.
+Again, as you edit the metadata you can see your page title change in the browser tab.
 
 
 ### Complete the page
@@ -113,7 +114,7 @@ Next we style the page with Nue's [CSS best practices](css-best-practices.html) 
 
 
 ## A blogging app
-Next we turn our blog into something more usable
+Next we turn our blog into something more usable.
 
 
 ### Add headers and footers
@@ -140,7 +141,7 @@ We start by creating a [custom layout file](custom-layouts.html) called `layout.
 
 
 ### Add shared data
-Then we add a data file called `site.yaml` with all the site-wide data to fill in our personal information and other basic data being used on our header and footer:
+We then add a data file named `site.yaml`, containing all the site-wide data, to populate our personal information and other essential details used in the header and footer:
 
 
 ``` yaml
@@ -164,11 +165,11 @@ social:
     alt: Github projects
 ```
 
-You can see your page headers and footers update on your browser as you edit the layout or the data file. The header and footer are inherited from the root level `layout.html`
+You can see your page headers and footers update in your browser as you edit the layout or the data file. The header and footer are inherited from the root level `layout.html`
 
 
 ### Add page layout
-Next, we add a `<main>` element to the layout file to render the "hero" area for our blog entries. This will render data from the Markdown pages (front matter area) and if not present, then the data is taken from the `site.yaml` file.
+Next, we add a `<main>` element to the layout file to render the "hero" section for our blog entries. This element will pull data from the front matter of the Markdown pages. If no data is provided there, it will default to the information in the `site.yaml` file.
 
 ```
 <!-- in layout.html: -->
@@ -197,7 +198,7 @@ Next, we add a `<main>` element to the layout file to render the "hero" area for
 
 
 ### Add all the pages
-Next, we add two more pages to the directory. Each one will share the same header, footer, page layout, and styling. Here's what we have at this point:
+Next, we add two more pages to the directory. Each one will share the same header, footer, page layout and styling. Here's what we have at this point:
 
 [image]
   small: /img/blog-entries.png
@@ -209,7 +210,7 @@ Pretty good. Of course, hot-reloading was there to provide a great content autho
 
 
 ### Create a blog index
-Next, we move all our pages to the `posts` folder to make room for our new front page, which lists all our entries from newest to latest. Nue treats the `posts` directory as a separate *multi-page application* that can be configured with its layout and styling.
+Next, we move all our pages to the `posts` folder to make room for our new front page, which lists all our entries from newest to latest. Nue treats the `posts` directory as a separate *multi-page application* that can be configured with its own layout and styling.
 
 We also add a new `global` folder to hold all our global components and styles. The root directory has assets for the front page only, and the posts directory has assets for our blog entries only. Here's what our folder structure looks like:
 
@@ -231,7 +232,7 @@ Here's our new front page/index.md:
    Here are my thoughts on design, UX engineering, and product thinking.
 
 
-The page is configured with a new [content collection](content-collections.html) option to hold information on all our pages on the `posts`- folder. We use this information to render the posts on our updated `layout.html` file:
+The page is configured with a new [content collection](content-collections.html) option to hold information on all our pages in the `posts`- folder. We use this information to render the posts in our updated `layout.html` file:
 
 ```
 <!-- front page main layout -->
@@ -337,7 +338,7 @@ Then we add the component to the footer and add a trigger element that opens up 
 </footer>
 ```
 
-Needless to say, that hot-reloading facility is there again to speed up development. The dialog is not only updating live, but also the potential form values are retained and the dialog remains open while we make changes.
+Needless to say, that hot-reloading facility is there again to speed up the development. The dialog is not only updating live, but also the potential form values are retained and the dialog remains open while we make changes.
 
 
 ## Build for production

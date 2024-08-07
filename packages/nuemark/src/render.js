@@ -109,6 +109,9 @@ export function renderHeading(html, level, raw) {
   const plain = parseHeading(raw)
   const { id } = plain
 
+  // class name only
+  if (!id && plain.class) return elem(`h${level}`, { class: plain.class }, plain.text)
+
   // no id -> return plain heading
   if (!id || level == 1) return elem(`h${level}`, html)
 

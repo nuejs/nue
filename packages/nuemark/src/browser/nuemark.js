@@ -9,8 +9,6 @@ class Tabs extends HTMLDivElement {
     const tabs = $$('[role=tab]', this)
     const panels = $$('[role=tabpanel]', this)
 
-    console.info(tabs, panels)
-
     tabs.forEach((tab, i) => {
       tab.onclick = () =>  {
         tabs.forEach(el => el.removeAttribute('aria-selected'))
