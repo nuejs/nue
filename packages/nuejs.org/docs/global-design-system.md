@@ -1,10 +1,9 @@
-
 ---
 # complementary: false
 ---
 
 # Global Design System
-Nue's power leans heavily on a thing called _global design system_. It allows UX developers to rapidly create different designs by using exactly the same markup between projects:
+Nue's power leans heavily on a thing called *global design system*. It allows UX developers to rapidly create different designs by using exactly the same markup between projects:
 
 [image.gridpaper]
   small: /img/global-design-system.png
@@ -38,7 +37,7 @@ You can also [customize the layout](custom-layouts.html) with a minimal amount o
 
 [.note]
   ### Note
-  The global design system will later be expanded  with components that help you build [single-page applications](single-page-applications.html)
+  The global design system will later be expanded with components that help you build [single-page applications](single-page-applications.html)
 
 
 ## CSS theming system
@@ -53,4 +52,4 @@ The global design system comes with a powerful CSS theming framework. It has the
 
 4. **Best practices** Nue offers [tips and recipes](css-best-practices.html) for writing reusable CSS that is easy to manage and scale. You typically end up with 10-100 times less code than in a traditional JavaScript-powered system.
 
-5. **Optimization** Nue comes with a unique [performance optimization](performance-optimization.html)] system that minifies your CSS for production and packages your CSS and HTML together into one, compact deliverable.
+5. **Optimization** Nue comes with a unique [performance optimization](performance-optimization.html) system that minifies your CSS for production and packages your CSS and HTML together into one, compact deliverable.

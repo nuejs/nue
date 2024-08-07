@@ -42,7 +42,7 @@ header:
 
 
 burger_menu:
-  - Home: /home/
+  - Home: /
   - Docs: /docs/
   - Blog: /blog/
   - ---

@@ -1,5 +1,4 @@
 
-
 # Custom layouts
 The design system consists of various "slots" that you can fill or replace with custom template content. The slots are named as follows:
 
@@ -8,7 +7,7 @@ The design system consists of various "slots" that you can fill or replace with 
 
 For example, if you want to add a custom banner above the global header you'd create a layout module called "banner":
 
-```
+```html
 <div •@name="banner"•>
   <strong>Major update available!</strong>
   <a href="/blog/release-2.0/">Check out v2.0</a>
@@ -17,7 +16,7 @@ For example, if you want to add a custom banner above the global header you'd cr
 
 The bolded slot names (header, footer, and aside) don't require the `@name` attribute, because the slot is identified directly from the HTML tag name. For example, a custom `aside` tag is always placed prior to the `main` element:
 
-```
+```html
 <aside>
   <h3>{ hello }</h3>
 </aside>
@@ -30,12 +29,12 @@ The modules can be stored in any file with a `.html` suffix such as `layout.html
 
 
 ### Area-specific layouts
-You can customize the layout of all the different areas of your website like the documentation- or blogging area. Think custom sidebars, blog entry "hero" layouts, or custom footers. The area-specific layouts override any existing layouts defined globally at the root level.
+You can customize the layout of all the different areas of your website like the documentation or blogging area. Think custom sidebars, blog entry "hero" layouts, or custom footers. The area-specific layouts override any existing layouts defined globally at the root level.
 
-This documentation area, for example, has the following documentation- specific layouts in [docs/layout.html](//github.com/nuejs/nue/blob/dev/packages/nuejs.org/docs/layout.html):
+This documentation area, for example, has the following documentation-specific layouts in [docs/layout.html](//github.com/nuejs/nue/blob/master/packages/nuejs.org/docs/layout.html):
 
 
-```
+```html
 <!-- main sidebar (left) -->
 <aside id="sidebar" popover>
   <button popovertarget="sidebar">&times;</button>
@@ -66,7 +65,7 @@ This documentation area, for example, has the following documentation- specific 
 ### Leaving out layouts { #disabling }
 Sometimes you want to leave out some layouts. For example, the blog index page might want to disable the layout components that are available on the actual blog entries. This happens by setting the desired layout components to `false`. For example:
 
-``` yaml
+```yaml
 aside: false
 pagehead: false
 pagefoot: false
@@ -77,7 +76,7 @@ pagefoot: false
 ### Main Layout
 You can override the `main` element by re-defining it in a layout file. For example:
 
-```
+```html
 <main>
   <h1>Hello, World!</h1>
 
@@ -94,7 +93,7 @@ You can override the `main` element by re-defining it in a layout file. For exam
 ### Root layout
 You can go extreme and override the entire `html` element in which case you can customize everything inside the html element, including the document head:
 
-```
+```html
 <html>
   <head>
     <!-- system meta elements (auto-generated) -->
@@ -121,10 +120,10 @@ You can go extreme and override the entire `html` element in which case you can 
 ## Built-in helper components
 You can use several built-in helper components when building your layouts. For example, the blogging area on this website takes advantage of several built-in components in the blog entry "hero" area:
 
-```
+```html
 <header @name="pagehead">
 
-  <!-- pretty-date: pretty prints the "date" metadata  -->
+  <!-- pretty-date: Pretty prints the "date" metadata  -->
   <pretty-date/>
 
   <!-- markdown component to render the page title -->
@@ -140,11 +139,11 @@ Here are all the helper components:
 
 
 ### `<navi>`
-Renders an ARIA compatible navigational element based on the data given in the `items` attribute. The data must be formatted in a specific [YAML format](page-layout.html#yaml) which supports multiple types of navigation types: flat, hierarchical, and more complex dropdown navigation menus.
+Renders an ARIA compatible navigational element based on the data given in the `items` attribute. The data must be formatted in a specific [YAML format](page-layout.html#yaml) which supports multiple types of navigation types: Flat, hierarchical, and more complex dropdown navigation menus.
 
-This website, for example, uses the `<navi/>` component in the sidebar of the  documentation area:
+This website, for example, uses the `<navi/>` component in the sidebar of the documentation area:
 
-```
+```html
 <aside id="sidebar" popover>
   <button popovertarget="sidebar">&times;</button>
   <navi :items="sidenav"/>
@@ -163,7 +162,7 @@ Pretty-prints a date value given in the `date` attribute.
 ### `<toc>`
 Renders a table of contents from the current Markdown document.
 
-```
+```html
 <nav aria-label="Table of Contents">
   <a href="#less-but-better" class="level-2">Less, but better</a>
   <a href="#a-different-mindset" class="level-2">A different mindset</a>
@@ -173,9 +172,9 @@ Renders a table of contents from the current Markdown document.
 </nav>
 ```
 
-Only second and third level headings (h2,  h3) are included in the navigation. You can enhance a web component with JavaScript by adding an `is` attribute on the component. For example:
+Only second and third level headings (h2, h3) are included in the navigation. You can enhance a web component with JavaScript by adding an `is` attribute on the component. For example:
 
-```
+```html
 <toc is="observing-nav"/>
 ```
 
@@ -183,7 +182,7 @@ Only second and third level headings (h2,  h3) are included in the navigation. Y
 ### Custom components
 You can create custom layout components and custom markdown extensions for content authors with Nue's layout syntax. Here, for example, is a generic author component:
 
-```
+```html
 <div @name="author" class="author">
   <span><img :src="img" width="36" height="36"></span>
 

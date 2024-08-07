@@ -20,17 +20,17 @@ Nue allows you to employ the same development approach to build both content-hea
 
 
 ## Separation of concerns
-Today, the codebases of single-page applications are enormous. It's not unusual to see projects with hundreds, even thousands of JavaScript components where the markup, styling and logic are mixed together forming a massive canvas of "spaghetti code". Projects like **Vite** are specifically built to solve the issues that come with these massive component-heavy codebases.
+Today, the codebases of single-page applications are enormous. It's not unusual to see projects with hundreds, even thousands of JavaScript components, where the markup, styling and logic, are mixed together forming a massive canvas of "spaghetti code". Projects like **Vite** are specifically built to solve the issues that come with these massive component-heavy codebases.
 
-Nue's approach is different. It splits you codebase in two: the application and the user interface. This split makes a big difference in how you code looks:
+Nue's approach is different. It splits your codebase in two: The application and the user interface. This split makes a big difference in how you code looks:
 
 
 ### Application code
-The application code becomes a separate entity with no complexities from the UI layer: there is no knowledge of views nor state and the code is absent from framework-specific concepts like hooks, refs, or events. And there are no extra domain-specific idioms like *JSX* or *Tailwind*.
+The application code becomes a separate entity with no complexities from the UI layer: There is no knowledge of views nor state and the code is absent from framework-specific concepts like hooks, refs, or events. And there are no extra domain-specific idioms like *JSX* or *Tailwind*.
 
 This dramatically simplifies the code, making it easier to read and maintain. The application can be an isolated *NPM* module, that can be tested separately.
 
-But most importantly: you can use the same application code for different frontends like Console, Slack agent, or the mobile app.
+But most importantly: You can use the same application code for different frontends like Console, a Slack agent or a mobile app.
 
 You can even use a true typed language like *Rust* or *Go* and compile the application to *WASM* like *Figma* does. Decoupled application logic opens new doors for front-end developers.
 
@@ -40,7 +40,7 @@ When the styling and the application code are decoupled from the UI, the code be
 
 You can re-use the same global CSS code that is already present in your content-heavy website. This further reduces the amount of code you need to write.
 
-But most importantly: your styling code, its motion and other effects are shared by both systems and are fully compliant with your design system.
+But most importantly: Your styling code, its motion and other effects are shared by both systems and are fully compliant with your design system.
 
 
 ## Get notified
