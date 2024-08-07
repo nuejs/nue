@@ -10,7 +10,7 @@ article {
   margin: 0 auto 8em;
   max-width: 48rem;
   width: 100%;
-  h2, h3 {
+  h2, h3, h4, h5, h6 {
     scroll-margin-top: 7.2rem;
   }
 }

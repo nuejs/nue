@@ -1,4 +1,3 @@
-
 ---
 date: 2024-04-12
 og: /img/designers-vs-engineers.png
@@ -12,7 +11,7 @@ The goal of Nue is to be the [perfect web framework](/blog/perfect-web-framework
 [image]
   small: /img/designers-vs-engineers.png
   large: /img/designers-vs-engineers-big.png
-  caption:  "[The Great Divide](https://css-tricks.com/the-great-divide/): UX developers are design-oriented and JS engineers are technology-oriented"
+  caption:  "[The Great Divide](//css-tricks.com/the-great-divide/): UX developers are design-oriented and JS engineers are technology-oriented"
 
 
 ## For the love ❤️ of web standards
@@ -20,11 +19,11 @@ Today, there is an unexpected resistance towards vanilla JS and CSS. Nue is an a
 
 
 #### October 2, 2023 [Rethinking reactivity](/blog/rethinking-reactivity/)
-[Nue JS](//github.com/nuejs/nue/tree/master/packages/nuejs) is a small micro-library for building user interfaces. While still buggy and in early beta, it showcases the value of separation of concerns and an HTML-first approach. That is: your code becomes easier to read.
+[Nue JS](//github.com/nuejs/nue/tree/master/packages/nuejs) is a small micro-library for building user interfaces. While still buggy and in early beta, it showcases the value of separation of concerns and an HTML-first approach. That is: Your code becomes easier to read.
 
 
 [image.floating src="/img/theo-tailwind-promoter.jpg"]
-  href: //www.youtube.com/watch?v=yGBjXsrwK4M&t=1s
+  href: //youtu.be/yGBjXsrwK4M
   caption: "**Theo** is a famous JS/CSS hater and a passionate Tailwind promoter"
 
 
@@ -34,7 +33,7 @@ This article showcases the power of CSS and the web standards model by comparing
 
 
 #### February 18, 2024 [Tailwind marketing and misinformation engine](/blog/tailwind-misinformation-engine/)
-How Tailwind positions vanilla CSS as the problem and the "utility first" approach as the hero. Well-known framing for CSS experts, but strongly [denied](//www.youtube.com/watch?v=yGBjXsrwK4M&t=1s) by the Tailwind community.
+How Tailwind positions vanilla CSS as the problem and the "utility first" approach as the hero. Well-known framing for CSS experts, but strongly [denied](//youtu.be/yGBjXsrwK4M) by the Tailwind community.
 
 #### March 20, 2024 [Nue CSS preview](/blog/introducing-nue-css/)
 Sneak preview of the upcoming design system approach and the best practices of writing maintainable CSS. The article demonstrates some crazy size differences to Tailwind.
@@ -62,8 +61,8 @@ The idea of Nue was posted to Hacker News. Here's the [backstory](/blog/backstor
 You can use Nue to build production-ready websites but with the following limitations:
 
 1. Windows support is sketchy
-1. No documentation for Nue CSS yet
-1. Nue JS's reactive parts are buggy and the issues are marked low priority.
+2. No documentation for Nue CSS yet
+3. Nue JS's reactive parts are buggy and the issues are marked low priority
 
 
 [.note]
@@ -81,18 +80,18 @@ During the summer the focus will be on the following, but with a 33% pace:
 Finalize the Nue design system with complete documentation including:
 
 1. Information Architecture
-1. Global Design System
-1. CSS architecture
-1. CSS best practices
-1. Design template
+2. Global Design System
+3. CSS architecture
+4. CSS best practices
+5. Design template
 
 
 ### Website rewrite
 Rewrite the website narrative and the documentation so that the content-first approach becomes crystal clear and why Nue is an obvious choice for UX developers and design-led organizations:
 
 1. What is a content-first framework
-1. Why is it important
-1. Pillars, values, principles
+2. Why is it important
+3. Pillars, values, principles
 
 
 ## 🦄 The Dream
@@ -106,13 +105,13 @@ We want everyone to have the ability to take the quality levels of *Stripe*, *Li
 
 
 ## Huge thanks to:
-* [Nobkd](//github.com/nobkd) and [Fritz Lin](//github.com/fritx) for the very many updates and fixes. Thank you!
+- [Nobkd](//github.com/nobkd) and [Fritz Lin](//github.com/fritx) for the very many updates and fixes. Thank you!
 
-* [Mauricio Wolff](//www.linkedin.com/in/mauriciowolff/?originalSubdomain=au) (Lead Product Designer @ Atlassian) for the extremely important, high-level design feedback.
+- [Mauricio Wolff](//www.linkedin.com/in/mauriciowolff/) (Lead Product Designer @ Atlassian) for the extremely important, high-level design feedback.
 
-* [Alan Hemmings](//github.com/goblinfactory) for the developer feedback and the mental support. Much needed!
+- [Alan Hemmings](//github.com/goblinfactory) for the developer feedback and the mental support. Much-needed!
 
-* Thanks to all [25+ contributors](//github.com/nuejs/nue/graphs/contributors) for improving Nue codebase.
+- Thanks to all [25+ contributors](//github.com/nuejs/nue/graphs/contributors) for improving Nue's codebase.
 
 
 

@@ -1,4 +1,3 @@
-
 ---
 date: 2024-01-23
 title: The perfect web framework for UX developers
@@ -9,7 +8,7 @@ og: /img/perfect-banner-big.jpg
 
 In June 2023 I had my final frontend rage quit moment. The anger was so intense that I decided to change the direction of my career from a startup founder to a full-time OSS developer. I would devote all my time to fixing everything that is wrong with the current front-end ecosystem.
 
-I created a [project on GitHub](https://github.com/nuejs/nue) and called it **"Nue"**. I wanted it to be the best web framework for for [UX developers](//css-tricks.com/the-great-divide/) and design-led organizations. It'll consist of following:
+I created a [project on GitHub](//github.com/nuejs/nue) and called it **"Nue"**. I wanted it to be the best web framework for [UX developers](//css-tricks.com/the-great-divide/) and design-led organizations. It'll consist of the following:
 
 
 [image]
@@ -31,7 +30,7 @@ Ideally, content people should be able to create new content and update the info
 
 The content-first approach is the most important thing in a framework. It defines the overall system architecture and forms a solid ground for a [semantic design system](#cascade) and [universal template](#template).
 
-Note that single-page applications are no different: the content just comes from a database and not from a file. The design system can be shared.
+Note that single-page applications are no different: The content just comes from a database and not from a file. The design system can be shared.
 
 
 [.problem]
@@ -52,11 +51,11 @@ When a content-first design system is in place, content teams can ship great-loo
 
 
 ## Motherf**king fast `UX` { #speed }
-[motherfuckingwebsite.com](//motherfuckingwebsite.com/) is a developer meme from **Barry Smith**. This plaintext website carries an important message: get rid of the clutter and focus on content and performance.
+[motherfuckingwebsite.com](//motherfuckingwebsite.com/) is a developer meme from **Barry Smith**. This plaintext website carries an important message: Get rid of the clutter and focus on content and performance.
 
 The lesser-known fact is that you can build a design system that offers the performance levels of MF, and the design standards of Stripe and Linear.
 
-A perfect web framework gives you exactly that: the fastest possible website with a pixel-perfect design. A Moterf**king Stripe if you will.
+A perfect web framework gives you exactly that: The fastest possible website with a pixel-perfect design. A Moterf**king Stripe if you will.
 
 [.problem]
   Current frameworks resort to [chickenshit minimalism][chicken] — the illusion of minimalism backed by megabytes of cruft. For example, the landing page of *create-next-app* uses 42,440 lines (363kb) of JavaScript to print "Hello, World"
@@ -67,7 +66,7 @@ A perfect web framework gives you exactly that: the fastest possible website wit
 ## Consistent MPA+SPA experience `UX` { #ux }
 All areas of your website should offer a consistently great user experience. This includes your content-heavy areas like the documentation and blog, the customer-facing app, and your internal admin dashboard.
 
-The same "motherf**king" performance levels and the same pixel-perfect look and feel. And with a seamless "turbo" linking between your multi-page- and single-page apps.
+The same "motherf**king" performance levels and the same pixel-perfect look and feel. And with a seamless "turbo" linking between your multi-page and single-page apps.
 
 [.problem]
   Current frameworks lack a hybrid multi-page/single-page application development model. You end up mixing services and domain names. Say Astro for marketing pages, **Nuxt** for documentation, **Medium** for blog, and Vite for the SAAS app. It's impossible to offer a uniform design, performance, and user experience across the board.
@@ -76,7 +75,7 @@ The same "motherf**king" performance levels and the same pixel-perfect look and 
 ## Instant development loop `DX` { #devloop }
 A perfect framework should show a live preview of your change after you save a file. Be it content, styling, layout, server component, or client-side reactive component — you should see the change immediately. And if you make a mistake, the framework will tell you exactly what went wrong.
 
-This kind of _universal hot-reloading_ offers a true WYSIWYG experience for content producers, designers, and developers. Instant development loop gives a significant boost to your daily productivity.
+This kind of *universal hot-reloading* offers a true WYSIWYG experience for content producers, designers, and developers. Instant development loop gives a significant boost to your daily productivity.
 
 
 [.problem]
@@ -86,7 +85,7 @@ This kind of _universal hot-reloading_ offers a true WYSIWYG experience for cont
 ## Easy to scale `DX` { #scale }
 An ideal framework lets people with different backgrounds take part in scaling the system. Content teams scale the content, UX engineers focus on design and user experience, and JS developers work on the business model, networking, and infrastructure.
 
-They use the same system for content-focused apps and single-page apps and enjoy the productivity boost from universal hot-reloading. They share components and design elements so they can move faster and keep things consistent.
+They use the same system for content-focused apps and single-page apps and enjoy the productivity boost from universal hot-reloading. They share components and design elements, so they can move faster and keep things consistent.
 
 [.problem]
   Vite and **React** place all the burden on the JavaScript developer. They develop React components where content, styling, and logic are all mixed. Scaling becomes hard when content teams and UX developers cannot participate. And if you use different systems for blogging, documentation, and single-page apps – extra developer time is spent on keeping the external services together.
@@ -94,18 +93,18 @@ They use the same system for content-focused apps and single-page apps and enjoy
 
 
 ## Sub-second deploy times `DX` { #ship }
-When you push out a new blog entry or a product release, something always goes wrong: typos, wording issues, missing links, broken styling on mobile ... you name it. In this situation, it's critical to have a fast shipping engine in place. You want to fix your errors before the next bunch of visitors arrives.
+When you push out a new blog entry or a product release, something always goes wrong: Typos, wording issues, missing links, broken styling on mobile ... you name it. In this situation, it's critical to have a fast shipping engine in place. You want to fix your errors before the next bunch of visitors arrives.
 
 This sort of hot deployment engine is an extension to a full-blown git-based deployment system with support for versioned pushes, rollbacks, and staging environments.
 
 [.problem]
-  Shipping with **Vercel** or **Netlify** is slow. Deployment always triggers a full rebuild: all the pages, styles, scripts, and images are re-pushed. Production pushes take several minutes, sometimes more than an hour. Even if it was just a small typo.
+  Shipping with **Vercel** or **Netlify** is slow. Deployment always triggers a full rebuild: All the pages, styles, scripts, and images are re-pushed. Production pushes take several minutes, sometimes more than an hour. Even, if it was just a small typo.
 
 
 ## Universal template `DX` { #universal }
 The universal template is a central starting point for hybrid multi-page and single-page applications. It lets you quickly create a blog, startup, e-commerce site, or anything in between. First, you choose the desired apps, and then you link them to a chosen look and feel.
 
-For example, you might choose a rich front page, documentation area, blogging area, onboarding flow, admin dashboard, and login page. Then you choose the design: minimalistic, modern, playful, or heroic. Or perhaps abstract, brutal, pixelated, or retro.
+For example, you might choose a rich front page, documentation area, blogging area, onboarding flow, admin dashboard, and login page. Then you choose the design: Minimalistic, modern, playful, or heroic. Or perhaps abstract, brutal, pixelated, or retro.
 
 And of course, your site is automatically [content-first](#), [pixel-perfect](#), and [motherf**king fast](#).
 
@@ -114,11 +113,11 @@ And of course, your site is automatically [content-first](#), [pixel-perfect](#)
 
 
 ## Built-in cloud services `DX` { #complete }
-A perfect SAAS template comes with integrated customer relationship management, billing,  and charging — along with unified analytics for traffic, people, and revenue.
+A perfect SAAS template comes with integrated customer relationship management, billing, and charging — along with unified analytics for traffic, people, and revenue.
 
 This pack of services is connected to a desired cloud storage and the generated single-page application becomes part of your project directory. It automatically inherits your look and feel and extreme performance characteristics.
 
-The best part: you can use this generic single-page app as a template for your customer-facing app.
+The best part: You can use this generic single-page app as a template for your customer-facing app.
 
 We're looking at the fastest way to start a new, fully functional business.
 

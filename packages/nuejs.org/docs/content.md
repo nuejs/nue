@@ -1,5 +1,4 @@
 
-
 # Content development
 Nue has a powerful content authoring syntax for marketers, copywriters, and technical writers. You can rapidly assemble complex web pages without ever touching a single line of code or the need to set up complex cloud-based content database systems—just simple versionable text files, directly accessible on your file system, and editable with your favorite editor.
 
@@ -18,12 +17,12 @@ Think Nue like **WordPress**, **Notion**, but the content is editable with your 
 
 
 ## Syntax
-Nue offers a full [Markdown support](//daringfireball.net/projects/markdown/). That is: all the familiar things like headings, quotes, lists, and fenced code blocks are supported:
+Nue offers a full [Markdown support](//daringfireball.net/projects/markdown/). That is: All the familiar things like headings, quotes, lists, and fenced code blocks are supported:
 
 
-``` md
+```md
 # First level heading
-A paragraph with **bold** and _italics_ and `inline code`
+A paragraph with **bold** and *italics* and `inline code`
 
 ![An image](/path/to/image.webp)
 
@@ -37,10 +36,10 @@ A paragraph with **bold** and _italics_ and `inline code`
 
 Followed with
 
-* An unordered
-* list of items
+- An unordered
+- list of items
 
-\```
+\```js
 // here is a javascript code block
 function hello() {
   return "world"
@@ -53,7 +52,7 @@ function hello() {
 You can pass optional [settings and metadata](settings.html) in the "front matter" section of the page. This is the first thing in your file between triple-dashed (`---`) lines taking a valid YAML format:
 
 
-``` yaml
+```yaml
 \---
 title: Page title
 desc: Page description for search engines
@@ -63,10 +62,10 @@ og: /img/hero-image.png
 
 
 ### Sections
-Just like books can be divided into chapters; your long-form articles and landing pages are often divided into sections. These sections are separated with three or more dash (`---`) or equals (`===`) characters
+Just like books can be divided into chapters, your long-form articles and landing pages are often divided into sections. These sections are separated with three or more dash (`---`) or equals (`===`) characters:
 
 
-``` yaml
+```yaml
 \---
 title: Page with sections
 \---
@@ -84,29 +83,29 @@ With another great subtitle
 ### Tags
 Nue comes with a set of [built-in tags](tags.html) for responsive images, videos, tables, code blocks, and more. The syntax takes the form of `[tagname]`. For example:
 
-```
+```md
 [video explainer.mp4]
 ```
 
-Tags are like WordPress shortcodes, but the syntax is simpler and less verbose.
+Tags are like WordPress short-codes, but the syntax is simpler and less verbose.
 
 
 ### Blocks
 Blocks are chunks of content with an alternate styling. Think of highlighted content like tips, notes, and alerts. The syntax takes the form of `[.classname]`. For example:
 
-``` md
+```md
 [.note]
   ### Content is king
   Web design is 100% content and 95% typography
 ```
 
-The "note" must be specified on your design system and the design should be implemented in the website CSS.
+The "note" class must be specified on your design system and the design should be implemented in the website's CSS.
 
 
 ### Stacks
 Block content can be divided into multi-block layouts where each item is separated with a triple-dash. For example:
 
-``` md
+```md
 [.stack]
   ## First item
   With content
@@ -123,7 +122,7 @@ Again, the name "stack" must be implemented in your website CSS by the UX develo
 [Grid](tags.html#grids) is a built-in tag used like the stack but is meant for more complex layouts. They have more configuration options and their visual appearance and behavior can be enhanced with JavaScript.
 
 
-``` md
+```md
 [grid]
   ## First item
   With content
@@ -142,7 +141,7 @@ Again, the name "stack" must be implemented in your website CSS by the UX develo
 Blocks, stacks, and grids can be nested to form more complex layouts on your richer marketing/landing pages:
 
 
-``` md
+```md
 [.feature]
   ## Hello, World!
   Let's put a nested stack here

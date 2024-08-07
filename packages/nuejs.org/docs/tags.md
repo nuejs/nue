@@ -6,7 +6,7 @@ Markdown extensions or "tags" allow content authors to create rich, interactive 
 ## Tag usage
 Tags are easy to read and write. They always start on a new line, with a square bracket, followed with a tag name and options. Let’s say we want to add a video, we would write something like this:
 
-``` md
+```md
 [video /videos/explainer.mp4]
 ```
 
@@ -16,7 +16,7 @@ Tags are easy to read and write. They always start on a new line, with a square 
 Tag options can be supplied in several ways:
 
 
-``` md
+```md
 // named options
 [image •src•="hello.png" •caption•="Hello, World" •alt•="Hello image"]
 
@@ -37,7 +37,7 @@ Tag options can be supplied in several ways:
 ### Nested content
 Most tags like images, buttons, tabs, and grids accept nested content:
 
-``` md
+```md
 [image explainer.png]
 | This nested content is the caption for the image.
 | You can add Markdown here like *emphasis* and `inline code`
@@ -51,32 +51,32 @@ Most tags like images, buttons, tabs, and grids accept nested content:
 ### Image
 Renders an image with optional caption. For example:
 
-``` md
+```md
 [image hello.webp]
 | This content here is the caption. Markdown *formatting* is supported
 ```
 
 Shortcut alias (!) is supported:
 
-``` md
+```md
 [! hello.webp]
 ```
 
 Images can link to URL's with `href` attribute:
 
-``` md
+```md
 [image book.svg href="/docs/" caption="View documentation"]
 ```
 
 [Art direction](//web.dev/articles/codelab-art-direction) is supported:
 
-``` md
+```md
 [image small="ui-tall.png" large="ui-wide.png" ]
 ```
 
 [Responsive images](//developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images) are supported
 
-``` md
+```md
 [image.heroic]
   srcset: planet.png 450w, planet-big.png 900w
   sizes: (max-width: 600px) 450px, 900px
@@ -113,7 +113,7 @@ Images can link to URL's with `href` attribute:
 ### Button
 Renders a button:
 
-``` md
+```md
 // with all options
 [button label="Learn more" href="/docs/"]
 
@@ -137,7 +137,7 @@ Renders a button:
 ### Table
 Renders an HTML table from the nested data:
 
-```
+```md
 [table "Name; Email; Work title"]
   - Alice Johnson   |  alice.johnson@demo.ai   |  Marketing Manager
   - John Smith      |  john.smith@demo.ai      |  Software Engineer
@@ -150,7 +150,7 @@ Renders an HTML table from the nested data:
 
 Another example with explicitly defined `head` and `items` attributes
 
-``` md
+```md
 [table]
   head:
     - Name
@@ -169,34 +169,34 @@ Another example with explicitly defined `head` and `items` attributes
 
   `head` table header items given as a YAML array or as a semicolon (";") or pipe ("|") separated string
 
-  `items` table body items where rows start with "-" (a YAML list item) and columns are separated with a semicolon (";") or pipe ("|") character. The items can also be given directly on the body like in the first example above.
+  `items` table body items where rows start with "-" (a YAML list item) and columns are separated with a semicolon (";") or pipe ("|") character. The items can also be given directly on the body like in the first example above
 
-  `wrapper` wraps the table inside a parent element with a class name specifeid on this property
+  `wrapper` wraps the table inside a parent element with a class name specified on this property
 
 
 
 ### Video
 Renders a video:
 
-``` md
+```md
 [video hello.mp4]
 ```
 
 Shortcut alias (!) is supported:
 
-``` md
+```md
 [! world.mp4 ]
 ```
 
 All standard HTML5 video attributes are supported
 
-``` md
+```md
 [image intro.mp4 autoplay controls muted loop ]
 ```
 
 Options given as YAML:
 
-``` md
+```md
 [video.heroic]
   sources: [ hello.webm, hello.mp4 ]
   poster: hello.png
@@ -207,7 +207,7 @@ Options given as YAML:
 [.options]
   #### [video] options
 
-  `autoplay` starts the video when the page is loaded. must be used together with
+  `autoplay` starts the video when the page is loaded. Must be used together with
 
   `muted` or the autoplay does not work on all browsers.
 
@@ -219,9 +219,9 @@ Options given as YAML:
 
   `poster` a URL for an image to be shown before the playback starts
 
-  `preload` a [hint to the browser][preload] on what to load prior playback
+  `preload` <span>a [hint to the browser][preload] on what to load prior playback</span>
 
-  `sources` a list of video files. the browser plays the first one it understands
+  `sources` a list of video files. The browser plays the first one it understands
 
   `src` a URL to the video file
 
@@ -233,7 +233,7 @@ Options given as YAML:
 ### Grid
 Renders a grid of items separated by a triple-dash
 
-``` md
+```md
 [grid]
   # First item
   [image first.png]
@@ -250,16 +250,16 @@ Renders a grid of items separated by a triple-dash
 [.options]
   #### [grid] options
 
-  `item_class` class name for the grid items. Typically set externally by the UX developer.
+  `item_class` class name for the grid items. Typically, set externally by the UX developer.
 
-  `item_component` web component name for the grid items. Typically set externally by the UX developer.
+  `item_component` web component name for the grid items. Typically, set externally by the UX developer.
 
 
 ### Tabs
 Render a [tabbed layout](//saadiam.medium.com/tabs-design-best-practices-8fafe936606f) for organizing the content into multiple panes where users can see one pane at a time:
 
 
-``` md
+```md
 [tabs "First tab | Second tab | Third tab"]
 
   ## First pane
@@ -279,17 +279,17 @@ Render a [tabbed layout](//saadiam.medium.com/tabs-design-best-practices-8fafe93
 
   `tabs` tab labels are separated with a semicolon (";") or pipe ("|") character. Can also be given as a plain value like in the above example.
 
-  `wrapper` wraps the tabs inside a parent element with a class name specifeid on this property
+  `wrapper` wraps the tabs inside a parent element with a class name specified on this property.
 
-  `key` optional key for "aria-controls" and "aria-labeled" attributes as specified on the [MDN documentation](//developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-controls#example)
+  `key` <span>optional key for "aria-controls" and "aria-labeled" attributes as specified on the [MDN documentation](//developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-controls#example).</span>
 
 
 
 ### Code
-Displays a syntax highligted code block with support for line numbers, captions, and wrapper elements:
+Displays a syntax highlighted code block with support for line numbers, captions, and wrapper elements:
 
 
-``` md
+```md
 [code.heroic numbered caption="Some JavaScript"]
 
   function something() {
@@ -304,7 +304,7 @@ Displays a syntax highligted code block with support for line numbers, captions,
 
   `language` the language of the nested code
 
-  `numbered` draws line numbers when enebled
+  `numbered` draws line numbers when enabled
 
 
 ### Special characters
@@ -341,7 +341,7 @@ Use bullet character (`•`) to highlight text regions within a line. The follow
 
 Is rendered as:
 
-```
+```md
 These •two words• are highlighted and ••these words•• are erroneous
 ```
 
@@ -350,7 +350,7 @@ These •two words• are highlighted and ••these words•• are erroneous
 ### Codeblocks
 Renders a single multi-code element where the blocks are separated with a triple-dash:
 
-``` md
+```md
 [codeblocks]
 
   <!-- first code block -->
@@ -365,7 +365,7 @@ Renders a single multi-code element where the blocks are separated with a triple
 [.options]
   #### [codeblocks] options
 
-  `numbered` draws line numbers when enebled
+  `numbered` draws line numbers when enabled
 
   `captions` list of captions for the individual blocks separated with ";" or "|"
 
@@ -379,7 +379,7 @@ Renders a single multi-code element where the blocks are separated with a triple
 Render a [tabbed layout](//saadiam.medium.com/tabs-design-best-practices-8fafe936606f) for organizing the code into multiple blocks where users can see one block at a time:
 
 
-``` md
+```md
 [codetabs "First | Second | Third" languages="js | html | css"]
 
   // First pane
@@ -399,11 +399,11 @@ Render a [tabbed layout](//saadiam.medium.com/tabs-design-best-practices-8fafe93
 [.options]
   #### [codetabs] options
 
-  `numbered` draws line numbers when enebled
+  `numbered` draws line numbers when enabled
 
   `captions` list of captions for the blocks separated with ";" or "|"
 
   `languages` list of languages for the blocks separated with ";" or "|"
 
-  `wrapper` creates a new parent element with a class name specifeid on this property
+  `wrapper` creates a new parent element with a class name specified on this property
 

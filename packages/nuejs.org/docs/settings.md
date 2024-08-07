@@ -1,14 +1,13 @@
-
 ---
 class: apidoc
 ---
 
 # Settings and metadata
-Nue has a [hierarchical system](project-structure.html#data) for settings and and configuration options. Here are all settings for Nue and your site, pages, and components.
+Nue has a [hierarchical system](project-structure.html#data) for settings and configuration options. Here are all settings for Nue and your site, pages, and components.
 
 
 ## Nue settings
-List of all Nue-specific configuration options in `site.yaml` file. These settings impact the system behaviour and are always global. That is: they cannot be overwritten in app or page level.
+List of all Nue-specific configuration options in `site.yaml` file. These settings impact the system behavior and are always global. That is: They cannot be overwritten in app or page level.
 
 
 ### dist
@@ -16,19 +15,19 @@ The output directory. The default is `.dist/dev` for the development version and
 
 
 ### globals
-Array of [global](site-structure.html#globals) directories. The scripts, styles, and components under global directories are automatically included on all your pages.
+Array of [global](project-structure.html#globals) directories. The scripts, styles, and components under global directories are automatically included on all your pages.
 
 ### hotreload
-Setting this to `false` disables [universal hot-reloading](hot-reloading.html). Hot-reloading is is enabled (`true`) by default.
+Setting this to `false` disables [universal hot-reloading](hot-reloading.html). Hot-reloading is enabled (`true`) by default.
 
 
 ### libs
-Array of directories that are treated as [libraries](site-structure.html#libraries) and used by the [include](#include) statement.
+Array of directories that are treated as [libraries](project-structure.html#libraries) and used by the [`include`](#include) statement.
 
 ### links
 List of reference links to be used in the Markdown content in the form of `[Link Label][link_reference]`. Links are supplied in `name: url` format. For example:
 
-```
+```yaml
 # name: url
 links:
   gds: //bradfrost.com/blog/post/a-global-design-system/
@@ -56,17 +55,17 @@ Setting this to `true` enables [view transitions](reactivity.html#view-transitio
 
 
 ## Site settings
-List of site-wide settings that impact your SEO data and other metadata inside your document `<head>` element. These are defined on your `site.yaml` but can be overwritten on area- and page level.
+List of site-wide settings that impact your SEO data and other metadata inside your document `<head>` element. These are defined on your `site.yaml` but can be overwritten on area and page level.
 
 
 ### base
-The value for HTML [<base>](//developer.mozilla.org/en-US/docs/Web/HTML/Element/base) attribute
+The value for HTML [`<base>`](//developer.mozilla.org/en-US/docs/Web/HTML/Element/base) attribute.
 
 ### charset
 The value of the charset meta tag. The default is "utf-8".
 
 ### direction
-The value of `<html direction="{ direction }">` attribute. The default is "ltr" (left to right)
+The value of `<html direction="{ direction }">` attribute. The default is "ltr" (left to right).
 
 ### favicon
 Relative path to your favicon that overrides the "favicon.ico" on the browser tab.
@@ -104,13 +103,13 @@ The [viewport](//developer.mozilla.org/en-US/docs/Web/HTML/Viewport_meta_tag) va
 Settings to define the global navigational elements on your page with a common [YAML-based syntax](page-layout.html#nav-syntax).
 
 ### header
-HTML layout for the global header
+HTML layout for the global header.
 
 ### footer
-HTML layout for the global footer
+HTML layout for the global footer.
 
 ### burger_menu
-HTML layout for the burger menu
+HTML layout for the burger menu.
 
 ### Disabling layouts {.no_api}
 You can [disable individual layouts](custom-layouts.html#disabling) for areas or individual pages with settings such as `banner: false` or `footer: false`.
@@ -150,10 +149,10 @@ Name of the application directory a page belongs to. For example, the root level
 
 
 ### author
-The author meta tag
+The author meta tag.
 
 ### class
-CSS class name for the body element
+CSS class name for the body element.
 
 
 ### content_collection
@@ -166,13 +165,13 @@ The name of the looped variable on the content collection. By default, this is t
 The publication date of the article. The content collections are sorted by this property. The most recent one listed as the first article.
 
 ### description
-The value for the description meta tag
+The value for the description meta tag.
 
 ### include
-A list of assets to be included from a [library directory](project-structure.html#libraries). These values are concatenated to  possible area-specific includes.
+A list of assets to be included from a [library directory](project-structure.html#libraries). These values are concatenated to possible area-specific includes.
 
 ### exclude
-A list of assets to be excluded from a [library directory](project-structure.html#libraries). These values are concatenated to  possible area-specific excludes.
+A list of assets to be excluded from a [library directory](project-structure.html#libraries). These values are concatenated to possible area-specific excludes.
 
 
 ### inline_css
@@ -186,7 +185,7 @@ Value for "robots" meta property. Use "noindex" to exclude the page from search 
 
 
 ### title
-The value of the `<title>` tag — the most important meta tag for SEO. By default this is the value of the Markdown `# Level one title` if not explicitly defined.
+The value of the `<title>` tag — the most important meta tag for SEO. By default, this is the value of the Markdown `# Level one title` if not explicitly defined.
 
 ### unlisted
 Do not include the page in content collections

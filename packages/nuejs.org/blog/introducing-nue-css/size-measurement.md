@@ -15,9 +15,9 @@ CSS size details for the [comparison graphs](.#size-graphs)
 
 [tailwind-table]
 
-* The sizes calculated by grabbing the code from [Tailwind Play](//play.tailwindcss.com/) and minifying it with [Lightning CSS](//lightningcss.dev/)
+- The sizes calculated by grabbing the code from [Tailwind Play](//play.tailwindcss.com/) and minifying it with [Lightning CSS](//lightningcss.dev/)
 
-* **DSL** refers to "domain specific language", which is the inline styling (utility classes + expressions) inside the class name attribute
+- **DSL** refers to "domain specific language", which is the inline styling (utility classes + expressions) inside the class name attribute
 
 
 

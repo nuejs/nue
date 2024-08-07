@@ -1,4 +1,3 @@
-
 ---
 title: Introducing Nuemark
 hero_title: "*Introducing Nuemark:* A Markdown dialect for rich, interactive content"
@@ -17,7 +16,7 @@ Today, I'm excited to release Nuemark — a Markdown-based text editing format f
 
 
 ### Content hot-reloading
-Nuemark is a standalone library that works under Bun, Node, and Deno. However, it is best served together with Nue and its s [universal hot-reloading](/docs/concepts/universal-hot-reloading.html) capability. Just edit your content freely and see the page shaping up in your browser in real time
+Nuemark is a standalone library that works under Bun, Node, and Deno. However, it is best served together with Nuekit and its [universal hot-reloading](/docs/hot-reloading.html) capability. Just edit your content freely and see the page shaping up in your browser in real time.
 
 [bunny-video.larger]
   videoId: 3bf8f658-185a-449c-93b9-9bd5e1ad0d05
@@ -26,11 +25,11 @@ Nuemark is a standalone library that works under Bun, Node, and Deno. However, i
 
 
 ## Manage content like a hacker { #hacker }
-Nuemark lets you manage content [like a hacker](//tom.preston-werner.com/2008/11/17/blogging-like-a-hacker) without the complexity of large systems like *WordPress* or *Contentful*. Instead, you'll approach content from a software development perspective: the content is stored in Git and you manage it with your preferred editor like *VS Code* or *Sublime Text*.
+Nuemark lets you manage content [like a hacker](//tom.preston-werner.com/2008/11/17/blogging-like-a-hacker) without the complexity of large systems like *WordPress* or *Contentful*. Instead, you'll approach content from a software development perspective: The content is stored in Git and you manage it with your preferred editor like *VS Code* or *Sublime Text*.
 
-Nuemark is designed for content creation. It's a simple, concise syntax that is easy to learn. It's pure content with no HTML, CSS, or JavaScript so it's hard to break things up.
+Nuemark is designed for content creation. It's a simple, concise syntax that is easy to learn. It is pure content, with no HTML, CSS, or JavaScript, so it's hard to break things.
 
-``` md
+```md
 [.stack]
   # Content is king
   Web design is 100% content and 95% typography
@@ -47,7 +46,7 @@ Nuemark is designed for content creation. It's a simple, concise syntax that is 
   caption: The content after applying some context-specific styling
 
 
-With Nuemark, you start with pure content: text, images, and videos and only then move into layout and design. By starting with a content-first mindset, you will ensure that the page design evolves to support what's inside it. Not the other way around.
+With Nuemark, you start with pure content: Text, images, and videos and only then move into layout and design. By starting with a content-first mindset, you will ensure that the page design evolves to support what's inside it. Not the other way around.
 
 
 
@@ -63,7 +62,7 @@ Nuemark comes with a set of built-in components, which aim to tackle the most co
 
 
 ### Decoupled design
-All these components or "tags" are _headless_ — meaning that there are no inline styling, CSS modules, or utility classes to impact their appearance. There is only one, semantic class name on the root element of the component, which _names_ the component. Otherwise, the components are _classless_ and consist purely of semantic HTML elements.
+All these components or "tags" are *headless* — meaning that there are no inline styling, CSS modules, or utility classes to impact their appearance. There is only one, semantic class name on the root element of the component, which *names* the component. Otherwise, the components are *classless* and consist purely of semantic HTML elements.
 
 The semantic approach means that you can customize the look and feel of your components so that they look just right in the given context. For example, a tabbed layout may look completely different on your front page compared to what it looks like on the documentation area:
 
@@ -73,17 +72,14 @@ The semantic approach means that you can customize the look and feel of your com
   caption: Same component, different CSS module
   width: 500
 
-
 This sort of content-first approach brings the legendary [CSS Zen Garden](//www.csszengarden.com/) back to the game. When your components always have the same structure you can re-use your CSS across your pages, apps, websites, and projects.
 
-
-
 ## Driven by Web Components
-Some components are _isomorphic_ meaning that the content is rendered on the server side for search engines and the behavior of the component is spiced up with with client-side JavaScript.
+Some components are *isomorphic* meaning that the content is rendered on the server side for search engines and the behavior of the component is spiced up with client-side JavaScript.
 
 Nuemark uses the standard [`is` attribute](//developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/is) to tell the browser that a particular HTML structure should be spiced up with a Web Component. For example, the `[tabs]` component is implemented as follows:
 
-```
+```js
 // implementation
 class Tabs extends HTMLElement {
   constructor() {
@@ -101,7 +97,7 @@ This is a modern/standard way to implement [progressive enhancement](//developer
 ### Build your own tags
 You can extend Nuemark with custom tags. Any JavaScript object with a `name` property and `render()` method is a legit Nuemark component. Here's a dummy TSX example:
 
-```
+```tsx
 export function MyAlert(props: { color: string, message: string }) {
   return (
     <p style={{ color: color || 'red' }}>{ props.message }</p>
@@ -111,7 +107,7 @@ export function MyAlert(props: { color: string, message: string }) {
 
 And here's the same with [Nue template syntax](/docs/template-syntax.html)
 
-```
+```html
 <p @name="my-alert" style="color:{ color || 'red' };">{ message }</p>
 ```
 
@@ -127,7 +123,7 @@ Nuemark is an ideal choice for static site generators and flat-file systems.
 ### Try now
 [Bun](//bun.sh) is the recommended engine for Nuemark:
 
-``` sh
+```sh
 # Install Bun (if not done yet)
 curl -fsSL https://bun.sh/install | bash
 

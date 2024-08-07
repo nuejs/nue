@@ -1,7 +1,7 @@
 
 # Contributing to Nue
 
-First and foremost: thank you for helping with Nue! ❤️❤️
+First and foremost: Thank you for helping with Nue! ❤️❤️
 
 
 ### Guidelines
@@ -12,9 +12,9 @@ First and foremost: thank you for helping with Nue! ❤️❤️
 
 3. Please create only one thing per pull request. Easier to validate and merge. And less potential for conflicts.
 
-3. Please add a test case for every bug fix
+4. Please add a test case for every bug fix.
 
-3. Please write JavaScript. No TypeScript here, because Nue aims to work as close to web standards as possible.
+5. Please write JavaScript. No TypeScript here, because Nue aims to work as close to web standards as possible.
 
 
 ### Formatting
