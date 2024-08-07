@@ -121,6 +121,7 @@ const KEY_ALIAS = {
   delete: ['backspace'],
   esc: ['escape'],
   space: [' ', 'spacebar', 'space bar'],
+  tab: ['tab'],
   up: ['arrowup'],
   down: ['arrowdown'],
   left: ['arrowleft'],
