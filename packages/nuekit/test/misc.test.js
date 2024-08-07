@@ -43,7 +43,7 @@ test('path parts', () => {
   const parts = parsePathParts('docs/glossary/semantic-css.md')
   expect(parts.url).toBe('/docs/glossary/semantic-css.html')
   expect(parts.dir).toMatchPath('docs/glossary')
-  expect(parts.appdir).toMatchPath('docs')
+  expect(parts.basedir).toMatchPath('docs')
   expect(parts.slug).toBe('semantic-css.html')
 })
 

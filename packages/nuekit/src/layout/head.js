@@ -3,6 +3,12 @@ import { elem, } from 'nuemark/src/tags.js'
 import { TYPES } from '../nueserver.js'
 import { extname } from 'node:path'
 
+
+function getMime(path) {
+  const ext = extname(path).slice(1)
+  return TYPES[ext] || ''
+}
+
 export function renderHead(data) {
   const {
     version     = data.nuekit_version,
@@ -52,7 +58,7 @@ export function renderHead(data) {
   pushMeta('nue:components', components.map(uri => `${base}${uri}`).join(' ') || ' ')
 
   // misc
-  if (favicon) head.push(`<link rel="icon" type="${TYPES[extname(favicon).slice(1)]}" href="${favicon}">`)
+  if (favicon) head.push(`<link rel="icon" type="${getMime(favicon)}" href="${favicon}">`)
 
   // inline style
   if (is_prod) {
@@ -71,7 +77,10 @@ export function renderHead(data) {
   scripts.forEach(src => head.push(`<script src="${base}${src}" type="module"></script>`))
 
   // CSS prefetch
-  prefetch.forEach(href => head.push(`<link rel="prefetch" href="${base}${href}">`))
+  prefetch.forEach(href => {
+    const is_image = getMime(href).startsWith('image')
+    head.push(`<link href="${base}${href}" ${is_image ? 'rel="preload" as="image"' : 'rel="prefetch"'}>`)
+  })
 
 
   return head.join('\n')

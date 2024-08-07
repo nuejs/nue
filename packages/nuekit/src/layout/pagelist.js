@@ -54,6 +54,6 @@ export function renderPageList(data) {
   }
 
   const items = data[key]
-  const pages = items.filter(el => !el.draft && (el.date || el.pubDate)).map(renderPage)
+  const pages = items.filter(el => !el.unlisted).map(renderPage)
   return elem('ul', join(pages))
 }

@@ -81,6 +81,9 @@ The value of `<html lang="{ language }">` attribute. The default is "en". You mi
 ### origin
 Your full domain name including the protocol. For example: `"https://emmabennet.co"`. Nue uses this value to prefix the `og` property and later in RSS files.
 
+### prefetch
+Array of assets to prefetch before using them. These can be images, scripts, or CSS files.
+
 ### robots
 Value for "robots" meta property. Use "noindex" to exclude the whole website from search engines.
 
@@ -184,3 +187,7 @@ Value for "robots" meta property. Use "noindex" to exclude the page from search 
 
 ### title
 The value of the `<title>` tag — the most important meta tag for SEO. By default this is the value of the Markdown `# Level one title` if not explicitly defined.
+
+### unlisted
+Do not include the page in content collections.
+
