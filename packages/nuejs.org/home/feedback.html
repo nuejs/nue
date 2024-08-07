@@ -1,14 +1,14 @@
 
 <ul @name="feedback" class="feedback">
   <li :for="el in feedback" class="card from-{ el.from || 'x' }">
-    <a :if="el.user" href="//{ el.url || getUrl(el) }">@{ el.user }</a>
+    <a :if="el.user" href="{ el.url || getUrl(el) }">@{ el.user }</a>
     <a :else href="#status">Feedback</a>
     <p>{ el.text }</p>
   </li>
   <script>
     getUrl({ url, user, id, from }) {
-      return from == 'hn' ? `news.ycombinator.com/item?id=${id}` :
-        `twitter.com/${user}/status/${id}`
+      return from == 'hn' ? `//news.ycombinator.com/item?id=${id}` :
+        `//twitter.com/${user}/status/${id}`
     }
   </script>
 </ul>
