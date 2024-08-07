@@ -1,4 +1,3 @@
-
 ---
 section_classes: [hero, feature-area, project-status]
 section_component: scroll-transition
@@ -29,7 +28,6 @@ What used to take a separate designer, React engineer, and an absurd amount of J
 
 
 [.features]
-
   ### Rapid UX development
   No JavaScript ecosystem in your way
 

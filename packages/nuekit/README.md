@@ -1,5 +1,4 @@
 
-
 # Nue &nbsp;[![test](https://github.com/nuejs/nue/actions/workflows/test.yaml/badge.svg?branch=master)](https://github.com/nuejs/nue/actions/workflows/test.yaml)
 
 <a href="https://nuejs.org/">
@@ -32,7 +31,7 @@ Ultimately Nue will be a ridiculously simpler alternative to **Next.js**, **Gats
 
 ### Contributing
 
-Please see [contributing.md](/CONTRIBUTING.md)
+Please see [CONTRIBUTING.md](/CONTRIBUTING.md)
 
 
 ### Community

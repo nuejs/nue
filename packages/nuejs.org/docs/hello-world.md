@@ -1,12 +1,11 @@
 
-
 # Hello, World!
 In this tutorial, you’ll see some Nue's key features by building a fully functioning blog from scratch.
 
 [image]
   small: /img/simple-blog.png
   large: /img/simple-blog-big.png
-  href: /@simple-blog
+  href: /@simple-blog # TODO: fix
   caption: The final result of this tutorial
 
 
@@ -15,7 +14,7 @@ In this tutorial, you’ll see some Nue's key features by building a fully funct
 First, we create a folder for our project and add a page in there.
 Type the following in your terminal:
 
-``` sh
+```sh
 # create a folder for the project
 mkdir simple-blog
 
@@ -28,7 +27,7 @@ echo '# Hello, World!' > index.md
 
 Great. Our first Nue application is ready. You can run it by running `nue` inside the directory:
 
-```
+```sh
 # Start nue in "watch" mode
 nue
 ```
@@ -44,7 +43,7 @@ Open `http://localhost:8080/` with your browser and you'll see this:
 ### HTML source
 Let's view the source code of that page at `view-source:http://localhost:8080/`
 
-```
+```html
 <!DOCTYPE html>
 
 <html lang="en" dir="ltr">
@@ -70,14 +69,14 @@ The nicest thing, however, is the "hotreload.js" module, which is the key benefi
 Let's add a new file to our project folder called "blog.css", which will take care of the styling:
 
 
-``` sh
+```sh
 # add a CSS file
 touch blog.css
 ```
 
 Nue automatically adds the following line to the HTML without the need to reload your page:
 
-```
+```html
 <link href="/blog.css" rel="stylesheet">
 ```
 
@@ -91,7 +90,7 @@ Instead of making a full reload, Nue uses a technique called **DOM diffing** to 
 ### Frontmatter
 Next, we add some metadata for the page for SEO and social sharing purposes. We do this by adding a so-called "front matter" at the beginning of our Markdown page. This is a YAML-formatted section with human-readable key/value pairs:
 
-``` nuemark
+```md
 \---
 title: "Hello, World!"
 description: "Just playing with with hot-reloading"
@@ -121,7 +120,7 @@ Next we turn our blog into something more usable.
 We start by creating a [custom layout file](custom-layouts.html) called `layout.html` and add our global header and footer to it:
 
 
-```
+```html
 <!-- global header -->
 <header>
   <a href="/"><img :src="avatar"></a>
@@ -144,7 +143,7 @@ We start by creating a [custom layout file](custom-layouts.html) called `layout.
 We then add a data file named `site.yaml`, containing all the site-wide data, to populate our personal information and other essential details used in the header and footer:
 
 
-``` yaml
+```yaml
 # shared data for all pages
 fullname: Emma Bennet
 slogan: Less is More
@@ -171,7 +170,7 @@ You can see your page headers and footers update in your browser as you edit the
 ### Add page layout
 Next, we add a `<main>` element to the layout file to render the "hero" section for our blog entries. This element will pull data from the front matter of the Markdown pages. If no data is provided there, it will default to the information in the `site.yaml` file.
 
-```
+```html
 <!-- in layout.html: -->
 <main>
 
@@ -212,7 +211,7 @@ Pretty good. Of course, hot-reloading was there to provide a great content autho
 ### Create a blog index
 Next, we move all our pages to the `posts` folder to make room for our new front page, which lists all our entries from newest to latest. Nue treats the `posts` directory as a separate *multi-page application* that can be configured with its own layout and styling.
 
-We also add a new `global` folder to hold all our global components and styles. The root directory has assets for the front page only, and the posts directory has assets for our blog entries only. Here's what our folder structure looks like:
+We also add a new `global` folder to hold all our global components and styles. The root directory has assets for the front page only, and the `posts` directory has assets for our blog entries only. Here's what our folder structure looks like:
 
 [image.gridpaper]
   small: /img/blog-dirs.png
@@ -227,14 +226,14 @@ Here's our new front page/index.md:
   |content_collection: posts
   \---
 
-   # Minimalist, UX engineer, designer, urban explorer.
-   I’m Emma Bennett, a user experience designer and developer from Berlin.
-   Here are my thoughts on design, UX engineering, and product thinking.
+  # Minimalist, UX engineer, designer, urban explorer.
+  I’m Emma Bennett, a user experience designer and developer from Berlin.
+  Here are my thoughts on design, UX engineering, and product thinking.
 
 
-The page is configured with a new [content collection](content-collections.html) option to hold information on all our pages in the `posts`- folder. We use this information to render the posts in our updated `layout.html` file:
+The page is configured with a new [content collection](content-collections.html) option to hold information on all our pages in the `posts` folder. We use this information to render the posts in our updated `layout.html` file:
 
-```
+```html
 <!-- front page main layout -->
 <main>
   <!-- slot for the Markdown content -->
@@ -279,7 +278,7 @@ Next, we add an interactive feedback component that can be opened from a chat ic
 
 Interactive components are created with the same kind of HTML-based template language that is used for defining the server-side layouts:
 
-```
+```html
 <!-- file: feedback.nue -->
 
 <dialog @name="feedback-dialog">
@@ -323,7 +322,7 @@ Interactive components are created with the same kind of HTML-based template lan
 ### Add dialog launcher
 Then we add the component to the footer and add a trigger element that opens up the dialog:
 
-```
+```html
 <!-- file: ./layout.html -->
 
 <footer>
@@ -352,7 +351,7 @@ Our blog is now ready. It's time to build a minified production version:
 
 We can also preview the production version at `http://localhost:8081`
 
-``` sh
+```sh
 nue serve --production
 ```
 

@@ -1,4 +1,3 @@
-
 ---
 title: Introducing Glow
 hero_title: "*Introducing Glow:* Beautiful, pixel-perfect Markdown code blocks"
@@ -14,14 +13,14 @@ Today we're launching *Glow* — a new take on syntax highlighting:
   small: /img/glow-og.png
   large: /img/glow-og-big.png
   caption: 30+ languages colored. Click the image for a standalone view.
-  href: /glow-demo/
+  href: /glow-demo/ # TODO: fix
 
 
 *Glow is different*: Instead of attempting to understand language internals, Glow focuses solely on aesthetics and how your code looks.
 
-*Glow is simple:* Glow makes all languages work with your brand colors by adjusting just a handful of CSS variables.
+*Glow is simple*: Glow makes all languages work with your brand colors by adjusting just a handful of CSS variables.
 
-*Glow is small*. Glow is orders of magnitude smaller than the mainstream alternatives. We're talking [5K](//pkg-size.dev/nue-glow) instead of [5M](//pkg-size.dev/shiki). It's by far the smallest implementation available.
+*Glow is small*: Glow is orders of magnitude smaller than the mainstream alternatives. We're talking [5K](//pkg-size.dev/nue-glow) instead of [5M](//pkg-size.dev/shiki). It's by far the smallest implementation available.
 
 
 [image.tall]
@@ -49,7 +48,7 @@ Contrast this to grammar-aware highlighters like *Shiki*, where it's a large pro
 ## Easy brand coloring
 If you look at the most recognizable brands on the internet, you'll notice that 80% of them are based on a single [brand color](//blog.hubspot.com/marketing/brand-colors). It is often coupled with a secondary color and a complementary accent color. This is exactly how Glow works. You can make the code blocks compatible with your brand just by adjusting a handful of CSS variables:
 
-``` .blue
+```css.blue
 /* brand-aware CSS variables*/
 :root {
   --glow-primary-color: #7dd3fc;
@@ -68,7 +67,7 @@ Contrast this to grammar-aware theming systems, like Shiki and *Prism*, where a 
 
 
 ## Unlimited possibilities
-Glow's unique, [classless design system](/docs/concepts/syntax-highlighting.html#system) gives you line numbers, selections, error highlights, insertions, deletions, and much much more.
+Glow's unique, [classless design system](/docs/syntax-highlighting.html#html-markup) gives you line numbers, selections, error highlights, insertions, deletions, and much much more.
 
 [code.is-dark.browser-like wrapper="gradient sky" numbered="true"]
   <script>
@@ -226,7 +225,7 @@ You can try Glow either as a standalone library or together with the Nue framewo
 #### Standalone library
 Install [nue-glow](//github.com/nuejs/nue/tree/master/packages/glow) with npm, pnpm, or bun:
 
-``` sh
+```sh
 npm i nue-glow
 ```
 
@@ -239,7 +238,7 @@ Nue has built-in support for Glow in markdown fenced code blocks and it offers [
 
 You try out the tags as follows:
 
-``` sh
+```sh
 # Install Bun (if not done yet)
 curl -fsSL https://bun.sh/install | bash
 
@@ -258,7 +257,7 @@ Choose *"Simple blog"* on the last step and you can enjoy goodies content hot-re
   poster: thumbnail_1ca1bd66.jpg
 
 
-ps: Check out [Getting started docs](/docs/#node) if you prefer Node.
+PS: Check out [Getting started docs](/docs/#node) if you prefer Node.
 
 
 
