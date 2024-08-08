@@ -30,7 +30,14 @@
 		"bun": ">= 1",
 		"node": ">= 18"
 	},
-  "devDependencies": {
-    "@happy-dom/global-registrator": "^14.7.1"
-  }
+	"devDependencies": {
+		"@happy-dom/global-registrator": "^14.7.1"
+	},
+	"jest": {
+		"setupFilesAfterEnv": [
+			"jest-extended/all",
+			"<rootDir>/../../setup-jest.js",
+			"<rootDir>/../../happydom.js"
+		]
+	}
 }
