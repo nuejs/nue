@@ -2,6 +2,7 @@
   "name": "nue",
   "version": "0.0.0",
   "license": "MIT",
+  "type": "module",
   "private": true,
   "workspaces": [
     "packages/*"
@@ -12,7 +13,9 @@
   },
   "jest": {
     "setupFilesAfterEnv": [
-      "jest-extended/all"
+      "jest-extended/all",
+      "<rootDir>/setup-jest.js",
+      "<rootDir>/setup-happydom.js"
     ]
   }
 }

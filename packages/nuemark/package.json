@@ -15,5 +15,11 @@
     "js-yaml": "^4.1.0",
     "marked": "^13.0.3",
     "nue-glow": "*"
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "jest-extended/all",
+      "<rootDir>/../../setup-jest.js"
+    ]
   }
 }

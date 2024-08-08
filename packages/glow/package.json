@@ -17,5 +17,11 @@
   },
   "devDependencies": {
     "lightningcss": "^1.26.0"
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "jest-extended/all",
+      "<rootDir>/../../setup-jest.js"
+    ]
   }
 }

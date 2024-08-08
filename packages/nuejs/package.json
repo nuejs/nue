@@ -21,5 +21,11 @@
   },
   "dependencies": {
     "htmlparser2": "^9.1.0"
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "jest-extended/all",
+      "<rootDir>/../../setup-jest.js"
+    ]
   }
 }
