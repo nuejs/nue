@@ -202,11 +202,6 @@ if (is_browser) {
   })
 }
 
-addEventListener("DOMContentLoaded", () => {
-  dispatchEvent(new Event('route'))
-})
-
-
 
 /* -------- utilities ---------- */
 
