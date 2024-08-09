@@ -14,7 +14,7 @@
 		"nue": "./src/cli.js"
 	},
 	"scripts": {
-		"test": "cd test && bun test"
+		"test": "node --experimental-vm-modules ../../node_modules/jest/bin/jest.js --runInBand"
 	},
 	"dependencies": {
 		"diff-dom": "^5.0.6",
