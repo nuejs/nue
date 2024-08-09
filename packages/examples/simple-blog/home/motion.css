@@ -1,0 +1,17 @@
+
+/* motion setup */
+header, h1, h1 + p, ul {
+  transition: opacity .5s, filter .7s;
+  filter: none;
+  opacity: 1;
+
+  @starting-style {
+    filter: blur(10px);
+    opacity: 0;
+  }
+}
+
+/* apply motion in sequence */
+h1      { transition-delay: .1s }
+h1 + p  { transition-delay: .2s }
+ul      { transition-delay: .3s }

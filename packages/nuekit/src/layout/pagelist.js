@@ -25,23 +25,25 @@ export function renderPrettyDate(date) {
 }
 
 
-export function renderPage(page) {
-  const { title, desc, url } = page
+export function renderListItem(page) {
+  const { title, desc, url, thumb } = page
 
   // date
   let date = page.date || page.pubDate || new Date()
   if (!date.getDate) date = new Date(date)
 
-  const is_new = isNew(date)
-  const time = renderPrettyDate(date)
+  const time = date ? renderPrettyDate(date) : ''
+  const h2 = title ? elem('h2', renderInline(title)) : ''
+  const p = desc ? elem('p', renderInline(desc)) : ''
 
+  const body = !thumb ? time + elem('a', { href: url }, h2 + p) :
 
-  const body = elem('a', { href: url }, join([
-    elem('h2', title ? renderInline(title) : ''),
-    elem('p', desc ? renderInline(desc) : ''),
-  ]))
+    // figure
+    elem('a', { href: url }, elem('figure',
+      elem('img', { src: thumb, loading: 'lazy' }) + elem('figcaption', time + h2 + p))
+  )
 
-  return elem('li', { class: is_new && 'is-new' }, time + body)
+  return elem('li', { class: isNew(date) && 'is-new' }, body)
 }
 
 
@@ -54,6 +56,6 @@ export function renderPageList(data) {
   }
 
   const items = data[key]
-  const pages = items.filter(el => !el.unlisted).map(renderPage)
+  const pages = items.filter(el => !el.unlisted).map(renderListItem)
   return elem('ul', join(pages))
 }

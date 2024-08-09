@@ -83,6 +83,7 @@ export function renderMarkdown(md, links) {
     const { href, title='' } = links[key]
     md.push(`[${key}]: ${href} "${title}"`)
   }
+
   return marked.parse(join(md))
 }
 

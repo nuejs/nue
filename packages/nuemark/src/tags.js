@@ -253,6 +253,7 @@ function toArray(items) {
 }
 
 export function join(els, separ='\n') {
+  // do not filter away empty lines (.filter(el => !!el))
   return els?.join ? els.join(separ) : els
 }
 

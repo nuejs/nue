@@ -1,6 +1,6 @@
 
 // content collection rendering
-import { renderPage } from '../src/layout/pagelist.js'
+import { renderListItem } from '../src/layout/pagelist.js'
 
 import { renderHead } from '../src/layout/head.js'
 
@@ -15,10 +15,10 @@ import {
 } from '../src/layout/navi.js'
 
 
-test('render page', () => {
-  const html = renderPage({
-    title: 'Yo',
+test('pagelist: render single page', () => {
+  const html = renderListItem({
     desc: 'Wassup *bro*',
+    title: 'Yo',
     url: '/bruh/'
   })
 
@@ -26,6 +26,14 @@ test('render page', () => {
   expect(html).toInclude('<a href="/bruh/"><h2>Yo</h2>')
   expect(html).toEndWith('<p>Wassup <em>bro</em></p></a></li>')
 })
+
+
+test('pagelist: render page with a thumb', () => {
+  const html = renderListItem({ title: 'Yo', thumb: 'thumb.png', url: '/' })
+  expect(html).toStartWith('<li class="is-new"><a href="/"><figure><img')
+  expect(html).toEndWith('</figure></a></li>')
+})
+
 
 test('<head>', () => {
   const head = renderHead({ charset: 'foo', title: 'Hey' })
@@ -41,46 +49,62 @@ test('prefetch', () => {
   expect(head).toInclude('<link href="foo.css" rel="prefetch">')
 })
 
-test('navi class', () => {
+
+/***** Navigation tests ****/
+
+
+test('navi: class shortcut', () => {
   expect(parseClass('/foo "bar"')).toEqual({ url: "/foo", class: "bar" })
 })
 
-test('navi string', () => {
-  expect(parseNavItem('FAQ')).toEqual({ label: "FAQ", url: "" })
+test('navi: plain string', () => {
+  expect(parseNavItem('FAQ')).toEqual({ text: "FAQ", url: "" })
   expect(parseNavItem('---')).toEqual({ separator: '---' })
 })
 
-test('navi object', () => {
-  expect(parseNavItem({ FAQ: '/en/faq' })).toEqual({ label: "FAQ", url: "/en/faq" })
-  expect(parseNavItem({ FAQ: { foo: 1, bar: 'baz' }})).toEqual({ label: "FAQ", foo: 1, bar: 'baz' })
+test('navi: object', () => {
+  expect(parseNavItem({ FAQ: '/en/faq' })).toEqual({ text: "FAQ", url: "/en/faq" })
+  expect(parseNavItem({ FAQ: { foo: 1, bar: 'baz' }})).toEqual({ text: "FAQ", foo: 1, bar: 'baz' })
 })
 
-test('navi array', () => {
+test('navi: array', () => {
   const item = parseNavItem({ Company: ['About', 'Blog'] })
 
-  expect(item.label).toBe('Company')
+  expect(item.text).toBe('Company')
 
   expect(item.items).toEqual([
-    { label: "About", url: "", },
-    { label: "Blog", url: "", }
+    { text: "About", url: "", },
+    { text: "Blog", url: "", }
   ])
 })
 
 test('render item', () => {
-  const item = { label: 'FAQ', url: '/faq' }
+  const item = { text: 'FAQ', url: '/faq' }
   expect(renderNavItem(item)).toBe('<a href="/faq">FAQ</a>')
 })
 
-test('navi image', () => {
+test('render image', () => {
   const item = { url: '/foo', image: 'book.jpg', size: '1 x 1' }
   const html = renderNavItem(item)
   expect(html).toBe('<a href="/foo"><img src="book.jpg" width="1" height="1"></a>')
 })
 
 
-test('render label', () => {
-  const el = renderNavItem({ label: 'Yo, *rap*' })
-  expect(el).toBe('<p>Yo, <em>rap</em></p>')
+test('render text', () => {
+  const el = renderNavItem({ text: 'Yo, *rap*' })
+  expect(el).toBe('<span>Yo, <em>rap</em></span>')
+})
+
+test('navi: render text and image', () => {
+  const el = renderNavItem({ text: 'Adam', image: 'adam.jpg' })
+  expect(el).toStartWith('<span><img src="adam.jpg">')
+  expect(el).toEndWith('<strong>Adam</strong></span>')
+})
+
+test('navi: render url, text, image', () => {
+  const el = renderNavItem({ url: '/', text: 'Adam', image: 'adam.jpg' })
+  expect(el).toStartWith('<a href="/"><img')
+  // expect(el).toEndWith('<span>Adam</span></span>')
 })
 
 

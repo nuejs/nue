@@ -430,6 +430,12 @@ test('parseComponent', () => {
 
 })
 
+
+test('blockquotes', () => {
+  const { html } = renderLines(['> hey', '', 'joe'])
+  expect(html).toInclude('</blockquote>\n<p>joe</p>')
+})
+
 /*
   Required:
   bun add react

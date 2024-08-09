@@ -1,35 +1,31 @@
 
 
 # Hello, World!
-In this tutorial, you’ll see some Nue's key features by building a fully functioning blog from scratch.
+In this tutorial, you’ll see some Nue's key features by building a blogging site from scratch.
 
 [image]
   small: /img/simple-blog.png
   large: /img/simple-blog-big.png
   href: /@simple-blog
   caption: The final result of this tutorial
+  size: 749 × 491 px
 
 
 
-## Create your first page
-First, we create a folder for our project and add a page in there.
-Type the following in your terminal:
+## Landing page
+First, create a landing page for you blog by typing the following in your terminal:
 
 ``` sh
-# create a folder for the project
-mkdir simple-blog
+# enter the directory
+mkdir simple-blog && cd $_
 
-# go to the directory
-cd simple-blog
-
-# create the first page
 echo '# Hello, World!' > index.md
 ```
 
-Great. Our first Nue application is ready. You can run it by running `nue` inside the directory:
+This is enough to create a Nue website. You can launch it with `nue` command:
 
-```
-# Start nue in "watch" mode
+``` sh
+# Start Nue in watch- mode
 nue
 ```
 
@@ -38,10 +34,13 @@ Open `http://localhost:8080/` with your browser and you'll see this:
 [image]
   small: /img/hello-world.png
   large: /img/hello-world-big.png
-  width: 600
+  size: 400 × 215 px
 
 
-### HTML source
+Congratulations! Your first Nue application is now running.
+
+
+## Page layout
 Let's view the source code of that page at `view-source:http://localhost:8080/`
 
 ```
@@ -50,25 +49,87 @@ Let's view the source code of that page at `view-source:http://localhost:8080/`
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Hello, World!</title>
+    <title Hello, World!</title>
+    <meta name="date.updated" content="2024-08-06">
     <meta name="viewport" content="width=device-width,initial-scale=1">
->   <script src="/@nue/hotreload.js" type="module"></script>
+    <script src="/@nue/hotreload.js" type="module"></script>
   </head>
 
   <body>
-    <h1>Hello, World!</h1>
+    <main>
+      <article>
+        <section>
+>         <h1>Hello, World!</h1>
+        </section>
+      </article>
+    </main>
   </body>
 </html>
 ```
 
-Nue auto-generates the HTML skeleton, with basic meta tags and the page title, which is automatically parsed from the Markdown content.
+Nue automatically generates the HTML markup. The head head section has the basic meta tags including the page title, which is automatically parsed from the Markdown content.
 
-The nicest thing, however, is the "hotreload.js" module, which is the key benefit of choosing Nue for your web development environment.
+The more interesting thing is the page body, which is laid down according to a [global design system](global-design-system.html), which is essentially a standardized page layout that is externally styled. But more about that later.
 
 
-### Hot-reloading
-Let's add a new file to our project folder called "blog.css", which will take care of the styling:
+## Hot-reloading
+One of the most unique features of Nue is [universal hot-reloading](hot-reloading.html), that automatically updates your browser as you edit your content, styling, layout, data files or reactive components. This is enabled by the `hotreload.js` script, which is automatically added on the page on development mode.
 
+```
+<script src="/@nue/hotreload.js" type="module"></script>
+```
+
+You can see how itLet's see how it works by updating the title
+
+Now, as you edit either of your in your text editor you can see the browser magically morphing with your changes. Instead of making a full reload, Nue uses a technique called **DOM diffing** to only update the parts on the page that have changed.
+
+
+
+
+
+## Global header
+adding a [settings file](settings.html) called `site.yaml` to our project with the following data:
+
+
+```
+# global header
+header:
+  myself:
+    - image: /img/avatar.jpg
+      text: Emma Bennet
+      size: 40 × 40
+      href: /
+```
+
+And the following header the first element under the body tag:
+
+```
+<header>
+  <nav aria-label="myself">
+    <a href="/">
+      <img src="/img/avatar.jpg" width="40" height="40">
+      <span>Emma Bennet</span>
+    </a>
+  </nav>
+
+  <nav aria-label="social">
+    <a href="email:emma@bennet.co">
+      <img src="/img/email.svg" width="20" height="20" alt="Email icon">
+    </a>
+    <a href="//github.com/nuejs/">
+      <img src="/img/github.svg" width="20" height="20" alt="Github logo">
+    </a>
+  </nav>
+</header>
+```
+
+ files (index.md or site.yaml)
+
+
+
+
+
+### Styling
 
 ``` sh
 # add a CSS file
@@ -81,11 +142,8 @@ Nue automatically adds the following line to the HTML without the need to reload
 <link href="/blog.css" rel="stylesheet">
 ```
 
-Now, as you edit either of your files (blog.css or index.md) in your text editor you can see the browser magically morphing with your changes.
 
-// TODO: video: completing the page the first page
 
-Instead of making a full reload, Nue uses a technique called **DOM diffing** to only update the parts on the page that have changed. Be it the content, metadata, styling, global headers and footers, page layouts or reactive components.
 
 
 ### Frontmatter
@@ -94,13 +152,36 @@ Next, we add some metadata for the page for SEO and social sharing purposes. We 
 ``` nuemark
 \---
 title: "Hello, World!"
-description: "Just playing with with hot-reloading"
+desc: "Just playing with with hot-reloading"
 \---
 
 # Hello, World!
 ```
 
 Again, as you edit the metadata you can see your page title change in the browser tab.
+
+
+
+```
+# general settings
+title_template: "Emma Bennet / %s"
+desc: UX development blog
+```
+
+This would automatically add the following two entries to your meta tag
+
+```
+<head>>
+- <title>Hello, World!</title>
++ <title>Emma Bennet / Hello, World!</title>
++ <meta name="description" content="UX development blog">
+  ...
+</head>
+```
+
+Again, the hot-reloading would detecth the changed title and update the window title accordingly.
+
+
 
 
 ### Complete the page

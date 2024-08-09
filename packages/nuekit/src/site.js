@@ -243,11 +243,19 @@ export async function createSite(args) {
   self.getContentCollection = async function(dir) {
     const key = 'coll:' + dir
     if (cache[key]) return cache[key]
+    const arr = []
+
+    // make sure dir exists
+    try {
+      await fs.stat(dir)
+    } catch (e) {
+      console.error(`content collection: "${dir}" does not exist`)
+      return arr
+    }
 
     const paths = await fswalk(join(root, dir))
     const mds = paths.filter(el => el.endsWith('.md')).map(el => join(dir, el))
 
-    const arr = []
     for (const path of mds) {
       const raw = await read(path)
       const { meta } = nuemark(raw)
