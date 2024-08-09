@@ -1,4 +1,3 @@
-
 ---
 content_collection: posts
 appdir: home

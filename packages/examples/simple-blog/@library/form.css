@@ -32,14 +32,14 @@ textarea {
   min-height: 80px;
 }
 
-button {
+button, [role=button] {
   background-color: var(--main-500);
   font-family: inherit;
   font-size: inherit;
   width: 100%;
-  padding: .75em;
+  padding: .75em 1.5em;
   border-radius: 4px;
-  font-weight: 600;
+  font-weight: 550;
   cursor: pointer;
   color: white;
   border: 0;

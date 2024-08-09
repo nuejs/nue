@@ -8,7 +8,7 @@ date: 2022-06-13
 
 Working with color is one of the most fun parts of web design. But if you don't use them right in your CSS code, colors can also tank a site's usability and accessibility. In this post, we'll explore simple, real-world tips for effectively using color in your stylesheets.
 
-
+ 
 ``` css .blue
 /* Tab styling */
 [role=tablist] {
