@@ -17,5 +17,14 @@
     "nue-glow": "*",
     "js-yaml": "^4.1.0",
     "marked": "^9.1.2"
+  },
+  "scripts": {
+    "test": "node --experimental-vm-modules ../../node_modules/jest/bin/jest.js --runInBand"
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "jest-extended/all",
+      "<rootDir>/../../setup-jest.js"
+    ]
   }
 }
