@@ -12,6 +12,12 @@ test('fenced code', () => {
   expect(html.trim()).toEndWith('<p>after</p>')
 })
 
+test('fenced code: space before class name', () => {
+  const { html } = renderLines(['``` md #go.pink', '# Hey', '```'])
+  expect(html).toInclude('<div class="pink">')
+  expect(html).toInclude('<code language="md">')
+})
+
 test('[code.foo]', () => {
   const html = tags.code({ content: ['<p>Hey</p>'], language: 'xml', numbered: true, attr: { class: 'foo'} })
   expect(html).toStartWith('<div class="foo"><pre><code language="xml">')
