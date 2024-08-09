@@ -324,18 +324,18 @@ You can use a set of special characters in the code to highlight content:
 
 
 [.options]
-  `>` highlights the line. The default background color is blue.
+  `>` highlights the line. The default background color is blue
 
   `-` marks the line as removed with a red background (default)
 
   `+` marks the line as inserted with green background (default)
 
-  `|` highlights the line. Similar to ">" but for markdown syntax only
+  `|` highlights the line. Similar to ">" but for Markdown syntax only
 
   `\` escapes the first character
 
 
-Use bullet character (`•`) to highlight text regions within a line. The following sentence
+Use bullet character (`•`) to highlight text regions within a line. The following sentence:
 
 `These •two words• are highlighted and ••these words•• are erroneous`
 

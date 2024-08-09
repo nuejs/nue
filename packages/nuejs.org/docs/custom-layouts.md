@@ -108,7 +108,7 @@ You can go extreme and override the entire `html` element in which case you can 
     <main>
       <h1>{ title }</h1>
 
-      <!-- slot for the markdown content and it's sections -->
+      <!-- slot for the Markdown content and it's sections -->
       <slot for="content"/>
     </main>
   </body>
@@ -126,7 +126,7 @@ You can use several built-in helper components when building your layouts. For e
   <!-- pretty-date: Pretty prints the "date" metadata  -->
   <pretty-date/>
 
-  <!-- markdown component to render the page title -->
+  <!-- Markdown component to render the page title -->
   <h1><markdown :content="hero_title || title"/></h1>
 
   <!-- custom <author/> component -->
@@ -180,7 +180,7 @@ Only second and third level headings (h2, h3) are included in the navigation. Yo
 
 
 ### Custom components
-You can create custom layout components and custom markdown extensions for content authors with Nue's layout syntax. Here, for example, is a generic author component:
+You can create custom layout components and custom Markdown extensions for content authors with Nue's layout syntax. Here, for example, is a generic author component:
 
 ```html
 <div @name="author" class="author">

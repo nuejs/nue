@@ -27,7 +27,7 @@ Syntax blocks consist of standard HTML tags only and there are no class names. F
 Whenever you add a syntax blog or a [code tag](tags.html#code) on your page, Nue automatically includes a [stylesheet](//github.com/nuejs/nue/blob/dev/packages/glow/css/dark.css) for syntax highlighting. It is a highly configurable system based on CSS variables. For example:
 
 ```css
-/* setting glow variables */
+/* setting Glow variables */
 pre {
   --glow-base-color: #eee;
   --glow-primary-color: #823;
@@ -83,7 +83,7 @@ Use the `language` attribute for language-specific CSS tweaks:
 ```
 
 ### Bolding, italics, and other formatting
-By default, glow uses bolding only together with `--glow-special-color`. Other than that all elements have no formatting, just color assignments. You can, of course, make any softs of CSS tweaks to fine-tune syntax blocks. For example:
+By default, Glow uses bolding only together with `--glow-special-color`. Other than that all elements have no formatting, just color assignments. You can, of course, make any softs of CSS tweaks to fine-tune syntax blocks. For example:
 
 ```css
 /* bold all secondary syntax elements */

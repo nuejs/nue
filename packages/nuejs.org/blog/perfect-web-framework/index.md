@@ -93,7 +93,7 @@ They use the same system for content-focused apps and single-page apps and enjoy
 
 
 ## Sub-second deploy times `DX` { #ship }
-When you push out a new blog entry or a product release, something always goes wrong: Typos, wording issues, missing links, broken styling on mobile ... you name it. In this situation, it's critical to have a fast shipping engine in place. You want to fix your errors before the next bunch of visitors arrives.
+When you push out a new blog entry or a product release, something always goes wrong: Typos, wording issues, missing links, broken styling on mobile, ... You name it. In this situation, it's critical to have a fast shipping engine in place. You want to fix your errors before the next bunch of visitors arrives.
 
 This sort of hot deployment engine is an extension to a full-blown git-based deployment system with support for versioned pushes, rollbacks, and staging environments.
 

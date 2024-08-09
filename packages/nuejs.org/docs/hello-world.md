@@ -71,26 +71,24 @@ Nue automatically generates the HTML markup. The head section has the basic meta
 
 The more interesting thing is the page body, which is laid down according to a [global design system](global-design-system.html), which is essentially a standardized page layout that is externally styled. But more about that later.
 
-### Hot-reloading
+## Hot-reloading
 One of the most unique features of Nue is [universal hot-reloading](hot-reloading.html), that automatically updates your browser as you edit your content, styling, layout, data files or reactive components. This is enabled by the `hotreload.js` script, which is automatically added on the page on development mode.
 
 ```
 <script src="/@nue/hotreload.js" type="module"></script>
 ```
 
-You can see how itLet's see how it works by updating the title
-
-Now, as you edit either of your in your text editor you can see the browser magically morphing with your changes. Instead of making a full reload, Nue uses a technique called **DOM diffing** to only update the parts on the page that have changed.
+Now, as you edit any of your pages in your text editor you can see the browser magically morphing with your changes. Instead of making a full reload, Nue uses a technique called **DOM diffing** to only update the parts on the page that have changed.
 
 
 
 
 
 ## Global header
-adding a [settings file](settings.html) called `site.yaml` to our project with the following data:
+Adding a [settings file](settings.html) called `site.yaml` to our project with the following data:
 
 
-```
+```yaml
 # global header
 header:
   myself:
@@ -102,7 +100,7 @@ header:
 
 And the following header the first element under the body tag:
 
-```
+```html
 <header>
   <nav aria-label="myself">
     <a href="/">
@@ -123,6 +121,7 @@ And the following header the first element under the body tag:
 ```
 
  files (index.md or site.yaml)
+<!--TODO: content fixes?-->
 
 
 

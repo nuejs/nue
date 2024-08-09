@@ -51,7 +51,7 @@ The default engine for Nue is Bun. That is: The command line interface starts wi
 node $(which nue)
 ```
 
-The `which` command locates the nue executable and starts it with node. Running `node $(which nue) --version` should output something like "Nue 0.5.2 / Node 21.6.2". You can create a permanent shortcut to this command with `alias`. For example:
+The `which` command locates the `nue` executable and starts it with node. Running `node $(which nue) --version` should output something like "Nue 0.5.2 / Node 21.6.2". You can create a permanent shortcut to this command with `alias`. For example:
 
 ```sh
 alias node-nue="node $(which nue)"

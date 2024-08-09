@@ -118,8 +118,7 @@ article {
 }
 ```
 
-Simple selectors are easy-to-read and easy-to-maintain. Keep your file sizes to a minimum and use lower specificity for overrides.
-
+Simple selectors make your CSS easy to read and maintain. They keep your file size small and allow using lower specificity on overrides.
 
 #### Links
 [Specificity and Hierarchy in CSS](//kelvinofili.hashnode.dev/specificity-and-hierarchy-in-css)

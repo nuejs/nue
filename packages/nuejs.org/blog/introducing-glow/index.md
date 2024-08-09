@@ -117,7 +117,7 @@ And when I say "unlimited", it means that:
 
 
 ## Glow + Nue = Next level
-[Nue](/) is a web framework for UX developers and other design-minded people. As of today, it has built-in support for Glow. You can do things like this inside your markdown content:
+[Nue](/) is a web framework for UX developers and other design-minded people. As of today, it has built-in support for Glow. You can do things like the following in your Markdown content:
 
 
 [codeblocks.codestack.larger captions="Content *YAML* | Styling *CSS*"]
@@ -234,9 +234,9 @@ And follow the [Glow documentation](/docs/syntax-highlighting.html)
 
 #### With Nue
 
-Nue has built-in support for Glow in markdown fenced code blocks and it offers [three new tags](/docs/tags.html#code): `[code]`, `[codeblocks]`, and `[codetabs]` for content creators.
+Nue has built-in support for Glow in Markdown fenced code blocks and offers [three new tags](/docs/tags.html#code): `[code]`, `[codeblocks]`, and `[codetabs]` for content creators.
 
-You try out the tags as follows:
+You can try the tags as follows:
 
 ```sh
 # Install Bun (if not done yet)

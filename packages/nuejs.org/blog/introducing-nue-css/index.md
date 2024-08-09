@@ -82,7 +82,7 @@ What would *that* look like?
 
 
 ## 1. Cascading CSS architecture
-One of the key ideas of Nue is to ditch the large JavaScript ecosystem and go irectly with modern CSS, and harness it's power.
+One of the key ideas of Nue is to ditch the large JavaScript ecosystem and go directly with modern CSS, and harness it's power.
 
 
 ### Your design is based on a design system { #architecture }

@@ -75,7 +75,7 @@ The generator meta tag. The default is "Nue (nuejs.org)" and is only rendered in
 
 
 ### language
-The value of `<html lang="{ language }">` attribute. The default is "en". You might want to change this to "en-us", "en-gb", "en-nz"... etc. depending on your dialect or "fi" if your content is written in the Finnish language.
+The value of `<html lang="{ language }">` attribute. The default is "en". You might want to change this to "en-us", "en-gb", "en-nz", ... depending on your dialect or for example "fi", if your content is written in the Finnish language.
 
 ### origin
 Your full domain name including the protocol. For example: `"https://emmabennet.co"`. Nue uses this value to prefix the `og` property and later in RSS files.

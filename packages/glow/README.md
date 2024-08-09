@@ -4,18 +4,18 @@
 </a>
 
 # Glow
-Glow is a syntax highligher for markdown.
+Glow is a syntax highligher for Markdown.
 
 [Read the introduction](https://nuejs.org/blog/introducing-glow/)
 
 
 
 ## Usage
-Glow is the default highlighter for [Nue web framework](https://nuejs.org) so and works "out of the box" in there. Here's how Glow works as a standalone library:
+Glow is the default highlighter for the [Nue web framework](https://nuejs.org) and works "out of the box" with it. Here's how Glow works as a standalone library:
 
 
 ### Installation
-First install glow
+First install Glow
 
 
 ```sh
@@ -41,7 +41,7 @@ console.info(html) // <code language="html">...</code>
 ### Options
 1. `numbered` is a boolean flag indicating whether line numbers should be rendered.
 
-2. `language` tells glow the language of the code. This is optional. When not provided, glow attempts to guess the language. If you are formatting markdown, the language parameter "md" must be given so that Glow can deal with all the special cases like "-" starts a new list item, instead of a deleted line.
+2. `language` tells Glow the language of the code. This is optional. When not provided, Glow attempts to guess the language. If you are formatting Markdown, the language parameter "md" must be given so that Glow can deal with all the special cases like "-" starts a new list item, instead of a deleted line.
 
 
 ### Return value
@@ -54,7 +54,7 @@ Note that the `<pre>` code is not returned. It is reserved for the potential Mar
 
 
 ## Marked integration
-Here's how you integrate Glow into [Marked](https://github.com/markedjs/marked) markdown processor:
+Here's how you integrate Glow into the Markdown processor [Marked](https://github.com/markedjs/marked):
 
 ```js
 import { marked } from 'marked'
@@ -69,7 +69,7 @@ const renderer = {
 }
 marked.use({ renderer })
 
-// read markdown with a Glow-formatted code block
+// read Markdown with a Glow-formatted code block
 const content = '...'
 
 const html = marked.parse(content)
