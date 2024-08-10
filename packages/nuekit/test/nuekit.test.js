@@ -272,6 +272,17 @@ test('page data', async () => {
   expect(data.page.meta.title).toBe('Hello')
 })
 
+test('line endings', async () => {
+  const kit = await getKit()
+  await write('index.md', '---\ntitle: Page title\rhero: img/image.png\r\n---\r\n\r# Hello\r\n\rWorld')
+  const data = await kit.getPageData('index.md')
+  expect(data.title).toBe('Page title')
+  expect(data.hero).toBe('img/image.png')
+  const html = await kit.gen('index.md')
+  expect(html).toInclude('<h1>Hello</h1>')
+  expect(html).toInclude('<p>World</p>')
+})
+
 test('page assets', async() => {
   await write('site.yaml', 'libs: [lib]')
   await write('blog/app.yaml', 'include: [video]')

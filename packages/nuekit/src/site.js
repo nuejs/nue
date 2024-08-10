@@ -43,7 +43,7 @@ export async function createSite(args) {
     caching here is unnecessary
   */
   async function read(path) {
-    return await fs.readFile(join(root, path), 'utf-8')
+    return (await fs.readFile(join(root, path), 'utf-8')).replace(/\r\n|\r/g, '\n')
   }
 
   async function readData(path) {

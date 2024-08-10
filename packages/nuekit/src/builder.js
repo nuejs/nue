@@ -86,11 +86,9 @@ export async function lightningCSS(css, minify, opts={}) {
   } catch({ source, loc, data}) {
     throw {
       title: 'CSS syntax error',
-      lineText: source.split('\n')[loc.line -1],
+      lineText: source.split(/\r\n|\r|\n/)[loc.line -1],
       text: data.type,
       ...loc
     }
   }
 }
-
-
