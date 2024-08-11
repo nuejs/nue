@@ -11,6 +11,9 @@
     "directory": "packages/nuemark",
     "type": "git"
   },
+  "scripts": {
+    "test": "node --experimental-vm-modules ../../node_modules/jest/bin/jest.js --runInBand"
+  },
   "dependencies": {
     "js-yaml": "^4.1.0",
     "marked": "^13.0.3",

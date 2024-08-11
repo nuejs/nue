@@ -16,7 +16,7 @@
     "node": ">= 18"
   },
   "scripts": {
-    "test": "cd test && bun test",
+    "test": "node --experimental-vm-modules ../../node_modules/jest/bin/jest.js --runInBand",
     "compile": "cd test && bun compile.js"
   },
   "dependencies": {
