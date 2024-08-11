@@ -1,6 +1,6 @@
 import { parseMeta, parseBlocks, parseSections, parsePage, parseHeading } from '../src/parse.js'
 import { parseComponent, valueGetter, parseAttr, parseSpecs } from '../src/component.js'
-import { renderIsland, renderLines, renderHeading } from '../src/render.js'
+import { renderIsland, renderLines, renderHeading, loadMarkedExtensions } from '../src/render.js'
 import { tags, parseSize } from '../src/tags.js'
 import { nuemarkdown } from '../index.js'
 
@@ -440,6 +440,23 @@ test('parseComponent', () => {
 test('blockquotes', () => {
   const { html } = renderLines(['> hey', '', 'joe'])
   expect(html).toInclude('</blockquote>\n<p>joe</p>')
+})
+
+test('marked extension', async () => {
+  const ellipsis = '\u2026'
+  loadMarkedExtensions([{
+    tokenizer: {
+      inlineText(src) {
+        const cap = this.rules.inline.text.exec(src)
+        const text = cap[0].replace(/\.{3}/g, ellipsis)
+        return { type: 'text', raw: cap[0], text }
+      }
+    }
+  }])
+
+  const { html } = renderLines(["This isn't a test, right?\n", '...\n', 'Right?\n', '.....'])
+
+  expect(html).toBe(`<p>This isn't a test, right?</p>\n<p>${ellipsis}</p>\n<p>Right?</p>\n<p>${ellipsis}..</p>\n`)
 })
 
 /*
