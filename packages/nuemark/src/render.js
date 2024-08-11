@@ -4,7 +4,6 @@ import { parsePage, parseHeading } from './parse.js'
 import { parseAttr } from './component.js'
 import { marked } from 'marked'
 
-
 export function renderPage(page, opts) {
   const { lib=[] } = opts
   const data = { ...opts.data, ...page.meta }
@@ -99,13 +98,6 @@ function parseLink(href) {
   return { href, title }
 }
 
-marked.setOptions({
-  smartypants: true,
-  headerIds: false,
-  smartLists: false,
-  mangle: false
-})
-
 export function renderHeading(html, level, raw) {
   const plain = parseHeading(raw)
   const { id } = plain
@@ -137,3 +129,7 @@ const renderer = {
 }
 
 marked.use({ renderer })
+
+export function loadMarkedExtensions(marked_extensions = []) {
+  marked.use(...marked_extensions)
+}

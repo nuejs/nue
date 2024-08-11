@@ -17,4 +17,4 @@ export function nuemarkdown(str, opts) {
 export { parsePage } from './src/parse.js'
 
 
-export { renderPage } from './src/render.js'
+export { renderPage, loadMarkedExtensions } from './src/render.js'

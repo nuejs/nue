@@ -10,11 +10,11 @@ import {
   sortCSS,
   joinRootPath } from './util.js'
 
-import { join, extname, basename, sep, parse as parsePath } from 'node:path'
+import { join, extname, parse as parsePath } from 'node:path'
 import { parse as parseNue } from 'nuejs-core'
 import { promises as fs } from 'node:fs'
 import { fswalk } from './nuefs.js'
-import { nuemark } from 'nuemark'
+import { nuemark, loadMarkedExtensions } from 'nuemark'
 import yaml from 'js-yaml'
 
 
@@ -91,6 +91,14 @@ export async function createSite(args) {
   } catch {
     self.is_empty = true
   }
+
+  const markedConfig = joinRootPath(root, 'marked.config.js', true)
+  const markedConfigExists = await fs.stat(markedConfig).catch(() => false)
+  const { default: markedExtensions=[] } = markedConfigExists ? await import(markedConfig).catch(e => {
+    console.error(e)
+    return {}
+  }) : {}
+  loadMarkedExtensions(markedExtensions)
 
   async function write(content, dir, filename) {
     const todir = join(dist, dir)
