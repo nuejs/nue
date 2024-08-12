@@ -263,13 +263,13 @@ test('H1 with inner <em>', () => {
 })
 
 test('render heading', () => {
-  const h1 = renderHeading('Hey', 1, 'This is a too long text version of it')
+  const h1 = renderHeading({ text: 'Hey', depth: 1, raw: 'This is a too long text version of it' })
   expect(h1).toEqual('<h1>Hey</h1>')
 
-  const h2 = renderHeading('Foo <em>bar</em> { #baz }', 2, 'Foo bar { #baz }')
+  const h2 = renderHeading({ text: 'Foo <em>bar</em> { #baz }',depth:  2, raw: 'Foo bar { #baz }' })
   expect(h2).toEqual('<h2 id="baz"><a href="#baz" title="Foo bar"></a>Foo <em>bar</em></h2>')
 
-  const h3 = renderHeading('Hey { .baz }', 3, 'Hey { .baz }')
+  const h3 = renderHeading({ text: 'Hey { .baz }', depth: 3, raw: 'Hey { .baz }' })
   expect(h3).toEqual('<h3 class="baz">Hey</h3>')
 })
 

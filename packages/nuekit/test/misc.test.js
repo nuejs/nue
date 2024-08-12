@@ -50,7 +50,7 @@ test('path parts', () => {
 })
 
 
-test.only('create', async () => {
+test('create', async () => {
   await fs.mkdir('simple-blog', { recursive: true })
   await process.chdir('simple-blog')
 
