@@ -106,7 +106,9 @@ marked.setOptions({
   mangle: false
 })
 
-export function renderHeading({ text: html, depth, raw }) {
+export function renderHeading({ tokens, text: html, depth, testRaw=null }) {
+  const raw = !testRaw ? this.parser.parseInline(tokens) : testRaw
+
   const plain = parseHeading(raw)
   const { id } = plain
 
