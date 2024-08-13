@@ -6,6 +6,7 @@ subheader: false
 pagehead: false
 pagefoot: false
 inline_css: true
+unlisted: true
 
 exclude:
   - technical-content
@@ -21,4 +22,4 @@ exclude:
 
 [button.secondary href="/#roadmap" "Join mailing list"]
 
-[page-list]
+[gallery]

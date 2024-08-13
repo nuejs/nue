@@ -6,19 +6,19 @@ export function parseNavItem(item) {
 
   // plain string
   if (typeof item == 'string') {
-    return item.startsWith('---') ? { separator: item } : { label: item, url: '' }
+    return item.startsWith('---') ? { separator: item } : { text: item, url: '' }
   }
 
   const keys = Object.keys(item)
   const [ char ] = keys[0]
 
-  // [label]: string | object
+  // [text]: string | object
   if (char == char.toUpperCase() && keys.length == 1) {
-    let [label, data] = Object.entries(item)[0]
+    let [text, data] = Object.entries(item)[0]
     if (typeof data == 'string') data = parseClass(data)
 
     if (Array.isArray(data)) data = { items: data.map(parseNavItem) }
-    return { label, ...data }
+    return { text, ...data }
   }
 
   // { ... }
@@ -29,26 +29,29 @@ export function parseNavItem(item) {
 
 
 export function renderNavItem(item) {
-  const { label, role, items, url, image, alt } = item
+  const { text, role, url, image, alt } = item
   const html = []
 
   // hr
   if (item.separator) return '<hr>'
 
   // image
-  else if (image) {
+  if (image) {
     const { width, height } = parseSize(item)
     html.push(elem('img', { src: image, width, height, alt }))
   }
 
-  // label
-  else if (label) html.push(renderInline(label))
+  // text
+  if (text) {
+    const formatted = renderInline(text)
+    html.push(image ? elem('strong', formatted) : formatted)
+  }
 
   // attributes
   const attr = { href: url, role }
   if (item.class) attr.class = item.class
 
-  return elem(url != null ? 'a' : 'p', attr, join(html))
+  return elem(url != null ? 'a' : 'span', attr, join(html))
 }
 
 
@@ -71,9 +74,9 @@ export function renderNavItems(items, opts={}) {
 
   items.forEach(el => {
     const item = parseNavItem(el)
-    const { label, items } = item
+    const { text, items } = item
     if (items) {
-      nav.push(renderExpandable(label, items))
+      nav.push(renderExpandable(text, items))
     } else {
       nav.push(renderNavItem(item))
     }
@@ -101,6 +104,8 @@ export function renderNavBlocks(data, label) {
   return elem('div', { 'aria-label': label }, join(navs))
 }
 
+
+// the "main" method called by the <navi/> tag
 export function renderNav({ items, label }) {
   return Array.isArray(items) ? renderNavItems(items, { label }) :
     typeof items == 'object' ? renderNavBlocks(items, label) : ''

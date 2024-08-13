@@ -121,6 +121,7 @@ const KEY_ALIAS = {
   delete: ['backspace'],
   esc: ['escape'],
   space: [' ', 'spacebar', 'space bar'],
+  tab: ['tab'],
   up: ['arrowup'],
   down: ['arrowdown'],
   left: ['arrowleft'],
@@ -198,6 +199,7 @@ function createComponent(node) {
 
 
 export function parse(src) {
+  src = src.replace(/\r\n|\r/g, '\n')
   const { children } = mkdom(src)
 
   try {

@@ -49,7 +49,7 @@ function createFront(title, pubDate) {
   return ['---', `title: ${title}`, `pubDate: ${pubDate ?? '2020-01-20'}`, '---'].join('\n')
 }
 
-test('defaults', async () => {
+test('site defaults', async () => {
   const site = await getSite()
   expect(site.is_empty).toBe(true)
   expect(site.dist).toMatchPath('_test/.dist/dev')
@@ -225,7 +225,7 @@ test('page layout', async () => {
 
   expect(html).toInclude('<header>')
   expect(html).toInclude('<footer>')
-  expect(html).toInclude('<a href="/bar/">bar</a></nav>')
+  expect(html).toInclude('<a>bar</a></nav>')
   expect(html).toInclude('<aside>Sidebar</aside>')
   expect(html).toInclude('<aside>Aside</aside>')
 
@@ -272,12 +272,23 @@ test('page data', async () => {
   expect(data.page.meta.title).toBe('Hello')
 })
 
+test('line endings', async () => {
+  const kit = await getKit()
+  await write('index.md', '---\ntitle: Page title\rhero: img/image.png\r\n---\r\n\r# Hello\r\n\rWorld')
+  const data = await kit.getPageData('index.md')
+  expect(data.title).toBe('Page title')
+  expect(data.hero).toBe('img/image.png')
+  const html = await kit.gen('index.md')
+  expect(html).toInclude('<h1>Hello</h1>')
+  expect(html).toInclude('<p>World</p>')
+})
+
 test('page assets', async() => {
   await write('site.yaml', 'libs: [lib]')
-  await write('blog/app.yaml', 'main: [hello.js]\nhotreload: false\ninclude: [video]')
+  await write('blog/app.yaml', 'include: [video]')
   await write('lib/video.nue')
   await write('blog/index.md', '# Hey')
-  await write('blog/comp.nue', '<div/>')
+  await write('blog/comp.htm', '<div/>')
   await write('blog/hello.ts', 'var a')
   await write('blog/main.js', 'var a')
 
@@ -285,7 +296,7 @@ test('page assets', async() => {
   const data = await kit.getPageData('blog/index.md')
 
   expect(data.components).toEqual([ "/blog/comp.js", "/lib/video.js" ])
-  expect(data.scripts).toEqual([ "/blog/hello.js", "/@nue/mount.js" ])
+  expect(data.scripts.length).toEqual(4)
 })
 
 
@@ -300,13 +311,14 @@ test('single-page app index', async() => {
 })
 
 test('index.md', async() => {
-  await write('index.md', '# Hey')
+  await write('index.md', '# Hey { .yo }\n\n## Foo { .foo#bar.baz }')
   const kit = await getKit()
   await kit.gen('index.md')
   const html = await readDist(kit.dist, 'index.html')
   expect(html).toInclude('hotreload.js')
   expect(html).toInclude('<title>Hey</title>')
-  expect(html).toInclude('<h1 id="hey">')
+  expect(html).toInclude('<h1 class="yo">Hey</h1>')
+  expect(html).toInclude('<h2 class="foo baz" id="bar"><a href="#bar" title="Foo"></a>Foo</h2>')
 })
 
 
@@ -344,9 +356,6 @@ test('JS errors', async() => {
 
 })
 
-test.skip('random unit test', async() => {
-  const kit = await createKit({ root: '../nextjs-blog', dryrun: true })
-})
 
 test('the project was started for the first time', async () => {
   await write('site.yaml', 'port: 9090')

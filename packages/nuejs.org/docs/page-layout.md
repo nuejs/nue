@@ -1,12 +1,14 @@
 
 # Page layout
-Global design system standardizes the structure of your web pages so you can use the same HTML markup, but vary your external CSS to achieve wildly different designs.
+A global design system standardizes the structure of your web pages, allowing you to use the same HTML markup, while applying different external CSS, to achieve a wide range of designs.
 
 
 ## Standardized HTML
-After describing your headers and footers, the default page layout for Markdown content looks like this:
+After describing your headers and footers in the `layout.html` file, the default page layout for Markdown content looks like this:
 
-[image.bordered /img/page-layout.svg width="600"]
+[image.bordered /img/page-layout.svg]
+  caption: Standard page layout blocks
+  size: 598 × 667 px
 
 
 To see this in practice lets create an `index.md` file with the following content:
@@ -50,7 +52,7 @@ This forms the basis for our markup, which has no styling information included i
 
 
 #### The head element
-The contents of your head element are auto-generated based on your [settings](settings.html) and [project structure](project-structure.html). For example, if you have the files `hello.css` and `hello.js` on your project root and  a `site.yaml` file with the following data:
+The contents of your head element are auto-generated based on your [settings](settings.html) and [project structure](project-structure.html). For example, if you have the files `hello.css` and `hello.js` in your project root and a `site.yaml` file with the following data:
 
 ``` yaml
 favicon: /favicon.png
@@ -78,9 +80,8 @@ Your head element will be rendered as follows:
 </head>
 ```
 
-
-## Global navigation
-Nue offers a simple, [YAML-based syntax](#nav-syntax) for defining all the site-wide navigation elements: global header and footer, the burger menu, dropdown menus, and any other complementary menus you may have. This declarative syntax is beneficial for several reasons:
+## Global navigation { #navigation }
+Nue offers a simple, [YAML-based syntax](#nav-syntax) for defining all the site-wide navigation elements: global header and footer, the burger menu, dropdown menus and any other complementary menus you may have. This declarative syntax is beneficial for several reasons:
 
 1. It always produces the same markup across projects that you can rely on when styling your website. This adapts to the idea of the global design system.
 
@@ -137,9 +138,7 @@ header:
   Site navigation:
     - Docs: /docs/
     - Blog: /blog/
-    - label: Nue 1.0 beta ›
-      url: /blog/nue-1-beta/
-      class: status badge
+    - Nue 1.0 beta: /blog/nue-1-beta/ "status pill"
 
   Toolbar:
     - image: /icon/x-logo.svg
@@ -148,9 +147,9 @@ header:
       alt: X logo
       size: 39 x 39
 
-    - label: 6.0k
+    - text: 6.0k
       url: //github.com/nuejs/nue
-      class: github badge
+      class: github pill
 ```
 
 This generates three `<nav/>` elements inside the header:
@@ -266,8 +265,8 @@ Here is the basic syntax for defining navigational elements:
 
 ``` yaml
 Navi title:
-  - Link 1 label: /first/link
-  - Link 2 label: /second/link "badge"
+  - Link 1 text: /first/link
+  - Link 2 text: /second/link "pill"
   - ...
 ```
 
@@ -275,8 +274,8 @@ This generates the following HTML:
 
 ```
 <nav aria-label="Navi title">
-  <a href="/first/link">Link 1 label</a>
-  <a href="/second/link" class="badge">Link 2 label</a>
+  <a href="/first/link">Link 1 text</a>
+  <a href="/second/link" class="pill">Link 2 text</a>
   ...
 </hav>
 ```
@@ -291,15 +290,19 @@ Rich navigation:
     alt: The logo
     url: /
 
+  # separator
   - ---
 
-  - label: Link label
+  - text: Link text
     url: /link/url
-    class: badge
+    class: pill
     role: button
 
-  - label: Just some text
+  - text: Just some text
     class: info
+
+  # class shortcut
+  - Another: /second/url "cute"
 ```
 
 The above generates this:
@@ -310,10 +313,12 @@ The above generates this:
     <img src="/img/logo.png" width="100" height="30" alt="The logo">
   </a>
   <hr>
-  <a href="/link/url" class="badge" role="button">
-    Link 1 label
+  <a href="/link/url" class="pill" role="button">
+    Link 1 text
   </a>
   <p class="info">Just some text</p>
+
+  <a href="/second/url" class="cute">Another</a>
 </nav>
 ```
 
@@ -323,12 +328,12 @@ Categorized navigations are typically used in the global footer and in any sideb
 ``` yaml
 Categories:
   Category 1:
-    - Label: /link
-    - Label: /link
+    - Text: /link
+    - Text: /link
 
   Category 2:
-    - Label: /link
-    - Label: /link
+    - Text: /link
+    - Text: /link
 ```
 
 This will generate the following:
@@ -338,14 +343,14 @@ This will generate the following:
 <div aria-label="Categories">
   <nav>
     <h3>Category 1</h3>
-    <a href="/link">Label</a>
-    <a href="/link">Label</a>
+    <a href="/link">Text</a>
+    <a href="/link">Text</a>
   </nav>
 
   <nav>
     <h3>Category 2</h3>
-    <a href="/link">Label</a>
-    <a href="/link">Label</a>
+    <a href="/link">Text</a>
+    <a href="/link">Text</a>
   </nav>
 </div>
 ```
@@ -431,7 +436,7 @@ The content is always nested inside one or more section elements. A multi-sectio
 </article>
 ```
 
-The `section` elements are direct descendants of the article and cannot occur anywhere on the page.
+The `section` elements are direct descendants of the article and cannot occur anywhere else on the page.
 
 
 
@@ -474,7 +479,7 @@ Content authors can write [blocks of content](content.html#blocks) with class na
 </div>
 ```
 
-Common class names to implement on your CSS are "note", "warning", "alert", or "info".
+Common class names to implement in your CSS are: "note", "warning", "alert" or "info".
 
 
 ### Flex layouts
@@ -767,7 +772,7 @@ The implementation is similar to standard [tabs](#tabs), but the markup is plain
 
 
 ## Wrappers
-Tables, code blocks, and tabs can be nested inside a wrapper element to allow more visual design around the element:
+Tables, code blocks and tabs can be nested inside a wrapper element to allow more visual design around the element:
 
 
 ```

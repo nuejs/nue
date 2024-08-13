@@ -19,7 +19,7 @@ export function expandArgs(args) {
 
 // TODO: tests
 export function getArgs(argv) {
-  const commands = ['serve', 'build', 'stats']
+  const commands = ['serve', 'build', 'stats', 'create']
   const args = { paths: [], root: '.' }
   const checkExecutable = /[\\\/]nue(\.(cmd|ps1|bunx|exe))?$/
   let opt
@@ -95,18 +95,26 @@ async function printVersion() {
 
 async function runCommand(args) {
   const { createKit } = await import('./nuekit.js')
+  const { cmd='serve', dryrun, push } = args
+
   console.info('')
 
-  args.nuekit_version = await printVersion()
-  const nue = await createKit(args)
 
-  const { cmd='serve', dryrun, push } = args
+  // create nue
+  if (cmd == 'create') {
+    const { create } = await import('./create.js')
+    return await create({ name: args.paths[0] })
+  }
+
+  const nue = await createKit(args)
+  args.nuekit_version = await printVersion()
+
 
   // stats
   if (cmd == 'stats') await nue.stats(args)
 
   // build
-  else if (dryrun || push || args.paths[0] || cmd == 'build') {
+  if (dryrun || push || args.paths[0] || cmd == 'build') {
     const paths = await nue.build(args.paths, dryrun)
 
     // deploy (private repo ATM)

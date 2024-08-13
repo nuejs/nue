@@ -6,13 +6,14 @@ sidenav:
   Getting started:
     - What is Nue?: /docs/
     - Installation: installation.html
+    - "Tutorial: Build a website": tutorial.html
     - Project Structure: project-structure.html
     - Settings and metadata: settings.html
     - Command line interface: command-line-interface.html
     - Frequently asked questions: faq.html
 
   UX development:
-    - UX development flow: ux-development.html
+    - What is UX development?: ux-development.html
     - Global Design System: global-design-system.html
     - Page layout: page-layout.html
     - Custom layouts: custom-layouts.html

@@ -38,7 +38,7 @@
   --red:      #fb7185;
   --pink:     #e200ff;
   --purple:   #9E52FF;
-  --yellow:   #f5ff20;
+  --yellow:   #f7ff4f;
   --green:    #06d4a1;
 
   /* syntax highlighting */
@@ -104,8 +104,8 @@ a {
 }
 
 ::selection {
-  background-color: var(--purple);
-  color: white;
+  background-color: var(--yellow);
+  color: var(--gray-900);
 }
 
 hr {
@@ -118,11 +118,12 @@ h1, h2, h3, h4, h5 {
 }
 
 article {
-  view-transition-name: article
+  view-transition-name: article;
+  will-change: transform;
 }
 
 /* view transition (scales down the old page) */
 ::view-transition-old(article) {
-  transform: scale(.8);
+  transform: scale(.8) translateY(4em);
   transition: .4s;
 }

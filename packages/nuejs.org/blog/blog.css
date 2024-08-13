@@ -1,10 +1,16 @@
 
+/* back button */
 body > nav {
   position: relative;
   top: -3em;
+
   a {
+    background: url(/icon/arrow-left.svg) no-repeat;
     color: black;
-    font-size: 95%;
+    opacity: .6;
+    padding-left: 1.5em;
+    font-size: 90%;
+    &:hover { opacity: 1 }
   }
 }
 

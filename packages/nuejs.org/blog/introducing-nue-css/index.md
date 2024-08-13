@@ -1,7 +1,7 @@
 
 ---
 title: Nue and CSS
-hero_title: "*Nue and CSS:* a more obvious approach to styling things"
+hero_title: "*Nue + CSS:* a better way to style things"
 desc: Introducing a more obvious alternative to Tailwind, BEM, and CSS-in-JS
 og: /img/nue-css-og.png
 date: 2024-03-20
@@ -9,7 +9,7 @@ date: 2024-03-20
 
 Here's a preview of Nue's upcoming approach to styling things on the web. The key difference is _minimalism_: you can build an entire website with the same amount of CSS that goes into a single **Tailwind** button. Or even crazier: you can fit three websites to a single **Tailwind Catalyst** button.
 
-[image.hero]
+[image.larger]
   small: /img/nue-css-hero.webp
   large: /img/nue-css-hero-big.webp
   caption: It's possible to write three entire websites with a size of a single Tailwind button
