@@ -354,7 +354,7 @@ export async function createKit(args) {
     gen, getPageData, renderMPA, renderSPA,
 
     // public API
-    build, serve, stats, dist,
+    build, serve, stats, dist, port,
   }
 
 }

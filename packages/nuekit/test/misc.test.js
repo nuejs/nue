@@ -54,7 +54,6 @@ test('create', async () => {
   await fs.mkdir('simple-blog', { recursive: true })
   await process.chdir('simple-blog')
 
-  const body = await create({ name: 'simple-blog' })
-
-
+  const terminate = await create({ name: 'simple-blog' })
+  terminate()
 })
