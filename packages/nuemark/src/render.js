@@ -107,8 +107,6 @@ marked.setOptions({
 })
 
 export function renderHeading(html, depth, raw) {
-  // const raw = !testRaw ? parseInline(text) : testRaw
-
   const plain = parseHeading(raw)
   const { id } = plain
 
@@ -133,8 +131,8 @@ const renderer = {
   heading: renderHeading,
 
   // lazyload images by default
-  image({ href, title, text }) {
-    return elem('img', { src: href, title, alt: text, loading: 'lazy' })
+  image(src, title, alt) {
+    return elem('img', { src, title, alt, loading: 'lazy' })
   },
 }
 

@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "js-yaml": "^4.1.0",
-    "marked": "^14.0.0",
+    "marked": "^13.0.3",
     "nue-glow": "*"
   }
 }
