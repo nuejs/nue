@@ -22,6 +22,7 @@ const NOT_FOUND = -2
 export async function createKit(args) {
   const { root, is_prod, esbuild } = args
 
+
   // site: various file based functions
   const site = await createSite(args)
 
@@ -353,7 +354,7 @@ export async function createKit(args) {
     gen, getPageData, renderMPA, renderSPA,
 
     // public API
-    build, serve, stats, dist,
+    build, serve, stats, dist, port,
   }
 
 }

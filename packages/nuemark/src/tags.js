@@ -253,6 +253,7 @@ function toArray(items) {
 }
 
 export function join(els, separ='\n') {
+  // do not filter away empty lines (.filter(el => !!el))
   return els?.join ? els.join(separ) : els
 }
 
@@ -280,8 +281,8 @@ export function parseSize(data) {
   return { width: w || data.width, height: h || data.height }
 }
 
-function createCodeBlock({ content, language, numbered }, attr={}) {
-  const code = glow(join(content), { language, numbered })
+function createCodeBlock({ content, language='', numbered }, attr={}) {
+  const code = glow(join(content), { language: language?.trim(), numbered })
   return elem('pre', attr, code)
 }
 

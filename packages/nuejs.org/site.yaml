@@ -29,23 +29,17 @@ header:
   Site navigation:
     - Docs: /docs/
     - Blog: /blog/
-    - label: Nue 1.0 beta ›
-      url: /blog/nue-1-beta/
-      class: status pill
+    - Nue 1.0 beta ›: /blog/nue-1-beta/ "status pill"
 
   Toolbar:
-    # - label: Try beta
-    #   url: /docs/installation.html
-    # - ---
     - image: /icon/x-logo.svg
       url: //x.com/tipiirai
       class: social
       alt: X logo
       size: 39 x 39
 
-    - label: 6.0k
-      url: //github.com/nuejs/nue
-      class: github pill
+    - 6.0k: //github.com/nuejs/nue "github pill"
+
 
 burger_menu:
   - Home: /home/

@@ -1,0 +1,29 @@
+
+<script>
+  import { loadPage } from '/@nue/view-transitions.js'
+</script>
+
+<form @name="contact-me" @submit.prevent="submit" autocomplete="on">
+  <label>
+    <span>Your name</span>
+    <input type="text" name="name" placeholder="Example: John Doe" required>
+  </label>
+
+  <label>
+    <span>Your email</span>
+    <input type="email" name="email" placeholder="your@email.com" required>
+  </label>
+
+  <label>
+    <span>Requirements</span>
+    <textarea name="feedback" placeholder="Type here..."/>
+  </label>
+
+  <button>Lets talk!</button>
+
+  <script>
+    submit() {
+      loadPage('thanks.html')
+    }
+  </script>
+</form>

@@ -1,6 +1,8 @@
 
 ---
 hero_title: "*Nue 1.0 (Beta)* — A web framework for UX developers"
+title: Nue 1.0 (Beta)
+desc: A web framework for UX developers
 ---
 
 Exactly one year ago I [decided](/blog/backstory/) to create the slickest website generator in the world, that is easy enough for UX developers and other design-minded people. Today this vision is becoming a reality:
@@ -20,7 +22,7 @@ Exactly one year ago I [decided](/blog/backstory/) to create the slickest websit
 Nue is a great fit for the following people:
 
 
-1. **UX developers**: who natively jump between **Figma** and **CSS** without a confusing [designer-developer handoff](//medium.com/design-warp/5-most-common-designer-developer-handoff-mishaps-ba96012be8a7) processes in the way.
+1. **UX developers**: who natively jump between **Figma** and **CSS** without a confusing [designer-developer handoff](//medium.com/design-warp/5-most-common-designer-developer-handoff-mishaps-ba96012be8a7) process in the way.
 
 
 2. **Beginner web developers**: who want to skip the [redundant frontend layers](//roadmap.sh/frontend) and start building websites quickly with HTML, CSS, and JavaScript.
@@ -32,8 +34,9 @@ Nue is a great fit for the following people:
 
   — Alan Hemmings / [BigNameHunter](//bignamehunter.com/?refer=nuejs) / CEO
 
-4. **Designers**: aiming to learn web development, but find the React/JavaScript ecosystem impossible to grasp
+4. **Designers**: planning to learn web development, but find the JavaScript ecosystem too scary
 
+5. **Parents** and **teachers**: who wants to educate people [how the web works](//www.websitearchitecture.co.uk/resources/examples/web-standards-model/)
 
 
 - - -

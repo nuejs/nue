@@ -11,8 +11,10 @@ export function $$(query, root=document) {
 
 // Router for multi-page applications
 
-export async function loadPage(path) {
+export async function loadPage(path, no_push) {
   dispatchEvent(new Event('before:route'))
+
+  if (!no_push) history.pushState({ path }, 0, path)
 
   // DOM of the new page
   const dom = mkdom(await getHTML(path))
@@ -187,7 +189,6 @@ if (is_browser) {
   // autoroute / document clicks
   onclick(document, async path => {
     document.startViewTransition(async function() {
-      history.pushState({ path }, 0, path)
       await loadPage(path)
     })
   })
@@ -198,7 +199,7 @@ if (is_browser) {
   // back button
   addEventListener('popstate', e => {
     const { path } = e.state || {}
-    if (path) loadPage(path)
+    if (path) loadPage(path, true)
   })
 }
 

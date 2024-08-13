@@ -5,7 +5,7 @@ export { parseInline as renderInline } from 'marked'
 
 // returns { html, meta, sections, headings, links }
 export function nuemark(str, opts) {
-  return renderLines(str.split('\n'), opts)
+  return renderLines(str.split(/\r\n|\r|\n/), opts)
 }
 
 // returns HTML

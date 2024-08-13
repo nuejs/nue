@@ -1,9 +1,15 @@
 
-# UX development with Nue
-How to turn your idea into a beautifully designed website without a complex designer-developer handoff process in the way?
+# What is UX development?
+UX development focuses on the user experience. It starts with the big picture and the general narrative, then moving on to design and design systems, and finally using CSS to convert the design system into a functional website. This role is also known as "design engineer" and the work is sometimes referred to as "design ops".
+
+[image.gridpaper]
+  small: /img/ux-development-flow.png
+  large: /img/ux-development-flow-big.png
+  caption: UX development process
+  size: 747 × 236 px
 
 
-## 1. Start with the content
+## Content
 UX development starts by understanding your audience and figuring out where to take them, and what benefits you can offer. You should figure out your general narrative, the key messaging statements, the tone and voice, and how the content is organized:
 
 [image.bordered]
@@ -22,7 +28,7 @@ This process varies from a large team effort to a simple README file in a local 
 
 
 
-## 2. Create a design system { #design-system }
+## Design
 Once you have a good understanding of your content it's time to create a design system: a set of rules and building blocks that define how the content is visualized.
 
 The content plan defines what goes to your site: the global elements and the content area. The tone and voice determine your look and feel: the use of colors, typography, whitespace, images and videos. Should it all be modern and minimalistic, or perhaps more playful and decorative?
@@ -42,7 +48,7 @@ One-person projects can implement the design system directly with HTML and CSS, 
 * [Figma: Marketing of design systems](//www.figma.com/blog/the-future-of-design-systems-is-marketing/)
 
 
-## 3. Convert it to CSS
+## CSS
 Once you know exactly what you want to build, it's time to convert the design system into code. Nue's [global design system](global-design-system.html) allows developers to build websites so that the code is mostly just vanilla CSS that closely mimics what you have designed:
 
 [image]
@@ -59,7 +65,7 @@ Nue's [CSS best practises](css-best-practices.css) helps you organize the code i
   We are working on website *templates*, that will change the situation. You'll get a professional website in a snap, with decades of CSS experience under the hood. The clear, commented source code will offer a great learning experience. [Join our mailing list](/#roadmap) if you want to hear when it's available.
 
 
-## 4. Add motion and reactivity
+## JavaScript
 Once the basics of designs are implemented you can enhance the experience with [motion and reactivity](reactivity.html):
 
 ! VIDEO
@@ -77,7 +83,7 @@ Nue brings reactivity to the hands of UX developers, who can now implement advan
 With Nue, you don't need the sink inside the React/TypeScript rabbit hole to implement the interactive parts of your design system. Learn modern CSS and the very basics of JavaScript and you're good to go.
 
 
-## 5. Hand it to your customer
+## Customer handoff
 Your final step is to hand the product to the ones who maintain the content. One of the best parts of Nue is that the *content is completely extracted from the code*. Any non-technical person can proceed with the content without breaking things or blocking others.
 
 [bunny-video]

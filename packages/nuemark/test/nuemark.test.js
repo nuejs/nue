@@ -12,6 +12,12 @@ test('fenced code', () => {
   expect(html.trim()).toEndWith('<p>after</p>')
 })
 
+test('fenced code: space before class name', () => {
+  const { html } = renderLines(['``` md #go.pink', '# Hey', '```'])
+  expect(html).toInclude('<div class="pink">')
+  expect(html).toInclude('<code language="md">')
+})
+
 test('[code.foo]', () => {
   const html = tags.code({ content: ['<p>Hey</p>'], language: 'xml', numbered: true, attr: { class: 'foo'} })
   expect(html).toStartWith('<div class="foo"><pre><code language="xml">')
@@ -257,13 +263,13 @@ test('H1 with inner <em>', () => {
 })
 
 test('render heading', () => {
-  const h1 = renderHeading('Hey', 1, 'This is a too long text version of it')
+  const h1 = renderHeading({ text: 'Hey', depth: 1, testRaw: 'This is a too long text version of it' })
   expect(h1).toEqual('<h1>Hey</h1>')
 
-  const h2 = renderHeading('Foo <em>bar</em> { #baz }', 2, 'Foo bar { #baz }')
+  const h2 = renderHeading({ text: 'Foo <em>bar</em> { #baz }', depth: 2, testRaw: 'Foo bar { #baz }' })
   expect(h2).toEqual('<h2 id="baz"><a href="#baz" title="Foo bar"></a>Foo <em>bar</em></h2>')
 
-  const h3 = renderHeading('Hey { .baz }', 3, 'Hey { .baz }')
+  const h3 = renderHeading({ text: 'Hey { .baz }', depth: 3, testRaw: 'Hey { .baz }' })
   expect(h3).toEqual('<h3 class="baz">Hey</h3>')
 })
 
@@ -428,6 +434,12 @@ test('parseComponent', () => {
     name: 'info',
   })
 
+})
+
+
+test('blockquotes', () => {
+  const { html } = renderLines(['> hey', '', 'joe'])
+  expect(html).toInclude('</blockquote>\n<p>joe</p>')
 })
 
 /*

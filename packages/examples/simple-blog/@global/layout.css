@@ -1,0 +1,67 @@
+
+/* all reset/normalization you need */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* consistent whitespace */
+ul, ol ,figure, pre {
+  margin: 2em 0;
+}
+
+/* page layout */
+body {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2% 5%;
+
+  > header nav {
+    justify-content: space-between;
+    margin-bottom: 4rem;
+    display: flex;
+
+    /*  avatar image */
+    > a:first-child {
+      background: url(/img/avatar-rounded.jpg) 0 50% no-repeat;
+      background-size: 2em;
+      padding-left: 2.5em;
+    }
+
+    a { padding: 1em 0 }
+  }
+
+  /* content area: hero and sections */
+  article {
+    > header { margin-bottom: 2rem }
+
+    > section {
+      max-width: 650px;
+      margin: 0 auto;
+    }
+  }
+
+  /* global footer */
+  > footer {
+    border-top: 1px solid var(--gray-200);
+    justify-content: space-between;
+    margin-top: 6rem;
+    padding: 1rem 0;
+    display: flex;
+
+    /* social icons */
+    > :last-child {
+      display: flex;
+      gap: .5em;
+      a:hover {
+        transform: scale(1.1)
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
