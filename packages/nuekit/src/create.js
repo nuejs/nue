@@ -32,7 +32,7 @@ export async function create({ root = '.', name = 'simple-blog' }) {
   // download archive
   const archive_name = 'source.tar.gz'
   const archive = await fetch(`https://${name}.nuejs.org/${name}.tar.gz`)
-  await fs.writeFile(archive_name, await archive.arrayBuffer())
+  await fs.writeFile(archive_name, Buffer.from(await archive.arrayBuffer()))
 
   // unzip and remove archive
   execSync(`tar -xf ${archive_name} -C ${root}`)
