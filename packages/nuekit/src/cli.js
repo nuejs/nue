@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
 
-import { log, colors } from './util.js'
+import { log, colors, getVersion, getEngine } from './util.js'
 import esMain from 'es-main'
 import { sep } from 'node:path'
 
@@ -66,20 +66,6 @@ export function getArgs(argv) {
   if (opt) throw `"${opt}" option is not set`
 
   return args
-}
-
-// read from package.json
-async function getVersion() {
-  const { promises } = await import('fs')
-  const pathname = new URL('../package.json', import.meta.url).pathname
-  const path = process.platform === "win32" && pathname.startsWith('/') ? pathname.slice(1) : pathname
-  const json = await promises.readFile(path, 'utf-8')
-  return JSON.parse(json).version
-}
-
-function getEngine() {
-  const v = process.versions
-  return process.isBun ? 'Bun ' + v.bun : 'Node ' + v.node
 }
 
 async function printHelp() {

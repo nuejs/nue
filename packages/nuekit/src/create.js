@@ -1,6 +1,7 @@
 import { execSync } from 'node:child_process'
 import { promises as fs } from 'node:fs'
 
+import { openUrl } from './util.js'
 import { createKit } from './nuekit.js'
 
 async function serve() {
@@ -8,9 +9,8 @@ async function serve() {
   const terminate = await nue.serve()
 
   // open welcome page
-  const open = process.platform == 'darwin' ? 'open' : process.platform == 'win32' ? 'start' : 'xdg-open'
   try {
-    execSync(`${open} http://localhost:${nue.port}/welcome/`)
+    execSync(`${openUrl} http://localhost:${nue.port}/welcome/`)
   } catch {}
   return terminate
 }
