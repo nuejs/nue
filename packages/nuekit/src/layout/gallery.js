@@ -24,9 +24,13 @@ export function renderPrettyDate(date) {
   return elem('time', { datetime: date.toISOString() }, prettyDate(date))
 }
 
+export function toAbsolute(path, dir) {
+  return path && path[0] != '/' ? `/${dir}/${path}`: path
+}
 
-export function renderListItem(page) {
-  const { title, desc, url, thumb } = page
+export function renderGalleryItem(page) {
+  const { title, desc, url } = page
+  const thumb = toAbsolute(page.thumb, page.dir)
 
   // date
   let date = page.date || page.pubDate || new Date()
@@ -47,15 +51,15 @@ export function renderListItem(page) {
 }
 
 
-export function renderPageList(data) {
+export function renderGallery(data) {
   const key = data.collection_name || data.content_collection
+  const items = key ? data[key] : data.itmes || data
 
-  if (!key) {
-    console.error('content collection not defined for page-list tag')
+  if (!items?.length) {
+    console.error('Gallery tag: no data or content collection defined')
     return ''
   }
 
-  const items = data[key]
-  const pages = items.filter(el => !el.unlisted).map(renderListItem)
+  const pages = items.filter(el => !el.unlisted).map(renderGalleryItem)
   return elem('ul', join(pages))
 }

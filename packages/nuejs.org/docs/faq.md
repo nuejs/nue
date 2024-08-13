@@ -32,19 +32,6 @@ Nue is a bad fit for React developers who prefer to use TypeScript for styling a
 
 
 
-### What is a UX developer?
-UX developer focuses on the user experience. Starting with the big picture and the general narrative, then moving on to design and design systems, and finally using CSS to convert the design system into a functional website. This role is also known as "design engineer" and the work is sometimes referred to as "design ops".
-
-[image.gridpaper]
-  small: /img/ux-development-flow.png
-  large: /img/ux-development-flow-big.png
-  caption: UX development process
-  size: 747 × 236 px
-
-
-
-
-
 
 ### What is the ultimate goal?
 The ultimate goal of Nue is to build [a perfect web framework](/blog/perfect-web-framework/) for UX developers. A simpler alternative to **Next.js**, **Vercel** and **Netlify**.

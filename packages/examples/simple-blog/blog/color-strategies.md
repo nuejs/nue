@@ -1,9 +1,9 @@
 ---
 title: Practical strategies for using colors in CSS
 credits: BalkanBrothers
-thumb: /posts/img/colors-thumb.png
+thumb: img/colors-thumb.png
 og: img/colors-2.jpg
-date: 2022-06-13
+date: 2024-05-23
 ---
 
 Working with color is one of the most fun parts of web design. But if you don't use them right in your CSS code, colors can also tank a site's usability and accessibility. In this post, we'll explore simple, real-world tips for effectively using color in your stylesheets.

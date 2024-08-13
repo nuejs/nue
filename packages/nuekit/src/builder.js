@@ -80,7 +80,6 @@ export async function lightningCSS(css, minify, opts={}) {
   if (opts.native_css_nesting) include |= Features.Nesting
 
   try {
-    process.stdout.write('⚡️')
     return transform({ code: Buffer.from(css), include, minify }).code?.toString()
 
   } catch({ source, loc, data}) {

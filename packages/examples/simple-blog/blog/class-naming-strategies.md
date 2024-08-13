@@ -1,8 +1,8 @@
 ---
 title: CSS class naming strategies for scaleable dasboard design
 og: img/dashboard-3.png
-thumb: /posts/img/dashboard-thumb.png
-date: February 5, 2024 12:00 PM
+thumb: img/dashboard-thumb.png
+date: 2024-03-13
 credits: ui8
 ---
 

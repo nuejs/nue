@@ -81,7 +81,7 @@ Your head element will be rendered as follows:
 ```
 
 
-## Global navigation
+## Global navigation { #navigation }
 Nue offers a simple, [YAML-based syntax](#nav-syntax) for defining all the site-wide navigation elements: global header and footer, the burger menu, dropdown menus, and any other complementary menus you may have. This declarative syntax is beneficial for several reasons:
 
 1. It always produces the same markup across projects that you can rely on when styling your website. This adapts to the idea of the global design system.

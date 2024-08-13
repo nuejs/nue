@@ -48,17 +48,17 @@ Content collections are "cheap" in a way that they don't cause much performance 
 ## Rendering collections
 
 
-### Page-list tag
-You can render the collection on your [layout modules](custom-layots.html) with a `page-list` tag:
+### Gallery tag { #gallery }
+Content collections are rendered with a `gallery` tag. This can be on your your [layout modules](custom-layots.html)
 
 ```
-<page-list/>
+<gallery/>
 ```
 
 Or on a Markdown page:
 
 ``` md
-[page-list]
+[gallery]
 ```
 
 

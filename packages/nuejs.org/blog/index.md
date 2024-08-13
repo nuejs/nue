@@ -22,4 +22,4 @@ exclude:
 
 [button.secondary href="/#roadmap" "Join mailing list"]
 
-[page-list]
+[gallery]

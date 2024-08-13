@@ -16,9 +16,9 @@ body {
   padding: 2% 5%;
 
   > header nav {
-    display: flex;
     justify-content: space-between;
     margin-bottom: 4rem;
+    display: flex;
 
     /*  avatar image */
     > a:first-child {
