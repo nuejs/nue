@@ -112,7 +112,7 @@ test('renders "/" route and mount component', async () => {
     expect(document.body.querySelector('[is="app"]').innerHTML.trim()).toBe('<h2>App mounted</h2>')
   })
 
-  expect(document.title).toBe('Page Router Test')
+  expect(document.title).toBe('Page Router Test - Home')
 
   expect(logSpy).toHaveBeenCalledTimes(1)
   expect(logSpy.mock.calls[0][0]).toBe('<app> mounted')
