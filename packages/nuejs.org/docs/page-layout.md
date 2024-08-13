@@ -1,10 +1,10 @@
 
 # Page layout
-Global design system standardizes the structure of your web pages so you can use the same HTML markup, but vary your external CSS to achieve wildly different designs.
+A global design system standardizes the structure of your web pages, allowing you to use the same HTML markup, while applying different external CSS, to achieve a wide range of designs.
 
 
 ## Standardized HTML
-After describing your headers and footers, the default page layout for Markdown content looks like this:
+After describing your headers and footers in the `layout.html` file, the default page layout for Markdown content looks like this:
 
 [image.bordered /img/page-layout.svg]
   caption: Standard page layout blocks
@@ -52,7 +52,7 @@ This forms the basis for our markup, which has no styling information included i
 
 
 #### The head element
-The contents of your head element are auto-generated based on your [settings](settings.html) and [project structure](project-structure.html). For example, if you have the files `hello.css` and `hello.js` on your project root and  a `site.yaml` file with the following data:
+The contents of your head element are auto-generated based on your [settings](settings.html) and [project structure](project-structure.html). For example, if you have the files `hello.css` and `hello.js` in your project root and a `site.yaml` file with the following data:
 
 ``` yaml
 favicon: /favicon.png
@@ -80,9 +80,8 @@ Your head element will be rendered as follows:
 </head>
 ```
 
-
 ## Global navigation { #navigation }
-Nue offers a simple, [YAML-based syntax](#nav-syntax) for defining all the site-wide navigation elements: global header and footer, the burger menu, dropdown menus, and any other complementary menus you may have. This declarative syntax is beneficial for several reasons:
+Nue offers a simple, [YAML-based syntax](#nav-syntax) for defining all the site-wide navigation elements: global header and footer, the burger menu, dropdown menus and any other complementary menus you may have. This declarative syntax is beneficial for several reasons:
 
 1. It always produces the same markup across projects that you can rely on when styling your website. This adapts to the idea of the global design system.
 
@@ -437,7 +436,7 @@ The content is always nested inside one or more section elements. A multi-sectio
 </article>
 ```
 
-The `section` elements are direct descendants of the article and cannot occur anywhere on the page.
+The `section` elements are direct descendants of the article and cannot occur anywhere else on the page.
 
 
 
@@ -480,7 +479,7 @@ Content authors can write [blocks of content](content.html#blocks) with class na
 </div>
 ```
 
-Common class names to implement on your CSS are "note", "warning", "alert", or "info".
+Common class names to implement in your CSS are: "note", "warning", "alert" or "info".
 
 
 ### Flex layouts
@@ -773,7 +772,7 @@ The implementation is similar to standard [tabs](#tabs), but the markup is plain
 
 
 ## Wrappers
-Tables, code blocks, and tabs can be nested inside a wrapper element to allow more visual design around the element:
+Tables, code blocks and tabs can be nested inside a wrapper element to allow more visual design around the element:
 
 
 ```
