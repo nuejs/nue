@@ -8,7 +8,7 @@ You can use Nue to build production-ready websites, but with following limitatio
 
 * **Sketchy Windows support.** Nue does not work under Windows but we're [working on it](https://github.com/nuejs/nue/issues/249)
 
-* [Single-page applications](single-page-applications.html) are a central part of Nue's roadmap, but the current focus is currently on content-heavy multi-page applications. All SPA-related issues are marked [low priority](https://github.com/nuejs/nue/labels/low%20priority).
+* [Single-page applications](single-page-applications.html) are a central part of Nue's roadmap, but the main focus is currently on content-heavy multi-page applications. All SPA-related issues are marked [low priority](https://github.com/nuejs/nue/labels/low%20priority).
 
 
 ## System Requirements
@@ -40,7 +40,7 @@ You can verify the installation by running `nue --version`. If the output looks 
 
 
 ## Alternatively: Use Node { #node }
-Nue also works with Node so you can alternatively install Nue with `pnpm`, `npm`, and `yarn`. For example:
+Nue also works with Node so you can, alternatively, install Nue with `pnpm`, `npm`, and `yarn`. For example:
 
 ``` sh
 pnpm install nuekit --global
@@ -52,7 +52,7 @@ The default engine for Nue is Bun. That is: the command line interface starts wi
 node $(which nue)
 ```
 
-The `which` command locates the nue executable, and starts it with node. Running `node $(which nue) --version` should output something like "Nue 0.5.2 / Node 21.6.2". You can create a permanent shortcut to this command with `alias`. For example:
+The `which` command locates the nue executable and starts it with node. Running `node $(which nue) --version` should output something like "Nue 0.5.2 / Node 21.6.2". You can create a permanent shortcut to this command with `alias`. For example:
 
 ``` sh
 alias node-nue="node $(which nue)"
@@ -68,8 +68,4 @@ Here's [Nue VS code extension](https://marketplace.visualstudio.com/items?itemNa
 
 
 ### Problems?
-Please post an [issue](//github.com/nuejs/nue/issues) if Nue does not work on your environment.
-
-
-
-
+Please post an [issue](//github.com/nuejs/nue/issues) if Nue does not work in your environment.

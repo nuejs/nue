@@ -42,12 +42,12 @@ Here's the source code for the reactive component:
 </div>
 ```
 
-Inside the component, all the control flow operations like loops, and conditionals are _reactive_ — they respond to user events and render themselves to a new "state". Here we have a numeric state variable `index`, which gets updated as the user clicks the navigational elements and the UI automatically changes based on what the value of this variable.
+Inside the component, all the control flow operations like loops and conditionals are _reactive_ — they respond to user events and render themselves to a new "state". Here, we have a numeric state variable `index`, which gets updated as the user clicks the navigational elements and the UI automatically changes based on what the value of this variable is.
 
 
 
 ## Event handlers
-Attributes starting with the `@` symbol define an event handler. These are JavaScript functions that are called on user interaction like click, keypress, or mouse move.
+Attributes starting with the `@` symbol define an event handler. These are JavaScript functions that are called on user interaction like click, keypress or mouse move.
 
 
 ### Inline handlers
@@ -61,7 +61,7 @@ Inline handlers are good for simple expressions.
 
 
 ### Method handlers
-More complex functionality should go to an instance method
+More complex functionality should be moved to an instance method:
 
 ```
 <dialog>
@@ -165,6 +165,7 @@ Nue provides the following aliases for the most commonly used keys:
 - `.delete` captures both "Delete" and "Backspace" keys
 - `.esc` captures both "Esc" and "Escape"
 - `.space` captures "Spacebar", " ", "Space Bar"
+- `.tab` captures "Tab"
 - `.up` captures "Up" and "ArrowUp"
 - `.down` captures "Down" and "ArrowDown"
 - `.left` captures "Left" and "ArrowLeft"
@@ -173,7 +174,7 @@ Nue provides the following aliases for the most commonly used keys:
 
 
 ## Reactive arrays
-When you define a for loop, with the `:for`- expression Nue detects if the looped array is mutated and triggers necessary UI updates. These [array methods](//developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) include:
+When you define a for loop, with the `:for`- expression, Nue detects whether the looped array is mutated and triggers necessary UI updates. These [array methods](//developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) include:
 
 * `push(item)` adds a new item to the end of the array
 * `unshift(item)` adds a new item to the head of the array
@@ -197,7 +198,7 @@ search() {
 ```
 
 ### Loop animations
-Nue lets you define an `oninsert` callback function that is called every time a new item is added to any of the array properties in the component. This gives you the possibility to add a CSS transition effect (among other things) for the newly added dom nodes. For example:
+Nue lets you define an `oninsert` callback function that is called every time a new item is added to any of the array properties in the component. This gives you a chance to add a CSS transition effect (among other things) for the newly added DOM nodes. For example:
 
 [animation-demo]
   - title: Alex Martinez
@@ -306,11 +307,11 @@ The component API is accessible via `this` variable inside the lifecycle methods
 
 `$refs` access to named DOM nodes and inner components inside the component
 
-`mount(root: DOMElement)` mount the instance to the given root element
+`mount(root: DOMElement)` mounts the instance to the given root element
 
-`unmount()` method to remove the component from the current component tree
+`unmount()` removes the component from the current component tree
 
-`update(data?: Object)` forces the component instance to re-render with optional data. You typically call this event after fetching data from the server or some other asynchronous event.
+`update(data?: Object)` forces the component instance to re-render itself with optional data. You typically call this event after fetching data from the server or some other asynchronous event.
 
 `mountChild(name, wrap, data)` mounts a new child component on a DOM element inside the current component.
 

@@ -40,6 +40,10 @@ article, body > footer {
 .project-status {
   margin-bottom: 8em;
   max-width: 660px;
+
+  h2 {
+    scroll-margin-top: .5em;
+  }
 }
 
 

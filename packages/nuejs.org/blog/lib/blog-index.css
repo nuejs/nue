@@ -74,7 +74,7 @@ li {
 
   &.is-new h2:before {
     content: "NEW";
-    background-color: var(--red);
+    background-color: var(--purple);
     margin-right: .5em;
     padding: .2em .4em;
     font-weight: 800;
@@ -129,8 +129,8 @@ li {
 
     &.is-new {
       time:after {
-        background-color: var(--red);
-        border-color: var(--red);
+        background-color: var(--purple);
+        border-color: var(--purple);
       }
     }
   }

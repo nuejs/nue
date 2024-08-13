@@ -1,0 +1,44 @@
+
+
+
+ul:has(time) {
+  list-style: none;
+  margin: 4em 0;
+  padding: 0;;
+
+  
+  li {
+    margin-bottom: 3em;
+  }
+  
+  figure {
+    transition: transform .1s;
+    align-items: center;
+    display: flex;
+    margin: 1em 0;
+    gap: 3rem;
+    margin: 0;
+    &:hover { transform: scale(1.01) }
+  }
+
+  time {
+    color: var(--gray-500);
+    font-weight: 300;
+    font-size: 85%;
+  }
+
+  h2 {
+    color: var(--gray-800);
+    text-wrap: balance;
+    font-size: 1.05em;
+    font-weight: 500;
+    line-height: 1.5;
+    margin: .3em 0 0;
+  }
+
+  img {
+    max-width: 12em;
+    border-radius: 4px;
+  }
+}
+

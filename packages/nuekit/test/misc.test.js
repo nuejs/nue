@@ -4,9 +4,11 @@ import { match } from '../src/browser/app-router.js'
 
 import { parsePathParts, sortCSS } from '../src/util.js'
 import { lightningCSS } from '../src/builder.js'
+import { create } from '../src/create.js'
 import { getArgs } from '../src/cli.js'
 
 import { toMatchPath } from './match-path.js'
+import { promises as fs } from 'node:fs'
 
 expect.extend({ toMatchPath })
 
@@ -43,7 +45,15 @@ test('path parts', () => {
   const parts = parsePathParts('docs/glossary/semantic-css.md')
   expect(parts.url).toBe('/docs/glossary/semantic-css.html')
   expect(parts.dir).toMatchPath('docs/glossary')
-  expect(parts.appdir).toMatchPath('docs')
+  expect(parts.basedir).toMatchPath('docs')
   expect(parts.slug).toBe('semantic-css.html')
 })
 
+
+test('create', async () => {
+  await fs.mkdir('simple-blog', { recursive: true })
+  await process.chdir('simple-blog')
+
+  const terminate = await create({ name: 'simple-blog' })
+  terminate()
+})
