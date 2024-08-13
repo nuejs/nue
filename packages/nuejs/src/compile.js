@@ -199,6 +199,7 @@ function createComponent(node) {
 
 
 export function parse(src) {
+  src = src.replace(/\r\n|\r/g, '\n')
   const { children } = mkdom(src)
 
   try {
