@@ -1,8 +1,8 @@
 
 import { tags, elem, join, concat } from './tags.js'
 import { parsePage, parseHeading } from './parse.js'
+import { marked, parseInline } from 'marked'
 import { parseAttr } from './component.js'
-import { marked } from 'marked'
 
 
 export function renderPage(page, opts) {
@@ -106,8 +106,8 @@ marked.setOptions({
   mangle: false
 })
 
-export function renderHeading({ tokens, text: html, depth, testRaw=null }) {
-  const raw = !testRaw ? this.parser.parseInline(tokens) : testRaw
+export function renderHeading(html, depth, raw) {
+  // const raw = !testRaw ? parseInline(text) : testRaw
 
   const plain = parseHeading(raw)
   const { id } = plain
