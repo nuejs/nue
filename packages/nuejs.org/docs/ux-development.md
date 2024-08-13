@@ -1,6 +1,6 @@
 
 # What is UX development?
-UX development focuses on the user experience. Starting with the big picture and the general narrative, then moving on to design and design systems, and finally using CSS to convert the design system into a functional website. This role is also known as "design engineer" and the work is sometimes referred to as "design ops".
+UX development focuses on the user experience. It starts with the big picture and the general narrative, then moving on to design and design systems, and finally using CSS to convert the design system into a functional website. This role is also known as "design engineer" and the work is sometimes referred to as "design ops".
 
 [image.gridpaper]
   small: /img/ux-development-flow.png
@@ -18,7 +18,7 @@ UX development starts by understanding your audience and figuring out where to t
   caption: UX development starts with content design.
   size: 747 × 492 px
 
-This process varies from a large team effort to a simple README file on a local file system. The more you know about your content, the better equipped you are for the next step: design.
+This process varies from a large team effort to a simple README file in a local file system. The more you know about your content, the better equipped you are for the next step: design.
 
 #### More info
 * [Steve Jobs: Start with the customer experience](//surveypal.com/blog/steve-jobs-said-it-best-start-with-the-customer-experience/)
@@ -31,14 +31,14 @@ This process varies from a large team effort to a simple README file on a local 
 ## Design
 Once you have a good understanding of your content it's time to create a design system: a set of rules and building blocks that define how the content is visualized.
 
-The content plan defines what goes to your site: the global elements and the content area. The tone and voice determine your look and feel: the use of colors, typography, whitespace, images, and videos. Should it all be modern and minimalistic, or perhaps more playful and decorative?
+The content plan defines what goes to your site: the global elements and the content area. The tone and voice determine your look and feel: the use of colors, typography, whitespace, images and videos. Should it all be modern and minimalistic, or perhaps more playful and decorative?
 
 [image.bordered]
   small: /img/figma-design-system.png
   large: /img/figma-design-system-big.png
   size: 747 × 405 px
 
-The size and format of your design system vary a lot depending on the size of your team. Large design-focused organizations usually have everything figured out in **Figma** or **Sketch**. Small projects might go with a simple README- file describing the basic rules of the design.
+The size and format of your design system vary a lot depending on the size of your team. Large design-focused organizations usually have everything figured out in **Figma** or **Sketch**. Small projects might go with a simple README file describing the basic rules of the design.
 
 One-person projects can implement the design system directly with HTML and CSS, because that's what you eventually end up doing. This takes you one step closer to the finish line.
 
@@ -56,7 +56,7 @@ Once you know exactly what you want to build, it's time to convert the design sy
   large: /img/figma-to-css-big.png
   size: 749 × 485 px
 
-Nue's [CSS best practises](css-best-practices.css) helps you organize the code in such a way that it is easy to read, reuse, and scale. Experienced UX developers can rapidly build websites with just a few lines of HTML and a handful of CSS files. There is no designer-developer handoff process in your way.
+Nue's [CSS best practises](css-best-practices.css) helps you organize the code in such a way that it is easy to read, reuse and scale. Experienced UX developers can rapidly build websites with just a few lines of HTML and a handful of CSS files. There is no designer-developer handoff process in your way.
 
 [.note]
   ### Note
@@ -110,5 +110,3 @@ file_include_patterns: [ "*.md", "*.yaml" ]
 [.note]
   ### Note
   We are working on features that will make the customer handoff as easy as possible. This includes a **VS code** extension for easy content management and a "Push live" button that deploys all the changes to production.
-
-
