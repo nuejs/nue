@@ -229,7 +229,7 @@ export function parseSyntax(str, lang) {
     comment = null
   }
 
-  str.split(NL).forEach((line, i) => {
+  str.split(/\r\n|\r|\n/).forEach((line, i) => {
 
     // hack to join lines when there was newline in the middle of a line
     const quote = /^("|')/.exec(line)

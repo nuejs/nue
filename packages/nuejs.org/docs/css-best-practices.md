@@ -4,26 +4,26 @@
 This document describes the best practices for writing clean CSS that is easy to maintain and scale. This is a result of decades of coding with CSS and HTML.
 
 
-
-## Understand minimalism
+## Less is more
 The key take from this document can be squeezed into one sentence:
 
-[.popup]
+[.blueprint]
   10 lines of code is easier to maintain than 100 lines of code
+
 
 This website and Nue itself are a great demonstration of minimalism coming from practicing the following:
 
-1. Respect constraints
-1. Write clean HTML and CSS
-1. Write reusable CSS code
-1. Avoid inline styling
-1. Learn modern CSS
+1. Constraints
+1. Semantic HTML
+1. External CSS
+1. No CSS frameworks
+1. No inline styling
 
-These are all described in this document. Once you harness the power of CSS you are able to [build entire websites](/blog/introducing-nue-css/) with the same amount of CSS code as a _single_ Tailwind button has.
+These are all described in this document. Once you get familiar with minimalistic CSS coding, you are able to [build entire websites](/blog/introducing-nue-css/) with the same amount of code as you can find in CSS resets or Tailwind's base ("preflight") styles.
 
 
 ## Respect constraints { #constraints }
-Limit yourself to as few fonts, font weights, colors, variables, elements, class names and components as possible. This is beneficial for several reasons:
+When drafting your [design system](ux-development.html#design-system) limit yourself to as few fonts, font weights, colors, variables, elements, class names and components as possible. This is beneficial for several reasons:
 
 1. **Easier to adopt** — A simple design system is easier to adopt and use. The fewer variables and components you have, the harder it is to mess things up.
 
@@ -47,6 +47,7 @@ Your CSS code is applied to a standardized [HTML layout](page-layout.html) in th
 [image]
   small: /img/figma-to-css.png
   large: /img/figma-to-css-big.png
+  size: 749 × 485 px
 
 Name the files in such a way that everyone can easily guess what's inside the file. The elements in these files should be related and easy to discover even when a UX developer sees the codebase for the first time. For example:
 
@@ -215,9 +216,12 @@ Instead, write clean markup and style it externally:
   </div>
 
 
-This brings more benefits than you could imagine:
+External styling is the key to professional UX development:
+
 
 1. **Easier to maintain** — clean HTML and CSS are easier to read, write, teach, share and maintain.
+
+1. **Leaner stack** — go directly from Figma to CSS without a hefty JavaScript ecosystem on your way
 
 1. **Less code to write** — external CSS leads to [maximum reuse](#reuse) and minimal duplication of code.
 
@@ -295,7 +299,7 @@ There is tons of [misinformation](/blog/tailwind-misinformation-engine/) about C
 
 But if you grasp the power of the global design system and see how you can accomplish the same thing with significantly less effort you begin to think why you ever bought the idea of tight coupling in the first place.
 
-Harness the power of constraints, design systems, and web standards. Become great at developing user experiences and stay relevant for years to come.
+Understand the power of constraints, design systems, and web standards. Become a professional UX developer and stay relevant for years to come.
 
 
 #### Inspiration:

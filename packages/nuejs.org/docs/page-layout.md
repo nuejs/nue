@@ -6,7 +6,9 @@ Global design system standardizes the structure of your web pages so you can use
 ## Standardized HTML
 After describing your headers and footers, the default page layout for Markdown content looks like this:
 
-[image.bordered /img/page-layout.svg width="600"]
+[image.bordered /img/page-layout.svg]
+  caption: Standard page layout blocks
+  size: 598 × 667 px
 
 
 To see this in practice lets create an `index.md` file with the following content:
@@ -79,7 +81,7 @@ Your head element will be rendered as follows:
 ```
 
 
-## Global navigation
+## Global navigation { #navigation }
 Nue offers a simple, [YAML-based syntax](#nav-syntax) for defining all the site-wide navigation elements: global header and footer, the burger menu, dropdown menus, and any other complementary menus you may have. This declarative syntax is beneficial for several reasons:
 
 1. It always produces the same markup across projects that you can rely on when styling your website. This adapts to the idea of the global design system.
@@ -137,9 +139,7 @@ header:
   Site navigation:
     - Docs: /docs/
     - Blog: /blog/
-    - label: Nue 1.0 beta ›
-      url: /blog/nue-1-beta/
-      class: status badge
+    - Nue 1.0 beta: /blog/nue-1-beta/ "status pill"
 
   Toolbar:
     - image: /icon/x-logo.svg
@@ -148,9 +148,9 @@ header:
       alt: X logo
       size: 39 x 39
 
-    - label: 6.0k
+    - text: 6.0k
       url: //github.com/nuejs/nue
-      class: github badge
+      class: github pill
 ```
 
 This generates three `<nav/>` elements inside the header:
@@ -266,8 +266,8 @@ Here is the basic syntax for defining navigational elements:
 
 ``` yaml
 Navi title:
-  - Link 1 label: /first/link
-  - Link 2 label: /second/link "badge"
+  - Link 1 text: /first/link
+  - Link 2 text: /second/link "pill"
   - ...
 ```
 
@@ -275,8 +275,8 @@ This generates the following HTML:
 
 ```
 <nav aria-label="Navi title">
-  <a href="/first/link">Link 1 label</a>
-  <a href="/second/link" class="badge">Link 2 label</a>
+  <a href="/first/link">Link 1 text</a>
+  <a href="/second/link" class="pill">Link 2 text</a>
   ...
 </hav>
 ```
@@ -291,15 +291,19 @@ Rich navigation:
     alt: The logo
     url: /
 
+  # separator
   - ---
 
-  - label: Link label
+  - text: Link text
     url: /link/url
-    class: badge
+    class: pill
     role: button
 
-  - label: Just some text
+  - text: Just some text
     class: info
+
+  # class shortcut
+  - Another: /second/url "cute"
 ```
 
 The above generates this:
@@ -310,10 +314,12 @@ The above generates this:
     <img src="/img/logo.png" width="100" height="30" alt="The logo">
   </a>
   <hr>
-  <a href="/link/url" class="badge" role="button">
-    Link 1 label
+  <a href="/link/url" class="pill" role="button">
+    Link 1 text
   </a>
   <p class="info">Just some text</p>
+
+  <a href="/second/url" class="cute">Another</a>
 </nav>
 ```
 
@@ -323,12 +329,12 @@ Categorized navigations are typically used in the global footer and in any sideb
 ``` yaml
 Categories:
   Category 1:
-    - Label: /link
-    - Label: /link
+    - Text: /link
+    - Text: /link
 
   Category 2:
-    - Label: /link
-    - Label: /link
+    - Text: /link
+    - Text: /link
 ```
 
 This will generate the following:
@@ -338,14 +344,14 @@ This will generate the following:
 <div aria-label="Categories">
   <nav>
     <h3>Category 1</h3>
-    <a href="/link">Label</a>
-    <a href="/link">Label</a>
+    <a href="/link">Text</a>
+    <a href="/link">Text</a>
   </nav>
 
   <nav>
     <h3>Category 2</h3>
-    <a href="/link">Label</a>
-    <a href="/link">Label</a>
+    <a href="/link">Text</a>
+    <a href="/link">Text</a>
   </nav>
 </div>
 ```

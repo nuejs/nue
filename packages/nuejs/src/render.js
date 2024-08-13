@@ -352,6 +352,7 @@ function setJSONData(node, ctx) {
 
 
 export function parse(template) {
+  template = template.replace(/\r\n|\r/g, '\n')
   const { children } = mkdom(template)
   const nodes = children.filter(el => el.type == 'tag')
   const global_js = getJS(children)
@@ -378,5 +379,3 @@ export async function renderFile(path, data, deps) {
   const src = await fs.readFile(path, 'utf-8')
   return render(src, data, deps)
 }
-
-

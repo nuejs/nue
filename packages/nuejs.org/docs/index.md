@@ -21,13 +21,15 @@ Nue's content-first [development flow](ux-development.html) focuses solely on th
 ## Target audience
 Nue is a great fit for the following people:
 
-1. **UX developers**: who prefer to jump to CSS directly from **Figma** or **Sketch** without a [frustrating and time-consuming](//medium.com/design-warp/5-most-common-designer-developer-handoff-mishaps-ba96012be8a7) designer-developer handoff process in the way.
+1. **UX developers**: who natively jump between **Figma** and **CSS** without a confusing [designer-developer handoff](//medium.com/design-warp/5-most-common-designer-developer-handoff-mishaps-ba96012be8a7) process in the way.
 
-2. **Beginner web developers**: who want to skip the redundant layers in the [frontend stack](//roadmap.sh/frontend) and start building websites quickly with modern HTML, CSS, and JavaScript.
+2. **Beginner web developers**: who want to skip the [redundant frontend layers](//roadmap.sh/frontend) and start building websites directly with HTML, CSS, and JavaScript.
 
-3. **Experienced JS developers**: frustrated with the absurd amount of layers in the [React stack](//roadmap.sh/react) and desire better ways to develop websites.
+3. **Experienced JS developers**: frustrated with the absurd amount of layers in the [React stack](//roadmap.sh/react) and looking for simpler ways to develop professional websites.
 
 4. **Designers**: planning to learn web development, but find the JavaScript ecosystem too scary
+
+5. **Parents** and **teachers**: who wants to educate young people [how the web works](//www.websitearchitecture.co.uk/resources/examples/web-standards-model/)
 
 
 ## Key features and benefits
