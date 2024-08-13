@@ -1,3 +1,4 @@
+import { GlobalRegistrator } from '@happy-dom/global-registrator'
 import { join, relative, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { promises as fs } from 'node:fs'
@@ -14,6 +15,7 @@ const out = join(dist, 'dev')
 
 // setup and teardown
 beforeAll(async () => {
+  GlobalRegistrator.register()
   await fs.rm(dist, { recursive: true, force: true })
 
   const nue = await createKit({ root })
@@ -26,6 +28,7 @@ afterEach(() => {
 
 afterAll(async () => {
   await fs.rm(dist, { recursive: true, force: true })
+  await GlobalRegistrator.unregister()
 })
 
 async function read(filePath) {

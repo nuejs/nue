@@ -36,8 +36,7 @@
   "jest": {
     "setupFilesAfterEnv": [
       "jest-extended/all",
-      "<rootDir>/../../setup-jest.js",
-      "<rootDir>/../../happydom.js"
+      "<rootDir>/../../setup-jest.js"
     ]
   }
 }
