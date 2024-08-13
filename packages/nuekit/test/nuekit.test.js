@@ -300,13 +300,14 @@ test('single-page app index', async() => {
 })
 
 test('index.md', async() => {
-  await write('index.md', '# Hey')
+  await write('index.md', '# Hey { .yo }\n\n## Foo { .foo#bar.baz }')
   const kit = await getKit()
   await kit.gen('index.md')
   const html = await readDist(kit.dist, 'index.html')
   expect(html).toInclude('hotreload.js')
   expect(html).toInclude('<title>Hey</title>')
-  expect(html).toInclude('<h1>')
+  expect(html).toInclude('<h1 class="yo">Hey</h1>')
+  expect(html).toInclude('<h2 class="foo baz" id="bar"><a href="#bar" title="Foo"></a>Foo</h2>')
 })
 
 

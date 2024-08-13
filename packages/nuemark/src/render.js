@@ -106,15 +106,17 @@ marked.setOptions({
   mangle: false
 })
 
-export function renderHeading(html, level, raw) {
+export function renderHeading({ tokens, text: html, depth, testRaw=null }) {
+  const raw = !testRaw ? this.parser.parseInline(tokens) : testRaw
+
   const plain = parseHeading(raw)
   const { id } = plain
 
   // class name only
-  if (!id && plain.class) return elem(`h${level}`, { class: plain.class }, plain.text)
+  if (!id && plain.class) return elem(`h${depth}`, { class: plain.class }, plain.text)
 
   // no id -> return plain heading
-  if (!id || level == 1) return elem(`h${level}`, html)
+  if (!id || depth == 1) return elem(`h${depth}`, html)
 
   // id given
   const title = plain.text.replaceAll('"', '')
@@ -122,7 +124,7 @@ export function renderHeading(html, level, raw) {
 
   delete plain.text
   const a = elem('a', { href: `#${id}`, title })
-  return elem(`h${level}`, plain, a + text)
+  return elem(`h${depth}`, plain, a + text)
 }
 
 // marked renderers
@@ -131,8 +133,8 @@ const renderer = {
   heading: renderHeading,
 
   // lazyload images by default
-  image(src, title, alt) {
-    return elem('img', { src, title, alt, loading: 'lazy' })
+  image({ href, title, text }) {
+    return elem('img', { src: href, title, alt: text, loading: 'lazy' })
   },
 }
 
