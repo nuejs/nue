@@ -165,6 +165,7 @@ Nue provides the following aliases for the most commonly used keys:
 - `.delete` captures both "Delete" and "Backspace" keys
 - `.esc` captures both "Esc" and "Escape"
 - `.space` captures "Spacebar", " ", "Space Bar"
+- `.tab` captures "Tab"
 - `.up` captures "Up" and "ArrowUp"
 - `.down` captures "Down" and "ArrowDown"
 - `.left` captures "Left" and "ArrowLeft"
