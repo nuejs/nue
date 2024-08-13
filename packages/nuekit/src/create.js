@@ -4,8 +4,8 @@ import { promises as fs } from 'node:fs'
 import { openUrl } from './util.js'
 import { createKit } from './nuekit.js'
 
-async function serve() {
-  const nue = await createKit({ root: '.' })
+async function serve(root) {
+  const nue = await createKit({ root })
   const terminate = await nue.serve()
 
   // open welcome page
@@ -15,13 +15,13 @@ async function serve() {
   return terminate
 }
 
-export async function create({ name = 'simple-blog' }) {
+export async function create({ root = '.', name = 'simple-blog' }) {
 
   // read files
-  const files = (await fs.readdir('.')).filter(f => !f.startsWith('.'))
+  const files = (await fs.readdir(root)).filter(f => !f.startsWith('.'))
 
   // already created -> serve
-  if (files.includes('site.yaml')) return serve()
+  if (files.includes('site.yaml')) return serve(root)
 
   // currently only simple-blog is available
   if (name != 'simple-blog') return console.error('Template does not exist:', name)
@@ -35,9 +35,9 @@ export async function create({ name = 'simple-blog' }) {
   await fs.writeFile(archive_name, await archive.arrayBuffer())
 
   // unzip and remove archive
-  execSync(`tar -xf ${archive_name}`)
+  execSync(`tar -xf ${archive_name} -C ${root}`)
   await fs.rm(archive_name)
 
   // serve
-  return await serve()
+  return await serve(root)
 }
