@@ -227,7 +227,7 @@ export async function createKit(args) {
   }
 
   function isAssetFor(page, asset) {
-    if (asset.ext == '.html' || ['site.yaml', 'app.yaml'].includes(asset.base)) {
+    if (['.html', '.yaml'].includes(asset.ext)) {
       const appdir = getAppDir(asset.dir)
       return ['', '.', ...site.globals].includes(appdir) || getAppDir(page.dir) == appdir
     }
