@@ -27,17 +27,7 @@ export async function init({ dist, is_dev, esbuild, force }) {
     await fs.writeFile(latest, '')
   }
 
-  try {
-    // chdir hack (Bun does not support absWorkingDir)
-    process.chdir(srcdir)
-    process.env.ACTUAL_CWD = cwd
-
-    await initDir({ dist, is_dev, esbuild, cwd, srcdir, outdir })
-  } finally {
-    // recover
-    process.env.ACTUAL_CWD = ''
-    process.chdir(cwd)
-  }
+  await initDir({ dist, is_dev, esbuild, cwd, srcdir, outdir })
 }
 
 async function initDir({ dist, is_dev, esbuild, cwd, srcdir, outdir }) {
@@ -107,6 +97,6 @@ async function initDir({ dist, is_dev, esbuild, cwd, srcdir, outdir }) {
 
 function resolvePath(npm_path) {
   const [ npm_name, ...parts ] = npm_path.split('/')
-  const module_path = dirname(fileURLToPath(resolve(npm_name, `file://${process.cwd()}/`)))
+  const module_path = dirname(fileURLToPath(resolve(npm_name, import.meta.url)))
   return join(module_path, ...parts)
 }
