@@ -32,21 +32,31 @@ async function write(filename, code) {
 
 test('Lightning CSS errors', async () => {
   const code = 'body margin: 0 }'
-  const filename = await write('lcss.css', code)
+  const filepath = await write('lcss.css', code)
 
   try {
-    await lightningCSS(filename, true)
+    await lightningCSS(filepath, true)
   } catch (e) {
     expect(e.lineText).toBe(code)
     expect(e.line).toBe(1)
   }
 })
 
+test('Lightning CSS @import bundling', async () => {
+  const code = 'body { margin: 0 }'
+  const filename = 'cssimport.css'
+  await write(filename, code)
+  const filepath = await write('lcss.css', `@import "${filename}"`)
+
+  const css = await lightningCSS(filepath, true)
+  expect(css).toBe(code.replace(/\s/g, ''))
+})
+
 test('Lightning CSS', async () => {
   const code = 'body { margin: 0 }'
-  const filename = await write('lcss.css', code)
+  const filepath = await write('lcss.css', code)
 
-  const css = await lightningCSS(filename, true)
+  const css = await lightningCSS(filepath, true)
   expect(css).toBe(code.replace(/\s/g, ''))
 })
 
