@@ -37,6 +37,7 @@ export async function create({ root, name = 'simple-blog' }) {
   } else await fs.mkdir(root, { recursive: true })
 
   // download archive
+  console.info('Loading template...')
   const archive_name = join(root, `${name}-source.tar.gz`)
   const archive = await fetch(`https://${name}.nuejs.org/${debug ? 'test' : name}.tar.gz`)
   await fs.writeFile(archive_name, Buffer.from(await archive.arrayBuffer()))

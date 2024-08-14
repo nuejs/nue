@@ -10,6 +10,7 @@ Commands
   serve    Start development server (default command)
   build    Build the site under <root_dir>
   stats    Show site statistics
+  create   Use a project starter template
 
 Options
   -r or --root          Source directory. Default "." (current working dir)
@@ -38,12 +39,12 @@ Examples
   nue build .md .css
 
   # more examples
-  ${openUrl} https://nuejs.org/docs/cli
+  ${openUrl} https://nuejs.org/docs/command-line-interface.html
 
 Less is more
 
  ┏━┓┏┓┏┳━━┓
- ┃┏┓┫┃┃┃┃━┫  v${await getVersion()}
+ ┃┏┓┫┃┃┃┃━┫  kit ${await getVersion()}
  ┃┃┃┃┗┛┃┃━┫  nuejs.org
  ┗┛┗┻━━┻━━┛
 `
