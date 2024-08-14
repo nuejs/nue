@@ -20,7 +20,7 @@ export function expandArgs(args) {
 // TODO: tests
 export function getArgs(argv) {
   const commands = ['serve', 'build', 'stats', 'create']
-  const args = { paths: [], root: '.' }
+  const args = { paths: [], root: null }
   const checkExecutable = /[\\\/]nue(\.(cmd|ps1|bunx|exe))?$/
   let opt
 
@@ -81,10 +81,10 @@ async function printVersion() {
 
 async function runCommand(args) {
   const { createKit } = await import('./nuekit.js')
-  const { cmd='serve', dryrun, push, root } = args
+  const { cmd='serve', dryrun, push, root=null } = args
+  if (!root) args.root = '.'
 
   console.info('')
-
 
   // create nue
   if (cmd == 'create') {
@@ -126,10 +126,6 @@ if (esMain(import.meta)) {
   // version
   } else if (args.version) {
     await printVersion()
-
-  // root is required
-  } else if (!args.root) {
-    console.info('Project root not specified')
 
   // command
   } else if (!args.test) {
