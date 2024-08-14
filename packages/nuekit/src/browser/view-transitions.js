@@ -26,53 +26,51 @@ export async function loadPage(path, no_push) {
   const query = '[name="nue:components"]'
   $(query).content = $(query, dom).content
 
-  // scripts (only loads once per script, that's how modules work)
-  loadScripts(dom).then(() => {
+  // forEach() does not work due to timing issues
+  for (const script of $$('script[src]', dom)) {
 
-    // Inline CSS / development
-    const new_styles = swapStyles($$('style'), $$('style', dom))
-    new_styles.forEach(style => $('head').appendChild(style))
+    // modules are loaded only once by the browser
+    await import(script.getAttribute('src'))
+  }
 
-    // external CSS
-    const paths = swapStyles($$('link'), $$('link', dom))
+  // Inline CSS / development
+  const new_styles = swapStyles($$('style'), $$('style', dom))
+  new_styles.forEach(style => $('head').appendChild(style))
 
-    /* production (single style element) */
-    const orig_style = findPlainStyle()
-    const new_style = findPlainStyle(dom)
+  // external CSS
+  const paths = swapStyles($$('link'), $$('link', dom))
 
-    if (orig_style) orig_style.replaceWith(new_style)
-    else if (new_style) $('head').appendChild(new_style)
+  /* production (single style element) */
+  const orig_style = findPlainStyle()
+  const new_style = findPlainStyle(dom)
+
+  if (orig_style) orig_style.replaceWith(new_style)
+  else if (new_style) $('head').appendChild(new_style)
 
 
-    // body class
-    $('body').classList.value = $('body2', dom).classList.value || ''
+  // body class
+  $('body').classList.value = $('body2', dom).classList.value || ''
 
 
-    loadCSS(paths, () => {
-      updateBody(dom)
-      setActive(path)
+  loadCSS(paths, () => {
+    updateBody(dom)
+    setActive(path)
 
-      // scroll
-      const { hash } = location
-      const el = hash && $(hash)
-      scrollTo(0, el ? el.offsetTop - parseInt(getComputedStyle(el).scrollMarginTop) || 0 : 0)
+    // scroll
+    const { hash } = location
+    const el = hash && $(hash)
+    scrollTo(0, el ? el.offsetTop - parseInt(getComputedStyle(el).scrollMarginTop) || 0 : 0)
 
-      // route event
-      dispatchEvent(new Event('route'))
-    })
+    // route event
+    dispatchEvent(new Event('route'))
   })
+
 }
 
 function findPlainStyle(dom) {
   return $$('style', dom).find(el => !el.attributes.length)
 }
 
-
-async function loadScripts(dom) {
-  $$('script[src]', dom).forEach(async script => {
-    await import(script.getAttribute('src'))
-  })
-}
 
 // TODO: make a recursive diff to support for all custom layouts
 function updateBody(dom) {

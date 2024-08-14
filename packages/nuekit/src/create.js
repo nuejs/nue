@@ -34,8 +34,10 @@ export async function create({ root = '.', name = 'simple-blog' }) {
   const archive = await fetch(`https://${name}.nuejs.org/${name}.tar.gz`)
   await fs.writeFile(archive_name, Buffer.from(await archive.arrayBuffer()))
 
-  // unzip and remove archive
+  // uncompress
   execSync(`tar -xf ${archive_name} -C ${root}`)
+
+  // remove archive
   await fs.rm(archive_name)
 
   // serve
