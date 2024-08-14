@@ -66,11 +66,7 @@ Nue's [CSS best practises](css-best-practices.html) helps you organize the code 
 
 
 ## JavaScript
-Once the basics of designs are implemented you can enhance the experience with [motion and reactivity](reactivity.html):
-
-! VIDEO
-
-Nue brings reactivity to the hands of UX developers, who can now implement advanced dynamics directly with CSS and small snippets of JavaScript. Things like view transitions and scroll-triggered animations are nothing but modern CSS:
+Nue brings [motion and reactivity](reactivity.html) to the hands of UX developers. They can implement advanced dynamics with vanilla CSS. Things like view transitions and scroll-triggered animations are nothing but modern CSS:
 
 ```css
 /* view transition: Scale down the "old" page */
@@ -80,7 +76,7 @@ Nue brings reactivity to the hands of UX developers, who can now implement advan
 }
 ```
 
-With Nue, you don't need the sink inside the React/TypeScript rabbit hole to implement the interactive parts of your design system. Learn modern CSS and the very basics of JavaScript and you're good to go.
+With Nue, you don't need a massive React/TypeScript ecosystem to implement the interactive parts of your website. Learn modern CSS and the basics of JavaScript and you're good to go.
 
 
 ## Customer handoff
