@@ -60,5 +60,4 @@ export async function unmountAll() {
 addEventListener('route', mountAll)
 
 // initial page load
-addEventListener('DOMContentLoaded', mountAll)
-
+addEventListener('DOMContentLoaded', () => dispatchEvent(new Event('route')))

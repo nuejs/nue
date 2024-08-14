@@ -42,7 +42,7 @@ bun test
 # if using node
 npm install
 npm install --no-save jest jest-extended esbuild
-node --experimental-vm-modules node_modules/jest/bin/jest --runInBand
+npm test
 ```
 
 

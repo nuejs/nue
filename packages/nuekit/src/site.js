@@ -247,7 +247,7 @@ export async function createSite(args) {
 
     // make sure dir exists
     try {
-      await fs.stat(dir)
+      await fs.stat(join(root, dir))
     } catch (e) {
       console.error(`content collection: "${dir}" does not exist`)
       return arr

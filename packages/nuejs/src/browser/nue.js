@@ -270,7 +270,7 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
     },
 
     append(to) {
-      const wrap = document.createElement('b')
+      const wrap = document.createElement('_')
       to.append(wrap)
       return self.mount(wrap)
     },

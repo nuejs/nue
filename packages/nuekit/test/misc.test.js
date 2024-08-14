@@ -1,5 +1,3 @@
-
-
 import { match } from '../src/browser/app-router.js'
 
 import { parsePathParts, sortCSS } from '../src/util.js'
@@ -12,6 +10,16 @@ import { promises as fs } from 'node:fs'
 
 expect.extend({ toMatchPath })
 
+// temporary directory
+const root = '_test'
+
+// setup and teardown
+beforeAll(async () => {
+  await fs.rm(root, { recursive: true, force: true })
+  await fs.mkdir(root, { recursive: true })
+})
+
+afterAll(async () => await fs.rm(root, { recursive: true, force: true }))
 
 test('Lightning CSS errors', async () => {
   try {
@@ -51,9 +59,6 @@ test('path parts', () => {
 
 
 test('create', async () => {
-  await fs.mkdir('simple-blog', { recursive: true })
-  await process.chdir('simple-blog')
-
-  const terminate = await create({ name: 'simple-blog' })
-  terminate()
+	const terminate = await create({ root, name: 'simple-blog' })
+	terminate()
 })

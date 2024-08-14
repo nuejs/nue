@@ -81,7 +81,7 @@ async function printVersion() {
 
 async function runCommand(args) {
   const { createKit } = await import('./nuekit.js')
-  const { cmd='serve', dryrun, push } = args
+  const { cmd='serve', dryrun, push, root } = args
 
   console.info('')
 
@@ -89,7 +89,7 @@ async function runCommand(args) {
   // create nue
   if (cmd == 'create') {
     const { create } = await import('./create.js')
-    return await create({ name: args.paths[0] })
+    return await create({ root, name: args.paths[0] })
   }
 
   const nue = await createKit(args)
