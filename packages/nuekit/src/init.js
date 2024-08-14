@@ -27,7 +27,17 @@ export async function init({ dist, is_dev, esbuild, force }) {
     await fs.writeFile(latest, '')
   }
 
-  await initDir({ dist, is_dev, esbuild, cwd, srcdir, outdir })
+  try {
+    // chdir hack (Bun does not support absWorkingDir)
+    process.chdir(srcdir)
+    process.env.ACTUAL_CWD = cwd
+
+    await initDir({ dist, is_dev, esbuild, cwd, srcdir, outdir })
+  } finally {
+    // recover
+    process.env.ACTUAL_CWD = ''
+    process.chdir(cwd)
+  }
 }
 
 async function initDir({ dist, is_dev, esbuild, cwd, srcdir, outdir }) {
