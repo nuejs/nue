@@ -23,15 +23,19 @@ export async function create({ root = '.', name = 'simple-blog' }) {
   // already created -> serve
   if (files.includes('site.yaml')) return serve(root)
 
+  // debug mode with: `nue create test`
+  const debug = name == 'test'
+  if (debug) name = 'simple-blog'
+
   // currently only simple-blog is available
-  if (name != 'simple-blog') return console.error('Template does not exist:', name)
+  if (name != 'simple-blog') return console.error(`Template "${name}" does not exist`)
 
   // must be empty directory
   if (files.length) return console.error('Please create the template to an empty directory')
 
   // download archive
   const archive_name = 'source.tar.gz'
-  const archive = await fetch(`https://${name}.nuejs.org/${name}.tar.gz`)
+  const archive = await fetch(`https://${name}.nuejs.org/${debug ? 'test' : name}.tar.gz`)
   await fs.writeFile(archive_name, Buffer.from(await archive.arrayBuffer()))
 
   // uncompress
