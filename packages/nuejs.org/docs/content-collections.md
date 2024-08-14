@@ -48,7 +48,7 @@ Content collections are "cheap" in a way that they don't cause much performance 
 
 
 ### Gallery tag { #gallery }
-Content collections are rendered with a `gallery` tag. This can be on your your [layout modules](custom-layouts.html)
+Content collections are rendered with a `gallery` tag. This can be on your [layout modules](custom-layouts.html) for example.
 
 ```html
 <gallery/>
