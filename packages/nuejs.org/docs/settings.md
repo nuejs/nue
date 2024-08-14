@@ -34,7 +34,6 @@ links:
   soc: //en.wikipedia.org/wiki/Separation_of_concerns
 ```
 
-
 ### lightning_css
 Setting this to `false` disables the default processing by [Lightning CSS](//lightningcss.dev/) and the CSS is served directly as is.
 
@@ -89,6 +88,8 @@ Value for "robots" meta property. Use "noindex" to exclude the whole website fro
 ### theme_color
 Value for [theme color](//developer.mozilla.org/en-US/docs/Web/HTML/Element/meta/name/theme-color) meta property. This is a color suggestion for user agents to customize the display of the page.
 
+### thumb
+A thumbnail image for the document when listed and rendered by the [gallery](content-collections.html#gallery) tag.
 
 ### title_template
 Allows formatting the value of the `<title>` tag in the way you like. A value such as `'%s | Acme Inc.'` prints "My page | Acme Inc." where the `%s` is replaced by the page title.

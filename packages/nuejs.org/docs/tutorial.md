@@ -37,15 +37,15 @@ Nue has a freeform project structure. Apart from `site.yaml`, you can name your 
 Here's how our blog is structured:
 
 [.folders]
-  - *index.md* the front page
-  - *home* front page styling
-  - *blog* blogging area
-  - *contact* contact app
-  - *img* images and icons
-  - *@global* global styles (colors, layout, and typography)
-  - *@library* reusable styles
-  - *site.yaml* site-wide settings
-  - *blog/blog.yaml* blog-specific settings
+  - `index.md` the front page
+  - `home` front page styling
+  - `blog` blogging area
+  - `contact` contact app
+  - `img` images and icons
+  - `@global` global styles (colors, layout, and typography)
+  - `@library` reusable styles
+  - `site.yaml` site-wide settings
+  - `blog/blog.yaml` blog-specific settings
 
 
 Let's look at these assets, starting from the most important: the content.

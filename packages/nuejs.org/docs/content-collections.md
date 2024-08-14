@@ -17,11 +17,11 @@ date: 2023-12-11
 
 In addition to these user-defined properties, Nue provides the following system properties for each content entry.
 
-[.reference]
-  - *`url`* "/docs/glossary/copyleft.html" (example)
-  - *`dir`* "docs/glossary"
-  - *`slug`* "copyleft.html"
-  - *`basedir`* "docs"
+
+- `url` "/docs/glossary/copyleft.html" (example)
+- `dir` "docs/glossary"
+- `slug` "copyleft.html"
+- `basedir` "docs"
 
 
 
@@ -61,8 +61,8 @@ Or on a Markdown page:
 ```
 
 
-#### HTML layout
-Page lists are rendered as follows:
+#### Text-only HTML layout
+The gallery tag is rendered as follows:
 
 ```html
 <ul>
@@ -79,11 +79,34 @@ Page lists are rendered as follows:
 </ul>
 ```
 
-As always, you use CSS to make your markup compatible with your design system.
+#### Image gallery layout { #gallery-layout }
+The HTML layout is different when the pages are configured with a [thumb](settings.html#thumb) property:
+
+
+```html
+<ul>
+  <li>
+    <a href="/posts/scaleable-design-system.html">
+      <figure>
+        <img src="/posts/img/ui-thumb.png" loading="lazy">
+        <figcaption>
+          <time datetime="2023-05-22T00:00:00.000Z">May 22, 2023</time>
+          <h2>Crafting a scaleable CSS design system</h2>
+        </figcaption>
+      </figure>
+    </a>
+  </li>
+  <li>...</li>
+  <li>...</li>
+  ...
+</ul>
+```
+
+Example: [simple-blog.nuejs.org](//simple-blog.nuejs.org/)
 
 
 
-## Custom layout
+## Custom page list layout
 You can render the collections with fully customized markup with Nue's [template syntax](template-syntax.html) on your layout files. For example:
 
 

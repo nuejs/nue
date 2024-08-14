@@ -110,8 +110,8 @@ Nue makes sure your design is consistently applied across all the pages and comp
 The design is separated from the HTML structure so that the system can be controlled by designers and UX developers. This way, non-technical people can create content so that the pages automatically inherit the correct design. And there is no way they can break the design system with local or inline styling.
 
 
-## 2. Minimalistic way to write vanilla CSS { #minimalism }
-Nue has its own [CSS best practices](/docs/css-best-practices.html) for writing clear and easy-to-maintain CSS. One of the key ideas is to leave out all class names that relate to styling and let external CSS take care of the element and/or component look and feel:
+## 2. Cleaner way to write HTML and CSS { #minimalism }
+Nue has its own [CSS best practices](/docs/css-best-practices.html) for writing clear HTML and CSS. The key idea is to leave out all class names that relate to styling and let external CSS take care of the element and/or component look and feel:
 
 ```html
 <!-- component name is all naming you need -->

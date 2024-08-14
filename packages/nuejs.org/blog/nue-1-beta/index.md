@@ -153,7 +153,7 @@ The major version number goes from zero to one, which means that ~this version o
 
 - The content is always wrapped inside a `<section>` element, even if there is only a single section on the document. This always generates the same markup so it's easier to style.
 
-- Dropped the `[icon]` tag due to lack of usage. Use the `[image]` tag instead.
+- Dropped the `[icon]` tag due to lack of usage. Use the more generic `[image]` tag instead.
 
 - Fenced code blocks can now be assigned with a class name as follows:
 
@@ -188,6 +188,8 @@ The most important thing, however, is that the website is generated with the pub
 
 
 
+
+
 ## Towards 1.0 stable
 At least the following things should be solved before the official 1.0 launch day:
 
@@ -199,7 +201,7 @@ At least the following things should be solved before the official 1.0 launch da
 
 
 
-## Installation
+## Try now
 Head over to the [installation docs](/docs/installation.html) to try the new 1.0 beta. If something does not feel right, don't hesitate to give feedback in [GitHub Discussions](//github.com/nuejs/nue/discussions).
 
 

@@ -316,7 +316,7 @@ The above generates this:
   <a href="/link/url" class="pill" role="button">
     Link 1 text
   </a>
-  <p class="info">Just some text</p>
+  <span class="info">Just some text</span>
 
   <a href="/second/url" class="cute">Another</a>
 </nav>
