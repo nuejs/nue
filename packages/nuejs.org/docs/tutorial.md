@@ -155,7 +155,7 @@ You can customize the layout by filling various "slots" in the global design sys
 </header>
 ```
 
-These [layout modules](custom-layouts.html) are written with a simple [template language](template-syntax-html), which is essentially standard HTML extended with expressions, conditionals, and loops. People with basic HTML skills can quickly master it.
+These [layout modules](custom-layouts.html) are written with a simple [template language](template-syntax.html), which is essentially standard HTML extended with expressions, conditionals, and loops. People with basic HTML skills can quickly master it.
 
 
 

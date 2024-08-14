@@ -60,7 +60,7 @@ Think of Nue like a modern-day [CSS Zen Garden](//csszengarden.com/): A demonstr
 
 
 
-## CSS theming improvements
+## CSS improvements
 Nue has a powerful CSS theming system that supports [hot-reloading](/docs/hot-reloading.html), CSS inlining, error reporting, and automatic dependency management. This version improves the system with the following features:
 
 
@@ -74,9 +74,14 @@ Nue has a powerful CSS theming system that supports [hot-reloading](/docs/hot-re
 
 
 ### CSS best practices
-Nue's new [CSS best practices](/docs/css-best-practices.html) are targeted at UX developers who understand the power of external, cascaded styling. It's also a great resource for engineers, who understand the benefits of using modern CSS instead of writing your styles with JavaScript in the name of "global namespace pollution".
+Nue's new [CSS best practices](/docs/css-best-practices.html) brings out the best of modern CSS:
 
-These best practices focus on writing clear, reusable CSS that is easy to read, maintain, and scale. It unpacks decades of CSS experience with a heavy focus on *minimalism*. All the practices could be squeezed into one sentence:
+[image.larger]
+  small: /img/blog-css-hierarchy.png
+  large: /img/blog-css-hierarchy-big.png
+  caption: Nue offers the shortest path from Figma to code
+
+These best practices focus on writing clear, reusable CSS that is easy to read, maintain, and scale. It unpacks decades of CSS experience with a heavy focus on *minimalism*. In fact, all the lessons can squeezed into one sentence:
 
 [.blueprint]
   10 lines of code is easier to maintain than 100 lines of code
@@ -128,7 +133,25 @@ The web component can be assigned globally in `site.yaml` for all page sections 
 There are no longer hardcoded `app.yaml`, `layout.html`, or `main.js` file names to give them a special meaning. You can now freely name your CSS, YAML, JavaScript, or HTML files. You can also have multiple data and layout files, and they are all grouped or concatenated together. You could, for example, create a `layout.html` file for layout-specific components and a `components.html` file for other server-side components.
 
 
+### Easier setup
+
+Nue [installation](/docs/installation.html) is now simpler and the onboarding now comes with a handy `nue create` command that installs an example website and opens it on your browser. The opening screen looks like this:
+
+[image]
+  small: /img/create-welcome.png
+  large: /img/create-welcome-big.png
+  caption: The welcome screen after succesfull setup
+  href: /docs/installation.html
+
+The setup is supported by a [tutorial](/docs/tutorial.html) that explains how Nue and UX development works.
+
+
+
 ## Small updates
+
+- New `<navi>`, `<markdown>`, `<pretty-date>`, and `<toc>` tags to help building [custom layouts](/docs/custom-layouts.html)
+
+- A new [`<gallery>`](/docs/content-collections.html#gallery) tag to render content collections
 
 - Inline SVG support: You can inline your SVG files with a new inline attribute. For example: `[image /img/my-animated.svg inline]`. This allows you to control the image and its transitions/animations with CSS.
 
