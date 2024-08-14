@@ -18,20 +18,20 @@ UX development starts by understanding your audience and figuring out where to t
   caption: UX development starts with content design.
   size: 747 × 492 px
 
-This process varies from a large team effort to a simple README file in a local file system. The more you know about your content, the better equipped you are for the next step: design.
+This process varies from a large team effort to a simple README file in a local file system. The more you know about your content, the better equipped you are for the next step: Design.
 
 #### More info
-* [Steve Jobs: Start with the customer experience](//surveypal.com/blog/steve-jobs-said-it-best-start-with-the-customer-experience/)
-* [Balsamiq: Content-First Design](//balsamiq.com/learn/articles/content-first-design/)
-* [PixelFridge: The benefits of a content-first approach](//www.pixelfridge.digital/the-benefits-of-a-content-first-approach/)
-* [UX Planet: Information Architecture Design](//uxplanet.org/information-architecture-design-a-step-by-step-guide-41dcd4405ee3)
+- [Steve Jobs: Start with the customer experience](//surveypal.com/blog/steve-jobs-said-it-best-start-with-the-customer-experience/)
+- [Balsamiq: Content-First Design](//balsamiq.com/learn/articles/content-first-design/)
+- [PixelFridge: The benefits of a content-first approach](//www.pixelfridge.digital/the-benefits-of-a-content-first-approach/)
+- [UX Planet: Information Architecture Design](//uxplanet.org/information-architecture-design-a-step-by-step-guide-41dcd4405ee3)
 
 
 
 ## Design
-Once you have a good understanding of your content it's time to create a design system: a set of rules and building blocks that define how the content is visualized.
+Once you have a good understanding of your content it's time to create a design system: A set of rules and building blocks that define how the content is visualized.
 
-The content plan defines what goes to your site: the global elements and the content area. The tone and voice determine your look and feel: the use of colors, typography, whitespace, images and videos. Should it all be modern and minimalistic, or perhaps more playful and decorative?
+The content plan defines what goes to your site: The global elements and the content area. The tone and voice determine your look and feel: The use of colors, typography, whitespace, images and videos. Should it all be modern and minimalistic, or perhaps more playful and decorative?
 
 [image.bordered]
   small: /img/figma-design-system.png
@@ -43,9 +43,9 @@ The size and format of your design system vary a lot depending on the size of yo
 One-person projects can implement the design system directly with HTML and CSS, because that's what you eventually end up doing. This takes you one step closer to the finish line.
 
 #### More info:
-* [Figma: What is a design system?](//www.figma.com/blog/design-systems-101-what-is-a-design-system/)
-* [The Design System Guide](//thedesignsystem.guide/)
-* [Figma: Marketing of design systems](//www.figma.com/blog/the-future-of-design-systems-is-marketing/)
+- [Figma: What is a design system?](//www.figma.com/blog/design-systems-101-what-is-a-design-system/)
+- [The Design System Guide](//thedesignsystem.guide/)
+- [Figma: Marketing of design systems](//www.figma.com/blog/the-future-of-design-systems-is-marketing/)
 
 
 ## CSS
@@ -56,7 +56,7 @@ Once you know exactly what you want to build, it's time to convert the design sy
   large: /img/figma-to-css-big.png
   size: 749 × 485 px
 
-Nue's [CSS best practises](css-best-practices.css) helps you organize the code in such a way that it is easy to read, reuse and scale. Experienced UX developers can rapidly build websites with just a few lines of HTML and a handful of CSS files. There is no designer-developer handoff process in your way.
+Nue's [CSS best practises](css-best-practices.html) helps you organize the code in such a way that it is easy to read, reuse and scale. Experienced UX developers can rapidly build websites with just a few lines of HTML and a handful of CSS files. There is no designer-developer handoff process in your way.
 
 [.note]
   ### Note
@@ -72,8 +72,8 @@ Once the basics of designs are implemented you can enhance the experience with [
 
 Nue brings reactivity to the hands of UX developers, who can now implement advanced dynamics directly with CSS and small snippets of JavaScript. Things like view transitions and scroll-triggered animations are nothing but modern CSS:
 
-```
-/* view transition: scale down the "old" page */
+```css
+/* view transition: Scale down the "old" page */
 ::view-transition-old(root) {
   transform: scale(.8);
   transition: .4s;
@@ -98,13 +98,12 @@ There are two ways to pass the website to your customers:
 
 Something like the following would do the job in the Sublime preferences:
 
-```
+```yaml
 # exclude all folders that are meant for developers
 folder_exclude_patterns: [ "@global", "@lib" ]
 
 # only include files related to content management
 file_include_patterns: [ "*.md", "*.yaml" ]
-
 ```
 
 [.note]

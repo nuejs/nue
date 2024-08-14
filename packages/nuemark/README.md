@@ -20,9 +20,9 @@ Nuemark is a Markdown dialect for rich, interactive content. Use it to create ma
 *In above*: The content and the result. Nuemark puts you into content-first mindset.
 
 
-### Getting Started
+### Getting started
 
-``` sh
+```sh
 # Install Bun (if not done yet)
 curl -fsSL https://bun.sh/install | bash
 

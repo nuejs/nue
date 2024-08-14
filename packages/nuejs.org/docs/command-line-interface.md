@@ -5,13 +5,13 @@ The command line interface documents itself with a `--help` option:
 
 ## Options
 
-``` sh
+```sh
 nue --help
 ```
 
-This returns following output
+This returns following output:
 
-``` md
+```md
 Usage
   nue [command] [options] [file_matches]
   nue -v or --version
@@ -64,7 +64,7 @@ Less is more
 ## Examples
 Few more usage examples:
 
-``` sh
+```sh
 # serve current directory
 nue
 

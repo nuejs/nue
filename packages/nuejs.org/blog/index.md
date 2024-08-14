@@ -1,4 +1,3 @@
-
 ---
 include: [blog-index]
 content_collection: blog

@@ -14,7 +14,7 @@ date: 2023-10-02
   caption: Less is more
 
 
-Nue was linked to [Hacker News][hn], [Lobsters][lobsters], and [Reddit][reddit] on September 2023 and it was really a dream start for the project. I received a super warm welcome from developers, over 120k people came to see the website, and the project rapidly got thousands of stars on GitHub. My time lately has gone on fixing bugs, merging pull requests, giving support, answering questions, and [providing examples](/docs/nuejs/examples).
+Nue was linked to [Hacker News][hn], [Lobsters][lobsters], and [Reddit][reddit] on September 2023 and it was really a dream start for the project. I received a super warm welcome from developers, over 120k people came to see the website, and the project rapidly got thousands of stars on GitHub. My time lately has gone on fixing bugs, merging pull requests, giving support, answering questions, and [providing examples](/docs/nuejs/examples).<!--TODO: fix-->
 
 Common questions are: "How does reactivity work"? and "How is this different from React or Svelte"? Here I do my best to answer those exact questions.
 
@@ -22,13 +22,13 @@ Common questions are: "How does reactivity work"? and "How is this different fro
 [reddit]: //www.reddit.com/r/vuejs/comments/16ifij7/nue_powerful_reactvueviteastro_alternative/
 [lobsters]: //lobste.rs/s/goxx8g/nue_react_vue_vite_astro_alternative
 
-## HTML- based
+## HTML-based
 If React is "Just JavaScript", then Nue is "Just HTML". Here's how the difference between React and Nue using an identical counter component:
 
 
 ### React
 
-``` jsx
+```jsx
 /**
  * React counter: "It's Just JavaScript"
  */
@@ -55,7 +55,7 @@ function App() {
 
 ### Nue
 
-```
+```html
 <!--
   Nue counter: "It's just HTML"
 -->
@@ -69,8 +69,7 @@ function App() {
 
 [counter]
 
-[Source](//github.com/nuejs/www/blob/master/docs/examples.nue#L33)
-
+[Source](//github.com/nuejs/nue/blob/master/packages/nuejs.org/blog/rethinking-reactivity/examples.nue)
 
 To understand this choice we must go back in time. The world used to be slightly different before React and the kids entered the picture. There were two kinds of frontend skills: *UX development* and *JS development*:
 
@@ -98,15 +97,15 @@ To understand this choice we must go back in time. The world used to be slightly
 People who cared about UX could focus on the *front of the frontend*, and JS developers could focus on the *back of the frontend*. The talent was naturally spread and people did what they loved. It was great. *Brad Frost* wrote a [great article][brad] on the topic.
 
 
-Today frontend development is dictated by the JS developer and everything is assembled with TypeScript or JavaScript: logic, layout, styling, images, and content.
+Today frontend development is dictated by the JS developer and everything is assembled with TypeScript or JavaScript: Logic, layout, styling, images, and content.
 
-Nue wants to change this and bring UX developers back to the forefront. For them, it's more natural to start with HTML (content first!), then add styling, and finally JavaScript if needed. JavaScript is _optional_ in content-heavy websites. Yes, we're talking about "old school" things like progressive enhancement, separation of concerns, and semantic web design.
+Nue wants to change this and bring UX developers back to the forefront. For them, it's more natural to start with HTML (content first!), then add styling, and finally JavaScript if needed. JavaScript is *optional* in content-heavy websites. Yes, we're talking about "old school" things like progressive enhancement, separation of concerns, and semantic web design.
 
 Therefore: Nue is HTML first.
 
 
 
-## Class- based
+## Class-based
 
 
 In 1998 *O'Reilly* published [Dynamic HTML: The Definitive Reference][dhtml] by *Danny Goodman*. This book changed the way I build websites. Before reading the book I had only played with HTML and CSS, but suddenly web was programmable? With Java? No -- JavaScript. WTH!
@@ -118,7 +117,7 @@ In 1998 *O'Reilly* published [Dynamic HTML: The Definitive Reference][dhtml] by 
 Suddenly I could do things like this:
 
 
-```
+```html
 <FORM ACTION="/cgi-bin/form.cgi"
   ıONSUBMIT="return isValidEmail(this.email.value)"ı>
   <INPUT TYPE="text" NAME="email">
@@ -142,7 +141,7 @@ Today HTML, CSS, and JavaScript have incredibly more power. Especially JavaScrip
 
 Nue uses classes to bring the DHTML vibes back to modern component-based web development. Let's rewrite the above example with Nue:
 
-```
+```html
 <form @submit.prevent="submit">
   <input type="email" name="email" placeholder="your@address.com" required>
   <button>Submit</button>
@@ -158,11 +157,11 @@ Nue uses classes to bring the DHTML vibes back to modern component-based web dev
 </form>
 ```
 
-The most notable thing is the `<script>` tag, which is now nested _inside_ the component. This is the place for your ES6 class variables and methods.
+The most notable thing is the `<script>` tag, which is now nested *inside* the component. This is the place for your ES6 class variables and methods.
 
-ES6 classes make your code look amazingly compact and clean. You can add variables, methods, [getters][getters], [setters][setters], and `async` methods with the cute and short syntax. Here is a snippet from a [Todo MVC](/todomvc/) app written with Nue:
+ES6 classes make your code look amazingly compact and clean. You can add variables, methods, [getters][getters], [setters][setters], and `async` methods with the cute and short syntax. Here is a snippet from a [Todo MVC](/todomvc/)<!--TODO: fix--> app written with Nue:
 
-```
+```html
 <script>
   clearCompleted() {
     this.items.forEach(item => delete item.done)
@@ -196,7 +195,7 @@ ES6 classes make your code look amazingly compact and clean. You can add variabl
 ## Reactivity model
 Reactivity means that when the component state changes, the component automatically re-renders itself to the new state. Nue is no different from the other frameworks here:
 
-```
+```html
 <button •@click="count++"•>
   Clicked { count } { count == 1 ? 'time' : 'times' }
   <script>count = 0</script>
@@ -207,7 +206,7 @@ Reactivity means that when the component state changes, the component automatica
 
 Nue automatically updates the view when an event handler is clicked. Nue also re-renders automatically when working with arrays. For example:
 
-```
+```html
 <div>
   <p>
     <button @click="addFruit">Add</button>
@@ -234,7 +233,7 @@ Both `push()` and `pop()` methods update the view automatically. Same with all t
 
 Sometimes only you know when an update must happen in which case you must call an instance method `this.update()` manually. For example, after some data has been fetched from the server:
 
-```
+```html
 <div class="user">
   <img :src="user.avatar">
   <h3>{ user.name }</h3>
@@ -265,27 +264,27 @@ As a user of Nue JS, the `update()` method is really the only special thing you 
 
 ### React
 
-```
+```js
 import { useState } from "react"
 const [count, setCount] = useState(0)
 ```
 
 ### Vue
 
-```
+```js
 import { ref } from 'vue'
 const count = ref(0)
 ```
 
 ### Svelte / "Runes"
 
-```
+```js
 let count = $state(0);
 ```
 
 ### Nue
 
-```
+```js
 count = 0
 ```
 
@@ -296,7 +295,7 @@ Here's how Nue JS works.
 
 First, a Nue component is compiled or "transpiled" to plain JavaScript so that browsers can run it. Let's look at our counter component again:
 
-```
+```html
 <button @name="counter" @click="count++">
   Clicked { count } { count == 1 ? 'time' : 'times' }
   <script>count = 0</script>
@@ -305,7 +304,7 @@ First, a Nue component is compiled or "transpiled" to plain JavaScript so that b
 
 Here's what the counter looks like after the compilation:
 
-```
+```js
 {
   name: 'counter',
   tmpl: '<button @click="0">:1:</button>',
@@ -319,18 +318,18 @@ Here's what the counter looks like after the compilation:
 
 The compiled component has four properties:
 
-1. `name` - the component name
+1. `name` — the component name
 2. `tmpl` — component's HTML/template code
-3. `Impl` – the ES6 class to create the component instance from
-4. `fns` – the template expressions turned to [CSP][csp]- compliant JavaScript
+3. `Impl` — the ES6 class to create the component instance from
+4. `fns` — the template expressions turned to [CSP][csp]-compliant JavaScript
 
 All the expressions on the template are replaced with an index number to match the function on the `fns` array. For example the click handler `@click="0"` is the first function on the array, that is `fns[0]`. The underscore is the component instance where all the variables and methods can be found.
 
-When the component is mounted on the page, Nue creates a DOM tree from the template and makes the expression/function mapping. Each Nue component holds an array of expressions that are executed every time the component state changes. Nue also keeps track of all the child components and they also get re-rendered when the parent state changes.
+When the component is mounted on the page, Nue creates a DOM tree from the template and makes the expression/function mapping. Each Nue component holds an array of expressions that are executed every time the component state changes. Nue also keeps track of all the child components, and they also get re-rendered when the parent state changes.
 
-`:if`, and `:for` expressions are also put on the execution array, but their logic is more complex so they are executed with a dedicated [handler][if] [function][for].
+`:if`, and `:for` expressions are also put on the execution array, but their logic is more complex, so they are executed with a dedicated [handler][if] [function][for].
 
-Re-rendering _mutates_ the attributes, elements, and text nodes in place. No DOM diffing is needed.
+Re-rendering *mutates* the attributes, elements, and text nodes in place. No DOM diffing is needed.
 
 That's Nue reactivity in short.
 
@@ -341,11 +340,11 @@ That's Nue reactivity in short.
 
 
 ## Keeping things small
-The compiled Nue code is very small: only like ~1.2x larger than the HTML-based source code. This makes Nue applications the smallest on the market.
+The compiled Nue code is very small: Only like ~1.2x larger than the HTML-based source code. This makes Nue applications the smallest on the market.
 
-*Evan You*'s (creator of Vue) [compared][evan] the generated code size of Vue and Svelte components. He used TodoMVC as the measure for an individual component. By adding add [Nue TodoMVC](/todomvc/) to the mix we get the following data:
+*Evan You*'s (creator of Vue) [compared][evan] the generated code size of Vue and Svelte components. He used TodoMVC as the measure for an individual component. By adding add [Nue TodoMVC](/todomvc/)<!--TODO: fix--> to the mix we get the following data:
 
-[evan]: https://github.com/yyx990803/vue-svelte-size-analysis
+[evan]: //github.com/yyx990803/vue-svelte-size-analysis
 
 [table " | Vue | Svelte | Nue"]
   - Framework size         | 16.89kb | 1.85kb  | 2.13 kb
@@ -370,7 +369,7 @@ I see that frontend development is trending into the following directions:
 
 *UX development* becomes a thing again. Not everything should be controlled by JavaScript and by JS engineers. User experience optimization requires a different set of goals, skills, and interests. And the MPA trend increases this need because JS developers are less needed in developing content-heavy websites.
 
-*More standards-based coding*. As developers move to multi-page applications JavaScript is rendered on the server side, and client-side javascript becomes optional. This forces the pre-SPA best practices to come back: separation of concerns, progressive enhancement, and semantic web design.
+*More standards-based coding*. As developers move to multi-page applications JavaScript is rendered on the server side, and client-side JavaScript becomes optional. This forces the pre-SPA best practices to come back: Separation of concerns, progressive enhancement, and semantic web design.
 
 Nue is designed from the ground up to be on par with the above trends.
 

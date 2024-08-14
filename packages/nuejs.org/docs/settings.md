@@ -1,10 +1,9 @@
-
 ---
 class: apidoc
 ---
 
 # Settings and metadata
-Nue has a [hierarchical system](project-structure.html#data) for settings and and configuration options. Here are all settings for Nue and your site, pages and components.
+Nue has a [hierarchical system](project-structure.html#data) for settings and configuration options. Here are all settings for Nue and your site, pages and components.
 
 
 ## Nue settings
@@ -16,19 +15,19 @@ The output directory. The default is `.dist/dev` for the development version and
 
 
 ### globals
-Array of [global](site-structure.html#globals) directories. The scripts, styles and components under global directories are automatically included on all your pages.
+Array of [global](project-structure.html#globals) directories. The scripts, styles and components under global directories are automatically included on all your pages.
 
 ### hotreload
 Setting this to `false` disables [universal hot-reloading](hot-reloading.html). Hot-reloading is enabled (`true`) by default.
 
 
 ### libs
-Array of directories that are treated as [libraries](site-structure.html#libraries) and used by the [include](#include) statement.
+Array of directories that are treated as [libraries](project-structure.html#libraries) and used by the [`include`](#include) statement.
 
 ### links
 List of reference links to be used in the Markdown content in the form of `[Link Label][link_reference]`. Links are supplied in a `name: url` format. For example:
 
-```
+```yaml
 # name: url
 links:
   gds: //bradfrost.com/blog/post/a-global-design-system/
@@ -60,7 +59,7 @@ List of site-wide settings that impact your SEO data and other metadata inside y
 
 
 ### base
-The value of HTML [<base>](//developer.mozilla.org/en-US/docs/Web/HTML/Element/base) attribute.
+The value of the HTML [`<base>`](//developer.mozilla.org/en-US/docs/Web/HTML/Element/base) element.
 
 ### charset
 The value of the charset meta tag. The default is "utf-8".
@@ -76,7 +75,7 @@ The generator meta tag. The default is "Nue (nuejs.org)" and is only rendered in
 
 
 ### language
-The value of `<html lang="{ language }">` attribute. The default is "en". You might want to change this to "en-us", "en-gb", "en-nz"... etc. depending on your dialect or "fi" if your content is written in the Finnish language.
+The value of `<html lang="{ language }">` attribute. The default is "en". You might want to change this to "en-us", "en-gb", "en-nz", ... depending on your dialect or for example "fi", if your content is written in the Finnish language.
 
 ### origin
 Your full domain name including the protocol. For example: `"https://emmabennet.co"`. Nue uses this value to prefix the `og` property and later in RSS files.
@@ -104,13 +103,13 @@ The [viewport](//developer.mozilla.org/en-US/docs/Web/HTML/Viewport_meta_tag) va
 Settings to define the global navigational elements on your page with a common [YAML-based syntax](page-layout.html#nav-syntax).
 
 ### header
-HTML layout for the global header
+HTML layout for the global header.
 
 ### footer
-HTML layout for the global footer
+HTML layout for the global footer.
 
 ### burger_menu
-HTML layout for the burger menu
+HTML layout for the burger menu.
 
 ### Disabling layouts {.no_api}
 You can [disable individual layouts](custom-layouts.html#disabling) for areas or individual pages with settings such as `banner: false` or `footer: false`.
@@ -186,7 +185,7 @@ Value for "robots" meta property. Use "noindex" to exclude the page from search 
 
 
 ### title
-The value of the `<title>` tag — the most important meta tag for SEO. By default this is the value of the Markdown `# Level one title` if not explicitly defined.
+The value of the `<title>` tag — the most important meta tag for SEO. By default, this is the value of the Markdown `# Level one title` if not explicitly defined.
 
 ### unlisted
 Do not include the page in content collections.

@@ -15,7 +15,7 @@ body > nav {
   border: var(--border);
   border-width: 1px 0;
   padding: .75em 0;
-  width: 110%;
+  width: 100%;
 
   /* menu trigger */
   [popovertarget] {

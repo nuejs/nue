@@ -34,7 +34,6 @@ button, [role="button"] {
 
   &[popovertarget] {
     background-color: var(--gray-50);
-    background-position: 50% 50%;
     background-repeat: no-repeat;
 
     &:hover {
