@@ -1,16 +1,16 @@
-import { exec, execSync } from 'node:child_process'
+import { execSync } from 'node:child_process'
 import { promises as fs, existsSync } from 'node:fs'
 import { join } from 'node:path'
 
 import { openUrl } from './util.js'
 import { createKit } from './nuekit.js'
 
-async function serve(root) {
+async function serve(root, debug) {
   const nue = await createKit({ root })
   const terminate = await nue.serve()
 
   // open welcome page
-  exec(`${openUrl} http://localhost:${nue.port}/welcome/`)
+  if (!debug) execSync(`${openUrl} http://localhost:${nue.port}/welcome/`)
   return terminate
 }
 
@@ -49,5 +49,5 @@ export async function create({ root, name = 'simple-blog' }) {
   await fs.rm(archive_name)
 
   // serve
-  return await serve(root)
+  return await serve(root, debug)
 }

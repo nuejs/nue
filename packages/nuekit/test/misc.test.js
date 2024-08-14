@@ -1,6 +1,6 @@
 import { match } from '../src/browser/app-router.js'
 
-import { parsePathParts, sortCSS } from '../src/util.js'
+import { parsePathParts } from '../src/util.js'
 import { lightningCSS } from '../src/builder.js'
 import { create } from '../src/create.js'
 import { getArgs } from '../src/cli.js'
@@ -58,8 +58,11 @@ test('path parts', () => {
   expect(parts.slug).toBe('semantic-css.html')
 })
 
-
 test('create', async () => {
-	const terminate = await create({ root, name: 'test' })
-	terminate()
+  const terminate = await create({ root, name: 'test' })
+  terminate()
+
+  const contents = await fs.readdir(root)
+  expect(contents).toContain('index.md') // should be unpacked to correct dir
+  expect(contents).toContain('.dist') // should be built
 })
