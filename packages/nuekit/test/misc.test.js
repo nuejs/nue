@@ -6,6 +6,7 @@ import { create } from '../src/create.js'
 import { getArgs } from '../src/cli.js'
 
 import { toMatchPath } from './match-path.js'
+
 import { promises as fs } from 'node:fs'
 
 expect.extend({ toMatchPath })
@@ -59,6 +60,6 @@ test('path parts', () => {
 
 
 test('create', async () => {
-	const terminate = await create({ root, name: 'simple-blog' })
+	const terminate = await create({ root, name: 'test' })
 	terminate()
 })

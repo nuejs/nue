@@ -9,7 +9,7 @@ The command line interface documents itself with a `--help` option:
 nue --help
 ```
 
-This returns following output:
+This returns the following output:
 
 ```md
 Usage
@@ -20,7 +20,8 @@ Usage
 Commands
   serve    Start development server (default command)
   build    Build the site under <root_dir>
-  stats    Show site statistics (beta)
+  stats    Show site statistics
+  create   Use a project starter template
 
 Options
   -r or --root          Source directory. Default "." (current working dir)
@@ -29,7 +30,7 @@ Options
   -s or --stats         Show site statistics after current command
   -I or --init          Force clear and initialize output directory
   -n or --dry-run       Show what would be built. Does not create outputs
-  -b or --esbuild       Use esbuild. `npm install -g esbuild` required
+  -b or --esbuild       Use esbuild as bundler. Please install it manually
 
 File matches
   Only build files that match the rest of the arguments. For example:
@@ -49,7 +50,7 @@ Examples
   nue build .md .css
 
   # more examples
-  open https://nuejs.org/docs/cli
+  open https://nuejs.org/docs/command-line-interface.html
 
 Less is more
 
@@ -57,9 +58,7 @@ Less is more
  ┃┏┓┫┃┃┃┃━┫
  ┃┃┃┃┗┛┃┃━┫  nuejs.org
  ┗┛┗┻━━┻━━┛
-
 ```
-
 
 ## Examples
 Few more usage examples:
