@@ -35,7 +35,7 @@ Nue is a great fit for the following people:
 
 4. **Designers**: planning to learn web development, but find the JavaScript ecosystem too scary
 
-5. **Parents** and **teachers**: who wants to educate people [how the web works](//www.websitearchitecture.co.uk/resources/examples/web-standards-model/)
+5. **Parents & Teachers**: who wants to educate people [how the web works](//www.websitearchitecture.co.uk/resources/examples/web-standards-model/)
 
 
 - - -

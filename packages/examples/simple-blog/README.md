@@ -1,6 +1,16 @@
 
-# Nue website example
+# Nue website template
 
-For the upcoming tutorial on how to build websites with Nue and for the `nue create <simple-blog>` command.
+The default website template for `nue create` command:
 
-View online: https://simple-blog.nuejs.org/
+<a href="https://simple-blog.nuejs.org/">
+  <img src="https://www2.nuejs.org/img/blog-hero-big.png" width="700"></a>
+
+### Links
+
+* [Tutorial](//nuejs.org/docs/tutorial.html) on how the demo works and how to buil websites with Nue
+
+* [Live version](https://simple-blog.nuejs.org/)
+
+* [Installing Nue](https://nuejs.org/docs/installation.html)
+
