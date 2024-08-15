@@ -5,13 +5,15 @@ Nuemark is a Markdown dialect for rich, interactive web pages. It extends basic 
 
 ### Links
 
-[What is Nuemark?](https://nuejs.org/blog/introducing-nuemark/)
-[User guide](https://nuejs.org/docs/content.html)
-[Tag reference](https://nuejs.org/docs/tags.html)
-[HTML output](https://nuejs.org/docs/page-layout.html)
+* [What is Nuemark?](https://nuejs.org/blog/introducing-nuemark/)
+* [User guide](https://nuejs.org/docs/content.html)
+* [Tag reference](https://nuejs.org/docs/tags.html)
+* [HTML output](https://nuejs.org/docs/page-layout.html)
 
 
 ### How it looks
+
+- - -
 
 <a href="https://nuejs.org/blog/introducing-nuemark/">
   <img src="https://nuejs.org/img/nuemark-content-big.png" width="800"></a>
