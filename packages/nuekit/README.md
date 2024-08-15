@@ -6,7 +6,7 @@
 </a>
 
 ### What is Nue?
-Nue is a web framework for UX developers. What used to take a separate designer, React engineer, and an absurd amount of JavaScript can now be done by a UX developer and a small amount of CSS.
+Nue is a web framework for UX developers. What used to take a React specialist, and an absurd amount of JavaScript can now be done by a UX developer and a small amount of CSS.
 
 [Learn how it works](https://nuejs.org/docs/)
 
@@ -14,13 +14,20 @@ Nue is a web framework for UX developers. What used to take a separate designer,
 ### Who is it for?
 Nue is designed for the following people:
 
-1. **UX developers**: who natively jump between **Figma** and **CSS** without confusing [designer-developer handoff](//medium.com/design-warp/5-most-common-designer-developer-handoff-mishaps-ba96012be8a7) processes in the way.
+1. **UX developers**: who natively jump between **Figma** and **CSS** without confusing [designer-developer handoff](https://medium.com/design-warp/5-most-common-designer-developer-handoff-mishaps-ba96012be8a7) processes in the way.
 
-2. **Beginner web developers**: who want to skip the [redundant frontend layers](//roadmap.sh/frontend) and start building websites quickly with HTML, CSS, and JavaScript.
+2. **Beginner web developers**: who want to skip the [redundant frontend layers](https://roadmap.sh/frontend) and start building websites quickly with HTML, CSS, and JavaScript.
 
-3. **Experienced JS developers**: frustrated with the absurd amount of layers in the [React stack](//roadmap.sh/react) and look for simpler ways to develop professional websites.
+3. **Experienced JS developers**: frustrated with the absurd amount of layers in the [React stack](https://roadmap.sh/react) and look for simpler ways to develop professional websites.
 
 4. **Designers**: aiming to learn web development, but find the React/JavaScript ecosystem impossible to grasp
+
+5. **Parents & Teachers**: who wants to educate people [how the web works](https://www.websitearchitecture.co.uk/resources/examples/web-standards-model/)
+
+
+### Installation
+
+Check out [installation docs](https://nuejs.org/docs/installation.html)
 
 
 ### Ultimate goal

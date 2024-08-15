@@ -8,7 +8,7 @@ The default website template for `nue create` command:
 
 ### Links
 
-* [Tutorial](//nuejs.org/docs/tutorial.html) on how the demo works and how to buil websites with Nue
+* [Template tutorial](https://nuejs.org/docs/tutorial.html)
 
 * [Live version](https://simple-blog.nuejs.org/)
 

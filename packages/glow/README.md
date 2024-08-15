@@ -1,29 +1,24 @@
 
-<a href="https://nuejs.org/blog/introducing-glow/">
-  <img src="https://nuejs.org/img/glow-og.png">
-</a>
-
 # Glow
-Glow is a syntax highligher for Markdown.
+Glow is a small, but powerful syntax highligher for web:
+
+<a href="https://nuejs.org/blog/introducing-glow/">
+  <img src="https://nuejs.org/img/glow-og-big.png"></a>
 
 [Read the introduction](https://nuejs.org/blog/introducing-glow/)
 
 
-
 ## Usage
-Glow is the default highlighter for the [Nue web framework](https://nuejs.org) and works "out of the box" with it. Here's how Glow works as a standalone library:
+Glow is the default highlighter for [Nue web framework](https://nuejs.org) and works there "out of the box". Here's how to use Glow as a standalone library:
 
 
 ### Installation
-First install Glow
-
 
 ```sh
-npm i nue-glow
+bun i nue-glow
 ```
 
-### Usage
-Here's how it works:
+### JavaScript API
 
 ```js
 // import highlighter
@@ -50,11 +45,9 @@ console.info(html) // <code language="html">...</code>
 <code language="html">...</code>
 ```
 
-Note that the `<pre>` code is not returned. It is reserved for the potential Markdown processor who can assign any attributes and class names to it.
 
-
-## Marked integration
-Here's how you integrate Glow into the Markdown processor [Marked](https://github.com/markedjs/marked):
+### Marked integration
+Here's how you integrate Glow to [Marked](https://github.com/markedjs/marked):
 
 ```js
 import { marked } from 'marked'
