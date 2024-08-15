@@ -12,7 +12,6 @@ curl -fsSL https://bun.sh/install | bash
 ```
 
 ## 2. Install Nue
-Install Nue:
 
 ```sh
 # Install Nue
@@ -20,14 +19,13 @@ bun install nuekit --global
 ```
 
 ## 3. Create a website
-Create your first Nue website:
-
 
 ```sh
+# Create a website
 nue create simple-blog
 ```
 
-Check your browser at `http://localhost:8083/welcome/`:
+Done. You should now have a new browser tab pointing  to: `http://localhost:8083/welcome/`:
 
 [image]
   small: /img/create-welcome.png
@@ -49,7 +47,7 @@ Follow the [tutorial](tutorial.html).
 
 
 ### No Windows support
-Nue currently does not work under Windows, but we're working on it.
+Nue currently does not work under Windows, but we're very close to get this fixed.
 
 
 ### VS Code Extension

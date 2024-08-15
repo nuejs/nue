@@ -21,7 +21,7 @@ Commands
   serve    Start development server (default command)
   build    Build the site under <root_dir>
   stats    Show site statistics
-  create   Use a project starter template
+  create   Create a new website with a starter template
 
 Options
   -r or --root          Source directory. Default "." (current working dir)
@@ -79,8 +79,8 @@ nue -p stats
 # show what will be built (without building)
 nue build .js .ts .nue --dry-run
 
-# use a template with custom output directory
-nue create simple-blog -r dirname
+# create a website to a custom output directory
+nue create simple-blog --root dirname
 ```
 
 ## How it looks

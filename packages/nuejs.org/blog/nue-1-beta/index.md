@@ -4,17 +4,17 @@ title: Nue 1.0 (Beta)
 desc: A web framework for UX developers
 ---
 
-Exactly one year ago I [decided](/blog/backstory/) to create the slickest website generator in the world, that is easy enough for UX developers and other design-minded people. Today this vision is becoming a reality:
+Exactly one year ago I [decided](/blog/backstory/) to create the slickest website generator for UX developers and design-focused organizations. Today this vision is becoming a reality:
 
 [image.larger]
   small: /img/og-blue.png
   large: /img/og-blue-big.png
   size: 747 x 474
-  caption: "Nue: Go directly from Figma to CSS"
+  caption: "Nue offers the shortest path from Figma to CSS"
 
 [.note]
   ### The gist
-  Nue is simpler. What used to take a separate designer, React engineer, and an absurd amount of JavaScript can now be done by a UX developer and a small amount of CSS.
+  Nue is simpler. What used to take a React specialist and an absurd amount of JavaScript can now be done by a UX developer and a small amount of CSS.
 
 
 ### Who is Nue for?
@@ -42,11 +42,11 @@ Nue is a great fit for the following people:
 
 
 ## What's new?
-v1.0 Beta is by far the biggest release yet with 80 commits and over 400 files changed. This is a breakdown of new features, updates, and breaking changes.
+**v1.0 Beta** is by far the biggest release yet with five months of work and over [500 files changed](https://github.com/nuejs/nue/pull/316). This is a breakdown of new features, updates, and breaking changes.
 
 
 ## Global design system
-[Global design system](/docs/global-design-system.html) is by far the biggest new feature in this release. It guarantees that you always get the same kind of markup for your projects, but can use CSS to achieve wildly different designs.
+[Global design system](/docs/global-design-system.html) is the largest new feature in this release. It guarantees that you always get the same kind of markup for your pages and components, but can use CSS to achieve wildly different designs.
 
 [image]
   small: /img/global-design-system.png
@@ -54,13 +54,13 @@ v1.0 Beta is by far the biggest release yet with 80 commits and over 400 files c
   caption: Same markup, but wildly different designs
   href: /docs/global-design-system.html
 
-Think of Nue like a modern-day [CSS Zen Garden](//csszengarden.com/): A demonstration of what you can accomplish with nothing but CSS. Nue frees you from implementing page layouts and basic UI elements over and over again so you can move faster with nothing but CSS. Or as Brad puts it:
+Think of Nue like a modern-day [CSS Zen Garden](//csszengarden.com/): A demonstration of what you can accomplish with nothing but CSS. Nue frees you from implementing page layouts and basic UI elements over and over for every new page and project. Or as **Brad Frost** [puts it][gds]:
 
 > Global Design System improves the quality and accessibility of the world’s web experiences, saves the world’s web designers and developers millions of hours, and makes better use of our collective human potential. *Brad Frost*
 
 
 
-## CSS improvements
+## Improved CSS stack
 Nue has a powerful CSS theming system that supports [hot-reloading](/docs/hot-reloading.html), CSS inlining, error reporting, and automatic dependency management. This version improves the system with the following features:
 
 
@@ -73,82 +73,101 @@ Nue has a powerful CSS theming system that supports [hot-reloading](/docs/hot-re
 
 
 
-### CSS best practices
-Nue's new [CSS best practices](/docs/css-best-practices.html) brings out the best of modern CSS:
 
-[image.larger]
-  small: /img/blog-css-hierarchy.png
-  large: /img/blog-css-hierarchy-big.png
-  caption: Nue offers the shortest path from Figma to code
-
-These best practices focus on writing clear, reusable CSS that is easy to read, maintain, and scale. It unpacks decades of CSS experience with a heavy focus on *minimalism*. In fact, all the lessons can squeezed into one sentence:
-
-[.blueprint]
-  10 lines of code is easier to maintain than 100 lines of code
-
-Nue helps you build professional websites with the same amount of CSS as you can find on a typical normalization library or Tailwind's "preflight" CSS.
-
-
-
-## View transitions
-View transitions are an important part of a seamless user experience and obviously a key feature in the Nue framework. They can now be enabled with this simple configuration variable:
+## CSS view transitions
+View transitions are an important part of a seamless user experience and are a key feature in the Nue framework. They can now be enabled with this simple configuration variable:
 
 ``` yaml
 # enable animated page switches globally
 view_transitions: true
 ```
 
-This option was previously called `router`, but this feature is now much more than just a router. It now triggers a [view transition](//developer.mozilla.org/en-US/docs/Web/API/ViewTransition) effect that you can customize with [::view-transition](https://developer.mozilla.org/en-US/docs/Web/CSS/::view-transition) CSS pseudo-element. This website, for example, has a "scale down" transition effect on the page's `article` element. It's defined with this fairly simple CSS:
+This option was previously called `router`, but this feature is now much more than just a router. It now triggers a [view transition](//developer.mozilla.org/en-US/docs/Web/API/ViewTransition) effect that you can customize with [::view-transition](https://developer.mozilla.org/en-US/docs/Web/CSS/::view-transition) CSS pseudo-element. This website, for example, has a "scale down" transition effect on the page's `article` element. It's defined with this compact CSS:
 
 
 ```css.blue
 article {
-  view-transition-name: article;
+> view-transition-name: article;
 }
 
 /* view transition (scales down the old article) */
-::view-transition-old(article) {
-> transform: scale(.8);
-> transition: .4s;
+>::view-transition-old(article) {
+  transform: scale(.8);
+  transition: .4s;
 }
 ```
 
-Nue's view transition mechanism implements a simple diffing algorithm to check which parts of the page have been added, changed, or removed and updates the page accordingly. This helps you take advantage of the CSS [@starting-style](//developer.mozilla.org/en-US/docs/Web/CSS/@starting-style) at-rule to trigger animations when the page sections are updated. The non-updating elements stay in place. You can see this in action when you click the sidebar elements under the [documentation](/docs/) area.
+Nue's view transition mechanism implements a simple diffing algorithm to check which parts of the page have been added, changed, or removed and updates the page accordingly. This helps you take advantage of the CSS [@starting-style](//developer.mozilla.org/en-US/docs/Web/CSS/@starting-style) at-rule to trigger animations when the page sections are updated. The non-updating elements stay in place. You can see this in action when you click the sidebar elements under the new [documentation](/docs/) area.
 
-View transitions is a broad standard with tons of visual possibilities that are yet unexplored. Nue is going to stay at the forefront of this technology and you'll see tutorials, templates, and new features in the future.
-
-
-
-### Dynamic sections and grid items
-You can turn your [page sections](/docs/page-layout.html#sections) into web components with a `section_component` configuration option. For example, on the front page of this website, we have a "scroll-transition" component to help implement all the scroll-triggered CSS transitions.
-
-```yaml
-section_component: scroll-transition
-```
-
-The web component can be assigned globally in `site.yaml` for all page sections or it can be assigned on the area level, or at the page level (in the front matter). Similar to dynamic sections, you can also create [dynamic grids](/docs/reactivity.html#grid-items) with a newly added [grid](/docs/tags.html#grid) component.
+View transitions is a broad standard with tons of visual possibilities that are yet unexplored. Nue helps you stay in the forefront CSS development.
 
 
-### Freeform file naming
-There are no longer hardcoded `app.yaml`, `layout.html`, or `main.js` file names to give them a special meaning. You can now freely name your CSS, YAML, JavaScript, or HTML files. You can also have multiple data and layout files, and they are all grouped or concatenated together. You could, for example, create a `layout.html` file for layout-specific components and a `components.html` file for other server-side components.
+
+## CSS best practices
+Nue's new [CSS best practices](/docs/css-best-practices.html) brings out the best of modern CSS:
+
+[image.larger]
+  small: /img/blog-css-hierarchy.png
+  large: /img/blog-css-hierarchy-big.png
+  caption: Nue offers the shortest path from Figma to code
+  href: /docs/css-best-practices.html
+
+These lessons focus on writing reusable CSS that is easy to read, maintain, and scale. It unpacks decades of CSS experience with a heavy focus on *clarity* and *minimalism*. In fact, all the lessons can squeezed into this one sentence:
+
+[.blueprint]
+  10 lines of code are easier to maintain than 100 lines of code
+
+Nue helps you build professional websites with the same amount of CSS as you can find on a typical normalization library or Tailwind's "preflight" CSS.
 
 
-### Easier setup
+
+## New website and documentation
+Unsurprisingly, the biggest job was the documentation area, which now focuses on [UX development](/docs/ux-development.html). About 80% of the documentation is completely rewritten and there are several new documents.
+
+[image.larger.shadowed]
+  small: /img/new-docs.png
+  large: /img/new-docs-big.png
+  _size: 747 x 474
+  caption: The documentation focuses on UX development
+  href: /docs/
+
+The most important thing, however, is that the website is generated with the public Nue version, forcing us to "eat our own dogfood".
+
+
+
+## Easier setup
 
 Nue [installation](/docs/installation.html) is now simpler and the onboarding now comes with a handy `nue create` command that installs an example website and opens it on your browser. The opening screen looks like this:
 
 [image]
   small: /img/create-welcome.png
   large: /img/create-welcome-big.png
-  caption: The welcome screen after succesfull setup
+  caption: The welcome screen after successful setup
   href: /docs/installation.html
 
 The setup is supported by a [tutorial](/docs/tutorial.html) that explains how Nue and UX development works.
 
+- - -
 
 
-## Small updates
+## Smaller updates
 
+
+### Freeform file naming
+There are no longer hard coded `app.yaml`, `layout.html`, or `main.js` file names to give them a special meaning. You can now freely name your CSS, YAML, JavaScript, or HTML files. You can also have multiple data and layout files, and they are all grouped or concatenated together. You could, for example, create a `layout.html` file for layout-specific components and a `components.html` file for other server-side components.
+
+
+### Dynamic sections and grid items
+You can turn your [sections](/docs/page-layout.html#sections) and [grids items](/docs/reactivity.html#grid-items) into a native Web Component. For example, on the front page of this website, we have a "scroll-transition" component to help implement all the scroll-triggered CSS transitions.
+
+```yaml
+section_component: scroll-transition
+```
+
+The web component can be assigned globally in `site.yaml` for all page sections or it can be assigned on the area level, or at the page level (in the front matter).
+
+
+### Miscellaneous new features
 - New `<navi>`, `<markdown>`, `<pretty-date>`, and `<toc>` tags to help building [custom layouts](/docs/custom-layouts.html)
 
 - A new [`<gallery>`](/docs/content-collections.html#gallery) tag to render content collections
@@ -198,33 +217,8 @@ This will nest the generated `<pre>` element with a wrapper element like this:
 Previously the class name would be set directly to the `pre` element. This makes a more consistent behavior with the `[code]` tag.
 
 
-## New website and documentation
-Unsurprisingly, the biggest job was the documentation area, which now focuses on [UX development](/docs/ux-development.html). About 80% of the documentation is completely rewritten and there are several new documents.
 
-[image.larger.shadowed]
-  small: /img/new-docs.png
-  large: /img/new-docs-big.png
-  _size: 747 x 474
-  caption: The documentation focuses on UX development
-
-The most important thing, however, is that the website is generated with the public Nue version, forcing us to "eat our own dogfood".
-
-
-
-
-
-## Towards 1.0 stable
-At least the following things should be solved before the official 1.0 launch day:
-
-- Collect feedback from users and improve the product and the documentation so that everything is as easy and smooth as possible.
-
-- Easier product onboarding. The current `bun install` and `create-nue` combination is not the easiest solution. Ideally, this would be a single bash script similar to what Bun does. I'm not a shell scripter so help is appreciated here.
-
-- Extra smooth and solid view transition support. Improve the current implementation even more, fix all issues, expose the CSS and JavaScript API, and provide examples and better documentation. I want Nue to be the best web framework in the world and solid view transitions are a fundamental part of a great user experience.
-
-
-
-## Try now
-Head over to the [installation docs](/docs/installation.html) to try the new 1.0 beta. If something does not feel right, don't hesitate to give feedback in [GitHub Discussions](//github.com/nuejs/nue/discussions).
+## Try now!
+Please [try it out](/docs/installation.html) and experience the difference in UX development. You might wonder why you ever built websites any other way.
 
 

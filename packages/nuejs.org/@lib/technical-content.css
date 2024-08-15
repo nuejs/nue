@@ -231,7 +231,7 @@ figure {
     border-radius: 10px;
   }
 
-  &:has( >img[width] ) {
+  &:has(img[width]) {
     display: inline-block;
   }
 }
@@ -251,6 +251,11 @@ figure > a {
 
   img:hover {
     box-shadow: 0 0 0 2px white, 0 0 0 5px var(--main-500);
+  }
+
+  &:active img {
+    box-shadow: 0 0 0 7px var(--gray-200);
+    transform: scale(0.995);
   }
 }
 
