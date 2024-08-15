@@ -13,13 +13,13 @@ sidenav:
     - Frequently asked questions: faq.html
 
   UX development:
-    - What is UX development?: ux-development.html
     - Global Design System: global-design-system.html
     - Page layout: page-layout.html
     - Custom layouts: custom-layouts.html
     - CSS best practices: css-best-practices.html
     - Motion and Reactivity: reactivity.html
     - Optimization: performance-optimization.html
+    - What is UX development?: ux-development.html
 
 
   Content development:
