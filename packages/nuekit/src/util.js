@@ -1,6 +1,24 @@
 
 /* misc stuff. think shame.css */
-import { sep, parse, normalize, join, isAbsolute } from 'node:path'
+import { sep, parse, normalize, join, isAbsolute, dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { promises as fs } from 'node:fs'
+
+export const srcdir = dirname(fileURLToPath(import.meta.url))
+
+export const openUrl = process.platform == 'darwin' ? 'open' : process.platform == 'win32' ? 'start' : 'xdg-open'
+
+// read from package.json
+export async function getVersion() {
+  const path = join(srcdir, '../package.json')
+  const json = await fs.readFile(path, 'utf-8')
+  return JSON.parse(json).version
+}
+
+export function getEngine() {
+  const v = process.versions
+  return process.isBun ? 'Bun ' + v.bun : 'Node ' + v.node
+}
 
 export function log(msg, extra='') {
   console.log(colors.green('✓'), msg, extra)
@@ -24,21 +42,18 @@ function getColorFunctions() {
 export const colors = getColorFunctions()
 
 
-
-/* path parts */
+// returns { url, dir, slug, appdir }
+export function parsePathParts(path) {
+  path = normalize(path)
+  const { dir, name, base } = parse(path)
+  const basedir = getAppDir(path)
+  const url = getUrl(dir, name)
+  return { url, dir, slug: name + '.html', basedir }
+}
 
 export function joinRootPath(root, path, abs = false) {
   return join(abs ? process.cwd() : '', isAbsolute(path) ? '' : root, path)
 }
-
-export function getParts(path) {
-  path = normalize(path)
-  const { dir, name, base } = parse(path)
-  const appdir = getAppDir(path)
-  const url = getUrl(dir, name)
-  return { url, dir, slug: name + '.html', appdir }
-}
-
 
 export function getAppDir(path) {
   path = normalize(path)
@@ -46,8 +61,8 @@ export function getAppDir(path) {
   return appdir == path ? '' : appdir
 }
 
-// getDirs('a/b/c') --> ['a', 'a/b', 'a/b/c']
-export function getDirs(dir) {
+// traverseDirsUp('a/b/c') --> ['a', 'a/b', 'a/b/c']
+export function traverseDirsUp(dir) {
   if (!dir) return []
   dir = normalize(dir)
   const els = dir.split(sep)
@@ -57,13 +72,21 @@ export function getDirs(dir) {
 export function getUrl(dir, name) {
   let url = toPosix(dir) + '/'
   if (url[0] != '/') url = '/' + url
-  // if (name != 'index')
-  url += name + '.html'
+  if (name != 'index') url += name + '.html'
   return url
 }
 
 export function toPosix(path) {
   return path.replaceAll('\\', '/')
+}
+
+export function extendData(to, from={}) {
+  const { include = [], exclude = [] } = to
+  if (from.include) include.push(...from.include)
+  if (from.exclude) exclude.push(...from.exclude)
+  Object.assign(to, from)
+  to.include = include
+  to.exclude = exclude
 }
 
 

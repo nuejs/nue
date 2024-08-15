@@ -1,0 +1,164 @@
+
+nav a {
+  color: var(--gray-500);
+
+  &:hover {
+    color: var(--gray-950);
+  }
+}
+
+
+/* global header */
+body > header {
+  margin-bottom: 5em;
+
+  &, > * {
+    align-items: center;
+    display: flex;
+    gap: 2em;
+  }
+
+  [aria-label=Toolbar] {
+    margin-left: auto;
+    gap: 1em;
+  }
+
+  nav a {
+    font-size: 85%;
+    font-weight: 550;
+    display: inline-flex;
+  }
+
+  [aria-selected] {
+    text-decoration: var(--main-500) underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 8px;
+    color: var(--gray-900);
+    font-weight: 600;
+  }
+
+  .logo:hover {
+    transform: scale(1.03);
+  }
+
+  .social {
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  /* separator */
+  hr {
+    border-width: 0 1px 0 0;
+    height: 1.1em;
+  }
+
+  /* burger menu opener */
+  [popovertarget] {
+    background-size: 1.8em;
+    margin-left: auto;
+    display: none;
+  }
+
+  @media (max-width: 800px) {
+    > * { display: none }
+    > :first-child, > [popovertarget] { display: inline-block }
+  }
+}
+
+/* burger menu opener */
+button[popovertarget] {
+  background: url(/icon/dots.svg) center center no-repeat;
+  background-color: var(--gray-50);
+  border-radius: .2em;
+  padding-inline: .8em;
+  height: 2rem;
+  width: 2rem;
+  padding: 0;
+  border: 0;
+
+  &:hover {
+    color: var(--gray-900);
+    background-color: var(--gray-100);
+  }
+}
+
+.pill {
+  background: var(--main-50) url(/icon/present.svg) .6em 50% no-repeat;
+  padding: .6em 1em .6em 2.7em;
+  background-size: 1.5em;
+  color: var(--gray-600);
+  font-weight: 550;
+  border-radius: 9em;
+  font-size: 80%;
+
+  &:hover {
+    background-color: var(--main-500);
+    background-image: url(/icon/present-light.svg);
+    color: white;
+  }
+
+  &:active {
+    transform: scale(.97);
+  }
+
+  &.github {
+    background-image: url(/icon/github.svg);
+    background-color: #f4f4f4;
+    color: black;
+
+    &:hover {
+      filter: grayscale(1) invert(1);
+
+    }
+  }
+
+  &[aria-selected] {
+    display: none;
+  }
+}
+
+
+
+/* global footer */
+body > footer {
+  padding-block: 5em;
+
+  > :first-child {
+    margin-bottom: 2em;
+  }
+
+  h3 {
+    font-size: 95%;
+    margin: 0 0 .5em;
+  }
+
+  nav a {
+    font-size: 90%;
+    display: block;
+    padding: .5em 0;
+    font-weight: 400;
+  }
+
+  a:has(img) {
+    padding: 0;
+  }
+
+  @media (max-width: 700px) {
+    flex-direction: column;
+    gap: 3em;
+  }
+
+  > div {
+    display: flex;
+    gap: 6em;
+
+    @media (max-width: 400px) {
+      flex-direction: column;
+      gap: 3em;
+    }
+  }
+
+}
+
+

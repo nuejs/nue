@@ -3,7 +3,7 @@ export function $$(query, root=document) {
   return [ ...root.querySelectorAll(query)]
 }
 
-class Tabs extends HTMLElement {
+class Tabs extends HTMLDivElement {
   constructor() {
     super()
     const tabs = $$('[role=tab]', this)
@@ -21,4 +21,4 @@ class Tabs extends HTMLElement {
   }
 }
 
-customElements.define('aria-tabs', Tabs, { extends: 'section' })
+customElements.define('aria-tabs', Tabs, { extends: 'div' })

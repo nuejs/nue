@@ -1,46 +1,44 @@
 
-# 📦 Monster update coming on August!
-The next major version of Nue is under work on the dev- branch, with over 70 commits and close to [400 files](https://github.com/nuejs/nue/compare/master...dev) changed. The launch date is estimated between August 10-15. I appreciate your patience — I won't disappoint you. It's going to be amazing.
-
-Cheers,
-
-[Tero Piirainen](//x.com/tipiirai) — Nue lead dev.
-
----
-
 # Nue &nbsp;[![test](https://github.com/nuejs/nue/actions/workflows/test.yaml/badge.svg?branch=master)](https://github.com/nuejs/nue/actions/workflows/test.yaml)
-Nue(kit) is a static website generator and web application builder. It's a simple alternative to **Next.js** and **Astro**. The [ultimate goal](https://nuejs.org/blog/perfect-web-framework/) is to challenge **Vercel** and **Netlify** with a significantly leaner option:
 
-<img src="https://nuejs.org/img/roadmap-autumn-big.png" width="700"></a>
+<a href="https://nuejs.org/">
+  <img src="https://www2.nuejs.org/img/og-blue-big.png" width="900">
+</a>
 
-<a href="https://nuejs.org/blog/perfect-web-framework/">
-<img src="https://nuejs.org/img/perfect-banner-big.jpg" width="500"></a>
+### What is Nue?
+Nue is a web framework for UX developers. What used to take a React specialist, and an absurd amount of JavaScript can now be done by a UX developer and a small amount of CSS.
 
-
-### Getting Started
-
-Please see https://nuejs.org/docs/
+[Learn how it works](https://nuejs.org/docs/)
 
 
-### Why Nue?
+### Who is it for?
+Nue is designed for the following people:
 
-- [Content first](https://nuejs.org/docs/why-nue/content-first.html)
-- [Extreme performance](https://nuejs.org/docs/why-nue/extreme-performance.html)
-- [Closer to standards](https://nuejs.org/docs/why-nue/closer-to-standards.html)
+1. **UX developers**: who natively jump between **Figma** and **CSS** without confusing [designer-developer handoff](https://medium.com/design-warp/5-most-common-designer-developer-handoff-mishaps-ba96012be8a7) processes in the way.
 
-#### Notable features
+2. **Beginner web developers**: who want to skip the [redundant frontend layers](https://roadmap.sh/frontend) and start building websites quickly with HTML, CSS, and JavaScript.
 
-- [Universal hot-reloading](https://nuejs.org/docs/concepts/universal-hot-reloading.html)
-- [Hybrid app routing and page routing](https://nuejs.org/docs/concepts/client-side-navigation.html)
-- [layout components](https://nuejs.org/docs/concepts/layout-components.html)
-- [JS/TypeScript modules](https://nuejs.org/docs/concepts/js-modules.html)
-- [Content collections](https://nuejs.org/docs/concepts/content-collections.html)
-- [Reactive islands](https://nuejs.org/docs/concepts/reactive-islands.html)
+3. **Experienced JS developers**: frustrated with the absurd amount of layers in the [React stack](https://roadmap.sh/react) and look for simpler ways to develop professional websites.
+
+4. **Designers**: aiming to learn web development, but find the React/JavaScript ecosystem impossible to grasp
+
+5. **Parents & Teachers**: who wants to educate people [how the web works](https://www.websitearchitecture.co.uk/resources/examples/web-standards-model/)
+
+
+### Installation
+
+Check out [installation docs](https://nuejs.org/docs/installation.html)
+
+
+### Ultimate goal
+Ultimately Nue will be a ridiculously simpler alternative to **Next.js**, **Gatsby**, and **Astro**
+
+[Learn more about the vision](https://nuejs.org/blog/perfect-web-framework/)
 
 
 ### Contributing
 
-Please see [contributing.md](/CONTRIBUTING.md)
+Please see [CONTRIBUTING.md](/CONTRIBUTING.md)
 
 
 ### Community

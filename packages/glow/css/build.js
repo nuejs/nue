@@ -1,4 +1,5 @@
 
+// Running: bun css/build.js
 import { transform, Features } from 'lightningcss'
 import { promises as fs } from 'node:fs'
 
@@ -22,7 +23,6 @@ async function minify(names, toname, include=0) {
 }
 
 
-await minify(['glow', 'markers'], 'glow', Features.Nesting)
-await minify(['glow'], 'glow.nano', Features.Nesting)
+await minify(['syntax', 'markers'], 'syntax', Features.Nesting)
+await minify(['syntax'], 'syntax.nano', Features.Nesting)
 
-// await minify(['glow', 'markers'], 'glow.modern')

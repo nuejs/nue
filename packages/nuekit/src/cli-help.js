@@ -1,5 +1,4 @@
-
-import { colors } from './util.js'
+import { colors, openUrl, getVersion } from './util.js'
 
 const HELP = `
 Usage
@@ -11,11 +10,16 @@ Commands
   serve    Start development server (default command)
   build    Build the site under <root_dir>
   stats    Show site statistics
+  create   Use a project starter template
 
 Options
   -r or --root          Source directory. Default "." (current working dir)
   -p or --production    Build production version / Show production stats
   -e or --environment   Read extra options to override defaults in site.yaml
+  -s or --stats         Show site statistics after current command
+  -I or --init          Force clear and initialize output directory
+  -n or --dry-run       Show what would be built. Does not create outputs
+  -b or --esbuild       Use esbuild as bundler. Please install it manually
 
 File matches
   Only build files that match the rest of the arguments. For example:
@@ -35,18 +39,17 @@ Examples
   nue build .md .css
 
   # more examples
-  open https://nuejs.org/docs/cli
+  ${openUrl} https://nuejs.org/docs/command-line-interface.html
 
 Less is more
 
  ┏━┓┏┓┏┳━━┓
- ┃┏┓┫┃┃┃┃━┫
+ ┃┏┓┫┃┃┃┃━┫  kit ${await getVersion()}
  ┃┃┃┃┗┛┃┃━┫  nuejs.org
  ┗┛┗┻━━┻━━┛
-
 `
 
-const commands = ['serve', 'build', 'stats']
+const commands = ['serve', 'build', 'stats', 'create']
 
 function formatLine(line) {
   const { gray, magenta, cyan, green } = colors
@@ -68,6 +71,3 @@ export function getHelp() {
     return line[0] === ' ' ? formatLine(line) : line
   }).join('\n')
 }
-
-
-

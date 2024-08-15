@@ -1,0 +1,60 @@
+
+/* burger menus, dialogs, sidebars, ... */
+[popover] {
+  transition: opacity .8s, transform .2s;
+  transform: scale(1);
+  opacity: 1;
+  border: 0;
+
+
+  &::backdrop {
+    background-color: #0005;
+    backdrop-filter: blur(4px);
+    transition: .5s;
+  }
+
+  @starting-style {
+    transform: scale(.5);
+    opacity: 0;
+
+    &::backdrop {
+      background-color: #0001;
+      backdrop-filter: blur(0);
+    }
+  }
+
+  /* close  */
+  [popovertarget] {
+    background-image: none;
+    color: var(--gray-600);
+    position: absolute;
+    font-weight: 400;
+    font-size: 1.6em;
+    width: 1.1em;
+    right: .4em;
+    top: .4em;
+  }
+}
+
+
+dialog {
+  position: fixed; left: inherit; top: 1em; right: 1em;
+  transition: opacity .1s;
+  border-radius: .5em;
+  padding: 1em 2em;
+  min-width: 14em;
+  display: none;
+  margin: 0;
+
+  nav a {
+    display: block;
+    padding: .8em 0;
+    font-weight: bold;
+  }
+
+  /* toggle visibility */
+  &:popover-open {
+    display: block;
+    z-index: 1;;
+  }
+}

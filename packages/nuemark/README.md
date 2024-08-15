@@ -1,54 +1,22 @@
 
-<a href="https://nuejs.org">
-  <img src="https://nuejs.org/img/nuemark-banner-big.png">
-</a>
 
-# Nuekit
-Nuemark is a Markdown dialect for rich, interactive content. Use it to create marketing pages, documentation pages, and blog entries without leaving the content. Even you all-mighty front page can be expressed with Nuemark:
+# Nuemark
+Nuemark is a Markdown dialect for rich, interactive web pages. It extends basic Markdown with sections, grids, stacked layouts, responsive images, videos, code blocks, tabs, and more. All your content, from simple blog entries to rich landing pages is editable by non-technical people. The versatile syntax allows you to build complex landing pages comparable to what you can create with online authoring tools like **Framer** or **WebFlow**.
 
+### Links
 
-![Web page in read and edit mode](https://nuejs.org/img/nuemark-content-big.png)
-
-*In above*: The content and the result. Nuemark puts you into content-first mindset.
-
-
-### Documentation
-
-[What is Nuemark?](https://nuejs.org/blog/introducing-nuemark/)
-[User guide](https://nuejs.org/docs/concepts/nuemark.html)
-[Tag reference](https://nuejs.org/docs/reference/nuemark-tags.html)
-[API docs](https://nuejs.org/docs/reference/nuemark-api.html)
+* [What is Nuemark?](https://nuejs.org/blog/introducing-nuemark/)
+* [User guide](https://nuejs.org/docs/content.html)
+* [Tag reference](https://nuejs.org/docs/tags.html)
+* [HTML output](https://nuejs.org/docs/page-layout.html)
 
 
-### Getting Started
+### How it looks
 
-```
-# Install Bun (if not done yet)
-curl -fsSL https://bun.sh/install | bash
+- - -
 
-# Install website generator. This includes Nuemark
-bun install nuekit --global
-
-# Install Nuemark demo (as seen on this page)
-bun create nue@latest
-```
-
-Choose “nuemark-demo” to see the above big screenshot in action.
-
-Refer to [getting started docs](https://nuejs.org/docs/#node) if you prefer Node.
-
-
-### The big picture
-The ultimate goal of Nue is to build a content first alternative to **Vercel** and **Netlify**, which is extremely fast and ridiculously easy to use.
-
-![Nue Roadmap](https://nuejs.org/img/roadmap6-big.png)
-
-
-#### Why Nue?
-
-- [Content first](https://nuejs.org/docs/why-nue/content-first.html)
-- [Extreme performance](https://nuejs.org/docs/why-nue/extreme-performance.html)
-- [Closer to standards](https://nuejs.org/docs/why-nue/closer-to-standards.html)
+<a href="https://nuejs.org/blog/introducing-nuemark/">
+  <img src="https://nuejs.org/img/nuemark-content-big.png" width="800"></a>
 
 
 ### Contributing

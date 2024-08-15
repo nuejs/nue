@@ -10,6 +10,8 @@ async function readSize(dist, path) {
 }
 
 export async function printStats(site, args) {
+  if (args.dryrun) return
+
   const { dist, globals } = site
   let paths = await fswalk(dist)
 
@@ -50,9 +52,9 @@ export function categorize(paths) {
 
     const cat = ext == 'css' ? cats.style :
       ['js', 'ts'].includes(ext) ? cats.scripts :
-      ext == 'yaml' || base == 'layout.html' ? misc :
+      ext == 'yaml' || ext == 'html' ? misc :
       base == 'index.html' ? cats.spa :
-      ext ==  'nue' ? cats.islands :
+      ext ==  'nue' || ext == 'htm' ? cats.islands :
       ext == 'md' ? cats.pages :
       cats.media
 

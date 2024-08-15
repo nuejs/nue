@@ -1,33 +1,42 @@
 {
-	"name": "nuekit",
-	"version": "0.5.3",
-	"description": "The closer-to-standards web framework. Build sites and apps with less effort.",
-	"homepage": "https://nuejs.org",
-	"license": "MIT",
-	"type": "module",
-	"repository": {
-		"url": "https://github.com/nuejs/nue",
-		"directory": "packages/nuekit",
-		"type": "git"
-	},
-	"bin": {
-		"nue": "./src/cli.js"
-	},
+  "name": "nuekit",
+  "version": "1.0.0-beta",
+  "description": "Web Framework For UX Developers. Build the slickest websites in the world and wonder why you ever did them any other way",
+  "homepage": "https://nuejs.org",
+  "license": "MIT",
+  "type": "module",
+  "repository": {
+    "url": "https://github.com/nuejs/nue",
+    "directory": "packages/nuekit",
+    "type": "git"
+  },
+  "bin": {
+    "nue": "./src/cli.js"
+  },
+  "engines": {
+    "bun": ">= 1",
+    "node": ">= 18"
+  },
 	"scripts": {
-		"test": "cd test && bun test"
+		"test": "node --experimental-vm-modules ../../node_modules/jest/bin/jest.js --runInBand"
 	},
-	"dependencies": {
-		"diff-dom": "^5.0.6",
-		"es-main": "^1.3.0",
-		"import-meta-resolve": "^4.0.0",
-		"js-yaml": "^4.1.0",
-		"lightningcss": "^1.24.0",
-		"nue-glow": "latest",
-		"nuejs-core": "latest",
-		"nuemark": "latest"
-	},
-	"engines": {
-		"bun": ">= 1",
-		"node": ">= 18"
-	}
+  "dependencies": {
+    "diff-dom": "^5.1.4",
+    "es-main": "^1.3.0",
+    "import-meta-resolve": "^4.1.0",
+    "js-yaml": "^4.1.0",
+    "lightningcss": "^1.26.0",
+    "nue-glow": "*",
+    "nuejs-core": "*",
+    "nuemark": "*"
+  },
+  "devDependencies": {
+    "@happy-dom/global-registrator": "^14.12.3"
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "jest-extended/all",
+      "<rootDir>/../../setup-jest.js"
+    ]
+  }
 }

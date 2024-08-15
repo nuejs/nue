@@ -1,0 +1,44 @@
+
+.video {
+  border-radius: 4px;
+  display: inline-block;
+  position: relative;
+  margin: 2em 0;
+  
+  video {
+    border: var(--border);
+    border-radius: 4px;
+    max-width: 100%;
+    min-width: 100%;
+  }
+}
+  
+.play {
+  background: #0009 url(/icon/play.svg) no-repeat;
+  border: 3px solid white;
+  transform: translate(-50%, -50%);
+  background-position: 62% 50%;
+  box-shadow: 0 0 2em #0005;
+  background-size: 50%;
+  border-radius: 99em;
+  position: absolute;
+  cursor: pointer;
+  height: 5em;
+  opacity: .8;
+  width: 5em;
+  left: 50%;
+  top: 45%;
+
+  &:hover {
+    border-color: white;
+    opacity: 1;
+  }
+
+  &:active {
+    border-color: black;
+  }
+
+  .playing & {
+    display: none
+  }
+}

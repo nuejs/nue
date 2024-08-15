@@ -1,6 +1,6 @@
 
 // Router for single-page applications
-import { onclick, loadPage, setActive } from './page-router.js'
+import { onclick, loadPage, setActive } from './view-transitions.js'
 
 const is_browser = typeof window == 'object'
 

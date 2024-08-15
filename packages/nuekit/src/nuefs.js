@@ -66,14 +66,14 @@ export async function fswalk(root, _dir='', _ret=[]) {
   return _ret
 }
 
-const IGNORE = ['node_modules', 'functions', 'package.json', 'bun.lockb', 'pnpm-lock.yaml']
+const IGNORE = ['node_modules', 'functions', 'package.json', 'bun.lockb', 'pnpm-lock.yaml', 'README.md']
 
 function ignore(name='') {
   return '._'.includes(name[0]) || IGNORE.includes(name)
 }
 
 function isLegit(file) {
-  return !ignore(file.name) && !ignore(file.dir)
+  return !ignore(file.name) && !ignore(file.base) && !ignore(file.dir)
 }
 
 // TODO: real symdir detection

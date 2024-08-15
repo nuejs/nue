@@ -1,0 +1,9 @@
+<section @name="app">
+  <script>
+    mounted() {
+      console.log('<app> mounted')
+    }
+  </script>
+
+  <h2>App mounted</h2>
+</section>

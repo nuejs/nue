@@ -7,7 +7,7 @@ const $$ = (query, root=document) => [ ...root.querySelectorAll(query) ]
 const $ = (query, root=document) => root.querySelector(query)
 
 
-sse.onmessage = function(e) {
+sse.onmessage = async function(e) {
   const data = e.data ? JSON.parse(e.data) : {}
   const { error, html, css, dir, url, path } = data
 
@@ -26,14 +26,18 @@ sse.onmessage = function(e) {
   if (html) {
     const uri = url.replace('/index.html', '/')
     if (data.is_md && location.pathname != uri) location.href = uri
-    else patch(html)
+    else {
+      await patch(html)
+      dispatchEvent(new Event('reload'))
+    }
   }
 
-  // web components cannot be re-defined :(
+  // web components cannot be re-mounnted :(
   // if (data.is_js) import('/' + path + '?' + Math.random())
 
   // reactive component
-  if (data.is_nue) remount('/' + data.path.replace('.nue', '.js'))
+  if (data.is_nue || data.is_htm) remount('/' + data.path.replace(data.ext, '.js'))
+
 
   // styling (inline && stylesheets)
   if (css) {

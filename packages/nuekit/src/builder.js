@@ -77,20 +77,17 @@ export function parseError(buildResult) {
 
 export async function lightningCSS(css, minify, opts={}) {
   let include = Features.Colors
-  if (!opts.css_2023) include |= Features.Nesting
+  if (opts.native_css_nesting) include |= Features.Nesting
 
   try {
-    process.stdout.write('⚡️')
     return transform({ code: Buffer.from(css), include, minify }).code?.toString()
 
   } catch({ source, loc, data}) {
     throw {
       title: 'CSS syntax error',
-      lineText: source.split('\n')[loc.line -1],
+      lineText: source.split(/\r\n|\r|\n/)[loc.line -1],
       text: data.type,
       ...loc
     }
   }
 }
-
-

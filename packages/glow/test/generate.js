@@ -98,7 +98,7 @@ const NUEMARK = `
 ---
 title: Noel's cringe content
 |description: Not much to say
-draft: true
+unlisted: true
 ---
 
 # Lets get magical

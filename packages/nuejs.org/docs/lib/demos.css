@@ -1,0 +1,75 @@
+
+.image-gallery {
+  text-align: center;
+  position: relative;
+  width: 400px;
+  margin: 0 auto;
+
+  .seek {
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: .3;
+    width: 2.5em;
+    height: 2.5em;
+    position: absolute;
+    top: 40%;
+
+    &:hover { opacity: 1 }
+  }
+
+  .next {
+    background-image: url("/icon/chevron-right.svg");
+    right: -3em;
+  }
+
+  .prev {
+    background-image: url("/icon/chevron-left.svg");
+    left: -3em;
+  }
+
+
+  nav {
+    display: inline-flex;
+    margin: 1em;
+    gap: 1em;
+  }
+
+  nav a {
+    background-color: var(--gray-300);
+    border-radius: 1em;
+    display: block;
+    width: .6em;
+    height: .6em;
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    &.current {
+      background-color: black;
+    }
+  }
+}
+
+
+.animation-demo {
+  .grid {
+    grid-template-columns: repeat(auto-fit, 200px);
+
+    > div {
+      transform: scale(.7);
+      transition: .6s;
+      opacity: 0;
+
+      h3, p {
+        margin: 0;
+        line-height: 1.6;
+        font-size: 95%;
+      }
+
+      &.fade-in {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+  }
+}

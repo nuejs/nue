@@ -1,0 +1,51 @@
+
+/* delayed header fade-in */
+body > header {
+  transition: opacity .4s .5s;
+  opacity: 1;
+  @starting-style { opacity: 0 }
+}
+
+article, body > footer {
+  text-wrap: balance;
+  max-width: 1100px;
+  margin-inline: auto;
+}
+
+.hero {
+  text-align: center;
+  opacity: 1;
+  margin: 8em auto;
+
+  h1 {
+    filter: none;
+    transition: filter .8s;
+    @starting-style {
+      filter: blur(10px)
+    }
+  }
+
+  [role=button] {
+    margin: 0 .3em 2em;
+    font-size: calc(.85em + .3vw);
+  }
+
+  @media(max-width: 800px) {
+    img {
+      transform: scale(1.1) translateY(1em);
+    }
+  }
+}
+
+.project-status {
+  margin-bottom: 8em;
+  max-width: 660px;
+
+  h2 {
+    scroll-margin-top: .5em;
+  }
+}
+
+
+
+

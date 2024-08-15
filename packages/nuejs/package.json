@@ -1,32 +1,31 @@
 {
-	"name": "nuejs-core",
-	"version": "0.4.0",
-
-	"description": "The Nue framework for building user interfaces",
-	"homepage": "https://nuejs.org",
-
-	"repository": {
-		"url": "https://github.com/nuejs/nue",
-		"directory": "packages/nuejs",
-		"type": "git"
+  "name": "nuejs-core",
+  "version": "0.5.0",
+  "description": "HTML microlibrary for UX developers",
+  "homepage": "https://nuejs.org",
+  "license": "MIT",
+  "type": "module",
+  "main": "index.js",
+  "repository": {
+    "url": "https://github.com/nuejs/nue",
+    "directory": "packages/nuejs",
+    "type": "git"
   },
-
-	"license": "MIT",
-	"type": "module",
-
-	"scripts": {
-		"test": "cd test && bun test",
-		"compile": "cd test && bun compile.js"
-	},
-
-	"main": "index.js",
-
-	"dependencies": {
-		"htmlparser2": "^9.0.0"
-	},
-
-	"engines": {
-		"bun": ">= 1",
-		"node": ">= 18"
-	}
+  "engines": {
+    "bun": ">= 1",
+    "node": ">= 18"
+  },
+  "scripts": {
+    "test": "node --experimental-vm-modules ../../node_modules/jest/bin/jest.js --runInBand",
+    "compile": "cd test && bun compile.js"
+  },
+  "dependencies": {
+    "htmlparser2": "^9.1.0"
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "jest-extended/all",
+      "<rootDir>/../../setup-jest.js"
+    ]
+  }
 }

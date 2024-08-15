@@ -1,0 +1,58 @@
+
+<div @name="image-gallery" class="image-gallery" translate="no">
+
+  <a class="seek prev" @click="index--" :if="index"></a>
+  <img src="{ basedir }/{ images && images[index] }">
+  <a class="seek next" @click="index++" :if="index + 1 < images?.length"></a>
+
+  <nav>
+    <a :for="src, i in images" class="{ current: i == index }" @click="index = i"></a>
+  </nav>
+
+  <script>
+    index = 0
+  </script>
+
+</div>
+
+
+<div @name="media-object" :class="type">
+  <img :src="img" loading="lazy">
+  <div>
+    <h3>{ title }</h3>
+    <p>{ desc }</p>
+    <slot/>
+  </div>
+</div>
+
+
+<div @name="animation-demo" class="animation-demo">
+
+  <button @click="addUser" :disabled="users && users[5]">
+    + Add a new person
+  </button>
+
+  <div class="grid">
+    <media-object :for="user in users" :bind="user"/>
+  </div>
+
+  <script>
+
+    // fill list with the first three available items
+    constructor({ items }) {
+      this.users = items?.slice(0, 2)
+    }
+
+    // insert a new user from the available items
+    addUser() {
+      const { items, users } = this
+      const user = items[users.length]
+      if (user) users.push(user)
+    }
+
+    oninsert(node, item, loop) {
+      setTimeout(() => node.classList.add('fade-in'), 1)
+    }
+  </script>
+
+</div>

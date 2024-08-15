@@ -1,5 +1,15 @@
 
-import { log, getParts, getAppDir, getDirs, colors, toPosix, sortCSS, joinRootPath } from './util.js'
+import {
+  traverseDirsUp,
+  parsePathParts,
+  extendData,
+  getAppDir,
+  log,
+  colors,
+  toPosix,
+  sortCSS,
+  joinRootPath } from './util.js'
+
 import { join, extname, basename, sep, parse as parsePath } from 'node:path'
 import { parse as parseNue } from 'nuejs-core'
 import { promises as fs } from 'node:fs'
@@ -33,7 +43,7 @@ export async function createSite(args) {
     caching here is unnecessary
   */
   async function read(path) {
-    return await fs.readFile(join(root, path), 'utf-8')
+    return (await fs.readFile(join(root, path), 'utf-8')).replace(/\r\n|\r/g, '\n')
   }
 
   async function readData(path) {
@@ -46,6 +56,7 @@ export async function createSite(args) {
       } else if (path == env) throw e
     }
   }
+
 
   async function readOpts() {
     const data = await readData('site.yaml') || {}
@@ -112,12 +123,12 @@ export async function createSite(args) {
     }
   }
 
-  async function getPageFiles(page_dir) {
+  async function getPageAssets(page_dir) {
     const key = ':' + page_dir
     if (cache[key]) return cache[key]
     const arr = []
 
-    for (const dir of getDirs(page_dir || '.')) {
+    for (const dir of traverseDirsUp(page_dir || '.')) {
       try {
         const paths = await fs.readdir(join(root, dir))
         paths.forEach(path => arr.push(join(dir, path)))
@@ -132,12 +143,12 @@ export async function createSite(args) {
   }
 
 
-  async function getAllFiles(from_dirs) {
-    const key = '@' + from_dirs
+  async function walkDirs(dirs) {
+    const key = '@' + dirs
     if (cache[key]) return cache[key]
     const arr = []
 
-    for (const dir of from_dirs) {
+    for (const dir of dirs) {
       try {
         const paths = await fswalk(join(root, dir))
         paths.forEach(path => arr.push(join(dir, path)))
@@ -153,13 +164,20 @@ export async function createSite(args) {
 
   async function getAssets({ dir, exts, to_ext, data={} }) {
     const { include=[], exclude=[] } = data
-    let paths = [...await getAllFiles(self.globals), ...await getPageFiles(dir)]
+    const subdirs = !dir ? [] : self.globals.map(el => join(dir, el))
+
+
+    let paths = [
+      ...await walkDirs(self.globals),
+      ...await walkDirs(subdirs),
+      ...await getPageAssets(dir)
+    ]
+
     const ret = []
 
     // library files
     if (include[0]) {
-      for (const path of await getAllFiles(self.libs)) {
-
+      for (const path of await walkDirs(self.libs)) {
         // included only
         if (include.find(match => toPosix(path).includes(match))) paths.push(path)
       }
@@ -195,10 +213,23 @@ export async function createSite(args) {
     }
   }
 
+
+  async function readDirData(dir) {
+    const paths = await getPageAssets(dir)
+    const data = {}
+    for (const path of paths) {
+      if (path.endsWith('.yaml')) {
+        Object.assign(data, await readData(path))
+      }
+    }
+    return data
+  }
+
   self.getData = async function(pagedir) {
-    const data = { nuekit_version, ...site_data }
-    for (const dir of getDirs(pagedir)) {
-      Object.assign(data, await readData(`${dir}/app.yaml`))
+    const data = { nuekit_version, ...site_data, is_prod }
+
+    for (const dir of traverseDirsUp(pagedir)) {
+      extendData(data, await readDirData(dir))
     }
     return data
   }
@@ -207,46 +238,45 @@ export async function createSite(args) {
     return await fswalk(root)
   }
 
-  self.getScripts = async function(dir, main=['main.js']) {
-    const arr = await getAssets({ dir, exts: ['js', 'ts'], to_ext: 'js' })
-    return arr.filter(path => main.includes(basename(path)))
-  }
-
-  self.getComponents = async function(dir) {
-    return await getAssets({ dir, exts: ['nue'], to_ext: 'js' })
-  }
-
 
   // get fromt matter data from all .md files on a directory
   self.getContentCollection = async function(dir) {
     const key = 'coll:' + dir
     if (cache[key]) return cache[key]
+    const arr = []
+
+    // make sure dir exists
+    try {
+      await fs.stat(join(root, dir))
+    } catch (e) {
+      console.error(`content collection: "${dir}" does not exist`)
+      return arr
+    }
 
     const paths = await fswalk(join(root, dir))
     const mds = paths.filter(el => el.endsWith('.md')).map(el => join(dir, el))
 
-    const arr = []
     for (const path of mds) {
       const raw = await read(path)
       const { meta } = nuemark(raw)
-      arr.push({ ...meta, ...getParts(path) })
+      arr.push({ ...meta, ...parsePathParts(path) })
     }
 
     arr.sort((a, b) => {
-      const [d1, d2] = [a, b].map(v => v.pubDate || Infinity)
+      const [d1, d2] = [a, b].map(v => v.pubDate || v.date || Infinity)
       return d2 - d1
     })
+
     if (is_bulk) cache[key] = arr
+
     return arr
   }
-
-
 
   self.getStyles = async function(dir, data={}) {
     let paths = await getAssets({ dir, exts: ['css'], data })
 
     // syntax highlighting
-    if (data.page?.has_code_blocks && data.glow_css !== false) paths.push(`/@nue/glow.css`)
+    if (data.page?.has_code_blocks && data.syntax_highlight !== false) paths.push(`/@nue/syntax.css`)
 
     // cascading order: globals -> area -> page
     sortCSS({ paths, globals: self.globals, dir })
@@ -254,12 +284,28 @@ export async function createSite(args) {
     return paths
   }
 
+  self.getScripts = async function(dir, data) {
+    return await getAssets({ dir, exts: ['js', 'ts'], to_ext: 'js', data })
+  }
 
-  self.getLayoutComponents = async function(pagedir) {
+  self.getClientComponents = async function(dir, data) {
+    return await getAssets({ dir, exts: ['nue', 'htm'], to_ext: 'js', data })
+  }
+
+
+  self.getServerComponents = async function(dir, data) {
+    const paths = await getAssets({ dir, exts: ['html'], data })
+
+    if (dir && dir != '.') {
+      const more = await fs.readdir(join(root, dir))
+      more.forEach(p => {
+        if (p.endsWith('.html')) paths.unshift(p)
+      })
+    }
+
     const lib = []
 
-    for (const dir of ['.', ...getDirs(pagedir)]) {
-      const path = join(dir, `layout.html`)
+    for (const path of paths) {
       try {
         const html = await read(path)
         lib.unshift(...parseNue(html))
@@ -270,7 +316,6 @@ export async function createSite(args) {
         }
       }
     }
-
     return lib
   }
 

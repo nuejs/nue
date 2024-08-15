@@ -1,26 +1,26 @@
 
 import { tags, elem, join, concat } from './tags.js'
 import { parsePage, parseHeading } from './parse.js'
+import { marked, parseInline } from 'marked'
 import { parseAttr } from './component.js'
-import { marked } from 'marked'
 
 
 export function renderPage(page, opts) {
   const { lib=[] } = opts
   const data = { ...opts.data, ...page.meta }
-  const draw_sections = data?.draw_sections || page.sections[1]
-  const section_attr = data.sections || []
+  const draw_sections = opts.draw_sections
+  const custom_tags = opts.tags || {}
   const ret = []
 
+  delete opts.draw_sections
 
-  // section_attr
   page.sections.forEach((section, i) => {
 
     const html = join(section.blocks.map(el => {
       const { name, md, attr } = el
       const comp = name && lib.find(el => [name, toCamelCase(name)].includes(el.name))
       const alldata = { ...data, ...el.data, attr }
-      const tag = tags[name]
+      const tag = custom_tags[name] || tags[name]
 
       // tag
       return tag ? tag(alldata, opts) :
@@ -41,7 +41,10 @@ export function renderPage(page, opts) {
 
     }))
 
-    const attr = section.attr || parseAttr(section_attr[i] || '')
+    const attr = section.attr || {}
+    const classes = data.section_classes
+    if (classes && !attr.class) attr.class = classes[i]
+    attr.is = data.section_component
     ret.push(draw_sections ? elem('section', attr, html) : html)
 
   })
@@ -80,6 +83,7 @@ export function renderMarkdown(md, links) {
     const { href, title='' } = links[key]
     md.push(`[${key}]: ${href} "${title}"`)
   }
+
   return marked.parse(join(md))
 }
 
@@ -102,12 +106,15 @@ marked.setOptions({
   mangle: false
 })
 
-export function renderHeading(html, level, raw) {
+export function renderHeading(html, depth, raw) {
   const plain = parseHeading(raw)
   const { id } = plain
 
+  // class name only
+  if (!id && plain.class) return elem(`h${depth}`, { class: plain.class }, plain.text)
+
   // no id -> return plain heading
-  if (!id) return elem(`h${level}`, html)
+  if (!id || depth == 1) return elem(`h${depth}`, html)
 
   // id given
   const title = plain.text.replaceAll('"', '')
@@ -115,7 +122,7 @@ export function renderHeading(html, level, raw) {
 
   delete plain.text
   const a = elem('a', { href: `#${id}`, title })
-  return elem(`h${level}`, plain, a + text)
+  return elem(`h${depth}`, plain, a + text)
 }
 
 // marked renderers

@@ -18,22 +18,19 @@
     - Available on templates with "-tag" suffix: <image-tag>
     - Nuekit Error reporting
 */
+import { readFileSync } from 'node:fs'
 import { nuemarkdown } from '../index.js'
 import { parseInline } from 'marked'
 import { glow } from 'nue-glow'
+import path from 'node:path'
 
 
 export const tags = {
 
-  button(data, opts) {
+  button(data) {
     const { attr, href="#", content=[] } = data
     const label = parseInline(data.label || data._ || content[0] || '')
     return elem('a', { ...attr, href, role: 'button' }, label || _)
-  },
-
-  icon({ _, icon_base='/img', alt }) {
-    const src = `${icon_base}/${_}.svg`
-    return elem('img', { src, alt: alt || `${_} icon` })
   },
 
   table(data) {
@@ -51,47 +48,69 @@ export const tags = {
     return createWrapper(data.wrapper, table)
   },
 
-  // generic layout block. used for "unnamed" blocks like [.grid]
-  layout(data, opts) {
+  // generic <div> element with nested items
+  block(data, opts) {
     const { content=[] } = data
-    const items = toArray(data.items) || []
 
     const divs = content.map((str, i) => {
       const html = nuemarkdown(str, opts)
-      return content[1] ? elem('div', { class: items[i] || data.item }, html) : html
+      return content[1] ? elem('div', html) : html
     })
 
-    return elem(divs[1] ? 'section' : 'div', data.attr, join(divs))
+    return elem('div', data.attr, join(divs))
+  },
+
+  grid(data, opts) {
+    const { content=[] } = data
+    const items = toArray(data.items) || []
+    if (!data.attr.class) data.attr.class = 'grid'
+
+    const divs = content.map((str, i) => {
+      const html = nuemarkdown(str, opts)
+      const comp = data.grid_item_component
+      if (comp) attr.is = comp
+
+      const attr = { class: items[i] || data.item || data.grid_item_class }
+      return content[1] ? elem('div', attr, html) : html
+    })
+
+    return elem('div', data.attr, join(divs))
   },
 
 
   image(data, opts) {
+    const src = data.src || data._ || data.large
+
+    // inline SVG
+    if (data.inline && src.endsWith('.svg')) {
+      return readFileSync(path.join('.', src), 'utf-8')
+    }
+
     const { attr, caption, href, content, loading='lazy' } = data
     const { width, height } = parseSize(data)
 
-    const aside = caption ? elem('figcaption', parseInline(caption)) :
-      content ? elem('figcaption', nuemarkdown(content[0], opts)) :
-      null
-
     const img_attr = {
-      src: data.src || data._ || data.large,
       srcset: join(data.srcset, ', '),
       sizes: join(data.sizes, ', '),
       alt: data.alt || caption,
       loading,
       height,
       width,
+      src,
     }
 
+    // figcaption
+    const figcaption = caption ? elem('figcaption', parseInline(caption)) :
+      content ? elem('figcaption', nuemarkdown(content[0], opts)) : ''
+
     // img tag
-    if (!aside) Object.assign(img_attr, attr)
     let img = data.small ? createPicture(img_attr, data) : elem('img', img_attr)
 
-    // link
+    // wrap image inside a link
     if (href) img = elem('a', { href }, img)
 
-    // figure
-    return aside ? elem('figure', attr, img + aside) : img
+    // always wrapped inside a figure
+    return elem('figure', attr, img + figcaption)
   },
 
 
@@ -129,14 +148,16 @@ export const tags = {
     })
   },
 
-  // caption, wrapper, language, numbered
+  // caption, language, numbered
   code(data) {
-    const { caption, attr } = data
-    const head = caption ? elem('figcaption', elem('h3', parseInline(caption))) : ''
-    const root = head ? elem('figure', attr, head + createCodeBlock(data)) : createCodeBlock(data, attr)
-    return createWrapper(data.wrapper, root)
-  },
+    const { caption, attr={} } = data
+    const klass = attr.class
+    delete attr.class
 
+    const head = caption ? elem('figcaption', parseInline(caption)) : ''
+    const root = head ? elem('figure', attr, head + createCodeBlock(data)) : createCodeBlock(data, attr)
+    return createWrapper(klass, root)
+  },
 
   // captions, languages, classes, numbered
   codeblocks(data) {
@@ -155,25 +176,8 @@ export const tags = {
       })
     })
 
-    return elem('section', attr, join(blocks))
-  },
-
-
-
-  /* maybe later
-  grid(data, opts) {
-    const { attr, content=[], _='a'} = data
-    const { cols, colspan } = getGridCols(content.length, _)
-    const extra = { style: `--cols: ${cols}`, class: concat('grid', attr.class) }
-
-    const divs = content.map((str, i) => {
-      const attr = colspan && i + 1 == content.length ? { style: `--colspan: ${colspan}` } : {}
-      return elem('div', attr, nuemarkdown(str, opts))
-    })
-
-    return elem('section', { ...attr, ...extra }, join(divs))
-  },
-  */
+    return elem('div', attr, join(blocks))
+  }
 
 }
 
@@ -202,7 +206,7 @@ function createARIATabs(data, fn) {
     return elem('li', prop, fn(content, i))
   })
 
-  const root = elem('section', { tabs: true, is: 'aria-tabs', ...data.attr },
+  const root = elem('div', { tabs: true, is: 'aria-tabs', ...data.attr },
     elem('div', { role: 'tablist' }, tabs.join('\n')) +
     elem('ul', panes.join('\n'))
   )
@@ -215,20 +219,20 @@ function createARIATabs(data, fn) {
 tags['!'] = function(data, opts) {
   const src = data._
   const mime = getMimeType(src)
-
-  return data.sources || mime.startsWith('video') ? tags.video(data, opts) :
-    src?.indexOf('.') == -1 ? tags.icon(data) :
-    tags.image(data, opts)
+  return data.sources || mime.startsWith('video') ? tags.video(data, opts) : tags.image(data, opts)
 }
 
 // alias
 tags.section = tags.layout
 
+// alias (depreciated)
+tags.layout = tags.block
+
 export function elem(name, attr, body) {
   if (typeof attr == 'string') { body = attr; attr = {}}
 
   const html = [`<${name}${renderAttrs(attr)}>`]
-  const closed = ['img', 'source'].includes(name)
+  const closed = ['img', 'source', 'meta', 'link'].includes(name)
 
   if (body) html.push(body)
   if (!closed) html.push(`</${name}>`)
@@ -251,6 +255,7 @@ function toArray(items) {
 }
 
 export function join(els, separ='\n') {
+  // do not filter away empty lines (.filter(el => !!el))
   return els?.join ? els.join(separ) : els
 }
 
@@ -278,9 +283,9 @@ export function parseSize(data) {
   return { width: w || data.width, height: h || data.height }
 }
 
-function createCodeBlock({ content, language, numbered }, attr={}) {
-  const code = glow(join(content), { language, numbered })
-  return elem('pre', { glow: true, ...attr }, code)
+function createCodeBlock({ content, language='', numbered }, attr={}) {
+  const code = glow(join(content), { language: language?.trim(), numbered })
+  return elem('pre', attr, code)
 }
 
 

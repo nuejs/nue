@@ -56,7 +56,7 @@ function toString(val) {
 
 function setAttribute(key, attribs, data) {
   let val = attribs[key]
-  if (!val) return
+  if (val === null || val === undefined) return
 
   // TODO: check all non-strings here
   if (val.constructor === Object) return
@@ -169,10 +169,11 @@ function processFor(node, expr, data, deps) {
 function processChild(comp, node, deps, data) {
   const { attribs } = node
 
-  // merge attributes
-  const child = comp.create({ ...data, ...attribs }, deps, node.children)
-  if (child.children.length == 1) mergeAttribs(child.firstChild.attribs, attribs)
+  let child = comp.create({ ...data, ...attribs }, deps, node.children) || ''
+  if (typeof child == 'string') child = parseDocument(child)
 
+  // merge attributes
+  if (child.children.length == 1) mergeAttribs(child.firstChild.attribs, attribs)
   DOM.replaceElement(node, child)
 }
 
@@ -240,7 +241,7 @@ function processNode(opts) {
       // slots
       if (name == 'slot') {
         if (attribs.for) {
-          const html = data[attribs.for]
+          const html = exec(setContext(attribs.for), data)
           if (html) DOM.replaceElement(node, mkdom(html))
           else removeNode(node)
 
@@ -351,6 +352,7 @@ function setJSONData(node, ctx) {
 
 
 export function parse(template) {
+  template = template.replace(/\r\n|\r/g, '\n')
   const { children } = mkdom(template)
   const nodes = children.filter(el => el.type == 'tag')
   const global_js = getJS(children)
@@ -377,5 +379,3 @@ export async function renderFile(path, data, deps) {
   const src = await fs.readFile(path, 'utf-8')
   return render(src, data, deps)
 }
-
-

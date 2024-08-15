@@ -1,21 +1,28 @@
 {
   "name": "nuemark",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "Markdown dialect for rich, interactive web content",
   "homepage": "https://nuejs.org",
   "license": "MIT",
   "type": "module",
   "main": "index.js",
-
   "repository": {
     "url": "https://github.com/nuejs/nue",
     "directory": "packages/nuemark",
     "type": "git"
   },
-
+  "scripts": {
+    "test": "node --experimental-vm-modules ../../node_modules/jest/bin/jest.js --runInBand"
+  },
   "dependencies": {
-    "nue-glow": "latest",
     "js-yaml": "^4.1.0",
-    "marked": "^9.1.2"
+    "marked": "^13.0.3",
+    "nue-glow": "*"
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "jest-extended/all",
+      "<rootDir>/../../setup-jest.js"
+    ]
   }
 }

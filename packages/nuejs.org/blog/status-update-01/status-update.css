@@ -1,0 +1,42 @@
+
+.floating {
+  max-width: 250px;
+  margin: 2em auto;
+  img {
+    width: 200px;
+  }
+  @media (min-width: 700px) {
+    margin: 0 0 0 3em;
+    text-align: right;
+    float: right;
+  }
+
+  @media (min-width: 900px) {
+    margin-right: -4em
+  }
+}
+
+section > h4:has(a) {
+  font-weight: 400;
+  font-size: 85%;
+  margin-top: 3em;
+  color: var(--gray);
+
+  a {
+    display: block;
+    color: var(--main);
+    margin: .4em 0 0;
+    font-size: 115%;
+    font-weight: 600;
+  }
+
+  a:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: var(--gray-300);
+  }
+}
+
+article ol li {
+  margin: .3em 0;
+}

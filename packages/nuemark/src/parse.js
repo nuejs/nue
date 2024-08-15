@@ -6,7 +6,7 @@ const NL = '\n'
 
 // returns { meta, sections, headings, links }
 export function parsePage(lines) {
-  if (typeof lines == 'string') lines = lines.split(NL)
+  if (typeof lines == 'string') lines = lines.split(/\r\n|\r|\n/)
 
   const { meta, rest } = parseMeta(lines)
 
@@ -43,7 +43,9 @@ export function parsePage(lines) {
         Object.assign(links, tokens.links)
 
         headings.push(...tokens.filter(el => el.type == 'heading').map(el => {
-          return { level: el.depth, ...parseHeading(el.text) }
+          const attr = parseHeading(el.text)
+          const html = marked.parseInline(attr.text)
+          return { level: el.depth, raw: el.raw, html, ...attr }
         }))
 
         blocks.push({ md: block, tokens })
@@ -68,11 +70,11 @@ export function parseHeading(text) {
     return { text: text.slice(0, i).trim(), ...attr }
   }
 
-  return { text, id: text[30] ? null : createHeaderId(text) }
+  return { text, id: createHeaderId(text) }
 }
 
 export function createHeaderId(text) {
-  let hash = text.replace(/'/g, '').replace(/[\W_]/g, '-').replace(/-+/g, '-').toLowerCase()
+  let hash = text.slice(0, 32).replace(/'/g, '').replace(/[\W_]/g, '-').replace(/-+/g, '-').toLowerCase()
   if (hash[0] == '-') hash = hash.slice(1)
   if (hash.endsWith('-')) hash = hash.slice(0, -1)
   return hash
@@ -128,7 +130,7 @@ export function parseSections(lines) {
   push()
 
   lines.forEach(line => {
-    if (line.startsWith('---')) {
+    if (line.startsWith('---') || line.startsWith('===')) {
       section = [] // must be before push
       const i = line.indexOf('- ')
       push(i > 0 ? parseAttr(line.slice(i + 2).trim()) : null)

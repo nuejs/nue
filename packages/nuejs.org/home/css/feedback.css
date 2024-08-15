@@ -1,0 +1,72 @@
+
+.heroquote {
+  max-width: 800px;;
+  margin-top: 2em;
+  font-size: 1.3em;
+  display: flex;
+  margin-bottom: 5em;
+  gap: 2em;
+  p { margin-top: -.3em }
+
+  img {
+    border-radius: 4px;
+    max-width: 150px;
+  }
+  @media (max-width: 700px) {
+    display: block;
+    img {
+      float: right;
+      margin-left: 2em;
+    }
+  }
+}
+
+/* generic card */
+.card {
+  > :first-child { margin-top: 0 }
+  > :last-child { margin-bottom: 0 }
+}
+
+.card {
+  box-shadow: 0 0 .8em #0001;
+  border-radius: .5em;
+  border: var(--border);
+  padding: 1.5em;
+  font-size: 95%;
+
+  h3 {
+    margin-bottom: -.5em;
+  }
+
+  &:has(a) {
+    cursor: pointer;
+
+    &:hover {
+      box-shadow: 0 0 0 2px white, 0 0 0 4px var(--main-500);
+    }
+  }
+}
+
+
+.feedback {
+  column-width: 17em;
+  column-gap: 1.5em;
+  list-style: none;
+  padding: 0;
+
+  .card {
+    background: url(/icon/ycombinator.svg) no-repeat;
+    background-position: right 1em top 1.3em;
+    break-inside: avoid;
+    background-size: 1.4em;
+    margin-bottom: 1.5em;
+    padding: 1.5em;
+  }
+
+  .from-x { background-image: url(/icon/x.svg) }
+  .from-feedback { background-image: url(/icon/feedback.svg) }
+  .from-gh { background-image: url(/icon/github.svg) }
+  .from-reddit { background-image: url(/icon/reddit.svg) }
+  .from-lobster { background-image: url(/icon/lobsters.png) }
+}
+

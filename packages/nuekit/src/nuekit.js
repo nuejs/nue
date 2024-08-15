@@ -1,15 +1,16 @@
 
+
+import { log, colors, getAppDir, parsePathParts, extendData } from './util.js'
 import { join, parse as parsePath, extname, basename } from 'node:path'
-import { renderHead, getDefaultHTML, getDefaultSPA } from './layout.js'
+import { renderPage, renderSinglePage } from './layout/page-layout.js'
 import { parse as parseNue, compile as compileNue } from 'nuejs-core'
-import { log, colors, getAppDir, getParts } from './util.js'
-import { createServer, send } from './nueserver.js'
 import { lightningCSS, buildJS } from './builder.js'
+import { createServer, send } from './nueserver.js'
 import { printStats, categorize } from './stats.js'
-import { parsePage, renderPage } from 'nuemark'
 import { promises as fs } from 'node:fs'
 import { createSite } from './site.js'
 import { fswatch } from './nuefs.js'
+import { parsePage } from 'nuemark'
 import { init } from './init.js'
 
 // the HTML5 doctype
@@ -20,6 +21,7 @@ const NOT_FOUND = -2
 
 export async function createKit(args) {
   const { root, is_prod, esbuild } = args
+
 
   // site: various file based functions
   const site = await createSite(args)
@@ -32,19 +34,24 @@ export async function createKit(args) {
 
 
   async function setupStyles(dir, data) {
-    const paths = data.styles = await site.getStyles(dir, data)
+    const paths = await site.getStyles(dir, data)
 
     if (data.inline_css) {
       data.inline_css = await buildAllCSS(paths)
-      delete data.styles
+      data.styles = paths.filter(path => path.includes('@nue'))
+
+    } else {
+      data.styles = paths
     }
   }
 
   async function buildAllCSS(paths) {
     const arr = []
     for (const path of paths) {
-      const { css } = await processCSS({ path, ...parsePath(path)})
-      arr.push({ path, css })
+      if (!path.startsWith('/@nue')) {
+        const { css } = await processCSS({ path, ...parsePath(path)})
+        arr.push({ path, css })
+      }
     }
     return arr
   }
@@ -52,10 +59,10 @@ export async function createKit(args) {
   async function setupScripts(dir, data) {
 
     // scripts
-    const scripts = data.scripts = await site.getScripts(dir, data.main)
+    const scripts = data.scripts = await site.getScripts(dir, data)
 
     // components
-    if (data.automount !== false) data.components = await site.getComponents(dir)
+    data.components = await site.getClientComponents(dir, data)
 
     // system scripts
     function push(name) {
@@ -66,24 +73,23 @@ export async function createKit(args) {
     if (is_dev && data.hotreload !== false) push('hotreload')
     if (data.components?.length) push('mount')
     if (data.page?.isomorphic) push('nuemark')
-    if (data.router) push('page-router')
+    if (data.view_transitions || data.router) push('view-transitions')
   }
 
 
   async function getPageData(path) {
 
-    const { dir } = parsePath(path)
-    const data = await site.getData(dir)
-
-    // markdown
+    // markdown data: meta, sections, headings, links
     const raw = await read(path)
-
-    // { meta, sections, headings, links }
-    const page = parsePage(raw, data)
+    const page = parsePage(raw)
     const { meta } = page
 
+    const { dir } = parsePath(path)
+    const data = await site.getData(meta.appdir || dir)
+
     // YAML data
-    Object.assign(data, getParts(path), meta, { page })
+    Object.assign(data, parsePathParts(path), { page })
+    extendData(data, meta)
 
     // content collection
     const cdir = data.content_collection
@@ -100,6 +106,17 @@ export async function createKit(args) {
     return data
   }
 
+
+  // Markdown page
+  async function renderMPA(path) {
+    const data = await getPageData(path)
+    const file = parsePath(path)
+
+    const lib = await site.getServerComponents(data.appdir || file.dir, data)
+    return DOCTYPE + renderPage(data, lib)
+  }
+
+
   // index.html for single-page application
   async function renderSPA(index_path) {
 
@@ -107,64 +124,22 @@ export async function createKit(args) {
     const file = parsePath(index_path)
     const dir = file.dir
     const appdir = getAppDir(index_path)
-    const data = { ...await site.getData(appdir), ...getParts(index_path) }
+    const data = { ...await site.getData(appdir), ...parsePathParts(index_path) }
 
     // scripts & styling
     await setupScripts(dir, data)
     await setupStyles(dir, data)
 
-    // head / meta tags
-    data.head = renderHead(data, is_prod)
-
     // SPA components and layout
     const html = await read(index_path)
 
     if (html.includes('<html')) {
-      const lib = await site.getLayoutComponents(appdir)
+      const lib = await site.getServerComponents(appdir, data)
       const [ spa, ...spa_lib ] = parseNue(html)
       return DOCTYPE + spa.render(data, [...lib, ...spa_lib])
     }
-    const [ spa ] = parseNue(getDefaultSPA(html, data))
+    const [ spa ] = parseNue(renderSinglePage(html, data))
     return DOCTYPE + spa.render(data)
-  }
-
-  // Markdown- based multi-page application page
-  async function renderMPA(path, data) {
-    const file = parsePath(path)
-    const dir = data.appdir || file.dir
-    const lib = await site.getLayoutComponents(dir)
-
-    data.content = renderPage(data.page, { data, lib }).html
-
-    function render(name, def) {
-      const layout = lib.find(el => el.tagName == name) || def && parseNue(def)[0]
-
-      try {
-        return layout ? layout.render(data, lib) : ''
-      } catch (e) {
-        delete data.inline_css
-        log.error(`Error in ${path}, on <${name}> component`)
-        throw { component: name, ...e }
-      }
-    }
-
-    data.header = render('header')
-    data.footer = render('footer')
-    data.main = render('main', '<slot for="content"/>')
-    data.custom_head = render('head').slice(6, -7)
-    data.head = renderHead(data, is_prod)
-
-    return DOCTYPE + render('html', getDefaultHTML(data))
-  }
-
-
-  // processor methods
-  async function processPage(file) {
-    const { dir, name, path } = file
-    const data = await getPageData(path)
-    const html = await renderMPA(path, data)
-    await write(html, dir, `${name}.html`)
-    return html
   }
 
 
@@ -212,7 +187,9 @@ export async function createKit(args) {
 
     // markdown content
     if (file.is_md) {
-      const html = await processPage(file)
+      const { dir, name, path } = file
+      const html = await renderMPA(path)
+      await write(html, dir, `${name}.html`)
       active_page = file
       return { html }
     }
@@ -231,8 +208,8 @@ export async function createKit(args) {
     // css
     if (ext == '.css') return await processCSS(file)
 
-    // reactive component
-    if (file.is_nue) {
+    // reactive component (.nue, .htm)
+    if (file.is_nue || file.is_htm) {
       const raw = await read(path)
       const js = await compileNue(raw)
       await write(js, dir, `${name}.js`)
@@ -250,7 +227,7 @@ export async function createKit(args) {
   }
 
   function isAssetFor(page, asset) {
-    if (['layout.html', 'site.yaml', 'app.yaml'].includes(asset.base)) {
+    if (['.html', '.yaml'].includes(asset.ext)) {
       const appdir = getAppDir(asset.dir)
       return ['', '.', ...site.globals].includes(appdir) || getAppDir(page.dir) == appdir
     }
@@ -335,7 +312,7 @@ export async function createKit(args) {
     if (is_dev) watcher = fswatch(root, async file => {
       try {
         const ret = await processFile(file)
-        if (ret) send({ ...file, ...getParts(file.path), ...ret })
+        if (ret) send({ ...file, ...parsePathParts(file.path), ...ret })
       } catch (e) {
         send({ error: e, ...file })
         console.error(e)
@@ -377,7 +354,7 @@ export async function createKit(args) {
     gen, getPageData, renderMPA, renderSPA,
 
     // public API
-    build, serve, stats, dist,
+    build, serve, stats, dist, port,
   }
 
 }

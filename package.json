@@ -1,8 +1,9 @@
 {
   "name": "nue",
   "version": "0.0.0",
-  "private": true,
   "license": "MIT",
+  "type": "module",
+  "private": true,
   "workspaces": [
     "packages/*"
   ],
@@ -10,7 +11,13 @@
     "bun": ">=1",
     "node": ">=18"
   },
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand"
+  },
   "jest": {
-    "setupFilesAfterEnv": ["jest-extended/all"]
+    "setupFilesAfterEnv": [
+      "jest-extended/all",
+      "<rootDir>/setup-jest.js"
+    ]
   }
 }

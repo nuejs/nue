@@ -7,35 +7,41 @@ import { nuemarkdown } from '../index.js'
 
 test('fenced code', () => {
   const { html } = renderLines(['``` md.foo', `<h1>hey</h1>`, '```', 'after'])
-  expect(html).toStartWith('<pre glow class="foo">')
-  expect(html).toInclude('<i>')
+  expect(html).toStartWith('<div class=\"foo\"><pre><code language=\"md\"><i>&lt;')
+  expect(html).toInclude('</code></pre></div>')
   expect(html.trim()).toEndWith('<p>after</p>')
 })
 
-test('[code]', () => {
-  const html = tags.code({ content: ['<p>Hey</p>'], language: 'xml', numbered: true, wrapper: 'foo' })
-  expect(html).toStartWith('<div class="foo"><pre glow><code language="xml">')
+test('fenced code: space before class name', () => {
+  const { html } = renderLines(['``` md #go.pink', '# Hey', '```'])
+  expect(html).toInclude('<div class="pink">')
+  expect(html).toInclude('<code language="md">')
+})
+
+test('[code.foo]', () => {
+  const html = tags.code({ content: ['<p>Hey</p>'], language: 'xml', numbered: true, attr: { class: 'foo'} })
+  expect(html).toStartWith('<div class="foo"><pre><code language="xml">')
   expect(html).toInclude('<i>')
 })
 
-test('[code caption wrapper]', () => {
-  const html = tags.code({ content: ['<!-- Hey -->'], caption: 'index.js', wrapper: 'shiny', numbered: 1 })
-  expect(html).toInclude('<figcaption><h3>index.js')
+test('[code caption]', () => {
+  const html = tags.code({ content: ['<!-- Hey -->'], caption: 'index.js', numbered: 1 })
+  expect(html).toInclude('<figure><figcaption>index.js')
   expect(html).toInclude('<sup>&lt;!-- Hey')
 })
 
 test('[codeblocks]', () => {
-  const html = tags.codeblocks({ content: ['a', 'b'], captions: 'A; B', classes: 'foo; bar' })
-  expect(html).toStartWith('<section><figure class="foo">')
-  expect(html).toInclude('<figure class="bar"><figcaption><h3>B</h3>')
-  expect(html).toInclude('<pre glow')
+  const html = tags.codeblocks({ content: ['a', 'b'], captions: 'A; B' })
+  expect(html).toStartWith('<div><figure><figcaption>A')
+  expect(html).toInclude('<figcaption>B')
+  expect(html).toInclude('<pre>')
 })
 
 test('[codetabs]', () => {
   const html = tags.codetabs({ content: ['a', 'b'], captions: 'A; B', languages: 'jsx; md' })
-  expect(html).toStartWith('<section tabs is="aria-tabs">')
+  expect(html).toStartWith('<div tabs is="aria-tabs">')
   expect(html).toInclude('<div role="tablist">')
-  expect(html).toInclude('<li role="tabpanel"><pre glow>')
+  expect(html).toInclude('<li role="tabpanel"><pre>')
 })
 
 test('nested code with comment', () => {
@@ -55,11 +61,8 @@ test('parse fenced code', () => {
 
 
 test('[!] img', () => {
-  const icon = tags['!']({ _: 'cat' })
-  expect(icon).toStartWith('<img src="/img/cat.svg"')
-
   const img = tags['!']({ _: 'img.png' })
-  expect(img).toStartWith('<img src="img.png"')
+  expect(img).toStartWith('<figure><img ')
 
   const video = tags['!']({ _: 'img.mp4' })
   expect(video).toStartWith('<video src="img.mp4">')
@@ -78,7 +81,7 @@ test('[video] simple', () => {
 
 test('[tabs] attr', () => {
   const html = tags.tabs({ _: 't1 ; t2', content: ['c1', 'c2'], attr: {} })
-  expect(html).toInclude('<section tabs is="aria-tabs" class="tabs">')
+  expect(html).toInclude('<div tabs is="aria-tabs" class="tabs">')
   expect(html).toInclude('<div role="tablist">')
   expect(html).toInclude('<a role="tab" aria-selected>t1</a>')
   expect(html).toInclude('<li role="tabpanel">')
@@ -131,32 +134,30 @@ test('long divider', () => {
 test('[image] content', () => {
   const html = tags.image({ src: 'a.png', content: ['Hey'] })
   expect(html).toInclude('<figcaption><p>Hey</p>')
-  expect(html).toInclude('img src="a.png')
+  expect(html).toInclude('src="a.png')
   expect(html).toInclude('figure')
 })
 
 test('[image] link', () => {
   const a = tags.image({ _: 'a.png', href: '/' })
-  expect(a).toBe('<a href="/"><img src="a.png" loading="lazy"></a>')
+  expect(a).toStartWith('<figure><a href="/"><img')
 })
 
 test('[image] picture', () => {
   const pic = tags.image({ small: 'a.png', large: 'b.png', offset: 800, attr: { class: 'big' } })
-  expect(pic).toInclude('picture')
+  expect(pic).toStartWith('<figure class="big">')
+  expect(pic).toInclude('<picture>')
   expect(pic).toInclude('source srcset="b.png"')
   expect(pic).toInclude('max-width: 800px')
-  expect(pic).toInclude('img src="b.png"')
-  expect(pic).toInclude('class="big"')
+  expect(pic).toInclude('src="b.png"')
 })
 
 test('[image] caption', () => {
   const figure = tags.image({ src: 'a.png', caption: 'Hey *man*', attr: { class: 'big' } })
   expect(figure).toInclude('<figcaption>Hey <em>man</em></figcaption>')
   expect(figure).toInclude('figure class="big"')
-  expect(figure).toInclude('img src="a.png"')
+  expect(figure).toInclude('src="a.png"')
 })
-
-
 
 test('parseSize', () => {
   const { width, height } = parseSize({ size: '10 x 10' })
@@ -167,14 +168,15 @@ test('parseSize', () => {
 test('[image] basics', () => {
   const img = tags.image({ _: 'a.png', alt: 'Hey', width: 10, height: 10 })
 
-  expect(img).toStartWith('<img src="a.png"')
+  expect(img).toStartWith('<figure><img')
 
+  expect(img).toInclude('src="a.png"')
   expect(img).toInclude('alt="Hey"')
   expect(img).toInclude('loading="lazy"')
   expect(img).toInclude('width="10"')
   expect(img).toInclude('height="10"')
 
-  const img2 = tags.image({ size: '10 x 10' })
+  const img2 = tags.image({ size: '10 x 10 px' })
   expect(img2).toInclude('width="10"')
   expect(img2).toInclude('height="10"')
 
@@ -182,39 +184,38 @@ test('[image] basics', () => {
 
 test('[image] srcset', () => {
   const img = tags.image({
-    attr: { class: 'big' },
     srcset: ['a.jpg 20vw', 'b.jpg'],
     loading: null,
     sizes: '4em'
   })
 
-  expect(img).toBe('<img srcset="a.jpg 20vw, b.jpg" sizes="4em" class="big">')
+  expect(img).toInclude('<img srcset="a.jpg 20vw, b.jpg" sizes="4em">')
 })
 
 
-test('[layout]', () => {
+test('[block]', () => {
   const attr = { id: 'epic' }
   const data = { count: 10 }
-  const single = tags.layout({ attr, data, content: ['foo'] })
+  const single = tags.block({ attr, data, content: ['foo'] })
 
   expect(single).toInclude('<div id="epic">')
   expect(single).toInclude('<p>foo</p>')
 
-  const double = tags.layout({ attr, data, content: ['foo', 'bar'] })
-    expect(double).toInclude('<section id="epic">')
+  const double = tags.block({ attr, data, content: ['foo', 'bar'] })
+    expect(double).toInclude('<div id="epic">')
 })
 
-test('[section] alias', () => {
-  const html = tags.section({ content: ['a', 'b'] })
-  expect(html).toStartWith('<section>')
+test('[layout] alias', () => {
+  const html = tags.layout({ content: ['a', 'b'] })
+  expect(html).toStartWith('<div>')
 })
 
-test('[layout] with nested component', () => {
+test('[block] with nested component', () => {
   const content = ['# Hello', '## World\n[image "joo.png"]']
-  const html = tags.layout({ content })
-  expect(html).toInclude('<h1 id="hello">')
+  const html = tags.block({ content })
+  expect(html).toInclude('<h1>')
   expect(html).toInclude('<div><h2 id="world">')
-  expect(html).toInclude('img src="joo.png"')
+  expect(html).toInclude('<img')
 })
 
 test('[table]', () => {
@@ -233,19 +234,17 @@ test('[button]', () => {
   expect(html).toInclude('<em>Hey</em>')
 })
 
-
-// page rendering
 test('render sections', () => {
   const lines = ['a', 'a', '--- #a.b', 'b', 'b', '---', 'c', 'c']
-  const { html } = renderLines(lines, { data: { sections: ['#foo'] } })
-  expect(html).toStartWith('<section id="foo"><p>a')
+  const { html } = renderLines(lines, { draw_sections: true, data: { section_classes: ['foo'] } })
+  expect(html).toStartWith('<section class="foo"><p>a')
   expect(html).toInclude('<section class="b" id="a"><p>b')
   expect(html).toInclude('<section><p>c')
 })
 
-test('generic section', () => {
+test('generic block', () => {
   const { html } = renderLines(['[.info]', '  # Hello', '  para', '  ---', '  World'])
-  expect(html).toInclude('<section class="info">')
+  expect(html).toInclude('<div class="info">')
   expect(html).toInclude('<p>para</p>')
 })
 
@@ -258,17 +257,20 @@ test('reflinks', () => {
   expect(html).toInclude('<a href="//hey.net" title="boom">dude</a>')
 })
 
-test.only('H1 with inner <em>', () => {
+test('H1 with inner <em>', () => {
   const { id } = parseHeading('# Hey _bro_ *man*')
   expect(id).toEqual('hey-bro-man')
 })
 
-test.only('render heading', () => {
+test('render heading', () => {
   const h1 = renderHeading('Hey', 1, 'This is a too long text version of it')
   expect(h1).toEqual('<h1>Hey</h1>')
 
   const h2 = renderHeading('Foo <em>bar</em> { #baz }', 2, 'Foo bar { #baz }')
   expect(h2).toEqual('<h2 id="baz"><a href="#baz" title="Foo bar"></a>Foo <em>bar</em></h2>')
+
+  const h3 = renderHeading('Hey { .baz }', 3, 'Hey { .baz }')
+  expect(h3).toEqual('<h3 class="baz">Hey</h3>')
 })
 
 test('parseHeading', () => {
@@ -277,17 +279,11 @@ test('parseHeading', () => {
   expect(h1.id).toBe('me-too')
   expect(h1.class).toBe('hey yo')
 
-  const h2 = parseHeading('## Hey')
+  const h2 = parseHeading('## Hey { .foo }')
   expect(h2.text).toBe('## Hey')
-  expect(h2.id).toBe('hey')
+  expect(h2.class).toBe('foo')
 })
 
-test('heading id', () => {
-  const { html } = renderLines(['# Hey _boy_ { #me.too }'])
-  expect(html).toInclude('<h1 class="too" id="me">')
-  expect(html).toInclude('<a href="#me"')
-  expect(html).toInclude('Hey <em>boy</em>')
-})
 
 test('page island', () => {
   const { html } = renderLines(['yo', '[hey]', '  bar: 2'])
@@ -438,6 +434,12 @@ test('parseComponent', () => {
     name: 'info',
   })
 
+})
+
+
+test('blockquotes', () => {
+  const { html } = renderLines(['> hey', '', 'joe'])
+  expect(html).toInclude('</blockquote>\n<p>joe</p>')
 })
 
 /*

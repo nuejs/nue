@@ -1,0 +1,82 @@
+
+
+pre {
+  background-color: var(--glow-bg-color, #20293A);
+  color: var(--glow-base-color, #a2aab1);
+  padding: var(--glow-padding, 1.5em);
+
+  counter-reset: line-counter 0;
+  font-family: monospace;
+  line-height: 1.7;
+  overflow-x: auto;
+
+  /* reset */
+  * {
+    font-weight: 400;
+    font-style: inherit;
+    text-decoration: inherit
+  }
+
+  /* primary accent color */
+  b { color: var(--glow-primary-color, #7dd3fc) }
+
+  /* secondary accent color */
+  em { color: var(--glow-secondary-color, #f472b6) }
+
+  /* special emphasis */
+  strong { color: var(--glow-accent-color, #419fff) }
+
+  /* brackets, special characters */
+  i { color: var(--glow-char-color, #64748b) }
+
+
+  /* vawy error message */
+  u {
+    text-decoration: underline wavy var(--glow-error-color, red);
+    text-decoration-thickness: .15em;
+    text-underline-offset: .5em;
+  }
+
+  /* comments */
+  sup {
+    color: var(--glow-comment-color, #6f7a7d);
+    font-size: inherit;
+    vertical-align: inherit;
+    font-style: italic;
+  }
+
+  /* special */
+  label { font-weight: bold; color: var(--glow-special-color, #fff); }
+
+  /* marked code */
+  mark {
+    background-color: var(--glow-marked-color, #2dd4bf26);
+    color: unset;
+    border-radius: .2em;
+    padding: .3em .4em;
+    margin: -.3em -.4em;
+  }
+
+  /* line numbers */
+  span {
+    counter-increment: line-counter 1;
+
+    &:before {
+      color: var(--glow-counter-color, #475569);
+      content: counter(line-counter);
+      display: inline-block;
+      text-align: right;
+      padding-right: 1em;
+      margin-right: 1em;
+      width: 2.5em;
+    }
+  }
+
+  /* errorneous line number styling */
+  span:has(u):before {
+    background-color: var(--glow-error-color, red);
+    border-radius: .2em;
+    font-weight: bold;
+    color: white;
+  }
+}
