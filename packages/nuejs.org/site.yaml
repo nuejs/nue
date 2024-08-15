@@ -6,7 +6,7 @@ libs: ["@lib", docs/lib, blog/lib]
 og: /img/og-blue-big.png
 view_transitions: true
 native_css_nesting: true
-origin: https://www2.nuejs.org # TODO: update to correct host on release
+origin: https://nuejs.org
 
 # Content settings
 title: Web Framework For UX Developers

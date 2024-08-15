@@ -3,7 +3,7 @@
 The source code for https://nuejs.org
 
 <a href="https://nuejs.org/">
-  <img src="https://www2.nuejs.org/img/figma-to-css-big.png" width="800">
+  <img src="https://nuejs.org/img/figma-to-css-big.png" width="800">
 </a>
 
 

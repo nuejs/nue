@@ -2,7 +2,7 @@
 # Nue &nbsp;[![test](https://github.com/nuejs/nue/actions/workflows/test.yaml/badge.svg?branch=master)](https://github.com/nuejs/nue/actions/workflows/test.yaml)
 
 <a href="https://nuejs.org/">
-  <img src="https://www2.nuejs.org/img/og-blue-big.png" width="900">
+  <img src="https://nuejs.org/img/og-blue-big.png" width="900">
 </a>
 
 ### What is Nue?
