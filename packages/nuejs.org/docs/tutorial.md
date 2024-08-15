@@ -109,7 +109,7 @@ No matter how complex your landing page is, it can be defined with the extended 
 
 
 ### Frontpage
-Our front page is a simple list of blog entries rendered with a [content collection](content-collections.html) and a [gallery](gallery.html) tag:
+Our front page is a simple list of blog entries rendered with a [content collection](content-collections.html) and a [gallery](content-collections.html#gallery) tag:
 
 ``` md
 \---
@@ -210,7 +210,7 @@ body {
 }
 ```
 
-Global design system helps you write clean and minimalistic CSS that can be reused across projects. And you need significantly less code to achieve the same thing. For example, there is less CSS on the front page than what goes into a single Tailwind button 🤷‍♂️. This brings us to Nue's [CSS best practice](css-best-practices.html):
+Global design system helps you write clean and minimalistic CSS that can be reused across projects. And you need significantly less code to achieve the same thing. For example, there is less CSS on the front page than what goes into a single Tailwind button 🤷‍♂️. This brings us to Nue's [CSS best practices](css-best-practices.html):
 
 > 10 lines of code is easier to maintain than 100 lines of code
 
@@ -315,7 +315,7 @@ Our blogging app has a [contact form](//github.com/nuejs/nue/blob/dev/packages/e
 </form>
 ```
 
-You can use the same [HTML-based syntax](template-syntax.md) to create reactive, client-side components, as you use with the server-side templating. You can build anything from it ranging from simple interactive "islands" to rich [single-page applications](single-page-applications.html) without bringing up the absurd amount of layers and complexity from the React/TypeScript ecosystem.
+You can use the same [HTML-based syntax](template-syntax.html) to create reactive, client-side components, as you use with the server-side templating. You can build anything from it ranging from simple interactive "islands" to rich [single-page applications](single-page-applications.html) without bringing up the absurd amount of layers and complexity from the React/TypeScript ecosystem.
 
 
 

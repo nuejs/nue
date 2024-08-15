@@ -24,11 +24,7 @@ Create your first Nue website:
 
 
 ```sh
-# create an empty directory and cd to it
-mkdir "simple-blog" && cd "$_"
-
-# install nue demo: "simple-blog"
-nue create "simple-blog"
+nue create simple-blog
 ```
 
 Check your browser at `http://localhost:8083/welcome/`:
@@ -36,28 +32,28 @@ Check your browser at `http://localhost:8083/welcome/`:
 [image]
   small: /img/create-welcome.png
   large: /img/create-welcome-big.png
-  caption: The welcome screen after succesfull setup
+  caption: The welcome screen after succesful setup
 
 
 ## 4. Learn UX development
-Follow the [tutorial](tutorial.html)
+Follow the [tutorial](tutorial.html).
 
 - - -
 
 ## Details
 
-### System Requirements
+### System requirements
 
 - [Bun 1.0.10](//bun.sh/) or later. Recommended with *macOS* and *Linux*.
 - [Node.js 18.0.2](//nodejs.org/) or later. Recommended with *Windows* or if you don't want to install Bun.
 
 
 ### No Windows support
-Nue does not currently work under Windows, but we're working on it
+Nue currently does not work under Windows, but we're working on it.
 
 
 ### VS Code Extension
-Is located [here](//marketplace.visualstudio.com/items?itemName=yaoyuanzhang.nue)
+Is located [here](//marketplace.visualstudio.com/items?itemName=yaoyuanzhang.nue).
 
 
 ### Having problems?
@@ -65,7 +61,7 @@ Please post an [issue](//github.com/nuejs/nue/issues). Thank you!
 
 
 ## Node setup { #node }
-Istall Nue with `pnpm`, `npm`, and `yarn`:
+Istall Nue with `pnpm`, `npm` or `yarn`:
 
 ```sh
 pnpm install nuekit --global

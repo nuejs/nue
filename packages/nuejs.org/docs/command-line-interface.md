@@ -61,7 +61,7 @@ Less is more
 ```
 
 ## Examples
-Few more usage examples:
+A few more usage examples:
 
 ```sh
 # serve current directory
@@ -78,6 +78,9 @@ nue -p stats
 
 # show what will be built (without building)
 nue build .js .ts .nue --dry-run
+
+# use a template with custom output directory
+nue create simple-blog -r dirname
 ```
 
 ## How it looks
