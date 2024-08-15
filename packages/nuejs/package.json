@@ -1,7 +1,7 @@
 {
   "name": "nuejs-core",
-  "version": "0.4.0",
-  "description": "The Nue framework for building user interfaces",
+  "version": "0.5.0",
+  "description": "HTML microlibrary for UX developers",
   "homepage": "https://nuejs.org",
   "license": "MIT",
   "type": "module",
