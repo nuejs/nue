@@ -40,9 +40,4 @@ button, [role="button"] {
       background-color: var(--gray-100);
     }
   }
-
-  &[disabled] {
-    background-color: var(--gray-200);
-    color: white;
-  }
 }
