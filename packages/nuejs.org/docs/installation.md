@@ -59,7 +59,7 @@ Please post an [issue](//github.com/nuejs/nue/issues). Thank you!
 
 
 ## Node setup { #node }
-Istall Nue with `pnpm`, `npm` or `yarn`:
+Install Nue with `pnpm`, `npm` or `yarn`:
 
 ```sh
 pnpm install nuekit --global
