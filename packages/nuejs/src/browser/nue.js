@@ -196,7 +196,7 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
 
   function setAttrs(root, parent) {
     const arr = mergeVals(getAttr(root, 'class') || [], parent.class)
-    if (arr[0]) root.className = renderVal(arr, ' ')
+    if (arr[0]) setAttr(root, 'class', renderVal(arr, ' '))
 
     const { id, style } = parent
     if (style && style.x != '') root.style = renderVal(style)

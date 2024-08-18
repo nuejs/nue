@@ -21,12 +21,11 @@ test('Expressions', () => {
     // whitespace
     '<b>{ type } <i>': '<b>bold <i></i></b>',
 
-    '<b :class="type">Hey</b>': "<b class=\"bold\">Hey</b>",
-    '<b class="item { type }"/>': "<b class=\"item bold\"></b>",
-    '<img src="/img/icon/{type}.svg">': "<img src=\"/img/icon/bold.svg\">",
-    '<b :class="item { type }">Hey</b>': "<b class=\"item bold\">Hey</b>",
+    '<b :class="type">Hey</b>': '<b class="bold">Hey</b>',
+    '<b class="item { type }"/>': '<b class="item bold"></b>',
+    '<img src="/img/icon/{type}.svg">': '<img src="/img/icon/bold.svg">',
+    '<b :class="item { type }">Hey</b>': '<b class="item bold">Hey</b>',
     '<time :datetime="date.getDay()">{ date.getDay() }</time>': `<time datetime="6">6</time>`,
-
 
     // skip event attributes
     '<a @click="click"/>': '<a></a>',
@@ -80,7 +79,7 @@ test('Methods and variables', () => {
 test('Class and style', () => {
   runTests({
     '<b class="this { thing } { should: true, be: 1, baz: 0, lol: null, great: -1 }"/>':
-      '<b class=\"this thing should be great\"></b>',
+      '<b class="this thing should be great"></b>',
 
     '<b style="font-weight: calc(2em + 5%); color: { color}"/>':
       '<b style="font-weight: calc(2em + 5%); color: #ccc"></b>',
