@@ -20,7 +20,8 @@ export async function loadPage(path, no_push) {
   const dom = mkdom(await getHTML(path))
 
   // change title
-  document.title = $('title', dom)?.textContent
+  const title = $('title', dom)?.textContent
+  if (title) document.title = title
 
   // update <meta name="nue:components"/>
   const query = '[name="nue:components"]'
@@ -233,7 +234,9 @@ async function getHTML(path) {
   html = await resp.text()
 
   if (resp.status == 404 && html?.trim()[0] != '<') {
-    $('article').innerHTML = '<h1>Page not found</h1>'
+    const title = document.title = 'Page not found'
+    $('article').innerHTML = `<section><h1>${title}</h1></section>`
+
   } else {
     cache[path] = html
   }
