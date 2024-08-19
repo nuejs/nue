@@ -38,7 +38,7 @@ Here's how our blog is structured:
 
 [.folders]
   - `index.md` the front page
-  - `home` front page styling
+  - `welcome` front page styling
   - `blog` blogging area
   - `contact` contact app
   - `img` images and icons
