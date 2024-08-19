@@ -19,7 +19,6 @@
   }
 }
 
-
 /* "good" and "bad" code block captions */
 .good, .bad  {
   margin-top: 2em;
@@ -55,7 +54,6 @@
   }
 }
 
-
 .options {
   h4 {
     margin: 2.5em 0 1.5em .15em;
@@ -73,7 +71,6 @@
   }
 
 }
-
 
 /* currently: TODO badge in SPA page */
 h1 code {

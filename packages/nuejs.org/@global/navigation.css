@@ -7,7 +7,6 @@ nav a {
   }
 }
 
-
 /* global header */
 body > header {
   margin-bottom: 5em;
@@ -118,8 +117,6 @@ button[popovertarget] {
   }
 }
 
-
-
 /* global footer */
 body > footer {
   padding-block: 5em;
@@ -160,5 +157,3 @@ body > footer {
   }
 
 }
-
-

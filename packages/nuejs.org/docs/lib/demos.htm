@@ -1,4 +1,3 @@
-
 <div @name="image-gallery" class="image-gallery" translate="no">
 
   <a class="seek prev" @click="index--" :if="index"></a>
@@ -21,7 +20,7 @@
   <div>
     <h3>{ title }</h3>
     <p>{ desc }</p>
-    <slot/>
+    <slot />
   </div>
 </div>
 
@@ -33,7 +32,7 @@
   </button>
 
   <div class="grid">
-    <media-object :for="user in users" :bind="user"/>
+    <media-object :for="user in users" :bind="user" />
   </div>
 
   <script>

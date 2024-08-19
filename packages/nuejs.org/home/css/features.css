@@ -82,7 +82,6 @@
   }
 }
 
-
 /* initial state for all content elements */
 .feature-area > * {
   transform: translateY(1.5rem);
@@ -95,10 +94,8 @@
   /*  &:nth-child(5) { transition-delay: .8s }*/
 }
 
-
 /* trigger animation when in viewport  */
 .in-viewport > * {
   transform: translate(0);
   opacity: 1;
 }
-

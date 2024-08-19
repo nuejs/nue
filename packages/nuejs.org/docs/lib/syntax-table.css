@@ -2,7 +2,6 @@
 .syntax-table td {
   font-family: monospace;
 
-
   &:first-child {
     font-weight: 600;
     color: var(--main-600);

@@ -1,5 +1,4 @@
 
-
 pre {
   background-color: var(--glow-bg-color, #20293A);
   color: var(--glow-base-color, #a2aab1);
@@ -28,7 +27,6 @@ pre {
 
   /* brackets, special characters */
   i { color: var(--glow-char-color, #64748b) }
-
 
   /* vawy error message */
   u {

@@ -16,7 +16,6 @@ h1          { transition-delay: .1s }
 h1 + p      { transition-delay: .2s }
 h1 + p + *  { transition-delay: .4s }
 
-
 /* view transitions */
 article {
   view-transition-name: article;
@@ -27,4 +26,3 @@ article {
   transform: scale(1.2) translateY(2em);
   transition: .8s;
 }
-

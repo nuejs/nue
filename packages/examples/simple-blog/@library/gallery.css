@@ -1,6 +1,5 @@
 
 
-
 ul:has(time) {
   list-style: none;
   margin: 4em 0;
@@ -41,4 +40,3 @@ ul:has(time) {
     border-radius: 4px;
   }
 }
-

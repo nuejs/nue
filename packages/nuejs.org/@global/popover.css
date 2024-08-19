@@ -6,7 +6,6 @@
   opacity: 1;
   border: 0;
 
-
   &::backdrop {
     background-color: #0005;
     backdrop-filter: blur(4px);
@@ -35,7 +34,6 @@
     top: .4em;
   }
 }
-
 
 dialog {
   position: fixed; left: inherit; top: 1em; right: 1em;

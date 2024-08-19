@@ -1,4 +1,3 @@
-
 globals: ["@global"]
 libs: ["@library"]
 
@@ -41,6 +40,3 @@ footer:
       url: //linkedin.com/in/tipiirai
       alt: LinkedIn profile
       size: 22 x 22
-
-
-

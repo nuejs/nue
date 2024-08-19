@@ -1,2 +1,1 @@
-
-include: [ content, cards, motion ]
+include: [content, cards, motion]

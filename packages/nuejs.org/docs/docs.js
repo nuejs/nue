@@ -28,7 +28,7 @@ class ObservingNav extends HTMLElement {
 
     $$('section > h2, section > h3').forEach(el => this.observer.observe(el))
 
-    this.onclick = function(e) {
+    this.onclick = function (e) {
       if (e.target.href) {
         this.disabled = true
         setSelected(this, e.target)
@@ -51,7 +51,7 @@ customElements.define('observing-nav', ObservingNav, { extends: 'nav' })
 class ZenToggle extends HTMLInputElement {
   constructor() {
     super()
-    this.onchange = function() {
+    this.onchange = function () {
       $('html').classList.toggle('zen', this.checked)
     }
   }
@@ -60,7 +60,7 @@ class ZenToggle extends HTMLInputElement {
 customElements.define('zen-toggle', ZenToggle, { extends: 'input' })
 
 // remember the zen state after the view transition
-addEventListener('route', function() {
+addEventListener('route', function () {
   const el = $('[is=zen-toggle]')
   if (el) el.checked = !!$('.zen')
 })
@@ -69,7 +69,7 @@ addEventListener('route', function() {
 class Counter extends HTMLDivElement {
   constructor() {
     super()
-    this.innerHTML = ++sessionStorage.counter || (sessionStorage.counter = 0)
+    this.innerHTML = ++sessionStorage.counter || (sessionStorage.counter = 0)
   }
 }
 

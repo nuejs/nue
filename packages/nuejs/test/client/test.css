@@ -125,7 +125,6 @@ button:active {
   max-width: 350px;
 }
 
-
 /* loop items */
 .row {
   border-bottom: 1px solid #eee;
@@ -164,7 +163,6 @@ button:active {
 .selected {
   border-bottom: 3px solid black;
 }
-
 
 /* dark mode */
 .dark {

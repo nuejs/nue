@@ -17,7 +17,6 @@ h1 {
 
 }
 
-
 table {
   border-collapse: collapse;
   color: var(--gray-600);
@@ -104,7 +103,6 @@ article {
     margin: 3em 0 0;
   }
 
-
   ul {
     padding-left: .9em;
   }
@@ -128,8 +126,6 @@ article {
     margin: 3em 0 5em;
   }
 }
-
-
 
 blockquote {
   margin: 2em 0 5em;
@@ -177,12 +173,10 @@ blockquote {
   }
 }
 
-
 li > p > strong:first-child {
   font-weight: 700;
   color: var(--gray-950);
 }
-
 
 p del {
   text-decoration: none;
@@ -221,7 +215,6 @@ h2[id], section > h3[id] {
     }
   }
 }
-
 
 /* images */
 figure {
@@ -264,7 +257,6 @@ figure > a {
   margin: 0 0 2em 2em;
 }
 
-
 /* shiny gradients for code blocks */
 .blue   { background-image: linear-gradient(var(--main-400), var(--main-500)) }
 .purple { background-image: linear-gradient(#a855f7, var(--purple)) }
@@ -297,11 +289,9 @@ figure > a {
   box-shadow: 0 1px 2px #0004, 0 0 15px #0001;
 }
 
-
 .gray {
   background-color: var(--gray-400)
 }
-
 
 /* syntax highlighting */
 pre {
@@ -311,11 +301,9 @@ pre {
   &.small { font-size: 85% }
 }
 
-
 [language="sh"] {
   color: var(--main-400);
 }
-
 
 .note {
   border-left: 2px solid var(--main-500);

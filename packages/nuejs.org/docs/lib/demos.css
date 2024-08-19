@@ -27,7 +27,6 @@
     left: -3em;
   }
 
-
   nav {
     display: inline-flex;
     margin: 1em;
@@ -49,7 +48,6 @@
     }
   }
 }
-
 
 .animation-demo {
   .grid {

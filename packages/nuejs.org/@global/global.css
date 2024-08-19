@@ -32,8 +32,6 @@
   --gray-900: #0f172a;
   --gray-950: #020617;
 
-
-
   /* accent colors */
   --red:      #fb7185;
   --pink:     #e200ff;
@@ -45,7 +43,6 @@
   --glow-bg-color: var(--gray-800);
   --glow-padding: 2em;
 
-
   /* used in fixed navigation bars */
   --body-padding: 1em 2.5em;
 
@@ -53,7 +50,6 @@
   --border: 1px solid var(--gray-200);
 
 }
-
 
 @media (max-width: 600px) {
   :root {

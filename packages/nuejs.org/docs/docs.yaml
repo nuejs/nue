@@ -1,4 +1,3 @@
-
 include: [technical-content, video, toggle-switch]
 footer: false
 
@@ -21,17 +20,14 @@ sidenav:
     - Optimization: performance-optimization.html
     - What is UX development?: ux-development.html
 
-
   Content development:
     - Content development: content.html
     - Markdown extensions: tags.html
-
 
   Application development:
     - Single-page applications: single-page-applications.html
     - Model development
     - UI development
-
 
   Reference:
     - Template syntax: template-syntax.html

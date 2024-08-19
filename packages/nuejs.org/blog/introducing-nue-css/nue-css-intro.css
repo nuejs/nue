@@ -93,7 +93,6 @@ table td:first-child {
   }
 }
 
-
 .roadmap {
   font-size: 90%;
   list-style: none;
@@ -120,7 +119,6 @@ table td:first-child {
   }
 }
 
-
 h3 {
   em {
     color: var(--main-500);
@@ -139,7 +137,6 @@ h3 {
     color: white;
   }
 }
-
 
 /* measurement page */
 .file-list {

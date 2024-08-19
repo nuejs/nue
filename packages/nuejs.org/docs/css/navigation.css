@@ -1,5 +1,4 @@
 
-
 /* sub navigation in mobile  */
 body > nav {
   position: sticky;
@@ -49,7 +48,6 @@ aside {
 
     &:hover { color: black }
 
-
     &:not([href]) {
       color: var(--gray-300);
       cursor: not-allowed;
@@ -95,7 +93,6 @@ article + aside {
     }
   }
 
-
   nav [aria-selected] {
     border-color: var(--main-500);
     border-width: 2px;
@@ -121,14 +118,11 @@ article + aside {
   }
 }
 
-
-
 /* icons */
 aside:first-child h3 {
   background: 0 50% no-repeat;
   padding-left: 1.7em;
   margin-left: -.55em;
-
 
   /* Content Framework */
   nav:nth-child(1) & {
@@ -161,9 +155,6 @@ aside:first-child h3 {
     background-image: url(/icon/document.svg);
   }
 }
-
-
-
 
 /* zen mode */
 .zen-toggle {

@@ -11,12 +11,11 @@
 
   img {
     width: 8em;
-    box-shadow: 0 0 4px $gray-200;
+    box-shadow: 0 0 4px var(--gray-200);
   }
 
   [type=number] {
     margin-right: 1em;
     width: 5em;
   }
-
 }

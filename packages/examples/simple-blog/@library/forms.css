@@ -1,12 +1,10 @@
 
-
 /* basic form styling  */
 :focus-visible {
   outline: 3px solid var(--gray-100);
   border-color: var(--main-500);
   outline-offset: 1px;
 }
-
 
 label {
   display: block;
@@ -52,5 +50,3 @@ button, [role=button] {
     transform: translateY(1px);
   }
 }
-
-

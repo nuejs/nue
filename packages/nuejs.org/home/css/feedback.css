@@ -47,7 +47,6 @@
   }
 }
 
-
 .feedback {
   column-width: 17em;
   column-gap: 1.5em;
@@ -69,4 +68,3 @@
   .from-reddit { background-image: url(/icon/reddit.svg) }
   .from-lobster { background-image: url(/icon/lobsters.png) }
 }
-

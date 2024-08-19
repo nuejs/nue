@@ -1,9 +1,8 @@
-
 <!-- TODO: clean up the mess -->
 
 <script>
   // nue stats .css
-  function getGlobals(exclude=[]) {
+  function getGlobals(exclude = []) {
     const globals = {
       'header-and-footer': 483,
       'burger-menu': 479,
@@ -173,7 +172,7 @@
 
 
   function format(size) {
-    return !size ? '-' : size < 50 ? '0.0' + size + 'k': Math.round(size / 100) / 10 + 'k'
+    return !size ? '-' : size < 50 ? '0.0' + size + 'k' : Math.round(size / 100) / 10 + 'k'
   }
 </script>
 
@@ -194,12 +193,12 @@
 
   <div>
     <h4>Shared files</h4>
-    <file-list :items="globs" base="@base"/>
+    <file-list :items="globs" base="@base" />
   </div>
 
   <div :for="el in sites">
     <h4>{ el.name }</h4>
-    <file-list :items="el.assets" :base="el.key"/>
+    <file-list :items="el.assets" :base="el.key" />
   </div>
 
   <script>
@@ -249,7 +248,7 @@
     </p>
 
     <div class="bar-cells">
-      <b :for="cell in row.cells" :style="width: { ratio(cell.value) }%"/>
+      <b :for="cell in row.cells" :style="width: { ratio(cell.value) }%" />
     </div>
     <small :if="i > 0">({ diff() }% smaller)</small>
   </li>
@@ -257,7 +256,7 @@
   <script>
     diff() {
       const [a, b] = this.rows
-      return Math.round((a.total - b.total)/a.total * 100)
+      return Math.round((a.total - b.total) / a.total * 100)
     }
 
     ratio(val) {
@@ -273,13 +272,13 @@
 
 <div @name="size-compare">
   <a href="size-measurement.html">
-    <stacked-bars :rows/>
+    <stacked-bars :rows />
     <figcaption>Click for measurement details</figcaption>
   </a>
 
   <script>
     constructor({ a, b }) {
-      this.rows = [ getTailwind(a), getSite(b) ]
+      this.rows = [getTailwind(a), getSite(b)]
     }
   </script>
 
@@ -331,4 +330,3 @@
     }
   </script>
 </table>
-
