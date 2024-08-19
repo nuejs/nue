@@ -1,15 +1,15 @@
 
 # Page layout
+
 A global design system standardizes the structure of your web pages, allowing you to use the same HTML markup, while applying different external CSS, to achieve a wide range of designs.
 
-
 ## Standardized HTML
+
 After describing your headers and footers in the `layout.html` file, the default page layout for Markdown content looks like this:
 
 [image.bordered /img/page-layout.svg]
   caption: Standard page layout blocks
   size: 598 × 667 px
-
 
 To see this in practice lets create an `index.md` file with the following content:
 
@@ -49,9 +49,8 @@ This will generate the following HTML:
 
 This forms the basis for our markup, which has no styling information included in any format. Not in the style attribute, nor class name attribute. This is the core idea of the global design system: You'll get a *headless* markup that you can style in different ways.
 
-
-
 #### The head element
+
 The contents of your head element are auto-generated based on your [settings](settings.html) and [project structure](project-structure.html). For example, if you have the files `hello.css` and `hello.js` in your project root and a `site.yaml` file with the following data:
 
 ```yaml
@@ -81,17 +80,15 @@ Your head element will be rendered as follows:
 ```
 
 ## Global navigation { #navigation }
+
 Nue offers a simple, [YAML-based syntax](#nav-syntax) for defining all the site-wide navigation elements: Global header and footer, the burger menu, dropdown menus and any other complementary menus you may have. This declarative syntax is beneficial for several reasons:
 
 1. It always produces the same markup across projects that you can rely on when styling your website. This adapts to the idea of the global design system.
-
 2. You can define your information architecture and start the CSS development immediately without going deep with the content.
-
 3. It's easy to define new localized versions of your site by providing a different YAML file to override and extend the default locale. Note: This kind of localization is not supported yet, but will be in the future.
 
-
-
 ### Global header
+
 Let's add a global header to our document. This happens with a `header` property in the `site.yaml` file:
 
 ```yaml
@@ -124,7 +121,6 @@ Now our website has a new `header` element nested directly under the `body`. It 
 ```
 
 The YAML syntax allows you to build navigation elements of any complexity. This website, for example, uses the following data for the header:
-
 
 ```yaml
 header:
@@ -162,8 +158,8 @@ This generates three `<nav/>` elements inside the header:
 </header>
 ```
 
-
 ### Burger menu { #burger }
+
 Next, we add a "burger menu" to our application by adding a `burger_menu` property to the `site.yaml` file. We use the same [syntax](#nav-syntax) as we used for the header. For example:
 
 ```yaml
@@ -203,9 +199,8 @@ The actual popover menu is added to the end of the document body:
 
 Now we have an easily customizable menu that is compatible with the standard [Popover API](//developer.mozilla.org/en-US/docs/Web/API/Popover_API).
 
-
-
 ### Global footer
+
 The global footer is defined similarly with a `footer` property in `site.yaml`. We'll add the following in there:
 
 ```yaml
@@ -228,7 +223,6 @@ footer:
       - Careers: /careers/
       - Customers: /customers/
 ```
-
 
 Now our website has a global footer element right after the `main` element. It has the following layout:
 
@@ -259,8 +253,8 @@ Now our website has a global footer element right after the `main` element. It h
 </footer>
 ```
 
-
 ## Navigation syntax { #nav-syntax }
+
 Here is the basic syntax for defining navigational elements:
 
 ```yaml
@@ -281,6 +275,7 @@ This generates the following HTML:
 ```
 
 #### Nav items
+
 The individual items can be images, horizontal lines, links with extra properties, or just plain text:
 
 ```yaml
@@ -323,6 +318,7 @@ The above generates this:
 ```
 
 ### Categorized navi
+
 Categorized navigations are typically used in the global footer and in any sidebar you may have. You can define them as follows:
 
 ```yaml
@@ -337,7 +333,6 @@ Categories:
 ```
 
 This will generate the following:
-
 
 ```html
 <div aria-label="Categories">
@@ -355,10 +350,9 @@ This will generate the following:
 </div>
 ```
 
-
 ### Dropdown menus
-Dropdown menus can be defined as follows
 
+Dropdown menus can be defined as follows
 
 ```yaml
 Navigation:
@@ -373,7 +367,6 @@ Navigation:
 ```
 
 This will generate the following:
-
 
 ```html
 <nav aria-label="Navigation">
@@ -391,16 +384,14 @@ This will generate the following:
 
 The standard [aria-haspopup](//developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-haspopup) and [aria-expanded](//developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-expanded) roles can be used on your CSS to implement the dropdown behavior.
 
-
 [.note]
   ### Note
+
   In the future, there will be a demonstration of a full, animated Stripe-like dropdown menu.
 
-
-
 ## Markdown content { #md }
-Nue [extends](content.html) the basic Markdown syntax to make it suitable for assembling rich web pages. This content is nested inside an `article` element:
 
+Nue [extends](content.html) the basic Markdown syntax to make it suitable for assembling rich web pages. This content is nested inside an `article` element:
 
 ```html
 <body>
@@ -414,8 +405,8 @@ Nue [extends](content.html) the basic Markdown syntax to make it suitable for as
 </body>
 ```
 
-
 ### Sections
+
 The content is always nested inside one or more section elements. A multi-section HTML output looks like this:
 
 ```html
@@ -438,11 +429,9 @@ The content is always nested inside one or more section elements. A multi-sectio
 
 The `section` elements are direct descendants of the article and cannot occur anywhere else on the page.
 
-
-
 ### Section classes
-You typically want to define classes for the sections for styling purposes. These classes (and IDs) can be defined explicitly after the section separator. For example:
 
+You typically want to define classes for the sections for styling purposes. These classes (and IDs) can be defined explicitly after the section separator. For example:
 
 ```md
 \--- •#my-id.class-name•
@@ -468,8 +457,8 @@ sections: [hero, features, explainer, status, feedback]
 
 Defining the classes outside the Markdown keeps the content clean and raises fewer questions from the copywriters.
 
-
 ### Blocks
+
 Content authors can write [blocks of content](content.html#blocks) with class names that are part of your design system:
 
 ```html
@@ -481,8 +470,8 @@ Content authors can write [blocks of content](content.html#blocks) with class na
 
 Common class names to implement in your CSS are: "note", "warning", "alert" or "info".
 
-
 ### Flex layouts
+
 Content writers can create content blocks with nested items so that they form a [flex layout](//developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox). For example:
 
 ```html
@@ -504,8 +493,8 @@ Content writers can create content blocks with nested items so that they form a 
 
 Depending on the semantics of your design system, the container can have a generic name such as "stack" or "flexbox" which can be shared across the different areas of your website. The name can also be page-specific such as "feature-card", which is better suited for marketing content.
 
-
 ### Grid layouts
+
 [Grid](tags.html#grid) is a built-in Markdown extension for more complex [gird layouts](//developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Grids). It's like a flex box but allows you to set up class names for the individual items, and you can make the items [reactive](reactivity.html#web-components) by turning them into Web Components.
 
 ```html
@@ -532,6 +521,7 @@ Depending on the semantics of your design system, the container can have a gener
 ```
 
 ### Grid items
+
 You can configure class names and a [web component instance](reactivity.html#grid-items) for your grid items:
 
 ```yaml
@@ -541,18 +531,16 @@ grid_item_component: gallery-item
 
 While you can also set up these properties directly on the grid tag, it's better to set up these globally so that the syntax of adding grids narrows down to just writing `[grid]` without the need to remember the attributes. This keeps your content clean from extra, layout-specific definitions.
 
-
-
 ### Markdown generated HTML
+
 Markdown content can reside within sections, blocks, and grid items. The generated HTML is restricted to: `h1`, `h2`, `h3`, `h4`, `h5`, `h6`, `p`, `strong`, `em`, `a`, `ul`, `li`, `blockquote`, and `code`.
 
 The design of these tags should be [context-specific](css-best-practices.html#fff). For example, technical content is typically styled different from marketing content.
 
-
 ## Built-in tags
 
-
 ### Button
+
 Buttons are rendered as follows:
 
 ```html
@@ -563,8 +551,8 @@ Buttons are essentially links with a `role="button"` attribute because links don
 
 Design systems commonly have different styles for primary and secondary buttons so it's a common pattern to implement them in your CSS. You also might want to provide styling for the `[disabled]` attribute.
 
-
 ### Image
+
 Images are rendered as follows:
 
 ```html
@@ -626,8 +614,8 @@ They can use classes from your design system:
 </figure>
 ```
 
-
 ### Video
+
 Videos are rendered as a native HTML5 video element:
 
 ```html
@@ -637,8 +625,8 @@ Videos are rendered as a native HTML5 video element:
 </video>
 ```
 
-
 ### Tables
+
 Tables are rendered as standard HTML:
 
 ```html
@@ -670,10 +658,9 @@ Tables are rendered as standard HTML:
 </table>
 ```
 
-
 ### Tabs
-Tabbed layouts are rendered with the standard [tablist](//developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tablist_role) and [tabpanel](//developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tabpanel_role) roles:
 
+Tabbed layouts are rendered with the standard [tablist](//developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tablist_role) and [tabpanel](//developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tabpanel_role) roles:
 
 ```html
 <div class="tabs" is="aria-tabs">
@@ -706,8 +693,8 @@ Tabbed layouts are rendered with the standard [tablist](//developer.mozilla.org/
 
 Nue uses the "aria-tabs" web component to implement the show/hide behavior for the tab panes. This implementation is found in [nuemark.js](//github.com/nuejs/nue/blob/master/packages/nuemark/src/browser/nuemark.js) which is automatically included when the tabs component is in use.
 
-
 ## Code
+
 Nue has built-in support for [syntax highlighting](syntax-highlighting.html) in the Markdown fenced code blocks. They are rendered as follows:
 
 ```html
@@ -736,8 +723,8 @@ Code blocks with a title are rendered as follows:
 </figure>
 ```
 
-
 ### Multi-code blocks
+
 Multiple code blocks can be nested inside a single parent element:
 
 ```html
@@ -749,6 +736,7 @@ Multiple code blocks can be nested inside a single parent element:
 ```
 
 ### Code tabs
+
 Multiple code blocks can be tabbed so that a maximum of one code block is visible at once:
 
 ```html
@@ -770,10 +758,9 @@ Multiple code blocks can be tabbed so that a maximum of one code block is visibl
 
 The implementation is similar to standard [tabs](#tabs), but the markup is plain code and not generic content.
 
-
 ## Wrappers
-Tables, code blocks and tabs can be nested inside a wrapper element to allow more visual design around the element:
 
+Tables, code blocks and tabs can be nested inside a wrapper element to allow more visual design around the element:
 
 ```html
 <div class="•gradient-wrap•">
@@ -782,5 +769,3 @@ Tables, code blocks and tabs can be nested inside a wrapper element to allow mor
   </table>
 </div>
 ```
-
-

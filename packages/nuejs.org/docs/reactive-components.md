@@ -4,22 +4,19 @@ include: [demos, button]
 ---
 
 # Reactive components
+
 Reactive components have the same [template syntax](template-syntax.html) and mounting techniques as the server-side components, but reactive components have extra interactive capabilities: They can respond to user input and render themselves to a new state. They have two use-cases:
 
-
 1. *Islands of interactivity*: use a reactive component when you need more rendering capabilities than what a standard web component can offer. Things like feedback and login forms, registration flows, or any sort of component with rich interactive features.
-
 2. *Single-page applications*: Reactive components are the building blocks for [single-page applications](single-page-applications.html).
 
-
-
 ## Components
+
 Here is a simple image gallery component. You can navigate the images with the arrow icons and the small gray dots:
 
 [image-gallery]
   images: [tomatoes.jpg, lemons.jpg, peas.jpg, popcorn.jpg]
   basedir: /img
-
 
 Here's the source code for the reactive component:
 
@@ -43,13 +40,12 @@ Here's the source code for the reactive component:
 
 Inside the component, all the control flow operations like loops and conditionals are *reactive* — they respond to user events and render themselves to a new "state". Here, we have a numeric state variable `index`, which gets updated as the user clicks the navigational elements and the UI automatically changes based on what the value of this variable is.
 
-
-
 ## Event handlers
-Attributes starting with the `@` symbol define an event handler. These are JavaScript functions that are called on user interaction like click, keypress or mouse move.
 
+Attributes starting with the `@` symbol define an event handler. These are JavaScript functions that are called on user interaction like click, key-press or mouse move.
 
 ### Inline handlers
+
 Inline handlers are defined directly on the attribute:
 
 ```html
@@ -58,8 +54,8 @@ Inline handlers are defined directly on the attribute:
 
 Inline handlers are good for simple expressions.
 
-
 ### Method handlers
+
 More complex functionality should be moved to an instance method:
 
 ```html
@@ -75,8 +71,8 @@ More complex functionality should be moved to an instance method:
 </dialog>
 ```
 
-
 ### Method calls
+
 You can pass arguments for the method calls:
 
 ```html
@@ -91,8 +87,8 @@ You can pass arguments for the method calls:
 </div>
 ```
 
-
 ### Event argument
+
 The method handler always receives [Event object](//developer.mozilla.org/en-US/docs/Web/API/Event) as the last argument, unless it is explicitly given on the method call with a name `$event`:
 
 ```html
@@ -120,8 +116,8 @@ The method handler always receives [Event object](//developer.mozilla.org/en-US/
 </div>
 ```
 
-
 ### Event modifiers
+
 Nue provides some handy shortcuts to deal with the common DOM event manipulation functions. For example, `@submit.prevent` is a shortcut to [event.preventDefault()](//developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault).
 
 ```html
@@ -142,9 +138,8 @@ The following modifiers are supported:
 - `.self` only trigger handler if `event.target` is the element itself
 - `.once` the event will be triggered at most once
 
-
-
 ### Key modifiers
+
 Key modifier binds the event handler to a specific keyboard key:
 
 ```html
@@ -170,9 +165,8 @@ Nue provides the following aliases for the most commonly used keys:
 - `.left` captures "Left" and "ArrowLeft"
 - `.right` captures "Right" and "ArrowRight"
 
-
-
 ## Reactive arrays
+
 When you define a for loop, with the `:for`-expression, Nue detects whether the looped array is mutated and triggers necessary UI updates. These [array methods](//developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) include:
 
 - `push(item)` adds a new item to the end of the array
@@ -183,8 +177,6 @@ When you define a for loop, with the `:for`-expression, Nue detects whether the 
 - `shift()`
 - `pop()`
 - `remove(item)` a Nue-specific helper method to remove the given item from the array
-
-
 
 ### Replacing the array
 
@@ -197,6 +189,7 @@ search() {
 ```
 
 ### Loop animations
+
 Nue lets you define an `oninsert` callback function that is called every time a new item is added to any of the array properties in the component. This gives you a chance to add a CSS transition effect (among other things) for the newly added DOM nodes. For example:
 
 [animation-demo]
@@ -218,7 +211,6 @@ Nue lets you define an `oninsert` callback function that is called every time a 
   - title: Mila Harrison
     desc: Senior frontend developer
     img: /img/face-6.jpg
-
 
 Here's the source code for the above demo:
 
@@ -256,12 +248,10 @@ Here's the source code for the above demo:
 </div>
 ```
 
-
-
-
 ## Component instances
 
 ### Lifecycle methods
+
 Each component instance goes through a series of steps during its lifetime: First, it is created, then mounted on the page, and then it gets updated one or more times. Sometimes the component is removed or "unmounted" from the page.
 
 You can hook custom functionality to these steps by creating instance methods with a specific name:
@@ -293,31 +283,23 @@ You can hook custom functionality to these steps by creating instance methods wi
 
 Inside the callback function `this` points to the [instance API](#api).
 
-
 ### Instancer API { #api }
+
 The component API is accessible via `this` variable inside the lifecycle methods. It has the following attributes and methods:
 
-
 - `root` the root DOM node of the component instance
-
 - `$el` alias for "root"
-
 - `$parent` is the root DOM node of the parent instance
-
 - `$refs` access to named DOM nodes and inner components inside the component
-
 - `mount(root: DOMElement)` mounts the instance to the given root element
-
 - `unmount()` removes the component from the current component tree
-
 - `update(data?: Object)` forces the component instance to re-render itself with optional data. You typically call this event after fetching data from the server or some other asynchronous event
-
 - `mountChild(name, wrap, data)` mounts a new child component on a DOM element inside the current component
 
 The component re-renders itself automatically after calling an event handler, but you need to call this manually if there is no clear interaction to be detected.
 
-
 ### References { #refs }
+
 You can get a handle to nested DOM elements or components via `$refs` property:
 
 ```html
@@ -350,9 +332,8 @@ You can get a handle to nested DOM elements or components via `$refs` property:
 </div>
 ```
 
-
-
 ### Sharing code between components
+
 You can add and import shared code inside a top-level `<script>` tag.
 Here's an example library that defines both a shopping cart and a button component that adds items to the cart. The cart itself is defined in "cart.js", which is a plain JavaScript file. This cart is used by both components.
 
@@ -385,7 +366,3 @@ Here's an example library that defines both a shopping cart and a button compone
   </script>
 </button>
 ```
-
-
-
-

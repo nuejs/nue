@@ -1,17 +1,18 @@
 
 # Performance optimization
+
 Nue allows you to reach performance of a text-only website without compromising on design, in other words "as fast as you can get".
 
 ## Minimalism
+
 Lean, means fast. We recommend you to develop your site with [Nue CSS best practices](css-best-practices.html) to get the cleanest and smallest codebase possible with the least amount of bloat. It's quite easy to achieve significant reduction in the amount of code that needs to be written. For example, here is the Next.js documentation area compared to this one:
 
 [image.bordered]
   small: /img/docs-sizes.png
   large: /img/docs-sizes-big.png
 
-
-
 ## Inline CSS
+
 Inline CSS means that the CSS code is packaged together with the HTML, so that the initial request has everything to render the landing page. This is, by far, the most important optimization that you can do for your landing pages:
 
 [image.bordered]
@@ -27,8 +28,8 @@ inline_css: true
 
 Setting this globally is also possible, but then you need to re-compile all pages every time you edit a CSS file that is shared between the pages. For this reason, it's advisable to configure this for your most popular landing pages only. This website, for example, is only using the setting on the front page.
 
-
 ## View transitions
+
 The next most important performance setting is to enable view transitions.
 This causes your pages to load significantly faster and transition in an animated way.
 
@@ -40,8 +41,8 @@ view_transitions: true
 
 Nue transitions are fast and smooth because it uses several optimizations made possible by the global design system: Like partial diff/replacement of page segments and CSS **enable** and **disable** options. You can [customize the transition](reactivity.html#view-transitions) with CSS.
 
-
 ## Caching
+
 Nue minifies your CSS and JavaScript but does *not* bundle them into one big file so you can take advantage of [HTTP ETags](//developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) and expiry headers when deploying your files to production:
 
 [image.bordered]
