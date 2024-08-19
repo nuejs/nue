@@ -20,6 +20,7 @@ Options
   -I or --init          Force clear and initialize output directory
   -n or --dry-run       Show what would be built. Does not create outputs
   -b or --esbuild       Use esbuild as bundler. Please install it manually
+  -P or --port          Port to serve the site on
 
 File matches
   Only build files that match the rest of the arguments. For example:
