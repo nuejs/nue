@@ -5,7 +5,6 @@ import { Features, bundleAsync } from 'lightningcss'
 import { join } from 'node:path'
 import { resolve } from 'import-meta-resolve'
 
-
 export async function getBuilder(is_esbuild) {
   const actual_cwd = process.env.ACTUAL_CWD || process.cwd()
   try {
@@ -23,7 +22,7 @@ export async function buildJS(args) {
 
   const opts = {
     external: bundle ? ['../@nue/*', '/@nue/*'] : is_esbuild ? undefined : ['*'],
-    entryPoints: [ args.path ],
+    entryPoints: [args.path],
     format: 'esm',
     outdir,
     bundle,
@@ -52,7 +51,7 @@ export async function buildJS(args) {
 }
 
 export function parseError(buildResult) {
-  const { logs=[], errors=[] } = buildResult
+  const { logs = [], errors = [] } = buildResult
   let error
 
   // Bun
@@ -75,13 +74,13 @@ export function parseError(buildResult) {
 
 }
 
-export async function lightningCSS(filename, minify, opts={}) {
+export async function lightningCSS(filename, minify, opts = {}) {
   let include = Features.Colors
   if (opts.native_css_nesting) include |= Features.Nesting
 
   try {
     return (await bundleAsync({ filename, include, minify })).code?.toString()
-  } catch({ fileName, loc, data }) {
+  } catch ({ fileName, loc, data }) {
     throw {
       title: 'CSS syntax error',
       lineText: (await fs.readFile(fileName, 'utf-8')).split(/\r\n|\r|\n/)[loc.line - 1],

@@ -17,7 +17,7 @@ async function clean() {
 
 async function gen(count, name, content) {
   for (let i = 0; i < count; i++) {
-    await fs.writeFile(join(root, name.replace('#', i+1)), content)
+    await fs.writeFile(join(root, name.replace('#', i + 1)), content)
   }
 }
 

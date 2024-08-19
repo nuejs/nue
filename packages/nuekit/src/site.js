@@ -8,7 +8,8 @@ import {
   colors,
   toPosix,
   sortCSS,
-  joinRootPath } from './util.js'
+  joinRootPath
+} from './util.js'
 
 import { join, extname, basename, sep, parse as parsePath } from 'node:path'
 import { parse as parseNue } from 'nuejs-core'
@@ -16,7 +17,6 @@ import { promises as fs } from 'node:fs'
 import { fswalk } from './nuefs.js'
 import { nuemark } from 'nuemark'
 import yaml from 'js-yaml'
-
 
 // file not found error
 function fileNotFound({ errno }) {
@@ -37,7 +37,6 @@ export async function createSite(args) {
     throw `Root directory does not exist: ${root}`
   }
 
-
   /*
     Bun.file()::text() has equal performance
     caching here is unnecessary
@@ -56,7 +55,6 @@ export async function createSite(args) {
       } else if (path == env) throw e
     }
   }
-
 
   async function readOpts() {
     const data = await readData('site.yaml') || {}
@@ -142,7 +140,6 @@ export async function createSite(args) {
     return arr
   }
 
-
   async function walkDirs(dirs) {
     const key = '@' + dirs
     if (cache[key]) return cache[key]
@@ -161,11 +158,9 @@ export async function createSite(args) {
     return arr
   }
 
-
-  async function getAssets({ dir, exts, to_ext, data={} }) {
-    const { include=[], exclude=[] } = data
+  async function getAssets({ dir, exts, to_ext, data = {} }) {
+    const { include = [], exclude = [] } = data
     const subdirs = !dir ? [] : self.globals.map(el => join(dir, el))
-
 
     let paths = [
       ...await walkDirs(self.globals),
@@ -197,10 +192,9 @@ export async function createSite(args) {
     return ret
   }
 
-
-  self.update = async function() {
+  self.update = async function () {
     site_data = await readOpts()
-    const { globals=[], libs=[] } = site_data
+    const { globals = [], libs = [] } = site_data
 
     if ('' + self.globals != '' + globals) {
       self.globals = globals
@@ -213,7 +207,6 @@ export async function createSite(args) {
     }
   }
 
-
   async function readDirData(dir) {
     const paths = await getPageAssets(dir)
     const data = {}
@@ -225,7 +218,7 @@ export async function createSite(args) {
     return data
   }
 
-  self.getData = async function(pagedir) {
+  self.getData = async function (pagedir) {
     const data = { nuekit_version, ...site_data, is_prod }
 
     for (const dir of traverseDirsUp(pagedir)) {
@@ -234,13 +227,12 @@ export async function createSite(args) {
     return data
   }
 
-  self.walk = async function() {
+  self.walk = async function () {
     return await fswalk(root)
   }
 
-
   // get fromt matter data from all .md files on a directory
-  self.getContentCollection = async function(dir) {
+  self.getContentCollection = async function (dir) {
     const key = 'coll:' + dir
     if (cache[key]) return cache[key]
     const arr = []
@@ -272,7 +264,7 @@ export async function createSite(args) {
     return arr
   }
 
-  self.getStyles = async function(dir, data={}) {
+  self.getStyles = async function (dir, data = {}) {
     let paths = await getAssets({ dir, exts: ['css'], data })
 
     // syntax highlighting
@@ -284,16 +276,15 @@ export async function createSite(args) {
     return paths
   }
 
-  self.getScripts = async function(dir, data) {
+  self.getScripts = async function (dir, data) {
     return await getAssets({ dir, exts: ['js', 'ts'], to_ext: 'js', data })
   }
 
-  self.getClientComponents = async function(dir, data) {
+  self.getClientComponents = async function (dir, data) {
     return await getAssets({ dir, exts: ['nue', 'htm'], to_ext: 'js', data })
   }
 
-
-  self.getServerComponents = async function(dir, data) {
+  self.getServerComponents = async function (dir, data) {
     const paths = await getAssets({ dir, exts: ['html'], data })
 
     if (dir && dir != '.') {
@@ -320,7 +311,7 @@ export async function createSite(args) {
   }
 
   // @returns { src, path, code: 200 }
-  self.getRequestPaths = async function(url) {
+  self.getRequestPaths = async function (url) {
     let { dir, name, base, ext } = parsePath(url.slice(1))
     if (!name) name = 'index'
 
@@ -336,13 +327,12 @@ export async function createSite(args) {
     // custom 404 page
     try_files.push(['', 404, 'md'])
 
-
     for (const [dir, name, ext] of try_files) {
       try {
         const src = join(dir, `${name}.${ext}`)
         await fs.stat(join(root, src))
         return { src, path: join(dir, `${name}.html`), name }
-      } catch {}
+      } catch { }
     }
   }
 

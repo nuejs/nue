@@ -16,8 +16,8 @@ function compileNode(root) {
     return '' + len
   }
 
-  walk(root, function(node) {
-    const { attribs={}, tagName } = node
+  walk(root, function (node) {
+    const { attribs = {}, tagName } = node
     const content = node.data
 
     if (node.type == 'comment' || attribs.server || tagName == 'noscript') removeElement(node)
@@ -52,11 +52,11 @@ function compileNode(root) {
           attribs[name] = push(body, true)
         }
 
-      // for expression
+        // for expression
       } else if (key == ':for') {
         attribs[key] = push(compileLoop(val, node))
 
-      // attributes
+        // attributes
       } else if (':$'.includes(char) && val && key != ':is') {
         const expr = has_expr ? arrwrap(parseExpr(val)) : setContext(val)
         attribs[key] = push(expr)
@@ -107,7 +107,6 @@ export function compileLoop(str, node) {
   const keys = Array.isArray(key) ? '[' + key.map(quote) + ']' : quote(key)
   return '[' + [keys, expr, quote(index)].join(', ') + (is_object ? ', true' : '') + ']'
 }
-
 
 // event handlers
 const MODIFIERS = {
@@ -175,7 +174,6 @@ function getJS(nodes) {
   return js.join('\n')
 }
 
-
 function createComponent(node) {
   const name = getComponentName(node)
 
@@ -197,7 +195,6 @@ function createComponent(node) {
   })
 }
 
-
 export function parse(src) {
   src = src.replace(/\r\n|\r/g, '\n')
   const { children } = mkdom(src)
@@ -216,7 +213,7 @@ export function parse(src) {
 
 export function compile(src) {
   const { js, components } = parse(src)
-  return [ js,
+  return [js,
     'export const lib = [', components.join(',') + ']',
     'export default lib[0]'
 

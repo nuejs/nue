@@ -11,19 +11,18 @@ import { promises as fs } from 'node:fs'
 import http from 'node:http'
 let sessions = []
 
-
 export const TYPES = {
   html: 'text/html; charset=UTF-8',
-  js:   'application/javascript',
+  js: 'application/javascript',
   json: 'application/json',
-  svg:  'image/svg+xml',
-  ico:  'image/x-icon',
+  svg: 'image/svg+xml',
+  ico: 'image/x-icon',
   webp: 'image/webp',
-  png:  'image/png',
+  png: 'image/png',
   jpeg: 'image/jpg',
-  jpg:  'image/jpg',
-  css:  'text/css',
-  csv:  'text/csv',
+  jpg: 'image/jpg',
+  css: 'text/css',
+  csv: 'text/csv',
 }
 
 export function createServer(root, callback) {
@@ -40,7 +39,7 @@ export function createServer(root, callback) {
       })
     }
 
-    let [ url, _ ] = req.url.split('?')
+    let [url, _] = req.url.split('?')
     const ext = extname(url).slice(1)
 
     if (!ext) url = join(url, 'index.html')
@@ -51,8 +50,8 @@ export function createServer(root, callback) {
       const buffer = await fs.readFile(join(root, path))
       res.writeHead(code || 200, { 'content-type': TYPES[ext] || TYPES.html })
       res.end(buffer)
-  
-    } catch(e) {
+
+    } catch (e) {
       const nf = e.errno == -2 // not found
       nf ? console.log('Not found', url) : console.error(e)
       res.writeHead(nf ? 404 : 500)
@@ -75,10 +74,3 @@ export function send(data) {
     return session.writable && i < 5
   })
 }
-
-
-
-
-
-
-

@@ -5,7 +5,7 @@
 import { elem, join } from 'nuemark/src/tags.js'
 import { renderInline } from 'nuemark'
 
-function isNew(date, offset=4) {
+function isNew(date, offset = 4) {
   const diff = new Date() - date
   return diff < offset * 24 * 3600 * 1000
 }
@@ -25,7 +25,7 @@ export function renderPrettyDate(date) {
 }
 
 export function toAbsolute(path, dir) {
-  return path && path[0] != '/' ? `/${dir}/${path}`: path
+  return path && path[0] != '/' ? `/${dir}/${path}` : path
 }
 
 export function renderGalleryItem(page) {
@@ -45,11 +45,10 @@ export function renderGalleryItem(page) {
     // figure
     elem('a', { href: url }, elem('figure',
       elem('img', { src: thumb, loading: 'lazy' }) + elem('figcaption', time + h2 + p))
-  )
+    )
 
   return elem('li', { class: isNew(date) && 'is-new' }, body)
 }
-
 
 export function renderGallery(data) {
   const key = data.collection_name || data.content_collection

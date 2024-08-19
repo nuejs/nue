@@ -4,9 +4,8 @@ import { parsePage, parseHeading } from './parse.js'
 import { marked, parseInline } from 'marked'
 import { parseAttr } from './component.js'
 
-
 export function renderPage(page, opts) {
-  const { lib=[] } = opts
+  const { lib = [] } = opts
   const data = { ...opts.data, ...page.meta }
   const draw_sections = opts.draw_sections
   const custom_tags = opts.tags || {}
@@ -27,17 +26,17 @@ export function renderPage(page, opts) {
 
         el.is_code ? tags.code({ ...data, language: el.name, ...el }) :
 
-        // component
-        comp ? comp.render(alldata, lib) :
+          // component
+          comp ? comp.render(alldata, lib) :
 
-        // markdown
-        md ? renderMarkdown(md, mergeLinks(page.links, data.links)) :
+            // markdown
+            md ? renderMarkdown(md, mergeLinks(page.links, data.links)) :
 
-        // island
-        name ? renderIsland(el) :
+              // island
+              name ? renderIsland(el) :
 
-        // generic layout
-        tags.layout(alldata, opts)
+                // generic layout
+                tags.layout(alldata, opts)
 
     }))
 
@@ -56,7 +55,7 @@ function toCamelCase(str) {
   return str.split('-').map(el => el[0].toUpperCase() + el.slice(1)).join('')
 }
 
-export function renderLines(lines, opts={}) {
+export function renderLines(lines, opts = {}) {
   const page = parsePage(lines)
   return renderPage(page, opts)
 }
@@ -80,7 +79,7 @@ export function renderMarkdown(md, links) {
   md.push('')
 
   for (const key in links) {
-    const { href, title='' } = links[key]
+    const { href, title = '' } = links[key]
     md.push(`[${key}]: ${href} "${title}"`)
   }
 

@@ -1,4 +1,3 @@
-
 # Nue settings
 globals: ["@global", css]
 libs: ["@lib", docs/lib, blog/lib]
@@ -40,7 +39,6 @@ header:
 
     - 6k: //github.com/nuejs/nue "github pill"
 
-
 burger_menu:
   - Home: /
   - Docs: /docs/
@@ -68,7 +66,6 @@ footer:
       - CSS best practices: /docs/css-best-practices.html
       - Content development: /docs/content.html
       - Single-page apps: /docs/single-page-applications.html
-
 
 # Markdown link references
 links:

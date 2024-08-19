@@ -43,9 +43,8 @@ const MENU = `
   </dialog>
 `
 
-
 export function renderRootHTML(data) {
-  const { language='en-US', direction='ltr' } = data
+  const { language = 'en-US', direction = 'ltr' } = data
   const body_class = data.class ? ` class="${data.class}"` : ''
 
   return `
@@ -72,9 +71,8 @@ export function renderRootHTML(data) {
 `
 }
 
-
-export function renderSinglePage(body='', data) {
-  const { language='en-US', direction='ltr' } = data
+export function renderSinglePage(body = '', data) {
+  const { language = 'en-US', direction = 'ltr' } = data
 
   data.layout = { head: renderHead(data) }
 
@@ -91,10 +89,9 @@ export function renderSinglePage(body='', data) {
 `
 }
 
-
 // system components
 const html_tags = [
-  { name: 'navi',  create: renderNav },
+  { name: 'navi', create: renderNav },
   { name: 'gallery', create: renderGallery },
   { name: 'markdown', create: ({ content }) => renderInline(content) },
   { name: 'pretty-date', create: ({ date }) => renderPrettyDate(date) },
@@ -103,9 +100,7 @@ const html_tags = [
 
 const nuemark_tags = { gallery: renderGallery, toc: renderTOC }
 
-
 export function renderPage(data, lib) {
-
 
   function renderBlock(name, html) {
 
@@ -114,7 +109,6 @@ export function renderPage(data, lib) {
     let comp = lib.find(el => name[0] == '@' ? el.name == name.slice(1) : !el.name && el.tagName == name)
 
     if (!comp && html) comp = parseNue(html)[0]
-
 
     try {
       return comp ? comp.render(data, [...html_tags, ...lib]) : ''
@@ -150,7 +144,3 @@ export function renderPage(data, lib) {
 
   return renderBlock('html', html)
 }
-
-
-
-

@@ -14,7 +14,6 @@ import {
 
 } from '../src/layout/navi.js'
 
-
 test('gallery item', () => {
   const html = renderGalleryItem({
     desc: 'Wassup *bro*',
@@ -27,13 +26,11 @@ test('gallery item', () => {
   expect(html).toEndWith('<p>Wassup <em>bro</em></p></a></li>')
 })
 
-
 test('gallery with thumbs', () => {
   const html = renderGalleryItem({ title: 'Yo', thumb: 'thumb.png', url: '/' })
   expect(html).toStartWith('<li class="is-new"><a href="/"><figure><img')
   expect(html).toEndWith('</figure></a></li>')
 })
-
 
 test('<head>', () => {
   const head = renderHead({ charset: 'foo', title: 'Hey' })
@@ -49,9 +46,7 @@ test('prefetch', () => {
   expect(head).toInclude('<link href="foo.css" rel="prefetch">')
 })
 
-
 /***** Navigation tests ****/
-
 
 test('navi: class shortcut', () => {
   expect(parseClass('/foo "bar"')).toEqual({ url: "/foo", class: "bar" })
@@ -64,7 +59,7 @@ test('navi: plain string', () => {
 
 test('navi: object', () => {
   expect(parseNavItem({ FAQ: '/en/faq' })).toEqual({ text: "FAQ", url: "/en/faq" })
-  expect(parseNavItem({ FAQ: { foo: 1, bar: 'baz' }})).toEqual({ text: "FAQ", foo: 1, bar: 'baz' })
+  expect(parseNavItem({ FAQ: { foo: 1, bar: 'baz' } })).toEqual({ text: "FAQ", foo: 1, bar: 'baz' })
 })
 
 test('navi: array', () => {
@@ -89,7 +84,6 @@ test('render image', () => {
   expect(html).toBe('<a href="/foo"><img src="book.jpg" width="1" height="1"></a>')
 })
 
-
 test('render text', () => {
   const el = renderNavItem({ text: 'Yo, *rap*' })
   expect(el).toBe('<span>Yo, <em>rap</em></span>')
@@ -107,14 +101,12 @@ test('navi: render url, text, image', () => {
   // expect(el).toEndWith('<span>Adam</span></span>')
 })
 
-
 test('render nav items', () => {
   const nav = renderNavItems(['a', 'b'])
   expect(nav).toStartWith('<nav><a>a</a>')
   const nav2 = renderNavItems(['a'], { label: 'main' })
   expect(nav2).toBe('<nav aria-label="main"><a>a</a></nav>')
 })
-
 
 test('render expandable nav items', () => {
   const nav = renderExpandable('Hey', ['a'])
@@ -129,11 +121,7 @@ test('hybrid nav with expandable', () => {
 })
 
 test('nav blocks', () => {
-  const nav = renderNavBlocks({ Basics: ['a']})
+  const nav = renderNavBlocks({ Basics: ['a'] })
   expect(nav).toStartWith('<div><nav><h3>Basics</h3>')
   expect(nav).toEndWith('<a>a</a></nav></div>')
 })
-
-
-
-

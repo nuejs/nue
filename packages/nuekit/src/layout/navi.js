@@ -10,7 +10,7 @@ export function parseNavItem(item) {
   }
 
   const keys = Object.keys(item)
-  const [ char ] = keys[0]
+  const [char] = keys[0]
 
   // [text]: string | object
   if (char == char.toUpperCase() && keys.length == 1) {
@@ -26,7 +26,6 @@ export function parseNavItem(item) {
   if (items) item.items = items.map(parseNavItem)
   return item
 }
-
 
 export function renderNavItem(item) {
   const { text, role, url, image, alt } = item
@@ -54,7 +53,6 @@ export function renderNavItem(item) {
   return elem(url != null ? 'a' : 'span', attr, join(html))
 }
 
-
 export function parseClass(url) {
   const data = { url }
   const i = url.indexOf('"')
@@ -65,8 +63,7 @@ export function parseClass(url) {
   return data
 }
 
-
-export function renderNavItems(items, opts={}) {
+export function renderNavItems(items, opts = {}) {
   const { heading, label } = opts
   const nav = []
 
@@ -83,7 +80,6 @@ export function renderNavItems(items, opts={}) {
   })
   return elem('nav', label && { 'aria-label': label }, join(nav))
 }
-
 
 export function renderExpandable(label, items) {
   const nav = renderNavItems(items)
@@ -104,13 +100,11 @@ export function renderNavBlocks(data, label) {
   return elem('div', { 'aria-label': label }, join(navs))
 }
 
-
 // the "main" method called by the <navi/> tag
 export function renderNav({ items, label }) {
   return Array.isArray(items) ? renderNavItems(items, { label }) :
     typeof items == 'object' ? renderNavBlocks(items, label) : ''
 }
-
 
 export function renderTOC(data) {
 

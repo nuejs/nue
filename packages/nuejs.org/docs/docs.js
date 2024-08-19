@@ -1,7 +1,6 @@
 
 import { $, $$ } from '/@nue/view-transitions.js'
 
-
 // scroll highlight for table of contents (on the right side)
 
 function setSelected(root, el) {
@@ -48,7 +47,6 @@ class ObservingNav extends HTMLElement {
 
 customElements.define('observing-nav', ObservingNav, { extends: 'nav' })
 
-
 // the "Zen switch" to toggle a more focused mode without distractions
 class ZenToggle extends HTMLInputElement {
   constructor() {
@@ -61,13 +59,11 @@ class ZenToggle extends HTMLInputElement {
 
 customElements.define('zen-toggle', ZenToggle, { extends: 'input' })
 
-
 // remember the zen state after the view transition
 addEventListener('route', function() {
   const el = $('[is=zen-toggle]')
   if (el) el.checked = !!$('.zen')
 })
-
 
 // demo
 class Counter extends HTMLDivElement {

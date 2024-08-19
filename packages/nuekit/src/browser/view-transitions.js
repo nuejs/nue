@@ -1,13 +1,12 @@
 
 // exported
-export function $(query, root=document) {
+export function $(query, root = document) {
   return root.querySelector(query)
 }
 
-export function $$(query, root=document) {
-  return [ ...root.querySelectorAll(query)]
+export function $$(query, root = document) {
+  return [...root.querySelectorAll(query)]
 }
-
 
 // Router for multi-page applications
 
@@ -47,10 +46,8 @@ export async function loadPage(path, no_push) {
   if (orig_style) orig_style.replaceWith(new_style)
   else if (new_style) $('head').appendChild(new_style)
 
-
   // body class
   $('body').classList.value = $('body2', dom).classList.value || ''
-
 
   loadCSS(paths, () => {
     updateBody(dom)
@@ -71,11 +68,10 @@ function findPlainStyle(dom) {
   return $$('style', dom).find(el => !el.attributes.length)
 }
 
-
 // TODO: make a recursive diff to support for all custom layouts
 function updateBody(dom) {
 
-  ;['header', 'main', 'footer', 'nav'].forEach(function(query) {
+  ;['header', 'main', 'footer', 'nav'].forEach(function (query) {
     const a = $('body >' + query)
     const b = $('body2 >' + query, dom)
     const clone = b && b.cloneNode(true)
@@ -90,12 +86,11 @@ function updateBody(dom) {
         updateBlock(a, clone)
       }
 
-
-    // remove original
+      // remove original
     } else if (a) {
       a.remove()
 
-    // add new one
+      // add new one
     } else if (b) {
       if (query == 'header') $('body').prepend(clone)
       if (query == 'footer') $('body').append(clone)
@@ -114,7 +109,7 @@ function updateBlock(a, clone) {
 
 // TODO: remove this hack
 function updateMain(dom) {
-  ;['article', 'aside:first-child', 'article + aside'].forEach(function(query, i) {
+  ;['article', 'aside:first-child', 'article + aside'].forEach(function (query, i) {
     const a = $('main >' + query)
     const b = $('main >' + query, dom)
     const clone = b && b.cloneNode(true)
@@ -134,7 +129,6 @@ function updateMain(dom) {
 
   })
 }
-
 
 // setup linking
 export function onclick(root, fn) {
@@ -157,8 +151,7 @@ export function onclick(root, fn) {
 }
 
 // developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-selected
-export function setActive(path, attrname='aria-selected') {
-
+export function setActive(path, attrname = 'aria-selected') {
 
   // remove old selections
   $$(`[${attrname}]`).forEach(el => el.removeAttribute(attrname))
@@ -168,7 +161,6 @@ export function setActive(path, attrname='aria-selected') {
     if (el.getAttribute('href') == path) el.setAttribute(attrname, '')
   })
 }
-
 
 // browser environment
 const is_browser = typeof window == 'object'
@@ -186,7 +178,7 @@ if (is_browser) {
 
   // autoroute / document clicks
   onclick(document, async path => {
-    document.startViewTransition(async function() {
+    document.startViewTransition(async function () {
       await loadPage(path)
     })
   })
@@ -201,9 +193,7 @@ if (is_browser) {
   })
 }
 
-
 /* -------- utilities ---------- */
-
 
 function hasStyle(sheet, sheets) {
 
@@ -216,7 +206,6 @@ function swapStyles(orig, styles) {
   orig.forEach((el, i) => {
     el.disabled = !hasStyle(el, styles)
   })
-
 
   // add new
   return styles.filter(el => !hasStyle(el, orig))

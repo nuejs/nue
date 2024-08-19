@@ -15,9 +15,8 @@ import { join, parse, sep } from 'node:path'
 // avoid double events and looping (seen on Bun only)
 let last = {}
 
-
 export function fswatch(dir, onfile, onremove) {
-  return watch(dir, { recursive: true }, async function(e, path) {
+  return watch(dir, { recursive: true }, async function (e, path) {
     try {
       const file = parse(path)
 
@@ -52,8 +51,7 @@ export function fswatch(dir, onfile, onremove) {
   })
 }
 
-
-export async function fswalk(root, _dir='', _ret=[]) {
+export async function fswalk(root, _dir = '', _ret = []) {
   const files = await fs.readdir(join(root, _dir), { withFileTypes: true })
 
   for (const f of files) {
@@ -68,7 +66,7 @@ export async function fswalk(root, _dir='', _ret=[]) {
 
 const IGNORE = ['node_modules', 'functions', 'package.json', 'bun.lockb', 'pnpm-lock.yaml', 'README.md']
 
-function ignore(name='') {
+function ignore(name = '') {
   return '._'.includes(name[0]) || IGNORE.includes(name)
 }
 
@@ -80,6 +78,3 @@ function isLegit(file) {
 function isDir(f) {
   return f.isDirectory() || f.isSymbolicLink() && !f.name.includes('.')
 }
-
-
-

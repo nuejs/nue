@@ -20,11 +20,11 @@ export function getEngine() {
   return process.isBun ? 'Bun ' + v.bun : 'Node ' + v.node
 }
 
-export function log(msg, extra='') {
+export function log(msg, extra = '') {
   console.log(colors.green('✓'), msg, extra)
 }
 
-log.error = function(msg, extra="") {
+log.error = function (msg, extra = "") {
   console.log(colors.red('!!'), msg, extra)
 }
 
@@ -41,7 +41,6 @@ function getColorFunctions() {
 // console colors
 export const colors = getColorFunctions()
 
-
 // returns { url, dir, slug, appdir }
 export function parsePathParts(path) {
   path = normalize(path)
@@ -57,7 +56,7 @@ export function joinRootPath(root, path, abs = false) {
 
 export function getAppDir(path) {
   path = normalize(path)
-  const [ appdir ] = path.split(sep)
+  const [appdir] = path.split(sep)
   return appdir == path ? '' : appdir
 }
 
@@ -80,7 +79,7 @@ export function toPosix(path) {
   return path.replaceAll('\\', '/')
 }
 
-export function extendData(to, from={}) {
+export function extendData(to, from = {}) {
   const { include = [], exclude = [] } = to
   if (from.include) include.push(...from.include)
   if (from.exclude) exclude.push(...from.exclude)
@@ -88,7 +87,6 @@ export function extendData(to, from={}) {
   to.include = include
   to.exclude = exclude
 }
-
 
 export function sortCSS({ paths, globals, dir }) {
   function score(path) {
@@ -104,5 +102,3 @@ export function sortCSS({ paths, globals, dir }) {
   // then by directory
   paths.sort((a, b) => score(a) - score(b))
 }
-
-

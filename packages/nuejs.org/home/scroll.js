@@ -6,7 +6,6 @@ const observer = new IntersectionObserver(entries => {
   )
 }, { rootMargin: '-100px' })
 
-
 class ScrollTransition extends HTMLElement {
   constructor() {
     super()

@@ -37,7 +37,7 @@ export function parsePage(lines) {
         if (is_code) has_code_blocks = true
         blocks.push(block)
 
-      // markdown
+        // markdown
       } else {
         const tokens = marked.lexer(block.join(NL))
         Object.assign(links, tokens.links)
@@ -61,12 +61,11 @@ export function parsePage(lines) {
   return { meta, sections, headings, links, isomorphic, has_code_blocks }
 }
 
-
 export function parseHeading(text) {
   const i = text.indexOf('{')
 
   if (i > 0 && text.endsWith('}')) {
-    const attr = parseAttr(text.slice(i+1, -1).trim())
+    const attr = parseAttr(text.slice(i + 1, -1).trim())
     return { text: text.slice(0, i).trim(), ...attr }
   }
 
@@ -102,11 +101,10 @@ export function parseMeta(lines) {
   }
 }
 
-
 function getNestedData(body) {
   if (isYAML(body)) {
     const items = loadAll(body)
-    const [ item ] = items
+    const [item] = items
     return items[1] ? { items } : Array.isArray(item) ? { items: item } : item
   }
   return { content: body.split(/\n-{3,}/) }
@@ -117,7 +115,6 @@ function isYAML(str) {
   const i = str.indexOf(':')
   return i > 0 && /^\w+$/.test(str.slice(0, i))
 }
-
 
 export function parseSections(lines) {
   const len = lines.length
@@ -165,14 +162,13 @@ export function parseBlocks(lines) {
     // code line
     if (fenced) return fenced.content.push(line)
 
-
     // component
     if (line[0] == '[' && line.slice(-1) == ']' && !line.includes('][')) {
       comp = parseComponent(line.slice(1, -1))
       blocks.push(comp)
       md = null
 
-    // component args
+      // component args
     } else if (comp) {
       const next = getNext(lines, i)
       const indent = getIndent(next)
@@ -196,11 +192,10 @@ export function parseBlocks(lines) {
 
   })
 
-
   return blocks
 }
 
-function getIndent(line='') {
+function getIndent(line = '') {
   const trim = line.trimStart()
   return line.length - trim.length
 }

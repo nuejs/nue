@@ -7,7 +7,6 @@ let apps = []
 // amount of remounts (by the hot-reloading facility)
 let remounts = 0
 
-
 // hmr_path argument only used by hotreload.js
 async function importAll(hmr_path) {
   const comps = document.querySelector('[name="nue:components"]')?.getAttribute('content')
@@ -23,12 +22,10 @@ async function importAll(hmr_path) {
   return arr
 }
 
-
 export async function mountAll() {
   const els = document.querySelectorAll('[is]')
   const lib = els[0] ? await importAll() : []
   if (!lib[0]) return
-
 
   const { createApp } = await import('./nue.js')
 
@@ -65,7 +62,6 @@ addEventListener('route', () =>
   // must give empty argument
   mountAll()
 )
-
 
 // initial page load
 addEventListener('DOMContentLoaded', () => dispatchEvent(new Event('route')))

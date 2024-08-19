@@ -7,7 +7,6 @@ import { promises as fs } from 'node:fs'
 
 const { getInnerHTML, getOuterHTML, removeElement } = DOM
 
-
 function parseError(e) {
   const [msg, sub] = e.toString().split("'")
   const text = msg.slice(0, msg.indexOf(' ('))
@@ -25,7 +24,6 @@ function renderExpr(str, data, is_class) {
     throw { title: 'Rendering error', expr: str, ...parseError(e) }
   }
 }
-
 
 function setContent(node, data) {
   // run once
@@ -125,10 +123,9 @@ function processIf(node, expr, data, deps) {
   return active
 }
 
-
 // for
 function processFor(node, expr, data, deps) {
-  const [ $keys, for_expr, $index, is_object_loop ] = parseFor(expr)
+  const [$keys, for_expr, $index, is_object_loop] = parseFor(expr)
 
   // syntax error
   if (!for_expr) throw {
@@ -151,8 +148,8 @@ function processFor(node, expr, data, deps) {
 
         return key === $keys ? (item == null ? data[key] : item) :
           key == $index ? items.indexOf(item) :
-          $keys.includes(key) ? item[key] :
-          data[key]
+            $keys.includes(key) ? item[key] :
+              data[key]
       }
     })
 
@@ -188,7 +185,6 @@ function removeNode(node) {
   node.attribs.__remove = 'true'
 }
 
-
 function processNode(opts) {
   const { root, data, deps, inner } = opts
 
@@ -207,11 +203,11 @@ function processNode(opts) {
       delete attribs.client
       // do nothing: pass content as is
 
-    // content
+      // content
     } else if (type == 'text') {
       setContent(node, data)
 
-    // element
+      // element
     } else if (type == 'tag' || type == 'style' || type == 'script') {
 
       // if
@@ -250,7 +246,6 @@ function processNode(opts) {
           removeElement(node)
         }
       }
-
 
       // custom component
       const is_custom = !STD.includes(name)
@@ -291,17 +286,17 @@ function getJS(nodes) {
   return js.join('\n')
 }
 
-function createComponent(node, global_js='', template) {
+function createComponent(node, global_js = '', template) {
   const name = getComponentName(node)
 
   // javascript
   const js = getJS(node.children)
-  const Impl = js[0] && exec(`class Impl { ${ js } }\n${global_js}`)
+  const Impl = js[0] && exec(`class Impl { ${js} }\n${global_js}`)
 
   // must be after getJS()
   const tmpl = getOuterHTML(node)
 
-  function create(data, deps=[], inner) {
+  function create(data, deps = [], inner) {
     if (Impl) data = Object.assign(new Impl(data), data) // ...spread won't work
     try {
       return processNode({ root: mkdom(tmpl), data, deps, inner })
@@ -316,7 +311,7 @@ function createComponent(node, global_js='', template) {
     tagName: node.tagName,
     create,
 
-    render: function(data, deps) {
+    render: function (data, deps) {
       const node = create(data, deps)
 
       // cleanup / remove dummy elements
@@ -349,7 +344,6 @@ function setJSONData(node, ctx) {
   }
   if (Object.keys(json)[0]) appendData(node, json)
 }
-
 
 export function parse(template) {
   template = template.replace(/\r\n|\r/g, '\n')

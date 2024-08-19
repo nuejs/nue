@@ -3,11 +3,10 @@ import { mountAll } from './mount.js'
 
 const sse = new EventSource(location.origin)
 
-const $$ = (query, root=document) => [ ...root.querySelectorAll(query) ]
-const $ = (query, root=document) => root.querySelector(query)
+const $$ = (query, root = document) => [...root.querySelectorAll(query)]
+const $ = (query, root = document) => root.querySelector(query)
 
-
-sse.onmessage = async function(e) {
+sse.onmessage = async function (e) {
   const data = e.data ? JSON.parse(e.data) : {}
   const { error, html, css, dir, url, path } = data
 
@@ -38,7 +37,6 @@ sse.onmessage = async function(e) {
   // reactive component
   if (data.is_nue || data.is_htm) remount('/' + data.path.replace(data.ext, '.js'))
 
-
   // styling (inline && stylesheets)
   if (css) {
     const href = `/${dir}${dir ? '/' : ''}${data.name}.css`
@@ -56,14 +54,12 @@ sse.onmessage = async function(e) {
   }
 }
 
-
 function createStyle(href, css) {
   const el = document.createElement('style')
   el.setAttribute('href', href)
   el.innerHTML = css
   return el
 }
-
 
 function deserialize(form, formdata) {
   for (const [key, val] of formdata.entries()) {
@@ -72,7 +68,6 @@ function deserialize(form, formdata) {
     else el.value = val
   }
 }
-
 
 async function remount(path) {
 
@@ -90,7 +85,6 @@ async function remount(path) {
   dialog = window[dialog?.id]
   if (dialog) { dialog.close(); dialog.showModal() }
 }
-
 
 function parsePage(html) {
   const root = document.createElement('html')
@@ -120,7 +114,7 @@ async function patch(html) {
 }
 
 function toggleAttr(el, name, flag) {
-  flag ? el.setAttribute(name, 1) :  el.removeAttribute(name)
+  flag ? el.setAttribute(name, 1) : el.removeAttribute(name)
 }
 
 function restoreTabs(flags) {
@@ -131,7 +125,6 @@ function restoreTabs(flags) {
     toggleAttr(panels[i], 'hidden', !flags[i])
   })
 }
-
 
 /*
 

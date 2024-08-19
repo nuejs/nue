@@ -1,7 +1,6 @@
 
 import { render } from '../index.js'
 
-
 // helper function to run multiple tests at once
 function runTests(tests, data) {
   for (const tmpl in tests) {
@@ -14,7 +13,6 @@ function runTests(tests, data) {
 function debug(tmpl, data) {
   console.info(render(tmpl, data))
 }
-
 
 test('Expressions', () => {
   runTests({
@@ -90,7 +88,6 @@ test('Class and style', () => {
   })
 })
 
-
 test('Loops', () => {
 
   runTests({
@@ -123,7 +120,6 @@ test('Loops', () => {
   })
 })
 
-
 test('Custom tags', () => {
   const btn = '<button @name="btn">{ label || "Press"}</button>'
 
@@ -136,7 +132,6 @@ test('Custom tags', () => {
       '<label><input name="foo" value="bar"></label>',
   })
 })
-
 
 test('Advanced', () => {
 
@@ -164,7 +159,6 @@ test('Advanced', () => {
   })
 
 })
-
 
 const GLOBAL_FUNCTIONS = `
 <script>
@@ -203,7 +197,6 @@ test('Global script', () => {
 
 })
 
-
 const GA = `
 <body>
   <script async src="https://ga.com/js?id=666"></script>
@@ -222,7 +215,6 @@ test('GA', () => {
   expect(html).toInclude('(){dataLayer.push(arguments)}')
 })
 
-
 const IF_SIBLING = `
 <nav @name="navi">
   <a :for="el in els">
@@ -237,7 +229,6 @@ test('If sibling', () => {
   const html = render(IF_SIBLING, { els })
   expect(html).toInclude('First')
 })
-
 
 test(':for error', () => {
   try {
@@ -269,4 +260,3 @@ test('{ expr } error', () => {
     }
   }
 })
-

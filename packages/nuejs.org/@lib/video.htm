@@ -1,8 +1,7 @@
-
 <!-- For Bunny CDN -->
 <div @name="bunny-player" @click="toggle" class="player">
 
-  <video ref="video" :poster="splash" width="{width}" muted/>
+  <video ref="video" :poster="splash" width="{width}" muted />
 
   <a class="play"></a>
 
@@ -14,7 +13,7 @@
 
       this.splash = poster[0] == '/' ? poster : `${base}/${videoid}/${poster || 'thumbnail.jpg'}`
 
-      function addSource(filename, mime='video/mp4') {
+      function addSource(filename, mime = 'video/mp4') {
         const el = document.createElement('source')
         el.src = `${base}/${videoid}/${filename}`
         el.type = mime
@@ -57,4 +56,3 @@
     return widths.find(w => w < max)
   }
 </script>
-

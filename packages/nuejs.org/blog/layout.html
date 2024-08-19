@@ -1,4 +1,3 @@
-
 <!--
   Filling some of the slots on the global design system
 -->
@@ -10,11 +9,13 @@
 
 <!-- the hero area for each blog entry -->
 <header @name="pagehead">
-  <pretty-date :date/>
+  <pretty-date :date />
 
-  <h1><markdown :content="hero_title || title"/></h1>
+  <h1>
+    <markdown :content="hero_title || title" />
+  </h1>
 
-  <author :bind="authors[author || authors.default]"/>
+  <author :bind="authors[author || authors.default]" />
 
 </header>
 
@@ -23,7 +24,8 @@
 
   <h2>The grand vision</h2>
   <p>
-    Ultimately Nue will be a ridiculously simpler alternative to <strong>Next.js</strong>, <strong>Gatsby</strong>, and <strong>Astro</strong>
+    Ultimately Nue will be a ridiculously simpler alternative to <strong>Next.js</strong>, <strong>Gatsby</strong>, and
+    <strong>Astro</strong>
   </p>
 
   <img src="/img/roadmap-beta.png" alt="Nue roadmap">
@@ -33,7 +35,7 @@
     Be the first to know when the official 1.0 release, templates, and the cloud stuff are released
   </p>
 
-  <join-list/>
+  <join-list />
 
 </footer>
 
@@ -47,5 +49,3 @@
     <a href="//x.com/{ username }">@{ username }</a>
   </aside>
 </div>
-
-

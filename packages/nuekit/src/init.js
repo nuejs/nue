@@ -1,12 +1,11 @@
 
-import { compileFile as nueCompile} from 'nuejs-core'
+import { compileFile as nueCompile } from 'nuejs-core'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { promises as fs } from 'node:fs'
 import { resolve } from 'import-meta-resolve'
 import { buildJS } from './builder.js'
 import { colors, srcdir } from './util.js'
-
 
 export async function init({ dist, is_dev, esbuild, force }) {
 
@@ -66,7 +65,6 @@ async function initDir({ dist, is_dev, esbuild, cwd, srcdir, outdir }) {
     dot()
   }
 
-
   // lets do it
   process.stdout.write(colors.green('✓') + ` Initialize ${dist}: `)
 
@@ -94,9 +92,8 @@ async function initDir({ dist, is_dev, esbuild, cwd, srcdir, outdir }) {
   console.log('')
 }
 
-
 function resolvePath(npm_path) {
-  const [ npm_name, ...parts ] = npm_path.split('/')
+  const [npm_name, ...parts] = npm_path.split('/')
   const module_path = dirname(fileURLToPath(resolve(npm_name, import.meta.url)))
   return join(module_path, ...parts)
 }

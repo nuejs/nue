@@ -1,4 +1,3 @@
-
 <ul @name="feedback" class="feedback">
   <li :for="el in feedback" class="card from-{ el.from || 'x' }">
     <a :if="el.user" href="{ el.url || getUrl(el) }">@{ el.user }</a>

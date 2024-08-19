@@ -2,7 +2,6 @@
 import { promises as fs } from 'node:fs'
 import { glow } from '../src/glow.js'
 
-
 // Nue / html
 const HTML = `
 <figure @name="img" class=•"baz { foo } \${ bar }"•>
@@ -127,7 +126,6 @@ adaptogen. Iceland **chambray** raclette stumptown
   width: 800
 `
 
-
 const MDX = `
 import {Chart} from './snowfall.js'
 export const year = 2023
@@ -149,8 +147,6 @@ flood conditions in many of the nearby rivers.
   <p class="epic">Yo</p>
 </Element>
 `
-
-
 
 const SHELL = `
 #!/bin/bash
@@ -247,7 +243,6 @@ func main() {
 }
 `
 
-
 const JSON5 = `
 {
   // this is a JSON5 snippet
@@ -281,7 +276,6 @@ class UserAccount {
 
 const user: User = new UserAccount("Murphy", 1);
 `
-
 
 const STYLED = `
 import styled from 'styled-components';
@@ -352,7 +346,6 @@ else None
 
 print('Square:', square)
 `
-
 
 const JAVA = `
 // Importing generic Classes/Files
@@ -430,7 +423,6 @@ function perm (a)
   local n = table.getn(a)
   return coroutine.wrap(function () permgen(a, n) end)
 end
-
 
 -- Another function
 function printResult (a)
@@ -638,11 +630,11 @@ async function renderPage(items) {
   items.forEach(opts => {
     const { title } = opts
     const language = opts.lang || title.toLowerCase()
-    const code = glow(opts.code, { language, numbered: true})
+    const code = glow(opts.code, { language, numbered: true })
 
     html.push(`
       <div class="syntax ${opts.class || ''}">
-        <header><h2>${opts.title || language }</h2></header>
+        <header><h2>${opts.title || language}</h2></header>
         <pre glow>${code}</pre>
       </div>
     `)
@@ -655,7 +647,6 @@ async function renderPage(items) {
   await fs.writeFile(path, html.join('\n'), 'utf-8')
   console.info('wrote', path)
 }
-
 
 await renderPage([
   { title: 'Astro', code: ASTRO, },
@@ -692,8 +683,6 @@ await renderPage([
   { title: 'TypeScript', code: TS, lang: 'ts', },
   { title: 'ZIG', code: ZIG, lang: 'zig', },
 
-  ] // .filter(el => ['html'].includes(el.lang))
+] // .filter(el => ['html'].includes(el.lang))
 
 )
-
-

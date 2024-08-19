@@ -4,7 +4,6 @@ import { renderIsland, renderLines, renderHeading } from '../src/render.js'
 import { tags, parseSize } from '../src/tags.js'
 import { nuemarkdown } from '../index.js'
 
-
 test('fenced code', () => {
   const { html } = renderLines(['``` md.foo', `<h1>hey</h1>`, '```', 'after'])
   expect(html).toStartWith('<div class=\"foo\"><pre><code language=\"md\"><i>&lt;')
@@ -19,7 +18,7 @@ test('fenced code: space before class name', () => {
 })
 
 test('[code.foo]', () => {
-  const html = tags.code({ content: ['<p>Hey</p>'], language: 'xml', numbered: true, attr: { class: 'foo'} })
+  const html = tags.code({ content: ['<p>Hey</p>'], language: 'xml', numbered: true, attr: { class: 'foo' } })
   expect(html).toStartWith('<div class="foo"><pre><code language="xml">')
   expect(html).toInclude('<i>')
 })
@@ -58,7 +57,6 @@ test('parse fenced code', () => {
   expect(fenced.attr).toEqual({ class: 'foo', id: 'bar' })
   expect(fenced.content).toEqual(["// hey", "[foo]"])
 })
-
 
 test('[!] img', () => {
   const img = tags['!']({ _: 'img.png' })
@@ -101,7 +99,6 @@ test('[tabs] key and wrapper', () => {
   expect(html).toInclude('id="tab-panel-2" aria-labelledby="tab-tab-2"')
 })
 
-
 const NESTED_TABS = `
 [tabs "Foo | Bar"]
   First
@@ -123,7 +120,6 @@ test('Nested [tabs]', () => {
   expect(html).toInclude('id="inner-tab-2"')
   expect(html).toInclude('id="inner-panel-2"')
 })
-
 
 test('long divider', () => {
   const { html } = renderLines(['[.a]', '  foo', '  ------', '  bar'])
@@ -192,7 +188,6 @@ test('[image] srcset', () => {
   expect(img).toInclude('<img srcset="a.jpg 20vw, b.jpg" sizes="4em">')
 })
 
-
 test('[block]', () => {
   const attr = { id: 'epic' }
   const data = { count: 10 }
@@ -202,7 +197,7 @@ test('[block]', () => {
   expect(single).toInclude('<p>foo</p>')
 
   const double = tags.block({ attr, data, content: ['foo', 'bar'] })
-    expect(double).toInclude('<div id="epic">')
+  expect(double).toInclude('<div id="epic">')
 })
 
 test('[layout] alias', () => {
@@ -284,7 +279,6 @@ test('parseHeading', () => {
   expect(h2.class).toBe('foo')
 })
 
-
 test('page island', () => {
   const { html } = renderLines(['yo', '[hey]', '  bar: 2'])
   expect(html).toInclude('<p>yo</p>')
@@ -300,8 +294,6 @@ test('renderIsland', () => {
   expect(island).toInclude('<div id="epic" is="foo"')
   expect(island).toInclude('{"count":10}')
 })
-
-
 
 // page parsing
 test('parse sections', () => {
@@ -320,7 +312,6 @@ test('parse sections', () => {
   expect(c.lines).toEqual(['c', 'c'])
 })
 
-
 test('parse page', () => {
   const page = parsePage(['# Hello', '## World', '[foo]: bar', '[tabs foo=1]', '  bar: 2'])
 
@@ -332,7 +323,6 @@ test('parse page', () => {
   expect(blocks.length).toBe(2)
   expect(blocks[1].data).toEqual({ foo: 1, bar: 2 })
 })
-
 
 test('parse page: ! component', () => {
   const page = parsePage(['[! "/foo"]'])
@@ -357,7 +347,6 @@ test('parse single content block', () => {
   expect(comp.body).toEqual(["Hello", "World"])
 })
 
-
 test('parseMeta', () => {
   expect(parseMeta(['']).rest).toEqual([''])
 
@@ -369,7 +358,6 @@ test('parseMeta', () => {
   expect(parseMeta(['---', 'foo: 10', '---', '# Hey']))
     .toEqual({ meta: { foo: 10 }, rest: ['# Hey'] })
 })
-
 
 // parsing components
 test('valueGetter', () => {
@@ -390,7 +378,7 @@ test('parseSpecs', () => {
 })
 
 test('parse plain args', () => {
-  const { name, data }= parseComponent('video src="/a.mp4" loop muted')
+  const { name, data } = parseComponent('video src="/a.mp4" loop muted')
   expect(name).toBe('video')
   expect(data.loop).toBe(true)
   expect(data.muted).toBe(true)
@@ -436,7 +424,6 @@ test('parseComponent', () => {
 
 })
 
-
 test('blockquotes', () => {
   const { html } = renderLines(['> hey', '', 'joe'])
   expect(html).toInclude('</blockquote>\n<p>joe</p>')
@@ -457,7 +444,7 @@ test('JSX component', async () => {
 
     // make them compatible with Nuemark
     const lib = Object.keys(jsx).map(name => {
-        return { name, render: (data) => renderToString(jsx[name](data)) }
+      return { name, render: (data) => renderToString(jsx[name](data)) }
     })
 
     // render JSX with Nuemark
@@ -465,7 +452,7 @@ test('JSX component', async () => {
 
     expect(html).toBe('<h1 style="color:red">Hello</h1>')
 
-      // react not imported
+    // react not imported
   } catch (ignored) {
     console.info('JSX test skipped')
   }

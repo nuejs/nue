@@ -1,7 +1,7 @@
 
 const MIXED_HTML = ['html', 'jsx', 'php', 'astro', 'nue', 'vue', 'svelte', 'hb']
 const LINE_COMMENT = { clojure: ';;', lua: '--', python: '#' }
-const PREFIXES = {'+': 'ins', '-': 'del', '>': 'dfn' }
+const PREFIXES = { '+': 'ins', '-': 'del', '>': 'dfn' }
 const MARK = /(••?)([^•]+)\1/g   // ALT + q
 const NL = '\n'
 
@@ -25,7 +25,6 @@ const RULES = {
     { tag: 'strong', re: /#[0-9a-f]{3,7}/gi },
   ]
 }
-
 
 const HTML_TAGS = [
 
@@ -66,7 +65,6 @@ const HTML_TAGS = [
   // variable name
   { tag: 'b', re: /([\w]+)\./g, lang: ['js'] },
 ]
-
 
 function getTags(lang) {
   const tags = HTML_TAGS.filter(el => !el.lang || el.lang.includes(lang))
@@ -149,7 +147,6 @@ function getMDTags(str) {
   ]
 }
 
-
 export function parseRow(row, lang) {
   const tags = isMD(lang) ? getMDTags(row) : getTags(lang)
   const tokens = []
@@ -158,11 +155,10 @@ export function parseRow(row, lang) {
   const re = new RegExp(`${LINE_COMMENT[lang] || '//'} .+`)
   tags.unshift({ tag: 'sup', re })
 
-
   for (const el of tags) {
     const { re, shift } = el
 
-    row.replace(re, function(match, start, n) {
+    row.replace(re, function (match, start, n) {
       if (arguments.length == 4) {
         const more = shift ? match.indexOf(start) : 0
         match = start; start = n + more
@@ -175,11 +171,10 @@ export function parseRow(row, lang) {
 }
 
 function renderString(str) {
-  return encode(str).replace(/\$?\{([^\}]+)\}/g, function(_, content) {
+  return encode(str).replace(/\$?\{([^\}]+)\}/g, function (_, content) {
     return elem('i', _.replace(content, elem('b', content)))
   })
 }
-
 
 // exported for testing purposes
 export function renderRow(row, lang) {
@@ -209,10 +204,9 @@ export function renderRow(row, lang) {
   ret.push(row.substring(index))
 
   return ret.join('').replace(MARK, (_, a, b, c) => {
-    return elem(a[1] ? 'u' : 'mark',  b)
+    return elem(a[1] ? 'u' : 'mark', b)
   })
 }
-
 
 // comment start & end
 const COMMENT = [/(\/\*|^ *{# |<!--|'''|=begin)/, /(\*\/|#}|-->|'''|=end)$/]
@@ -234,7 +228,7 @@ export function parseSyntax(str, lang) {
     // hack to join lines when there was newline in the middle of a line
     const quote = /^("|')/.exec(line)
     if (quote && line[1] != quote[0]) {
-      const prev = lines[lines.length -1]
+      const prev = lines[lines.length - 1]
       if (prev?.line) prev.line += '\\n' + line
       return
     }
@@ -265,9 +259,8 @@ export function parseSyntax(str, lang) {
   return lines
 }
 
-
 // code, { language: 'js', numbered: true }
-export function glow(str, opts={}) {
+export function glow(str, opts = {}) {
   if (typeof opts == 'string') opts = { language: opts }
 
   // language
@@ -279,7 +272,7 @@ export function glow(str, opts={}) {
     lines.push(opts.numbered ? elem('span', line) : line)
   }
 
-  parseSyntax(str.trim(), lang).forEach(function(block) {
+  parseSyntax(str.trim(), lang).forEach(function (block) {
     let { line, comment, wrap } = block
 
     // EOL comment
@@ -296,5 +289,3 @@ export function glow(str, opts={}) {
 
   return `<code language="${lang || '*'}">${lines.join(NL)}</code>`
 }
-
-

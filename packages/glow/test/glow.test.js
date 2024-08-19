@@ -5,7 +5,7 @@ test('HTML', () => {
   const row = '<div class="hello">'
 
   // parse
-  const [ char, prop, ...rest ] = parseRow(row)
+  const [char, prop, ...rest] = parseRow(row)
 
   expect(char.tag).toBe('i')
   expect(prop.tag).toBe('strong')
@@ -25,7 +25,6 @@ test('Emphasis', () => {
   expect(html).toInclude('Hey <mark>')
   expect(html).toInclude('</i></mark> girl')
 })
-
 
 /* multiline comments */
 const HTML_COMMENT = `

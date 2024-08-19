@@ -1,6 +1,6 @@
 
-export function $$(query, root=document) {
-  return [ ...root.querySelectorAll(query)]
+export function $$(query, root = document) {
+  return [...root.querySelectorAll(query)]
 }
 
 class Tabs extends HTMLDivElement {
@@ -10,7 +10,7 @@ class Tabs extends HTMLDivElement {
     const panels = $$('[role=tabpanel]', this)
 
     tabs.forEach((tab, i) => {
-      tab.onclick = () =>  {
+      tab.onclick = () => {
         tabs.forEach(el => el.removeAttribute('aria-selected'))
         tab.setAttribute('aria-selected', 'true')
 

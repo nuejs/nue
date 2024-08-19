@@ -29,7 +29,6 @@ async function write(filename, code) {
   return file
 }
 
-
 test('Lightning CSS errors', async () => {
   const code = 'body margin: 0 }'
   const filepath = await write('lcss.css', code)

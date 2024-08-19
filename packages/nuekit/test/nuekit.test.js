@@ -21,7 +21,7 @@ beforeEach(async () => {
 afterEach(async () => await fs.rm(root, { recursive: true, force: true }))
 
 // helper function for creating files to the root directory
-async function write(path, content='') {
+async function write(path, content = '') {
   const { dir } = parse(path)
   await fs.mkdir(join(root, dir), { recursive: true })
   await fs.writeFile(join(root, path), content)
@@ -87,7 +87,6 @@ test('environment', async () => {
   expect(site.port).toBe(8080)
 })
 
-
 test('page styles', async () => {
   await write('site.yaml', 'globals: [globals]')
 
@@ -97,12 +96,11 @@ test('page styles', async () => {
   await write('blog/entry/c.css')
 
   const arr = await site.getStyles('blog')
-  expect(arr).toEqual([ '/globals/foo.css', '/blog/b.css' ])
+  expect(arr).toEqual(['/globals/foo.css', '/blog/b.css'])
 
   const arr2 = await site.getStyles('blog/entry')
   expect(arr2.length).toBe(3)
 })
-
 
 test('root styles', async () => {
   const kit = await getKit()
@@ -110,9 +108,8 @@ test('root styles', async () => {
   await write('home.css')
   await write('index.md')
   const { styles } = await kit.getPageData('index.md')
-  expect(styles).toEqual([ "/home.css" ])
+  expect(styles).toEqual(["/home.css"])
 })
-
 
 test('include/exclude data', async () => {
   await write('site.yaml', 'include: [a]\nexclude: [a]')
@@ -121,8 +118,8 @@ test('include/exclude data', async () => {
   const kit = await getKit()
   const data = await kit.getPageData('blog/index.md')
 
-  expect(data.include).toEqual([ "a", "b", "c" ])
-  expect(data.exclude).toEqual([ "a", "b" ])
+  expect(data.include).toEqual(["a", "b", "c"])
+  expect(data.exclude).toEqual(["a", "b"])
 })
 
 test('asset include/exclude', async () => {
@@ -137,10 +134,9 @@ test('asset include/exclude', async () => {
   const kit = await getKit()
   const data = await kit.getPageData('blog/index.md')
 
-  expect(data.styles).toEqual([ "/global/global.css", "/lib/zoo.css" ])
+  expect(data.styles).toEqual(["/global/global.css", "/lib/zoo.css"])
   // expect(data.components).toEqual([ "/global/kama.js", "/lib/zoo.css" ])
 })
-
 
 test('get data', async () => {
   await write('site.yaml', 'foo: 1')
@@ -168,7 +164,7 @@ test('content collection', async () => {
   // 5. System files starting with '_' or '.' are excluded.
   await write('blog/.item6.md', createFront('Sixth', '2020-01-03'))
   await write('blog/_item7.md', createFront('Seventh', '2020-01-03'))
-  
+
   const site = await getSite()
   const coll = await site.getContentCollection('blog')
   const actual = coll.map(c => {
@@ -214,7 +210,6 @@ test('layout components', async () => {
   expect(comps3[0].name).toBe('c')
 })
 
-
 test('page layout', async () => {
   await write('site.yaml', 'header: { navi: [{ image: foo }, bar] }\nfooter: { navi: [bar] }')
   await write('layout.html', '<aside>Sidebar</aside><aside @name="complementary">Aside</aside>')
@@ -231,7 +226,6 @@ test('page layout', async () => {
 
   // console.info(html)
 })
-
 
 test('getRequestPaths', async () => {
   await write('index.md')
@@ -250,7 +244,6 @@ test('getRequestPaths', async () => {
   expect((await site.getRequestPaths('/admin/customers')).path).toMatchPath(path)
   expect(await site.getRequestPaths('/admin/readme.html')).toMatchObject({ path: '404.html' })
 })
-
 
 test('inline CSS', async () => {
   const kit = await getKit()
@@ -283,7 +276,7 @@ test('line endings', async () => {
   expect(html).toInclude('<p>World</p>')
 })
 
-test('page assets', async() => {
+test('page assets', async () => {
   await write('site.yaml', 'libs: [lib]')
   await write('blog/app.yaml', 'include: [video]')
   await write('lib/video.nue')
@@ -295,12 +288,11 @@ test('page assets', async() => {
   const kit = await getKit()
   const data = await kit.getPageData('blog/index.md')
 
-  expect(data.components).toEqual([ "/blog/comp.js", "/lib/video.js" ])
+  expect(data.components).toEqual(["/blog/comp.js", "/lib/video.js"])
   expect(data.scripts.length).toEqual(4)
 })
 
-
-test('single-page app index', async() => {
+test('single-page app index', async () => {
   await write('index.html', '<test/>')
   const kit = await getKit()
   const html = await kit.renderSPA('index.html')
@@ -310,7 +302,7 @@ test('single-page app index', async() => {
   expect(html).toInclude('is="test"')
 })
 
-test('index.md', async() => {
+test('index.md', async () => {
   await write('index.md', '# Hey { .yo }\n\n## Foo { .foo#bar.baz }')
   const kit = await getKit()
   await kit.gen('index.md')
@@ -321,8 +313,7 @@ test('index.md', async() => {
   expect(html).toInclude('<h2 class="foo baz" id="bar"><a href="#bar" title="Foo"></a>Foo</h2>')
 })
 
-
-test('bundle', async() => {
+test('bundle', async () => {
   await write('a.ts', 'export const foo = 30')
   await write('b.ts', 'import { foo } from "./a.js"; const bar = 10 + foo')
 
@@ -336,7 +327,7 @@ test('bundle', async() => {
   expect(await read('b.js')).toInclude('var foo = 30')
 })
 
-test('JS errors', async() => {
+test('JS errors', async () => {
   const code = 'konst foo = 1'
   await write('a.js', code)
   const opts = { path: `./${root}/a.js`, outdir: root, silent: true }
@@ -355,7 +346,6 @@ test('JS errors', async() => {
   }
 
 })
-
 
 test('the project was started for the first time', async () => {
   await write('site.yaml', 'port: 9090')

@@ -1,4 +1,3 @@
-
 <div @name="counter" class="demo card">
   <h3>You clicked {count} times!</h3>
   <button @click="count--">Decrement</button>
@@ -6,7 +5,7 @@
   <script>count = 0</script>
 </div>
 
-<div  @name="simple-counter" class="demo card">
+<div @name="simple-counter" class="demo card">
   <button @click="count++">
     Clicked { count } { count == 1 ? 'time' : 'times' }
   </button>

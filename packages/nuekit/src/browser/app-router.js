@@ -27,7 +27,7 @@ export const router = {
     fns.push({ pattern, fn })
   },
 
-  start({ path, root  }) {
+  start({ path, root }) {
     // setup links
     if (root) onclick(root, this.route)
 
@@ -38,7 +38,6 @@ export const router = {
     fire(location.pathname)
   },
 
-
   route(path) {
     scrollTo(0, 0)
     const is_page = path.endsWith('.html')
@@ -47,7 +46,6 @@ export const router = {
     // after pushState
     is_page ? loadPage(path) : fire(path)
   },
-
 
   /****  State management  ****/
 
@@ -64,7 +62,6 @@ export const router = {
     return { ...path_data, ...args }
   }
 }
-
 
 export function match(pattern, path, is_global) {
   const keys = pattern.split('/').slice(1)
@@ -84,7 +81,3 @@ export function match(pattern, path, is_global) {
 
   return is_valid ? data : null
 }
-
-
-
-

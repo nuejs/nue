@@ -11,16 +11,16 @@ export function toMatchPath(actual, expected) {
     pass,
     message: () => pass
       ? matcherHint('.not.toMatchPath') +
-        '\n\n' +
-        'Expected path not to match:\n' +
-        `  ${printExpected(expected)}\n` +
-        'Received:\n' +
-        `  ${printReceived(actual)}`
+      '\n\n' +
+      'Expected path not to match:\n' +
+      `  ${printExpected(expected)}\n` +
+      'Received:\n' +
+      `  ${printReceived(actual)}`
       : matcherHint('.toMatchPath') +
-        '\n\n' +
-        'Expected path to match:\n' +
-        `  ${printExpected(expected)}\n` +
-        'Received:\n' +
-        `  ${printReceived(actual)}`
+      '\n\n' +
+      'Expected path to match:\n' +
+      `  ${printExpected(expected)}\n` +
+      'Received:\n' +
+      `  ${printReceived(actual)}`
   }
 }

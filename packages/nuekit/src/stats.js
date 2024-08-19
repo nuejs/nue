@@ -52,18 +52,17 @@ export function categorize(paths) {
 
     const cat = ext == 'css' ? cats.style :
       ['js', 'ts'].includes(ext) ? cats.scripts :
-      ext == 'yaml' || ext == 'html' ? misc :
-      base == 'index.html' ? cats.spa :
-      ext ==  'nue' || ext == 'htm' ? cats.islands :
-      ext == 'md' ? cats.pages :
-      cats.media
+        ext == 'yaml' || ext == 'html' ? misc :
+          base == 'index.html' ? cats.spa :
+            ext == 'nue' || ext == 'htm' ? cats.islands :
+              ext == 'md' ? cats.pages :
+                cats.media
 
     cat.push(path)
   }
 
   return cats
 }
-
 
 function sum(arr) {
   let total = 0
@@ -74,4 +73,3 @@ function sum(arr) {
 function fmt(size) {
   return !size ? '-' : Math.round(size / 100) / 10 + 'k'
 }
-
