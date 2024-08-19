@@ -5,14 +5,12 @@ og: /img/meme-big.jpg
 date: 2023-10-02
 ---
 
-
 [Nue JS][nuejs] is a tiny, 2.1kb min-brotlied library for building user interfaces. It's an alternative to frameworks like *Vue*, *React*, and *Svelte* — and it's the central piece of the [Nue ecosystem](/), which is a ridiculously easier alternative to *Next.js* and *Astro*
 
 [image]
   large: /img/meme-big.jpg
   small: /img/meme.jpg
   caption: Less is more
-
 
 Nue was linked to [Hacker News][hn], [Lobsters][lobsters], and [Reddit][reddit] on September 2023 and it was really a dream start for the project. I received a super warm welcome from developers, over 120k people came to see the website, and the project rapidly got thousands of stars on GitHub. My time lately has gone on fixing bugs, merging pull requests, giving support, answering questions, and [providing examples](/docs/nuejs/examples).<!--TODO: fix-->
 
@@ -23,8 +21,8 @@ Common questions are: "How does reactivity work"? and "How is this different fro
 [lobsters]: //lobste.rs/s/goxx8g/nue_react_vue_vite_astro_alternative
 
 ## HTML-based
-If React is "Just JavaScript", then Nue is "Just HTML". Here's how the difference between React and Nue using an identical counter component:
 
+If React is "Just JavaScript", then Nue is "Just HTML". Here's how the difference between React and Nue using an identical counter component:
 
 ### React
 
@@ -50,8 +48,8 @@ function App() {
   );
 }
 ```
-[Source](//codesandbox.io/s/react-hooks-counter-demo-kqm9s?file=/src/index.js:0-427)
 
+[Source](//codesandbox.io/s/react-hooks-counter-demo-kqm9s?file=/src/index.js:0-427)
 
 ### Nue
 
@@ -75,6 +73,7 @@ To understand this choice we must go back in time. The world used to be slightly
 
 [.stack]
   ### UX development
+
   - HTML + CSS
   - Lightweight JavaScript
   - Look and feel
@@ -83,7 +82,9 @@ To understand this choice we must go back in time. The world used to be slightly
   - UI libraries
 
   ---
+
   ### JS development
+
   - Advanced TypeScript/JS
   - Business logic
   - Backend integration
@@ -91,11 +92,7 @@ To understand this choice we must go back in time. The world used to be slightly
   - Keeping up the JS infra
   - Performance optimization
 
-
-
-
 People who cared about UX could focus on the *front of the frontend*, and JS developers could focus on the *back of the frontend*. The talent was naturally spread and people did what they loved. It was great. *Brad Frost* wrote a [great article][brad] on the topic.
-
 
 Today frontend development is dictated by the JS developer and everything is assembled with TypeScript or JavaScript: Logic, layout, styling, images, and content.
 
@@ -103,10 +100,7 @@ Nue wants to change this and bring UX developers back to the forefront. For them
 
 Therefore: Nue is HTML first.
 
-
-
 ## Class-based
-
 
 In 1998 *O'Reilly* published [Dynamic HTML: The Definitive Reference][dhtml] by *Danny Goodman*. This book changed the way I build websites. Before reading the book I had only played with HTML and CSS, but suddenly web was programmable? With Java? No -- JavaScript. WTH!
 
@@ -115,7 +109,6 @@ In 1998 *O'Reilly* published [Dynamic HTML: The Definitive Reference][dhtml] by 
 [dhtml]: //www.amazon.com/Dynamic-HTML-Definitive-Danny-Goodman/dp/1565924940
 
 Suddenly I could do things like this:
-
 
 ```html
 <FORM ACTION="/cgi-bin/form.cgi"
@@ -131,9 +124,6 @@ Suddenly I could do things like this:
   }
 </SCRIPT>
 ```
-
-
-
 
 Yes, HTML was in all caps back then. And there were no `type="email"` fields, no `<button>` tag, nor the ability to post data with JavaScript. AJAX was invented seven years later. But I could make HTML dynamic and could move some of the dynamics from backend to the frontend.
 
@@ -190,9 +180,8 @@ ES6 classes make your code look amazingly compact and clean. You can add variabl
 [getters]: //developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get
 [setters]: //developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set
 
-
-
 ## Reactivity model
+
 Reactivity means that when the component state changes, the component automatically re-renders itself to the new state. Nue is no different from the other frameworks here:
 
 ```html
@@ -227,7 +216,6 @@ Nue automatically updates the view when an event handler is clicked. Nue also re
 ```
 
 [reactive-loop]
-
 
 Both `push()` and `pop()` methods update the view automatically. Same with all the other Array methods like `sort()`, `unshift()`, `sort()`, `reverse()`, and `splice()`.
 
@@ -288,9 +276,8 @@ let count = $state(0);
 count = 0
 ```
 
-
-
 ## Reactivity under the hood
+
 Here's how Nue JS works.
 
 First, a Nue component is compiled or "transpiled" to plain JavaScript so that browsers can run it. Let's look at our counter component again:
@@ -337,9 +324,8 @@ That's Nue reactivity in short.
 [for]: //github.com/nuejs/nue/blob/master/packages/nuejs/src/browser/for.js
 [if]:  //github.com/nuejs/nue/blob/master/packages/nuejs/src/browser/if.js
 
-
-
 ## Keeping things small
+
 The compiled Nue code is very small: Only like ~1.2x larger than the HTML-based source code. This makes Nue applications the smallest on the market.
 
 *Evan You*'s (creator of Vue) [compared][evan] the generated code size of Vue and Svelte components. He used TodoMVC as the measure for an individual component. By adding add [Nue TodoMVC](/todomvc/)<!--TODO: fix--> to the mix we get the following data:
@@ -359,10 +345,8 @@ The compiled Nue code is very small: Only like ~1.2x larger than the HTML-based 
   small: /img/file-sizes.png
   width: 550
 
-
-
-
 ## Predicting the future
+
 I see that frontend development is trending into the following directions:
 
 *Multi-page applications (MPA)* are on the rise. With the emergence of server components and tools like Astro and Nue, people will eventually realize that the SPA (single page application) model is not ideal for "normal", content-heavy websites.
@@ -372,4 +356,3 @@ I see that frontend development is trending into the following directions:
 *More standards-based coding*. As developers move to multi-page applications JavaScript is rendered on the server side, and client-side JavaScript becomes optional. This forces the pre-SPA best practices to come back: Separation of concerns, progressive enhancement, and semantic web design.
 
 Nue is designed from the ground up to be on par with the above trends.
-

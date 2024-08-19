@@ -5,18 +5,13 @@ title: Tailwind marketing and misinformation engine
 desc: The origins of Tailwind and how it is framed against semantic CSS
 ---
 
-
 Tailwind CSS was born out of this sentence:
 
 [image "img/adam-keynote.jpg"]
   caption: "Adam's [keynote speech](//youtu.be/CLkxRnRQtDE?t=109) in Tailwind Connect 2023"
   alt: The most reusable components are those with class names that are independent of the content.
 
-
 The [sentence](//youtu.be/CLkxRnRQtDE?t=109) is from **Nicolas Gallagher**'s article about [HTML semantics and front-end architecture](//nicolasgallagher.com/about-html-semantics-front-end-architecture/). It was a turning point for **Adam Wathan**, the creator and frontman of Tailwind. After reading the article he was ["fully convinced that optimizing for reusable CSS was going to be the right choice"](//adamwathan.me/css-utility-classes-and-separation-of-concerns/)
-
-
-
 
 ## Phase 1: The Origins of Tailwind { #origins }
 
@@ -31,7 +26,6 @@ Nicholas points out in the article that scalable HTML/CSS must ["rely on classes
 ```
 
 The more generic the name, the more reusable it is. He used the famous [media object](//www.stubbornella.org/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/) as a prime example of reusable CSS.
-
 
 But that's not how Adam understood the sentence. Instead of moving towards more reusable class names, he introduced a custom grammar to inline styling rules directly to HTML:
 
@@ -64,13 +58,11 @@ But there was a challenge: To make such a statement, he needed to reshape the es
 [image "img/tailwind-practises.png" width="570"]
   caption: The new terms and phrases Tailwind developers are familiar with
 
-
 The new approach can be summarized as follows:
 
 > ["Semantic class names” are the reason CSS is hard to maintain](//tailwindcss.com/)
 
 This was a hefty statement as it contradicts with all the prior work and studies about CSS.
-
 
 In his keynote speech, Adam uses [harsh words](//youtu.be/CLkxRnRQtDE?si=s5bmoLnGsmbYDzMA) to describe the traditional way of structuring CSS, as opposed to how Tailwind is described:
 
@@ -81,17 +73,16 @@ Old best practices like "semantic", "separation of concerns", or "clean" are usu
 
 Unfair or not, this marketing scheme worked. Developers took the new terms and practices for granted and started tweeting and blogging about them. It was a gold mine for Tailwind's commercial business model.
 
-
-
 ## Phase 2: Utility-first workflow { #phase2 }
+
 Once they started cashing, Tailwind wanted to make sure the users were properly onboarded and locked in to the system. They introduced ["utility-first workflow"](//tailwindcss.com/docs/reusing-styles).
 
 > Tailwind encourages a utility-first workflow, where designs are implemented using only low-level utility classes. This is a powerful way to avoid premature abstraction and the pain points that come with it.
 
 Here's how the flow works:
 
-
 ### Step 1: Onboarding
+
 In the utility-first approach, the idea is to "build everything out of utilities, and later extract repeating patterns as they emerge". You are encouraged to try the system. Adam says:
 
 > [If you give it a chance, I really think you’ll wonder how you ever worked with CSS any other way.](//tailwindcss.com/)
@@ -100,8 +91,8 @@ Sounds good, so let's try it.
 
 Once installed, you quickly start to see why people enjoy Tailwind. You can write your styling in the same place as your markup and never think about semantic class names. You feel productive with all the handy shortcuts together with hot-module replacement.
 
-
 ### Step 2: "Premature abstraction"
+
 At some point, hundreds of utilities later, the code you've written doesn't look pretty. You start wondering what comes next after the utility-first step. How to clean things up?
 
 Turns out there is no next step. Or it kind of exists, but it's called "premature abstraction". You can start extracting classes with @apply, but the documentation for [reusing styles](//tailwindcss.com/docs/reusing-styles) describes it as a bad practice.
@@ -110,8 +101,8 @@ Turns out there is no next step. Or it kind of exists, but it's called "prematur
 
 But what should I use @apply for if not for cleaning up? The documentation does not say. It only tells me why it should **not** be used.
 
-
 ### Step 3: Vendor lock-in
+
 So I keep coming back to the first step resulting in more and more utility classes. I'm locked inside a loop:
 
 [image "img/utility-first-loop.png"]
@@ -123,12 +114,12 @@ The only escape from the mess is a JavaScript component, but we're talking about
 
 Which is our next topic.
 
-
 ## Phase 3: Catalyst UI kit { #catalyst }
+
 In December 2023, Tailwind introduced *Catalyst* with a richer set of language expressions and a React-based UI library.
 
-
 ### Domain-specific language (DSL)
+
 To keep up with the ever-evolving CSS standard Tailwind introduced another set of language literals. Over the years, Tailwind has grown from a simple set of atoms to a vendor-specific language with expressions, operators, and method calls.
 
 Let's look at the source code of the first button on [Catalyst demo page](//catalyst.tailwindui.com/):
@@ -203,7 +194,6 @@ Let's look at the source code of the first button on [Catalyst demo page](//cata
     text-base/6
     text-white"> Button </button>
 
-
 I have many questions about this:
 
 Most importantly: How is this wall of text more maintainable than a class name like "primary"?
@@ -212,8 +202,8 @@ Do I need another wall for the white button?
 
 Also: Are there any limits to the utility-first workflow? When can I use @apply to clean things up? After 50 expressions? 100 expressions? 1000?
 
-
 ### "Modeled after HTML"
+
 Another major feature in Catalyst was a new markup language that separates all the language literals behind React components. Here's a dialog example using [Catalyst components](//catalyst.tailwindui.com/docs):
 
 [code numbered="1"]
@@ -236,7 +226,6 @@ Another major feature in Catalyst was a new markup language that separates all t
     </DialogActions>
   </Dialog>
 
-
 The markup feels surprisingly similar to semantic HTML:
 
 [image "img/catalyst-markup.png" width="570"]
@@ -247,7 +236,6 @@ This raises more questions:
 Most importantly: How is `<button class="plain">` different from `<Button plain>`? Isn't this "semantic" — the root of all bad in CSS?
 
 And standard HTML `<dialog>` is bad, but `<Dialog>` with uppercase is legit?
-
 
 Why introduce so many different versions of the `<p>` tag?
 
@@ -268,8 +256,8 @@ I'm confused, to say the least.
 
 - - -
 
-
 ## I love ❤️ CSS
+
 I started web development at the age of a `<blink>` tag and CSS has always been my favorite part of the web development stack. I'm particularly fascinated about the crossing between design and [front-of-the frontend](//bradfrost.com/blog/post/front-of-the-front-end-and-back-of-the-front-end-web-development/).
 
 When Microsoft released [Internet Explorer 4.0](//en.wikipedia.org/wiki/Internet_Explorer_4) with solid support for both external stylesheets and DHTML, It nailed me to the separation of concerns pattern. I see it as the most important component for software scalability and it's particularly important with HTML and CSS. The way of organizing design has been around for centuries: There are element types and contexts. The nuanced relationship between [form and function](//en.wikipedia.org/wiki/Form_follows_function). CSS is the missing tool to bring foundational design-thinking to frontend development.
@@ -282,28 +270,24 @@ I'm not a fan of any of that.
 
 I recommend everyone to take a closer look to what has happened to CSS there in the past 10 years. Regardless of your current stance. It's a powerful language that far surpasses the capabilities of Tailwind. Learn to build scalable architectures, and see how atomic class names and inline styling fit into the bigger picture.
 
-
 ### First things first: Learn CSS
+
 The first step is to learn CSS. It's the ultimate design language for the web. A safe bet for years to come.
 
 1. Start from the [Nicholas' post][nicolas] and learn the benefits of semantic naming. Understand how Adam cherry-picked one sentence and misused it to validate the contrasting practices of Tailwind.
-
 2. Study MDN documentation on web standards. There's a lot, so start with the most important aspects of CSS: [the cascade][cascade] and [specificity][specificity].
-
 3. Take inspiration. Learn how the best developers in the game like [Ryan Mulligan](//ryanmulligan.dev/blog/), [Ahmad Shadeed](//ishadeed.com/), and [Josh Comeau](//www.joshwcomeau.com/) use CSS in more stylish, and creative ways.
 
 [nicolas]: //nicolasgallagher.com/about-html-semantics-front-end-architecture/
 [cascade]: //developer.mozilla.org/en-US/docs/Web/CSS/Cascade
 [specificity]: //developer.mozilla.org/en-US/docs/Web/CSS/CSS_nesting/Nesting_and_specificity
 
-
-
 ### Content first
+
 Here's a better workflow. It has many names: "standards first", "content first", or "progressive enhancement".
 
 [image "img/standards-first.png" width="650"]
   caption: Standards first model
-
 
 You start with a pure, semantic layout and figure out all the reusable pieces of CSS. At times, especially when building new components, you might want to prototype quickly with inline styling. But that's okay and part of the system. You can clean things up later.
 
@@ -313,16 +297,13 @@ There are no "pain points" in clean code, only benefits. This is the system I wa
 
 Because trends are temporary, but standards are forever.
 
-
 ### Stay relevant
+
 My guess: It's only a matter of time before Tailwind collapses. The vendor-specific language and the misleading communication cannot hold water very long. The utility soup produced today will eventually turn into a technical debt. The next generation looks back and asks: "You actually wrote **that**?"
 
 Learn to write clean HTML and CSS and stay relevant for years to come.
 
 [image "img/tw-switch.png" width="600"]
 
-
-
 [.footnote]
   Thanks to **Alan Hemmings, Janne Lehtinen, Anssi Piirainen, Anni Myllykangas, Courtney Couch, Lari Hotari, Joona Piirainen, Jukka Kujansivu, Lauri Heiskanen**, and **David Henzel** for reading drafts of this. And very special thanks to the friends (with no name) who use Tailwind daily. Your feedback was especially important.
-

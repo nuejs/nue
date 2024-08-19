@@ -15,21 +15,19 @@ Today we're launching *Glow* — a new take on syntax highlighting:
   caption: 30+ languages colored. Click the image for a standalone view.
   href: /glow-demo/ # TODO: fix
 
-
 *Glow is different*: Instead of attempting to understand language internals, Glow focuses solely on aesthetics and how your code looks.
 
 *Glow is simple*: Glow makes all languages work with your brand colors by adjusting just a handful of CSS variables.
 
 *Glow is small*: Glow is orders of magnitude smaller than the mainstream alternatives. We're talking [5K](//pkg-size.dev/nue-glow) instead of [5M](//pkg-size.dev/shiki). It's by far the smallest implementation available.
 
-
 [image.tall]
   small: /img/shiki-vs-glow.png
   large: /img/shiki-vs-glow-big.png
   width: 600
 
-
 ## Coloring voodoo
+
 Be it **Haskell**, **TypeScript**, or **Zig**. **React**, **Vue** or **Svelte**. Whatever Turing-free **Markdown** artifact is mixed with another tightly coupled language-of-the-day oddity. And they will all glow:
 
 [image.larger]
@@ -65,8 +63,8 @@ Contrast this to grammar-aware theming systems, like Shiki and *Prism*, where a 
 
 [material]: //github.com/shikijs/textmate-grammars-themes/blob/main/packages/tm-themes/themes/material-theme.json
 
-
 ## Unlimited possibilities
+
 Glow's unique, [classless design system](/docs/syntax-highlighting.html#html-markup) gives you line numbers, selections, error highlights, insertions, deletions, and much much more.
 
 [code.is-dark.browser-like wrapper="gradient sky" numbered="true"]
@@ -104,6 +102,7 @@ And when I say "unlimited", it means that:
 
 [code language="md" numbered="true" wrapper="live-code"]
   # There's something about Lightning CSS
+
   Writing future CSS today has been a massive
   •productivity boost.• You'll get nesting, `color-mix()`,
   variables, and whatnot. Natively, today.
@@ -114,14 +113,13 @@ And when I say "unlimited", it means that:
   > work closer to metal. Everything happened
   > sub-millisecond. I entered a new planet.
 
-
-
 ## Glow + Nue = Next level
-[Nue](/) is a web framework for UX developers and other design-minded people. As of today, it has built-in support for Glow. You can do things like the following in your Markdown content:
 
+[Nue](/) is a web framework for UX developers and other design-minded people. As of today, it has built-in support for Glow. You can do things like the following in your Markdown content:
 
 [codeblocks.codestack.larger captions="Content *YAML* | Styling *CSS*"]
   # View metadata
+
   members:
     title: Members
     columns: [Source, Joined]
@@ -138,6 +136,7 @@ And when I say "unlimited", it means that:
       card: Card type
 
   ---
+
   /* Tab styling */
   [role=tablist] {
     background: rgba(0, 0, 0, .7);
@@ -155,7 +154,6 @@ And when I say "unlimited", it means that:
   }
 
 Or things like this:
-
 
 [codetabs "HTML | CSS | JS" wrapper="pink" numbered="1"]
   <dialog>
@@ -179,7 +177,9 @@ Or things like this:
       </footer>
     </form>
   </dialog>
+
   ---
+
   dialog {
     background-color: #0004;
     box-shadow: 0 0 2em #9cc;
@@ -196,7 +196,9 @@ Or things like this:
     margin-top: 1em;
     button { width: 100%; }
   }
+
   ---
+
   // Generic Web Component for sending data
   class HTXPost extends HTMLElement {
     constructor(options) {
@@ -217,12 +219,12 @@ Or things like this:
     extends: 'form'
   })
 
-
-
 ## Get started with Glow
+
 You can try Glow either as a standalone library or together with the Nue framework.
 
 #### Standalone library
+
 Install [nue-glow](//github.com/nuejs/nue/tree/master/packages/glow) with npm, pnpm, or bun:
 
 ```sh
@@ -230,7 +232,6 @@ npm i nue-glow
 ```
 
 And follow the [Glow documentation](/docs/syntax-highlighting.html)
-
 
 #### With Nue
 
@@ -256,8 +257,4 @@ Choose *"Simple blog"* on the last step and you can enjoy goodies content hot-re
   caption: Nue hot-reloading in action
   poster: thumbnail_1ca1bd66.jpg
 
-
 PS: Check out [Getting started docs](/docs/#node) if you prefer Node.
-
-
-
