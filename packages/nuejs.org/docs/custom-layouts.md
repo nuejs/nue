@@ -1,5 +1,6 @@
 
 # Custom layouts
+
 The design system consists of various "slots" that you can fill or replace with custom template content. The slots are named as follows:
 
 [image.bordered /img/custom-layout.svg size="569 × 634 px"]
@@ -26,13 +27,11 @@ The layouts are written in a HTML-based [template language](template-syntax.html
 
 The modules can be stored in any file with a `.html` suffix such as `layout.html` and the file can contain multiple layout components.
 
-
-
 ### Area-specific layouts
+
 You can customize the layout of all the different areas of your website like the documentation or blogging area. Think custom sidebars, blog entry "hero" layouts, or custom footers. The area-specific layouts override any existing layouts defined globally at the root level.
 
 This documentation area, for example, has the following documentation-specific layouts in [docs/layout.html](//github.com/nuejs/nue/blob/master/packages/nuejs.org/docs/layout.html):
-
 
 ```html
 <!-- main sidebar (left) -->
@@ -40,7 +39,6 @@ This documentation area, for example, has the following documentation-specific l
   <button popovertarget="sidebar">&times;</button>
   <navi :items="sidenav"/>
 </aside>
-
 
 <!-- complementary sidebar (right) -->
 <aside @name="complementary">
@@ -63,6 +61,7 @@ This documentation area, for example, has the following documentation-specific l
 ```
 
 ### Leaving out layouts { #disabling }
+
 Sometimes you want to leave out some layouts. For example, the blog index page might want to disable the layout components that are available on the actual blog entries. This happens by setting the desired layout components to `false`. For example:
 
 ```yaml
@@ -71,9 +70,8 @@ pagehead: false
 pagefoot: false
 ```
 
-
-
 ### Main Layout
+
 You can override the `main` element by re-defining it in a layout file. For example:
 
 ```html
@@ -87,10 +85,11 @@ You can override the `main` element by re-defining it in a layout file. For exam
 
 [.warning]
   ### Warning
+
   Overriding the main element breaks you out of the global design system.
 
-
 ### Root layout
+
 You can go extreme and override the entire `html` element in which case you can customize everything inside the html element, including the document head:
 
 ```html
@@ -116,8 +115,8 @@ You can go extreme and override the entire `html` element in which case you can 
 </html>
 ```
 
-
 ## Built-in helper components
+
 You can use several built-in helper components when building your layouts. For example, the blogging area on this website takes advantage of several built-in components in the blog entry "hero" area:
 
 ```html
@@ -137,8 +136,8 @@ You can use several built-in helper components when building your layouts. For e
 
 Here are all the helper components:
 
-
 ### `<navi>`
+
 Renders an ARIA compatible navigational element based on the data given in the `items` attribute. The data must be formatted in a specific [YAML format](page-layout.html#yaml) which supports multiple types of navigation types: Flat, hierarchical, and more complex dropdown navigation menus.
 
 This website, for example, uses the `<navi/>` component in the sidebar of the documentation area:
@@ -149,17 +148,19 @@ This website, for example, uses the `<navi/>` component in the sidebar of the do
   <navi :items="sidenav"/>
 </aside>
 ```
+
 You can use an optional `label` attribute as the value for the `aria-label` HTML attribute for the generated `<nav/>` element.
 
-
 ### `<markdown>`
+
 Renders a Markdown-formatted string given in the `content` attribute.
 
 ### `<pretty-date>`
+
 Pretty-prints a date value given in the `date` attribute.
 
-
 ### `<toc>`
+
 Renders a table of contents from the current Markdown document.
 
 ```html
@@ -178,8 +179,8 @@ Only second and third level headings (h2, h3) are included in the navigation. Yo
 <toc is="observing-nav"/>
 ```
 
-
 ### Custom components
+
 You can create custom layout components and custom Markdown extensions for content authors with Nue's layout syntax. Here, for example, is a generic author component:
 
 ```html
@@ -194,6 +195,3 @@ You can create custom layout components and custom Markdown extensions for conte
 ```
 
 Check out the documentation for [custom components](template-syntax.html#custom-components).
-
-
-

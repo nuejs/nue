@@ -1,7 +1,7 @@
 
 # Command line interface
-The command line interface documents itself with a `--help` option:
 
+The command line interface documents itself with a `--help` option:
 
 ## Options
 
@@ -61,6 +61,7 @@ Less is more
 ```
 
 ## Examples
+
 A few more usage examples:
 
 ```sh
