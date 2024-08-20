@@ -213,6 +213,7 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
 
   // context
   let impl = {}
+  const CaseInsensitiveObject = { get: function (target, name) { return target[name?.toLowerCase()] } }
 
   const self = {
     update,
@@ -222,7 +223,7 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
     // root === $el
     get root() { return self.$el },
 
-    $refs: {},
+    $refs: new Proxy({}, CaseInsensitiveObject),
 
     $parent,
 
