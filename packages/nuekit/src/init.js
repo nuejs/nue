@@ -1,37 +1,31 @@
 
-import { compileFile as nueCompile} from 'nuejs-core'
+import { compileFile as nueCompile } from 'nuejs-core'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { promises as fs } from 'node:fs'
+import { promises as fs, existsSync } from 'node:fs'
 import { resolve } from 'import-meta-resolve'
 import { buildJS } from './builder.js'
 import { colors, srcdir } from './util.js'
 
 
 export async function init({ dist, is_dev, esbuild, force }) {
-
   // directories
   const cwd = process.cwd()
   const outdir = join(cwd, dist, '@nue')
 
   // has all latest?
   const latest = join(outdir, '.05')
-  try {
-    if (force) throw new Error()
-    await fs.stat(latest)
-    return false
 
-  } catch {
+  if (force || !existsSync(latest)) {
     await fs.rm(outdir, { recursive: true, force: true })
     await fs.mkdir(outdir, { recursive: true })
     await fs.writeFile(latest, '')
-  }
 
-  await initDir({ dist, is_dev, esbuild, cwd, srcdir, outdir })
+    await initDir({ dist, is_dev, esbuild, cwd, srcdir, outdir })
+  }
 }
 
 async function initDir({ dist, is_dev, esbuild, cwd, srcdir, outdir }) {
-
   const fromdir = join(srcdir, 'browser')
   const minify = !is_dev
 
@@ -91,7 +85,7 @@ async function initDir({ dist, is_dev, esbuild, cwd, srcdir, outdir }) {
   await copy('favicon.ico', join(cwd, dist))
 
   // new line
-  console.log('')
+  console.log()
 }
 
 

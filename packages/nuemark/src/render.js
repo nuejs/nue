@@ -1,9 +1,7 @@
 
-import { tags, elem, join, concat } from './tags.js'
+import { tags, elem, join } from './tags.js'
 import { parsePage, parseHeading } from './parse.js'
-import { marked, parseInline } from 'marked'
-import { parseAttr } from './component.js'
-
+import { marked } from 'marked'
 
 export function renderPage(page, opts) {
   const { lib=[] } = opts
