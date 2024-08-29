@@ -1,6 +1,6 @@
 
 import { join, extname, parse as parsePath } from 'node:path'
-import { log, colors, getAppDir, sortCSS } from './util.js'
+import { colors, sortCSS } from './util.js'
 import { promises as fs } from 'node:fs'
 import { fswalk } from './nuefs.js'
 

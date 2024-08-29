@@ -5,11 +5,9 @@ import { Features, bundleAsync } from 'lightningcss'
 import { join } from 'node:path'
 import { resolve } from 'import-meta-resolve'
 
-
 export async function getBuilder(is_esbuild) {
-  const actual_cwd = process.env.ACTUAL_CWD || process.cwd()
   try {
-    return is_esbuild ? await import(resolve('esbuild', `file://${actual_cwd}/`)) : Bun
+    return is_esbuild ? await import(resolve('esbuild', `file://${process.cwd()}/`)) : Bun
   } catch {
     throw 'Bundler not found. Please use Bun or install esbuild'
   }
