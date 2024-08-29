@@ -5,15 +5,14 @@ import {
   extendData,
   getAppDir,
   log,
-  colors,
   toPosix,
   sortCSS,
   joinRootPath
 } from './util.js'
 
-import { join, extname, basename, sep, parse as parsePath } from 'node:path'
+import { join, extname, parse as parsePath } from 'node:path'
 import { parse as parseNue } from 'nuejs-core'
-import { promises as fs } from 'node:fs'
+import { promises as fs, existsSync } from 'node:fs'
 import { fswalk } from './nuefs.js'
 import { nuemark } from 'nuemark'
 import yaml from 'js-yaml'
@@ -30,12 +29,7 @@ export async function createSite(args) {
   const cache = {}
 
   // make sure root exists
-  try {
-    await fs.stat(root)
-  } catch (e) {
-    console.info(e)
-    throw `Root directory does not exist: ${root}`
-  }
+  if (!existsSync(root)) throw `Root directory does not exist: ${root}`
 
   /*
     Bun.file()::text() has equal performance
@@ -76,19 +70,14 @@ export async function createSite(args) {
     libs: site_data.libs || [],
   }
 
-  const {
-    dist: rawDist,
-    port = is_prod ? 8081 : 8080
-  } = site_data
+  const port = args.port ? args.port :
+    site_data.port ? site_data.port :
+      is_prod ? 8081 : 8080
 
-  const dist = joinRootPath(root, rawDist || join('.dist', is_prod ? 'prod' : 'dev'))
+  const dist = joinRootPath(root, site_data.dist || join('.dist', is_prod ? 'prod' : 'dev'))
 
   // flag if .dist is empty
-  try {
-    await fs.stat(dist)
-  } catch {
-    self.is_empty = true
-  }
+  if (!existsSync(dist)) self.is_empty = true
 
   async function write(content, dir, filename) {
     const todir = join(dist, dir)
@@ -238,9 +227,7 @@ export async function createSite(args) {
     const arr = []
 
     // make sure dir exists
-    try {
-      await fs.stat(join(root, dir))
-    } catch (e) {
+    if (!existsSync(join(root, dir))) {
       console.error(`content collection: "${dir}" does not exist`)
       return arr
     }
@@ -328,14 +315,11 @@ export async function createSite(args) {
     try_files.push(['', 404, 'md'])
 
     for (const [dir, name, ext] of try_files) {
-      try {
-        const src = join(dir, `${name}.${ext}`)
-        await fs.stat(join(root, src))
+      const src = join(dir, `${name}.${ext}`)
+      if (existsSync(join(root, src)))
         return { src, path: join(dir, `${name}.html`), name }
-      } catch { }
     }
   }
 
   return { ...self, dist, port, read, write, copy }
-
 }

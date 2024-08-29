@@ -1,7 +1,7 @@
 
 
 import { log, colors, getAppDir, parsePathParts, extendData } from './util.js'
-import { join, parse as parsePath, extname, basename } from 'node:path'
+import { join, parse as parsePath } from 'node:path'
 import { renderPage, renderSinglePage } from './layout/page-layout.js'
 import { parse as parseNue, compile as compileNue } from 'nuejs-core'
 import { lightningCSS, buildJS } from './builder.js'
@@ -15,9 +15,6 @@ import { init } from './init.js'
 
 // the HTML5 doctype
 const DOCTYPE = '<!doctype html>\n\n'
-
-// file not found error code
-const NOT_FOUND = -2
 
 export async function createKit(args) {
   const { root, is_prod, esbuild } = args
