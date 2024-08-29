@@ -47,18 +47,23 @@ export function getArgs(argv) {
       else if (['-v', '--verbose'].includes(arg)) args.verbose = true
       else if (['-s', '--stats'].includes(arg)) args.stats = true
       else if (['-b', '--esbuild'].includes(arg)) args.esbuild = true
-      else if (['-P', '--push'].includes(arg)) args.push = args.is_prod = true
+      else if (['-d', '--deploy'].includes(arg)) args.deploy = args.is_prod = true
       else if (['-I', '--init'].includes(arg)) args.init = true
 
       // string values
       else if (['-e', '--environment'].includes(arg)) opt = 'env'
       else if (['-r', '--root'].includes(arg)) opt = 'root'
+      else if (['-P', '--port'].includes(arg)) opt = 'port'
 
       // bad options
       else throw `Unknown option: "${arg}"`
 
     } else if (arg && arg[0] != '-') {
-      if (opt) { args[opt] = arg; opt = null }
+      if (opt) {
+        args[opt] = opt == 'port' ? Number(arg) : arg
+        // Number(alphabetic characters) is falsy. Check if port is really set:
+        if (opt != 'port' || (opt == 'port' && args.port)) opt = null
+      }
       else args.paths.push(arg)
     } else if (opt) throw `"${opt}" option is not set`
   })
@@ -81,32 +86,31 @@ async function printVersion() {
 
 async function runCommand(args) {
   const { createKit } = await import('./nuekit.js')
-  const { cmd='serve', dryrun, push, root=null } = args
-  if (!root) args.root = '.'
+  const { cmd='serve', dryrun, deploy, root=null, port } = args
+  if (!root) args.root = '.' // ensure root is unset for create, if not set manually
 
   console.info('')
 
   // create nue
   if (cmd == 'create') {
     const { create } = await import('./create.js')
-    return await create({ root, name: args.paths[0] })
+    return await create({ root, name: args.paths[0], port })
   }
 
   const nue = await createKit(args)
   args.nuekit_version = await printVersion()
 
-
   // stats
   if (cmd == 'stats') await nue.stats(args)
 
   // build
-  if (dryrun || push || args.paths[0] || cmd == 'build') {
+  if (dryrun || deploy || args.paths[0] || cmd == 'build') {
     const paths = await nue.build(args.paths, dryrun)
 
     // deploy (private repo ATM)
-    if (!dryrun && push) {
-      const { deploy } = await import('nue-deployer')
-      await deploy(paths, { root: nue.dist, init: args.init })
+    if (!dryrun && deploy) {
+      const { deploy: deployer } = await import('nue-deployer')
+      await deployer(paths, { root: nue.dist, init: args.init })
     }
 
   // serve

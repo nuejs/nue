@@ -5,8 +5,8 @@ import { join } from 'node:path'
 import { openUrl } from './util.js'
 import { createKit } from './nuekit.js'
 
-async function serve(root, debug) {
-  const nue = await createKit({ root })
+async function serve(root, port, debug) {
+  const nue = await createKit({ root, port })
   const terminate = await nue.serve()
 
   // open welcome page
@@ -14,7 +14,7 @@ async function serve(root, debug) {
   return terminate
 }
 
-export async function create({ root, name = 'simple-blog' }) {
+export async function create({ root, name = 'simple-blog', port }) {
   if (!root) root = name
 
   // debug mode with: `nue create test`
@@ -49,5 +49,5 @@ export async function create({ root, name = 'simple-blog' }) {
   await fs.rm(archive_name)
 
   // serve
-  return await serve(root, debug)
+  return await serve(root, port, debug)
 }

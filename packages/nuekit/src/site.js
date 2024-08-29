@@ -78,12 +78,11 @@ export async function createSite(args) {
     libs: site_data.libs || [],
   }
 
-  const {
-    dist: rawDist,
-    port = is_prod ? 8081 : 8080
-  } = site_data
+  const port = args.port ? args.port :
+    site_data.port ? site_data.port :
+      is_prod ? 8081 : 8080
 
-  const dist = joinRootPath(root, rawDist || join('.dist', is_prod ? 'prod' : 'dev'))
+  const dist = joinRootPath(root, site_data.dist || join('.dist', is_prod ? 'prod' : 'dev'))
 
   // flag if .dist is empty
   try {
