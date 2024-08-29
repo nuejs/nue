@@ -86,7 +86,7 @@ async function printVersion() {
 
 async function runCommand(args) {
   const { createKit } = await import('./nuekit.js')
-  const { cmd='serve', dryrun, deploy, root = null, port } = args
+  const { cmd = 'serve', dryrun, deploy, root = null, port } = args
   if (!root) args.root = '.' // ensure root is unset for create, if not set manually
 
   console.info('')
