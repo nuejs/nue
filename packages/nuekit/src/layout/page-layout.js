@@ -5,6 +5,7 @@ import { renderGallery, renderPrettyDate } from './gallery.js'
 import { renderNav, renderTOC } from './navi.js'
 import { renderPage as nuemark } from 'nuemark'
 import { parse as parseNue } from 'nuejs-core'
+import { tags } from 'nuemark/src/tags.js'
 import { renderInline } from 'nuemark'
 import { renderHead } from './head.js'
 
@@ -99,6 +100,7 @@ const html_tags = [
   { name: 'markdown', create: ({ content }) => renderInline(content) },
   { name: 'pretty-date', create: ({ date }) => renderPrettyDate(date) },
   { name: 'toc', create: renderTOC },
+  { name: 'image', create: tags.image },
 ]
 
 const nuemark_tags = { gallery: renderGallery, toc: renderTOC }

@@ -2,22 +2,12 @@
 /*
   Build-in tag library
 
-  Why
-    - Common syntax for content teams
-    - Re-usable components accross projects
-    - Shared semantics for design systems
-
-  Features
-    - Can be combined to form more complex layouts
-    - Fully headless & semantic = externally styleable
-    - Fast, reliable, unit tested
-    - Globally & local configuration
-    - Usable outside Nue
-
-  TODO
-    - Available on templates with "-tag" suffix: <image-tag>
-    - Nuekit Error reporting
+  - Common syntax for content teams
+  - Re-usable components accross projects
+  - Shared semantics for design systems
+  - Fast, reliable, unit tested
 */
+
 import { readFileSync } from 'node:fs'
 import { nuemarkdown } from '../index.js'
 import { parseInline } from 'marked'
