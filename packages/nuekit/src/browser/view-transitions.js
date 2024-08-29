@@ -143,10 +143,12 @@ export function onclick(root, fn) {
     const el = e.target.closest('[href]')
     const path = el?.getAttribute('href')
     const target = el?.getAttribute('target')
+    const pathname = new URL(path).pathname    
 
     // event ignore
     if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey ||
       !path || path[0] == '#' || path.includes('//') || path.startsWith('mailto:') ||
+      (pathname.split('/').pop()?.includes('.') && !pathname.endsWith('.html')) ||
       target == '_blank') return
 
     // all good
