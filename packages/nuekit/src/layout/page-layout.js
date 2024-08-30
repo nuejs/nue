@@ -39,7 +39,7 @@ const MAIN = `
 const MENU = `
   <!-- burger menu -->
   <dialog popover id="menu">
-    <button popovertarget="menu">&times;</button>
+    <button popovertarget="menu"></button>
     <navi :items="burger_menu"/>
   </dialog>
 `
