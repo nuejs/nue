@@ -1,6 +1,6 @@
 
 import { watch, promises as fs } from 'node:fs'
-import { join, parse, sep } from 'node:path'
+import { join, parse } from 'node:path'
 
 /*
   Super minimalistic file system watcher.

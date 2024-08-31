@@ -1,7 +1,6 @@
 
-import { tags, elem, join, concat } from './tags.js'
+import { tags, elem, join } from './tags.js'
 import { parsePage, parseHeading } from './parse.js'
-import { parseAttr } from './component.js'
 import { marked } from 'marked'
 
 export function renderPage(page, opts) {
@@ -98,15 +97,15 @@ function parseLink(href) {
   return { href, title }
 }
 
-export function renderHeading(html, level, raw) {
+export function renderHeading(html, depth, raw) {
   const plain = parseHeading(raw)
   const { id } = plain
 
   // class name only
-  if (!id && plain.class) return elem(`h${level}`, { class: plain.class }, plain.text)
+  if (!id && plain.class) return elem(`h${depth}`, { class: plain.class }, plain.text)
 
   // no id -> return plain heading
-  if (!id || level == 1) return elem(`h${level}`, html)
+  if (!id || depth == 1) return elem(`h${depth}`, html)
 
   // id given
   const title = plain.text.replaceAll('"', '')
@@ -114,7 +113,7 @@ export function renderHeading(html, level, raw) {
 
   delete plain.text
   const a = elem('a', { href: `#${id}`, title })
-  return elem(`h${level}`, plain, a + text)
+  return elem(`h${depth}`, plain, a + text)
 }
 
 // marked renderers

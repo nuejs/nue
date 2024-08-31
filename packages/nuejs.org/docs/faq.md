@@ -1,3 +1,4 @@
+
 # Nue FAQ
 
 ## Frequently asked questions
@@ -32,26 +33,13 @@ Nue is a bad fit for React developers who prefer to use TypeScript for styling a
 
 
 
-### What is a UX developer?
-UX developer focuses on the user experience. Starting with the big picture and the general narrative, then moving on to design and design systems, and finally using CSS to convert the design system into a functional website. This role is also known as "design engineer" and the work is sometimes referred to as "design ops".
-
-[image.gridpaper]
-  small: /img/ux-development-flow.png
-  large: /img/ux-development-flow-big.png
-  caption: UX development process
-  size: 747 × 236 px
-
-
-
-
-
 
 ### What is the ultimate goal?
 The ultimate goal of Nue is to build [a perfect web framework](/blog/perfect-web-framework/) for UX developers. A simpler alternative to **Next.js**, **Vercel** and **Netlify**.
 
 
 ### Isn't this just another web framework?
-On the contrary. Nue is currently the _only_ framework for UX developers.
+On the contrary. Nue is currently the *only* framework for UX developers.
 
 ### How to migrate a large JavaScript codebase to Nue?
 By converting your inline styling to semantic HTML, switching from JavaScript to CSS, and by assembling your content with the extended Markdown syntax. It's likely a full rewrite, but you are rewarded with a significantly cleaner, easier-to-maintain, and more performant product.
@@ -69,16 +57,16 @@ Yes. With pixel-perfect, easy-to-use templates for individuals, businesses, and 
 
 - **Steve Jobs**. The greatest UX developer ever existed.
 
-- **Mies van Der Rohe**. His philosophy; "Less is more" defines my thinking.
+- **Mies van der Rohe**. His philosophy; "Less is more" defines my thinking.
 
 - **Jarred Sumner** for [Bun](//bun.sh). It showcases the power of dreaming big.
 
-- **Salvatore Sanfilippo** for the inspirational [coding style](//github.com/redis/redis/tree/unstable/src)
+- **Salvatore Sanfilippo** for the inspirational [coding style](//github.com/redis/redis/tree/unstable/src).
 
 
 ### Where does the word "Nue" come from?
 "Nue" comes from the German word "neu", which translates to "new" in English. It is pronounced like `/nju/`.
 
 ### Can I help?
-Please do! Send me email: tipiirai @ gmail com.
+Please do! Send me an email: tipiirai @ gmail com.
 

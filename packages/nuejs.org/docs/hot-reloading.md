@@ -13,9 +13,9 @@ Hot-reloading is automatically enabled in development. The client-server communi
 
 ### Content
 - Markdown content
-- Front matter (example: document.title updates)
-- Layout files: both root- and app-level `layout.html`
-- `site.yaml` or application-specific YAML data (example: master navigation updates)
+- Front matter (Example: document.title updates)
+- Layout files: Both root- and app-level `layout.html`
+- `site.yaml` or application-specific YAML data (Example: Master navigation updates)
 - Updates to other than the active page routes automatically to the new page
 
 ### Styling
@@ -26,8 +26,8 @@ Hot-reloading is automatically enabled in development. The client-server communi
 
 ### Reactive components
 - All component updates
-- Form components: potential form data is restored to the updated component
-- Dialog components: dialogs and overlays remain open after they update
+- Form components: Potential form data is restored to the updated component
+- Dialog components: Dialogs and overlays remain open after they update
 
 [bunny-video]
   videoId: abe66a92-71a9-4441-866b-20fdf31a7180

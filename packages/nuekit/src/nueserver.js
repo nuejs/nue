@@ -41,15 +41,18 @@ export function createServer(root, callback) {
     }
 
     let [ url, _ ] = req.url.split('?')
-    const ext = extname(url).slice(1)
+    let ext = extname(url).slice(1)
 
-    if (!ext) url = join(url, 'index.html')
+    if (!ext) {
+      url = join(url, 'index.html')
+      ext = 'html'
+    }
 
     try {
       const { code, path } = !ext || ext == 'html' ? await callback(url, _) : { path: url }
       if (!path) throw { errno: -2 }
       const buffer = await fs.readFile(join(root, path))
-      res.writeHead(code || 200, { 'content-type': TYPES[ext] || TYPES.html })
+      res.writeHead(code || 200, { 'content-type': TYPES[ext] })
       res.end(buffer)
   
     } catch(e) {

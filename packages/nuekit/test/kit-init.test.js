@@ -14,13 +14,13 @@ beforeAll(async () => {
 afterAll(async () => await fs.rm(dist, { recursive: true, force: true }))
 
 test('bun init', async () => {
-  await init({ dist, is_dev: true  })
+  await init({ dist, is_dev: true })
   const names = await fs.readdir(join(dist, '@nue'))
   expect(names.length).toBe(11)
 })
 
 test('esbuild init', async () => {
-  await init({ dist, is_dev: true, esbuild: true  })
+  await init({ dist, is_dev: true, esbuild: true })
   const names = await fs.readdir(join(dist, '@nue'))
   expect(names.length).toBe(11)
 })

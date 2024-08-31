@@ -1,43 +1,53 @@
-
-import { createKit } from './nuekit.js'
-import { finished } from 'node:stream/promises'
-import { createWriteStream } from 'node:fs'
 import { execSync } from 'node:child_process'
-import { promises as fs } from 'node:fs'
-import { Readable } from 'node:stream'
+import { promises as fs, existsSync } from 'node:fs'
+import { join } from 'node:path'
 
+import { openUrl } from './util.js'
+import { createKit } from './nuekit.js'
 
-async function serve() {
-  const nue = await createKit({ root: '.' })
-  await nue.serve()
+async function serve(root, port, debug) {
+  const nue = await createKit({ root, port })
+  const terminate = await nue.serve()
 
   // open welcome page
-  execSync('open http://localhost:8083/welcome/')
+  if (!debug) execSync(`${openUrl} http://localhost:${nue.port}/welcome/`)
+  return terminate
 }
 
-export async function create({ name='simple-blog' }) {
+export async function create({ root, name = 'simple-blog', port }) {
+  if (!root) root = name
 
-  // read files
-  const files = await fs.readdir('.')
-
-  // already created -> serve
-  if (files.includes('site.yaml')) return serve()
+  // debug mode with: `nue create test`
+  const debug = name == 'test'
+  if (debug) name = 'simple-blog'
 
   // currently only simple-blog is available
-  if (name != 'simple-blog') return console.error('Template does not exist', name)
+  if (name != 'simple-blog') return console.error(`Template "${name}" does not exist`)
 
-  // must be empty directory
-  if (files[1] || files[0] != '.DS_Store') {
-    return console.error('Please create the appplication to an empty directory')
-  }
+  if (existsSync(root)) {
+    // read files
+    const files = (await fs.readdir(root)).filter(f => !f.startsWith('.'))
 
-  // download zip
-  const zip = await fetch(`https://${ name }.nuejs.org/${name}.zip`)
-  await Bun.write('source.zip', zip)
+    // already created -> serve
+    if (files.includes('site.yaml')) return serve(root)
 
-  // unzip
-  await execSync('unzip source.zip')
+    // must be empty directory
+    if (files.length) return console.error('Please create the template to an empty directory')
+
+  } else await fs.mkdir(root, { recursive: true })
+
+  // download archive
+  console.info('Loading template...')
+  const archive_name = join(root, `${name}-source.tar.gz`)
+  const archive = await fetch(`https://${name}.nuejs.org/${debug ? 'test' : name}.tar.gz`)
+  await fs.writeFile(archive_name, Buffer.from(await archive.arrayBuffer()))
+
+  // uncompress
+  execSync(`tar -C ${root} --strip-components 1 -xf ${archive_name}`)
+
+  // remove archive
+  await fs.rm(archive_name)
 
   // serve
-  await serve()
+  return await serve(root, port, debug)
 }

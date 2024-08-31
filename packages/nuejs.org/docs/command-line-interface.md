@@ -5,13 +5,13 @@ The command line interface documents itself with a `--help` option:
 
 ## Options
 
-``` sh
+```sh
 nue --help
 ```
 
-This returns following output
+This returns the following output:
 
-``` md
+```md
 Usage
   nue [command] [options] [file_matches]
   nue -v or --version
@@ -20,7 +20,8 @@ Usage
 Commands
   serve    Start development server (default command)
   build    Build the site under <root_dir>
-  stats    Show site statistics (beta)
+  stats    Show site statistics
+  create   Create a new website with a starter template
 
 Options
   -r or --root          Source directory. Default "." (current working dir)
@@ -29,7 +30,8 @@ Options
   -s or --stats         Show site statistics after current command
   -I or --init          Force clear and initialize output directory
   -n or --dry-run       Show what would be built. Does not create outputs
-  -b or --esbuild       Use esbuild. `npm install -g esbuild` required
+  -b or --esbuild       Use esbuild as bundler. Please install it manually
+  -P or --port          Port to serve the site on
 
 File matches
   Only build files that match the rest of the arguments. For example:
@@ -49,7 +51,7 @@ Examples
   nue build .md .css
 
   # more examples
-  open https://nuejs.org/docs/cli
+  open https://nuejs.org/docs/command-line-interface.html
 
 Less is more
 
@@ -57,14 +59,12 @@ Less is more
  ┃┏┓┫┃┃┃┃━┫
  ┃┃┃┃┗┛┃┃━┫  nuejs.org
  ┗┛┗┻━━┻━━┛
-
 ```
 
-
 ## Examples
-Few more usage examples:
+A few more usage examples:
 
-``` sh
+```sh
 # serve current directory
 nue
 
@@ -79,6 +79,9 @@ nue -p stats
 
 # show what will be built (without building)
 nue build .js .ts .nue --dry-run
+
+# create a website to a custom output directory
+nue create simple-blog --root dirname
 ```
 
 ## How it looks

@@ -272,6 +272,17 @@ test('page data', async () => {
   expect(data.page.meta.title).toBe('Hello')
 })
 
+test('line endings', async () => {
+  const kit = await getKit()
+  await write('index.md', '---\ntitle: Page title\rhero: img/image.png\r\n---\r\n\r# Hello\r\n\rWorld')
+  const data = await kit.getPageData('index.md')
+  expect(data.title).toBe('Page title')
+  expect(data.hero).toBe('img/image.png')
+  const html = await kit.gen('index.md')
+  expect(html).toInclude('<h1>Hello</h1>')
+  expect(html).toInclude('<p>World</p>')
+})
+
 test('page assets', async() => {
   await write('site.yaml', 'libs: [lib]')
   await write('blog/app.yaml', 'include: [video]')
@@ -300,13 +311,14 @@ test('single-page app index', async() => {
 })
 
 test('index.md', async() => {
-  await write('index.md', '# Hey')
+  await write('index.md', '# Hey { .yo }\n\n## Foo { .foo#bar.baz }')
   const kit = await getKit()
   await kit.gen('index.md')
   const html = await readDist(kit.dist, 'index.html')
   expect(html).toInclude('hotreload.js')
   expect(html).toInclude('<title>Hey</title>')
-  expect(html).toInclude('<h1>')
+  expect(html).toInclude('<h1 class="yo">Hey</h1>')
+  expect(html).toInclude('<h2 class="foo baz" id="bar"><a href="#bar" title="Foo"></a>Foo</h2>')
 })
 
 

@@ -1,6 +1,6 @@
 
 import { join, extname, parse as parsePath } from 'node:path'
-import { log, colors, getAppDir, sortCSS } from './util.js'
+import { colors, sortCSS } from './util.js'
 import { promises as fs } from 'node:fs'
 import { fswalk } from './nuefs.js'
 
@@ -52,9 +52,9 @@ export function categorize(paths) {
 
     const cat = ext == 'css' ? cats.style :
       ['js', 'ts'].includes(ext) ? cats.scripts :
-      ext == 'yaml' || base == 'layout.html' ? misc :
+      ext == 'yaml' || ext == 'html' ? misc :
       base == 'index.html' ? cats.spa :
-      ext ==  'nue' ? cats.islands :
+      ext ==  'nue' || ext == 'htm' ? cats.islands :
       ext == 'md' ? cats.pages :
       cats.media
 

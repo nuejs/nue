@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
 
-import { log, colors } from './util.js'
+import { log, colors, getVersion, getEngine } from './util.js'
 import esMain from 'es-main'
 import { sep } from 'node:path'
 
@@ -20,7 +20,7 @@ export function expandArgs(args) {
 // TODO: tests
 export function getArgs(argv) {
   const commands = ['serve', 'build', 'stats', 'create']
-  const args = { paths: [], root: '.' }
+  const args = { paths: [], root: null }
   const checkExecutable = /[\\\/]nue(\.(cmd|ps1|bunx|exe))?$/
   let opt
 
@@ -47,18 +47,23 @@ export function getArgs(argv) {
       else if (['-v', '--verbose'].includes(arg)) args.verbose = true
       else if (['-s', '--stats'].includes(arg)) args.stats = true
       else if (['-b', '--esbuild'].includes(arg)) args.esbuild = true
-      else if (['-P', '--push'].includes(arg)) args.push = args.is_prod = true
+      else if (['-d', '--deploy'].includes(arg)) args.deploy = args.is_prod = true
       else if (['-I', '--init'].includes(arg)) args.init = true
 
       // string values
       else if (['-e', '--environment'].includes(arg)) opt = 'env'
       else if (['-r', '--root'].includes(arg)) opt = 'root'
+      else if (['-P', '--port'].includes(arg)) opt = 'port'
 
       // bad options
       else throw `Unknown option: "${arg}"`
 
     } else if (arg && arg[0] != '-') {
-      if (opt) { args[opt] = arg; opt = null }
+      if (opt) {
+        args[opt] = opt == 'port' ? Number(arg) : arg
+        // Number(alphabetic characters) is falsy. Check if port is really set:
+        if (opt != 'port' || (opt == 'port' && args.port)) opt = null
+      }
       else args.paths.push(arg)
     } else if (opt) throw `"${opt}" option is not set`
   })
@@ -66,20 +71,6 @@ export function getArgs(argv) {
   if (opt) throw `"${opt}" option is not set`
 
   return args
-}
-
-// read from package.json
-async function getVersion() {
-  const { promises } = await import('fs')
-  const pathname = new URL('../package.json', import.meta.url).pathname
-  const path = process.platform === "win32" && pathname.startsWith('/') ? pathname.slice(1) : pathname
-  const json = await promises.readFile(path, 'utf-8')
-  return JSON.parse(json).version
-}
-
-function getEngine() {
-  const v = process.versions
-  return process.isBun ? 'Bun ' + v.bun : 'Node ' + v.node
 }
 
 async function printHelp() {
@@ -95,32 +86,31 @@ async function printVersion() {
 
 async function runCommand(args) {
   const { createKit } = await import('./nuekit.js')
-  const { cmd='serve', dryrun, push } = args
+  const { cmd='serve', dryrun, deploy, root=null, port } = args
+  if (!root) args.root = '.' // ensure root is unset for create, if not set manually
 
   console.info('')
-
 
   // create nue
   if (cmd == 'create') {
     const { create } = await import('./create.js')
-    return await create({ name: args.paths[0] })
+    return await create({ root, name: args.paths[0], port })
   }
 
   const nue = await createKit(args)
   args.nuekit_version = await printVersion()
 
-
   // stats
   if (cmd == 'stats') await nue.stats(args)
 
   // build
-  if (dryrun || push || args.paths[0] || cmd == 'build') {
+  if (dryrun || deploy || args.paths[0] || cmd == 'build') {
     const paths = await nue.build(args.paths, dryrun)
 
     // deploy (private repo ATM)
-    if (!dryrun && push) {
-      const { deploy } = await import('nue-deployer')
-      await deploy(paths, { root: nue.dist, init: args.init })
+    if (!dryrun && deploy) {
+      const { deploy: deployer } = await import('nue-deployer')
+      await deployer(paths, { root: nue.dist, init: args.init })
     }
 
   // serve
@@ -140,10 +130,6 @@ if (esMain(import.meta)) {
   // version
   } else if (args.version) {
     await printVersion()
-
-  // root is required
-  } else if (!args.root) {
-    console.info('Project root not specified')
 
   // command
   } else if (!args.test) {

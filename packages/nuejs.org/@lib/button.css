@@ -34,16 +34,10 @@ button, [role="button"] {
 
   &[popovertarget] {
     background-color: var(--gray-50);
-    background-position: 50% 50%;
     background-repeat: no-repeat;
 
     &:hover {
       background-color: var(--gray-100);
     }
-  }
-
-  &[disabled] {
-    background-color: var(--gray-200);
-    color: white;
   }
 }

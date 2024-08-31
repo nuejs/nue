@@ -13,16 +13,16 @@ Tailwind CSS was born out of this sentence:
   alt: The most reusable components are those with class names that are independent of the content.
 
 
-The [sentence](//youtu.be/CLkxRnRQtDE?t=109) is from **Nicolas Gallagher**'s article about [HTML semantics and front-end architecture](//nicolasgallagher.com/about-html-semantics-front-end-architecture/). It was a turning point for **Adam Wathan**, the creator and frontman of Tailwind. After reading the article he was ["fully convinced that optimizing for reusable CSS was going to be the right choice"](https://adamwathan.me/css-utility-classes-and-separation-of-concerns/)
+The [sentence](//youtu.be/CLkxRnRQtDE?t=109) is from **Nicolas Gallagher**'s article about [HTML semantics and front-end architecture](//nicolasgallagher.com/about-html-semantics-front-end-architecture/). It was a turning point for **Adam Wathan**, the creator and frontman of Tailwind. After reading the article he was ["fully convinced that optimizing for reusable CSS was going to be the right choice"](//adamwathan.me/css-utility-classes-and-separation-of-concerns/)
 
 
 
 
 ## Phase 1: The Origins of Tailwind { #origins }
 
-Nicholas points out in the article that scalable HTML/CSS must ["rely on classes within the HTML to allow for the creation of reusable components"](//nicolasgallagher.com/about-html-semantics-front-end-architecture/). So instead of using a content-dependent class name like "news", one should use a __content-independent__ name like "uilist" or "uilist-item":
+Nicholas points out in the article that scalable HTML/CSS must ["rely on classes within the HTML to allow for the creation of reusable components"](//nicolasgallagher.com/about-html-semantics-front-end-architecture/). So instead of using a content-dependent class name like "news", one should use a **content-independent** name like "uilist" or "uilist-item":
 
-```
+```html
 <nav class="•uilist•">
   <span class="•uilist-item•">
     ...
@@ -59,7 +59,7 @@ On August 7, 2017, Adam wrote an article about [CSS utility classes and "Separat
 
 [adam]: //adamwathan.me/css-utility-classes-and-separation-of-concerns/
 
-But there was a challenge: to make such a statement, he needed to reshape the established CSS best practices. So he introduced [new terms](//adamwathan.me/css-utility-classes-and-separation-of-concerns/) to back his contradictory idea:
+But there was a challenge: To make such a statement, he needed to reshape the established CSS best practices. So he introduced [new terms](//adamwathan.me/css-utility-classes-and-separation-of-concerns/) to back his contradictory idea:
 
 [image "img/tailwind-practises.png" width="570"]
   caption: The new terms and phrases Tailwind developers are familiar with
@@ -72,7 +72,7 @@ The new approach can be summarized as follows:
 This was a hefty statement as it contradicts with all the prior work and studies about CSS.
 
 
-In his keynote speech, Adam uses [harsh words](https://youtu.be/CLkxRnRQtDE?si=s5bmoLnGsmbYDzMA) to describe the traditional way of structuring CSS, as opposed to how Tailwind is described:
+In his keynote speech, Adam uses [harsh words](//youtu.be/CLkxRnRQtDE?si=s5bmoLnGsmbYDzMA) to describe the traditional way of structuring CSS, as opposed to how Tailwind is described:
 
 [image "img/villain-and-hero.png" width="570"]
   caption: Words used on the keynote speech and Tailwind website
@@ -84,7 +84,7 @@ Unfair or not, this marketing scheme worked. Developers took the new terms and p
 
 
 ## Phase 2: Utility-first workflow { #phase2 }
-Once they started cashing, Tailwind wanted to make sure the users were properly onboarded and locked in to the system. They introduced ["utility-first workflow"](https://tailwindcss.com/docs/reusing-styles)
+Once they started cashing, Tailwind wanted to make sure the users were properly onboarded and locked in to the system. They introduced ["utility-first workflow"](//tailwindcss.com/docs/reusing-styles).
 
 > Tailwind encourages a utility-first workflow, where designs are implemented using only low-level utility classes. This is a powerful way to avoid premature abstraction and the pain points that come with it.
 
@@ -108,7 +108,7 @@ Turns out there is no next step. Or it kind of exists, but it's called "prematur
 
 > [Whatever you do, don’t use @apply just to make things look “cleaner”](//tailwindcss.com/docs/reusing-styles#avoiding-premature-abstraction)
 
-But what should I use @apply for if not for cleaning up? The documentation does not say. It only tells me why it should __not__ be used.
+But what should I use @apply for if not for cleaning up? The documentation does not say. It only tells me why it should **not** be used.
 
 
 ### Step 3: Vendor lock-in
@@ -129,7 +129,7 @@ In December 2023, Tailwind introduced *Catalyst* with a richer set of language e
 
 
 ### Domain-specific language (DSL)
-To keep up with the ever-evolving CSS standard Tailwind introduced another set of language literals. Over the years Tailwind has grown from a simple set of atoms to a vendor-specific language with expressions, operators, and method calls.
+To keep up with the ever-evolving CSS standard Tailwind introduced another set of language literals. Over the years, Tailwind has grown from a simple set of atoms to a vendor-specific language with expressions, operators, and method calls.
 
 Let's look at the source code of the first button on [Catalyst demo page](//catalyst.tailwindui.com/):
 
@@ -206,11 +206,11 @@ Let's look at the source code of the first button on [Catalyst demo page](//cata
 
 I have many questions about this:
 
-Most importantly: how is this wall of text more maintainable than a class name like "primary"?
+Most importantly: How is this wall of text more maintainable than a class name like "primary"?
 
 Do I need another wall for the white button?
 
-Also: are there any limits to the utility-first workflow? When can I use @apply to clean things up? After 50 expressions? 100 expressions? 1000?
+Also: Are there any limits to the utility-first workflow? When can I use @apply to clean things up? After 50 expressions? 100 expressions? 1000?
 
 
 ### "Modeled after HTML"
@@ -251,7 +251,7 @@ And standard HTML `<dialog>` is bad, but `<Dialog>` with uppercase is legit?
 
 Why introduce so many different versions of the `<p>` tag?
 
-```
+```html
 <!-- Catalyst <p> tags -->
 <Text>
 <Description>
@@ -270,23 +270,23 @@ I'm confused, to say the least.
 
 
 ## I love ❤️ CSS
-I started web development at the age of a `<blink>` tag and CSS has always been my favorite part of the web development stack. I'm particularly fascinated about the crossing between design and [front-of-the frontend](https://bradfrost.com/blog/post/front-of-the-front-end-and-back-of-the-front-end-web-development/).
+I started web development at the age of a `<blink>` tag and CSS has always been my favorite part of the web development stack. I'm particularly fascinated about the crossing between design and [front-of-the frontend](//bradfrost.com/blog/post/front-of-the-front-end-and-back-of-the-front-end-web-development/).
 
-When Microsoft released [Internet Explorer 4.0](https://en.wikipedia.org/wiki/Internet_Explorer_4) with solid support for both external stylesheets and DHTML, It nailed me to the separation of concerns pattern. I see it as the most important component for software scalability and it's particularly important with HTML and CSS. The way of organizing design has been around for centuries: there are element types and contexts. The nuanced relationship between [form and function](//en.wikipedia.org/wiki/Form_follows_function). CSS is the missing tool to bring foundational design-thinking to frontend development.
+When Microsoft released [Internet Explorer 4.0](//en.wikipedia.org/wiki/Internet_Explorer_4) with solid support for both external stylesheets and DHTML, It nailed me to the separation of concerns pattern. I see it as the most important component for software scalability and it's particularly important with HTML and CSS. The way of organizing design has been around for centuries: There are element types and contexts. The nuanced relationship between [form and function](//en.wikipedia.org/wiki/Form_follows_function). CSS is the missing tool to bring foundational design-thinking to frontend development.
 
-Fast forward to this date, and the solid foundation has almost disappeared. Styling is inlined and CSS is written with JavaScript. There are no element types, nor contexts. Styling is flat and not cascading. Global is feared instead of used.
+Fast-forward to this date, and the solid foundation has almost disappeared. Styling is inlined and CSS is written with JavaScript. There are no element types, nor contexts. Styling is flat and not cascading. Global is feared instead of used.
 
 We're using maybe 30% of the full potential.
 
 I'm not a fan of any of that.
 
-I recommend everyone to take a closer look to what has happened to CSS there in the past 10 years. Regardless of your current stance. It's a powerful language that far surpasses the capabilities of Tailwind. Learn to build scaleable architectures, and see how atomic class names and inline styling fit into the bigger picture.
+I recommend everyone to take a closer look to what has happened to CSS there in the past 10 years. Regardless of your current stance. It's a powerful language that far surpasses the capabilities of Tailwind. Learn to build scalable architectures, and see how atomic class names and inline styling fit into the bigger picture.
 
 
 ### First things first: Learn CSS
 The first step is to learn CSS. It's the ultimate design language for the web. A safe bet for years to come.
 
-1. Start from the [Nicholas' post][nicolas] and learn the benefits of semantic naming. Understand how Adam cherry-picked one sentence and misused it to validate the contrasting practises of Tailwind.
+1. Start from the [Nicholas' post][nicolas] and learn the benefits of semantic naming. Understand how Adam cherry-picked one sentence and misused it to validate the contrasting practices of Tailwind.
 
 2. Study MDN documentation on web standards. There's a lot, so start with the most important aspects of CSS: [the cascade][cascade] and [specificity][specificity].
 
@@ -315,7 +315,7 @@ Because trends are temporary, but standards are forever.
 
 
 ### Stay relevant
-My guess: It's only a matter of time before Tailwind collapses. The vendor-specific language and the misleading communication cannot hold water very long. The utility soup produced today will eventually turn into a technical debt. The next generation looks back and asks: "You actually wrote __that__?"
+My guess: It's only a matter of time before Tailwind collapses. The vendor-specific language and the misleading communication cannot hold water very long. The utility soup produced today will eventually turn into a technical debt. The next generation looks back and asks: "You actually wrote **that**?"
 
 Learn to write clean HTML and CSS and stay relevant for years to come.
 

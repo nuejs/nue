@@ -1,15 +1,13 @@
 
 /* Builders for CSS, JS, and TS */
-
-import { Features, transform } from 'lightningcss'
-import { join, extname } from 'node:path'
+import { promises as fs } from 'node:fs'
+import { Features, bundleAsync } from 'lightningcss'
+import { join } from 'node:path'
 import { resolve } from 'import-meta-resolve'
 
-
 export async function getBuilder(is_esbuild) {
-  const actual_cwd = process.env.ACTUAL_CWD || process.cwd()
   try {
-    return is_esbuild ? await import(resolve('esbuild', `file://${actual_cwd}/`)) : Bun
+    return is_esbuild ? await import(resolve('esbuild', `file://${process.cwd()}/`)) : Bun
   } catch {
     throw 'Bundler not found. Please use Bun or install esbuild'
   }
@@ -75,22 +73,18 @@ export function parseError(buildResult) {
 
 }
 
-export async function lightningCSS(css, minify, opts={}) {
+export async function lightningCSS(filename, minify, opts={}) {
   let include = Features.Colors
   if (opts.native_css_nesting) include |= Features.Nesting
 
   try {
-    process.stdout.write('⚡️')
-    return transform({ code: Buffer.from(css), include, minify }).code?.toString()
-
-  } catch({ source, loc, data}) {
+    return (await bundleAsync({ filename, include, minify })).code?.toString()
+  } catch({ fileName, loc, data }) {
     throw {
       title: 'CSS syntax error',
-      lineText: source.split('\n')[loc.line -1],
+      lineText: (await fs.readFile(fileName, 'utf-8')).split(/\r\n|\r|\n/)[loc.line - 1],
       text: data.type,
       ...loc
     }
   }
 }
-
-

@@ -1,30 +1,63 @@
-
-
 import { match } from '../src/browser/app-router.js'
 
-import { parsePathParts, sortCSS } from '../src/util.js'
+import { parsePathParts } from '../src/util.js'
 import { lightningCSS } from '../src/builder.js'
 import { create } from '../src/create.js'
 import { getArgs } from '../src/cli.js'
 
 import { toMatchPath } from './match-path.js'
+
 import { promises as fs } from 'node:fs'
+import { join } from 'node:path'
 
 expect.extend({ toMatchPath })
 
+// temporary directory
+const root = '_test'
+
+// setup and teardown
+beforeEach(async () => {
+  await fs.rm(root, { recursive: true, force: true })
+  await fs.mkdir(root, { recursive: true })
+})
+
+afterEach(async () => await fs.rm(root, { recursive: true, force: true }))
+
+async function write(filename, code) {
+  const file = join(root, filename)
+  await fs.writeFile(file, code)
+  return file
+}
+
 
 test('Lightning CSS errors', async () => {
+  const code = 'body margin: 0 }'
+  const filepath = await write('lcss.css', code)
+
   try {
-    await lightningCSS('body margin: 0 }', true)
+    await lightningCSS(filepath, true)
   } catch (e) {
-    expect(e.lineText).toBe('body margin: 0 }')
+    expect(e.lineText).toBe(code)
     expect(e.line).toBe(1)
   }
 })
 
+test('Lightning CSS @import bundling', async () => {
+  const code = 'body { margin: 0 }'
+  const filename = 'cssimport.css'
+  await write(filename, code)
+  const filepath = await write('lcss.css', `@import "${filename}"`)
+
+  const css = await lightningCSS(filepath, true)
+  expect(css).toBe(code.replace(/\s/g, ''))
+})
+
 test('Lightning CSS', async () => {
-  const css = await lightningCSS('body { margin: 0 }', true)
-  expect(css).toBe('body{margin:0}')
+  const code = 'body { margin: 0 }'
+  const filepath = await write('lcss.css', code)
+
+  const css = await lightningCSS(filepath, true)
+  expect(css).toBe(code.replace(/\s/g, ''))
 })
 
 test('CLI args', () => {
@@ -49,12 +82,11 @@ test('path parts', () => {
   expect(parts.slug).toBe('semantic-css.html')
 })
 
+test('create', async () => {
+  const terminate = await create({ root, name: 'test' })
+  terminate()
 
-test.only('create', async () => {
-  await fs.mkdir('simple-blog', { recursive: true })
-  await process.chdir('simple-blog')
-
-  const body = await create({ name: 'simple-blog' })
-
-
+  const contents = await fs.readdir(root)
+  expect(contents).toContain('index.md') // should be unpacked to correct dir
+  expect(contents).toContain('.dist') // should be built
 })

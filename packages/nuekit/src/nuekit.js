@@ -1,7 +1,7 @@
 
 
 import { log, colors, getAppDir, parsePathParts, extendData } from './util.js'
-import { join, parse as parsePath, extname, basename } from 'node:path'
+import { join, parse as parsePath } from 'node:path'
 import { renderPage, renderSinglePage } from './layout/page-layout.js'
 import { parse as parseNue, compile as compileNue } from 'nuejs-core'
 import { lightningCSS, buildJS } from './builder.js'
@@ -16,12 +16,8 @@ import { init } from './init.js'
 // the HTML5 doctype
 const DOCTYPE = '<!doctype html>\n\n'
 
-// file not found error code
-const NOT_FOUND = -2
-
 export async function createKit(args) {
   const { root, is_prod, esbuild } = args
-
 
   // site: various file based functions
   const site = await createSite(args)
@@ -163,9 +159,10 @@ export async function createKit(args) {
   }
 
   async function processCSS({ path, base, dir}) {
-    const raw = await read(path)
     const data = await site.getData()
-    const css = data.lightning_css === false ? raw : await lightningCSS(raw, is_prod, data)
+    const css = data.lightning_css === false ?
+      await read(path) :
+      await lightningCSS(join(root, path), is_prod, data)
     await write(css, dir, base)
     return { css }
   }
@@ -227,7 +224,7 @@ export async function createKit(args) {
   }
 
   function isAssetFor(page, asset) {
-    if (asset.ext == '.html' || ['site.yaml', 'app.yaml'].includes(asset.base)) {
+    if (['.html', '.yaml'].includes(asset.ext)) {
       const appdir = getAppDir(asset.dir)
       return ['', '.', ...site.globals].includes(appdir) || getAppDir(page.dir) == appdir
     }
@@ -354,7 +351,7 @@ export async function createKit(args) {
     gen, getPageData, renderMPA, renderSPA,
 
     // public API
-    build, serve, stats, dist,
+    build, serve, stats, dist, port,
   }
 
 }

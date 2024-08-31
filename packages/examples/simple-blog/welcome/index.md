@@ -8,8 +8,8 @@ footer: false
 
 # Welcome to Nue!
 
-1. Open the app on your editor
+1. Open the project on your editor
 2. Split the screen with your browser
-3. Edit things and see the browser update
+3. Edit files and see your site evolve
 
-[button href="/" "Start designing"]
+[button href="/" "Start UX development"]

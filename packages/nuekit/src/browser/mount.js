@@ -7,14 +7,16 @@ let apps = []
 // amount of remounts (by the hot-reloading facility)
 let remounts = 0
 
-async function importAll(reload_path) {
+
+// hmr_path argument only used by hotreload.js
+async function importAll(hmr_path) {
   const comps = document.querySelector('[name="nue:components"]')?.getAttribute('content')
   if (!comps) return []
 
   const arr = []
 
   for (let path of comps.split(' ')) {
-    if (path == reload_path) path += `?${++remounts}`
+    if (path == hmr_path) path += `?${++remounts}`
     const { lib } = await import(path)
     if (lib) arr.push(...lib)
   }
@@ -22,10 +24,11 @@ async function importAll(reload_path) {
 }
 
 
-export async function mountAll(reload_path) {
+export async function mountAll() {
   const els = document.querySelectorAll('[is]')
-  const lib = els[0] ? await importAll(reload_path) : []
+  const lib = els[0] ? await importAll() : []
   if (!lib[0]) return
+
 
   const { createApp } = await import('./nue.js')
 
@@ -57,8 +60,12 @@ export async function unmountAll() {
 // addEventListener('before:route', unmountAll)
 
 // mount all after route
-addEventListener('route', mountAll)
+addEventListener('route', () =>
+
+  // must give empty argument
+  mountAll()
+)
+
 
 // initial page load
-addEventListener('DOMContentLoaded', mountAll)
-
+addEventListener('DOMContentLoaded', () => dispatchEvent(new Event('route')))

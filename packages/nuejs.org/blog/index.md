@@ -1,4 +1,3 @@
-
 ---
 include: [blog-index]
 content_collection: blog
@@ -22,4 +21,4 @@ exclude:
 
 [button.secondary href="/#roadmap" "Join mailing list"]
 
-[page-list]
+[gallery]

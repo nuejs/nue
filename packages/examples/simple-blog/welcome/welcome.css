@@ -1,9 +1,8 @@
 
-/* all reset/normalization you need */
-* {
-  box-sizing: border-box;
-}
+/* because layout.css is excluded */
+* { box-sizing: border-box }
 
+/* layout */
 body {
   background: #000 url(img/editor-split-big.png) 50% 50%;
   transition: background-size 1s;
@@ -18,7 +17,7 @@ body {
     background: radial-gradient(transparent, #0009);
     backdrop-filter: blur(3px);
     transition-delay: .5s;
-    padding-top: 10%;
+    padding-top: 22vh;
     height: 100vh;
   }
 

@@ -222,6 +222,8 @@ tags['!'] = function(data, opts) {
   return data.sources || mime.startsWith('video') ? tags.video(data, opts) : tags.image(data, opts)
 }
 
+// alias
+tags.section = tags.layout
 
 // alias (depreciated)
 tags.layout = tags.block

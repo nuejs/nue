@@ -2,11 +2,12 @@
 import { parseAttr, parseSpecs, parseComponent } from './component.js'
 import { loadAll, load as parseYAML } from 'js-yaml'
 import { marked } from 'marked'
+
 const NL = '\n'
 
 // returns { meta, sections, headings, links }
 export function parsePage(lines) {
-  if (typeof lines == 'string') lines = lines.split(NL)
+  if (typeof lines == 'string') lines = lines.split(/\r\n|\r|\n/)
 
   const { meta, rest } = parseMeta(lines)
 

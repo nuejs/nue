@@ -1,4 +1,3 @@
-
 ---
 title: Nue and CSS
 hero_title: "*Nue + CSS:* a better way to style things"
@@ -7,7 +6,7 @@ og: /img/nue-css-og.png
 date: 2024-03-20
 ---
 
-Here's a preview of Nue's upcoming approach to styling things on the web. The key difference is _minimalism_: you can build an entire website with the same amount of CSS that goes into a single **Tailwind** button. Or even crazier: you can fit three websites to a single **Tailwind Catalyst** button.
+Here's a preview of Nue's upcoming approach to styling things on the web. The key difference is *minimalism*: You can build an entire website with the same amount of CSS that goes into a single **Tailwind** button. Or even crazier: You can fit three websites to a single **Tailwind Catalyst** button.
 
 [image.larger]
   small: /img/nue-css-hero.webp
@@ -35,7 +34,7 @@ The idea was a huge success and soon after developers rushed converting their CS
 ### *Tailwind:* Inline styling
 In 2017, **Adam Wathan** introduced [Tailwind](//tailwindcss.com/) — a new kind of CSS framework with a special styling language. The idea was to inline all styling inside a class attribute so that everything could be expressed with HTML only.
 
-Developers loved it: it was an easy way to build good-looking user interfaces with a copy/paste mentality. Backend developers and junior frontend developers were able to build things without understanding how CSS cascade or specificity works.
+Developers loved it: It was an easy way to build good-looking user interfaces with a copy/paste mentality. Backend developers and junior frontend developers were able to build things without understanding how CSS cascade or specificity works.
 
 
 ## The tradeoffs
@@ -45,7 +44,7 @@ For the most part, CSS-in-JS and Tailwind worked nicely and frontend engineers w
 ### Massive codebases
 We're not talking about "slightly more", or "just double the size". We're talking about a situation where a single button has more CSS than a complete, professionally designed website. And the codebases just keep on growing due to [the false beliefs](/blog/tailwind-misinformation-engine/) about CSS.
 
-Large codebases can draw you down: small styling changes trigger large compilation chains, potentially involving hundreds of JavaScript files and NPM modules before the browser is hot-reloaded. What should take milliseconds, is suddenly taking seconds.
+Large codebases can draw you down: Small styling changes trigger large compilation chains, potentially involving hundreds of JavaScript files and NPM modules before the browser is hot-reloaded. What should take milliseconds, is suddenly taking seconds.
 
 
 ### Technical debt { #debt }
@@ -62,7 +61,7 @@ Today, JavaScript/React developers are responsible for everything. The component
 
 Things that used to be separate, are now under the responsibility of a JavaScript developer. It's hard or impossible for content creators, designers, and CSS developers to participate.
 
-The talent is inefficiently spread when React developers work on issues outside of their interests. Engineers are not necessarily the best designers and many of them *hate* CSS.
+The talent is inefficiently spread when React developers work on issues outside their interests. Engineers are not necessarily the best designers and many of them *hate* CSS.
 
 Your team could do so much better.
 
@@ -70,7 +69,7 @@ Your team could do so much better.
 
 
 ## What if...
-What if we could break away from all these tradeoffs?
+What if we could break away from all these trade-offs?
 
 Start building websites that look perfect inside out. Where your codebase is ordeer of magnitude smaller and is made out of clean, simple components.
 
@@ -78,12 +77,12 @@ What if we get all the benefits of CSS-in-JS, but none of the problems? No troub
 
 What if we could offload the burden from JavaScript developers and hand all design/UX work to people who are the absolute masters of that craft?
 
-What would _that_ look like?
+What would *that* look like?
 
 
 
 ## 1. Cascading CSS architecture
-One of the key ideas of Nue is to ditch the large JavaScript ecosystem and go irectly with modern CSS, and harness it's power.
+One of the key ideas of Nue is to ditch the large JavaScript ecosystem and go directly with modern CSS, and harness it's power.
 
 
 ### Your design is based on a design system { #architecture }
@@ -94,7 +93,7 @@ Most companies have drafted some form of design system in softwares like **Figma
   large: /img/abstract-design-system-big.png
   width: 500
 
-Design system is really a simple concept: you define the master look and feel in a central location and let all your pages inherit from that. Ideally, your design is just a single self-documenting CSS file that even non-technical people can understand. Here are three examples:
+Design system is really a simple concept: You define the master look and feel in a central location and let all your pages inherit from that. Ideally, your design is just a single self-documenting CSS file that even non-technical people can understand. Here are three examples:
 
 
 [site-list]
@@ -111,10 +110,10 @@ Nue makes sure your design is consistently applied across all the pages and comp
 The design is separated from the HTML structure so that the system can be controlled by designers and UX developers. This way, non-technical people can create content so that the pages automatically inherit the correct design. And there is no way they can break the design system with local or inline styling.
 
 
-## 2. Minimalistic way to write vanilla CSS { #minimalism }
-Nue has it's own [CSS best practises](/docs/css-best-practices.html) for writing clear and easy-to-maintain CSS. One of the key ideas is to leave out all class names that relate to styling and let external CSS take care of the element and/or component look and feel:
+## 2. Cleaner way to write HTML and CSS { #minimalism }
+Nue has its own [CSS best practices](/docs/css-best-practices.html) for writing clear HTML and CSS. The key idea is to leave out all class names that relate to styling and let external CSS take care of the element and/or component look and feel:
 
-```
+```html
 <!-- component name is all naming you need -->
 <div class="gallery">
   <figure>
@@ -126,7 +125,7 @@ Nue has it's own [CSS best practises](/docs/css-best-practices.html) for writing
 
 Naming things and minimalism go hand-in-hand. The more names you have, the more complex your design system API. In most cases, the component name is all the naming you need.
 
-Simple means lean and well-organized CSS that is easy to maintain and scale. There's less room for errors: no global namespace issues, no local breaking points, and no consistency issues. The simpler you design the system, the better. The fewer colors, font weights, elements, components, and variants you have, the better.
+Simple means lean and well-organized CSS that is easy to maintain and scale. There's less room for errors: No global namespace issues, no local breaking points, and no consistency issues. The simpler you design the system, the better. The fewer colors, font weights, elements, components, and variants you have, the better.
 
 
 
@@ -194,7 +193,7 @@ A surprising fact is that minimal, inlined CSS gets you to the same performance 
   caption: Click image for details
   width: 650
 
-No matter how clever Rust- based Bundler you use to optimize JavaScript, nothing beats a tiny TCP packet that has everything to render the landing page.
+No matter how clever the Rust-based Bundler, optimizing your JavaScript, nothing beats a tiny TCP packet that has everything to render the landing page.
 
 
 
@@ -204,12 +203,12 @@ Nue breaks you out from the [single point of responsibility](#blocker) and offlo
 [image "/img/without-js-bottleneck.svg"]
 
 
-Separation of concerns equals scalability: marketers and technical writers proceed with content, designers and UX developers focus on the user experience, and JavaScript developers perfect the [back of the frontend](//bradfrost.com/blog/post/front-of-the-front-end-and-back-of-the-front-end-web-development/). The same applies for one person projects too — all the UX talent just comes from one head.
+Separation of concerns equals scalability: Marketers and technical writers proceed with content, designers and UX developers focus on the user experience, and JavaScript developers perfect the [back of the frontend](//bradfrost.com/blog/post/front-of-the-front-end-and-back-of-the-front-end-web-development/). The same applies for one person projects too — all the UX talent just comes from one head.
 
 
 
 ## Timeless skills and products
-CSS is the styling language of The Web
+CSS is the styling language of the Web
 
 [image "/img/standard-styling.png" width="500"]
 

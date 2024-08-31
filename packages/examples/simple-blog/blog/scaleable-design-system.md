@@ -1,8 +1,8 @@
 ---
 title: Crafting a scaleable CSS design system
-thumb: /posts/img/ui-thumb.png
+thumb: img/ui-thumb.png
 og: img/ui-1.png
-date: 2023-05-22
+date: 2024-09-15
 credits: vlockn
 ---
 
@@ -21,11 +21,6 @@ It's important to keep things lightweight: Write CSS that’s DRY, separating st
 [code numbered="true"]
   <figure @name="img" :class="class" :id="id">
     <img loading="lazy" :alt="alt" :src="_ || src">
-
-    <!--
-      Inner comment and another lkfsjlksaj
-    -->
-    <p>I finally made it to the public</p>
 
   - <figcaption :if="caption">{{ caption }}</figcaption>
 

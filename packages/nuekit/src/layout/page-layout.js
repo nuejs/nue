@@ -1,7 +1,7 @@
 
-// Modern-day CSS Zen Garden
+// Standardized page layout / "Modern-day CSS Zen Garden"
 
-import { renderPageList, renderPrettyDate } from './pagelist.js'
+import { renderGallery, renderPrettyDate } from './gallery.js'
 import { renderNav, renderTOC } from './navi.js'
 import { renderPage as nuemark } from 'nuemark'
 import { parse as parseNue } from 'nuejs-core'
@@ -95,16 +95,13 @@ export function renderSinglePage(body='', data) {
 // system components
 const html_tags = [
   { name: 'navi',  create: renderNav },
-  { name: 'page-list', create: renderPageList },
+  { name: 'gallery', create: renderGallery },
   { name: 'markdown', create: ({ content }) => renderInline(content) },
   { name: 'pretty-date', create: ({ date }) => renderPrettyDate(date) },
   { name: 'toc', create: renderTOC },
 ]
 
-const nuemark_tags = {
-  'page-list': renderPageList,
-  toc: renderTOC
-}
+const nuemark_tags = { gallery: renderGallery, toc: renderTOC }
 
 
 export function renderPage(data, lib) {

@@ -1,9 +1,5 @@
 
-  
-li {
-  text-wrap: balance;
-  margin-bottom: 1em;
-}
+/* Styling for technical content */
 
 article a {
   text-decoration: underline var(--main-500) 1px;
@@ -18,12 +14,16 @@ article a {
   }
 }
 
-
 h2 {
   color: var(--gray-900);
   font-size: 1.1rem;
   margin: 4em 0 0;
   font-weight: 500;
+}
+
+li {
+  text-wrap: balance;
+  margin-bottom: 1em;
 }
 
 /* syntax highligted code */

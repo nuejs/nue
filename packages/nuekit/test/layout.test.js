@@ -1,6 +1,6 @@
 
 // content collection rendering
-import { renderListItem } from '../src/layout/pagelist.js'
+import { renderGalleryItem } from '../src/layout/gallery.js'
 
 import { renderHead } from '../src/layout/head.js'
 
@@ -15,8 +15,8 @@ import {
 } from '../src/layout/navi.js'
 
 
-test('pagelist: render single page', () => {
-  const html = renderListItem({
+test('gallery item', () => {
+  const html = renderGalleryItem({
     desc: 'Wassup *bro*',
     title: 'Yo',
     url: '/bruh/'
@@ -28,8 +28,8 @@ test('pagelist: render single page', () => {
 })
 
 
-test('pagelist: render page with a thumb', () => {
-  const html = renderListItem({ title: 'Yo', thumb: 'thumb.png', url: '/' })
+test('gallery with thumbs', () => {
+  const html = renderGalleryItem({ title: 'Yo', thumb: 'thumb.png', url: '/' })
   expect(html).toStartWith('<li class="is-new"><a href="/"><figure><img')
   expect(html).toEndWith('</figure></a></li>')
 })
