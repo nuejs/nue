@@ -213,7 +213,10 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
 
   // context
   let impl = {}
-  const CaseInsensitiveObject = { get: function (target, name) { return target[name?.toLowerCase()] } }
+  const CaseInsensitiveObject = {
+    get(target, key) { return target[key?.toLowerCase()] },
+    set(target, key, val) { target[key?.toLowerCase()] = val },
+  }
 
   const self = {
     update,
