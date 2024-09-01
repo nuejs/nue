@@ -3,7 +3,13 @@ on:
   push:
     branches:
       - master
+    paths-ignore:
+      - packages/examples/**
+      - packages/nuejs.org/**
   pull_request:
+    paths-ignore:
+        - packages/examples/**
+        - packages/nuejs.org/**
   workflow_dispatch:
 
 jobs:
