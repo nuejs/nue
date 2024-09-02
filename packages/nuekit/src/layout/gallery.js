@@ -60,6 +60,6 @@ export function renderGallery(data) {
     return ''
   }
 
-  const pages = items.filter(el => !el.unlisted).map(renderGalleryItem)
+  const pages = items.map(renderGalleryItem)
   return elem('ul', join(pages))
 }

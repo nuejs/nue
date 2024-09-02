@@ -245,7 +245,7 @@ export async function createSite(args) {
     for (const path of mds) {
       const raw = await read(path)
       const { meta } = nuemark(raw)
-      arr.push({ ...meta, ...parsePathParts(path) })
+      if (!meta.unlisted) arr.push({ ...meta, ...parsePathParts(path) })
     }
 
     arr.sort((a, b) => {
