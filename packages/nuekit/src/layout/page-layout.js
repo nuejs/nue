@@ -94,7 +94,7 @@ export function renderSinglePage(body='', data) {
 
 
 // system components
-const html_tags = [
+const system_tags = [
   { name: 'navi',  create: renderNav },
   { name: 'gallery', create: renderGallery },
   { name: 'markdown', create: ({ content }) => renderInline(content) },
@@ -106,20 +106,20 @@ const html_tags = [
 const nuemark_tags = { gallery: renderGallery, toc: renderTOC }
 
 
-export function renderPage(data, lib) {
-
+export function renderPage(data, comps) {
 
   function renderBlock(name, html) {
 
     if (data[name] === false || data[name.slice(1)] === false) return null
 
-    let comp = lib.find(el => name[0] == '@' ? el.name == name.slice(1) : !el.name && el.tagName == name)
+    let comp = comps.find(el => name[0] == '@' ? el.name == name.slice(1) : !el.name && el.tagName == name)
 
     if (!comp && html) comp = parseNue(html)[0]
 
+    const lib = [...system_tags, ...comps]
 
     try {
-      return comp ? comp.render(data, [...html_tags, ...lib]) : ''
+      return comp ? comp.render(data, lib) : ''
     } catch (e) {
       delete data.inline_css
       console.error(`Error on <${name}> component`, e)
