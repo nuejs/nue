@@ -28,6 +28,7 @@ input, textarea {
 }
 
 textarea {
+  resize: vertical;
   form-sizing: normal;
   min-height: 80px;
 }
