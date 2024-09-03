@@ -108,15 +108,19 @@ const nuemark_tags = { gallery: renderGallery, toc: renderTOC }
 
 export function renderPage(data, comps) {
 
+  const lib = [...system_tags, ...comps]
+
+
   function renderBlock(name, html) {
 
-    if (data[name] === false || data[name.slice(1)] === false) return null
+    // main: false --> render default MAIN
+    if (name == 'main' && data.main === false) name = ''
+
+    else if (data[name] === false || data[name.slice(1)] === false) return null
 
     let comp = comps.find(el => name[0] == '@' ? el.name == name.slice(1) : !el.name && el.tagName == name)
 
     if (!comp && html) comp = parseNue(html)[0]
-
-    const lib = [...system_tags, ...comps]
 
     try {
       return comp ? comp.render(data, lib) : ''
