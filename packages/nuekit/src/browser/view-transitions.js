@@ -115,7 +115,7 @@ function updateBlock(a, clone) {
 
 // TODO: remove this hack
 function updateMain(dom) {
-  ;['article', 'aside:first-child', 'article + aside'].forEach(function(query, i) {
+  ;['article', 'header:first-child', 'aside:first-child', 'article + aside'].forEach(function(query, i) {
     const a = $('main >' + query)
     const b = $('main >' + query, dom)
     const clone = b && b.cloneNode(true)
