@@ -81,9 +81,12 @@ export function toPosix(path) {
 }
 
 export function extendData(to, from={}) {
-  const { include = [], exclude = [] } = to
+  const include = to.include ? [...to.include] : []
+  const exclude = to.exclude ? [...to.exclude] : []
+
   if (from.include) include.push(...from.include)
   if (from.exclude) exclude.push(...from.exclude)
+
   Object.assign(to, from)
   to.include = include
   to.exclude = exclude
