@@ -97,7 +97,7 @@ export function renderSinglePage(body='', data) {
 const system_tags = [
   { name: 'navi',  create: renderNav },
   { name: 'gallery', create: renderGallery },
-  { name: 'markdown', create: ({ content }) => renderInline(content) },
+  { name: 'markdown', create: ({ content }) => content ? renderInline(content) : '' },
   { name: 'pretty-date', create: ({ date }) => renderPrettyDate(date) },
   { name: 'toc', create: renderTOC },
   { name: 'image', create: tags.image },
