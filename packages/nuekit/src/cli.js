@@ -19,7 +19,7 @@ export function expandArgs(args) {
 
 // TODO: tests
 export function getArgs(argv) {
-  const commands = ['serve', 'build', 'stats', 'create']
+  const commands = ['serve', 'build', 'init', 'create']
   const args = { paths: [], root: null }
   const checkExecutable = /[\\\/]nue(\.(cmd|ps1|bunx|exe))?$/
   let opt
@@ -45,10 +45,8 @@ export function getArgs(argv) {
       else if (['-n', '--dry-run'].includes(arg)) args.dryrun = true
       else if (['-h', '--help'].includes(arg)) args.help = true
       else if (['-v', '--verbose'].includes(arg)) args.verbose = true
-      else if (['-s', '--stats'].includes(arg)) args.stats = true
       else if (['-b', '--esbuild'].includes(arg)) args.esbuild = true
       else if (['-d', '--deploy'].includes(arg)) args.deploy = args.is_prod = true
-      else if (['-I', '--init'].includes(arg)) args.init = true
 
       // string values
       else if (['-e', '--environment'].includes(arg)) opt = 'env'
@@ -87,6 +85,8 @@ async function printVersion() {
 async function runCommand(args) {
   const { createKit } = await import('./nuekit.js')
   const { cmd='serve', dryrun, deploy, root=null, port } = args
+  const init = cmd == 'init'
+
   if (!root) args.root = '.' // ensure root is unset for create, if not set manually
 
   console.info('')
@@ -100,21 +100,23 @@ async function runCommand(args) {
   const nue = await createKit(args)
   args.nuekit_version = await printVersion()
 
-  // stats
-  if (cmd == 'stats') await nue.stats(args)
+  // deployer (private repo)
+  const { deploy: deployer } = deploy ? await import('nue-deployer') : null
 
   // build
-  if (dryrun || deploy || args.paths[0] || cmd == 'build') {
-    const paths = await nue.build(args.paths, dryrun)
+  if (init) {
+    await nue.init(true)
+    if (deploy) await deployer({ root: nue.dist, init: true })
 
-    // deploy (private repo ATM)
-    if (!dryrun && deploy) {
-      const { deploy: deployer } = await import('nue-deployer')
-      await deployer(paths, { root: nue.dist, init: args.init })
-    }
+
+  } else if (dryrun || deploy || args.paths[0] || cmd == 'build') {
+    const paths = await nue.build(args.paths, dryrun)
+    if (!dryrun && deploy && paths[0]) await deployer({ paths, root: nue.dist, init })
 
   // serve
-  } else await nue.serve()
+  } else {
+    await nue.serve()
+  }
 
 }
 

@@ -8,10 +8,10 @@ import { lightningCSS, buildJS } from './builder.js'
 import { createServer, send } from './nueserver.js'
 import { printStats, categorize } from './stats.js'
 import { promises as fs } from 'node:fs'
+import { initNueDir } from './init.js'
 import { createSite } from './site.js'
 import { fswatch } from './nuefs.js'
 import { parsePage } from 'nuemark'
-import { init } from './init.js'
 
 // the HTML5 doctype
 const DOCTYPE = '<!doctype html>\n\n'
@@ -25,9 +25,13 @@ export async function createKit(args) {
   const { dist, port, read, copy, write, is_empty } = site
   const is_dev = !is_prod
 
-  // make sure @nue dir has all the latest
-  if (!args.dryrun) await init({ dist, is_dev, esbuild, force: args.init })
 
+  async function init(force) {
+    await initNueDir({ dist, is_dev, esbuild, force })
+  }
+
+  // make sure @nue dir has all the latest
+  if (!args.dryrun) await init()
 
   async function setupStyles(dir, data) {
     const paths = await site.getStyles(dir, data)
@@ -347,7 +351,7 @@ export async function createKit(args) {
     gen, getPageData, renderMPA, renderSPA,
 
     // public API
-    build, serve, stats, dist, port,
+    build, serve, stats, init, dist, port,
   }
 
 }
