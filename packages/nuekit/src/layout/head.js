@@ -30,10 +30,11 @@ export function renderHead(data) {
   } = data
 
   const head = [`<meta charset="${charset}">`]
-  if (title) head.push(`<title>${title_template.replace(/%s/gi, title)}</title>`)
+  if (title) head.push(elem('title', title_template.replace(/%s/gi, title)))
 
   // meta
-  const pushMeta = (key, val) => val && head.push(`<meta name="${key}" content="${val}">`)
+  const pushMeta = (key, val, type = 'name') => val && head.push(elem('meta', { [type]: key, content: val }))
+  const pushProp = (key, val) => pushMeta(key, val, 'property')
 
   if (version) pushMeta('generator', generator)
   pushMeta('date.updated', new Date().toISOString())
@@ -42,17 +43,19 @@ export function renderHead(data) {
   pushMeta('author', data.author)
   pushMeta('robots', data.robots)
   pushMeta('theme-color', data.theme_color)
+  
+  // OG data
+  pushProp('og:title', title)
+  pushProp('og:description', data.description)
 
-  // OG image
   const og = data.og_image || data.og
   if (og) {
-    let img = og[0] == '/' ? og : `/${data.dir}/${og}`
-    head.push(elem('meta', { property: 'og:image', content: origin + img }))
+    const img = og[0] == '/' ? og : `/${data.dir}/${og}`
+    pushProp('og:image', origin + img)
   }
 
   // Pub date
-  const pub = data.date || data.pubDate
-  if (pub) head.push(`<meta property="article:published_time" content="${pub}">`)
+  pushProp('article:published_time', data.date || data.pubDate)
 
   // components (must always be rendered)
   pushMeta('nue:components', components.map(uri => `${base}${uri}`).join(' ') || ' ')
