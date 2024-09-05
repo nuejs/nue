@@ -1,46 +1,61 @@
 
 import { watch, promises as fs } from 'node:fs'
-import { join, parse } from 'node:path'
+import { join, parse, relative } from 'node:path'
 
 /*
-  Super minimalistic file system watcher.
+  Super minimalistic file system watcher
 
-  Auto-follows new directories and symbolic (file) links
-
-  Simple alternative to Chokidar and Nodemon when you "just want to watch"
-
-  TODO: symlink directory support
+  TODO: symdir support
 */
 
 // avoid double events and looping (seen on Bun only)
 let last = {}
 
 
-export function fswatch(dir, onfile, onremove) {
+export async function fswatch(dir, paths, callback, onremove) {
+
+  async function watchLink(file) {
+    const real = await fs.realpath(file.path)
+    watch(real, () => callback(file))
+  }
+
+  // watch symlinks
+  for (const path of paths) {
+    const file = parse(path)
+
+    if (isLegit(file) && file.ext) {
+      const stat = await fs.lstat(join(dir, path))
+      if (stat.isSymbolicLink()) {
+        watchLink({ ...file, path })
+      }
+    }
+  }
+
   return watch(dir, { recursive: true }, async function(e, path) {
     try {
       const file = parse(path)
+      file.path = path
 
       // skip paths (files and dirs) that start with _ or .
       if (!isLegit(file)) return
 
-      // skip double events
-      if (last.path == path && Date.now() - last.ts < 50) return
+      // skip double events (not needed anymore?)
+      // if (last.path == path && Date.now() - last.ts < 50) return
 
-      // regular flie -> callback
       const stat = await fs.lstat(join(dir, path))
 
+      // deploy everything on a directory
       if (stat.isDirectory()) {
         const paths = await fswalk(dir, path)
 
-        // deploy everything on the directory
         for (const path of paths) {
           const file = parse(path)
-          if (isLegit(file)) await onfile({ ...file, path })
+          if (isLegit(file)) await callback(file)
         }
 
-      } else {
-        if (file.ext) await onfile({ ...file, path, size: stat.size })
+      } else if (file.ext) {
+        if (stat.isSymbolicLink()) await watchLink(file)
+        await callback(file)
       }
 
       last = { path, ts: Date.now() }
@@ -51,6 +66,7 @@ export function fswatch(dir, onfile, onremove) {
     }
   })
 }
+
 
 
 export async function fswalk(root, _dir='', _ret=[]) {

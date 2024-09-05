@@ -294,6 +294,8 @@ export async function createKit(args) {
   }
 
   async function serve() {
+    if (is_prod) return log('Serve only available in dev mode')
+
     log('Serving site from', colors.cyan(dist))
 
     if (is_empty) await build()
@@ -304,9 +306,11 @@ export async function createKit(args) {
       return { path, code: name == 404 ? 404 : 200 }
     })
 
+    // all paths needed for symlink watching
+    const paths = await site.walk()
+
     // dev mode -> watch for changes
-    let watcher
-    if (is_dev) watcher = fswatch(root, async file => {
+    const watcher = await fswatch(root, paths, async file => {
       try {
         const ret = await processFile(file)
         if (ret) send({ ...file, ...parsePathParts(file.path), ...ret })
@@ -325,11 +329,8 @@ export async function createKit(args) {
       if (file.ext) send({ remove: true, path, ...file })
     })
 
-    const cleanup = () => {
-      if (watcher) watcher.close()
-    }
     const terminate = () => {
-      cleanup()
+      if (watcher) watcher.close()
       server.close()
     }
 
