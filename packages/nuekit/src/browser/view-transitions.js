@@ -1,4 +1,6 @@
 
+// Router for multi-page applications
+
 // exported
 export function $(query, root=document) {
   return root.querySelector(query)
@@ -8,8 +10,6 @@ export function $$(query, root=document) {
   return [ ...root.querySelectorAll(query)]
 }
 
-
-// Router for multi-page applications
 
 export async function loadPage(path, no_push) {
   dispatchEvent(new Event('before:route'))
@@ -23,7 +23,7 @@ export async function loadPage(path, no_push) {
   const title = $('title', dom)?.textContent
   if (title) document.title = title
 
-  // update <meta name="nue:components"/>
+  // update component list
   const query = '[name="nue:components"]'
   $(query).content = $(query, dom).content
 
@@ -34,13 +34,11 @@ export async function loadPage(path, no_push) {
     await import(script.getAttribute('src'))
   }
 
-  // body class
-  $('body').classList.value = $('body2', dom).classList.value || ''
+  const css_paths = updateStyles(dom)
 
-  const new_paths = updateStyles(dom)
-
-  loadCSS(new_paths, () => {
-    updateBody(dom)
+  loadCSS(css_paths, () => {
+    simpleDiff($('main'), $('main', dom))
+    simpleDiff($('body'), $('body2', dom))
     setActive(path)
 
     // scroll
@@ -52,71 +50,6 @@ export async function loadPage(path, no_push) {
     dispatchEvent(new Event('route'))
   })
 
-}
-
-
-// TODO: make a recursive diff to support for all custom layouts
-function updateBody(dom) {
-
-  ;['header', 'main', 'footer', 'nav'].forEach(function(query) {
-    const a = $('body >' + query)
-    const b = $('body2 >' + query, dom)
-    const clone = b && b.cloneNode(true)
-
-    // update
-    if (a && b) {
-
-      if (query == 'main') {
-        updateMain(dom)
-
-      } else {
-        updateBlock(a, clone)
-      }
-
-
-    // remove original
-    } else if (a) {
-      a.remove()
-
-    // add new one
-    } else if (b) {
-      if (query == 'header') $('body').prepend(clone)
-      if (query == 'footer') $('body').append(clone)
-      if (query == 'nav') $('body > header').after(clone)
-    }
-  })
-
-}
-
-// primitive DOM diffing
-function updateBlock(a, clone) {
-  const orig = a.outerHTML.replace(' aria-selected=""', '')
-  const diff = orig != clone.outerHTML
-  if (diff) a.replaceWith(clone)
-}
-
-
-// TODO: remove this hack
-function updateMain(dom) {
-  ;['article', 'header:first-child', 'aside:first-child', 'article + aside'].forEach(function(query, i) {
-    const a = $('main >' + query)
-    const b = $('main >' + query, dom)
-    const clone = b && b.cloneNode(true)
-
-    // update
-    if (a && b) {
-      updateBlock(a, clone)
-
-    } else if (a) {
-      a.remove()
-
-    } else if (b) {
-      if (!i) $('main').append(clone)
-      if (i == 1) $('main').prepend(clone)
-      if (i == 2) $('article').after(clone)
-    }
-
-  })
 }
 
 
@@ -189,19 +122,35 @@ if (is_browser) {
 /* -------- utilities ---------- */
 
 
-// TODO: simplify
+// primitive DOM diffing
+function simpleDiff(a, b) {
+  if (a.children.length == b.children.length) {
+    ;[...a.children].forEach((el, i) => updateBlock(el, b.children[i]))
+  } else {
+    a.classList.value = b.classList.value
+    a.innerHTML = b.innerHTML
+  }
+}
+
+function updateBlock(a, b) {
+  const orig = a.outerHTML.replace(' aria-selected=""', '')
+  if (orig != b.outerHTML) a.replaceWith(b.cloneNode(true))
+}
+
+
+
 function updateStyles(dom) {
 
   // Inline CSS / development
   const orig = $$('link, style')
-  const new_styles = swapStyles(orig, $$('style', dom))
+  const new_styles = swapStyles(orig, $$('link, style', dom))
   new_styles.forEach(style => $('head').appendChild(style))
 
   // inline style element
   updateProductionStyles(dom)
 
   // external CSS
-  return swapStyles(orig, $$('link', dom))
+  return new_styles.filter(el => el.tagName == 'link')
 }
 
 
@@ -228,7 +177,6 @@ function updateProductionStyles(dom) {
   if (plain) plain.replaceWith(new_plain)
   else if (new_plain) $('head').appendChild(new_plain)
 }
-
 
 
 
