@@ -15,11 +15,11 @@ sse.onmessage = async function(e) {
   if (data.site_updated) return location.reload()
 
   // error
+  $('.nuerr')?.remove()
+
   if (error) {
     Object.assign(error, { path, ext: data.ext?.slice(1) })
     import('./error.js').then(el => el.showError(error))
-  } else {
-    $('.nuerr')?.remove()
   }
 
   // content
@@ -46,14 +46,38 @@ sse.onmessage = async function(e) {
     const style = createStyle(href, css)
 
     if (orig) orig.replaceWith(style)
-    else document.head.appendChild(style)
+    else if (canAdd(data)) document.head.appendChild(style)
   }
 
-  // remove css
+  // remove css (note: is_css not available in remove events)
   if (data.remove && data.ext == '.css') {
     const orig = $(`[href="/${data.path}"]`)
     if (orig) orig.remove()
   }
+}
+
+function canAdd({ dir, name, basedir }) {
+
+  // exclude
+  if (contains(getMeta('exclude'), name)) return false
+
+  // global
+  if (getMeta('globals')?.includes(dir)) return true
+
+  // library
+  if (getMeta('libs')?.includes(dir) && contains(getMeta('include'), name)) return true
+
+  // current app
+  const appdir = location.pathname.split('/')[1]
+  return appdir == basedir
+}
+
+function getMeta(key) {
+  return $(`[name="nue:${key}"]`)?.getAttribute('content')?.split(' ')
+}
+
+function contains(matches, name) {
+  return matches?.find(match => name.includes(match))
 }
 
 

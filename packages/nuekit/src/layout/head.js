@@ -60,6 +60,14 @@ export function renderHead(data) {
   // components (must always be rendered)
   pushMeta('nue:components', components.map(uri => `${base}${uri}`).join(' ') || ' ')
 
+  // helper info for hot-reloading
+  if (!is_prod) {
+    for (const key of 'include exclude globals libs'.split(' ')) {
+      const arr = data[key]
+      pushMeta(`nue:${key}`, arr?.join(' '))
+    }
+  }
+
   // misc
   if (favicon) head.push(`<link rel="icon" type="${getMime(favicon)}" href="${favicon}">`)
 

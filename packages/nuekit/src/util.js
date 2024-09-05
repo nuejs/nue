@@ -81,15 +81,22 @@ export function toPosix(path) {
 }
 
 export function extendData(to, from={}) {
-  const include = to.include ? [...to.include] : []
-  const exclude = to.exclude ? [...to.exclude] : []
-
-  if (from.include) include.push(...from.include)
-  if (from.exclude) exclude.push(...from.exclude)
-
+  const include = addUnique(to.include, from.include)
+  const exclude = addUnique(to.exclude, from.exclude)
   Object.assign(to, from)
   to.include = include
   to.exclude = exclude
+}
+
+
+function addUnique(to=[], from=[]) {
+  if (to.length) to = [...to]
+
+  for (const el of from) {
+    if (!to.includes(el)) to.push(el)
+  }
+
+  return to
 }
 
 
