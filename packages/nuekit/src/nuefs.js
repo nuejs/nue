@@ -8,15 +8,17 @@ import { join, parse, relative } from 'node:path'
   TODO: symdir support
 */
 
-// avoid double events and looping (seen on Bun only)
-let last = {}
-
+// for avoiding double events
+// let last = {}
 
 export async function fswatch(dir, paths, callback, onremove) {
 
+  const watchers = {}
+
   async function watchLink(file) {
     const real = await fs.realpath(file.path)
-    watch(real, () => callback(file))
+    const watcher = watch(real, () => callback(file))
+    watchers[file.path] = watcher
   }
 
   // watch symlinks
@@ -58,11 +60,15 @@ export async function fswatch(dir, paths, callback, onremove) {
         await callback(file)
       }
 
-      last = { path, ts: Date.now() }
+      // last = { path, ts: Date.now() }
 
     } catch (e) {
-      if (e.errno == -2) await onremove(path)
-      else console.error(e)
+      if (e.errno != -2) return console.error(e)
+      await onremove(path)
+
+      // unwatch symlink
+      const watcher = watchers[path]
+      if (watcher) watcher.close()
     }
   })
 }

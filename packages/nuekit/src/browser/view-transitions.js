@@ -34,26 +34,12 @@ export async function loadPage(path, no_push) {
     await import(script.getAttribute('src'))
   }
 
-  // Inline CSS / development
-  const new_styles = swapStyles($$('style'), $$('style', dom))
-  new_styles.forEach(style => $('head').appendChild(style))
-
-  // external CSS
-  const paths = swapStyles($$('link'), $$('link', dom))
-
-  /* production (single style element) */
-  const orig_style = findPlainStyle()
-  const new_style = findPlainStyle(dom)
-
-  if (orig_style) orig_style.replaceWith(new_style)
-  else if (new_style) $('head').appendChild(new_style)
-
-
   // body class
   $('body').classList.value = $('body2', dom).classList.value || ''
 
+  const new_paths = updateStyles(dom)
 
-  loadCSS(paths, () => {
+  loadCSS(new_paths, () => {
     updateBody(dom)
     setActive(path)
 
@@ -66,10 +52,6 @@ export async function loadPage(path, no_push) {
     dispatchEvent(new Event('route'))
   })
 
-}
-
-function findPlainStyle(dom) {
-  return $$('style', dom).find(el => !el.attributes.length)
 }
 
 
@@ -112,6 +94,7 @@ function updateBlock(a, clone) {
   const diff = orig != clone.outerHTML
   if (diff) a.replaceWith(clone)
 }
+
 
 // TODO: remove this hack
 function updateMain(dom) {
@@ -161,7 +144,6 @@ export function onclick(root, fn) {
 // developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-selected
 export function setActive(path, attrname='aria-selected') {
 
-
   // remove old selections
   $$(`[${attrname}]`).forEach(el => el.removeAttribute(attrname))
 
@@ -207,22 +189,48 @@ if (is_browser) {
 /* -------- utilities ---------- */
 
 
-function hasStyle(sheet, sheets) {
+// TODO: simplify
+function updateStyles(dom) {
 
+  // Inline CSS / development
+  const orig = $$('link, style')
+  const new_styles = swapStyles(orig, $$('style', dom))
+  new_styles.forEach(style => $('head').appendChild(style))
+
+  // inline style element
+  updateProductionStyles(dom)
+
+  // external CSS
+  return swapStyles(orig, $$('link', dom))
+}
+
+
+function hasStyle(sheet, sheets) {
   return sheets.find(el => el.getAttribute('href') == sheet.getAttribute('href'))
 }
 
+
+// disable / enable
 function swapStyles(orig, styles) {
-
-  // disable / enable
-  orig.forEach((el, i) => {
-    el.disabled = !hasStyle(el, styles)
-  })
-
-
-  // add new
+  orig.forEach((el, i) => el.disabled = !hasStyle(el, styles))
   return styles.filter(el => !hasStyle(el, orig))
 }
+
+function findPlainStyle(dom) {
+  return $$('style', dom).find(el => !el.attributes.length)
+}
+
+// production: single inline style element without attributes
+function updateProductionStyles(dom) {
+  const plain = findPlainStyle()
+  const new_plain = findPlainStyle(dom)
+
+  if (plain) plain.replaceWith(new_plain)
+  else if (new_plain) $('head').appendChild(new_plain)
+}
+
+
+
 
 const cache = {}
 
