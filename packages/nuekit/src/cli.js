@@ -47,6 +47,7 @@ export function getArgs(argv) {
       else if (['-v', '--verbose'].includes(arg)) args.verbose = true
       else if (['-b', '--esbuild'].includes(arg)) args.esbuild = true
       else if (['-d', '--deploy'].includes(arg)) args.deploy = args.is_prod = true
+      else if (['-I', '--incremental'].includes(arg)) args.incremental = true
 
       // string values
       else if (['-e', '--environment'].includes(arg)) opt = 'env'
@@ -101,7 +102,7 @@ async function runCommand(args) {
   args.nuekit_version = await printVersion()
 
   // deployer (private repo)
-  const { deploy: deployer } = deploy ? await import('nue-deployer') : null
+  const { deploy: deployer } = deploy ? await import('nue-deployer') : {}
 
   // build
   if (init) {
@@ -110,7 +111,7 @@ async function runCommand(args) {
 
 
   } else if (dryrun || deploy || args.paths[0] || cmd == 'build') {
-    const paths = await nue.build(args.paths, dryrun)
+    const paths = await nue.build(args.paths)
     if (!dryrun && deploy && paths[0]) await deployer({ paths, root: nue.dist, init })
 
   // serve

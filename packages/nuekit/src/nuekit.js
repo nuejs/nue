@@ -17,7 +17,7 @@ import { parsePage } from 'nuemark'
 const DOCTYPE = '<!doctype html>\n\n'
 
 export async function createKit(args) {
-  const { root, is_prod, esbuild } = args
+  const { root, is_prod, esbuild, dryrun } = args
 
   // site: various file based functions
   const site = await createSite(args)
@@ -31,7 +31,7 @@ export async function createKit(args) {
   }
 
   // make sure @nue dir has all the latest
-  if (!args.dryrun) await init()
+  if (!dryrun) await init()
 
   async function setupStyles(dir, data) {
     const paths = await site.getStyles(dir, data)
@@ -252,7 +252,7 @@ export async function createKit(args) {
   }
 
   // build all / given matches
-  async function build(matches=[], dryrun) {
+  async function build(matches=[]) {
     const begin = Date.now()
     log('Building site to:', colors.cyan(dist))
 
@@ -262,7 +262,10 @@ export async function createKit(args) {
     // ignore layouts
     paths = paths.filter(p => !p.endsWith('layout.html'))
 
-    if (matches[0]) {
+    if (args.incremental) {
+      paths = await site.filterUpdated(paths)
+
+    } else if (matches[0]) {
       paths = paths.filter(p => matches.find(m => m == '.' ? p == 'index.md' : p.includes(m)))
     }
 

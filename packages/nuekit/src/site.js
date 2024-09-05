@@ -330,5 +330,32 @@ export async function createSite(args) {
     }
   }
 
+
+  async function getLastRun() {
+    const path = join(dist, '.lastrun')
+
+    try {
+      const stat = await fs.stat(path)
+      return stat.mtimeMs
+
+    } catch {
+      await fs.writeFile(path, '')
+      return 0
+    }
+  }
+
+  self.filterUpdated = async function(paths) {
+    const since = await getLastRun()
+    const arr = []
+
+    for (const path of paths) {
+      const stat = await fs.stat(path)
+      if (stat.mtimeMs > since) arr.push(path)
+    }
+
+    return arr
+  }
+
+
   return { ...self, dist, port, read, write, copy }
 }
