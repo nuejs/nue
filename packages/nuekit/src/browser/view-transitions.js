@@ -103,9 +103,7 @@ if (is_browser) {
 
   // autoroute / document clicks
   onclick(document, async path => {
-    document.startViewTransition(async function() {
-      await loadPage(path)
-    })
+    document.startViewTransition(async () => await loadPage(path))
   })
 
   // initial active
@@ -114,7 +112,7 @@ if (is_browser) {
   // back button
   addEventListener('popstate', e => {
     const { path } = e.state || {}
-    if (path) loadPage(path, true)
+    if (path) document.startViewTransition(async () => await loadPage(path, true))
   })
 }
 
