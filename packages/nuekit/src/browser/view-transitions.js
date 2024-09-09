@@ -68,7 +68,7 @@ export function onclick(root, fn) {
         (name?.includes('.') && !name?.endsWith('.html')) || target == '_blank') return
 
     // all good
-    if (path != location.pathname) fn(path)
+    if (path != location.pathname) fn(path, el)
     e.preventDefault()
 
   })
@@ -102,8 +102,13 @@ if (is_browser) {
   history.pushState({ path: location.pathname }, 0)
 
   // autoroute / document clicks
-  onclick(document, async path => {
-    document.startViewTransition(async () => await loadPage(path))
+  onclick(document, async (path, el) => {
+    const img = $('img', el)
+    if (img) img.style.viewTransitionName = 'active-image'
+
+    document.startViewTransition(async () => {
+      await loadPage(path)
+    })
   })
 
   // initial active
