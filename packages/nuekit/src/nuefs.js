@@ -9,7 +9,7 @@ import { join, parse, relative } from 'node:path'
 */
 
 // for avoiding double events
-// let last = {}
+let last = {}
 
 export async function fswatch(dir, paths, callback, onremove) {
 
@@ -17,7 +17,10 @@ export async function fswatch(dir, paths, callback, onremove) {
 
   async function watchLink(file) {
     const real = await fs.realpath(file.path)
-    const watcher = watch(real, () => callback(file))
+    const watcher = watch(real, realpath => {
+      callback(file)
+    })
+
     watchers[file.path] = watcher
   }
 
@@ -25,9 +28,10 @@ export async function fswatch(dir, paths, callback, onremove) {
   for (const path of paths) {
     const file = parse(path)
 
-    if (isLegit(file) && file.ext) {
+    if (isLegit(file)) {
       const stat = await fs.lstat(join(dir, path))
       if (stat.isSymbolicLink()) {
+        file.is_directory = stat.isDirectory()
         watchLink({ ...file, path })
       }
     }
@@ -42,7 +46,7 @@ export async function fswatch(dir, paths, callback, onremove) {
       if (!isLegit(file)) return
 
       // skip double events (not needed anymore?)
-      // if (last.path == path && Date.now() - last.ts < 50) return
+      if (last.path == path && Date.now() - last.ts < 50) return
 
       const stat = await fs.lstat(join(dir, path))
 
@@ -60,7 +64,7 @@ export async function fswatch(dir, paths, callback, onremove) {
         await callback(file)
       }
 
-      // last = { path, ts: Date.now() }
+      last = { path, ts: Date.now() }
 
     } catch (e) {
       if (e.errno != -2) return console.error(e)
