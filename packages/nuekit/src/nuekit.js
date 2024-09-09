@@ -318,7 +318,7 @@ export async function createKit(args) {
     })
 
     // watch for changes
-    const watcher = is_prod ? null : await fswatch(root, await site.walk(), async file => {
+    const watcher = is_prod ? null : await fswatch(root, async file => {
       try {
         const ret = await processFile(file)
         if (ret) send({ ...file, ...parsePathParts(file.path), ...ret })

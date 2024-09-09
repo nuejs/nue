@@ -3,41 +3,48 @@ import { watch, promises as fs } from 'node:fs'
 import { join, parse, relative } from 'node:path'
 
 /*
-  Super minimalistic file system watcher
-
-  TODO: symdir support
+  Extremely minimal and efficient cross-platform file watching library
 */
 
 // for avoiding double events
 let last = {}
 
-export async function fswatch(dir, paths, callback, onremove) {
+export async function fswatch(root, callback, onremove) {
 
   const watchers = {}
 
-  async function watchLink(file) {
-    const real = await fs.realpath(file.path)
-    const watcher = watch(real, realpath => {
-      callback(file)
+  async function watchLink(link) {
+    const real = await fs.realpath(link.path)
+    const is_dir = (await fs.lstat(real)).isDirectory()
+
+    const watcher = watch(real, { recursive: is_dir }, (e, path) => {
+      if (is_dir) {
+        const file = parse(join(link.name, path))
+        callback({ path, ...file })
+
+      } else {
+        callback(link)
+      }
     })
 
-    watchers[file.path] = watcher
+    watchers[link.path] = watcher
   }
 
   // watch symlinks
+  const paths = await fswalk({ root, symdirs: false })
+
   for (const path of paths) {
     const file = parse(path)
 
     if (isLegit(file)) {
-      const stat = await fs.lstat(join(dir, path))
+      const stat = await fs.lstat(join(root, path))
       if (stat.isSymbolicLink()) {
-        file.is_directory = stat.isDirectory()
         watchLink({ ...file, path })
       }
     }
   }
 
-  return watch(dir, { recursive: true }, async function(e, path) {
+  return watch(root, { recursive: true }, async function(e, path) {
     try {
       const file = parse(path)
       file.path = path
@@ -48,11 +55,11 @@ export async function fswatch(dir, paths, callback, onremove) {
       // skip double events (not needed anymore?)
       if (last.path == path && Date.now() - last.ts < 50) return
 
-      const stat = await fs.lstat(join(dir, path))
+      const stat = await fs.lstat(join(root, path))
 
       // deploy everything on a directory
-      if (stat.isDirectory()) {
-        const paths = await fswalk(dir, path)
+      if (stat.isDirectory() || stat.isSymbolicLink() && await isSymDir(path)) {
+        const paths = await fswalk(root, path)
 
         for (const path of paths) {
           const file = parse(path)
@@ -78,14 +85,16 @@ export async function fswatch(dir, paths, callback, onremove) {
 }
 
 
+export async function fswalk(opts, _dir='', _ret=[]) {
+  if (typeof opts == 'string') opts = { root: opts }
+  const { root, symdirs=true } = opts
 
-export async function fswalk(root, _dir='', _ret=[]) {
   const files = await fs.readdir(join(root, _dir), { withFileTypes: true })
 
   for (const f of files) {
     if (isLegit(f)) {
       const path = join(_dir, f.name)
-      if (isDir(f)) await fswalk(root, path, _ret)
+      if (f.isDirectory() || (symdirs && f.isSymbolicLink() && await isSymdir(path))) await fswalk(opts, path, _ret)
       else _ret.push(path)
     }
   }
@@ -102,9 +111,10 @@ function isLegit(file) {
   return !ignore(file.name) && !ignore(file.base) && !ignore(file.dir)
 }
 
-// TODO: real symdir detection
-function isDir(f) {
-  return f.isDirectory() || f.isSymbolicLink() && !f.name.includes('.')
+
+async function isSymdir(linkpath) {
+  const real = await fs.realpath(linkpath)
+  return (await fs.lstat(real)).isDirectory()
 }
 
 
