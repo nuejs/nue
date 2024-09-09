@@ -50,6 +50,15 @@ export async function createSite(args) {
     }
   }
 
+  async function isAtRoot() {
+    try {
+      await fs.stat('site.yaml')
+      return true
+
+    } catch (e) {
+      return false
+    }
+  }
 
   async function readOpts() {
     const data = await readData('site.yaml') || {}
@@ -71,11 +80,8 @@ export async function createSite(args) {
     libs: site_data.libs || [],
   }
 
-  const port = args.port ? args.port :
-    site_data.port ? site_data.port :
-      is_prod ? 8081 : 8080
-
   const dist = joinRootPath(root, site_data.dist || join('.dist', is_prod ? 'prod' : 'dev'))
+  const port = args.port || site_data.port || is_prod ? 8081 : 8080
 
   // flag if .dist is empty
   if (!existsSync(dist)) self.is_empty = true
@@ -357,5 +363,5 @@ export async function createSite(args) {
   }
 
 
-  return { ...self, dist, port, read, write, copy }
+  return { ...self, dist, port, isAtRoot, read, write, copy }
 }

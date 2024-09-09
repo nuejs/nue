@@ -30,6 +30,12 @@ export async function createKit(args) {
     await initNueDir({ dist, is_dev, esbuild, force })
   }
 
+
+  if (!(await site.isAtRoot())) {
+    console.error('No site.yaml found. Please go to project root\n')
+    return false
+  }
+
   // make sure @nue dir has all the latest
   if (!dryrun) await init()
 

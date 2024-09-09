@@ -99,6 +99,8 @@ async function runCommand(args) {
   }
 
   const nue = await createKit(args)
+  if (!nue) return
+
   args.nuekit_version = await printVersion()
 
   // deployer (private repo)
