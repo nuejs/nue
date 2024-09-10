@@ -31,7 +31,7 @@ export async function createKit(args) {
   }
 
 
-  if (!(await fs.exists('site.yaml'))) {
+  if (!await fs.exists('site.yaml')) {
     console.error('No site.yaml found. Please go to project root\n')
     return false
   }
