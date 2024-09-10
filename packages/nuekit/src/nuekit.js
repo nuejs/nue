@@ -47,6 +47,7 @@ export async function createKit(args) {
       data.styles = paths.filter(path => path.includes('@nue'))
 
     } else {
+      data.inline_css = []
       data.styles = paths
     }
   }
