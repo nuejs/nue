@@ -2,7 +2,7 @@
 import { compileFile as nueCompile } from 'nuejs-core'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { promises as fs, existsSync } from 'node:fs'
+import { promises as fs } from 'node:fs'
 import { resolve } from 'import-meta-resolve'
 import { buildJS } from './builder.js'
 import { colors, srcdir } from './util.js'
@@ -16,7 +16,7 @@ export async function initNueDir({ dist, is_dev, esbuild, force }) {
   // has all latest?
   const latest = join(outdir, '.beta-2')
 
-  if (force || !existsSync(latest)) {
+  if (force || !await fs.exists(latest)) {
     await fs.rm(outdir, { recursive: true, force: true })
     await fs.mkdir(outdir, { recursive: true })
     await fs.writeFile(latest, '')

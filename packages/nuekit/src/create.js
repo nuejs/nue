@@ -1,5 +1,5 @@
 import { execSync } from 'node:child_process'
-import { promises as fs, existsSync } from 'node:fs'
+import { promises as fs } from 'node:fs'
 import { join } from 'node:path'
 
 import { openUrl } from './util.js'
@@ -24,7 +24,7 @@ export async function create({ root, name = 'simple-blog', port }) {
   // currently only simple-blog is available
   if (name != 'simple-blog') return console.error(`Template "${name}" does not exist`)
 
-  if (existsSync(root)) {
+  if (await fs.exists(root)) {
     // read files
     const files = (await fs.readdir(root)).filter(f => !f.startsWith('.'))
 
