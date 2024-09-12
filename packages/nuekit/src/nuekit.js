@@ -1,13 +1,13 @@
 
 
 import { log, colors, getAppDir, parsePathParts, extendData } from './util.js'
-import { join, parse as parsePath } from 'node:path'
 import { renderPage, renderSinglePage } from './layout/page-layout.js'
 import { parse as parseNue, compile as compileNue } from 'nuejs-core'
+import { promises as fs, existsSync } from 'node:fs'
+import { join, parse as parsePath } from 'node:path'
 import { lightningCSS, buildJS } from './builder.js'
 import { createServer, send } from './nueserver.js'
 import { printStats, categorize } from './stats.js'
-import { promises as fs } from 'node:fs'
 import { initNueDir } from './init.js'
 import { createSite } from './site.js'
 import { fswatch } from './nuefs.js'
@@ -30,7 +30,7 @@ export async function createKit(args) {
     await initNueDir({ dist, is_dev, esbuild, force })
   }
 
-  if (!await fs.exists(join(root, 'site.yaml'))) {
+  if (!existsSync(join(root, 'site.yaml'))) {
     console.error('No site.yaml found. Please go to project root\n')
     return false
   }

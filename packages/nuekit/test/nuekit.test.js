@@ -1,9 +1,9 @@
 
+import { promises as fs, existsSync } from 'node:fs'
 import { buildJS } from '../src/builder.js'
 import { createSite } from '../src/site.js'
 
 import { createKit } from '../src/nuekit.js'
-import { promises as fs } from 'node:fs'
 import { join, parse } from 'node:path'
 
 import { toMatchPath } from './match-path.js'
@@ -43,7 +43,7 @@ async function getSite() {
 }
 
 async function getKit(dryrun=true) {
-  if (!await fs.exists(join(root, 'site.yaml'))) await write('site.yaml', '')
+  if (!existsSync(join(root, 'site.yaml'))) await write('site.yaml', '')
   return await createKit({ root, dryrun })
 }
 

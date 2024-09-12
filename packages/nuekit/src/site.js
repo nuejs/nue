@@ -10,8 +10,8 @@ import {
   joinRootPath } from './util.js'
 
 import { join, extname, parse as parsePath } from 'node:path'
+import { promises as fs, existsSync } from 'node:fs'
 import { parse as parseNue } from 'nuejs-core'
-import { promises as fs } from 'node:fs'
 import { fswalk } from './nuefs.js'
 import { nuemark } from 'nuemark'
 import yaml from 'js-yaml'
@@ -29,7 +29,7 @@ export async function createSite(args) {
   const cache = {}
 
   // make sure root exists
-  if (!await fs.exists(root)) throw `Root directory does not exist: ${root}`
+  if (!existsSync(root)) throw `Root directory does not exist: ${root}`
 
   /*
     Bun.file()::text() has equal performance
@@ -76,7 +76,7 @@ export async function createSite(args) {
 
 
   // flag if .dist is empty
-  self.is_empty = !await fs.exists(dist)
+  self.is_empty = !existsSync(dist)
 
   async function write(content, dir, filename) {
     const todir = join(dist, dir)
@@ -231,7 +231,7 @@ export async function createSite(args) {
     const arr = []
 
     // make sure dir exists
-    if (!await fs.exists(join(root, dir))) {
+    if (!existsSync(join(root, dir))) {
       console.error(`content collection: "${dir}" does not exist`)
       return arr
     }
@@ -322,7 +322,7 @@ export async function createSite(args) {
 
     for (const [dir, name, ext] of try_files) {
       const src = join(dir, `${name}.${ext}`)
-      if (await fs.exists(join(root, src)))
+      if (existsSync(join(root, src)))
         return { src, path: join(dir, `${name}.html`), name }
     }
   }
