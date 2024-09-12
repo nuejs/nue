@@ -30,8 +30,7 @@ export async function createKit(args) {
     await initNueDir({ dist, is_dev, esbuild, force })
   }
 
-
-  if (!await fs.exists('site.yaml')) {
+  if (!await fs.exists(join(root, 'site.yaml'))) {
     console.error('No site.yaml found. Please go to project root\n')
     return false
   }
@@ -268,6 +267,7 @@ export async function createKit(args) {
 
     // ignore layouts
     paths = paths.filter(p => !p.endsWith('layout.html'))
+
 
     if (args.incremental) {
       paths = await site.filterUpdated(paths)

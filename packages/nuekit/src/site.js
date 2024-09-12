@@ -76,7 +76,7 @@ export async function createSite(args) {
 
 
   // flag if .dist is empty
-  if (!await fs.exists(dist)) self.is_empty = true
+  self.is_empty = !await fs.exists(dist)
 
   async function write(content, dir, filename) {
     const todir = join(dist, dir)
@@ -84,7 +84,7 @@ export async function createSite(args) {
     try {
       const to = join(todir, filename)
       await fs.writeFile(to, content)
-      !is_bulk && !self.is_empty && log(join(dir, filename))
+      if (!is_bulk && !self.is_empty) log(join(dir, filename))
       return to
 
     } catch (e) {
@@ -100,7 +100,7 @@ export async function createSite(args) {
 
     try {
       await fs.copyFile(join(root, dir, base), to)
-      !is_bulk && !self.is_empty && log(join(dir, base))
+      if (!is_bulk && !self.is_empty) log(join(dir, base))
 
     } catch (e) {
       if (!fileNotFound(e)) throw e

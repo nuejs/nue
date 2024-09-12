@@ -18,6 +18,7 @@ beforeEach(async () => {
   await fs.rm(root, { recursive: true, force: true })
   await fs.mkdir(root, { recursive: true })
 })
+
 afterEach(async () => await fs.rm(root, { recursive: true, force: true }))
 
 // helper function for creating files to the root directory
@@ -41,8 +42,9 @@ async function getSite() {
   return await createSite({ root })
 }
 
-async function getKit() {
-  return await createKit({ root, dryrun: true })
+async function getKit(dryrun=true) {
+  if (!await fs.exists(join(root, 'site.yaml'))) await write('site.yaml', '')
+  return await createKit({ root, dryrun })
 }
 
 function createFront(title, pubDate) {
@@ -363,7 +365,7 @@ test('the project was started for the first time', async () => {
   await write('home.css')
   await write('index.md')
 
-  const kit = await getKit()
+  const kit = await getKit(false)
   const terminate = await kit.serve()
   try {
     const html = await readDist(kit.dist, 'index.html')
