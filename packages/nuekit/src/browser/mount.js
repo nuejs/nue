@@ -16,9 +16,11 @@ async function importAll(hmr_path) {
   const arr = []
 
   for (let path of comps.split(' ')) {
-    if (path == hmr_path) path += `?${++remounts}`
-    const { lib } = await import(path)
-    if (lib) arr.push(...lib)
+    if (path) {
+      if (path == hmr_path) path += `?${++remounts}`
+      const { lib } = await import(path)
+      if (lib) arr.push(...lib)
+    }
   }
   return arr
 }
