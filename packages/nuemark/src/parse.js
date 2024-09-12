@@ -154,7 +154,11 @@ export function parseBlocks(lines) {
     // fenced code start/end
     if (line.startsWith('```')) {
       if (!fenced) {
-        fenced = { is_code: true, content: [], ...parseSpecs(line.slice(3).trim()) }
+        let specs = line.slice(3).trim()
+        const numbered = specs.includes('numbered')
+        specs = specs.replace('numbered', '')
+        fenced = { ...parseSpecs(specs), numbered, is_code: true, content: [] }
+
         md = null
       } else {
         blocks.push(fenced)

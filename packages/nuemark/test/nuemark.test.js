@@ -15,7 +15,23 @@ test('fenced code', () => {
 test('fenced code: space before class name', () => {
   const { html } = renderLines(['``` md #go.pink', '# Hey', '```'])
   expect(html).toInclude('<div class="pink">')
+  expect(html).toInclude('<pre id="go">')
   expect(html).toInclude('<code language="md">')
+  expect(html).not.toInclude('<span>')
+})
+
+test('fenced code & numbered', () => {
+  const { html } = renderLines(['``` numbered .pink', '<p>', '```'])
+  expect(html).toInclude('<code language="html">')
+  expect(html).toInclude('<div class="pink">')
+  expect(html).toInclude('<span>')
+
+})
+
+test('fenced code & numbered last', () => {
+  const { html } = renderLines(['``` md .pink numbered', '# Hey', '```'])
+  expect(html).toInclude('<div class="pink">')
+  expect(html).toInclude('<span>')
 })
 
 test('[code.foo]', () => {
