@@ -10,11 +10,15 @@ export function $$(query, root=document) {
   return [ ...root.querySelectorAll(query)]
 }
 
+const scrollPos = {}
 
-export async function loadPage(path, no_push) {
+export async function loadPage(path, replace_state) {
   dispatchEvent(new Event('before:route'))
 
-  if (!no_push) history.pushState({ path }, 0, path)
+  // save scroll position
+  scrollPos[location.pathname] = window.scrollY
+
+  if (!replace_state) history.pushState({ path }, 0, path)
 
   // DOM of the new page
   const dom = mkdom(await getHTML(path))
@@ -117,7 +121,14 @@ if (is_browser) {
   // back button
   addEventListener('popstate', e => {
     const { path } = e.state || {}
-    if (path) document.startViewTransition(async () => await loadPage(path, true))
+    if (path) {
+      const pos = scrollPos[path]
+
+      document.startViewTransition(async () => {
+        await loadPage(path, true)
+        setTimeout(() => window.scrollTo(0, pos || 0), 10)
+      })
+    }
   })
 }
 
