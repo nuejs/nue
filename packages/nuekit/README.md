@@ -20,7 +20,7 @@ Nue is designed for the following people:
 
 3. **Experienced JS developers**: frustrated with the absurd amount of layers in the [React stack](https://roadmap.sh/react) and look for simpler ways to develop professional websites.
 
-4. **Designers**: aiming to learn web development, but find the React/JavaScript ecosystem impossible to grasp
+4. **Designers**: aiming to transfer their design skills to CSS code, but find the React/JavaScript/CSS-in-JS ecosystem impossible to grasp
 
 5. **Parents & Teachers**: who wants to educate people [how the web works](https://www.websitearchitecture.co.uk/resources/examples/web-standards-model/)
 

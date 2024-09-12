@@ -49,13 +49,17 @@ const CSS = `
 /* Let's check out CSS code */
 .syntax {
   border: 1px solid #fff1 !important;
-  background-color: #20293A;
-  border-radius: 4px;
+  background-color: var(--base-600);
+  border-radius: var(--radius);
   margin-bottom: 3em;
 
-  header {
-    border-bottom: 1px solid #fff1;
-    padding: .7em 1.5em;
+  @media(width < 900) {
+    transform: scale(1.1);
+    filter: blur(4px);
+  }
+
+  @starting-style {
+    transition: transform 4s;
   }
 }
 `
@@ -692,7 +696,8 @@ await renderPage([
   { title: 'TypeScript', code: TS, lang: 'ts', },
   { title: 'ZIG', code: ZIG, lang: 'zig', },
 
-  ] // .filter(el => ['html'].includes(el.lang))
+  ]
+  // ].filter(el => ['css'].includes(el.lang))
 
 )
 

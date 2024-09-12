@@ -15,14 +15,15 @@ const COMMON_WORDS = 'null|true|false|undefined|import|from|async|await|package|
 const SPECIAL_WORDS = {
   cpp: 'cout|cin|using|namespace',
   python: 'None|nonlocal|lambda',
-  go: 'chan|fallthrough',
-  css: 'important'
+  go: 'chan|fallthrough'
 }
 
 // special rules (growing list)
 const RULES = {
   css: [
     { tag: 'strong', re: /#[0-9a-f]{3,7}/gi },
+    { tag: 'label', re: /!important/gi },
+    { tag: 'em', re: /--[\w\d\-]+/gi },
   ]
 }
 
@@ -39,14 +40,13 @@ const HTML_TAGS = [
 
   // HTML tag name
   { tag: 'strong', re: /<([\w\-]+ )/g, shift: true, lang: MIXED_HTML },
-
   { tag: 'strong', re: /<\/?([\w\-]+)>/g, shift: true, lang: MIXED_HTML },
 
   // ALL CAPS (constants)
   { tag: 'b', re: /\b[A-Z]{2,}\b/g },
 
   // @special
-  { tag: 'label', re: /\B@[\w]+/gi },
+  { tag: 'label', re: /\B@[\w\-]+/gi },
 
   // char
   { tag: 'i', re: /[^\w •]/g },
