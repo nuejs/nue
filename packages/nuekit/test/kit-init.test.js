@@ -13,6 +13,7 @@ beforeAll(async () => {
 
 afterAll(async () => await fs.rm(dist, { recursive: true, force: true }))
 
+
 test('bun init', async () => {
   await initNueDir({ dist, is_dev: true })
   const names = await fs.readdir(join(dist, '@nue'))

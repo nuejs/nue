@@ -19,7 +19,8 @@ export async function fswatch(root, callback, onremove) {
 
     const watcher = watch(real, { recursive: is_dir }, (e, path) => {
       if (is_dir) {
-        const file = parse(join(link.name, path))
+        path = join(link.name, path)
+        const file = parse(path)
         callback({ path, ...file })
 
       } else {
@@ -58,7 +59,7 @@ export async function fswatch(root, callback, onremove) {
       const stat = await fs.lstat(join(root, path))
 
       // deploy everything on a directory
-      if (stat.isDirectory() || stat.isSymbolicLink() && await isSymDir(path)) {
+      if (stat.isDirectory() || stat.isSymbolicLink() && await isSymdir(path)) {
         const paths = await fswalk(root, path)
 
         for (const path of paths) {
@@ -89,12 +90,15 @@ export async function fswalk(opts, _dir='', _ret=[]) {
   if (typeof opts == 'string') opts = { root: opts }
   const { root, symdirs=true } = opts
 
+
   const files = await fs.readdir(join(root, _dir), { withFileTypes: true })
 
   for (const f of files) {
     if (isLegit(f)) {
       const path = join(_dir, f.name)
-      if (f.isDirectory() || (symdirs && f.isSymbolicLink() && await isSymdir(path))) await fswalk(opts, path, _ret)
+      const is_symdir = symdirs && f.isSymbolicLink() && await isSymdir(join(root, path))
+
+      if (f.isDirectory() || is_symdir) await fswalk(opts, path, _ret)
       else _ret.push(path)
     }
   }

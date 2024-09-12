@@ -152,7 +152,6 @@ export async function createSite(args) {
     const { include=[], exclude=[] } = data
     const subdirs = !dir ? [] : self.globals.map(el => join(dir, el))
 
-
     let paths = [
       ...await walkDirs(self.globals),
       ...await walkDirs(subdirs),

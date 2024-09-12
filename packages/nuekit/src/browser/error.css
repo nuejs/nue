@@ -1,9 +1,9 @@
 
 dialog.nuerr {
-  font-family: BlinkMacSystemFont, sans-serif;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  font-family: BlinkMacSystemFont, sans-serif;
+  border-radius: var(--dialog-radius, 6px);
   margin: 10vh auto 0;
-  border-radius: 6px;
   padding: 2em 2.5em;
   font-size: 15px;
   min-width: 22em;
