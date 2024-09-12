@@ -170,10 +170,10 @@ export function parseBlocks(lines) {
     // code line
     if (fenced) return fenced.content.push(line)
 
-
     // component
-    if (line[0] == '[' && line.slice(-1) == ']' && !line.includes('][')) {
-      comp = parseComponent(line.slice(1, -1))
+    const trimmed = line.trim()
+    if (!comp && trimmed[0] == '[' && trimmed.slice(-1) == ']' && !line.includes('][')) {
+      comp = parseComponent(trimmed.slice(1, -1))
       blocks.push(comp)
       md = null
 
