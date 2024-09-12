@@ -102,8 +102,8 @@ function elem(name, str) {
 }
 
 /*
-  Markdown code block inside Markdown is so different,
-  that it requires a special treatment
+  Markdown/MDX requires a special treatment, because it's so
+  different from others (not a programming language)
 */
 function isMD(lang) {
   return ['md', 'mdx', 'nuemark'].includes(lang)
@@ -234,15 +234,6 @@ export function parseSyntax(str, lang) {
   }
 
   str.split(/\r\n|\r|\n/).forEach((line, i) => {
-
-    // hack to join lines when there was newline in the middle of a line
-    const quote = /^("|')/.exec(line)
-    if (quote && line[1] != quote[0]) {
-      const prev = lines[lines.length -1]
-      if (prev?.line) prev.line += '\\n' + line
-      return
-    }
-
     if (!comment) {
       if (comm_start.test(line)) {
         comment = [line]
@@ -265,6 +256,7 @@ export function parseSyntax(str, lang) {
       if (comm_end.test(line)) endComment()
     }
   })
+
 
   return lines
 }

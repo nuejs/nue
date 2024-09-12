@@ -2,24 +2,22 @@
 <body class="is-dark">
 
       <div class="syntax ">
-        <header><h2>CSS</h2></header>
-        <pre glow><code language="css"><span><label>@import</label> <em>"../css/dark.css"</em><i>;</i></span>
+        <header><h2>JavaScript</h2></header>
+        <pre glow><code language="js"><span><em>"use strict"</em></span>
 <span></span>
-<span><sup>/* Let's check out CSS code */</sup></span>
-<span><i>.</i>syntax <i>{</i></span>
-<span>  <b>border</b><i>:</i> <em>1px</em> solid <strong>#fff1</strong> <label>!important</label><i>;</i></span>
-<span>  <b>background-color</b><i>:</i> <strong>var</strong><i>(</i><em>--base-600</em><i>)</i><i>;</i></span>
-<span>  <b>border-radius</b><i>:</i> <strong>var</strong><i>(</i><em>--radius</em><i>)</i><i>;</i></span>
-<span>  <b>margin-bottom</b><i>:</i> <em>3em</em><i>;</i></span>
+<span><sup>// import some UI stuff</sup></span>
+<span><strong>import</strong> <i>{</i> layout <i>}</i> <strong>from</strong> <em>'components/layout'</em></span>
 <span></span>
-<span>  <label>@media</label><i>(</i>width <i>&lt;</i> <em>900</em><i>)</i> <i>{</i></span>
-<span>    <b>transform</b><i>:</i> <b>scale</b><i>(</i><em>1.1</em><i>)</i><i>;</i></span>
-<span>    <b>filter</b><i>:</i> <b>blur</b><i>(</i><em>4px</em><i>)</i><i>;</i></span>
-<span>  <i>}</i></span>
+<span><sup>// environment</sup></span>
+<span><strong>const</strong> <b>ENV</b> <i>=</i> <i>{</i></span>
+<span>  <b>scripts</b><i>:</i> <i>[</i><em>'lol.js'</em><i>]</i><i>,</i></span>
+<span>  <b>styles</b><i>:</i> <i>[</i><em>'lma\no.css'</em><i>]</i><i>,</i></span>
+<span>  <b>desc</b><i>:</i> <strong>undefined</strong></span>
+<span><i>}</i></span>
 <span></span>
-<span>  <label>@starting-style</label> <i>{</i></span>
-<span>    <b>transition</b><i>:</i> transform <em>4s</em><i>;</i></span>
-<span>  <i>}</i></span>
+<span><strong>export</strong> <strong>default</strong> <strong>function</strong><i>(</i><i>{</i> <strong>val</strong> <i>}</i><i>)</i> <i>{</i></span>
+<span>  <strong>const</strong> <b>fooo</b> <i>=</i> <strong>val</strong><i>.</i><b>split</b><i>(</i><em>'\n'</em><i>)</i> <sup>// 30px</sup></span>
+<span>  <strong>return</strong> <i>`</i><i>&lt;</i>div <strong>class</strong><i>=</i><em>'node'</em><i>&gt;</i><i>&lt;</i><i>/</i>div<i>&gt;</i><i>`</i></span>
 <span><i>}</i></span></code></pre>
       </div>
     

@@ -64,13 +64,15 @@ const CSS = `
 }
 `
 const JAVASCRIPT = `
+"use strict"
+
 // import some UI stuff
 import { layout } from 'components/layout'
 
 // environment
 const ENV = {
   scripts: ['lol.js'],
-  styles: ['lmao.css'],
+  styles: ['lma\\no.css'],
   desc: undefined
 }
 
@@ -251,6 +253,20 @@ func main() {
 }
 `
 
+const JSON = `
+{
+  "author": "John Doe <john.doe@gmail.com>",
+  "keywords": ["json", "es5"],
+  "version": 1.5,
+  "keywords": ["json", "json5"],
+  "version": 1.7,
+
+  "scripts": {
+    "test": "mocha --ui exports --reporter spec",
+    "build": "./lib/cli.js -c package.json5",
+  }
+}
+`
 
 const JSON5 = `
 {
@@ -673,7 +689,8 @@ await renderPage([
   { title: 'Haskell', code: HASKELL, },
   { title: 'HTML', lang: 'html', code: HTML, },
   { title: 'Java', code: JAVA, lang: 'java' },
-  { title: 'JavaScript', code: JAVASCRIPT, lang: 'js numbered', },
+  { title: 'JavaScript', code: JAVASCRIPT, lang: 'js', },
+  { title: 'JSON', code: JSON, lang: 'json', },
   { title: 'JSON5', code: JSON5, lang: 'json5', },
   { title: 'JSX', code: JSX, lang: 'jsx' },
   { title: 'Julia', code: JULIA, lang: 'julia' },
@@ -696,8 +713,8 @@ await renderPage([
   { title: 'TypeScript', code: TS, lang: 'ts', },
   { title: 'ZIG', code: ZIG, lang: 'zig', },
 
-  ]
-  // ].filter(el => ['css'].includes(el.lang))
+  // ]
+  ].filter(el => ['js'].includes(el.lang))
 
 )
 
