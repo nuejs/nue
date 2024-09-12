@@ -122,6 +122,7 @@ marked.setOptions({
   mangle: false
 })
 
+
 export function renderHeading(html, depth, raw) {
   const plain = parseHeading(raw)
   const { id } = plain

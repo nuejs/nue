@@ -713,8 +713,8 @@ await renderPage([
   { title: 'TypeScript', code: TS, lang: 'ts', },
   { title: 'ZIG', code: ZIG, lang: 'zig', },
 
-  // ]
   ].filter(el => ['js'].includes(el.lang))
+  // ]
 
 )
 
