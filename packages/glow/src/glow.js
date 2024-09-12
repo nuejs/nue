@@ -24,6 +24,10 @@ const RULES = {
     { tag: 'strong', re: /#[0-9a-f]{3,7}/gi },
     { tag: 'label', re: /!important/gi },
     { tag: 'em', re: /--[\w\d\-]+/gi },
+  ],
+
+  json: [
+    { tag: 'b', re: /(".+"):/gi },
   ]
 }
 
