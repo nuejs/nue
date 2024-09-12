@@ -9,6 +9,7 @@ async function readSize(dist, path) {
   return raw.length
 }
 
+// not currently in use. make something actually useful later
 export async function printStats(site, args) {
   if (args.dryrun) return
 

@@ -1,4 +1,6 @@
 
+// Router for multi-page applications
+
 // exported
 export function $(query, root=document) {
   return root.querySelector(query)
@@ -8,21 +10,24 @@ export function $$(query, root=document) {
   return [ ...root.querySelectorAll(query)]
 }
 
+const scrollPos = {}
 
-// Router for multi-page applications
-
-export async function loadPage(path, no_push) {
+export async function loadPage(path, replace_state) {
   dispatchEvent(new Event('before:route'))
 
-  if (!no_push) history.pushState({ path }, 0, path)
+  // save scroll position
+  scrollPos[location.pathname] = window.scrollY
+
+  if (!replace_state) history.pushState({ path }, 0, path)
 
   // DOM of the new page
   const dom = mkdom(await getHTML(path))
 
   // change title
-  document.title = $('title', dom)?.textContent
+  const title = $('title', dom)?.textContent
+  if (title) document.title = title
 
-  // update <meta name="nue:components"/>
+  // update component list
   const query = '[name="nue:components"]'
   $(query).content = $(query, dom).content
 
@@ -33,27 +38,11 @@ export async function loadPage(path, no_push) {
     await import(script.getAttribute('src'))
   }
 
-  // Inline CSS / development
-  const new_styles = swapStyles($$('style'), $$('style', dom))
-  new_styles.forEach(style => $('head').appendChild(style))
+  const css_paths = updateStyles(dom)
 
-  // external CSS
-  const paths = swapStyles($$('link'), $$('link', dom))
-
-  /* production (single style element) */
-  const orig_style = findPlainStyle()
-  const new_style = findPlainStyle(dom)
-
-  if (orig_style) orig_style.replaceWith(new_style)
-  else if (new_style) $('head').appendChild(new_style)
-
-
-  // body class
-  $('body').classList.value = $('body2', dom).classList.value || ''
-
-
-  loadCSS(paths, () => {
-    updateBody(dom)
+  loadCSS(css_paths, () => {
+    simpleDiff($('main'), $('main', dom))
+    simpleDiff($('body'), $('body2', dom))
     setActive(path)
 
     // scroll
@@ -65,74 +54,6 @@ export async function loadPage(path, no_push) {
     dispatchEvent(new Event('route'))
   })
 
-}
-
-function findPlainStyle(dom) {
-  return $$('style', dom).find(el => !el.attributes.length)
-}
-
-
-// TODO: make a recursive diff to support for all custom layouts
-function updateBody(dom) {
-
-  ;['header', 'main', 'footer', 'nav'].forEach(function(query) {
-    const a = $('body >' + query)
-    const b = $('body2 >' + query, dom)
-    const clone = b && b.cloneNode(true)
-
-    // update
-    if (a && b) {
-
-      if (query == 'main') {
-        updateMain(dom)
-
-      } else {
-        updateBlock(a, clone)
-      }
-
-
-    // remove original
-    } else if (a) {
-      a.remove()
-
-    // add new one
-    } else if (b) {
-      if (query == 'header') $('body').prepend(clone)
-      if (query == 'footer') $('body').append(clone)
-      if (query == 'nav') $('body > header').after(clone)
-    }
-  })
-
-}
-
-// primitive DOM diffing
-function updateBlock(a, clone) {
-  const orig = a.outerHTML.replace(' aria-selected=""', '')
-  const diff = orig != clone.outerHTML
-  if (diff) a.replaceWith(clone)
-}
-
-// TODO: remove this hack
-function updateMain(dom) {
-  ;['article', 'aside:first-child', 'article + aside'].forEach(function(query, i) {
-    const a = $('main >' + query)
-    const b = $('main >' + query, dom)
-    const clone = b && b.cloneNode(true)
-
-    // update
-    if (a && b) {
-      updateBlock(a, clone)
-
-    } else if (a) {
-      a.remove()
-
-    } else if (b) {
-      if (!i) $('main').append(clone)
-      if (i == 1) $('main').prepend(clone)
-      if (i == 2) $('article').after(clone)
-    }
-
-  })
 }
 
 
@@ -151,7 +72,7 @@ export function onclick(root, fn) {
         (name?.includes('.') && !name?.endsWith('.html')) || target == '_blank') return
 
     // all good
-    if (path != location.pathname) fn(path)
+    if (path != location.pathname) fn(path, el)
     e.preventDefault()
 
   })
@@ -159,7 +80,6 @@ export function onclick(root, fn) {
 
 // developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-selected
 export function setActive(path, attrname='aria-selected') {
-
 
   // remove old selections
   $$(`[${attrname}]`).forEach(el => el.removeAttribute(attrname))
@@ -186,8 +106,11 @@ if (is_browser) {
   history.pushState({ path: location.pathname }, 0)
 
   // autoroute / document clicks
-  onclick(document, async path => {
-    document.startViewTransition(async function() {
+  onclick(document, async (path, el) => {
+    const img = $('img', el)
+    if (img) img.style.viewTransitionName = 'active-image'
+
+    document.startViewTransition(async () => {
       await loadPage(path)
     })
   })
@@ -198,7 +121,14 @@ if (is_browser) {
   // back button
   addEventListener('popstate', e => {
     const { path } = e.state || {}
-    if (path) loadPage(path, true)
+    if (path) {
+      const pos = scrollPos[path]
+
+      document.startViewTransition(async () => {
+        await loadPage(path, true)
+        setTimeout(() => window.scrollTo(0, pos || 0), 10)
+      })
+    }
   })
 }
 
@@ -206,22 +136,63 @@ if (is_browser) {
 /* -------- utilities ---------- */
 
 
-function hasStyle(sheet, sheets) {
+// primitive DOM diffing
+function simpleDiff(a, b) {
+  if (a.children.length == b.children.length) {
+    ;[...a.children].forEach((el, i) => updateBlock(el, b.children[i]))
+  } else {
+    a.classList.value = b.classList.value
+    a.innerHTML = b.innerHTML
+  }
+}
 
+function updateBlock(a, b) {
+  const orig = a.outerHTML.replace(' aria-selected=""', '')
+  if (orig != b.outerHTML) a.replaceWith(b.cloneNode(true))
+}
+
+
+
+function updateStyles(dom) {
+
+  // Inline CSS / development
+  const orig = $$('link, style')
+  const new_styles = swapStyles(orig, $$('link, style', dom))
+  new_styles.forEach(style => $('head').appendChild(style))
+
+  // inline style element
+  updateProductionStyles(dom)
+
+  // external CSS
+  return new_styles.filter(el => el.tagName == 'link')
+}
+
+
+function hasStyle(sheet, sheets) {
   return sheets.find(el => el.getAttribute('href') == sheet.getAttribute('href'))
 }
 
+
+// disable / enable
 function swapStyles(orig, styles) {
-
-  // disable / enable
-  orig.forEach((el, i) => {
-    el.disabled = !hasStyle(el, styles)
-  })
-
-
-  // add new
+  orig.forEach((el, i) => el.disabled = !hasStyle(el, styles))
   return styles.filter(el => !hasStyle(el, orig))
 }
+
+function findPlainStyle(dom) {
+  return $$('style', dom).find(el => !el.attributes.length)
+}
+
+// production: single inline style element without attributes
+function updateProductionStyles(dom) {
+  const plain = findPlainStyle()
+  const new_plain = findPlainStyle(dom)
+
+  if (plain) plain.replaceWith(new_plain)
+  else if (new_plain) $('head').appendChild(new_plain)
+}
+
+
 
 const cache = {}
 
@@ -233,7 +204,9 @@ async function getHTML(path) {
   html = await resp.text()
 
   if (resp.status == 404 && html?.trim()[0] != '<') {
-    $('article').innerHTML = '<h1>Page not found</h1>'
+    const title = document.title = 'Page not found'
+    $('article').innerHTML = `<section><h1>${title}</h1></section>`
+
   } else {
     cache[path] = html
   }

@@ -1,6 +1,6 @@
 import { promises as fs } from 'node:fs'
 import { join } from 'node:path'
-import { init } from '../src/init.js'
+import { initNueDir } from '../src/init.js'
 
 // temporary directory
 const dist = '_test'
@@ -13,14 +13,15 @@ beforeAll(async () => {
 
 afterAll(async () => await fs.rm(dist, { recursive: true, force: true }))
 
+
 test('bun init', async () => {
-  await init({ dist, is_dev: true })
+  await initNueDir({ dist, is_dev: true })
   const names = await fs.readdir(join(dist, '@nue'))
   expect(names.length).toBe(11)
 })
 
 test('esbuild init', async () => {
-  await init({ dist, is_dev: true, esbuild: true })
+  await initNueDir({ dist, is_dev: true, esbuild: true })
   const names = await fs.readdir(join(dist, '@nue'))
   expect(names.length).toBe(11)
 })

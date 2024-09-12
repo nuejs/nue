@@ -1,65 +1,104 @@
 
 import { watch, promises as fs } from 'node:fs'
-import { join, parse } from 'node:path'
+import { join, parse, relative } from 'node:path'
 
 /*
-  Super minimalistic file system watcher.
-
-  Auto-follows new directories and symbolic (file) links
-
-  Simple alternative to Chokidar and Nodemon when you "just want to watch"
-
-  TODO: symlink directory support
+  Extremely minimal and efficient cross-platform file watching library
 */
 
-// avoid double events and looping (seen on Bun only)
+// for avoiding double events
 let last = {}
 
+export async function fswatch(root, callback, onremove) {
 
-export function fswatch(dir, onfile, onremove) {
-  return watch(dir, { recursive: true }, async function(e, path) {
+  const watchers = {}
+
+  async function watchLink(link) {
+    const real = await fs.realpath(link.path)
+    const is_dir = (await fs.lstat(real)).isDirectory()
+
+    const watcher = watch(real, { recursive: is_dir }, (e, path) => {
+      if (is_dir) {
+        path = join(link.name, path)
+        const file = parse(path)
+        callback({ path, ...file })
+
+      } else {
+        callback(link)
+      }
+    })
+
+    watchers[link.path] = watcher
+  }
+
+  // watch symlinks
+  const paths = await fswalk({ root, symdirs: false })
+
+  for (const path of paths) {
+    const file = parse(path)
+
+    if (isLegit(file)) {
+      const stat = await fs.lstat(join(root, path))
+      if (stat.isSymbolicLink()) {
+        watchLink({ ...file, path })
+      }
+    }
+  }
+
+  return watch(root, { recursive: true }, async function(e, path) {
     try {
       const file = parse(path)
+      file.path = path
 
       // skip paths (files and dirs) that start with _ or .
       if (!isLegit(file)) return
 
-      // skip double events
+      // skip double events (not needed anymore?)
       if (last.path == path && Date.now() - last.ts < 50) return
 
-      // regular flie -> callback
-      const stat = await fs.lstat(join(dir, path))
+      const stat = await fs.lstat(join(root, path))
 
-      if (stat.isDirectory()) {
-        const paths = await fswalk(dir, path)
+      // deploy everything on a directory
+      if (stat.isDirectory() || stat.isSymbolicLink() && await isSymdir(path)) {
+        const paths = await fswalk(root, path)
 
-        // deploy everything on the directory
         for (const path of paths) {
           const file = parse(path)
-          if (isLegit(file)) await onfile({ ...file, path })
+          if (isLegit(file)) await callback(file)
         }
 
-      } else {
-        if (file.ext) await onfile({ ...file, path, size: stat.size })
+      } else if (file.ext) {
+        if (stat.isSymbolicLink()) await watchLink(file)
+        await callback(file)
       }
 
       last = { path, ts: Date.now() }
 
     } catch (e) {
-      if (e.errno == -2) await onremove(path)
-      else console.error(e)
+      if (e.errno != -2) return console.error(e)
+      await onremove(path)
+
+      // unwatch symlink
+      const watcher = watchers[path]
+      if (watcher) watcher.close()
     }
   })
 }
 
 
-export async function fswalk(root, _dir='', _ret=[]) {
+export async function fswalk(opts, _dir='', _ret=[]) {
+  if (typeof opts == 'string') opts = { root: opts }
+  const { root, symdirs=true } = opts
+
+
   const files = await fs.readdir(join(root, _dir), { withFileTypes: true })
 
   for (const f of files) {
     if (isLegit(f)) {
       const path = join(_dir, f.name)
-      if (isDir(f)) await fswalk(root, path, _ret)
+      const is_symdir = symdirs && f.isSymbolicLink() && await isSymdir(join(root, path))
+
+      if (f.isDirectory() || is_symdir) await fswalk(opts, path, _ret)
       else _ret.push(path)
     }
   }
@@ -76,9 +115,10 @@ function isLegit(file) {
   return !ignore(file.name) && !ignore(file.base) && !ignore(file.dir)
 }
 
-// TODO: real symdir detection
-function isDir(f) {
-  return f.isDirectory() || f.isSymbolicLink() && !f.name.includes('.')
+
+async function isSymdir(linkpath) {
+  const real = await fs.realpath(linkpath)
+  return (await fs.lstat(real)).isDirectory()
 }
 
 

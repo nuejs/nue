@@ -39,7 +39,7 @@ Followed with
 - An unordered
 - list of items
 
-\```js
+\```js numbered
 // here is a javascript code block
 function hello() {
   return "world"

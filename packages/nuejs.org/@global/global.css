@@ -117,13 +117,3 @@ h1, h2, h3, h4, h5 {
   color: var(--gray-900);
 }
 
-article {
-  view-transition-name: article;
-  will-change: transform;
-}
-
-/* view transition (scales down the old page) */
-::view-transition-old(article) {
-  transform: scale(.8) translateY(4em);
-  transition: .4s;
-}

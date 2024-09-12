@@ -16,18 +16,21 @@ async function importAll(hmr_path) {
   const arr = []
 
   for (let path of comps.split(' ')) {
-    if (path == hmr_path) path += `?${++remounts}`
-    const { lib } = await import(path)
-    if (lib) arr.push(...lib)
+    if (path) {
+      if (path == hmr_path) path += `?${++remounts}`
+      const { lib } = await import(path)
+      if (lib) arr.push(...lib)
+    }
   }
   return arr
 }
 
 
-export async function mountAll() {
+export async function mountAll(hmr_path) {
   const els = document.querySelectorAll('[is]')
-  const lib = els[0] ? await importAll() : []
+  const lib = els[0] ? await importAll(hmr_path) : []
   if (!lib[0]) return
+
 
 
   const { createApp } = await import('./nue.js')

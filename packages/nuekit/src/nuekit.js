@@ -1,23 +1,23 @@
 
 
 import { log, colors, getAppDir, parsePathParts, extendData } from './util.js'
-import { join, parse as parsePath } from 'node:path'
 import { renderPage, renderSinglePage } from './layout/page-layout.js'
 import { parse as parseNue, compile as compileNue } from 'nuejs-core'
+import { promises as fs, existsSync } from 'node:fs'
+import { join, parse as parsePath } from 'node:path'
 import { lightningCSS, buildJS } from './builder.js'
 import { createServer, send } from './nueserver.js'
 import { printStats, categorize } from './stats.js'
-import { promises as fs } from 'node:fs'
+import { initNueDir } from './init.js'
 import { createSite } from './site.js'
 import { fswatch } from './nuefs.js'
 import { parsePage } from 'nuemark'
-import { init } from './init.js'
 
 // the HTML5 doctype
 const DOCTYPE = '<!doctype html>\n\n'
 
 export async function createKit(args) {
-  const { root, is_prod, esbuild } = args
+  const { root, is_prod, esbuild, dryrun } = args
 
   // site: various file based functions
   const site = await createSite(args)
@@ -25,9 +25,18 @@ export async function createKit(args) {
   const { dist, port, read, copy, write, is_empty } = site
   const is_dev = !is_prod
 
-  // make sure @nue dir has all the latest
-  if (!args.dryrun) await init({ dist, is_dev, esbuild, force: args.init })
 
+  async function init(force) {
+    await initNueDir({ dist, is_dev, esbuild, force })
+  }
+
+  if (!existsSync(join(root, 'site.yaml'))) {
+    console.error('No site.yaml found. Please go to project root\n')
+    return false
+  }
+
+  // make sure @nue dir has all the latest
+  if (!dryrun) await init()
 
   async function setupStyles(dir, data) {
     const paths = await site.getStyles(dir, data)
@@ -249,7 +258,7 @@ export async function createKit(args) {
   }
 
   // build all / given matches
-  async function build(matches=[], dryrun) {
+  async function build(matches=[]) {
     const begin = Date.now()
     log('Building site to:', colors.cyan(dist))
 
@@ -259,7 +268,11 @@ export async function createKit(args) {
     // ignore layouts
     paths = paths.filter(p => !p.endsWith('layout.html'))
 
-    if (matches[0]) {
+
+    if (args.incremental) {
+      paths = await site.filterUpdated(paths)
+
+    } else if (matches[0]) {
       paths = paths.filter(p => matches.find(m => m == '.' ? p == 'index.md' : p.includes(m)))
     }
 
@@ -305,9 +318,8 @@ export async function createKit(args) {
       return { path, code: name == 404 ? 404 : 200 }
     })
 
-    // dev mode -> watch for changes
-    let watcher
-    if (is_dev) watcher = fswatch(root, async file => {
+    // watch for changes
+    const watcher = is_prod ? null : await fswatch(root, async file => {
       try {
         const ret = await processFile(file)
         if (ret) send({ ...file, ...parsePathParts(file.path), ...ret })
@@ -326,11 +338,8 @@ export async function createKit(args) {
       if (file.ext) send({ remove: true, path, ...file })
     })
 
-    const cleanup = () => {
-      if (watcher) watcher.close()
-    }
     const terminate = () => {
-      cleanup()
+      if (watcher) watcher.close()
       server.close()
     }
 
@@ -352,7 +361,7 @@ export async function createKit(args) {
     gen, getPageData, renderMPA, renderSPA,
 
     // public API
-    build, serve, stats, dist, port,
+    build, serve, stats, init, dist, port,
   }
 
 }

@@ -3,6 +3,24 @@ import { tags, elem, join } from './tags.js'
 import { parsePage, parseHeading } from './parse.js'
 import { marked } from 'marked'
 
+
+/*
+  ":" prefix support for property names, for example:
+
+  [image-gallery :items="gallery"]
+*/
+function extractData(to, from) {
+  for (const key in from) {
+    if (key[0] == ':') {
+      const name = key.slice(1)
+      to[name] = to[from[key]]
+    } else {
+      to[key] = from[key]
+    }
+  }
+  return to
+}
+
 export function renderPage(page, opts) {
   const { lib=[] } = opts
   const data = { ...opts.data, ...page.meta }
@@ -17,7 +35,7 @@ export function renderPage(page, opts) {
     const html = join(section.blocks.map(el => {
       const { name, md, attr } = el
       const comp = name && lib.find(el => [name, toCamelCase(name)].includes(el.name))
-      const alldata = { ...data, ...el.data, attr }
+      const alldata = extractData({ ...data, attr }, el.data)
       const tag = custom_tags[name] || tags[name]
 
       // tag
@@ -103,6 +121,7 @@ marked.setOptions({
   smartLists: false,
   mangle: false
 })
+
 
 export function renderHeading(html, depth, raw) {
   const plain = parseHeading(raw)

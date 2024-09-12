@@ -1,6 +1,6 @@
 
 
-const ATTR = 'id is class style'.split(' ')
+const ATTR = 'id is class style hidden'.split(' ')
 
 /*
   --> { name, attr, data }

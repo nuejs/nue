@@ -9,15 +9,13 @@ Usage
 Commands
   serve    Start development server (default command)
   build    Build the site under <root_dir>
-  stats    Show site statistics
   create   Use a project starter template
+  init     Re-generate /@nue system files
 
 Options
   -r or --root          Source directory. Default "." (current working dir)
   -p or --production    Build production version / Show production stats
   -e or --environment   Read extra options to override defaults in site.yaml
-  -s or --stats         Show site statistics after current command
-  -I or --init          Force clear and initialize output directory
   -n or --dry-run       Show what would be built. Does not create outputs
   -b or --esbuild       Use esbuild as bundler. Please install it manually
   -P or --port          Port to serve the site on
@@ -42,15 +40,13 @@ Examples
   # more examples
   ${openUrl} https://nuejs.org/docs/command-line-interface.html
 
-Less is more
-
  ┏━┓┏┓┏┳━━┓
- ┃┏┓┫┃┃┃┃━┫  kit ${await getVersion()}
+ ┃┏┓┫┃┃┃┃━┫  ${await getVersion()}
  ┃┃┃┃┗┛┃┃━┫  nuejs.org
  ┗┛┗┻━━┻━━┛
 `
 
-const commands = ['serve', 'build', 'stats', 'create']
+const commands = ['serve', 'build', 'init', 'create']
 
 function formatLine(line) {
   const { gray, magenta, cyan, green } = colors

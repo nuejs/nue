@@ -10,8 +10,8 @@ import {
   joinRootPath } from './util.js'
 
 import { join, extname, parse as parsePath } from 'node:path'
-import { parse as parseNue } from 'nuejs-core'
 import { promises as fs, existsSync } from 'node:fs'
+import { parse as parseNue } from 'nuejs-core'
 import { fswalk } from './nuefs.js'
 import { nuemark } from 'nuemark'
 import yaml from 'js-yaml'
@@ -71,14 +71,12 @@ export async function createSite(args) {
     libs: site_data.libs || [],
   }
 
-  const port = args.port ? args.port :
-    site_data.port ? site_data.port :
-      is_prod ? 8081 : 8080
-
   const dist = joinRootPath(root, site_data.dist || join('.dist', is_prod ? 'prod' : 'dev'))
+  const port = args.port || site_data.port || (is_prod ? 8081 : 8080)
+
 
   // flag if .dist is empty
-  if (!existsSync(dist)) self.is_empty = true
+  self.is_empty = !existsSync(dist)
 
   async function write(content, dir, filename) {
     const todir = join(dist, dir)
@@ -86,7 +84,7 @@ export async function createSite(args) {
     try {
       const to = join(todir, filename)
       await fs.writeFile(to, content)
-      !is_bulk && !self.is_empty && log(join(dir, filename))
+      if (!is_bulk && !self.is_empty) log(join(dir, filename))
       return to
 
     } catch (e) {
@@ -102,7 +100,7 @@ export async function createSite(args) {
 
     try {
       await fs.copyFile(join(root, dir, base), to)
-      !is_bulk && !self.is_empty && log(join(dir, base))
+      if (!is_bulk && !self.is_empty) log(join(dir, base))
 
     } catch (e) {
       if (!fileNotFound(e)) throw e
@@ -153,7 +151,6 @@ export async function createSite(args) {
   async function getAssets({ dir, exts, to_ext, data={} }) {
     const { include=[], exclude=[] } = data
     const subdirs = !dir ? [] : self.globals.map(el => join(dir, el))
-
 
     let paths = [
       ...await walkDirs(self.globals),
@@ -245,7 +242,7 @@ export async function createSite(args) {
     for (const path of mds) {
       const raw = await read(path)
       const { meta } = nuemark(raw)
-      arr.push({ ...meta, ...parsePathParts(path) })
+      if (!meta.unlisted) arr.push({ ...meta, ...parsePathParts(path) })
     }
 
     arr.sort((a, b) => {
@@ -329,6 +326,33 @@ export async function createSite(args) {
         return { src, path: join(dir, `${name}.html`), name }
     }
   }
+
+
+  async function getLastRun() {
+    const path = join(dist, '.lastrun')
+
+    try {
+      const stat = await fs.stat(path)
+      return stat.mtimeMs
+
+    } catch {
+      await fs.writeFile(path, '')
+      return 0
+    }
+  }
+
+  self.filterUpdated = async function(paths) {
+    const since = await getLastRun()
+    const arr = []
+
+    for (const path of paths) {
+      const stat = await fs.stat(path)
+      if (stat.mtimeMs > since) arr.push(path)
+    }
+
+    return arr
+  }
+
 
   return { ...self, dist, port, read, write, copy }
 }

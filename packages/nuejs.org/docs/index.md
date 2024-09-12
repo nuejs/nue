@@ -3,22 +3,7 @@ inline_css: true
 ---
 
 # Web framework for UX developers
-Nue is a web framework for design-minded people. You can turn your idea into a beautifully designed website using mostly CSS. You end up with a beautifully designed website, not just from the outside, but from the inside as well. Most importantly: You can build things faster, since there is no complex JavaScript ecosystem on your way.
-
-[image.gray]
-  small: /img/ux-development.png
-  large: /img/ux-development-big.png
-  size: 747 x 474
-
-
-Nue's content-first [development flow](ux-development.html) focuses solely on the ~user experience~ because, it's the only thing that matters when building new products. Or as the master UX developer **Steve Jobs** once said:
-
-> You've got to start with the customer experience and work back toward the technology, not the other way around. *Steve Jobs*
-
-- - -
-
-## Target audience
-Nue is a great fit for the following group of people:
+Nue is an extremely simple web development environment. It is a great fit for:
 
 1. **UX developers**: who natively jump between **Figma** and **CSS** without a confusing [designer-developer handoff](//medium.com/design-warp/5-most-common-designer-developer-handoff-mishaps-ba96012be8a7) process in the way.
 

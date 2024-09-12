@@ -5,6 +5,7 @@ import { renderGallery, renderPrettyDate } from './gallery.js'
 import { renderNav, renderTOC } from './navi.js'
 import { renderPage as nuemark } from 'nuemark'
 import { parse as parseNue } from 'nuejs-core'
+import { tags } from 'nuemark/src/tags.js'
 import { renderInline } from 'nuemark'
 import { renderHead } from './head.js'
 
@@ -38,7 +39,7 @@ const MAIN = `
 const MENU = `
   <!-- burger menu -->
   <dialog popover id="menu">
-    <button popovertarget="menu">&times;</button>
+    <button popovertarget="menu"></button>
     <navi :items="burger_menu"/>
   </dialog>
 `
@@ -93,31 +94,36 @@ export function renderSinglePage(body='', data) {
 
 
 // system components
-const html_tags = [
+const system_tags = [
   { name: 'navi',  create: renderNav },
   { name: 'gallery', create: renderGallery },
-  { name: 'markdown', create: ({ content }) => renderInline(content) },
+  { name: 'markdown', create: ({ content }) => content ? renderInline(content) : '' },
   { name: 'pretty-date', create: ({ date }) => renderPrettyDate(date) },
   { name: 'toc', create: renderTOC },
+  { name: 'image', create: tags.image },
 ]
 
 const nuemark_tags = { gallery: renderGallery, toc: renderTOC }
 
 
-export function renderPage(data, lib) {
+export function renderPage(data, comps) {
+
+  const lib = [...system_tags, ...comps]
 
 
   function renderBlock(name, html) {
 
-    if (data[name] === false || data[name.slice(1)] === false) return null
+    // main: false --> render default MAIN
+    if (name == 'main' && data.main === false) name = ''
 
-    let comp = lib.find(el => name[0] == '@' ? el.name == name.slice(1) : !el.name && el.tagName == name)
+    else if (data[name] === false || data[name.slice(1)] === false) return null
+
+    let comp = comps.find(el => name[0] == '@' ? el.name == name.slice(1) : !el.name && el.tagName == name)
 
     if (!comp && html) comp = parseNue(html)[0]
 
-
     try {
-      return comp ? comp.render(data, [...html_tags, ...lib]) : ''
+      return comp ? comp.render(data, lib) : ''
     } catch (e) {
       delete data.inline_css
       console.error(`Error on <${name}> component`, e)
