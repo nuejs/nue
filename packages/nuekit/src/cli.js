@@ -98,10 +98,10 @@ async function runCommand(args) {
     return await create({ root, name: args.paths[0], port })
   }
 
+  args.nuekit_version = await printVersion()
+
   const nue = await createKit(args)
   if (!nue) return
-
-  args.nuekit_version = await printVersion()
 
   // deployer (private repo)
   const { deploy: deployer } = deploy ? await import('nue-deployer') : {}
