@@ -20,14 +20,13 @@ Usage
 Commands
   serve    Start development server (default command)
   build    Build the site under <root_dir>
-  stats    Show site statistics
-  create   Create a new website with a starter template
+  init     Re-initialize Nue system directory
+  create   Create a new website with a starter template. See installation docs.
 
 Options
   -r or --root          Source directory. Default "." (current working dir)
-  -p or --production    Build production version / Show production stats
+  -p or --production    Build production version
   -e or --environment   Read extra options to override defaults in site.yaml
-  -s or --stats         Show site statistics after current command
   -I or --init          Force clear and initialize output directory
   -n or --dry-run       Show what would be built. Does not create outputs
   -b or --esbuild       Use esbuild as bundler. Please install it manually
@@ -53,8 +52,6 @@ Examples
   # more examples
   open https://nuejs.org/docs/command-line-interface.html
 
-Less is more
-
  ┏━┓┏┓┏┳━━┓
  ┃┏┓┫┃┃┃┃━┫
  ┃┃┃┃┗┛┃┃━┫  nuejs.org
@@ -73,9 +70,6 @@ nue --production
 
 # build to production with custom settings
 nue build -p --environment custom.yaml
-
-# show production stats
-nue -p stats
 
 # show what will be built (without building)
 nue build .js .ts .nue --dry-run
