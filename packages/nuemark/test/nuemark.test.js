@@ -119,12 +119,12 @@ test('[tabs] key and wrapper', () => {
 
 
 const NESTED_TABS = `
-[tabs "Foo | Bar"]
+ [tabs "Foo | Bar"]
   First
   ---
   Second
 
-  [tabs "Baz | Bruh" key="inner"]
+  [tabs "Baz | Bruh" key="inner"]\t
     Inner 1
     ---
     Inner 2
