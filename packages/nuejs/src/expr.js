@@ -1,8 +1,7 @@
 
 const VARIABLE = /(^|[\-\+\*\/\!\s\(\[]+)([\$a-z_]\w*)\b/g
 const STRING = /('[^']+'|"[^"]+")/
-const EXPR = /\{([^{}]+)\}/g
-
+const EXPR = /([^\\]|^)\{((?:\\{|\\}|[^{}])*[^\\])\}/g
 
 // https://github.com/vuejs/core/blob/main/packages/shared/src/globalsWhitelist.ts
 const RESERVED = `
@@ -31,7 +30,11 @@ export function setContext(expr) {
 export function parseExpr(str, is_style) {
   const ret = []
 
-  str.split(EXPR).map((str, i) => {
+  const strs = []
+  str.split(EXPR).forEach((val, i) => strs.push(i % 3 == 1 ? strs.pop() + val : val))
+
+  strs.map((str, i) => {
+    str = str.replace(/\\([{}])/g, '$1')
 
     // normal string
     if (i % 2 == 0) {

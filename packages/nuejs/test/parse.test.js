@@ -46,6 +46,13 @@ test('Expressions', () => {
 
   runTests(parseExpr, {
     'Hey { name }': [ "'Hey '", '_.name' ],
+    'Hey {{ name }': [ "'Hey {'", '_.name' ],
+    'Hey {}': [ "'Hey {}'" ],
+    'Hey {\\}': [ "'Hey {}'" ],
+    'Hey \\{\\}': [ "'Hey {}'" ],
+    'Hey {\\{\\}}': [ "'Hey '", '{}' ],
+    'Hey {{\\}}': [ "'Hey {'", '}' ],
+    'Hey {[1,2,3,4,5].map(i => \\{return i*i\\})}': [ "'Hey '", '[1,2,3,4,5].map(i => {return i*i})' ],
     "Hey, I'm { name }": [ '"Hey, I\'m "', '_.name' ],
     'foo { alarm } is-alert': [ "'foo '", '_.alarm', "' is-alert'" ],
     'is-cool { danger: hasError }': [ "'is-cool '", "_.hasError && 'danger '" ],
