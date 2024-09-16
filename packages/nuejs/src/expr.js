@@ -40,7 +40,7 @@ export function parseExpr(str, is_style) {
         ret.push(str.includes("'") ? JSON.stringify(str) : `'${str}'`)
       }
 
-      // Object: { is-active: isActive() }
+    // Object: { is-active: isActive() }
     } else if (isObject(str.trim())) {
       const vals = parseClass(str)
       ret.push(...vals)
@@ -104,12 +104,12 @@ export function parseFor(str) {
     const keys = parseKeys(prefix)
     return [keys.slice(0, 2), expr, keys[2] || '$index', true]
 
-    // Object deconstruction
+  // Object deconstruction
   } else if (prefix[0] == '{') {
     const { keys, index } = parseObjectKeys(prefix)
     return [keys, expr, index || '$index']
 
-    // Normal loop variable
+  // Normal loop variable
   } else {
     const [key, index = '$index'] = prefix.split(/\s?,\s?/)
     return [key, expr, index]
