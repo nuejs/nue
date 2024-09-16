@@ -1,7 +1,8 @@
-import { GlobalRegistrator } from '@happy-dom/global-registrator'
+import { promises as fs } from 'node:fs'
 import { join, relative, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { promises as fs } from 'node:fs'
+
+import { GlobalRegistrator } from '@happy-dom/global-registrator'
 
 import { createKit } from '../src/nuekit.js'
 

@@ -1,12 +1,11 @@
 import { promises as fs, existsSync } from 'node:fs'
-import { buildJS } from '../src/builder.js'
-import { createSite } from '../src/site.js'
-
-import { createKit } from '../src/nuekit.js'
 import { join, parse } from 'node:path'
 
-import { toMatchPath } from './match-path.js'
+import { buildJS } from '../src/builder.js'
+import { createKit } from '../src/nuekit.js'
+import { createSite } from '../src/site.js'
 
+import { toMatchPath } from './match-path.js'
 expect.extend({ toMatchPath })
 
 // temporary directory

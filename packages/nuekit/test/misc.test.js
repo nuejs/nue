@@ -1,15 +1,13 @@
-import { match } from '../src/browser/app-router.js'
-
-import { parsePathParts } from '../src/util.js'
-import { lightningCSS } from '../src/builder.js'
-import { create } from '../src/create.js'
-import { getArgs } from '../src/cli.js'
-
-import { toMatchPath } from './match-path.js'
-
 import { promises as fs } from 'node:fs'
 import { join } from 'node:path'
 
+import { match } from '../src/browser/app-router.js'
+import { lightningCSS } from '../src/builder.js'
+import { getArgs } from '../src/cli.js'
+import { create } from '../src/create.js'
+import { parsePathParts } from '../src/util.js'
+
+import { toMatchPath } from './match-path.js'
 expect.extend({ toMatchPath })
 
 // temporary directory

@@ -1,8 +1,10 @@
-import { compileFile as nueCompile } from 'nuejs-core'
 import { promises as fs, existsSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
+
 import { resolve } from 'import-meta-resolve'
+import { compileFile as nueCompile } from 'nuejs-core'
+
 import { buildJS } from './builder.js'
 import { colors, srcdir } from './util.js'
 

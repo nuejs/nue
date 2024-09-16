@@ -1,3 +1,11 @@
+import { promises as fs, existsSync } from 'node:fs'
+import { join, extname, parse as parsePath } from 'node:path'
+
+import yaml from 'js-yaml'
+import { parse as parseNue } from 'nuejs-core'
+import { nuemark } from 'nuemark'
+
+import { fswalk } from './nuefs.js'
 import {
   traverseDirsUp,
   parsePathParts,
@@ -8,13 +16,6 @@ import {
   sortCSS,
   joinRootPath
 } from './util.js'
-
-import { join, extname, parse as parsePath } from 'node:path'
-import { promises as fs, existsSync } from 'node:fs'
-import { parse as parseNue } from 'nuejs-core'
-import { fswalk } from './nuefs.js'
-import { nuemark } from 'nuemark'
-import yaml from 'js-yaml'
 
 
 // file not found error

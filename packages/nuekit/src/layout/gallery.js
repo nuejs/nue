@@ -1,7 +1,7 @@
 // content collection rendering
 
-import { elem, join } from 'nuemark/src/tags.js'
 import { renderInline } from 'nuemark'
+import { elem, join } from 'nuemark/src/tags.js'
 
 
 function isNew(date, offset=4) {

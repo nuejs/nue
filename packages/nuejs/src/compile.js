@@ -1,8 +1,10 @@
-import { mkdom, getComponentName, isBoolean, walk, objToString, getPosition, STD } from './fn.js'
-import { parseExpr, parseFor, setContext, setContextTo } from './expr.js'
 import { promises as fs } from 'node:fs'
-import { DomUtils } from 'htmlparser2'
 import { dirname } from 'node:path'
+
+import { DomUtils } from 'htmlparser2'
+
+import { parseExpr, parseFor, setContext, setContextTo } from './expr.js'
+import { mkdom, getComponentName, isBoolean, walk, objToString, getPosition, STD } from './fn.js'
 
 const { getOuterHTML, getInnerHTML, removeElement } = DomUtils
 

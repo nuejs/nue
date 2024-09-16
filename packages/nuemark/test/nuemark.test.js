@@ -1,8 +1,8 @@
-import { parseMeta, parseBlocks, parseSections, parsePage, parseHeading } from '../src/parse.js'
+import { nuemarkdown } from '../index.js'
 import { parseComponent, valueGetter, parseAttr, parseSpecs } from '../src/component.js'
+import { parseMeta, parseBlocks, parseSections, parsePage, parseHeading } from '../src/parse.js'
 import { renderIsland, renderLines, renderHeading } from '../src/render.js'
 import { tags, parseSize } from '../src/tags.js'
-import { nuemarkdown } from '../index.js'
 
 
 test('fenced code', () => {

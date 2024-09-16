@@ -8,10 +8,12 @@
 */
 
 import { readFileSync } from 'node:fs'
-import { nuemarkdown } from '../index.js'
+import path from 'node:path'
+
 import { parseInline } from 'marked'
 import { glow } from 'nue-glow'
-import path from 'node:path'
+
+import { nuemarkdown } from '../index.js'
 
 
 export const tags = {

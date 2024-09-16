@@ -1,8 +1,11 @@
 #!/usr/bin/env bun
 
-import { log, colors, getVersion, getEngine } from './util.js'
-import esMain from 'es-main'
 import { sep } from 'node:path'
+
+import esMain from 'es-main'
+
+import { log, colors, getVersion, getEngine } from './util.js'
+
 
 // [-npe] --> [-n, -p, -e]
 export function expandArgs(args) {

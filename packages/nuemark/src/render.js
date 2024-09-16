@@ -1,6 +1,7 @@
-import { tags, elem, join } from './tags.js'
-import { parsePage, parseHeading } from './parse.js'
 import { marked } from 'marked'
+
+import { parsePage, parseHeading } from './parse.js'
+import { tags, elem, join } from './tags.js'
 
 
 /*

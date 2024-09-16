@@ -1,12 +1,13 @@
 // Standardized page layout / "Modern-day CSS Zen Garden"
 
-import { renderGallery, renderPrettyDate } from './gallery.js'
-import { renderNav, renderTOC } from './navi.js'
-import { renderPage as nuemark } from 'nuemark'
 import { parse as parseNue } from 'nuejs-core'
+import { renderPage as nuemark, renderInline } from 'nuemark'
 import { tags } from 'nuemark/src/tags.js'
-import { renderInline } from 'nuemark'
+
+import { renderGallery, renderPrettyDate } from './gallery.js'
 import { renderHead } from './head.js'
+import { renderNav, renderTOC } from './navi.js'
+
 
 const HEADER = `
   <header>

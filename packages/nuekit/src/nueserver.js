@@ -5,12 +5,9 @@
   2. Dynamic requests
   3. Server-send events (SSE)
 */
-import { join, extname } from 'node:path'
 import { promises as fs } from 'node:fs'
 import http from 'node:http'
-
-let sessions = []
-
+import { join, extname } from 'node:path'
 
 export const TYPES = {
   html: 'text/html; charset=UTF-8',
@@ -25,6 +22,8 @@ export const TYPES = {
   css:  'text/css',
   csv:  'text/csv',
 }
+
+let sessions = []
 
 
 export function createServer(root, callback) {

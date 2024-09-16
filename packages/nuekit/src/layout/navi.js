@@ -1,5 +1,5 @@
-import { elem, join, parseSize } from 'nuemark/src/tags.js'
 import { renderInline } from 'nuemark'
+import { elem, join, parseSize } from 'nuemark/src/tags.js'
 
 
 export function parseNavItem(item) {

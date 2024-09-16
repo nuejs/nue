@@ -1,4 +1,4 @@
-import { parseFor, parseClass, setContext, setContextTo, parseExpr } from '../src/expr.js'
+import { parseFor, parseClass, setContext, parseExpr } from '../src/expr.js'
 
 
 // helper function to run multiple tests at once

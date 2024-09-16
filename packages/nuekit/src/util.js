@@ -1,8 +1,8 @@
 /* misc stuff. think shame.css */
 
+import { promises as fs } from 'node:fs'
 import { sep, parse, normalize, join, isAbsolute, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { promises as fs } from 'node:fs'
 
 
 export const srcdir = dirname(fileURLToPath(import.meta.url))

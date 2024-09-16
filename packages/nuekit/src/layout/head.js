@@ -1,6 +1,8 @@
-import { elem, } from 'nuemark/src/tags.js'
-import { TYPES } from '../nueserver.js'
 import { extname } from 'node:path'
+
+import { elem } from 'nuemark/src/tags.js'
+
+import { TYPES } from '../nueserver.js'
 
 
 function getMime(path) {

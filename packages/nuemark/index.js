@@ -1,6 +1,6 @@
-import { renderLines } from './src/render.js'
-
 export { parseInline as renderInline } from 'marked'
+
+import { renderLines } from './src/render.js'
 
 // returns { html, meta, sections, headings, links }
 export function nuemark(str, opts) {

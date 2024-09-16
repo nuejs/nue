@@ -1,9 +1,8 @@
-import { watch, promises as fs } from 'node:fs'
-import { join, parse, relative } from 'node:path'
+//  Extremely minimal and efficient cross-platform file watching library
 
-/*
-  Extremely minimal and efficient cross-platform file watching library
-*/
+import { watch, promises as fs } from 'node:fs'
+import { join, parse } from 'node:path'
+
 
 // for avoiding double events
 let last = {}

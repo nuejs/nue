@@ -1,6 +1,7 @@
-import { parseAttr, parseSpecs, parseComponent } from './component.js'
 import { loadAll, load as parseYAML } from 'js-yaml'
 import { marked } from 'marked'
+
+import { parseAttr, parseSpecs, parseComponent } from './component.js'
 
 const NL = '\n'
 

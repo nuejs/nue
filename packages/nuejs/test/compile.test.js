@@ -1,5 +1,6 @@
 import { compile } from '../index.js'
 
+
 /*
   Format of individual tests on the TESTS array:
   [
