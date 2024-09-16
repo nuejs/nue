@@ -1,4 +1,3 @@
-
 import { compile } from '../index.js'
 
 /*
@@ -19,7 +18,7 @@ const TESTS = [
   ['<img :class="`_ || src`"/>', '<img :class="0">', '`_ || _.src`'],
 
   ['<img loading="lazy" :alt="alt" :src="_ || src">',
-   '<img loading="lazy" :alt="0" :src="1">', '_._ || _.src'],
+    '<img loading="lazy" :alt="0" :src="1">', '_._ || _.src'],
   [`<a>{ time || '12:00' }</a>`, '<a>:0:</a>', "[_.time || '12:00']"],
 
   // class name
@@ -53,9 +52,9 @@ const TESTS = [
 
   ['<a @keyup.space="do"/>', '@keyup="0"', "if (!['space'"],
 
-  ['<a @keyup.up="do"/>','@keyup="0"', "if (!['up'"],
+  ['<a @keyup.up="do"/>', '@keyup="0"', "if (!['up'"],
 
-  ['<a @click.self="do"/>','@click="0"', "if (e.target != this)"],
+  ['<a @click.self="do"/>', '@click="0"', "if (e.target != this)"],
 
 
   // event argument
@@ -99,5 +98,3 @@ test('Unit test', () => {
   const last = TESTS.slice(-1)[0]
   testOne(last)
 })
-
-

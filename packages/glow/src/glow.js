@@ -1,7 +1,7 @@
 
 const MIXED_HTML = ['html', 'jsx', 'php', 'astro', 'nue', 'vue', 'svelte', 'hb']
 const LINE_COMMENT = { clojure: ';;', lua: '--', python: '#' }
-const PREFIXES = {'+': 'ins', '-': 'del', '>': 'dfn' }
+const PREFIXES = { '+': 'ins', '-': 'del', '>': 'dfn' }
 const MARK = /(••?)([^•]+)\1/g   // ALT + q
 const NL = '\n'
 
@@ -166,7 +166,7 @@ export function parseRow(row, lang) {
   for (const el of tags) {
     const { re, shift } = el
 
-    row.replace(re, function(match, start, n) {
+    row.replace(re, function (match, start, n) {
       if (arguments.length == 4) {
         const more = shift ? match.indexOf(start) : 0
         match = start; start = n + more
@@ -179,7 +179,7 @@ export function parseRow(row, lang) {
 }
 
 function renderString(str) {
-  return encode(str).replace(/\$?\{([^\}]+)\}/g, function(_, content) {
+  return encode(str).replace(/\$?\{([^\}]+)\}/g, function (_, content) {
     return elem('i', _.replace(content, elem('b', content)))
   })
 }
@@ -213,7 +213,7 @@ export function renderRow(row, lang) {
   ret.push(row.substring(index))
 
   return ret.join('').replace(MARK, (_, a, b, c) => {
-    return elem(a[1] ? 'u' : 'mark',  b)
+    return elem(a[1] ? 'u' : 'mark', b)
   })
 }
 
@@ -263,7 +263,7 @@ export function parseSyntax(str, lang) {
 
 
 // code, { language: 'js', numbered: true }
-export function glow(str, opts={}) {
+export function glow(str, opts = {}) {
   if (typeof opts == 'string') opts = { language: opts }
 
   // language
@@ -275,7 +275,7 @@ export function glow(str, opts={}) {
     lines.push(opts.numbered ? elem('span', line) : line)
   }
 
-  parseSyntax(str.trim(), lang).forEach(function(block) {
+  parseSyntax(str.trim(), lang).forEach(function (block) {
     let { line, comment, wrap } = block
 
     // EOL comment
@@ -292,5 +292,3 @@ export function glow(str, opts={}) {
 
   return `<code language="${lang || '*'}">${lines.join(NL)}</code>`
 }
-
-

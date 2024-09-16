@@ -1,9 +1,9 @@
-
 import { parseAttr, parseSpecs, parseComponent } from './component.js'
 import { loadAll, load as parseYAML } from 'js-yaml'
 import { marked } from 'marked'
 
 const NL = '\n'
+
 
 // returns { meta, sections, headings, links }
 export function parsePage(lines) {

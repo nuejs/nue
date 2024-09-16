@@ -1,4 +1,3 @@
-
 <dialog class="nuerr">
   <a @click="unmount">&times;</a>
   <h3><b class="nue-{ ext }">{ ext }</b> { title }</h3>

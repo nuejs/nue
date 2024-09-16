@@ -1,4 +1,3 @@
-
 // Standardized page layout / "Modern-day CSS Zen Garden"
 
 import { renderGallery, renderPrettyDate } from './gallery.js'
@@ -46,7 +45,7 @@ const MENU = `
 
 
 export function renderRootHTML(data) {
-  const { language='en-US', direction='ltr' } = data
+  const { language = 'en-US', direction = 'ltr' } = data
   const body_class = data.class ? ` class="${data.class}"` : ''
 
   return `
@@ -74,8 +73,8 @@ export function renderRootHTML(data) {
 }
 
 
-export function renderSinglePage(body='', data) {
-  const { language='en-US', direction='ltr' } = data
+export function renderSinglePage(body = '', data) {
+  const { language = 'en-US', direction = 'ltr' } = data
 
   data.layout = { head: renderHead(data) }
 
@@ -95,7 +94,7 @@ export function renderSinglePage(body='', data) {
 
 // system components
 const system_tags = [
-  { name: 'navi',  create: renderNav },
+  { name: 'navi', create: renderNav },
   { name: 'gallery', create: renderGallery },
   { name: 'markdown', create: ({ content }) => content ? renderInline(content) : '' },
   { name: 'pretty-date', create: ({ date }) => renderPrettyDate(date) },
@@ -156,7 +155,3 @@ export function renderPage(data, comps) {
 
   return renderBlock('html', html)
 }
-
-
-
-

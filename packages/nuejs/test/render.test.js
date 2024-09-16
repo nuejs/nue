@@ -1,4 +1,3 @@
-
 import { render } from '../index.js'
 
 
@@ -269,4 +268,3 @@ test('{ expr } error', () => {
     }
   }
 })
-

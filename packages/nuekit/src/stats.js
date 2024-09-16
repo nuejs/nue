@@ -1,8 +1,8 @@
-
 import { join, extname, parse as parsePath } from 'node:path'
 import { colors, sortCSS } from './util.js'
 import { promises as fs } from 'node:fs'
 import { fswalk } from './nuefs.js'
+
 
 async function readSize(dist, path) {
   const raw = await fs.readFile(join(dist, path), 'utf-8')
@@ -53,11 +53,11 @@ export function categorize(paths) {
 
     const cat = ext == 'css' ? cats.style :
       ['js', 'ts'].includes(ext) ? cats.scripts :
-      ext == 'yaml' || ext == 'html' ? misc :
-      base == 'index.html' ? cats.spa :
-      ext ==  'nue' || ext == 'htm' ? cats.islands :
-      ext == 'md' ? cats.pages :
-      cats.media
+        ext == 'yaml' || ext == 'html' ? misc :
+          base == 'index.html' ? cats.spa :
+            ext == 'nue' || ext == 'htm' ? cats.islands :
+              ext == 'md' ? cats.pages :
+                cats.media
 
     cat.push(path)
   }
@@ -75,4 +75,3 @@ function sum(arr) {
 function fmt(size) {
   return !size ? '-' : Math.round(size / 100) / 10 + 'k'
 }
-

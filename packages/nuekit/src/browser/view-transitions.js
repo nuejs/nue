@@ -1,13 +1,12 @@
-
 // Router for multi-page applications
 
 // exported
-export function $(query, root=document) {
+export function $(query, root = document) {
   return root.querySelector(query)
 }
 
-export function $$(query, root=document) {
-  return [ ...root.querySelectorAll(query)]
+export function $$(query, root = document) {
+  return [...root.querySelectorAll(query)]
 }
 
 const scrollPos = {}
@@ -59,7 +58,6 @@ export async function loadPage(path, replace_state) {
 
 // setup linking
 export function onclick(root, fn) {
-
   root.addEventListener('click', e => {
     const el = e.target.closest('[href]')
     const path = el?.getAttribute('href')
@@ -68,8 +66,8 @@ export function onclick(root, fn) {
 
     // event ignore
     if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey ||
-        !path || path[0] == '#' || path?.includes('//') || path?.startsWith('mailto:') ||
-        (name?.includes('.') && !name?.endsWith('.html')) || target == '_blank') return
+      !path || path[0] == '#' || path?.includes('//') || path?.startsWith('mailto:') ||
+      (name?.includes('.') && !name?.endsWith('.html')) || target == '_blank') return
 
     // all good
     if (path != location.pathname) fn(path, el)
@@ -79,7 +77,7 @@ export function onclick(root, fn) {
 }
 
 // developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-selected
-export function setActive(path, attrname='aria-selected') {
+export function setActive(path, attrname = 'aria-selected') {
 
   // remove old selections
   $$(`[${attrname}]`).forEach(el => el.removeAttribute(attrname))
@@ -152,9 +150,7 @@ function updateBlock(a, b) {
 }
 
 
-
 function updateStyles(dom) {
-
   // Inline CSS / development
   const orig = $$('link, style')
   const new_styles = swapStyles(orig, $$('link, style', dom))
@@ -193,7 +189,6 @@ function updateProductionStyles(dom) {
 }
 
 
-
 const cache = {}
 
 async function getHTML(path) {
@@ -215,7 +210,6 @@ async function getHTML(path) {
 }
 
 function mkdom(html) {
-
   // template tag does not work with <body> tag
   html = html.replace(/<(\/?)body/g, '<$1body2')
 

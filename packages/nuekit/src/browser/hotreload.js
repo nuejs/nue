@@ -1,13 +1,12 @@
-
 import { mountAll } from './mount.js'
 
 const sse = new EventSource(location.origin)
 
-const $$ = (query, root=document) => [ ...root.querySelectorAll(query) ]
-const $ = (query, root=document) => root.querySelector(query)
+const $$ = (query, root = document) => [...root.querySelectorAll(query)]
+const $ = (query, root = document) => root.querySelector(query)
 
 
-sse.onmessage = async function(e) {
+sse.onmessage = async function (e) {
   const data = e.data ? JSON.parse(e.data) : {}
   const { error, html, css, dir, url, path } = data
 
@@ -144,7 +143,7 @@ async function patch(html) {
 }
 
 function toggleAttr(el, name, flag) {
-  flag ? el.setAttribute(name, 1) :  el.removeAttribute(name)
+  flag ? el.setAttribute(name, 1) : el.removeAttribute(name)
 }
 
 function restoreTabs(flags) {

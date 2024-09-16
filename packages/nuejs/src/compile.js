@@ -1,10 +1,11 @@
-
 import { mkdom, getComponentName, isBoolean, walk, objToString, getPosition, STD } from './fn.js'
 import { parseExpr, parseFor, setContext, setContextTo } from './expr.js'
 import { promises as fs } from 'node:fs'
 import { DomUtils } from 'htmlparser2'
 import { dirname } from 'node:path'
+
 const { getOuterHTML, getInnerHTML, removeElement } = DomUtils
+
 
 function compileNode(root) {
   const expr = []
@@ -16,8 +17,8 @@ function compileNode(root) {
     return '' + len
   }
 
-  walk(root, function(node) {
-    const { attribs={}, tagName } = node
+  walk(root, function (node) {
+    const { attribs = {}, tagName } = node
     const content = node.data
 
     if (node.type == 'comment' || attribs.server || tagName == 'noscript') removeElement(node)
@@ -52,11 +53,11 @@ function compileNode(root) {
           attribs[name] = push(body, true)
         }
 
-      // for expression
+        // for expression
       } else if (key == ':for') {
         attribs[key] = push(compileLoop(val, node))
 
-      // attributes
+        // attributes
       } else if (':$'.includes(char) && val && key != ':is') {
         const expr = has_expr ? arrwrap(parseExpr(val)) : setContext(val)
         attribs[key] = push(expr)
@@ -211,12 +212,11 @@ export function parse(src) {
     if (e.expr) Object.assign(e, getPosition(src, e))
     throw e
   }
-
 }
 
 export function compile(src) {
   const { js, components } = parse(src)
-  return [ js,
+  return [js,
     'export const lib = [', components.join(',') + ']',
     'export default lib[0]'
 

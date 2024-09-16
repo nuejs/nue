@@ -1,4 +1,3 @@
-
 /*
   Test performance by creating a site with N pages (default 50)
   with a content_collection to referencing all the pages, and with
@@ -11,13 +10,14 @@ import { join } from 'node:path'
 
 const root = 'perf'
 
+
 async function clean() {
   await fs.rm(root, { recursive: true, force: true })
 }
 
 async function gen(count, name, content) {
   for (let i = 0; i < count; i++) {
-    await fs.writeFile(join(root, name.replace('#', i+1)), content)
+    await fs.writeFile(join(root, name.replace('#', i + 1)), content)
   }
 }
 

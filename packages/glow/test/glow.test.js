@@ -1,11 +1,10 @@
-
 import { parseRow, renderRow, parseSyntax } from '../src/glow.js'
 
 test('HTML', () => {
   const row = '<div class="hello">'
 
   // parse
-  const [ char, prop, ...rest ] = parseRow(row)
+  const [char, prop, ...rest] = parseRow(row)
 
   expect(char.tag).toBe('i')
   expect(prop.tag).toBe('strong')

@@ -1,4 +1,3 @@
-
 import { elem, } from 'nuemark/src/tags.js'
 import { TYPES } from '../nueserver.js'
 import { extname } from 'node:path'
@@ -11,22 +10,21 @@ function getMime(path) {
 
 export function renderHead(data) {
   const {
-    version     = data.nuekit_version,
-    generator   = `Nue v${version} (nuejs.org)`,
-    viewport    = 'width=device-width,initial-scale=1',
-    charset     = 'utf-8',
+    version = data.nuekit_version,
+    generator = `Nue v${version} (nuejs.org)`,
+    viewport = 'width=device-width,initial-scale=1',
+    charset = 'utf-8',
     title_template = '%s',
-    scripts     = [],
-    styles      = [],
-    inline_css  = [],
-    prefetch    = [],
-    base        = '',
-    origin      = '',
-    components  = [],
+    scripts = [],
+    styles = [],
+    inline_css = [],
+    prefetch = [],
+    base = '',
+    origin = '',
+    components = [],
     favicon,
     title,
-    is_prod
-
+    is_prod,
   } = data
 
   const head = [`<meta charset="${charset}">`]
@@ -43,7 +41,7 @@ export function renderHead(data) {
   pushMeta('author', data.author)
   pushMeta('robots', data.robots)
   pushMeta('theme-color', data.theme_color)
-  
+
   // OG data
   pushProp('og:title', title)
   pushProp('og:description', data.description)
@@ -76,7 +74,7 @@ export function renderHead(data) {
     const css = inline_css.map(el => el.css).join('')
     head.push(elem('style', css))
 
-  // dev mode: keep path info for hot-reloading
+    // dev mode: keep path info for hot-reloading
   } else {
     inline_css.forEach(el => head.push(elem('style', { href: base + el.path }, el.css)))
   }
@@ -93,7 +91,5 @@ export function renderHead(data) {
     head.push(`<link href="${base}${href}" ${is_image ? 'rel="preload" as="image"' : 'rel="prefetch"'}>`)
   })
 
-
   return head.join('\n')
 }
-

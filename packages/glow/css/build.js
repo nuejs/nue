@@ -4,7 +4,7 @@ import { transform, Features } from 'lightningcss'
 import { promises as fs } from 'node:fs'
 
 
-async function minify(names, toname, include=0) {
+async function minify(names, toname, include = 0) {
   const raw = []
   for (const name of names) {
     raw.push(await fs.readFile(`css/${name}.css`, 'utf-8'))

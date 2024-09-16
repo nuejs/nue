@@ -1,4 +1,3 @@
-
 import { parseDocument, DomUtils } from 'htmlparser2'
 
 // shared by render.js and compile.js
@@ -39,7 +38,7 @@ export function getComponentName(root) {
 }
 
 export function selfClose(str) {
-  return str.replace(/\/>/g, function(match, i) {
+  return str.replace(/\/>/g, function (match, i) {
     const tag = str.slice(str.lastIndexOf('<', i), i)
     const name = /<([\w-]+)/.exec(tag)
     return `></${name[1]}>`
@@ -90,7 +89,7 @@ function isJSObject(val) {
 }
 
 // exec('`font-size:${_.size + "px"}`;', data)
-export function exec(expr, data={}) {
+export function exec(expr, data = {}) {
   const fn = new Function('_', 'return ' + expr)
   const val = fn(data)
   return val == null ? '' : isJSObject(val) ? val : '' + val
@@ -115,7 +114,7 @@ export function mergeAttribs(to, from) {
 
 // get error position: { line, column }
 export function getPosition(template, error) {
-  const { expr, subexpr=expr } = error
+  const { expr, subexpr = expr } = error
   const lines = template.split('\n')
   const ret = { line: 1 }
 
@@ -130,4 +129,3 @@ export function getPosition(template, error) {
   }
   return ret
 }
-

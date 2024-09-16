@@ -1,4 +1,3 @@
-
 import { renderLines } from './src/render.js'
 
 export { parseInline as renderInline } from 'marked'
@@ -15,6 +14,5 @@ export function nuemarkdown(str, opts) {
 
 // returns { meta, sections, headings, links }
 export { parsePage } from './src/parse.js'
-
 
 export { renderPage } from './src/render.js'

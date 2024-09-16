@@ -13,6 +13,7 @@ const root = join(reldir, 'page-router-test')
 const dist = join(dir, 'page-router-test/.dist')
 const out = join(dist, 'dev')
 
+
 // setup and teardown
 beforeAll(async () => {
   GlobalRegistrator.register()

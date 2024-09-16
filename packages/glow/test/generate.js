@@ -658,11 +658,11 @@ async function renderPage(items) {
   items.forEach(opts => {
     const { title } = opts
     const language = opts.lang || title.toLowerCase()
-    const code = glow(opts.code, { language, numbered: true})
+    const code = glow(opts.code, { language, numbered: true })
 
     html.push(`
       <div class="syntax ${opts.class || ''}">
-        <header><h2>${opts.title || language }</h2></header>
+        <header><h2>${opts.title || language}</h2></header>
         <pre glow>${code}</pre>
       </div>
     `)
@@ -713,9 +713,6 @@ await renderPage([
   { title: 'TypeScript', code: TS, lang: 'ts', },
   { title: 'ZIG', code: ZIG, lang: 'zig', },
 
-  ].filter(el => ['js'].includes(el.lang))
+].filter(el => ['js'].includes(el.lang))
   // ]
-
 )
-
-

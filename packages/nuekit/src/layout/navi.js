@@ -1,16 +1,15 @@
-
 import { elem, join, parseSize } from 'nuemark/src/tags.js'
 import { renderInline } from 'nuemark'
 
-export function parseNavItem(item) {
 
+export function parseNavItem(item) {
   // plain string
   if (typeof item == 'string') {
     return item.startsWith('---') ? { separator: item } : { text: item, url: '' }
   }
 
   const keys = Object.keys(item)
-  const [ char ] = keys[0]
+  const [char] = keys[0]
 
   // [text]: string | object
   if (char == char.toUpperCase() && keys.length == 1) {
@@ -66,7 +65,7 @@ export function parseClass(url) {
 }
 
 
-export function renderNavItems(items, opts={}) {
+export function renderNavItems(items, opts = {}) {
   const { heading, label } = opts
   const nav = []
 

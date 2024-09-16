@@ -1,4 +1,3 @@
-
 /*
   Build-in tag library
 
@@ -18,13 +17,13 @@ import path from 'node:path'
 export const tags = {
 
   button(data) {
-    const { attr, href="#", content=[] } = data
+    const { attr, href = "#", content = [] } = data
     const label = parseInline(data.label || data._ || content[0] || '')
     return elem('a', { ...attr, href, role: 'button' }, label || _)
   },
 
   table(data) {
-    const { attr, head, _, items=[] } = data
+    const { attr, head, _, items = [] } = data
     const ths = toArray(head || _).map(val => elem('th', parseInline(val.trim())))
     const thead = elem('thead', elem('tr', join(ths)))
 
@@ -40,7 +39,7 @@ export const tags = {
 
   // generic <div> element with nested items
   block(data, opts) {
-    const { content=[] } = data
+    const { content = [] } = data
 
     const divs = content.map((str, i) => {
       const html = nuemarkdown(str, opts)
@@ -51,7 +50,7 @@ export const tags = {
   },
 
   grid(data, opts) {
-    const { content=[] } = data
+    const { content = [] } = data
     const items = toArray(data.items) || []
     if (!data.attr.class) data.attr.class = 'grid'
 
@@ -76,7 +75,7 @@ export const tags = {
       return readFileSync(path.join('.', src), 'utf-8')
     }
 
-    const { attr, caption, href, content, loading='lazy' } = data
+    const { attr, caption, href, content, loading = 'lazy' } = data
     const { width, height } = parseSize(data)
 
     const img_attr = {
@@ -106,10 +105,10 @@ export const tags = {
 
   // isomorphic later
   video(data, opts) {
-    const { _, sources=[] } = data
+    const { _, sources = [] } = data
 
     // inner <source> tags
-    const html = sources.map(src => elem('source', { src, type: getMimeType(src) }) )
+    const html = sources.map(src => elem('source', { src, type: getMimeType(src) }))
 
     // fallback content
     const [md] = data.content || []
@@ -140,7 +139,7 @@ export const tags = {
 
   // caption, language, numbered
   code(data) {
-    const { caption, attr={} } = data
+    const { caption, attr = {} } = data
     const klass = attr.class
     delete attr.class
 
@@ -172,7 +171,7 @@ export const tags = {
 }
 
 function createTabIds(key, i) {
-  return key ? [ `${key}-tab-${i+1}`, `${key}-panel-${i+1}`] : []
+  return key ? [`${key}-tab-${i + 1}`, `${key}-panel-${i + 1}`] : []
 }
 
 function createWrapper(className, root) {
@@ -185,13 +184,13 @@ function createARIATabs(data, fn) {
   const captions = toArray(data.captions || data.tabs || data._) || []
 
   const tabs = captions.map((caption, i) => {
-    const [ id, target ] = createTabIds(key, i)
+    const [id, target] = createTabIds(key, i)
     const prop = { role: 'tab', 'aria-selected': i == 0, id, 'aria-controls': target }
     return elem('a', prop, parseInline(caption))
   })
 
   const panes = data.content.map((content, i) => {
-    const [ tabId, id ] = createTabIds(key, i)
+    const [tabId, id] = createTabIds(key, i)
     const prop = { role: 'tabpanel', id, 'aria-labelledby': tabId, hidden: i ? 'hidden' : null }
     return elem('li', prop, fn(content, i))
   })
@@ -206,7 +205,7 @@ function createARIATabs(data, fn) {
 
 
 // ! shortcut
-tags['!'] = function(data, opts) {
+tags['!'] = function (data, opts) {
   const src = data._
   const mime = getMimeType(src)
   return data.sources || mime.startsWith('video') ? tags.video(data, opts) : tags.image(data, opts)
@@ -219,7 +218,7 @@ tags.section = tags.layout
 tags.layout = tags.block
 
 export function elem(name, attr, body) {
-  if (typeof attr == 'string') { body = attr; attr = {}}
+  if (typeof attr == 'string') { body = attr; attr = {} }
 
   const html = [`<${name}${renderAttrs(attr)}>`]
   const closed = ['img', 'source', 'meta', 'link'].includes(name)
@@ -234,7 +233,7 @@ function renderAttrs(attr) {
   const arr = []
   for (const key in attr) {
     const val = attr[key]
-    if (val) arr.push(val === true ? key :`${key}="${val}"`)
+    if (val) arr.push(val === true ? key : `${key}="${val}"`)
   }
   return arr[0] ? ' ' + arr.join(' ') : ''
 }
@@ -244,7 +243,7 @@ function toArray(items) {
   return items?.split ? items.split(/ ?[;|] ?/) : items
 }
 
-export function join(els, separ='\n') {
+export function join(els, separ = '\n') {
   // do not filter away empty lines (.filter(el => !!el))
   return els?.join ? els.join(separ) : els
 }
@@ -255,7 +254,7 @@ export function concat(a, b) {
 }
 
 export function createPicture(img_attr, data) {
-  const { small, offset=750 } = data
+  const { small, offset = 750 } = data
 
   const sources = [small, img_attr.src].map(src => {
     const prefix = src == small ? 'max' : 'min'
@@ -268,12 +267,12 @@ export function createPicture(img_attr, data) {
 }
 
 export function parseSize(data) {
-  const { size='' } = data
-  const [ w, h ] = size.trim().split(/\s*\D\s*/)
+  const { size = '' } = data
+  const [w, h] = size.trim().split(/\s*\D\s*/)
   return { width: w || data.width, height: h || data.height }
 }
 
-function createCodeBlock({ content, language='', numbered }, attr={}) {
+function createCodeBlock({ content, language = '', numbered }, attr = {}) {
   const code = glow(join(content), { language: language?.trim(), numbered })
   return elem('pre', attr, code)
 }
@@ -297,8 +296,7 @@ const MIME = {
   mp4: 'video/mp4',
 }
 
-function getMimeType(path='') {
+function getMimeType(path = '') {
   const type = path.slice(path.lastIndexOf('.') + 1)
   return MIME[type] || `image/${type}`
 }
-

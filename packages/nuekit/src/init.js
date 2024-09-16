@@ -1,4 +1,3 @@
-
 import { compileFile as nueCompile } from 'nuejs-core'
 import { promises as fs, existsSync } from 'node:fs'
 import { dirname, join } from 'node:path'

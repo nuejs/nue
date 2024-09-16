@@ -1,5 +1,3 @@
-
-
 import { log, colors, getAppDir, parsePathParts, extendData } from './util.js'
 import { renderPage, renderSinglePage } from './layout/page-layout.js'
 import { parse as parseNue, compile as compileNue } from 'nuejs-core'
@@ -15,6 +13,7 @@ import { parsePage } from 'nuemark'
 
 // the HTML5 doctype
 const DOCTYPE = '<!doctype html>\n\n'
+
 
 export async function createKit(args) {
   const { root, is_prod, esbuild, dryrun } = args
@@ -356,15 +355,10 @@ export async function createKit(args) {
   }
 
   return {
-
     // for testing only
     gen, getPageData, renderMPA, renderSPA,
 
     // public API
     build, serve, stats, init, dist, port,
   }
-
 }
-
-
-

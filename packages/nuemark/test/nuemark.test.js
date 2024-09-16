@@ -35,7 +35,7 @@ test('fenced code & numbered last', () => {
 })
 
 test('[code.foo]', () => {
-  const html = tags.code({ content: ['<p>Hey</p>'], language: 'xml', numbered: true, attr: { class: 'foo'} })
+  const html = tags.code({ content: ['<p>Hey</p>'], language: 'xml', numbered: true, attr: { class: 'foo' } })
   expect(html).toStartWith('<div class="foo"><pre><code language="xml">')
   expect(html).toInclude('<i>')
 })
@@ -218,7 +218,7 @@ test('[block]', () => {
   expect(single).toInclude('<p>foo</p>')
 
   const double = tags.block({ attr, data, content: ['foo', 'bar'] })
-    expect(double).toInclude('<div id="epic">')
+  expect(double).toInclude('<div id="epic">')
 })
 
 test('[layout] alias', () => {
@@ -318,7 +318,6 @@ test('renderIsland', () => {
 })
 
 
-
 // page parsing
 test('parse sections', () => {
   const els = parseSections(['a', 'a'])
@@ -406,7 +405,7 @@ test('parseSpecs', () => {
 })
 
 test('parse plain args', () => {
-  const { name, data }= parseComponent('video src="/a.mp4" loop muted')
+  const { name, data } = parseComponent('video src="/a.mp4" loop muted')
   expect(name).toBe('video')
   expect(data.loop).toBe(true)
   expect(data.muted).toBe(true)
@@ -473,7 +472,7 @@ test('JSX component', async () => {
 
     // make them compatible with Nuemark
     const lib = Object.keys(jsx).map(name => {
-        return { name, render: (data) => renderToString(jsx[name](data)) }
+      return { name, render: (data) => renderToString(jsx[name](data)) }
     })
 
     // render JSX with Nuemark
@@ -481,7 +480,7 @@ test('JSX component', async () => {
 
     expect(html).toBe('<h1 style="color:red">Hello</h1>')
 
-      // react not imported
+    // react not imported
   } catch (ignored) {
     console.info('JSX test skipped')
   }

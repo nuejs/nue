@@ -1,4 +1,3 @@
-
 import For from './for.js'
 import If from './if.js'
 
@@ -17,8 +16,8 @@ const CORE_ATTR = ['class', 'style', 'id']
  * @param { Array<Component> } [deps = {}] - optional array of nested/dependant components
  * @param { Object } $parent - (for internal use only)
 */
-export default function createApp(component, data={}, deps=[], $parent={}) {
-  const { Impl, tmpl, fns=[], dom, inner } = component
+export default function createApp(component, data = {}, deps = [], $parent = {}) {
+  const { Impl, tmpl, fns = [], dom, inner } = component
   const expr = []
 
   function walk(node) {
@@ -120,10 +119,9 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
     // remove special attributes
     if (':@$'.includes(char)) node.removeAttribute(name)
 
-
     // set all attributes from object
     if (real == 'attr') {
-      return expr.push(_=> {
+      return expr.push(_ => {
         for (const [name, val] of Object.entries(fn(ctx))) {
           setAttr(node, name, val === true ? '' : val)
         }
@@ -154,8 +152,7 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
     }
 
     // html
-    if (real == 'html') expr.push(_=> node.innerHTML = fn(ctx))
-
+    if (real == 'html') expr.push(_ => node.innerHTML = fn(ctx))
   }
 
   function walkChildren(node, fn) {
@@ -178,7 +175,7 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
     for (const el of [...node.attributes]) {
       const name = el.name.replace(':', '')
       const val = getAttr(node, name)
-      if (!CORE_ATTR.includes(name) && typeof(val) != 'object') {
+      if (!CORE_ATTR.includes(name) && typeof (val) != 'object') {
         attr[name] = val == null ? true : val
       }
     }
@@ -250,12 +247,12 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
 
       // constructor
       if (Impl) impl = self.impl = new Impl(ctx)
-        
-        // for
-        impl.mountChild = self.mountChild
-        impl.$refs = self.$refs
-        impl.update = update
-      
+
+      // for
+      impl.mountChild = self.mountChild
+      impl.$refs = self.$refs
+      impl.update = update
+
       walk(root)
 
       wrap.replaceWith(root)
@@ -297,11 +294,10 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
     unmount() {
       try {
         self.root.remove()
-      } catch (e) {}
+      } catch (e) { }
       impl.unmounted?.call(ctx, ctx)
       update()
     }
-
   }
 
   const ctx = new Proxy({}, {
@@ -334,7 +330,6 @@ export default function createApp(component, data={}, deps=[], $parent={}) {
   })
 
   return self
-
 }
 
 // good for async import
@@ -349,7 +344,7 @@ function mkdom(tmpl) {
 
 
 // render expression return value
-function renderVal(val, separ='') {
+function renderVal(val, separ = '') {
   return val?.join ? val.filter(el => el || el === 0).join(separ).trim().replace(/\s+/g, ' ') : val || ''
 }
 
@@ -360,4 +355,3 @@ function mergeVals(a, b) {
   if (b && !b.join) b = [b]
   return a.concat(b)
 }
-

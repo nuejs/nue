@@ -1,5 +1,3 @@
-
-
 import { mkdom, getComponentName, mergeAttribs, isBoolean, exec, STD, getPosition, walk } from './fn.js'
 import { parseExpr, parseFor, setContext } from './expr.js'
 import { parseDocument, DomUtils as DOM } from 'htmlparser2'

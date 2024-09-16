@@ -1,4 +1,3 @@
-
 import { watch, promises as fs } from 'node:fs'
 import { join, parse, relative } from 'node:path'
 
@@ -120,6 +119,3 @@ async function isSymdir(linkpath) {
   const real = await fs.realpath(linkpath)
   return (await fs.lstat(real)).isDirectory()
 }
-
-
-
