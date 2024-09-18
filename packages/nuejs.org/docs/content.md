@@ -119,7 +119,7 @@ Again, the name "stack" must be implemented in your website CSS by the UX develo
 
 
 ### Grids
-[Grid](tags.html#grids) is a built-in tag used like the stack but is meant for more complex layouts. They have more configuration options and their visual appearance and behavior can be enhanced with JavaScript.
+[Grid](tags.html#grids) is a built-in tag used like the stack but is meant for more complex layouts. They have more configuration options for their visual appearance and behavior can be enhanced with JavaScript.
 
 
 ```md
