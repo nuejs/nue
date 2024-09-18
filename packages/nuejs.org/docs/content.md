@@ -62,7 +62,7 @@ og: /img/hero-image.png
 
 
 ### Sections
-Just like books can be divided into chapters, your long-form articles and landing pages are often divided into sections. These sections are separated with three or more dash (`---`) or equals (`===`) characters:
+Just like books can be divided into chapters, your long-form articles and landing pages are often divided into sections. These sections are separated with three or more dashes (`---`) or equals (`===`) characters:
 
 
 ```yaml
@@ -158,12 +158,3 @@ Blocks, stacks, and grids can be nested to form more complex layouts on your ric
 
 ### Custom tags
 Your UX developer can easily [extend](custom-layouts.html#custom-md) the Markdown vocabulary with new tags that operate on the server-side, client side, or both. Ask the UX developer for the list of available extensions.
-
-
-
-
-
-
-
-
-
