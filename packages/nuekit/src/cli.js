@@ -1,4 +1,5 @@
-#!/usr/bin/env bun
+#!/bin/sh
+':' //#; /usr/bin/env bun "$0" "$@" || /usr/bin/env node "$0" "$@"; exit
 
 import { log, colors, getVersion, getEngine } from './util.js'
 import esMain from 'es-main'
