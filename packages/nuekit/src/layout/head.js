@@ -76,7 +76,7 @@ export function renderHead(data) {
     const css = inline_css.map(el => el.css).join('')
     head.push(elem('style', css))
 
-    // dev mode: keep path info for hot-reloading
+  // dev mode: keep path info for hot-reloading
   } else {
     inline_css.forEach(el => head.push(elem('style', { href: base + el.path }, el.css)))
   }
