@@ -170,9 +170,15 @@ export function parseBlocks(lines) {
     // code line
     if (fenced) return fenced.content.push(line)
 
-    const trimmed = line.trim()
+    const trimmed = line.trimEnd()
+    // component
+    if (line[0] == '[' && trimmed.slice(-1) == ']' && !line.includes('][')) {
+      comp = parseComponent(trimmed.slice(1, -1))
+      blocks.push(comp)
+      md = null
+
     // component args
-    if (comp) {
+    } else if (comp) {
       const next = getNext(lines, i)
       const indent = getIndent(next)
 
@@ -184,12 +190,6 @@ export function parseBlocks(lines) {
 
       if (!line.trimStart()) comp.body?.push(line)
       else if (!getIndent(line)) comp = null
-   
-    // component
-    } else if (trimmed[0] == '[' && trimmed.slice(-1) == ']' && !line.includes('][')) {
-      comp = parseComponent(trimmed.slice(1, -1))
-      blocks.push(comp)
-      md = null
     }
 
     // markdown
