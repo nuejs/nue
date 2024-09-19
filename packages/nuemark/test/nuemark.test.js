@@ -66,6 +66,11 @@ test('nested code with comment', () => {
   expect(html).toInclude('<sup>// hey</sup>')
 })
 
+test('multiple md extensions', () => {
+  const { html } = renderLines(['[.test] ', '\tcontent1', '[.test]', '\tcontent2'])
+  expect(html).toBe('<div class="test"><p>content1</p></div><div class="test"><p>content2</p></div>')
+})
+
 test('parse fenced code', () => {
   const blocks = parseBlocks(['# Hey', '``` md.foo#bar', '// hey', '[foo]', '```'])
   const [hey, fenced] = blocks
