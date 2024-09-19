@@ -68,7 +68,7 @@ test('nested code with comment', () => {
 
 test('multiple md extensions', () => {
   const { html } = renderLines(['[.test] ', '\tcontent1', '[.test]', '\tcontent2'])
-  expect(html).toBe('<div class="test"><p>content1</p></div><div class="test"><p>content2</p></div>')
+  expect(html).toBe('<div class="test"><p>content1</p>\n</div>\n<div class="test"><p>content2</p>\n</div>')
 })
 
 test('parse fenced code', () => {
@@ -124,7 +124,7 @@ test('[tabs] key and wrapper', () => {
 
 
 const NESTED_TABS = `
- [tabs "Foo | Bar"]
+[tabs "Foo | Bar"]
   First
   ---
   Second
