@@ -221,19 +221,19 @@ export function renderRow(row, lang) {
 // comment start & end
 const COMMENT = [/(\/\*|^ *{# |<!--|'''|=begin)/, /(\*\/|#}|-->|'''|=end)$/]
 
-export function parseSyntax(str, lang) {
+export function parseSyntax(lines, lang) {
   const [comm_start, comm_end] = COMMENT
-  const lines = []
+  const html = []
 
   // multi-line comment
   let comment
 
   function endComment() {
-    lines.push({ comment })
+    html.push({ comment })
     comment = null
   }
 
-  str.split(/\r\n|\r|\n/).forEach((line, i) => {
+  lines.forEach((line, i) => {
     if (!comment) {
       if (comm_start.test(line)) {
         comment = [line]
@@ -248,7 +248,7 @@ export function parseSyntax(str, lang) {
         // escape character
         if (c == '\\') line = line.slice(1)
 
-        lines.push({ line, wrap })
+        html.push({ line, wrap })
       }
 
     } else {
@@ -258,24 +258,27 @@ export function parseSyntax(str, lang) {
   })
 
 
-  return lines
+  return html
 }
 
 
 // code, { language: 'js', numbered: true }
 export function glow(str, opts = {}) {
   if (typeof opts == 'string') opts = { language: opts }
+  const lines = Array.isArray(str) ? str : str.trim().split(/\r\n|\r|\n/)
+
+  if (!lines[0]) return ''
 
   // language
   let lang = opts.language
-  if (!lang && str.trim()[0] == '<') lang = 'html'
-  const lines = []
+  if (!lang && lines[0][0] == '<') lang = 'html'
+  const html = []
 
   function push(line) {
-    lines.push(opts.numbered ? elem('span', line) : line)
+    html.push(opts.numbered ? elem('span', line) : line)
   }
 
-  parseSyntax(str.trim(), lang).forEach(function(block) {
+  parseSyntax(lines, lang).forEach(function(block) {
     let { line, comment, wrap } = block
 
     // EOL comment
@@ -290,5 +293,5 @@ export function glow(str, opts = {}) {
     push(line)
   })
 
-  return `<code language="${lang || '*'}">${lines.join(NL)}</code>`
+  return `<code language="${lang || '*'}">${html.join(NL)}</code>`
 }

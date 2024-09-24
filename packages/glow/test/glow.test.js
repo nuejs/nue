@@ -27,28 +27,14 @@ test('Emphasis', () => {
 
 
 /* multiline comments */
-const HTML_COMMENT = `
-<div>
-  <!--
-    First
-    Second
-  -->
-</div>`
+test('parse HTML comment', () => {
+  const blocks = parseSyntax(['<div>', '<!--', 'comment', '-->', '</div>'])
+  expect(blocks[1].comment[0]).toBe('<!--')
+})
 
-const JS_COMMENT = `
-/* First */
-function() {
-  /*
-    Second
-  */
-}
-`
 
-test('extract comments', () => {
-  let blocks = parseSyntax(HTML_COMMENT.trim())
-  expect(blocks[1].comment[0]).toBe('  <!--')
-
-  blocks = parseSyntax(JS_COMMENT.trim())
+test('parse JS comment', () => {
+  const blocks = parseSyntax(['/* First */', 'function() {', '/*', 'Second', '*/'])
   expect(blocks[0].comment).toEqual(['/* First */'])
-  expect(blocks[2].comment[0]).toEqual('  /*')
+  expect(blocks[2].comment[0]).toEqual('/*')
 })
