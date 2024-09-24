@@ -1,5 +1,5 @@
 #!/bin/sh
-':' //#; (command -v /usr/bin/env bun &> /dev/null && /usr/bin/env bun "$0" "$@") || (command -v /usr/bin/env node &> /dev/null && /usr/bin/env node "$0" "$@"); exit
+':' //#; (command -v bun &> /dev/null && /usr/bin/env bun "$0" "$@") || (command -v node &> /dev/null && /usr/bin/env node "$0" "$@"); exit
 
 import { log, colors, getVersion, getEngine } from './util.js'
 import esMain from 'es-main'
