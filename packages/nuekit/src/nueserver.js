@@ -1,4 +1,3 @@
-
 /*
   Super minimalistic web server for
 
@@ -6,11 +5,9 @@
   2. Dynamic requests
   3. Server-send events (SSE)
 */
-import { join, extname } from 'node:path'
 import { promises as fs } from 'node:fs'
 import http from 'node:http'
-let sessions = []
-
+import { join, extname } from 'node:path'
 
 export const TYPES = {
   html: 'text/html; charset=UTF-8',
@@ -26,6 +23,9 @@ export const TYPES = {
   csv:  'text/csv',
 }
 
+let sessions = []
+
+
 export function createServer(root, callback) {
   return http.createServer(async (req, res) => {
 
@@ -40,7 +40,7 @@ export function createServer(root, callback) {
       })
     }
 
-    let [ url, _ ] = req.url.split('?')
+    let [url, _] = req.url.split('?')
     let ext = extname(url).slice(1)
 
     if (!ext) {
@@ -54,8 +54,8 @@ export function createServer(root, callback) {
       const buffer = await fs.readFile(join(root, path))
       res.writeHead(code || 200, { 'content-type': TYPES[ext] })
       res.end(buffer)
-  
-    } catch(e) {
+
+    } catch (e) {
       const nf = e.errno == -2 // not found
       nf ? console.log('Not found', url) : console.error(e)
       res.writeHead(nf ? 404 : 500)
@@ -78,10 +78,3 @@ export function send(data) {
     return session.writable && i < 5
   })
 }
-
-
-
-
-
-
-

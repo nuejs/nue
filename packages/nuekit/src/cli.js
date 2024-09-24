@@ -1,8 +1,11 @@
 #!/usr/bin/env bun
 
-import { log, colors, getVersion, getEngine } from './util.js'
-import esMain from 'es-main'
 import { sep } from 'node:path'
+
+import esMain from 'es-main'
+
+import { log, colors, getVersion, getEngine } from './util.js'
+
 
 // [-npe] --> [-n, -p, -e]
 export function expandArgs(args) {
@@ -85,7 +88,7 @@ async function printVersion() {
 
 async function runCommand(args) {
   const { createKit } = await import('./nuekit.js')
-  const { cmd='serve', dryrun, deploy, root=null, port } = args
+  const { cmd = 'serve', dryrun, deploy, root = null, port } = args
   const init = cmd == 'init'
 
   if (!root) args.root = '.' // ensure root is unset for create, if not set manually
@@ -111,7 +114,6 @@ async function runCommand(args) {
     await nue.init(true)
     if (deploy) await deployer({ root: nue.dist, init: true })
 
-
   } else if (dryrun || deploy || args.paths[0] || cmd == 'build') {
     const paths = await nue.build(args.paths)
     if (!dryrun && deploy && paths[0]) await deployer({ paths, root: nue.dist, init })
@@ -120,7 +122,6 @@ async function runCommand(args) {
   } else {
     await nue.serve()
   }
-
 }
 
 // Only run main when called as real CLI
@@ -144,5 +145,4 @@ if (esMain(import.meta)) {
       console.info(e)
     }
   }
-
 }

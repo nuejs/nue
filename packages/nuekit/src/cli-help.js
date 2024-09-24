@@ -57,10 +57,10 @@ function formatLine(line) {
 
   return word == '#' ? green(line) :
     l == 'nue' ? magenta(line) :
-    word == 'nue' ? '  ' + magenta(word) + rest :
-    commands.includes(word) ? '  ' + cyan(word) + rest :
-    l.includes('://') ? cyan(line) :
-    gray(line)
+      word == 'nue' ? '  ' + magenta(word) + rest :
+        commands.includes(word) ? '  ' + cyan(word) + rest :
+          l.includes('://') ? cyan(line) :
+            gray(line)
 }
 
 export function getHelp() {

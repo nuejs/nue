@@ -1,10 +1,8 @@
+//  Extremely minimal and efficient cross-platform file watching library
 
 import { watch, promises as fs } from 'node:fs'
-import { join, parse, relative } from 'node:path'
+import { join, parse } from 'node:path'
 
-/*
-  Extremely minimal and efficient cross-platform file watching library
-*/
 
 // for avoiding double events
 let last = {}
@@ -120,6 +118,3 @@ async function isSymdir(linkpath) {
   const real = await fs.realpath(linkpath)
   return (await fs.lstat(real)).isDirectory()
 }
-
-
-

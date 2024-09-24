@@ -1,9 +1,7 @@
-
 // content collection rendering
+
 import { renderGalleryItem } from '../src/layout/gallery.js'
-
 import { renderHead } from '../src/layout/head.js'
-
 import {
   parseClass,
   renderExpandable,
@@ -11,7 +9,6 @@ import {
   renderNavItem,
   renderNavItems,
   renderNavBlocks,
-
 } from '../src/layout/navi.js'
 
 
@@ -133,7 +130,3 @@ test('nav blocks', () => {
   expect(nav).toStartWith('<div><nav><h3>Basics</h3>')
   expect(nav).toEndWith('<a>a</a></nav></div>')
 })
-
-
-
-

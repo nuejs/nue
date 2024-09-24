@@ -1,5 +1,5 @@
-
 import { parseDocument, DomUtils } from 'htmlparser2'
+
 
 // shared by render.js and compile.js
 
@@ -90,7 +90,7 @@ function isJSObject(val) {
 }
 
 // exec('`font-size:${_.size + "px"}`;', data)
-export function exec(expr, data={}) {
+export function exec(expr, data = {}) {
   const fn = new Function('_', 'return ' + expr)
   const val = fn(data)
   return val == null ? '' : isJSObject(val) ? val : '' + val
@@ -115,7 +115,7 @@ export function mergeAttribs(to, from) {
 
 // get error position: { line, column }
 export function getPosition(template, error) {
-  const { expr, subexpr=expr } = error
+  const { expr, subexpr = expr } = error
   const lines = template.split('\n')
   const ret = { line: 1 }
 
@@ -130,4 +130,3 @@ export function getPosition(template, error) {
   }
   return ret
 }
-

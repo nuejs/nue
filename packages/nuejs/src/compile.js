@@ -1,10 +1,13 @@
-
-import { mkdom, getComponentName, isBoolean, walk, objToString, getPosition, STD } from './fn.js'
-import { parseExpr, parseFor, setContext, setContextTo } from './expr.js'
 import { promises as fs } from 'node:fs'
-import { DomUtils } from 'htmlparser2'
 import { dirname } from 'node:path'
+
+import { DomUtils } from 'htmlparser2'
+
+import { parseExpr, parseFor, setContext, setContextTo } from './expr.js'
+import { mkdom, getComponentName, isBoolean, walk, objToString, getPosition, STD } from './fn.js'
+
 const { getOuterHTML, getInnerHTML, removeElement } = DomUtils
+
 
 function compileNode(root) {
   const expr = []
@@ -17,7 +20,7 @@ function compileNode(root) {
   }
 
   walk(root, function(node) {
-    const { attribs={}, tagName } = node
+    const { attribs = {}, tagName } = node
     const content = node.data
 
     if (node.type == 'comment' || attribs.server || tagName == 'noscript') removeElement(node)
@@ -211,12 +214,11 @@ export function parse(src) {
     if (e.expr) Object.assign(e, getPosition(src, e))
     throw e
   }
-
 }
 
 export function compile(src) {
   const { js, components } = parse(src)
-  return [ js,
+  return [js,
     'export const lib = [', components.join(',') + ']',
     'export default lib[0]'
 

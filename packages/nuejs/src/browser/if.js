@@ -1,7 +1,7 @@
-
 // Internal use only
 
 import createApp from './nue.js'
+
 
 export default function(opts) {
   const { root, fn, fns, deps, ctx } = opts
@@ -47,5 +47,4 @@ export default function(opts) {
   }
 
   return { update, next }
-
 }

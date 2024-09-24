@@ -1,13 +1,12 @@
-
 <main class="grid">
-  <mount-child class="card"/>
-  <component-loop class="card"/>
-  <loop-bind class="card"/>
-  <if-loop class="card"/>
-  <nested-loop class="card"/>
-  <array-methods class="card"/>
-  <object-loop class="card"/>
-  <loop-tabs class="card"/>
+  <mount-child class="card" />
+  <component-loop class="card" />
+  <loop-bind class="card" />
+  <if-loop class="card" />
+  <nested-loop class="card" />
+  <array-methods class="card" />
+  <object-loop class="card" />
+  <loop-tabs class="card" />
   <!--
   -->
 </main>
@@ -16,9 +15,9 @@
 
   <h3>{ entries?.length } rows:</h3>
 
-  <article ref="article"/>
+  <article ref="article" />
 
-  <inner-table/>
+  <inner-table />
 
   <script>
     updated() {
@@ -52,8 +51,7 @@
   <h3>Tabs test</h3>
 
   <div class="tabs">
-    <span :for="name, i in items"
-      :class="{ selected: i == index }" @click="ontab(name, i)">{ name }</span>
+    <span :for="name, i in items" :class="{ selected: i == index }" @click="ontab(name, i)">{ name }</span>
   </div>
 
   <p>Index: { index }</p>
@@ -73,11 +71,11 @@
 <section @name="loop-bind">
   <h3>Loop binding</h3>
 
-  <bind-item :for="el in items" :bind="el"/>
+  <bind-item :for="el in items" :bind="el" />
 
   <hr>
 
-  <bind-item :bind="item"/>
+  <bind-item :bind="item" />
 
   <script>
     item = { title: 'Normal bind', desc: 'Normal desc' }
@@ -118,10 +116,10 @@
 
 <section @name="component-loop">
 
-  <loop-item :item="item"/>
+  <loop-item :item="item" />
 
   <h5>Loop items</h5>
-  <loop-item :for="item in items" :item="item"/>
+  <loop-item :for="item in items" :item="item" />
 
   <script>
     items = [{ title: 'Loop item #1' }]
@@ -136,7 +134,7 @@
 
   <script>
     constructor({ item }) {
-      this.desc = `Lower: ${ item.title.toLowerCase() }`
+      this.desc = `Lower: ${item.title.toLowerCase()}`
     }
   </script>
 </div>
@@ -210,7 +208,3 @@
   </script>
 
 </section>
-
-
-
-

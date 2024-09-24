@@ -1,9 +1,9 @@
-
-
-import { mkdom, getComponentName, mergeAttribs, isBoolean, exec, STD, getPosition, walk } from './fn.js'
-import { parseExpr, parseFor, setContext } from './expr.js'
-import { parseDocument, DomUtils as DOM } from 'htmlparser2'
 import { promises as fs } from 'node:fs'
+
+import { parseDocument, DomUtils as DOM } from 'htmlparser2'
+
+import { parseExpr, parseFor, setContext } from './expr.js'
+import { mkdom, getComponentName, mergeAttribs, isBoolean, exec, STD, getPosition, walk } from './fn.js'
 
 const { getInnerHTML, getOuterHTML, removeElement } = DOM
 

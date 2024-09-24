@@ -1,7 +1,7 @@
 
 const MIXED_HTML = ['html', 'jsx', 'php', 'astro', 'nue', 'vue', 'svelte', 'hb']
 const LINE_COMMENT = { clojure: ';;', lua: '--', python: '#' }
-const PREFIXES = {'+': 'ins', '-': 'del', '>': 'dfn' }
+const PREFIXES = { '+': 'ins', '-': 'del', '>': 'dfn' }
 const MARK = /(••?)([^•]+)\1/g   // ALT + q
 const NL = '\n'
 
@@ -213,7 +213,7 @@ export function renderRow(row, lang) {
   ret.push(row.substring(index))
 
   return ret.join('').replace(MARK, (_, a, b, c) => {
-    return elem(a[1] ? 'u' : 'mark',  b)
+    return elem(a[1] ? 'u' : 'mark', b)
   })
 }
 
@@ -263,7 +263,7 @@ export function parseSyntax(str, lang) {
 
 
 // code, { language: 'js', numbered: true }
-export function glow(str, opts={}) {
+export function glow(str, opts = {}) {
   if (typeof opts == 'string') opts = { language: opts }
 
   // language
@@ -292,5 +292,3 @@ export function glow(str, opts={}) {
 
   return `<code language="${lang || '*'}">${lines.join(NL)}</code>`
 }
-
-

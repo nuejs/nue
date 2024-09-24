@@ -1,9 +1,8 @@
-
 <main class="grid">
-  <refs-test class="card"/>
-  <if-test class="card"/>
-  <slot-test class="card"/>
-  <inherit-test class="card"/>
+  <refs-test class="card" />
+  <if-test class="card" />
+  <slot-test class="card" />
+  <inherit-test class="card" />
 </main>
 
 <div @name="refs-test">
@@ -32,7 +31,9 @@
     <button @click="toggle" :else>Unset</button>
   </p>
 
-  <div :if="flag"><media :bind="item"/></div>
+  <div :if="flag">
+    <media :bind="item" />
+  </div>
 
   <script>
     item = { title: 'Item title', desc: 'Item desc' }
@@ -49,7 +50,7 @@
 
   <media :bind="item" desc="Desc override">
     <h2>${ price }.00</h2>
-    <field type="number" value="1"/>
+    <field type="number" value="1" />
     <button @click="buy" :hidden="bought">Add to bag</button>
     <b :if="bought" class="tag">🛒 In the bag</b>
   </media>
@@ -71,17 +72,16 @@
   <aside>
     <h3>{ title || 'Default title'}</h3>
     <p>{ desc || 'Default desc'}</p>
-    <slot/>
+    <slot />
   </aside>
 </div>
 
 
 <form @name="inherit-test">
   <h3>Inheritance tests</h3>
-  <field title="Email" type="email" placeholder="your@email.org" required/>
-  <field title="Email" class="error" :style="max-width: { max_width }%"/>
-  <field title="Email" class="error { severity }" id="my-error"
-    data-min="10" :data-max="max_val"/>
+  <field title="Email" type="email" placeholder="your@email.org" required />
+  <field title="Email" class="error" :style="max-width: { max_width }%" />
+  <field title="Email" class="error { severity }" id="my-error" data-min="10" :data-max="max_val" />
 
   <script>
     severity = 'is-fatal'
@@ -102,4 +102,3 @@
     }
   </script>
 </label>
-

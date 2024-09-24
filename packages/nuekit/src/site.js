@@ -1,4 +1,11 @@
+import { promises as fs, existsSync } from 'node:fs'
+import { join, extname, parse as parsePath } from 'node:path'
 
+import yaml from 'js-yaml'
+import { parse as parseNue } from 'nuejs-core'
+import { nuemark } from 'nuemark'
+
+import { fswalk } from './nuefs.js'
 import {
   traverseDirsUp,
   parsePathParts,
@@ -7,14 +14,8 @@ import {
   log,
   toPosix,
   sortCSS,
-  joinRootPath } from './util.js'
-
-import { join, extname, parse as parsePath } from 'node:path'
-import { promises as fs, existsSync } from 'node:fs'
-import { parse as parseNue } from 'nuejs-core'
-import { fswalk } from './nuefs.js'
-import { nuemark } from 'nuemark'
-import yaml from 'js-yaml'
+  joinRootPath
+} from './util.js'
 
 
 // file not found error
@@ -148,8 +149,8 @@ export async function createSite(args) {
   }
 
 
-  async function getAssets({ dir, exts, to_ext, data={} }) {
-    const { include=[], exclude=[] } = data
+  async function getAssets({ dir, exts, to_ext, data = {} }) {
+    const { include = [], exclude = [] } = data
     const subdirs = !dir ? [] : self.globals.map(el => join(dir, el))
 
     let paths = [
@@ -185,7 +186,7 @@ export async function createSite(args) {
 
   self.update = async function() {
     site_data = await readOpts()
-    const { globals=[], libs=[] } = site_data
+    const { globals = [], libs = [] } = site_data
 
     if ('' + self.globals != '' + globals) {
       self.globals = globals
@@ -255,7 +256,7 @@ export async function createSite(args) {
     return arr
   }
 
-  self.getStyles = async function(dir, data={}) {
+  self.getStyles = async function(dir, data = {}) {
     let paths = await getAssets({ dir, exts: ['css'], data })
 
     // syntax highlighting
@@ -352,7 +353,6 @@ export async function createSite(args) {
 
     return arr
   }
-
 
   return { ...self, dist, port, read, write, copy }
 }

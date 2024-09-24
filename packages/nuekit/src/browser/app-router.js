@@ -1,10 +1,11 @@
-
 // Router for single-page applications
+
 import { onclick, loadPage, setActive } from './view-transitions.js'
 
 const is_browser = typeof window == 'object'
 
 const fns = []
+
 
 async function fire(path) {
   for (const { pattern, fn } of fns) {
@@ -27,7 +28,7 @@ export const router = {
     fns.push({ pattern, fn })
   },
 
-  start({ path, root  }) {
+  start({ path, root }) {
     // setup links
     if (root) onclick(root, this.route)
 
@@ -84,7 +85,3 @@ export function match(pattern, path, is_global) {
 
   return is_valid ? data : null
 }
-
-
-
-

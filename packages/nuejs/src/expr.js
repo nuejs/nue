@@ -95,27 +95,23 @@ function parseKeys(str) {
 }
 
 export function parseFor(str) {
-  let [prefix, _, expr ] = str.trim().split(/\s+(in|of)\s+/)
+  let [prefix, _, expr] = str.trim().split(/\s+(in|of)\s+/)
   prefix = prefix.replace('(', '').replace(')', '').trim()
   expr = setContextTo(expr)
 
   // Object.entries()
   if (prefix[0] == '[') {
     const keys = parseKeys(prefix)
-    return [ keys.slice(0, 2), expr, keys[2] || '$index', true ]
+    return [keys.slice(0, 2), expr, keys[2] || '$index', true]
 
   // Object deconstruction
   } else if (prefix[0] == '{') {
     const { keys, index } = parseObjectKeys(prefix)
-    return [ keys, expr, index || '$index' ]
+    return [keys, expr, index || '$index']
 
   // Normal loop variable
   } else {
-    const [ key, index='$index' ] = prefix.split(/\s?,\s?/)
-    return [ key, expr, index ]
+    const [key, index = '$index'] = prefix.split(/\s?,\s?/)
+    return [key, expr, index]
   }
 }
-
-
-
-

@@ -1,15 +1,16 @@
-
 /*
   Test performance by creating a site with N pages (default 50)
   with a content_collection to referencing all the pages, and with
   a layout.html that loops top 10 pages
 */
 
-import { createKit } from '../src/nuekit.js'
 import { promises as fs } from 'node:fs'
 import { join } from 'node:path'
 
+import { createKit } from '../src/nuekit.js'
+
 const root = 'perf'
+
 
 async function clean() {
   await fs.rm(root, { recursive: true, force: true })
@@ -17,7 +18,7 @@ async function clean() {
 
 async function gen(count, name, content) {
   for (let i = 0; i < count; i++) {
-    await fs.writeFile(join(root, name.replace('#', i+1)), content)
+    await fs.writeFile(join(root, name.replace('#', i + 1)), content)
   }
 }
 

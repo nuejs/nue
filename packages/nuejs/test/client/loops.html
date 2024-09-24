@@ -1,4 +1,3 @@
-
 <link rel="stylesheet" href="test.css">
 
 <div id="plain"></div>
@@ -6,6 +5,6 @@
 <script type="module">
   import createApp from '../../src/browser/nue.js'
   import { lib } from '../dist/loops.js'
-  const [ App, ...deps ] = lib
+  const [App, ...deps] = lib
   createApp(App, {}, deps).mount(plain)
 </script>

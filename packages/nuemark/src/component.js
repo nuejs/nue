@@ -1,5 +1,4 @@
 
-
 const ATTR = 'id is class style hidden'.split(' ')
 
 /*
@@ -18,7 +17,7 @@ export function parseComponent(input) {
       const ctx = ATTR.includes(key) || key.startsWith('data-') ? 'attr' : 'data'
       self[ctx][key] = 1 * val || getValue(val) || val
 
-    // key only
+      // key only
     } else {
       const val = getValue(key) || key
       if (!self.data._) self.data._ = val
@@ -44,7 +43,7 @@ export function valueGetter(input) {
 
   function getValue(key) {
     if (key[0] == ':' && key.slice(-1) == ':') {
-      return strings[1 * key.slice(1, -1) -1]
+      return strings[1 * key.slice(1, -1) - 1]
     }
   }
 
@@ -77,6 +76,3 @@ export function parseAttr(str) {
 
   return attr
 }
-
-
-

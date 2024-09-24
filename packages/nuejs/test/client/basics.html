@@ -1,4 +1,3 @@
-
 <link rel="stylesheet" href="test.css">
 
 <h1>Basics</h1>
@@ -8,6 +7,6 @@
 <script type="module">
   import createApp from '../../src/browser/nue.js'
   import { lib } from '../dist/basics.js'
-  const [ App, ...deps ] = lib
+  const [App, ...deps] = lib
   createApp(App, {}, deps).mount(basics)
 </script>

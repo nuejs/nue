@@ -1,4 +1,3 @@
-
 /* Auto mounting of reactive components */
 
 // currently mounted apps
@@ -31,8 +30,6 @@ export async function mountAll(hmr_path) {
   const lib = els[0] ? await importAll(hmr_path) : []
   if (!lib[0]) return
 
-
-
   const { createApp } = await import('./nue.js')
 
   for (const node of [...els]) {
@@ -64,11 +61,9 @@ export async function unmountAll() {
 
 // mount all after route
 addEventListener('route', () =>
-
   // must give empty argument
   mountAll()
 )
-
 
 // initial page load
 addEventListener('DOMContentLoaded', () => dispatchEvent(new Event('route')))

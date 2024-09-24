@@ -1,7 +1,8 @@
-import { GlobalRegistrator } from '@happy-dom/global-registrator'
+import { promises as fs } from 'node:fs'
 import { join, relative, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { promises as fs } from 'node:fs'
+
+import { GlobalRegistrator } from '@happy-dom/global-registrator'
 
 import { createKit } from '../src/nuekit.js'
 
@@ -12,6 +13,7 @@ const reldir = relative(process.cwd(), dir)
 const root = join(reldir, 'page-router-test')
 const dist = join(dir, 'page-router-test/.dist')
 const out = join(dist, 'dev')
+
 
 // setup and teardown
 beforeAll(async () => {
