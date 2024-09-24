@@ -184,7 +184,7 @@ export async function createSite(args) {
   }
 
 
-  self.update = async function () {
+  self.update = async function() {
     site_data = await readOpts()
     const { globals = [], libs = [] } = site_data
 
@@ -211,7 +211,7 @@ export async function createSite(args) {
     return data
   }
 
-  self.getData = async function (pagedir) {
+  self.getData = async function(pagedir) {
     const data = { nuekit_version, ...site_data, is_prod }
 
     for (const dir of traverseDirsUp(pagedir)) {
@@ -220,13 +220,13 @@ export async function createSite(args) {
     return data
   }
 
-  self.walk = async function () {
+  self.walk = async function() {
     return await fswalk(root)
   }
 
 
   // get fromt matter data from all .md files on a directory
-  self.getContentCollection = async function (dir) {
+  self.getContentCollection = async function(dir) {
     const key = 'coll:' + dir
     if (cache[key]) return cache[key]
     const arr = []
@@ -256,7 +256,7 @@ export async function createSite(args) {
     return arr
   }
 
-  self.getStyles = async function (dir, data = {}) {
+  self.getStyles = async function(dir, data = {}) {
     let paths = await getAssets({ dir, exts: ['css'], data })
 
     // syntax highlighting
@@ -268,16 +268,16 @@ export async function createSite(args) {
     return paths
   }
 
-  self.getScripts = async function (dir, data) {
+  self.getScripts = async function(dir, data) {
     return await getAssets({ dir, exts: ['js', 'ts'], to_ext: 'js', data })
   }
 
-  self.getClientComponents = async function (dir, data) {
+  self.getClientComponents = async function(dir, data) {
     return await getAssets({ dir, exts: ['nue', 'htm'], to_ext: 'js', data })
   }
 
 
-  self.getServerComponents = async function (dir, data) {
+  self.getServerComponents = async function(dir, data) {
     const paths = await getAssets({ dir, exts: ['html'], data })
 
     if (dir && dir != '.') {
@@ -304,7 +304,7 @@ export async function createSite(args) {
   }
 
   // @returns { src, path, code: 200 }
-  self.getRequestPaths = async function (url) {
+  self.getRequestPaths = async function(url) {
     let { dir, name, base, ext } = parsePath(url.slice(1))
     if (!name) name = 'index'
 
@@ -342,7 +342,7 @@ export async function createSite(args) {
     }
   }
 
-  self.filterUpdated = async function (paths) {
+  self.filterUpdated = async function(paths) {
     const since = await getLastRun()
     const arr = []
 

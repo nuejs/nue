@@ -25,7 +25,7 @@ export function log(msg, extra = '') {
   console.log(colors.green('✓'), msg, extra)
 }
 
-log.error = function (msg, extra = "") {
+log.error = function(msg, extra = "") {
   console.log(colors.red('!!'), msg, extra)
 }
 

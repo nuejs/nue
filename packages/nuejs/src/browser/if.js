@@ -3,7 +3,7 @@
 import createApp from './nue.js'
 
 
-export default function (opts) {
+export default function(opts) {
   const { root, fn, fns, deps, ctx } = opts
   const blocks = []
   var node = root

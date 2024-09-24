@@ -207,7 +207,7 @@ function createARIATabs(data, fn) {
 
 
 // ! shortcut
-tags['!'] = function (data, opts) {
+tags['!'] = function(data, opts) {
   const src = data._
   const mime = getMimeType(src)
   return data.sources || mime.startsWith('video') ? tags.video(data, opts) : tags.image(data, opts)

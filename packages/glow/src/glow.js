@@ -166,7 +166,7 @@ export function parseRow(row, lang) {
   for (const el of tags) {
     const { re, shift } = el
 
-    row.replace(re, function (match, start, n) {
+    row.replace(re, function(match, start, n) {
       if (arguments.length == 4) {
         const more = shift ? match.indexOf(start) : 0
         match = start; start = n + more
@@ -179,7 +179,7 @@ export function parseRow(row, lang) {
 }
 
 function renderString(str) {
-  return encode(str).replace(/\$?\{([^\}]+)\}/g, function (_, content) {
+  return encode(str).replace(/\$?\{([^\}]+)\}/g, function(_, content) {
     return elem('i', _.replace(content, elem('b', content)))
   })
 }
@@ -275,7 +275,7 @@ export function glow(str, opts = {}) {
     lines.push(opts.numbered ? elem('span', line) : line)
   }
 
-  parseSyntax(str.trim(), lang).forEach(function (block) {
+  parseSyntax(str.trim(), lang).forEach(function(block) {
     let { line, comment, wrap } = block
 
     // EOL comment

@@ -39,7 +39,7 @@ export function getComponentName(root) {
 }
 
 export function selfClose(str) {
-  return str.replace(/\/>/g, function (match, i) {
+  return str.replace(/\/>/g, function(match, i) {
     const tag = str.slice(str.lastIndexOf('<', i), i)
     const name = /<([\w-]+)/.exec(tag)
     return `></${name[1]}>`

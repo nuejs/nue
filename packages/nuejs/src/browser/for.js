@@ -3,7 +3,7 @@
 import createApp from './nue.js'
 
 
-export default function (opts) {
+export default function(opts) {
   const { root, fn, fns, deps, ctx } = opts
   var anchor, current, items, $keys, $index, is_object_loop, blocks = []
 

@@ -19,7 +19,7 @@ function compileNode(root) {
     return '' + len
   }
 
-  walk(root, function (node) {
+  walk(root, function(node) {
     const { attribs = {}, tagName } = node
     const content = node.data
 
