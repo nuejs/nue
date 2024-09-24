@@ -46,11 +46,11 @@ article {
   p, li {
     line-height: 1.75;
     color: var(--gray-500);
-  }
 
-  strong {
-    font-weight: 550;
-    color: var(--gray-700);
+    strong {
+      font-weight: 550;
+      color: var(--gray-700);
+    }
   }
 
   /* internal links */

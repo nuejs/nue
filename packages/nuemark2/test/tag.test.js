@@ -1,0 +1,175 @@
+
+import { parseTag, valueGetter, parseAttr, parseSpecs } from '../src/parse-tag.js'
+import { renderLines, elem } from '..'
+
+
+// parsing
+test('valueGetter', () => {
+  const { str, getValue } = valueGetter(`foo="yo" bar="hey dude"`)
+  expect(str).toBe('foo=:1: bar=:2:')
+  expect(getValue(':1:')).toBe('yo')
+  expect(getValue(':2:')).toBe('hey dude')
+})
+
+test('parseAttr', () => {
+  expect(parseAttr('.bar#foo')).toEqual({ id: 'foo', class: 'bar' })
+  expect(parseAttr('.bar#foo.baz')).toEqual({ id: 'foo', class: 'bar baz' })
+})
+
+test('parseSpecs', () => {
+  expect(parseSpecs('tabs')).toEqual({ name: 'tabs', attr: {} })
+  expect(parseSpecs('tabs.#foo.bar')).toEqual({ name: 'tabs', attr: { id: 'foo', class: 'bar' } })
+})
+
+test('parse plain args', () => {
+  const { name, data }= parseTag('video src="/a.mp4" loop muted')
+  expect(name).toBe('video')
+  expect(data.loop).toBe(true)
+  expect(data.muted).toBe(true)
+})
+
+test('parse attrs', () => {
+  expect(parseTag('#foo.bar').attr).toEqual({ id: "foo", class: "bar" })
+  expect(parseTag('list.tweets').attr).toEqual({ class: "tweets" })
+})
+
+test('parse all', () => {
+  const { name, attr, data } = parseTag('tip#foo.bar "Hey there" size="40" grayed hidden')
+  expect(data).toEqual({ _: "Hey there", size: 40, grayed: true })
+  expect(attr).toEqual({ class: "bar", id: "foo", hidden: true })
+  expect(name).toBe('tip')
+})
+
+
+// custom tags
+const tags = {
+  print({ data }) {
+    return `<b>${ data?.value }</b>`
+  },
+}
+
+test('inline tag', () => {
+  const html = renderLines(['Value: [print value="110"]'], { tags })
+  expect(html).toBe('<p>Value: <b>110</b></p>')
+
+})
+
+test('block tag', () => {
+  const html = renderLines(['[print]', '  value: 110'], { tags })
+  expect(html).toBe('<b>110</b>')
+})
+
+// accordion
+test('[accordion] tag', () => {
+  const content = [
+    '[accordion.tabbed name="tabs"]',
+    '  ## Something',
+    '  Described here',
+
+    '  ## Another',
+    '  Described here',
+  ]
+
+  const html = renderLines(content)
+  expect(html).toStartWith('<details class="tabbed" name="tabs"><summary><h2>')
+  expect(html).toInclude('<h2>Another</h2></summary><p>')
+})
+
+// list sections
+test('[list] sections', () => {
+  const content = [
+    '[list.features items="card"]',
+    '  ## Something',
+    '  Described here',
+
+    '  ## Another',
+    '  Described here',
+  ]
+
+  const html = renderLines(content)
+  expect(html).toStartWith('<ul class="features"><li class="card"><h2>')
+})
+
+// list items
+test('[list] items', () => {
+  const content = ['[list]', '  * foo', '  * bar' ]
+  const html = renderLines(content)
+  expect(html).toStartWith('<ul><li><p>foo</p></li>')
+  expect(html).toEndWith('<li><p>bar</p></li></ul>')
+})
+
+
+// list code blocks
+test('[list] blocks', () => {
+  const content = ['[list]', '  ``` .foo', '  ```', '  ``` .bar', '  ```']
+  const html = renderLines(content)
+  expect(html).toStartWith('<ul><li><div class="foo">')
+  expect(html).toInclude('<li><div class="bar">')
+})
+
+// list code blocks
+test('[list] wrapper', () => {
+  const html = renderLines(['[list wrapper="pink"]', '  para'])
+  expect(html).toStartWith('<div class="pink"><ul><li><p>para</p>')
+})
+
+
+test('anonymous tags', () => {
+  const html = renderLines(['[.hello]', '  ## Hello', '  world'])
+  expect(html).toBe('<div class="hello"><h2>Hello</h2>\n<p>world</p></div>')
+})
+
+
+test('[table] tag', () => {
+  const foo = [ ['Foo', 'Buzz'], ['hey', 'girl']]
+  const opts = { data: { foo } }
+
+  const html = renderLines(['[table :rows="foo"]'], opts)
+  expect(html).toStartWith('<table><tr><th>Foo</th><th>Buzz</th></tr>')
+
+  const html2 = renderLines(['[table :rows="foo" head=false]'], opts)
+  expect(html2).toStartWith('<table><tr><td>Foo</td><td>Buzz</td></tr>')
+
+  // table wrapper
+  const html3 = renderLines(['[table wrapper="pink" :rows="foo"]'], opts)
+  expect(html3).toStartWith('<div class="pink"><table>')
+
+})
+
+test('[button] inline label', () => {
+  const html = renderLines(['[button href="/" "Hey, *world*"]'])
+  expect(html).toBe('<a href="/" role="button">Hey, <em>world</em></a>')
+})
+
+test('[button] nested label', () => {
+  const html = renderLines(['[button]', '  ![](/joku.png)'])
+  expect(html).toStartWith('<a role="button"><img src="/joku.png"')
+})
+
+test('[image] tag', () => {
+  const html = renderLines(['[image /meow.png]'])
+  expect(html).toBe('<figure><img loading="lazy" src="/meow.png"></figure>')
+})
+
+test('picture', () => {
+  const html = renderLines([
+    '[image caption="Hello"]',
+    '  href: /',
+    '  small: small.png',
+    '  large: large.png',
+  ])
+
+  expect(html).toStartWith('<figure><a href="/"><picture><source srcset')
+  expect(html).toEndWith('</a><figcaption>Hello</figcaption></figure>')
+})
+
+test('[video] tag', () => {
+  const html = renderLines(['[video /meow.mp4 autoplay]', '  ### Hey'])
+  expect(html).toStartWith('<video src="/meow.mp4" type="video/mp4" autoplay>')
+  expect(html).toEndWith('<h3>Hey</h3></video>')
+})
+
+test('! shortcut', () => {
+  const html = renderLines(['[! /meow.mp4 autoplay]'])
+  expect(html).toStartWith('<video src="/meow.mp4" type="video/mp4" autoplay>')
+})
