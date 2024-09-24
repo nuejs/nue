@@ -5,6 +5,7 @@ The design system consists of various "slots" that you can fill or replace with 
 [image.bordered /img/custom-layout.svg size="569 × 634 px"]
 
 
+
 For example, if you want to add a custom banner above the global header you'd create a layout module called "banner":
 
 ```html
