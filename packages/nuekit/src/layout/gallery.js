@@ -1,8 +1,10 @@
+
+<<<<<<< Updated upstream
+=======
+
 // content collection rendering
-
-import { renderInline } from 'nuemark'
-import { elem, join } from 'nuemark/src/tags.js'
-
+>>>>>>> Stashed changes
+import { renderInline, elem } from 'nuemark2'
 
 function isNew(date, offset=4) {
   const diff = new Date() - date
@@ -60,5 +62,6 @@ export function renderGallery(data) {
   }
 
   const pages = items.map(renderGalleryItem)
-  return elem('ul', join(pages))
+  return elem('ul', pages.join('\n'))
 }
+

@@ -1,7 +1,7 @@
 
+import { renderTable, renderHeading, renderLines } from '../src/render-blocks.js'
 import { parseBlocks, isHR, parseHeading } from '../src/parse-blocks.js'
-import { renderTable, renderHeading } from '../src/render-blocks.js'
-import { nuemark, renderLines } from '..'
+import { nuemark } from '..'
 
 
 test('parse hr', () => {

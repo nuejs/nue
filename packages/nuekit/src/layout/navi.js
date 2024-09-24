@@ -1,6 +1,5 @@
-import { renderInline } from 'nuemark'
-import { elem, join, parseSize } from 'nuemark/src/tags.js'
 
+import { elem, parseSize, renderInline } from 'nuemark2'
 
 export function parseNavItem(item) {
   // plain string
@@ -50,7 +49,7 @@ export function renderNavItem(item) {
   const attr = { href: url, role }
   if (item.class) attr.class = item.class
 
-  return elem(url != null ? 'a' : 'span', attr, join(html))
+  return elem(url != null ? 'a' : 'span', attr, html.join('\n'))
 }
 
 
@@ -80,7 +79,7 @@ export function renderNavItems(items, opts = {}) {
       nav.push(renderNavItem(item))
     }
   })
-  return elem('nav', label && { 'aria-label': label }, join(nav))
+  return elem('nav', label && { 'aria-label': label }, nav.join('\n'))
 }
 
 
@@ -100,7 +99,7 @@ export function renderNavBlocks(data, label) {
     navs.push(nav)
   }
 
-  return elem('div', { 'aria-label': label }, join(navs))
+  return elem('div', { 'aria-label': label }, navs.join('\n'))
 }
 
 
@@ -116,5 +115,5 @@ export function renderTOC(data) {
   const items = data.page.headings.filter(el => [2, 3].includes(el.level))
     .map(el => elem('a', { href: '#' + el.id, class: 'level-' + el.level }, el.html))
 
-  return elem('nav', { 'aria-label': 'Table of contents', is: data.is }, join(items))
+  return elem('nav', { 'aria-label': 'Table of contents', is: data.is }, items.join('\n'))
 }

@@ -1,9 +1,15 @@
 
 import { renderInline, renderTokens } from './render-inline.js'
 import { parseLinkTitle } from './parse-inline.js'
+import { parseBlocks } from './parse-blocks.js'
 import { renderTag, wrap } from './render-tag.js'
 import { elem } from './document.js'
 import { glow } from 'glow'
+
+
+export function renderLines(lines, opts) {
+  return renderBlocks(parseBlocks(lines), opts)
+}
 
 export function renderBlocks(blocks, opts={}) {
   opts.reflinks = parseReflinks({ ...blocks.reflinks, ...opts?.data?.links })

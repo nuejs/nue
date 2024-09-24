@@ -61,11 +61,10 @@ async function initDir({ dist, is_dev, esbuild, cwd, srcdir, outdir }) {
     dot()
   }
 
-
   // lets do it
   process.stdout.write(colors.green('✓') + ` Initialize ${dist}: `)
 
-  await buildPackage('nuemark/src/browser/nuemark.js', 'nuemark.js')
+  // await buildPackage('nuemark/src/browser/nuemark.js', 'nuemark.js')
   await buildPackage('nuejs-core/src/browser/nue.js', 'nue.js')
   await buildFile('view-transitions')
   await buildFile('app-router')

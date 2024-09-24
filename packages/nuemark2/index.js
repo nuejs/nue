@@ -1,13 +1,18 @@
 
-import { renderBlocks } from './src/render-blocks.js'
-import { parseBlocks } from './src/parse-blocks.js'
+import { renderLines } from './src/render-blocks.js'
+import { parseDocument } from './src/document.js'
+import { EOL } from 'node:os'
 
-export { elem, parseDocument } from './src/document.js'
-
-export function renderLines(lines, opts) {
-  return renderBlocks(parseBlocks(lines), opts)
-}
 
 export function nuemark(str, opts) {
-  return renderLines(str.split('\n'), opts)
+  return renderLines(str.split(EOL), opts)
 }
+
+export function nuedoc(str) {
+  return parseDocument(str.split(EOL))
+}
+
+/* utilities */
+export { renderInline } from './src/render-inline.js'
+export { parseSize } from './src/render-tag.js'
+export { elem } from './src/document.js'

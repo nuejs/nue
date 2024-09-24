@@ -1,6 +1,6 @@
 
 import { parseTag, valueGetter, parseAttr, parseSpecs } from '../src/parse-tag.js'
-import { renderLines, elem } from '..'
+import { renderLines } from '../src/render-blocks.js'
 
 
 // parsing

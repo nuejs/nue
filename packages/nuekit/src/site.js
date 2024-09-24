@@ -3,19 +3,30 @@ import { join, extname, parse as parsePath } from 'node:path'
 
 import yaml from 'js-yaml'
 import { parse as parseNue } from 'nuejs-core'
-import { nuemark } from 'nuemark'
+import { nuedoc } from 'nuemark2'
 
 import { fswalk } from './nuefs.js'
 import {
   traverseDirsUp,
   parsePathParts,
+  joinRootPath,
   extendData,
   getAppDir,
-  log,
-  toPosix,
   sortCSS,
-  joinRootPath
+<<<<<<< Updated upstream
+  toPosix,
+  log,
 } from './util.js'
+=======
+  joinRootPath } from './util.js'
+
+import { join, extname, parse as parsePath } from 'node:path'
+import { promises as fs, existsSync } from 'node:fs'
+import { parse as parseNue } from 'nuejs-core'
+import { fswalk } from './nuefs.js'
+import { nuedoc } from 'nuemark2'
+import yaml from 'js-yaml'
+>>>>>>> Stashed changes
 
 
 // file not found error
@@ -242,7 +253,7 @@ export async function createSite(args) {
 
     for (const path of mds) {
       const raw = await read(path)
-      const { meta } = nuemark(raw)
+      const { meta } = nuedoc(raw)
       if (!meta.unlisted) arr.push({ ...meta, ...parsePathParts(path) })
     }
 

@@ -28,7 +28,8 @@
     "lightningcss": "^1.26.0",
     "nue-glow": "*",
     "nuejs-core": "*",
-    "nuemark": "*"
+    "nuemark": "*",
+    "nuemark2": "*"
   },
   "devDependencies": {
     "@happy-dom/global-registrator": "^14.12.3"
