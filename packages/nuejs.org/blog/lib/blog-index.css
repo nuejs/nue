@@ -5,7 +5,6 @@ body {
   background-size: 100% 500px;
 }
 
-
 main {
   text-align: center;
   article {
@@ -13,7 +12,6 @@ main {
     margin: 0 auto;
   }
 }
-
 
 article h1 {
   letter-spacing: -.025em;
@@ -124,7 +122,6 @@ li {
         border: 1px solid var(--gray-400);
         border-radius: 10em;
       }
-
     }
 
     &.is-new {
@@ -134,5 +131,4 @@ li {
       }
     }
   }
-
 }

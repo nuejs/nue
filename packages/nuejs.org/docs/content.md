@@ -62,7 +62,7 @@ og: /img/hero-image.png
 
 
 ### Sections
-Just like books can be divided into chapters, your long-form articles and landing pages are often divided into sections. These sections are separated with three or more dash (`---`) or equals (`===`) characters:
+Just like books can be divided into chapters, your long-form articles and landing pages are often divided into sections. These sections are separated with three or more dashes (`---`) or equals (`===`) characters:
 
 
 ```yaml
@@ -119,7 +119,7 @@ Again, the name "stack" must be implemented in your website CSS by the UX develo
 
 
 ### Grids
-[Grid](tags.html#grids) is a built-in tag used like the stack but is meant for more complex layouts. They have more configuration options and their visual appearance and behavior can be enhanced with JavaScript.
+[Grid](tags.html#grids) is a built-in tag used like the stack but is meant for more complex layouts. They have more configuration options for their visual appearance and behavior can be enhanced with JavaScript.
 
 
 ```md
@@ -158,12 +158,3 @@ Blocks, stacks, and grids can be nested to form more complex layouts on your ric
 
 ### Custom tags
 Your UX developer can easily [extend](custom-layouts.html#custom-md) the Markdown vocabulary with new tags that operate on the server-side, client side, or both. Ask the UX developer for the list of available extensions.
-
-
-
-
-
-
-
-
-

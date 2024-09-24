@@ -348,10 +348,6 @@ The production-optimized version is generated with the `nue build --production` 
   large: /img/blog-generate-big.png
   width: 500
 
-This step is extremely fast. No matter how large your website, the generation times are in the ballpark than what you see with **Rust** and **Go** -based generators like **Hugo**.
+This step is extremely fast. No matter how large your website, the generation times are in the ballpark of what you see with **Rust** and **Go**-based generators like **Hugo**.
 
 The production files are generated under the `.dist/prod` folder, which you can transfer to your CDN such as **Cloudflare**, **CloudFront**, or **Fastly**. Later, there will be a handy `nue push` command to dramatically simplify deployment, but currently, you have to figure out this step yourself.
-
-
-
-
