@@ -12,10 +12,8 @@ labels: bug
 ### Environment
 <!--
 Example:
-- OS: Windows X / Mac Y / Linux Z
-- Package Manager: bun -v / npm -v
-- JS Runtime: bun -v / node -v
-- Nuekit Version: nue -v (if applicable)
+- OS: Windows / Mac / Linux
+- Nuekit version & JS runtime: `nue --version`
 -->
 
 ### Minimal Reproduction
