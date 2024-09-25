@@ -2,4 +2,4 @@ blank_issues_enabled: true
 contact_links:
   - name: 💬 Discussions
     url: https://github.com/nuejs/nue/discussions
-    about: Use discussions if you have an idea for improvement and asking questions
+    about: Use discussions if you have an idea for improvement or want to ask a question
