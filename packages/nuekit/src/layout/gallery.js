@@ -1,9 +1,4 @@
 
-<<<<<<< Updated upstream
-=======
-
-// content collection rendering
->>>>>>> Stashed changes
 import { renderInline, elem } from 'nuemark2'
 
 function isNew(date, offset=4) {
@@ -55,6 +50,8 @@ export function renderGalleryItem(page) {
 export function renderGallery(data) {
   const key = data.collection_name || data.content_collection
   const items = key ? data[key] : data.itmes || data
+
+  console.info(data)
 
   if (!items?.length) {
     console.error('Gallery tag: no data or content collection defined')

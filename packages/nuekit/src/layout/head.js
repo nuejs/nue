@@ -1,9 +1,4 @@
 
-<<<<<<< Updated upstream
-=======
-import { elem } from 'nuemark2'
-import { TYPES } from '../nueserver.js'
->>>>>>> Stashed changes
 import { extname } from 'node:path'
 
 import { elem } from 'nuemark2'

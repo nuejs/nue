@@ -13,16 +13,16 @@ export function parseBlocks(lines) {
   lines.forEach(line => {
     const c = line[0]
     const trimmed = line.trim()
-    const indent = line.length - line.trimStart().length
+    const indent = trimmed && line.length - line.trimStart().length
     if (!spaces) spaces = indent
 
 
     // fenced code
     if (c == '`' && line.startsWith('```')) {
       // new code block
-      if (!block?.code) {
+      if (!block?.is_code) {
         const specs = line.slice(line.lastIndexOf('`') + 1).trim()
-        block = { ...parseTag(specs), code: [] }
+        block = { is_code: true, ...parseTag(specs), code: [] }
         return blocks.push(block)
 
       // end of code
@@ -32,18 +32,32 @@ export function parseBlocks(lines) {
     }
 
     // fenced code lines first
-    if (block?.code) return block.code.push(line)
+    if (block?.is_code) return block.code.push(line)
 
 
     // skip HTML and line comments
     if (c == '<' || trimmed.startsWith('//')) return
 
+    // empty line
+    if (!trimmed) {
+      if (!block) return
+      if (block.is_tag) return block.body.push(line)
+      if (block.is_list) return addListEntry(block, line)
+      if (block.is_content) return block = null
+    }
 
-    // list
-    const list = getListStart(line)
 
-    if (list) {
-      const { line, numbered } = list
+    // heading (must be before the last two if clauses)
+    if (c == '#') {
+      blocks.push(parseHeading(line))
+      return block = null
+    }
+
+    // list item
+    const item = getListItem(line)
+
+    if (item) {
+      const { line, numbered } = item
 
       // new list
       if (!block?.is_list) {
@@ -81,8 +95,6 @@ export function parseBlocks(lines) {
       return blocks.push(block)
     }
 
-
-
     // table
     if (c == '|' && trimmed.endsWith('|')) {
 
@@ -97,53 +109,49 @@ export function parseBlocks(lines) {
         block.head = true : block.rows.push(row)
     }
 
-    // thematic break (HR)
-    if (isHR(line)) return blocks.push({ is_hr: true })
+    // thematic break
+    const hr = getBreak(line)
+    if (hr) {
+      blocks.push(hr)
+      return block = null
+    }
 
-
-
+    // nested content or data
     if (indent) {
-      const { body, entries } = block
       line = line.slice(spaces)
 
-      if (body) {
-        body.push(line)
+      if (block?.is_tag) block.body.push(line)
+      else if (block?.is_list) addListEntry(block, line)
 
-      } else {
-        const last = entries[entries.length -1]
-        last.push(line)
-      }
+    // blockquotes
+    } else if (block?.is_quote && c) {
+      if (c) block.content.push(line)
 
-    // heading (must be before the last two if clauses)
-    } else if (c == '#') {
-      blocks.push(parseHeading(line))
-      block = null
-
-    } else if (!trimmed) {
-      blocks.push({ is_newline: true })
-      block = null
-
-    } else if (block?.content) {
+    // content (append)
+    } else if (block?.is_content) {
       block.content.push(line)
 
-    // content / paragraphs
+    // new content block
     } else {
-      block = { is_content: true, content: [line] }
+      block = c ? { is_content: true, content: [line] } : { is_newline: true }
       blocks.push(block)
     }
 
   })
 
   /* tokenize lists and quotes. parse component data */
-  blocks.forEach(postProcess)
+  blocks.forEach(processNestedBlocks)
 
   return blocks
 }
 
 
-/*** utils ***/
 
-function postProcess(block) {
+
+/******* UTILS ********/
+
+// recursive processing of nested blocks
+function processNestedBlocks(block) {
   if (block.is_list) {
     block.items = block.entries.map(parseBlocks)
 
@@ -155,7 +163,7 @@ function postProcess(block) {
     const body = block.body.join('\n')
 
     try {
-      if (body && block.name != '.' && isYAML(body)) {
+      if (body && block.name != '.' && isYAML(body.trim())) {
         Object.assign(block.data, parseYAML(body))
         block.has_data = true
       }
@@ -194,16 +202,19 @@ function parseReflink(str) {
   }
 }
 
-function getListStart(line) {
+function getListItem(line) {
   if (line[1] == ' ' && '-*'.includes(line[0])) return { line: line.slice(1).trim() }
   const num = /^\d+\. /.exec(line)
   if (num) return { line: line.slice(num[0].length).trim(), numbered: true }
 }
 
-export function isHR(str) {
-  const HR = ['***', '___', '- - -']
+export function getBreak(str) {
+  const HR = ['---', '***', '___', '- - -']
+
   for (const hr of HR) {
-    if (str.startsWith(hr) && !/[^\*\-\_ ]/.test(str)) return true
+    if (str.startsWith(hr) && !/[^\*\-\_ ]/.test(str)) {
+      return { is_break: true, is_separator: hr == '---' }
+    }
   }
 }
 
@@ -217,3 +228,18 @@ function parseTableRow(line) {
   return line.slice(1, -2).split('|').map(el => el.trim())
 }
 
+function addListEntry({ entries }, line) {
+  const last = entries[entries.length - 1]
+  last.push(line)
+}
+
+
+/* get next empty line
+function getNext(lines, i) {
+  while (lines[i]) {
+    const line = lines[i]
+    if (line && line.trim()) return line
+    i++
+  }
+}
+*/

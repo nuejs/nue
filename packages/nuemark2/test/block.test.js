@@ -1,18 +1,78 @@
 
-import { renderTable, renderHeading, renderLines } from '../src/render-blocks.js'
-import { parseBlocks, isHR, parseHeading } from '../src/parse-blocks.js'
+import { renderBlocks, renderTable, renderHeading, renderLines } from '../src/render-blocks.js'
+import { parseBlocks, getBreak, parseHeading } from '../src/parse-blocks.js'
 import { nuemark } from '..'
 
 
-test('parse hr', () => {
-  const hrs = ['***', '___', '- - -', '*** --- ***']
-  for (const str of hrs) {
-    expect(isHR(str)).toBe(true)
-  }
-  expect(isHR('*** yo')).toBeUndefined()
+test('paragraphs', () => {
+  const blocks = parseBlocks([ 'a', 'b', '', '', 'c' ])
+  expect(blocks.length).toBe(2)
+
+  const html = renderBlocks(blocks)
+  expect(html).toStartWith('<p>a b</p>')
+  expect(html).toEndWith('<p>c</p>')
 })
 
-test('render HR', () => {
+test('list items', () => {
+  const blocks = parseBlocks(['- a', '', '  a1',  '- b', '', '', '- c'])
+  expect(blocks.length).toBe(1)
+  expect(blocks[0].entries).toEqual([[ "a", "", "a1" ], [ "b", "", "" ], [ "c" ]])
+})
+
+
+test('nested lists', () => {
+  const blocks = parseBlocks(['- item', '', '  - nested 1',  '', '', '  - nested 2'])
+  expect(blocks.length).toBe(1)
+  expect(blocks[0].entries[0]).toEqual([ "item", "", "- nested 1", "", "", "- nested 2" ])
+  const html = renderBlocks(blocks)
+  expect(html).toEndWith('<li><p>nested 2</p></li></ul></li></ul>')
+})
+
+
+test('nested tag data', () => {
+  const [ comp ] = parseBlocks(['[hello]', '', '', '  foo: bar', '', '  bro: 10'])
+  expect(comp.data).toEqual({ foo: "bar", bro: 10 })
+})
+
+test('nested tag content', () => {
+  const blocks = parseBlocks(['[.stack]', '', '', '  line1', '', '  line2'])
+  expect(blocks.length).toBe(1)
+  expect(blocks[0].blocks.length).toBe(2)
+
+  const html = renderBlocks(blocks)
+  expect(html).toStartWith('<div class="stack"><p>line1</p>')
+})
+
+test('subsequent blockquotes', () => {
+  const blocks = parseBlocks(['> hey', '> boy', '', '> another'])
+  expect(blocks.length).toBe(3)
+  const html = renderBlocks(blocks)
+  expect(html).toStartWith('<blockquote><p>hey boy</p></blockquote>')
+})
+
+
+test('numbered items', () => {
+  const [ list ] = parseBlocks(['1. Yo', '10. Bruh', '* Bro'])
+  expect(list.numbered).toBeTrue()
+  expect(list.entries).toEqual([[ "Yo" ], [ "Bruh" ], [ "Bro" ]])
+})
+
+
+test('multiple thematic breaks', () => {
+  const blocks = parseBlocks(['A', '---', 'B', '---', 'C' ])
+  expect(blocks.length).toBe(5)
+})
+
+
+test('parse thematic break', () => {
+  const hrs = ['***', '___', '- - -', '*** --- ***']
+  for (const str of hrs) {
+    expect(getBreak(str)).toBeDefined()
+  }
+  expect(getBreak('*** yo')).toBeUndefined()
+})
+
+test('render thematic break', () => {
   expect(renderLines(['hello', '***'])).toBe('<p>hello</p>\n<hr>')
 })
 
@@ -53,23 +113,6 @@ test('heading block count', () => {
 })
 
 
-test('numbered list', () => {
-  const [ list ] = parseBlocks(['1. Yo', '10. Bruh', '* Bro'])
-  expect(list.numbered).toBeTrue()
-  expect(list.entries).toEqual([[ "Yo" ], [ "Bruh" ], [ "Bro" ]])
-})
-
-test('render simple list', () => {
-  const html = renderLines(['1. ## Hey', '  dude', '2. ## Yo'])
-  expect(html).toStartWith('<ol><li><h2>Hey</h2>\n<p>dude</p>')
-})
-
-test('nested lists', () => {
-  const html = renderLines(['* ## Hey', '   1. dude'])
-  expect(html).toStartWith('<ul><li><h2>Hey</h2>')
-  expect(html).toEndWith('<ol><li><p>dude</p></li></ol></li></ul>')
-})
-
 test('render blockquote', () => {
   const html = renderLines(['> ## Hey', '> 1. dude'])
   expect(html).toStartWith('<blockquote><h2>Hey</h2>\n<ol><li><p>dude')
@@ -85,7 +128,7 @@ test('multi-line list entries', () => {
   expect(list.entries).toEqual([ [ "foo", "boy" ], [ "bar" ] ])
 })
 
-test('list object model', () => {
+test('nested list', () => {
   const [ { items } ] = parseBlocks(['* > foo', '  1. boy', '  2. bar'])
   const [ [ quote, nested ] ] = items
 
@@ -125,22 +168,6 @@ test('tables', () => {
   expect(html).toEndWith('<td>February</td><td>$80</td></tr></table>')
 })
 
-test('block mix', () => {
-  const blocks = parseBlocks([
-    '#Hello, world!',
-    '- small', '- list',
-    'paragraph', '',
-    '```', '## code', '```',
-    '[accordion]', '  multiple: false',
-    '> blockquote',
-  ])
-
-  expect(blocks.length).toBe(7)
-  expect(blocks[1].entries.length).toBe(2)
-  expect(blocks[4].code).toEqual([ "## code" ])
-  expect(blocks[5].name).toBe('accordion')
-})
-
 test('parse reflinks', () => {
   const { reflinks } = parseBlocks([
     '[.hero]',
@@ -167,7 +194,7 @@ test('render reflinks', () => {
   expect(html).toInclude('Inlined <a href="https://bar.com/zappa" title="External link">Second</a>')
 })
 
-test('nested tag data', () => {
+test('complex tag data', () => {
   const [ comp ] = parseBlocks(['[hello#foo.bar world size="10"]', '  foo: bar'])
   expect(comp.attr).toEqual({ class: "bar", id: "foo", })
   expect(comp.data).toEqual({ world: true, size: 10, foo: "bar", })

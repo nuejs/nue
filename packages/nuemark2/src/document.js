@@ -5,28 +5,34 @@ import { parseBlocks } from './parse-blocks.js'
 import { load as parseYAML } from 'js-yaml'
 
 export function parseDocument(lines) {
-  const meta = stripMeta(lines)
+  const user_meta = stripMeta(lines)
   const blocks = parseBlocks(lines)
   const { reflinks } = blocks
 
-  const self = {
+  const meta = {
 
-    // title
     get title() {
       const tag = blocks.find(el => el.is_tag)
       return findTitle(blocks) || tag && findTitle(tag.blocks) || ''
     },
 
-    // description
     get description() {
       const block = blocks.find(el => el.is_content)
       return block?.content[0]
     },
 
+    ...user_meta
+  }
+
+  const api = {
+
     get sections() {
       return blocks && categorize(blocks)
     },
 
+    get codeblocks() {
+      return blocks.filter(el => el.is_code)
+    },
 
     addReflink(label, href) {
       reflinks.push({ label, ...parseLinkTitle(href) })
@@ -35,26 +41,25 @@ export function parseDocument(lines) {
     renderSections(classes, opts) {
       const html = []
 
-      self.sections.forEach((blocks, i) => {
+      api.sections.forEach((blocks, i) => {
         html.push(elem('section', { class: classes[i] }, renderBlocks(blocks, opts)))
       })
-      return html.join('\n')
+      return html.join('\n\n')
     },
 
-    renderTOC() {
-      const navs = self.sections.map(renderNav).join('\n').trim()
-      return elem('div', { class: 'toc' }, navs)
+    renderTOC(attr={}) {
+      const navs = api.sections.map(renderNav).join('\n').trim()
+      return elem('div', { 'aria-label': 'Table of contents', ...attr }, navs)
     },
 
     render(opts={}) {
       let { sections } = opts.data || {}
       if (sections && !Array.isArray(sections)) sections = []
-      return sections ? self.renderSections(sections, opts) : renderBlocks(blocks, opts)
+      return sections ? api.renderSections(sections, opts) : renderBlocks(blocks, opts)
     },
-
   }
 
-  return { meta, reflinks, ...self }
+  return { meta, reflinks, ...api }
 }
 
 
@@ -62,9 +67,15 @@ export function categorize(blocks=[], max_level=2) {
   const arr = []
   let section
 
-  blocks.forEach(el => {
-    if (el.level <= max_level) arr.push(section = [])
-    section?.push(el)
+  // no sections if no separators
+  const el = blocks.find(el => el.is_separator || el.level <= max_level)
+  if (!el) return
+
+  blocks.forEach((el, i) => {
+    const sep = el.is_separator
+    if (!section || el.level <= max_level || sep) arr.push(section = [])
+    if (!sep) section.push(el)
+
   })
   return arr[0] && arr
 }

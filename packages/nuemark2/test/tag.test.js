@@ -43,7 +43,7 @@ test('parse all', () => {
 
 // custom tags
 const tags = {
-  print({ data }) {
+  print(data) {
     return `<b>${ data?.value }</b>`
   },
 }
@@ -87,7 +87,7 @@ test('[list] sections', () => {
   ]
 
   const html = renderLines(content)
-  expect(html).toStartWith('<ul class="features"><li class="card"><h2>')
+  expect(html).toStartWith('<ul class="features"><li class="card"><h2>Something</h2>\n<p>Described')
 })
 
 // list items
@@ -114,9 +114,35 @@ test('[list] wrapper', () => {
 })
 
 
-test('anonymous tags', () => {
-  const html = renderLines(['[.hello]', '  ## Hello', '  world'])
-  expect(html).toBe('<div class="hello"><h2>Hello</h2>\n<p>world</p></div>')
+// anonymous tag
+test('.note', () => {
+  const html = renderLines(['[.note]', '  ## Note', '  Hello'])
+  expect(html).toBe('<div class="note"><h2>Note</h2>\n<p>Hello</p></div>')
+})
+
+// anonymous .stack
+test('.stack', () => {
+  const html = renderLines(['[.stack]', '  Hey', '  ---', '  Girl'])
+  expect(html).toStartWith('<div class="stack"><div><p>Hey</p></div>')
+})
+
+test('client-side island', () => {
+  const html = renderLines(['[contact-me]', '  cta: Submit'])
+  expect(html).toStartWith('<contact-me custom><script')
+})
+
+test.skip('list.stack', () => {
+  const html = renderLines([
+    '[.stack]',
+    '  # Contact me',
+    '  Available for hire',
+    '  [contact-me]',
+    '',
+    '  ---',
+    '  [! /img/profile.jpg size=""460 x 460"]'
+  ])
+
+  console.info(html)
 })
 
 

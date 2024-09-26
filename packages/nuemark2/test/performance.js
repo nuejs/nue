@@ -4,7 +4,7 @@ import { markedSmartypants } from "marked-smartypants";
 import hljs from 'highlight.js';
 
 
-import { render } from '..'
+import { nuemark } from '..'
 
 // Not working
 // import { markedHighlight } from "marked-highlight";
@@ -16,6 +16,11 @@ const renderer = {
   },
 }
 
+const UNIT = `
+> Block 1
+
+> Block 2
+`
 
 
 const SIMPLE = `
@@ -88,13 +93,13 @@ marked.use({ renderer })
 if (false) {
   // perftest('marked', marked.parse)
   perftest('marked', marked.parse)
-  perftest('nue', render)
-  // perftest('nue', render)
+  perftest('nue', nuemark)
+  // perftest('nue', nuemark)
 
 } else {
-  // console.info(marked.parse(COMPLEX))
+  console.info(marked.parse(UNIT))
   console.info('------------------')
-  console.info(render(SIMPLE))
+  console.info(nuemark(UNIT))
 }
 
 

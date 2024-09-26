@@ -46,8 +46,8 @@ async function getKit(dryrun = true) {
   return await createKit({ root, dryrun })
 }
 
-function createFront(title, pubDate) {
-  return ['---', `title: ${title}`, `pubDate: ${pubDate ?? '2020-01-20'}`, '---'].join('\n')
+function createFront(title, date='2020-01-20') {
+  return ['---', `title: ${title}`, `date: ${date}`, '---'].join('\n')
 }
 
 test('site defaults', async () => {
@@ -154,44 +154,58 @@ test('get data', async () => {
   expect(data).toMatchObject({ foo: 1, bar: 1, baz: 1 })
 })
 
+
 test('content collection', async () => {
-  // This test proves
-  // ----------------
-  // 1. Default sorting is on pubDate returning most recent first.
-  // 2. Collection returns parent folders, then child folders.
-  // 3. Posts with null dates, e.g. First, come before posts with dates.
   await write('blog/first-a.md', '# First')
-  await write('blog/first-b.md', createFront('Second', '2020-01-04'))
-  await write('blog/nested/hey1.md', createFront('Third', '2020-01-02'))
-  await write('blog/nested/hey2.md', createFront('Fourth', '2020-01-03'))
-  // 4. Cloudflare `functions` directory is excluded
+  await write('blog/first-b.md', createFront('Second', '2025-01-04'))
+  await write('blog/nested/hey1.md', createFront('Third', '2025-01-02'))
+  await write('blog/nested/hey2.md', createFront('Fourth', '2025-01-03'))
+
+  // these should be excluded
   await write('blog/functions/contact-us.md', "my secret notes")
-  // 5. System files starting with '_' or '.' are excluded.
-  await write('blog/.item6.md', createFront('Sixth', '2020-01-03'))
-  await write('blog/_item7.md', createFront('Seventh', '2020-01-03'))
+  await write('blog/.item6.md', createFront('Sixth', '2025-01-03'))
+  await write('blog/_item7.md', createFront('Seventh', '2025-01-03'))
 
   const site = await getSite()
   const coll = await site.getContentCollection('blog')
-  const actual = coll.map(c => {
-    return { pubDate: c.pubDate, url: c.url, title: c.title, dir: c.dir, slug: c.slug }
-  })
-  // expected order is : First, Second, Fourth, Third
-  expect(actual).toEqual([
-    { pubDate: undefined, url: '/blog/first-a.html', title: 'First', dir: 'blog', slug: 'first-a.html' },
-    { pubDate: new Date('2020-01-04'), url: '/blog/first-b.html', title: 'Second', dir: 'blog', slug: 'first-b.html' },
-    { pubDate: new Date('2020-01-03'), url: '/blog/nested/hey2.html', title: 'Fourth', dir: join('blog', 'nested'), slug: 'hey2.html' },
-    { pubDate: new Date('2020-01-02'), url: '/blog/nested/hey1.html', title: 'Third', dir: join('blog', 'nested'), slug: 'hey1.html' },
-  ])
+
+  // exclude `functions` directory, dotfiles etc..
+  expect(coll.length).toBe(4)
+
+  // sort order
+  expect(coll[0].url).toBe('/blog/first-a.html')
+  expect(coll[1].title).toBe('Second')
+  expect(coll[2].slug).toBe('hey2.html')
+
+  // page metadata
+  expect(coll[0]).toMatchObject({ title: "First", slug: "first-a.html", basedir: "blog" })
 })
 
-test('nuemark components', async () => {
-  await write('layout.html', '<a @name="foo">Hey</a>')
-  await write('index.md', '[foo]')
+test('basig page generation', async () => {
+  await write('index.md', '# Hello\nWorld')
+  const kit = await getKit()
+
+  // page data
+  const data = await kit.getPageData('index.md')
+  expect(data.title).toBe('Hello')
+  expect(data.description).toBe('World')
+
+  // generated HTML
+  const html = await kit.gen('index.md')
+  expect(html).toInclude('<h1>Hello</h1>')
+  expect(html).toInclude('<p>World</p>')
+})
+
+
+test('custom nuemark tags', async () => {
+  await write('layout.html', '<a @name="test">Hey</a>')
+  await write('index.md', '[test]')
 
   const kit = await getKit()
   const html = await kit.gen('index.md')
   expect(html).toInclude('<a>Hey</a>')
 })
+
 
 test('layout components', async () => {
   const site = await getSite()
@@ -265,13 +279,6 @@ test('inline CSS', async () => {
   expect(html).toInclude('margin:')
 })
 
-test('page data', async () => {
-  const kit = await getKit()
-  await write('index.md', createFront('Hello') + '\n\nWorld')
-  const data = await kit.getPageData('index.md')
-  expect(data.title).toBe('Hello')
-  expect(data.page.meta.title).toBe('Hello')
-})
 
 test('line endings', async () => {
   const kit = await getKit()
@@ -309,17 +316,6 @@ test('single-page app index', async () => {
 
   expect(html).toInclude('hotreload.js')
   expect(html).toInclude('is="test"')
-})
-
-test('index.md', async () => {
-  await write('index.md', '# Hey { .yo }\n\n## Foo { .foo#bar.baz }')
-  const kit = await getKit()
-  await kit.gen('index.md')
-  const html = await readDist(kit.dist, 'index.html')
-  expect(html).toInclude('hotreload.js')
-  expect(html).toInclude('<title>Hey</title>')
-  expect(html).toInclude('<h1 class="yo">Hey</h1>')
-  expect(html).toInclude('<h2 class="foo baz" id="bar"><a href="#bar" title="Foo"></a>Foo</h2>')
 })
 
 

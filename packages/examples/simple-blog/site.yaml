@@ -5,6 +5,7 @@ libs: ["@library"]
 view_transitions: true
 native_css_nesting: true
 inline_css: true
+sections: true
 
 title_template: "Emma Bennet / %s"
 og_image: /img/og_emma.png

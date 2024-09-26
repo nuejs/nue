@@ -13,20 +13,9 @@ import {
   extendData,
   getAppDir,
   sortCSS,
-<<<<<<< Updated upstream
   toPosix,
   log,
 } from './util.js'
-=======
-  joinRootPath } from './util.js'
-
-import { join, extname, parse as parsePath } from 'node:path'
-import { promises as fs, existsSync } from 'node:fs'
-import { parse as parseNue } from 'nuejs-core'
-import { fswalk } from './nuefs.js'
-import { nuedoc } from 'nuemark2'
-import yaml from 'js-yaml'
->>>>>>> Stashed changes
 
 
 // file not found error
@@ -252,8 +241,8 @@ export async function createSite(args) {
     const mds = paths.filter(el => el.endsWith('.md')).map(el => join(dir, el))
 
     for (const path of mds) {
-      const raw = await read(path)
-      const { meta } = nuedoc(raw)
+      const doc = nuedoc(await read(path))
+      const { meta } = doc
       if (!meta.unlisted) arr.push({ ...meta, ...parsePathParts(path) })
     }
 
@@ -271,7 +260,7 @@ export async function createSite(args) {
     let paths = await getAssets({ dir, exts: ['css'], data })
 
     // syntax highlighting
-    if (data.page?.has_code_blocks && data.syntax_highlight !== false) paths.push(`/@nue/syntax.css`)
+    if (data.syntax_highlight !== false && data.page?.codeblocks[1]) paths.push(`/@nue/syntax.css`)
 
     // cascading order: globals -> area -> page
     sortCSS({ paths, globals: self.globals, dir })

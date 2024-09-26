@@ -109,11 +109,3 @@ export function renderNav({ items, label }) {
     typeof items == 'object' ? renderNavBlocks(items, label) : ''
 }
 
-
-export function renderTOC(data) {
-
-  const items = data.page.headings.filter(el => [2, 3].includes(el.level))
-    .map(el => elem('a', { href: '#' + el.id, class: 'level-' + el.level }, el.html))
-
-  return elem('nav', { 'aria-label': 'Table of contents', is: data.is }, items.join('\n'))
-}

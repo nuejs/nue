@@ -8,7 +8,7 @@ date: 2024-05-23
 
 Working with color is one of the most fun parts of web design. But if you don't use them right in your CSS code, colors can also tank a site's usability and accessibility. In this post, we'll explore simple, real-world tips for effectively using color in your stylesheets.
 
- 
+
 ``` css .blue
 /* Tab styling */
 [role=tablist] {
@@ -40,9 +40,8 @@ Choosing the right colors for a website can be tricky. Get one wrong and your en
 
 - **Consider tone and contrast** - Include light, medium and dark tones for visual interest. Test contrast for accessibility.
 
-
 [image img/colors-1.png]
-  foo: bar
+
 
 Considering the different formatting options, you can optimize CSS color usage for any need. Use hex for one-off values, RGBA where you need opacity control, HSL for color adjustments, variables for theming, and preprocessor operations for transformations. With the right format, implementing colors in CSS becomes much more flexible and manageable.
 

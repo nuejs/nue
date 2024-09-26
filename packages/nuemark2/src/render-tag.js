@@ -49,8 +49,6 @@ const TAGS = {
 
   list() {
     const items = this.sections || getListItems(this.blocks)
-    if (!items) return ''
-
     const item_attr = { class: this.data.items }
     const html = items.map(blocks => elem('li', item_attr, this.render(blocks)))
     const ul = elem('ul', this.attr, html.join('\n'))
@@ -91,30 +89,35 @@ const TAGS = {
 
 export function renderTag(tag, opts={}) {
   const tags = opts.tags = { ...TAGS, ...opts?.tags }
-  const { name, attr } = tag
-  const { data={} } = opts
+  const { name, attr, blocks } = tag
   const fn = tags[name]
 
   // anonymous tag
-  if (!name) return elem('div', attr, renderBlocks(tag.blocks, opts))
+  if (!name) {
+    const cats = categorize(blocks)
 
-  if (!fn) {
-    console.error(`No "${name}" tag found from: [${Object.keys(tags)}]`)
-    return  ''
+    const inner = !cats || !cats[1] ? renderBlocks(blocks, opts) :
+      cats.map(blocks => elem('div', renderBlocks(blocks, opts))).join('\n')
+
+    return elem('div', attr, inner)
   }
+
+  if (!fn) return renderIsland(tag)
+
+  const data = extractColonVars({ ...opts.data, ...tag.data })
 
   const api = {
     ...tag,
-    data: extractColonVars({ ...data, ...tag.data }), // place after ..tag
     get innerHTML() { return getInnerHTML(this.blocks, opts) },
     render(blocks) { return renderBlocks(blocks, opts) },
     renderInline(str) { return renderInline(str, opts) },
     sections: categorize(tag.blocks),
+    data,
     opts,
     tags,
   }
 
-  return fn.call(api, api)
+  return fn.call(api, data)
 }
 
 
@@ -189,5 +192,12 @@ function getInnerHTML(blocks, opts) {
   if (!first) return ''
   const { content } = first
   return content && !second ? renderInline(content.join(' '), opts) : renderBlocks(blocks, opts)
+}
+
+export function renderIsland({ name, attr, data }) {
+  const json = !Object.keys(data)[0] ? '' :
+    elem('script', { type: 'application/json' }, JSON.stringify(data))
+  ;
+  return elem(name, { 'custom': true, ...attr }, json)
 }
 

@@ -1,12 +1,11 @@
 // Standardized page layout / "Modern-day CSS Zen Garden"
 
 import { parse as parseNue } from 'nuejs-core'
-import { renderPage as nuemark, renderInline } from 'nuemark'
-import { tags } from 'nuemark/src/tags.js'
+import { renderInline } from 'nuemark2'
 
 import { renderGallery, renderPrettyDate } from './gallery.js'
 import { renderHead } from './head.js'
-import { renderNav, renderTOC } from './navi.js'
+import { renderNav } from './navi.js'
 
 
 const HEADER = `
@@ -93,23 +92,18 @@ export function renderSinglePage(body = '', data) {
 }
 
 
-// system components
+// template tags
 const system_tags = [
   { name: 'navi', create: renderNav },
   { name: 'gallery', create: renderGallery },
   { name: 'markdown', create: ({ content }) => content ? renderInline(content) : '' },
   { name: 'pretty-date', create: ({ date }) => renderPrettyDate(date) },
-  { name: 'toc', create: renderTOC },
-  { name: 'image', create: tags.image },
+  // { name: 'toc', create: renderTOC },
+  // { name: 'image', create: tags.image },
 ]
-
-const nuemark_tags = { gallery: renderGallery, toc: renderTOC }
 
 
 export function renderPage(data, comps) {
-
-  const lib = [...system_tags, ...comps]
-
 
   function renderBlock(name, html) {
 
@@ -123,7 +117,7 @@ export function renderPage(data, comps) {
     if (!comp && html) comp = parseNue(html)[0]
 
     try {
-      return comp ? comp.render(data, lib) : ''
+      return comp ? comp.render(data, [...system_tags, ...comps]) : ''
     } catch (e) {
       delete data.inline_css
       console.error(`Error on <${name}> component`, e)
@@ -131,10 +125,20 @@ export function renderPage(data, comps) {
     }
   }
 
+  // nuemark tags
+  const tags = { gallery: renderGallery, toc: data.page.renderTOC }
+
+  comps.forEach(comp => {
+    if (comp.name) tags[comp.name] = function(data) {
+      return comp.render(data, comps)
+    }
+  })
+
+
   data.layout = {
     head: renderHead(data),
     custom_head: renderBlock('head').slice(6, -7),
-    article: nuemark(data.page, { data, lib, tags: nuemark_tags, draw_sections: true }).html,
+    article: data.page.render({ data, tags }),
     banner: renderBlock('@banner'),
     header: renderBlock('header', data.header && HEADER),
     subheader: renderBlock('@subheader'),
