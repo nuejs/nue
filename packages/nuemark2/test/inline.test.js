@@ -91,6 +91,7 @@ test('parse reflink', () => {
   expect(link).toMatchObject({ href: 'world', title: 'now', label: 'Hello' })
 })
 
+
 test('parse reflink', () => {
   const [text, link] = parseInline('Baz [foo][bar]')
   expect(link.label).toBe('foo')
@@ -128,6 +129,12 @@ test('parse simple image', () => {
 test('inline tag', () => {
   const [el] = parseInline('[version]')
   expect(el.name).toBe('version')
+})
+
+test('inline tag', () => {
+  const [ tag, and, link] = parseInline('[tip] and [link][foo]')
+  expect(tag.is_tag).toBeTrue()
+  expect(link.is_reflink).toBeTrue()
 })
 
 test('tag args', () => {

@@ -131,20 +131,6 @@ test('client-side island', () => {
   expect(html).toStartWith('<contact-me custom><script')
 })
 
-test.skip('list.stack', () => {
-  const html = renderLines([
-    '[.stack]',
-    '  # Contact me',
-    '  Available for hire',
-    '  [contact-me]',
-    '',
-    '  ---',
-    '  [! /img/profile.jpg size=""460 x 460"]'
-  ])
-
-  console.info(html)
-})
-
 
 test('[table] tag', () => {
   const foo = [ ['Foo', 'Buzz'], ['hey', 'girl']]

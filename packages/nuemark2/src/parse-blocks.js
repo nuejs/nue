@@ -3,12 +3,9 @@ import { load as parseYAML } from 'js-yaml'
 import { parseInline } from './parse-inline.js'
 import { parseTag } from './parse-tag.js'
 
-export function parseBlocks(lines) {
+export function parseBlocks(lines, reflinks={}) {
   let spaces, block
-
   const blocks = []
-  blocks.reflinks = {}
-
 
   lines.forEach(line => {
     const c = line[0]
@@ -53,6 +50,15 @@ export function parseBlocks(lines) {
       return block = null
     }
 
+
+    // thematic break (before list)
+    const hr = getBreak(line)
+    if (hr) {
+      blocks.push(hr)
+      return block = null
+    }
+
+
     // list item
     const item = getListItem(line)
 
@@ -85,7 +91,7 @@ export function parseBlocks(lines) {
 
     // reflink (can be nested on any level)
     const ref = parseReflink(trimmed)
-    if (ref) return blocks.reflinks[ref.key] = ref.link
+    if (ref) return reflinks[ref.key] = ref.link
 
 
     // tag
@@ -109,12 +115,6 @@ export function parseBlocks(lines) {
         block.head = true : block.rows.push(row)
     }
 
-    // thematic break
-    const hr = getBreak(line)
-    if (hr) {
-      blocks.push(hr)
-      return block = null
-    }
 
     // nested content or data
     if (indent) {
@@ -139,24 +139,23 @@ export function parseBlocks(lines) {
 
   })
 
+
   /* tokenize lists and quotes. parse component data */
-  blocks.forEach(processNestedBlocks)
+  blocks.forEach(block => processNestedBlocks(block, reflinks))
+  blocks.reflinks = reflinks
 
   return blocks
 }
 
 
 
-
-/******* UTILS ********/
-
 // recursive processing of nested blocks
-function processNestedBlocks(block) {
+function processNestedBlocks(block, reflinks) {
   if (block.is_list) {
-    block.items = block.entries.map(parseBlocks)
+    block.items = block.entries.map(blocks => parseBlocks(blocks, reflinks))
 
   } else if (block.is_quote) {
-    block.blocks = parseBlocks(block.content)
+    block.blocks = parseBlocks(block.content, reflinks)
 
 
   } else if (block.is_tag) {
@@ -171,10 +170,14 @@ function processNestedBlocks(block) {
       console.error('YAML parse error', body, e)
     }
 
-    if (!block.has_data) block.blocks = parseBlocks(block.body)
+    if (!block.has_data) block.blocks = parseBlocks(block.body, reflinks)
     delete block.body
   }
 }
+
+
+/******* UTILS ********/
+
 
 export function parseHeading(str) {
   const level = str.search(/[^#]/)
@@ -209,7 +212,7 @@ function getListItem(line) {
 }
 
 export function getBreak(str) {
-  const HR = ['---', '***', '___', '- - -']
+  const HR = ['---', '***', '___', '- - -', '* * *']
 
   for (const hr of HR) {
     if (str.startsWith(hr) && !/[^\*\-\_ ]/.test(str)) {
@@ -234,12 +237,3 @@ function addListEntry({ entries }, line) {
 }
 
 
-/* get next empty line
-function getNext(lines, i) {
-  while (lines[i]) {
-    const line = lines[i]
-    if (line && line.trim()) return line
-    i++
-  }
-}
-*/

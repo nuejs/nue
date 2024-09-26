@@ -17,9 +17,10 @@ const renderer = {
 }
 
 const UNIT = `
-> Block 1
 
-> Block 2
+[.fist]
+  [image /doom.png alt="iso"]
+    asdlfkjas
 `
 
 
@@ -97,8 +98,8 @@ if (false) {
   // perftest('nue', nuemark)
 
 } else {
-  console.info(marked.parse(UNIT))
-  console.info('------------------')
+  // console.info(marked.parse(UNIT))
+  // console.info('------------------')
   console.info(nuemark(UNIT))
 }
 

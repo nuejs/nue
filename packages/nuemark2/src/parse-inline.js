@@ -49,8 +49,11 @@ const PARSERS = [
   (str, char0) => {
     if (char0 == '!' && str[1] == '[') {
       const img = parseLink(str.slice(1))
-      img.end++
-      return img && { is_image: true, ...img }
+
+      if (img) {
+        img.end++
+        return img && { is_image: true, ...img }
+      }
     }
   },
 
@@ -114,11 +117,15 @@ export function parseInline(str) {
 
 export function parseLink(str, is_reflink) {
   const [open, close] = is_reflink ? '[]' : '()'
-  const i = str.indexOf(']' + open, 1)
-  let j = i > 0 ? str.indexOf(close, 2 + i) : 0
+  const i = str.indexOf(']', 1)
+  const next = str[i + 1]
+
+  if (next != open) return
+
+  let j = i > 0 ? str.indexOf(close, 3 + i) : 0
 
   // not a link
-  if (j <= 0) return
+  if (j <= 0 || str[i] == ' ') return
 
   // links with closing bracket (ie. Wikipedia)
   if (str[j + 1] == ')') j++
