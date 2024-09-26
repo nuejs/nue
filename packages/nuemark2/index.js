@@ -1,8 +1,8 @@
 
 import { renderLines } from './src/render-blocks.js'
 import { parseDocument } from './src/document.js'
-import { EOL } from 'node:os'
 
+const EOL = /\r\n|\r|\n/
 
 export function nuemark(str, opts) {
   return renderLines(str.split(EOL), opts)

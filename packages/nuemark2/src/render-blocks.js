@@ -4,7 +4,7 @@ import { parseLinkTitle } from './parse-inline.js'
 import { parseBlocks } from './parse-blocks.js'
 import { renderTag, wrap } from './render-tag.js'
 import { elem } from './document.js'
-import { glow } from 'glow'
+import { glow } from 'nue-glow'
 
 
 export function renderLines(lines, opts) {
