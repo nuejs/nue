@@ -1,7 +1,7 @@
 
 import { renderBlocks, renderTable, renderContent } from './render-blocks.js'
 import { renderInline } from './render-inline.js'
-import { categorize, elem } from './document.js'
+import { sectionize, elem } from './document.js'
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
@@ -14,16 +14,16 @@ const TAGS = {
       const summary = elem('summary', this.render([blocks[0]]))
       return summary + this.render(blocks.slice(1))
     })
+
     if (html) {
       const acc = elem('details', this.attr, html.join('\n'))
       return wrap(this.data.wrapper, acc)
     }
   },
 
-  button() {
-    const { attr, data } = this
+  button(data) {
     const label = this.renderInline(data.label || data._) || this.innerHTML || ''
-    return elem('a', { ...attr, href: data.href, role: 'button' }, label)
+    return elem('a', { ...this.attr, href: data.href, role: 'button' }, label)
   },
 
   image() {
@@ -94,12 +94,12 @@ export function renderTag(tag, opts={}) {
 
   // anonymous tag
   if (!name) {
-    const cats = categorize(blocks)
+    const divs = sectionize(blocks)
 
-    const inner = !cats || !cats[1] ? renderBlocks(blocks, opts) :
-      cats.map(blocks => elem('div', renderBlocks(blocks, opts))).join('\n')
+    const html = !divs || !divs[1] ? renderBlocks(blocks, opts) :
+      divs.map(blocks => elem('div', renderBlocks(blocks, opts))).join('\n')
 
-    return elem('div', attr, inner)
+    return elem('div', attr, html)
   }
 
   if (!fn) return renderIsland(tag)
@@ -111,7 +111,7 @@ export function renderTag(tag, opts={}) {
     get innerHTML() { return getInnerHTML(this.blocks, opts) },
     render(blocks) { return renderBlocks(blocks, opts) },
     renderInline(str) { return renderInline(str, opts) },
-    sections: categorize(tag.blocks),
+    sections: sectionize(tag.blocks),
     data,
     opts,
     tags,

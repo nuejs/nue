@@ -26,8 +26,10 @@ export function parseDocument(lines) {
 
   const api = {
 
+    blocks,
+
     get sections() {
-      return blocks && categorize(blocks)
+      return sectionize(blocks) || [ blocks ]
     },
 
     get codeblocks() {
@@ -52,10 +54,10 @@ export function parseDocument(lines) {
       return elem('div', { 'aria-label': 'Table of contents', ...attr }, navs)
     },
 
-    render(opts={}) {
-      let { sections } = opts.data || {}
-      if (sections && !Array.isArray(sections)) sections = []
-      return sections ? api.renderSections(sections, opts) : renderBlocks(blocks, opts)
+    render(opts={ data: meta }) {
+      let classes = opts.data.sections
+      if (classes && !Array.isArray(classes)) classes = []
+      return classes ? api.renderSections(classes, opts) : renderBlocks(blocks, opts)
     },
   }
 
@@ -63,17 +65,30 @@ export function parseDocument(lines) {
 }
 
 
-export function categorize(blocks=[], max_level=2) {
+export function sectionize(blocks=[]) {
   const arr = []
   let section
 
-  // no sections if no separators
-  const el = blocks.find(el => el.is_separator || el.level <= max_level)
-  if (!el) return
+  // first (sub)heading
+  const heading = blocks.find(el => el.level > 1)
+
+  // no heading nor separator -> no sections
+  if (!heading && !blocks.find(el => el.is_separator)) return
 
   blocks.forEach((el, i) => {
     const sep = el.is_separator
-    if (!section || el.level <= max_level || sep) arr.push(section = [])
+
+    // add new section
+    if (!section || el.level <= heading?.level || sep) {
+      const prev = blocks[i-1]
+
+      // heading followed by separator --> skip
+      if (!(el.level && prev?.is_separator)) {
+        arr.push(section = [])
+      }
+    }
+
+    // add content to section
     if (!sep) section.push(el)
 
   })

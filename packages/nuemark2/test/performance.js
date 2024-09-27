@@ -4,7 +4,7 @@ import { markedSmartypants } from "marked-smartypants";
 import hljs from 'highlight.js';
 
 
-import { nuemark } from '..'
+import { nuemark, nuedoc } from '..'
 
 // Not working
 // import { markedHighlight } from "marked-highlight";
@@ -17,10 +17,20 @@ const renderer = {
 }
 
 const UNIT = `
+---
+title: kamis
+sections: true
+---
 
-[.fist]
-  [image /doom.png alt="iso"]
-    asdlfkjas
+[.stack]
+  # Contact me
+  I'm currently available for hire
+
+  [contact-me]
+
+  ---
+  [! /img/profile.jpg size="460 x 460"]
+
 `
 
 
@@ -100,7 +110,8 @@ if (false) {
 } else {
   // console.info(marked.parse(UNIT))
   // console.info('------------------')
-  console.info(nuemark(UNIT))
+  const doc = nuedoc(UNIT)
+  console.info(doc.render())
 }
 
 

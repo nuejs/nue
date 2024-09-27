@@ -1,5 +1,6 @@
 
-import { parseDocument, stripMeta } from '../src/document.js'
+import { parseDocument, stripMeta, sectionize } from '../src/document.js'
+import { parseBlocks } from '../src/parse-blocks.js'
 
 test('front matter', () => {
   const lines = ['---', 'foo: 10', 'bar: 20', '---', '# Hello']
@@ -39,7 +40,31 @@ test('render method', () => {
 })
 
 
-test('sections', () => {
+test('sectionize', () => {
+  const tests = [
+    ['### h3', 'para', '### h3', 'para', '#### h4', 'para'],
+    ['# h1', 'para', '## h2', 'para', '### h3', 'para'],
+    ['## lol', '---', '## bol'],
+    ['lol', '---', 'bol'],
+  ]
+
+  for (const blocks of tests) {
+    const headings = parseBlocks(blocks)
+    expect(sectionize(headings).length).toBe(2)
+  }
+})
+
+test('non section', () => {
+  const paragraphs = parseBlocks(['hello', 'world'])
+  expect(sectionize(paragraphs)).toBeUndefined()
+})
+
+test('single section', () => {
+  const { sections } = parseDocument(['Hello'])
+  expect(sections.length).toBe(1)
+})
+
+test('multiple sections', () => {
   const doc = parseDocument([
     '# Hello', 'World',
     '## Foo', 'Bar',
@@ -51,6 +76,7 @@ test('sections', () => {
   expect(html).toStartWith('<section class="hero"><h1>Hello</h1>')
   expect(html).toEndWith('<hr></section>')
 })
+
 
 test('table of contents', () => {
   const doc = parseDocument([
