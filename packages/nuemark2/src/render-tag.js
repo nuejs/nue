@@ -187,6 +187,7 @@ export function wrap(name, html) {
 }
 
 
+
 function getInnerHTML(blocks = [], opts) {
   const [ first, second ] = blocks
   if (!first) return ''

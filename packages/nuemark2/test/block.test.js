@@ -78,22 +78,7 @@ test('render thematic break', () => {
 
 test('parse heading', () => {
   const h = parseHeading('# Hello')
-  expect(h).toMatchObject({ attr: { id: "hello" }, text: 'Hello', level: 1 })
-})
-
-test('heading class & id', () => {
-  const h = parseHeading('# Hello, *World!* { #foo.bar }')
-  expect(h.text).toBe('Hello, World!')
-  expect(h.attr).toEqual({ class: "bar", id: "foo" })
-
-  const html = renderHeading(h, { heading_ids: true })
-  expect(html).toStartWith('<h1 class="bar" id="foo"><a href="#foo"')
-  expect(html).toInclude('Hello, <em>World!</em>')
-})
-
-test('heading class name', () => {
-  const html = nuemark('# Hello { .boss }')
-  expect(html).toBe('<h1 class="boss">Hello</h1>')
+  expect(h).toMatchObject({ attr: {}, text: 'Hello', level: 1 })
 })
 
 test('render heading', () => {
@@ -102,8 +87,24 @@ test('render heading', () => {
   expect(nuemark('### Hello, *world*')).toBe('<h3>Hello, <em>world</em></h3>')
 })
 
-test('heading ids', () => {
-  const html = nuemark('# Hello', { heading_ids: true })
+test('heading class name', () => {
+  const html = nuemark('# Hello { .boss }')
+  expect(html).toBe('<h1 class="boss">Hello</h1>')
+})
+
+test('heading attr', () => {
+  const h = parseHeading('# Hey { #foo.bar }')
+  expect(h.text).toBe('Hey')
+  expect(h.attr).toEqual({ class: "bar", id: "foo" })
+
+  expect(renderHeading(h)).toBe('<h1 class="bar" id="foo">Hey</h1>')
+
+  const html = renderHeading(h, { data: { heading_ids: true } })
+  expect(html).toInclude('<a href="#foo" title="Hey"></a>')
+})
+
+test('generated heading id', () => {
+  const html = nuemark('# Hello', { data: { heading_ids: true } })
   expect(html).toBe('<h1 id="hello"><a href="#hello" title="Hello"></a>Hello</h1>')
 })
 

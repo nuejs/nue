@@ -163,6 +163,11 @@ test('[image] tag', () => {
   expect(html).toBe('<figure><img loading="lazy" src="/meow.png"></figure>')
 })
 
+test('[image] nested arg', () => {
+  const html = renderLines(['[image]', '  src: img.png'])
+  expect(html).toBe('<figure><img loading="lazy" src="img.png"></figure>')
+})
+
 test('picture', () => {
   const html = renderLines([
     '[image caption="Hello"]',
@@ -174,6 +179,7 @@ test('picture', () => {
   expect(html).toStartWith('<figure><a href="/"><picture><source srcset')
   expect(html).toEndWith('</a><figcaption>Hello</figcaption></figure>')
 })
+
 
 test('[video] tag', () => {
   const html = renderLines(['[video /meow.mp4 autoplay]', '  ### Hey'])

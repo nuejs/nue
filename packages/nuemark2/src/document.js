@@ -1,6 +1,6 @@
 
+import { renderBlocks, createHeadingId } from './render-blocks.js'
 import { parseLinkTitle } from './parse-inline.js'
-import { renderBlocks } from './render-blocks.js'
 import { parseBlocks } from './parse-blocks.js'
 import { load as parseYAML } from 'js-yaml'
 
@@ -98,7 +98,12 @@ export function sectionize(blocks=[]) {
 
 function renderNav(blocks) {
   const headings = blocks.filter(b => [2, 3].includes(b.level))
-  const links = headings.map(h => elem('a', { href: `#${ h.attr.id }` }, h.text))
+
+  const links = headings.map(h => {
+    const id = h.attr.id ||createHeadingId(h.text)
+    return elem('a', { href: `#${ id }` }, h.text)
+  })
+
   return links[0] ? elem('nav', links.join('\n')) : ''
 }
 

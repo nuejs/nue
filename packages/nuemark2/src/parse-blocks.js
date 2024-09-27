@@ -184,17 +184,9 @@ export function parseHeading(str) {
   const tokens = parseInline(str.slice(level).trim())
   const text = tokens.map(el => el.text || el.body || '').join('').trim()
   const specs = tokens.find(el => el.is_attr)
-  const attr = specs?.attr || { id: createId(text) }
+  const attr = specs?.attr || {}
   return { is_heading: true, level, tokens, text, attr }
 }
-
-function createId(text) {
-  let hash = text.slice(0, 32).replace(/'/g, '').replace(/[\W_]/g, '-').replace(/-+/g, '-').toLowerCase()
-  if (hash[0] == '-') hash = hash.slice(1)
-  if (hash.endsWith('-')) hash = hash.slice(0, -1)
-  return hash
-}
-
 
 function parseReflink(str) {
   if (str[0] == '[') {

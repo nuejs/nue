@@ -48,11 +48,22 @@ function parseReflinks(links) {
 }
 
 export function renderHeading(h, opts={}) {
-  const ids = opts.heading_ids
-  const a = ids ? elem('a', { href: `#${ h.attr.id }`, title: h.text }) : ''
-  if (!ids) delete h.attr.id
+  const attr = { ...h.attr }
+  const show_id = opts.data?.heading_ids
+  if (show_id && !attr.id) attr.id = createHeadingId(h.text)
 
-  return elem('h' + h.level, h.attr, a + renderTokens(h.tokens, opts))
+  // anchor
+  const a = show_id ? elem('a', { href: `#${ attr.id }`, title: h.text }) : ''
+
+  return elem('h' + h.level, attr, a + renderTokens(h.tokens, opts))
+}
+
+
+export function createHeadingId(text) {
+  let hash = text.slice(0, 32).replace(/'/g, '').replace(/[\W_]/g, '-').replace(/-+/g, '-').toLowerCase()
+  if (hash[0] == '-') hash = hash.slice(1)
+  if (hash.endsWith('-')) hash = hash.slice(0, -1)
+  return hash
 }
 
 export function renderContent(lines, opts) {
