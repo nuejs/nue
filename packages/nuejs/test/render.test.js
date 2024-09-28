@@ -146,7 +146,7 @@ test('Advanced', () => {
     // :attr (:bind works the same on server side)
     '<dd :attr="person"></dd>': '<dd name="Nick" age="0"></dd>',
 
-    '<hey :val/>': '<hey custom>\n  <script type="application/json">{"val":"1"}</script>\n</hey>',
+    '<hey :val/>': '<hey custom="hey">\n  <script type="application/json">{"val":"1"}</script>\n</hey>',
 
     '<html><slot for="none"/><b>{ val }</b></html>': '<html><b>1</b></html>',
     '<html><slot for="page"/></html>': '<html><main>Hello</main></html>',
