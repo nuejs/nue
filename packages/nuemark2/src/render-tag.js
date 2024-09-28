@@ -198,7 +198,5 @@ function getInnerHTML(blocks = [], opts) {
 export function renderIsland({ name, attr, data }) {
   const json = !Object.keys(data)[0] ? '' :
     elem('script', { type: 'application/json' }, JSON.stringify(data))
-  ;
-  return elem(name, { 'custom': true, ...attr }, json)
+  return elem(name, { 'custom': name, ...attr }, json)
 }
-

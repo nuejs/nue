@@ -111,7 +111,7 @@ test('renders "/" route and mount component', async () => {
   const logSpy = jest.spyOn(console, 'log')
 
   await waitFor(() => {
-    expect(document.body.querySelector('[is="app"]').innerHTML.trim()).toBe('<h2>App mounted</h2>')
+    expect(document.body.querySelector('[custom="app"]').innerHTML.trim()).toBe('<h2>App mounted</h2>')
   })
 
   expect(document.title).toBe('Page Router Test - Home')
@@ -156,7 +156,7 @@ test('renders "/page" route and mount component when click in a link', async () 
   )
 
   await waitFor(() => {
-    expect(document.body.querySelector('[is="component"]').innerHTML.trim()).toBe(
+    expect(document.body.querySelector('[custom="component"]').innerHTML.trim()).toBe(
       '<h2>Page component mounted</h2>'
     )
   })
