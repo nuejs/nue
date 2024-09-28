@@ -1,53 +1,33 @@
 
 import { $, $$ } from '/@nue/view-transitions.js'
 
-
 // scroll highlight for table of contents (on the right side)
+let headings = []
+let clicked
 
-function setSelected(root, el) {
-  $('[aria-selected]', root)?.removeAttribute('aria-selected')
-  el?.setAttribute('aria-selected', 1)
+function setSelected(href, attr='aria-selected') {
+  $(`aside [${attr}]`)?.removeAttribute(attr)
+  $(`aside [href="${href}"]`)?.setAttribute(attr, 1)
 }
 
-class ObservingNav extends HTMLElement {
+const observer = new IntersectionObserver(arr => {
+  arr.forEach(el => {
+    if (el.isIntersecting && !clicked) setSelected('#' + el.target.id)
+  })
 
-  constructor() {
-    super()
+// annoying option. too much trial & error needed
+}, { rootMargin: `0px 0px -500px 0px`})
 
-    this.observer = new IntersectionObserver(entries => {
-      entries.forEach(el => {
-        if (el.isIntersecting) {
-          if (!this.disabled) setSelected(this, $(`[href="#${el.target.id}"]`, this))
-        }
-      })
-    }, {
 
-      // the craziest option i've seen. makes no sense
-      rootMargin: `0px 0px -500px 0px`,
-
-    })
-
-    $$('section > h2, section > h3').forEach(el => this.observer.observe(el))
-
-    this.onclick = function(e) {
-      if (e.target.href) {
-        this.disabled = true
-        setSelected(this, e.target)
-        setTimeout(() => delete this.disabled, 2000)
-      }
-
-      // console.info(this, )
-      // setSelected
+$$('article + aside a').forEach(el => {
+  el.onclick = function({ target }) {
+    if (target.href) {
+      clicked = true
+      setSelected(target.getAttribute('href'))
+      setTimeout(() => clicked = false, 2000)
     }
   }
-
-  disconnectedCallback() {
-    this.observer.disconnect()
-  }
-}
-
-customElements.define('observing-nav', ObservingNav, { extends: 'nav' })
-
+})
 
 // the "Zen switch" to toggle a more focused mode without distractions
 class ZenToggle extends HTMLInputElement {
@@ -66,8 +46,9 @@ customElements.define('zen-toggle', ZenToggle, { extends: 'input' })
 addEventListener('route', function() {
   const el = $('[is=zen-toggle]')
   if (el) el.checked = !!$('.zen')
-})
 
+  $$('article > h2, article > h3').forEach(el => observer.observe(el))
+})
 
 // demo
 class Counter extends HTMLDivElement {

@@ -79,9 +79,12 @@ function renderCode({ name, code, attr, data }) {
   return wrap(klass, pre)
 }
 
-export function renderTable({ rows, attr, head=true }, opts) {
+export function renderTable({ rows, items, attr, head=true }, opts) {
+  const arr = rows || items
+  if (!arr) return ''
 
-  const html = rows.map((row, i) => {
+  const html = arr.map((row, i) => {
+    if (typeof row == 'string') row = row.split(/ *[;|] */)
     const cells = row.map(td => elem(head && !i ? 'th' : 'td', renderInline(td, opts)))
     return elem('tr', cells.join(''))
   })

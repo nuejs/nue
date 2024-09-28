@@ -340,7 +340,7 @@ The current JavaScript frameworks like **Vite** and **Next.js** place their opti
 
 
 
-## Deployement
+## Deployment
 The production-optimized version is generated with the `nue build --production` command. The console output looks like this:
 
 [image]

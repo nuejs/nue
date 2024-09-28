@@ -72,6 +72,13 @@ test('render image', () => {
 test('inline code', () => {
   const html = renderInline('Hey `[zoo] *boo*`')
   expect(html).toBe('Hey <code>[zoo] *boo*</code>')
+
+  expect(renderInline('Hey `<script>`')).toBe('Hey <code>&lt;script&gt;</code>')
+})
+
+test('HTML escaping', () => {
+  const html = renderInline('Hey <script>')
+  expect(html).toBe('Hey &lt;script&gt;')
 })
 
 test('escaping', () => {

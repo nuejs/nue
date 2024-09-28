@@ -260,7 +260,7 @@ export async function createSite(args) {
     let paths = await getAssets({ dir, exts: ['css'], data })
 
     // syntax highlighting
-    if (data.syntax_highlight !== false && data.page?.codeblocks[1]) paths.push(`/@nue/syntax.css`)
+    if (data.syntax_highlight !== false && data.page?.codeblocks[0]) paths.push(`/@nue/syntax.css`)
 
     // cascading order: globals -> area -> page
     sortCSS({ paths, globals: self.globals, dir })

@@ -83,20 +83,19 @@
 }
 
 
-/* initial state for all content elements
+/* initial state for all content elements */
 .feature-area > * {
-  transform: translateY(1.5rem);
+  transform: translate(0);
   transition: .5s;
-  opacity: 0;
+  opacity: 1;
 
   &:nth-child(2) { transition-delay: .2s }
   &:nth-child(3) { transition-delay: .4s }
+
 }
-*/
 
 /* trigger animation when in viewport  */
-.in-viewport > * {
-  transform: translate(0);
-  opacity: 1;
+.feature-area.outside-viewport  > *{
+  transform: translateY(1.5rem);
+  opacity: 0;
 }
-

@@ -163,7 +163,9 @@ function processNestedBlocks(block, reflinks) {
 
     try {
       if (body && block.name != '.' && isYAML(body.trim())) {
-        Object.assign(block.data, parseYAML(body))
+        let data = parseYAML(body)
+        if (Array.isArray(data)) data = { items: data }
+        Object.assign(block.data, data)
         block.has_data = true
       }
     } catch (e) {

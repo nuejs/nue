@@ -1,6 +1,6 @@
 
 
-/* sub navigation in mobile  */
+/* subnavigation in mobile  */
 body > nav {
   position: sticky;
   top: -1px;
@@ -69,55 +69,29 @@ aside:first-child nav {
 }
 
 /* table of contents */
-article + aside {
+article + aside nav {
+  margin-bottom: .2em;
 
   /* overlfow ellipsis */
-  nav a {
+  a {
     max-width: 16em;
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
-  .level-2 {
-    margin-top: 1em;
+  strong {
     font-weight: 550;
     color: var(--gray-800);
   }
 
-  .level-3 {
-    padding-left: 2rem;
-    font-weight: 400;
-    font-size: 85%;
 
-    &:has(+ .level-2) {
-      margin-bottom: 1.5em;
-    }
-  }
-
-
-  nav [aria-selected] {
+  [aria-selected] {
     border-color: var(--main-500);
     border-width: 2px;
     color: var(--main-500);
     font-weight: 550;
     margin-left: -1px;
-  }
-
-  /* h2 without children */
-  .level-2:has(+ .level-2), .level-2:last-child {
-    border-color: transparent;
-    padding-left: 0;
-    font-weight: 400;
-    margin: .1em 0;
-
-    &[aria-selected] {
-      font-weight: 550;
-    }
-  }
-
-  code {
-    font-family: inherit;
   }
 }
 

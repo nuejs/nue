@@ -1,5 +1,5 @@
 
-import { parseInline } from './parse-inline.js'
+import { parseInline, ESCAPED } from './parse-inline.js'
 import { renderTag } from './render-tag.js'
 import { elem } from './document.js'
 
@@ -17,8 +17,12 @@ export function renderToken(token, opts={}) {
 }
 
 function formatText({tag, body }, opts) {
-  const html = tag == 'code' ? body : renderInline(body, opts)
+  const html = tag == 'code' ? renderCode(body) : renderInline(body, opts)
   return elem(tag, html)
+}
+
+function renderCode(code) {
+  return code.replace(/[<>]/g, char => ESCAPED[char])
 }
 
 function renderLink(label, link) {

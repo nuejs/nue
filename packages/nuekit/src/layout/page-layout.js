@@ -98,7 +98,7 @@ const system_tags = [
   { name: 'gallery', create: renderGallery },
   { name: 'markdown', create: ({ content }) => content ? renderInline(content) : '' },
   { name: 'pretty-date', create: ({ date }) => renderPrettyDate(date) },
-  // { name: 'toc', create: renderTOC },
+  { name: 'toc', create: data => data.page.renderTOC() },
   // { name: 'image', create: tags.image },
 ]
 
@@ -130,7 +130,8 @@ export function renderPage(data, comps) {
 
   comps.forEach(comp => {
     if (comp.name) tags[comp.name] = function(data) {
-      return comp.render(data, comps)
+      const { attr } = this
+      return comp.render({ attr, ...data }, comps)
     }
   })
 

@@ -19,7 +19,7 @@ sidenav:
     - CSS best practices: css-best-practices.html
     - Motion and Reactivity: reactivity.html
     - Optimization: performance-optimization.html
-    - What is UX development?: ux-development.html
+    # - What is UX development?: ux-development.html
 
 
   Content development:

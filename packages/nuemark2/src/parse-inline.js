@@ -16,14 +16,21 @@ export const FORMATTING = {
   '•':   'b',
 }
 
+export const ESCAPED = { '<': '&lt;', '>': '&gt;' }
+
 // tested: regexp is faster than custom lookup function
-const SPECIAL_CHARS = /[\*_\["`~\\/|•{\\]|!\[/
+const SPECIAL_CHARS = /[\*_\["`~\\/|•{\\<>]|!\[/
 
 const PARSERS = [
 
   // character escaping first
   (str, char0) => {
     if (char0 == '\\') return { text: str.slice(1, 2), end: 2 }
+  },
+
+  (str, char0) => {
+    const text = ESCAPED[char0]
+    if (text) return { text, end: 1 }
   },
 
   // bold, italics, etc..
@@ -33,7 +40,8 @@ const PARSERS = [
         const len = fmt.length
         const i = str.indexOf(fmt, len + 1)
         const tag = FORMATTING[fmt]
-        return i > 0 ? { is_format: true, tag, body: str.slice(len, i), end: i + len } : { text: str.slice(0, len) }
+        return i == -1 || str[len] == ' ' ? { text: str.slice(0, len) } :
+          { is_format: true, tag, body: str.slice(len, i), end: i + len }
       }
     }
   },

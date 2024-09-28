@@ -26,8 +26,6 @@ export function parseDocument(lines) {
 
   const api = {
 
-    blocks,
-
     get sections() {
       return sectionize(blocks) || [ blocks ]
     },
@@ -101,7 +99,8 @@ function renderNav(blocks) {
 
   const links = headings.map(h => {
     const id = h.attr.id ||createHeadingId(h.text)
-    return elem('a', { href: `#${ id }` }, h.text)
+    const label = h.level == 2 ? elem('strong', h.text) : h.text
+    return elem('a', { href: `#${ id }` }, label)
   })
 
   return links[0] ? elem('nav', links.join('\n')) : ''

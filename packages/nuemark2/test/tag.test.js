@@ -148,6 +148,12 @@ test('[table] tag', () => {
 
 })
 
+test('[table] nested data', () => {
+  const html = renderLines(['[table head]', '  - [foo, bar]', '  - [foo, bar]'])
+  expect(html).toStartWith('<table><tr><th>foo</th><th>')
+  expect(html).toEndWith('<td>bar</td></tr></table>')
+})
+
 test('[button] inline label', () => {
   const html = renderLines(['[button href="/" "Hey, *world*"]'])
   expect(html).toBe('<a href="/" role="button">Hey, <em>world</em></a>')

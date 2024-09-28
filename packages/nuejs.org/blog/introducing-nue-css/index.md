@@ -113,7 +113,7 @@ The design is separated from the HTML structure so that the system can be contro
 ## 2. Cleaner way to write HTML and CSS { #minimalism }
 Nue has its own [CSS best practices](/docs/css-best-practices.html) for writing clear HTML and CSS. The key idea is to leave out all class names that relate to styling and let external CSS take care of the element and/or component look and feel:
 
-```html
+```
 <!-- component name is all naming you need -->
 <div class="gallery">
   <figure>
@@ -132,7 +132,9 @@ Simple means lean and well-organized CSS that is easy to maintain and scale. The
 ## 3. Ditch JavaScript
 When everything is based on a single source of truth, it's trivial to ditch the redundant CSS-in-JS layer in front of your design system, be it Tailwind, **CSS Modules**, or Vanilla Extract. This makes a simpler stack:
 
-[table.small "| CSS-in-JS | Tailwind | Nue"]
+[table.small]
+  - ["", CSS-in-JS, Tailwind, Nue]
+
   - - Key idea
     - Local scoping
     - Utility classes
@@ -154,8 +156,6 @@ When everything is based on a single source of truth, it's trivial to ditch the 
     - Minimalism + Code splitting + Page inlining
 
 
-
-Now, onto results:
 
 
 ## Less coding needed
