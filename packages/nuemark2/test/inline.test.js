@@ -5,6 +5,7 @@ import { parseInline, parseLink } from '../src//parse-inline.js'
 
 test('plain text', () => {
   const tests = [
+    'grid_item_component',
     'Hello, World!',
     'Unclosed "quote',
     'Unclosed ****format',
@@ -15,7 +16,7 @@ test('plain text', () => {
 
   for (const test of tests) {
     const [{ text }] = parseInline(test)
-    expect(test).toBe(text)
+    expect(text).toBe(test)
   }
 })
 

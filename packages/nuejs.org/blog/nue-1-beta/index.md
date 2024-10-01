@@ -5,59 +5,35 @@ desc: A web framework for UX developers
 date: 2024-08-15
 ---
 
-Exactly one year ago I [decided](/blog/backstory/) to create the slickest website generator for UX developers and design-focused organizations. Today this vision is becoming a reality:
-
-[image.larger]
-  small: /img/og-blue.png
-  large: /img/og-blue-big.png
-  size: 747 x 474
-  caption: "Nue offers the shortest path from Figma to CSS"
-
-[.note]
-  ### The gist
-  Nue is simpler. What used to take a React specialist and an absurd amount of JavaScript can now be done by a UX developer and a small amount of CSS.
-
-
-### Who is Nue for?
-Nue is a great fit for the following people:
+Exactly one year ago I [decided](/blog/backstory/) to create a super simple website generator targeted for the following people:
 
 
 1. **UX developers**: who natively jump between **Figma** and **CSS** without a confusing [designer-developer handoff](//medium.com/design-warp/5-most-common-designer-developer-handoff-mishaps-ba96012be8a7) process in the way.
 
+1. **Beginner web developers**: who want to skip the [redundant frontend layers](//roadmap.sh/frontend) and start building websites quickly with HTML, CSS, and JavaScript.
 
-2. **Beginner web developers**: who want to skip the [redundant frontend layers](//roadmap.sh/frontend) and start building websites quickly with HTML, CSS, and JavaScript.
-
-3. **Experienced JS developers**: frustrated with the absurd amount of layers in the [React stack](//roadmap.sh/react) and looking for simpler ways to develop professional websites.
+1. **Experienced JS developers**: frustrated with the absurd amount of layers in the [React stack](//roadmap.sh/react) and looking for simpler ways to develop professional websites.
 
 [.quote]
   > “Nue is **exactly** what I want. As a technical founder, I need easier ways to build websites. I don't want to hire devs and watch all my profits disappear in salaries.”
 
   — Alan Hemmings / [BigNameHunter](//bignamehunter.com/?refer=nuejs) / CEO
 
-4. **Designers**: planning to learn web development, but find the JavaScript ecosystem too scary
+1. **Designers**: planning to learn web development, but find the JavaScript ecosystem too scary
 
-5. **Parents & Teachers**: who wants to educate people [how the web works](//www.websitearchitecture.co.uk/resources/examples/web-standards-model/)
+1. **Parents & Teachers**: who wants to educate people [how the web works](//www.websitearchitecture.co.uk/resources/examples/web-standards-model/)
 
+
+[image.larger]
+  small: /img/og-blue.png
+  large: /img/og-blue-big.png
+  size: 747 x 474
 
 - - -
 
 
 ## What's new?
 **v1.0 Beta** is by far the biggest release yet with five months of work and over [500 files changed](https://github.com/nuejs/nue/pull/316). This is a breakdown of new features, updates, and breaking changes.
-
-
-## Global design system
-[Global design system](/docs/global-design-system.html) is the largest new feature in this release. It guarantees that you always get the same kind of markup for your pages and components, but can use CSS to achieve wildly different designs.
-
-[image]
-  small: /img/global-design-system.png
-  large: /img/global-design-system-big.png
-  caption: Same markup, but wildly different designs
-  href: /docs/global-design-system.html
-
-Think of Nue like a modern-day [CSS Zen Garden](//csszengarden.com/): A demonstration of what you can accomplish with nothing but CSS. Nue frees you from implementing page layouts and basic UI elements over and over for every new page and project. Or as **Brad Frost** [puts it][gds]:
-
-> Global Design System improves the quality and accessibility of the world’s web experiences, saves the world’s web designers and developers millions of hours, and makes better use of our collective human potential. *Brad Frost*
 
 
 
@@ -70,8 +46,6 @@ Nue has a powerful CSS theming system that supports [hot-reloading](/docs/hot-re
 - [Library folders](/docs/project-structure.html#libraries) to hold re-usable CSS which can be explicitly included on your pages with a new `include` property. You can include assets globally, at the application level, or page level. This helps you take maximum advantage of the [CSS cascade](//developer.mozilla.org/en-US/docs/Web/CSS/Cascade).
 
 - [Exclude property](/docs/project-structure.html#exclude) allows you to strip unneeded assets from the request and lighten the payload.
-
-
 
 
 

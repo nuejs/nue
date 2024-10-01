@@ -69,7 +69,7 @@ aside:first-child nav {
 }
 
 /* table of contents */
-article + aside nav {
+.toc {
   margin-bottom: .2em;
 
   /* overlfow ellipsis */
@@ -111,29 +111,15 @@ aside:first-child h3 {
 
   /* UX */
   nav:nth-child(2) & {
-    background-image: url(/icon/user.svg)  /* heart */
+    background-image: url(/icon/wrench.svg)  /* user, heart, bolt */
   }
 
-  /* Reactivity
+  /* Reference */
   nav:nth-child(3) & {
-    background-image: url(/icon/bolt.svg)
-  }
-  */
-
-  /* Content development */
-  nav:nth-child(3) & {
-    background-image: url(/icon/star.svg)
+    background-image: url(/icon/document.svg)
   }
 
-  /* SPA */
-  nav:nth-child(4) & {
-    background-image: url(/icon/squares.svg)
-  }
 
-  /* Reference  */
-  nav:nth-child(5) & {
-    background-image: url(/icon/document.svg);
-  }
 }
 
 

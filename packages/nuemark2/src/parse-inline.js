@@ -2,6 +2,7 @@
 /* Inline tokenizer */
 import { parseTag, parseAttr } from './parse-tag.js'
 
+
 // from long to short
 export const FORMATTING = {
   '**':  'strong',
@@ -16,10 +17,12 @@ export const FORMATTING = {
   '•':   'b',
 }
 
+// chars to espace
 export const ESCAPED = { '<': '&lt;', '>': '&gt;' }
 
 // tested: regexp is faster than custom lookup function
-const SPECIAL_CHARS = /[\*_\["`~\\/|•{\\<>]|!\[/
+const SIGNIFICANT = /[\*_\["`~\\/|•{\\<>]|!\[/
+
 
 const PARSERS = [
 
@@ -91,10 +94,16 @@ const PARSERS = [
 
   // plain text
   (text) => {
-    const i = text.search(SPECIAL_CHARS)
-    return i >= 0 ? { text: text.slice(0, i) } : { text }
+    const i = text.search(SIGNIFICANT)
+    const prev = text[i - 1]
+    const next = text[i + 1]
+    return i >= 0 && (empty(prev) || empty(next)) ? { text: text.slice(0, i) } : { text }
   }
 ]
+
+function empty(char) {
+  return !char || char == ' '
+}
 
 export function parseInline(str) {
   const tokens = []

@@ -1,3 +1,8 @@
+
+/*
+  This file is currently not in use.
+*/
+
 import { promises as fs } from 'node:fs'
 import { join, extname, parse as parsePath } from 'node:path'
 
@@ -10,7 +15,6 @@ async function readSize(dist, path) {
   return raw.length
 }
 
-// not currently in use. make something actually useful later
 export async function printStats(site, args) {
   if (args.dryrun) return
 

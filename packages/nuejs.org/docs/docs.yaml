@@ -6,36 +6,24 @@ sidenav:
   Getting started:
     - What is Nue?: /docs/
     - Installation: installation.html
-    - "Tutorial: Build a website": tutorial.html
-    - Project Structure: project-structure.html
-    - Settings and metadata: settings.html
-    - Command line interface: command-line-interface.html
-    - Frequently asked questions: faq.html
 
   UX development:
-    - Global Design System: global-design-system.html
-    - Page layout: page-layout.html
-    - Custom layouts: custom-layouts.html
-    - CSS best practices: css-best-practices.html
-    - Motion and Reactivity: reactivity.html
-    - Optimization: performance-optimization.html
-    # - What is UX development?: ux-development.html
-
-
-  Content development:
-    - Content development: content.html
-    - Markdown extensions: tags.html
-
-
-  Application development:
-    - Single-page applications: single-page-applications.html
-    - Model development
-    - UI development
+    - Tutorial: tutorial.html
+    - Project structure: project-structure.html
+    - Settings: settings.html
+    - Data: data.html
+    - Content: content.html
+    - Layout: layout.html
+    - Navigation: navigation.html
+    - Styling: styling.html
+    - Scripting: scripting.html
+    - Components: components.html
+    - Optimization: optimization.html
 
 
   Reference:
     - Template syntax: template-syntax.html
     - Reactive components: reactive-components.html
-    - Universal hot-reloading: hot-reloading.html
-    - Content collections: content-collections.html
     - Syntax highlighting: syntax-highlighting.html
+    - CSS best practices: css-best-practices.html
+    - Command line interface: command-line-interface.html

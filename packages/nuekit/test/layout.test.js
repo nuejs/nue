@@ -1,6 +1,6 @@
 // content collection rendering
 
-import { renderGalleryItem } from '../src/layout/gallery.js'
+import { renderPageListItem } from '../src/layout/page-list.js'
 import { renderHead } from '../src/layout/head.js'
 import {
   parseClass,
@@ -13,7 +13,7 @@ import {
 
 
 test('gallery item', () => {
-  const html = renderGalleryItem({
+  const html = renderPageListItem({
     desc: 'Wassup *bro*',
     title: 'Yo',
     url: '/bruh/'
@@ -26,7 +26,7 @@ test('gallery item', () => {
 
 
 test('gallery with thumbs', () => {
-  const html = renderGalleryItem({ title: 'Yo', thumb: 'thumb.png', url: '/' })
+  const html = renderPageListItem({ title: 'Yo', thumb: 'thumb.png', url: '/' })
   expect(html).toStartWith('<li class="is-new"><a href="/"><figure><img')
   expect(html).toEndWith('</figure></a></li>')
 })

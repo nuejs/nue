@@ -3,7 +3,7 @@
 import { parse as parseNue } from 'nuejs-core'
 import { renderInline } from 'nuemark2'
 
-import { renderGallery, renderPrettyDate } from './gallery.js'
+import { renderPageList, renderPrettyDate } from './page-list.js'
 import { renderHead } from './head.js'
 import { renderNav } from './navi.js'
 
@@ -95,10 +95,14 @@ export function renderSinglePage(body = '', data) {
 // template tags
 const system_tags = [
   { name: 'navi', create: renderNav },
-  { name: 'gallery', create: renderGallery },
+
+
+  { name: 'gallery', create: renderPageList }, // @depreciated
+  { name: 'page-list', create: renderPageList },
+
   { name: 'markdown', create: ({ content }) => content ? renderInline(content) : '' },
   { name: 'pretty-date', create: ({ date }) => renderPrettyDate(date) },
-  { name: 'toc', create: data => data.page.renderTOC() },
+  { name: 'toc', create: data => data.page.renderTOC(data.attr) },
   // { name: 'image', create: tags.image },
 ]
 
@@ -126,7 +130,11 @@ export function renderPage(data, comps) {
   }
 
   // nuemark tags
-  const tags = { gallery: renderGallery, toc: data.page.renderTOC }
+  const tags = {
+    'page-list': renderPageList,
+    gallery: renderPageList,
+    toc: data.page.renderTOC
+  }
 
   comps.forEach(comp => {
     if (comp.name) tags[comp.name] = function(data) {

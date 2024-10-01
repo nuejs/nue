@@ -62,17 +62,17 @@ test('block tag', () => {
 // accordion
 test('[accordion] tag', () => {
   const content = [
-    '[accordion.tabbed name="tabs"]',
-    '  ## Something',
-    '  Described here',
-
-    '  ## Another',
-    '  Described here',
+    '[accordion.tabbed name="tabs" open]',
+    '  ## A',
+    '  Desc A',
+    '  ## B',
+    '  Desc B',
   ]
 
   const html = renderLines(content)
-  expect(html).toStartWith('<details class="tabbed" name="tabs"><summary><h2>')
-  expect(html).toInclude('<h2>Another</h2></summary><p>')
+
+  expect(html).toStartWith('<div class="tabbed"><details name="tabs" open><summary>A')
+  expect(html).toInclude('<summary>B</summary><div><p>Desc B</p>')
 })
 
 // list sections
@@ -148,10 +148,17 @@ test('[table] tag', () => {
 
 })
 
-test('[table] nested data', () => {
-  const html = renderLines(['[table head]', '  - [foo, bar]', '  - [foo, bar]'])
+test('[table] nested YAML', () => {
+  const html = renderLines(['[table]', '  - [foo, bar]', '  - [foo, bar]'])
   expect(html).toStartWith('<table><tr><th>foo</th><th>')
   expect(html).toEndWith('<td>bar</td></tr></table>')
+})
+
+test('[table] nested string', () => {
+  const html = renderLines(['[table]', '  a | b', '  c | d'])
+
+  expect(html).toInclude('<th>a</th><th>b</th>')
+  expect(html).toInclude('<td>c</td><td>d</td>')
 })
 
 test('[button] inline label', () => {

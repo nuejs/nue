@@ -20,7 +20,6 @@ function renderBlock(block, opts) {
   const fn = opts?.beforerender
   if (fn) fn(block)
 
-
   return block.is_content ? renderContent(block.content, opts) :
     block.is_heading ? renderHeading(block, opts) :
     block.is_quote ? elem('blockquote', renderBlocks(block.blocks, opts)) :
@@ -79,7 +78,8 @@ function renderCode({ name, code, attr, data }) {
   return wrap(klass, pre)
 }
 
-export function renderTable({ rows, items, attr, head=true }, opts) {
+export function renderTable(data, opts) {
+  const { rows, items, attr, head=true } = data
   const arr = rows || items
   if (!arr) return ''
 

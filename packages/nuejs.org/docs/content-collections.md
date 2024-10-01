@@ -47,22 +47,22 @@ Content collections are "cheap" in a way that they don't cause much performance 
 ## Rendering collections
 
 
-### Gallery tag { #gallery }
-Content collections are rendered with a `gallery` tag. This can be on your [layout modules](custom-layouts.html) for example.
+### Page list tag { #page-list }
+Content collections are rendered with a `page-list` tag. This can reside on your [layout component](custom-layouts.html) for example.
 
 ```html
-<gallery/>
+<page-list/>
 ```
 
 Or on a Markdown page:
 
 ```md
-[gallery]
+[page-list]
 ```
 
 
 #### Text-only HTML layout
-The gallery tag is rendered as follows:
+The page list is rendered as follows:
 
 ```html
 <ul>
@@ -80,7 +80,7 @@ The gallery tag is rendered as follows:
 ```
 
 #### Image gallery layout { #gallery-layout }
-The HTML layout is different when the pages are configured with a [thumb](settings.html#thumb) property:
+The HTML layout is slightly different when the pages are configured with a [thumb](settings.html#thumb) property:
 
 
 ```html

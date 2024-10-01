@@ -101,9 +101,9 @@ marked.use({ renderer })
 
 // marked.use(customHeadingId());
 
-if (false) {
+if (true) {
   // perftest('marked', marked.parse)
-  perftest('marked', marked.parse)
+  // perftest('marked', marked.parse)
   perftest('nue', nuemark)
   // perftest('nue', nuemark)
 

@@ -6,6 +6,91 @@ class: apidoc
 Nue has a [hierarchical system](project-structure.html#data) for settings and configuration options. Here are all settings for Nue and your site, pages and components.
 
 
+
+
+### Data propagation
+The data is defined in three levels:
+
+1. The global, site-wide data is defined in `site.yaml` at the root directory.
+
+2. Application data is defined in `*.yaml` files inside the application directory. Each application sub-directory can also have its own data files.
+
+3. Page-specific data is defined in the *frontmatter* section of the Markdown page.
+
+The data gets extended as you move from the site level to the page level.
+
+[image.gridpaper]
+  small: /img/data-propagation.png
+  large: /img/data-propagation-big.png
+  size: 746 x 406
+
+
+### Data example
+Let's say you have a page called `blog/hello-world.md` and the following global data in the `site.yaml` file:
+
+
+```yaml
+title: Emma Bennet
+description: A designer and UX engineer
+origin: https://emmabennet.co
+favicon: /img/favicon.png
+og_image: /img/og_emma.png
+```
+
+Then you have blog-specific metadata in `blog/blog.yaml` extending/overriding the global data:
+
+```yaml
+title: Emma Bennet / Blog
+author: Emma Bennet
+og_image: /img/og_blog.png
+```
+
+Finally, the page-specific data is set on the front of the "hello-world.md" file:
+
+```yaml
+\---
+title: Hello, World
+date: 2023-12-05
+\---
+```
+
+With the above configuration in place, the document's `<head>` section is rendered as follows:
+
+
+```html
+<head>
+  <!-- Nue default values -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <!-- globals from site.yaml -->
+  <link rel="shortcut icon" src="/img/favicon.jpg">
+  <meta name="description" content="A designer and UX engineer">
+
+  <!-- directory specific values from app.yaml -->
+  <meta name="author" content="Emma Bennet">
+  <meta property="og:image" content="https://emmabennet.co/img/og_blog.png">
+
+  <!-- document specific values from the .md file -->
+  <title>Hello, World</title>
+  <meta property="article:published_time" content="2023-12-05">
+</head>
+```
+
+[.note]
+  ### Why YAML?
+  Nue uses YAML as the main configuration language. As a content-focused format, it is by far the easiest one to grasp by non-technical people. It is the default choice in most Markdown-powered website generators.
+
+
+
+
+The scripts, styles and components are automatically included in the page dependency tree similar to how data is propagated. The assets on the application root are included in all pages in the app and sub-directory assets are included on the pages in that sub-directory. For example:
+
+
+
+
+
+
 ## Nue settings
 List of all Nue-specific configuration options in the `site.yaml` file. These settings impact the system behaviour and are always global, that is, they cannot be overwritten in app or page level.
 
@@ -88,32 +173,9 @@ Value for "robots" meta property. Use "noindex" to exclude the whole website fro
 ### theme_color
 Value for [theme color](//developer.mozilla.org/en-US/docs/Web/HTML/Element/meta/name/theme-color) meta property. This is a color suggestion for user agents to customize the display of the page.
 
-### thumb
-A thumbnail image for the document when listed and rendered by the [gallery](content-collections.html#gallery) tag.
-
-### title_template
-Allows formatting the value of the `<title>` tag in the way you like. A value such as `'%s | Acme Inc.'` prints "My page | Acme Inc." where the `%s` is replaced by the page title.
-
 ### viewport
 The [viewport](//developer.mozilla.org/en-US/docs/Web/HTML/Viewport_meta_tag) value. The default is: "width=device-width,initial-scale=1"
 
-
-
-
-## Layout settings
-Settings to define the global navigational elements on your page with a common [YAML-based syntax](page-layout.html#nav-syntax).
-
-### header
-HTML layout for the global header.
-
-### footer
-HTML layout for the global footer.
-
-### burger_menu
-HTML layout for the burger menu.
-
-### Disabling layouts {.no_api}
-You can [disable individual layouts](custom-layouts.html#disabling) for areas or individual pages with settings such as `banner: false` or `footer: false`.
 
 
 ## Area settings
@@ -139,8 +201,6 @@ Specifies a Web Component for your page sections. [Learn more](reactivity.html#s
 
 
 
-
-
 ## Page settings
 List of page-specific settings as specified in a page directory or in the front matter section of the Markdown file. Most of these settings can also be set globally or at area-level.
 
@@ -149,24 +209,12 @@ List of page-specific settings as specified in a page directory or in the front 
 Name of the application directory a page belongs to. For example, the root level `index.md` could set this to "home" and grab the layout, data, scripts, styles and components from that directory. This would keep the root level clean from front-page specific assets.
 
 
-### author
-The author meta tag.
-
-### class
-CSS class name for the body element.
-
-
 ### content_collection
 This is a directory name for a [content collection](content-collections.html).
 
 ### collection_name
 The name of the content collection variable. By default, this is the name of the directory i.e. the value of the `content_collection` option.
 
-### date
-The publication date of the article. The content collections are sorted by this property. The most recent one is listed as the first article.
-
-### description
-The value for the description meta tag.
 
 ### include
 A list of assets to be included from a [library directory](project-structure.html#libraries). These values are concatenated to the possible area-specific includes.
@@ -177,16 +225,6 @@ A list of assets to be excluded from a [library directory](project-structure.htm
 
 ### inline_css
 Setting this to `true` inlines all CSS directly into the page to make it load faster. See [performance optimization](performance-optimization.html).
-
-### og
-Relative path to open graph image. Please also supply the [origin property](#origin) to turn this value into an absolute URL, which is the required format.
-
-### robots
-Value for "robots" meta property. Use "noindex" to exclude the page from search engines.
-
-
-### title
-The value of the `<title>` tag — the most important meta tag for SEO. By default, this is the value of the Markdown `# Level one title` if not explicitly defined.
 
 ### unlisted
 Do not include the page in content collections.

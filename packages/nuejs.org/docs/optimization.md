@@ -2,6 +2,7 @@
 # Performance optimization
 Nue allows you to reach performance of a text-only website without compromising on design, in other words "as fast as you can get".
 
+
 ## Minimalism
 Lean, means fast. We recommend you to develop your site with [Nue CSS best practices](css-best-practices.html) to get the cleanest and smallest codebase possible with the least amount of bloat. It's quite easy to achieve significant reduction in the amount of code that needs to be written. For example, here is the Next.js documentation area compared to this one:
 
@@ -26,6 +27,17 @@ inline_css: true
 ```
 
 Setting this globally is also possible, but then you need to re-compile all pages every time you edit a CSS file that is shared between the pages. For this reason, it's advisable to configure this for your most popular landing pages only. This website, for example, is only using the setting on the front page.
+
+
+### Excluding assets { #exclude }
+You can exclude assets from the pages with an `exclude` property:
+
+```yaml
+exclude: [syntax-highlight, video]
+```
+
+This allows you to strip CSS and scripts from the request and reduce the payload.
+
 
 
 ## View transitions

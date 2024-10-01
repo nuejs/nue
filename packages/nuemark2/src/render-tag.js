@@ -9,16 +9,15 @@ import { join } from 'node:path'
 // built-in tags
 const TAGS = {
 
-  accordion() {
-    const html = this.sections?.map(blocks => {
-      const summary = elem('summary', this.render([blocks[0]]))
-      return summary + this.render(blocks.slice(1))
+  accordion({ name, open }) {
+    const html = this.sections?.map((blocks, i) => {
+      const head = elem('summary', blocks[0].text)
+      const body = elem('div', this.render(blocks.slice(1)))
+      const opened = open === true && i == 0 || i === open
+      return elem('details', { name, open: opened }, head + body)
     })
 
-    if (html) {
-      const acc = elem('details', this.attr, html.join('\n'))
-      return wrap(this.data.wrapper, acc)
-    }
+    return html && elem('div', this.attr, html.join('\n'))
   },
 
   button(data) {
@@ -67,8 +66,10 @@ const TAGS = {
   },
 
   table() {
-    const { attr, data } = this
-    const table = renderTable({ attr, ...data }, this.opts)
+    const { attr, data, blocks } = this
+    let { items } = data
+    if (!items && blocks && blocks[0]) items = blocks[0].content
+    const table = renderTable({ attr, items, ...data }, this.opts)
     return wrap(data.wrapper, table)
   },
 
