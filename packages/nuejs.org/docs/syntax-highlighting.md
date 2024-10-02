@@ -6,15 +6,24 @@ include: [syntax-table]
 Nue uses automatically highlights syntax blocks with [Glow](/blog/introducing-glow/). It's a classless and fully semantic library that is specifically designed to work well with the global design system.
 
 
-## Styling syntax blocks
+
+### Rendered HTML markup
+Syntax blocks consist are rendered as bunch of standard HTML tags only and there are no class names. For example, the following Markdown block:
 
 
-### HTML markup
-Syntax blocks consist of standard HTML tags only and there are no class names. For example:
+```
+\``` javascript
+// a comment
+"A string value"
+\```
+```
+
+Generates the following HTML output:
+
 
 ```html
 <pre>
-  <code language="typescript">
+  <code language="javascript">
     <sup>// a comment</sup>
     <em>"A string value"</em>
     ...

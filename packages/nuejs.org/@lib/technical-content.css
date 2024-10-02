@@ -76,7 +76,8 @@ article {
     }
   }
 
-  p > code, li > code {
+  /* not under pre */
+  li > code, p > code, td > code {
     font-weight: 600;
     font-size: 110%;
     color: var(--gray-950);
@@ -362,6 +363,9 @@ pre {
   > * {
     flex: 1;
   }
+
+  :first-child { margin-top: 0 }
+  :last-child { margin-bottom: 0 }
 
   @media (max-width: 900px) {
     flex-direction: column;

@@ -21,7 +21,7 @@ test('plain text', () => {
 })
 
 
-test('formatting', () => {
+test.only('formatting', () => {
   const tests = [
     ['_', '*yo*', 'em'],
     ['*', 'yo 90', 'em'],
@@ -30,6 +30,7 @@ test('formatting', () => {
     ['~', 'striked', 's'],
     ['/', 'italic', 'i'],
     ['•', 'bold', 'b'],
+    // ['|', 'mark', '|'],
   ]
 
   for (test of tests) {

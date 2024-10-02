@@ -35,21 +35,23 @@ The more generic the name, the more reusable it is. He used the famous [media ob
 
 But that's not how Adam understood the sentence. Instead of moving towards more reusable class names, he introduced a custom grammar to inline styling rules directly to HTML:
 
-[code]
-  <!-- "uilist" -->
-  <div class="
-  > sticky top-0 z-40 w-full backdrop-blur flex-none
-  > transition-colors duration-500 lg:z-50 lg:border-b
-  > bg-white/95 supports-backdrop-blur:bg-white/60
-  > dark:bg-transparent">
+```
+<!-- "uilist" -->
+<div class="
+> sticky top-0 z-40 w-full backdrop-blur flex-none
+> transition-colors duration-500 lg:z-50 lg:border-b
+> bg-white/95 supports-backdrop-blur:bg-white/60
+> dark:bg-transparent">
 
-    <!-- "uilist-item" -->
-    <span class="
-  >   py-4 border-b border-slate-900/10 lg:px-8
-  >   lg:border-0 dark:border-slate-300/10 px-4">
-      ...
-    </span>
-  </div>
+  <!-- "uilist-item" -->
+  <span class="
+>   py-4 border-b border-slate-900/10 lg:px-8
+>   lg:border-0 dark:border-slate-300/10 px-4">
+    ...
+  </span>
+</div>
+```
+
 
 This was quite a big step away from what Nicolas was saying, who resisted the idea of coupling visual information to elements, like everyone else in the industry back then.
 

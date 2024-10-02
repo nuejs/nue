@@ -6,10 +6,6 @@ include: [tabs]
 # Content
 Nue provides an extended Markdown syntax for authoring web content. In addition to the basic text formatting, you have sections, grids, responsive images, videos, tabbed content, and more. You can rapidly assemble complex web pages without ever touching a single line of code or the need to set up complex cloud-based content database systems. Just simple versionable text files, directly accessible on your file system, and editable with your favorite editor.
 
-[bunny-video]
-  videoId: 3bf8f658-185a-449c-93b9-9bd5e1ad0d05
-  poster: /img/nuemark-splash.jpg
-
 
 ## Basic Markdown
 Nue offers a full [Markdown support](//daringfireball.net/projects/markdown/). That is: All the familiar things like headings, quotes, lists, and fenced code blocks are supported:
@@ -33,80 +29,210 @@ Followed with
 
 - An unordered
 - list of items
-
-\```js
-// here is a javascript code block
-function hello() {
-  return "world"
-}
-\```
 ```
-
-
-Markdown content can reside within sections, blocks, and grid items. The generated HTML is restricted to: `h1`, `h2`, `h3`, `h4`, `h5`, `h6`, `p`, `strong`, `em`, `a`, `ul`, `li`, `blockquote`, and `code`.
-
 
 ## Extended Markdown
 
 
 ### Formatting
+Nue offers a bunch of formatting options beyond starndard Markdown
 
-i, em , strong, mark, code, ....
+
+[table]
+  Markdown | HTML | Example
+  `I'm **bold**`   | `I'm <strong>bold</strong>` | I'm **bold**
+  `I'm __bold__`   | `I'm <strong>bold</strong>` | I'm __bold__
+  `I'm •bold•`     | `I'm <b>bold</b>`           | I'm •bold•
+  `I'm *italic*`   | `I'm <em>italic</em>`       | I'm *italic*
+  `I'm _italic_`   | `I'm <em>italic</em>`       | I'm _italic_
+  `I'm /italic/`   | `I'm <i>italic</i>`         | I'm /italic/
+  `I'm `code`      | `I'm <code>code</code>`     | I'm `code`
+  `I'm ~striked~`  | `I'm <s>striked</s>`        | I'm ~striked~
+  `I'm "quoted"`   | `I'm <q>quoted</q>`         | I'm "quoted"
+  `I'm |marked|`   | `I'm <mark>marked</mark>`   | I'm |marked|
+
 
 ### Variables
+Variable names between curly braces are printed out:
 
-### Code blocks
-
-### Comments
-
-### Sections
-Just like books can be divided into chapters, your long-form articles and landing pages are often divided into sections. These sections are separated with three or more dashes (`---`) or equals (`===`) characters:
-
-
-```yaml
-\---
-title: Page with sections
-\---
-
-# The hero section
-With an epic subtitle
-
-\=====
-
-## A second section
-With another great subtitle
+``` md
+Page title: **{ title }**
 ```
 
-### Blocks
-Blocks are chunks of content with an alternate styling. Think of highlighted content like tips, notes, and alerts. The syntax takes the form of `[.classname]`. For example:
+The above will output "Page title: **{ title }**"
+
+### Code blocks
+Code blocks are enclosed between triple backticks followed by (optional) language hint for the underlying [Glow](blog/introducing-glow/) syntax highlighter. For example:
+
+
+```
+\``` css
+// here is a CSS code block
+:root {
+  --base-100: #f3f4f6;
+  --base-200: #e5e7eb;
+  --base-300: #d1d5db;
+  --base-400: #6b7280;
+}
+\```
+```
+
+You can also provde a class name and setup line numbering:
+
+
+```
+\``` •.purple numbered•
+function hello() {
+  // world
+}
+\```
+```
+
+The above will be rendered as:
+
+
+``` .purple numbered
+function hello() {
+  // world
+}
+```
+
+
+### Code highligting
+You can use a set of special characters in the code to highlight content:
+
+
+``` js numbered
+/* Code highlighting examples */
+
+>Highlight lines by prefixing them with ">"
+
+Here's a •highlighted region• within a single line
+
+// bring out errors
+export ••defaultt•• interpolate() {
+  return "something"
+}
+
+// prefix removed lines with -
+-const html = glow(code)
+
+// and added lines with +
++const html = glow(code, { •numbered: true• })
+
+```
+
+[.options]
+  `>` highlights the line. The default background color is blue
+
+  `-` marks the line as removed with a red background (default)
+
+  `+` marks the line as inserted with green background (default)
+
+  `|` highlights the line. Similar to ">" but for Markdown syntax only
+
+  `\` escapes the first character
+
+
+Use bullet character (`•`) to highlight text regions within a line. The following sentence:
+
+`These •two words• are highlighted and ••these words•• are erroneous`
+
+is rendered as:
 
 ```md
-[.note]
-  ### Content is king
+These •two words• are highlighted and ••these words•• are erroneous
+```
+
+
+### Generic blocks
+Blocks are chunks of content wrapped inside a class name. Here is a "note" block:
+
+```md
+[block.note]
+  ### Note
   Web design is 100% content and 95% typography
 ```
 
-The "note" class must be specified on your design system and the design should be implemented in the website's CSS.
+The "note" gets the following look on this website:
+
+[.note]
+  ### Note
+  Web design is 100% content and 95% typography
 
 
-Block content can be divided into multi-block layouts where each item is separated with a triple-dash. For example:
+#### HTML output
+Blocks are simple `<div>`s with a CSS class name:
+
+```
+<div class="note">
+  <h3>Note</h3>
+  <p>Web design is 100% content and 95% typography</p>
+</div>
+```
+
+Note that the component name "block" can be omitted and you can simply write the classname prefixed with a dot. For example:
+
+```md
+[.alert]
+  ### Note
+  You should avoid inline styling like black death
+```
+
+
+### Stacks and grids
+Nue automaticslly splits the the nested content multi-block layouts where each item is separated with a triple-dash ("---") or based on the heading structure. For example:
 
 ```md
 [.stack]
-  ## First item
+  ### First item
   With content
 
-  ---
-  ## Second item
+  ### Second item
   With content
 ```
 
-Again, the name "stack" must be implemented in your website CSS by the UX developer.
+The above renders as follows under this website:
+
+[.stack.card]
+  ### First item
+  With content
+
+  ### Second item
+  With content
+
+#### HTML output
+The stack is rendered with two inner divs:
+
+```
+<div class="stack">
+  <div>
+    <h3>First item</h3>
+    <p>With content</p></div>
+  <div>
+    <h3>Second item</h3>
+    <p>With content</p>
+  </div>
+</div>
+```
+
+#### Code stack
+Here is another stack example with two code blocks separated with a triple-dash:
+
+
+```
+[.stack]
+  ``` css.pink
+  /* some CSS code */
+  ```
+  ---
+  ``` css.blue
+  /* some CSS code */
+  ```
+```
 
 
 [.stack]
-  ### First code
-
   ``` .pink
   input, textarea, select {
     font-family: inherit;
@@ -118,35 +244,55 @@ Again, the name "stack" must be implemented in your website CSS by the UX develo
   }
   ```
 
-  ### Second code
+  ---
 
   ``` .blue
-  input, textarea, select {
-    font-family: inherit;
-    font-size: inherit;
-    color: inherit;
-    width: 100%;
-    padding: .7em 1em;;
-    border-radius: 4px;
+  [type=checkbox] {
+    width: inherit;
+    padding: 0;
+  }
+
+  fieldset {
+    border: none;
   }
   ```
 
 
-### Tags
-Markdown extensions or "tags" start with a square bracket, followed by a tag name and options, followed by a closing square bracket. For example:
+
+#### Nesting
+Blocks can be nested to form more complex layouts on your richer marketing/landing pages:
+
+
+```md
+[.feature]
+  ## Hello, World!
+  Let's put a nested stack here
+
+  [.stack]
+    ### First item
+    With description
+
+    ### Second item
+    With description
+```
+
+
+
+## Built-in tags
+Nue comes with a set of build-in Markdown extensions or "tags" that significantly increases your capability to build rich, interactive websites. These tags are defined between square brackets. For example:
 
 ```md
 [image /img/cat.png]
 ```
 
-Tag options can be supplied in several ways:
+The tag name (ie. "image") is followed by options, which can be supplied in several ways:
 
 
 ```md
 // named options
 [image •src•="hello.png" •caption•="Hello, World" •alt•="Hello image"]
 
-// nested options
+// nested YAML
 [image]
 |  caption: Hello, World!
 |  large: hello-big.png
@@ -163,30 +309,12 @@ Tag options can be supplied in several ways:
 [image explainer.png]
 | This nested content is the caption for the image.
 | You can add Markdown here like *emphasis* and `inline code`
+
+
+// tags can be inlined too
+This is an inline [svg "/icon/meow.svg"] image
 ```
 
-
-### Nesting
-Blocks, stacks, and grids can be nested to form more complex layouts on your richer marketing/landing pages:
-
-
-```md
-[.feature]
-  ## Hello, World!
-  Let's put a nested stack here
-
-  [.stack]
-    ### First item
-    With description
-    ---
-    ### Second item
-    With description
-```
-
-
-
-
-## Built-in tags
 
 ### Images
 Images are marked as follows:
@@ -211,7 +339,9 @@ Images can link to URL's with `href` attribute:
 [Art direction](//web.dev/articles/codelab-art-direction) support:
 
 ```md
-[image small="ui-tall.png" large="ui-wide.png" ]
+[image]
+  large: ui-wide.png
+  small: ui-tall.png
   caption: This is the image caption
   alt: This is the alt text
   loading: eager
@@ -508,6 +638,30 @@ Accordion is rendered as a list of [<details>](//developer.mozilla.org/en-US/doc
 ```
 
 
+### Inline SVG
+Inline SVG images are marked as follows:
+
+```md
+[svg /icon/continue.svg]
+```
+
+Which would render the contents of the SVG file. This tag is particularly useful together with the button tag:
+
+```md
+[button href="/docs/"]
+  *Learn more* [svg /icon/chevron-right.svg]
+```
+
+The above would render the follwing HTML for you to style with CSS:
+
+```
+<a href="/docs/" role="button">
+  <em>Learn more</em>
+  <svg viewBox="0 0 24 24">...</svg>
+</a>
+```
+
+
 
 ### Tabs
 Tabbed panes are `[accordion]` elements with a `name` and `open` attribute, but styled as tabs:
@@ -538,7 +692,8 @@ The above markup looks like this:
   The contents of the second element
 
 
-
+### Custom tags
+Look for the documentation on how to create [custom Markdown extensions](components.html#markdown), which can run both server-side and client-side. You can also create hybrid or "isomorhpic" tags rendering on both ends.
 
 
 

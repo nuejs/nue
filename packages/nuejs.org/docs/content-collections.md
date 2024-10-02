@@ -15,7 +15,7 @@ date: 2023-12-11
 \---
 ```
 
-In addition to these user-defined properties, Nue provides the following system properties for each content entry.
+In addition to these user-defined metadata, like title, date, and description, Nue provides the following system properties for each content entry.
 
 
 - `url` "/docs/glossary/copyleft.html" (example)
@@ -106,7 +106,7 @@ Example: [simple-blog.nuejs.org](//simple-blog.nuejs.org/)
 
 
 
-## Custom page list layout
+## Custom layouts
 You can render the collections with fully customized markup with Nue's [template syntax](template-syntax.html) on your layout files. For example:
 
 

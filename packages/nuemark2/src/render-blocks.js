@@ -84,7 +84,7 @@ export function renderTable(data, opts) {
   if (!arr) return ''
 
   const html = arr.map((row, i) => {
-    if (typeof row == 'string') row = row.split(/ *[;|] */)
+    if (typeof row == 'string') row = row.split(/ *[;|] +/)
     const cells = row.map(td => elem(head && !i ? 'th' : 'td', renderInline(td, opts)))
     return elem('tr', cells.join(''))
   })

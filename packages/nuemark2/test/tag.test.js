@@ -171,6 +171,7 @@ test('[button] nested label', () => {
   expect(html).toStartWith('<a role="button"><img src="/joku.png"')
 })
 
+
 test('[image] tag', () => {
   const html = renderLines(['[image /meow.png]'])
   expect(html).toBe('<figure><img loading="lazy" src="/meow.png"></figure>')
@@ -203,4 +204,15 @@ test('[video] tag', () => {
 test('! shortcut', () => {
   const html = renderLines(['[! /meow.mp4 autoplay]'])
   expect(html).toStartWith('<video src="/meow.mp4" type="video/mp4" autoplay>')
+})
+
+
+test('[svg]', () => {
+  const html = renderLines(['[svg test.svg]'])
+  expect(html).toBe('<svg/>')
+})
+
+test('[svg] nested in [button]', () => {
+  const html = renderLines(['[button]', '  [svg test.svg] *Yo*'])
+  expect(html).toBe('<a role="button"><svg/> <em>Yo</em></a>')
 })

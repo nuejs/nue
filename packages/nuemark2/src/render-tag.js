@@ -20,6 +20,17 @@ const TAGS = {
     return html && elem('div', this.attr, html.join('\n'))
   },
 
+  block() {
+    const { render, attr, blocks } = this
+    const divs = sectionize(blocks)
+
+    const html = !divs || !divs[1] ? render(blocks) :
+      divs.map(blocks => elem('div', render(blocks))).join('\n')
+
+    return elem('div', attr, html)
+  },
+
+
   button(data) {
     const label = this.renderInline(data.label || data._) || this.innerHTML || ''
     return elem('a', { ...this.attr, href: data.href, role: 'button' }, label)
@@ -46,6 +57,7 @@ const TAGS = {
     return elem('figure', attr, img)
   },
 
+
   list() {
     const items = this.sections || getListItems(this.blocks)
     const item_attr = { class: this.data.items }
@@ -54,12 +66,12 @@ const TAGS = {
     return wrap(this.data.wrapper, ul)
   },
 
-  svg() {
+  svg(data) {
     const src = data.src || data._
     const path = join('.', src)
 
     try {
-      return src?.endsWith('.svg') ? readFileSync(path, 'utf-8') : ''
+      return src?.endsWith('.svg') && readFileSync(path, 'utf-8')
     } catch (e) {
       console.error('svg not found', path)
     }
@@ -81,6 +93,7 @@ const TAGS = {
     return elem('video', attr, this.innerHTML)
   },
 
+
   // shortcut
   '!': function() {
     const tag = getMimeType(this.data._).startsWith('video') ? TAGS.video : TAGS.image
@@ -90,22 +103,12 @@ const TAGS = {
 
 export function renderTag(tag, opts={}) {
   const tags = opts.tags = { ...TAGS, ...opts?.tags }
-  const { name, attr, blocks } = tag
-  const fn = tags[name]
-
-  // anonymous tag
-  if (!name) {
-    const divs = sectionize(blocks)
-
-    const html = !divs || !divs[1] ? renderBlocks(blocks, opts) :
-      divs.map(blocks => elem('div', renderBlocks(blocks, opts))).join('\n')
-
-    return elem('div', attr, html)
-  }
+  const fn = tags[tag.name || 'block']
 
   if (!fn) return renderIsland(tag)
 
   const data = extractColonVars({ ...opts.data, ...tag.data })
+  const { blocks } = tag
 
   const api = {
     ...tag,
