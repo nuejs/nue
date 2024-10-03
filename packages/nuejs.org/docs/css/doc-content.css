@@ -71,21 +71,8 @@
   code {
     min-width: 8em;
   }
-
 }
 
-
-/* currently: TODO badge in SPA page */
-h1 code {
-  background-color: var(--main-100);
-  color: var(--main-600);
-  letter-spacing: .01em;
-  font-family: inherit;
-  border-radius: .2em;
-  padding: .2em .4em;
-  font-size: 1.2rem;
-  float: right;
-}
 
 .apidoc section h3 {
   font-family: monospace;

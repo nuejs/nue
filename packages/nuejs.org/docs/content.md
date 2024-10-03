@@ -145,140 +145,7 @@ These •two words• are highlighted and ••these words•• are erroneous
 ```
 
 
-### Generic blocks
-Blocks are chunks of content wrapped inside a class name. Here is a "note" block:
-
-```md
-[block.note]
-  ### Note
-  Web design is 100% content and 95% typography
-```
-
-The "note" gets the following look on this website:
-
-[.note]
-  ### Note
-  Web design is 100% content and 95% typography
-
-
-#### HTML output
-Blocks are simple `<div>`s with a CSS class name:
-
-```
-<div class="note">
-  <h3>Note</h3>
-  <p>Web design is 100% content and 95% typography</p>
-</div>
-```
-
-Note that the component name "block" can be omitted and you can simply write the classname prefixed with a dot. For example:
-
-```md
-[.alert]
-  ### Note
-  You should avoid inline styling like black death
-```
-
-
-### Stacks and grids
-Nue automaticslly splits the the nested content multi-block layouts where each item is separated with a triple-dash ("---") or based on the heading structure. For example:
-
-```md
-[.stack]
-  ### First item
-  With content
-
-  ### Second item
-  With content
-```
-
-The above renders as follows under this website:
-
-[.stack.card]
-  ### First item
-  With content
-
-  ### Second item
-  With content
-
-#### HTML output
-The stack is rendered with two inner divs:
-
-```
-<div class="stack">
-  <div>
-    <h3>First item</h3>
-    <p>With content</p></div>
-  <div>
-    <h3>Second item</h3>
-    <p>With content</p>
-  </div>
-</div>
-```
-
-#### Code stack
-Here is another stack example with two code blocks separated with a triple-dash:
-
-
-```
-[.stack]
-  ``` css.pink
-  /* some CSS code */
-  ```
-  ---
-  ``` css.blue
-  /* some CSS code */
-  ```
-```
-
-
-[.stack]
-  ``` .pink
-  input, textarea, select {
-    font-family: inherit;
-    font-size: inherit;
-    color: inherit;
-    width: 100%;
-    padding: .7em 1em;;
-    border-radius: 4px;
-  }
-  ```
-
-  ---
-
-  ``` .blue
-  [type=checkbox] {
-    width: inherit;
-    padding: 0;
-  }
-
-  fieldset {
-    border: none;
-  }
-  ```
-
-
-
-#### Nesting
-Blocks can be nested to form more complex layouts on your richer marketing/landing pages:
-
-
-```md
-[.feature]
-  ## Hello, World!
-  Let's put a nested stack here
-
-  [.stack]
-    ### First item
-    With description
-
-    ### Second item
-    With description
-```
-
-
-
-## Built-in tags
+### Tags
 Nue comes with a set of build-in Markdown extensions or "tags" that significantly increases your capability to build rich, interactive websites. These tags are defined between square brackets. For example:
 
 ```md
@@ -394,6 +261,31 @@ Here is a more complex example with `href`, `small` and `large` attributes:
 </figure>
 ```
 
+### SVG
+Inline SVG images are marked as follows:
+
+```md
+[svg /icon/continue.svg]
+```
+
+Which would render the contents of the SVG file. This tag is particularly useful together with the button tag:
+
+```md
+[button href="/docs/"]
+  *Learn more* [svg /icon/chevron-right.svg]
+```
+
+The above would render the follwing HTML for you to style with CSS:
+
+```
+<a href="/docs/" role="button">
+  <em>Learn more</em>
+  <svg viewBox="0 0 24 24">...</svg>
+</a>
+```
+
+
+
 
 ### Videos
 Videos are marked as follows:
@@ -474,6 +366,10 @@ Buttons are marked as follows:
 // with class name and a nested body
 [button.secondary href="/docs/"]
   Learn more
+
+// with inline SVG
+[button href="/docs/"]
+  *Learn more* [svg /icon/chevron-right.svg]
 ```
 
 [.options]
@@ -638,28 +534,6 @@ Accordion is rendered as a list of [<details>](//developer.mozilla.org/en-US/doc
 ```
 
 
-### Inline SVG
-Inline SVG images are marked as follows:
-
-```md
-[svg /icon/continue.svg]
-```
-
-Which would render the contents of the SVG file. This tag is particularly useful together with the button tag:
-
-```md
-[button href="/docs/"]
-  *Learn more* [svg /icon/chevron-right.svg]
-```
-
-The above would render the follwing HTML for you to style with CSS:
-
-```
-<a href="/docs/" role="button">
-  <em>Learn more</em>
-  <svg viewBox="0 0 24 24">...</svg>
-</a>
-```
 
 
 
@@ -692,10 +566,139 @@ The above markup looks like this:
   The contents of the second element
 
 
+
+### Blocks
+Blocks are chunks of content wrapped inside a class name. Here is a "note" block:
+
+```md
+[block.note]
+  ### Note
+  Web design is 100% content and 95% typography
+```
+
+The "note" gets the following look on this website:
+
+[.note]
+  ### Note
+  Web design is 100% content and 95% typography
+
+
+#### HTML output
+Blocks are simple `<div>`s with a CSS class name:
+
+```
+<div class="note">
+  <h3>Note</h3>
+  <p>Web design is 100% content and 95% typography</p>
+</div>
+```
+
+Note that the component name "block" can be omitted and you can simply write the classname prefixed with a dot. For example:
+
+```md
+[.alert]
+  ### Note
+  You should avoid inline styling like black death
+```
+
+
+
+### Stacks and grids
+Nue automaticslly splits the the nested content multi-block layouts where each item is separated with a triple-dash ("---") or based on the heading structure. For example:
+
+```md
+[.stack]
+  ### First item
+  With content
+
+  ### Second item
+  With content
+```
+
+The above renders as follows under this website:
+
+[.stack.card]
+  ### First item
+  With content
+
+  ### Second item
+  With content
+
+#### HTML output
+The stack is rendered with two inner divs:
+
+```
+<div class="stack">
+  <div>
+    <h3>First item</h3>
+    <p>With content</p></div>
+  <div>
+    <h3>Second item</h3>
+    <p>With content</p>
+  </div>
+</div>
+```
+
+#### Code stack
+Here is another stack example with two code blocks separated with a triple-dash:
+
+
+```
+[.stack]
+  ``` css.pink
+  /* some CSS code */
+  ```
+  ---
+  ``` css.blue
+  /* some CSS code */
+  ```
+```
+
+
+[.stack]
+  ``` .pink
+  input, textarea, select {
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    width: 100%;
+    padding: .7em 1em;;
+    border-radius: 4px;
+  }
+  ```
+
+  ---
+
+  ``` .blue
+  [type=checkbox] {
+    width: inherit;
+    padding: 0;
+  }
+
+  fieldset {
+    border: none;
+  }
+  ```
+
+
+
+#### Nesting
+Blocks can be nested to form more complex layouts on your richer marketing/landing pages:
+
+
+```md
+[.feature]
+  ## Hello, World!
+  Let's put a nested stack here
+
+  [.stack]
+    ### First item
+    With description
+
+    ### Second item
+    With description
+```
+
+
 ### Custom tags
 Look for the documentation on how to create [custom Markdown extensions](components.html#markdown), which can run both server-side and client-side. You can also create hybrid or "isomorhpic" tags rendering on both ends.
-
-
-
-
-

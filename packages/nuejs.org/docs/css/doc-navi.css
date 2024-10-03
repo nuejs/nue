@@ -41,7 +41,7 @@ aside {
   /* link styling */
   nav > a {
     border-left: var(--border);;
-    padding: .5em 1em;
+    padding: .45em 1em;
     white-space: nowrap;
     display: block;
     font-size: 85%;
@@ -59,7 +59,7 @@ aside {
 
 /* sidebar only */
 aside:first-child nav {
-  margin-bottom: 2.5em;
+  margin-bottom: 1.5em;
 
   [aria-selected] {
     background: var(--main-500);
@@ -70,7 +70,7 @@ aside:first-child nav {
 
 /* table of contents */
 .toc {
-  margin-bottom: .2em;
+  margin: 1.5em 0;
 
   /* overlfow ellipsis */
   a {
@@ -83,6 +83,14 @@ aside:first-child nav {
   strong {
     font-weight: 550;
     color: var(--gray-800);
+  }
+
+  nav {
+    margin-bottom: .3em;
+
+    &:has(> :nth-child(2)) {
+      margin-bottom: 1em;
+    }
   }
 
 
@@ -109,20 +117,17 @@ aside:first-child h3 {
     background-image: url(/icon/badge.svg)  /* cog, badge, shield, star */
   }
 
-  /* UX */
+  /* websites */
   nav:nth-child(2) & {
-    background-image: url(/icon/wrench.svg)  /* user, heart, bolt */
+    background-image: url(/icon/wrench.svg)  /* squares, rectangles, wrench, globe, user, heart, bolt */
   }
 
-  /* Reference */
+  /* extensions */
   nav:nth-child(3) & {
-    background-image: url(/icon/document.svg)
+    background-image: url(/icon/cube.svg) /*  puzzle-piece, cube, , document, */
   }
-
 
 }
-
-
 
 
 /* zen mode */

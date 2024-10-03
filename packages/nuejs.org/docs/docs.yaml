@@ -6,24 +6,23 @@ sidenav:
   Getting started:
     - What is Nue?: /docs/
     - Installation: installation.html
+    - Command line interface: command-line-interface.html
 
-  UX development:
+  Building websites:
     - Tutorial: tutorial.html
     - Project structure: project-structure.html
-    - Settings: settings.html
-    - Data: data.html
+    - Settings and data: settings.html
     - Content: content.html
     - Layout: layout.html
-    - Navigation: navigation.html
     - Styling: styling.html
     - Scripting: scripting.html
-    - Components: components.html
     - Optimization: optimization.html
-
-
-  Reference:
-    - Template syntax: template-syntax.html
-    - Reactive components: reactive-components.html
-    - Syntax highlighting: syntax-highlighting.html
     - CSS best practices: css-best-practices.html
-    - Command line interface: command-line-interface.html
+
+  Building extensions:
+    - Template syntax: template-syntax.html
+    - Markdown extensions: /
+    - Server components: /
+    - Client components: reactive-components.html
+    - Glow color palettes: syntax-highlighting.html
+

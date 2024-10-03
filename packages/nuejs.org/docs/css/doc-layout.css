@@ -4,6 +4,8 @@ main {
   flex-direction: column;
   display: flex;
   gap: 1em;
+
+  h1 { margin-top: 0 }
 }
 
 article {
@@ -58,7 +60,7 @@ article + aside {
 
   body > nav { display: none }
 
-  main { margin-top: 5.5em }
+  main { margin-top: 5em }
 
   article {
     margin-left: 19rem;
@@ -66,10 +68,10 @@ article + aside {
   }
 
   aside {
+    height: calc(100vh - 6.5rem);
+    padding: 0 0 1em .6em;
     position: fixed;
     overflow-y: auto;
-    height: calc(100vh - 7rem);
-    padding: 0 0 7em .6em;
     display: block;
 
     /* left sidebar */
