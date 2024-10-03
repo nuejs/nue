@@ -259,7 +259,7 @@ function processNode(opts) {
       // client side component
       if (is_custom && !component) {
         setJSONData(node, data)
-        node.attribs.custom = ""
+        node.attribs.custom = name
         node.name = name
         return // must return
       }

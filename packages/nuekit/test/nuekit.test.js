@@ -315,7 +315,7 @@ test('single-page app index', async () => {
   // const html = await readDist(kit.dist, 'index.html')
 
   expect(html).toInclude('hotreload.js')
-  expect(html).toInclude('is="test"')
+  expect(html).toInclude('<test custom="test">')
 })
 
 
