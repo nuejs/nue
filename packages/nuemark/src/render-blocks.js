@@ -75,6 +75,14 @@ function renderCode({ name, code, attr, data }) {
   const klass = attr.class
   delete attr.class
   const pre = elem('pre', attr, glow(code, { language: name, numbered}))
+
+  const caption = data.caption || data._
+
+  if (caption) {
+    const figcaption = elem('figcaption', renderInline(caption))
+    return elem('figure', { class: klass }, figcaption + pre)
+  }
+
   return wrap(klass, pre)
 }
 

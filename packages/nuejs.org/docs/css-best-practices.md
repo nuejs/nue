@@ -128,7 +128,7 @@ Simple selectors make your CSS easy to read and maintain. They keep your file si
 ## Write clean HTML { #clean-markup }
 Avoid using unnecessary divs, spans and class names in your [custom layouts](custom-layouts.html):
 
-``` .bad Unnecessary divs and class names"
+```html.bad "Unnecessary divs and class names"
 <div class="chat-notification">
   <div class="chat-notification-logo-wrapper">
     <img class="chat-notification-logo" src="/img/chat.svg" alt="Chat icon">
@@ -142,12 +142,12 @@ Avoid using unnecessary divs, spans and class names in your [custom layouts](cus
 
 Instead, you should write clean and semantic HTML:
 
-[code.good caption="Clean, semantic markup"]
-  <div class="•notification•">
-    <h3>ChitChat</h3>
-    <p>You have a new message</p>
-  </div>
-
+```html.good "Clean, semantic markup"
+<div class="•notification•">
+  <h3>ChitChat</h3>
+  <p>You have a new message</p>
+</div>
+```
 
 Clean HTML is significantly easier to read and work with. Use a class name only on the root element and let CSS selectors do the rest. It's surprising how little class names you need with clean, semantic markup. This website, for example, has only four class names on the global scope: "grid", "card", "stack" and "note". "Global namespace pollution" is essentially a myth and is trivial to avoid.
 
@@ -156,12 +156,12 @@ Clean HTML is significantly easier to read and work with. Use a class name only 
 ## Create re-usable class names { #reuse }
 Always find ways to extract reusable pieces from your CSS code. For example, the above notification component could be written as:
 
-[code.good caption="Using a re-usable class name"]
-  <div class="notification •card•">
-    <h3>ChitChat</h3>
-    <p>You have a new message</p>
-  </div>
-
+```html.good "Using a re-usable class name"
+<div class="notification •card•">
+  <h3>ChitChat</h3>
+  <p>You have a new message</p>
+</div>
+```
 
 Here, the component was broken into two pieces: A highly re-usable "card" component and a notification-specific "notification" component:
 
@@ -195,25 +195,26 @@ Now the "card" class can be applied to any element or component you desire, redu
 ## Avoid inline styling { #external-css }
 Don't style your components directly on the markup:
 
-[code.bad caption="Inline styling: The styles are written directly into the markup"]
-  <div class="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-lg flex items-center space-x-4">
-    <div class="shrink-0">
-      <img class="h-12 w-12" src="/img/chat.svg" alt="ChitChat Logo">
-    </div>
-    <div>
-      <div class="text-xl font-medium text-black">ChitChat</div>
-      <p class="text-slate-500">You have a new message</p>
-    </div>
+```html.bad "Inline styling: The styles are written directly into the markup"
+<div class="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-lg flex items-center space-x-4">
+  <div class="shrink-0">
+    <img class="h-12 w-12" src="/img/chat.svg" alt="ChitChat Logo">
   </div>
+  <div>
+    <div class="text-xl font-medium text-black">ChitChat</div>
+    <p class="text-slate-500">You have a new message</p>
+  </div>
+</div>
+```
 
 Instead, write clean markup and style it externally:
 
-[code.good caption="External styling: The styles are decoupled from the markup"]
-  <div class="notification card">
-    <h3>ChitChat</h3>
-    <p>You have a new messge</p>
-  </div>
-
+```html.good "External styling: The styles are decoupled from the markup"
+<div class="notification card">
+  <h3>ChitChat</h3>
+  <p>You have a new messge</p>
+</div>
+```
 
 External styling is the key to professional UX development:
 

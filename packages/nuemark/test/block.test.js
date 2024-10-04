@@ -124,6 +124,12 @@ test('render fenced code', () => {
   expect(html).toStartWith('<div class="pink"><pre><code language="css"><span>')
 })
 
+test('fenced code with caption', () => {
+  const html = renderLines(['``` css.bad "Hey *there*"', 'em {}', '```'])
+  expect(html).toStartWith('<figure class="bad"><figcaption>Hey <em>there</em>')
+  expect(html).toEndWith('</i></code></pre></figure>')
+})
+
 test('multi-line list entries', () => {
   const [ list ] = parseBlocks(['* foo', '  boy', '* bar'])
   expect(list.entries).toEqual([ [ "foo", "boy" ], [ "bar" ] ])
