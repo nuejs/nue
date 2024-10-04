@@ -18,23 +18,22 @@ port: 8083
 origin: https://simple-blog.nuejs.org
 og: /img/og.jpg
 
-header:
-  navigation:
+
+navigation:
+  header:
     - Emma Bennet: /
     - Contact: /contact/
 
-footer:
-  copyright:
+  footer:
     - © Emma Bennet: /
 
-  social:
     - image: /img/twitter.svg
       url: //x.com/tipiirai
       alt: Twitter (X) profile
       size: 22 x 22
 
     - image: /img/github.svg
-      url: //github.com/nuejs/
+      url: //github.com/nuejs/nue/
       alt: Github Projects
       size: 22 x 22
 
