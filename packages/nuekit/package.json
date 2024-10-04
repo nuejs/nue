@@ -30,9 +30,6 @@
     "nuejs-core": "*",
     "nuemark": "*"
   },
-  "devDependencies": {
-    "@happy-dom/global-registrator": "^14.12.3"
-  },
   "jest": {
     "setupFilesAfterEnv": [
       "jest-extended/all",
