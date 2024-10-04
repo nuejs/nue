@@ -1,7 +1,7 @@
 {
   "name": "nuekit",
-  "version": "1.0.0-beta.2",
-  "description": "Web Framework For UX Developers. Build the slickest websites in the world and wonder why you ever did them any other way",
+  "version": "1.0.0-RC.1",
+  "description": "The UX Framework for the Web",
   "homepage": "https://nuejs.org",
   "license": "MIT",
   "type": "module",

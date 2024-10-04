@@ -35,7 +35,7 @@ export function renderTokens(tokens, opts) {
 }
 
 export function renderInline(str, opts) {
-  return renderTokens(parseInline(str), opts)
+  return str ? renderTokens(parseInline(str), opts) : ''
 }
 
 

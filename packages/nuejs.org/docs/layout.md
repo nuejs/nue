@@ -192,6 +192,7 @@ mastnav:
   - Documentation: /docs/
   - About: /about/
   - Blog: /blog/
+  - "v1.0 is out!": /blog/v1.0/ "badge"
 ```
 
 The header would render as follows
@@ -205,9 +206,13 @@ The header would render as follows
     <a href="/docs/">Documentation</a>
     <a href="/about/">About</a>
     <a href="/blog/">Blog</a>
+    <a href="/blog/v1.0/" class="badge">v1.0 is out!</a>
   </nav>
 </header>
 ```
+
+A quoted string ("badge") after the URL becomes a class name for the link.
+
 
 #### Hierarchical navigation
 You can also supply hierarchical data for the navi tag:
@@ -248,6 +253,7 @@ Now `<navi :items="footer"/>` would render the following:
   </nav>
 </div>
 ```
+
 
 
 ### Markdown

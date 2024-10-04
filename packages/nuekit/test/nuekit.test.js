@@ -231,20 +231,21 @@ test('layout components', async () => {
 
 
 test('page layout', async () => {
-  await write('site.yaml', 'header: { navi: [{ image: foo }, bar] }\nfooter: { navi: [bar] }')
-  await write('layout.html', '<aside>Sidebar</aside><aside @name="complementary">Aside</aside>')
+  await write('layout.html', `
+    <header>Header</header>
+    <aside>Aside</aside>
+    <aside @name="beside">Beside</aside>
+  `)
+  await write('site.yaml', 'aside: false')
   await write('index.md', '# Hey')
 
   const kit = await getKit()
   const html = await kit.gen('index.md')
 
-  expect(html).toInclude('<header>')
-  expect(html).toInclude('<footer>')
-  expect(html).toInclude('<a>bar</a></nav>')
-  expect(html).toInclude('<aside>Sidebar</aside>')
-  expect(html).toInclude('<aside>Aside</aside>')
-
-  // console.info(html)
+  expect(html).not.toInclude('false')
+  expect(html).toInclude('<header>Header</header>')
+  expect(html).not.toInclude('<aside>Aside</aside>')
+  expect(html).toInclude('<aside>Beside</aside>')
 })
 
 

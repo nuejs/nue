@@ -31,21 +31,13 @@ A file named `404.md` in the root level, acts as a target for non-existent files
 These are the four different kind of folders you can have in Nue
 
 
-### Root
-Frontpage
-All scripts, styles, and components in the root level are dependencies for the front page and all other root level pages, so they are not propagated upwards to the application directories.
-
-You may want to clean up the root directory from front page assets by placing them into a folder named "home", for example, and declaring it in the frontmatter area of the front page:
-
-```yaml
-appdir: home
-```
-
-With the above setting all assets inside the "home" directory become dependencies of your root level `index.md`.
+### Media
+....
 
 
 ### Applications
 ...
+
 
 ### Globals
 You can define directories that are global in `site.yaml`. For example:
@@ -74,6 +66,19 @@ libs: ["@lib", lib]
 
 These libraries can reside both on the root level, and inside a specific application. Once the libraries have been defined, you include library assets in `site.yaml`, application data (like `docs/app.yaml`), or in the page's frontmatter with an `include` statement as follows:
 
+
+
+
+### Root directory
+All scripts, styles, and components in the root level are dependencies for the front page and all other root level pages, so they are not propagated upwards to the application directories.
+
+You may want to clean up the root directory from front page assets by placing them into a folder named "home", for example, and declaring it in the frontmatter area of the front page:
+
+```yaml
+appdir: home
+```
+
+With the above setting all assets inside the "home" directory become dependencies of your root level `index.md`.
 
 
 

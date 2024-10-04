@@ -18,30 +18,28 @@ favicon: /icon/favicon.png
 # preload header hover image
 prefetch: [/icon/present-light.svg]
 
-# Navigation
-header:
-  Branding:
-    - image: /img/logo.svg
-      class: logo
-      alt: Nue logo
-      size: 60 × 18
-      url: /
 
-  Site navigation:
-    - Docs: /docs/
-    - Blog: /blog/
-    - Nue 1.0 beta ›: /blog/nue-1-beta/ "status pill"
+# information architecture
+mastnav:
+  - image: /img/logo.svg
+    class: logo
+    alt: Nue logo
+    size: 60 × 18
+    url: /
+  - Docs: /docs/
+  - Blog: /blog/
+  - Nue 1.0 beta ›: /blog/nue-1-beta/ "status pill"
 
-  Toolbar:
-    - image: /icon/x-logo.svg
-      url: //x.com/tipiirai
-      class: social
-      alt: X logo
-      size: 39 x 39
+toolbar:
+  - image: /icon/x-logo.svg
+    url: //x.com/tipiirai
+    class: social
+    alt: X logo
+    size: 39 x 39
 
-    - 6k: //github.com/nuejs/nue "github pill"
+  - 6.1k: //github.com/nuejs/nue "github pill"
 
-
+# burger menu
 burger_menu:
   - Home: /
   - Docs: /docs/
@@ -49,26 +47,20 @@ burger_menu:
   - ---
   - GitHub: //github.com/nuejs/nue
 
-footer:
-  branding:
-    - image: /img/logo.svg
-      size: 65 × 19
-      url: /
+footernav:
+  Developers:
+    - What is Nue?: /docs/
+    - Installation: /docs/installation.html
+    - Blog: /blog/
+    - FAQ: /docs/faq.html
+    - GitHub: //github.com/nuejs/nue
 
-  navi:
-    Developers:
-      - What is Nue?: /docs/
-      - Installation: /docs/installation.html
-      - Blog: /blog/
-      - FAQ: /docs/faq.html
-      - GitHub: //github.com/nuejs/nue
-
-    Key Concepts:
-      - UX development: /docs/ux-development.html
-      - Global Design System: /docs/global-design-system.html
-      - CSS best practices: /docs/css-best-practices.html
-      - Content development: /docs/content.html
-      - Single-page apps: /docs/single-page-applications.html
+  Key Concepts:
+    - UX development: /docs/ux-development.html
+    - Global Design System: /docs/global-design-system.html
+    - CSS best practices: /docs/css-best-practices.html
+    - Content development: /docs/content.html
+    - Single-page apps: /docs/single-page-applications.html
 
 
 # Markdown link references

@@ -18,7 +18,7 @@ body > header {
     gap: 2em;
   }
 
-  [aria-label=Toolbar] {
+  nav + nav {
     margin-left: auto;
     gap: 1em;
   }
@@ -123,9 +123,11 @@ button[popovertarget] {
 /* global footer */
 body > footer {
   padding-block: 5em;
+  display: flex;
+  gap: 6em;
 
   > :first-child {
-    margin-bottom: 2em;
+    width: 65px;
   }
 
   h3 {
@@ -138,10 +140,6 @@ body > footer {
     display: block;
     padding: .5em 0;
     font-weight: 400;
-  }
-
-  a:has(img) {
-    padding: 0;
   }
 
   @media (max-width: 700px) {

@@ -33,10 +33,7 @@ body > nav {
 /* both sidebars (left and right) */
 aside {
 
-  h3 {
-    font-size: 90%;
-    margin: 0 0 1em;
-  }
+  h3 { font-size: 90% }
 
   /* link styling */
   nav > a {
@@ -108,9 +105,8 @@ aside:first-child nav {
 /* icons */
 aside:first-child h3 {
   background: 0 50% no-repeat;
+  margin: 0 0 .6em -.55em;
   padding-left: 1.7em;
-  margin-left: -.55em;
-
 
   /* Content Framework */
   nav:nth-child(1) & {

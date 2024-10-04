@@ -1,6 +1,6 @@
 
 /*
-  This file is currently not in use.
+  Not in use currently
 */
 
 import { promises as fs } from 'node:fs'

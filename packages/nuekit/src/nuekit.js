@@ -11,8 +11,8 @@ import { initNueDir } from './init.js'
 import { createSite } from './site.js'
 import { fswatch } from './nuefs.js'
 
-import { renderPage, renderSinglePage } from './layout/page-layout.js'
 import { log, colors, getAppDir, parsePathParts, extendData } from './util.js'
+import { renderPage, getSPALayout } from './layout/page.js'
 
 
 // the HTML5 doctype
@@ -90,14 +90,14 @@ export async function createKit(args) {
 
     // markdown data: meta, sections, headings, links
     const raw = await read(path)
-    const page = nuedoc(raw)
-    const { meta } = page
+    const doc = nuedoc(raw)
+    const { meta } = doc
 
     const { dir } = parsePath(path)
     const data = await site.getData(meta.appdir || dir)
 
     // YAML data
-    Object.assign(data, parsePathParts(path), { page })
+    Object.assign(data, parsePathParts(path), { doc })
     extendData(data, meta)
 
     // content collection
@@ -119,10 +119,11 @@ export async function createKit(args) {
   // Markdown page
   async function renderMPA(path) {
     const data = await getPageData(path)
+    const { doc } = data
     const file = parsePath(path)
 
     const lib = await site.getServerComponents(data.appdir || file.dir, data)
-    return DOCTYPE + renderPage(data, lib)
+    return DOCTYPE + renderPage({ doc, data, lib })
   }
 
 
@@ -147,7 +148,7 @@ export async function createKit(args) {
       const [ spa, ...spa_lib ] = parseNue(html)
       return DOCTYPE + spa.render(data, [...lib, ...spa_lib])
     }
-    const [ spa ] = parseNue(renderSinglePage(html, data))
+    const [ spa ] = parseNue(getSPALayout(html, data))
     return DOCTYPE + spa.render(data)
   }
 
