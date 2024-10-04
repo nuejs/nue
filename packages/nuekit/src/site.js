@@ -3,7 +3,7 @@ import { join, extname, parse as parsePath } from 'node:path'
 
 import yaml from 'js-yaml'
 import { parse as parseNue } from 'nuejs-core'
-import { nuedoc } from 'nuemark2'
+import { nuedoc } from 'nuemark'
 
 import { fswalk } from './nuefs.js'
 import {
@@ -260,7 +260,7 @@ export async function createSite(args) {
     let paths = await getAssets({ dir, exts: ['css'], data })
 
     // syntax highlighting
-    if (data.syntax_highlight !== false && data.page?.codeblocks[0]) paths.push(`/@nue/syntax.css`)
+    if (data.syntax_highlight !== false && data.doc?.codeblocks[0]) paths.push(`/@nue/syntax.css`)
 
     // cascading order: globals -> area -> page
     sortCSS({ paths, globals: self.globals, dir })

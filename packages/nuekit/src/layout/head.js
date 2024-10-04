@@ -1,7 +1,7 @@
 
 import { extname } from 'node:path'
 
-import { elem } from 'nuemark2'
+import { elem } from 'nuemark'
 
 import { TYPES } from '../nueserver.js'
 

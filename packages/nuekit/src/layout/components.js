@@ -1,6 +1,5 @@
 
-import { elem, parseSize, renderInline } from 'nuemark2'
-
+import { elem, parseSize, renderInline } from 'nuemark'
 
 export function renderPageList(data) {
   const key = data.collection_name || data.content_collection

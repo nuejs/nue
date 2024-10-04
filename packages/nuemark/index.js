@@ -1,18 +1,18 @@
-export { parseInline as renderInline } from 'marked'
 
-import { renderLines } from './src/render.js'
+import { renderLines } from './src/render-blocks.js'
+import { parseDocument } from './src/document.js'
 
-// returns { html, meta, sections, headings, links }
+const EOL = /\r\n|\r|\n/
+
 export function nuemark(str, opts) {
-  return renderLines(str.split(/\r\n|\r|\n/), opts)
+  return renderLines(str.split(EOL), opts)
 }
 
-// returns HTML
-export function nuemarkdown(str, opts) {
-  return nuemark(str, opts).html
+export function nuedoc(str) {
+  return parseDocument(str.split(EOL))
 }
 
-// returns { meta, sections, headings, links }
-export { parsePage } from './src/parse.js'
-
-export { renderPage } from './src/render.js'
+/* utilities */
+export { renderInline } from './src/render-inline.js'
+export { parseSize } from './src/render-tag.js'
+export { elem } from './src/document.js'

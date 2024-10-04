@@ -1,7 +1,7 @@
 {
   "name": "nuemark",
-  "version": "0.4.2",
-  "description": "Markdown dialect for rich, interactive web content",
+  "version": "0.5.0",
+  "description": "Markdown parser UX-focused web projects",
   "homepage": "https://nuejs.org",
   "license": "MIT",
   "type": "module",
@@ -16,7 +16,6 @@
   },
   "dependencies": {
     "js-yaml": "^4.1.0",
-    "marked": "^13.0.3",
     "nue-glow": "*"
   },
   "jest": {

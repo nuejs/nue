@@ -2,7 +2,7 @@ import { promises as fs, existsSync } from 'node:fs'
 import { join, parse as parsePath } from 'node:path'
 
 import { parse as parseNue, compile as compileNue } from 'nuejs-core'
-import { nuedoc } from 'nuemark2'
+import { nuedoc } from 'nuemark'
 
 import { lightningCSS, buildJS } from './builder.js'
 import { createServer, send } from './nueserver.js'
@@ -81,7 +81,6 @@ export async function createKit(args) {
 
     if (is_dev && data.hotreload !== false) push('hotreload')
     if (data.components?.length) push('mount')
-    // if (data.page?.isomorphic) push('nuemark')
     if (data.view_transitions || data.router) push('view-transitions')
   }
 

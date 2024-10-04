@@ -128,16 +128,17 @@ Simple selectors make your CSS easy to read and maintain. They keep your file si
 ## Write clean HTML { #clean-markup }
 Avoid using unnecessary divs, spans and class names in your [custom layouts](custom-layouts.html):
 
-[code.bad caption="Unnecessary divs and class names"]
-  <div class="chat-notification">
-    <div class="chat-notification-logo-wrapper">
-      <img class="chat-notification-logo" src="/img/chat.svg" alt="Chat icon">
-    </div>
-    <div class="chat-notification-content">
-      <h4 class="chat-notification-title">ChitChat</h4>
-      <p class="chat-notification-message">You have a new message</p>
-    </div>
+``` .bad Unnecessary divs and class names"
+<div class="chat-notification">
+  <div class="chat-notification-logo-wrapper">
+    <img class="chat-notification-logo" src="/img/chat.svg" alt="Chat icon">
   </div>
+  <div class="chat-notification-content">
+    <h4 class="chat-notification-title">ChitChat</h4>
+    <p class="chat-notification-message">You have a new message</p>
+  </div>
+</div>
+```
 
 Instead, you should write clean and semantic HTML:
 
