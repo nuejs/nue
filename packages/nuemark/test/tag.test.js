@@ -1,6 +1,10 @@
+import { fileURLToPath } from 'node:url'
+import { dirname, relative, join } from 'node:path'
 
 import { parseTag, valueGetter, parseAttr, parseSpecs } from '../src/parse-tag.js'
 import { renderLines } from '../src/render-blocks.js'
+
+const relpath = relative(process.cwd(), dirname(fileURLToPath(import.meta.url)))
 
 
 // parsing
@@ -206,13 +210,14 @@ test('! shortcut', () => {
   expect(html).toStartWith('<video src="/meow.mp4" type="video/mp4" autoplay>')
 })
 
+const svgpath = join(relpath, 'test.svg')
 
 test('[svg]', () => {
-  const html = renderLines(['[svg test.svg]'])
+  const html = renderLines([`[svg ${svgpath}]`])
   expect(html).toBe('<svg/>')
 })
 
 test('[svg] nested in [button]', () => {
-  const html = renderLines(['[button]', '  [svg test.svg] *Yo*'])
+  const html = renderLines(['[button]', `  [svg ${svgpath}] *Yo*`])
   expect(html).toBe('<a role="button"><svg/> <em>Yo</em></a>')
 })
