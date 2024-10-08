@@ -361,20 +361,4 @@ pre {
   }
 }
 
-.stack {
-  display: flex;
-  margin: 2em 0;
-  gap: 1.5em;
 
-  > * {
-    flex: 1;
-  }
-
-  :first-child { margin-top: 0 }
-  :last-child { margin-bottom: 0 }
-
-  @media (max-width: 900px) {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-}

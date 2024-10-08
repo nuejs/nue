@@ -6,16 +6,14 @@ appdir: home
 ---
 
 
-# Web Framework For UX Developers
-Build the slickest websites in the world and wonder why you ever did them any other way
+# UX Framework for the Web
+Nue brings cleaner code, faster tooling, and better results. It makes you a professional UX developer.
 
 [button href="/docs/installation.html" "Get started"]
 
-[image]
+[image size="1100 × 712"]
   small: /img/figma-to-css.png
   large: /img/figma-to-css-big.png
-  alt: Figma design system converted to CSS
-  size: 1100 × 712
 
 
 ## Web developer's dream

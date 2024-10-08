@@ -1,7 +1,7 @@
 ---
 hero_title: "*Nue 1.0 (Beta)* — A web framework for UX developers"
 title: Nue 1.0 (Beta)
-desc: A web framework for UX developers
+desc: We just released a beta version of the upcoming Nue 1.0 to give you a little idea what the final product will eventually look like.
 date: 2024-08-15
 ---
 

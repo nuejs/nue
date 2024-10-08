@@ -118,27 +118,3 @@ h1, h2, h3, h4, h5 {
 }
 
 
-
-/* generic card */
-.card {
-  box-shadow: 0 0 .8em #0001;
-  border-radius: .5em;
-  border: var(--border);
-  padding: 1.5em;
-  font-size: 95%;
-
-  > :first-child { margin-top: 0 }
-  > :last-child { margin-bottom: 0 }
-
-  h3 {
-    margin-bottom: -.5em;
-  }
-
-  &:has(a) {
-    cursor: pointer;
-
-    &:hover {
-      box-shadow: 0 0 0 2px white, 0 0 0 4px var(--main-500);
-    }
-  }
-}

@@ -1,0 +1,74 @@
+
+
+1. Better code
+  Content first
+    Tailwind home vs Nue
+    Full source codes to scroll
+
+  Less and UX focused
+    Next.js blog starter | Nue blog starter
+
+    Table
+      Next
+        TypeScript models    3 files    60   | 1.7K
+        JSX components       19 files   480  | 11K
+        Total coding         22 files   540  | 12.7K
+
+      Nue
+        HTML layout code     2 files    15    | 0.4K
+        Global CSS           3 files    142   | 2.1K
+        Library CSS          5 files    216   | 3.2K
+        Total coding         10 files   474   | 5.7K
+
+  Timeless products and skills
+    Tailwind button vs Nue
+
+
+2. Better tooling
+  HMR:
+    Table
+      Server components
+      Reactive islands
+      Content
+      Styling
+      Metadata
+      Page switching
+      Multi-browser
+    Image: tabs + browser
+
+  Leaner
+    Table
+      NPM modules
+      Repository size
+      Modules per compile
+
+    # IMG: NPM console output
+
+  Faster:
+    Table
+      Startup time
+      Compile time
+      Build time
+
+      HMR  100ms - 2000ms   | 10ms - 200ms
+
+    Next.js CLI --> Nue CLI
+
+3. Better websites
+
+  Slick, global motion:
+    CSS superpowers
+    motion.css tab open .. View transitions & @starting style
+
+  Better design
+    TS himmel --> content first / reusable design / optional JS
+
+  Faster
+    Next.js docs
+
+
+---
+4. Roadmap
+  Nue JS, Glow
+
+5. Try Nue

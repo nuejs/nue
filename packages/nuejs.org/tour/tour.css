@@ -1,0 +1,90 @@
+
+body {
+  background-color: #edf1f5;
+  padding: 0 5%;
+}
+
+main {
+  border-bottom: none;
+  padding: 0;
+}
+
+/* landing page */
+.hero {
+  text-align: center;
+  padding-top: 15%;
+
+  .logo {
+    width: 70px;
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-size: 4em;
+    font-weight: 550;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+}
+
+.intro {
+  max-width: 1100px;
+  margin: 10% auto;
+
+  h1 {
+    font-size: 3em;
+    font-weight: 550;
+    letter-spacing: -0.03em;
+    text-align: center;
+    max-width: inherit;
+  }
+
+}
+
+.stack {
+  margin: 3.5em 0;
+
+  div  {
+    padding: 3em 2.75em 5em;
+  }
+
+  h2, figure, ul { margin: .5em 0 }
+
+  img { width: 1.7em }
+
+  ul {
+    list-style: none;
+    border-left: 4px solid var(--gray-200);
+    padding-left: .4em;
+  }
+  li {
+    margin: .2em 0;
+  }
+}
+
+
+.slide {
+  display: flex;
+  align-items: center;
+  gap: 5em;
+
+  > * { flex: 1 }
+
+  img {
+    max-height: 100vh;
+  }
+
+  h3 {
+    background: url(icon/code.svg) center left no-repeat;
+    background-size: 1.3em;
+    padding-left: 1.5em;
+    margin-top: -2em;
+  }
+}
+
+.with-total tr:last-child td:last-child {
+  font-weight: 600;
+  text-decoration: 2px underline double var(--main-500);
+  text-underline-offset: .5em;
+}
+.small { font-size: 80% }

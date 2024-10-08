@@ -1,8 +1,4 @@
 
-<!--
-  Filling some of the slots on the global design system
--->
-
 <!-- back button  -->
 <nav @name="subheader">
   <a href="/blog/">Back</a>
@@ -17,6 +13,16 @@
   <author :bind="authors[author || authors.default]"/>
 
 </header>
+
+<!-- custom component: <author/> -->
+<div @name="author" class="author">
+  <span><img :src="img" width="36" height="36"></span>
+
+  <aside>
+    <b>{ name }</b>
+    <a href="//x.com/{ username }">@{ username }</a>
+  </aside>
+</div>
 
 <!-- page footer: join mailing list / "call to action" -->
 <footer @name="pagefoot">
@@ -38,14 +44,5 @@
 </footer>
 
 
-<!-- custom component: <author/> -->
-<div @name="author" class="author">
-  <span><img :src="img" width="36" height="36"></span>
-
-  <aside>
-    <b>{ name }</b>
-    <a href="//x.com/{ username }">@{ username }</a>
-  </aside>
-</div>
 
 

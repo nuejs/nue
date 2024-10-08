@@ -9,7 +9,7 @@ sidenav:
     - Command line interface: command-line-interface.html
 
   Building websites:
-    - Tutorial: tutorial.html
+    - Quick start: tutorial.html
     - Project structure: project-structure.html
     - Settings and data: settings.html
     - Content: content.html
@@ -19,10 +19,10 @@ sidenav:
     - Optimization: optimization.html
     - CSS best practices: css-best-practices.html
 
-  Building extensions:
+  Creating extensions:
     - Template syntax: template-syntax.html
     - Markdown extensions: /
     - Server components: /
-    - Client components: reactive-components.html
-    - Glow color palettes: syntax-highlighting.html
+    - Reactive islands: reactive-components.html
+    - Syntax highlighting: syntax-highlighting.html
 

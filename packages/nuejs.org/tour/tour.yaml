@@ -1,0 +1,6 @@
+header: false
+footer: false
+heading_ids: false
+
+exclude: [navigation, popover]
+include: [technical-content]

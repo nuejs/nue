@@ -44,6 +44,7 @@ test('sectionize', () => {
   const tests = [
     ['### h3', 'para', '### h3', 'para', '#### h4', 'para'],
     ['# h1', 'para', '## h2', 'para', '### h3', 'para'],
+    ['para', '## h3', '---', 'para', '## h2'],
     ['## lol', '---', '## bol'],
     ['lol', '---', 'bol'],
   ]
@@ -71,7 +72,7 @@ test('multiple sections', () => {
     '---', 'Bruh', '***',
   ])
 
-  expect(doc.sections.length).toBe(3)
+  expect(doc.sections.length).toBe(2)
   const html = doc.render({ data: { sections: ['hero'] }})
   expect(html).toStartWith('<section class="hero"><h1>Hello</h1>')
   expect(html).toEndWith('<hr></section>')
