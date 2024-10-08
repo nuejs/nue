@@ -11,7 +11,7 @@ class: intro
   ## Better code
   - Content first
   - Less, but better
-  - Stadards based
+  - Standards based
   ---
 
   [! icon/bolt.svg]
