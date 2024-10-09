@@ -2,5 +2,5 @@ header: false
 footer: false
 heading_ids: false
 
+include: [technical-content, button, video]
 exclude: [navigation, popover]
-include: [technical-content]

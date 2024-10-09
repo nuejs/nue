@@ -3,26 +3,31 @@
 class: intro
 ---
 
-# The UX Framework for the Web
+# Why Nue?
 
 [.stack.of-cards]
+  [! /tour/icon/bolt.svg]
+  ## Better tooling
+  - Close to metal
+  - New levels of speed
+  - Amazing DX
 
-  [! icon/stack.svg]
+  [Learn more](/tour/1-tooling/)
+  ---
+
+  [! /tour/icon/stack.svg]
   ## Better code
   - Content first
-  - Less, but better
-  - Standards based
+  - Web Standards
+  - Design Engineering
+
+  [Learn more](/tour/2-code/content.html)
   ---
 
-  [! icon/bolt.svg]
-  ## Better tooling
-  - Universal hot-reloading
-  - Less of everything
-  - 10x faster
-  ---
-
-  [! icon/cards.svg]
+  [! /tour/icon/cards.svg]
   ## Better websites
-  - Focus on UX/Design
-  - Leaner and snappier
-  - CSS superpowers
+  - Smallest you can find
+  - Built-in view transitions
+  - Global Design System
+
+  [Learn more](/tour/3-websites/size.html)

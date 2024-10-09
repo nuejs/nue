@@ -1,18 +1,36 @@
 
 body {
   background-color: #edf1f5;
-  padding: 0 5%;
+  justify-content: center;
+  flex-direction: column;
+  display: flex;
+  height: 100vh;
 }
 
 main {
   border-bottom: none;
   padding: 0;
+  margin-top: -1.5rem;
+}
+
+[role=button] {
+  font-size: 1.1rem;
+  padding: .7em 1.4em;
+  &:after { content: " ›" }
+
+}
+
+.next {
+  position: absolute;
+  right: 2.5rem;
+  top: 3.2rem;
+  font-size: 1rem;
+  padding: .5em 1em;
 }
 
 /* landing page */
 .hero {
   text-align: center;
-  padding-top: 15%;
 
   .logo {
     width: 70px;
@@ -24,21 +42,24 @@ main {
     font-weight: 550;
     letter-spacing: -0.03em;
     text-wrap: balance;
+    margin: .5em 0;
   }
+}
+
+h1 {
+  font-size: 3em;
+  font-weight: 550;
+  letter-spacing: -0.03em;
 }
 
 .intro {
   max-width: 1100px;
-  margin: 10% auto;
+  margin: 0 auto;
 
   h1 {
-    font-size: 3em;
-    font-weight: 550;
-    letter-spacing: -0.03em;
     text-align: center;
     max-width: inherit;
   }
-
 }
 
 .stack {
@@ -60,6 +81,8 @@ main {
   li {
     margin: .2em 0;
   }
+
+  a:after { content: " ›" }
 }
 
 
@@ -68,18 +91,26 @@ main {
   align-items: center;
   gap: 5em;
 
-  > * { flex: 1 }
-
-  img {
-    max-height: 100vh;
+  > :first-child {
+    padding-left: 5%;
+    flex: .8;
   }
 
   h3 {
-    background: url(icon/code.svg) center left no-repeat;
+    background: url(/tour/icon/bolt.svg) center left no-repeat;
     background-size: 1.3em;
     padding-left: 1.5em;
     margin-top: -2em;
   }
+
+  figure { margin: 0 }
+  img {
+    max-height: calc(100vh - 6rem);
+  }
+
+  th { font-weight: 700 }
+  td { font-size: 90% }
+
 }
 
 .with-total tr:last-child td:last-child {
@@ -87,4 +118,50 @@ main {
   text-decoration: 2px underline double var(--main-500);
   text-underline-offset: .5em;
 }
+
 .small { font-size: 80% }
+
+
+.compare {
+  display: flex;
+  gap: 2em;
+
+  > * { flex: 1 }
+
+  h2 em {
+    font-style: normal;
+    font-weight: 400;
+    font-size: .8em;
+    color: var(--gray-500);
+    margin-right: 1em;
+    margin-left: .3em;
+
+    &:before {
+      content: "— ";
+    }
+  }
+}
+
+.tabs {
+  text-align: center;
+  margin: 1em 0;
+  a {
+    display: inline-block;
+    padding: .3em .9em;
+    margin-inline: .3em;
+    font-size: 85%;
+    color: var(--gray-400);
+    border-radius: .5em;
+
+    &:hover {
+      cursor: pointer;
+      background-color: var(--gray-200);
+    }
+
+    &.active {
+      background-color: var(--main-500);
+      color: white;
+    }
+  }
+
+}

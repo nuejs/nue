@@ -13,7 +13,7 @@ Working with color is one of the most fun parts of web design. But if you don't 
 /* Tab styling */
 [role=tablist] {
   background: rgba(0, 0, 0, .7);
-  background-size: 3.5em;
+  background-size: 3.8em;
 > padding: .7em 1.3em 0;
 > overflow: hidden;
 > display: flex;

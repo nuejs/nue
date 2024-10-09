@@ -1,0 +1,25 @@
+
+<div class="gallery" @name="gallery">
+
+  <nav class="tabs">
+    <a :for="el,i in opts.tabs" @click="setIndex(i)"
+      class="{ active: i == index }">
+      { el }</a>
+  </nav>
+
+  <img src="img/{ image }.png">
+
+  <script>
+    index = 0
+
+    setIndex(i=0) {
+      this.image = this.opts.img[i]
+      this.index = i
+    }
+
+    constructor(opts) {
+      this.opts = opts
+      this.setIndex(0)
+    }
+  </script>
+</div>

@@ -13,16 +13,15 @@ sidenav:
     - Project structure: project-structure.html
     - Settings and data: settings.html
     - Content: content.html
-    - Layout: layout.html
+    - Server islands: /
     - Styling: styling.html
     - Scripting: scripting.html
+    - Client islands: reactive-components.html
     - Optimization: optimization.html
     - CSS best practices: css-best-practices.html
 
   Creating extensions:
-    - Template syntax: template-syntax.html
     - Markdown extensions: /
-    - Server components: /
-    - Reactive islands: reactive-components.html
     - Syntax highlighting: syntax-highlighting.html
+    - Template syntax: template-syntax.html
 
