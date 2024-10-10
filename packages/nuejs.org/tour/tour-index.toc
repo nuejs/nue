@@ -1,37 +1,16 @@
 
 Final benefit
-  Global design system
+  Templates
     The shortest path perfect websites
 
-    - Splash: Nike
+    - Splash: Nike website
     - Video: image/view transitions + lightbox
 
 
-Roadmap
+Thank you
 
-  1. Nue 1.0
-    Progress bars
-      Smooth onboarding
-      Amazing DX
-      Clear docs
-
-  2. Templates
-    Global Design System
-    CSS motion framework
-    Templates
-
-  3. Single-page apps
-    From 500+ components to ~20 components
-    Focus on design and UX
-
-  4. Cloud push
-    Global CDN
-    10x - 100x faster deploys
-    Git integration
-
-
-5. Try Nue
-  npm console command
+  bun install --global nuekit
+  nue create simple blog
 
   Thanks!
 

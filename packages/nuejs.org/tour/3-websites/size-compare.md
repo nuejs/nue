@@ -1,4 +1,10 @@
 
+---
+class: compare-page
+---
+
+[button.next "Next" href="motion.html"]
+
 [.compare]
   ## Next.js *645kB of HTML/CSS/JS*
 

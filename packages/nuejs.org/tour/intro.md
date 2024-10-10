@@ -8,26 +8,26 @@ class: intro
 [.stack.of-cards]
   [! /tour/icon/bolt.svg]
   ## Better tooling
-  - Close to metal
   - New levels of speed
+  - Closer to metal
   - Amazing DX
 
-  [Learn more](/tour/1-tooling/)
+  [Show me how](/tour/1-tooling/speed.html)
   ---
 
-  [! /tour/icon/stack.svg]
+  [! /tour/icon/code.svg]
   ## Better code
   - Content first
   - Web Standards
   - Design Engineering
 
-  [Learn more](/tour/2-code/content.html)
+  [Show me how](/tour/2-code/content.html)
   ---
 
   [! /tour/icon/cards.svg]
   ## Better websites
   - Smallest you can find
-  - Built-in view transitions
-  - Global Design System
+  - View transitions
+  - UX templates
 
-  [Learn more](/tour/3-websites/size.html)
+  [Show me how](/tour/3-websites/size.html)

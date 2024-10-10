@@ -105,7 +105,8 @@ export function parseLink(item) {
 export function renderLink(item) {
   const img = item.image ? renderImage(item) : ''
   const link = parseLink(item)
-  return elem('a', { href: link.url, class: link.class }, img + renderInline(link.label))
+  const attr = { href: link.url, class: link.class, role: item.role }
+  return elem('a', attr, img + renderInline(link.label))
 }
 
 export function renderImage(data) {

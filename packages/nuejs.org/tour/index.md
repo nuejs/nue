@@ -8,4 +8,4 @@ class: hero
 
 # The UX Framework for the Web
 
-[button.secondary "Start a tour" href="intro.html"]
+[button "Lets go" href="/tour/intro.html"]

@@ -1,16 +1,17 @@
 
 body {
-  background-color: #edf1f5;
+  background-color: var(--gray-100);
   justify-content: center;
   flex-direction: column;
   display: flex;
   height: 100vh;
+  padding: 2em;
 }
 
 main {
   border-bottom: none;
   padding: 0;
-  margin-top: -1.5rem;
+  article h2 { margin: 0 }
 }
 
 [role=button] {
@@ -20,17 +21,31 @@ main {
 
 }
 
+.video {
+  background-color: var(--gray-500);
+  display: block;
+  padding: 1em 0 .7em;
+  margin: 2em 0 0;
+
+  video {
+    max-height: calc(100vh - 10rem);
+    border-radius: 0;
+    border: 0;
+  }
+}
+
 .next {
   position: absolute;
-  right: 2.5rem;
-  top: 3.2rem;
+  right: 2.2rem;
+  top: 1.7rem;
   font-size: 1rem;
-  padding: .5em 1em;
+  padding: .4em .8em;
 }
 
 /* landing page */
 .hero {
   text-align: center;
+  margin-top: -1em;
 
   .logo {
     width: 70px;
@@ -43,57 +58,67 @@ main {
     letter-spacing: -0.03em;
     text-wrap: balance;
     margin: .5em 0;
+
+    + p { font-size: 1.5em }
   }
 }
 
-h1 {
-  font-size: 3em;
-  font-weight: 550;
-  letter-spacing: -0.03em;
-}
 
 .intro {
-  max-width: 1100px;
-  margin: 0 auto;
+  max-width: 1050px;
+  margin: -1em auto 0;
 
   h1 {
     text-align: center;
     max-width: inherit;
   }
-}
+  .stack {
+    div  { padding: 2em 2.5em 4em; }
 
-.stack {
-  margin: 3.5em 0;
+    h2, figure, ul { margin: .5em 0 }
 
-  div  {
-    padding: 3em 2.75em 5em;
+    img { width: 1.7em }
+
+    div:hover li:first-child {
+      border-color: var(--main-500);
+      p { color: black; font-weight: 500}
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    li {
+      border-left: 4px solid var(--gray-200);
+      padding-left: .9em;
+      margin: .2em 0;
+    }
+
+    a:after { content: " ›" }
+
+    .done {
+      transform: scale(.96);
+      li  { border-color: var(--main-500) }
+      a { visibility: hidden }
+    }
   }
-
-  h2, figure, ul { margin: .5em 0 }
-
-  img { width: 1.7em }
-
-  ul {
-    list-style: none;
-    border-left: 4px solid var(--gray-200);
-    padding-left: .4em;
-  }
-  li {
-    margin: .2em 0;
-  }
-
-  a:after { content: " ›" }
 }
 
 
 .slide {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 5em;
 
+  h1 { margin: .4em 0 .8em }
   > :first-child {
     padding-left: 5%;
     flex: .8;
+  }
+  > :last-child {
+    text-align: right;
   }
 
   h3 {
@@ -103,9 +128,21 @@ h1 {
     margin-top: -2em;
   }
 
+  .coding {
+    background-image: url(/tour/icon/code.svg);
+  }
+
+  .sites {
+    background-image: url(/tour/icon/cards.svg);
+  }
+
   figure { margin: 0 }
+
   img {
-    max-height: calc(100vh - 6rem);
+    height: calc(100vh - 5rem);
+    object-fit: contain;
+    min-height: 700px;
+    max-width: 800px
   }
 
   th { font-weight: 700 }
@@ -121,12 +158,23 @@ h1 {
 
 .small { font-size: 80% }
 
+.compare-page {
+  background: var(--gray-100) url(/tour/img/hairline.svg) center -100px no-repeat;
+}
 
 .compare {
   display: flex;
-  gap: 2em;
+  gap: 3em;
 
   > * { flex: 1 }
+
+
+  > :last-child .video {
+    background-color: #4463B0;
+  }
+
+  figure { margin-bottom: 0 }
+
 
   h2 em {
     font-style: normal;
@@ -142,6 +190,53 @@ h1 {
   }
 }
 
+.reveal {
+  background-color: #292D32;
+  border-radius: .5em;
+  img { opacity: 0}
+}
+
+.roadmap {
+  h3 {
+    background-image: url(/tour/icon/rocket.svg);
+    padding-left: 1.7em;
+  }
+
+  ol {
+    text-align: left;
+    margin-right: 20vw;
+
+    > li {
+      margin-bottom: 1.5em;
+
+      &::marker {
+        font-weight: 900;
+        color: var(--main-500);
+        font-size: 1.2em;
+      }
+    }
+
+    ul { padding-left: 0 }
+
+    ul li {
+      border-left: 3px solid var(--gray-300);
+      list-style: none;
+      margin: .3em 0;
+    }
+
+    li:has(b) {
+      border-color: var(--main-500);
+    }
+
+    p {
+      font-weight: 500;
+      color: var(--gray-700);
+      margin: 0;
+    }
+  }
+}
+
+/*
 .tabs {
   text-align: center;
   margin: 1em 0;
@@ -163,5 +258,5 @@ h1 {
       color: white;
     }
   }
-
 }
+*/

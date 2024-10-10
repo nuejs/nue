@@ -1,5 +1,9 @@
 
-[button.next.secondary "Next" href="codebase.html"]
+---
+class: compare-page
+---
+
+[button.next "Next" href="codebase.html"]
 
 [.compare]
   ## Next.js *Mix of 3rd parties*

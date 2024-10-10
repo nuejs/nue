@@ -32,7 +32,10 @@
       video.addEventListener('ended', () => {
         this.root.classList.remove('playing')
       })
+
+      handleKeyboard(this)
     }
+
 
     toggle() {
       const { video } = this
@@ -55,6 +58,25 @@
   function getQuality(max) {
     const widths = [720, 480, 360]
     return widths.find(w => w < max)
+  }
+
+  function handleKeyboard(player) {
+    function handle(e) {
+      const is_fullscreen = document.fullscreenElement
+      const { video } = player
+      const { key } = e
+
+      if (key == 'f') {
+        is_fullscreen ? document.exitFullscreen() : video.requestFullscreen()
+
+      } else if (!is_fullscreen) {
+        if (key == ' ') player.toggle.call(player)
+        if (key == 'ArrowLeft') video.currentTime -= 5
+        if (key == 'ArrowRight') video.currentTime += 5
+      }
+    }
+    addEventListener('keydown', handle)
+    addEventListener('route', () => removeEventListener('keydown', handle), { once: true })
   }
 </script>
 

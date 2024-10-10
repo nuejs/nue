@@ -2,10 +2,10 @@
 
 
 [.slide]
-  ### Coding with Nue
+  ### Coding with Nue { .coding }
   # Content first
 
-  [button.secondary "Compare to Next.js"]
+  [button "Compare to Next.js"]
     href: content-compare.html
 
   ---

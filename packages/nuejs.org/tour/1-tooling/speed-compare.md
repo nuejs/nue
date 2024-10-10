@@ -1,5 +1,9 @@
 
-[button.next.secondary "Next" href="hmr.html"]
+---
+class: compare-page
+---
+
+[button.next "Next" href="stuff.html"]
 
 [.compare]
   ## Next.js blog *10 seconds to build*

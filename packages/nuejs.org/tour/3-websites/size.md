@@ -1,7 +1,10 @@
 
 [.slide]
-  ### Nue Websites { .sites }
+  ### Websites by Nue { .sites }
   # Smallest you can find
+
+  [button "Compare to Next.js"]
+    href: size-compare.html
 
   [table.with-total hidden]
     Resources         | Next.js   | Nue      | Difference
@@ -13,4 +16,3 @@
   ---
 
   [image /tour/img/documentation.png]
-    href: size-compare.html

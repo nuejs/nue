@@ -1,6 +1,6 @@
 
 [.slide]
-  ### Coding with Nue
+  ### Coding with Nue { .coding }
   # Design Engineering
 
   [table]
@@ -9,7 +9,7 @@
     Consists of     | 95% of React/JSX  | 95% of CSS
     Mindset         | JS engineering    | Design engineering
 
-  [button.secondary "See the difference"]
+  [button "See the difference"]
     href: codebase-compare.html
 
   ---

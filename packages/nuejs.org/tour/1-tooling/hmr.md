@@ -3,7 +3,7 @@
   ### Nue Framework
   # Next level DX
 
-  [button.secondary "View demo"]
+  [button "Show me"]
     href: hmr-demo.html
 
   [table]

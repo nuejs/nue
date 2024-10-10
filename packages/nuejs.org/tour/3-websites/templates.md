@@ -1,15 +1,15 @@
 
+
 [.slide]
   ### Websites by Nue { .sites }
-  # Built-in view transitions
+  # UX templates
   // Seamless client-side navigation with CSS transitions
 
   [button "View demo"]
-    href: motion-demo.html
+    href: templates-demo.html
 
 
   ---
 
-  [! /tour/img/simple-blog-hero.png ]
-
+  [! /tour/img/ux-templates.png ]
 

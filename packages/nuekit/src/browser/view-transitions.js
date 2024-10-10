@@ -136,10 +136,12 @@ if (is_browser) {
 
 // primitive DOM diffing
 function simpleDiff(a, b) {
+  a.classList.value = b.classList.value
+
   if (a.children.length == b.children.length) {
     ;[...a.children].forEach((el, i) => updateBlock(el, b.children[i]))
   } else {
-    a.classList.value = b.classList.value
+    console.info(a, b)
     a.innerHTML = b.innerHTML
   }
 }

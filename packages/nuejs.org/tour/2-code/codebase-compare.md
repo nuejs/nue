@@ -1,6 +1,9 @@
 
+---
+class: compare-page
+---
 
-[button.next.secondary "Next" href="/tour/intro.html"]
+[button.next "Next" href="/tour/intro.html?2"]
 
 [.compare]
   ## Next.js *JavaScript engineering*

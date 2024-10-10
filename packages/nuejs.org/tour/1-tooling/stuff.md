@@ -1,12 +1,10 @@
 
 [.slide]
   ### Nue Framework
-  # 100× build speed
+  # Closer to metal
 
   [button "Compare to Next.js"]
-    href: speed-compare.html
-
+    href: stuff-compare.html
   ---
 
   [image /tour/img/simple-blog.png]
-

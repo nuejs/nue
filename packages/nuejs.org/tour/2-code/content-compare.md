@@ -1,5 +1,9 @@
 
-[button.next.secondary "Next" href="standards.html"]
+---
+class: compare-page
+---
+
+[button.next "Next" href="standards.html"]
 
 [.compare]
   ## Next.js *JavaScript first*

@@ -1,9 +1,9 @@
 
 [.slide]
-  ### Coding with Nue
-  # Web Standards
+  ### Coding with Nue { .coding }
+  # Web Standards Model
 
-  [button.secondary "Compare to Next.js"]
+  [button "Compare to Next.js"]
     href: standards-compare.html
 
   ---
