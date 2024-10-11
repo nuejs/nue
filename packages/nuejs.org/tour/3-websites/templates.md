@@ -1,11 +1,14 @@
 
+---
+class: nike
+---
 
 [.slide]
-  ### Websites by Nue { .sites }
-  # UX templates
-  // Seamless client-side navigation with CSS transitions
+  ### Better websites { .sites }
+  # Templates
+  The shortest path to great design
 
-  [button "View demo"]
+  [button "Show the difference"]
     href: templates-demo.html
 
 

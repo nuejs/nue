@@ -1,9 +1,10 @@
 
 [.slide]
-  ### Coding with Nue { .coding }
-  # Web Standards Model
+  ### Better code { .coding }
+  # Timeless skills
+  From JS soup to modern CSS
 
-  [button "Compare to Next.js"]
+  [button "See the difference"]
     href: standards-compare.html
 
   ---

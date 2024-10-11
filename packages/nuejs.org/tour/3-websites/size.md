@@ -1,9 +1,10 @@
 
 [.slide]
-  ### Websites by Nue { .sites }
-  # Smallest you can find
+  ### Better websites { .sites }
+  # Small and Fast
+  The smallest you can get
 
-  [button "Compare to Next.js"]
+  [button "See the difference"]
     href: size-compare.html
 
   [table.with-total hidden]

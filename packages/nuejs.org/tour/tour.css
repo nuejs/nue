@@ -99,6 +99,8 @@ main {
 
     .done {
       transform: scale(.96);
+      box-shadow: none;
+      opacity: .9;
       li  { border-color: var(--main-500) }
       a { visibility: hidden }
     }
@@ -112,7 +114,7 @@ main {
   justify-content: space-between;
   gap: 5em;
 
-  h1 { margin: .4em 0 .8em }
+  h1 { margin: .4em 0 .2em }
   > :first-child {
     padding-left: 5%;
     flex: .8;
@@ -133,7 +135,7 @@ main {
   }
 
   .sites {
-    background-image: url(/tour/icon/cards.svg);
+    background-image: url(/tour/icon/globe.svg);
   }
 
   figure { margin: 0 }
@@ -236,6 +238,17 @@ main {
   }
 }
 
+.nike {
+  --main-500: #BC2B2A;
+  --main-600: #a32524;
+  .sites {
+    background-image: url(/tour/icon/globe-red.svg);
+  }
+  figure {
+    box-shadow: 4px 4px 1em #ccc;
+    border-radius: 5px;
+  }
+}
 /*
 .tabs {
   text-align: center;

@@ -1,13 +1,14 @@
 
 [.slide]
-  ### Coding with Nue { .coding }
-  # Design Engineering
+  ### Better code { .coding }
+  # Design engineering
 
   [table]
-    Source code     | Next.js           | Nue
-    Lines of code   | 600-700           | 300-400
-    Consists of     | 95% of React/JSX  | 95% of CSS
-    Mindset         | JS engineering    | Design engineering
+    Framework       | Next.js              | Nue
+    Mindset         | JS engineering       | Design engineering
+    Codebase        | 95% of TypeScript    | 95% of CSS
+    Time goes to    | Coding, debugging    | Design, UX
+    Amount of code  | 500-10,000+ lines    | 100-1000 lines
 
   [button "See the difference"]
     href: codebase-compare.html

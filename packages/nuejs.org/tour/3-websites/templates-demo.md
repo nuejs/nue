@@ -1,7 +1,11 @@
 
+---
+class: nike
+---
+
 [button.next "Roadmap" href="/tour/roadmap.html"]
 
-## Demo: Templates
+## Coming up: Nue templates
 
 [bunny-video]
   videoId: 383e5c79-6747-4b1a-8d7a-9da9ae721d33

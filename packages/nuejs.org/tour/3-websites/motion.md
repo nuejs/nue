@@ -1,10 +1,10 @@
 
 [.slide]
-  ### Websites by Nue { .sites }
-  # Built-in view transitions
-  // Seamless client-side navigation with CSS transitions
+  ### Better websites { .sites }
+  # Motion design
+  Built-in turbolinking and CSS view transitions
 
-  [button "View demo"]
+  [button "See the difference"]
     href: motion-demo.html
 
 

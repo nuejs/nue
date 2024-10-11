@@ -1,7 +1,8 @@
 
 [.slide]
-  ### Nue Framework
-  # Next level DX
+  ### Tooling
+  # Instant preview
+  Nue hot-reloads everything
 
   [button "Show me"]
     href: hmr-demo.html

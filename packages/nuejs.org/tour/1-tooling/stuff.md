@@ -1,9 +1,10 @@
 
 [.slide]
-  ### Nue Framework
-  # Closer to metal
+  ### Tooling
+  # Simpler
+  Significantly less abstractions and complexity
 
-  [button "Compare to Next.js"]
+  [button "Show the difference"]
     href: stuff-compare.html
   ---
 

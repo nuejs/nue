@@ -2,10 +2,11 @@
 
 
 [.slide]
-  ### Coding with Nue { .coding }
-  # Content first
+  ### Better code { .coding }
+  # Decoupled content
+  Content first development model
 
-  [button "Compare to Next.js"]
+  [button "See the difference"]
     href: content-compare.html
 
   ---

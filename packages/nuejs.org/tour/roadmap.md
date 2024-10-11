@@ -6,8 +6,8 @@ class: compare-page
 [button.next.secondary "Finish" href="/tour/thanks.html"]
 
 [.roadmap.slide]
-  ### The Vision
-  # Nue Roadmap
+  # Roadmap
+  For becominmg the UX framework for the Web
 
   ---
 
