@@ -179,7 +179,7 @@ export function parseRow(row, lang) {
 }
 
 function renderString(str) {
-  return encode(str).replace(/\$?\{([^\}]+)\}/g, function (_, content) {
+  return encode(str).replace(/\$?\{([^\}]+)\}/g, function(_, content) {
     return elem('i', _.replace(content, elem('b', content)))
   })
 }
@@ -279,7 +279,7 @@ export function glow(str, opts = { prefix: true, mark: true }) {
     html.push(opts.numbered ? elem('span', line) : line)
   }
 
-  parseSyntax(lines, lang, opts.prefix).forEach(function (block) {
+  parseSyntax(lines, lang, opts.prefix).forEach(function(block) {
     let { line, comment, wrap } = block
 
     // EOL comment
