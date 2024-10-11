@@ -38,3 +38,23 @@ test('parse JS comment', () => {
   expect(blocks[0].comment).toEqual(['/* First */'])
   expect(blocks[2].comment[0]).toEqual('/*')
 })
+
+
+/* prefix and mark */
+test('disable mark', () => {
+  const html = renderRow('Hey •[img]• girl', undefined, false)
+  expect(html).toInclude('Hey •')
+  expect(html).toInclude('• girl')
+})
+
+test('disable prefixes', () => {
+  const blocks = parseSyntax([
+    '+ not really adding a line',
+    '- not really removing a line',
+    '> not really marking a line'
+  ], undefined, false)
+
+  expect(blocks[0].wrap).toEqual(false)
+  expect(blocks[1].wrap).toEqual(false)
+  expect(blocks[2].wrap).toEqual(false)
+})
