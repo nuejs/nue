@@ -179,14 +179,14 @@ export function parseRow(row, lang) {
 }
 
 function renderString(str) {
-  return encode(str).replace(/\$?\{([^\}]+)\}/g, function(_, content) {
+  return encode(str).replace(/\$?\{([^\}]+)\}/g, function (_, content) {
     return elem('i', _.replace(content, elem('b', content)))
   })
 }
 
 
 // exported for testing purposes
-export function renderRow(row, lang) {
+export function renderRow(row, lang, mark=true) {
   if (!row) return ''
 
   const els = parseRow(row, lang)
@@ -211,8 +211,9 @@ export function renderRow(row, lang) {
   }
 
   ret.push(row.substring(index))
+  const res = ret.join('')
 
-  return ret.join('').replace(MARK, (_, a, b, c) => {
+  return !mark ? res : res.replace(MARK, (_, a, b, c) => {
     return elem(a[1] ? 'u' : 'mark', b)
   })
 }
@@ -221,7 +222,7 @@ export function renderRow(row, lang) {
 // comment start & end
 const COMMENT = [/(\/\*|^ *{# |<!--|'''|=begin)/, /(\*\/|#}|-->|'''|=end)$/]
 
-export function parseSyntax(lines, lang) {
+export function parseSyntax(lines, lang, prefix = true) {
   const [comm_start, comm_end] = COMMENT
   const html = []
 
@@ -242,7 +243,7 @@ export function parseSyntax(lines, lang) {
 
         // highlighted line
         const c = line[0]
-        const wrap = isMD(lang) ? (c == '|' && 'dfn') : PREFIXES[c]
+        const wrap = !prefix ? false : isMD(lang) ? (c == '|' && 'dfn') : PREFIXES[c]
         if (wrap) line = (line[1] == ' ' ? ' ' : '') + line.slice(1)
 
         // escape character
@@ -263,7 +264,7 @@ export function parseSyntax(lines, lang) {
 
 
 // code, { language: 'js', numbered: true }
-export function glow(str, opts = {}) {
+export function glow(str, opts = { prefix: true, mark: true }) {
   if (typeof opts == 'string') opts = { language: opts }
   const lines = Array.isArray(str) ? str : str.trim().split(/\r\n|\r|\n/)
 
@@ -278,7 +279,7 @@ export function glow(str, opts = {}) {
     html.push(opts.numbered ? elem('span', line) : line)
   }
 
-  parseSyntax(lines, lang).forEach(function(block) {
+  parseSyntax(lines, lang, opts.prefix).forEach(function (block) {
     let { line, comment, wrap } = block
 
     // EOL comment
@@ -286,7 +287,7 @@ export function glow(str, opts = {}) {
       return comment.forEach(el => push(elem('sup', encode(el))))
 
     } else {
-      line = renderRow(line, lang)
+      line = renderRow(line, lang, opts.mark)
     }
 
     if (wrap) line = elem(wrap, line)
