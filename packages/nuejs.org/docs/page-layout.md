@@ -382,8 +382,12 @@ This will generate the following:
 
   <!-- the dropdown -->
   <span aria-haspopup>
+    <a aria-expanded="false">More</a>
+
     <nav>
-        <a aria-expanded="false">More</a>
+      <a href="/about/">About Us</a>
+      <a href="/contact/">Contact</a>
+      <a href="/faq/">FAQ</a>
     </nav>
   </span>
 </nav>
