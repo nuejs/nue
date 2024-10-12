@@ -243,11 +243,11 @@ export function parseSyntax(lines, lang, prefix = true) {
 
         // highlighted line
         const c = line[0]
-        const wrap = !prefix ? false : isMD(lang) ? (c == '|' && 'dfn') : PREFIXES[c]
+        const wrap = prefix && (isMD(lang) ? (c == '|' && 'dfn') : PREFIXES[c])
         if (wrap) line = (line[1] == ' ' ? ' ' : '') + line.slice(1)
 
         // escape character
-        if (c == '\\') line = line.slice(1)
+        if (!prefix && c == '\\') line = line.slice(1)
 
         html.push({ line, wrap })
       }
