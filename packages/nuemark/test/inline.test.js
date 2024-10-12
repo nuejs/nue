@@ -21,7 +21,7 @@ test('plain text', () => {
 })
 
 
-test.only('formatting', () => {
+test('formatting', () => {
   const tests = [
     ['_', '*yo*', 'em'],
     ['*', 'yo 90', 'em'],
@@ -33,7 +33,7 @@ test.only('formatting', () => {
     // ['|', 'mark', '|'],
   ]
 
-  for (test of tests) {
+  for (const test of tests) {
     const [ chars, body, tag ] = test
     const ret = parseInline(`A ${chars + body + chars} here`)
     expect(ret[1].tag).toBe(tag)
@@ -52,7 +52,7 @@ test('inline render basics', () => {
     { href: '/', label: 'hey', title: 'yo', html: '<a href="/" title="yo">hey</a>' },
   ]
 
-  for (test of tests) {
+  for (const test of tests) {
     const html = renderToken(test)
     expect(html).toBe(test.html)
   }
