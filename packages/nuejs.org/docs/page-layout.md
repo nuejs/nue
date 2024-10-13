@@ -114,7 +114,7 @@ Now our website has a new `header` element nested directly under the `body`. It 
       <a href="/docs/">Documentation</a>
       <a href="/blog/">Blog</a>
       <a href="/about/">About</a></nav>
-    </hav>
+    </nav>
   </header>
 
   <main>
@@ -277,7 +277,7 @@ This generates the following HTML:
   <a href="/first/link">Link 1 text</a>
   <a href="/second/link" class="pill">Link 2 text</a>
   ...
-</hav>
+</nav>
 ```
 
 #### Nav items
@@ -385,8 +385,12 @@ This will generate the following:
     <a aria-expanded="false">More</a>
 
     <nav>
+      <a href="/about/">About Us</a>
+      <a href="/contact/">Contact</a>
+      <a href="/faq/">FAQ</a>
     </nav>
   </span>
+</nav>
 ```
 
 The standard [aria-haspopup](//developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-haspopup) and [aria-expanded](//developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-expanded) roles can be used on your CSS to implement the dropdown behavior.
