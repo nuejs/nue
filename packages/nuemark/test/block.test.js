@@ -1,5 +1,5 @@
 
-import { renderBlocks, renderTable, renderHeading, renderLines } from '../src/render-blocks.js'
+import { renderBlocks, renderHeading, renderLines } from '../src/render-blocks.js'
 import { parseBlocks, getBreak, parseHeading } from '../src/parse-blocks.js'
 import { nuemark } from '..'
 
@@ -158,21 +158,24 @@ test('fenced code blocks', () => {
   expect(code.data.numbered).toBeTrue()
 })
 
-test('tables', () => {
-  const [ table ] = parseBlocks([
+test('parse table', () => {
+  const lines = [
     '| Month    | Amount  |',
     '| -------- | ------- |',
     '| January  | $250    |',
     '| February | $80     |',
-  ])
+  ]
 
+  // parse
+  const [ table ] = parseBlocks(lines)
   expect(table.rows[1]).toEqual([ "January", "$250" ])
   expect(table.rows.length).toBe(3)
   expect(table.head).toBeTrue()
 
-  const html = renderTable(table)
-  expect(html).toStartWith('<table><tr><th>Month</th><th>Amount</th>')
-  expect(html).toEndWith('<td>February</td><td>$80</td></tr></table>')
+  // render
+  const html = renderLines(lines)
+  expect(html).toInclude('<th>Month</th><th>Amount</th>')
+  expect(html).toInclude('<tr><td>February</td><td>$80</td>')
 })
 
 test('parse reflinks', () => {

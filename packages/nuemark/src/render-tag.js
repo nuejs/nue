@@ -1,5 +1,5 @@
 
-import { renderBlocks, renderTable, renderContent } from './render-blocks.js'
+import { renderBlocks, renderContent } from './render-blocks.js'
 import { renderInline } from './render-inline.js'
 import { sectionize, elem } from './document.js'
 import { readFileSync } from 'node:fs'
@@ -78,11 +78,12 @@ const TAGS = {
   },
 
   table() {
-    const { attr, data, blocks } = this
-    let { items } = data
-    if (!items && blocks && blocks[0]) items = blocks[0].content
-    const table = renderTable({ attr, items, ...data }, this.opts)
-    return wrap(data.wrapper, table)
+    const { attr, data, body, opts } = this
+    let table = { rows: data.rows || data.items }
+    if (!table.rows && body) table = parseTable(body)
+
+    const html = renderTable({ attr, ...data, ...table }, this.opts)
+    return wrap(data.wrapper, html)
   },
 
   video() {
@@ -203,4 +204,54 @@ export function renderIsland({ name, attr, data }) {
   const json = !Object.keys(data)[0] ? '' :
     elem('script', { type: 'application/json' }, JSON.stringify(data))
   return elem(name, { 'custom': name, ...attr }, json)
+}
+
+
+// table helpers
+export function renderTable(table, md_opts) {
+  const { rows, attr, head=true } = table
+  if (!rows) return ''
+
+  const html = rows.map((row, i) => {
+    const is_head = head && i == 0
+    const is_foot = table.foot && i > 1 && i == rows.length - 1
+
+    const cells = row.map(td => elem(is_head || is_foot ? 'th' : 'td', renderInline(td, md_opts)))
+    const tr = elem('tr', cells.join(''))
+    return is_head ? elem('thead', tr) : is_foot ? elem('tfoot', tr) : tr
+  })
+
+  const caption = table.caption ? elem('caption', renderInline(table.caption, md_opts)) : ''
+
+  return elem('table', attr, caption + html.join('\n'))
+}
+
+export function parseTable(lines) {
+  const rows = []
+  const specs = {}
+
+  lines.forEach((line, i) => {
+    if (!line.trim()) return
+
+    if (line.startsWith('---')) {
+      if (rows.length == 1) specs.head = true
+      else if (i == lines.length -2) specs.foot = true
+      return
+    }
+
+    let els = line.split(/ +[;|] +/)
+    if (els[0][0] == '|') els = els[0].split(/\| +/).concat(els.slice(1))
+    if (i == 0) specs.cols = els.length
+
+
+    // append to previous row
+    if (els.length < specs.cols) {
+      const prev = rows[rows.length -1]
+      if (prev.length < specs.cols) return prev.push(...els)
+    }
+
+    rows.push(els)
+  })
+
+  return { rows, ...specs }
 }

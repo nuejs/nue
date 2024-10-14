@@ -172,8 +172,10 @@ function processNestedBlocks(block, reflinks) {
       console.error('YAML parse error', body, e)
     }
 
-    if (!block.has_data) block.blocks = parseBlocks(block.body, reflinks)
-    delete block.body
+    if (block.name != 'table') {
+      if (!block.has_data) block.blocks = parseBlocks(block.body, reflinks)
+      delete block.body
+    }
   }
 }
 

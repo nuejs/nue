@@ -1,10 +1,11 @@
 
+import { glow } from 'nue-glow'
+
 import { renderInline, renderTokens } from './render-inline.js'
+import { renderTable, renderTag, wrap } from './render-tag.js'
 import { parseLinkTitle } from './parse-inline.js'
 import { parseBlocks } from './parse-blocks.js'
-import { renderTag, wrap } from './render-tag.js'
 import { elem } from './document.js'
-import { glow } from 'nue-glow'
 
 
 export function renderLines(lines, opts) {
@@ -31,7 +32,6 @@ function renderBlock(block, opts) {
     block.is_break ? '<hr>' :
     console.error('Unknown block', block)
 }
-
 
 // recursive
 function renderList({ items, numbered }, opts) {
@@ -86,17 +86,4 @@ function renderCode({ name, code, attr, data }) {
   return wrap(klass, pre)
 }
 
-export function renderTable(data, opts) {
-  const { rows, items, attr, head=true } = data
-  const arr = rows || items
-  if (!arr) return ''
-
-  const html = arr.map((row, i) => {
-    if (typeof row == 'string') row = row.split(/ *[;|] +/)
-    const cells = row.map(td => elem(head && !i ? 'th' : 'td', renderInline(td, opts)))
-    return elem('tr', cells.join(''))
-  })
-
-  return elem('table', attr, html.join('\n'))
-}
 

@@ -2,6 +2,7 @@ import { fileURLToPath } from 'node:url'
 import { dirname, relative, join } from 'node:path'
 
 import { parseTag, valueGetter, parseAttr, parseSpecs } from '../src/parse-tag.js'
+import { renderTable, parseTable } from '../src/render-tag.js'
 import { renderLines } from '../src/render-blocks.js'
 
 const relpath = relative(process.cwd(), dirname(fileURLToPath(import.meta.url)))
@@ -135,13 +136,43 @@ test('client-side island', () => {
   expect(html).toStartWith('<contact-me custom="contact-me"><script')
 })
 
+test('table options', () => {
+  const rows = [['a', 'b'], ['c', 'd'], ['e', 'f']]
+  const html = renderTable({ rows, head: true, foot: true, caption: '*Hello*'  })
 
-test('[table] tag', () => {
+  expect(html).toStartWith('<table><caption><em>Hello')
+  expect(html).toInclude('<thead><tr><th>a</th>')
+  expect(html).toInclude('<tr><td>c</td><td>d</td></tr>')
+  expect(html).toEndWith('<th>e</th><th>f</th></tr></tfoot></table>')
+})
+
+test('parse table', () => {
+  const lines = [
+    '| Bar | Baz',
+    '---',
+    'a | b',
+    'c',
+    '  ',
+    '---',
+    '| y | z'
+  ]
+  const table = parseTable(lines)
+  const { rows } = table
+
+  expect(table.cols).toBe(3)
+  expect(table.head).toBe(true)
+  expect(table.foot).toBe(true)
+  expect(rows.length).toBe(3)
+  expect(rows[1]).toEqual([ "a", "b", "c" ])
+})
+
+
+test('[table] with external data', () => {
   const foo = [ ['Foo', 'Buzz'], ['hey', 'girl']]
   const opts = { data: { foo } }
 
   const html = renderLines(['[table :rows="foo"]'], opts)
-  expect(html).toStartWith('<table><tr><th>Foo</th><th>Buzz</th></tr>')
+  expect(html).toStartWith('<table><thead><tr><th>Foo</th><th>Buzz</th></tr>')
 
   const html2 = renderLines(['[table :rows="foo" head=false]'], opts)
   expect(html2).toStartWith('<table><tr><td>Foo</td><td>Buzz</td></tr>')
@@ -154,16 +185,16 @@ test('[table] tag', () => {
 
 test('[table] nested YAML', () => {
   const html = renderLines(['[table]', '  - [foo, bar]', '  - [foo, bar]'])
-  expect(html).toStartWith('<table><tr><th>foo</th><th>')
+  expect(html).toStartWith('<table><thead><tr><th>foo</th><th>')
   expect(html).toEndWith('<td>bar</td></tr></table>')
 })
 
 test('[table] nested string', () => {
-  const html = renderLines(['[table]', '  a | b', '  c | d'])
-
-  expect(html).toInclude('<th>a</th><th>b</th>')
-  expect(html).toInclude('<td>c</td><td>d</td>')
+  const html = renderLines(['[table head=false]', '  a | b', '  ---', '  c | d'])
+  expect(html).toStartWith('<table><thead><')
+  expect(html).toEndWith('<td>d</td></tr></table>')
 })
+
 
 test('[button] inline label', () => {
   const html = renderLines(['[button href="/" "Hey, *world*"]'])
