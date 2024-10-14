@@ -6,10 +6,10 @@ class: compare-page
 [button.next "Next" href="standards.html"]
 
 [.compare]
-  ## Next.js *Everything mixed together*
+  ## Next.js *JavaScript first development*
 
   [! /tour/img/content-react.png ]
 
   ## Nue *Content first development*
 
-  [! /tour/img/content-nue.png ]
+  [!.reveal /tour/img/content-nue.png ]

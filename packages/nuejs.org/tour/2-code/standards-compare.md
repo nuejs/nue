@@ -6,10 +6,10 @@ class: compare-page
 [button.next "Next" href="codebase.html"]
 
 [.compare]
-  ## Next.js *JavaScript soup*
+  ## Next.js *Complex JavaScript technology mix*
 
   [! /tour/img/button-tailwind.png ]
 
-  ## Nue *Modern CSS*
+  ## Nue *Modern CSS (standard)*
 
-  [! /tour/img/button-css.png ]
+  [!.reveal /tour/img/button-css.png ]

@@ -3,8 +3,8 @@
 
 [.slide]
   ### Better code { .coding }
-  # Decoupled content
-  Content first development model
+  # Content first
+  Assemble web pages without JavaScript
 
   [button "See the difference"]
     href: content-compare.html

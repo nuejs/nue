@@ -79,11 +79,6 @@ main {
 
     img { width: 1.7em }
 
-    div:hover li:first-child {
-      border-color: var(--main-500);
-      p { color: black; font-weight: 500}
-    }
-
     ul {
       list-style: none;
       padding-left: 0;
@@ -98,9 +93,9 @@ main {
     a:after { content: " ›" }
 
     .done {
-      transform: scale(.96);
       box-shadow: none;
-      opacity: .9;
+      background-color: transparent;
+      border: 0;
       li  { border-color: var(--main-500) }
       a { visibility: hidden }
     }
@@ -162,6 +157,7 @@ main {
 
 .compare-page {
   background: var(--gray-100) url(/tour/img/hairline.svg) center -100px no-repeat;
+  justify-content: inherit;
 }
 
 .compare {
@@ -193,9 +189,17 @@ main {
 }
 
 .reveal {
-  background-color: #292D32;
+  background-color: white;
   border-radius: .5em;
+  cursor: pointer;
   img { opacity: 0}
+  &:before {
+    content: "Show code";
+    display: inline-block;
+    color: var(--gray-400);
+    font-weight: 500;
+    margin: 2em;
+  }
 }
 
 .roadmap {

@@ -2,7 +2,7 @@
 [.slide]
   ### Better code { .coding }
   # Timeless skills
-  From JS soup to modern CSS
+  From complex JavaScript to modern CSS
 
   [button "See the difference"]
     href: standards-compare.html

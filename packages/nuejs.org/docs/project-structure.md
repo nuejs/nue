@@ -9,13 +9,27 @@ Here are all the different kind of files your project consist of.
 
 [table.deftable]
   File type | Suffix | description
-  [Content](content.html) | `.md` | Your content written in extended Markdown format
-  [Settings](settings.html) | `.yaml` | Settings that impact site generation
-  [Data](data.html) | `.yaml` | SEO metadata and other data (like products and team members)
-  [Styling](styling.html) | `.css` | Global, application, and page-level styles
-  [Scripts](styling.html) | `.js`, `.ts` | To progressively enhance the experience
-  [Server components](server-components.html)   | `.html` | Layout modules, reusable HTML snippets, and Markdown extensions
-  [Client components](components.html)   | `.htm`, `.nue` | Client-side components and reactive "islands"
+  ------
+  Content](content.html) | `.md`
+  Your content written in extended Markdown format
+
+  [Settings](settings.html) | `.yaml`
+  Settings that impact site generation
+
+  [Data](data.html) | `.yaml`
+  SEO metadata and other data (like products and team members)
+
+  [Styling](styling.html) | `.css`
+  Global, application, and page-level styles
+
+  [Scripts](styling.html) | `.js`, `.ts`
+  To progressively enhance the experience
+
+  [Server components](server-components.html) | `.html`
+  Layout modules, reusable HTML snippets, and Markdown extensions
+
+  [Client components](components.html) | `.htm`, `.nue`
+  Client-side components and reactive "islands"
 
 
 #### Static files
@@ -27,16 +41,29 @@ A file named `404.md` in the root level, acts as a target for non-existent files
 
 
 
+
+
 ## Directories
 These are the four different kind of folders you can have in Nue
 
 
-### Media
-....
 
-
-### Applications
+### Application directories
 ...
+
+
+
+### Root directory
+All scripts, styles, and components in the root level are dependencies for the front page and all other root level pages, so they are not propagated upwards to the application directories.
+
+You may want to clean up the root directory from front page assets by placing them into a folder named "home", for example, and declaring it in the frontmatter area of the front page:
+
+```yaml
+appdir: home
+```
+
+With the above setting all assets inside the "home" directory become dependencies of your root level `index.md`.
+
 
 
 ### Globals
@@ -68,45 +95,18 @@ These libraries can reside both on the root level, and inside a specific applica
 
 
 
-
-### Root directory
-All scripts, styles, and components in the root level are dependencies for the front page and all other root level pages, so they are not propagated upwards to the application directories.
-
-You may want to clean up the root directory from front page assets by placing them into a folder named "home", for example, and declaring it in the frontmatter area of the front page:
-
-```yaml
-appdir: home
-```
-
-With the above setting all assets inside the "home" directory become dependencies of your root level `index.md`.
-
-
-
-## Inheritance
-
-
-### Data inheritance
-If you include assets in several levels, the values of include statements are *concatenated* into one single array. The matches are partial so that a value such as "syntax" will match both "syntax-highlight" and "syntax-extras".
-
-```yaml
-include: [syntax-highlight, video]
-
-
-[image.gridpaper]
-  small: /img/dependencies.png
-  large: /img/dependencies-big.png
-  size:   747 × 378 px
-```
-
-Here's a more complex example that gives you an idea how dependencies are calculated:
-
-[image.gridpaper]
-  small: /img/libraries.png
-  large: /img/libraries-big.png
-  size:  747 × 591 px
-
-
-### Page dependencies
+### Page directories
 Scripts, styles, and components
 
 ...
+
+
+### Static directories
+Images, videos, no .md files
+
+
+## Examples
+
+
+
+

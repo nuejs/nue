@@ -7,14 +7,14 @@ This document explains the default HTML layout of your pages and how you can cus
 Here's what the default HTML layout look on Chrome developer console for a Markdown page with just `# Hello, World!` on it:
 
 [image.bordered]
-  small: /img/default-layout.png
+  small: /img/default-png
   large: /img/default-layout-big.png
   size: 400 x 262
 
 
 
 ## Slots
-You can alter the generated HTML by filling the various "slots" in the default layout. These slots are named as follows:
+You can alter the generated HTML by filling the various "slots" in the default  These slots are named as follows:
 
 [image.bordered]
   small: /img/layout-slots.png
@@ -23,14 +23,14 @@ You can alter the generated HTML by filling the various "slots" in the default l
 
 
 [table]
-  Slot name     | Typical use
+  Slot name     | Use case
   “banner”      | For temporary news banners above the master header
   “header”      | The global, site-wide header
-  “subheader”   | For "breadcrumbs" or subnavigations
+  “subheader”   | Typically for "breadcrumbs" or subnavigations
   “main”        | To take full control of contents inside the the main element
-  “aside”       | For sidebars in documentation or product catalogue apps
+  “aside”       | Typically for sidebars in documentation or product catalogue apps
   “pagehead”    | The "hero" area for blog entries or marketing pages
-  “pagefoot”    | Call-to-action areas
+  “pagefoot”    | Mostly for call-to-actions
   “beside”      | Table of contents or other complementary navigations
   “footer”      | The global footer
   “bottom”      | Overlays, burger menus, or banners below the main footer
@@ -64,7 +64,7 @@ The modules can be stored in any file with a `.html` suffix such as `layout.html
 
 
 
-### Template inheritance
+### Scopes: global, application, and page
 The layout modules can be specified globally in a [global directory](project-structure.html#globals) or they can reside inside a specific application directory (like blog), in which case they are only visible within the application. You can also define page-specific layout modules inside a leaf directory, such as "blog/announcing-v2.0/layout.html".
 
 Modules with the same name override the more globally specified modules. So for a "banner" module inside a blog directory overrdes any globall specified "banner".
@@ -82,12 +82,62 @@ pagefoot: false
 
 ## Special slots
 
+
+### Main
+You can completely restructure the contents of your `<main>` element as follows:
+
+```html
+<main>
+  <h1>Hello, World!</h1>
+
+  <aside>
+    <slot for="pagehead"/>
+  </aside>
+
+  <article>
+    <slot for="content"/>
+  </article>
+</main>
+```
+
+Use a `<slot/>` element to render the contents of all other modules and the contents of the Markdown document.
+
+
+### Root
+You can go extreme and override the entire `html` element in which case you can customize everything, including the document head:
+
+```html
+<html>
+  <head>
+    <!-- system meta elements (auto-generated) -->
+    <slot for="head"/>
+
+    <!-- custom meta elements -->
+    <meta property="og:description" :content="og_description">
+  </head>
+
+  <!-- custom body layout -->
+  <body>
+    <main>
+      <h1>{ title }</h1>
+
+      <!-- slot for the Markdown content and it's sections -->
+      <slot for="content"/>
+    </main>
+  </body>
+
+</html>
+```
+
+
 ### Head
-The contents of your document's`<head>` element are auto-generated based on your project settings and what [dependencies](project-structure.html#dependencies) your page has. You can add custom metadata, external scripts and styles, and other extra elements to the head section with a "custom_head" element. For example:
+The contents of your document's`<head>` element are auto-generated based on your project settings and what [dependencies](project-structure.html#dependencies) your page has.
+
+You can add custom metadata, external scripts and styles, and other extra elements to the head section with a "<head>" element. For example:
 
 
 ```html
-<head @name="custom_head">
+<head>
   <meta http-equiv="Content-Security-Policy"
     content="default-src 'self'; img-src https://*; child-src 'none';">
 </head>
@@ -111,58 +161,10 @@ After the contents of your head would be rendered like this:
   <meta name="viewport" content="...">
   ...
 
-  <!-- custom head stuff -->
+  <!-- custom head content  -->
   <meta http-equiv="Content-Security-Policy"
     content="default-src 'self'; img-src https://*; child-src 'none';" />
 </head>
-```
-
-
-
-### Main
-You can completely restructure the contents of your `main` as follows:
-
-```html
-<main>
-  <h1>Hello, World!</h1>
-
-  <aside>
-    <slot for="layout.pagehead"/>
-  </aside>
-
-  <article>
-    <slot for="layout.content"/>
-  </article>
-</main>
-```
-
-Use a `<slot/>` element to render the contents of all other modules and the contents of the Markdown document.
-
-
-### Root
-You can go extreme and override the entire `html` element in which case you can customize everything, including the document head:
-
-```html
-<html>
-  <head>
-    <!-- system meta elements (auto-generated) -->
-    <slot for="layout.head"/>
-
-    <!-- custom meta elements -->
-    <meta property="og:description" :content="og_description">
-  </head>
-
-  <!-- custom body layout -->
-  <body>
-    <main>
-      <h1>{ title }</h1>
-
-      <!-- slot for the Markdown content and it's sections -->
-      <slot for="layout.content"/>
-    </main>
-  </body>
-
-</html>
 ```
 
 

@@ -6,8 +6,8 @@ appdir: home
 ---
 
 
-# UX Framework for the Web
-Nue brings cleaner code, faster tooling, and better results. It makes you a professional UX developer.
+# The UX Development Framework for the Web
+Nue brings faster tooling, cleaner code, and pixel-perfect results. It elevates you from JS engineering to design engineering.
 
 [button href="/docs/installation.html" "Get started"]
 
