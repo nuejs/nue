@@ -197,12 +197,27 @@ test('render reflinks', () => {
   const html = renderLines([
     '[Hey *dude*][local]',
     'Inlined [Second][external]',
-    '[local]: /blog/something.html "Local link"'
+    '[local]: /blog/yo.html "Local link"'
   ], { data: { links }})
 
-  expect(html).toInclude('<a href="/blog/something.html" title="Local link">Hey <em>dude</em></a>')
-  expect(html).toInclude('Inlined <a href="https://bar.com/zappa" title="External link">Second</a>')
+  expect(html).toInclude('<a title="Local link" href="/blog/yo.html">Hey <em>dude</em></a>')
+  expect(html).toInclude('Inlined <a title="External link" href="https://bar.com/zappa">Second</a>')
 })
+
+
+test('render footnotes', () => {
+  const html = renderLines([
+    '[hey][^ki] [^ko]',
+    '[define]',
+    '  ## King { #ki }',
+    '  ## Kong { #ko }',
+  ])
+
+  expect(html).toInclude('1</sup></a> <a')
+  expect(html).toInclude('2</sup></a></p>')
+  expect(html).toInclude('<dl><dt><a name="^ki">King')
+})
+
 
 test('complex tag data', () => {
   const [ comp ] = parseBlocks(['[hello#foo.bar world size="10"]', '  foo: bar'])

@@ -49,7 +49,7 @@ test('inline render basics', () => {
     { is_format: true, tag: 'b', body: '*hey*', html: '<b><em>hey</em></b>' },
     { href: '/', label: 'hey', html: '<a href="/">hey</a>' },
     { href: '/', label: '*hey*', html: '<a href="/"><em>hey</em></a>' },
-    { href: '/', label: 'hey', title: 'yo', html: '<a href="/" title="yo">hey</a>' },
+    { href: '/', label: 'hey', title: 'yo', html: '<a title="yo" href="/">hey</a>' },
   ]
 
   for (const test of tests) {
@@ -58,12 +58,6 @@ test('inline render basics', () => {
   }
 })
 
-
-test('parse simple link', () => {
-  const [text, link] = parseInline('Goto [label](/url/)')
-  expect(link.label).toBe('label')
-  expect(link.href).toBe('/url/')
-})
 
 // image
 test('render image', () => {
@@ -90,7 +84,13 @@ test('escaping', () => {
 })
 
 
-test('parse link', () => {
+test('simple link', () => {
+  const [text, link] = parseInline('Goto [label](/url/)')
+  expect(link.label).toBe('label')
+  expect(link.href).toBe('/url/')
+})
+
+test('link subject', () => {
   const link = parseLink('[Hello](/world "today")')
   expect(link).toMatchObject({ href: '/world', title: 'today', label: 'Hello' })
 })
@@ -100,23 +100,43 @@ test('parse reflink', () => {
   expect(link).toMatchObject({ href: 'world', title: 'now', label: 'Hello' })
 })
 
-
-test('parse reflink', () => {
-  const [text, link] = parseInline('Baz [foo][bar]')
-  expect(link.label).toBe('foo')
-  expect(link.href).toBe('bar')
-})
-
-test('parse complex link', () => {
+test('parse complex Wikipedia-style link', () => {
   const [text, link, rest] = parseInline('Goto [label](/url/(master)) plan')
   expect(link.href).toBe('/url/(master)')
 })
 
+test('parse footnote link', () => {
+  const link = parseLink('[Hello][^1]', true)
+  expect(link.is_footnote).toBe(true)
+  expect(link.href).toBe('^1')
+})
+
+test('parse footnote ref', () => {
+  const [text, tag] = parseInline('Hello [^1]', true)
+  expect(tag.is_footnote).toBe(true)
+  expect(tag.href).toBe('^1')
+})
+
+test('render footnote link', () => {
+  const footnotes = ['^1', '^go']
+  const rel = { is_footnote: true, href: '^go' }
+  const html = renderToken(rel, { footnotes })
+
+  expect(html).toStartWith('<a href="^go" rel="footnote">')
+  expect(html).toInclude('<sup role="doc-noteref">2</sup>')
+})
+
+test('footnote mix', () => {
+  const html = renderInline('[a][^1] b [^1]', { footnotes: ['^1'] })
+  expect(html).toInclude('a<sup')
+  expect(html).toEndWith('1</sup></a>')
+})
+
 
 test('render reflinks', () => {
-  const foo = { href: '/', title: 'Bruh' }
-  const html = renderToken({ href: 'foo', label: 'Foobar' }, { reflinks: { foo } })
-  expect(html).toBe('<a href="/" title="Bruh">Foobar</a>')
+  const ref = { href: '/', title: 'Bruh' }
+  const html = renderToken({ href: 'ref', label: 'Foobar' }, { reflinks: { ref } })
+  expect(html).toBe('<a title="Bruh" href="/">Foobar</a>')
 })
 
 

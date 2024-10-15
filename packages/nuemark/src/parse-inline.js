@@ -3,10 +3,11 @@
 import { parseTag, parseAttr } from './parse-tag.js'
 
 
-// from long to short
 export const FORMATTING = {
   '**':  'strong',
   '__':  'strong',
+
+  // after strongs
   '*':   'em',
   '_':   'em',
   '"':   'q',
@@ -68,13 +69,18 @@ const PARSERS = [
     }
   },
 
-  // tags
+  // [tag] or [^footnote]
   (str, char0) => {
     if (char0 == '[') {
       const i = str.indexOf(']', 2)
       if (i == -1) return { text: char0 }
+
       const specs = str.slice(1, i).trim()
-      return { is_tag: true, ...parseTag(specs), end: i + 1 }
+      const tag = parseTag(specs)
+      const { name } = tag
+      const end = i + 1
+
+      return name[0] == '^' ? { is_footnote: true, href: name, end } : { is_tag: true, ...tag, end }
     }
   },
 
@@ -90,7 +96,6 @@ const PARSERS = [
       ;
     }
   },
-
 
   // plain text
   (text) => {
@@ -147,9 +152,12 @@ export function parseLink(str, is_reflink) {
   // links with closing bracket (ie. Wikipedia)
   if (str[j + 1] == ')') j++
 
+  // href & title
+  let { href, title } = parseLinkTitle(str.slice(i + 2, j))
+
   return {
-    ...parseLinkTitle(str.slice(i + 2, j)),
-    label: str.slice(1, i),
+    href, title, label: str.slice(1, i),
+    is_footnote: href[0] == '^',
     is_reflink,
     end: j + 1
   }

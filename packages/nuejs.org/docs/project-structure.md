@@ -8,9 +8,9 @@ Nue project is a mixture of different kinds of files and folders that you can fr
 Here are all the different kind of files your project consist of.
 
 [table.deftable]
-  File type | Suffix | description
-  ------
-  Content](content.html) | `.md`
+  File type | Suffix | Description
+
+  [Content](content.html) | `.md`
   Your content written in extended Markdown format
 
   [Settings](settings.html) | `.yaml`

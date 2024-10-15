@@ -252,3 +252,21 @@ test('[svg] nested in [button]', () => {
   const html = renderLines(['[button]', `  [svg ${svgpath}] *Yo*`])
   expect(html).toBe('<a role="button"><svg/> <em>Yo</em></a>')
 })
+
+
+test('[define]', () => {
+  const content = [
+    '[define]',
+    '  ## Design System { #ds.foo }',
+    '  Design system is...',
+
+    '  ## Content First { #cf }',
+    '  Content first is...'
+  ]
+
+  const html = renderLines(content)
+  expect(html).toStartWith('<dl><dt class="foo"><a name="^ds">')
+  expect(html).toInclude('Design System</a></dt><dd>')
+  expect(html).toEndWith('<dd><p>Content first is...</p></dd></dl>')
+
+})

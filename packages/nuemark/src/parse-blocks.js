@@ -3,9 +3,12 @@ import { load as parseYAML } from 'js-yaml'
 import { parseInline } from './parse-inline.js'
 import { parseTag } from './parse-tag.js'
 
-export function parseBlocks(lines, reflinks={}) {
-  let spaces, block
+export function parseBlocks(lines, capture) {
   const blocks = []
+  let spaces, block
+
+  // capture stuff while recursing things
+  if (!capture) capture = { reflinks: {}, footnotes: [] }
 
   lines.forEach(line => {
     const c = line[0]
@@ -91,7 +94,7 @@ export function parseBlocks(lines, reflinks={}) {
 
     // reflink (can be nested on any level)
     const ref = parseReflink(trimmed)
-    if (ref) return reflinks[ref.key] = ref.link
+    if (ref) return capture.reflinks[ref.key] = ref.link
 
 
     // tag
@@ -141,8 +144,9 @@ export function parseBlocks(lines, reflinks={}) {
 
 
   /* tokenize lists and quotes. parse component data */
-  blocks.forEach(block => processNestedBlocks(block, reflinks))
-  blocks.reflinks = reflinks
+  blocks.forEach(block => processNestedBlocks(block, capture))
+  blocks.footnotes = capture.footnotes
+  blocks.reflinks = capture.reflinks
 
   return blocks
 }
@@ -150,19 +154,21 @@ export function parseBlocks(lines, reflinks={}) {
 
 
 // recursive processing of nested blocks
-function processNestedBlocks(block, reflinks) {
+function processNestedBlocks(block, capture) {
+  const { name } = block
+
   if (block.is_list) {
-    block.items = block.entries.map(blocks => parseBlocks(blocks, reflinks))
+    block.items = block.entries.map(blocks => parseBlocks(blocks, capture))
 
   } else if (block.is_quote) {
-    block.blocks = parseBlocks(block.content, reflinks)
+    block.blocks = parseBlocks(block.content, capture)
 
 
   } else if (block.is_tag) {
     const body = block.body.join('\n')
 
     try {
-      if (body && block.name != '.' && isYAML(body.trim())) {
+      if (body && name != '.' && isYAML(body.trim())) {
         let data = parseYAML(body)
         if (Array.isArray(data)) data = { items: data }
         Object.assign(block.data, data)
@@ -172,9 +178,13 @@ function processNestedBlocks(block, reflinks) {
       console.error('YAML parse error', body, e)
     }
 
-    if (block.name != 'table') {
-      if (!block.has_data) block.blocks = parseBlocks(block.body, reflinks)
+    if (name != 'table') {
+      if (!block.has_data) block.blocks = parseBlocks(block.body, capture)
       delete block.body
+
+      if (name == 'define') {
+        capture.footnotes.push(...getFootnoteIds(block.blocks))
+      }
     }
   }
 }
@@ -190,6 +200,11 @@ export function parseHeading(str) {
   const specs = tokens.find(el => el.is_attr)
   const attr = specs?.attr || {}
   return { is_heading: true, level, tokens, text, attr }
+}
+
+function getFootnoteIds(blocks) {
+  return blocks.filter(el => el.is_heading && el.attr.id)
+    .map(el => `^${el.attr.id}`)
 }
 
 function parseReflink(str) {

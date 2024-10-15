@@ -36,6 +36,19 @@ const TAGS = {
     return elem('a', { ...this.attr, href: data.href, role: 'button' }, label)
   },
 
+  define() {
+    const html = this.sections?.map((blocks, i) => {
+      const { attr, text } = blocks[0]
+      const title = attr.id ? elem('a', { name: `^${attr.id}` }, text) : text
+      const dt = elem('dt', { class: attr.class }, title)
+      const dd = elem('dd', this.render(blocks.slice(1)))
+      return dt + dd
+    })
+
+    return html && elem('dl', this.attr, html.join('\n'))
+  },
+
+
   image() {
     const { attr, data } = this
     const { caption, href, loading='lazy' } = data

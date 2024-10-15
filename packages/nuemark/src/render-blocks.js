@@ -14,6 +14,7 @@ export function renderLines(lines, opts) {
 
 export function renderBlocks(blocks, opts={}) {
   opts.reflinks = parseReflinks({ ...blocks.reflinks, ...opts?.data?.links })
+  opts.footnotes = blocks.footnotes
   return blocks.map(b => renderBlock(b, opts)).join('\n')
 }
 

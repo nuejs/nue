@@ -31,11 +31,11 @@ mastnav:
   - Nue 1.0 beta ›: /blog/nue-1-beta/ "status pill"
 
 toolbar:
-  - image: /icon/x-logo.svg
+  - image: /icon/twitter.svg
     url: //x.com/tipiirai
     class: social
-    alt: X logo
-    size: 39 x 39
+    alt: Twitter Profile @ x.com
+    size: 22 x 22
 
   - 6.1k: //github.com/nuejs/nue "github pill"
 
