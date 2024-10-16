@@ -6,8 +6,9 @@ import { parseTag, parseAttr } from './parse-tag.js'
 export const FORMATTING = {
   '**':  'strong',
   '__':  'strong',
+  '==':  'mark',
 
-  // after strongs
+  // after doubles
   '*':   'em',
   '_':   'em',
   '"':   'q',
