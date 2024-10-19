@@ -5,10 +5,12 @@ on:
     branches:
       - master
     paths:
-      - '**.md'
+      - '**/README.md'
+      - 'packages/nuejs.org/**'
   pull_request:
     paths:
-      - '**.md'
+      - '**/README.md'
+      - 'packages/nuejs.org/**'
   workflow_dispatch:
 
 jobs:
