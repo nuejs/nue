@@ -1,5 +1,5 @@
 
-# Nue &nbsp;[![test](https://github.com/nuejs/nue/actions/workflows/test.yaml/badge.svg?branch=master)](https://github.com/nuejs/nue/actions/workflows/test.yaml)
+# Nue &nbsp;[![test status](https://github.com/nuejs/nue/actions/workflows/test.yaml/badge.svg?branch=master)](https://github.com/nuejs/nue/actions/workflows/test.yaml)&nbsp;[![link checker status](https://github.com/nuejs/nue/actions/workflows/links.yaml/badge.svg?branch=master)](https://github.com/nuejs/nue/actions/workflows/links.yaml)
 
 <a href="https://nuejs.org/">
   <img src="https://nuejs.org/img/og-blue-big.png" width="900">
