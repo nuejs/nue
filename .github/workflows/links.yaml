@@ -1,0 +1,37 @@
+name: Check Links
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - '**/README.md'
+      - 'packages/nuejs.org/**'
+  pull_request:
+    paths:
+      - '**/README.md'
+      - 'packages/nuejs.org/**'
+  workflow_dispatch:
+
+jobs:
+  links:
+    if: ${{ github.repository_owner == 'nuejs' || github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+
+      - name: Install and build docs
+        run: |
+          bun install
+          cd packages/nuekit
+          bun link
+          cd -
+          nue build -pr packages/nuejs.org
+
+      - name: Check links
+        if: success() || failure()
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: -v --no-progress --exclude-path node_modules --exclude localhost -- **/README.md packages/nuejs.org/.dist/prod/
+          token: ${{ secrets.GITHUB_TOKEN }}
