@@ -50,14 +50,40 @@ const PARSERS = [
     }
   },
 
-  // links
+  // [link](/), [tag], or [^footnote]
   (str, char0) => {
     if (char0 == '[') {
-      return parseLink(str) || parseLink(str, true)
+      const i = str.indexOf(']', 1)
+
+      if (i == -1) return { text: char0 }
+
+      // links
+      if ('([]'.includes(str[i + 1])) {
+        const link = parseLink(str) || parseLink(str, true)
+        if (link) return link
+      }
+
+      // parse tag
+      const tag = parseTag(str.slice(1, i).trim())
+      const { name } = tag
+      const end = i + 1
+
+      // footnote?
+      if (name[0] == '^') {
+        const rel = name.slice(1)
+        return rel >= 0 || isValidName(rel) ? { is_footnote: true, href: name, end } : { text: char0 }
+      }
+
+      // normal tag
+      if (name == '!' || isValidName(name)) return { is_tag: true, ...tag, end }
+
+
+
+      return { text: char0 }
     }
   },
 
-  // images
+  // ![image](/src.png)
   (str, char0) => {
     if (char0 == '!' && str[1] == '[') {
       const img = parseLink(str.slice(1))
@@ -66,22 +92,6 @@ const PARSERS = [
         img.end++
         return img && { is_image: true, ...img }
       }
-    }
-  },
-
-
-  // [tag] or [^footnote]
-  (str, char0) => {
-    if (char0 == '[') {
-      const i = str.indexOf(']', 2)
-      if (i == -1) return { text: char0 }
-
-      const specs = str.slice(1, i).trim()
-      const tag = parseTag(specs)
-      const { name } = tag
-      const end = i + 1
-
-      return name[0] == '^' ? { is_footnote: true, href: name, end } : { is_tag: true, ...tag, end }
     }
   },
 
@@ -106,6 +116,19 @@ const PARSERS = [
     return i >= 0 && (empty(prev) || empty(next)) ? { text: text.slice(0, i) } : { text }
   }
 ]
+
+
+function isValidName(name) {
+
+  // cannot be a number
+  if (name >= 0) return false
+
+  // cannot contain special characters
+  const i = name.search(/\W/)
+  const char = name[i]
+  return i == -1 || i > 0 && char == '-'
+}
+
 
 function empty(char) {
   return !char || char == ' '
@@ -138,13 +161,15 @@ export function parseInline(str) {
 
 /*** utils ****/
 
+// function lastIndexOf()
+
 export function parseLink(str, is_reflink) {
   const [open, close] = is_reflink ? '[]' : '()'
-  let i = str.indexOf(']', 1)
+  let i = str.indexOf(']' + open, 1)
 
   // not a link
-  const next = str[i + 1]
-  if (next != open) return
+  // const next = str[i + 1]
+  if (i == -1) return
 
   let j = i > 0 ? str.indexOf(close, i + 2) : 0
 

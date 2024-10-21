@@ -35,10 +35,10 @@ test('formatting', () => {
 
   for (const test of tests) {
     const [ chars, body, tag ] = test
-    const ret = parseInline(`A ${chars + body + chars} here`)
-    expect(ret[1].tag).toBe(tag)
-    expect(ret[1].body).toBe(body)
-    expect(ret.length).toBe(3)
+    const html = parseInline(`A ${chars + body + chars} here`)
+    expect(html[1].tag).toBe(tag)
+    expect(html[1].body).toBe(body)
+    expect(html.length).toBe(3)
   }
 })
 
@@ -108,6 +108,20 @@ test('parse reflink', () => {
   expect(link).toMatchObject({ href: 'world', title: 'now', label: 'Hello' })
 })
 
+
+test('bad component names', () => {
+  const tests = ['[(10)] [3 % 8]', '[-hey]', '[he+y] there']
+  for (const test of tests) {
+    const html = renderInline(test)
+    expect(html).toBe(test)
+  }
+})
+
+test('inline image tag', () => {
+  const html = renderInline('[! foo.svg]')
+  expect(html).toStartWith('<figure>')
+})
+
 test('complex label with an image', () => {
   const complex_label = 'Hey ![Cat](/cat.png)!'
   const link = `[${complex_label}](/link/ "lol")`
@@ -120,6 +134,7 @@ test('complex label with an image', () => {
   expect(html).toStartWith('<a title="lol" href="/link/">Hey')
   expect(html).toEndWith('alt="Cat" loading="lazy">!</a>')
 })
+
 
 test('parse complex Wikipedia-style link', () => {
   const [text, link, rest] = parseInline('Goto [label](/url/(master)) plan')
@@ -174,9 +189,17 @@ test('inline tag', () => {
 })
 
 test('inline tag with reflink', () => {
-  const [ tag, and, link] = parseInline('[tip] and [link][foo]')
+  const els = parseInline('[tip] and [link][foo]')
+  const [ tag, and, link] = els
   expect(tag.is_tag).toBeTrue()
   expect(link.is_reflink).toBeTrue()
+})
+
+
+test('links with tags', () => {
+  const html = renderInline('lol [[! yo.svg]](/)')
+  expect(html).toStartWith('lol <a href="/">')
+  expect(html).toEndWith('src="yo.svg"></figure></a>')
 })
 
 test('tag args', () => {
