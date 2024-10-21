@@ -135,6 +135,11 @@ test('inline image tag', () => {
   expect(html).toStartWith('<figure>')
 })
 
+test('image link', () => {
+  const html = renderInline('[![](/img/foo.png)](/)')
+  expect(html).toStartWith('<a href="/"><img src="/img/foo.png"')
+})
+
 test('complex label with an image', () => {
   const complex_label = 'Hey ![Cat](/cat.png)!'
   const link = `[${complex_label}](/link/ "lol")`

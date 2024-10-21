@@ -72,9 +72,11 @@ test('parse thematic break', () => {
   expect(getBreak('*** yo')).toBeUndefined()
 })
 
-test.only('parse  break', () => {
-  const html = renderLines(['***', '***Bold Italic***'])
-  console.info(html)
+test('render thematic break', () => {
+  const html = renderLines(['***', '***x-bold***', '', '***   hey   ***'])
+  expect(html).toStartWith('<hr>')
+  expect(html).toInclude('<p><em><strong>x-bold')
+  expect(html).toEndWith('<p>***   hey   ***</p>')
 })
 
 test('render thematic break', () => {
