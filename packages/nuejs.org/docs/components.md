@@ -19,7 +19,7 @@ Nue offers a set of built-in helper components to help you construct the layout 
 
 
 ### Navi
-Most of your layout modules relate to navigation: the global header and footer, sidebars, and the burger menu typically consists of links to the various pages on your website. The `<navi/>` tag is a useful utility to render those links using the data  on your [settings and data files](settings-and-data.html). Here is an example header:
+Most of your layout modules relate to navigation: the global header and footer, sidebars, and the burger menu typically consists of links to the various pages on your website. The `<navi/>` tag is a useful utility to render those links using the data on your [settings and data files](settings-and-data.html). Here is an example header:
 
 ```
 <header>
@@ -112,7 +112,7 @@ Renders a Markdown-formatted string given in the `content` attribute.
 ```
 
 
-### Ppretty-date
+### Pretty-date
 Pretty-prints a date value given in the `date` attribute.
 
 ```
@@ -160,6 +160,3 @@ This Markdown document, for example renders the following:
   ...
 </div>
 ```
-
-
-
