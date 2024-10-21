@@ -50,7 +50,7 @@ const PARSERS = [
     }
   },
 
-  // links (must be before formatting)
+  // links
   (str, char0) => {
     if (char0 == '[') {
       return parseLink(str) || parseLink(str, true)
@@ -68,6 +68,7 @@ const PARSERS = [
       }
     }
   },
+
 
   // [tag] or [^footnote]
   (str, char0) => {
@@ -139,24 +140,38 @@ export function parseInline(str) {
 
 export function parseLink(str, is_reflink) {
   const [open, close] = is_reflink ? '[]' : '()'
-  const i = str.indexOf(']', 1)
-  const next = str[i + 1]
-
-  if (next != open) return
-
-  let j = i > 0 ? str.indexOf(close, 3 + i) : 0
+  let i = str.indexOf(']', 1)
 
   // not a link
-  if (j <= 0 || str[i] == ' ') return
+  const next = str[i + 1]
+  if (next != open) return
 
-  // links with closing bracket (ie. Wikipedia)
-  if (str[j + 1] == ')') j++
+  let j = i > 0 ? str.indexOf(close, i + 2) : 0
+
+  // not a link
+  if (j == -1) return
+
+  // label
+  let label = str.slice(1, i)
+
+  // image inside label
+  if (label.includes('![')) {
+    i = str.indexOf(']' + open, j)
+    label = str.slice(1, i)
+    j = str.indexOf(close, i + 2)
+    if (i == -1 || j == -1) return
+
+  } else  {
+    // links with closing bracket (ie. Wikipedia)
+    if (str[j + 1] == ')') j++
+  }
+
 
   // href & title
   let { href, title } = parseLinkTitle(str.slice(i + 2, j))
 
   return {
-    href, title, label: str.slice(1, i),
+    href, title, label,
     is_footnote: href[0] == '^',
     is_reflink,
     end: j + 1

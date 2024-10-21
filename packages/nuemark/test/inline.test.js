@@ -65,6 +65,7 @@ test('render image', () => {
   expect(html).toBe('<img src="/bar.png" alt="foo" loading="lazy"> post')
 })
 
+
 test('inline code', () => {
   const html = renderInline('Hey `[zoo] *boo*`')
   expect(html).toBe('Hey <code>[zoo] *boo*</code>')
@@ -95,9 +96,29 @@ test('link subject', () => {
   expect(link).toMatchObject({ href: '/world', title: 'today', label: 'Hello' })
 })
 
+test('parse inline link', () => {
+  const [text, link] = parseInline('Goto [label](/url/ "the subject")')
+  expect(link.title).toBe('the subject')
+  expect(link.label).toBe('label')
+  expect(link.href).toBe('/url/')
+})
+
 test('parse reflink', () => {
   const link = parseLink('[Hello][world "now"]', true)
   expect(link).toMatchObject({ href: 'world', title: 'now', label: 'Hello' })
+})
+
+test('complex label with an image', () => {
+  const complex_label = 'Hey ![Cat](/cat.png)!'
+  const link = `[${complex_label}](/link/ "lol")`
+
+  const el = parseLink(link)
+  expect(el.label).toBe(complex_label)
+  expect(el.href).toBe('/link/')
+
+  const html = renderInline(link)
+  expect(html).toStartWith('<a title="lol" href="/link/">Hey')
+  expect(html).toEndWith('alt="Cat" loading="lazy">!</a>')
 })
 
 test('parse complex Wikipedia-style link', () => {
@@ -139,14 +160,6 @@ test('render reflinks', () => {
   expect(html).toBe('<a title="Bruh" href="/">Foobar</a>')
 })
 
-
-test('parse subject link', () => {
-  const [text, link] = parseInline('Goto [label](/url/ "the subject")')
-  expect(link.title).toBe('the subject')
-  expect(link.label).toBe('label')
-  expect(link.href).toBe('/url/')
-})
-
 test('parse simple image', () => {
   const [text, img] = parseInline('Image ![](yo.svg)')
   expect(img.is_image).toBeTrue()
@@ -160,7 +173,7 @@ test('inline tag', () => {
   expect(el.name).toBe('version')
 })
 
-test('inline tag', () => {
+test('inline tag with reflink', () => {
   const [ tag, and, link] = parseInline('[tip] and [link][foo]')
   expect(tag.is_tag).toBeTrue()
   expect(link.is_reflink).toBeTrue()
