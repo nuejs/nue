@@ -4,6 +4,8 @@ import { parseTag, parseAttr } from './parse-tag.js'
 
 
 export const FORMATTING = {
+  '***':  'EM',
+  '___':  'EM',
   '**':  'strong',
   '__':  'strong',
 
@@ -27,11 +29,12 @@ const SIGNIFICANT = /[\*_\["`~\\/|•{\\<>]|!\[/
 
 const PARSERS = [
 
-  // character escaping first
+  // \{ escaped }
   (str, char0) => {
     if (char0 == '\\') return { text: str.slice(1, 2), end: 2 }
   },
 
+  // &lt; and &gt;
   (str, char0) => {
     const text = ESCAPED[char0]
     if (text) return { text, end: 1 }
@@ -43,9 +46,13 @@ const PARSERS = [
       if (str.startsWith(fmt)) {
         const len = fmt.length
         const i = str.indexOf(fmt, len + 1)
+        const body = str.slice(len, i)
+
+        // no spaces before/after the body
+        if (i == -1 || body.length != body.trim().length) return { text: str }
+
         const tag = FORMATTING[fmt]
-        return i == -1 || str[len] == ' ' ? { text: str.slice(0, len) } :
-          { is_format: true, tag, body: str.slice(len, i), end: i + len }
+        return { is_format: true, tag, body, end: i + len }
       }
     }
   },

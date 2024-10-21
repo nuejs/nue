@@ -18,7 +18,7 @@ export function renderToken(token, opts={}) {
 
 function formatText({tag, body }, opts) {
   const html = tag == 'code' ? renderCode(body) : renderInline(body, opts)
-  return elem(tag, html)
+  return tag == 'EM' ? elem('em', elem('strong', html)) : elem(tag, html)
 }
 
 function renderCode(code) {

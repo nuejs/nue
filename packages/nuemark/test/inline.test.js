@@ -42,6 +42,19 @@ test('formatting', () => {
   }
 })
 
+test('formatting and spaces', () => {
+  expect(renderInline('**hello**')).toBe('<strong>hello</strong>')
+  expect(renderInline('**hello*')).toBe('**hello*')
+  expect(renderInline('** hello **')).toBe('** hello **')
+  expect(renderInline('** hello**')).toBe('** hello**')
+})
+
+test('bold + em', () => {
+  expect(renderInline('***hello***')).toBe('<em><strong>hello</strong></em>')
+  expect(renderInline('___hello___')).toBe('<em><strong>hello</strong></em>')
+  expect(renderInline('___ hello ___')).toBe('___ hello ___')
+})
+
 test('inline render basics', () => {
   const tests = [
     { text: 'hey', html: 'hey' },
