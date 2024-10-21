@@ -189,10 +189,21 @@ test('[table] nested YAML', () => {
   expect(html).toEndWith('<td>bar</td></tr></table>')
 })
 
+test('[table] backwards compatibility', () => {
+  const html = renderLines(['[table]', '  - foo | bar'])
+  expect(html).toStartWith('<table><tr><td>foo</td>')
+})
+
 test('[table] nested string', () => {
   const html = renderLines(['[table head=false]', '  a | b', '  ---', '  c | d'])
   expect(html).toStartWith('<table><thead><')
   expect(html).toEndWith('<td>d</td></tr></table>')
+})
+
+test('[table] empty cells', () => {
+  const html = renderLines(['[table head=false]', '  | b | c', '  d |     | f'])
+  expect(html).toInclude('<tr><td></td><td>b')
+  expect(html).toInclude('<td>d</td><td></td><td>f')
 })
 
 

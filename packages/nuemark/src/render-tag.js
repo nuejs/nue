@@ -226,7 +226,9 @@ export function renderTable(table, md_opts) {
   if (!rows) return ''
 
   const html = rows.map((row, i) => {
-    const is_head = head && i == 0
+    if (typeof row == 'string') row = row.split(/\s*\|\s*/)
+
+    const is_head = head && i == 0 && rows.length > 1
     const is_foot = table.foot && i > 1 && i == rows.length - 1
 
     const cells = row.map(td => elem(is_head || is_foot ? 'th' : 'td', renderInline(td, md_opts)))
@@ -246,16 +248,16 @@ export function parseTable(lines) {
   lines.forEach((line, i) => {
     if (!line.trim()) return
 
+
     if (line.startsWith('---')) {
       if (rows.length == 1) specs.head = true
       else if (i == lines.length -2) specs.foot = true
       return
     }
 
-    let els = line.split(/ +[;|] +/)
-    if (els[0][0] == '|') els = els[0].split(/\| +/).concat(els.slice(1))
+    // split to cells
+    let els = line.split(/\s*[;|]\s/)
     if (i == 0) specs.cols = els.length
-
 
     // append to previous row
     if (els.length < specs.cols) {
