@@ -4,10 +4,25 @@ include: [tabs]
 ---
 
 # Content
-Nue provides an extended Markdown syntax for authoring web content. In addition to the basic text formatting, you have sections, grids, responsive images, videos, tabbed content, and more. You can rapidly assemble complex web pages without ever touching a single line of code or the need to set up complex cloud-based content database systems. Just simple versionable text files, directly accessible on your file system, and editable with your favorite editor.
+Nue provides an extended Markdown syntax for authoring web content. In addition to the basic text formatting, you have sections, grids, responsive images, videos, tabbed content, and more. You can rapidly assemble complex web pages without ever touching a single line of code. Just simple versionable text files, directly accessible on your file system, and editable with your favorite editor.
 
 
-## Basic Markdown
+## Content development
+
+content first, information
+
+- narrative
+
+1. Marketing content: landing pages, product tours, etc. usually contain sections,
+2. Technical content
+
+3. Blog content: hybrid. starts with a hero section, following with technical content. occasionally mixes of more complex layouts between the content flow.
+
+
+
+
+
+## Basic syntax
 Nue offers a full [Markdown support](//daringfireball.net/projects/markdown/). That is: All the familiar things like headings, quotes, lists, and fenced code blocks are supported:
 
 
@@ -31,7 +46,9 @@ Followed with
 - list of items
 ```
 
-## Extended Markdown
+## Extended syntax
+tables
+footnotes
 
 
 ### Formatting
@@ -603,7 +620,7 @@ Note that the component name "block" can be omitted and you can simply write the
 
 
 
-### Stacks and grids
+### Flex- and grid layouts
 Nue automaticslly splits the the nested content multi-block layouts where each item is separated with a triple-dash ("---") or based on the heading structure. For example:
 
 ```md
@@ -639,7 +656,7 @@ The stack is rendered with two inner divs:
 </div>
 ```
 
-#### Code stack
+#### Code blocks
 Here is another stack example with two code blocks separated with a triple-dash:
 
 

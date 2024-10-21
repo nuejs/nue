@@ -7,3 +7,4 @@ dist
 .vscode
 _test
 coverage
+performance.js

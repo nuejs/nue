@@ -2,11 +2,15 @@
 include: [technical-content, video, toggle-switch]
 footer: false
 
+lang:
+  on_this_page: On this page
+  zen_mode: Zen Mode
+
 sidenav:
   Getting started:
-    - What is Nue?: /docs/
+    - Why Nue: /docs/
+    - How it works: /docs/
     - Installation: installation.html
-    - Command line interface: command-line-interface.html
 
   Building websites:
     - Quick start: tutorial.html
@@ -17,13 +21,14 @@ sidenav:
     - Islands: islands.html
     - Styling: styling.html
     - Scripting: scripting.html
+    - Motion: motion.html
     - Optimization: optimization.html
-    # - CSS best practices: css-best-practices.html
+
 
   Reference:
     - Settings index: settings.html
-    - Component index: components.html
-    - Component syntax: ..
+    - Built-in components: components.html
     - Template syntax: template-syntax.html
     - Syntax highlighting: syntax-highlighting.html
+    - Command line interface: command-line-interface.html
 

@@ -167,153 +167,79 @@ After the contents of your head would be rendered like this:
 </head>
 ```
 
-
-## Helper components
-Nue offers a set of built-in helper components to help you construct the layout modules.
-
-
-### Navi
-Most of your layout modules relate to navigation: the global header and footer, sidebars, and the burger menu typically consists of links to the various pages on your website. The `<navi/>` tag is a useful utility to render those links using the data  on your [settings and data files](settings-and-data.html). Here is an example header:
-
-```
-<header>
-  <!-- logo -->
-  <a href="/">
-    <img src="/img/logo.svg" alt="Logo">
-  </a>
-
-  <!-- master navigation -->
-  <navi :items="mastnav"/>
-</header>
-```
-
-Here is the navigation data in `site.yaml`:
-
-```
-mastnav:
-  - Documentation: /docs/
-  - About: /about/
-  - Blog: /blog/
-  - "v1.0 is out!": /blog/v1.0/ "badge"
-```
-
-The header would render as follows
-
-```
-<header>
-  <a href="/">
-    <img src="/img/logo.svg" alt="Logo">
-  </a>
-  <nav>
-    <a href="/docs/">Documentation</a>
-    <a href="/about/">About</a>
-    <a href="/blog/">Blog</a>
-    <a href="/blog/v1.0/" class="badge">v1.0 is out!</a>
-  </nav>
-</header>
-```
-
-A quoted string ("badge") after the URL becomes a class name for the link.
-
-
-#### Hierarchical navigation
-You can also supply hierarchical data for the navi tag:
-
-```
-footer:
-  Product:
-    - Download: /download/
-    - Features: /features/
-    - Pricing: /pricing/
-    - Docs: /docs/
-
-  Company:
-    - About us: /about/
-    - Blog: /blog/
-    - Careers: /careers/
-    - Customers: /customers/
-```
-
-Now `<navi :items="footer"/>` would render the following:
-
-```
-<div>
-  <nav>
-    <h3>Product</h3>
-    <a href="/download/">Download</a>
-    <a href="/features/">Features</a>
-    <a href="/pricing/">Pricing</a>
-    <a href="/docs/">Docs</a>
-  </nav>
-
-  <nav>
-    <h3>Company</h3>
-    <a href="/about/">About us</a>
-    <a href="/blog/">Blog</a>
-    <a href="/careers/">Careers</a>
-    <a href="/customers/">Customers</a>
-  </nav>
-</div>
-```
-
-
-
-### Markdown
-Renders a Markdown-formatted string given in the `content` attribute.
-
-```
-<markdown :content="description"/>
-```
-
-
-### Ppretty-date
-Pretty-prints a date value given in the `date` attribute.
-
-```
-<pretty-date :date="date"/>
-```
-
-Here is an example "hero" area for a blog entry that uses the `markdown` and `pretty-date` tags:
+## Page layout
+Nue [extends](content.html) the basic Markdown syntax to make it suitable for assembling rich web pages. This content is nested inside an `article` element:
 
 
 ```html
-<header @name="pagehead">
-  <pretty-date :date="date"/>
-
-  <h1><markdown :content="title"/></h1>
-
-  <div class="description">
-    <markdown :content="title"/>
-  </div>
-</header>
+<body>
+  <main>
+    <article>
+>     <section>
+>       <p>The content goes here</p>
+>     </section>
+    </article>
+  </main>
+</body>
 ```
 
 
-
-### Table of contents
-Use the built-in `<toc/>` tag to render the table of contents parsed from the current Markdown document and it's second and third level headings (h2, h3):
-
-```
-<toc class="toc"/>
-```
-
-This Markdown document, for example renders the following:
+### Sections
+The content is always nested inside one or more section elements. A multi-section HTML output looks like this:
 
 ```html
-<div aria-label="Table of contents" class="toc">
-  <nav>
-    <a href="#default-layout">
-      <strong>Default layout</strong></a>
-  </nav>
-  <nav>
-    <a href="#slots"><strong>Slots</strong></a>
-    <a href="#filling-the-slots">Filling the slots</a>
-    <a href="#template-inheritance">Template inheritance</a>
-    <a href="#disabling">Disabling slots</a></nav>
-  <nav>
+<article>
+
+> <section>
+    <h1>Hello, World!</h1>
+    <p>First section</p>
+  </section>
+
+> <section>
+    <h2 id="hello-again">
+      <a href="#hello-again" title="Hello again"></a>Hello again
+    </h2>
+    <p>Another section</p>
+  </section>
+
+</article>
+```
+
+The `section` elements are direct descendants of the article and cannot occur anywhere else on the page.
+
+
+
+### Section classes
+You typically want to define classes for the sections for styling purposes. These classes (and IDs) can be defined explicitly after the section separator. For example:
+
+
+```md
+\--- •#my-id.class-name•
+
+# Section title
+And a description
+```
+
+This will generate the following:
+
+```html
+<article>
+  <section id="ux" class="features">...</section>
   ...
-</div>
+</article>
 ```
+
+However, it's better to define these classes in the application data or the document's front matter. For example, the [front page](/) of this website has the following:
+
+```yaml
+sections: [hero, features, explainer, status, feedback]
+```
+
+Defining the classes outside the Markdown keeps the content clean and raises fewer questions from the copywriters.
+
+
+
+
 
 
 

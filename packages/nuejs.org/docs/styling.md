@@ -1,18 +1,19 @@
 
-# Styling
+# Design Systems and Styling
 Go trough the simple blog.
 
-! No CSS --> With CSS
 
 
+## Design Systems
+Plnned or not. CSS forces you to think in terms of design systems.
+CSS architecture
 
-## CSS architecture
 
-! IMG simple blog / CSS
+! CSS architecture or the simple blog
 
 
-## Globals
-CSS is global by nature. Consistent typography, colors, sizing, spacing, layout, and transitions to make the website feel like one cohesive unit.
+### Globals
+Global styling defines typography, colors, sizing, spacing, layout, and transitions to make the website feel like one cohesive unit. These styles makes the bulk of your design system:
 
 These files are automatically. Define a [design system][#ds]
 
@@ -22,16 +23,24 @@ These files are automatically. Define a [design system][#ds]
 
 - `form.css` with all form elements like inputs, text areas, select boxes, checkboxes, radios, sliders, etc.
 
+Global scope: https://css-tricks.com/regarding-css-global-scope/
 
-## Libraries
+
+### Libraries
+UI libraries for components and elements
 These files are included on demand. Re-used accross.
-
 
 - forms.css
 - cards.css
 
 
-### Applications
+## Contexts
+Cascade, specifity, inheritance
+
+### Site
+globals, site.yaml
+
+### Areas
 `blog` is an [application directory]()
 Inheritance
 
@@ -39,78 +48,54 @@ Inheritance
 include: [ content, cards, motion ]
 ```
 
+### Pages
+....
+
+
+### Sections
+...
+
+
 `contact/contatc.css, specific to this app only. not intended to be re-used outside this directory.
 
 
+## Design System best practises
+
+### Content first
+information architecture, contexts
+
+### Respect constraints
+...
 
 
-### Scoping
-Inheritance, Overriding
+
+## CSS Best practises
 
 
+### Selectors
 
-
-## CSS practises
-
-### Scoping
-You can safely nest your CSS selectors
-
+### Nesting
+  Nue uses Lightning CSS to modernize your CSS. You can safely nest your CSS selectors
 
 ### Class names
+
+Good:
+  tons of names
+Bad:
+
 
 - semantic: "card", ""
 - visual: "pink", "blue"
 
-
 ### Resetting
+
 ```css
 *, *::before, *::after {
   box-sizing: border-box
 }
 ```
 
-
-
-## Terminology
-
-[^de]:
-  ### Design engineering
-  Most of your code is CSS.
-
-  Wikipedia
-
-
-Design system
-
-
-Global scope:
-
-
-  https://css-tricks.com/regarding-css-global-scope/
-
-  Local scope
-    CSS selectors, [table], ...
-
-  Namespace pollution
-Global Design System
-
-
-## Further reading
-Links to actual articles
-
-- [Ahmad Shadeed](//ishadeed.com/)
-- [Chris Coyier](//chriscoyier.net/)
-- [CSS tricks](//css-tricks.com/)
-- [Josh Comeau](//www.joshwcomeau.com/)
-- [Ryan Mulligan](//ryanmulligan.dev/blog/)
-
-
-There is tons of [misinformation](/blog/tailwind-misinformation-engine/) about CSS that makes beginner developers move away from web standards and adopt the idea of inline styling.
-
-But if you grasp the power of the global design system and see how you can accomplish the same thing with significantly less effort you begin to think why you ever bought the idea of tight coupling in the first place.
-
-Understand the power of constraints, design systems, and web standards. Become a professional UX developer and stay relevant for years to come.
-
-
+### Templates
+Stay tuned.. lessons from above wrapped
 
 
