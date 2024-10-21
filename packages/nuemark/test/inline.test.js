@@ -195,12 +195,17 @@ test('inline tag with reflink', () => {
   expect(link.is_reflink).toBeTrue()
 })
 
+test('link with a tag', () => {
+  const html = renderInline('[[my-tag]](/)')
+  expect(html).toBe('<a href="/"><my-tag custom="my-tag"></my-tag></a>')
+})
 
-test('links with tags', () => {
+test('link with image tag', () => {
   const html = renderInline('lol [[! yo.svg]](/)')
   expect(html).toStartWith('lol <a href="/">')
   expect(html).toEndWith('src="yo.svg"></figure></a>')
 })
+
 
 test('tag args', () => {
   const [ text, comp, rest] = parseInline('Hey [print foo] thing')
