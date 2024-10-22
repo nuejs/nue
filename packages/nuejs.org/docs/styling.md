@@ -13,7 +13,7 @@ CSS architecture
 
 
 ### Globals
-Global styling defines typography, colors, sizing, spacing, layout, and transitions to make the website feel like one cohesive unit. These styles makes the bulk of your design system:
+Global styling defines typography, colors, sizing, spacing, layout, and transitions to make the website feel like one cohesive unit. These styles make the bulk of your design system:
 
 These files are automatically. Define a [design system][#ds]
 

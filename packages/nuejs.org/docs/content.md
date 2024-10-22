@@ -1,4 +1,3 @@
-
 ---
 include: [tabs]
 ---
@@ -63,7 +62,7 @@ Nue offers a bunch of formatting options beyond starndard Markdown
   `I'm *italic*`   | `I'm <em>italic</em>`       | I'm *italic*
   `I'm _italic_`   | `I'm <em>italic</em>`       | I'm _italic_
   `I'm /italic/`   | `I'm <i>italic</i>`         | I'm /italic/
-  `I'm `code`      | `I'm <code>code</code>`     | I'm `code`
+  `I'm \`code\``   | `I'm <code>code</code>`     | I'm `code`
   `I'm ~striked~`  | `I'm <s>striked</s>`        | I'm ~striked~
   `I'm "quoted"`   | `I'm <q>quoted</q>`         | I'm "quoted"
   `I'm |marked|`   | `I'm <mark>marked</mark>`   | I'm |marked|
@@ -169,7 +168,7 @@ Nue comes with a set of build-in Markdown extensions or "tags" that significantl
 [image /img/cat.png]
 ```
 
-The tag name (ie. "image") is followed by options, which can be supplied in several ways:
+The tag name (i.e. "image") is followed by options, which can be supplied in several ways:
 
 
 ```md
@@ -243,7 +242,7 @@ Images can link to URL's with `href` attribute:
 
   `href` adds a link on the image.
 
-  `large` the large version of the image. the large image can have a different aspect ratio than the small one, which is the difference between art direction and responsitivity.
+  `large` the large version of the image. The large image can have a different aspect ratio than the small one, which is the difference between art direction and responsitivity.
 
   `loading` this is either "lazy" for [lazy loading](https://developer.mozilla.org/en-US/docs/Web/Performance/Lazy_loading) (default value) or "eager" for non-lazy loading.
 
@@ -453,7 +452,7 @@ The YAML ata can also be specified directly on the body:
 [.options]
   #### Table options
 
-  `head` whether the first row should be rendered as a table head (with <th> elements). The default is true.
+  `head` whether the first row should be rendered as a table head (with `<th>` elements). The default is true.
 
   `:items` property name for the externally defined table data
 
@@ -534,7 +533,7 @@ Nue looks for the first heading element (h2 or above) within the tag and uses th
 
 
 #### HTML output
-Accordion is rendered as a list of [<details>](//developer.mozilla.org/en-US/docs/Web/HTML/Element/details) disclosure element.
+Accordion is rendered as a list of [`<details>`](//developer.mozilla.org/en-US/docs/Web/HTML/Element/details) disclosure element.
 
 ```html
 <div>
@@ -621,7 +620,7 @@ Note that the component name "block" can be omitted and you can simply write the
 
 
 ### Flex- and grid layouts
-Nue automaticslly splits the the nested content multi-block layouts where each item is separated with a triple-dash ("---") or based on the heading structure. For example:
+Nue automaticslly splits the nested content multi-block layouts where each item is separated with a triple-dash ("---") or based on the heading structure. For example:
 
 ```md
 [.stack]

@@ -84,7 +84,7 @@ With the above configuration in place, the document's `<head>` section is render
 
 
 
-The scripts, styles and components are automatically included in the page dependency tree similar to how data is propagated. The assets on the application root are included in all pages in the app and sub-directory assets are included on the pages in that sub-directory. For example:
+The scripts, styles and components are automatically included in the page dependency tree similar to how data is propagated. The assets on the application root are included in all pages in the app and subdirectory assets are included on the pages in that subdirectory. For example:
 
 
 
@@ -228,4 +228,3 @@ Setting this to `true` inlines all CSS directly into the page to make it load fa
 
 ### unlisted
 Do not include the page in content collections.
-

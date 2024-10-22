@@ -63,5 +63,3 @@ Nue minifies your CSS and JavaScript but does *not* bundle them into one big fil
 This way only the files that have changed need to be fetched from the server causing fewer transferred bits.
 
 Caching and bundling are minor tweaks compared to what you can achieve with inlined CSS and view transitions. This website, for example, uses a very trivial configuration with 10-minute expire headers on all JS and CSS so that caching is only active within one visit, but all files are loaded fresh for every new visit.
-
-

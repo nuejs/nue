@@ -85,7 +85,7 @@ Nue uses [YAML data](navigation.html) for defining your header, footer, burger m
 ### Blog post content
 The same human-friendly approach applies to all your pages too, that are written with an [extended Markdown flavor](content.html) suitable for creating rich, interactive web content. There is no need for a React specialist to get your videos, responsive images, grids, and stacked layouts in place.
 
-Here we edit the content in VS code and watch Nue's [hot-reloading](hot-reloading.html) take action in split-screen mode:
+Here we edit the content in VS Code and watch Nue's [hot-reloading](hot-reloading.html) take action in split-screen mode:
 
 [image.bordered]
   small: /img/blog-content-editing.png
@@ -303,5 +303,3 @@ The production-optimized version is generated with the `nue build --production` 
 This step is extremely fast. No matter how large your website, the generation times are in the ballpark of what you see with **Rust** and **Go**-based generators like **Hugo**.
 
 The production files are generated under the `.dist/prod` folder, which you can transfer to your CDN such as **Cloudflare**, **CloudFront**, or **Fastly**. Later, there will be a handy `nue push` command to dramatically simplify deployment, but currently, you have to figure out this step yourself.
-
-

@@ -38,7 +38,7 @@ This will create a collection from all the pages inside the posts directory and 
 collection_name: blog_posts
 ```
 
-Just like any other configuration option, you can also define the collection globally in `site.yaml` in which case you have the collection available on all your pages or you can define it inside your app on some `.yaml` file in which case the collection is available on all pages inside the application directory.
+Just like any other configuration option, you can also define the collection globally in `site.yaml` in which case you have the collection available on all your pages. Or you define it inside your app in some `.yaml` file in which case the collection is available on all pages inside the application directory.
 
 Content collections are "cheap" in a way that they don't cause much performance penalty when the site is generated. The collection data is read only once from the file system and then cached with the `collection_name` variable as a cache key.
 
@@ -127,5 +127,3 @@ The `posts` variable is a regular JavaScript Array instance so you can slice, ma
 ```
 
 By default, collections are sorted by `date` property so the newest will be rendered first.
-
-

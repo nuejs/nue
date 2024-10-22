@@ -8,7 +8,7 @@ Nue uses automatically highlights syntax blocks with [Glow](/blog/introducing-gl
 
 
 ### Rendered HTML markup
-Syntax blocks consist are rendered as bunch of standard HTML tags only and there are no class names. For example, the following Markdown block:
+Syntax blocks are rendered as a bunch of standard HTML tags only and there are no class names. For example, the following Markdown block:
 
 
 ```
@@ -102,5 +102,3 @@ pre {
   em { font-weight: bold }
 }
 ```
-
-

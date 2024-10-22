@@ -37,4 +37,3 @@ Here's a more complex example that gives you an idea how dependencies are calcul
   small: /img/libraries.png
   large: /img/libraries-big.png
   size:  747 × 591 px
-

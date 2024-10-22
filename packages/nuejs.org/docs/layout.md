@@ -4,7 +4,7 @@ This document explains the default HTML layout of your pages and how you can cus
 
 
 ## Default layout
-Here's what the default HTML layout look on Chrome developer console for a Markdown page with just `# Hello, World!` on it:
+Here's what the default HTML layout looks like on the Chrome developer console for a Markdown page with just `# Hello, World!` on it:
 
 [image.bordered]
   small: /img/default-png
@@ -14,7 +14,7 @@ Here's what the default HTML layout look on Chrome developer console for a Markd
 
 
 ## Slots
-You can alter the generated HTML by filling the various "slots" in the default  These slots are named as follows:
+You can alter the generated HTML by filling the various "slots" in the default layout. These slots are named as follows:
 
 [image.bordered]
   small: /img/layout-slots.png
@@ -27,7 +27,7 @@ You can alter the generated HTML by filling the various "slots" in the default  
   “banner”      | For temporary news banners above the master header
   “header”      | The global, site-wide header
   “subheader”   | Typically for "breadcrumbs" or subnavigations
-  “main”        | To take full control of contents inside the the main element
+  “main”        | To take full control of contents inside the main element
   “aside”       | Typically for sidebars in documentation or product catalogue apps
   “pagehead”    | The "hero" area for blog entries or marketing pages
   “pagefoot”    | Mostly for call-to-actions
@@ -46,7 +46,7 @@ To fill a specific slot, say the "banner" you create a `.html` file with a [serv
 </div>
 ```
 
-HTML5 landmark element names: `header`, `footer`, `aside`, and `main` don't require the "@name" attribute and you can specify them as is. For example, here's the a site-wide master navigation:
+HTML5 landmark element names: `header`, `footer`, `aside`, and `main` don't require the "@name" attribute and you can specify them as is. For example, here's a site-wide master navigation:
 
 ```html
 <header>
@@ -58,7 +58,7 @@ HTML5 landmark element names: `header`, `footer`, `aside`, and `main` don't requ
 </header>
 ```
 
-The layout modules support a HTML-based [template language](template-syntax.html) with loops and conditionals and they have full access to your [data and metadata](settings-and-data.html#data).
+The layout modules support a HTML-based [template language](template-syntax.html) with loops and conditionals, and they have full access to your [data and metadata](settings-and-data.html#data).
 
 The modules can be stored in any file with a `.html` suffix such as `layout.html` and a single file can contain multiple layout modules.
 
@@ -236,15 +236,3 @@ sections: [hero, features, explainer, status, feedback]
 ```
 
 Defining the classes outside the Markdown keeps the content clean and raises fewer questions from the copywriters.
-
-
-
-
-
-
-
-
-
-
-
-

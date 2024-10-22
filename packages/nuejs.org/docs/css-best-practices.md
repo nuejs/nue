@@ -308,4 +308,3 @@ Understand the power of constraints, design systems, and web standards. Become a
 - [CSS tricks](//css-tricks.com/)
 - [Josh Comeau](//www.joshwcomeau.com/)
 - [Ryan Mulligan](//ryanmulligan.dev/blog/)
-

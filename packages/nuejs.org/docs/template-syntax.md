@@ -573,4 +573,3 @@ or you can use [`:bind` attribute](#bind) to pass all the data at once:
 ```
 
 The bind attribute makes the item properties accessible directly to the component. So instead of `{ item.title }` you can write `{ title }` inside the component.
-

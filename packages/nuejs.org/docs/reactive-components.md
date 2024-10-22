@@ -385,7 +385,3 @@ Here's an example library that defines both a shopping cart and a button compone
   </script>
 </button>
 ```
-
-
-
-

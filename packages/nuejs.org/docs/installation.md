@@ -25,7 +25,7 @@ bun install nuekit --global
 nue create simple-blog
 ```
 
-Done. You should now have a new browser tab pointing  to: `http://localhost:8083/welcome/`:
+Done. You should now have a new browser tab pointing to: `http://localhost:8083/welcome/`:
 
 [image]
   small: /img/create-welcome.png
@@ -65,7 +65,7 @@ Install Nue with `pnpm`, `npm` or `yarn`:
 pnpm install nuekit --global
 ```
 
-The default engine is Bun so the [command line interface](command-line-interface.html) starts with `#!/usr/bin/env bun`. Do the following to override the shebang:
+The default engine is Bun, so the [command line interface](command-line-interface.html) starts with `#!/usr/bin/env bun`. Do the following to override the shebang:
 
 ```sh
 node $(which nue)
@@ -76,7 +76,3 @@ To make the above command permanent you should store the following alias to your
 ```sh
 alias node-nue="node $(which nue)"
 ```
-
-
-
-

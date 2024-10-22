@@ -94,9 +94,3 @@ Nue is a perfect system for freelancers and design agencies who want to offer th
 
 ### Try it
 You might not believe all these big claims until you [give Nue a try](installation.html). Chances are, you will start wondering why you have ever built websites in any other way.
-
-
-
-
-
-
