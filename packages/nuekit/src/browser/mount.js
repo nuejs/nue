@@ -33,7 +33,7 @@ export async function mountAll(hmr_path) {
   const { createApp } = await import('./nue.js')
 
   for (const node of [...els]) {
-    const name = node.tagName.toLowerCase()
+    const name = node.getAttribute('custom') // || node.tagName.toLowerCase()
     const next = node.nextElementSibling
     const data = next?.type == 'application/json' ? JSON.parse(next.textContent) : {}
     const comp = lib.find(a => a.name == name)
@@ -46,7 +46,7 @@ export async function mountAll(hmr_path) {
       // web component -> do nothing
 
     } else {
-      // console.error(`Component not found: "${name}"`)
+      console.error(`Component not defined: "${name}"`)
     }
   }
 }
