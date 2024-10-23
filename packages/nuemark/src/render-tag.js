@@ -32,8 +32,11 @@ const TAGS = {
 
 
   button(data) {
+    const { href } = data
     const label = this.renderInline(data.label || data._) || this.innerHTML || ''
-    return elem('a', { ...this.attr, href: data.href, role: 'button' }, label)
+
+    return href ? elem('a', { ...this.attr, href, role: 'button' }, label) :
+      elem('button', this.attr, label)
   },
 
   define() {
@@ -119,9 +122,9 @@ export function renderTag(tag, opts={}) {
   const tags = opts.tags = { ...TAGS, ...opts?.tags }
   const fn = tags[tag.name || 'block']
 
-  if (!fn) return renderIsland(tag)
+  if (!fn) return renderIsland(tag, opts.data)
 
-  const data = extractColonVars({ ...opts.data, ...tag.data })
+  const data = { ...opts.data, ...extractData(tag.data, opts.data) }
   const { blocks } = tag
 
   const api = {
@@ -137,6 +140,17 @@ export function renderTag(tag, opts={}) {
 
   return fn.call(api, data)
 }
+
+
+export function renderIsland(tag, all_data) {
+  const { name, attr } = tag
+  const data = extractData(tag.data, all_data)
+
+  const json = !Object.keys(data)[0] ? '' :
+    elem('script', { type: 'application/json' }, JSON.stringify(data))
+  return elem(name, { 'custom': name, ...attr }, json)
+}
+
 
 
 
@@ -179,11 +193,11 @@ export function parseSize(data) {
 }
 
 
-// :rows="pricing" --> rows -> data.pricing
-function extractColonVars(data) {
+// :rows="pricing" --> rows -> all_data.pricing
+function extractData(data, all_data) {
   for (const key in data) {
     if (key.startsWith(':')) {
-      data[key.slice(1)] = data[data[key]]
+      data[key.slice(1)] = all_data[data[key]]
       delete data[key]
     }
   }
@@ -211,12 +225,6 @@ function getInnerHTML(blocks = [], opts) {
   if (!first) return ''
   const { content } = first
   return content && !second ? renderInline(content.join(' '), opts) : renderBlocks(blocks, opts)
-}
-
-export function renderIsland({ name, attr, data }) {
-  const json = !Object.keys(data)[0] ? '' :
-    elem('script', { type: 'application/json' }, JSON.stringify(data))
-  return elem(name, { 'custom': name, ...attr }, json)
 }
 
 
