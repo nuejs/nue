@@ -1,3 +1,7 @@
+.flex {
+  align-items: center;
+  display: flex;
+}
 .stack {
   display: flex;
   margin: 2em 0;

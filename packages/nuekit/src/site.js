@@ -46,6 +46,8 @@ export async function createSite(args) {
       return yaml.load(raw)
     } catch (e) {
       if (!fileNotFound(e)) {
+        delete e.mark?.buffer
+        console.error('YAML parse error', e)
         throw `YAML parse error in ${path}`
       } else if (path == env) throw e
     }

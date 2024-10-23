@@ -1,6 +1,5 @@
 
+[button "Open" popovertarget=compare]
 
-[button "Open" popovertarget="compare-dialog"]
 
-
-[compare :steps="steps"]
+[compare :compare="compare"]

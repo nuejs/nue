@@ -16,9 +16,14 @@ body {
 }
 
 main {
-  min-height: 35vh;
   border-bottom: var(--border);
   padding-bottom: 7em;
+  min-height: 35vh;
+}
+
+h1, h2, h3, h4, h5 {
+  color: var(--gray-900);
+  text-wrap: balance;
 }
 
 figure {
@@ -51,8 +56,5 @@ hr {
   border-width: 1px 0 0;
 }
 
-h1, h2, h3, h4, h5 {
-  color: var(--gray-900);
-}
 
 

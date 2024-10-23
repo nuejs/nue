@@ -9,11 +9,11 @@ lang:
 sidenav:
   Getting started:
     - Why Nue: /docs/
-    - How it works: /docs/
+    - How it works: /docs/how-it-works.html
     - Installation: installation.html
 
   Building websites:
-    - Quick start: tutorial.html
+    - Step-by-step tutorial: tutorial.html
     - Project structure: project-structure.html
     - Content: content.html
     - Data: data.html

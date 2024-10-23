@@ -67,7 +67,7 @@ export function onclick(root, fn) {
     // event ignore
     if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey ||
       !path || path[0] == '#' || path?.includes('//') || path?.startsWith('mailto:') ||
-      (name?.includes('.') && !name?.endsWith('.html')) || target == '_blank') return
+      (name?.includes('.') && !name?.endsWith('.html')) || !!target) return
 
     // all good
     if (path != location.pathname) fn(path, el)
