@@ -1,0 +1,64 @@
+
+compare:
+  baseurl:
+    - //github.com/tailwindlabs/tailwindcss.com/blob/master/src
+    - //github.com/nuejs/nue/blob/master/packages/nuejs.org
+
+  eyebrow:
+    - React engineering
+    - Design engineering
+
+steps:
+
+  # Content first
+  content:
+    - title: Tailwind front page
+      desc: A JavaScript monolith
+      img: tailwind-home
+      src: [ pages/index.js ]
+
+    - title: Nue front page
+      desc: A content-first project
+      img: nue-home
+      src: [ index.md ]
+
+  # Semantic HTML
+  layout:
+    - title: Tailwind docs layout
+      desc: A JavaScript monolith
+      img: tailwind-layout
+      src:
+        - layouts/SidebarLayout.js
+        - layouts/DocumentationLayout.js
+        - navs/documentation.js
+        - pages/_document.js
+
+    - title: Nue docs layout
+      desc: Semantic HTML project
+      img: nue-layout
+      src: [ docs/layout.html, docs/docs.yaml ]
+
+  # Design System
+  design:
+    - title: Tailwind design system
+      desc: A JavaScript monolith
+      img: tailwind-design
+      src: [ ../tailwind.config.js ]
+
+    - title: Nue design system
+      desc: A global CSS project
+      img: nue-design
+      src: [ "@global/variables.css", "@global/global.css" ]
+
+  # CSS files
+  styling:
+    - title: Tailwind component styling
+      desc: JavaScript monoliths
+      img: tailwind-button
+      src: [ components/Button.js ]
+
+    - title: Nue component styling
+      desc: A CSS project
+      img: nue-button
+      src: [ "@lib/button.css" ]
+

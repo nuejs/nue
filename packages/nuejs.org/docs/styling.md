@@ -1,13 +1,34 @@
 
 # Design Systems and Styling
-Go trough the simple blog.
+
+
+## CSS is for styling
+Nue emphasizes the use of CSS for styling in contrast to JavaScript monoliths for several compelling reasons:
+
+### Design Systems
+The global nature of CSS allows creation of Design Systems that ensure design consistency across components and pages. A centralized, designer-friendly system helps prevent chaos as your website grows.
+
+
+### Progressive enhancement
+CSS enables a progressive enhancement approach to design, allowing you to start with basic styles and gradually enhance them for mobile devices, optional decorations, and motion effects.
+
+
+### Modern CSS capabilities
+Modern CSS is incredibly powerful, featuring capabilities such as view transitions, `@starting-style`, generic CSS transitions, and `@keyframe`s. These features surpass what can be achieved with monolithic JavaScript frameworks. Tailwind simply cannot keep pace with the advancements in CSS.
+
+### Better performance
+First, let's consider tooling performance. Hot Module Replacement (HMR) in Nue is lightning-fast, taking mere nanoseconds to compile a single CSS file, whereas JavaScript monoliths slow down as their dependencies grow.
+
+Next, there's website performance. External CSS results in smaller file sizes. For example, this web page's size is smaller than the barebones Tailwind CSS "preflight" file.
+
+### Web Sandards Model
+Nue helps you build timeless skills and products using standards and practices that stands the test of time. While trends like Bootstrap or Tailwind come and go, web standards are forever.
+
 
 
 
 ## Design Systems
-Plnned or not. CSS forces you to think in terms of design systems.
-CSS architecture
-
+Plnned or not. CSS forces you to think in terms of design systems. CSS architecture
 
 ! CSS architecture or the simple blog
 
@@ -62,7 +83,7 @@ include: [ content, cards, motion ]
 ## Design System best practises
 
 ### Content first
-information architecture, contexts
+plan your information architecture, and draft your content first. the more you know about your content the more precise your design system is to match your brand and messaging.
 
 ### Respect constraints
 ...
