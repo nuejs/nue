@@ -143,14 +143,19 @@ function empty(char) {
 
 export function parseInline(str) {
   const tokens = []
+  let breaker
 
   while(str) {
+    if (breaker) break
+
     for (const fn of PARSERS) {
       const item = fn(str, str[0])
       if (item) {
         tokens.push(item)
+        const beforeStr = str
         str = str.slice(item.end || item.text.length)
-        delete item.end; break
+        if (!item.text && beforeStr === str) breaker = true
+        delete item.end
       }
     }
 
