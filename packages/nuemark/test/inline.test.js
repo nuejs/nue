@@ -83,6 +83,10 @@ test('render image', () => {
   expect(html).toBe('<img src="/bar.png" alt="foo" loading="lazy"> post')
 })
 
+test('unclosed image', () => {
+  expect(renderInline('![foo]')).toStartWith('!<foo custom')
+})
+
 
 test('inline code', () => {
   const html = renderInline('Hey `[zoo] *boo*`')

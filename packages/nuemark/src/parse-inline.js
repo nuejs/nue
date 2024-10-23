@@ -100,6 +100,8 @@ const PARSERS = [
       if (img) {
         img.end++
         return img && { is_image: true, ...img }
+      } else {
+        return { text: char0 }
       }
     }
   },
