@@ -55,6 +55,11 @@ test('bold + em', () => {
   expect(renderInline('___ hello ___')).toBe('___ hello ___')
 })
 
+test('unclosed formatting', () => {
+  expect(renderInline('_foo *bar*')).toBe('_foo <em>bar</em>')
+  expect(renderInline('yo /foo /bar _baz_')).toBe('yo /foo /bar <em>baz</em>')
+})
+
 test('inline render basics', () => {
   const tests = [
     { text: 'hey', html: 'hey' },

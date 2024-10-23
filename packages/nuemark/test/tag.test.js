@@ -213,8 +213,8 @@ test('[button] inline label', () => {
 })
 
 test('[button] nested label', () => {
-  const html = renderLines(['[button]', '  ![](/joku.png)'])
-  expect(html).toStartWith('<a role="button"><img src="/joku.png"')
+  const html = renderLines(['[button href=/]', '  ![](/joku.png)'])
+  expect(html).toStartWith('<a href="/" role="button"><img src="/joku.png"')
 })
 
 
@@ -260,8 +260,8 @@ test('[svg]', () => {
 })
 
 test('[svg] nested in [button]', () => {
-  const html = renderLines(['[button]', `  [svg ${svgpath}] *Yo*`])
-  expect(html).toBe('<a role="button"><svg/> <em>Yo</em></a>')
+  const html = renderLines(['[button href="/"]', `  [svg ${svgpath}] *Yo*`])
+  expect(html).toBe('<a href="/" role="button"><svg/> <em>Yo</em></a>')
 })
 
 

@@ -49,7 +49,9 @@ const PARSERS = [
         const body = str.slice(len, i)
 
         // no spaces before/after the body
-        if (i == -1 || body.length != body.trim().length) return { text: str }
+        if (i == -1 || body.length != body.trim().length) {
+          return { text: str.slice(0, len) }
+        }
 
         const tag = FORMATTING[fmt]
         return { is_format: true, tag, body, end: i + len }
