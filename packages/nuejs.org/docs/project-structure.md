@@ -41,15 +41,13 @@ A file named `404.md` in the root level, acts as a target for non-existent files
 
 
 
-
-
 ## Directories
 These are the four different kind of folders you can have in Nue
 
 
 
 ### Application directories
-...
+Encapsulate all assets (content, layouts, data, styling, components) specific to that application only. Example apps: blog, documentation,
 
 
 
@@ -70,7 +68,7 @@ With the above setting all assets inside the "home" directory become dependencie
 You can define directories that are global in `site.yaml`. For example:
 
 ```yaml
-globals: [ "@globals", "scripts", "styles" ]
+globals: [ "@globals" ]
 ```
 
 If a global directory resides on the root level, then all assets inside that directory are automatically included on every page, regardless of which app they belong to or how deeply they are nested in the file system.
@@ -93,20 +91,54 @@ libs: ["@lib", lib]
 
 These libraries can reside both on the root level, and inside a specific application. Once the libraries have been defined, you include library assets in `site.yaml`, application data (like `docs/app.yaml`), or in the page's frontmatter with an `include` statement as follows:
 
+```
+include: [ button, gallery ]
+```
+
+this would include all assets (can be css, js, data, components) matching a substring "button" or "gallery" on the file name.
 
 
 ### Page directories
-Scripts, styles, and components
+Scripts, styles, and components for a specific directory under the application directory. For example
 
-...
+/blog/announcing-v2.0/index.md
+
+The index.md is under the final "leaf" directory containing assets specific to that index.md page only
+
+
 
 
 ### Static directories
-Images, videos, no .md files
+no content files on these dirs
+
+example 1: img: Images, videos, etc
+example 2: icons: svg icons only. can be easily switched to another iconset
 
 
-## Examples
+
+## Example structures
+
+### Blogging site
+Example blogging site directory structure (files and folders)
+
+[.folders]
+  - `@global` global styles: colors, layout, and typography
+  - `@library` reusable styles
+  - `blog` blogging area
+  - `blog/blog.yaml` blog-specific settings
+  - `contact` contact app
+  - `img` images and icons
+  - `index.md` the front page
+  - `site.yaml` global settings
 
 
+### Business app
+Extends the above as follows
 
-
+[.folders]
+  - index.md - rich front page
+  - home (front page assets)
+  - docs (documentation area)
+  - blog (blogging area)
+  - about/index.md (about page with it's own assets)
+  - pricing/index.md (pricing page with it's own assets)

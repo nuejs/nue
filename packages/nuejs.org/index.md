@@ -1,64 +1,59 @@
 ---
-sections: [hero, feature-area, project-status]
+sections: [hero, explainer, project-status]
 include: [button, form]
 inline_css: true
 appdir: home
 ---
 
 
-# The UX Development Framework for the Web
-Nue uses progressive enhancement to give you cleaner code, faster tooling, and more beautiful results. It makes you a professional UX developer.
-
-[button href="/docs/installation.html" "Get started"]
-
-[image size="1100 × 712"]
-  small: /img/figma-to-css.png
-  large: /img/figma-to-css-big.png
+# The *Design* **Engineering** •Framework• for the /Web/
+Nue is a static site generator (SSG) built from scratch for faster tooling, simpler codebases, and exceptional design. **You'll rediscover the fun of Web**
 
 
-## Web developer's dream
-What used to take a separate designer, React engineer, and an absurd amount of JavaScript can now be done by a UX developer and a small amount of CSS
+[button "Why Nue" href="/docs/"]
+[button.secondary "Get started" href="/docs/installation"]
 
 
-[.features]
-  ### Rapid UX development
-  No JavaScript ecosystem in your way
-
-  [! /home/img/typo-css.png size="610 × 290 px"]
-
-  [Learn more](/docs/)
-
-
-  ### Easy customer handoff
-  All content is editable by non-technical people
-
-  [! /home/img/home-md.png size="415 × 337 px"]
-
-  [Learn more](/docs/content.html)
-
-
-  ### Advanced reactivity
-  Go beyond the JavaScript component model
-
-  [! /home/img/transition-css.png size="367 × 155 px"]
-
-  [Learn more](/docs/reactivity.html)
-
-  ### Leaner, cleaner, and faster
-  Work closer to metal and web standards
-
-  [! /home/img/nextjs-vs-nue.png size="611 × 94 px"]
-
-  [Learn more](/docs/performance-optimization.html)
-
-
-
-## Roadmap and status { #roadmap }
-Ultimately Nue will be a ridiculously simpler alternative to **Next.js**, **Gatsby**, and **Astro**
+## Closer to Metal
+Nue shifts from JavaScript monoliths to simplicity, minimalism, and web standards. It transforms the way you build websites.
 
 [image]
   src: /img/roadmap-beta.png
   size: 660 × 173 px
+
+[Learn how it works >>](/docs/how-it-works.html)
+
+
+// Kanban: https://dribbble.com/shots/6854804-Kanban-for-Product-roadmap
+## Roadmap
+
+### Done
+* Framework core
+* Custom Markdown parser
+* Syntax highlighter
+* HTML template engine
+* Reactive islands
+* View transitions
+* Universal HMR
+
+### Nue 1.0 (Jan 2025)
+* Broader documentation
+* Smoother onboarding
+* Bug-free product
+
+### Templates (Mar 2025)
+* Global Design System
+* CSS animamtion framework
+* Templates
+
+### Single-page apps (Q3 2025)
+* From 500+ components to ~20 components
+* Focus on design and UX
+
+### Cloud stuff (2026?)
+* Global CDN
+* 10x - 100x faster deploys
+* Deploying with Git
 
 
 ### Receive a notification
