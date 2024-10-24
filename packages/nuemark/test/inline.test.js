@@ -5,7 +5,6 @@ import { parseInline, parseLink } from '../src/parse-inline.js'
 
 test('plain text', () => {
   const tests = [
-    'grid_item_component',
     'Hello, World!',
     'Unclosed "quote',
     'Unclosed ****format',
@@ -42,6 +41,13 @@ test('formatting', () => {
   }
 })
 
+test('formatting inside string', () => {
+  expect(renderInline('a_b_c')).toBe('a_b_c')
+  expect(renderInline('a/c/d')).toBe('a/c/d')
+  expect(renderInline('a _b_')).toBe('a <em>b</em>')
+  expect(renderInline('a _b_ c')).toBe('a <em>b</em> c')
+})
+
 test('formatting and spaces', () => {
   expect(renderInline('**hello**')).toBe('<strong>hello</strong>')
   expect(renderInline('**hello*')).toBe('**hello*')
@@ -58,6 +64,7 @@ test('bold + em', () => {
 test('unclosed formatting', () => {
   expect(renderInline('_foo *bar*')).toBe('_foo <em>bar</em>')
   expect(renderInline('yo /foo /bar _baz_')).toBe('yo /foo /bar <em>baz</em>')
+  expect(renderInline('foo/bar *baz*')).toBe('foo/bar <em>baz</em>')
 })
 
 test('inline render basics', () => {
@@ -87,6 +94,9 @@ test('unclosed image', () => {
   expect(renderInline('![foo]')).toStartWith('!<foo custom')
 })
 
+test('inline HTML', () => {
+  expect(renderInline('<! kama >')).toBe('&lt;! kama &gt;')
+})
 
 test('inline code', () => {
   const html = renderInline('Hey `[zoo] *boo*`')

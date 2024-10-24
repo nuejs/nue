@@ -27,44 +27,45 @@ export const ESCAPED = { '<': '&lt;', '>': '&gt;' }
 const SIGNIFICANT = /[\*_\["`~\\/|•{\\<>]|!\[/
 
 
+// c == first character (for quick tests)
 const PARSERS = [
 
   // \{ escaped }
-  (str, char0) => {
-    if (char0 == '\\') return { text: str.slice(1, 2), end: 2 }
+  (str, c) => {
+    if (c == '\\') return { text: str.slice(1, 2), end: 2 }
   },
 
   // &lt; and &gt;
-  (str, char0) => {
-    const text = ESCAPED[char0]
-    if (text) return { text, end: 1 }
+  (str, c) => {
+    const text = ESCAPED[c]
+    return text ? { text, end: 1 } : null
   },
 
+
   // bold, italics, etc..
-  (str, char0) => {
+  (str, c) => {
     for (const fmt in FORMATTING) {
       if (str.startsWith(fmt)) {
         const len = fmt.length
-        const i = str.indexOf(fmt, len + 1)
+        const i = str.endsWith(fmt) ? str.length - len : str.indexOf(fmt + ' ', len + 1)
         const body = str.slice(len, i)
 
         // no spaces before/after the body
-        if (i == -1 || body.length != body.trim().length) {
+        if (i == -1 || !body || body.length != body.trim().length) {
           return { text: str.slice(0, len) }
         }
 
-        const tag = FORMATTING[fmt]
-        return { is_format: true, tag, body, end: i + len }
+        return { is_format: true, tag: FORMATTING[fmt], body, end: i + len }
       }
     }
   },
 
   // [link](/), [tag], or [^footnote]
-  (str, char0) => {
-    if (char0 == '[') {
+  (str, c) => {
+    if (c == '[') {
       const i = str.indexOf(']', 1)
 
-      if (i == -1) return { text: char0 }
+      if (i == -1) return { text: c }
 
       // links
       if ('([]'.includes(str[i + 1])) {
@@ -80,37 +81,35 @@ const PARSERS = [
       // footnote?
       if (name[0] == '^') {
         const rel = name.slice(1)
-        return rel >= 0 || isValidName(rel) ? { is_footnote: true, href: name, end } : { text: char0 }
+        return rel >= 0 || isValidName(rel) ? { is_footnote: true, href: name, end } : { text: c }
       }
 
       // normal tag
       if (name == '!' || isValidName(name)) return { is_tag: true, ...tag, end }
 
-
-
-      return { text: char0 }
+      return { text: c }
     }
   },
 
   // ![image](/src.png)
-  (str, char0) => {
-    if (char0 == '!' && str[1] == '[') {
+  (str, c) => {
+    if (c == '!' && str[1] == '[') {
       const img = parseLink(str.slice(1))
 
       if (img) {
         img.end++
         return img && { is_image: true, ...img }
       } else {
-        return { text: char0 }
+        return { text: c }
       }
     }
   },
 
   // { variables } / { #id.classNames }
-  (str, char0) => {
-    if (char0 == '{') {
+  (str, c) => {
+    if (c == '{') {
       const i = str.indexOf('}', 2)
-      if (i == -1) return { text: char0 }
+      if (i == -1) return { text: c }
       const name = str.slice(1, i).trim()
 
       return '.#'.includes(name[0]) ? { is_attr: true, attr: parseAttr(name), end: i + 1 } :
@@ -122,9 +121,7 @@ const PARSERS = [
   // plain text
   (text) => {
     const i = text.search(SIGNIFICANT)
-    const prev = text[i - 1]
-    const next = text[i + 1]
-    return i >= 0 && (empty(prev) || empty(next)) ? { text: text.slice(0, i) } : { text }
+    return i >= 0 ? { text: text.slice(0, i) } : { text }
   }
 ]
 
@@ -141,9 +138,6 @@ function isValidName(name) {
 }
 
 
-function empty(char) {
-  return !char || char == ' '
-}
 
 export function parseInline(str) {
   const tokens = []
@@ -170,9 +164,8 @@ export function parseInline(str) {
 }
 
 
-/*** utils ****/
+/*** link / image parsing ****/
 
-// function lastIndexOf()
 
 export function parseLink(str, is_reflink) {
   const [open, close] = is_reflink ? '[]' : '()'
