@@ -1,77 +1,117 @@
 
-# Layout
-This document explains the default HTML layout of your pages and how you can customize it for specific applications and pages.
+# Layout modules
+In Nue, the page layout is automatically generated around semantic HTML elements, such as `<body>`, `<main>`, and `<article>`, which encapsulate the Markdown-rendered content. This automated process ensures that the core structure of your pages is both consistent and compliant with web standards.
 
-
-## Default layout
-Here's what the default HTML layout looks like on the Chrome developer console for a Markdown page with just `# Hello, World!` on it:
+Here’s what the default HTML layout looks like in the Chrome Developer Console for a Markdown page containing just `# Hello, World!`:
 
 [image.bordered]
-  small: /img/default-png
+  small: /img/default-layout.png
   large: /img/default-layout-big.png
   size: 400 x 262
 
+### The role of layout modules
+This base HTML can be enhanced with custom HTML-based layout modules, which are written using a templating language closely resembling regular HTML. Layout modules allow you to define reusable components that help build a structured and coherent layout across your application.
 
+For example, a website might use the following simple HTML snippets for its global header, footer, and burger menu:
 
-## Slots
-You can alter the generated HTML by filling the various "slots" in the default layout. These slots are named as follows:
+```html
+<!-- Site header -->
+<header>
+  <navi :items="mastnav"/>
+  <navi :items="toolbar"/>
+  <button popovertarget="menu"/>
+</header>
+
+<!-- Site footer -->
+<footer>
+  <span><img src="/img/logo.svg" alt="Nue logo"></span>
+  <navi :items="footernav"/>
+</footer>
+
+<!-- Burger menu -->
+<dialog @name="bottom" popover id="menu">
+  <button popovertarget="menu"></button>
+  <navi :items="burger_menu"/>
+</dialog>
+```
+
+This code defines the global layout for the site and highlights the modular approach Nue employs. Remarkably, this is all the HTML code required to define the global layout, in stark contrast to JavaScript monoliths, where similar functionality can require thousands of lines of code to achieve the same result.
+
+### Benefits of the layout approach
+Nue's layout approach offers several advantages:
+
+- **Modular design**: By using layout modules, Nue allows developers to define reusable components that can be easily integrated and maintained. This modularity streamlines the development process, making it easier to update or replace individual components without affecting the entire layout.
+
+- **Simplicity and clarity**: The focus on clean, semantic HTML ensures that the generated code is easy to read and understand, promoting accessibility and better SEO outcomes.
+
+- **Reduced complexity**: Minimizing reliance on JavaScript for templating helps avoid the pitfalls of complex JS monoliths, leading to faster development cycles and improved performance.
+
+- **Flexibility**: The ability to customize layouts at different scopes (global, application-specific, and page-specific) provides developers with the flexibility to create tailored experiences.
+
+- **Dynamic content handling**: The support for a templating language that includes loops and conditionals, along with access to data and metadata, enhances the functionality of the layout modules, allowing for dynamic and interactive content generation.
+
+## Creating modules
+In Nue, you can define various layout modules to enhance your page structure. Below are the different modules you can create:
 
 [image.bordered]
   small: /img/layout-slots.png
   large: /img/layout-slots-big.png
   size: 500 x 543
 
+| Module name   | Typical use case                                           |
+|---------------|-----------------------------------------------------------|
+| “banner”      | For temporary news banners above the master header        |
+| “header”      | The global, site-wide header                              |
+| “subheader”   | Typically for breadcrumbs or subnavigations              |
+| “main”        | To take full control of content inside the main element   |
+| “aside”       | Typically for sidebars in documentation or product catalogs|
+| “pagehead”    | The "hero" area for blog entries or marketing pages      |
+| “pagefoot”    | Mostly for call-to-actions                                |
+| “beside”      | Table of contents or other complementary navigations      |
+| “footer”      | The global footer                                         |
+| “bottom”      | Overlays, burger menus, or banners below the main footer  |
 
-[table]
-  Slot name     | Use case
-  “banner”      | For temporary news banners above the master header
-  “header”      | The global, site-wide header
-  “subheader”   | Typically for "breadcrumbs" or subnavigations
-  “main”        | To take full control of contents inside the main element
-  “aside”       | Typically for sidebars in documentation or product catalogue apps
-  “pagehead”    | The "hero" area for blog entries or marketing pages
-  “pagefoot”    | Mostly for call-to-actions
-  “beside”      | Table of contents or other complementary navigations
-  “footer”      | The global footer
-  “bottom”      | Overlays, burger menus, or banners below the main footer
-
-
-### Filling the slots
-To fill a specific slot, say the "banner" you create a `.html` file with a [server-component](server-components.html) and give the component a name using a `@name="banner"` attribute:
+### Defining a module
+To create a specific module, such as the "banner," you need to create a `.html` file containing the HTML for the module and use the `@name` attribute:
 
 ```html
-<div •@name="banner"•>
+<div @name="banner">
   <strong>Major update available!</strong>
   <a href="/blog/release-2.0/">Check out v2.0</a>
 </div>
 ```
 
-HTML5 landmark element names: `header`, `footer`, `aside`, and `main` don't require the "@name" attribute and you can specify them as is. For example, here's a site-wide master navigation:
+For HTML5 landmark elements like `header`, `footer`, `aside`, and `main`, you do not need to use the `@name` attribute; you can specify them directly. For example, here’s how to create a site-wide master navigation:
 
 ```html
 <header>
-  <img src="/img/logo.svg">
+  <img src="/img/logo.svg" alt="Site Logo">
   <nav>
     <a href="/docs">Docs</a>
-    <a href="/docs">Blog</a>
+    <a href="/blog">Blog</a>
   </nav>
 </header>
 ```
 
-The layout modules support a HTML-based [template language](template-syntax.html) with loops and conditionals, and they have full access to your [data and metadata](settings-and-data.html#data).
+### Template syntax
+The layout modules support an HTML-based [template language](template-syntax.html) that includes features like loops and conditionals. Additionally, they have full access to your [data and metadata](settings-and-data.html#data), allowing for dynamic content generation.
 
-The modules can be stored in any file with a `.html` suffix such as `layout.html` and a single file can contain multiple layout modules.
+Modules can be stored in any file with a `.html` suffix, such as `layout.html`. A single file can contain multiple layout modules, providing flexibility in organizing your code.
 
+### Global, application, and page-specific modules
+Layout modules can be defined in various scopes:
 
+- **Global modules**: These are defined in a [global directory](project-structure.html#globals) and are accessible throughout your application.
 
-### Scopes: global, application, and page
-The layout modules can be specified globally in a [global directory](project-structure.html#globals) or they can reside inside a specific application directory (like blog), in which case they are only visible within the application. You can also define page-specific layout modules inside a leaf directory, such as "blog/announcing-v2.0/layout.html".
+- **Application-specific modules**: These modules reside within a specific application directory (e.g., `blog/layout.html`), making them visible only within that application.
 
-Modules with the same name override the more globally specified modules. So for a "banner" module inside a blog directory overrdes any globall specified "banner".
+- **Page-specific modules**: You can also define layout modules within a leaf directory, such as `blog/announcing-v2.0/layout.html`, which are specific to that page.
 
+### Overriding modules
+If modules with the same name are defined in different scopes, the more specific module will override the globally specified one. For instance, a "banner" module inside the blog directory will take precedence over any globally defined "banner" module.
 
-### Disabling slots { #disabling }
-Sometimes you want to leave out specific layout modules. For example, the blog index page should disable the layout components that are available on the individual blog entries. This happens by setting the desired layout components to `false`. For example:
+### Disabling modules
+In some cases, you may want to disable specific layout modules. For example, on the blog index page, you might want to omit layout components that are present on individual blog entries. This can be accomplished by setting the desired layout components to `false` in your YAML configuration. Here’s how to do it:
 
 ```yaml
 aside: false
@@ -79,10 +119,9 @@ pagehead: false
 pagefoot: false
 ```
 
+This configuration can be placed in either the application-level YAML file or directly within a page's front matter. By disabling these modules, you can customize the layout for specific pages, ensuring a cleaner and more focused presentation of content.
 
-## Special slots
-
-
+## Special modules
 ### Main
 You can completely restructure the contents of your `<main>` element as follows:
 
@@ -100,11 +139,10 @@ You can completely restructure the contents of your `<main>` element as follows:
 </main>
 ```
 
-Use a `<slot/>` element to render the contents of all other modules and the contents of the Markdown document.
-
+In this structure, the `<slot/>` element is used to render the contents of all other modules, along with the contents of the Markdown document. This allows for a flexible arrangement of your main content and supplementary information.
 
 ### Root
-You can go extreme and override the entire `html` element in which case you can customize everything, including the document head:
+For extensive customization, you can override the entire `<html>` element. This enables you to tailor every aspect of the document, including the document head:
 
 ```html
 <html>
@@ -116,25 +154,23 @@ You can go extreme and override the entire `html` element in which case you can 
     <meta property="og:description" :content="og_description">
   </head>
 
-  <!-- custom body layout -->
   <body>
     <main>
       <h1>{ title }</h1>
 
-      <!-- slot for the Markdown content and it's sections -->
+      <!-- slot for the Markdown content and its sections -->
       <slot for="content"/>
     </main>
   </body>
-
 </html>
 ```
 
+By using this structure, you have complete control over the HTML document's layout and elements.
 
 ### Head
-The contents of your document's`<head>` element are auto-generated based on your project settings and what [dependencies](project-structure.html#dependencies) your page has.
+The contents of your document's `<head>` element are auto-generated based on your project settings and the [dependencies](project-structure.html#dependencies) specified for your page.
 
-You can add custom metadata, external scripts and styles, and other extra elements to the head section with a "<head>" element. For example:
-
+You can add custom metadata, external scripts, styles, and other elements to the head section using a `<head>` element. For example:
 
 ```html
 <head>
@@ -143,7 +179,7 @@ You can add custom metadata, external scripts and styles, and other extra elemen
 </head>
 ```
 
-After the contents of your head would be rendered like this:
+After your custom elements are included, the rendered contents of your head would look like this:
 
 ```html
 <head>
@@ -161,10 +197,10 @@ After the contents of your head would be rendered like this:
   <meta name="viewport" content="...">
   ...
 
-  <!-- custom head content  -->
+  <!-- custom head content -->
   <meta http-equiv="Content-Security-Policy"
     content="default-src 'self'; img-src https://*; child-src 'none';" />
 </head>
 ```
 
-
+This structure allows you to maintain auto-generated metadata while still providing the flexibility to add custom configurations as needed.
