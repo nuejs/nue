@@ -1,7 +1,37 @@
 
-### Data
-Each page is backed with different kinds of data:
+# Data
+Three kinds of data
 
+1. Metadata
+2. Application data: Information architecture, team members, products, ...
+3. Settings
+4. Content collections
+
+
+
+
+## Why YAML?
+Nue uses YAML as the primary data format. Human friendly. Good for all team members, while formats like TOML or JSON are better for strict typing, but they fail with expressivity, speed of writing, and readability.
+
+
+### Data propagation
+If you include assets in several levels, the values of include statements are *concatenated* into one single array. The matches are partial so that a value such as "syntax" will match both "syntax-highlight" and "syntax-extras".
+
+```yaml
+include: [syntax-highlight, video]
+```
+
+[image.gridpaper]
+  small: /img/dependencies.png
+  large: /img/dependencies-big.png
+  size:   747 × 378 px
+
+Here's a more complex example that gives you an idea how dependencies are calculated:
+
+[image.gridpaper]
+  small: /img/libraries.png
+  large: /img/libraries-big.png
+  size:  747 × 591 px
 
 
 ## Front matter
@@ -15,25 +45,3 @@ desc: Page description for search engines
 og: /img/hero-image.png
 \---
 ```
-
-
-
-### Data inheritance
-If you include assets in several levels, the values of include statements are *concatenated* into one single array. The matches are partial so that a value such as "syntax" will match both "syntax-highlight" and "syntax-extras".
-
-```yaml
-include: [syntax-highlight, video]
-
-
-[image.gridpaper]
-  small: /img/dependencies.png
-  large: /img/dependencies-big.png
-  size:   747 × 378 px
-```
-
-Here's a more complex example that gives you an idea how dependencies are calculated:
-
-[image.gridpaper]
-  small: /img/libraries.png
-  large: /img/libraries-big.png
-  size:  747 × 591 px
