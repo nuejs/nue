@@ -192,44 +192,9 @@ Now the "card" class can be applied to any element or component you desire, redu
 
 
 
-## Avoid inline styling { #external-css }
-Don't style your components directly on the markup:
-
-```html.bad "Inline styling: The styles are written directly into the markup"
-<div class="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-lg flex items-center space-x-4">
-  <div class="shrink-0">
-    <img class="h-12 w-12" src="/img/chat.svg" alt="ChitChat Logo">
-  </div>
-  <div>
-    <div class="text-xl font-medium text-black">ChitChat</div>
-    <p class="text-slate-500">You have a new message</p>
-  </div>
-</div>
-```
-
-Instead, write clean markup and style it externally:
-
-```html.good "External styling: The styles are decoupled from the markup"
-<div class="notification card">
-  <h3>ChitChat</h3>
-  <p>You have a new messge</p>
-</div>
-```
-
-External styling is the key to professional UX development:
 
 
-1. **Easier to maintain** — clean HTML and CSS are easier to read, write, teach, share and maintain.
 
-2. **Leaner stack** — go directly from Figma to CSS without a hefty JavaScript ecosystem on your way.
-
-3. **Less code to write** — external CSS leads to [maximum reuse](#reuse) and minimal duplication of code.
-
-4. **Central control** — external CSS is centrally controlled by UX developers, and the look and feel are dictated by the design system.
-
-5. **Better SEO** — With clean HTML markup your [content to markup](//www.siteguru.co/free-seo-tools/text-to-html-ratio) ratio is significantly higher.
-
-6. **Timeless skills and products** — CSS is a web standard. You'll learn universal skills that stand the test of time. There is zero risk for technical debt.
 
 
 #### Links

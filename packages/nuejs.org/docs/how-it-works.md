@@ -1,7 +1,8 @@
 
 # How Nue Works
 
-**Nue** is an ambitious software engineering project aimed at radically simplifying web development through the use of the [separation of concerns][^se] and [progressive enhancement][^pe] design patterns. Here’s how Nue functions and how it differentiates itself from JavaScript frameworks like **Next.js** and **Astro**.
+**Nue** is an ambitious software engineering project designed to not only radically simplify web development but also make it more enjoyable. By embracing [separation of concerns][^se], [progressive enhancement][^pe], Nue offers a cleaner, content-first solution that sets it apart from JavaScript frameworks like **Next.js** and **Astro**.
+
 
 ## Progressive Enhancement
 
@@ -78,15 +79,23 @@ Nue includes built-in support for client-side navigation and view transitions, e
 
 > LINK: See full optimization guide
 
+
 ## Design Engineering
-Nue stands in stark contrast to monolithic JavaScript frameworks like Next.js and Astro, where all assets are [tightly coupled][^coupling]. This difference significantly impacts how you develop websites.
+
+With Nue, you shift from traditional **JavaScript engineering** to **Design Engineering**. This makes a fundamental difference in how you build websites:
+
+1. **Better design and UX**: Instead of constantly solving engineering problems, you’ll direct your energy toward design, usability, accessibility, and SEO. It’s not about wrestling with JavaScript abstractions, but about creating user-centered, aesthetically pleasing, and accessible sites.
+
+2. **Move faster**: No more debugging algorithms, managing data structures, or dealing with type systems. With Nue, you avoid React-specific complexities like hooks, routers, and state entirely. By working closer to web standards, you not only **move faster** but also build products that are easier to maintain and free from the technical debt of sprawling frameworks.
+
+3. **Grow new skills**: With Nue, you don’t just improve your coding skills—you gain proficiency in both **design** and **engineering**. You'll master **design systems**, and modern, standards-based **CSS** and **JavaScript**. This transformation makes you a more versatile developer, capable of building products that excel in both performance and user experience.
+
+By becoming a **design engineer**, you’ll unlock new, creative ways to bring stunning design and seamless motion to the web, surprising your users and peers alike. Nue fosters innovation, bringing the joy and creativity of web development back to the forefront.
+
 
 > IMAGE: JS monolith engineering --> Design Engineering
   - JS+JS+JS+JS vs Content / Layout (Semantic HTML) / Design (CSS)
 
-With Nue, you shift from JavaScript engineering to **Design Engineering**. Instead of relying solely on JavaScript for all web development tasks, your focus shifts to content, design, and user experience. You spend less time debugging algorithms, data structures, and type systems, and more time addressing topics like design systems, accessibility, and SEO.
-
-This shift allows you to concentrate on the problems, needs, and desires of users, ultimately transforming you into a design engineer.
 
 
 ## Terminology
