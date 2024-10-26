@@ -68,5 +68,5 @@ Yes. With pixel-perfect, easy-to-use templates for individuals, businesses, and 
 "Nue" comes from the German word "neu", which translates to "new" in English. It is pronounced like `/nju/`.
 
 ### Can I help?
-Please do! Send me an email: tipiirai @ gmail com.
+Please do! Send me an email: [tipiirai@gmail.com](mailto:tipiirai@gmail.com).
 
