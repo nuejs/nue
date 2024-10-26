@@ -18,7 +18,7 @@ Nue template syntax is designed for [UX developers](/docs/) who prefer to write 
 </div>
 ```
 
-If React is "Just JavaScript", then Nue is "Just HTML" because any valid HTML is also valid Nue.
+If React is "just JavaScript", then Nue is "just HTML" because any valid HTML is also valid Nue.
 
 
 

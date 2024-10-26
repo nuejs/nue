@@ -262,7 +262,7 @@ Check [motion and reactivity](reactivity.html) for details.
 ## Learn modern CSS
 There is tons of [misinformation](/blog/tailwind-misinformation-engine/) about CSS that makes beginner developers move away from web standards and adopt the idea of inline styling.
 
-But if you grasp the power of the global design system and see how you can accomplish the same thing with significantly less effort you begin to think why you ever bought the idea of tight coupling in the first place.
+But if you grasp the power of the global design system and see how you can accomplish the same thing with significantly less effort, you begin to think why you ever bought the idea of tight coupling in the first place.
 
 Understand the power of constraints, design systems, and web standards. Become a professional UX developer and stay relevant for years to come.
 
@@ -271,5 +271,5 @@ Understand the power of constraints, design systems, and web standards. Become a
 - [Ahmad Shadeed](//ishadeed.com/)
 - [Chris Coyier](//chriscoyier.net/)
 - [CSS tricks](//css-tricks.com/)
-- [Josh Comeau](//www.joshwcomeau.com/)
+- [Josh Comeau](//joshwcomeau.com/)
 - [Ryan Mulligan](//ryanmulligan.dev/blog/)

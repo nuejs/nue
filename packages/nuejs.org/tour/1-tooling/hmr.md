@@ -20,6 +20,3 @@
   ---
 
   [image /tour/img/hmr-hero.png]
-
-
-

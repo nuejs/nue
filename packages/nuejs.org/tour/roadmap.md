@@ -1,4 +1,3 @@
-
 ---
 class: compare-page
 ---
@@ -27,5 +26,3 @@ class: compare-page
   4. ## Cloud
     * Fast, global CDN
     * 100x faster deployments
-
-

@@ -9,7 +9,7 @@
 Nue is a Static Site Generator (SSG) built from scratch with a focus on progressive enhancement. In this development model, your content, layout, and styling are strictly separated, allowing you to enhance your content file gradually with other [loosely coupled][^lc] assets. This fundamentally changes how websites are developed:
 
 > IMAGE: 1. Content > 2. Layout > 3. Design > 4. Motion > 5. Optimization
-  1: MD: Content hierarchy, Data, Tables, Lists, Code blocks,
+  1. MD: Content hierarchy, Data, Tables, Lists, Code blocks,
   2. HTML: Headers, Footers, Sidebars, Interactive islands
   3. CSS: Colors, Grid, Typography, Cards, Buttons, Forms, ...
   4. CSS & JS: View transitions, @starting-style, Scroll listeners,
@@ -49,7 +49,7 @@ Nue generates clean, semantic HTML optimized for accessibility and SEO. Its Mark
 
 
 ## Design Systems and Styling
-Modern CSS, with a global access to colors and typography, is a natural choice for creating design systems for the Web. You can start with semantic HTML and progressively enhance it using the stylesheets of your choice. This approach eliminates issues such as global namespace conflicts and class naming challenges. Instead, you’ll benefit from an organized design system, consistent styling across your site, and improved performance—all while using a familiar, designer-friendly syntax.
+Modern CSS, with global access to colors and typography, is a natural choice for creating design systems for the Web. You can start with semantic HTML and progressively enhance it using the stylesheets of your choice. This approach eliminates issues such as global namespace conflicts and class naming challenges. Instead, you’ll benefit from an organized design system, consistent styling across your site, and improved performance—all while using a familiar, designer-friendly syntax.
 
 ! 3 IMAGES: Design System (Globals) -> Button/components (nesting & selectors) -> Docs (cascade)
   1. CSS is the natural language for building design systems for the Web

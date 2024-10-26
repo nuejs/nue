@@ -23,7 +23,7 @@ Common questions are: "How does reactivity work"? and "How is this different fro
 [lobsters]: //lobste.rs/s/goxx8g/nue_react_vue_vite_astro_alternative
 
 ## HTML-based
-If React is "Just JavaScript", then Nue is "Just HTML". Here's how the difference between React and Nue using an identical counter component:
+If React is "just JavaScript", then Nue is "just HTML". Here's how the difference between React and Nue using an identical counter component:
 
 
 ### React

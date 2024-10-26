@@ -1,5 +1,4 @@
 
-
 # Nue JS
 Nue JS is a tiny (2.3kb minzipped) JavaScript library for building web interfaces. It is the layout engine for [Nue web framework](https://nuejs.org) providing both server-side templating and client-side reactive islands.
 
@@ -19,7 +18,7 @@ Nue template syntax is designed for [UX developers](https://nuejs.org/docs/) who
 </div>
 ```
 
-If React is "Just JavaScript", then Nue is "Just HTML" because any valid HTML is also valid Nue.
+If React is "just JavaScript", then Nue is "just HTML" because any valid HTML is also valid Nue.
 
 ### Links
 
@@ -29,12 +28,9 @@ If React is "Just JavaScript", then Nue is "Just HTML" because any valid HTML is
 
 ### Contributing
 
-Please see [contributing.md](/CONTRIBUTING.md)
+Please see [CONTRIBUTING.md](/CONTRIBUTING.md)
 
 
 ### Community
 
 Please see [GitHub discussions](https://github.com/nuejs/nue/discussions)
-
-
-

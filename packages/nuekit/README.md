@@ -44,4 +44,3 @@ Please see [CONTRIBUTING.md](/CONTRIBUTING.md)
 ### Community
 
 Please see [GitHub discussions](https://github.com/nuejs/nue/discussions)
-

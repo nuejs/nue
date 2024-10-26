@@ -1,4 +1,3 @@
-
 ---
 class: compare-page
 ---
@@ -13,4 +12,3 @@ class: compare-page
   ## Nue blog starter *18 packages / 12M*
 
   [! /tour/img/npm-nue.png ]
-

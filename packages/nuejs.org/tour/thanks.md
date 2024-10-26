@@ -1,4 +1,3 @@
-
 ---
 exclude: [technical-content]
 class: hero

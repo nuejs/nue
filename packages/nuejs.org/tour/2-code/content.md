@@ -1,6 +1,4 @@
 
-
-
 [.slide]
   ### Better code { .coding }
   # Content first
@@ -12,4 +10,3 @@
   ---
 
   [image ../img/content-hero.png]
-

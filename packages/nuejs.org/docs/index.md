@@ -13,7 +13,7 @@ Nue is an extremely simple web development environment. It is a great fit for:
 
 4. **Designers**: planning to learn web development, but find the JavaScript ecosystem too scary
 
-5. **Parents & teachers**: who wants to educate young people [how the web works](//www.websitearchitecture.co.uk/resources/examples/web-standards-model/)
+5. **Parents & teachers**: who want to educate young people [how the web works](//www.websitearchitecture.co.uk/resources/examples/web-standards-model/)
 
 
 ## Key features and benefits

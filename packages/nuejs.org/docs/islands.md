@@ -173,9 +173,7 @@ customElements.define('zen-toggle', ZenToggle, { extends: 'input' });
 In this example, the `ZenToggle` component enhances user interaction by allowing users to toggle Zen Mode on and off. When the checkbox is checked, it dynamically updates the HTML element's class to apply a Zen-themed style, demonstrating how Web Components can effectively add interactivity while maintaining a lightweight approach.
 
 ### React support?!
-Islands provide an ideal framework for incorporating React into the Nue ecosystem. While this may seem counterintuitive due to
-
- the significant philosophical differences between the two, there are compelling reasons why this integration makes sense:
+Islands provide an ideal framework for incorporating React into the Nue ecosystem. While this may seem counterintuitive due to the significant philosophical differences between the two, there are compelling reasons why this integration makes sense:
 
 1. The islands architecture allows for the introduction of React concepts and its established patterns, such as hooks, into Nue without compromising its foundational principles of progressive enhancement. This means developers can leverage React’s capabilities while maintaining the integrity of the Nue framework.
 
@@ -184,5 +182,3 @@ Islands provide an ideal framework for incorporating React into the Nue ecosyste
 The potential for this integration is immense, and we’re eager to understand if React support is a feature you would find valuable. Please share your thoughts or vote below, so we can respond accordingly:
 
 [join-list]
-
-

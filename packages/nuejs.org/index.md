@@ -75,6 +75,3 @@ Be the first to know when the official 1.0 release, templates, and the cloud stu
 
 
 [feedback]
-
-
-

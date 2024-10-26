@@ -157,9 +157,7 @@ In Nue, **area-specific styles** allow you to apply unique design elements to di
 
 When organizing your CSS with area-specific files, there is no need for class name prefixing (e.g., `.blog .card`). The styles within an area-specific file are automatically scoped to that section of your site, making class names like `.blog .card` redundant. By keeping your class names simple and reusable (e.g., `.card`), your CSS remains cleaner and more modular.
 
-Area-specific styles are applied using the `include` statement in the `.yaml`
-
- file of the corresponding area folder. For example, in your blog app, you might include styles tailored specifically for that section:
+Area-specific styles are applied using the `include` statement in the `.yaml` file of the corresponding area folder. For example, in your blog app, you might include styles tailored specifically for that section:
 
 ```yaml
 # blog/blog.yaml
@@ -320,7 +318,7 @@ By consolidating section styles, your CSS remains clean and modular, ensuring co
 
 ## Writing good, modern CSS
 
-In Nue, writing CSS is about simplicity, efficiency, and ensuring that your styles grow effortlessly with your project. Rather than relying on complex methodologies like BEM or pre-processors like SASS, Nue embraces the native strengths of CSS—its cascading nature, global scope, and modern features like nesting.
+In Nue, writing CSS is about simplicity, efficiency, and ensuring that your styles grow effortlessly with your project. Rather than relying on complex methodologies like BEM or pre-processors like SASS, Nue embraces the native strengths of CSS — its cascading nature, global scope, and modern features like nesting.
 
 The key to scalable CSS is **reusability** and **consistency**. By structuring your styles with a solid **design system** and using CSS variables for global tokens like typography, colors, and spacing, you create a single source of truth for your design. This minimizes repetition and ensures that your styles are adaptable and easy to maintain.
 
@@ -574,4 +572,3 @@ By mastering these templates, you’ll gain the confidence to not only apply the
 If you’re excited about these templates and want to be notified as soon as they’re available, join the mailing list to stay in the loop.
 
 [CTA: Join mailing list]
-

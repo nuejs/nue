@@ -67,4 +67,3 @@ const content = '...'
 
 const html = marked.parse(content)
 ```
-

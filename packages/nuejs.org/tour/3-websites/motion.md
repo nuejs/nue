@@ -11,5 +11,3 @@
   ---
 
   [! /tour/img/simple-blog-hero.png ]
-
-

@@ -246,5 +246,3 @@ Directory structure for a business website, including specific assets:
 - **Blog**: Similar to the blogging site, it has posts that provide insights and updates related to the business.
 - **About Page**: Contains details about the company’s mission, team, and history.
 - **Pricing Page**: Clearly outlines the different pricing plans available for customers.
-
-

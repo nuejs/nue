@@ -24,7 +24,7 @@ include: [syntax-highlight, video]
 [image.gridpaper]
   small: /img/dependencies.png
   large: /img/dependencies-big.png
-  size:   747 × 378 px
+  size:  747 × 378 px
 
 Here's a more complex example that gives you an idea how dependencies are calculated:
 

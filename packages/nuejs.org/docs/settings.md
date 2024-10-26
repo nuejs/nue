@@ -13,7 +13,7 @@ The data is defined in three levels:
 
 1. The global, site-wide data is defined in `site.yaml` at the root directory.
 
-2. Application data is defined in `*.yaml` files inside the application directory. Each application sub-directory can also have its own data files.
+2. Application data is defined in `*.yaml` files inside the application directory. Each application subdirectory can also have its own data files.
 
 3. Page-specific data is defined in the *frontmatter* section of the Markdown page.
 

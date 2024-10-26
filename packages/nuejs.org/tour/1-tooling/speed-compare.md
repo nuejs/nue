@@ -1,4 +1,3 @@
-
 ---
 class: compare-page
 ---
@@ -15,4 +14,3 @@ class: compare-page
   [bunny-video]
     videoId: 7bcfcde2-912c-4c30-a442-198bc25ba250
     width: 500
-

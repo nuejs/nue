@@ -15,5 +15,3 @@
   ---
 
   [image /tour/img/simple-blog.png]
-
-

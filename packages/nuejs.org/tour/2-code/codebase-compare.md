@@ -1,4 +1,3 @@
-
 ---
 class: compare-page
 ---
@@ -13,4 +12,3 @@ class: compare-page
   ## Nue *Design engineering*
 
   [!.reveal /tour/img/nue-development.png ]
-
