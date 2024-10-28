@@ -72,11 +72,11 @@ Progressive enhancement opens new possibilities for performance optimization:
 ### Single-file Requests
 Single-file requests refer to the practice of serving the essential HTML and CSS in the initial HTTP request. This strategy allows for a fast first contentful paint (FCP) by delivering everything needed for immediate rendering. Subsequent requests for optional JavaScript and other non-critical resources can occur afterward. This approach enhances performance and ensures a smoother user experience, particularly on initial page load.
 
-### Page Weight Optimization
-Semantic CSS is highly compact, and the decoupled stylesheets allow you to include only the styles that are actually used. As a result, you get smaller page sizes than with other frameworks. For example, the combined size of this page's markup and styling is smaller than Tailwind's minimal "preflight" CSS.
+### View transitions
+Nue includes built-in support for turbolinking and view transitions, ensuring that all page switches are fast and smooth. The aim is to enhance user experience (UX), not just performance.
 
-### Turbolinking
-Nue includes built-in support for client-side navigation and view transitions, ensuring that all page switches are fast and smooth. The aim is to enhance user experience (UX), not just performance.
+### Page Weight
+Semantic CSS is highly compact, and the decoupled stylesheets allow you to include only the styles that are actually used. As a result, you get smaller page sizes than with other frameworks. For example, the combined size of this page's markup and styling is smaller than Tailwind's minimal "preflight" CSS.
 
 > LINK: See full optimization guide
 
