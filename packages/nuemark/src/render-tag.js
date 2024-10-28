@@ -27,7 +27,7 @@ const TAGS = {
     const html = !divs || !divs[1] ? render(blocks) :
       divs.map(blocks => elem('div', render(blocks))).join('\n')
 
-    return elem('div', attr, html)
+    return elem(attr.popover ? 'dialog' : 'div', attr, html)
   },
 
 

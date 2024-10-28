@@ -28,7 +28,7 @@ function renderBlock(block, opts) {
     block.is_tag ? renderTag(block, opts) :
     block.is_table ? renderTable(block, opts) :
     block.is_list ? renderList(block, opts) :
-    block.is_code ? renderCode(block) :
+    block.is_code ? renderCode(block, opts) :
     block.is_newline ? '' :
     block.is_break ? '<hr>' :
     console.error('Unknown block', block)
@@ -71,20 +71,22 @@ export function renderContent(lines, opts) {
   return elem('p', html)
 }
 
-function renderCode({ name, code, attr, data }) {
+function renderCode({ name, code, attr, data }, opts) {
   const { numbered } = data
   const klass = attr.class
   delete attr.class
-  const pre = elem('pre', attr, glow(code, { language: name, numbered}))
+  let html = elem('pre', attr, glow(code, { language: name, numbered}))
 
   const caption = data.caption || data._
 
+  if (data.render) html += name == 'md' ? renderLines(code, opts) : code
+
   if (caption) {
     const figcaption = elem('figcaption', renderInline(caption))
-    return elem('figure', { class: klass }, figcaption + pre)
+    return elem('figure', { class: klass }, figcaption + html)
   }
 
-  return wrap(klass, pre)
+  return wrap(klass, html)
 }
 
 

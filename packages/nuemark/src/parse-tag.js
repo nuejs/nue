@@ -1,5 +1,5 @@
 
-const ATTR = 'id is class style hidden disabled popovertarget'.split(' ')
+const ATTR = 'id is class style hidden disabled popovertarget popover'.split(' ')
 
 /*
   --> { name, attr, data }
