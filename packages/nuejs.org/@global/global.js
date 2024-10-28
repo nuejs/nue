@@ -1,17 +1,19 @@
 
-addEventListener('click', e => {
-  const el = e.target
+addEventListener('click', event => {
+  const { target } = event
 
   // hide popover menus
-  const menu = el.closest('[popover]')
-  if (menu && el.matches('a')) menu.hidePopover()
+  const dialog = target.closest('[popover]')
+  if (dialog && target.matches('a')) dialog.hidePopover()
 
   // make cards clickable
-  const wrap = el.closest('.card, .features div')
-  if (wrap) {
-    const a = wrap.querySelector('p a')
-    console.info(a.getAttribute('href'))
-    if (a) location.href = a.getAttribute('href')
+  const card = target.closest('.card')
+  if (card) {
+    const button = card.querySelector('button')
+    if (button) {
+      const popover = window[button.getAttribute('popovertarget')]
+      popover?.showPopover()
+    }
   }
 })
 

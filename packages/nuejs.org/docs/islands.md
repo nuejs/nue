@@ -1,8 +1,5 @@
 
 // //www.patterns.dev/vanilla/islands-architecture/
-
-
-
 # Interactive islands
 Islands are interactive UI components embedded within the static HTML layout. These components bring application-like features to an otherwise static site. Typical features include account menus, login pages, feedback and registration forms, image galleries, and lightboxes.
 

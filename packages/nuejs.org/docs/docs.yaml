@@ -20,8 +20,8 @@ sidenav:
     - Layout: layout.html
     - Islands: islands.html
     - Styling: styling.html
-    - Scripting: scripting.html
     - Motion: motion.html
+    - Scripting: scripting.html
     - Optimization: optimization.html
 
 

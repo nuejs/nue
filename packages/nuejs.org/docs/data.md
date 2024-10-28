@@ -2,10 +2,10 @@
 # Data
 Three kinds of data
 
-1. Metadata
-2. Application data: Information architecture, team members, products, ...
+1. Page metadata: title, description, date, author, og:image...
+2. Application data: products, team members, navigation, ...
 3. Settings
-4. Content collections
+
 
 
 

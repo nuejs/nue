@@ -6,16 +6,17 @@ appdir: home
 ---
 
 
-# The *Design* **Engineering** •Framework• for the /Web/
-Nue is a static site generator (SSG) built from scratch for faster tooling, simpler codebases, and exceptional design. **You'll rediscover the fun of Web**
+# |The| *Design* **Engineering** •Framework• for the /Web/
+Nue is a Static Site Generator (SSG) built from scratch for faster tooling, cleaner codebases, and broader possibilities. **It makes development •fun• again**
 
 
 [button "Why Nue" href="/docs/"]
 [button.secondary "Get started" href="/docs/installation"]
 
 
-## Closer to Metal
-Nue shifts from JavaScript monoliths to simplicity, minimalism, and web standards. It transforms the way you build websites.
+## It's how the web works
+Nue is engineered to support Progressive Enhancement. It shifts you to simplicity, minimalism, and web standards, bringing clarity to how you build websites
+
 
 [image]
   src: /img/roadmap-beta.png
@@ -24,42 +25,15 @@ Nue shifts from JavaScript monoliths to simplicity, minimalism, and web standard
 [Learn how it works >>](/docs/how-it-works.html)
 
 
-// Kanban: https://dribbble.com/shots/6854804-Kanban-for-Product-roadmap
-## Roadmap
-
-### Done
-* Framework core
-* Custom Markdown parser
-* Syntax highlighter
-* HTML template engine
-* Reactive islands
-* View transitions
-* Universal HMR
-
-### Nue 1.0 (Jan 2025)
-* Broader documentation
-* Smoother onboarding
-* Bug-free product
-
-### Templates (Mar 2025)
-* Global Design System
-* CSS animamtion framework
-* Templates
-
-### Single-page apps (Q3 2025)
-* From 500+ components to ~20 components
-* Focus on design and UX
-
-### Cloud stuff (2026?)
-* Global CDN
-* 10x - 100x faster deploys
-* Deploying with Git
+## Product roadmap
+[roadmap]
 
 
 ### Receive a notification
 Be the first to know when the official 1.0 release, templates, and the cloud stuff are released
 
 [join-list]
+
 
 
 ## Developer reactions
@@ -75,3 +49,17 @@ Be the first to know when the official 1.0 release, templates, and the cloud stu
 
 
 [feedback]
+
+
+[#v1-details popover]
+  ## Nue 1.0
+  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+[#gds-details popover]
+  ## Global Design System
+  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+[#templates-details popover]
+  ## Templates
+  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+

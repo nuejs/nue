@@ -1,12 +1,11 @@
 
-# How Nue Works
+# How Nue works
 
-**Nue** is an ambitious software engineering project designed to not only radically simplify web development but also make it more enjoyable. By embracing [separation of concerns][^se], [progressive enhancement][^pe], Nue offers a cleaner, content-first solution that sets it apart from JavaScript frameworks like **Next.js** and **Astro**.
+**Nue** is an ambitious software engineering project designed to radically simplify web development and make it more enjoyable. By fully embracing [separation of concerns][^se] and [progressive enhancement][^pe], Nue delivers a cleaner, content-first solution. This approach minimizes JavaScript dependency and maximizes maintainability, setting it apart from JavaScript frameworks like **Next.js** and **Astro**, which rely on monolithic architectures.
 
 
-## Progressive Enhancement
-
-Nue is a Static Site Generator (SSG) built from scratch with a focus on progressive enhancement. In this development model, your content, layout, and styling are strictly separated, allowing you to enhance your content file gradually with other [loosely coupled][^lc] assets. This fundamentally changes how websites are developed:
+## Progressive enhancement
+Nue is a Static Site Generator (SSG) built from scratch with a focus on progressive enhancement. In this model, content, layout, and styling are strictly separated, allowing gradual enhancement with **loosely coupled**[^lc] assets. Minimizing JavaScript ensures projects remain fast, lightweight, and adaptable, while still supporting interactivity where needed. This approach fundamentally changes how websites are developed:
 
 > IMAGE: 1. Content > 2. Layout > 3. Design > 4. Motion > 5. Optimization
   1. MD: Content hierarchy, Data, Tables, Lists, Code blocks,
@@ -21,16 +20,17 @@ Nue is a Static Site Generator (SSG) built from scratch with a focus on progress
   - Design system (styling -> motion)
 
 
-## Content Comes First
-With Nue, every page is assembled using a rich Markdown-based syntax specifically tailored for creating interactive websites. This **content-first approach** emphasizes that form follows function, prioritizing content over design and aesthetics to deliver user-friendly products. It enables you to plan your content and information hierarchy upfront, with the confidence that the design can be applied later.
+## Content first
 
-! 3 IMAGES: Technical content | Blog entries | Landing pages
-  1. Code blocks, tables, definition lists,
-  2. Complex grids, card layouts, bolder typography and imagery. Rich on interactions.
-  3. Sits between documentation and marketing. Appealing hero area and ends to CTA.
+With Nue, every page is assembled using a rich Markdown-based syntax tailored for interactive websites. This **content-first approach** focuses on two key benefits:
+
+1. **Content over design and aesthetics**: Prioritize your messaging and structure first, ensuring that functionality leads the way, with design applied later.
+
+2. **Content for content people**: Content is decoupled from design, allowing **marketers, content creators**, and **strategists** to update and develop new content without it being buried behind a JavaScript monolith. This flexibility enhances narrative planning, while AI tools can further refine storytelling and content strategy.
 
 
-## Clean, Semantic Markup
+
+## Clean, semantic markup
 Nue generates clean, semantic HTML optimized for accessibility and SEO. Its Markdown parser and components are designed to produce code that’s easy to understand for search engines, AI crawlers, and users with disabilities, ensuring your content is both machine-friendly and user-accessible.
 
 ! 3 IMAGES: Content + components -> Custom layout modules -> Accessible, Machine-friendly HTML
@@ -39,7 +39,7 @@ Nue generates clean, semantic HTML optimized for accessibility and SEO. Its Mark
   3. The resulting HTML is optimized for accessibility and machine learning
 
 
-## Islands of Interactivity
+## Islands of interactivity
 [Islands architecture][^islands] promotes small, focused units of interactivity within server-rendered web pages. This approach moves away from monolithic JavaScript patterns towards more modular and decoupled systems. Depending on your needs, Nue allows you to select the most suitable technology for the situation: Web Components, dynamic HTML components, or isomorphic components[^isomorphic].
 
 ! 3 IMAGES: Web Components | Reactive islands | Isomorphic islands (show server only)
@@ -48,8 +48,9 @@ Nue generates clean, semantic HTML optimized for accessibility and SEO. Its Mark
   3. Isomorphic components for combined SEO and client-side reactivity
 
 
-## Design Systems and Styling
-Modern CSS, with global access to colors and typography, is a natural choice for creating design systems for the Web. You can start with semantic HTML and progressively enhance it using the stylesheets of your choice. This approach eliminates issues such as global namespace conflicts and class naming challenges. Instead, you’ll benefit from an organized design system, consistent styling across your site, and improved performance—all while using a familiar, designer-friendly syntax.
+## Design systems and styling
+Modern CSS, with a global access to colors and typography, is a natural choice for creating design systems for the Web. You can start with semantic HTML and progressively enhance it using the stylesheets of your choice. This approach eliminates issues such as global namespace conflicts and class naming challenges. Instead, you’ll benefit from an organized design system, consistent styling across your site, and improved performance—all while using a familiar, designer-friendly syntax.
+
 
 ! 3 IMAGES: Design System (Globals) -> Button/components (nesting & selectors) -> Docs (cascade)
   1. CSS is the natural language for building design systems for the Web
@@ -57,7 +58,7 @@ Modern CSS, with global access to colors and typography, is a natural choice for
   3. CSS cascade makes it a perfect fit for progressive enhancement
 
 
-## Animation and Motion
+## Animation and motion
 Motion and animation are the final, yet crucial, aspects of progressive enhancement. When used subtly, motion can enhance the user experience and strengthen your brand. Nue simplifies the process of adding a global motion layer to your design system.
 
 ! CSS: view transitions / @starting styles | IntersectionObserver
@@ -65,7 +66,7 @@ Motion and animation are the final, yet crucial, aspects of progressive enhancem
   2. Modern CSS is a different beast than what it was just a few years ago
   3. JavaScript's event system offers endless ways to trigger animations
 
-## Performance Optimization
+## Performance optimization
 Progressive enhancement opens new possibilities for performance optimization:
 
 ### Single-file Requests
@@ -80,15 +81,21 @@ Nue includes built-in support for client-side navigation and view transitions, e
 > LINK: See full optimization guide
 
 
+
 ## Design Engineering
 
 With Nue, you shift from traditional **JavaScript engineering** to **Design Engineering**. This makes a fundamental difference in how you build websites:
 
-1. **Better design and UX**: Instead of constantly solving engineering problems, you’ll direct your energy toward design, usability, accessibility, and SEO. It’s not about wrestling with JavaScript abstractions, but about creating user-centered, aesthetically pleasing, and accessible sites.
 
-2. **Move faster**: No more debugging algorithms, managing data structures, or dealing with type systems. With Nue, you avoid React-specific complexities like hooks, routers, and state entirely. By working closer to web standards, you not only **move faster** but also build products that are easier to maintain and free from the technical debt of sprawling frameworks.
+2. **Move faster**: No more debugging algorithms or managing complex state. With Nue, you avoid React-specific complexities like hooks, routers, and state entirely. By working closer to **web standards**, you not only **move faster** but also build products that are leaner and easier to maintain. **Separation of concerns** ensures cleaner collaboration, while **progressive enhancement** means fewer dependencies and more flexibility.
 
-3. **Grow new skills**: With Nue, you don’t just improve your coding skills—you gain proficiency in both **design** and **engineering**. You'll master **design systems**, and modern, standards-based **CSS** and **JavaScript**. This transformation makes you a more versatile developer, capable of building products that excel in both performance and user experience.
+1. **Better design and UX**: Instead of constantly solving engineering problems, you’ll direct your energy toward **design, usability, accessibility**, and **SEO**. It’s not about wrestling with JavaScript abstractions, but about creating user-centered, aesthetically pleasing, and accessible sites.
+
+3. **Easier updates**: Global design changes become simple central updates to CSS, not massive overhauls of JavaScript code. By isolating content, layout, and design, you can iterate quickly and scale your project without fear of breaking things.
+
+4. **Better use of talent**: Designers focus on design, content professionals handle content, and **design engineers** ensure a seamless UX. This clear separation of roles leads to more professional workflows and easier recruitment, as teams can focus on their strengths.
+
+5. **Grow new skills**: With Nue, you don’t just improve your coding skills—you gain proficiency in both **design** and **engineering**. You'll master **design systems**, modern **CSS**, and standards-based **JavaScript**, making you a more versatile developer capable of building products that excel in both performance and user experience.
 
 By becoming a **design engineer**, you’ll unlock new, creative ways to bring stunning design and seamless motion to the web, surprising your users and peers alike. Nue fosters innovation, bringing the joy and creativity of web development back to the forefront.
 

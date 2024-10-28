@@ -1,28 +1,64 @@
 
-body {
-  background-color: var(--gray-800);
-}
+/*
+  Engineering:
 
+  /www.shutterstock.com/search/engineering-fonts?image_type=illustration
+*/
 h1 {
   font-size: 4.5em;
   line-height: 1.2;
   font-weight: 100;
   letter-spacing: 0;
-  color: white;
+  color: var(--gray-400);
+  margin: 0;
 
   + p {
-    color: var(--gray-300);
-    em { font-style: normal; font-weight: 550; color: white }
+    color: var(--gray-400);
+    text-wrap: balance;
+    font-size: 1.6em;
+
+    /* makes web..*/
+    strong {
+      font-weight: 600;
+      color: var(--gray-300);
+
+      /* FUN */
+      b {
+        text-decoration: 2px underline var(--main-500);
+        text-transform: uppercase;
+        text-underline-offset: 6px;
+        font-size: 1.1em;
+        line-height: 1;
+        color: white;
+      }
+
+      &:after {
+        content: "!!!";
+        color: var(--main-500);
+      }
+    }
   }
 
   @media (width < 550) {
     font-size: 3.5em;
   }
+
   > * {
     font-weight: 900;
     font-style: normal;
     letter-spacing: -.03em;
     paint-order: stroke fill;
+    color: white;
+  }
+
+  /* the */
+  mark {
+    border-bottom: 9px double white;
+    text-transform: uppercase;
+    background-color: inherit;
+    display: inline-block;
+    font-weight: 100;
+    line-height: 1;
   }
 
   /* design */
@@ -50,6 +86,10 @@ h1 {
     transition: 1s .2s;
     display: inline-block;
 
+    &::selection {
+      background-color: var(--pink);
+    }
+
     @starting-style {
       letter-spacing: -.2em;
       transform: scale(1.2);
@@ -58,16 +98,18 @@ h1 {
 
   /* engineering */
   strong {
-    -webkit-text-stroke: 18px var(--main-600);
+    -webkit-text-stroke: .25em var(--gray-600);
+    text-shadow: 0 0 .2em black;
   }
 
   /* framework */
   b {
-    border: 1px dotted var(--main-500);
-    margin: 0 .1em 0 -.1em;
+    border: dotted var(--main-500);
+    border-bottom-color: var(--main-400);
+    margin: 0 -.15em 0 -.18em;
     border-width: 0 0 5px 5px;
     display: inline-block;
-    padding: 0 0 .1em .3em;
+    padding: 0 .25em .1em .3em;
   }
 
   /* web */

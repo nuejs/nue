@@ -4,7 +4,7 @@ class: intro
 
 # Why Nue?
 
-[.stack.of-cards]
+[.cards.stack]
   [! /tour/icon/bolt.svg]
   ## Better tooling
   - Faster

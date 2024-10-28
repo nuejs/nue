@@ -47,8 +47,8 @@ a {
 }
 
 ::selection {
-  background-color: var(--yellow);
-  color: var(--gray-900);
+  background-color: var(--main-600);
+  color: white;
 }
 
 hr {

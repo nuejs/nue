@@ -1,27 +1,45 @@
 
 # Styling
 
+
 ## CSS — the design language of the web
 
-Nue champions CSS as the primary tool for styling, rejecting the complexity of JavaScript-heavy approaches in favor of a cleaner, more scalable solution. CSS provides a foundation deeply rooted in web standards, allowing for a design system that grows with your project.
+Nue champions CSS as the primary tool for styling, moving away from JavaScript monoliths where structure and styling are tightly coupled. This approach gives you far more **control** and **powerful tools** for designing:
 
-### The foundation of design systems
+### Design Systems
 
-CSS is the core language for implementing design systems on the web. It offers a global, consistent way to manage visual elements, ensuring uniformity across components and pages. Whether you’re working with a detailed Figma-based design system or a smaller project directly in code, CSS becomes the living implementation of your design rules.
+CSS-in-JS falls short when it comes to building design systems—modern CSS should handle this:
 
-With Nue, CSS doesn’t just style your site—it enforces consistency, minimizes chaos, and creates a seamless handoff between designers and developers as your website scales.
+- **CSS and design systems are global** by nature. Elements like typography, colors, spacing, and base content (headings, paragraphs, etc.) need to be managed globally for consistency.
 
-### Modern capabilities and performance benefits
+- **Design Systems belong to Design Engineers**. Scattering styles inside JavaScript components fragments global control, making it harder to manage without constant designer-developer coordination.
 
-Modern CSS is incredibly powerful, equipped with features like view transitions, `@keyframes`, and flexible layouts with Flexbox and Grid. By separating behavior (handled by JavaScript) from design (handled by CSS), Nue lets you take full advantage of CSS’s modular, maintainable nature.
+### CSS superpowers
 
-Unlike JavaScript frameworks that bundle CSS into monolithic builds, Nue keeps CSS separate, which improves both **tooling** and **website performance**:
-- **Tooling performance**: Hot Module Replacement (HMR) for CSS is near-instant, allowing faster iteration during development.
-- **Website performance**: Decoupled CSS results in smaller, faster-loading assets, enhancing your site’s speed and user experience. With fewer dependencies bundled with JavaScript, your site remains lightweight and agile.
+Modern CSS has evolved into a **powerful, standalone language**, often underestimated in JavaScript component-based models. Some things are outright **impossible** or far more tedious to achieve with CSS-in-JS:
 
-### Timeless skills built on web standards
+- **CSS Variables (Custom Properties)** — They make far more sense when used directly in CSS. Custom Properties allow for global theming and dynamic adjustments that CSS-in-JS can’t match in terms of flexibility.
 
-Trends come and go, but web standards like CSS stand the test of time. Nue encourages you to build skills and products that will remain relevant as technologies evolve. While utility-first frameworks may lose favor, CSS remains the backbone of web design, ensuring that the skills and sites you build today will last into the future. By mastering CSS, you future-proof both your skills and the sites you create.
+- **`@starting-style`** — A powerful way to implement smooth animations and motion directly in CSS. It’s nearly impossible to express this kind of motion logic with utility-first or CSS-in-JS approaches.
+
+- **CSS `:is()` Selector** — Utility-based models completely ignore the power of selectors. The `:is()` selector opens up new ways to handle conditional styling and write ad-hoc modules without relying on class names.
+
+These are just a few highlights. Features like **Grid Template Areas**, **scroll-snap**, and **clip-path** are examples of CSS’s constant evolution. By sticking to component-based styles, you risk lagging behind while CSS continues to unlock new possibilities.
+
+### Performance benefits
+
+Vanilla CSS offers clear performance advantages:
+
+1. **HMR Speed** — Individual CSS files compile in nanoseconds, whereas JavaScript monoliths with massive dependency trees take several seconds to rebuild.
+
+2. **Smaller footprint** — Vanilla CSS results in significantly lighter page weight. For example, this website's entire CSS footprint is about the same size as popular reset libraries like Tailwind’s Preflight CSS.
+
+
+
+### Timeless skills and products
+The JS monolith and all the unstandard mechanisms inside of it are indeed popular at this point. But who knows what happens in five years. The awkward utility syntaxes, and the lost potential are strong signals of technology debt. It's better to stick with web standards. That's good for your skillset and career. And the product you build will stand the test of time.
+
+
 
 
 ## What is a design system?

@@ -161,8 +161,8 @@ export async function createKit(args) {
     await buildJS({
       outdir: join(process.cwd(), dist, file.dir),
       path: join(process.cwd(), root, path),
-      esbuild,
       minify: is_prod,
+      esbuild,
       bundle
     })
 
