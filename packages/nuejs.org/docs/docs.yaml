@@ -26,9 +26,13 @@ sidenav:
 
 
   Reference:
-    - Settings index: settings.html
-    - Built-in components: components.html
+    - Content syntax: content-syntax.html
+    - Content tags: content-tags.html
+    - Custom tags: custom-tags.html
     - Template syntax: template-syntax.html
+    - Layout components: components.html
+    - Settings index: settings.html
+    - JavaScript API: javascript-api.html
     - Syntax highlighting: syntax-highlighting.html
     - Command line interface: command-line-interface.html
 

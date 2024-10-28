@@ -58,8 +58,8 @@ Modern CSS, with a global access to colors and typography, is a natural choice f
   3. CSS cascade makes it a perfect fit for progressive enhancement
 
 
-## Animation and motion
-Motion and animation are the final, yet crucial, aspects of progressive enhancement. When used subtly, motion can enhance the user experience and strengthen your brand. Nue simplifies the process of adding a global motion layer to your design system.
+## Motion
+Motion and animation are optional, yet important, aspects of progressive enhancement. When used subtly, motion can enhance the user experience and strengthen your brand. Nue simplifies the process of adding a global motion layer to your design system.
 
 ! CSS: view transitions / @starting styles | IntersectionObserver
   1. Nue has built-in support for CSS customizable view transitions

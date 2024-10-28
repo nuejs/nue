@@ -241,7 +241,7 @@ This will include styles and components that match "dazzling-hero" in their file
 By organizing your styles this way, you avoid cluttering the global or area-specific CSS with unnecessary overrides, keeping your project clean and modular.
 
 
-## Section-specific styles
+## Section-specific styles { #sections }
 
 In Nue, **section-specific styles** allow you to divide your content into visually distinct sections for better readability and more control over styling. This approach works especially well for landing pages or long-form content where different sections require unique design treatments.
 

@@ -1,26 +1,26 @@
 
-import { $$ } from '/@nue/view-transitions.js'
-
+// array of sections on the active page
 let sections = []
 
+// an observer instance to toggle "outside-viewport" class name for the sections
 const observer = new IntersectionObserver(entries => {
   entries.forEach(el =>
     el.target.classList.toggle('outside-viewport', !el.isIntersecting)
   )
 })
 
-addEventListener('route', function() {
+// when routed/transitioned to a new page
+window.addEventListener('route', function() {
 
-  // unobserve
+  // cleanup previoius observers
   sections.forEach(el => observer.unobserve(el))
 
-  // observe
-  if (location.pathname == '/') {
-    sections = $$('section').filter(el => {
-      observer.observe(el)
-      return true
-    })
-  }
+  // observe the sections on a new page
+  sections = [...document.querySelectorAll('section')].filter(el => {
+    observer.observe(el)
+    return true
+  })
+
 })
 
 
