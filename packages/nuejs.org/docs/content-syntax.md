@@ -32,10 +32,10 @@ Nue supports common **Markdown extensions** such as **tables** and **footnotes**
 Tables are useful for presenting structured information. Here’s an example:
 
 ```md
-| Principle               | Description                                                       |
-|-------------------------|-------------------------------------------------------------------|
-| Separation of Concerns  | Dividing a system into distinct sections with specific roles.      |
-| Progressive Enhancement | Building core functionality first, then adding enhanced features. |
+| Principle                | Description                                                       |
+|--------------------------|-------------------------------------------------------------------|
+| Separation of Concerns   | Dividing a system into distinct sections with specific roles.     |
+| Progressive Enhancement  | Building core functionality first, then adding enhanced features. |
 | Information Architecture | Structuring content for usability and navigation clarity.         |
 ```
 
@@ -360,4 +360,3 @@ Here's an example combining content blocks and code blocks. Notice how clean the
 ```
 
 This simple example demonstrates how you can create a **stacked layout** with content and code blocks, all within a clean, readable format. Mixing content and code blocks in this way allows you to present complex technical concepts, tutorials, or style guides without sacrificing readability or maintainability.
-

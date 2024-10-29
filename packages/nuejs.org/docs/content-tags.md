@@ -262,7 +262,7 @@ Tables are marked as follows:
  | Jessica Lee     | jessica.lee@demo.ai      | Project Manager    |
 ```
 
-There is also a specialized `[table]` tag for defining tables with less pipes and dashes:
+There is also a specialized `[table]` tag for defining tables with fewer pipes and dashes:
 
 ```md
 [table]

@@ -9,11 +9,11 @@ Here are some key use cases for CSS transitions:
 
 1. **Enter animations**: Subtle animations as elements appear in the viewport, giving users visual cues about interactive elements.
 
-1. **Scroll-based transitions**: Motion triggered by scrolling, such as revealing content dynamically or using sticky elements that animate based on scroll position.
+2. **Scroll-based transitions**: Motion triggered by scrolling, such as revealing content dynamically or using sticky elements that animate based on scroll position.
 
-1. **View transitions**: Smooth transitions between different views or pages, enhancing the sense of continuity and reducing the perceived load time.
+3. **View transitions**: Smooth transitions between different views or pages, enhancing the sense of continuity and reducing the perceived load time.
 
-1. **Mouse states**: Simple yet effective animations triggered by mouse interactions like hover or mousedown, adding visual feedback and improving interactivity.
+4. **Mouse states**: Simple yet effective animations triggered by mouse interactions like hover or mousedown, adding visual feedback and improving interactivity.
 
 Modern CSS goes far beyond basic hover effects. It enables complex, highly-performant animations without the need for cumbersome JavaScript workarounds. Techniques that once required libraries like Framer Motion can now be achieved using pure CSS, providing a cleaner, faster, and more maintainable solution for developers.
 
@@ -52,7 +52,7 @@ One of the most underused but incredibly powerful CSS properties is `@starting-s
 
 In this example, the popover starts off scaled down and transparent, then smoothly transitions to full size and opacity when it opens. The backdrop also transitions to a blurred state, creating a polished and modern effect. Using `@starting-style` makes it easy to handle these first-load animations without needing heavy JavaScript solutions.
 
-Despite its relative obscurity, `@starting-style` is a highly capable tool for creating entry animations and is well supported in most modern browsers, making it a great choice for developers who prioritize performance and simplicity.
+Despite its relative obscurity, `@starting-style` is a highly capable tool for creating entry animations and is well-supported in most modern browsers, making it a great choice for developers who prioritize performance and simplicity.
 
 
 
@@ -223,5 +223,3 @@ Now, you can use CSS to apply different animations to each section. Here’s how
 
 ### Summary
 This scroll-triggered transition system works globally across your entire site, allowing for smooth animations on each page while maintaining performance and separation of concerns. By using JavaScript to detect when sections enter or exit the viewport, and leveraging CSS for custom transitions, this system enables a seamless, visually engaging experience. You can apply different transitions to sections globally, on specific pages, or even customize transitions for individual sections. This method follows progressive enhancement principles—users with JavaScript-enabled browsers benefit from advanced motion effects, while users without JavaScript still receive fully functional content.
-
-
