@@ -1,15 +1,9 @@
----
-include: [tabs]
----
 
-# Content
-Nue provides an extended Markdown syntax for authoring web content. In addition to the basic text formatting, you have sections, grids, responsive images, videos, tabbed content, and more. You can rapidly assemble complex web pages without ever touching a single line of code. Just simple versionable text files, directly accessible on your file system, and editable with your favorite editor.
-
-
+# Content syntax
+Nue provides an **extended Markdown syntax** for authoring rich web content. Building on top of basic Markdown, you can easily include complex elements like grids, responsive images, tabbed content, and more. This allows you to rapidly create dynamic, responsive web pages without writing any additional code. Everything is managed through simple, versionable text files that can be edited directly on your file system with your favorite text editor.
 
 ## Basic syntax
-Nue offers a full [Markdown support](//daringfireball.net/projects/markdown/). That is: All the familiar things like headings, quotes, lists, and fenced code blocks are supported:
-
+Nue fully supports standard [Markdown](//daringfireball.net/projects/markdown/), allowing you to work with familiar formatting options like headings, quotes, lists, and fenced code blocks. Here's an example of the basic syntax:
 
 ```md
 # First level heading
@@ -25,50 +19,240 @@ A paragraph with **bold** and *italics* and `inline code`
 2. is an ordered
 3. list of items
 
-Followed with
+Followed with:
 
 - An unordered
 - list of items
 ```
 
-## Extended syntax
-tables
-footnotes
+## Standard Markdown extensions
+Nue supports common **Markdown extensions** such as **tables** and **footnotes**, allowing for more structured and informative content.
 
+### Tables
+Tables are useful for presenting structured information. Here’s an example:
+
+```md
+| Principle               | Description                                                       |
+|-------------------------|-------------------------------------------------------------------|
+| Separation of Concerns  | Dividing a system into distinct sections with specific roles.      |
+| Progressive Enhancement | Building core functionality first, then adding enhanced features. |
+| Information Architecture | Structuring content for usability and navigation clarity.         |
+```
+
+This table provides a simple breakdown of key principles.
+
+### Footnotes
+**Footnotes** allow you to reference additional information or explanations without disrupting the main content flow. Here’s an example:
+
+```md
+Design principles like Separation of Concerns [^1], Progressive Enhancement [^2], and Information Architecture [^3] are fundamental.
+
+[^1]: Separation of Concerns (SoC) is crucial for maintaining clean and maintainable code.
+[^2]: Progressive Enhancement (PE) ensures that core functionality is available to all users, with enhanced features layered on.
+[^3]: Information Architecture (IA) involves organizing content in a way that is intuitive and accessible for users.
+```
+
+Footnotes provide a way to include more detail without cluttering the main text.
+
+## Nue-specific Markdown extensions
+
+Nue extends standard Markdown with additional formatting options and powerful features to make content richer and more dynamic, without needing complex HTML.
 
 ### Formatting
-Nue offers a bunch of formatting options beyond starndard Markdown
+Nue provides a variety of formatting options beyond standard Markdown, giving you more control over how text appears on the page. Here’s a comparison between the Markdown syntax and the corresponding HTML output:
 
+```md
+| Markdown         | HTML                           | Example             |
+|------------------|--------------------------------|---------------------|
+| `I'm **bold**`   | `<strong>bold</strong>`        | I'm **bold**        |
+| `I'm __bold__`   | `<strong>bold</strong>`        | I'm __bold__        |
+| `I'm •bold•`     | `<b>bold</b>`                  | I'm •bold•          |
+| `I'm *italic*`   | `<em>italic</em>`              | I'm *italic*        |
+| `I'm _italic_`   | `<em>italic</em>`              | I'm _italic_        |
+| `I'm /italic/`   | `<i>italic</i>`                | I'm /italic/        |
+| `I'm \`code\``   | `<code>code</code>`            | I'm `code`          |
+| `I'm ~striked~`  | `<s>striked</s>`               | I'm ~striked~       |
+| `I'm "quoted"`   | `<q>quoted</q>`                | I'm "quoted"        |
+| `I'm |marked|`   | `<mark>marked</mark>`          | I'm |marked|         |
+```
 
-[table]
-  Markdown | HTML | Example
-  `I'm **bold**`   | `I'm <strong>bold</strong>` | I'm **bold**
-  `I'm __bold__`   | `I'm <strong>bold</strong>` | I'm __bold__
-  `I'm •bold•`     | `I'm <b>bold</b>`           | I'm •bold•
-  `I'm *italic*`   | `I'm <em>italic</em>`       | I'm *italic*
-  `I'm _italic_`   | `I'm <em>italic</em>`       | I'm _italic_
-  `I'm /italic/`   | `I'm <i>italic</i>`         | I'm /italic/
-  `I'm \`code\``   | `I'm <code>code</code>`     | I'm `code`
-  `I'm ~striked~`  | `I'm <s>striked</s>`        | I'm ~striked~
-  `I'm "quoted"`   | `I'm <q>quoted</q>`         | I'm "quoted"
-  `I'm |marked|`   | `I'm <mark>marked</mark>`   | I'm |marked|
-
+This extended set of formatting options helps you achieve more **precise styling** without needing to write raw HTML.
 
 ### Variables
-Variable names between curly braces are printed out:
+Nue allows the use of **variables** within Markdown files, enabling dynamic content based on your application data. Variables are wrapped in curly braces (`{}`) and will be replaced with their corresponding values when the page is rendered:
 
-``` md
-Page title: **{ title }**
+```md
+Package name:    **{ package.name }**
+Package version: **{ package.version }**
 ```
 
-The above will output "Page title: **{ title }**"
+The values between curly braces are taken from the **application data** or **metadata** available on the page. This feature ensures that content can stay dynamic and up-to-date with the latest values from your site’s data and settings.
+
+### Expanded footnotes
+Nue enhances the standard Markdown footnote functionality by allowing you to mark entire phrases as part of the footnote, giving you more flexibility for styling and formatting. This makes it easier to create footnotes that are more descriptive and visually clear.
+
+For example, instead of just marking a word, you can mark an entire phrase:
+
+```md
+Design principles like [Separation of Concerns][^1], [Progressive Enhancement][^2], and [Information Architecture][^3] are fundamental.
+```
+
+This expanded capability allows you to reference full concepts or phrases, improving clarity in both technical and non-technical content, while maintaining the footnote's ease of use.
+
+### Pure content
+In Nue, the focus is on **pure content**—free from HTML markup. This ensures that your content remains clean, semantic, and focused on structure, while design and styling are handled by CSS and layout modules. By separating content from presentation, Nue enforces the **Separation of Concerns (SoC)** principle, leading to better maintainability and a more consistent design system.
+
+Instead of embedding HTML, Nue provides powerful Markdown extensions like **blocks**, which let you create rich, styled content while keeping the content layer pure.
+
+### Blocks
+**Blocks** in Nue are reusable chunks of content wrapped inside a class name, allowing you to build structured and styled sections while keeping the focus on pure content. No HTML is needed, making the content easy to manage and maintain.
+
+For example, here’s how to create a **"note" block**:
+
+```md stash
+[block.note]
+  ### Note
+  Web design is 100% content and 95% typography
+```
+
+This generates a fully styled block while keeping the content clean and semantic.
+
+#### Why blocks are great
+Nue’s block system promotes the **pure content** philosophy by:
+
+- **Keeping HTML out of Markdown**: Blocks allow you to maintain clean, readable content without the need for HTML markup, ensuring a pure content layer.
+- **Promoting clean, reusable structure**: By focusing on content, blocks make it easy to reuse consistent structures across your site, supporting both scalability and a unified design.
+- **Enforcing separation of concerns**: Blocks ensure that content remains focused on structure, while design and styling are applied externally via CSS, keeping the codebase clean and maintainable.
+
+#### HTML output
+When rendered, blocks are transformed into simple `<div>` elements with an associated CSS class name. For example, the "note" block generates the following HTML:
+
+```html
+<div class="note">
+  <h3>Note</h3>
+  <p>Web design is 100% content and 95% typography</p>
+</div>
+```
+
+This keeps the structure clean and semantic, while design is handled separately through CSS.
+
+#### Simplified syntax
+You can further simplify the syntax by omitting the `block` component name and just using the class name prefixed with a dot:
+
+```md
+[.alert]
+  ### Note
+  You should avoid inline styling like black death
+```
+
+### Popovers
+Nue's block syntax makes it simple to create **popovers** that can be easily triggered using a [button](content-tags.html#button) tag. Popovers are a great way to present additional information without cluttering the main content flow.
+
+Here’s how you define a popover:
+
+```md
+[#soc-explainer popover]
+  ### Separation of concerns
+  **Separation of Concerns (SoC)** is a core principle in software and web development that promotes dividing functionality into distinct, independent sections. In web design, this means keeping content, structure, and styling isolated. By doing this, content creators can focus purely on the message and information, while designers and engineers handle the layout and styling. This approach leads to cleaner, more maintainable codebases and a better user experience.
+```
+
+This generates a `dialog` element with the standard `popover` attribute, which can be opened with a button:
+
+```md
+[button popovertarget="soc-explainer" "Learn how it works"]
+```
+
+This button is linked to the popover and opens it when clicked.
+
+#### Why this setup is great:
+1. **A new creative tool for content authors**: Popovers offer a fun, engaging way to display additional information without overwhelming the reader. Imagine creating Apple-like, sleek front-page dialogs that feel immersive, but with full SEO compatibility and a clean, content-first file. Popovers let content authors introduce rich interactive elements while maintaining complete control over the content flow.
+
+2. **No JavaScript needed**: You can wire up app-like dialog and popover functionality directly within your content using standard HTML attributes, without writing any JavaScript. This makes your content more accessible, reliable, and easy to manage.
+
+3. **Standards-based approach**: Nue uses the standard [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using), allowing the browser to handle the heavy lifting for opening, closing, and accessibility. This ensures that the popovers work even if JavaScript is disabled or fails to load,
+
+ making your content resilient and SEO-friendly.
+
+### Complex layouts
+Nue's Markdown parser automatically identifies when multiple blocks of content are placed within a single block tag and separates them using `<div>` tags. This makes it easy to create complex layouts directly in your content. For example, the following block:
+
+```md
+[.stack]
+  ### Design
+  Design starts with content, ensuring a natural flow and seamless navigation.
+
+  ### Engineering
+  Engineering focuses on performance, accessibility, and progressive enhancement.
+```
+
+Is rendered as:
+
+```html
+<div class="stack">
+  <div>
+    <h3>Design</h3>
+    <p>Design starts with content, ensuring a natural flow and seamless navigation.</p>
+  </div>
+  <div>
+    <h3>Engineering</h3>
+    <p>Engineering focuses on performance, accessibility, and progressive enhancement.</p>
+  </div>
+</div>
+```
+
+And when styled with CSS, it takes on a visually structured layout:
+
+[render]
+
+#### Separator
+Nue automatically uses the first `h2` or `h3` tag within a block as the **separator** for the content blocks. If needed, you can use a **triple-dash** (`---`) as an explicit separator to customize content divisions.
+
+For example:
+
+```md
+[.grid]
+  ### Design
+  Design blends form and function.
+
+  ---
+
+  ### Engineering
+  Code enhances the user experience while staying performant.
+```
+
+This allows flexible layout creation, giving you control over content structure and flow.
+
+#### Why this is great
+
+1. **Create complex layouts with pure content**: There's literally zero bloat or extra markup needed to achieve advanced layouts such as **flex** or **grid**. Your design system’s CSS components handle the layout, keeping your Markdown clean and focused on content.
+
+2. **Supports rich, flexible designs**: You can easily render complex, visually engaging layouts like **bento-style cards** that mix videos, images, and text—**optionally enhanced** with scripting and motion. This flexibility allows you to create stunning, content-rich sections that work seamlessly across devices, without touching a line of HTML.
+
+### Nesting
+Blocks can be nested to form more complex layouts on your richer marketing and landing pages, giving you the flexibility to create structured, multi-layered content without ever touching HTML. For example:
+
+```md
+[.feature]
+  ## Hello, World!
+  Let's put a nested stack here
+
+  [.stack]
+    ### First item
+    With description
+
+    ### Second item
+    With description
+```
+
+This creates a flexible layout where a main **feature** block contains a nested **stack**, allowing for clean organization and structure in your content.
+
+The possibilities are endless. You can combine blocks in creative ways, stacking sections within sections to build rich, interactive landing pages. Imagine a **hero section** that introduces key features, followed by a **grid of cards**, each with its own stacked content blocks highlighting product details, testimonials, or case studies. With the power of **nesting**, you can craft visually complex layouts while keeping your Markdown easy to read and maintain. Whether you're building product showcases, multi-section promotional pages, or detailed service breakdowns, nesting unlocks a new level of creative control over your content structure—letting design systems handle the visual complexity.
 
 ### Code blocks
-Code blocks are enclosed between triple backticks followed by (optional) language hint for the underlying [Glow](blog/introducing-glow/) syntax highlighter. For example:
+Code blocks in Nue are enclosed between triple backticks and can include an optional language hint for syntax highlighting using the [Glow syntax highlighter](blog/introducing-glow/). For example, a CSS code block would look like this:
 
-
-```
-\``` css
+```md
+\```css
 // here is a CSS code block
 :root {
   --base-100: #f3f4f6;
@@ -79,10 +263,12 @@ Code blocks are enclosed between triple backticks followed by (optional) languag
 \```
 ```
 
-You can also provde a class name and setup line numbering:
+The language hint (`css`) enables syntax highlighting for the specified language.
 
+#### Line numbering
+You can also apply custom class names and enable **line numbering** for your code blocks. Here's how to set it up:
 
-```
+```md
 \``` •.purple numbered•
 function hello() {
   // world
@@ -90,8 +276,7 @@ function hello() {
 \```
 ```
 
-The above will be rendered as:
-
+The above example will be rendered with **purple text** and line numbers enabled:
 
 ``` .purple numbered
 function hello() {
@@ -99,12 +284,12 @@ function hello() {
 }
 ```
 
+### Line/region highlighting
+Nue allows you to highlight specific lines or regions within your code blocks using special characters. This feature helps emphasize key parts of your code, making it easier for readers to focus on important areas.
 
-### Code highligting
-You can use a set of special characters in the code to highlight content:
+Here’s an example using JavaScript code with line numbering and highlights:
 
-
-``` js numbered
+```js numbered
 /* Code highlighting examples */
 
 >Highlight lines by prefixing them with ">"
@@ -121,586 +306,58 @@ export ••defaultt•• interpolate() {
 
 // and added lines with +
 +const html = glow(code, { •numbered: true• })
-
 ```
 
-[.options]
-  `>` highlights the line. The default background color is blue
+#### Highlighting options
+Use the following characters to customize how code lines and regions are highlighted:
 
-  `-` marks the line as removed with a red background (default)
+- `>` highlights an entire line with a default blue background.
+- `-` marks the line as **removed** with a red background.
+- `+` marks the line as **inserted** with a green background.
+- `|` highlights lines in Markdown syntax (similar to `>`).
+- `\` escapes the first character to prevent special treatment.
 
-  `+` marks the line as inserted with green background (default)
-
-  `|` highlights the line. Similar to ">" but for Markdown syntax only
-
-  `\` escapes the first character
-
-
-Use bullet character (`•`) to highlight text regions within a line. The following sentence:
-
-`These •two words• are highlighted and ••these words•• are erroneous`
-
-is rendered as:
+To highlight specific text regions within a line, use the bullet character (`•`). For example:
 
 ```md
 These •two words• are highlighted and ••these words•• are erroneous
 ```
 
+This would be rendered as:
 
-### Tags
-Nue comes with a set of build-in Markdown extensions or "tags" that significantly increases your capability to build rich, interactive websites. These tags are defined between square brackets. For example:
+These **two words** are highlighted and **these words** are erroneous.
 
-```md
-[image /img/cat.png]
-```
-
-The tag name (i.e. "image") is followed by options, which can be supplied in several ways:
-
-
-```md
-// named options
-[image •src•="hello.png" •caption•="Hello, World" •alt•="Hello image"]
-
-// nested YAML
-[image]
-|  caption: Hello, World!
-|  large: hello-big.png
-|  small: hello.png
-|  alt: Hello Image
-
-// plain value without the attribute name
-[image •hello.png•]
-
-// special syntax for id and class attributes
-[image•#hero-image.heroic• hero.webp]
-
-// nested content
-[image explainer.png]
-| This nested content is the caption for the image.
-| You can add Markdown here like *emphasis* and `inline code`
-
-
-// tags can be inlined too
-This is an inline [svg "/icon/meow.svg"] image
-```
-
-
-### Images
-Images are marked as follows:
-
-```md
-[image hello.webp]
-| This content here is the caption. Markdown *formatting* is supported
-```
-
-Shortcut alias (!) is supported:
-
-```md
-[! hello.webp]
-```
-
-Images can link to URL's with `href` attribute:
-
-```md
-[image book.svg href="/docs/" caption="View documentation"]
-```
-
-[Art direction](//web.dev/articles/codelab-art-direction) support:
-
-```md
-[image]
-  large: ui-wide.png
-  small: ui-tall.png
-  caption: This is the image caption
-  alt: This is the alt text
-  loading: eager
-```
-
-
-[.options]
-  #### [image] options
-
-  `alt` is an alternate text for the image.
-
-  `src` image source.
-
-  `caption` image caption.
-
-  `href` adds a link on the image.
-
-  `large` the large version of the image. The large image can have a different aspect ratio than the small one, which is the difference between art direction and responsitivity.
-
-  `loading` this is either "lazy" for [lazy loading](https://developer.mozilla.org/en-US/docs/Web/Performance/Lazy_loading) (default value) or "eager" for non-lazy loading.
-
-  `small` the small version of the image.
-
-  `offset` the screen size when small turns to large. The default value is 750 (px).
-
-  `size` a shortcut property to provide the width and height simultaneously separated with "x" or "&times;". For example: "30 x 30"
-
-  `width` the image width.
-
-
-#### HTML output
-Images are rendered as a `<figure>` element:
-
-```html
-<figure>
-  <img src="hello.webp" loading="lazy">
-  <figcaption>View documentation</figcaption>
-</figure>
-```
-
-Here is a more complex example with `href`, `small` and `large` attributes:
-
-```html
-<figure class="heroic">
-  <picture>
-    <source src="ui-tall.png" media="(max-width: 750px)" type="image/png">
-    <source src="ui-wide.png" media="(min-width: 750px)" type="image/png">
-    <a href="/docs/"><img src="ui-wide.png" loading="lazy"></a>
-  </picture>
-</figure>
-```
-
-### SVG
-Inline SVG images are marked as follows:
-
-```md
-[svg /icon/continue.svg]
-```
-
-Which would render the contents of the SVG file. This tag is particularly useful together with the button tag:
-
-```md
-[button href="/docs/"]
-  *Learn more* [svg /icon/chevron-right.svg]
-```
-
-The above would render the follwing HTML for you to style with CSS:
-
-```
-<a href="/docs/" role="button">
-  <em>Learn more</em>
-  <svg viewBox="0 0 24 24">...</svg>
-</a>
-```
-
-
-
-
-### Videos
-Videos are marked as follows:
-
-```md
-[video /videos/hello.mp4]
-```
-
-Shortcut alias (!) is supported:
-
-```md
-[! /videos/hello.mp4]
-```
-
-All standard HTML5 video attributes are supported:
-
-```md
-[image intro.mp4 autoplay controls muted loop ]
-```
-
-Options given as YAML:
-
-```md
-[video.heroic]
-  poster: hello.png
-  src: hello.mp4
-  width: 1000
-```
-
-
-[.options]
-  #### Video options
-
-  `autoplay` starts the video when the page is loaded. It must be used together with
-
-  `muted` or the autoplay does not work on all browsers.
-
-  `controls` displays the browser's built-in video controls.
-
-  `loop` seeks back to the start after reaching the end of the video.
-
-  `muted` plays the video without sound.
-
-  `poster` a URL for an image to be shown before the playback starts.
-
-  `preload` a [hint to the browser][preload] on what to load prior playback.
-
-  // `sources` a list of video files. The browser plays the first one it understands.
-
-  `src` a URL to the video file.
-
-  `width` the video width.
-
-  [preload]: //developer.mozilla.org/en-US/docs/Web/HTML/Element/video#preload
-
-
-
-#### HTML output
-Videos are rendered as a native HTML5 video element:
-
-```html
-<video class="heroic" width="1000" poster="hello.png">
-  <source src="hello.mp4" type="video/mp4">
-</video>
-```
-
-
-### Buttons
-Buttons are marked as follows:
-
-```md
-// with all options
-[button label="Learn more" href="/docs/"]
-
-// label option can be given as a plain value
-[button "Learn more" href="/docs/"]
-
-// with class name and a nested body
-[button.secondary href="/docs/"]
-  Learn more
-
-// with inline SVG
-[button href="/docs/"]
-  *Learn more* [svg /icon/chevron-right.svg]
-```
-
-[.options]
-  #### Button options
-
-  `label` the button label. Can also be given as plain value or as body content
-
-  `href` the target link for the button
-
-
-#### HTML output
-Buttons are rendered as follows:
-
-```html
-<a role="button" href="/docs/">Learn more</a>
-```
-
-Buttons are essentially links with a `role="button"` attribute because links don't require JavaScript to work.
-
-
-
-
-### Tables
-Tables are marked as follows:
-
-
-```md
- | Name            | Email                    | Work title         |
- | --------------- | ------------------------ | ------------------ |
- | Sarah Thompson  | sarah.thompson@demo.ai   | Graphic Designer   |
- | David Rodriguez | david.rodriguez@demo.ai  | Financial Analyst  |
- | Jessica Lee     | jessica.lee@demo.ai      | Project Manager    |
-```
-
-There is also a specialized `[table]` tag for defining tables with less pipes and dashes:
-
-```md
-[table]
-  Name            | Email                   | Work title
-  Alice Johnson   | alice.johnson@demo.ai   | Marketing Manager
-  John Smith      | john.smith@demo.ai      | Software Engineer
-  Emily Davis     | emily.davis@demo.ai     | Human Resources Lead
-  Michael Chen    | michael.chen@demo.ai    | Sales Representative
-```
-
-You can also supply the data in YAML format:
-
-```
-[table]
-  - [Name, Email, Work title]
-  - [Alice Johnson, alice.johnson@demo.ai, Marketing Manager]
-  - [John Smith, john.smith@demo.ai, Software Engineer]
-```
-
-And you can refer to table data specified in external [data files](data.html):
-
-```
-[table :items="products"]
-```
-
-The YAML ata can also be specified directly on the body:
-
-
-[.options]
-  #### Table options
-
-  `head` whether the first row should be rendered as a table head (with `<th>` elements). The default is true.
-
-  `:items` property name for the externally defined table data
-
-  `wrapper` wraps the table inside a parent element with a class name specified on this property.
-
-
-
-#### HTML output
-Tables are rendered as standard HTML5 tables:
-
-```html
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Work title</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <tr>
-      <td>Alice Johnson</td>
-      <td>alice.johnson@demo.ai</td>
-      <td>Copywriter</td>
-    </tr>
-
-    <tr>
-      <td>John Smith</td>
-      <td>john.smith@demo.ai</td>
-      <td>UX developer</td>
-    </tr>
-
-    ...
-
-  </tbody>
-</table>
-```
-
-
-### Accordions
-Accordion elements are marked as follows:
-
-```md
-[accordion]
-  ## First element
-  The contents of the first element
-
-  ## Second element
-  The contents of the second element
-
-  ## Third element
-  The contents of the second element
-```
-
-The above markup looks like this:
-
-[accordion.card]
-  ## First element
-  The contents of the first element
-
-  ## Second element
-  The contents of the second element
-
-  ## Third element
-  The contents of the second element
-
-
-Nue looks for the first heading element (h2 or above) within the tag and uses that level as the separator for new accordion entries.
-
-
-[.options]
-  #### Accordion options
-
-  `name` use this to name the individual entries. When supplied only one entry can be opened at once.
-
-  `open` enable this to set the first tab initially open or provide a numeric value to open a specific item
-
-
-#### HTML output
-Accordion is rendered as a list of [`<details>`](//developer.mozilla.org/en-US/docs/Web/HTML/Element/details) disclosure element.
-
-```html
-<div>
-  <details>
-    <summary>First element</summary>
-    <p>The contents of the first element</p>
-  </details>
-  <details>
-    <summary>Second element</summary>
-    <p>The contents of the second element</p>
-  </details>
-  ...
-</div>
-```
-
-
-
-
-
-### Tabs
-Tabbed panes are `[accordion]` elements with a `name` and `open` attribute, but styled as tabs:
-
-
-```md
-[accordion.card.tabs name="tabs" open]
-  ## First element
-  The contents of the first element
-
-  ## Second element
-  The contents of the second element
-
-  ## Third element
-  The contents of the second element
-```
-
-The above markup looks like this:
-
-[accordion.card.tabs name="tabs" open]
-  ## First element
-  The contents of the first element
-
-  ## Second element
-  The contents of the second element
-
-  ## Third element
-  The contents of the second element
-
-
-
-### Blocks
-Blocks are chunks of content wrapped inside a class name. Here is a "note" block:
-
-```md
-[block.note]
-  ### Note
-  Web design is 100% content and 95% typography
-```
-
-The "note" gets the following look on this website:
-
-[.note]
-  ### Note
-  Web design is 100% content and 95% typography
-
-
-#### HTML output
-Blocks are simple `<div>`s with a CSS class name:
-
-```
-<div class="note">
-  <h3>Note</h3>
-  <p>Web design is 100% content and 95% typography</p>
-</div>
-```
-
-Note that the component name "block" can be omitted and you can simply write the classname prefixed with a dot. For example:
-
-```md
-[.alert]
-  ### Note
-  You should avoid inline styling like black death
-```
-
-
-
-### Flex- and grid layouts
-Nue automaticslly splits the nested content multi-block layouts where each item is separated with a triple-dash ("---") or based on the heading structure. For example:
+#### Mixing content blocks and code blocks
+Here's an example combining content blocks and code blocks. Notice how clean the syntax is, avoiding excessive coding and ugly markup that often comes with complex layouts:
 
 ```md
 [.stack]
-  ### First item
-  With content
 
-  ### Second item
-  With content
-```
+  ### CSS animation setup
 
-The above renders as follows under this website:
-
-[.stack.card]
-  ### First item
-  With content
-
-  ### Second item
-  With content
-
-#### HTML output
-The stack is rendered with two inner divs:
-
-```
-<div class="stack">
-  <div>
-    <h3>First item</h3>
-    <p>With content</p></div>
-  <div>
-    <h3>Second item</h3>
-    <p>With content</p>
-  </div>
-</div>
-```
-
-#### Code blocks
-Here is another stack example with two code blocks separated with a triple-dash:
-
-
-```
-[.stack]
-  ``` css.pink
-  /* some CSS code */
-  ```
-  ---
-  ``` css.blue
-  /* some CSS code */
-  ```
-```
-
-
-[.stack]
   ``` .pink
-  input, textarea, select {
-    font-family: inherit;
-    font-size: inherit;
-    color: inherit;
-    width: 100%;
-    padding: .7em 1em;;
-    border-radius: 4px;
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .animate {
+    animation: fadeIn 2s ease-in;
   }
   ```
 
-  ---
+  ### CSS transition setup
 
   ``` .blue
-  [type=checkbox] {
-    width: inherit;
-    padding: 0;
+  .button {
+    transition: background-color 0.3s ease;
   }
 
-  fieldset {
-    border: none;
+  .button:hover {
+    background-color: #ff4081;
   }
   ```
-
-
-
-#### Nesting
-Blocks can be nested to form more complex layouts on your richer marketing/landing pages:
-
-
-```md
-[.feature]
-  ## Hello, World!
-  Let's put a nested stack here
-
-  [.stack]
-    ### First item
-    With description
-
-    ### Second item
-    With description
 ```
 
+This simple example demonstrates how you can create a **stacked layout** with content and code blocks, all within a clean, readable format. Mixing content and code blocks in this way allows you to present complex technical concepts, tutorials, or style guides without sacrificing readability or maintainability.
 
-### Custom tags
-Look for the documentation on how to create [custom Markdown extensions](components.html#markdown), which can run both server-side and client-side. You can also create hybrid or "isomorhpic" tags rendering on both ends.
