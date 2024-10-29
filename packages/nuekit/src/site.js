@@ -216,7 +216,7 @@ export async function createSite(args) {
   self.getData = async function(pagedir) {
     const data = { nuekit_version, ...site_data, is_prod }
 
-    for (const dir of traverseDirsUp(pagedir)) {
+    for (const dir of [ ...data.globals, ...traverseDirsUp(pagedir)]) {
       extendData(data, await readDirData(dir))
     }
     return data
