@@ -5,34 +5,3 @@ footer: false
 lang:
   on_this_page: On this page
   zen_mode: Zen Mode
-
-sidenav:
-  Getting started:
-    - Why Nue: /docs/
-    - How it works: /docs/how-it-works.html
-    - Installation: installation.html
-
-  Building websites:
-    - Step-by-step tutorial: tutorial.html
-    - Project structure: project-structure.html
-    - Content: content.html
-    - Data: data.html
-    - Layout: layout.html
-    - Islands: islands.html
-    - Styling: styling.html
-    - Motion: motion.html
-    - Scripting: scripting.html
-    - Optimization: optimization.html
-
-
-  Reference:
-    - Content syntax: content-syntax.html
-    - Content tags: content-tags.html
-    - Custom tags: custom-tags.html
-    - Template syntax: template-syntax.html
-    - Layout components: components.html
-    - Settings index: settings.html
-    - JavaScript API: javascript-api.html
-    - Syntax highlighting: syntax-highlighting.html
-    - Command line interface: command-line-interface.html
-

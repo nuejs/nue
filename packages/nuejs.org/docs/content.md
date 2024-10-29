@@ -1,720 +1,182 @@
----
-include: [tabs]
----
-
 # Content
-Nue provides an extended Markdown syntax for authoring web content. In addition to the basic text formatting, you have sections, grids, responsive images, videos, tabbed content, and more. You can rapidly assemble complex web pages without ever touching a single line of code. Just simple versionable text files, directly accessible on your file system, and editable with your favorite editor.
+Content comes **first** in Nue. It’s the first step in progressive enhancement, shaping how your site is built from scratch. It’s also the first thing in design, ensuring that your UI evolves around the content, and not the other way around. When content is drafted first, everything else—layout, interactivity, and design—falls into place.
 
+## Types of content
 
-## Content development
+### Structured data
+Structured data in Nue encompasses:
 
-content first, information
+- **Application data**: Structured information such as products, team members, language tokens, and other specific data used across different areas of the site.
+- **Information architecture**: Defines the hierarchy and organization of content, ensuring a clear structure for navigation and user flow.
+- **Content metadata**: Provides key details like title, description, author, date, and Open Graph (OG) image data for each content piece.
+- **Content collections**: Automatically generated lists of content items based on front-matter data, typically used to create dynamic lists—such as blog entries displayed on an index page.
 
-- narrative
+This data can be defined at the **global**, **library**, **area**, or **page** levels, making it easy to **reuse** across different parts of your site.
 
-1. Marketing content: landing pages, product tours, etc. usually contain sections,
-2. Technical content
+You can also group similar data into a single file for better organization, such as keeping all navigational items together to provide a bird’s-eye view of your information architecture. This approach also simplifies localization in future versions of Nue.
 
-3. Blog content: hybrid. starts with a hero section, following with technical content. occasionally mixes of more complex layouts between the content flow.
+By **extracting structured data**, your layout modules remain clean and focused on **structure, semantics, and accessibility**.
 
+### Unstructured content
+Unstructured content in Nue varies in how **rich and interactive** it is:
 
+- **Technical content**: Focuses on conveying detailed information, often heavy on lists, tables, and syntax/code blocks.
+- **Marketing content**: The richest of all types, typically found on landing pages, product tours, and promotional sections. This content is highly visual, including images, videos, interactive elements, and motion effects.
+- **Blog content**: This content often begins with a hero section and transitions into more technical content. Blogs may mix more complex layouts and interactive elements within the content flow, depending on the design needs.
+- **Formal content**: Includes legal documents, policies, and terms. This is the **plainest** content type, focusing on straightforward, text-based content.
 
+Nue comes with a powerful extended Markdown syntax, capable of rendering all these types seamlessly.
 
+## Content formats
+Nue relies on two main content formats: **YAML** and **extended Markdown**. These formats provide flexibility for both structured and unstructured content, making it easy to manage everything from application data to rich media pages.
 
-## Basic syntax
-Nue offers a full [Markdown support](//daringfireball.net/projects/markdown/). That is: All the familiar things like headings, quotes, lists, and fenced code blocks are supported:
+### YAML
+Nue uses **YAML** to define all structured data. Its expressive syntax is both easy to read and write, making it a popular choice among developers and content editors alike. YAML’s simplicity has found its way into mainstream usage, especially through **front matter** in static site generators like Jekyll—thanks to **Tom Preston-Werner's** pioneering work.
 
+Unlike alternatives such as **TOML**, YAML excels at handling complex structures like **nested arrays**, making it perfect for organizing complex datasets in Nue. Additionally, many of the earlier issues with YAML, such as the notorious **"Norway problem"**, have been resolved, ensuring a smoother experience when dealing with geographical and multilingual data.
 
-```md
-# First level heading
-A paragraph with **bold** and *italics* and `inline code`
+Here’s how simple YAML looks when describing a navigation structure in Nue:
 
-![An image](/path/to/image.webp)
-
-## Second level heading
-
-> Quoted text with a [Link to docs](/docs/)
-
-1. This here
-2. is an ordered
-3. list of items
-
-Followed with
-
-- An unordered
-- list of items
+```yaml
+Building websites:
+  - Step-by-step tutorial: tutorial.html
+  - Project structure: project-structure.html
+  - Content: content.html
+  - Layout: layout.html
+  - Islands: islands.html
+  - Styling: styling.html
+  - Motion: motion.html
+  - Scripting: scripting.html
+  - Optimization: optimization.html
 ```
 
-## Extended syntax
-tables
-footnotes
+This example showcases how YAML can clearly represent the **hierarchy and structure** of a site’s content, providing a clean and maintainable way to define key site elements like navigation, content collections, and more.
 
+### Extended Markdown
+Markdown is by far the most popular format for authoring unstructured content due to its simplicity and intuitive syntax. However, there’s one significant limitation: **basic Markdown lacks the power to draft the rich, interactive elements** that modern websites demand.
 
-### Formatting
-Nue offers a bunch of formatting options beyond starndard Markdown
+Nue [**extends**](extended-markdown.html) the standard Markdown with advanced features like code blocks, tables, generic blocks for complex flex/grid layouts, tabs, accordions, interactive islands, and more—all while remaining **SEO-friendly** and fully compliant with **accessibility guidelines**.
 
+These enhancements make it suitable for a wide range of content types, from **rich marketing pages** full of media and interactive elements to **technical documentation** requiring detailed layouts and precision.
 
-[table]
-  Markdown | HTML | Example
-  `I'm **bold**`   | `I'm <strong>bold</strong>` | I'm **bold**
-  `I'm __bold__`   | `I'm <strong>bold</strong>` | I'm __bold__
-  `I'm •bold•`     | `I'm <b>bold</b>`           | I'm •bold•
-  `I'm *italic*`   | `I'm <em>italic</em>`       | I'm *italic*
-  `I'm _italic_`   | `I'm <em>italic</em>`       | I'm _italic_
-  `I'm /italic/`   | `I'm <i>italic</i>`         | I'm /italic/
-  `I'm \`code\``   | `I'm <code>code</code>`     | I'm `code`
-  `I'm ~striked~`  | `I'm <s>striked</s>`        | I'm ~striked~
-  `I'm "quoted"`   | `I'm <q>quoted</q>`         | I'm "quoted"
-  `I'm |marked|`   | `I'm <mark>marked</mark>`   | I'm |marked|
+#### Note on cloud content storage
+In its current state, Nue's YAML/Markdown-based content editing is an excellent fit for designers and engineers. However, we recognize the need for cloud storage solutions when building websites for **non-technical customers** who require a more user-friendly, content-focused environment—preferably one where they can manage content directly from the website itself.
 
+A cloud-based backend is firmly on our long-term roadmap, as it aligns well with our **decoupled architecture**. Unstructured content would simply be fetched from the cloud before rendering, ensuring a seamless integration between content management and site delivery. For more details, see the [roadmap](index.md#roadmap).
 
-### Variables
-Variable names between curly braces are printed out:
+## Information architecture
+**Information architecture** in Nue defines how content is organized and structured across your site. It ensures that users can easily navigate through pages, apps, and sections, while also making content management clear and efficient for developers.
 
-``` md
-Page title: **{ title }**
+### Overview of information architecture
+Information architecture establishes the **hierarchy** and **relationships** between pages, sections, and content. This hierarchy influences both how users interact with your site and how content is delivered. For example, the following **YAML** snippet shows how the global navigation is defined in [navigation.yaml](//github.com/nuejs/nue/blob/dev/packages/nuejs.org/%40global/navigation.yaml), organizing pages into a clear structure:
+
+```yaml
+globalnav:
+  main:
+    - Home: /
+    - Docs: /docs/
+    - Blog: /blog/
 ```
 
-The above will output "Page title: **{ title }**"
+### Page hierarchies
+Pages are arranged in a **parent-child** structure, with nested pages inheriting structure from parent sections. For instance, a blog post is placed under the blog section, and pages like **Docs** can have their own subsections. Additionally, apps like `/docs` or `/blog` act as containers for groups of pages, each with its own internal hierarchy. Here’s an example of a **docs hierarchy** in YAML:
 
-### Code blocks
-Code blocks are enclosed between triple backticks followed by (optional) language hint for the underlying [Glow](blog/introducing-glow/) syntax highlighter. For example:
-
-
-```
-\``` css
-// here is a CSS code block
-:root {
-  --base-100: #f3f4f6;
-  --base-200: #e5e7eb;
-  --base-300: #d1d5db;
-  --base-400: #6b7280;
-}
-\```
+```yaml
+documentation:
+  Getting started:
+    - Why Nue: /docs/
+    - How it works: /docs/how-it-works.html
+    - Installation: /docs/installation.html
+  Building websites:
+    - Step-by-step tutorial: /docs/tutorial.html
+    - Project structure: /docs/project-structure.html
 ```
 
-You can also provde a class name and setup line numbering:
+### Navigation structure
+Information architecture directly impacts the **navigation** of your site, such as **menus**, **sidebars**, and **breadcrumbs**. This navigation is typically defined in a global **navigation.yaml** file, where you can organize navigation globally or by specific app (e.g., `docs/docs.yaml`), keeping your content structure modular and flexible. Here’s an example of a **sidebar menu** for a documentation app:
 
-
-```
-\``` •.purple numbered•
-function hello() {
-  // world
-}
-\```
-```
-
-The above will be rendered as:
-
-
-``` .purple numbered
-function hello() {
-  // world
-}
+```yaml
+menu:
+  - Home: /
+  - Docs: /docs/
+  - Blog: /blog/
+  - GitHub: //github.com/nuejs/nue
 ```
 
+### Metadata and inheritance
+**Metadata** in Nue, such as titles, descriptions, authors, and Open Graph (OG) properties, can be defined globally, at the app level, or overridden at the page level. This layered approach creates an **inheritance chain**, ensuring consistency across the site while allowing flexibility for specific overrides when needed.
 
-### Code highligting
-You can use a set of special characters in the code to highlight content:
+At the **global level**, metadata is defined in the `site.yaml` file. Here, a `title_template` can be used to format page titles dynamically. For example:
 
-
-``` js numbered
-/* Code highlighting examples */
-
->Highlight lines by prefixing them with ">"
-
-Here's a •highlighted region• within a single line
-
-// bring out errors
-export ••defaultt•• interpolate() {
-  return "something"
-}
-
-// prefix removed lines with -
--const html = glow(code)
-
-// and added lines with +
-+const html = glow(code, { •numbered: true• })
-
+```yaml
+# In site.yaml
+title_template: "%s / Nue Framework"
+description: "The design engineering framework for the web"
 ```
 
-[.options]
-  `>` highlights the line. The default background color is blue
+This `title_template` sets the structure for all page titles globally, where `%s` will be replaced by the specific title of each app or page.
 
-  `-` marks the line as removed with a red background (default)
+At the **app level**, you can override the global metadata for a specific app by defining it in that app's YAML file. For instance, in `blog/blog.yaml`, you might specify an app-level title, description, author, and Open Graph properties, which will apply to all blog posts unless further overridden.
 
-  `+` marks the line as inserted with green background (default)
-
-  `|` highlights the line. Similar to ">" but for Markdown syntax only
-
-  `\` escapes the first character
-
-
-Use bullet character (`•`) to highlight text regions within a line. The following sentence:
-
-`These •two words• are highlighted and ••these words•• are erroneous`
-
-is rendered as:
-
-```md
-These •two words• are highlighted and ••these words•• are erroneous
+```yaml
+# In blog/blog.yaml
+title: "Blog"
+title_template: "%s / Blog"
+description: "The latest news and updates"
+author: "John Doe"
+og_image: "/images/blog-og.jpg"
+og_description: "Stay updated with the latest posts"
 ```
 
+This ensures that all blog posts inherit a consistent base title, "Blog," and use the app-specific `title_template`, while still allowing flexibility for page-level overrides.
 
-### Tags
-Nue comes with a set of build-in Markdown extensions or "tags" that significantly increases your capability to build rich, interactive websites. These tags are defined between square brackets. For example:
+At the **page level**, individual pages can further customize metadata through the front matter in Markdown files. This is where the `%s` from the global or app-level `title_template` will be replaced by a page-specific title. For example:
 
-```md
-[image /img/cat.png]
+```yaml
+# In a specific page's front matter (Markdown)
+---
+title: "Getting Started with Nue"
+description: "Learn the basics of setting up your first project"
+---
 ```
 
-The tag name (i.e. "image") is followed by options, which can be supplied in several ways:
+In this case, the title will become "Getting Started with Nue / Blog," as the `%s` in the app-level `title_template` is replaced by the page-specific title. The same inheritance applies to metadata like description, author, and Open Graph properties, with global
 
+ and app-level defaults cascading down to the page level unless explicitly overridden.
 
-```md
-// named options
-[image •src•="hello.png" •caption•="Hello, World" •alt•="Hello image"]
+This **inheritance chain** ensures that metadata is consistently managed across global, app, and page levels. Developers can easily adjust metadata at any level while maintaining a coherent and SEO-friendly structure throughout the site.
 
-// nested YAML
-[image]
-|  caption: Hello, World!
-|  large: hello-big.png
-|  small: hello.png
-|  alt: Hello Image
+### Benefits of a clear structure
+A well-defined information architecture improves **SEO** by helping search engines understand your content's structure and relationships. It also enhances **accessibility**, making it easier for users with assistive technologies to navigate and understand the content. By using a **well-structured hierarchy** in your navigation YAML file, you make it clear to both users and search engines how content is related:
 
-// plain value without the attribute name
-[image •hello.png•]
-
-// special syntax for id and class attributes
-[image•#hero-image.heroic• hero.webp]
-
-// nested content
-[image explainer.png]
-| This nested content is the caption for the image.
-| You can add Markdown here like *emphasis* and `inline code`
-
-
-// tags can be inlined too
-This is an inline [svg "/icon/meow.svg"] image
+```yaml
+globalnav:
+  main:
+    - Home: /
+    - Docs: /docs/
+    - Blog: /blog/
+    - About: /about/
 ```
 
+### Implementation
+For design engineers, the **information architecture** and **metadata** defined in YAML files can be directly used in **Markdown extensions** or **custom layout modules**, which control how and where this data is rendered on your pages. By using this structured data, you can effectively manage content display and ensure consistency across your site’s layout.
 
-### Images
-Images are marked as follows:
+To get started, you can:
+- Explore how to create **custom tags** that work with this structured data: [custom-tags.html](custom-tags.html).
+- Learn how to build **custom layout modules** that integrate with your information architecture: [layout.html](layout.html).
 
-```md
-[image hello.webp]
-| This content here is the caption. Markdown *formatting* is supported
-```
+## Content-first development
+**Content-first development** is a core philosophy in Nue. It ensures that both engineers and designers focus on the content itself, allowing the site's structure, functionality, and design to evolve naturally. This approach drives **world-class design** and **user experience**.
 
-Shortcut alias (!) is supported:
+### For engineers: Semantic web development
+For engineers, content-first development involves using **content information** to generate **clean, semantic HTML**, forming the foundation for **progressive enhancement**. By starting with raw HTML, engineers build a solid, accessible foundation that works in all environments, with interactivity and styling layered on as needed.
 
-```md
-[! hello.webp]
-```
+This approach emphasizes **separation of concerns**, where content, layout, and behavior remain distinct, simplifying maintenance and reducing complexity. Semantic HTML also improves **SEO** and **accessibility**, making the structure of content clear to both search engines and assistive technologies.
 
-Images can link to URL's with `href` attribute:
+### For designers: Content-first design
+Designers follow a **content-first design** approach, where content shapes the layout and aesthetic decisions. By adhering to the principle of **form follows function**, design systems are built to meet the specific needs of the content, staying focused and efficient.
 
-```md
-[image book.svg href="/docs/" caption="View documentation"]
-```
+This leads to design systems that are **lean** and **flexible**, focusing on delivering intuitive, content-driven user experiences. Designers can ensure that the layout serves the content, resulting in more cohesive and meaningful interactions for users.
 
-[Art direction](//web.dev/articles/codelab-art-direction) support:
-
-```md
-[image]
-  large: ui-wide.png
-  small: ui-tall.png
-  caption: This is the image caption
-  alt: This is the alt text
-  loading: eager
-```
-
-
-[.options]
-  #### [image] options
-
-  `alt` is an alternate text for the image.
-
-  `src` image source.
-
-  `caption` image caption.
-
-  `href` adds a link on the image.
-
-  `large` the large version of the image. The large image can have a different aspect ratio than the small one, which is the difference between art direction and responsitivity.
-
-  `loading` this is either "lazy" for [lazy loading](https://developer.mozilla.org/en-US/docs/Web/Performance/Lazy_loading) (default value) or "eager" for non-lazy loading.
-
-  `small` the small version of the image.
-
-  `offset` the screen size when small turns to large. The default value is 750 (px).
-
-  `size` a shortcut property to provide the width and height simultaneously separated with "x" or "&times;". For example: "30 x 30"
-
-  `width` the image width.
-
-
-#### HTML output
-Images are rendered as a `<figure>` element:
-
-```html
-<figure>
-  <img src="hello.webp" loading="lazy">
-  <figcaption>View documentation</figcaption>
-</figure>
-```
-
-Here is a more complex example with `href`, `small` and `large` attributes:
-
-```html
-<figure class="heroic">
-  <picture>
-    <source src="ui-tall.png" media="(max-width: 750px)" type="image/png">
-    <source src="ui-wide.png" media="(min-width: 750px)" type="image/png">
-    <a href="/docs/"><img src="ui-wide.png" loading="lazy"></a>
-  </picture>
-</figure>
-```
-
-### SVG
-Inline SVG images are marked as follows:
-
-```md
-[svg /icon/continue.svg]
-```
-
-Which would render the contents of the SVG file. This tag is particularly useful together with the button tag:
-
-```md
-[button href="/docs/"]
-  *Learn more* [svg /icon/chevron-right.svg]
-```
-
-The above would render the follwing HTML for you to style with CSS:
-
-```
-<a href="/docs/" role="button">
-  <em>Learn more</em>
-  <svg viewBox="0 0 24 24">...</svg>
-</a>
-```
-
-
-
-
-### Videos
-Videos are marked as follows:
-
-```md
-[video /videos/hello.mp4]
-```
-
-Shortcut alias (!) is supported:
-
-```md
-[! /videos/hello.mp4]
-```
-
-All standard HTML5 video attributes are supported:
-
-```md
-[image intro.mp4 autoplay controls muted loop ]
-```
-
-Options given as YAML:
-
-```md
-[video.heroic]
-  poster: hello.png
-  src: hello.mp4
-  width: 1000
-```
-
-
-[.options]
-  #### Video options
-
-  `autoplay` starts the video when the page is loaded. It must be used together with
-
-  `muted` or the autoplay does not work on all browsers.
-
-  `controls` displays the browser's built-in video controls.
-
-  `loop` seeks back to the start after reaching the end of the video.
-
-  `muted` plays the video without sound.
-
-  `poster` a URL for an image to be shown before the playback starts.
-
-  `preload` a [hint to the browser][preload] on what to load prior playback.
-
-  // `sources` a list of video files. The browser plays the first one it understands.
-
-  `src` a URL to the video file.
-
-  `width` the video width.
-
-  [preload]: //developer.mozilla.org/en-US/docs/Web/HTML/Element/video#preload
-
-
-
-#### HTML output
-Videos are rendered as a native HTML5 video element:
-
-```html
-<video class="heroic" width="1000" poster="hello.png">
-  <source src="hello.mp4" type="video/mp4">
-</video>
-```
-
-
-### Buttons
-Buttons are marked as follows:
-
-```md
-// with all options
-[button label="Learn more" href="/docs/"]
-
-// label option can be given as a plain value
-[button "Learn more" href="/docs/"]
-
-// with class name and a nested body
-[button.secondary href="/docs/"]
-  Learn more
-
-// with inline SVG
-[button href="/docs/"]
-  *Learn more* [svg /icon/chevron-right.svg]
-```
-
-[.options]
-  #### Button options
-
-  `label` the button label. Can also be given as plain value or as body content
-
-  `href` the target link for the button
-
-
-#### HTML output
-Buttons are rendered as follows:
-
-```html
-<a role="button" href="/docs/">Learn more</a>
-```
-
-Buttons are essentially links with a `role="button"` attribute because links don't require JavaScript to work.
-
-
-
-
-### Tables
-Tables are marked as follows:
-
-
-```md
- | Name            | Email                    | Work title         |
- | --------------- | ------------------------ | ------------------ |
- | Sarah Thompson  | sarah.thompson@demo.ai   | Graphic Designer   |
- | David Rodriguez | david.rodriguez@demo.ai  | Financial Analyst  |
- | Jessica Lee     | jessica.lee@demo.ai      | Project Manager    |
-```
-
-There is also a specialized `[table]` tag for defining tables with less pipes and dashes:
-
-```md
-[table]
-  Name            | Email                   | Work title
-  Alice Johnson   | alice.johnson@demo.ai   | Marketing Manager
-  John Smith      | john.smith@demo.ai      | Software Engineer
-  Emily Davis     | emily.davis@demo.ai     | Human Resources Lead
-  Michael Chen    | michael.chen@demo.ai    | Sales Representative
-```
-
-You can also supply the data in YAML format:
-
-```
-[table]
-  - [Name, Email, Work title]
-  - [Alice Johnson, alice.johnson@demo.ai, Marketing Manager]
-  - [John Smith, john.smith@demo.ai, Software Engineer]
-```
-
-And you can refer to table data specified in external [data files](data.html):
-
-```
-[table :items="products"]
-```
-
-The YAML ata can also be specified directly on the body:
-
-
-[.options]
-  #### Table options
-
-  `head` whether the first row should be rendered as a table head (with `<th>` elements). The default is true.
-
-  `:items` property name for the externally defined table data
-
-  `wrapper` wraps the table inside a parent element with a class name specified on this property.
-
-
-
-#### HTML output
-Tables are rendered as standard HTML5 tables:
-
-```html
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Work title</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <tr>
-      <td>Alice Johnson</td>
-      <td>alice.johnson@demo.ai</td>
-      <td>Copywriter</td>
-    </tr>
-
-    <tr>
-      <td>John Smith</td>
-      <td>john.smith@demo.ai</td>
-      <td>UX developer</td>
-    </tr>
-
-    ...
-
-  </tbody>
-</table>
-```
-
-
-### Accordions
-Accordion elements are marked as follows:
-
-```md
-[accordion]
-  ## First element
-  The contents of the first element
-
-  ## Second element
-  The contents of the second element
-
-  ## Third element
-  The contents of the second element
-```
-
-The above markup looks like this:
-
-[accordion.card]
-  ## First element
-  The contents of the first element
-
-  ## Second element
-  The contents of the second element
-
-  ## Third element
-  The contents of the second element
-
-
-Nue looks for the first heading element (h2 or above) within the tag and uses that level as the separator for new accordion entries.
-
-
-[.options]
-  #### Accordion options
-
-  `name` use this to name the individual entries. When supplied only one entry can be opened at once.
-
-  `open` enable this to set the first tab initially open or provide a numeric value to open a specific item
-
-
-#### HTML output
-Accordion is rendered as a list of [`<details>`](//developer.mozilla.org/en-US/docs/Web/HTML/Element/details) disclosure element.
-
-```html
-<div>
-  <details>
-    <summary>First element</summary>
-    <p>The contents of the first element</p>
-  </details>
-  <details>
-    <summary>Second element</summary>
-    <p>The contents of the second element</p>
-  </details>
-  ...
-</div>
-```
-
-
-
-
-
-### Tabs
-Tabbed panes are `[accordion]` elements with a `name` and `open` attribute, but styled as tabs:
-
-
-```md
-[accordion.card.tabs name="tabs" open]
-  ## First element
-  The contents of the first element
-
-  ## Second element
-  The contents of the second element
-
-  ## Third element
-  The contents of the second element
-```
-
-The above markup looks like this:
-
-[accordion.card.tabs name="tabs" open]
-  ## First element
-  The contents of the first element
-
-  ## Second element
-  The contents of the second element
-
-  ## Third element
-  The contents of the second element
-
-
-
-### Blocks
-Blocks are chunks of content wrapped inside a class name. Here is a "note" block:
-
-```md
-[block.note]
-  ### Note
-  Web design is 100% content and 95% typography
-```
-
-The "note" gets the following look on this website:
-
-[.note]
-  ### Note
-  Web design is 100% content and 95% typography
-
-
-#### HTML output
-Blocks are simple `<div>`s with a CSS class name:
-
-```
-<div class="note">
-  <h3>Note</h3>
-  <p>Web design is 100% content and 95% typography</p>
-</div>
-```
-
-Note that the component name "block" can be omitted and you can simply write the classname prefixed with a dot. For example:
-
-```md
-[.alert]
-  ### Note
-  You should avoid inline styling like black death
-```
-
-
-
-### Flex- and grid layouts
-Nue automaticslly splits the nested content multi-block layouts where each item is separated with a triple-dash ("---") or based on the heading structure. For example:
-
-```md
-[.stack]
-  ### First item
-  With content
-
-  ### Second item
-  With content
-```
-
-The above renders as follows under this website:
-
-[.stack.card]
-  ### First item
-  With content
-
-  ### Second item
-  With content
-
-#### HTML output
-The stack is rendered with two inner divs:
-
-```
-<div class="stack">
-  <div>
-    <h3>First item</h3>
-    <p>With content</p></div>
-  <div>
-    <h3>Second item</h3>
-    <p>With content</p>
-  </div>
-</div>
-```
-
-#### Code blocks
-Here is another stack example with two code blocks separated with a triple-dash:
-
-
-```
-[.stack]
-  ``` css.pink
-  /* some CSS code */
-  ```
-  ---
-  ``` css.blue
-  /* some CSS code */
-  ```
-```
-
-
-[.stack]
-  ``` .pink
-  input, textarea, select {
-    font-family: inherit;
-    font-size: inherit;
-    color: inherit;
-    width: 100%;
-    padding: .7em 1em;;
-    border-radius: 4px;
-  }
-  ```
-
-  ---
-
-  ``` .blue
-  [type=checkbox] {
-    width: inherit;
-    padding: 0;
-  }
-
-  fieldset {
-    border: none;
-  }
-  ```
-
-
-
-#### Nesting
-Blocks can be nested to form more complex layouts on your richer marketing/landing pages:
-
-
-```md
-[.feature]
-  ## Hello, World!
-  Let's put a nested stack here
-
-  [.stack]
-    ### First item
-    With description
-
-    ### Second item
-    With description
-```
-
-
-### Custom tags
-Look for the documentation on how to create [custom Markdown extensions](components.html#markdown), which can run both server-side and client-side. You can also create hybrid or "isomorhpic" tags rendering on both ends.
+### Design engineering
+Content-first development is the key to achieving a balance between **performance**, **maintainability**, and **design excellence**. By placing content at the center of the process, both engineers and designers can collaborate to build fast, accessible, and beautifully crafted websites that deliver real value through thoughtful design and structured content.
