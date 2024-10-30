@@ -18,51 +18,6 @@ favicon: /icon/favicon.png
 # preload header hover image
 prefetch: [/icon/present-light.svg]
 
-
-# information architecture
-mastnav:
-  - image: /img/logo.svg
-    class: logo
-    alt: Nue logo
-    size: 60 × 18
-    url: /
-  - Docs: /docs/
-  - Blog: /blog/
-  - Nue 1.0 beta ›: /blog/nue-1-beta/ "status pill"
-
-toolbar:
-  - image: /icon/twitter.svg
-    url: //x.com/tipiirai
-    class: social
-    alt: Twitter Profile @ x.com
-    size: 22 x 22
-
-  - 6.1k: //github.com/nuejs/nue "github pill"
-
-# burger menu
-burger_menu:
-  - Home: /
-  - Docs: /docs/
-  - Blog: /blog/
-  - ---
-  - GitHub: //github.com/nuejs/nue
-
-footernav:
-  Developers:
-    - What is Nue?: /docs/
-    - Installation: /docs/installation.html
-    - Blog: /blog/
-    - FAQ: /docs/faq.html
-    - GitHub: //github.com/nuejs/nue
-
-  Key Concepts:
-    - UX development: /docs/ux-development.html
-    - Global Design System: /docs/global-design-system.html
-    - CSS best practices: /docs/css-best-practices.html
-    - Content development: /docs/content.html
-    - Single-page apps: /docs/single-page-applications.html
-
-
 # Markdown link references
 links:
   nuejs: //github.com/nuejs/nue/tree/master/packages/nuejs

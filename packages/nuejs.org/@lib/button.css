@@ -1,5 +1,5 @@
 
-button, [role="button"] {
+button, [role="button"], .button {
   background-color: var(--main-500);
   display: inline-block;
   border-radius: .3em;

@@ -1,19 +1,19 @@
 
 <!-- site header -->
 <header>
-  <navi :items="mastnav"/>
-  <navi :items="toolbar"/>
+  <navi :items="globalnav.main"/>
+  <navi :items="globalnav.toolbar"/>
   <button popovertarget="menu"/>
 </header>
 
 <!-- site footer -->
 <footer>
   <span><img src="/img/logo.svg" alt="Nue logo"></span>
-  <navi :items="footernav"/>
+  <navi :items="globalnav.footer"/>
 </footer>
 
 <!-- burger menu -->
 <dialog @name="bottom" popover id="menu">
   <button popovertarget="menu"></button>
-  <navi :items="burger_menu"/>
+  <navi :items="globalnav.menu"/>
 </dialog>

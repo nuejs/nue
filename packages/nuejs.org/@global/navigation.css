@@ -12,6 +12,14 @@ nav a {
 body > header {
   margin-bottom: 5em;
 
+  .nav-home {
+    background-image: url(/img/logo.svg);
+    background-size: cover;
+    text-indent: -99em;
+    width: 60px;
+    height: 18px;
+  }
+
   &, > * {
     align-items: center;
     display: flex;
@@ -42,9 +50,10 @@ body > header {
   }
 
   .social {
-    &:hover {
-      transform: scale(1.1);
-    }
+    background: url(/icon/twitter.svg) left .06em no-repeat;
+    background-size: 1.2em;
+    padding-left: 1.2rem;
+    &:hover { color: #4d9feb }
   }
 
   /* separator */

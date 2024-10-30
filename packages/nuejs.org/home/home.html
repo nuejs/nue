@@ -1,17 +1,4 @@
 
-<div @name="roadmap" class="roadmap">
-  <div :for="[status, items] in Object.entries(roadmap)">
-    <h3>{ status }</h3>
-    <div :for="el in items" class="card">
-      <b :if="el.package">{ el.package }</b>
-      <h4>{ el.title }</h4>
-      <p>{ el.desc }</p>
-      <button :if="el.popover" :popovertarget="el.popover">Open details</button>
-    </div>
-  </div>
-</div>
-
-
 <ul @name="feedback" class="feedback">
   <li :for="el in feedback" class="card from-{ el.from || 'x' }">
     <a :if="el.user" href="{ el.url || getUrl(el) }">@{ el.user }</a>
