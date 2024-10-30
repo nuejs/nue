@@ -13,8 +13,9 @@ Islands offer several key advantages:
 3. **Loose coupling**: Islands can be constructed using simple Web Components or vanilla JavaScript for straightforward interactions, while more advanced islands can leverage an HTML-based reactive language. This flexibility enables developers to select the best implementation strategy based on project needs. Moreover, the architecture of Nue establishes an ideal foundation for adding React support in the future, allowing developers to utilize React's capabilities without the complexities associated with monolithic architectures.
 
 [.note]
-### Islands: Nue vs. Astro
-Astro Islands are a valuable and welcomed addition to the current JavaScript ecosystem, showcasing the effectiveness of separation of concerns and progressive enhancement. In contrast, Nue fully embodies these principles, establishing loose coupling and progressive enhancement as foundational elements of the framework. This design choice safeguards developers from the complexities and challenges of JavaScript monoliths, leading to a simpler overall experience—not just for islands, but for the entire application.
+  ### Islands: Nue vs. Astro
+  Astro Islands are a valuable and welcomed addition to the current JavaScript ecosystem, showcasing the effectiveness of separation of concerns and progressive enhancement. In contrast, Nue fully embodies these principles, establishing loose coupling and progressive enhancement as foundational elements of the framework. This design choice safeguards developers from the complexities and challenges of JavaScript monoliths, leading to a simpler overall experience—not just for islands, but for the entire application.
+
 
 ## Creating an island
 Islands are created using the same intuitive HTML-based [template syntax](template-syntax.html) employed for creating layout modules on the server side.
@@ -135,6 +136,7 @@ In this client-side implementation, the `mounted` lifecycle hook initializes the
 
 By leveraging isomorphic islands, you can create robust, SEO-friendly components that enhance user engagement while ensuring your content remains accessible and indexed by search engines. This approach exemplifies the benefits of combining server-side rendering with client-side interactivity in modern web applications.
 
+
 ## Web components
 Web Components serve as a standards-based alternative to interactive islands, suitable for simple interactivity where component-specific HTML does not re-render based on internal state. Instead, they utilize static HTML that is enhanced with JavaScript.
 
@@ -168,6 +170,7 @@ customElements.define('zen-toggle', ZenToggle, { extends: 'input' });
 ```
 
 In this example, the `ZenToggle` component enhances user interaction by allowing users to toggle Zen Mode on and off. When the checkbox is checked, it dynamically updates the HTML element's class to apply a Zen-themed style, demonstrating how Web Components can effectively add interactivity while maintaining a lightweight approach.
+
 
 ### React support?!
 Islands provide an ideal framework for incorporating React into the Nue ecosystem. While this may seem counterintuitive due to the significant philosophical differences between the two, there are compelling reasons why this integration makes sense:
