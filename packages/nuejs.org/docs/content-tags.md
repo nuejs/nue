@@ -3,65 +3,110 @@ include: [tabs]
 ---
 
 
-### Tags
-Nue comes with a set of build-in Markdown extensions or "tags" that significantly increases your capability to build rich, interactive websites. These tags are defined between square brackets. For example:
+# Content tags
+
+Nue offers a powerful set of built-in Markdown extensions, referred to as "tags," which significantly enhance your ability to create rich and interactive websites. These tags allow you to seamlessly integrate various content types, from images and videos to buttons and custom elements, all while maintaining clean and readable Markdown syntax. This capability enables you to build dynamic web pages with ease, making your content engaging and visually appealing.
+
+## Tag syntax
+
+Tags are defined within square brackets. For example, to include an image, you would write:
 
 ```md
 [image /img/cat.png]
 ```
 
-The tag name (i.e. "image") is followed by options, which can be supplied in several ways:
+The tag name (in this case, "image") can be followed by various options, which can be supplied in several ways:
 
+### Named options
+
+You can specify options using named attributes. For example:
 
 ```md
-// named options
-[image •src•="hello.png" •caption•="Hello, World" •alt•="Hello image"]
+[image src="hello.png" caption="Hello, World" alt="Hello image"]
+```
 
-// nested YAML
+### Nested YAML
+
+Alternatively, you can use nested YAML to define the attributes:
+
+```md
 [image]
 |  caption: Hello, World!
 |  large: hello-big.png
 |  small: hello.png
 |  alt: Hello Image
-
-// plain value without the attribute name
-[image •hello.png•]
-
-// special syntax for id and class attributes
-[image•#hero-image.heroic• hero.webp]
-
-// nested content
-[image explainer.png]
-| This nested content is the caption for the image.
-| You can add Markdown here like *emphasis* and `inline code`
-
-
-// tags can be inlined too
-This is an inline [svg "/icon/meow.svg"] image
 ```
 
+### Plain value without attribute names
 
-### Images
-Images are marked as follows:
+You can also use plain values without specifying attribute names:
+
+```md
+[image hello.png]
+```
+
+### Special syntax for ID and class attributes
+
+To set ID and class attributes, you can use the following syntax:
+
+```md
+[image #hero-image.heroic hero.webp]
+```
+
+### Nested content
+
+Tags can also include nested content. Here’s how you can add a caption for an image:
+
+```md
+[image explainer.png]
+| This nested content is the caption for the image.
+| You can add Markdown here like *emphasis* and `inline code`.
+```
+
+### Inline tags
+
+Finally, tags can be used inline as well. For instance, to add an inline SVG image, you can write:
+
+```md
+This is an inline [svg "/icon/meow.svg"] image.
+```
+
+===
+
+
+
+## Images
+
+Nue provides a powerful set of built-in image tags that enhance your ability to create rich, interactive websites. While standard HTML image tags are supported, Nue’s image tags offer advanced features, making them suitable for modern, responsive web content.
+
+### Tag syntax
+
+Images are defined using a straightforward tag syntax. To include a basic image, use:
 
 ```md
 [image hello.webp]
-| This content here is the caption. Markdown *formatting* is supported
+| This content here is the caption. Markdown *formatting* is supported.
 ```
 
-Shortcut alias (!) is supported:
+You can also use a shortcut alias (`!`):
 
 ```md
 [! hello.webp]
 ```
 
-Images can link to URL's with `href` attribute:
+### Image links
+
+Nue allows you to link images to specific URLs using the `href` attribute, making them interactive:
 
 ```md
 [image book.svg href="/docs/" caption="View documentation"]
 ```
 
-[Art direction](//web.dev/articles/codelab-art-direction) support:
+This functionality enables you to guide users to additional resources or pages while providing visual context.
+
+### Responsive images
+
+Nue supports art direction for images, allowing you to specify different sizes based on screen dimensions. This feature ensures that users receive the best possible image for their device:
 
 ```md
 [image]
@@ -72,42 +117,33 @@ Images can link to URL's with `href` attribute:
   loading: eager
 ```
 
+The `large` and `small` attributes can define images with varying aspect ratios, optimizing the visual experience on different devices.
 
 [.options]
-  #### [image] options
+#### Image options
+  - `alt` - Alternate text for accessibility, describing the image's content.
+  - `src` - Source URL of the image file.
+  - `caption` - Provides context for the image, enhancing user understanding.
+  - `href` - Adds a clickable link to the image, guiding users to related content.
+  - `large` - Specifies the large version of the image, which can differ in aspect ratio from the small version, allowing for creative art direction.
+  - `loading` - Determines the loading behavior: "lazy" enables [lazy loading](https://developer.mozilla.org/en-US/docs/Web/Performance/Lazy_loading) (default value) or "eager" for immediate loading.
+  - `small` - Defines the small version of the image for mobile displays, optimizing visual presentation.
+  - `offset` - Sets the screen size (in pixels) at which the small image switches to the large one, with a default of 750 pixels.
+  - `size` - A shortcut property to provide both width and height simultaneously, formatted as "width x height".
+  - `width` - Specifies the width of the image for precise layout control.
 
-  `alt` is an alternate text for the image.
+### HTML output
 
-  `src` image source.
-
-  `caption` image caption.
-
-  `href` adds a link on the image.
-
-  `large` the large version of the image. The large image can have a different aspect ratio than the small one, which is the difference between art direction and responsitivity.
-
-  `loading` this is either "lazy" for [lazy loading](https://developer.mozilla.org/en-US/docs/Web/Performance/Lazy_loading) (default value) or "eager" for non-lazy loading.
-
-  `small` the small version of the image.
-
-  `offset` the screen size when small turns to large. The default value is 750 (px).
-
-  `size` a shortcut property to provide the width and height simultaneously separated with "x" or "&times;". For example: "30 x 30"
-
-  `width` the image width.
-
-
-#### HTML output
-Images are rendered as a `<figure>` element:
+When rendered, images appear as `<figure>` elements, enhancing the semantic structure of your content. For example, a simple image with a caption is rendered as:
 
 ```html
 <figure>
   <img src="hello.webp" loading="lazy">
-  <figcaption>View documentation</figcaption>
+  <figcaption>This content here is the caption.</figcaption>
 </figure>
 ```
 
-Here is a more complex example with `href`, `small` and `large` attributes:
+A more complex example with `href`, `small`, and `large` attributes looks like this:
 
 ```html
 <figure class="heroic">
@@ -119,52 +155,57 @@ Here is a more complex example with `href`, `small` and `large` attributes:
 </figure>
 ```
 
-### SVG
-Inline SVG images are marked as follows:
+### Inline SVG
+
+Inline SVG images can be added using the following syntax, which renders rich vector graphics directly within your content:
 
 ```md
 [svg /icon/continue.svg]
 ```
 
-Which would render the contents of the SVG file. This tag is particularly useful together with the button tag:
+This feature allows you to incorporate sharp, scalable images into your design easily. It’s especially useful when paired with other tags, such as buttons:
 
 ```md
 [button href="/docs/"]
   *Learn more* [svg /icon/chevron-right.svg]
 ```
 
-The above would render the follwing HTML for you to style with CSS:
+This renders as follows, enabling smooth integration with CSS styling:
 
-```
+```html
 <a href="/docs/" role="button">
   <em>Learn more</em>
   <svg viewBox="0 0 24 24">...</svg>
 </a>
 ```
 
+### Why this is great
+
+1. **Enhanced functionality**: Standard image tags are often insufficient for modern, responsive websites. Nue’s tags provide the additional capabilities needed for rich content.
+2. **Creative layouts**: Images can be combined with other tags and blocks to form intricate, visually appealing layouts.
+3. **Responsive and art direction**: The support for both responsive images and art direction allows for creative use of vertical images on mobile devices, ensuring optimal presentation across different screen sizes.
 
 
-
-### Videos
-Videos are marked as follows:
+## Videos
+The video tag in Nue serves as a content-focused interface for the standard HTML5 video tag, allowing you to easily incorporate video content into your pages. It is used as follows:
 
 ```md
 [video /videos/hello.mp4]
 ```
 
-Shortcut alias (!) is supported:
+You can also use a shortcut alias (`!`):
 
 ```md
 [! /videos/hello.mp4]
 ```
 
-All standard HTML5 video attributes are supported:
+All standard HTML5 video attributes are supported, providing flexibility and control over video playback:
 
 ```md
-[image intro.mp4 autoplay controls muted loop ]
+[video intro.mp4 autoplay controls muted loop]
 ```
 
-Options given as YAML:
+Options can also be specified using YAML for enhanced organization:
 
 ```md
 [video.heroic]
@@ -173,36 +214,21 @@ Options given as YAML:
   width: 1000
 ```
 
-
 [.options]
   #### Video options
 
-  `autoplay` starts the video when the page is loaded. It must be used together with
+  - `autoplay` - Starts the video when the page loads, providing an engaging experience right away. Must be used together with `muted` for autoplay to work across all browsers.
+  - `controls` - Displays the built-in video controls provided by the browser, allowing users to play, pause, and adjust the volume.
+  - `loop` - Makes the video restart automatically after it reaches the end, which is useful for continuous playback in presentations or promotional content.
+  - `muted` - Plays the video without sound, enabling autoplay in browsers that restrict sound playback.
+  - `poster` - A URL for an image that will be displayed before the video begins playing, giving users a preview of the content.
+  - `preload` - Provides a [hint to the browser](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#preload) about whether to load the video data before the user plays it.
+  - `src` - Specifies the URL to the video file, directing the browser to where it can retrieve the video content.
+  - `width` - Determines the width of the video player, allowing for precise control over the layout.
 
-  `muted` or the autoplay does not work on all browsers.
+### HTML output
 
-  `controls` displays the browser's built-in video controls.
-
-  `loop` seeks back to the start after reaching the end of the video.
-
-  `muted` plays the video without sound.
-
-  `poster` a URL for an image to be shown before the playback starts.
-
-  `preload` a [hint to the browser][preload] on what to load prior playback.
-
-  // `sources` a list of video files. The browser plays the first one it understands.
-
-  `src` a URL to the video file.
-
-  `width` the video width.
-
-  [preload]: //developer.mozilla.org/en-US/docs/Web/HTML/Element/video#preload
-
-
-
-#### HTML output
-Videos are rendered as a native HTML5 video element:
+When rendered, videos appear as a native HTML5 video element, enabling smooth integration into your web pages. For example, the following code:
 
 ```html
 <video class="heroic" width="1000" poster="hello.png">
@@ -210,59 +236,108 @@ Videos are rendered as a native HTML5 video element:
 </video>
 ```
 
+## Buttons
 
-### Buttons
+Buttons in Nue are marked with a specific tag syntax to create interactive and accessible button elements directly from Markdown. This tag makes it easy to create buttons without requiring HTML or JavaScript, allowing for clean and maintainable content.
+
+### Basic button
+
 Buttons are marked as follows:
 
 ```md
-// with all options
 [button label="Learn more" href="/docs/"]
+```
 
-// label option can be given as a plain value
+The `button` tag allows you to specify various options to control the appearance and behavior of the button. In this example, the `label` and `href` attributes are used to define the button text and target link respectively.
+
+### Concise syntax
+
+Instead of using the `label` attribute, you can provide the button text directly as a plain value. This is a more concise way to define a button label:
+
+```md
 [button "Learn more" href="/docs/"]
+```
 
-// with class name and a nested body
+### Styled button
+
+You can include a class name to style the button differently, using a nested body to define the button label. In this example
+
+, `.secondary` indicates a secondary button style, and the button label is provided as nested content:
+
+```md
 [button.secondary href="/docs/"]
-  Learn more
+  Explore the docs
+```
 
-// with inline SVG
+### Button with inline SVG
+
+Buttons can include inline SVG elements to provide additional visual cues, such as icons. In this example, the button includes a right-pointing arrow icon to indicate navigation:
+
+```md
 [button href="/docs/"]
   *Learn more* [svg /icon/chevron-right.svg]
 ```
 
+### Button triggering a popover
+
+Buttons in Nue can also be used to trigger popovers, allowing for additional content or explanations without cluttering the main page:
+
+```md
+[#info-popover popover]
+  ### More information
+  This popover provides extra details about the feature without leaving the current page.
+
+[button popovertarget="info-popover" "Learn more"]
+```
+
+This example creates a button labeled "Learn more" that opens a popover with extra information.
+
 [.options]
   #### Button options
 
-  `label` the button label. Can also be given as plain value or as body content
+  - `label` - The text label for the button. This can also be provided as a plain value or defined within the body content.
+  - `href` - The target link for the button. This is the URL the button will navigate to when clicked.
+  - `class` - The CSS class name to apply to the button. This can be used to style the button differently based on your design system. For example, `.secondary` can be used to indicate a secondary button style.
+  - `popovertarget` - The ID of the popover to trigger when the button is clicked. This allows buttons to open additional content in popovers.
 
-  `href` the target link for the button
 
+### HTML output
 
-#### HTML output
 Buttons are rendered as follows:
 
 ```html
 <a role="button" href="/docs/">Learn more</a>
 ```
 
-Buttons are essentially links with a `role="button"` attribute because links don't require JavaScript to work.
+Buttons are essentially links (`<a>` elements) with a `role="button"` attribute. This ensures accessibility and allows the button to be styled and function like a traditional button while keeping the implementation simple and lightweight. When used with popovers, the button is rendered as a `<button>` element to properly integrate with the popover functionality.
 
+### Popover triggers
 
+When the button is used to trigger a popover, it is rendered with the `popovertarget` attribute as follows:
 
-
-### Tables
-Tables are marked as follows:
-
-
-```md
- | Name            | Email                    | Work title         |
- | --------------- | ------------------------ | ------------------ |
- | Sarah Thompson  | sarah.thompson@demo.ai   | Graphic Designer   |
- | David Rodriguez | david.rodriguez@demo.ai  | Financial Analyst  |
- | Jessica Lee     | jessica.lee@demo.ai      | Project Manager    |
+```html
+<button popovertarget="info-popover">Learn more</button>
 ```
 
-There is also a specialized `[table]` tag for defining tables with fewer pipes and dashes:
+
+## Tables
+Nue supports standard Markdown syntax for tables, providing a straightforward way to create structured data presentations.
+
+### Standard tables
+
+Tables are created using the standard Markdown table syntax, which is simple but sometimes cumbersome when dealing with larger tables. Here is an example:
+
+```md
+| Name            | Email                    | Work title         |
+| --------------- | ------------------------ | ------------------ |
+| Sarah Thompson  | sarah.thompson@demo.ai   | Graphic Designer   |
+| David Rodriguez | david.rodriguez@demo.ai  | Financial Analyst  |
+| Jessica Lee     | jessica.lee@demo.ai      | Project Manager    |
+```
+
+### Table tag
+
+Nue offers a specialized `[table]` tag for defining tables with less syntax noise compared to the traditional pipes and dashes. This approach improves readability and makes table creation faster and more intuitive:
 
 ```md
 [table]
@@ -273,70 +348,94 @@ There is also a specialized `[table]` tag for defining tables with fewer pipes a
   Michael Chen    | michael.chen@demo.ai    | Sales Representative
 ```
 
-You can also supply the data in YAML format:
+### Advanced table features
 
-```
-[table]
-  - [Name, Email, Work title]
-  - [Alice Johnson, alice.johnson@demo.ai, Marketing Manager]
-  - [John Smith, john.smith@demo.ai, Software Engineer]
+With Nue's `[table]` tag, you can add extra features such as captions, header rows, and footer rows. You can also place longer cell content on separate lines, which greatly enhances readability, especially for complex tables:
+
+```md
+[table caption="Design Principles"]
+
+  Principle               | Acronym  | Description
+  -----
+  Separation of Concerns  | SoC
+  Dividing a system into distinct sections with specific roles.
+
+  Progressive Enhancement | PE
+  Building core functionality first, then adding enhanced features.
+
+  Semantic Web Design     | SWD
+  Emphasizing meaning and accessibility through proper HTML semantics.
+
+  Content First           | CF
+  Prioritizing content in the design and development process.
+  -----
+
+  These principles help create better and more maintainable web projects.
 ```
 
-And you can refer to table data specified in external [data files](data.html):
+By placing longer descriptions on separate lines, the table becomes much easier to read and manage, especially when handling content that spans multiple lines.
 
-```
+### Rendering YAML data
+
+You can also refer to table data available on the page by using the `:items` attribute:
+
+```md
 [table :items="products"]
 ```
 
-The YAML ata can also be specified directly on the body:
-
+This allows you to render tables dynamically based on the structured data available in global, area, or page scopes. Here the "products" property is used to access the data.
 
 [.options]
   #### Table options
 
-  `head` whether the first row should be rendered as a table head (with `<th>` elements). The default is true.
-
-  `:items` property name for the externally defined table data
-
-  `wrapper` wraps the table inside a parent element with a class name specified on this property.
-
+  - `caption` - Defines a caption for the table, which appears above the table in HTML.
+  - `head` - Determines whether the first row should be rendered as a table head (`<th>` elements). The default is `true`.
+  - `:items` - Specifies the property name for externally defined table data that should be rendered.
+  - `wrapper` - Wraps the table inside a parent element with a class name specified on this property, typically used for adding colored backgrounds or other design elements from your design system.
 
 
-#### HTML output
-Tables are rendered as standard HTML5 tables:
+### HTML output
+Tables are rendered as standard HTML5 tables, ensuring compatibility and accessibility across all browsers. Here is an example output:
 
 ```html
 <table>
+  <caption>Design Principles</caption>
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Work title</th>
+      <th>Principle</th>
+      <th>Acronym</th>
+      <th>Description</th>
     </tr>
   </thead>
 
   <tbody>
     <tr>
-      <td>Alice Johnson</td>
-      <td>alice.johnson@demo.ai</td>
-      <td>Copywriter</td>
+      <td>Separation of Concerns</td>
+      <td>SoC</td>
+      <td>Dividing a system into distinct sections with specific roles.</td>
     </tr>
-
-    <tr>
-      <td>John Smith</td>
-      <td>john.smith@demo.ai</td>
-      <td>UX developer</td>
-    </tr>
-
     ...
-
   </tbody>
+
+  <tfoot>
+    <tr>
+      <td colspan="3">
+        These principles help create better and more maintainable web projects.
+      </td>
+    </tr>
+  </tfoot>
 </table>
 ```
 
+This structure includes a `<caption>` for the table title, a `<thead>` for the headers, a `<tbody>` for the main content, and a `<tfoot>` for any footer notes or summaries, ensuring that your tables are fully semantic and accessible.
 
-### Accordions
-Accordion elements are marked as follows:
+
+
+## Accordions
+
+Accordions in Nue make it easy to create collapsible content sections, perfect for FAQs or structured information that benefits from an expandable layout.
+
+The basic structure for creating an accordion is as follows:
 
 ```md
 [accordion]
@@ -347,11 +446,16 @@ Accordion elements are marked as follows:
   The contents of the second element
 
   ## Third element
-  The contents of the second element
+  The contents of the third element
 ```
 
-The above markup looks like this:
+This Markdown generates an accordion with three entries, each with a heading and corresponding content, allowing for a clean presentation.
 
+### Example with styling
+
+You can apply a specific class for styling. Here’s an example using `.card` to create a card-like appearance:
+
+```md
 [accordion.card]
   ## First element
   The contents of the first element
@@ -360,22 +464,38 @@ The above markup looks like this:
   The contents of the second element
 
   ## Third element
-  The contents of the second element
+  The contents of the third element
+```
 
+### Defining separators
 
-Nue looks for the first heading element (h2 or above) within the tag and uses that level as the separator for new accordion entries.
+Nue uses the first heading element (`h2` or `h3`) to create new accordion entries automatically. Alternatively, use the triple-dash (`---`) separator to define new entries explicitly:
 
+```md
+[accordion]
+  ## First element
+  The contents of the first element.
+
+  ---
+
+  ## Second element
+  The contents of the second element.
+```
+
+### Accordion options
+
+Accordions can be customized with various options to control their behavior and appearance:
 
 [.options]
   #### Accordion options
 
-  `name` use this to name the individual entries. When supplied only one entry can be opened at once.
+  - `name` - Use this to name individual entries. When supplied, only one entry can be open at a time, ensuring a true accordion effect.
+  - `open` - Set the initial state of the accordion. Use this to open the first tab by default or provide a numeric value for a specific item to be initially opened.
 
-  `open` enable this to set the first tab initially open or provide a numeric value to open a specific item
 
+### HTML output
 
-#### HTML output
-Accordion is rendered as a list of [`<details>`](//developer.mozilla.org/en-US/docs/Web/HTML/Element/details) disclosure element.
+Accordions in Nue are rendered using the native HTML5 `<details>` and `<summary>` elements:
 
 ```html
 <div>
@@ -387,19 +507,21 @@ Accordion is rendered as a list of [`<details>`](//developer.mozilla.org/en-US/d
     <summary>Second element</summary>
     <p>The contents of the second element</p>
   </details>
-  ...
+  <details>
+    <summary>Third element</summary>
+    <p>The contents of the third element</p>
+  </details>
 </div>
 ```
 
+The `<details>` and `<summary>` elements ensure compatibility and accessibility across modern browsers while keeping your content performant and easy to use, without additional JavaScript.
 
 
+## Tabs
 
+Tabbed panes in Nue are created using `[accordion]` elements with `name` and `open` attributes but styled to look and function like tabs:
 
-### Tabs
-Tabbed panes are `[accordion]` elements with a `name` and `open` attribute, but styled as tabs:
-
-
-```md
+```md render
 [accordion.card.tabs name="tabs" open]
   ## First element
   The contents of the first element
@@ -408,24 +530,56 @@ Tabbed panes are `[accordion]` elements with a `name` and `open` attribute, but 
   The contents of the second element
 
   ## Third element
-  The contents of the second element
+  The contents of the third element
 ```
 
-The above markup looks like this:
+The above markup generates a series of tabbed sections, with each heading acting as a tab that can be selected to reveal the associated content pane.
 
-[accordion.card.tabs name="tabs" open]
-  ## First element
-  The contents of the first element
+### Example rendering
 
-  ## Second element
-  The contents of the second element
+[render]
 
-  ## Third element
-  The contents of the second element
+### CSS for tabs
+
+The CSS below is used to style the above example, transforming the accordion into tabbed navigation:
+
+```css
+.tabs {
+  position: relative;
+  display: flex;
+  height: 150px;
+  gap: 1.5em;
+
+  /* tabs */
+  summary {
+    cursor: pointer;
+    font-weight: 550;
+    &::marker { font-size: 0 }
+    &:hover { color: var(--main-600) }
+  }
+
+  /* tab panes */
+  div {
+    inset: 3em 0 0 1.5em;
+    position: absolute;
+  }
+
+  /* active tab */
+  [open] summary {
+    pointer-events: none;
+    text-decoration: 3px underline var(--main-500);
+    text-underline-offset: 10px;
+  }
+}
+```
+The use of `pointer-events: none;` ensures that only the active tab can be interacted with, creating a smooth user experience without extra JavaScript logic. Additionally, pseudo-elements like `&::marker` help to refine the visual style without modifying the HTML.
+
+### Why this is great
+
+- **Works Without JavaScript**: All the tab functionality is implemented purely using CSS. The tabs continue to work seamlessly even if JavaScript is disabled or not available in the browser.
+
+- **No Extra HTML/JS Coding**: You don't need to write new JavaScript functions or HTML structures—everything is done by simply adding styles to the existing markup.
+
+By creatively using CSS, Nue makes it easy to craft responsive, interactive tabbed interfaces while keeping the underlying codebase clean and maintainable—proving that CSS alone can create sophisticated UI elements.
 
 
-
-
-
-### Custom tags
-Look for the documentation on how to create [custom Markdown extensions](components.html#markdown), which can run both server-side and client-side. You can also create hybrid or "isomorhpic" tags rendering on both ends.
