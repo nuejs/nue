@@ -48,8 +48,10 @@ test('formatting inside string', () => {
   expect(renderInline('a _b_ c')).toBe('a <em>b</em> c')
 })
 
-test('formatting and spaces', () => {
+test('formatting and special chars at the end', () => {
   expect(renderInline('**hello**')).toBe('<strong>hello</strong>')
+  expect(renderInline('**hello**:')).toEndWith('</strong>:')
+  expect(renderInline('**hello**,')).toEndWith('</strong>,')
   expect(renderInline('**hello*')).toBe('**hello*')
   expect(renderInline('** hello **')).toBe('** hello **')
   expect(renderInline('** hello**')).toBe('** hello**')

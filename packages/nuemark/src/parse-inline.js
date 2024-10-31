@@ -47,13 +47,15 @@ const PARSERS = [
     for (const fmt in FORMATTING) {
       if (str.startsWith(fmt)) {
         const len = fmt.length
-        const i = str.endsWith(fmt) ? str.length - len : str.indexOf(fmt + ' ', len + 1)
-        const body = str.slice(len, i)
+        const i = str.indexOf(fmt, len)
+        const next = str[i + len]
+
+        // if next char is a word -> no formatting
+        if (i == -1 || next && /\w/.test(str[i + len])) return { text: fmt }
 
         // no spaces before/after the body
-        if (i == -1 || !body || body.length != body.trim().length) {
-          return { text: str.slice(0, len) }
-        }
+        const body = str.slice(len, i)
+        if (!body || body.length != body.trim().length) return { text: fmt }
 
         return { is_format: true, tag: FORMATTING[fmt], body, end: i + len }
       }
