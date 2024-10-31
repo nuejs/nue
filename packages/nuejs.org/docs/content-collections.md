@@ -1,68 +1,74 @@
 
 # Content collections
-A content collection is an array of content files, where each entry holds information about the content such as the title, description, and URL. You can use this collection to render a list of pages or blog entries.
 
+Content collections are arrays of content files where each entry represents a page or blog post. These entries contain metadata such as the title, description, thumbnail, and URL, making it easy to render lists of pages on index or blog pages.
 
 ## Content entries
-Content information is stored in the "front matter" of each Markdown file. For example:
+
+Each content entry is generated from metadata stored in the **front matter** of your Markdown files. For example:
 
 ```yaml
-\---
+---
 title: My Blog Post
 thumb: /img/my-thumb.png
 author: John Doe
 date: 2023-12-11
-\---
+---
 ```
 
-In addition to these user-defined metadata, like title, date, and description, Nue provides the following system properties for each content entry.
+You can define essential metadata like `title`, `date`, and `description`. In addition to these fields, Nue also provides the following system-generated properties for each content entry:
 
+- `url`: The URL path, e.g., "/docs/glossary/copyleft.html"
+- `dir`: The directory path, e.g., "docs/glossary"
+- `slug`: The filename, e.g., "copyleft.html"
+- `basedir`: The base directory for the content, e.g., "docs"
 
-- `url` "/docs/glossary/copyleft.html" (example)
-- `dir` "docs/glossary"
-- `slug` "copyleft.html"
-- `basedir` "docs"
+These properties help you organize and retrieve content entries more efficiently across your project.
 
+## Defining a collection
 
-
-## Defining a collecion
-Content collection is configured as follows:
+To define a content collection, you can configure it directly in your app’s `.yaml` file as follows:
 
 ```yaml
 content_collection: posts
 ```
 
-This will create a collection from all the pages inside the posts directory and the collection name is the same as the directory name. I.e. "posts". You can change the default name as follows:
+This configuration creates a collection from all pages in the `posts` directory, with the collection name set to the directory name by default (e.g., "posts"). You can rename the collection by specifying a different name:
 
 ```yaml
 collection_name: blog_posts
 ```
 
-Just like any other configuration option, you can also define the collection globally in `site.yaml` in which case you have the collection available on all your pages. Or you define it inside your app in some `.yaml` file in which case the collection is available on all pages inside the application directory.
+Collections are sorted by the `date` property in descending order, so the newest items appear first.
 
-Content collections are "cheap" in a way that they don't cause much performance penalty when the site is generated. The collection data is read only once from the file system and then cached with the `collection_name` variable as a cache key.
+### Global or app-specific collections
 
+Collections can be defined either globally or app-specifically:
 
+- **Global collection**: Define the collection in `site.yaml` to make it accessible on all pages across the site.
+- **App-specific collection**: Define the collection in a `.yaml` file within the app directory, making it available only to pages within that directory.
+
+Content collections are optimized for performance, as Nue reads the data from the file system once, caches it, and uses the `collection_name` as the cache key to avoid redundant data access.
 
 ## Rendering collections
 
-
 ### Page list tag { #page-list }
-Content collections are rendered with a `page-list` tag. This can reside on your [layout component](custom-layouts.html) for example.
+
+The built-in `<page-list>` tag provides an easy way to render a list of pages or blog entries in a semantic layout. You can use this tag in layout modules:
 
 ```html
 <page-list/>
 ```
 
-Or on a Markdown page:
+Or directly in a Markdown file:
 
 ```md
 [page-list]
 ```
 
+#### HTML output
 
-#### Text-only HTML layout
-The page list is rendered as follows:
+The `<page-list>` tag generates the following HTML structure:
 
 ```html
 <ul>
@@ -70,25 +76,23 @@ The page list is rendered as follows:
     <time datetime="2024-04-12T00:00:00.000Z">April 12, 2024</time>
     <a href="/blog/status-update-01/index.html">
       <h2>Summer 2024 status update</h2>
-      <p>The past, present, and the future of the Nue framework</p>
+      <p>The past, present, and future of the Nue framework</p>
     </a>
   </li>
   <li>...</li>
-  <li>...</li>
-  ...
 </ul>
 ```
 
 #### Image gallery layout { #gallery-layout }
-The HTML layout is slightly different when the pages are configured with a [thumb](settings.html#thumb) property:
 
+When content entries include a `thumb` property, the layout adjusts to display an image gallery format:
 
 ```html
 <ul>
   <li>
     <a href="/posts/scaleable-design-system.html">
       <figure>
-        <img src="/posts/img/ui-thumb.png" loading="lazy">
+        <img src="/posts/img/ui-thumb.png" loading="lazy" alt="Scaleable design system">
         <figcaption>
           <time datetime="2023-05-22T00:00:00.000Z">May 22, 2023</time>
           <h2>Crafting a scaleable CSS design system</h2>
@@ -97,33 +101,41 @@ The HTML layout is slightly different when the pages are configured with a [thum
     </a>
   </li>
   <li>...</li>
-  <li>...</li>
-  ...
 </ul>
 ```
 
 Example: [simple-blog.nuejs.org](//simple-blog.nuejs.org/)
 
-
-
 ## Custom layouts
-You can render the collections with fully customized markup with Nue's [template syntax](template-syntax.html) on your layout files. For example:
 
+For full control over the rendered output, you can create a [custom component](custom-components.html). For example:
 
 ```html
-<main>
-  <div :for="post in •blog_posts•">
-    <img :src="post.thumb">
+<div @name="blog-posts">
+  <div :for="post in posts">
+    <img :src="post.thumb" alt="{ post.title } thumbnail">
     <h3>{ post.title }</h3>
     <p>{ post.description }</p>
   </div>
 </div>
 ```
 
-The `posts` variable is a regular JavaScript Array instance so you can slice, map, and filter it as you please:
+The `posts` variable is a standard JavaScript Array, which means you can use array methods to slice, map, and filter your collection as needed. You can also add JavaScript logic to customize the collection further.
 
 ```html
-<div :for="post in posts.slice(0, 10)"> ... </div>
+<div @name="blog-posts">
+  <div :for="post in posts">
+    <img :src="post.thumb" alt="{ post.title } thumbnail">
+    <h3>{ post.title }</h3>
+    <p>{ post.description }</p>
+  </div>
+
+  <script>
+    constructor({ posts }) {
+      this.posts = posts.filter(post => post.tags.includes('design'))
+    }
+  </script>
+</div>
 ```
 
-By default, collections are sorted by `date` property so the newest will be rendered first.
+In this example, the `posts` variable is filtered to include only those entries with a specific tag (e.g., `design`). This approach lets you refine your displayed content dynamically within your custom component.

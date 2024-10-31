@@ -87,15 +87,15 @@ We’ll add a global click handler in the `@global/global.js` file to make the `
 addEventListener('click', event => {
   const { target } = event;
 
-  const card = target.closest('.card');
+  const card = target.closest('.card')
   if (card) {
-    const button = card.querySelector('button');
+    const button = card.querySelector('button')
     if (button) {
       const popover = window[button.getAttribute('popovertarget')];
-      popover?.showPopover();
+      popover?.showPopover()
     }
   }
-});
+})
 ```
 
 This script listens for any click on the page, identifies the card, finds its button, and opens the corresponding popover.
@@ -128,6 +128,7 @@ This example demonstrates the following key concepts:
 
 3. **Global scripting**: A single click handler can manage all `.clickable` elements across the entire site, making your JavaScript more efficient and reusable.
 
+
 ## Scripting with view transitions
 
 By default, scripts in Nue are loaded as ES6 modules and executed after the `DOMContentLoaded` event, so you have access to the DOM once the page loads.
@@ -140,9 +141,9 @@ With view transitions, you need to reinitialize your scripts each time a **virtu
 
 ```js
 // Runs after a virtual page is rendered
-addEventListener('route', function() {
-  const [article] = document.getElementsByTagName('article');
-});
+window.addEventListener('route', function() {
+  const article = document.querySelector('article')
+})
 ```
 
 You can also target specific apps:
@@ -150,10 +151,60 @@ You can also target specific apps:
 ```js
 addEventListener('route:blog', function() {
   // Runs after any page under the blog app is rendered
-});
+  // Note: the window. prior addEventListener is optional
+})
 ```
 
-This ensures your scripts continue functioning properly when navigating between virtual pages.
+This ensures your scripts continue functioning on the right context when navigating between virtual pages.
+
+
+### View transition API
+
+The view transition script, located at `/@nue/view-transitions.js`, provides a set of helpful methods to make scripting smoother and more efficient. These methods simplify common DOM tasks, streamline page transitions, and bring a familiar scripting style to Nue.
+
+To use the API, start by importing the methods you need:
+
+```js
+import { $, $$, loadPage } from '/@nue/view-transitions.js'
+```
+
+#### `$()`
+
+A jQuery-style wrapper for `document.querySelector`, providing a shorthand way to select a single element by its CSS selector. This is especially useful for quickly grabbing elements without typing out the full `document.querySelector` syntax.
+
+```js
+// select the first <article> element on the page
+const article = $('article')
+```
+
+#### `$$()`
+
+Similar to `$()`, but works with `document.querySelectorAll` to select multiple elements and return them as a real array. This simplifies iterating over elements without needing to convert the NodeList.
+
+```js
+// select all <a> elements on the page and return an array
+const links = $$('a')
+links.forEach(link => {
+  // add event listeners or other logic to each link
+  link.addEventListener('click', () => {
+    console.log('Link clicked:', link.href)
+  })
+})
+```
+
+#### `loadPage()`
+
+Triggers a view transition to load a new page programmatically. Instead of a full page reload, this method loads the content via JavaScript, allowing for a smoother transition that feels like a single-page application. It’s useful for creating custom navigation without full reloads or for handling redirects after form submissions, popups, or interactive components.
+
+```js
+// transition smoothly to the "thanks.html" page
+loadPage('thanks.html')
+```
+
+Using these methods can simplify your scripts, making the code more readable and maintainable while keeping transitions smooth and responsive.
+
+
+
 
 ## Hot-reloading
 
@@ -162,7 +213,7 @@ When the page content updates through Hot Module Replacement (HMR), you can re-a
 ```js
 addEventListener('reload', function() {
   // your code here
-});
+})
 ```
 
 Listening to the `reload` event is necessary if your script relies on DOM elements that might be replaced during HMR. In contrast, scripts using global event handlers (like our earlier example) are unaffected by HMR since they stay active.

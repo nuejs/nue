@@ -2,24 +2,29 @@
 include: [syntax-table]
 ---
 
+
 # Syntax highlighting
-Nue uses automatically highlights syntax blocks with [Glow](/blog/introducing-glow/). It's a classless and fully semantic library that is specifically designed to work well with the global design system.
+
+Nue uses a built-in syntax highlighter, [Glow](/blog/introducing-glow/), to style your fenced code blocks with minimal setup. It includes the following features:
+
+- **Design focused**: Every language—Markdown, YAML, TypeScript, Perl, SQL, and more—appears consistent with your design system’s colors.
+
+- **Easy to use**: By default, code blocks are automatically styled. To match your own design system, you only need to set 3-10 CSS variables.
+
+- **Small footprint**: The CSS required to highlight all languages is under 1 KB, which includes support for highlighted lines and regions.
+
+For details on adding code blocks to your Markdown documents, refer to the [code syntax](content-syntax.html#code-blocks) guide. This article will explain how to adjust the look and feel of the generated HTML.
 
 
+## The HTML output
+Syntax blocks are rendered as standard HTML tags, without additional class names. For example, the following Markdown block:
 
-### Rendered HTML markup
-Syntax blocks are rendered as a bunch of standard HTML tags only and there are no class names. For example, the following Markdown block:
-
-
-```
-\``` javascript
+\```javascript
 // a comment
 "A string value"
 \```
-```
 
-Generates the following HTML output:
-
+Produces the HTML:
 
 ```html
 <pre>
@@ -31,12 +36,11 @@ Generates the following HTML output:
 </pre>
 ```
 
-
 ### Built-in stylesheet
-Whenever you add a syntax blog or a [code tag](tags.html#code) on your page, Nue automatically includes a [stylesheet](//github.com/nuejs/nue/blob/dev/packages/glow/css/dark.css) for syntax highlighting. It is a highly configurable system based on CSS variables. For example:
+Whenever you add a syntax block, Nue includes a [stylesheet](//github.com/nuejs/nue/blob/dev/packages/glow/css/syntax.css) for syntax highlighting. This stylesheet is configurable through CSS variables, and a few adjustments are usually all that’s needed to make code blocks match your design system:
 
 ```css
-/* setting Glow variables */
+/* Key Glow variables */
 pre {
   --glow-base-color: #eee;
   --glow-primary-color: #823;
@@ -44,16 +48,18 @@ pre {
 }
 ```
 
-
-If you want full control of your styling, you can disable the build-in stylesheet in `site.yaml`
+To disable the built-in stylesheet for full control over your styles, set this in `site.yaml`:
 
 ```yaml
 syntax_highlight: false
 ```
 
+Then, add your own stylesheet with the variables and elements described below.
+
 
 ### CSS variables and HTML elements
-Here's a list of all CSS variables and the associative HTML elements on a syntax block:
+Below is a list of all CSS variables with the associated HTML elements for styling syntax blocks:
+
 
 [table.syntax-table]
   CSS variable     | Default value    | HTML tag | Description
@@ -64,7 +70,7 @@ Here's a list of all CSS variables and the associative HTML elements on a syntax
   comment-color    | `#4e5d61`        | sup      | comments
   counter-color    | `#475569`        |          | line numbers
   del-color        | `250, 110, 130`  | del      | deleted lines
-  error-color      | `#ff0`           | u        | erroneous words
+  error-color      | `#ff0`           | u        | errors
   ins-color        | `50, 210, 190`   | ins      | inserted lines
   line-color       | `50, 180, 250`   | dfn      | highlighted lines
   line-opacity     | `0.15`           |          | highlighted line opacity
@@ -72,20 +78,17 @@ Here's a list of all CSS variables and the associative HTML elements on a syntax
   primary-color    | `#7dd3fc`        | b        | primary accent color
   secondary-color  | `#f472b6`        | em       | secondary accent color
   selected-color   | `#2dd4bf26`      | mark     | marked code
-  special-color    | `#fff`           | label    | special words to stand out
+  special-color    | `#fff`           | label    | special standout words
 
 
 #### Notes
 
-- CSS variables with no associated HTML element are attached to a root `pre`-element.
-
-- When line numbers are enabled, each line is wrapped inside a `span` element, and the `--glow-line-number` variable is attached to the `span:before` pseudo-element.
-
-- Highlighted rows are colored with a comma-comma-separated list of RGB values so that they can be manipulated with CSS color functions. These colors represent the bright border color on the left edge of the highlighted line, and the line background color is calculated with the RGB values and the `--glow-line-opacity` variable. Setting a value such as `rgb(1, 2, 3)` won't work.
-
+- Variables with no specific HTML element are applied to the root `<pre>` element.
+- If line numbers are enabled, each line is wrapped in a `span`, and the `--glow-line-number` variable applies to the `span:before` pseudo-element.
+- Highlighted row colors are specified in RGB format for compatibility with CSS functions.
 
 ### Language-specific styling
-Use the `language` attribute for language-specific CSS tweaks:
+To apply language-specific tweaks, use the `language` attribute, as in:
 
 ```css
 [language="html"] {
@@ -93,12 +96,12 @@ Use the `language` attribute for language-specific CSS tweaks:
 }
 ```
 
-### Bolding, italics, and other formatting
-By default, Glow uses bolding only together with `--glow-special-color`. Other than that all elements have no formatting, just color assignments. You can, of course, make any softs of CSS tweaks to fine-tune syntax blocks. For example:
+### Adjusting formatting
+Glow uses bolding with `--glow-special-color`, and other elements are styled by color alone. You can add formatting to any elements to fine-tune the syntax blocks. For example:
 
 ```css
-/* bold all secondary syntax elements */
-pre {
-  em { font-weight: bold }
+/* Bold all secondary syntax elements */
+pre em {
+  font-weight: bold;
 }
 ```

@@ -1,5 +1,5 @@
 # Content
-Content comes **first** in Nue. It’s the first step in progressive enhancement, shaping how your site is built from scratch. It’s also the first thing in design, ensuring that your UI evolves around the content, and not the other way around. When content is drafted first, everything else—layout, interactivity, and design—falls into place.
+Content comes **first** in Nue. It’s the first step in progressive enhancement, leading the way how your site is built. It’s also the first thing in design, ensuring that your UI evolves around the content, and not the other way around. When content is drafted first, everything that follows—layout, design, and interactivity—falls into place.
 
 ## Types of content
 
@@ -9,7 +9,7 @@ Structured data in Nue encompasses:
 - **Application data**: Structured information such as products, team members, language tokens, and other specific data used across different areas of the site.
 - **Information architecture**: Defines the hierarchy and organization of content, ensuring a clear structure for navigation and user flow.
 - **Content metadata**: Provides key details like title, description, author, date, and Open Graph (OG) image data for each content piece.
-- **Content collections**: Automatically generated lists of content items based on front-matter data, typically used to create dynamic lists—such as blog entries displayed on an index page.
+- **Content collections**: Auto-generated [content colletions](content-collections.html) based on front-matter data, typically used to create page lists—such as blog entries displayed on an index page.
 
 This data can be defined at the **global**, **library**, **area**, or **page** levels, making it easy to **reuse** across different parts of your site.
 
@@ -50,7 +50,7 @@ Building websites:
   - Optimization: optimization.html
 ```
 
-This example showcases how YAML can clearly represent the **hierarchy and structure** of a site’s content, providing a clean and maintainable way to define key site elements like navigation, content collections, and more.
+This example showcases how YAML can clearly represent the **hierarchy and structure** of a site’s content.
 
 ### Extended Markdown
 Markdown is by far the most popular format for authoring unstructured content due to its simplicity and intuitive syntax. However, there’s one significant limitation: **basic Markdown lacks the power to draft the rich, interactive elements** that modern websites demand.
@@ -165,13 +165,15 @@ To get started, you can:
 - Explore how to create **custom tags** that work with this structured data: [custom-tags.html](custom-tags.html).
 - Learn how to build **custom layout modules** that integrate with your information architecture: [layout.html](layout.html).
 
+
 ## Content-first development
-**Content-first development** is a core philosophy in Nue. It ensures that both engineers and designers focus on the content itself, allowing the site's structure, functionality, and design to evolve naturally. This approach drives **world-class design** and **user experience**.
+**Content-first development** is a core philosophy in Nue. It ensures that both engineers and designers focus on the content itself, allowing the site's structure, functionality, and design to evolve naturally.
 
 ### For engineers: Semantic web development
 For engineers, content-first development involves using **content information** to generate **clean, semantic HTML**, forming the foundation for **progressive enhancement**. By starting with raw HTML, engineers build a solid, accessible foundation that works in all environments, with interactivity and styling layered on as needed.
 
 This approach emphasizes **separation of concerns**, where content, layout, and behavior remain distinct, simplifying maintenance and reducing complexity. Semantic HTML also improves **SEO** and **accessibility**, making the structure of content clear to both search engines and assistive technologies.
+
 
 ### For designers: Content-first design
 Designers follow a **content-first design** approach, where content shapes the layout and aesthetic decisions. By adhering to the principle of **form follows function**, design systems are built to meet the specific needs of the content, staying focused and efficient.
@@ -179,4 +181,5 @@ Designers follow a **content-first design** approach, where content shapes the l
 This leads to design systems that are **lean** and **flexible**, focusing on delivering intuitive, content-driven user experiences. Designers can ensure that the layout serves the content, resulting in more cohesive and meaningful interactions for users.
 
 ### Design engineering
-Content-first development is the key to achieving a balance between **performance**, **maintainability**, and **design excellence**. By placing content at the center of the process, both engineers and designers can collaborate to build fast, accessible, and beautifully crafted websites that deliver real value through thoughtful design and structured content.
+Content-first development is the key to achieving a balance between **performance**, **maintainability**, and **design**. By placing content at the center of the process, both engineers and designers can collaborate to build fast, accessible, and beautiful websites that deliver real value.
+
