@@ -10,7 +10,7 @@ const observer = new IntersectionObserver(entries => {
 })
 
 // when routed/transitioned to a new page
-window.addEventListener('route', function() {
+addEventListener('route', function() {
 
   // cleanup previoius observers
   sections.forEach(el => observer.unobserve(el))
@@ -22,5 +22,4 @@ window.addEventListener('route', function() {
   })
 
 })
-
 

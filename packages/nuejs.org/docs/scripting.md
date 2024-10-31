@@ -145,16 +145,22 @@ window.addEventListener('route', function() {
 })
 ```
 
-You can also target specific apps:
+You can also target specific apps with route-specific event listeners. For example:
 
 ```js
 addEventListener('route:blog', function() {
-  // Runs after any page under the blog app is rendered
-  // Note: the window. prior addEventListener is optional
+  // Runs after any page in the 'blog' app is rendered
+  // Note: using `window.` before addEventListener is optional
 })
 ```
 
-This ensures your scripts continue functioning on the right context when navigating between virtual pages.
+This approach keeps your scripts in the correct context when navigating between virtual pages. The front page has a special route name, `"home"`. To listen for events on the front page, use:
+
+```js
+addEventListener('route:home', function() {
+  // Runs when navigating to the front page
+})
+```
 
 
 ### View transition API

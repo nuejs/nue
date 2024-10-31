@@ -15,7 +15,7 @@ export async function initNueDir({ dist, is_dev, esbuild, force }) {
   const outdir = join(cwd, dist, '@nue')
 
   // has all latest?
-  const latest = join(outdir, '.beta-3')
+  const latest = join(outdir, '.rc-1')
 
   if (force || !existsSync(latest)) {
     await fs.rm(outdir, { recursive: true, force: true })
