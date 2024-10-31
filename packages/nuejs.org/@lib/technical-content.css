@@ -52,6 +52,7 @@ article {
   p, li {
     line-height: 1.75;
     color: var(--gray-500);
+    text-wrap: pretty;
 
     strong {
       font-weight: 550;

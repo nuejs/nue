@@ -129,8 +129,8 @@ test('include/exclude data', async () => {
 test('asset include/exclude', async () => {
   await write('site.yaml', 'globals: [global]\nlibs: [lib, ext]\n')
   await write('global/global.css')
+  await write('global/kama.dhtml')
   await write('global/kama.css')
-  await write('global/kama.nue')
   await write('lib/zoo.css')
   await write('blog/index.md')
   await write('blog/app.yaml', 'include: [lib]\nexclude: [kama]')
@@ -295,7 +295,7 @@ test('line endings', async () => {
 test('page assets', async () => {
   await write('site.yaml', 'libs: [lib]')
   await write('blog/app.yaml', 'include: [video]')
-  await write('lib/video.nue')
+  await write('lib/video.dhtml')
   await write('blog/index.md', '# Hey')
   await write('blog/comp.htm', '<div/>')
   await write('blog/hello.ts', 'var a')

@@ -1,5 +1,5 @@
 
-const MIXED_HTML = ['html', 'jsx', 'php', 'astro', 'nue', 'vue', 'svelte', 'hb']
+const MIXED_HTML = ['html', 'jsx', 'php', 'astro', 'dhtml', 'vue', 'svelte', 'hb']
 const LINE_COMMENT = { clojure: ';;', lua: '--', python: '#' }
 const PREFIXES = { '+': 'ins', '-': 'del', '>': 'dfn' }
 const MARK = /(••?)([^•]+)\1/g   // ALT + q

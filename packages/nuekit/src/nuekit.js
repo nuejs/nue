@@ -218,8 +218,8 @@ export async function createKit(args) {
     // css
     if (ext == '.css') return await processCSS(file)
 
-    // reactive component (.nue, .htm)
-    if (file.is_nue || file.is_htm) {
+    // reactive component (.dhtml, .htm)
+    if (file.is_dhtml || file.is_htm) {
       const raw = await read(path)
       const js = await compileNue(raw)
       await write(js, dir, `${name}.js`)

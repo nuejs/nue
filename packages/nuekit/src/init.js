@@ -78,7 +78,7 @@ async function initDir({ dist, is_dev, esbuild, cwd, srcdir, outdir }) {
     await buildPackage('diff-dom', 'diffdom.js')
     await buildFile('hotreload')
     await copy('error.css', outdir)
-    await nueCompile(join(fromdir, 'error.nue'), join(outdir, 'error.js'))
+    await nueCompile(join(fromdir, 'error.dhtml'), join(outdir, 'error.js'))
   }
 
   // favicon

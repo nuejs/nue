@@ -60,7 +60,7 @@ export function categorize(paths) {
       ['js', 'ts'].includes(ext) ? cats.scripts :
         ext == 'yaml' || ext == 'html' ? misc :
           base == 'index.html' ? cats.spa :
-            ext == 'nue' || ext == 'htm' ? cats.islands :
+            ext == 'dhtml' || ext == 'htm' ? cats.islands :
               ext == 'md' ? cats.pages :
                 cats.media
 

@@ -216,7 +216,7 @@ export async function createSite(args) {
   self.getData = async function(pagedir) {
     const data = { nuekit_version, ...site_data, is_prod }
 
-    for (const dir of [ ...data.globals, ...traverseDirsUp(pagedir)]) {
+    for (const dir of [ ...self.globals, ...traverseDirsUp(pagedir)]) {
       extendData(data, await readDirData(dir))
     }
     return data
@@ -275,7 +275,7 @@ export async function createSite(args) {
   }
 
   self.getClientComponents = async function(dir, data) {
-    return await getAssets({ dir, exts: ['nue', 'htm'], to_ext: 'js', data })
+    return await getAssets({ dir, exts: ['dhtml', 'htm'], to_ext: 'js', data })
   }
 
 
