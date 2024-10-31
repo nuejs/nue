@@ -8,7 +8,6 @@ include: [tabs]
 Nue offers a powerful set of built-in Markdown extensions, referred to as "tags," which significantly enhance your ability to create rich and interactive websites. These tags allow you to seamlessly integrate various content types, from images and videos to buttons and custom elements, all while maintaining clean and readable Markdown syntax. This capability enables you to build dynamic web pages with ease, making your content engaging and visually appealing.
 
 ## Tag syntax
-
 Tags are defined within square brackets. For example, to include an image, you would write:
 
 ```md

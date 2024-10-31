@@ -3,7 +3,7 @@
 include: [demos, button]
 ---
 
-# Reactive components
+# Island syntax
 Reactive components have the same [template syntax](template-syntax.html) and mounting techniques as the server-side components, but reactive components have extra interactive capabilities: They can respond to user input and render themselves to a new state. They have two use-cases:
 
 

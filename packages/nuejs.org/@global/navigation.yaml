@@ -37,6 +37,7 @@ documentation:
     - Why Nue: /docs/
     - How it works: /docs/how-it-works.html
     - Installation: installation.html
+    - Command line interface: command-line-interface.html
 
   Building websites:
     - Step-by-step tutorial: tutorial.html
@@ -55,8 +56,8 @@ documentation:
     - Content syntax: content-syntax.html
     - Content tags: content-tags.html
     - Custom tags: custom-tags.html
+    - Core components: core-components.html
+    - Custom components: custom-components.html
     - Template syntax: template-syntax.html
-    - Layout components: components.html
-    - JavaScript API: javascript-api.html
+    - Island syntax: island-syntax.html
     - Syntax highlighting: syntax-highlighting.html
-    - Command line interface: command-line-interface.html
