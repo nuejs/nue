@@ -262,6 +262,13 @@ test('{ variables }', () => {
   expect(text).toBe('v1.0.1 (2025-01-01)')
 })
 
+test('complex variable getters', () => {
+  const opts = { data: { package: { name: 'glow', items: [1, 2] } }}
+  expect(renderInline('{ package.name }', opts)).toBe('glow')
+  expect(renderInline('{ package.items[0] }', opts)).toBe('1')
+})
+
+
 test('{ #foo.bar }', () => {
   const tokens = parseInline('Hey { #foo.bar }')
   expect(tokens[1].attr).toEqual({ class: "bar", id: "foo" })

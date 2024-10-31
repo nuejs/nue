@@ -9,7 +9,7 @@ export function renderToken(token, opts={}) {
 
   return text ? text :
     token.is_format ? formatText(token, opts) :
-    token.is_var ? (data[token.name] || '') :
+    token.is_var ? renderVariable(token.name, data) :
     token.is_image ? renderImage(token) :
     token.is_tag ? renderTag(token, opts) :
     token.href ? renderLink(token, opts) :
@@ -52,6 +52,13 @@ export function renderTokens(tokens, opts) {
 
 export function renderInline(str, opts) {
   return str ? renderTokens(parseInline(str), opts) : ''
+}
+
+function renderVariable(expr, data) {
+  const fn = new Function('data', `return data.${expr}`)
+  try {
+    return fn(data) || ''
+  } catch (e) { return '' }
 }
 
 
