@@ -1,17 +1,16 @@
 
 # Scripting
+Not all interactivity happens in isolated "islands." Vanilla JavaScript offers several powerful ways to enrich the user experience:
 
-Scripting is the final layer of progressive enhancement, allowing you to enrich your site in several ways:
+1. **Dynamic HTML**: JavaScript can make static, server-rendered HTML more interactive and responsive. This approach is at the heart of progressive enhancement, adding dynamic behavior to otherwise static content.
 
-1. **Progressive enhancement**: Make static, server-rendered HTML more dynamic. This differs from Islands, which are entirely rendered on the client side.
+2. **Non-UI functionality**: JavaScript has access to APIs for features beyond the visible interface, such as tracking user behavior or managing local storage through tools like `localStorage`, `sessionStorage`, or `IndexedDB`.
 
-2. **Non-UI functionality**: Add features that run in the background, like tracking user behavior or managing local storage (e.g., IndexedDB).
+3. **Global scripts**: Unlike component-based scripts, global scripts can control the entire site, working across pages and sections. This makes them ideal for seamless, site-wide functionality.
 
-3. **Global scripts**: Scripts can work across multiple components, extending their functionality site-wide, to specific pages, or sections of a page.
 
 ## Modern JavaScript
-
-JavaScript and browser APIs have evolved significantly since the jQuery era, offering a wide range of possibilities. Many of these APIs are often overlooked when working deeply in frameworks like React. Here are just a few of the hundreds of APIs available:
+JavaScript and browser APIs have evolved significantly since the jQuery era, opening up a broad range of possibilities directly within the browser. However, frameworks like React operate several layers above this standard model, often isolating developers from the powerful features built into the web itself. Many of these APIs go overlooked when working deeply within a framework. Here are just a few of the hundreds of APIs available:
 
 - Clipboard API
 - CSS Typed Object Model API

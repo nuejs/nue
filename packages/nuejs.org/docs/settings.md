@@ -91,7 +91,14 @@ The generator meta tag that identifies the software used to create the site. The
 
 ### heading_ids
 
-When set to `true`, all header levels (h2 and h3) will be generated with an id and an anchor (`<a>`) element, enabling easy linking to those sections.
+When set to `true`, all header levels (h2 and h3) will be generated with an id and an anchor (`<a>`) element, enabling easy linking to those sections. For example:
+
+```html
+<h2 id="less-is-more">
+  <a href="#less-is-more" title="Less is More"></a>
+  Less is More
+</h2>
+```
 
 ### language
 

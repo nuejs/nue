@@ -1,6 +1,6 @@
 
-# Tutorial: Building websites with Nue
-In this tutorial, you’ll learn the key features of Nue by studying the structure and implementation of a simple blogging website:
+# Tutorial: Building Websites with Nue
+In this tutorial, we’ll explore the essential features of Nue by building a blogging website step-by-step.
 
 [image]
   small: /img/blog-hero.png
@@ -8,178 +8,165 @@ In this tutorial, you’ll learn the key features of Nue by studying the structu
   url: //simple-blog.nuejs.org
   size: 749 × 484 px
 
+To follow along, [install Nue](installation.html) first, then download and run this demo locally with the following command:
 
-After [installing Nue](installation.html), you can install this demo application with the following command:
-
-``` sh
+```sh
 nue create simple-blog
 ```
 
-Here is the [source code](//github.com/nuejs/nue/tree/master/packages/examples/simple-blog) and a [live demo](//simple-blog.nuejs.org).
+Once the command completes, your blog should be running at `http://localhost:8083`, and the welcome page will open automatically in a browser tab.
+
+You can also explore the [source code](//github.com/nuejs/nue/tree/master/packages/examples/simple-blog) and view the [live demo](//simple-blog.nuejs.org).
 
 
-## Project structure
-Nue has a freeform folder structure: you can name your files and folders however you like. The structure follows closely to what the user seeson the website:
-
-Here's how our blog is structured:
+## Project Structure
+Nue allows flexible organization through a **freeform directory structure**: you can name your files and folders as you like. The layout of your files reflects the structure seen on the website. Here’s the blog’s structure:
 
 [.folders]
-  - `@global` global styles: colors, layout, and typography
-  - `@library` reusable styles
-  - `blog` blogging area
-  - `blog/blog.yaml` blog-specific settings
-  - `contact` contact app
-  - `img` images and icons
-  - `index.md` the front page
-  - `site.yaml` global settings
+  - `@global`: global styles (colors, layout, typography)
+  - `@library`: reusable styles
+  - `blog`: blogging area
+  - `blog/blog.yaml`: blog-specific settings
+  - `contact`: contact app
+  - `img`: images and icons
+  - `index.md`: front page content
+  - `site.yaml`: global settings
 
-
-Let's look at these assets, starting from the content.
+Let’s explore these assets, starting with the content.
 
 
 ## Content
-With Nue, all your content is cleanly separated from the rest of the site. This includes navigation, SEO- and metadata, and the actual content of the pages:
+In Nue, content is stored separately from other site elements, like navigation, SEO metadata, and layouts. This organization keeps content easily accessible and well-structured.
 
+### SEO and Metadata
 
-### SEO and metadata
-SEO and metadata are configured in the `site.yaml` file. On the blog, we have:
+SEO and metadata settings are defined in the `site.yaml` file. Here’s a sample configuration for our blog:
 
-``` yaml
+```yaml
 title_template: "Emma Bennet / %s"
 og: /img/og_emma.png
 author: Emma Bennet
 favicon: /img/favicon.jpg
 ```
 
-These are applied to all your pages but can be overwritten by page and area basis. Here is a [full list](settings.html) of all properties.
+These settings apply site-wide but can be customized for specific pages or areas. For more details, see the full [settings documentation](settings.html).
 
+### Page Content
 
-### Navigation
-The site header and footer are defined in the `site.yaml` as follows:
-
-```
-header:
-  navigation:
-    - Emma Bennet: /
-    - Contact: /contact/
-
-footer:
-  copyright:
-    - © Emma Bennet: /
-
-  social:
-    - image: /img/github.svg
-      url: //github.com/nuejs/
-      alt: Github Projects
-      size: 22 x 22
-
-    - image: /img/linkedin.svg
-      url: //linkedin.com/in/tipiirai
-      alt: LinkedIn profile
-      size: 22 x 22
-```
-
-Nue uses [YAML data](navigation.html) for defining your header, footer, burger menu, dropdown menus, and any other navigation or sidebar you may have. This simple syntax helps you define navigations without resorting to raw HTML, which is [also possible](layout.html).
-
-
-### Blog post content
-The same human-friendly approach applies to all your pages too, that are written with an [extended Markdown flavor](content.html) suitable for creating rich, interactive web content. There is no need for a React specialist to get your videos, responsive images, grids, and stacked layouts in place.
-
-Here we edit the content in VS Code and watch Nue's [hot-reloading](hot-reloading.html) take action in split-screen mode:
+All blog entries in the `blog` folder are written in [extended Markdown](content-syntax.html), which supports rich content elements like images, videos, tables, accordions, and tabbed content. This provides a flexible and expressive way to manage content.
 
 [image.bordered]
   small: /img/blog-content-editing.png
   large: /img/blog-content-editing-big.png
 
-
-No matter how complex your landing page is, it can be defined with the extended Markdown syntax.
-
-
-### Frontpage
-Our front page is a simple list of blog entries rendered with a [content collection](content-collections.html) and a [page-list](content-collections.html#page-list) tag:
-
-``` md
-\---
-content_collection: blog
-\---
-
-# Minimalist, UX developer, designer, urban explorer.
-I’m Emma Bennett, a user experience developer from Berlin.
-I build websites that are exceptionally well designed — inside, and outside.
-
-[gallery]
-```
-
+Nue’s hot-reloading feature detects content edits and only updates the changed blocks, making editing fast and efficient.
 
 
 ## Layout
-Here is the generated HTML of the front page taken directly from the Chrome development console:
+Markdown-generated HTML is complemented by layout modules. Our simple layout for the blog, located at `@global/layout.html`, looks like this:
 
-[image.bordered]
-  small: /img/semantic-markup.png
-  large: /img/semantic-markup-big.png
-  size: 598 × 575 px
+```html
+<header>
+  <navi :items="navigation.header"/>
+</header>
 
-
-You can customize the markup by filling the different "slots" in the [page layout](layout.html). For example, our blog posts have a custom header or "hero area" at the top of the article. It is defined as follows:
-
+<footer>
+  <navi :items="navigation.footer"/>
+</footer>
 ```
+
+#### The `<navi>` Tag
+
+The `<navi>` tag, a built-in component, automatically renders navigational links from data in `site.yaml`:
+
+```yaml
+navigation:
+  header:
+    - Emma Bennet: /
+    - Contact: /contact/
+  footer:
+    copyright:
+      - © Emma Bennet: /
+    social:
+      - image: /img/github.svg
+        url: //github.com/nuejs/
+        alt: Github Projects
+        size: 22 x 22
+      - image: /img/linkedin.svg
+        url: //linkedin.com/in/tipiirai
+        alt: LinkedIn profile
+        size: 22 x 22
+```
+
+Separating navigation data from templates gives centralized control over your site’s structure, keeping HTML clean and manageable.
+
+
+## Blog Entry Layout
+Each blog post includes a custom header, or "hero area," at the top of the article, defined in `blog/hero.html`:
+
+```html
 <header @name="pagehead">
   <h1>{ title }</h1>
   <p>
     <pretty-date :date="pubDate"/> • Content by AI
     Photo credits: <a href="//dribbble.com/{ credits }">{ credits }</a>
   </p>
-
   <img :src="og" width="1000" height="800" alt="Hero image for { title }">
 </header>
 ```
 
-These layout modules are written with a simple [template language](template-syntax.html), which is essentially standard HTML extended with expressions, conditionals, and loops. People with basic HTML skills can quickly master it.
+These layout modules use a straightforward [template language](template-syntax.html) and [core components](core-components.html), making it easy to build complex layouts without deep JavaScript knowledge.
 
+
+## The Index Page
+The front page (`index.md`) displays a list of blog entries:
+
+```md
+---
+content_collection: blog
+---
+
+# Minimalist, UX developer, designer, urban explorer.
+I’m Emma Bennett, a user experience developer from Berlin.
+I build websites that are exceptionally well designed — inside, and outside.
+
+[page-list]
+```
+
+Here, the `[page-list]` tag leverages [content collection](content-collections.html) data to automatically list blog entries on the page.
 
 
 ## Styling
-Thes HTML layout is styled with external CSS.
+The HTML of the front page is styled with external CSS files, organized in `site.yaml`:
 
-! CSS files
-
-The global CSS is split in two: globals and libraries:
-
-```
+```yaml
 # auto-included on all pages
 globals: ["@global"]
 
-# explicitly included
+# explicitly included libraries
 libs: ["@library"]
 ```
 
-Globals are automatically included on every page and the library assets must be explicitly included. In the blogging area, we setup the following in `blog.yaml`:
+The global styles are automatically applied to every page, while library assets are included as needed. For the blog, the following styles are specified in `blog.yaml`:
 
-``` yaml
+```yaml
 include: [ content, cards, motion ]
 ```
 
+The CSS is kept clean and readable using CSS nesting. Here’s an example from `@global/layout.css`:
 
-The CSS itself is written in using the [CSS best practices](css-best-practices.html), which aims for easy readability and maintainability. For example, the [layout.css](//github.com/nuejs/nue/blob/dev/packages/examples/simple-blog/%40global/layout.css), which uses simple CSS selectors and nesting to declare the global layout. It should "read like a book":
-
-
-``` css .blue
+```css
 body {
-
-  /* page layout */
   max-width: 1000px;
   margin: 0 auto;
   padding: 2% 5%;
 
-  /* master navigation */
   > header nav {
     justify-content: space-between;
     margin-bottom: 4rem;
     display: flex;
   }
 
-  /* content area: hero and its sections */
   > article {
     > header { margin-bottom: 2rem }
 
@@ -189,7 +176,6 @@ body {
     }
   }
 
-  /* global footer */
   > footer {
     border-top: 1px solid var(--gray-200);
     justify-content: space-between;
@@ -201,38 +187,34 @@ body {
 
 
 ### Motion
-You can enable [view transitions](//developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API) with one simple setting in `site.yaml`:
 
-``` yaml.pink
+You can enable [view transitions](//developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API) in `site.yaml`:
+
+```yaml
 view_transitions: true
 ```
 
-After this, you can use modern CSS to create smooth page-switching animations for any element on the page. On this blog, we have the following:
+This allows smooth page transitions with CSS animations, as in our blog:
 
-
-```
-/* apply animation for the content area only */
+```css
 article {
   view-transition-name: article;
 }
 
-/* scale down the old page before the new page appears */
 ::view-transition-old(article) {
   transform: scale(1.2) translateY(2em);
   transition: .8s;
 }
 ```
 
-Once the view transitions are finished the elements are transitioned with a [@starting-style](//developer.mozilla.org/en-US/docs/Web/CSS/@starting-style) CSS property. Here's what we have in our reusable [motion.css](//github.com/nuejs/nue/blob/dev/packages/examples/simple-blog/%40library/motion.css) file:
+The `@starting-style` property is used for a sleek, reusable effect in [motion.css](//github.com/nuejs/nue/blob/dev/packages/examples/simple-blog/%40library/motion.css):
 
-```
-/* select the first three elements to be transitioned */
+```css
 header, h1, h1 + p, h1 + p + * {
   transition: opacity .5s, filter .7s;
   filter: none;
   opacity: 1;
 
-  /* define the starting style */
   @starting-style {
     filter: blur(10px);
     opacity: 0;
@@ -240,14 +222,14 @@ header, h1, h1 + p, h1 + p + * {
 }
 ```
 
-View transitions and the starting style property are some of the unexplored possibilities in CSS, and Nue attempts to make them easy for a UX developer.
+Nue makes it simple to add animations, helping you create engaging experiences without heavy JavaScript.
 
 
+## Islands
 
-## Interactivity
-Our blogging app has a [contact form](//github.com/nuejs/nue/blob/dev/packages/examples/simple-blog/contact/contact.htm), which is implemented as follows:
+The blog includes an interactive contact form, written as follows:
 
-```
+```html
 <script>
   import { loadPage } from '/@nue/view-transitions.js'
 </script>
@@ -265,10 +247,10 @@ Our blogging app has a [contact form](//github.com/nuejs/nue/blob/dev/packages/e
 
   <label>
     <span>Requirements</span>
-    <textarea name="feedback" placeholder="Type here..."/>
+    <textarea name="feedback" placeholder="Type here..."></textarea>
   </label>
 
-  <button>Lets talk!</button>
+  <button>Let’s talk!</button>
 
   <script>
     submit() {
@@ -278,28 +260,26 @@ Our blogging app has a [contact form](//github.com/nuejs/nue/blob/dev/packages/e
 </form>
 ```
 
-You can use the same [HTML-based syntax](template-syntax.html) to create reactive, client-side components, as you use with the server-side templating. You can easily build interactive "islands" without diving deep into JavaScript.
+With this setup, you can add [interactive islands](islands.html) without bundlers or complex JavaScript, making client-side interaction straightforward.
 
 
+## Optimization
+This blog aims for a lightweight footprint, similar to a text-only website, by inlining CSS for fast, single-request loading. Set this globally in `site.yaml`:
 
-## Performance optimization
-The blogging website attempts to reach performance levels of a text-only website, but without compromising design. The most effective way to reach that goal is to serve your content and styling together as one, compact request — similar to how a text-only website works. On our blog, we set this globally for every page in `site.yaml` as follows:
-
-```
+```yaml
 inline_css: true
 ```
 
-This inlines the contents of all CSS into the head section of an HTML page. Together with CSS minification, our front page weigts less than 3kb, including the HTML markup and styling. Even if you disable JavaScript from your browser, everything looks the same including the CSS motion effects.
+Inlined CSS keeps the front page around 3 KB, including both markup and styling. Disabling JavaScript won’t affect the layout or CSS animations, maintaining a consistent design.
 
 
 ## Deployment
-The production-optimized version is generated with the `nue build --production` command. The console output looks like this:
+Generate the production version with:
 
-[image]
-  small: /img/blog-generate.png
-  large: /img/blog-generate-big.png
-  width: 500
+```sh
+nue build --production
+```
 
-This step is extremely fast. No matter how large your website, the generation times are in the ballpark of what you see with **Rust** and **Go**-based generators like **Hugo**.
+This command quickly compiles your site, similar to **Rust** and **Go**-based generators like **Hugo**. The production files will be in the `.dist/prod` folder, ready to deploy on a CDN like **Cloudflare**, **CloudFront**, or **Fastly**.
 
-The production files are generated under the `.dist/prod` folder, which you can transfer to your CDN such as **Cloudflare**, **CloudFront**, or **Fastly**. Later, there will be a handy `nue push` command to dramatically simplify deployment, but currently, you have to figure out this step yourself.
+In the future, the `nue push` command will streamline deployment further, but for now, you’ll need to handle this step with your preferred CDN provider.
