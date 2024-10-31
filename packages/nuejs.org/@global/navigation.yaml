@@ -1,5 +1,35 @@
 
 # the information architecture
+documentation:
+  Getting started:
+    - Why Nue: /docs/
+    - How it works: /docs/how-it-works.html
+    - Installation: installation.html
+    - Command line interface: command-line-interface.html
+
+  Building websites:
+    - Step-by-step tutorial: tutorial.html
+    - Project structure: project-structure.html
+    - Content: content.html
+    - Layout: layout.html
+    - Islands: islands.html
+    - Styling: styling.html
+    - Motion: motion.html
+    - Scripting: scripting.html
+    - Optimization: optimization.html
+
+
+  Reference:
+    - Settings and metadata: settings.html
+    - Content syntax: content-syntax.html
+    - Content tags: content-tags.html
+    - Custom tags: custom-tags.html
+    - Core components: core-components.html
+    - Custom components: custom-components.html
+    - Template syntax: template-syntax.html
+    - Syntax highlighting: syntax-highlighting.html
+
+
 globalnav:
 
   # main navigation (header)
@@ -32,32 +62,3 @@ globalnav:
     - Get started: /docs/installation.html "button"
 
 
-documentation:
-  Getting started:
-    - Why Nue: /docs/
-    - How it works: /docs/how-it-works.html
-    - Installation: installation.html
-    - Command line interface: command-line-interface.html
-
-  Building websites:
-    - Step-by-step tutorial: tutorial.html
-    - Project structure: project-structure.html
-    - Content: content.html
-    - Layout: layout.html
-    - Islands: islands.html
-    - Styling: styling.html
-    - Motion: motion.html
-    - Scripting: scripting.html
-    - Optimization: optimization.html
-
-
-  Reference:
-    - Settings and metadata: settings.html
-    - Content syntax: content-syntax.html
-    - Content tags: content-tags.html
-    - Custom tags: custom-tags.html
-    - Core components: core-components.html
-    - Custom components: custom-components.html
-    - Template syntax: template-syntax.html
-    - Island syntax: island-syntax.html
-    - Syntax highlighting: syntax-highlighting.html

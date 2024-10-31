@@ -1,26 +1,26 @@
 
-## Core components
-Nue offers a set of built-in helper components to help you construct the layout modules.
+# Core components
+This section outlines the built-in server-side components in Nue, designed to assist you with common layout tasks.
 
+## Navi
+Navigation is a fundamental aspect of web design, including elements like global headers, footers, sidebars, and burger menus. These navigational elements serve as wrappers for links that guide users through your site. The `<navi/>` tag is a useful utility for rendering these links based on the data defined in your [information architecture](content.html#ia). Here’s an example of how to create a header with navigation:
 
-### Navi
-Most of your layout modules relate to navigation: the global header and footer, sidebars, and the burger menu typically consists of links to the various pages on your website. The `<navi/>` tag is a useful utility to render those links using the data on your [settings and data files](settings-and-data.html). Here is an example header:
-
-```
+```html
 <header>
-  <!-- logo -->
+  <!-- Logo -->
   <a href="/">
     <img src="/img/logo.svg" alt="Logo">
   </a>
 
-  <!-- master navigation -->
+  <!-- Master navigation -->
   <navi :items="mastnav"/>
 </header>
 ```
 
-Here is the navigation data in `site.yaml`:
+### Example navigation data
+Here’s how you can define the navigation data in a `site.yaml` file:
 
-```
+```yaml
 mastnav:
   - Documentation: /docs/
   - About: /about/
@@ -28,9 +28,9 @@ mastnav:
   - "v1.0 is out!": /blog/v1.0/ "badge"
 ```
 
-The header would render as follows
+When this data is utilized, your header will render as follows:
 
-```
+```html
 <header>
   <a href="/">
     <img src="/img/logo.svg" alt="Logo">
@@ -44,13 +44,12 @@ The header would render as follows
 </header>
 ```
 
-A quoted string ("badge") after the URL becomes a class name for the link.
+In this example, a quoted string ("badge") after the URL will be converted into a class name for the corresponding link.
 
+### Hierarchical navigation
+You can also supply hierarchical data for the `<navi>` tag, which helps create structured navigation menus:
 
-#### Hierarchical navigation
-You can also supply hierarchical data for the navi tag:
-
-```
+```yaml
 footer:
   Product:
     - Download: /download/
@@ -65,9 +64,9 @@ footer:
     - Customers: /customers/
 ```
 
-Now `<navi :items="footer"/>` would render the following:
+When you use `<navi :items="footer"/>`, it renders the following structure:
 
-```
+```html
 <div>
   <nav>
     <h3>Product</h3>
@@ -87,25 +86,45 @@ Now `<navi :items="footer"/>` would render the following:
 </div>
 ```
 
+### Adding images and buttons
+You can also include images and buttons in your navigation configuration. Here’s an example:
 
+```yaml
+main_navigation:
+  - image: /img/logo.png
+    class: logo
+    url: /
 
-### Markdown
-Renders a Markdown-formatted string given in the `content` attribute.
+  - Product: /product/
+  - Pricing: /pricing/
+  - FAQ: /faq/
 
+  - url: /get-started/
+    label: Get Started
+    role: button
 ```
+
+### Why this is good
+Using the `<navi>` component offers several advantages:
+
+- **Centralized management**: It allows you to manage your information architecture from a single location, making updates easier and more consistent.
+- **Clean layout modules**: Your layout modules remain simple and easy to read, as the navigation structure is automatically generated from your defined data.
+
+## Markdown
+The `<markdown>` component renders a Markdown-formatted string provided in the `content` attribute. This feature enables you to use Markdown in your metadata — typically for titles and descriptions — and then render it as HTML within your layout modules:
+
+```html
 <markdown :content="description"/>
 ```
 
+## Pretty-date
+The `<pretty-date>` component displays a formatted date value provided in the `date` attribute. This is particularly useful in blogging areas and helps present dates in a more user-friendly manner:
 
-### Pretty-date
-Pretty-prints a date value given in the `date` attribute.
-
-```
+```html
 <pretty-date :date="date"/>
 ```
 
-Here is an example "hero" area for a blog entry that uses the `markdown` and `pretty-date` tags:
-
+Here’s an example of a "hero" area for a blog entry that utilizes both the `markdown` and `pretty-date` components:
 
 ```html
 <header @name="pagehead">
@@ -114,34 +133,35 @@ Here is an example "hero" area for a blog entry that uses the `markdown` and `pr
   <h1><markdown :content="title"/></h1>
 
   <div class="description">
-    <markdown :content="title"/>
+    <markdown :content="description"/>
   </div>
 </header>
 ```
 
+## Table of contents
+The built-in `<toc/>` component automatically generates a table of contents from the current Markdown document, focusing on its second and third-level headings (h2 and h3). This tag works seamlessly for all your Markdown files without requiring additional setup:
 
-
-### Table of contents
-Use the built-in `<toc/>` tag to render the table of contents parsed from the current Markdown document and it's second and third level headings (h2, h3):
-
-```
+```html
 <toc class="toc"/>
 ```
 
-This Markdown document, for example renders the following:
+The HTML output will resemble the following:
 
 ```html
 <div aria-label="Table of contents" class="toc">
   <nav>
     <a href="#default-layout">
-      <strong>Default layout</strong></a>
+      <strong>Default layout</strong>
+    </a>
   </nav>
   <nav>
     <a href="#slots"><strong>Slots</strong></a>
     <a href="#filling-the-slots">Filling the slots</a>
     <a href="#template-inheritance">Template inheritance</a>
-    <a href="#disabling">Disabling slots</a></nav>
+    <a href="#disabling">Disabling slots</a>
+  </nav>
   <nav>
-  ...
+    ...
+  </nav>
 </div>
 ```

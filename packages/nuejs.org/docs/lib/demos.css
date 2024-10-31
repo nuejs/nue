@@ -50,15 +50,14 @@
   }
 }
 
-
-.animation-demo {
+.oninsert-demo {
   .grid {
     grid-template-columns: repeat(auto-fit, 200px);
 
     > div {
-      transform: scale(.7);
+      transform: scale(1);
       transition: .6s;
-      opacity: 0;
+      opacity: 1;
 
       h3, p {
         margin: 0;
@@ -66,9 +65,9 @@
         font-size: 95%;
       }
 
-      &.fade-in {
-        transform: scale(1);
-        opacity: 1;
+      @starting-style {
+        transform: scale(.7);
+        opacity: 0;
       }
     }
   }

@@ -1,3 +1,6 @@
+---
+include: [demos, button]
+---
 
 # Custom components
 Nue's layout is built around custom components designed to enhance web development with a semantic approach. There are four types of components:
@@ -314,6 +317,352 @@ The above will be rendered as:
 <script>
   console.info('hey'); // Log a message to the console
 </script>
+```
+
+## Interactive components
+Interactive components in Nue are executed on the client side, directly within the user's browser. They are created and mounted using the same syntax as server-side components, but interactive components can respond to user input and re-render themselves to reflect new states. This functionality makes them ideal for a variety of applications, such as feedback forms, login forms, registration flows, account dropdowns, image galleries, or any other component that requires interactivity.
+
+### Example: Image Gallery
+Let’s add a simple image gallery component to this page:
+
+```md render
+[image-gallery]
+  images: [tomatoes.jpg, lemons.jpg, peas.jpg, popcorn.jpg]
+  basedir: /img
+```
+
+Here’s the source code for the gallery component:
+
+```html
+<div @name="image-gallery" class="image-gallery" translate="no">
+
+  <!-- Action to seek to the previous image -->
+  <a class="seek prev" @click="index--" :if="index"></a>
+
+  <!-- The currently displayed image -->
+  <img src="{ basedir }/{ images[index] }">
+
+  <!-- Action to seek to the next image -->
+  <a class="seek next" @click="index++" :if="index + 1 < images.length"></a>
+
+  <!-- The gray dots below the image -->
+  <nav>
+    <a :for="src, i in images" class="{ current: i == index }" @click="index = i"></a>
+  </nav>
+
+  <!-- Scripting section -->
+  <script>
+
+    // Image index representing the component state
+    index = 0;
+
+  </script>
+
+</div>
+```
+
+Inside the component, all control flow operations, such as loops and conditionals, are reactive — they respond to user events and re-render based on the new state. Here, we have a numeric state variable `index`, which updates as the user clicks the navigational elements, automatically changing the displayed image accordingly.
+
+## Event handlers
+In Nue, attributes starting with the `@` symbol define event handlers. These handlers are JavaScript functions that respond to user interactions, such as clicks, keypresses, or mouse movements.
+
+### Inline handlers
+Inline handlers are defined directly within the attribute:
+
+```html
+<button @click="count++">Increment</button>
+```
+
+Inline handlers are great for simple expressions that don’t require additional logic.
+
+### Method handlers
+For more complex functionality, it's best to move the logic into an instance method:
+
+```html
+<dialog>
+  <button @click="close">Close</button>
+
+  <script>
+    close() {
+      this.root.close(); // Close the dialog
+      location.hash = ''; // Clear the URL hash
+    }
+  </script>
+</dialog>
+```
+
+### Method calls
+You can pass arguments to method calls:
+
+```html
+<div>
+  <button @click="say('yo!')">Say yo!</button>
+
+  <script>
+    say(msg) {
+      console.log(msg); // Log the message to the console
+    }
+  </script>
+</div>
+```
+
+### Event argument
+Method handlers always receive an [Event object](https://developer.mozilla.org/en-US/docs/Web/API/Event) as the last argument, unless it is explicitly named `$event`:
+
+```html
+<div>
+  <button @click="first">First</button>
+  <button @click="second('Hello')">World</button>
+  <button @click="third('Hello', $event, 'World')">Nue</button>
+
+  <script>
+    // prints "First"
+    first($event) {
+      console.info($event.target.textContent); // Log the button text
+    }
+
+    // prints "Hello World"
+    second(hey, $event) {
+      console.info(hey, $event.target.textContent); // Log hello and button text
+    }
+
+    // prints "Hello Nue World"
+    third(hey, $event, who) {
+      console.info(hey, $event.target.textContent, who); // Log all three
+    }
+  </script>
+</div>
+```
+
+### Event modifiers
+Nue provides convenient shortcuts for common DOM event manipulation functions. For instance, `@submit.prevent` is a shortcut to call [event.preventDefault()](https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault).
+
+```html
+<!-- Prevent the default event from occurring -->
+<form @submit.prevent="onSubmit"></form>
+
+<!-- Modifiers can be chained -->
+<a @click.stop.prevent="doThat"></a>
+
+<!-- Run the modifier only -->
+<form @submit.prevent></form>
+```
+
+The following modifiers are supported:
+
+- `.prevent`: Prevents the default behavior of the event from occurring.
+- `.stop`: Prevents further [propagation](https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation) of the event.
+- `.self`: Only triggers the handler if `event.target` is the element itself.
+- `.once`: The event will be triggered at most once.
+
+### Key modifiers
+Key modifiers bind the event handler to specific keyboard keys:
+
+```html
+<!-- Only call `submit` when the `key` is `Enter` -->
+<input @keyup.enter="submit">
+```
+
+You can use any valid key names from [KeyboardEvent.key](https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values) as modifiers, converting them to kebab-case. For example, the following handler is called only if `event.key` is equal to `PageDown`:
+
+```html
+<input @keyup.page-down="onPageDown">
+```
+
+Nue provides aliases for commonly used keys:
+
+- `.enter`: Captures both "Enter" and "Return."
+- `.delete`: Captures both "Delete" and "Backspace."
+- `.esc`: Captures both "Esc" and "Escape."
+- `.space`: Captures "Spacebar", " ", "Space Bar."
+- `.tab`: Captures "Tab."
+- `.up`: Captures "Up" and "ArrowUp."
+- `.down`: Captures "Down" and "ArrowDown."
+- `.left`: Captures "Left" and "ArrowLeft."
+- `.right`: Captures "Right" and "ArrowRight."
+
+## Dynamic arrays
+When you define a loop with the `:for` expression, Nue automatically detects if the looped array is mutated and triggers the necessary UI updates. The following [array methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) are supported:
+
+- `push(item)`: Adds a new item to the end of the array.
+- `unshift(item)`: Adds a new item to the beginning of the array.
+- `sort(fn)`: Sorts items based on the given function.
+- `reverse()`: Reverses the order of items.
+- `splice(start, count)`: Removes items from the array.
+- `shift()`: Removes the first item from the array.
+- `pop()`: Removes the last item from the array.
+- `remove(item)`: A Nue-specific helper method to remove the given item from the array.
+
+### Replacing the array
+Mutation methods modify the original array they are called on. Non-mutating methods, such as `filter()`, `concat()`, and `slice()`, return a new array. In these cases, you should replace the old array with the new one, and Nue will render the updates accordingly:
+
+```js
+search() {
+  this.items = this.items.filter(item => item.text.match(/Foo/));
+}
+```
+
+#### Example: array.push
+Here’s a simple demo of using an array:
+
+```md render
+[array-demo]
+  users:
+    - [ Alex Martinez, Lead frontend developer, /img/face-3.jpg ]
+    - [ Sarah Park, UI/UX Designer, /img/face-4.jpg ]
+    - [ Jamie Huang, JS/TS developer, /img/face-2.jpg ]
+    - [ Heidi Blum, UX developer, /img/face-1.jpg ]
+    - [ Adam Nattie, Backend developer, /img/face-5.jpg ]
+    - [ Mila Harrison, Senior frontend developer, /img/face-6.jpg ]
+```
+
+Here's the source code for the above demo:
+
+```html
+<div @name="array-demo">
+
+  <button @click="add" :disabled="items[5]">Add user</button>
+
+  <ul>
+    <li :for="[ name, role, img] in items">
+      <img :src="img">
+      <h3>{ name }</h3>
+      <p>{ role }</p>
+    </li>
+  </ul>
+
+  <script>
+
+    // Render first three users
+    constructor({ users }) {
+      this.items = users.slice(0, 3);
+      this.all = users;
+    }
+
+    // Insert a new item
+    add() {
+      const { items, all } = this;
+      const item = all[items.length]; // Access the next user
+      if (item) items.push(item); // Add user if exists
+    }
+  </script>
+
+</div>
+```
+
+Note that the transition effect is done with vanilla CSS using `@starting-style` without specialized `<transition>` elements or motion libraries. This keeps the implementation lean and clean.
+
+## Lifecycle methods
+Each component instance goes through a series of steps during its lifetime: first, it is created, then mounted on the page, and finally, it gets updated one or more times. Sometimes the component is removed or "unmounted" from the page.
+
+You can hook custom functionality to these steps by creating instance methods with specific names:
+
+```html
+<script>
+
+  // Called when the component is created. Data/args is provided as the
+
+ first argument.
+  constructor(data) {
+    // Initialization logic here
+  }
+
+  // Called after the component is mounted on the page.
+  mounted(data) {
+    // Logic to run after mounting here
+  }
+
+  // Called after the component is updated.
+  updated() {
+    // Logic to run after an update here
+  }
+
+  // Called after the component is removed from the page.
+  unmounted() {
+    // Cleanup logic here
+  }
+</script>
+```
+
+Inside these callback functions, `this` points to the [instance API](#api), allowing access to various properties and methods related to the component.
+
+## Instance API
+The component API is accessible via the `this` variable inside the lifecycle methods. It has the following attributes and methods:
+
+- `root`: The root DOM node of the component instance.
+- `$el`: An alias for the root DOM node.
+- `$parent`: The root DOM node of the parent instance.
+- `$refs`: Access to named DOM nodes and inner components within the component.
+- `mount(root: DOMElement)`: Mounts the instance to the specified root element.
+- `unmount()`: Removes the component from the current component tree.
+- `update(data?: Object)`: Forces the component instance to re-render itself with optional data. This is useful after fetching data from a server or during any asynchronous event.
+- `mountChild(name, wrap, data)`: Mounts a new child component on a DOM element inside the current component.
+
+The component re-renders itself automatically after calling an event handler, but you need to call this manually if there is no clear interaction to detect.
+
+### References
+You can obtain a handle to nested DOM elements or components via the `$refs` property:
+
+```html
+<div @name="my-component">
+
+  <!-- Name a DOM node with the "ref" attribute -->
+  <figure ref="image"></figure>
+
+  <!-- Or with the "name" attribute -->
+  <input name="email" placeholder="Hey, dude">
+
+  <!-- Custom elements are automatically named -->
+  <image-gallery/>
+
+  <!-- Refs work in templates too -->
+  <h3>{ $refs.email.placeholder }</h3>
+
+  <script>
+
+    // References are available after mount
+    mounted() {
+      // Get a handle to the image DOM node
+      const image = this.$refs.image;
+
+      // Get a handle to the image-gallery component API
+      const gallery = this.$refs['image-gallery'];
+    }
+  </script>
+</div>
+```
+
+### Sharing code between components
+You can add and import shared code within a top-level `<script>` tag. Here’s an example library that defines both a shopping cart and a button component that adds items to the cart. The cart itself is defined in "cart.js", which is a plain JavaScript file. This cart is used by both components.
+
+```html
+<!-- Shared code -->
+<script>
+  import { shopping_cart, addToCart } from './cart.js';
+</script>
+
+<!-- Shopping cart component -->
+<article @name="shopping-cart">
+  <div :for="item in items">
+    <h3>{ item.price }</h3>
+    <p>{ item.amount }</p>
+  </div>
+
+  <script>
+    constructor() {
+      this.items = shopping_cart.getItems(); // Load initial items
+    }
+  </script>
+</article>
+
+<!-- "Add to cart" component -->
+<button @name="add-to-cart" @click="click">
+  <script>
+    click() {
+      addToCart(this.data); // Add item to the cart
+    }
+  </script>
+</button>
 ```
 
 

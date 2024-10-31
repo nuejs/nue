@@ -64,7 +64,7 @@ In its current state, Nue's YAML/Markdown-based content editing is an excellent 
 
 A cloud-based backend is firmly on our long-term roadmap, as it aligns well with our **decoupled architecture**. Unstructured content would simply be fetched from the cloud before rendering, ensuring a seamless integration between content management and site delivery. For more details, see the [roadmap](index.md#roadmap).
 
-## Information architecture
+## Information architecture { #ia }
 **Information architecture** in Nue defines how content is organized and structured across your site. It ensures that users can easily navigate through pages, apps, and sections, while also making content management clear and efficient for developers.
 
 ### Overview of information architecture
