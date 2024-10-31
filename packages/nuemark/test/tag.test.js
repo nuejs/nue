@@ -137,13 +137,13 @@ test('client-side island', () => {
 })
 
 test('table options', () => {
-  const rows = [['a', 'b'], ['c', 'd'], ['e', 'f']]
+  const rows = [['a', 'b'], ['c', 'd'], ['foot']]
   const html = renderTable({ rows, head: true, foot: true, caption: '*Hello*'  })
 
   expect(html).toStartWith('<table><caption><em>Hello')
   expect(html).toInclude('<thead><tr><th>a</th>')
   expect(html).toInclude('<tr><td>c</td><td>d</td></tr>')
-  expect(html).toEndWith('<th>e</th><th>f</th></tr></tfoot></table>')
+  expect(html).toInclude('<tfoot><tr><th colspan="2">')
 })
 
 test('parse table', () => {
@@ -154,11 +154,10 @@ test('parse table', () => {
     'c',
     '  ',
     '---',
-    '| y | z'
+    'foot'
   ]
   const table = parseTable(lines)
   const { rows } = table
-
   expect(table.cols).toBe(3)
   expect(table.head).toBe(true)
   expect(table.foot).toBe(true)

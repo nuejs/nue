@@ -233,13 +233,22 @@ export function renderTable(table, md_opts) {
   const { rows, attr, head=true } = table
   if (!rows) return ''
 
+  // column count
+  let colcount
+
   const html = rows.map((row, i) => {
     if (typeof row == 'string') row = row.split(/\s*\|\s*/)
+    if (!i) colcount = row.length
 
     const is_head = head && i == 0 && rows.length > 1
     const is_foot = table.foot && i > 1 && i == rows.length - 1
+    const colspan = colcount - row.length + 1
 
-    const cells = row.map(td => elem(is_head || is_foot ? 'th' : 'td', renderInline(td, md_opts)))
+    const cells = row.map(td => {
+      const attr = colspan > 1 ? { colspan } : null
+      return elem(is_head || is_foot ? 'th' : 'td', attr, renderInline(td, md_opts))
+    })
+
     const tr = elem('tr', cells.join(''))
     return is_head ? elem('thead', tr) : is_foot ? elem('tfoot', tr) : tr
   })
