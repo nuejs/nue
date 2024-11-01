@@ -114,19 +114,19 @@ function convertToTags(components, data) {
 }
 
 
-export function renderPage({ doc, data, lib }) {
+export function renderPage({ document, data, lib }) {
   const comps = [ ...lib, ...getLayoutComponents()]
   const slots = renderSlots(data, comps)
 
   const tags = {
     ...convertToTags(lib, data),
     'page-list': renderPageList,
-    toc: doc.renderTOC
+    toc: document.renderTOC
   }
 
   // nuemark opts: { data, sections, heading_ids, links, tags }
   const { heading_ids, sections, links  } = data
-  const content = doc.render({ data, heading_ids, sections, links, tags })
+  const content = document.render({ data, heading_ids, sections, links, tags })
 
   // <main>...</main>
   if (!slots.main && data.main !== false) {

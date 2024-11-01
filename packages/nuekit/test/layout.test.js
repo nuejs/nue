@@ -42,9 +42,9 @@ test('renderSlots', () => {
 })
 
 test('renderPage', () => {
-  const doc = { render: () => '<h1>Hello</h1>' }
+  const document = { render: () => '<h1>Hello</h1>' }
   const lib = [{ tagName: 'header', render: () => '<header>' }]
-  const html = renderPage({ doc, lib, data: { language: 'fi' }})
+  const html = renderPage({ document, lib, data: { language: 'fi' }})
   expect(html).toStartWith('<html lang="fi" dir="ltr">')
   expect(html).toInclude('<header></header>')
   expect(html).toInclude('<h1>Hello</h1>')

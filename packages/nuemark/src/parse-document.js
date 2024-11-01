@@ -51,7 +51,6 @@ export function parseDocument(lines) {
     },
 
     codeblocks: blocks.filter(el => el.is_code),
-    sections,
     meta,
   }
 }

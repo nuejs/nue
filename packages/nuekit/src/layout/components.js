@@ -25,8 +25,8 @@ export function renderNavi(data) {
 
 
 function renderTOC(data) {
-  const { doc, attr } = data
-  return doc.renderTOC(attr)
+  const { document, attr } = data
+  return document.renderTOC(attr)
 }
 
 function renderPrettyDate(date) {

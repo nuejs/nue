@@ -243,8 +243,8 @@ export async function createSite(args) {
     const mds = paths.filter(el => el.endsWith('.md')).map(el => join(dir, el))
 
     for (const path of mds) {
-      const doc = nuedoc(await read(path))
-      const { meta } = doc
+      const document = nuedoc(await read(path))
+      const { meta } = document
       if (!meta.unlisted) arr.push({ ...meta, ...parsePathParts(path) })
     }
 
@@ -262,7 +262,7 @@ export async function createSite(args) {
     let paths = await getAssets({ dir, exts: ['css'], data })
 
     // syntax highlighting
-    if (data.syntax_highlight !== false && data.doc?.codeblocks[0]) paths.push(`/@nue/syntax.css`)
+    if (data.syntax_highlight !== false && data.document?.codeblocks[0]) paths.push(`/@nue/syntax.css`)
 
     // cascading order: globals -> area -> page
     sortCSS({ paths, globals: self.globals, dir })

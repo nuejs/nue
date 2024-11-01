@@ -110,8 +110,8 @@ test('root styles', async () => {
   await write('globals/bar.css')
   await write('home.css')
   await write('index.md')
-  const { styles } = await kit.getPageData('index.md')
-  expect(styles).toEqual(["/home.css"])
+  const { assets } = await kit.getPageData('index.md')
+  expect(assets.styles).toEqual(["/home.css"])
 })
 
 
@@ -136,9 +136,9 @@ test('asset include/exclude', async () => {
   await write('blog/app.yaml', 'include: [lib]\nexclude: [kama]')
 
   const kit = await getKit()
-  const data = await kit.getPageData('blog/index.md')
+  const { assets } = await kit.getPageData('blog/index.md')
 
-  expect(data.styles).toEqual(["/global/global.css", "/lib/zoo.css"])
+  expect(assets.styles).toEqual(["/global/global.css", "/lib/zoo.css"])
   // expect(data.components).toEqual([ "/global/kama.js", "/lib/zoo.css" ])
 })
 
@@ -296,8 +296,8 @@ test('inline CSS', async () => {
   await write('inline/style.css', 'body { margin: 0 }')
   await write('inline/app.yaml', 'inline_css: true')
   await write('inline/index.md', '# Hey')
-  const data = await kit.getPageData('inline/index.md')
-  expect(data.inline_css[0].path).toEqual('/inline/style.css')
+  const { assets } = await kit.getPageData('inline/index.md')
+  expect(assets.inline_css[0].path).toEqual('/inline/style.css')
   const html = await kit.gen('inline/index.md')
   expect(html).toInclude('<style href="/inline/style.css">')
   expect(html).toInclude('margin:')
@@ -325,10 +325,10 @@ test('page assets', async () => {
   await write('blog/main.js', 'var a')
 
   const kit = await getKit()
-  const data = await kit.getPageData('blog/index.md')
+  const { assets } = await kit.getPageData('blog/index.md')
 
-  expect(data.components).toEqual(["/blog/comp.js", "/lib/video.js"])
-  expect(data.scripts.length).toEqual(4)
+  expect(assets.components).toEqual(["/blog/comp.js", "/lib/video.js"])
+  expect(assets.scripts.length).toEqual(4)
 })
 
 
