@@ -79,8 +79,6 @@ function renderCode({ name, code, attr, data }, opts) {
 
   const caption = data.caption || data._
 
-  if (data.render) html += name == 'md' ? renderLines(code, opts) : code
-
   if (caption) {
     const figcaption = elem('figcaption', renderInline(caption))
     return elem('figure', { class: klass }, figcaption + html)

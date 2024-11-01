@@ -266,6 +266,8 @@ test('complex variable getters', () => {
   const opts = { data: { package: { name: 'glow', items: [1, 2] } }}
   expect(renderInline('{ package.name }', opts)).toBe('glow')
   expect(renderInline('{ package.items[0] }', opts)).toBe('1')
+  expect(renderInline('{ package.name.toUpperCase() }', opts)).toBe('GLOW')
+  expect(renderInline('{ zap.erro.boo }', opts)).toBe('')
 })
 
 

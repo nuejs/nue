@@ -245,6 +245,10 @@ function processNode(opts) {
           if (html && html != 'false') DOM.replaceElement(node, mkdom(html))
           else removeNode(node)
 
+        // slot content provided as data
+        } else if (data.innerHTML) {
+          DOM.replaceElement(node, mkdom(data.innerHTML))
+
         } else if (inner) {
           while (inner[0]) DOM.prepend(node, inner[0])
           removeElement(node)

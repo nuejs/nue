@@ -55,3 +55,8 @@ test('getSPALayout', () => {
   expect(html).toInclude('<title>Hey</title>')
   expect(html).toInclude('<app/>')
 })
+
+
+
+
+

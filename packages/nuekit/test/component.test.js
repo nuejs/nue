@@ -1,4 +1,5 @@
 
+// tests for helper/core components
 import {
   renderPage,
   parseClass,

@@ -211,7 +211,9 @@ function parseReflink(str) {
   if (str[0] == '[') {
     const i = str.indexOf(']:')
     if (i > 1) {
-      return { key: str.slice(1, i), link: str.slice(i + 2).trim() }
+      const key = str.slice(1, i)
+      const is_footnote = key[0] == '^'
+      return { key, is_footnote, link: str.slice(i + 2).trim() }
     }
   }
 }

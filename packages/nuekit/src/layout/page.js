@@ -105,8 +105,8 @@ function createTags(lib, data) {
     const { name } = comp
     if (name && !SLOTS.includes(name)) {
       tags[name] = function(data) {
-        const { attr } = this
-        return comp.render({ attr, ...data }, lib)
+        const { attr, innerHTML } = this
+        return comp.render({ attr, ...data, innerHTML }, lib)
       }
     }
   })

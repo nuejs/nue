@@ -137,10 +137,6 @@ test('fenced code with caption', () => {
   expect(html).toEndWith('</i></code></pre></figure>')
 })
 
-test('render option for code blocks', () => {
-  const html = renderLines(['```md render', '# Hello', '```'])
-  expect(html).toEndWith('</pre><h1>Hello</h1>')
-})
 
 test('multi-line list entries', () => {
   const [ list ] = parseBlocks(['* foo', '  boy', '* bar'])
@@ -217,8 +213,18 @@ test('render reflinks', () => {
   expect(html).toInclude('Inlined <a title="External link" href="https://bar.com/zappa">Second</a>')
 })
 
+test.skip('footnotes', () => {
+  const html = renderLines([
+    'This,[^1] [here][^a] goes.[^b]',
+    '[^1]: foo',
+    '[^a]: bar',
+    '[^b]: baz',
+  ])
 
-test('render footnotes', () => {
+
+})
+
+test('footnotes with [define]', () => {
   const html = renderLines([
     '[hey][^ki] [^ko]',
     '[define]',

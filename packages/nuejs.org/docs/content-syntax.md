@@ -92,6 +92,7 @@ Nue allows the use of **variables** within Markdown files, enabling dynamic cont
 ```md
 Package name:    **{ package.name }**
 Package version: **{ package.version }**
+Complex value:   **{ foo.bar[0].name }**
 ```
 
 The values between curly braces are taken from the **application data** or **metadata** available on the page. This feature ensures that content can stay dynamic and up-to-date with the latest values from your site’s data and settings.

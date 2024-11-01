@@ -197,13 +197,36 @@ test('basig page generation', async () => {
 })
 
 
-test('custom nuemark tags', async () => {
+test('simple custom tag', async () => {
   await write('layout.html', '<a @name="test">Hey</a>')
   await write('index.md', '[test]')
 
   const kit = await getKit()
   const html = await kit.gen('index.md')
   expect(html).toInclude('<a>Hey</a>')
+})
+
+test('custom tag with <slot/>', async () => {
+  const HTML = `
+    <div @name="test">
+      <h2>Hello</h2>
+      <slot/>
+    </div>
+  `
+  const MD = [
+    '[test]',
+    '  ### World',
+    '  { slug }',
+  ]
+
+  await write('components.html', HTML)
+  await write('index.md', MD.join('\n'))
+
+  const kit = await getKit()
+  const html = await kit.gen('index.md')
+  expect(html).toInclude('<h2>Hello</h2>')
+  expect(html).toInclude('<h3>World</h3>')
+  expect(html).toInclude('<p>index.html</p>')
 })
 
 
