@@ -328,7 +328,7 @@ export async function createKit(args) {
         if (ret) send({ ...file, ...parsePathParts(file.path), ...ret })
       } catch (e) {
         send({ error: e, ...file })
-        console.error(e)
+        console.error(file.path, e)
       }
 
     // when a file/dir was removed
