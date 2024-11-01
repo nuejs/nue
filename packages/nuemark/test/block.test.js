@@ -5,7 +5,7 @@ import { nuemark } from '..'
 
 
 test('paragraphs', () => {
-  const blocks = parseBlocks([ 'a', 'b', '', '', 'c' ])
+  const { blocks } = parseBlocks([ 'a', 'b', '', '', 'c' ])
   expect(blocks.length).toBe(2)
 
   const html = renderBlocks(blocks)
@@ -14,28 +14,29 @@ test('paragraphs', () => {
 })
 
 test('list items', () => {
-  const blocks = parseBlocks(['- a', '', '  a1',  '- b', '', '', '- c'])
+  const { blocks } = parseBlocks(['- a', '', '  a1',  '- b', '', '', '- c'])
   expect(blocks.length).toBe(1)
   expect(blocks[0].entries).toEqual([[ "a", "", "a1" ], [ "b", "", "" ], [ "c" ]])
 })
 
 
 test('nested lists', () => {
-  const blocks = parseBlocks(['- item', '', '  - nested 1',  '', '', '  - nested 2'])
+  const { blocks } = parseBlocks(['- item', '', '  - nested 1',  '', '', '  - nested 2'])
   expect(blocks.length).toBe(1)
   expect(blocks[0].entries[0]).toEqual([ "item", "", "- nested 1", "", "", "- nested 2" ])
+
   const html = renderBlocks(blocks)
   expect(html).toEndWith('<li><p>nested 2</p></li></ul></li></ul>')
 })
 
 
 test('nested tag data', () => {
-  const [ comp ] = parseBlocks(['[hello]', '', '', '  foo: bar', '', '  bro: 10'])
-  expect(comp.data).toEqual({ foo: "bar", bro: 10 })
+  const { blocks } = parseBlocks(['[hello]', '', '', '  foo: bar', '', '  bro: 10'])
+  expect(blocks[0].data).toEqual({ foo: "bar", bro: 10 })
 })
 
 test('nested tag content', () => {
-  const blocks = parseBlocks(['[.stack]', '', '', '  line1', '', '  line2'])
+  const { blocks } = parseBlocks(['[.stack]', '', '', '  line1', '', '  line2'])
   expect(blocks.length).toBe(1)
   expect(blocks[0].blocks.length).toBe(2)
 
@@ -44,7 +45,7 @@ test('nested tag content', () => {
 })
 
 test('subsequent blockquotes', () => {
-  const blocks = parseBlocks(['> hey', '> boy', '', '> another'])
+  const { blocks } = parseBlocks(['> hey', '> boy', '', '> another'])
   expect(blocks.length).toBe(3)
   const html = renderBlocks(blocks)
   expect(html).toStartWith('<blockquote><p>hey boy</p></blockquote>')
@@ -52,14 +53,14 @@ test('subsequent blockquotes', () => {
 
 
 test('numbered items', () => {
-  const [ list ] = parseBlocks(['1. Yo', '10. Bruh', '* Bro'])
-  expect(list.numbered).toBeTrue()
-  expect(list.entries).toEqual([[ "Yo" ], [ "Bruh" ], [ "Bro" ]])
+  const { blocks } = parseBlocks(['1. Yo', '10. Bruh', '* Bro'])
+  expect(blocks[0].numbered).toBeTrue()
+  expect(blocks[0].entries).toEqual([[ "Yo" ], [ "Bruh" ], [ "Bro" ]])
 })
 
 
 test('multiple thematic breaks', () => {
-  const blocks = parseBlocks(['A', '---', 'B', '---', 'C' ])
+  const { blocks } = parseBlocks(['A', '---', 'B', '---', 'C' ])
   expect(blocks.length).toBe(5)
 })
 
@@ -106,17 +107,17 @@ test('heading attr', () => {
 
   expect(renderHeading(h)).toBe('<h1 class="bar" id="foo">Hey</h1>')
 
-  const html = renderHeading(h, { data: { heading_ids: true } })
+  const html = renderHeading(h, { heading_ids: true })
   expect(html).toInclude('<a href="#foo" title="Hey"></a>')
 })
 
 test('generated heading id', () => {
-  const html = nuemark('# Hello', { data: { heading_ids: true } })
+  const html = nuemark('# Hello', { heading_ids: true })
   expect(html).toBe('<h1 id="hello"><a href="#hello" title="Hello"></a>Hello</h1>')
 })
 
 test('heading block count', () => {
-  const blocks = parseBlocks(['# Yo', 'rap', '## Bruh', 'bat', '## Bro'])
+  const { blocks } = parseBlocks(['# Yo', 'rap', '## Bruh', 'bat', '## Bro'])
   expect(blocks.length).toBe(5)
 })
 
@@ -139,12 +140,12 @@ test('fenced code with caption', () => {
 
 
 test('multi-line list entries', () => {
-  const [ list ] = parseBlocks(['* foo', '  boy', '* bar'])
+  const list = parseBlocks(['* foo', '  boy', '* bar']).blocks[0]
   expect(list.entries).toEqual([ [ "foo", "boy" ], [ "bar" ] ])
 })
 
 test('nested list', () => {
-  const [ { items } ] = parseBlocks(['* > foo', '  1. boy', '  2. bar'])
+  const { items } = parseBlocks(['* > foo', '  1. boy', '  2. bar']).blocks[0]
   const [ [ quote, nested ] ] = items
 
   expect(quote.is_quote).toBeTrue()
@@ -152,13 +153,13 @@ test('nested list', () => {
 })
 
 test('blockquote', () => {
-  const [ quote ] = parseBlocks(['> foo', '> boy'])
+  const [ quote ] = parseBlocks(['> foo', '> boy']).blocks
   expect(quote.is_quote).toBeTrue()
   expect(quote.content).toEqual([ "foo", "boy" ])
 })
 
 test('fenced code blocks', () => {
-  const [ code ] = parseBlocks(['``` css.foo numbered', 'func()', '```'])
+  const [ code ] = parseBlocks(['``` css.foo numbered', 'func()', '```']).blocks
 
   expect(code.name).toBe('css')
   expect(code.attr).toEqual({ class: 'foo' })
@@ -175,7 +176,7 @@ test('parse table', () => {
   ]
 
   // parse
-  const [ table ] = parseBlocks(lines)
+  const [ table ] = parseBlocks(lines).blocks
   expect(table.rows[1]).toEqual([ "January", "$250" ])
   expect(table.rows.length).toBe(3)
   expect(table.head).toBeTrue()
@@ -195,33 +196,14 @@ test('parse reflinks', () => {
   ])
 
   expect(reflinks).toEqual({
-    1: '//another.net "something"',
-    foo: '//website.com',
+    "1": {
+      href: "//another.net",
+      title: "something",
+    },
+    foo: {
+      href: "//website.com",
+    },
   })
-})
-
-
-test('render reflinks', () => {
-  const links = { external: 'https://bar.com/zappa "External link"' }
-  const html = renderLines([
-    '[Hey *dude*][local]',
-    'Inlined [Second][external]',
-    '[local]: /blog/yo.html "Local link"'
-  ], { data: { links }})
-
-  expect(html).toInclude('<a title="Local link" href="/blog/yo.html">Hey <em>dude</em></a>')
-  expect(html).toInclude('Inlined <a title="External link" href="https://bar.com/zappa">Second</a>')
-})
-
-test.skip('footnotes', () => {
-  const html = renderLines([
-    'This,[^1] [here][^a] goes.[^b]',
-    '[^1]: foo',
-    '[^a]: bar',
-    '[^b]: baz',
-  ])
-
-
 })
 
 test('footnotes with [define]', () => {
@@ -239,7 +221,7 @@ test('footnotes with [define]', () => {
 
 
 test('complex tag data', () => {
-  const [ comp ] = parseBlocks(['[hello#foo.bar world size="10"]', '  foo: bar'])
+  const comp = parseBlocks(['[hello#foo.bar world size="10"]', '  foo: bar']).blocks[0]
   expect(comp.attr).toEqual({ class: "bar", id: "foo", })
   expect(comp.data).toEqual({ world: true, size: 10, foo: "bar", })
 })

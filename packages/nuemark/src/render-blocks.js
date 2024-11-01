@@ -3,18 +3,16 @@ import { glow } from 'nue-glow'
 
 import { renderInline, renderTokens } from './render-inline.js'
 import { renderTable, renderTag, wrap } from './render-tag.js'
-import { parseLinkTitle } from './parse-inline.js'
 import { parseBlocks } from './parse-blocks.js'
-import { elem } from './document.js'
 
 
+// for testing only
 export function renderLines(lines, opts) {
-  return renderBlocks(parseBlocks(lines), opts)
+  const things = parseBlocks(lines)
+  return renderBlocks(things.blocks, { ...opts, ...things })
 }
 
 export function renderBlocks(blocks, opts={}) {
-  opts.reflinks = parseReflinks({ ...blocks.reflinks, ...opts?.data?.links })
-  opts.footnotes = blocks.footnotes
   return blocks.map(b => renderBlock(b, opts)).join('\n')
 }
 
@@ -40,16 +38,9 @@ function renderList({ items, numbered }, opts) {
   return elem(numbered ? 'ol' : 'ul', html.join('\n'))
 }
 
-function parseReflinks(links) {
-  for (const key in links) {
-    links[key] = parseLinkTitle(links[key])
-  }
-  return links
-}
-
 export function renderHeading(h, opts={}) {
   const attr = { ...h.attr }
-  const show_id = opts.data?.heading_ids
+  const show_id = opts.heading_ids
   if (show_id && !attr.id) attr.id = createHeadingId(h.text)
 
   // anchor
@@ -86,5 +77,31 @@ function renderCode({ name, code, attr, data }, opts) {
 
   return wrap(klass, html)
 }
+
+/**** utilities ****/
+const SELF_CLOSING = ['img', 'source', 'meta', 'link']
+
+export function elem(name, attr, body) {
+  if (typeof attr == 'string') { body = attr; attr = null }
+
+  const html = [`<${name}${renderAttrs(attr)}>`]
+
+  if (body) html.push(body)
+  if (!SELF_CLOSING.includes(name)) html.push(`</${name}>`)
+  return html.join('')
+}
+
+
+function renderAttrs(attr) {
+  const arr = []
+  for (const key in attr) {
+    const val = attr[key]
+    if (val) arr.push(val === true ? key :`${key}="${val}"`)
+  }
+  return arr[0] ? ' ' + arr.join(' ') : ''
+}
+
+
+
 
 

@@ -181,7 +181,7 @@ test('content collection', async () => {
   expect(coll[0]).toMatchObject({ title: "First", slug: "first-a.html", basedir: "blog" })
 })
 
-test('basig page generation', async () => {
+test('basic page generation', async () => {
   await write('index.md', '# Hello\nWorld')
   const kit = await getKit()
 

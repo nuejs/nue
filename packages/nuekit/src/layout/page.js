@@ -96,17 +96,16 @@ export function renderSlots(data, lib) {
 }
 
 
-// Markdown extensions
-function createTags(lib, data) {
+// custom components as Markdown extensions (tags)
+function convertToTags(components, data) {
   const tags = {}
 
-  // components as Markdown tags
-  lib.forEach(comp => {
+  components.forEach(comp => {
     const { name } = comp
     if (name && !SLOTS.includes(name)) {
       tags[name] = function(data) {
         const { attr, innerHTML } = this
-        return comp.render({ attr, ...data, innerHTML }, lib)
+        return comp.render({ attr, ...data, innerHTML }, components)
       }
     }
   })
@@ -120,12 +119,14 @@ export function renderPage({ doc, data, lib }) {
   const slots = renderSlots(data, comps)
 
   const tags = {
-    ...createTags(lib, data),
+    ...convertToTags(lib, data),
     'page-list': renderPageList,
     toc: doc.renderTOC
   }
 
-  const content = doc.render({ data, tags })
+  // nuemark opts: { data, sections, heading_ids, links, tags }
+  const { heading_ids, sections, links  } = data
+  const content = doc.render({ data, heading_ids, sections, links, tags })
 
   // <main>...</main>
   if (!slots.main && data.main !== false) {

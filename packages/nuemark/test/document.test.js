@@ -1,5 +1,5 @@
 
-import { parseDocument, stripMeta, sectionize } from '../src/document.js'
+import { parseDocument, stripMeta, sectionize } from '../src/parse-document.js'
 import { parseBlocks } from '../src/parse-blocks.js'
 
 test('front matter', () => {
@@ -49,15 +49,15 @@ test('sectionize', () => {
     ['lol', '---', 'bol'],
   ]
 
-  for (const blocks of tests) {
-    const headings = parseBlocks(blocks)
-    expect(sectionize(headings).length).toBe(2)
+  for (const test of tests) {
+    const { blocks } = parseBlocks(test)
+    expect(sectionize(blocks).length).toBe(2)
   }
 })
 
 test('non section', () => {
-  const paragraphs = parseBlocks(['hello', 'world'])
-  expect(sectionize(paragraphs)).toBeUndefined()
+  const { blocks } = parseBlocks(['hello', 'world'])
+  expect(sectionize(blocks)).toBeUndefined()
 })
 
 test('single section', () => {
@@ -66,17 +66,49 @@ test('single section', () => {
 })
 
 test('multiple sections', () => {
-  const doc = parseDocument([
+  const lines = [
     '# Hello', 'World',
     '## Foo', 'Bar',
     '---', 'Bruh', '***',
-  ])
+  ]
 
+  const doc = parseDocument(lines)
   expect(doc.sections.length).toBe(2)
-  const html = doc.render({ data: { sections: ['hero'] }})
+
+  const html = doc.render({ sections: ['hero'] })
   expect(html).toStartWith('<section class="hero"><h1>Hello</h1>')
   expect(html).toEndWith('<hr></section>')
 })
+
+
+test('render reflinks', () => {
+  const links = { external: 'https://bar.com/zappa "External link"' }
+
+  const doc = parseDocument([
+    '[Hey *dude*][local]',
+    'Inlined [Second][external]',
+    '[local]: /blog/yo.html "Local link"'
+  ])
+
+  const html = doc.render({ links })
+  expect(html).toInclude('<a title="Local link" href="/blog/yo.html">Hey <em>dude</em></a>')
+  expect(html).toInclude('Inlined <a title="External link" href="https://bar.com/zappa">Second</a>')
+})
+
+
+test('footnotes', () => {
+  const doc = parseDocument([
+    'This,[^1] [here][^a] goes.[^b]',
+    '[^1]: foo',
+    '[^a]: bar',
+    '[^b]: baz',
+  ])
+
+  const html = doc.render()
+  expect(html).toInclude('<a href="^1" rel="footnote">')
+  expect(html).toInclude('<ol role="doc-endnotes"><li><a name="^1"></a>foo</li>')
+})
+
 
 
 test('table of contents', () => {

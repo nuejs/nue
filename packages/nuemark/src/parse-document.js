@@ -1,67 +1,60 @@
 
 import { renderBlocks, createHeadingId } from './render-blocks.js'
 import { parseLinkTitle } from './parse-inline.js'
+import { renderInline } from './render-inline.js'
 import { parseBlocks } from './parse-blocks.js'
 import { load as parseYAML } from 'js-yaml'
+import { elem } from './render-blocks.js'
 
+
+// OPTS: { data, sections, heading_ids, links, tags }
 export function parseDocument(lines) {
-  const user_meta = stripMeta(lines)
-  const blocks = parseBlocks(lines)
-  const { reflinks } = blocks
+  const meta = stripMeta(lines)
+  const things = parseBlocks(lines)
+  const { blocks } = things
 
-  const meta = {
-
-    get title() {
-      const tag = blocks.find(el => el.is_tag)
-      return findTitle(blocks) || tag && findTitle(tag.blocks) || ''
-    },
-
-    get description() {
-      const block = blocks.find(el => el.is_content)
-      return block?.content[0]
-    },
-
-    ...user_meta
+  // title
+  if (!meta.title) {
+    const tag = blocks.find(el => el.is_tag)
+    meta.title = getTitle(blocks) || tag && getTitle(tag.blocks) || ''
   }
 
-  const api = {
+  // descrption
+  if (!meta.description) {
+    const block = blocks.find(el => el.is_content)
+    meta.description = block?.content[0]
+  }
 
-    get sections() {
-      return sectionize(blocks) || [ blocks ]
-    },
+  const sections = sectionize(blocks) || [ blocks ]
 
-    get codeblocks() {
-      return blocks.filter(el => el.is_code)
-    },
+  function renderSections(opts) {
+    const classList = Array.isArray(opts.sections) ? opts.sections : []
+    const html = []
 
-    addReflink(label, href) {
-      reflinks.push({ label, ...parseLinkTitle(href) })
-    },
+    sections.forEach((section, i) => {
+      html.push(elem('section', { class: classList[i] }, renderBlocks(section, opts)))
+    })
+    return html.join('\n\n')
+  }
 
-    renderSections(classes, opts) {
-      const html = []
-
-      api.sections.forEach((blocks, i) => {
-        html.push(elem('section', { class: classes[i] }, renderBlocks(blocks, opts)))
-      })
-      return html.join('\n\n')
+  return {
+    render(opts={}) {
+      Object.assign(things.reflinks, parseReflinks(opts.links))
+      opts = { ...opts, ...things }
+      const html = opts.sections ? renderSections(opts) : renderBlocks(blocks, opts)
+      return html + renderFootnotes(things.footnotes)
     },
 
     renderTOC(attr={}) {
-      const navs = api.sections.map(renderNav).join('\n').trim()
+      const navs = sections.map(renderNav).join('\n').trim()
       return elem('div', { 'aria-label': 'Table of contents', ...attr }, navs)
     },
 
-    render(opts={ data: meta }) {
-      let classes = opts.data.sections
-      if (classes && !Array.isArray(classes)) classes = []
-      return classes ? api.renderSections(classes, opts) : renderBlocks(blocks, opts)
-    },
+    codeblocks: blocks.filter(el => el.is_code),
+    sections,
+    meta,
   }
-
-  return { meta, reflinks, ...api }
 }
-
 
 export function sectionize(blocks=[]) {
   const arr = []
@@ -88,6 +81,13 @@ export function sectionize(blocks=[]) {
 }
 
 
+function renderFootnotes(arr) {
+  if (!arr.length) return ''
+  const html = arr.map(el => elem('li', elem('a', { name: el.key }) + renderInline(el.value) ))
+  return elem('ol', { role: 'doc-endnotes' }, html.join('\n'))
+}
+
+
 function renderNav(blocks) {
   const headings = blocks.filter(b => [2, 3].includes(b.level))
 
@@ -100,7 +100,7 @@ function renderNav(blocks) {
   return links[0] ? elem('nav', links.join('\n')) : ''
 }
 
-function findTitle(blocks) {
+function getTitle(blocks) {
   const h1 = blocks?.find(el => el.level == 1)
   return h1?.text || ''
 }
@@ -126,28 +126,13 @@ export function stripMeta(lines) {
   return parseYAML(front)
 }
 
-
-/**** utilities ****/
-const SELF_CLOSING = ['img', 'source', 'meta', 'link']
-
-export function elem(name, attr, body) {
-  if (typeof attr == 'string') { body = attr; attr = null }
-
-  const html = [`<${name}${renderAttrs(attr)}>`]
-
-  if (body) html.push(body)
-  if (!SELF_CLOSING.includes(name)) html.push(`</${name}>`)
-  return html.join('')
-}
-
-
-function renderAttrs(attr) {
-  const arr = []
-  for (const key in attr) {
-    const val = attr[key]
-    if (val) arr.push(val === true ? key :`${key}="${val}"`)
+function parseReflinks(links={}) {
+  for (const key in links) {
+    const href = links[key]
+    if (typeof href == 'string') links[key] = parseLinkTitle(href)
   }
-  return arr[0] ? ' ' + arr.join(' ') : ''
+  return links
 }
+
 
 

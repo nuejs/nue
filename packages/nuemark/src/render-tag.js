@@ -1,7 +1,8 @@
 
 import { renderBlocks, renderContent } from './render-blocks.js'
+import { sectionize,  } from './parse-document.js'
 import { renderInline } from './render-inline.js'
-import { sectionize, elem } from './document.js'
+import { elem } from './render-blocks.js'
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
@@ -98,7 +99,7 @@ const TAGS = {
     let table = { rows: data.rows || data.items }
     if (!table.rows && body) table = parseTable(body)
 
-    const html = renderTable({ attr, ...data, ...table }, this.opts)
+    const html = renderTable({ attr, ...data, ...table }, opts)
     return wrap(data.wrapper, html)
   },
 
@@ -119,7 +120,7 @@ const TAGS = {
 }
 
 export function renderTag(tag, opts={}) {
-  const tags = opts.tags = { ...TAGS, ...opts?.tags }
+  const tags = { ...TAGS, ...opts.tags }
   const fn = tags[tag.name || 'block']
 
   if (!fn) return renderIsland(tag, opts.data)
@@ -229,7 +230,7 @@ function getInnerHTML(blocks = [], opts) {
 
 
 // table helpers
-export function renderTable(table, md_opts) {
+export function renderTable(table, opts) {
   const { rows, attr, head=true } = table
   if (!rows) return ''
 
@@ -246,14 +247,14 @@ export function renderTable(table, md_opts) {
 
     const cells = row.map(td => {
       const attr = colspan > 1 ? { colspan } : null
-      return elem(is_head || is_foot ? 'th' : 'td', attr, renderInline(td, md_opts))
+      return elem(is_head || is_foot ? 'th' : 'td', attr, renderInline(td, opts))
     })
 
     const tr = elem('tr', cells.join(''))
     return is_head ? elem('thead', tr) : is_foot ? elem('tfoot', tr) : tr
   })
 
-  const caption = table.caption ? elem('caption', renderInline(table.caption, md_opts)) : ''
+  const caption = table.caption ? elem('caption', renderInline(table.caption, opts)) : ''
 
   return elem('table', attr, caption + html.join('\n'))
 }

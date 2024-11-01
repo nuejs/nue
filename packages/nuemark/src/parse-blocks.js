@@ -1,14 +1,19 @@
 
 import { load as parseYAML } from 'js-yaml'
-import { parseInline } from './parse-inline.js'
+
+import { parseInline, parseLinkTitle } from './parse-inline.js'
 import { parseTag } from './parse-tag.js'
 
 export function parseBlocks(lines, capture) {
   const blocks = []
   let spaces, block
 
-  // capture stuff while recursing things
-  if (!capture) capture = { reflinks: {}, footnotes: [] }
+  // capture things while recursing blocks
+  capture = capture || {
+    footnotes: [],
+    reflinks: {},
+    noterefs: []
+  }
 
   lines.forEach(line => {
     const c = line[0]
@@ -92,9 +97,18 @@ export function parseBlocks(lines, capture) {
       }
     }
 
-    // reflink (can be nested on any level)
-    const ref = parseReflink(trimmed)
-    if (ref) return capture.reflinks[ref.key] = ref.link
+    // reflink or footnote (can be nested on any level)
+    const ref = parseRef(trimmed)
+    if (ref) {
+      const { key, value } = ref
+      if (key[0] == '^') {
+        capture.footnotes.push(ref)
+        capture.noterefs.push(key)
+      } else {
+        capture.reflinks[key] = parseLinkTitle(value)
+      }
+      return
+    }
 
 
     // tag
@@ -142,26 +156,25 @@ export function parseBlocks(lines, capture) {
 
   })
 
-
   /* tokenize lists and quotes. parse component data */
   blocks.forEach(block => processNestedBlocks(block, capture))
-  blocks.footnotes = capture.footnotes
-  blocks.reflinks = capture.reflinks
 
-  return blocks
+  return { blocks, ...capture }
 }
-
-
 
 // recursive processing of nested blocks
 function processNestedBlocks(block, capture) {
   const { name } = block
 
   if (block.is_list) {
-    block.items = block.entries.map(blocks => parseBlocks(blocks, capture))
+    block.items = block.entries.map(lines => {
+      const { blocks } = parseBlocks(lines, capture)
+      return blocks
+    })
 
   } else if (block.is_quote) {
-    block.blocks = parseBlocks(block.content, capture)
+    const { blocks } = parseBlocks(block.content, capture)
+    block.blocks = blocks
 
 
   } else if (block.is_tag) {
@@ -179,11 +192,12 @@ function processNestedBlocks(block, capture) {
     }
 
     if (name != 'table') {
-      if (!block.has_data) block.blocks = parseBlocks(block.body, capture)
+      const { blocks } = parseBlocks(block.body, capture)
+      if (!block.has_data) block.blocks = blocks
       delete block.body
 
       if (name == 'define') {
-        capture.footnotes.push(...getFootnoteIds(block.blocks))
+        capture.noterefs.push(...getFootnoteIds(blocks))
       }
     }
   }
@@ -207,13 +221,12 @@ function getFootnoteIds(blocks) {
     .map(el => `^${el.attr.id}`)
 }
 
-function parseReflink(str) {
+function parseRef(str) {
   if (str[0] == '[') {
     const i = str.indexOf(']:')
     if (i > 1) {
       const key = str.slice(1, i)
-      const is_footnote = key[0] == '^'
-      return { key, is_footnote, link: str.slice(i + 2).trim() }
+      return { key, value: str.slice(i + 2).trim() }
     }
   }
 }

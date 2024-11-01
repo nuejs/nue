@@ -1,7 +1,7 @@
 
 import { parseInline, ESCAPED } from './parse-inline.js'
 import { renderTag } from './render-tag.js'
-import { elem } from './document.js'
+import { elem } from './render-blocks.js'
 
 export function renderToken(token, opts={}) {
   const { data={} } = opts
@@ -31,15 +31,16 @@ function renderImage(img) {
 }
 
 function renderLink(link, opts) {
-  const { href, title, is_footnote } = link
-  const { reflinks={}, footnotes=[] } = opts
+  const { href, title } = link
+  const { reflinks={}, noterefs=[] } = opts
   const url = reflinks[href] || { href }
+  const is_footnote = href[0] == '^'
 
   let label = renderInline(link.label, opts)
 
-  // footnotes
+  // noterefs
   if (is_footnote) {
-    const index = footnotes.findIndex(el => el == href)
+    const index = noterefs.findIndex(el => el == href)
     if (index >= 0) label += elem('sup', { role: 'doc-noteref' }, index + 1)
   }
 
