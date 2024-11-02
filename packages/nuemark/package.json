@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "js-yaml": "^4.1.0",
-    "nue-glow": "*"
+    "nue-glow": "workspace:*"
   },
   "jest": {
     "setupFilesAfterEnv": [

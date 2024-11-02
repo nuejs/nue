@@ -58,6 +58,7 @@ nue
 nue build --production
 
 # if using node
+node setup-npm.js #  prepare local dev env
 npm install
 cd packages/nuekit
 npm link
