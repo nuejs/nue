@@ -33,5 +33,11 @@ jobs:
         if: success() || failure()
         uses: lycheeverse/lychee-action@v2
         with:
-          args: -v --no-progress --exclude-path node_modules --exclude localhost -- **/README.md packages/nuejs.org/.dist/prod/
+          args: >
+            --no-progress
+            --exclude-path node_modules
+            --exclude localhost
+            --
+            **/README.md
+            packages/**/.dist/prod/
           token: ${{ secrets.GITHUB_TOKEN }}
