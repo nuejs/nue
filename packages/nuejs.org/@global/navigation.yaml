@@ -56,10 +56,10 @@ globalnav:
 
   # footer
   footer:
-    - Why Nue: /docs/
+    - Why Nue?: /docs/
     - How it works: /docs/how-it-works.html
-    - Docs: /docs/
+    - Documentation: /docs/
+    - Installation: /docs/installation.html "button"
     - Blog: /blog/
-    - Get started: /docs/installation.html "button"
 
 

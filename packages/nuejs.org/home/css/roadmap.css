@@ -1,0 +1,125 @@
+
+.roadmap {
+  --gap: 1rem;
+  background-color: var(--gray-100);
+  max-width: 80rem;
+  flex-wrap: wrap;
+  padding: var(--gap);
+  border-radius: 6px;
+  gap: var(--gap);
+  display: flex;
+
+  .panel {
+    font-size: .9em;
+    background-color: white;
+    flex: 1 1 22rem;
+    border-radius: 6px;
+    > * {
+      padding: var(--gap) calc(var(--gap) * 1.5);
+    }
+  }
+
+  header {
+    border-bottom: var(--border);
+    img { width: 1.3em }
+    gap: .4em;
+  }
+
+  ul {
+    flex-direction: column;
+    list-style: none;
+    display: flex;
+    padding: 0;
+    gap: .9rem;
+    margin: 0 0 var(--gap);
+  }
+
+  h3 {
+    font-weight: 550;
+    margin: 0;
+  }
+
+  li {
+    padding: .25rem .5rem .5rem;
+    margin: 0 -.5rem;
+  }
+
+  a {
+    color: var(--gray-800);
+    &:after {
+      display: inline-block;
+      color: var(--gray-500);
+      content: "›";
+      margin-left: .2em;
+    }
+  }
+
+  .clickable {
+    cursor: pointer;
+    border-radius: 4px;
+
+    &:hover  {
+      background-color: var(--gray-50);
+       a:after { color: black; transform: scale(1.1) }
+    }
+
+    &:active { transform: scale(.99) }
+  }
+
+  b {
+    background-color: var(--gray-200);
+    text-transform: uppercase;
+    color: var(--gray-600);
+    text-shadow: 0 0 2  px white;
+    border-radius: 3px;
+    padding: .3em .6em;
+    font-weight: 600;
+    font-size: .7em;
+
+    &.priority {
+      background-color: var(--main-500);
+      color: white;
+    }
+  }
+
+  > :nth-child(2) h3:before {
+    content: "";
+    border: 2px solid var(--gray-700);
+    animation: pulse 2s infinite;
+    display: inline-block;
+    width: .85rem;
+    height: .85rem;
+    border-radius: 9em;
+    margin-right: .4em;
+    position: relative;
+    top: .1em;
+  }
+
+
+  h4 {
+    margin-block: .3em;
+    font-weight: 550;
+  }
+
+  p {
+    color: var(--gray-500);
+    margin-block: .3em 0;
+    text-wrap: balance;
+    line-height: 1.5;
+  }
+
+  @media (scripting: enabled) {
+    button { display: none };
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: .3;
+  }
+  50% {
+    border-color: var(--main-600);
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}

@@ -1,4 +1,6 @@
 
+import { $, loadPage } from '/@nue/view-transitions.js'
+
 addEventListener('click', event => {
   const { target } = event
 
@@ -6,13 +8,18 @@ addEventListener('click', event => {
   const dialog = target.closest('[popover]')
   if (dialog && target.matches('a')) dialog.hidePopover()
 
-  // make cards clickable
-  const card = target.closest('.card')
-  if (card) {
-    const button = card.querySelector('button')
+  // .clickables
+  const wrap = target.closest('.clickable')
+  if (wrap) {
+    const button = $('button', wrap)
     if (button) {
       const popover = window[button.getAttribute('popovertarget')]
       popover?.showPopover()
+    }
+
+    const a =$('a', wrap)
+    if (a) {
+      loadPage(a.getAttribute('href'))
     }
   }
 })
