@@ -7,17 +7,10 @@
 ## Progressive enhancement
 Nue is a Static Site Generator (SSG) built from scratch with a focus on progressive enhancement. In this model, content, layout, and styling are strictly separated, allowing gradual enhancement with **loosely coupled**[^lc] assets. Minimizing JavaScript ensures projects remain fast, lightweight, and adaptable, while still supporting interactivity where needed. This approach fundamentally changes how websites are developed:
 
-> IMAGE: 1. Content > 2. Layout > 3. Design > 4. Motion > 5. Optimization
-  1. MD: Content hierarchy, Data, Tables, Lists, Code blocks,
-  2. HTML: Headers, Footers, Sidebars, Interactive islands
-  3. CSS: Colors, Grid, Typography, Cards, Buttons, Forms, ...
-  4. CSS & JS: View transitions, @starting-style, Scroll listeners,
-
-  Arrows / Pointers in the image
-  - Server-side rendering (SSR)
-  - Client-side rendering (CSR)
-  - Progressive enhancement (content -> UX)
-  - Design system (styling -> motion)
+[image]
+  small: /img/progressive-enhancement.png
+  large: /img/progressive-enhancement-big.png
+  width: 700 x 139
 
 
 ## Content first
@@ -91,7 +84,7 @@ With Nue, you shift from traditional **JavaScript engineering** to **Design Engi
 
 1. **Better design and UX**: Instead of constantly solving engineering problems, you’ll direct your energy toward **design, usability, accessibility**, and **SEO**. It’s not about wrestling with JavaScript abstractions, but about creating user-centered, aesthetically pleasing, and accessible sites.
 
-3. **Easier updates**: Global design changes become simple central updates to CSS, not massive overhauls of JavaScript code. By isolating content, layout, and design, you can iterate quickly and scale your project without fear of breaking things.
+3. **Cleander codebases**: Global design changes become simple central updates to CSS, not massive overhauls of JavaScript code. By isolating content, layout, and design, you can iterate quickly and scale your project without fear of breaking things.
 
 4. **Better use of talent**: Designers focus on design, content professionals handle content, and **design engineers** ensure a seamless UX. This clear separation of roles leads to more professional workflows and easier recruitment, as teams can focus on their strengths.
 

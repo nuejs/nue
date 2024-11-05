@@ -16,7 +16,7 @@ title_template: "Nue - %s"
 favicon: /icon/favicon.png
 
 # preload header hover image
-prefetch: [/icon/present-light.svg]
+# prefetch: [/icon/present-light.svg]
 
 # Markdown link references
 links:

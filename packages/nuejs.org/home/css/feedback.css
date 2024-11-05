@@ -1,11 +1,11 @@
 
 .heroquote {
   max-width: 800px;;
-  margin-top: 2em;
+  margin: 2em auto;
   font-size: 1.3em;
   display: flex;
-  margin-bottom: 5em;
   gap: 2em;
+
   p { margin-top: -.3em }
 
   img {

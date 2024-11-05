@@ -119,7 +119,7 @@ export function renderPage({ document, data, lib }) {
   const slots = renderSlots(data, comps)
 
   const tags = {
-    ...convertToTags(lib, data),
+    ...convertToTags(comps, data),
     'page-list': renderPageList,
     toc: document.renderTOC
   }

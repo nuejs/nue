@@ -12,6 +12,10 @@ button, [role="button"], .button {
   color: white;
   border: 0;
 
+  + & {
+    margin-left: .4em;
+  }
+
   &:hover {
     background-color: var(--main-600);
     text-decoration: none;

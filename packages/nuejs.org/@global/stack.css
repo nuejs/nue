@@ -22,7 +22,7 @@
 
 /* generic card */
 .card, .of-cards > * {
-  box-shadow: 0 0 .8em #0001;
+
   background-color: white;
   border-radius: .5em;
   border: var(--border);

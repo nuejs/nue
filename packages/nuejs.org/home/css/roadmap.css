@@ -1,25 +1,32 @@
 
 .roadmap {
   --gap: 1rem;
-  background-color: var(--gray-100);
-  max-width: 80rem;
   flex-wrap: wrap;
-  padding: var(--gap);
   border-radius: 6px;
-  gap: var(--gap);
+  gap: calc(var(--gap) * 1.5);
+  margin-block: 2rem;
   display: flex;
 
   .panel {
     font-size: .9em;
     background-color: white;
-    flex: 1 1 22rem;
+    border: var(--border);
+    flex: 1 1 20rem;
     border-radius: 6px;
+    max-width: 28rem;
+
     > * {
       padding: var(--gap) calc(var(--gap) * 1.5);
     }
+
+    @media (width > 1100px) {
+      height: fit-content;
+    }
   }
 
+
   header {
+    background-color: var(--gray-50);
     border-bottom: var(--border);
     img { width: 1.3em }
     gap: .4em;
@@ -34,8 +41,19 @@
     margin: 0 0 var(--gap);
   }
 
+  @media (800 < width < 1100) {
+    .panel:last-child {
+      max-width: 100%;
+      ul {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+  }
+
   h3 {
     font-weight: 550;
+    font-size: 1rem;
     margin: 0;
   }
 

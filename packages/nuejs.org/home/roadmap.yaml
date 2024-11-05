@@ -6,7 +6,7 @@ roadmap:
       - package: nuekit
         title: Design engineering framework
         version: v1.0-RC1
-        desc: A static site generator (SSG) focusing on progressive enhancement
+        desc: With content-first development model
         href: /docs/how-it-works.html
 
       - package: nuemark
@@ -46,7 +46,7 @@ roadmap:
     icon: paper-plane
     items:
       - title: Single-page apps
-        desc: Fix the broken, monolithic model
+        desc: Redefining the monolithic model
         eta: Q2 2025
 
       - title: Cloud pusher

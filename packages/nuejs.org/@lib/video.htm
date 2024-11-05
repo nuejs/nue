@@ -43,9 +43,9 @@
       paused ? video.play() : video.pause()
 
       this.root.classList.toggle('playing', paused)
+      this.root.parentNode.classList.remove('splash')
 
       if (!this.started) {
-        this.root.classList.remove('splash')
         this.started = true
       }
     }
@@ -62,6 +62,8 @@
 
   function handleKeyboard(player) {
     function handle(e) {
+      if (e.metaKey || e.ctrlKey) return
+
       const is_fullscreen = document.fullscreenElement
       const { video } = player
       const { key } = e
@@ -73,6 +75,11 @@
         if (key == ' ') player.toggle.call(player)
         if (key == 'ArrowLeft') video.currentTime -= 5
         if (key == 'ArrowRight') video.currentTime += 5
+        if (key == 'Escape') {
+          video.closest('.video')?.classList.add('splash')
+          video.classList.remove('playing')
+          video.load()
+        }
       }
     }
     addEventListener('keydown', handle)

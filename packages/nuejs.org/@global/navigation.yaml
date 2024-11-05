@@ -43,7 +43,7 @@ globalnav:
 
   # header toolbar (complementary)
   toolbar:
-    - tipiirai: //x.com/tipiirai "social"
+    - Feed: //x.com/tipiirai "social"
     - 6.1k: //github.com/nuejs/nue "github pill"
 
   # burger menu
@@ -59,7 +59,7 @@ globalnav:
     - Why Nue?: /docs/
     - How it works: /docs/how-it-works.html
     - Documentation: /docs/
-    - Installation: /docs/installation.html "button"
+    - Installation: /docs/installation.html
     - Blog: /blog/
 
 
