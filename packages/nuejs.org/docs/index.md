@@ -1,96 +1,80 @@
----
-inline_css: true
----
-
-# Web framework for UX developers
-Nue is an extremely simple web development environment. It is a great fit for:
-
-1. **UX developers**: who natively jump between **Figma** and **CSS** without a confusing [designer-developer handoff](//medium.com/design-warp/5-most-common-designer-developer-handoff-mishaps-ba96012be8a7) process in the way.
-
-2. **Beginner web developers**: who want to skip the redundant layers in the [frontend stack](//roadmap.sh/frontend) and start building websites quickly with modern HTML, CSS and JavaScript.
-
-3. **Experienced JS developers**: frustrated with the absurd amount of layers in the [React stack](//roadmap.sh/react), who desire better ways to develop professional websites.
-
-4. **Designers**: planning to learn web development, but find the JavaScript ecosystem too scary
-
-5. **Parents & teachers**: who want to educate young people [how the web works](//www.websitearchitecture.co.uk/resources/examples/web-standards-model/)
 
 
-## Key features and benefits
+# Why Nue?
+Nue is a design engineering framework with unmatched performance, simplicity, and a user-focused development model. Here’s why it could be a great fit for your next project:
+
+## 1. Tooling
+Nue's server-side renderer (SSR) is purpose-built for maximum build speed and HMR performance. It detects changes across all assets—content, data, layouts, styles, and components—and instantly applies them in real-time with a highly efficient diff and patch system.
+
+! VIDEO: HMR splash + play button
+
+Nue’s hot module reloading (HMR) and build times are among the fastest available, consistently outperforming popular frameworks like Next.js:
 
 
-### Less but better code
-What used to take a UI designer, React engineer and an absurd amount of JavaScript code can now be done by a UX developer and just a handful of CSS:
+[table]
+  Framework   |  Next.js      |  Nue
+  NPM modules  |  300+         |  10+
+  Project weight |  300M+        |  10M+
+  Build speed / 10 pages |  10+ seconds  |  0.01+s
+  Build speed / 100 pages |  10+ seconds  |  0.01+s
+  Hot-reload times / complex app |  1 - 5s       |  0.05 - 0.3s
 
-[image]
-  small: /img/figma-to-css.png
-  large: /img/figma-to-css-big.png
-
-
-Nue allows you to take advantage of a [global design system](global-design-system.html) and [modern, minimalistic CSS](css-best-practices.html) to build websites with significantly less code than with a JavaScript-based framework like **Next.js**. Your codebase can be as small as a [single Tailwind button](/blog/introducing-nue-css/). This changes the way you think about web development. Chances are that Nue turns you into a professional UX developer, who thinks more like a designer and less like an engineer.
-
-
-### New levels of performance
-If there is one word to describe Nue, then it's *minimalism*. There's order of magnitude less of everything: NPM modules, API methods, configuration options and framework-specific idioms. This leads to significantly leaner websites with far less HTML, CSS and JavaScript in the final server response. Just take any professionally-designed website and compare it with Nue, and you'll see the difference. For example:
-
-[image.gridpaper]
-  small: /img/docs-sizes.png
-  large: /img/docs-sizes-big.png
-  caption: The total amount of HTML, CSS, and JavaScript loaded
-
-
-But that's not all. Nue takes your website performance to new heights by combining your assets into [one, ultra-compact request](performance-optimization.html) which renders in a snap:
-
-[image.gridpaper]
-  small: /img/first-paint.png
-  large: /img/first-paint-big.png
-
-You can reach the performance levels of a text-only website like [motherfuckingwebsite.com](//motherfuckingwebsite.com/) but with the design standards of **Stripe** or **Apple**. This is literally as fast as you can get. No matter how clever your **Turbopack** or **Vite** is, their output can never beat a single, compact request that has everything to render the page.
+[See the difference (play icon)]
 
 
 
-### Advanced motion and reactivity
-With Nue, things like view transitions and scroll-linked animations are easy to implement with nothing but CSS:
+## 2. Coding
+Nue is built on **progressive enhancement**, fundamentally transforming how websites are developed. What once required a React specialist and extensive TypeScript effort can now be achieved with a concise, standards-based codebase. Instead of navigating engineering complexities, you’ll be free to focus on **design, usability, accessibility**, and **SEO**:
 
-```css
-/* view transition: Scale down the "old" page */
-::view-transition-old(root) {
-  transform: scale(.8);
-  transition: .4s;
-}
-```
+! Montage IMAGE: Content, Layout, Design, Motion
+cta button: "See the difference" (with darken/hover state)
 
-Over the years CSS has evolved from static styling utility to an immensely powerful UX development language. Things like tooltips, dialogs, sliders and popups no longer require JavaScript and are best implemented with CSS.
-
-CSS offers better hardware acceleration than JavaScript and a simpler, more standards-based programming model. Even the more advanced stuff from libraries like **Framer Motion** can be [implemented with modern CSS](//motion.dev/blog/do-you-still-need-framer-motion).
-
-CSS becomes more powerful when coupled with a small amount of JavaScript. Depending on your need you can [choose the best technology](reactivity.html) for the job: Reactive island, isomorphic component, Web Component or vanilla JavaScript.
+[See the difference >]
 
 
 
-### Timeless skills and products
-Nue is the best framework to work with the [web standards](//www.w3.org/wiki/The_web_standards_model_-_HTML_CSS_and_JavaScript): HTML, CSS and JavaScript.
+## 3. Results
+Nue helps developers create stunning, fast, and user-friendly websites with features like turbolinking, CSS view transitions, interactive islands, and motion:
 
-[image.bordered]
-  small: /img/web-editor.png
-  large: /img/web-editor-big.png
+! VIDEO: Epic Nike website video splash + play button
 
-The code you write now is something that all developers can understand now and in the future. There is no fear of it becoming outdated, because it's based on standards that are part of the web.
+Surprisingly, these rich, interactive sites remain exceptionally lightweight, comparable to text-only websites:
 
-Learn [the power of modern CSS](css-best-practices.html) and stay relevant for the decades to come.
+[table]
+  Amount of HTML/CSS/JS in Next.js vs. Nue
 
-
-### Easy customer handoff
-No matter how rich and complex your page is, it can be assembled with an easy-to-write format suitable for non-technical people:
-
-[bunny-video]
-  videoId: 3bf8f658-185a-449c-93b9-9bd5e1ad0d05
-  poster: /img/nuemark-splash.jpg
-
-Nue takes the maintenance care off your shoulders. You can hand a finished website to your customers, and they can move forward without your constant help.
-
-Nue is a perfect system for freelancers and design agencies who want to offer the best-in-breed websites with an easy way to manage content.
+Button: See the difference >
 
 
-### Try it
-You might not believe all these big claims until you [give Nue a try](installation.html). Chances are, you will start wondering why you have ever built websites in any other way.
+
+## Who Is Nue Good For?
+Nue is a great fit for:
+
+1. **Beginner web developers**: Those looking to bypass [frontend redundancy](//roadmap.sh/frontend) and work directly with the Web Standard Model: HTML, CSS, and JavaScript.
+
+2. **Experienced JavaScript developers**: Those frustrated with the overwhelming amount of abstractions in the [React stack](//roadmap.sh/react) and seeking simpler ways to develop professional websites.
+
+3. **Design-focused teams**: Those prioritizing user experience and design systems, leveraging modern CSS to create efficient, lightweight websites that enhance usability without the bloat of JS monoliths.
+
+Overall, if you’re looking to build beautiful and innovative websites with faster tooling and a simpler development model, then Nue is the right choice for you.
+
+
+
+## Terminology
+Key terms mentioned in this article:
+
+[define]
+  #### Hot reloading
+  A feature that instantly applies changes across all asset types—content, data, layouts, styles, and components—for faster, smoother development.
+
+  #### Turbolinking
+  A technique that speeds up navigation by loading pages with AJAX, enabling faster transitions without full page reloads.
+
+  #### View transitions
+  A feature that provides smooth visual transitions between different states or pages, enhancing user experience with fluid navigation.
+
+  #### Interactive islands
+  A design pattern that allows specific sections of a page to be interactive while the rest remains static, enhancing performance and user experience.
+
+  #### JS monoliths
+  JavaScript bundles that pack numerous features into a single file, often leading to complexity, reduced clarity, and maintenance challenges.

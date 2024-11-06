@@ -14,28 +14,26 @@
 }
   
 .play {
-  background: #0009 url(/icon/play.svg) no-repeat;
-  border: 3px solid white;
+
+  background: rgba(0,0,0, .7) url(/icon/play.svg) 57% 50% no-repeat;
   transform: translate(-50%, -50%);
-  background-position: 62% 50%;
-  box-shadow: 0 0 2em #0005;
+  border: 3px solid white;
   background-size: 50%;
   border-radius: 99em;
   position: absolute;
   cursor: pointer;
-  height: 5em;
-  opacity: .8;
-  width: 5em;
+  height: 4.2em;
+  width: 4.2em;
   left: 50%;
   top: 45%;
 
   &:hover {
-    border-color: white;
-    opacity: 1;
+    background-color: #0009;
   }
 
   &:active {
-    border-color: black;
+    box-shadow: 0 0 1em black inset;
+    top: 45.2%;
   }
 
   .playing & {

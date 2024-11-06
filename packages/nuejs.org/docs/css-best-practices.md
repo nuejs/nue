@@ -1,4 +1,11 @@
 
+# DEPRECIATED:
+
+See [Styling](styling.html)
+
+===
+
+
 # Nue CSS best practices
 This document describes the best practices for writing clean CSS that is easy to maintain and scale. This is a result of decades of coding with CSS and HTML.
 
