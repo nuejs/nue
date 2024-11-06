@@ -31,16 +31,15 @@ function renderImage(img) {
 }
 
 function renderLink(link, opts) {
-  const { href, title } = link
+  const { is_footnote, href, title } = link
   const { reflinks={}, noterefs=[] } = opts
   const url = reflinks[href] || { href }
-  const is_footnote = href[0] == '^'
 
   let label = renderInline(link.label, opts)
 
   // noterefs
   if (is_footnote) {
-    const index = noterefs.findIndex(el => el == href)
+    const index = noterefs.findIndex(el => el == href.slice(1))
     if (index >= 0) label += elem('sup', { role: 'doc-noteref' }, index + 1)
   }
 

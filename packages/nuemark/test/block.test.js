@@ -208,12 +208,13 @@ test('parse reflinks', () => {
 
 test('footnotes with [define]', () => {
   const html = renderLines([
-    '[hey][^ki] [^ko]',
+    '[hey][^ki] [yo][^ko]',
     '[define]',
     '  ## King { #ki }',
     '  ## Kong { #ko }',
   ])
 
+  expect(html).toInclude('<a href="#^ki" rel="footnote">hey<sup role="doc-noteref">1</sup></a>')
   expect(html).toInclude('1</sup></a> <a')
   expect(html).toInclude('2</sup></a></p>')
   expect(html).toInclude('<dl><dt><a name="^ki">King')

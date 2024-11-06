@@ -78,12 +78,13 @@ const PARSERS = [
       // parse tag
       const tag = parseTag(str.slice(1, i).trim())
       const { name } = tag
+      const is_footnote = name[0] == '^'
       const end = i + 1
 
       // footnote?
-      if (name[0] == '^') {
+      if (is_footnote) {
         const rel = name.slice(1)
-        return rel >= 0 || isValidName(rel) ? { href: name, end } : { text: c }
+        return rel >= 0 || isValidName(rel) ? { is_footnote, href: '#' + name, end } : { text: c }
       }
 
       // normal tag
@@ -200,8 +201,13 @@ export function parseLink(str, is_reflink) {
   // href & title
   let { href, title } = parseLinkTitle(str.slice(i + 2, j))
 
+  // footnote reference
+  const is_footnote = href[0] == '^'
+  if (is_footnote) { is_reflink = null;  href = '#' + href }
+
   return {
     href, title, label,
+    is_footnote,
     is_reflink,
     end: j + 1
   }

@@ -182,20 +182,19 @@ test('parse complex Wikipedia-style link', () => {
 
 test('parse footnote link', () => {
   const link = parseLink('[Hello][^1]', true)
-  expect(link.href).toBe('^1')
+  expect(link.href).toBe('#^1')
 })
 
 test('parse footnote ref', () => {
   const [text, tag] = parseInline('Hello [^1]', true)
-  expect(tag.href).toBe('^1')
+  expect(tag.href).toBe('#^1')
 })
 
 test('render footnote link', () => {
   const noterefs = ['^1', '^go']
-  const rel = { href: '^go' }
+  const rel = { is_footnote: true, href: '#^go' }
   const html = renderToken(rel, { noterefs })
-
-  expect(html).toStartWith('<a href="^go" rel="footnote">')
+  expect(html).toStartWith('<a href="#^go" rel="footnote">')
   expect(html).toInclude('<sup role="doc-noteref">2</sup>')
 })
 

@@ -101,7 +101,7 @@ test('footnotes', () => {
   ])
 
   const html = doc.render()
-  expect(html).toInclude('<a href="^1" rel="footnote">')
+  expect(html).toInclude('<a href="#^1" rel="footnote">')
   expect(html).toInclude('<ol role="doc-endnotes"><li><a name="^1"></a>foo</li>')
 })
 
