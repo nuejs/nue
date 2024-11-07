@@ -1,6 +1,6 @@
 ---
 title: Introducing Glow
-hero_title: "*Introducing Glow:* Beautiful, pixel-perfect Markdown code blocks"
+hero_title: "*Introducing Glow:* Markdown code blocks for CSS developers"
 desc: Beautiful, pixel-perfect Markdown code blocks
 og: /img/glow-og.png
 date: 2024-02-13
@@ -10,17 +10,17 @@ include: [syntax-extras]
 Today we're launching *Glow* — a new take on syntax highlighting:
 
 [image.large]
-  small: /img/glow-og.png
+  caption: 30+ languages colored. Click for a standalone view.
   large: /img/glow-og-big.png
-  caption: 30+ languages colored. Click the image for a standalone view.
-  href: /glow-demo/ # TODO: fix
+  small: /img/glow-og.png
+  href: /glow-demo/
 
 
-*Glow is different*: Instead of attempting to understand language internals, Glow focuses solely on aesthetics and how your code looks.
+*Glow is different*: Rather than parsing language internals, Glow focuses purely on aesthetics and the visual style of your code.
 
-*Glow is simple*: Glow makes all languages work with your brand colors by adjusting just a handful of CSS variables.
+*Glow is simple*: With just a few CSS variables, Glow adapts all languages to match your brand colors effortlessly.
 
-*Glow is small*: Glow is orders of magnitude smaller than the mainstream alternatives. We're talking [5K](//pkg-size.dev/nue-glow) instead of [5M](//pkg-size.dev/shiki). It's by far the smallest implementation available.
+*Glow is small*: Glow is significantly smaller than mainstream alternatives—around [5KB](//pkg-size.dev/nue-glow) compared to [5MB](//pkg-size.dev/shiki). It’s the most compact implementation available.
 
 
 [image.tall]
