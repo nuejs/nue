@@ -3,7 +3,7 @@
   border-radius: 4px;
   display: inline-block;
   position: relative;
-  margin: 2em 0;
+  margin: .5em 0;
   
   video {
     border: var(--border);

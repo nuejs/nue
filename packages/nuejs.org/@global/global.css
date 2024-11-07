@@ -57,4 +57,23 @@ hr {
 }
 
 
+/* definition list  */
+dl {
+  display: grid;
+  grid-template-columns: .3fr 1fr;
+  font-size: .95rem;
+  gap: 1.5em;
+
+  dt {
+    font-weight: 500;
+    line-height: 1.3;
+    margin: .3em 0;
+  }
+
+  dd {
+    margin: 0;
+    p { margin-top: 0 }
+  }
+}
+
 
