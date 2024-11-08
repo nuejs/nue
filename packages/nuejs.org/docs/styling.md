@@ -37,7 +37,7 @@ Vanilla CSS offers clear performance advantages:
 
 
 ### Timeless skills and products
-The JS monolith and all the unstandard mechanisms inside of it are indeed popular at this point. But who knows what happens in five years. The awkward utility syntaxes, and the lost potential are strong signals of technology debt. It's better to stick with web standards. That's good for your skillset and career. And the product you build will stand the test of time.
+The JS monolith and its various unstandardized features are popular right now, but it's hard to predict what will happen in five years. The complicated utility syntaxes and missed opportunities indicate potential technology debt. It's wise to stick with web standards, as this benefits your skills and career. Plus, the products you create will be more durable over time.
 
 
 

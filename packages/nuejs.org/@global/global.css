@@ -60,7 +60,7 @@ hr {
 /* definition list  */
 dl {
   display: grid;
-  grid-template-columns: .3fr 1fr;
+  grid-template-columns: .4fr 1fr;
   font-size: .95rem;
   gap: 1.5em;
 

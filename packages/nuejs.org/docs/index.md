@@ -66,7 +66,7 @@ Nue is a great fit for:
 If you’re looking to build beautiful and innovative websites with faster tooling and a simpler development model, **Nue is the right choice for you**.
 
 
-## Terminology
+### Terminology
 Key terms mentioned in this article:
 
 [define]

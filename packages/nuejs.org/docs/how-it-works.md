@@ -8,14 +8,17 @@ Nue is a carefully crafted Static Site Generator (SSG) built from the ground up 
 [image]
   small: /img/progressive-enhancement.png
   large: /img/progressive-enhancement-big.png
-  width: 700 x 139
+  width: 700 x 187
 
 
 ## Content first
 With Nue, each page is built using an extended Markdown syntax designed for interactive websites. Whether it’s marketing, technical documentation, or blogging content, everything is directly editable:
 
-[image]
-  alt: direct editing of marketing, technical, and blogging content
+[image.bordered]
+  caption: Nue's extended Markdown syntax handles all varieties of content
+  small: /img/content-files.png
+  large: /img/content-files-big.png
+  size: 745 × 383
 
 This **content-first approach** offers several advantages:
 
@@ -26,48 +29,61 @@ This **content-first approach** offers several advantages:
 3. **AI-Friendly**: Markdown format enhances collaboration with AI tools, allowing easy copy/paste for grammar, strategy, and storytelling support.
 
 
-## Clean, crawler-friendly markup
+## Clean markup
 Nue generates clean, semantic HTML optimized for accessibility and SEO. Its Markdown parser and components are designed to produce code that is easy to understand for search engines, AI crawlers, and users with disabilities, ensuring your content is both machine-friendly and user-accessible.
 
-[image]
-  caption: Md extensions -> Layout Modules -> Semantic HTML
+[image.bordered]
+  caption: "The markup of this documentation area"
+  large: /img/clean-markup-big.png
+  small: /img/clean-markup.png
+  size: 648 × 512
 
 
 
 ## Interactive islands
-**Islands architecture** promotes small, focused units of interactivity within server-rendered web pages, further distancing you from tightly coupled architectures. Nue allows you to choose the best-fit technology for each interactive element: an interactive island, an isomorphic island, or a Web Component.
+**Islands architecture** promotes small, focused units of interactivity within server-rendered web pages, further distancing you from tightly coupled architectures. Nue allows you to choose the best-fit technology for each interactive element: an interactive island, an isomorphic island, or a vanilla web component.
 
 
-! 3 IMAGES: Web Components | Reactive islands | Isomorphic islands (show server only)
-  1. Web Components for simple interactions with little, or no dynamic markup
-  2. Dynamic HTML components for rich interactivity
-  3. Isomorphic components for combined SEO and client-side reactivity
+[image.bordered]
+  caption: Reactive contact form and an isomorphic video component.
+  large: /img/island-files-big.png
+  small: /img/island-files.png
+  size: 745 × 380
 
 
 
 ## Styling
 Nue separates styling from your JavaScript files, allowing you to leverage the full power of modern CSS and its global nature. This lets you build a centralized system that maintains consistent styling across your site without namespace conflicts.
 
-[images]
-  1. Variables (desing tokens)
-  2. Global layout (nesting)
-  3. Elements (modularity)
+[image.bordered]
+  caption: Decoupled CSS forms a centralized design system
+  large: /img/styling-files-big.png
+  small: /img/styling-files.png
+  size: 745 × 403
 
-CSS is a web standard that allows you to build timeless products and develop skills that will remain relevant in the ever-evolving landscape of web development.
+[.note]
+  ### Note
+  In addition to its clean, designer-friendly syntax, a major benefit of vanilla CSS is that, as a web standard, it helps you create timeless products and build skills that remain relevant in the ever-changing world of web development.
 
 
 
 ## Motion
-Motion and animation are optional, yet important, aspects of progressive enhancement. When used subtly, motion can enhance the user experience and strengthen your brand. Decoupled CSS simplifies adding a global motion layer to your site.
+Motion is the final optional step in progressive enhancement. Subtle microinteractions, like enter animations, view transitions, and scroll-triggered transitions, can improve user experience and strengthen your brand identity. Nue’s built-in support for view transitions, combined with the strengths of modern CSS, gives you new creative options to work with:
+
+```css
+/* setup hero image to morph between page switches */
+.hero-image {
+  view-transition-name: active-image;
+}
+
+/* adjust morph duration */
+::view-transition-group(active-image) {
+  animation-duration: .4s;
+}
+```
 
 
-! CSS: view transitions / @starting styles | IntersectionObserver
-  1. Nue has built-in support for CSS customizable view transitions
-  2. Modern CSS is a different beast than what it was just a few years ago
-  3. JavaScript's event system offers endless ways to trigger animations
-
-
-## Performance Optimization
+## Performance optimization
 
 Progressive enhancement opens new opportunities for performance improvement:
 
@@ -77,16 +93,18 @@ Progressive enhancement opens new opportunities for performance improvement:
 
 - **Page Weight**: Achieve significantly smaller footprints with a carefully crafted design system. For example, the CSS for this entire page is smaller than Tailwind's basic "preflight" CSS.
 
-[Learn more about performance optimization](optimization.html).
-
 
 
 ## Design engineering
 With Nue, you shift from **JavaScript engineering** to **Design Engineering**, fundamentally changing the way you build websites:
 
-[image]
+[image.bordered]
   caption: Compare JavaScript engineering to Design Engineering
   popovertarget: compare-dialog
+  large: /img/js-vs-design-big.png
+  small: /img/js-vs-design.png
+  size: 745 × 403
+
 
 1. **Better design and UX**: Instead of tackling engineering-specific problems, you’ll focus your efforts on **design, usability, accessibility**, and **SEO**.
 
@@ -94,33 +112,37 @@ With Nue, you shift from **JavaScript engineering** to **Design Engineering**, f
 
 3. **Better use of talent**: Designers can focus on design, content specialists on content, and **design engineers** on UX. This makes happier, more effective teams where everyone focuses on their strengths.
 
-4. **Grow new skills**: With Nue, you’ll develop expertise in both **design** and **engineering**. You’ll master **design systems**, modern **CSS**, and standards-based **JavaScript**—bringing back the joy and creativity of web development.
+4. **Grow new skills**: Learn **design systems**, **modern CSS**, **motion design**, and standards-based **JavaScript** to make web development fun and creative (again).
 
+5. **Stay competitive** It's wise to stick with web standards, as this benefits your skills and career. Plus, the products you create will be more durable over time.
 
+- - -
 
-## Terminology
+### Terminology
+Key terms mentioned in this article:
 
 [define]
-  ### Separation of Concerns { #se }
+  ### Separation of Concerns
   The principle of keeping content and presentation/enhancement layers distinct to facilitate easier maintenance and scalability.
   [Wikipedia](//en.wikipedia.org/wiki/Separation_of_content_and_presentation)
 
-  ### Progressive Enhancement { #pe }
+  ### Progressive Enhancement
   A web design strategy that prioritizes core content and functionality, gradually enhancing them with advanced features for capable browsers.
   [Wikipedia](//en.wikipedia.org/wiki/Progressive_enhancement)
 
-  ### Monolithic Architecture { #ma }
-  A monolithic application is a single, tightly coupled codebase that manages all aspects of a system, contrasting with the separation of concerns approach.
+  ### JavaScript monolith
+  JavaScript bundles that pack numerous features into a single file, often leading to complexity, reduced clarity, and maintenance challenges.
   [Wikipedia](//en.wikipedia.org/wiki/Monolithic_application)
 
-  ### Loose coupling { #lc }
+  ### Loose coupling
   Loose coupling minimizes dependencies between components, allowing changes in one component with minimal impact on others. It's the opposite of tight coupling.
   [Wikipedia](//en.wikipedia.org/wiki/Coupling_(computer_programming))
 
-  ### Islands Architecture { #islands }
+  ### Islands Architecture
   A modular design approach that introduces isolated interactive components into an otherwise static web page.
   [Patterns.dev](//www.patterns.dev/vanilla/islands-architecture/)
 
-  ### Isomorphic Components { #isomorphic }
+  ### Isomorphic Components
   Components that can be rendered both on the server and the client, combining the best of server-side performance and client-side interactivity.
   [Wikipedia](//en.wikipedia.org/wiki/Isomorphic_JavaScript)
+

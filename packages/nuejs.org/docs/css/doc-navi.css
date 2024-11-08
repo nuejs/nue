@@ -115,12 +115,12 @@ aside:first-child h3 {
 
   /* websites */
   nav:nth-child(2) & {
-    background-image: url(/icon/wrench.svg)  /* squares, rectangles, wrench, globe, user, heart, bolt */
+    background-image: url(/icon/globe.svg)  /* squares, rectangles, wrench, globe, user, heart, bolt */
   }
 
-  /* extensions */
+  /* reference */
   nav:nth-child(3) & {
-    background-image: url(/icon/cube.svg) /*  puzzle-piece, cube, , document, */
+    background-image: url(/icon/document.svg) /*  puzzle-piece, cube, , document, */
   }
 
 }

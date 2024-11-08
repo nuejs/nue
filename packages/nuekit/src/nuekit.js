@@ -109,6 +109,8 @@ export async function createKit(args) {
 
     // scripts & styling
     const asset_dir = meta.appdir || dir
+    data.use_syntax = data.syntax_highlight !== false && document.codeblocks[0]
+
     data.assets = {}
     await setupScripts(asset_dir, data)
     await setupStyles(asset_dir, data)

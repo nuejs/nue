@@ -236,7 +236,7 @@ figure {
   margin: 2em 0 3em;
 
   img {
-    border-radius: 10px;
+    border-radius: 6px;
   }
 
   &:has(img[width]) {
