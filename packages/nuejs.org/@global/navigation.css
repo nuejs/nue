@@ -69,7 +69,6 @@ body > header {
 
   /* burger menu opener */
   [popovertarget] {
-    background-size: 1.8em;
     margin-left: auto;
     display: none;
   }
@@ -77,23 +76,6 @@ body > header {
   @media (max-width: 800px) {
     > * { display: none }
     > :first-child, > [popovertarget] { display: inline-block }
-  }
-}
-
-/* burger menu opener */
-button[popovertarget] {
-  background: url(/icon/dots.svg) center center no-repeat;
-  background-color: var(--gray-50);
-  border-radius: .2em;
-  padding-inline: .8em;
-  height: 2rem;
-  width: 2rem;
-  padding: 0;
-  border: 0;
-
-  &:hover {
-    color: var(--gray-900);
-    background-color: var(--gray-100);
   }
 }
 
@@ -122,8 +104,6 @@ button[popovertarget] {
     display: none;
   }
 }
-
-
 
 /* global footer */
 body > footer {

@@ -96,10 +96,10 @@ libs: ["@lib", lib]
 Once libraries are defined, you can include assets in your pages as follows:
 
 ```yaml
-include: [ button, gallery ]
+include: [ video, gallery ]
 ```
 
-This statement will include all assets (such as CSS, JavaScript, data, and components) matching the substring "button" or "gallery" in their file names.
+This statement will include all assets (such as CSS, JavaScript, data, and components) matching the substring "video" or "gallery" in their file names.
 
 You can also include assets at the application level by specifying them in the application's configuration file (e.g., `blog/blog.yaml`). This will auto-include the assets across all pages within that application, ensuring consistency and ease of management.
 

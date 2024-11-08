@@ -4,21 +4,21 @@
   <header class="flex">
     <h2>{ step.title }</h2>
     <nav class="flex">
-      <a @click="prev"><img src="/icon/chevron-left.svg"></a>
-      <a @click="next"><img src="/icon/chevron-right.svg"></a>
-      <a @click="root.hidePopover()"><img src="/icon/close.svg"></a>
+      <button class="action" @click="prev"><img src="/icon/chevron-left.svg"></button>
+      <button class="action" @click="next"><img src="/icon/chevron-right.svg"></button>
+      <button class="action" popovertarget="compare"><img src="/icon/close.svg"></button>
     </nav>
   </header>
 
   <div class="stack { seeking: seeking }">
     <div>
       <h3 class="flex">
-        <b>Next.js:</b>
-        <span>A JavaScript monolith</span>
-        <a href="/" target="_new" class="github pill">GitHub</a>
+        <b>Tailwind/Next.js:</b>
+        <span>JS monolith</span>
+        <a target="_new" :href="step.tw_url" class="github">{ step.src[0] }</a>
       </h3>
       <figure>
-        <img src="/tour/img/content-react.png">
+        <a target="_new" :href="step.tw_url"><img src="/img/{ step.img[0] }.png"></a>
       </figure>
     </div>
 
@@ -26,10 +26,10 @@
       <h3 class="flex">
         <b class="blue">Nue:</b>
         <span>{ step.desc }</span>
-        <a href="/" target="_new" class="github pill">GitHub</a>
+        <a target="_new"  :href="step.nue_url" class="github">{ step.src[1] }</a>
       </h3>
       <figure>
-        <img src="/tour/img/content-nue.png">
+        <a target="_new" :href="step.nue_url"><img src="/img/{ step.img[1] }.png"></a>
       </figure>
     </div>
   </div>
@@ -38,7 +38,14 @@
     index = 0
 
     constructor({ compare }) {
-      this.steps = compare.steps
+      const [ tw_base, nue_base ] = compare.baseurls
+
+      this.steps = compare.steps.map(step => {
+        step.tw_url = tw_base + '/' + step.src[0]
+        step.nue_url = `${nue_base}/${step.src[1]}?plain=1`
+        return step
+      })
+
       this.seek(0)
     }
 

@@ -22,7 +22,7 @@ Nue eliminates deep JavaScript dependency trees, resulting in **record-breaking 
   Build speed / 100 pages           |  30+ seconds   |  0.1+ seconds
   Hot-reload times / complex app    |  1 - 5s        |  0.05 - 0.3s
 
-[button.play popovertarget="perf-video" "See the difference"]
+[button.play-button popovertarget="perf-video" "See the difference"]
 
 [#perf-video popover]
   sdalfkjdsal
@@ -30,8 +30,11 @@ Nue eliminates deep JavaScript dependency trees, resulting in **record-breaking 
 ## 2. Coding
 Nue is built on **progressive enhancement**, fundamentally transforming how websites are developed. What once required a **React specialist** and extensive **TypeScript** effort can now be achieved with a concise, standards-based codebase, allowing you to focus on what matters: **content**, **layout**, **design**, and **motion**.
 
-[image.bordered size="749 x 428" small="/img/clean-code.png" large="/img/clean-code-big.png"]
-  [button "See the difference"]
+[image.bordered]
+  caption: Click image to see the difference
+  large: /img/clean-code-big.png
+  small: /img/clean-code.png
+  size: 747 × 381
 
 
 ## 3. Results

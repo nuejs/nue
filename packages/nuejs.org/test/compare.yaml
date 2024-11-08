@@ -1,26 +1,26 @@
 
 compare:
   baseurls:
-    tailwind: //github.com/tailwindlabs/tailwindcss.com/blob/master/src
-    nue: //github.com/nuejs/nue/blob/master/packages/nuejs.org
+    - //github.com/tailwindlabs/tailwindcss.com/blob/master
+    - //github.com/nuejs/nue/blob/dev/packages/nuejs.org
 
   steps:
-    - title: Landing page development
+    - title: Rich landing pages
       desc: Content first
-      img: [ tailwind-page, nue-page ]
-      src: [ pages/index.js, index.md ]
+      img: [ tailwind-home-js, nue-home-md ]
+      src: [ src/pages/index.js, index.md ]
 
     - title: Layouts
       desc: Semantic HTML
-      img: [ tailwind-layout, nue-layout ]
-      src: [ layouts/SidebarLayout.js, docs/layout.html ]
+      img: [ tailwind-docs-layout, nue-docs-layout ]
+      src: [ src/layouts/SidebarLayout.js, docs/layout.html ]
 
-    - title: Design Systems
-      desc: Global CSS
-      img: [ tailwind-design, nue-design ]
-      src: [../tailwind.config.js, "@global/variables.css" ]
+    - title: Design tokens
+      desc: CSS variables
+      img: [ tailwind-tokens, nue-tokens ]
+      src: [ src/tailwind.config.js, "@global/variables.css" ]
 
-    - title: Component styling
-      desc: Vanilla CSS
+    - title: HTML element styling
+      desc: Semantic CSS
       img: [ tailwind-button, nue-button ]
-      src: [ components/Button.js, "@lib/button.css" ]
+      src: [ src/components/Button.js, "@lib/button.css" ]

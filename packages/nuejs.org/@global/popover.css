@@ -2,10 +2,9 @@
 /* burger menus, dialogs, sidebars, ... */
 [popover] {
   transition: opacity .8s, transform .2s;
-  transform: scale(1);
+  transform: scale(1);;
   opacity: 1;
   border: 0;
-
 
   &::backdrop {
     background-color: #0005;
@@ -23,16 +22,10 @@
     }
   }
 
-  /* close  */
-  [popovertarget] {
-    background-image: none;
-    color: var(--gray-600);
+  > .action:first-child {
     position: absolute;
-    font-weight: 400;
-    font-size: 1.6em;
-    width: 1.1em;
-    right: .4em;
-    top: .4em;
+    right: .5em;
+    top: .5em;
   }
 }
 

@@ -4,7 +4,6 @@
   padding: 3%;
   left: 1em;
   max-height: calc(100vh - 2em);
-  overflow: hidden;
 
   h2 {
     margin: 0;
@@ -14,22 +13,14 @@
   }
   nav {
     margin-left: auto;
-    gap: 1em;
+    gap: .5em;
+  }
 
-    a {
-      border: var(--border);
+  .action {
+    background-color: white;
+    &:hover {
+      box-shadow: 0 0 0 1px var(--gray-300);
       background-color: white;
-      border-radius: 4px;
-      display: block;
-      outline-offset: 2px;
-      width: 1.9em;
-      height: 1.9em;
-      padding: .3em;
-
-      &:hover {
-        border-color: var(--gray-300);
-        outline: 1px solid var(--main-400);
-      }
     }
   }
 
@@ -46,17 +37,37 @@
     background-color: white;
     border-radius: 6px;
     border: var(--border);
-    max-height: calc(100vh - 14em);
-    overflow: scroll;
-    padding: 2%;
+    overflow: hidden;
+    padding: 4%;
+
+    &:hover {
+      border-color: var(--gray-400);
+    }
   }
   h3 {
     font-size: 1.1em;
     font-weight: 500;
     gap: .3em;
-    .pill {
+    .github {
+      background: url(/icon/github.svg) 0 50% no-repeat;
+      padding-left: 1.3em;
+      background-size: 1em;
       margin-left: auto;
-      background-color: white;
+      margin-right: .5em;
+      font-size: 1rem;
+
+      &:hover {
+        text-decoration: underline var(--gray-300);
+      }
     }
   }
+
+
+  @media (width > 800px) {
+    overflow: hidden;
+    figure {
+
+    }
+  }
+
 }

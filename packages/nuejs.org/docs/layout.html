@@ -1,13 +1,18 @@
 
 <!-- subheader -->
 <nav @name="subheader">
-  <button popovertarget="sidebar">{ title }</button>
+  <button class="action" popovertarget="sidebar">
+    <img src="/icon/menu.svg">
+  </button>
+  <strong>{ title }</strong>
 </nav>
 
 
 <!-- main sidebar  -->
 <aside id="sidebar" popover>
-  <button popovertarget="sidebar">&times;</button>
+  <button class="action" popovertarget="sidebar">
+    <img src="/icon/close.svg">
+  </button>
   <navi :items="documentation"/>
 </aside>
 

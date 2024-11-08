@@ -16,18 +16,6 @@ body > nav {
   border-width: 1px 0;
   padding: .75em 0;
   width: 100%;
-
-  /* menu trigger */
-  [popovertarget] {
-    background: url(/icon/menu.svg) .4em 50% no-repeat;
-    padding: .2em .8em .2em 2em;
-    background-size: 1.1em;
-    color: var(--gray-900);
-    font-family: inherit;
-    font-weight: 600;
-    font-size: .95em;
-    width: auto;
-  }
 }
 
 /* both sidebars (left and right) */
@@ -122,7 +110,6 @@ aside:first-child h3 {
   nav:nth-child(3) & {
     background-image: url(/icon/document.svg) /*  puzzle-piece, cube, , document, */
   }
-
 }
 
 

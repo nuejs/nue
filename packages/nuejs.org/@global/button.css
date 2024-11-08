@@ -12,9 +12,7 @@ button, [role="button"], .button {
   color: white;
   border: 0;
 
-  + & {
-    margin-left: .4em;
-  }
+  + & { margin-left: .4em }
 
   &:hover {
     background-color: var(--main-600);
@@ -36,12 +34,13 @@ button, [role="button"], .button {
     }
   }
 
-  &[popovertarget] {
+  img { width: 1.5em; margin-bottom: -2px }
+
+  &.action {
     background-color: var(--gray-50);
     background-repeat: no-repeat;
-
-    &:hover {
-      background-color: var(--gray-100);
-    }
+    padding: .2em .3em;
+    &:hover { background-color: var(--gray-100) }
   }
 }
+

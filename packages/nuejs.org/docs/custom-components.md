@@ -1,5 +1,5 @@
 ---
-include: [demos, button]
+include: [demos]
 ---
 
 # Custom components

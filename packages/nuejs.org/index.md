@@ -1,6 +1,6 @@
 ---
 sections: [hero, explainer, project-status]
-include: [button, form, video]
+include: [form, video]
 inline_css: true
 appdir: home
 ---
