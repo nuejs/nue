@@ -32,8 +32,6 @@
       video.addEventListener('ended', () => {
         this.root.classList.remove('playing')
       })
-
-      handleKeyboard(this)
     }
 
 
@@ -44,10 +42,7 @@
 
       this.root.classList.toggle('playing', paused)
       this.root.parentNode.classList.remove('splash')
-
-      if (!this.started) {
-        this.started = true
-      }
+      player = this
     }
   </script>
 
@@ -55,17 +50,19 @@
 
 
 <script>
+  let player = null
+
   function getQuality(max) {
     const widths = [720, 480, 360]
     return widths.find(w => w < max)
   }
 
-  function handleKeyboard(player) {
+  function handleKeyboard() {
     function handle(e) {
-      if (e.metaKey || e.ctrlKey) return
+      if (!player || e.metaKey || e.ctrlKey) return
 
-      const is_fullscreen = document.fullscreenElement
       const { video } = player
+      const is_fullscreen = document.fullscreenElement
       const { key } = e
 
       if (key == 'f') {
@@ -85,5 +82,7 @@
     addEventListener('keydown', handle)
     addEventListener('route', () => removeEventListener('keydown', handle), { once: true })
   }
+
+  handleKeyboard()
 </script>
 

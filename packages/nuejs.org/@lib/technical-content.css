@@ -22,7 +22,7 @@ table {
   border-collapse: collapse;
   color: var(--gray-600);
   font-size: 90%;
-  margin: 3em 0;
+  margin: 1rem 0;
   width: 100%;
 
   th, td {
@@ -233,7 +233,7 @@ h2[id], section > h3[id] {
 
 /* images */
 figure {
-  margin: 2em 0 3em;
+  margin: 1rem 0 2rem;
 
   img {
     border-radius: 6px;

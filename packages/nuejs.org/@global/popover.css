@@ -2,7 +2,7 @@
 /* burger menus, dialogs, sidebars, ... */
 [popover] {
   transition: opacity .8s, transform .2s;
-  transform: scale(1);;
+  transform: scale(1);
   opacity: 1;
   border: 0;
 

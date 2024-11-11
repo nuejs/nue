@@ -19,6 +19,22 @@
   }
 }
 
+.above {
+  background-color: var(--gray-600);
+  box-shadow: 0 0 4em #0007;
+  font-size: 1.2em;
+  position: relative;
+  top: -13em;
+
+  &:hover {
+    background-color: var(--gray-700);
+  }
+}
+
+figure:has(.above) {
+  margin-bottom: -1rem;
+}
+
 
 /* "good" and "bad" code block captions */
 .good, .bad  {
@@ -82,4 +98,47 @@
   padding: .4em .6em;
   margin-bottom: -.5em;
   margin-left: -.6em;
+}
+
+
+.simple-compare:popover-open {
+  max-width: 980px;
+  display: flex;
+  margin: 0 auto;
+  gap: 1.5rem;
+  inset: .75rem;
+
+  h2 {
+    margin: .5em 0 0;
+    + p { margin-block: .3em }
+    a { display: none }
+  }
+  > * {
+    flex: 1
+  }
+
+  .action {
+    position: absolute;
+    top: .5em;
+    right: .5em;
+    figure { margin: 0 }
+  }
+
+}
+
+#resources {
+  max-width: 1130px;
+}
+
+.play-button, .zoom {
+  background-image: url(/icon/play.svg);
+  background-repeat: no-repeat;
+  background-position: 1em center ;
+  background-size: 1rem;
+  padding-left: 2.5em;
+}
+
+.zoom {
+  background-image: url(/icon/zoom.svg);
+  background-size: 1.1rem;
 }

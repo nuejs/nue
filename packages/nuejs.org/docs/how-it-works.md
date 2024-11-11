@@ -1,4 +1,8 @@
 
+---
+include: [compare]
+---
+
 # Understanding Nue
 **Nue** is an ambitious engineering project designed to simplify web development through **separation of concerns** and **progressive enhancement**. These principles set it apart from monolithic JavaScript frameworks like **Next.js** and **Astro**.
 
@@ -99,11 +103,14 @@ Progressive enhancement opens new opportunities for performance improvement:
 With Nue, you shift from **JavaScript engineering** to **Design Engineering**, fundamentally changing the way you build websites:
 
 [image.bordered]
-  caption: Compare JavaScript engineering to Design Engineering
+  caption: "[button.above popovertarget=compare label='See the difference']"
   popovertarget: compare-dialog
   large: /img/js-vs-design-big.png
   small: /img/js-vs-design.png
   size: 745 × 403
+
+
+[compare :compare="compare"]
 
 
 1. **Better design and UX**: Instead of tackling engineering-specific problems, you’ll focus your efforts on **design, usability, accessibility**, and **SEO**.

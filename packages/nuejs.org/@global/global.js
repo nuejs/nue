@@ -6,7 +6,7 @@ addEventListener('click', event => {
 
   // hide popover menus
   const dialog = target.closest('[popover]')
-  if (dialog && target.matches('a')) dialog.hidePopover()
+  if (dialog && target.matches('a') && target.getAttribute('href')) dialog.hidePopover()
 
   // .clickables
   const wrap = target.closest('.clickable')

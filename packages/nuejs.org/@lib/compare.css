@@ -1,5 +1,5 @@
 
-.showroom {
+.compare {
   background-color: var(--gray-100);
   padding: 3%;
   left: 1em;
@@ -28,8 +28,8 @@
     opacity: 1;
 
     &.seeking {
-      transition: .3s;
-      opacity: 0;
+      transition: .2s;
+      opacity: .8;
     }
   }
 
@@ -38,7 +38,9 @@
     border-radius: 6px;
     border: var(--border);
     overflow: hidden;
+    margin-top: 1em;
     padding: 4%;
+    img:hover { box-shadow: none }
 
     &:hover {
       border-color: var(--gray-400);
@@ -48,26 +50,24 @@
     font-size: 1.1em;
     font-weight: 500;
     gap: .3em;
-    .github {
-      background: url(/icon/github.svg) 0 50% no-repeat;
-      padding-left: 1.3em;
-      background-size: 1em;
-      margin-left: auto;
-      margin-right: .5em;
-      font-size: 1rem;
+  }
 
-      &:hover {
-        text-decoration: underline var(--gray-300);
-      }
+  .github {
+    background: url(/icon/github.svg) 0 50% no-repeat;
+    color: var(--main-500);
+    padding-left: 1.3em;
+    background-size: 1em;
+    margin-left: auto;
+    margin-right: .5em;
+    font-size: 1rem;
+
+    &:hover {
+      text-decoration: underline var(--gray-300);
     }
   }
 
-
   @media (width > 800px) {
     overflow: hidden;
-    figure {
-
-    }
   }
 
 }
