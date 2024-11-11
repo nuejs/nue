@@ -38,7 +38,7 @@ globalnav:
     - Home: / "nav-home"
     - Docs: /docs/
     - Blog: /blog/
-    - Nue 1.0 beta ›: /blog/nue-1-beta/ "status pill"
+    - Nue 1.0 release candidate ›: /blog/nue-1-rc/ "status pill"
 
 
   # header toolbar (complementary)

@@ -1,7 +1,7 @@
 
 # Project Structure
 
-The Nue project is a mixture of different kinds of files and folders that you can freely organize based on the functionality of your website. Understanding the project structure is essential for effective management and scalability.
+The Nue project consists of various files and folders that you can organize based on your website's functionality. Understanding the project structure is key to building websites that are easy to manage and scale.
 
 ## Files
 
@@ -14,25 +14,25 @@ Here are all the different kinds of files your project consists of:
   [Content](content.html) | `.md`
   Files containing your website content written in extended Markdown format. This format facilitates a clear separation of content from code, enhancing readability and manageability, particularly in rich interactive websites.
 
+  [Data](content.html) | `.yaml`
+  Files that store structured data, encompassing SEO metadata, product listings, team member information, and navigational data. This structured approach is essential for establishing a clear information architecture, supporting a content-first philosophy by organizing and structuring content for improved usability and accessibility.
+
   [Settings](settings.html) | `.yaml`
   Configuration files that dictate how your site is generated. These files include metadata, layout settings, and other parameters that influence the overall structure and behavior of your application, ensuring a smooth and consistent site generation process.
 
-  [Data](data.html) | `.yaml`
-  Files that store structured data, encompassing SEO metadata, product listings, team member information, and navigational data. This structured approach is essential for establishing a clear information architecture, supporting a content-first philosophy by organizing and structuring content for improved usability and accessibility.
-
-  [Layout Modules](layout.html) | `.html`
+  [Layout modules](layout.html) | `.html`
   These files define global layout components such as headers, footers, and sidebars that form the foundation of your semantic layout. They contribute to a consistent user interface and enhance the overall user experience by providing a familiar navigation structure.
 
-  [Server Components](components.html) | `.html`
+  [Custom components](custom-components.html) | `.html`
   Custom Markdown extensions and other server-side components that assist in rendering the overall page layout. These components ensure that the layout remains cohesive and help structure the content effectively, while the interactive features are handled by client-side components.
 
-  [Interactive Islands](islands.html) | `.htm`, `.nue`
+  [Interactive islands](islands.html) | `.dhtml`, `.htm`
   Client-side components that create reactive "islands" of interactivity within a page. These components enable dynamic updates and user interactions without requiring a full page refresh, enhancing the user experience while keeping the core layout server-rendered.
 
   [Styling](styling.html) | `.css`
   Stylesheets that define global, application, and page-level styles. All CSS files contribute to the overarching design system, ensuring a cohesive visual language and consistent user experience across your project. This structured approach to styling facilitates easier maintenance and scalability as your project evolves.
 
-  [Scripts](styling.html) | `.js`, `.ts`
+  [Scripting](scripting.html) | `.js`, `.ts`
   Files that provide support for CSS-driven motion and animation effects, including the Intersection Observer API. These scripts also manage global keyboard and click event listeners in the document, enhancing interactivity while optimizing performance.
 
 
@@ -72,22 +72,21 @@ Here’s a more concise version of the "Globals" section, removing the specific 
 You can define directories that are global in `site.yaml`, which is essential for managing assets that should be accessible across your entire site. This is particularly important for global CSS files, which comprise the bulk of your Design System. For example:
 
 ```yaml
-globals: [ "@globals" ]
+globals: [ "@globals", 'css' ]
 ```
 
 When a global directory is placed at the root level, all assets within it are automatically included on every page, ensuring a consistent design and enhancing maintainability.
 
 If a global directory resides inside an application directory, its assets will be included on all pages of that application, promoting modularity while allowing for shared styles and components.
 
-![Global Directories](img/global-dirs.png)
-*Image illustrating global directories*
-
-
+[image.gridpaper]
+  small: /img/global-dirs.png
+  large: /img/global-dirs-big.png
+  alt: Global Directories
 
 
 ### Libraries
-
-Library folders are essential for organizing assets that can be explicitly included on a page using an `include` statement. This allows you to manage non-global components within your Design System effectively. You can define certain folders as libraries in the `site.yaml` file. For example:
+Library folders are essential for organizing assets that can be explicitly included on a page using an `include` statement. You can define certain folders as libraries in the `site.yaml` file. For example:
 
 ```yaml
 libs: ["@lib", lib]
@@ -101,10 +100,7 @@ include: [ video, gallery ]
 
 This statement will include all assets (such as CSS, JavaScript, data, and components) matching the substring "video" or "gallery" in their file names.
 
-You can also include assets at the application level by specifying them in the application's configuration file (e.g., `blog/blog.yaml`). This will auto-include the assets across all pages within that application, ensuring consistency and ease of management.
-
-This functionality streamlines the integration of reusable components and promotes a modular design approach, making it easier to maintain and update your project while ensuring coherence throughout your Design System.
-
+You can also include assets at the application level by specifying them in the application's configuration file (e.g., `blog/blog.yaml`). This will auto-include the assets across all pages within that application.
 
 
 ### Page Directories
@@ -120,12 +116,7 @@ For example, consider the following directory structure for a page within a blog
   ├── script.js          # Specific scripts for this page
 ```
 
-In this example, `index.md` is the main content file for the "Announcing v2.0" page, while `styles.css` and `script.js` are CSS and JavaScript files that apply only to this page. By organizing assets in this way, you ensure that each page can have its own styles and scripts, enhancing modularity and maintainability.
-
-
-
-Here’s the updated "Static Directories" section with an extra row in the ASCII art for the `img` directory to indicate that there are more files:
-
+In this example, `index.md` is the main content file for the "Announcing v2.0" page, while `styles.css` and `script.js` are CSS and JavaScript files that apply only to this page.
 
 
 ### Static Directories
@@ -135,40 +126,25 @@ Static directories are designed for non-content files that do not require proces
 
 ```
 /
-  ├── img/                 # Folder for image files
+  ├── img/                  # Folder for image files
   │   ├── screenshot1.png   # Example screenshot for a blog
-  │   ├── screenshot2.webp   # Another example screenshot
-  │   └── ...              # Additional image files can be added here
-  ├── icon/                # Folder for SVG icons
+  │   ├── screenshot2.webp  # Another example screenshot
+  │   └── ...               # Additional image files can be added here
+  |
+  ├── icon/                 # Folder for SVG icons
   │   ├── arrow-right.svg
   │   ├── arrow-left.svg
   │   ├── three-dots.svg
-  │   └── ...              # Additional SVG files can be added here
+  │   └── ...               # Additional SVG files can be added here
 ```
 
-In this example, the `img` folder contains sample images, such as screenshots or other real-world examples suitable for a blogger. The `icon` folder includes SVG files for icons, specifically `arrow-right.svg`, `arrow-left.svg`, and `three-dots.svg`, along with an extra row indicating that there are additional files represented by `...`. These assets can be referenced directly in your project without any processing, simplifying the management of essential static resources.
-
+In this example, the `img` folder contains sample images, such as screenshots or other real-world examples suitable for a blogger. The `icon` folder includes SVG files for icons, specifically `arrow-right.svg`, `arrow-left.svg`, and `three-dots.svg`. These assets can be referenced directly in your project without any processing.
 
 
 
 ## Example Structures
 
-This document looks great! You've effectively organized the structure and provided clear explanations for each section. Here are a few minor suggestions for clarity and consistency:
-
-1. **Consistency in File Types**: Ensure that all file types mentioned are consistently described in the context of their use. For instance, if you're detailing what each file does in the "Files" section, you might want to do the same in the "Example Structures" section.
-
-2. **Content Clarity**: You could clarify the purpose of each example in the "Example Structures" section a bit more, particularly in the context of a typical user or developer. This would help users understand how they might structure their projects.
-
-3. **Formatting**: Ensure consistent formatting across different sections, such as using bullet points or bold for key terms, to enhance readability.
-
-4. **Additional Comments**: If you anticipate more changes or examples, consider adding a note at the end indicating that this document will evolve as Nue does.
-
-5. **Visual Elements**: If applicable, consider adding diagrams or visuals for the directory structures to provide a more comprehensive understanding.
-
-
-### Example Structures
-
-#### Blogging Site
+### Blogging Site
 Example blogging site directory structure (files and folders):
 
 ```

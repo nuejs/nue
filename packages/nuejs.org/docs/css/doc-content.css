@@ -1,6 +1,11 @@
 
 /* documentation-specific content widgets  */
 
+h1 + p {
+  text-wrap: balance;
+  font-size: 1.2rem;
+}
+
 .gridpaper {
   background-image: url(/img/grid-paper.png);
   border: 1px solid var(--gray-200);

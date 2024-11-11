@@ -1,6 +1,6 @@
 
 # Tutorial: Building Websites with Nue
-In this tutorial, we’ll explore the essential features of Nue by building a blogging website step-by-step.
+In this tutorial, we’ll explore the essential features of Nue by building a simple blogging website step-by-step.
 
 [image]
   small: /img/blog-hero.png
@@ -36,7 +36,7 @@ Let’s explore these assets, starting with the content.
 
 
 ## Content
-In Nue, content is stored separately from other site elements, like navigation, SEO metadata, and layouts. This organization keeps content easily accessible and well-structured.
+In Nue, content is stored separately from other site elements, like layouts and stylinng. This organization keeps content easily accessible and well-structured.
 
 ### SEO and Metadata
 
@@ -63,7 +63,7 @@ Nue’s hot-reloading feature detects content edits and only updates the changed
 
 
 ## Layout
-Markdown-generated HTML is complemented by layout modules. Our simple layout for the blog, located at `@global/layout.html`, looks like this:
+Markdown-generated HTML is complemented by [layout modules](layout.html). Our simple layout for the blog, located at `@global/layout.html`, looks like this:
 
 ```html
 <header>

@@ -97,7 +97,7 @@ If a component is not defined server-side in a `.html` file, it can still be ren
 In this case, the component is automatically mounted on the client side. Nue will first look for an implementation of the component or island defined in a `.dhtml` file. If it is not found, a standard Web Component will be mounted as specified in a `.js` or `.ts` file. This allows for flexibility in using interactive elements without the need for server-side definitions.
 
 ### Passing data
-You can pass data to your components using attributes. These attributes can either be direct values or reference data from the [application data](settings.md) when the attribute name starts with a colon. This flexibility allows for dynamic data handling within your components.
+You can pass data to your components using attributes. These attributes can either be direct values or reference data from the [application data](settings.html) when the attribute name starts with a colon. This flexibility allows for dynamic data handling within your components.
 
 #### Markdown example
 In Markdown content, you can pass data as follows:

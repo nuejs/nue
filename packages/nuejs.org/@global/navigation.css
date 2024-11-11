@@ -89,7 +89,7 @@ body > header {
   font-size: 80%;
 
   &:hover {
-    box-shadow: 0 0 0 2px var(--gray-700);
+    box-shadow: 0 0 0 1px var(--gray-400);
   }
 
   &:active {
