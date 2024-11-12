@@ -23,9 +23,8 @@ documentation:
     - Settings and metadata: settings.html
     - Content syntax: content-syntax.html
     - Content tags: content-tags.html
-    - Custom tags: custom-tags.html
-    - Core components: core-components.html
     - Custom components: custom-components.html
+    - Core components: core-components.html
     - Template syntax: template-syntax.html
     - Content collections: content-collections.html
     - Syntax highlighting: syntax-highlighting.html

@@ -15,13 +15,13 @@ Here are some key use cases for CSS transitions:
 
 4. **Mouse states**: Simple yet effective animations triggered by mouse interactions like hover or mousedown, adding visual feedback and improving interactivity.
 
-Modern CSS goes far beyond basic hover effects. It enables complex, highly-performant animations without the need for cumbersome JavaScript workarounds. Techniques that once required libraries like Framer Motion can now be achieved using pure CSS, providing a cleaner, faster, and more maintainable solution for developers.
+Modern CSS goes far beyond basic hover effects. It enables complex, highly-performant animations without the need for cumbersome JavaScript workarounds. Techniques that once required libraries like **Framer Motion** can now be achieved using pure CSS, providing a cleaner, faster, and more maintainable solution for developers.
+
 
 ### Progressive enhancement
 In Nue, motion is an enhancement, not a requirement. Motion can be applied or removed without affecting core functionality. This ensures your site remains accessible and lightweight, regardless of user preferences or device capabilities.
 
-### Stylesheets are pluggable
-CSS-based motion can be packaged into pluggable stylesheets, making it easy to enable or disable animations as needed. For example, subtle animations can be applied globally, with increased animation on marketing pages and no animation for technical documentation. You have full control over when and where motion is applied.
+**Stylesheets are pluggable**. CSS-based motion can be packaged into pluggable stylesheets, making it easy to enable or disable animations as needed. For example, subtle animations can be applied globally, with increased animation on marketing pages and no animation for technical documentation.
 
 
 
@@ -221,5 +221,4 @@ Now, you can use CSS to apply different animations to each section. Here’s how
 
 - **Nesting**: The CSS nesting ensures a clean structure by placing related styles inside the `.explainer` block. This keeps the code minimal and easy to maintain.
 
-### Summary
-This scroll-triggered transition system works globally across your entire site, allowing for smooth animations on each page while maintaining performance and separation of concerns. By using JavaScript to detect when sections enter or exit the viewport, and leveraging CSS for custom transitions, this system enables a seamless, visually engaging experience. You can apply different transitions to sections globally, on specific pages, or even customize transitions for individual sections. This method follows progressive enhancement principles—users with JavaScript-enabled browsers benefit from advanced motion effects, while users without JavaScript still receive fully functional content.
+

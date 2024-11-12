@@ -32,18 +32,18 @@ An array of directories treated as [libraries](project-structure.html#libraries)
 
 ### links
 
-A list of reference links for use in Markdown content, formatted as `[Link Label][link_reference]`. This feature allows you to define external links that can be used throughout your Markdown documents. Links should be supplied in the `name: url` format to ensure proper formatting.
+A list of reference links for use in Markdown content, formatted as `[Link Label][link_reference]`. This feature allows you to define external links that can be used throughout your Markdown documents. Links should be supplied in the `name: url  "title"` format:
 
 ```yaml
-# name: url
+# name: url "optional title"
 links:
-  gds: //bradfrost.com/blog/post/a-global-design-system/
+  gds: //bradfrost.com/blog/post/a-global-design-system/ "Global Design System"
   soc: //en.wikipedia.org/wiki/Separation_of_concerns
 ```
 
 ### lightning_css
 
-This setting controls the processing of CSS by Lightning CSS, a tool that optimizes CSS for better performance. By default, this feature is enabled (`true`), which means that CSS will be processed for improvements. Setting this to `false` disables the default processing, and the CSS is served directly as is, which may be useful for debugging or specific use cases where processing is not desired.
+This setting controls the processing of CSS by [Lightning CSS](//lightningcss.dev/), a tool that optimizes CSS for better performance. By default, this feature is enabled (`true`), which means that CSS will be processed for improvements. Setting this to `false` disables the default processing, and the CSS is served directly as is, which may be useful for debugging or specific use cases where processing is not desired.
 
 ### native_css_nesting
 
@@ -176,23 +176,25 @@ A brief description of the page to be used in Open Graph meta tags. This descrip
 
 A setting that prevents the page from being included in content collections. This is useful for pages that should not be publicly listed or indexed.
 
+
 ## Data Inheritance
 
 Data in Nue is defined at three levels:
 
 1. **Global Level:** Site-wide data is defined in `site.yaml` at the root directory. This data applies universally across the entire site.
 
-2. **Application Level:** Application-specific data is defined in `
-
-*.yaml` files located inside the application directory. Each application subdirectory can also have its own data files, allowing for tailored configurations.
+2. **Application Level:** Application-specific data is defined in `*.yaml` files located inside the application directory. Each application subdirectory can also have its own data files, allowing for tailored configurations.
 
 3. **Page Level:** Page-specific data is defined in the *frontmatter* section of the Markdown page. This allows individual pages to have unique settings that can override higher-level data.
 
 As you move from the site level to the page level, the data gets extended or overridden, allowing for granular control over content and settings.
 
-![Data Propagation](img/data-propagation.png)
+[image.gridpaper]
+  small: /img/data-propagation.png
+  large: /img/data-propagation-big.png
 
-### Data Example
+
+#### Data Example
 
 Let’s say you have a page called `blog/hello-world.md` with the following global data in the `site.yaml` file:
 
@@ -215,10 +217,8 @@ og_image: /img/og_blog.png
 Finally, the page-specific data is set in the frontmatter section of the `hello-world.md` file:
 
 ```yaml
----
 title: Hello, World
 date: 2023-12-05
----
 ```
 
 With the above configuration in place, the document's `<head>` section is rendered as follows:

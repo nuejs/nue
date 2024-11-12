@@ -2,10 +2,9 @@
 include: [tabs]
 ---
 
-
 # Content tags
+Nue offers a powerful set of built-in Markdown extensions, referred to as "tags," which significantly enhance your ability to create rich and interactive websites.
 
-Nue offers a powerful set of built-in Markdown extensions, referred to as "tags," which significantly enhance your ability to create rich and interactive websites. These tags allow you to seamlessly integrate various content types, from images and videos to buttons and custom elements, all while maintaining clean and readable Markdown syntax. This capability enables you to build dynamic web pages with ease, making your content engaging and visually appealing.
 
 ## Tag syntax
 Tags are defined within square brackets. For example, to include an image, you would write:
@@ -36,7 +35,7 @@ Alternatively, you can use nested YAML to define the attributes:
 |  alt: Hello Image
 ```
 
-### Plain value without attribute names
+### Plain values
 
 You can also use plain values without specifying attribute names:
 
@@ -44,12 +43,12 @@ You can also use plain values without specifying attribute names:
 [image hello.png]
 ```
 
-### Special syntax for ID and class attributes
+### ID and class name
 
 To set ID and class attributes, you can use the following syntax:
 
 ```md
-[image #hero-image.heroic hero.webp]
+[image#hero.massive /home/hero.webp]
 ```
 
 ### Nested content
@@ -70,17 +69,12 @@ Finally, tags can be used inline as well. For instance, to add an inline SVG ima
 This is an inline [svg "/icon/meow.svg"] image.
 ```
 
-===
+- - -
 
 
 
 ## Images
-
-Nue provides a powerful set of built-in image tags that enhance your ability to create rich, interactive websites. While standard HTML image tags are supported, Nue’s image tags offer advanced features, making them suitable for modern, responsive web content.
-
-### Tag syntax
-
-Images are defined using a straightforward tag syntax. To include a basic image, use:
+To include a basic image, use:
 
 ```md
 [image hello.webp]
@@ -98,7 +92,9 @@ You can also use a shortcut alias (`!`):
 Nue allows you to link images to specific URLs using the `href` attribute, making them interactive:
 
 ```md
-[image book.svg href="/docs/" caption="View documentation"]
+[image book.svg]
+  caption: View documentation
+  href: /docs/
 ```
 
 This functionality enables you to guide users to additional resources or pages while providing visual context.
@@ -178,12 +174,6 @@ This renders as follows, enabling smooth integration with CSS styling:
 </a>
 ```
 
-### Why this is great
-
-1. **Enhanced functionality**: Standard image tags are often insufficient for modern, responsive websites. Nue’s tags provide the additional capabilities needed for rich content.
-2. **Creative layouts**: Images can be combined with other tags and blocks to form intricate, visually appealing layouts.
-3. **Responsive and art direction**: The support for both responsive images and art direction allows for creative use of vertical images on mobile devices, ensuring optimal presentation across different screen sizes.
-
 
 ## Videos
 The video tag in Nue serves as a content-focused interface for the standard HTML5 video tag, allowing you to easily incorporate video content into your pages. It is used as follows:
@@ -259,9 +249,7 @@ Instead of using the `label` attribute, you can provide the button text directly
 
 ### Styled button
 
-You can include a class name to style the button differently, using a nested body to define the button label. In this example
-
-, `.secondary` indicates a secondary button style, and the button label is provided as nested content:
+You can include a class name to style the button differently, using a nested body to define the button label. In this example, `.secondary` indicates a secondary button style, and the button label is provided as nested content:
 
 ```md
 [button.secondary href="/docs/"]
@@ -294,10 +282,9 @@ This example creates a button labeled "Learn more" that opens a popover with ext
 [.options]
   #### Button options
 
-  - `label` - The text label for the button. This can also be provided as a plain value or defined within the body content.
-  - `href` - The target link for the button. This is the URL the button will navigate to when clicked.
-  - `class` - The CSS class name to apply to the button. This can be used to style the button differently based on your design system. For example, `.secondary` can be used to indicate a secondary button style.
-  - `popovertarget` - The ID of the popover to trigger when the button is clicked. This allows buttons to open additional content in popovers.
+  - `label` The text label for the button. This can also be provided as a plain value or defined within the body content.
+  - `href` The target link for the button. This is the URL the button will navigate to when clicked.
+  - `popovertarget` The ID of the popover to trigger when the button is clicked. This allows buttons to open additional content in popovers.
 
 
 ### HTML output
@@ -520,7 +507,7 @@ The `<details>` and `<summary>` elements ensure compatibility and accessibility 
 
 Tabbed panes in Nue are created using `[accordion]` elements with `name` and `open` attributes but styled to look and function like tabs:
 
-```md render
+```md
 [accordion.card.tabs name="tabs" open]
   ## First element
   The contents of the first element
@@ -532,11 +519,20 @@ Tabbed panes in Nue are created using `[accordion]` elements with `name` and `op
   The contents of the third element
 ```
 
-The above markup generates a series of tabbed sections, with each heading acting as a tab that can be selected to reveal the associated content pane.
 
 ### Example rendering
+The above markup generates a series of tabbed sections, with each heading acting as a tab that can be selected to reveal the associated content pane.
 
-[render]
+[accordion.card.tabs name="tabs" open]
+  ## First element
+  The contents of the first element
+
+  ## Second element
+  The contents of the second element
+
+  ## Third element
+  The contents of the third element
+
 
 ### CSS for tabs
 
@@ -573,7 +569,7 @@ The CSS below is used to style the above example, transforming the accordion int
 ```
 The use of `pointer-events: none;` ensures that only the active tab can be interacted with, creating a smooth user experience without extra JavaScript logic. Additionally, pseudo-elements like `&::marker` help to refine the visual style without modifying the HTML.
 
-### Why this is great
+### Why this is good
 
 - **Works Without JavaScript**: All the tab functionality is implemented purely using CSS. The tabs continue to work seamlessly even if JavaScript is disabled or not available in the browser.
 

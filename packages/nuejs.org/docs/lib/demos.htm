@@ -31,9 +31,9 @@
   <button @click="add" :disabled="items[5]">Add user</button>
 
   <ul>
-    <li :for="[ name, role, img] in items">
+    <li :for="[ name, role, img, i] of items">
       <img :src="img">
-      <h3>{ name }</h3>
+      <h3>{ name } { img }</h3>
       <p>{ role }</p>
     </li>
   </ul>
@@ -42,7 +42,7 @@
 
     // render first three users
     constructor({ users }) {
-      this.items = items.slice(0, 2)
+      this.items = users.slice(0, 2)
       this.all = users
     }
 

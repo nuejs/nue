@@ -3,6 +3,13 @@
 
 Content is **first** in Nue. It shapes how your site is built, ensuring that design evolves around content. This approach aligns with the principle of progressive enhancement, ensuring that the structure, functionality, and design follow from the content.
 
+
+[image]
+  small: /img/content-development.png
+  large: /img/content-development-big.png
+  caption: Website development starts from content design
+
+
 ## Structured data
 
 Structured data in Nue includes:
@@ -107,7 +114,16 @@ At the **page level**, metadata can be further customized via front matter in Ma
  ---
 ```
 
-This hierarchical metadata system ensures consistency while allowing for flexibility at all levels.
+### Summary: data inheritance
+As you move from the site level to the page level, the data gets extended or overridden, allowing for granular control over content and settings.
+
+[image.gridpaper]
+  small: /img/data-propagation.png
+  large: /img/data-propagation-big.png
+  caption: Data inheritance in Nue
+
+
+
 
 ## Unstructured content
 
@@ -127,6 +143,7 @@ Nue supports an [extended Markdown syntax](content-syntax.html) that handles all
   small: /img/content-files.png
   large: /img/content-files-big.png
   size: 745 × 383
+
 
 
 ### Cloud storage

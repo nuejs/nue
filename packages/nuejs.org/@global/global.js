@@ -1,28 +1,17 @@
 
-import { $, loadPage } from '/@nue/view-transitions.js'
 
+// hide popover menus
 addEventListener('click', event => {
-  const { target } = event
+  const el = event.target
+  const dialog = el.closest('[popover]')
 
-  // hide popover menus
-  const dialog = target.closest('[popover]')
-  if (dialog && target.matches('a') && target.getAttribute('href')) dialog.hidePopover()
-
-  // .clickables
-  const wrap = target.closest('.clickable')
-  if (wrap) {
-    const button = $('button', wrap)
-    if (button) {
-      const popover = window[button.getAttribute('popovertarget')]
-      popover?.showPopover()
-    }
-
-    const a =$('a', wrap)
-    if (a) {
-      loadPage(a.getAttribute('href'))
-    }
+  if (dialog) {
+    const link = el.getAttribute('href')
+    if (link) dialog.hidePopover()
   }
 })
+
+
 
 
 // analytics (released for public later)

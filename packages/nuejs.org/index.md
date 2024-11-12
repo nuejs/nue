@@ -16,6 +16,7 @@ Nue is a Static Site Generator (SSG) built from scratch for faster tooling, clea
   videoId: 383e5c79-6747-4b1a-8d7a-9da9ae721d33
   poster: /img/hero-splash.jpg
   caption: "*Nue templates (preview)* Hit **F** for fullscreen"
+  size: 950 x 603
 
 
 
@@ -31,7 +32,7 @@ Nue is a content-first framework optimized for **progressive enhancement**. It c
 [button.continue "Learn more" href="/docs/how-it-works.html"]
 
 
-## Product roadmap
+## Product roadmap { #roadmap }
 Nue is an ambitious project aiming to address the key issues in the frontend ecosystem.
 
 [roadmap]
