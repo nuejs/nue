@@ -42,10 +42,10 @@ An expression is a piece of code that evaluates to a value. Therefore, the follo
 
 ```html
 <!-- This is a statement, not an expression -->
-{ var a = 1 }
+-{ var a = 1 }
 
 <!-- Use a ternary expression, not flow control  -->
-{ if (ok) { return message } }
+-{ if (ok) { return message } }
 ```
 
 ### Function calls

@@ -3,18 +3,38 @@ include: [demos]
 ---
 
 # Custom components
-There are four types of custom components:
+There are four types of custom components in Nue:
 
-- **Markdown extensions**: Extend the Markdown syntax with custom tags for greater flexibility.
-- **Layout modules**: Fill the slots in the [page layout](layout.html) to create structured designs.
-- **Layout components**: Custom server-side components that reside within the layout modules, allowing for dynamic content.
-- **Interactive islands**: rendered on the client side (CSR), enhancing the user experience with minimal JavaScript. Here's an example:
+- **Markdown extensions**: These extend the Markdown syntax with custom tags, offering more flexibility in content formatting.
+- **Layout modules**: These components fill the slots in the [page layout](layout.html), helping create a structured design for your pages.
+- **Layout components**: These are custom server-side components used within layout modules, allowing for dynamic content rendering.
+- **Interactive islands**: These are rendered on the client side (CSR) and enhance user interaction with minimal JavaScript. Here’s an example:
 
+### Example island
+Nue makes it easy to build interactive components like this:
 
-[image-gallery]
-  images: [tomatoes.jpg, lemons.jpg, peas.jpg, popcorn.jpg]
-  basedir: /img
+[array-demo]
+  users:
+    - name: Alex Martinez
+      role: Lead frontend developer
+      img: /img/face-3.jpg
+    - name: Sarah Park
+      role: UI/UX Designer
+      img: /img/face-4.jpg
+    - name: Jamie Huang
+      role: JS/TS developer
+      img: /img/face-2.jpg
+    - name: Heidi Blum
+      role: UX developer
+      img: /img/face-1.jpg
+    - name: Adam Nattie
+      role: Backend developer
+      img: /img/face-5.jpg
+    - name: Mila Harrison
+      role: Senior frontend developer
+      img: /img/face-6.jpg
 
+- - -
 
 ## Like React, but semantic
 Nue components offer React-like functionality while focusing on semantic web design. They work seamlessly on both the server and client sides, allowing developers to enhance applications progressively without losing structure.
@@ -521,53 +541,77 @@ Here’s a simple demo of using an array:
 
 [array-demo]
   users:
-    - [ Alex Martinez, Lead frontend developer, /img/face-3.jpg ]
-    - [ Sarah Park, UI/UX Designer, /img/face-4.jpg ]
-    - [ Jamie Huang, JS/TS developer, /img/face-2.jpg ]
-    - [ Heidi Blum, UX developer, /img/face-1.jpg ]
-    - [ Adam Nattie, Backend developer, /img/face-5.jpg ]
-    - [ Mila Harrison, Senior frontend developer, /img/face-6.jpg ]
+    - name: Alex Martinez
+      role: Lead frontend developer
+      img: /img/face-3.jpg
+    - name: Sarah Park
+      role: UI/UX Designer
+      img: /img/face-4.jpg
+    - name: Jamie Huang
+      role: JS/TS developer
+      img: /img/face-2.jpg
+    - name: Heidi Blum
+      role: UX developer
+      img: /img/face-1.jpg
+    - name: Adam Nattie
+      role: Backend developer
+      img: /img/face-5.jpg
+    - name: Mila Harrison
+      role: Senior frontend developer
+      img: /img/face-6.jpg
 
 
 ```md
 [array-demo]
   users:
-    - [ Alex Martinez, Lead frontend developer, /img/face-3.jpg ]
-    - [ Sarah Park, UI/UX Designer, /img/face-4.jpg ]
-    - [ Jamie Huang, JS/TS developer, /img/face-2.jpg ]
-    - [ Heidi Blum, UX developer, /img/face-1.jpg ]
-    - [ Adam Nattie, Backend developer, /img/face-5.jpg ]
-    - [ Mila Harrison, Senior frontend developer, /img/face-6.jpg ]
+    - name: Alex Martinez
+      role: Lead frontend developer
+      img: /img/face-3.jpg
+    - name: Sarah Park
+      role: UI/UX Designer
+      img: /img/face-4.jpg
+    - name: Jamie Huang
+      role: JS/TS developer
+      img: /img/face-2.jpg
+    - name: Heidi Blum
+      role: UX developer
+      img: /img/face-1.jpg
+    - name: Adam Nattie
+      role: Backend developer
+      img: /img/face-5.jpg
+    - name: Mila Harrison
+      role: Senior frontend developer
+      img: /img/face-6.jpg
 ```
 
 Here's the source code for the above demo:
 
 ```html
-<div @name="array-demo">
+<div @name="array-demo" class="array-demo">
 
   <button @click="add" :disabled="items[5]">Add user</button>
 
   <ul>
-    <li :for="[ name, role, img] in items">
-      <img :src="img">
-      <h3>{ name }</h3>
-      <p>{ role }</p>
+    <li :for="el of items">
+      <img :src="el.img">
+      <h3>{ el.name }</h3>
+      <p>{ el.role }</p>
     </li>
   </ul>
 
   <script>
 
-    // render the first three users
+    // render first three users
     constructor({ users }) {
-      this.items = users.slice(0, 3);
-      this.all = users;
+      this.items = users.slice(0, 2)
+      this.all = users
     }
 
     // insert a new item
     add() {
-      const { items, all } = this;
-      const item = all[items.length]; // Access the next user
-      if (item) items.push(item); // Add user if exists
+      const { items, all } = this
+      const item = all[items.length]
+      if (item) items.push(item)
     }
   </script>
 
@@ -575,6 +619,7 @@ Here's the source code for the above demo:
 ```
 
 Note that the transition effect is done with vanilla CSS using `@starting-style` without specialized `<transition>` elements or motion libraries. This keeps the implementation lean and clean.
+
 
 ## Lifecycle methods
 Each component instance goes through a series of steps during its lifetime: first, it is created, then mounted on the page, and finally, it gets updated one or more times. Sometimes the component is removed or "unmounted" from the page.

@@ -7,7 +7,7 @@ include: [compare]
 **Nue** is an ambitious engineering project designed to simplify web development through **separation of concerns** and **progressive enhancement**. These principles set it apart from monolithic JavaScript frameworks like **Next.js** and **Astro**.
 
 ## Progressive enhancement
-Nue is a carefully crafted Static Site Generator (SSG) built from the ground up to support progressive enhancement. By separating content, layout, and styling, it enables gradual enhancement using loosely coupled assets. This approach fundamentally redefines how websites are developed:
+Nue is a Static Site Generator (SSG) built from scratch to support progressive enhancement. By separating content, layout, and styling, it enables gradual enhancement using loosely coupled assets. This approach fundamentally redefines how websites are developed:
 
 [image]
   small: /img/progressive-enhancement.png
@@ -98,9 +98,16 @@ Progressive enhancement opens new opportunities for performance improvement:
 - **Page Weight**: Achieve significantly smaller footprints with a carefully crafted design system. For example, the CSS for this entire page is smaller than Tailwind's basic "preflight" CSS.
 
 
+[image.bordered]
+  small: /img/first-paint.png
+  large: /img/first-paint-big.png
+  caption: Inlined CSS loads faster
+  width: 650
+
+
 
 ## Design engineering
-With Nue, you shift from **JavaScript engineering** to **Design Engineering**, fundamentally changing the way you build websites:
+With Nue, you shift from **JavaScript engineering** to **Design Engineering**,  changing the way you build websites:
 
 [image.bordered]
   caption: "[button.above popovertarget=compare label='See the difference']"

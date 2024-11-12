@@ -50,25 +50,33 @@
   }
 }
 
-.oninsert-demo {
-  .grid {
-    grid-template-columns: repeat(auto-fit, 200px);
+.array-demo {
 
-    > div {
-      transform: scale(1);
-      transition: .6s;
-      opacity: 1;
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    gap: 2em;
+  }
 
-      h3, p {
-        margin: 0;
-        line-height: 1.6;
-        font-size: 95%;
-      }
+  img { border-radius: 4px }
 
-      @starting-style {
-        transform: scale(.7);
-        opacity: 0;
-      }
+  li {
+    transform: scale(1);
+    transition: .6s;
+    padding: 0;
+    opacity: 1;
+
+    h3, p {
+      margin: 0;
+      line-height: 1.6;
+      font-size: 95%;
+    }
+
+    @starting-style {
+      transform: scale(.9);
+      opacity: 0;
     }
   }
 }

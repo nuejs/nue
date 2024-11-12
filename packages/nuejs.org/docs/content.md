@@ -35,7 +35,7 @@ Building websites:
 YAML excels at handling complex structures, such as **nested arrays**, which is ideal for organizing complex datasets in Nue. Unlike alternatives like **TOML**, YAML’s expressive syntax makes it easier to represent hierarchical data. Additionally, YAML has resolved it's infamous issues, such as the **"Norway problem"**.
 
 
-## Information architecture
+## Information architecture { #ia }
 
 **Information architecture** defines the relationships between pages, sections, and content. This hierarchy determines how users interact with your site and how content is presented. This website, for example, uses a global [navigation.yaml](//github.com/nuejs/nue/blob/dev/packages/nuejs.org/%40global/navigation.yaml) to define the site's navigation. It looks like this:
 
