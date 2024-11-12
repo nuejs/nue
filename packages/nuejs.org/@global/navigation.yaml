@@ -50,7 +50,6 @@ globalnav:
     - Home: /
     - Docs: /docs/
     - Blog: /blog/
-    - ---
     - GitHub: //github.com/nuejs/nue
 
   # footer

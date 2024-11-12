@@ -68,14 +68,22 @@ body > header {
   }
 
   /* burger menu opener */
-  [popovertarget] {
+  button {
     margin-left: auto;
     display: none;
   }
 
-  @media (max-width: 800px) {
+  @media (width < 800px) {
     > * { display: none }
-    > :first-child, > [popovertarget] { display: inline-block }
+    button { display: inline-block }
+    nav:first-child {
+      display: flex;
+
+      @media (width < 600) {
+        gap: .75rem;
+        a:not(.nav-home, .pill) { display: none }
+      }
+    }
   }
 }
 

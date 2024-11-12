@@ -13,7 +13,7 @@
   }
 
   @starting-style {
-    transform: scale(.5);
+    transform: scale(.9);
     opacity: 0;
 
     &::backdrop {
