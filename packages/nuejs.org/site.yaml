@@ -3,20 +3,17 @@
 globals: ["@global", css]
 libs: ["@lib", docs/lib, blog/lib]
 
-og: /img/og-blue-big.png
+og: /img/og.png
 view_transitions: true
 native_css_nesting: true
 origin: https://nuejs.org
 heading_ids: true
 
 # Content settings
-title: Web Framework For UX Developers
-description: Build the slickest websites in the world and wonder why you ever did them any other way
+title: The Design Engineering Framework for the Web
+description: Nue is a Static Site Generator (SSG) built from scratch for faster tooling, cleaner codebases, and better results. It makes things fun again!
 title_template: "Nue - %s"
 favicon: /icon/favicon.png
-
-# preload header hover image
-# prefetch: [/icon/present-light.svg]
 
 # Markdown link references
 links:
