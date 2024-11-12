@@ -27,7 +27,7 @@ Nue is a content-first framework optimized for **progressive enhancement**. It c
 [image]
   small: /img/progressive-enhancement.png
   large: /img/progressive-enhancement-big.png
-  width: 680
+  size: 680 x 182
 
 [button.continue "Learn more" href="/docs/how-it-works.html"]
 
@@ -38,10 +38,11 @@ Nue is an ambitious project aiming to address the key issues in the frontend eco
 [roadmap]
 
 
-### Follow the progress
-Get notified about new releases by email
+[.follow]
+  ### Follow the progress
+  Get notified about new releases by email
 
-[join-list]
+  [join-list]
 
 
 

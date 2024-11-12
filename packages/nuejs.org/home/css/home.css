@@ -14,6 +14,10 @@ section {
   margin: 5rem auto;
 }
 
+.follow {
+  max-width: 23rem;
+  margin: 4rem auto 0;
+}
 @keyframes hue-rotate {
   0% { filter: hue-rotate(-90deg) }
   30% { filter: hue-rotate(20deg) }
@@ -27,12 +31,12 @@ section {
 
   .video {
     max-width: 950px;
+    aspect-ratio: 950 / 603;
     display: block;
     margin: 4em auto;
     overflow: hidden;
     border: var(--border);
     position: relative;
-
 
     video {
       border: 0;
