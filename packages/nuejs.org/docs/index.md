@@ -14,7 +14,7 @@ Nue delivers an exceptional hot-reloading experience, seamlessly detecting chang
 [bunny-video]
   videoId: abb2cf75-c7f9-43e6-b126-8827d0c8721e
   style: "background-color: #282C30"
-  poster: /tour/img/hmr-hero.png
+  poster: /img/blog-content-editing-big.png
 
 Nue eliminates deep JavaScript dependency trees, resulting in **record-breaking build speeds** that consistently outperform popular frameworks like **Next.js**.
 

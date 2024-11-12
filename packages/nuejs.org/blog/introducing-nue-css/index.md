@@ -111,7 +111,7 @@ The design is separated from the HTML structure so that the system can be contro
 
 
 ## 2. Cleaner way to write HTML and CSS { #minimalism }
-Nue has its own [CSS best practices](/docs/css-best-practices.html) for writing clear HTML and CSS. The key idea is to leave out all class names that relate to styling and let external CSS take care of the element and/or component look and feel:
+Nue has its own [CSS best practices](/docs/styling.html) for writing clear HTML and CSS. The key idea is to leave out all class names that relate to styling and let external CSS take care of the element and/or component look and feel:
 
 ```
 <!-- component name is all naming you need -->
