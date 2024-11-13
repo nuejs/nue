@@ -13,11 +13,11 @@ body > header {
   margin-bottom: 5em;
 
   .nav-home {
-    background-image: url(/img/logo.svg);
+    background-image: url(/img/logomark-big.png);
     background-size: cover;
     text-indent: -99em;
-    width: 60px;
-    height: 18px;
+    width: 79px;
+    height: 30px;
   }
 
   &, > * {
