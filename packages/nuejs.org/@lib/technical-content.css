@@ -4,7 +4,6 @@ h1 {
   font-size: 2em;
   font-weight: 800;
   text-wrap: balance;
-  max-width: 18em;
   letter-spacing: -.025em;
   margin-bottom: .3em;
 
@@ -56,7 +55,7 @@ article {
 
     strong {
       font-weight: 550;
-      color: var(--gray-700);
+      color: var(--gray-600);
     }
   }
 
@@ -85,9 +84,8 @@ article {
 
   /* not under pre */
   li > code, p > code, td > code {
-    font-weight: 600;
-    font-size: 110%;
-    color: var(--gray-950);
+    font-weight: 550;
+    color: var(--gray-700);
 
     &:before, &:after {
       color: var(--main-400);

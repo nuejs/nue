@@ -31,21 +31,22 @@ The breakthrough comes from **progressive enhancement**, which allows Nue to del
 
 
 ## CSS inlining
-
-Single-file requests mean that everything required for the **first paint** is delivered in the initial request. The first paint refers to the moment when visible content is first rendered on the screen. This includes all HTML and CSS, while scripts and off-screen images are **lazily loaded** (i.e., they are loaded only when needed, typically when they come into the user's viewport). This is by far the most impactful optimization you can apply to your landing pages.
+CSS inlining is one of the most effective optimizations for landing pages. It ensures that everything needed for the **first paint** (when visible content first appears on the screen) is delivered with the initial request. This includes HTML and CSS, while scripts and off-screen images are **lazily loaded**—only when they’re needed, typically as they come into view.
 
 [image.bordered]
    small: /img/first-paint.png
    large: /img/first-paint-big.png
    width: 650
 
-Enabling single-file requests is as simple as setting `inline_css: true` in your `site.yaml` file. This inlines all CSS directly into each page. While you might have concerns about increased page weight or needing to rebuild all pages when global CSS changes, it’s important to note that Nue’s CSS is extremely small, and the build process is so fast (sub-millisecond, even for large sites) that it has no noticeable impact on your development experience.
-
-If you'd prefer to inline CSS only for production builds, you can configure it like this:
+Enable CSS inlining on your `site.yaml` file as follows:
 
 ```yaml
-inline_css: production
+inline_css: true
 ```
+
+This inlines all CSS directly into each page. While you might have concerns about increased page weight or needing to rebuild all pages when global CSS changes, it’s important to note that Nue’s CSS is extremely small, and the build process is so fast (sub-millisecond, even for large sites) that it has no noticeable impact on your development experience.
+
+
 
 
 ## View transitions

@@ -12,7 +12,7 @@ Nue is a Static Site Generator (SSG) built from scratch to support progressive e
 [image]
   small: /img/progressive-enhancement.png
   large: /img/progressive-enhancement-big.png
-  width: 700 x 187
+  size: 700 x 187
 
 
 ## Content first

@@ -34,6 +34,12 @@ Followed with:
 
 - An unordered
 - list of items
+
+
+And a horizontal line:
+
+***
+
 ```
 
 ## Standard Markdown extensions
@@ -67,8 +73,6 @@ Footnotes provide a way to include more detail without cluttering the main text.
 
 
 
-
-
 ## Nue-specific things
 Nue extends standard Markdown with additional formatting options and powerful features to make content richer and more dynamic, without needing complex HTML.
 
@@ -99,6 +103,7 @@ Nue provides a variety of formatting options beyond standard Markdown, giving yo
 
 
 This extended set of formatting options helps you achieve more **precise styling** without needing to write raw HTML.
+
 
 ### Variables
 Nue allows the use of **variables** within Markdown files, enabling dynamic content based on your application data. Variables are wrapped in curly braces (`{}`) and will be replaced with their corresponding values when the page is rendered:
@@ -152,16 +157,36 @@ Here, the ID is set to `less`, and the class is set to `more`, providing more co
 
 
 ### Expanded footnotes
-Nue enhances the standard Markdown footnote functionality by allowing you to mark entire phrases as part of the footnote, giving you more flexibility for styling and formatting. This makes it easier to create footnotes that are more descriptive and visually clear.
+Nue enhances the standard Markdown footnote functionality by allowing you to mark entire phrases as part of the footnote. This makes it easier to create footnotes that are more descriptive and visually clear.
 
-For example, instead of just marking a word, you can mark an entire phrase:
+For example, instead of just marking a single digit, you can mark an entire phrase:
 
 ```md
-Design principles like [Separation of Concerns][^1], [Progressive Enhancement][^2], and [Information Architecture][^3] are fundamental.
+Design principles like [Separation of Concerns][^1], [Progressive Enhancement][^2], and [Semantic markup][^3] are fundamental.
 ```
 
 This expanded capability allows you to reference full concepts or phrases, improving clarity in both technical and non-technical content, while maintaining the footnote's ease of use.
 
+
+### Sections
+You can split your content into sections with a triple dash `---` making your content render like this:
+
+```
+<article>
+  <section/>
+  <section/>
+  <section/>
+  ...
+</article>
+```
+
+You can also generate the sections by setting `sections: true` in your configuration. This will generate a new section based on `<h2>` headings so that each `<h2>` tag starts a new section.
+
+[.note]
+  ### Horizontal rules
+  Please use `***`, `___`, or `- - -` to generate a horizontal rule (`<hr>` tag).
+
+Sections are discussed in more detail in the [styling](styling.html#sections) document.
 
 ### Blocks
 **Blocks** in Nue are reusable chunks of content wrapped inside a class name, allowing you to build structured and styled sections while keeping the focus on pure content. No HTML is needed, making the content easy to manage and maintain.
@@ -419,3 +444,10 @@ Here's an example combining content blocks and code blocks. Notice how clean the
 ```
 
 This simple example demonstrates how you can create a **stacked layout** with content and code blocks, all within a clean, readable format. Mixing content and code blocks in this way allows you to present complex technical concepts, tutorials, or style guides without sacrificing readability or maintainability.
+
+
+### Content tags
+Nue offers a large amount of [tags](/content-tags.html) that significantly enhance your ability to create rich and interactive websites. You can add responsive images, videos, buttons, accordions, tabs, and more.
+
+You can also extend the syntax with [custom components](custom-components.html).
+

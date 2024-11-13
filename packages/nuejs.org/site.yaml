@@ -12,7 +12,7 @@ heading_ids: true
 # Content settings
 title: The Design Engineering Framework for the Web
 description: Nue is a Static Site Generator (SSG) built from scratch for faster tooling, cleaner codebases, and better results. It makes things fun again!
-title_template: "Nue - %s"
+title_template: "%s - Nue"
 favicon: /icon/favicon.png
 
 # Markdown link references

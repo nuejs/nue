@@ -418,7 +418,6 @@ This structure includes a `<caption>` for the table title, a `<thead>` for the h
 
 
 ## Accordions
-
 Accordions in Nue make it easy to create collapsible content sections, perfect for FAQs or structured information that benefits from an expandable layout.
 
 The basic structure for creating an accordion is as follows:
@@ -576,5 +575,72 @@ The use of `pointer-events: none;` ensures that only the active tab can be inter
 - **No Extra HTML/JS Coding**: You don't need to write new JavaScript functions or HTML structures—everything is done by simply adding styles to the existing markup.
 
 By creatively using CSS, Nue makes it easy to craft responsive, interactive tabbed interfaces while keeping the underlying codebase clean and maintainable—proving that CSS alone can create sophisticated UI elements.
+
+
+## Description lists
+
+Description lists are standard [HTML constructs](//developer.mozilla.org/en-US/docs/Web/HTML/Element/dl) that group terms and their descriptions. They are commonly used for glossaries or key-value pair lists.
+
+The basic structure for creating a description list in Markdown is as follows:
+
+```md
+[define]
+  ## First item
+  Description of the first item
+
+  ## Second item
+  Description of the second item
+
+  ## Third item
+  Description of the third item
+```
+
+### HTML output
+
+Description lists are rendered using the native HTML5 `<dl>`, `<dt>`, and `<dd>` elements:
+
+```html
+<dl>
+  <dt>First item</dt>
+  <dd>Description of the first item</dd>
+
+  <dt>Second item</dt>
+  <dd>Description of the second item</dd>
+
+  <dt>Third item</dt>
+  <dd>Description of the third item</dd>
+</dl>
+```
+
+### Defining footnotes
+
+You can also use the `define` tag to create footnotes, which provides a cleaner and more readable alternative to the standard `[^label]:` syntax. For example:
+
+```md
+[define]
+  ## Separation of concerns { #soc }
+  A strategy for clean and maintainable code
+
+  ## Progressive Enhancement { #pe }
+  Setup core functionality first and enhance it later
+
+  ## Form follows function { #fff }
+  Make styling follow your content
+```
+
+Once defined, you can refer to these descriptions like this:
+
+```md
+Separation of concerns [^soc] is an important strategy.
+
+[Progressive Enhancement][^pe] is good for UX.
+```
+
+
+
+
+
+
+
 
 

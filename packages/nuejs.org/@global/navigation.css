@@ -88,16 +88,24 @@ body > header {
 }
 
 .pill {
-  background: var(--gray-50) url(/icon/cube.svg) .6em 50% no-repeat;
+  background: var(--gray-100) url(/icon/cube.svg) .6em 50% no-repeat;
   padding: .6em 1em .6em 2.7em;
   background-size: 1.5em;
   color: var(--gray-600);
   font-weight: 550;
   border-radius: 9em;
-  font-size: 80%;
+  font-size: .75rem;
+
+  em {
+    font-style: normal;
+    color: var(--main-500);
+    margin-right: .3em;
+    font-weight: 600;
+  }
 
   &:hover {
-    box-shadow: 0 0 0 1px var(--gray-400);
+    box-shadow: 0 0 0 1px var(--gray-300);
+    color: var(--gray-900);
   }
 
   &:active {

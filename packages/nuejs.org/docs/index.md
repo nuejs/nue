@@ -8,15 +8,16 @@ include: [compare]
 Nue is a design engineering framework that offers **unmatched performance**, **simplicity**, and a **user-focused development model**. Here’s why it’s a great fit for your next project:
 
 
-## 1. Tooling
-Nue delivers an exceptional hot-reloading experience, seamlessly detecting changes across all assets—**content**, **data**, **layouts**, **styles**, and **components**—and applying them in real time with an efficient diff and patch system, allowing you to iterate faster than ever.
+## 1. Development experience
+Nue upgrades the development experience by instantly detecting changes in **content**, **data**, **layouts**, **styles**, **components**, and **islands** and applying them to your browser in real time with its intelligent diff and patch system. This creates a smooth, lightning-fast feedback loop that brings a level of excitement to the process:
 
 [bunny-video]
   videoId: abb2cf75-c7f9-43e6-b126-8827d0c8721e
   style: "background-color: #282C30"
   poster: /img/blog-content-editing-big.png
 
-Nue eliminates deep JavaScript dependency trees, resulting in **record-breaking build speeds** that consistently outperform popular frameworks like **Next.js**.
+
+With no burden of countless and unnecessary JavaScript abstractions and dependencies, Nue is **blazing fast**, leaving monolithic frameworks in the dust:
 
 [table]
   Framework                         |  Next.js       |  Nue

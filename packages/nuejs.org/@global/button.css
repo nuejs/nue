@@ -51,3 +51,18 @@ button, [role="button"], .button {
   }
 }
 
+
+
+.play-button, .zoom {
+  background-image: url(/icon/play.svg);
+  background-repeat: no-repeat;
+  background-position: 1em center ;
+  background-size: 1rem;
+  padding-left: 2.5em;
+}
+
+.zoom {
+  background-image: url(/icon/zoom.svg);
+  background-size: 1.1rem;
+}
+

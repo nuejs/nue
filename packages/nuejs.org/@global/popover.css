@@ -51,3 +51,34 @@ dialog {
     z-index: 1;
   }
 }
+
+
+.simple-compare:popover-open {
+  max-width: 980px;
+  display: flex;
+  margin: 0 auto;
+  gap: 1.5rem;
+  inset: .75rem;
+
+  h2 {
+    margin: .5em 0 0;
+    + p { margin-block: .3em }
+    a { display: none }
+  }
+  > * {
+    flex: 1
+  }
+
+  .action {
+    position: absolute;
+    top: .5em;
+    right: .5em;
+    figure { margin: 0 }
+  }
+
+}
+
+
+#resources {
+  max-width: 1130px;
+}
