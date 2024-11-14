@@ -333,7 +333,7 @@ This creates a flexible layout where a main **feature** block contains a nested 
 The possibilities are endless. You can combine blocks in creative ways, stacking sections within sections to build rich, interactive landing pages. Imagine a **hero section** that introduces key features, followed by a **grid of cards**, each with its own stacked content blocks highlighting product details, testimonials, or case studies. With the power of **nesting**, you can craft visually complex layouts while keeping your Markdown easy to read and maintain. Whether you're building product showcases, multi-section promotional pages, or detailed service breakdowns, nesting unlocks a new level of creative control over your content structure—letting design systems handle the visual complexity.
 
 ### Code blocks
-Code blocks in Nue are enclosed between triple backticks and can include an optional language hint for syntax highlighting using the [Glow syntax highlighter](blog/introducing-glow/). For example, a CSS code block would look like this:
+Code blocks in Nue are enclosed between triple backticks and can include an optional language hint for syntax highlighting using the [Glow syntax highlighter](/blog/introducing-glow/). For example, a CSS code block would look like this:
 
 ```md
 \```css
@@ -447,7 +447,7 @@ This simple example demonstrates how you can create a **stacked layout** with co
 
 
 ### Content tags
-Nue offers a large amount of [tags](/content-tags.html) that significantly enhance your ability to create rich and interactive websites. You can add responsive images, videos, buttons, accordions, tabs, and more.
+Nue offers a large amount of [tags](content-tags.html) that significantly enhance your ability to create rich and interactive websites. You can add responsive images, videos, buttons, accordions, tabs, and more.
 
 You can also extend the syntax with [custom components](custom-components.html).
 

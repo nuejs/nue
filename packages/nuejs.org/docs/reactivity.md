@@ -217,7 +217,7 @@ After this, we can use this component in a Markdown file:
 
 
 ## Reactive components
-More complex components with dynamically generated HTML are better implemented with a [reactive component](reactive-components.html). These components support the same [template syntax](template-syntax.html) as the server-side components, but the components can respond to user input.
+More complex components with dynamically generated HTML are better implemented with a [reactive component](islands.html). These components support the same [template syntax](template-syntax.html) as the server-side components, but the components can respond to user input.
 
 
 
