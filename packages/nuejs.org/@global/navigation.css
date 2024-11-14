@@ -13,11 +13,11 @@ body > header {
   margin-bottom: 5em;
 
   .nav-home {
-    background-image: url(/img/logomark-big.png);
-    background-size: cover;
+    background: url(/img/logomark-big.png) no-repeat;
+    background-size: contain;
     text-indent: -99em;
-    width: 79px;
-    height: 30px;
+    width: 4.5rem;
+    height: 1.7rem;
   }
 
   &, > * {
@@ -79,32 +79,35 @@ body > header {
     nav:first-child {
       display: flex;
 
-      @media (width < 600) {
+      @media (width < 650) {
         gap: .75rem;
         a:not(.nav-home, .pill) { display: none }
       }
     }
   }
+  @media (width < 500) {
+    .pill { display: none }
+  }
 }
 
 .pill {
-  background: var(--gray-100) url(/icon/cube.svg) .6em 50% no-repeat;
+  background: var(--main-50) url(/icon/cube.svg) .75em 50% no-repeat;
   padding: .6em 1em .6em 2.7em;
   background-size: 1.5em;
   color: var(--gray-600);
   font-weight: 550;
   border-radius: 9em;
-  font-size: .75rem;
+  font-size: .8em;
 
   em {
     font-style: normal;
-    color: var(--main-500);
+    color: var(--main-600);
     margin-right: .3em;
     font-weight: 600;
   }
 
   &:hover {
-    box-shadow: 0 0 0 1px var(--gray-300);
+    transform: scale(1.005);
     color: var(--gray-900);
   }
 
@@ -125,6 +128,7 @@ body > header {
 body > footer {
   text-align: center;
   padding: 2rem 0 5rem;
+  border-top: var(--border);
 
   img {
     width: 50px;

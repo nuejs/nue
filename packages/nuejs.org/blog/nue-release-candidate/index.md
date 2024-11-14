@@ -1,7 +1,7 @@
 
 ---
-hero_title: "*Nue 1.0 (RC)* — Can it outperform Next.js?"
-title: "Nue 1.0 (RC) - A better Next.js?"
+hero_title: "*Nue 1.0 (RC)* — Can it outshine Next.js?"
+title: "A better Next.js? • Nue 1.0 (RC) is out"
 desc: This version brings numerous improvements, bug fixes, clearer documentation, and a new Markdown parser built from scratch to strengthen Nue's vision
 date: 2024-11-15
 ---
@@ -63,7 +63,7 @@ Nue helps developers create **fast** and **user-friendly** websites with feature
   poster: /img/hero-splash.jpg
   caption: "Nue templates preview. Hit **F** for fullscreen"
 
-Surprisingly, these rich, interactive sites remain exceptionally lightweight, comparable to text-only websites. To give you an idea, here’s how this documentation area compares to Next.js documentation:
+Surprisingly, these rich, interactive sites remain exceptionally lightweight, comparable to text-only websites. To give you an idea, here’s how Nue [documentation area](/docs/) compares to Next.js documentation:
 
 [table.with-total]
   Resources | Next.js | Nue | Difference
@@ -76,6 +76,12 @@ Surprisingly, these rich, interactive sites remain exceptionally lightweight, co
 
 [#resources.simple-compare popover]
 
+  ## Nue documentation
+  27kB of HTML/CSS/JS
+
+  [! /tour/img/assets-nue.png ]
+
+
   ## Next.js documentation
   645kB of HTML/CSS/JS
 
@@ -84,10 +90,6 @@ Surprisingly, these rich, interactive sites remain exceptionally lightweight, co
   [button.action popovertarget="resources"]
     [image /icon/close.svg]
 
-  ## Nue documentation
-  27kB of HTML/CSS/JS
-
-  [! /tour/img/assets-nue.png ]
 
 
 [.note]
@@ -99,23 +101,26 @@ Surprisingly, these rich, interactive sites remain exceptionally lightweight, co
 ## New Markdown parser
 In earlier versions of Nue, we used the **Marked** library to handle basic formatting for our extended Markdown syntax — known as **Nuemark**. While Marked is a solid, general-purpose Markdown parser with excellent performance, it became clear that it couldn't fully support the direction we wanted for Nue, particularly with our content-first development model.
 
-The main issue with Marked was its lack of a true **abstract syntax tree** (AST). The AST is a structured representation of the Markdown content, allowing it to be easily analyzed, manipulated, and extended before rendering to HTML. With Marked, the structure was essentially immutable—meaning it wasn't possible to add new nodes, elements, or references before rendering the document.
+The main issue with Marked was its lack of a mutable **abstract syntax tree** (AST). The AST is a structured representation of the Markdown content, allowing it to be easily analyzed, manipulated, and extended before rendering to HTML. With Marked, the structure was essentially immutable—meaning it wasn't possible to add new nodes, elements, or link references before rendering the document.
+
+Moreover, the API for creating custom extensions was overly complex, particularly for advanced features that needed to understand the document’s structure and modify parts of the syntax tree. This made implementing the more advanced components of Nue impossible.
+
+To overcome these limitations, we built an **entirely new parser** from scratch. This new parser implements a **mutable AST**, offering greater flexibility, performance, and control over the content structure. With this foundation, we were able to add all the required features, enabling the creation of rich, interactive content and making it easier to integrate custom elements into the rendering process.
 
 
-```md.pink
-[accordion]
-  # asflkjsfasl
-  sdfasdfd
+```md.blue.info "A new, clutter-free syntax for accordions, tabs, and grids"
+|[accordion]
+
+  ## New features
+  1. New Markdown parser
+  2. New formatting options
+  3. New components
+
+  ## Improvements
+  1. Web component fallbacks
+  2. Markdown <slot/> support
+  3. Improved HMR error reporting
 ```
-
-[.small.centered]
-  AST benefits ...
-
-
-Moreover, the API for creating custom extensions in Marked was overly complex, particularly for advanced features that needed to understand the document’s structure and modify parts of the syntax tree. This made implementing the more advanced components of Nue impossible.
-
-To overcome these limitations, we built an **entirely new parser** from scratch. This new parser implements a **true AST**, offering greater flexibility, performance, and control over the content structure. With this foundation, we were able to add all the required features, enabling the creation of rich, interactive content and making it easier to integrate custom elements into the rendering process.
-
 
 
 ### New parser features
@@ -194,9 +199,9 @@ Full list of improvements and breaking changes on this release:
 
   - **`===` no longer works as a section separator**: The `===` syntax for section separation is no longer supported. Instead, use `---` for section separators, and `***` or `___` for thematic breaks (which correspond to the `<hr>` tag in HTML). This change ensures consistency and follows standard Markdown conventions.
 
-  - **[image] "srcset" and "sizes" removed**: The `srcset` and `sizes` parameters for the `[image]` tag have been removed due to their complexity. A simpler and more powerful system for responsive images is planned for future releases.
+  - **`[image]` "srcset" removed**: The `srcset` and `sizes` parameters for the `[image]` tag have been removed due to their complexity. A simpler and more powerful system for responsive images is planned for future releases.
 
-  - **[video] tag simplified**: The `[video]` tag has been simplified to only accept the `src` parameter, removing support for multiple video sources. A more robust video player and driver support system is coming in a future update, allowing for better video handling and greater flexibility.
+  - **`[video]` tag simplified**: The `[video]` tag has been simplified to only accept the `src` parameter, removing support for multiple video sources. A more robust video player and driver support system is coming in a future update, allowing for better video handling and greater flexibility.
 
 
 

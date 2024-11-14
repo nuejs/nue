@@ -84,7 +84,8 @@ section {
   }
 
   @media (width < 1000) { font-size: 1.2rem }
-  @media (width < 550) { font-size: 1.05em }
+  @media (width < 700) { font-size: 1.05em }
+  @media (width < 500) { font-size: .5em }
 }
 
 
@@ -100,6 +101,15 @@ h2 {
     text-wrap: balance;
     max-width: 800px;
     margin: 0 auto 1em;
+  }
+
+  @media (width < 900) {
+    font-size: 2rem;
+    + p { font-size: 1.1rem }
+  }
+  @media (width < 600) {
+    font-size: 1.5rem;
+    + p { font-size: 1rem }
   }
 }
 

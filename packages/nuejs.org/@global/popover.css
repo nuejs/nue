@@ -53,12 +53,16 @@ dialog {
 }
 
 
-.simple-compare:popover-open {
+.simple-compare {
   max-width: 980px;
-  display: flex;
   margin: 0 auto;
   gap: 1.5rem;
   inset: .75rem;
+
+  &:popover-open {
+    display: flex;
+  }
+
 
   h2 {
     margin: .5em 0 0;
@@ -74,6 +78,12 @@ dialog {
     top: .5em;
     right: .5em;
     figure { margin: 0 }
+  }
+
+  @media(width < 900) {
+    max-height: 96vh;
+    flex-direction: column;
+    h3 span { display: none }
   }
 
 }

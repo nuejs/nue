@@ -68,7 +68,7 @@ h1 {
     letter-spacing: -.03em;
     transition: letter-spacing 1s .2s;
     display: inline-block;
-    animation: letter-spacing ease-in-out 1.5s;
+    animation: letter-spacing 1s;
 
     &::selection { background-color: var(--gray-600) }
   }
@@ -97,7 +97,4 @@ h1 {
 @keyframes letter-spacing {
   0% { letter-spacing: .05em; }
   30% { letter-spacing: -.1em; }
-  50% { letter-spacing: 0em; }
-  75% { letter-spacing: .1em; }
-  90% { letter-spacing: inherit; }
 }

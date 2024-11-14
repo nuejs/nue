@@ -5,11 +5,11 @@ include: [compare]
 
 
 # Why Nue?
-Nue is a design engineering framework that offers **unmatched performance**, **simplicity**, and a **user-focused development model**. Here’s why it’s a great fit for your next project:
+Nue is a design engineering framework that offers **unmatched performance**, **simplicity**, and a **content-first development model**. Here’s why it’s a great fit for your next project:
 
 
 ## 1. Development experience
-Nue upgrades the development experience by instantly detecting changes in **content**, **data**, **layouts**, **styles**, **components**, and **islands** and applying them to your browser in real time with its intelligent diff and patch system. This creates a smooth, lightning-fast feedback loop that brings a level of excitement to the process:
+Nue enhances the development experience by instantly detecting changes in **content**, **data**, **layouts**, **styles**, **components**, and **islands**, and applying them to your browser in real time with its intelligent diff and patch system. This creates a lightning-fast feedback loop that boosts your productivity and makes the development process more enjoyable:
 
 [bunny-video]
   videoId: abb2cf75-c7f9-43e6-b126-8827d0c8721e
@@ -31,6 +31,12 @@ With no burden of countless and unnecessary JavaScript abstractions and dependen
 
 [#buildperf.simple-compare popover]
 
+  ## Nue build speed
+  Nue builds are measured in milliseconds
+
+  [bunny-video]
+    videoId: 7bcfcde2-912c-4c30-a442-198bc25ba250
+
   ## Next.js build speed
   JavaScript monoliths take several seconds to build
 
@@ -40,11 +46,6 @@ With no burden of countless and unnecessary JavaScript abstractions and dependen
   [button.action popovertarget="buildperf"]
     [image /icon/close.svg]
 
-  ## Nue build speed
-  Nue builds are measured in milliseconds
-
-  [bunny-video]
-    videoId: 7bcfcde2-912c-4c30-a442-198bc25ba250
 
 
 ## 2. Design engineering
@@ -68,7 +69,7 @@ Nue helps developers create **stunning**, **fast**, and **user-friendly** websit
   poster: /img/hero-splash.jpg
   caption: "Nue templates preview. Hit **F** for fullscreen"
 
-Surprisingly, these rich, interactive sites remain exceptionally lightweight, comparable to text-only websites. Here’s how this documentation area compares to Next.js documentation:
+Surprisingly, these rich, interactive sites remain incredibly lean, similar in size to text-only websites. For comparison, here’s how this documentation area stacks up against the Next.js documentation:
 
 [table.with-total]
   Resources         | Next.js   | Nue      | Difference
@@ -81,6 +82,11 @@ Surprisingly, these rich, interactive sites remain exceptionally lightweight, co
 
 [#resources.simple-compare popover]
 
+  ## Nue documentaion
+  27kB of HTML/CSS/JS
+
+  [! /tour/img/assets-nue.png ]
+
   ## Next.js documentaion
   645kB of HTML/CSS/JS
 
@@ -89,13 +95,8 @@ Surprisingly, these rich, interactive sites remain exceptionally lightweight, co
   [button.action popovertarget="resources"]
     [image /icon/close.svg]
 
-  ## Nue documentaion
-  27kB of HTML/CSS/JS
 
-  [! /tour/img/assets-nue.png ]
-
-
-## Who Is Nue Good For?
+## Who is nue good for?
 Nue is a great fit for:
 
 1. **Beginner web developers**: Those looking to bypass [frontend redundancy](//roadmap.sh/frontend) and work directly with the Web Standard Model: HTML, CSS, and JavaScript.

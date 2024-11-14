@@ -1,17 +1,22 @@
 
 .heroquote {
-  max-width: 800px;;
+  max-width: 750px;;
   margin: 2em auto;
   font-size: 1.3em;
   display: flex;
-  gap: 2em;
+  gap: 1.5em;
 
   p { margin-top: -.3em }
 
+  p:last-child {
+    font-size: 1.1rem;
+  }
+
   img {
     border-radius: 4px;
-    max-width: 150px;
+    max-width: 120px;
   }
+
   @media (max-width: 700px) {
     display: block;
     img {

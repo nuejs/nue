@@ -46,16 +46,16 @@ Nue is an ambitious project aiming to address the key issues in the frontend eco
 
 
 
-## Designer/Developer reactions
+## Designer /engineer reactions
 
 [.heroquote]
   [! /home/img/elliot-jay-stocks.jpg]
 
   ---
-  At some point in the last decade, popular frameworks and platforms have eschewed semantic markup, and, as a result, the web has become way more bloated than it ever needed to be. Stripping away presentational markup and unreadable CSS is something all web developers once believed in. I'm glad Nue is bringing back that power.
+  It's exciting to see Nue restoring the power of semantic CSS! Separating markup from presentation is something every web developer once believed in, and Nue is making that possible again.
 
   [Elliot Jay Stocks](//elliotjaystocks.com/) /
-  **Legendary designer and UX developer**
+  **Designer and typography enthusiast**
 
 
 [feedback]

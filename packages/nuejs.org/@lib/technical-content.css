@@ -185,8 +185,8 @@ blockquote {
 
 
 li > p > strong:first-child {
-  font-weight: 700;
-  color: var(--gray-950);
+  font-weight: 650;
+  color: var(--gray-800);
 }
 
 
@@ -277,22 +277,27 @@ figure > a {
 .pink   { background-image: linear-gradient(#e879f9, #ec4899) }
 
 .pink, .blue, .purple {
-  padding: 3em 0 0 3em;
-  border-radius: .5em;
-  overflow: hidden;
+  padding: 2.5em 0 0 2.5em;
   margin: 1.5em 0 2em;
+  border-radius: 6px;
+  overflow: hidden;
 
   pre, img {
-    border-radius: .5em 0 0 0;
+    border-radius: 6px 0 0 0;
     margin: 0;
   }
-  img {
-    margin-bottom: -4px;
+
+  img { margin-bottom: -4px }
+
+  &.info {
+    margin-top: 4rem;
+    figcaption {
+      position: absolute;
+      margin: -5em 0 0 -2em;
+    }
   }
 
-  @media (max-width: 500px) {
-    padding: 1em;
-  }
+
 }
 
 .bordered img {
@@ -322,15 +327,60 @@ pre {
   color: var(--main-400);
 }
 
+/* "good" and "bad" code block captions */
+.good, .bad, .info  {
+  margin-top: 2em;
+
+  figcaption {
+    background: url(/icon/bad.svg) -.2em center no-repeat;
+    padding: .2em 0 .2em 1.8em;
+    background-size: 1.6em;
+    color: var(--gray-900);
+    text-align: left;
+    font-weight: 550;
+    font-size: 95%;
+
+    &:after {
+      border-left: 1px solid var(--red);
+      position: relative;
+      top: 1.2em;
+      left: -1.2em;
+      content: "";
+      height: 1em;
+      display: block;
+      float: left;
+    }
+  }
+}
+
+.good figcaption {
+  background: url(/icon/good.svg) -1px center no-repeat;
+  background-size: 1.4em;
+
+  &:after {
+    border-color: var(--green);
+  }
+}
+
+.info figcaption {
+  background: url(/icon/info.svg) 0 center no-repeat;
+  background-size: 1.4em;
+
+  &:after {
+    border-color: var(--main-400);
+  }
+}
 
 .note {
-  border-left: 2px solid var(--main-500);
   background-color: var(--main-50);
-  border-radius: 0 8px 8px 0;
-  padding: 1.5em;
-  margin: 2em 0;
-  font-size: 95%;
-  max-width: 90%;
+  border-radius: 6px;
+  padding: 1em 1.5em;
+  font-size: 1rem;
+  margin: 2rem 0;
+
+  @media(width > 1000px) {
+    max-width: 90%;
+  }
 
   > :first-child {
     background: url(/icon/info.svg) no-repeat;
@@ -360,4 +410,17 @@ pre {
   }
 }
 
+details {
+  font-weight: 500;
+  padding: 1rem 0;
+  cursor: pointer;
 
+  summary {
+    font-size: 1.1rem;
+    &::marker { color: var(--main-400) }
+  }
+
+  &:not(:last-child) {
+    border-bottom: var(--border);
+  }
+}

@@ -23,4 +23,4 @@ compare:
     - title: HTML element styling
       desc: Semantic CSS
       img: [ tailwind-button, nue-button ]
-      src: [ src/components/Button.js, "@lib/button.css" ]
+      src: [ src/components/Button.js, "@global/button.css" ]

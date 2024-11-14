@@ -13,11 +13,14 @@ body {
   padding: var(--body-padding);
   font-family: system-ui;
   margin: 0;
+
+  @media (width < 900) { font-size: 15px }
+  @media (width < 600) { font-size: 14px }
+
 }
 
 main {
-  border-bottom: var(--border);
-  padding-bottom: 7em;
+  padding-bottom: 5rem;
   min-height: 35vh;
 }
 

@@ -6,8 +6,8 @@ let headings = []
 let clicked
 
 function setSelected(href, attr='aria-selected') {
-  $(`aside [${attr}]`)?.removeAttribute(attr)
-  $(`aside [href="${href}"]`)?.setAttribute(attr, 1)
+  $(`.toc [${attr}]`)?.removeAttribute(attr)
+  $(`.toc [href="${href}"]`)?.setAttribute(attr, 1)
 }
 
 const observer = new IntersectionObserver(arr => {
@@ -19,7 +19,7 @@ const observer = new IntersectionObserver(arr => {
 }, { rootMargin: `0px 0px -500px 0px`})
 
 
-$$('article + aside a').forEach(el => {
+$$('.toc a').forEach(el => {
   el.onclick = function({ target }) {
     if (target.href) {
       clicked = true

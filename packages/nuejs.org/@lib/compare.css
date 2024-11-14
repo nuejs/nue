@@ -26,6 +26,7 @@
 
   .stack {
     opacity: 1;
+    flex-direction: row-reverse;
 
     &.seeking {
       transition: .2s;
@@ -69,5 +70,10 @@
   @media (width > 800px) {
     overflow: hidden;
   }
+
+  @media (width < 800px) {
+    div:first-child h3 span { display: none }
+  }
+
 
 }
