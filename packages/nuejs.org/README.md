@@ -3,15 +3,15 @@
 The source code for https://nuejs.org
 
 <a href="https://nuejs.org/">
-  <img src="https://nuejs.org/img/figma-to-css-big.png" width="800">
+  <img src="https://nuejs.org/img/og-dark-big.png" width="900">
 </a>
 
 
 ### Running locally
 
 1. [Install Nue](//nuejs.org/docs/installation.html)
-2. Clone this branch
+2. Clone this repository
 3. `cd nue/packages/nuejs.org`
 4. `nue`
 
-This should start the website at http://localhost:8080/
+The website runs at http://localhost:8080/

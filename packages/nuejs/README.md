@@ -1,10 +1,10 @@
 
-# Nue JS
-Nue JS is a tiny (2.3kb minzipped) JavaScript library for building web interfaces. It is the layout engine for [Nue web framework](https://nuejs.org) providing both server-side templating and client-side reactive islands.
+# Dynamic HTML templating
+Nue JS is a tiny (2.3kb minzipped) JavaScript library for building web interfaces. It is the layout engine for [Nue web framework](https://nuejs.org) providing both server-side templating and the ability to create interactive islands for the browser.
 
 
-## HTML microlibrary for UX developers
-Nue template syntax is designed for [UX developers](https://nuejs.org/docs/) who prefer to write user interfaces with clean, semantic HTML instead of JavaScript. Think Nue as standard HTML, that you can extend with custom HTML-based components. These components help you build modern web applications in a simple, declarative way. For example:
+## Like React, but for the semantic web
+Nue template syntax is designed for [design engineers](https://nuejs.org/docs/) who prefer to write user interfaces with clean, semantic HTML instead of JavaScript. Think Nue as standard HTML, that you can extend with custom HTML-based components. These components help you build modern web applications in a simple, declarative way. For example:
 
 
 ```html
@@ -18,12 +18,11 @@ Nue template syntax is designed for [UX developers](https://nuejs.org/docs/) who
 </div>
 ```
 
-If React is "just JavaScript", then Nue is "just HTML" because any valid HTML is also valid Nue.
-
 ### Links
 
 * [Template syntax](https://nuejs.org/docs/template-syntax.html)
-* [Reactive components](https://nuejs.org/docs/reactive-components.html)
+* [Creating components](https://nuejs.org/docs/custom-components.html)
+* [Islands in Nue](https://nuejs.org/docs/islands.html)
 
 
 ### Contributing
