@@ -10,7 +10,7 @@ appdir: home
 Nue is a Static Site Generator (SSG) built from scratch for faster tooling, cleaner codebases, and better results. **It makes things •fun• again**
 
 [button "Why Nue" href="/docs/"]
-[button.secondary "Get started" href="/docs/installation"]
+[button.secondary "Get started" href="/docs/installation.html"]
 
 [bunny-video]
   videoId: 383e5c79-6747-4b1a-8d7a-9da9ae721d33
