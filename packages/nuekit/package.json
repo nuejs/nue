@@ -1,7 +1,7 @@
 {
   "name": "nuekit",
   "version": "1.0.0-RC.1",
-  "description": "The UX Framework for the Web",
+  "description": "The design engineering framework for the web",
   "homepage": "https://nuejs.org",
   "license": "MIT",
   "type": "module",

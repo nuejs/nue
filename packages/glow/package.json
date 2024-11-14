@@ -1,8 +1,8 @@
 {
   "name": "nue-glow",
-  "version": "0.2.1",
-  "description": "Tiny and powerful Markdown syntax highlighter",
-  "homepage": "https://nuejs.org/blog/introducing-glow",
+  "version": "0.2.2",
+  "description": "Markdown syntax highlighter for CSS developers",
+  "homepage": "https://nuejs.org/blog/introducing-glow/",
   "license": "MIT",
   "type": "module",
   "main": "index.js",
