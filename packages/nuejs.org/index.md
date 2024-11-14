@@ -1,100 +1,62 @@
 ---
-section_classes: [hero, feature-area, project-status]
-section_component: scroll-transition
-include: [button, form]
+sections: [hero, explainer, project-status]
+include: [form, video]
 inline_css: true
 appdir: home
 ---
 
 
-# Web Framework For UX Developers
-Build the slickest websites in the world and wonder why you ever did them any other way
+# The *Design* **Engineering** •Framework• for the •Web•
+Nue is a Static Site Generator (SSG) built from scratch for faster tooling, cleaner codebases, and better results. **It makes things •fun• again**
 
-[button href="/docs/installation.html" "Get started"]
+[button "Why Nue" href="/docs/"]
+[button.secondary "Get started" href="/docs/installation"]
+
+[bunny-video]
+  videoId: 383e5c79-6747-4b1a-8d7a-9da9ae721d33
+  poster: /img/hero-splash.jpg
+  caption: "*Nue templates (preview)* Hit **F** for fullscreen"
+  size: 950 x 603
+
+
+
+## It's how the web works
+Nue is a content-first framework optimized for **progressive enhancement**. It changes the way you think about websites.
+
 
 [image]
-  small: /img/figma-to-css.png
-  large: /img/figma-to-css-big.png
-  alt: Figma design system converted to CSS
-  size: 1100 × 712
+  small: /img/progressive-enhancement.png
+  large: /img/progressive-enhancement-big.png
+  size: 680 x 182
+
+[button.continue "Learn more" href="/docs/how-it-works.html"]
 
 
-========
+## Product roadmap { #roadmap }
+Nue is an ambitious project aiming to address the key issues in the frontend ecosystem.
+
+[roadmap]
 
 
-## Web developer's dream
-What used to take a separate designer, React engineer, and an absurd amount of JavaScript can now be done by a UX developer and a small amount of CSS
+[.follow]
+  ### Follow the progress
+  Get notified about new releases by email
+
+  [join-list]
 
 
 
-[.features]
-  ### Rapid UX development
-  No JavaScript ecosystem in your way
-
-  [! /home/img/typo-css.png size="610 × 290 px"]
-
-  [Learn more](/docs/)
-
-  ---
-
-  ### Easy customer handoff
-  All content is editable by non-technical people
-
-  [! /home/img/home-md.png size="415 × 337 px"]
-
-  [Learn more](/docs/content.html)
-
-
-  ---
-  ### Advanced reactivity
-  Go beyond the JavaScript component model
-
-  [! /home/img/transition-css.png size="367 × 155 px"]
-
-  [Learn more](/docs/reactivity.html)
-
-  ---
-
-  ### Leaner, cleaner, and faster
-  Work closer to metal and web standards
-
-  [! /home/img/nextjs-vs-nue.png size="611 × 94 px"]
-
-  [Learn more](/docs/performance-optimization.html)
-
-
-========
-
-
-## Roadmap and status { #roadmap }
-Ultimately Nue will be a ridiculously simpler alternative to **Next.js**, **Gatsby**, and **Astro**
-
-[image]
-  src: /img/roadmap-beta.png
-  size: 660 × 173 px
-
-
-### Receive a notification
-Be the first to know when the official 1.0 release, templates, and the cloud stuff are released
-
-[join-list]
-
-
-========
-
-
-## Developer reactions
+## Designer /engineer reactions
 
 [.heroquote]
   [! /home/img/elliot-jay-stocks.jpg]
+
   ---
-  At some point in the last decade, popular frameworks and platforms have eschewed semantic markup, and, as a result, the web has become way more bloated than it ever needed to be. Stripping away presentational markup and unreadable CSS is something all web developers once believed in. I'm glad Nue is bringing back that power.
+  It's exciting to see Nue restoring the power of semantic CSS! Separating markup from presentation is something every web developer once believed in, and Nue is making that possible again.
 
   [Elliot Jay Stocks](//elliotjaystocks.com/) /
-  **Legendary designer and UX developer**
+  **Designer and typography enthusiast**
 
 
 [feedback]
-
-
 

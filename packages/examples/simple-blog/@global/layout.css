@@ -43,17 +43,18 @@ body {
   /* global footer */
   > footer {
     border-top: 1px solid var(--gray-200);
-    justify-content: space-between;
-    margin-top: 6rem;
-    padding: 1rem 0;
-    display: flex;
+    margin-top: 8rem;
 
-    /* social icons */
-    > :last-child {
+    nav {
+      padding: 1rem 0;
       display: flex;
       gap: .5em;
-      a:hover {
-        transform: scale(1.1)
+
+      a { opacity: .8 }
+      a:hover { opacity: 1 }
+
+      a:nth-child(2) {
+        margin-left: auto;
       }
     }
   }

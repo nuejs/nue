@@ -2,7 +2,7 @@
 date: 2024-02-18
 og: img/tailwind-messaging-pillars.jpg
 title: Tailwind marketing and misinformation engine
-desc: The origins of Tailwind and how it is framed against semantic CSS
+desc: The origins of Tailwind and how it is framed to solve the proposed issues of CSS
 ---
 
 
@@ -35,21 +35,23 @@ The more generic the name, the more reusable it is. He used the famous [media ob
 
 But that's not how Adam understood the sentence. Instead of moving towards more reusable class names, he introduced a custom grammar to inline styling rules directly to HTML:
 
-[code]
-  <!-- "uilist" -->
-  <div class="
-  > sticky top-0 z-40 w-full backdrop-blur flex-none
-  > transition-colors duration-500 lg:z-50 lg:border-b
-  > bg-white/95 supports-backdrop-blur:bg-white/60
-  > dark:bg-transparent">
+```
+<!-- "uilist" -->
+<div class="
+> sticky top-0 z-40 w-full backdrop-blur flex-none
+> transition-colors duration-500 lg:z-50 lg:border-b
+> bg-white/95 supports-backdrop-blur:bg-white/60
+> dark:bg-transparent">
 
-    <!-- "uilist-item" -->
-    <span class="
-  >   py-4 border-b border-slate-900/10 lg:px-8
-  >   lg:border-0 dark:border-slate-300/10 px-4">
-      ...
-    </span>
-  </div>
+  <!-- "uilist-item" -->
+  <span class="
+>   py-4 border-b border-slate-900/10 lg:px-8
+>   lg:border-0 dark:border-slate-300/10 px-4">
+    ...
+  </span>
+</div>
+```
+
 
 This was quite a big step away from what Nicolas was saying, who resisted the idea of coupling visual information to elements, like everyone else in the industry back then.
 
@@ -138,71 +140,71 @@ Let's look at the source code of the first button on [Catalyst demo page](//cata
 [.small]
   The black button source code. The expressions are sorted alphabetically:
 
-[code.small]
-  <button class="
-    [&amp;>[data-slot=icon]]:-mx-0.5
-    [&amp;>[data-slot=icon]]:my-0.5
-    [&amp;>[data-slot=icon]]:shrink-0
-    [&amp;>[data-slot=icon]]:size-5
-    [&amp;>[data-slot=icon]]:sm:my-1
-    [&amp;>[data-slot=icon]]:sm:size-4
-    [&amp;>[data-slot=icon]]:text-[--btn-icon]
-    [--btn-bg:theme(colors.zinc.900)]
-    [--btn-border:theme(colors.zinc.950/90%)]
-    [--btn-hover-overlay:theme(colors.white/10%)]
-    [--btn-icon:theme(colors.zinc.400)]
-    after:-z-10
-    after:absolute
-    after:data-[active]:bg-[--btn-hover-overlay]
-    after:data-[disabled]:shadow-none
-    after:data-[hover]:bg-[--btn-hover-overlay]
-    after:inset-0
-    after:rounded-[calc(theme(borderRadius.lg)-1px)]
-    after:shadow-[shadow:inset_0_1px_theme(colors.white/15%)]
-    before:-z-10
-    before:absolute
-    before:bg-[--btn-bg]
-    before:data-[disabled]:shadow-none
-    before:inset-0
-    before:rounded-[calc(theme(borderRadius.lg)-1px)]
-    before:shadow
-    bg-[--btn-border]
-    border
-    border-transparent
-    dark:[--btn-bg:theme(colors.zinc.600)]
-    dark:[--btn-hover-overlay:theme(colors.white/5%)]
-    dark:after:-inset-px
-    dark:after:rounded-lg
-    dark:before:hidden
-    dark:bg-[--btn-bg]
-    dark:border-white/5
-    dark:text-white
-    data-[active]:[--btn-icon:theme(colors.zinc.300)]
-    data-[disabled]:opacity-50
-    data-[focus]:outline
-    data-[focus]:outline-2
-    data-[focus]:outline-blue-500
-    data-[focus]:outline-offset-2
-    data-[hover]:[--btn-icon:theme(colors.zinc.300)]
-    focus:outline-none
-    font-semibold
-    forced-colors:[--btn-icon:ButtonText]
-    forced-colors:data-[hover]:[--btn-icon:ButtonText]
-    gap-x-2
-    inline-flex
-    isolate
-    items-center
-    justify-center
-    px-[calc(theme(spacing[3.5])-1px)]
-    py-[calc(theme(spacing[2.5])-1px)]
-    relative
-    rounded-lg
-    sm:px-[calc(theme(spacing.3)-1px)]
-    sm:py-[calc(theme(spacing[1.5])-1px)]
-    sm:text-sm/6
-    text-base/6
-    text-white"> Button </button>
-
+```html.small
+<button class="
+  [&amp;>[data-slot=icon]]:-mx-0.5
+  [&amp;>[data-slot=icon]]:my-0.5
+  [&amp;>[data-slot=icon]]:shrink-0
+  [&amp;>[data-slot=icon]]:size-5
+  [&amp;>[data-slot=icon]]:sm:my-1
+  [&amp;>[data-slot=icon]]:sm:size-4
+  [&amp;>[data-slot=icon]]:text-[--btn-icon]
+  [--btn-bg:theme(colors.zinc.900)]
+  [--btn-border:theme(colors.zinc.950/90%)]
+  [--btn-hover-overlay:theme(colors.white/10%)]
+  [--btn-icon:theme(colors.zinc.400)]
+  after:-z-10
+  after:absolute
+  after:data-[active]:bg-[--btn-hover-overlay]
+  after:data-[disabled]:shadow-none
+  after:data-[hover]:bg-[--btn-hover-overlay]
+  after:inset-0
+  after:rounded-[calc(theme(borderRadius.lg)-1px)]
+  after:shadow-[shadow:inset_0_1px_theme(colors.white/15%)]
+  before:-z-10
+  before:absolute
+  before:bg-[--btn-bg]
+  before:data-[disabled]:shadow-none
+  before:inset-0
+  before:rounded-[calc(theme(borderRadius.lg)-1px)]
+  before:shadow
+  bg-[--btn-border]
+  border
+  border-transparent
+  dark:[--btn-bg:theme(colors.zinc.600)]
+  dark:[--btn-hover-overlay:theme(colors.white/5%)]
+  dark:after:-inset-px
+  dark:after:rounded-lg
+  dark:before:hidden
+  dark:bg-[--btn-bg]
+  dark:border-white/5
+  dark:text-white
+  data-[active]:[--btn-icon:theme(colors.zinc.300)]
+  data-[disabled]:opacity-50
+  data-[focus]:outline
+  data-[focus]:outline-2
+  data-[focus]:outline-blue-500
+  data-[focus]:outline-offset-2
+  data-[hover]:[--btn-icon:theme(colors.zinc.300)]
+  focus:outline-none
+  font-semibold
+  forced-colors:[--btn-icon:ButtonText]
+  forced-colors:data-[hover]:[--btn-icon:ButtonText]
+  gap-x-2
+  inline-flex
+  isolate
+  items-center
+  justify-center
+  px-[calc(theme(spacing[3.5])-1px)]
+  py-[calc(theme(spacing[2.5])-1px)]
+  relative
+  rounded-lg
+  sm:px-[calc(theme(spacing.3)-1px)]
+  sm:py-[calc(theme(spacing[1.5])-1px)]
+  sm:text-sm/6
+  text-base/6
+  text-white"> Button </button>
+```
 
 I have many questions about this:
 
@@ -216,26 +218,26 @@ Also: Are there any limits to the utility-first workflow? When can I use @apply 
 ### "Modeled after HTML"
 Another major feature in Catalyst was a new markup language that separates all the language literals behind React components. Here's a dialog example using [Catalyst components](//catalyst.tailwindui.com/docs):
 
-[code numbered="1"]
-  <Dialog>
-    <DialogTitle>Join mailing list</DialogTitle>
-    <DialogDescription>
-      Expect <Strong>no spamming</Strong>
-    </DialogDescription>
+```html numbered
+<Dialog>
+  <DialogTitle>Join mailing list</DialogTitle>
+  <DialogDescription>
+    Expect <Strong>no spamming</Strong>
+  </DialogDescription>
 
-    <DialogBody>
-      <Field>
-        <Label>Email</Label>
-        <Input name="email" />
-      </Field>
-    </DialogBody>
+  <DialogBody>
+    <Field>
+      <Label>Email</Label>
+      <Input name="email" />
+    </Field>
+  </DialogBody>
 
-    <DialogActions>
-      <Button plain>Cancel</Button>
-      <Button>Join</Button>
-    </DialogActions>
-  </Dialog>
-
+  <DialogActions>
+    <Button plain>Cancel</Button>
+    <Button>Join</Button>
+  </DialogActions>
+</Dialog>
+```
 
 The markup feels surprisingly similar to semantic HTML:
 

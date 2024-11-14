@@ -1,3 +1,8 @@
+
+/*
+  Not in use currently
+*/
+
 import { promises as fs } from 'node:fs'
 import { join, extname, parse as parsePath } from 'node:path'
 
@@ -10,7 +15,6 @@ async function readSize(dist, path) {
   return raw.length
 }
 
-// not currently in use. make something actually useful later
 export async function printStats(site, args) {
   if (args.dryrun) return
 
@@ -56,7 +60,7 @@ export function categorize(paths) {
       ['js', 'ts'].includes(ext) ? cats.scripts :
         ext == 'yaml' || ext == 'html' ? misc :
           base == 'index.html' ? cats.spa :
-            ext == 'nue' || ext == 'htm' ? cats.islands :
+            ext == 'dhtml' || ext == 'htm' ? cats.islands :
               ext == 'md' ? cats.pages :
                 cats.media
 

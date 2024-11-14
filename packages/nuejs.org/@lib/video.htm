@@ -34,17 +34,15 @@
       })
     }
 
+
     toggle() {
       const { video } = this
       const { paused } = video
       paused ? video.play() : video.pause()
 
       this.root.classList.toggle('playing', paused)
-
-      if (!this.started) {
-        this.root.classList.remove('splash')
-        this.started = true
-      }
+      this.root.parentNode.classList.remove('splash')
+      player = this
     }
   </script>
 
@@ -52,9 +50,39 @@
 
 
 <script>
+  let player = null
+
   function getQuality(max) {
     const widths = [720, 480, 360]
     return widths.find(w => w < max)
   }
+
+  function handleKeyboard() {
+    function handle(e) {
+      if (!player || e.metaKey || e.ctrlKey) return
+
+      const { video } = player
+      const is_fullscreen = document.fullscreenElement
+      const { key } = e
+
+      if (key == 'f') {
+        is_fullscreen ? document.exitFullscreen() : video.requestFullscreen()
+
+      } else if (!is_fullscreen) {
+        if (key == ' ') player.toggle.call(player)
+        if (key == 'ArrowLeft') video.currentTime -= 5
+        if (key == 'ArrowRight') video.currentTime += 5
+        if (key == 'Escape') {
+          video.closest('.video')?.classList.add('splash')
+          video.classList.remove('playing')
+          video.load()
+        }
+      }
+    }
+    addEventListener('keydown', handle)
+    addEventListener('route', () => removeEventListener('keydown', handle), { once: true })
+  }
+
+  handleKeyboard()
 </script>
 

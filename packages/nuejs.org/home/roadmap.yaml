@@ -1,0 +1,60 @@
+
+roadmap:
+  - title: Completed
+    icon: check-circle
+    items:
+      - package: nuekit
+        title: Design engineering framework
+        version: v1.0-RC1
+        desc: With content-first development model
+        href: /docs/how-it-works.html
+
+      - package: nuemark
+        title: Extended Markdown
+        desc: Custom parser for rich, interactive websites
+        href: /docs/content-syntax.html
+
+      - package: nuejs
+        title: HTML components
+        desc: For server layouts and Interactive islands
+        href: /docs/custom-components.html
+
+      - package: glow
+        title: Syntax highlighting
+        desc: Fenced code blocks for CSS developers
+        href: /blog/introducing-glow/
+
+  - title: In progress
+    items:
+      - title: Framework v1.0 stable
+        desc: Great documentation and development experience
+        priority: high
+        eta: Jan 2024
+        progress: 80%
+
+      - title: Global Design System (GDS)
+        desc: Rapid website assembly without the problems of low-code
+        eta: Mar 2025
+
+      - title: Website templates
+        desc: Instances from the global design system
+        eta: Mar 2025
+
+
+
+  - title: Final goal
+    icon: paper-plane
+    items:
+      - title: Single-page apps
+        desc: Redefining the monolithic model
+        eta: Q2 2025
+
+      - title: Cloud pusher
+        desc: Make the cloud feel like localhost
+        eta: Q3 2025
+
+      - title: Cloud infrastructure
+        desc: A complete design engineering cloud
+        eta: Q4 2025
+
+

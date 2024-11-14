@@ -101,7 +101,9 @@ async function remount(path) {
 
   // save form/dialog state
   const data = [...document.forms].map(form => new FormData(form))
-  let dialog = $('dialog[open]')
+  const popover = $('[popover]')
+  const pid = popover?.checkVisibility() && popover.id
+  const dialog = $('dialog[open]')
 
   // mount all
   await mountAll(path)
@@ -109,9 +111,18 @@ async function remount(path) {
   // restore form data
   data.forEach((formdata, i) => deserialize(document.forms[i], formdata))
 
-  // dialog found -> re-open
-  dialog = window[dialog?.id]
-  if (dialog) { dialog.close(); dialog.showModal() }
+  // re-open popover
+  if (pid) {
+    const el = window[pid]
+    el?.showPopover()
+  }
+
+  // re-open dialog
+  if (dialog) {
+    const el = window[dialog.id]
+    if (el) { el.close(); el.showModal() }
+  }
+
 }
 
 

@@ -1,0 +1,68 @@
+
+button, [role="button"], .button {
+  background-color: var(--main-500);
+  display: inline-block;
+  border-radius: .3em;
+  padding: .7em 1.2em;
+  text-align: center;
+  font-size: .95em;
+  font-family: inherit;
+  font-weight: 550;
+  cursor: pointer;
+  color: white;
+  border: 0;
+
+  + & { margin-left: .4em }
+
+  &:hover {
+    background-color: var(--main-600);
+    text-decoration: none;
+    color: white;
+  }
+
+  &:active { transform: scale(.98) }
+
+  &.secondary {
+    box-shadow: 0 0 0 1px var(--gray-200);
+    background-color: white;
+    color: inherit;
+
+    &:hover {
+      box-shadow: 0 0 0 1px var(--gray-300);
+      background-color: white;
+      color: var(--gray-900);
+    }
+  }
+
+  &[disabled] {
+    background-color: var(--gray-200);
+    color: var(--gray-400);
+    cursor: not-allowed;
+    &:active { transform: none }
+  }
+
+  img { width: 1.5em; margin-bottom: -2px }
+
+  &.action {
+    background-color: var(--gray-50);
+    background-repeat: no-repeat;
+    padding: .2em .3em;
+    &:hover { background-color: var(--gray-100) }
+  }
+}
+
+
+
+.play-button, .zoom {
+  background-image: url(/icon/play.svg);
+  background-repeat: no-repeat;
+  background-position: 1em center ;
+  background-size: 1rem;
+  padding-left: 2.5em;
+}
+
+.zoom {
+  background-image: url(/icon/zoom.svg);
+  background-size: 1.1rem;
+}
+

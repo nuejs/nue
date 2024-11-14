@@ -1,216 +1,224 @@
 
 # Project Structure
-Nue projects consist of one or more *applications*. Each directory in the root of your project folder is a separate application with its own configuration, layout, styling and scripting.
 
-[image.gridpaper]
-  small: /img/application-dirs.png
-  large: /img/application-dirs-big.png
-  caption: Two new areas were added as the project grew up
-  size: 747 × 519 px
+The Nue project consists of various files and folders that you can organize based on your website's functionality. Understanding the project structure is key to building websites that are easy to manage and scale.
 
+## Files
 
-Nue does not force you to adopt any fixed directory structure: There are no system folders and you can freely name your root-level application folders.
+Here are all the different kinds of files your project consists of:
 
 
-## Applications
-Nue is designed for building two kinds of applications:
+[table.deftable]
+  File type | Suffix | Description
 
-1. **Multi-page applications**. These are content-focused applications consisting of Markdown files. Good examples are documentation, blogging area or a feature tour. These apps are rendered server-side so that they can be easily consumed by search engines. The use of client-side JavaScript is optional.
+  [Content](content.html) | `.md`
+  Files containing your website content written in extended Markdown format. This format facilitates a clear separation of content from code, enhancing readability and manageability, particularly in rich interactive websites.
 
-2. [Single-page applications](single-page-applications.html) consist of an `index.html` file that serves all the HTML requests within the app. Good examples are admin dashboards, onboarding flows, surveys or login pages. The application is rendered on the client side with reactive components. These apps are usually hidden from search engines.
+  [Data](content.html) | `.yaml`
+  Files that store structured data, encompassing SEO metadata, product listings, team member information, and navigational data. This structured approach is essential for establishing a clear information architecture, supporting a content-first philosophy by organizing and structuring content for improved usability and accessibility.
 
+  [Settings](settings.html) | `.yaml`
+  Configuration files that dictate how your site is generated. These files include metadata, layout settings, and other parameters that influence the overall structure and behavior of your application, ensuring a smooth and consistent site generation process.
 
-[image.gridpaper]
-  small: /img/mpa-vs-spa.png
-  large: /img/mpa-vs-spa-big.png
-  size: 747 x 512
+  [Layout modules](layout.html) | `.html`
+  These files define global layout components such as headers, footers, and sidebars that form the foundation of your semantic layout. They contribute to a consistent user interface and enhance the overall user experience by providing a familiar navigation structure.
 
+  [Custom components](custom-components.html) | `.html`
+  Custom Markdown extensions and other server-side components that assist in rendering the overall page layout. These components ensure that the layout remains cohesive and help structure the content effectively, while the interactive features are handled by client-side components.
 
+  [Interactive islands](islands.html) | `.dhtml`, `.htm`
+  Client-side components that create reactive "islands" of interactivity within a page. These components enable dynamic updates and user interactions without requiring a full page refresh, enhancing the user experience while keeping the core layout server-rendered.
 
-## Pages
-Pages are the building blocks of multi-page applications. These pages are written with an [extended Markdown syntax](content.html), which is designed for non-technical people like marketers and copywriters.
+  [Styling](styling.html) | `.css`
+  Stylesheets that define global, application, and page-level styles. All CSS files contribute to the overarching design system, ensuring a cohesive visual language and consistent user experience across your project. This structured approach to styling facilitates easier maintenance and scalability as your project evolves.
 
+  [Scripting](scripting.html) | `.js`, `.ts`
+  Files that provide support for CSS-driven motion and animation effects, including the Intersection Observer API. These scripts also manage global keyboard and click event listeners in the document, enhancing interactivity while optimizing performance.
 
-### Page data { #data }
-Each page is backed with different kinds of data:
 
-1. **Metadata** like title, description, theme color, favicon and hero image. This data is made accessible for search engines and [content collections](content-collections.html).
+### Static Files
+Static files like `.png`, `.jpg`, `.webp`, `.txt`, `.csv`, `.json`, etc. are copied directly from the source directory to the distribution directory without processing. They work outside the page dependency management system.
 
-2. **Settings** to fine-tune rendering details like whether CSS should be inlined on the page or what styles can be excluded from the page.
+### 404 File
+A file named `404.md` at the root level acts as a target for non-existent files.
 
-3. **Dependencies** — information about scripts, styles, components and other assets that the page functionality depends on.
 
-4. **Components** for rendering headers, footers, sidebars and other components inside or outside the page.
+## Directories
+Here are the different types of folders you can have in Nue:
 
 
+### Application Directories
+Application directories encapsulate all assets specific to a single application, such as a blog or documentation site. This modular approach allows for clear separation of concerns and makes it easier to manage each part of your website independently. Each application can have its own settings, layouts, and content files, ensuring a tailored experience.
 
-### Data propagation
-The data is defined in three levels:
 
-1. The global, site-wide data is defined in `site.yaml` at the root directory.
+### Root Directory
+The root directory contains scripts, styles, and components that are dependencies for the front page and all other root-level pages. Assets in this directory are not propagated upwards to application directories, ensuring that only relevant files are included in each application.
 
-2. Application data is defined in `*.yaml` files inside the application directory. Each application sub-directory can also have its own data files.
-
-3. Page-specific data is defined in the *frontmatter* section of the Markdown page.
-
-The data gets extended as you move from the site level to the page level.
-
-[image.gridpaper]
-  small: /img/data-propagation.png
-  large: /img/data-propagation-big.png
-  size: 746 x 406
-
-
-### Data example
-Let's say you have a page called `blog/hello-world.md` and the following global data in the `site.yaml` file:
-
-
-```yaml
-title: Emma Bennet
-description: A designer and UX engineer
-origin: https://emmabennet.co
-favicon: /img/favicon.png
-og_image: /img/og_emma.png
-```
-
-Then you have blog-specific metadata in `blog/blog.yaml` extending/overriding the global data:
-
-```yaml
-title: Emma Bennet / Blog
-author: Emma Bennet
-og_image: /img/og_blog.png
-```
-
-Finally, the page-specific data is set on the front of the "hello-world.md" file:
-
-```yaml
-\---
-title: Hello, World
-date: 2023-12-05
-\---
-```
-
-With the above configuration in place, the document's `<head>` section is rendered as follows:
-
-
-```html
-<head>
-  <!-- Nue default values -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-
-  <!-- globals from site.yaml -->
-  <link rel="shortcut icon" src="/img/favicon.jpg">
-  <meta name="description" content="A designer and UX engineer">
-
-  <!-- directory specific values from app.yaml -->
-  <meta name="author" content="Emma Bennet">
-  <meta property="og:image" content="https://emmabennet.co/img/og_blog.png">
-
-  <!-- document specific values from the .md file -->
-  <title>Hello, World</title>
-  <meta property="article:published_time" content="2023-12-05">
-</head>
-```
-
-[.note]
-  ### Why YAML?
-  Nue uses YAML as the main configuration language. As a content-focused format, it is by far the easiest one to grasp by non-technical people. It is the default choice in most Markdown-powered website generators.
-
-
-
-## Page dependencies
-All your pages have different kinds of dependencies to enhance their look and feel:
-
-[table.api "Extension | Type"]
-  - .js   | JavaScript files for [motion and reactivity](reactivity.html)
-  - .ts   | TypeScript files for [motion and reactivity](reactivity.html)
-  - .css  | CSS files for [styling](css-best-practices.html)
-  - .html | [Custom layouts](custom-layouts.html) and server-side components
-  - .htm  | [Reactive components](reactive-components.html)
-  - .nue  | [Reactive components](reactive-components.html)
-
-
-The scripts, styles and components are automatically included in the page dependency tree similar to how data is propagated. The assets on the application root are included in all pages in the app and sub-directory assets are included on the pages in that sub-directory. For example:
-
-
-[image.gridpaper]
-  small: /img/dependencies.png
-  large: /img/dependencies-big.png
-  size:   747 × 378 px
-
-### Global directories { #globals }
-You can define directories that are global in `site.yaml`. For example:
-
-```yaml
-globals: [ "@globals", "scripts", "styles" ]
-```
-
-If a global directory resides on the root level, then all assets inside that directory are automatically included on every page, regardless of which app they belong to or how deeply they are nested in the file system.
-
-When a global directory resides inside an application directory, then all assets in the directory are included on all pages of the app. Here, for example, we have defined `@globals` and `css` as global dirs:
-
-
-[image.gridpaper]
-  small: /img/global-dirs.png
-  large: /img/global-dirs-big.png
-  size: 747 × 417 px
-
-
-### Libraries
-Library folders contain assets that can be explicitly included on a page with an `include` statement. You can define certain folders to be libraries in the `site.yaml` file. For example:
-
-```yaml
-libs: ["@lib", lib]
-```
-
-These libraries can reside both on the root level, and inside a specific application. Once the libraries have been defined, you include library assets in `site.yaml`, application data (like `docs/app.yaml`), or in the page's frontmatter with an `include` statement as follows:
-
-```yaml
-include: [syntax-highlight, video]
-```
-
-If you include assets in several levels, the values of include statements are *concatenated* into one single array. The matches are partial so that a value such as "syntax" will match both "syntax-highlight" and "syntax-extras".
-
-
-### Excluding assets { #exclude }
-You can exclude assets from the pages with an `exclude` property, which works the same way as the `include` statement:
-
-```yaml
-exclude: [syntax-highlight, video]
-```
-
-This allows you to strip unneeded assets from the request and reduce the payload.
-
-#### Example
-Here's a more complex example that gives you an idea how dependencies are calculated:
-
-[image.gridpaper]
-  small: /img/libraries.png
-  large: /img/libraries-big.png
-  size:  747 × 591 px
-
-
-### Frontpage
-All scripts, styles, and components in the root level are dependencies for the front page and all other root level pages, so they are not propagated upwards to the application directories.
-
-You may want to clean up the root directory from front page assets by placing them into a folder named "home", for example, and declaring it in the frontmatter area of the front page:
+To maintain organization, you may want to clean up the root directory from front page assets by placing them into a dedicated folder, such as "home." You can declare this folder in the frontmatter area of the front page as follows:
 
 ```yaml
 appdir: home
 ```
 
-With the above setting all assets inside the "home" directory become dependencies of your root level `index.md`.
+With this setting, all assets inside the "home" directory become dependencies of your root-level `index.md`, keeping the root directory uncluttered.
 
 
 
-### Static files
-Static files like `.png`, `.jpg`, `.txt`, `.csv`, or `.json` are copied directly from the source directory to the distribution directory without processing. They work outside the page dependency management system.
+Here’s a more concise version of the "Globals" section, removing the specific reference to Tailwind and focusing on the importance of the Design System:
+
+
+### Globals
+
+You can define directories that are global in `site.yaml`, which is essential for managing assets that should be accessible across your entire site. This is particularly important for global CSS files, which comprise the bulk of your Design System. For example:
+
+```yaml
+globals: [ "@globals", 'css' ]
+```
+
+When a global directory is placed at the root level, all assets within it are automatically included on every page, ensuring a consistent design and enhancing maintainability.
+
+If a global directory resides inside an application directory, its assets will be included on all pages of that application, promoting modularity while allowing for shared styles and components.
+
+[image.gridpaper]
+  small: /img/global-dirs.png
+  large: /img/global-dirs-big.png
+  alt: Global Directories
+
+
+### Libraries
+Library folders are essential for organizing assets that can be explicitly included on a page using an `include` statement. You can define certain folders as libraries in the `site.yaml` file. For example:
+
+```yaml
+libs: ["@lib", lib]
+```
+
+Once libraries are defined, you can include assets in your pages as follows:
+
+```yaml
+include: [ video, gallery ]
+```
+
+This statement will include all assets (such as CSS, JavaScript, data, and components) matching the substring "video" or "gallery" in their file names.
+
+You can also include assets at the application level by specifying them in the application's configuration file (e.g., `blog/blog.yaml`). This will auto-include the assets across all pages within that application.
+
+
+### Page Directories
+
+Page directories contain scripts, styles, and components specific to a particular page within the application structure. The "leaf" directory refers to the final part of the path in your project's structure, which typically contains assets that are unique to a specific page.
+
+For example, consider the following directory structure for a page within a blog application:
+
+```
+/blog/announcing-v2.0/index.md
+  ├── index.md
+  ├── styles.css         # Specific styles for this page
+  ├── script.js          # Specific scripts for this page
+```
+
+In this example, `index.md` is the main content file for the "Announcing v2.0" page, while `styles.css` and `script.js` are CSS and JavaScript files that apply only to this page.
+
+
+### Static Directories
+
+Static directories are designed for non-content files that do not require processing by the build system. These directories hold assets that are served directly as they are, making them ideal for images, videos, and other media. For example:
+
+
+```
+/
+  ├── img/                  # Folder for image files
+  │   ├── screenshot1.png   # Example screenshot for a blog
+  │   ├── screenshot2.webp  # Another example screenshot
+  │   └── ...               # Additional image files can be added here
+  |
+  ├── icon/                 # Folder for SVG icons
+  │   ├── arrow-right.svg
+  │   ├── arrow-left.svg
+  │   ├── three-dots.svg
+  │   └── ...               # Additional SVG files can be added here
+```
+
+In this example, the `img` folder contains sample images, such as screenshots or other real-world examples suitable for a blogger. The `icon` folder includes SVG files for icons, specifically `arrow-right.svg`, `arrow-left.svg`, and `three-dots.svg`. These assets can be referenced directly in your project without any processing.
 
 
 
-### 404 file
-A file named `404.md` in the root level, acts as a target for non-existent files. You can use the `include` statement to customize its styling and behaviour.
+## Example Structures
+
+### Blogging Site
+Example blogging site directory structure (files and folders):
+
+```
+/
+  ├── @global                # Global styles: colors, layout, typography
+  │   ├── settings.css       # Site-wide settings
+  │   ├── colors.css         # Color palette
+  │   ├── typography.css     # Font styles
+  ├── @library               # Reusable styles
+  │   ├── button.css         # Button styles
+  │   ├── forms.css          # Form styles
+  │   ├── cards.css          # Card component styles
+  ├── blog                   # Blogging area
+  │   ├── blog.yaml          # Blog-specific settings
+  │   ├── index.md           # Blog index page
+  │   ├── post1.md           # Blog post example
+  │   ├── post2.md           # Another blog post
+  ├── contact                # Contact app
+  │   ├── index.md           # Contact form page
+  ├── img                    # Images and icons
+  ├── index.md               # The front page
+  ├── site.yaml              # Global settings
+```
+
+**Content Explanation:**
+
+- **`index.md`**: The front page of the blog introducing visitors and guiding them to the latest articles.
+- **Blog Posts**: `post1.md` and `post2.md` contain articles on topics like "Understanding CSS Flexbox" and "Getting Started with JavaScript."
+- **Contact Page**: `index.md` under the `contact` directory provides a form for users to get in touch.
 
 
 
+### Business Websites
+Directory structure for a business website, including specific assets:
+
+```
+/
+  ├── @global                  # Global styles: colors, layout, typography
+  │   ├── settings.css         # Site-wide settings
+  │   ├── colors.css           # Color palette
+  │   ├── typography.css       # Font styles
+  ├── @library                 # Reusable styles
+  │   ├── button.css           # Button styles
+  │   ├── forms.css            # Form styles
+  │   ├── cards.css            # Card component styles
+  ├── index.md                 # Rich front page content
+  ├── home                     # Front page assets
+  │   ├── home.yaml            # Front page settings
+  │   ├── styles.css           # Front page-specific styles
+  │   ├── scripts.js           # Front page-specific scripts
+  ├── docs                     # Documentation area
+  │   ├── index.md             # Documentation main page
+  │   ├── guide.md             # User guide
+  │   ├── reference.md         # API reference
+  ├── blog                     # Blogging area
+  │   ├── blog.yaml            # Blog settings
+  │   ├── post1.md             # Blog post example
+  │   ├── post2.md             # Another blog post
+  ├── about                    # About page
+  │   ├── index.md             # About page content
+  │   ├── team.md              # Team information
+  │   ├── history.md           # Company history
+  ├── pricing                  # Pricing page
+  │   ├── index.md             # Pricing page content
+  │   ├── plans.md             # Details of pricing plans
+  ├── img                      # Images and icons
+  │   ├── logo.png             # Company logo
+  │   ├── hero-banner.jpg      # Hero banner image
+  │   ├── product-image.png    # Product showcase image
+```
+
+**Content Explanation:**
+- **`index.md`**: The rich front page introducing the business and its offerings.
+- **Documentation**: Includes `index.md` for the main documentation page, with guides and API references to help users understand the services.
+- **Blog**: Similar to the blogging site, it has posts that provide insights and updates related to the business.
+- **About Page**: Contains details about the company’s mission, team, and history.
+- **Pricing Page**: Clearly outlines the different pricing plans available for customers.

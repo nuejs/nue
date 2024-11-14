@@ -1,0 +1,78 @@
+
+/* documentation-specific content widgets  */
+
+h1 + p {
+  text-wrap: balance;
+  font-size: 1.15rem;
+}
+
+.gridpaper {
+  background-image: url(/img/grid-paper.png);
+  border: 1px solid var(--gray-200);
+  border-radius: 5px;
+  text-align: center;
+
+  figcaption {
+    margin: 0;
+    position: relative;
+    line-height: 0;
+    top: 2em;
+  }
+
+  &:has(figcaption) {
+    margin-bottom: 6em;
+  }
+}
+
+.above {
+  background-color: var(--gray-600);
+  box-shadow: 0 0 4em #0007;
+  font-size: 1.2em;
+  position: relative;
+  top: -13em;
+
+  &:hover {
+    background-color: var(--gray-700);
+  }
+}
+
+figure:has(.above) {
+  margin-bottom: -1rem;
+}
+
+.options {
+  h4 {
+    margin: 2.5em 0 1.5em .15em;
+    font-weight: bold;
+  }
+
+  p {
+    font-size: 95%;
+    line-height: 1.4;
+    display: flex;
+  }
+
+  code {
+    min-width: 10em;;
+  }
+}
+
+
+.apidoc article h3 {
+  font-family: monospace;
+  color: var(--main-600);
+  background-color: var(--main-50);
+  display: inline-block;
+  padding: .3em .6em;
+  margin-bottom: -.5em;
+  border-radius: 2px;
+}
+
+.small {
+  font-size: 90%;
+}
+
+.columns {
+  column-width: 15em;
+  column-gap: 2em;
+}

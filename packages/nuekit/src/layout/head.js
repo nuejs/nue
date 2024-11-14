@@ -1,6 +1,7 @@
+
 import { extname } from 'node:path'
 
-import { elem } from 'nuemark/src/tags.js'
+import { elem } from 'nuemark'
 
 import { TYPES } from '../nueserver.js'
 
@@ -17,17 +18,15 @@ export function renderHead(data) {
     viewport   = 'width=device-width,initial-scale=1',
     charset    = 'utf-8',
     title_template = '%s',
-    scripts    = [],
-    styles     = [],
-    inline_css = [],
     prefetch   = [],
     base       = '',
     origin     = '',
-    components = [],
     favicon,
     title,
     is_prod,
   } = data
+
+  const { scripts=[], styles=[], inline_css=[], components=[] } = data.assets || {}
 
   const head = [`<meta charset="${charset}">`]
   if (title) head.push(elem('title', title_template.replace(/%s/gi, title)))

@@ -1,160 +1,171 @@
 
-# Content development
-Nue has a powerful content authoring syntax for marketers, copywriters, and technical writers. You can rapidly assemble complex web pages without ever touching a single line of code or the need to set up complex cloud-based content database systems—just simple versionable text files, directly accessible on your file system, and editable with your favorite editor.
+# Content-first approach in Nue
 
-[bunny-video]
-  videoId: 3bf8f658-185a-449c-93b9-9bd5e1ad0d05
-  poster: /img/nuemark-splash.jpg
+Content is **first** in Nue. It shapes how your site is built, ensuring that design evolves around content. This approach aligns with the principle of progressive enhancement, ensuring that the structure, functionality, and design follow from the content.
 
 
-## Extended Markdown
-The content authoring syntax is based on **Markdown**, but extends its capabilities to make it suitable for creating rich web pages. It supports sections, content blocks, grids, stacked layouts, responsive images, videos, tabs, and more. All your content, from simple blog entries to rich landing pages is editable by non-technical people.
-
-Thanks to universal hot-reloading, the content authors can see the results in real time as they edit the content.
-
-Think Nue like **WordPress**, **Notion**, but the content is editable with your favorite text editor and the results are compatible with your design system. The versatile syntax allows you to build complex landing pages comparable to what you can create with online authoring tools like **Framer** or **WebFlow**.
+[image]
+  small: /img/content-development.png
+  large: /img/content-development-big.png
+  caption: Website development starts from content design
 
 
+## Structured data
 
-## Syntax
-Nue offers a full [Markdown support](//daringfireball.net/projects/markdown/). That is: All the familiar things like headings, quotes, lists, and fenced code blocks are supported:
+Structured data in Nue includes:
 
+- **Information architecture**: Defines how content is organized, ensuring clear navigation and user flow.
+- **Content metadata**: Includes essential details like title, description, author, date, and Open Graph (OG) images for each content piece.
+- **Application data**: Covers specific data used across the site, such as products, team members, language tokens, etc.
+- **Content collections**: Auto-generated [content collections](content-collections.html) based on metadata, typically used for page lists, like blog posts displayed on an index page.
 
-```md
-# First level heading
-A paragraph with **bold** and *italics* and `inline code`
-
-![An image](/path/to/image.webp)
-
-## Second level heading
-
-> Quoted text with a [Link to docs](/docs/)
-
-1. This here
-2. is an ordered
-3. list of items
-
-Followed with
-
-- An unordered
-- list of items
-
-\```js numbered
-// here is a javascript code block
-function hello() {
-  return "world"
-}
-\```
-```
+By separating structured data from the layout, your design modules stay clean and focused on **structure, semantics**, and **accessibility**.
 
 
-### Front matter
-You can pass optional [settings and metadata](settings.html) in the "front matter" section of the page. This is the first thing in your file between triple-dashed (`---`) lines taking a valid YAML format:
-
+### YAML format
+Nue uses **YAML** for structured data because of its simplicity, readability, and flexibility. YAML’s syntax is easy to write and understand, which makes it a popular choice for both developers and content editors. Here’s an example that defines a navigation structure in Nue:
 
 ```yaml
-\---
-title: Page title
-desc: Page description for search engines
-og: /img/hero-image.png
-\---
+Building websites:
+  - Step-by-step tutorial: tutorial.html
+  - Project structure: project-structure.html
+  - Content: content.html
 ```
 
+YAML excels at handling complex structures, such as **nested arrays**, which is ideal for organizing complex datasets in Nue. Unlike alternatives like **TOML**, YAML’s expressive syntax makes it easier to represent hierarchical data. Additionally, YAML has resolved it's infamous issues, such as the **"Norway problem"**.
 
-### Sections
-Just like books can be divided into chapters, your long-form articles and landing pages are often divided into sections. These sections are separated with three or more dashes (`---`) or equals (`===`) characters:
 
+## Information architecture { #ia }
+
+**Information architecture** defines the relationships between pages, sections, and content. This hierarchy determines how users interact with your site and how content is presented. This website, for example, uses a global [navigation.yaml](//github.com/nuejs/nue/blob/dev/packages/nuejs.org/%40global/navigation.yaml) to define the site's navigation. It looks like this:
 
 ```yaml
-\---
-title: Page with sections
-\---
+globalnav:
 
-# The hero section
-With an epic subtitle
+  # master navigation
+  main:
+    - Home: /
+    - Docs: /docs/
+    - Blog: /blog/
+    ...
 
-\=====
+  # toolbar
+  toolbar:
+    - Feed: //x.com/tipiirai
+    ...
 
-## A second section
-With another great subtitle
+  # "burger menu"
+  menu:
+    - Home: /
+    - Docs: /docs/
+    - Blog: /blog/
+
+documentation:
+
+  Getting started:
+    - Why Nue: /docs/
+    - How it works: /docs/how-it-works.html
+    - Installation: /docs/installation.html
+    - ...
+
 ```
 
+This data is used by [layout modules](layout.html) to generate elements like menus, sidebars, and breadcrumbs.
 
-### Tags
-Nue comes with a set of [built-in tags](tags.html) for responsive images, videos, tables, code blocks, and more. The syntax takes the form of `[tagname]`. For example:
 
-```md
-[video explainer.mp4]
+## Content metadata
+
+**Metadata** like titles, descriptions, authors, and OG properties can be defined at three levels: global, app, and page. This flexible, layered approach ensures consistency while allowing overrides when necessary.
+
+### Global data
+
+At the **global level**, metadata is defined in the `site.yaml` file. For example, a `title_template` can dynamically format page titles:
+
+```yaml
+# In site.yaml
+title_template: "%s / Nue Framework"
+description: "The design engineering framework for the web"
 ```
 
-Tags are like WordPress short-codes, but the syntax is simpler and less verbose.
+This structure ensures that all pages follow the same title format.
 
+### Application data
 
-### Blocks
-Blocks are chunks of content with an alternate styling. Think of highlighted content like tips, notes, and alerts. The syntax takes the form of `[.classname]`. For example:
+At the **app level**, you can override the global metadata for specific apps, like a blog:
 
-```md
-[.note]
-  ### Content is king
-  Web design is 100% content and 95% typography
+```yaml
+# In blog/blog.yaml
+title: "Blog"
+title_template: "%s / Blog"
+description: "Latest news"
+author: "John Doe"
+og_image: "/images/blog-og.jpg"
 ```
 
-The "note" class must be specified on your design system and the design should be implemented in the website's CSS.
+### Page data
 
+At the **page level**, metadata can be further customized via front matter in Markdown files:
 
-### Stacks
-Block content can be divided into multi-block layouts where each item is separated with a triple-dash. For example:
-
-```md
-[.stack]
-  ## First item
-  With content
-
-  ---
-  ## Second item
-  With content
+```yaml
+ # In a page's front matter (Markdown)
+ ---
+ title: "Getting Started with Nue"
+ description: "Learn the basics of setting up your first project"
+ ---
 ```
 
-Again, the name "stack" must be implemented in your website CSS by the UX developer.
+### Summary: data inheritance
+As you move from the site level to the page level, the data gets extended or overridden, allowing for granular control over content and settings.
 
-
-### Grids
-[Grid](tags.html#grids) is a built-in tag used like the stack but is meant for more complex layouts. They have more configuration options for their visual appearance and behavior can be enhanced with JavaScript.
-
-
-```md
-[grid]
-  ## First item
-  With content
-
-  ---
-  ## Second item
-  With content
-
-  ---
-  ## Third item
-  With content
-```
-
-
-### Nesting
-Blocks, stacks, and grids can be nested to form more complex layouts on your richer marketing/landing pages:
-
-
-```md
-[.feature]
-  ## Hello, World!
-  Let's put a nested stack here
-
-  [.stack]
-    ### First item
-    With description
-    ---
-    ### Second item
-    With description
-```
+[image.gridpaper]
+  small: /img/data-propagation.png
+  large: /img/data-propagation-big.png
+  caption: Data inheritance in Nue
 
 
 
-### Custom tags
-Your UX developer can easily [extend](custom-layouts.html#custom-md) the Markdown vocabulary with new tags that operate on the server-side, client side, or both. Ask the UX developer for the list of available extensions.
+
+## Unstructured content
+
+Unstructured content in Nue varies in terms of its **richness and interactivity**:
+
+- **Technical content**: Includes detailed information with lists, tables, and code blocks.
+- **Marketing content**: Visual-heavy content like landing pages and promotional sections, often including images, videos, and interactive elements.
+- **Blog content**: A mix of technical and interactive content, typically starting with a hero section.
+- **Formal content**: Plain text like legal documents or policies.
+
+### Extended Markdown
+
+Nue supports an [extended Markdown syntax](content-syntax.html) that handles all these types of content seamlessly, including code blocks, tables, complex layouts, tabs, and interactive elements. It remains **SEO-friendly** and fully **accessible**.
+
+[image.bordered]
+  caption: Nue's extended Markdown syntax handles all varieties of content
+  small: /img/content-files.png
+  large: /img/content-files-big.png
+  size: 745 × 383
+
+
+
+### Cloud storage
+
+While the current YAML/Markdown-based editing is well-suited for technical users, we recognize the need for a cloud storage solution for non-technical users. This will allow content management directly through the website. A cloud-based backend is on our roadmap, aligning with Nue's **decoupled architecture**, where content can be fetched from the cloud before rendering. See the [roadmap](index.md#roadmap) for more details.
+
+## Content-first development
+
+**Content-first development** is a central philosophy in Nue, ensuring both engineers and designers focus on the content, guiding the structure, functionality, and design of the site.
+
+### For engineers: Semantic web development
+
+For engineers, content-first means starting with **semantic HTML**, using content information to create a solid, accessible foundation. This approach emphasizes **progressive enhancement**, where functionality and design are layered on top of this foundational HTML.
+
+This method promotes **separation of concerns**, keeping content, layout, and behavior distinct. It improves **SEO** and **accessibility**, ensuring that content is clear to both search engines and assistive technologies.
+
+### For designers: Content-first design
+
+Designers also follow a content-first approach, where the content shapes layout and design decisions. By adhering to **form follows function**, design systems are created with a focus on the content’s needs, ensuring they are efficient and easy to maintain.
+
+This leads to **lean** and **flexible** design systems, delivering intuitive, content-driven user experiences.
+
+### Design engineering
+
+The content-first approach balances **performance**, **maintainability**, and **design**. It encourages collaboration between engineers and designers to build fast, accessible, and beautiful websites.

@@ -23,7 +23,7 @@ Common questions are: "How does reactivity work"? and "How is this different fro
 [lobsters]: //lobste.rs/s/goxx8g/nue_react_vue_vite_astro_alternative
 
 ## HTML-based
-If React is "Just JavaScript", then Nue is "Just HTML". Here's how the difference between React and Nue using an identical counter component:
+If React is "just JavaScript", then Nue is "just HTML". Here's how the difference between React and Nue using an identical counter component:
 
 
 ### React
@@ -159,7 +159,9 @@ Nue uses classes to bring the DHTML vibes back to modern component-based web dev
 
 The most notable thing is the `<script>` tag, which is now nested *inside* the component. This is the place for your ES6 class variables and methods.
 
-ES6 classes make your code look amazingly compact and clean. You can add variables, methods, [getters][getters], [setters][setters], and `async` methods with the cute and short syntax. Here is a snippet from a [Todo MVC](/todomvc/)<!--TODO: fix--> app written with Nue:
+// TODO: fix todomvc link
+ES6 classes make your code look amazingly compact and clean. You can add variables, methods, [getters][getters], [setters][setters], and `async` methods with the cute and short syntax. Here is a snippet from a [Todo MVC](/todomvc/) app written with Nue:
+
 
 ```html
 <script>
@@ -346,7 +348,8 @@ The compiled Nue code is very small: Only like ~1.2x larger than the HTML-based 
 
 [evan]: //github.com/yyx990803/vue-svelte-size-analysis
 
-[table " | Vue | Svelte | Nue"]
+[table head]
+  - Framework              | Vue     | Svelte  | Nue
   - Framework size         | 16.89kb | 1.85kb  | 2.13 kb
   - Todo MVC size          | 1.10kb  | 1.88kb  | 0.96 kb
   - Framework + 1 Todo     | 17.99kb | 3.73kb  | 3.09 kb

@@ -1,19 +1,17 @@
 
-addEventListener('click', e => {
-  const el = e.target
 
-  // hide popover menus
-  const menu = el.closest('[popover]')
-  if (menu && el.matches('a')) menu.hidePopover()
+// hide popover menus
+addEventListener('click', event => {
+  const el = event.target
+  const dialog = el.closest('[popover]')
 
-  // make cards clickable
-  const wrap = el.closest('.card, .features div')
-  if (wrap) {
-    const a = wrap.querySelector('p a')
-    console.info(a.getAttribute('href'))
-    if (a) location.href = a.getAttribute('href')
+  if (dialog) {
+    const link = el.getAttribute('href')
+    if (link) dialog.hidePopover()
   }
 })
+
+
 
 
 // analytics (released for public later)

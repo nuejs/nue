@@ -39,7 +39,7 @@ export function getComponentName(root) {
 }
 
 export function selfClose(str) {
-  return str.replace(/\/>/g, function(match, i) {
+  return str?.replace(/\/>/g, function(match, i) {
     const tag = str.slice(str.lastIndexOf('<', i), i)
     const name = /<([\w-]+)/.exec(tag)
     return `></${name[1]}>`
@@ -79,6 +79,7 @@ function quote(val) {
 }
 
 export function mkdom(src) {
+  if (typeof src != 'string') src = ''
   const dom = parseDocument(selfClose(src))
   walk(dom, (el) => { if (el.type == 'comment') DomUtils.removeElement(el) }) // strip comments
   return dom

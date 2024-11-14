@@ -1,0 +1,49 @@
+.flex {
+  align-items: center;
+  display: flex;
+}
+.stack {
+  display: flex;
+  margin: 2em 0;
+  gap: 1.5em;
+
+  > * {
+    flex: 1;
+  }
+
+  :first-child { margin-top: 0 }
+  :last-child { margin-bottom: 0 }
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* generic card */
+.card, .of-cards > * {
+
+  background-color: white;
+  border-radius: .5em;
+  border: var(--border);
+  padding: 1.5em;
+  font-size: 95%;
+
+  > :first-child { margin-top: 0 }
+  > :last-child { margin-bottom: 0 }
+
+  h3 {
+    margin-bottom: -.5em;
+  }
+}
+
+.clickable > div {
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 0 0 2px white, 0 0 0 4px var(--main-500);
+  }
+  &:active {
+    transform: scale(.99);
+  }
+}

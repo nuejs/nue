@@ -26,32 +26,31 @@
 </div>
 
 
-<div @name="animation-demo" class="animation-demo">
+<div @name="array-demo" class="array-demo">
 
-  <button @click="addUser" :disabled="users && users[5]">
-    + Add a new person
-  </button>
+  <button @click="add" :disabled="items[5]">Add user</button>
 
-  <div class="grid">
-    <media-object :for="user in users" :bind="user"/>
-  </div>
+  <ul>
+    <li :for="el of items">
+      <img :src="el.img">
+      <h3>{ el.name }</h3>
+      <p>{ el.role }</p>
+    </li>
+  </ul>
 
   <script>
 
-    // fill list with the first three available items
-    constructor({ items }) {
-      this.users = items?.slice(0, 2)
+    // render first three users
+    constructor({ users }) {
+      this.items = users.slice(0, 2)
+      this.all = users
     }
 
-    // insert a new user from the available items
-    addUser() {
-      const { items, users } = this
-      const user = items[users.length]
-      if (user) users.push(user)
-    }
-
-    oninsert(node, item, loop) {
-      setTimeout(() => node.classList.add('fade-in'), 1)
+    // insert a new item
+    add() {
+      const { items, all } = this
+      const item = all[items.length]
+      if (item) items.push(item)
     }
   </script>
 

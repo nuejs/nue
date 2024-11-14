@@ -6,7 +6,6 @@
   opacity: 1;
   border: 0;
 
-
   &::backdrop {
     background-color: #0005;
     backdrop-filter: blur(4px);
@@ -14,7 +13,7 @@
   }
 
   @starting-style {
-    transform: scale(.5);
+    transform: scale(.9);
     opacity: 0;
 
     &::backdrop {
@@ -23,16 +22,10 @@
     }
   }
 
-  /* close  */
-  [popovertarget] {
-    background-image: none;
-    color: var(--gray-600);
+  > .action:first-child {
     position: absolute;
-    font-weight: 400;
-    font-size: 1.6em;
-    width: 1.1em;
-    right: .4em;
-    top: .4em;
+    right: .5em;
+    top: .5em;
   }
 }
 
@@ -57,4 +50,45 @@ dialog {
     display: block;
     z-index: 1;
   }
+}
+
+
+.simple-compare {
+  max-width: 980px;
+  margin: 0 auto;
+  gap: 1.5rem;
+  inset: .75rem;
+
+  &:popover-open {
+    display: flex;
+  }
+
+
+  h2 {
+    margin: .5em 0 0;
+    + p { margin-block: .3em }
+    a { display: none }
+  }
+  > * {
+    flex: 1
+  }
+
+  .action {
+    position: absolute;
+    top: .5em;
+    right: .5em;
+    figure { margin: 0 }
+  }
+
+  @media(width < 900) {
+    max-height: 96vh;
+    flex-direction: column;
+    h3 span { display: none }
+  }
+
+}
+
+
+#resources {
+  max-width: 1130px;
 }

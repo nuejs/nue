@@ -3,18 +3,18 @@ import { join, extname, parse as parsePath } from 'node:path'
 
 import yaml from 'js-yaml'
 import { parse as parseNue } from 'nuejs-core'
-import { nuemark } from 'nuemark'
+import { nuedoc } from 'nuemark'
 
 import { fswalk } from './nuefs.js'
 import {
   traverseDirsUp,
   parsePathParts,
+  joinRootPath,
   extendData,
   getAppDir,
-  log,
-  toPosix,
   sortCSS,
-  joinRootPath
+  toPosix,
+  log,
 } from './util.js'
 
 
@@ -46,7 +46,9 @@ export async function createSite(args) {
       return yaml.load(raw)
     } catch (e) {
       if (!fileNotFound(e)) {
-        throw `YAML parse error in ${path}`
+        const { line, column } = e.mark
+        const err = { line, column, lineText: e.reason }
+        throw err
       } else if (path == env) throw e
     }
   }
@@ -214,7 +216,7 @@ export async function createSite(args) {
   self.getData = async function(pagedir) {
     const data = { nuekit_version, ...site_data, is_prod }
 
-    for (const dir of traverseDirsUp(pagedir)) {
+    for (const dir of [ ...self.globals, ...traverseDirsUp(pagedir)]) {
       extendData(data, await readDirData(dir))
     }
     return data
@@ -241,8 +243,8 @@ export async function createSite(args) {
     const mds = paths.filter(el => el.endsWith('.md')).map(el => join(dir, el))
 
     for (const path of mds) {
-      const raw = await read(path)
-      const { meta } = nuemark(raw)
+      const document = nuedoc(await read(path))
+      const { meta } = document
       if (!meta.unlisted) arr.push({ ...meta, ...parsePathParts(path) })
     }
 
@@ -260,7 +262,7 @@ export async function createSite(args) {
     let paths = await getAssets({ dir, exts: ['css'], data })
 
     // syntax highlighting
-    if (data.page?.has_code_blocks && data.syntax_highlight !== false) paths.push(`/@nue/syntax.css`)
+    if (data.use_syntax) paths.push(`/@nue/syntax.css`)
 
     // cascading order: globals -> area -> page
     sortCSS({ paths, globals: self.globals, dir })
@@ -273,7 +275,7 @@ export async function createSite(args) {
   }
 
   self.getClientComponents = async function(dir, data) {
-    return await getAssets({ dir, exts: ['nue', 'htm'], to_ext: 'js', data })
+    return await getAssets({ dir, exts: ['dhtml', 'htm'], to_ext: 'js', data })
   }
 
 

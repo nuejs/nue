@@ -15,7 +15,7 @@ export async function initNueDir({ dist, is_dev, esbuild, force }) {
   const outdir = join(cwd, dist, '@nue')
 
   // has all latest?
-  const latest = join(outdir, '.beta-2')
+  const latest = join(outdir, '.rc-1')
 
   if (force || !existsSync(latest)) {
     await fs.rm(outdir, { recursive: true, force: true })
@@ -61,11 +61,10 @@ async function initDir({ dist, is_dev, esbuild, cwd, srcdir, outdir }) {
     dot()
   }
 
-
   // lets do it
   process.stdout.write(colors.green('✓') + ` Initialize ${dist}: `)
 
-  await buildPackage('nuemark/src/browser/nuemark.js', 'nuemark.js')
+  // await buildPackage('nuemark/src/browser/nuemark.js', 'nuemark.js')
   await buildPackage('nuejs-core/src/browser/nue.js', 'nue.js')
   await buildFile('view-transitions')
   await buildFile('app-router')
@@ -79,7 +78,7 @@ async function initDir({ dist, is_dev, esbuild, cwd, srcdir, outdir }) {
     await buildPackage('diff-dom', 'diffdom.js')
     await buildFile('hotreload')
     await copy('error.css', outdir)
-    await nueCompile(join(fromdir, 'error.nue'), join(outdir, 'error.js'))
+    await nueCompile(join(fromdir, 'error.dhtml'), join(outdir, 'error.js'))
   }
 
   // favicon

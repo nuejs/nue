@@ -1,0 +1,63 @@
+
+# the information architecture
+documentation:
+  Getting started:
+    - Why Nue: /docs/
+    - How it works: /docs/how-it-works.html
+    - Installation: installation.html
+    - Command line interface: command-line-interface.html
+
+  Building websites:
+    - Step-by-step tutorial: tutorial.html
+    - Project structure: project-structure.html
+    - Content: content.html
+    - Layout: layout.html
+    - Islands: islands.html
+    - Styling: styling.html
+    - Motion: motion.html
+    - Scripting: scripting.html
+    - Optimization: optimization.html
+
+
+  Reference:
+    - Settings and metadata: settings.html
+    - Content syntax: content-syntax.html
+    - Content tags: content-tags.html
+    - Custom components: custom-components.html
+    - Core components: core-components.html
+    - Template syntax: template-syntax.html
+    - Content collections: content-collections.html
+    - Syntax highlighting: syntax-highlighting.html
+
+
+globalnav:
+
+  # main navigation (header)
+  main:
+    - Home: / "nav-home"
+    - Docs: /docs/
+    - Blog: /blog/
+    - "*Nue 1.0 (RC)* • A better Next.js?": /blog/nue-release-candidate/ "status pill"
+
+
+  # header toolbar (complementary)
+  toolbar:
+    - Feed: //x.com/tipiirai "social"
+    - 6.1k: //github.com/nuejs/nue "github pill"
+
+  # burger menu
+  menu:
+    - Home: /
+    - Docs: /docs/
+    - Blog: /blog/
+    - GitHub: //github.com/nuejs/nue
+
+  # footer
+  footer:
+    - Why Nue?: /docs/
+    - How it works: /docs/how-it-works.html
+    - Documentation: /docs/
+    - Installation: /docs/installation.html
+    - Blog: /blog/
+
+

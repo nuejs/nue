@@ -1,8 +1,4 @@
 
-<!--
-  Filling some of the slots on the global design system
--->
-
 <!-- back button  -->
 <nav @name="subheader">
   <a href="/blog/">Back</a>
@@ -18,26 +14,6 @@
 
 </header>
 
-<!-- page footer: join mailing list / "call to action" -->
-<footer @name="pagefoot">
-
-  <h2>The grand vision</h2>
-  <p>
-    Ultimately Nue will be a ridiculously simpler alternative to <strong>Next.js</strong>, <strong>Gatsby</strong>, and <strong>Astro</strong>
-  </p>
-
-  <img src="/img/roadmap-beta.png" alt="Nue roadmap">
-
-  <h3>Receive a notification</h3>
-  <p>
-    Be the first to know when the official 1.0 release, templates, and the cloud stuff are released
-  </p>
-
-  <join-list/>
-
-</footer>
-
-
 <!-- custom component: <author/> -->
 <div @name="author" class="author">
   <span><img :src="img" width="36" height="36"></span>
@@ -47,5 +23,26 @@
     <a href="//x.com/{ username }">@{ username }</a>
   </aside>
 </div>
+
+<!-- page footer: join mailing list / "call to action" -->
+<footer @name="pagefoot">
+
+  <h2>The Goal</h2>
+  <p>
+    Ultimately Nue will be a ridiculously simpler alternative to <strong>Next.js</strong>, <strong>Vercel</strong>, and <strong>Astro</strong>
+  </p>
+
+  <a href="/#roadmap" title="Click to open a detailed roadmap">
+    <img src="/img/roadmap-2025-big.png" alt="Nue roadmap" loading="lazy">
+  </a>
+
+  <h3>Follow the progress</h3>
+  <p>Get notified about new releases by email</p>
+
+  <join-list/>
+
+</footer>
+
+
 
 

@@ -18,21 +18,21 @@ Design systems are key to managing code at scale, but creating one that’s flex
 ## Keep things minimal
 It's important to keep things lightweight: Write CSS that’s DRY, separating structure from skin using methodologies like BEM. Don't over-engineer - keep logic simple.
 
-[code numbered="true"]
-  <figure @name="img" :class="class" :id="id">
-    <img loading="lazy" :alt="alt" :src="_ || src">
+``` html numbered
+<figure @name="img" :class="class" :id="id">
+  <img loading="lazy" :alt="alt" :src="_ || src">
 
-  - <figcaption :if="caption">{{ caption }}</figcaption>
+-  <figcaption :if="caption">{{ caption }}</figcaption>
 
-  + <p :if="caption">{{ caption }}</p>
++  <p :if="caption">{{ caption }}</p>
 
-    <script>
-      •constructor(data)• {
-        this.caption = data.caption || ''
-      }
-    </script>
-  </figure>
-
+  <script>
+    •constructor(data)• {
+      this.caption = data.caption || ''
+    }
+  </script>
+</figure>
+```
 
 Use gradual rollouts: Introduce changes incrementally over time. Don't rebuild everything at once. Maintain backwards compatibility.
 

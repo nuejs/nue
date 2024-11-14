@@ -2,16 +2,18 @@ import { promises as fs, existsSync } from 'node:fs'
 import { join, parse as parsePath } from 'node:path'
 
 import { parse as parseNue, compile as compileNue } from 'nuejs-core'
-import { parsePage } from 'nuemark'
+import { nuedoc } from 'nuemark'
 
 import { lightningCSS, buildJS } from './builder.js'
-import { initNueDir } from './init.js'
-import { renderPage, renderSinglePage } from './layout/page-layout.js'
-import { fswatch } from './nuefs.js'
 import { createServer, send } from './nueserver.js'
-import { createSite } from './site.js'
 import { printStats, categorize } from './stats.js'
+import { initNueDir } from './init.js'
+import { createSite } from './site.js'
+import { fswatch } from './nuefs.js'
+
 import { log, colors, getAppDir, parsePathParts, extendData } from './util.js'
+import { renderPage, getSPALayout } from './layout/page.js'
+
 
 // the HTML5 doctype
 const DOCTYPE = '<!doctype html>\n\n'
@@ -41,14 +43,15 @@ export async function createKit(args) {
 
   async function setupStyles(dir, data) {
     const paths = await site.getStyles(dir, data)
+    const { assets } = data
 
     if (data.inline_css) {
-      data.inline_css = await buildAllCSS(paths)
-      data.styles = paths.filter(path => path.includes('@nue'))
+      assets.inline_css = await buildAllCSS(paths)
+      assets.styles = paths.filter(path => path.includes('@nue'))
 
     } else {
-      data.inline_css = []
-      data.styles = paths
+      assets.inline_css = []
+      assets.styles = paths
     }
   }
 
@@ -66,10 +69,11 @@ export async function createKit(args) {
   async function setupScripts(dir, data) {
 
     // scripts
-    const scripts = data.scripts = await site.getScripts(dir, data)
+    const { assets } = data
+    const scripts = assets.scripts = await site.getScripts(dir, data)
 
     // components
-    data.components = await site.getClientComponents(dir, data)
+    assets.components = await site.getClientComponents(dir, data)
 
     // system scripts
     function push(name) {
@@ -78,8 +82,7 @@ export async function createKit(args) {
     }
 
     if (is_dev && data.hotreload !== false) push('hotreload')
-    if (data.components?.length) push('mount')
-    if (data.page?.isomorphic) push('nuemark')
+    if (assets.components?.length) push('mount')
     if (data.view_transitions || data.router) push('view-transitions')
   }
 
@@ -88,14 +91,13 @@ export async function createKit(args) {
 
     // markdown data: meta, sections, headings, links
     const raw = await read(path)
-    const page = parsePage(raw)
-    const { meta } = page
+    const document = nuedoc(raw)
+    const { meta } = document
 
     const { dir } = parsePath(path)
     const data = await site.getData(meta.appdir || dir)
 
-    // YAML data
-    Object.assign(data, parsePathParts(path), { page })
+    // include & exclude concatenation
     extendData(data, meta)
 
     // content collection
@@ -107,20 +109,24 @@ export async function createKit(args) {
 
     // scripts & styling
     const asset_dir = meta.appdir || dir
+    data.use_syntax = data.syntax_highlight !== false && document.codeblocks[0]
+
+    data.assets = {}
     await setupScripts(asset_dir, data)
     await setupStyles(asset_dir, data)
 
-    return data
+    return { ...data, ...parsePathParts(path), document }
   }
 
 
   // Markdown page
   async function renderMPA(path) {
     const data = await getPageData(path)
+    const { document } = data
     const file = parsePath(path)
 
     const lib = await site.getServerComponents(data.appdir || file.dir, data)
-    return DOCTYPE + renderPage(data, lib)
+    return DOCTYPE + renderPage({ document, data, lib })
   }
 
 
@@ -134,6 +140,7 @@ export async function createKit(args) {
     const data = { ...await site.getData(appdir), ...parsePathParts(index_path) }
 
     // scripts & styling
+    data.assets = {}
     await setupScripts(dir, data)
     await setupStyles(dir, data)
 
@@ -145,7 +152,7 @@ export async function createKit(args) {
       const [ spa, ...spa_lib ] = parseNue(html)
       return DOCTYPE + spa.render(data, [...lib, ...spa_lib])
     }
-    const [ spa ] = parseNue(renderSinglePage(html, data))
+    const [ spa ] = parseNue(getSPALayout(html, data))
     return DOCTYPE + spa.render(data)
   }
 
@@ -159,8 +166,8 @@ export async function createKit(args) {
     await buildJS({
       outdir: join(process.cwd(), dist, file.dir),
       path: join(process.cwd(), root, path),
-      esbuild,
       minify: is_prod,
+      esbuild,
       bundle
     })
 
@@ -216,8 +223,8 @@ export async function createKit(args) {
     // css
     if (ext == '.css') return await processCSS(file)
 
-    // reactive component (.nue, .htm)
-    if (file.is_nue || file.is_htm) {
+    // reactive component (.dhtml, .htm)
+    if (file.is_dhtml || file.is_htm) {
       const raw = await read(path)
       const js = await compileNue(raw)
       await write(js, dir, `${name}.js`)
@@ -326,7 +333,7 @@ export async function createKit(args) {
         if (ret) send({ ...file, ...parsePathParts(file.path), ...ret })
       } catch (e) {
         send({ error: e, ...file })
-        console.error(e)
+        console.error(file.path, e)
       }
 
     // when a file/dir was removed

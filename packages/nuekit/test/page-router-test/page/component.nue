@@ -1,9 +1,0 @@
-<section @name="component">
-  <script>
-    mounted() {
-      console.log('<component> mounted')
-    }
-  </script>
-
-  <h2>Page component mounted</h2>
-</section>

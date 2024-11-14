@@ -1,0 +1,26 @@
+<div @name="roadmap" class="roadmap">
+
+  <div :for="cat in roadmap" class="panel">
+
+    <header class="flex">
+      <img :if="cat.icon" src="/icon/{cat.icon}.svg">
+      <h3>{ cat.title }</h3>
+    </header>
+
+    <ul>
+      <li :for="el in cat.items" class="{ clickable: el.href }">
+        <p :if="el.package"><b>{ el.package }</b></p>
+        <p :if="el.eta">
+          <b :if="el.priority" class="priority">Priority</b>
+          <small>{ el.eta }</small>
+        </p>
+        <h4>
+          <a :if="el.href" :href="el.href">{ el.title }</a>
+          <span :else>{ el.title }</span>
+        </h4>
+        <p>{ el.desc }</p>
+      </li>
+    </ul>
+
+  </div>
+</div>

@@ -1,4 +1,11 @@
 
+# DEPRECIATED:
+
+See [Styling](styling.html)
+
+===
+
+
 # Nue CSS best practices
 This document describes the best practices for writing clean CSS that is easy to maintain and scale. This is a result of decades of coding with CSS and HTML.
 
@@ -128,25 +135,26 @@ Simple selectors make your CSS easy to read and maintain. They keep your file si
 ## Write clean HTML { #clean-markup }
 Avoid using unnecessary divs, spans and class names in your [custom layouts](custom-layouts.html):
 
-[code.bad caption="Unnecessary divs and class names"]
-  <div class="chat-notification">
-    <div class="chat-notification-logo-wrapper">
-      <img class="chat-notification-logo" src="/img/chat.svg" alt="Chat icon">
-    </div>
-    <div class="chat-notification-content">
-      <h4 class="chat-notification-title">ChitChat</h4>
-      <p class="chat-notification-message">You have a new message</p>
-    </div>
+```html.bad "Unnecessary divs and class names"
+<div class="chat-notification">
+  <div class="chat-notification-logo-wrapper">
+    <img class="chat-notification-logo" src="/img/chat.svg" alt="Chat icon">
   </div>
+  <div class="chat-notification-content">
+    <h4 class="chat-notification-title">ChitChat</h4>
+    <p class="chat-notification-message">You have a new message</p>
+  </div>
+</div>
+```
 
 Instead, you should write clean and semantic HTML:
 
-[code.good caption="Clean, semantic markup"]
-  <div class="•notification•">
-    <h3>ChitChat</h3>
-    <p>You have a new message</p>
-  </div>
-
+```html.good "Clean, semantic markup"
+<div class="•notification•">
+  <h3>ChitChat</h3>
+  <p>You have a new message</p>
+</div>
+```
 
 Clean HTML is significantly easier to read and work with. Use a class name only on the root element and let CSS selectors do the rest. It's surprising how little class names you need with clean, semantic markup. This website, for example, has only four class names on the global scope: "grid", "card", "stack" and "note". "Global namespace pollution" is essentially a myth and is trivial to avoid.
 
@@ -155,12 +163,12 @@ Clean HTML is significantly easier to read and work with. Use a class name only 
 ## Create re-usable class names { #reuse }
 Always find ways to extract reusable pieces from your CSS code. For example, the above notification component could be written as:
 
-[code.good caption="Using a re-usable class name"]
-  <div class="notification •card•">
-    <h3>ChitChat</h3>
-    <p>You have a new message</p>
-  </div>
-
+```html.good "Using a re-usable class name"
+<div class="notification •card•">
+  <h3>ChitChat</h3>
+  <p>You have a new message</p>
+</div>
+```
 
 Here, the component was broken into two pieces: A highly re-usable "card" component and a notification-specific "notification" component:
 
@@ -191,43 +199,9 @@ Now the "card" class can be applied to any element or component you desire, redu
 
 
 
-## Avoid inline styling { #external-css }
-Don't style your components directly on the markup:
-
-[code.bad caption="Inline styling: The styles are written directly into the markup"]
-  <div class="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-lg flex items-center space-x-4">
-    <div class="shrink-0">
-      <img class="h-12 w-12" src="/img/chat.svg" alt="ChitChat Logo">
-    </div>
-    <div>
-      <div class="text-xl font-medium text-black">ChitChat</div>
-      <p class="text-slate-500">You have a new message</p>
-    </div>
-  </div>
-
-Instead, write clean markup and style it externally:
-
-[code.good caption="External styling: The styles are decoupled from the markup"]
-  <div class="notification card">
-    <h3>ChitChat</h3>
-    <p>You have a new messge</p>
-  </div>
 
 
-External styling is the key to professional UX development:
 
-
-1. **Easier to maintain** — clean HTML and CSS are easier to read, write, teach, share and maintain.
-
-2. **Leaner stack** — go directly from Figma to CSS without a hefty JavaScript ecosystem on your way.
-
-3. **Less code to write** — external CSS leads to [maximum reuse](#reuse) and minimal duplication of code.
-
-4. **Central control** — external CSS is centrally controlled by UX developers, and the look and feel are dictated by the design system.
-
-5. **Better SEO** — With clean HTML markup your [content to markup](//www.siteguru.co/free-seo-tools/text-to-html-ratio) ratio is significantly higher.
-
-6. **Timeless skills and products** — CSS is a web standard. You'll learn universal skills that stand the test of time. There is zero risk for technical debt.
 
 
 #### Links
@@ -295,7 +269,7 @@ Check [motion and reactivity](reactivity.html) for details.
 ## Learn modern CSS
 There is tons of [misinformation](/blog/tailwind-misinformation-engine/) about CSS that makes beginner developers move away from web standards and adopt the idea of inline styling.
 
-But if you grasp the power of the global design system and see how you can accomplish the same thing with significantly less effort you begin to think why you ever bought the idea of tight coupling in the first place.
+But if you grasp the power of the global design system and see how you can accomplish the same thing with significantly less effort, you begin to think why you ever bought the idea of tight coupling in the first place.
 
 Understand the power of constraints, design systems, and web standards. Become a professional UX developer and stay relevant for years to come.
 
@@ -304,6 +278,5 @@ Understand the power of constraints, design systems, and web standards. Become a
 - [Ahmad Shadeed](//ishadeed.com/)
 - [Chris Coyier](//chriscoyier.net/)
 - [CSS tricks](//css-tricks.com/)
-- [Josh Comeau](//www.joshwcomeau.com/)
+- [Josh Comeau](//joshwcomeau.com/)
 - [Ryan Mulligan](//ryanmulligan.dev/blog/)
-

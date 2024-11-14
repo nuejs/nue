@@ -242,8 +242,12 @@ function processNode(opts) {
       if (name == 'slot') {
         if (attribs.for) {
           const html = exec(setContext(attribs.for), data)
-          if (html) DOM.replaceElement(node, mkdom(html))
+          if (html && html != 'false') DOM.replaceElement(node, mkdom(html))
           else removeNode(node)
+
+        // slot content provided as data
+        } else if (data.innerHTML) {
+          DOM.replaceElement(node, mkdom(data.innerHTML))
 
         } else if (inner) {
           while (inner[0]) DOM.prepend(node, inner[0])
@@ -259,8 +263,8 @@ function processNode(opts) {
       // client side component
       if (is_custom && !component) {
         setJSONData(node, data)
-        node.attribs.is = name
-        node.name = 'div'
+        node.attribs.custom = name
+        node.name = name
         return // must return
       }
 

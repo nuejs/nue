@@ -2,40 +2,6 @@
 include: [technical-content, video, toggle-switch]
 footer: false
 
-sidenav:
-  Getting started:
-    - What is Nue?: /docs/
-    - Installation: installation.html
-    - "Tutorial: Build a website": tutorial.html
-    - Project Structure: project-structure.html
-    - Settings and metadata: settings.html
-    - Command line interface: command-line-interface.html
-    - Frequently asked questions: faq.html
-
-  UX development:
-    - Global Design System: global-design-system.html
-    - Page layout: page-layout.html
-    - Custom layouts: custom-layouts.html
-    - CSS best practices: css-best-practices.html
-    - Motion and Reactivity: reactivity.html
-    - Optimization: performance-optimization.html
-    - What is UX development?: ux-development.html
-
-
-  Content development:
-    - Content development: content.html
-    - Markdown extensions: tags.html
-
-
-  Application development:
-    - Single-page applications: single-page-applications.html
-    - Model development
-    - UI development
-
-
-  Reference:
-    - Template syntax: template-syntax.html
-    - Reactive components: reactive-components.html
-    - Universal hot-reloading: hot-reloading.html
-    - Content collections: content-collections.html
-    - Syntax highlighting: syntax-highlighting.html
+lang:
+  on_this_page: On this page
+  zen_mode: Zen Mode

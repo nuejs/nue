@@ -1,24 +1,31 @@
 
-<!-- right below the global header -->
+<!-- subheader -->
 <nav @name="subheader">
-  <button popovertarget="sidebar">{ title }</button>
+  <button class="action" popovertarget="sidebar">
+    <img src="/icon/menu.svg">
+  </button>
+  <strong>{ title }</strong>
 </nav>
 
 
-<!-- main sidebar (left) -->
+<!-- main sidebar  -->
 <aside id="sidebar" popover>
-  <button popovertarget="sidebar">&times;</button>
-  <navi :items="sidenav"/>
+  <button class="action" popovertarget="sidebar">
+    <img src="/icon/close.svg">
+  </button>
+  <navi :items="documentation"/>
 </aside>
 
+<!-- secondary sidebar -->
+<aside @name="beside">
 
-<!-- complementary sidebar (right) -->
-<aside @name="complementary">
-  <h3>On this page</h3>
-  <toc is="observing-nav"/>
+  <!-- table of contents -->
+  <h3>{ lang.on_this_page }</h3>
+  <toc class="toc"/>
 
+  <!-- "zen mode" switch -->
   <div class="zen-toggle">
-    <h5>Zen Mode</h5>
+    <h5>{ lang.zen_mode }</h5>
     <label class="toggle">
       <input type="checkbox" is="zen-toggle">
     </label>

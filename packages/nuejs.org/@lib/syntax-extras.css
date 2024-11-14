@@ -61,13 +61,14 @@
     flex: 1;
   }
 
-  figcaption {
+  h3 {
     border-bottom: 1px solid var(--gray-600);
     padding: 1.2em var(--glow-padding);
     text-align: left;
     margin: 0;
     color: var(--gray-100);
     font-weight: 600;
+    font-size: 90%;
 
     em {
       background-color: var(--main-500);

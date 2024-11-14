@@ -3,72 +3,17 @@
 globals: ["@global", css]
 libs: ["@lib", docs/lib, blog/lib]
 
-og: /img/og-blue-big.png
+og: /img/og.png
+favicon: /img/favblue.png
 view_transitions: true
 native_css_nesting: true
 origin: https://nuejs.org
+heading_ids: true
 
 # Content settings
-title: Web Framework For UX Developers
-description: Build the slickest websites in the world and wonder why you ever did them any other way
-title_template: "Nue - %s"
-favicon: /icon/favicon.png
-
-# preload header hover image
-prefetch: [/icon/present-light.svg]
-
-# Navigation
-header:
-  Branding:
-    - image: /img/logo.svg
-      class: logo
-      alt: Nue logo
-      size: 60 × 18
-      url: /
-
-  Site navigation:
-    - Docs: /docs/
-    - Blog: /blog/
-    - Nue 1.0 beta ›: /blog/nue-1-beta/ "status pill"
-
-  Toolbar:
-    - image: /icon/x-logo.svg
-      url: //x.com/tipiirai
-      class: social
-      alt: X logo
-      size: 39 x 39
-
-    - 6k: //github.com/nuejs/nue "github pill"
-
-
-burger_menu:
-  - Home: /
-  - Docs: /docs/
-  - Blog: /blog/
-  - ---
-  - GitHub: //github.com/nuejs/nue
-
-footer:
-  branding:
-    - image: /img/logo.svg
-      size: 65 × 19
-      url: /
-
-  navi:
-    Developers:
-      - What is Nue?: /docs/
-      - Installation: /docs/installation.html
-      - Blog: /blog/
-      - FAQ: /docs/faq.html
-      - GitHub: //github.com/nuejs/nue
-
-    Key Concepts:
-      - UX development: /docs/ux-development.html
-      - Global Design System: /docs/global-design-system.html
-      - CSS best practices: /docs/css-best-practices.html
-      - Content development: /docs/content.html
-      - Single-page apps: /docs/single-page-applications.html
-
+title: The Design Engineering Framework for the Web
+description: Nue is a Static Site Generator (SSG) built from scratch for faster tooling, cleaner codebases, and better results. It makes things fun again!
+title_template: "%s - Nue"
 
 # Markdown link references
 links:
