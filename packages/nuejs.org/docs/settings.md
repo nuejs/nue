@@ -63,7 +63,7 @@ Setting this to `true` enables [view transitions](reactivity.html#view-transitio
 
 ### inline_css
 
-Setting this to `true` inlines all CSS directly into the HTML page, enabling the entire page to render in one request. This setting can also be configured at the area and page levels. For more details, see [performance optimization](performance-optimization.html).
+Setting this to `true` inlines all CSS directly into the HTML page, enabling the entire page to render in one request. This setting can also be configured at the area and page levels. For more details, see [performance optimization](optimization.html).
 
 ## Global Metadata
 

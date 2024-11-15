@@ -148,7 +148,7 @@ Nue supports an [extended Markdown syntax](content-syntax.html) that handles all
 
 ### Cloud storage
 
-While the current YAML/Markdown-based editing is well-suited for technical users, we recognize the need for a cloud storage solution for non-technical users. This will allow content management directly through the website. A cloud-based backend is on our roadmap, aligning with Nue's **decoupled architecture**, where content can be fetched from the cloud before rendering. See the [roadmap](index.md#roadmap) for more details.
+While the current YAML/Markdown-based editing is well-suited for technical users, we recognize the need for a cloud storage solution for non-technical users. This will allow content management directly through the website. A cloud-based backend is on our roadmap, aligning with Nue's **decoupled architecture**, where content can be fetched from the cloud before rendering. See the [roadmap](/#roadmap) for more details.
 
 ## Content-first development
 

@@ -5,10 +5,12 @@ on:
     branches:
       - master
     paths-ignore:
+      - .github/**
       - packages/examples/**
       - packages/nuejs.org/**
   pull_request:
     paths-ignore:
+      - .github/**
       - packages/examples/**
       - packages/nuejs.org/**
   workflow_dispatch:
