@@ -32,6 +32,9 @@
       transition: .2s;
       opacity: .8;
     }
+    @media (width < 900px) {
+      flex-direction: column-reverse;
+    }
   }
 
   figure {

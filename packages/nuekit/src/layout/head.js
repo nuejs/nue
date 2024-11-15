@@ -36,16 +36,17 @@ export function renderHead(data) {
   const pushProp = (key, val) => pushMeta(key, val, 'property')
 
   if (version) pushMeta('generator', generator)
+  const desc = data.desc || data.description
   pushMeta('date.updated', new Date().toISOString())
   pushMeta('viewport', viewport)
-  pushMeta('description', data.description)
+  pushMeta('description', desc)
   pushMeta('author', data.author)
   pushMeta('robots', data.robots)
   pushMeta('theme-color', data.theme_color)
 
   // OG data
   pushProp('og:title', title)
-  pushProp('og:description', data.description)
+  pushProp('og:description', desc)
 
   const og = data.og_image || data.og
   if (og) {

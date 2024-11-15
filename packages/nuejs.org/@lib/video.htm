@@ -59,7 +59,8 @@
 
   function handleKeyboard() {
     function handle(e) {
-      if (!player || e.metaKey || e.ctrlKey) return
+
+      if (!player || e.metaKey || e.ctrlKey || e.target.matches('input, textarea')) return
 
       const { video } = player
       const is_fullscreen = document.fullscreenElement
