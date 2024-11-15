@@ -26,9 +26,9 @@
     "import-meta-resolve": "^4.1.0",
     "js-yaml": "^4.1.0",
     "lightningcss": "^1.27.0",
-    "nue-glow": "*",
-    "nuejs-core": "*",
-    "nuemark": "*"
+    "nue-glow": "workspace:*",
+    "nuejs-core": "workspace:*",
+    "nuemark": "workspace:*"
   },
   "jest": {
     "setupFilesAfterEnv": [

@@ -45,6 +45,7 @@ jobs:
       - name: Install and test with Node
         run: |
           node -v && npm -v
+          node setup-npm.js
           npm install
           npm install --no-save jest jest-extended esbuild
           npm test -- --coverage
