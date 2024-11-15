@@ -97,7 +97,7 @@ Nue helps you build professional websites with the same amount of CSS as you can
 
 
 ## New website and documentation
-Unsurprisingly, the biggest job was the documentation area, which now focuses on [UX development](/docs/ux-development.html). About 80% of the documentation is completely rewritten and there are several new documents.
+Unsurprisingly, the biggest job was the documentation area, which now focuses on [Design Engineering](/docs/how-it-works.html#design-engineering). About 80% of the documentation is completely rewritten and there are several new documents.
 
 [image.larger.shadowed]
   small: /img/new-docs.png
