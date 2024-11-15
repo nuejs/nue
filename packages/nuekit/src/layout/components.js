@@ -52,7 +52,8 @@ export function getLayoutComponents() {
 /****** utilities ********/
 
 export function renderPage(page) {
-  const { title, desc, url } = page
+  const { title, url } = page
+  const desc =  page.desc || page.description
   const thumb = toAbsolute(page.thumb, page.dir)
 
   // date

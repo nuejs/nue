@@ -14,7 +14,7 @@
   :first-child { margin-top: 0 }
   :last-child { margin-bottom: 0 }
 
-  @media (max-width: 900px) {
+  @media (width < 900px) {
     flex-direction: column;
     align-items: flex-start;
   }

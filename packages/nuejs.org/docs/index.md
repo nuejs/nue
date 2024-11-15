@@ -1,6 +1,7 @@
 
 ---
 include: [compare]
+inline_css: true
 ---
 
 

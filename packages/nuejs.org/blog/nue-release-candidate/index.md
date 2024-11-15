@@ -2,8 +2,8 @@
 ---
 hero_title: "*Nue 1.0 (RC)* — Can it outshine Next.js?"
 title: "A better Next.js? • Nue 1.0 (RC) is out"
-desc: This version brings numerous improvements, bug fixes, clearer documentation, and a new Markdown parser built from scratch to strengthen Nue's vision
-date: 2024-11-15
+description: This version brings numerous improvements, bug fixes, clearer documentation, and a new Markdown parser built from scratch to strengthen Nue's vision
+date: 2024-11-14
 ---
 
 Nue is a static site generator (SSG) built from the ground up to offer faster tooling, cleaner codebases, and better results. Today, we’re releasing the first version of Nue that earns the "release candidate" (RC) status.
@@ -18,7 +18,7 @@ This major update introduces a range of improvements while simplifying the syste
 I know, it might sound a bit over the top... but hear me out. Let’s break it down into three concrete points:
 
 
-## 1. Design engineering
+## 1. Cleaner codebases
 Nue is an ambitious engineering project designed to simplify web development through **separation of concerns** and **progressive enhancement**. This approach fundamentally redefines how websites are developed:
 
 [image]
@@ -36,7 +36,7 @@ What once required a **React specialist** and a large amount of **JavaScript** c
 This means you’re no longer bogged down with debugging complex algorithms and data structures. Instead, you can put all that focus on **content**, **layout**, and **design systems**—making a natural transition from **JavaScript engineering** to **Design engineering**.
 
 
-## 2. Tooling experience
+## 2. Faster tooling
 One of Nue’s standout features is its hot-reloading mechanism, and with this version, the diff/patch system is stronger than ever. By instantly detecting changes in **content**, **data**, **layouts**, **styles**, **components**, and **islands**, Nue applies updates directly to your browser. This creates a smooth, lightning-fast feedback loop that makes the development process more exciting and fluid.
 
 [bunny-video]
@@ -47,15 +47,15 @@ One of Nue’s standout features is its hot-reloading mechanism, and with this v
 With the new Markdown parser and the absence of unnecessary JavaScript abstractions and dependencies, Nue is **incredibly lean and fast**, consistently outperforming monolithic web frameworks:
 
 [table]
-  Framework | Next.js | Nue
-  NPM modules | 300+ | 10+
-  Project weight | 300M+ | 10M+
+  Framework       | Next.js | Nue
+  NPM modules     | 300+    | 10+
+  Project weight  | 300M+   | 10M+
   Build speed / 10 pages | 10+ seconds | 0.01+ seconds
   Build speed / 100 pages | 30+ seconds | 0.1+ seconds
   Hot-reload times / complex app | 1-5s | 0.05-0.3s
 
 
-## 3. Resulting sites
+## 3. Better results
 Nue helps developers create **fast** and **user-friendly** websites with features like **turbolinking**, **CSS view transitions**, **interactive islands**, and **CSS inlining**:
 
 [bunny-video]
@@ -66,11 +66,11 @@ Nue helps developers create **fast** and **user-friendly** websites with feature
 Surprisingly, these rich, interactive sites remain exceptionally lightweight, comparable to text-only websites. To give you an idea, here’s how Nue [documentation area](/docs/) compares to Next.js documentation:
 
 [table.with-total]
-  Resources | Next.js | Nue | Difference
-  HTML document | 51kB | 10kB | 5 × smaller
-  CSS | 62kB | 1kB | 60 × less
-  JavaScript | 531kB | 7kB | 75 × less
-  Total | 644kB | 19kB | 30 × less
+  Resources     | Next.js | Nue
+  HTML document | 51kB    | 10kB
+  CSS           | 62kB    | 1kB
+  JavaScript    | 531kB   | 7kB
+  Total         | 644kB   | 19kB
 
 [button.zoom popovertarget="resources" "See the difference"]
 
@@ -108,7 +108,7 @@ Moreover, the API for creating custom extensions was overly complex, particularl
 To overcome these limitations, we built an **entirely new parser** from scratch. This new parser implements a **mutable AST**, offering greater flexibility, performance, and control over the content structure. With this foundation, we were able to add all the required features, enabling the creation of rich, interactive content and making it easier to integrate custom elements into the rendering process.
 
 
-```md.blue.info "A new, clutter-free syntax for accordions, tabs, and grids"
+```md.blue.info "Clutter-free syntax for accordions, tabs, and grids"
 |[accordion]
 
   ## New features
