@@ -98,6 +98,8 @@ article + aside {
   }
 }
 
-
-
-
+.edit-page {
+  background: url(/icon/github.svg) 0 50% / 1.25em no-repeat;
+  padding-left: 1.7em;
+  font-size: 90%;
+}
