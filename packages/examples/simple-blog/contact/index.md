@@ -12,4 +12,3 @@ title: Contact me
 
   ---
   [! /img/profile.jpg size="460 x 460"]
-
