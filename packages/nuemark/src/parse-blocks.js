@@ -30,7 +30,7 @@ export function parseBlocks(lines, capture) {
         block = { is_code: true, ...parseTag(specs), code: [] }
         return blocks.push(block)
 
-      // end of code
+        // end of code
       } else {
         return block = null
       }
@@ -75,10 +75,10 @@ export function parseBlocks(lines, capture) {
 
       // new list
       if (!block?.is_list) {
-        block = { is_list: true, numbered, entries: [[ line ]] }
+        block = { is_list: true, numbered, entries: [[line]] }
         return blocks.push(block)
 
-      // new list item
+        // new list item
       } else {
         return block.entries.push([line])
       }
@@ -140,15 +140,15 @@ export function parseBlocks(lines, capture) {
       if (block?.is_tag) block.body.push(line)
       else if (block?.is_list) addListEntry(block, line)
 
-    // blockquotes
+      // blockquotes
     } else if (block?.is_quote && c) {
       if (c) block.content.push(line)
 
-    // content (append)
+      // content (append)
     } else if (block?.is_content) {
       block.content.push(line)
 
-    // new content block
+      // new content block
     } else {
       block = c ? { is_content: true, content: [line] } : { is_newline: true }
       blocks.push(block)
