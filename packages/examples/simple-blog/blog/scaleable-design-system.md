@@ -10,9 +10,9 @@ Design systems are key to managing code at scale, but creating one that’s flex
 
 1. **Respect constraints**: Construct stylistic foundations for typography, [color palettes](color-strategies.html), spacing, etc. But don’t be overly prescriptive. Leave room for one-off deviations.
 
-1. **Reusable components**: Break UI elements into reusable, abstracted components. A button should be built independently from where it’s used. This promotes consistency across properties and apps.
+2. **Reusable components**: Break UI elements into reusable, abstracted components. A button should be built independently from where it’s used. This promotes consistency across properties and apps.
 
-1. **Clear naming conventions**: Utilize consistent, semantic naming for classes, variables, mixins, etc. This improves developer efficiency and organization.
+3. **Clear naming conventions**: Utilize consistent, semantic naming for classes, variables, mixins, etc. This improves developer efficiency and organization.
 
 ## Keep things minimal
 
