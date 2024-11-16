@@ -7,7 +7,6 @@
   outline-offset: 1px;
 }
 
-
 label {
   display: block;
   margin-bottom: 1em;
@@ -53,5 +52,3 @@ button, [role=button] {
     transform: translateY(1px);
   }
 }
-
-

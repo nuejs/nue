@@ -8,7 +8,6 @@ date: 2024-05-23
 
 Working with color is one of the most fun parts of web design. But if you don't use them right in your CSS code, colors can also tank a site's usability and accessibility. In this post, we'll explore simple, real-world tips for effectively using color in your stylesheets.
 
-
 ``` css .blue
 /* Tab styling */
 [role=tablist] {
@@ -27,7 +26,6 @@ Working with color is one of the most fun parts of web design. But if you don't 
 }
 ```
 
-
 ## How to create a foolproof color palette
 
 Choosing the right colors for a website can be tricky. Get one wrong and your entire design can feel off. Luckily, there are some simple strategies to create a foolproof web color palette:
@@ -42,13 +40,11 @@ Choosing the right colors for a website can be tricky. Get one wrong and your en
 
 [image img/colors-1.png]
 
-
 Considering the different formatting options, you can optimize CSS color usage for any need. Use hex for one-off values, RGBA where you need opacity control, HSL for color adjustments, variables for theming, and preprocessor operations for transformations. With the right format, implementing colors in CSS becomes much more flexible and manageable.
 
 Following these simple tips will ensure you have a tightly edited, flexible, and foolproof palette ready for your next web project.
 
 > Focus on one dominant hue - Pick one main color and derive the rest of the palette from it. This creates cohesion.
-
 
 ``` .pink
 /* Tab styling */
@@ -61,22 +57,12 @@ Following these simple tips will ensure you have a tightly edited, flexible, and
 }
 ```
 
-
 ## The best CSS color formats for different needs
 
 When adding color in CSS, you have a few formatting options to choose from. Each has their own strengths depending on the use case. For specifying plain color values, hex codes are the usual default.
-
 
 [! img/colors-3.png]
 
 They allow for millions of specific color values in a compact 6-character string. But RGB and HSL values also have advantages. RGB provides an easy way to adjust opacity with the alpha channel. And HSL makes it simple to tweak hue, saturation and lightness independently.
 
 For colors tied to theme values, CSS custom properties (variables) are extremely useful. You can update colors site-wide just by changing the variable values. Preprocessors like Sass take this a step further, allowing color operations like lightening and darkening right in the stylesheet.
-
-
-
-
-
-
-
-
