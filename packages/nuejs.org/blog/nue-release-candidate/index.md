@@ -33,7 +33,7 @@ What once required a **React specialist** and a large amount of **JavaScript** c
   small: /img/clean-code.png
   size: 745 × 403
 
-This means you’re no longer bogged down with debugging complex algorithms and data structures. Instead, you can put all that focus on **content**, **layout**, and **design systems**—making a natural transition from **JavaScript engineering** to **Design engineering**.
+This means you’re no longer bogged down with debugging complex algorithms and data structures. Instead, you can put all that focus on **content**, **layout**, and **design systems** — making a natural transition from **JavaScript engineering** to **Design engineering**.
 
 
 ## 2. Faster tooling
@@ -101,7 +101,7 @@ Surprisingly, these rich, interactive sites remain exceptionally lightweight, co
 ## New Markdown parser
 In earlier versions of Nue, we used the **Marked** library to handle basic formatting for our extended Markdown syntax — known as **Nuemark**. While Marked is a solid, general-purpose Markdown parser with excellent performance, it became clear that it couldn't fully support the direction we wanted for Nue, particularly with our content-first development model.
 
-The main issue with Marked was its lack of a mutable **abstract syntax tree** (AST). The AST is a structured representation of the Markdown content, allowing it to be easily analyzed, manipulated, and extended before rendering to HTML. With Marked, the structure was essentially immutable—meaning it wasn't possible to add new nodes, elements, or link references before rendering the document.
+The main issue with Marked was its lack of a mutable **abstract syntax tree** (AST). The AST is a structured representation of the Markdown content, allowing it to be easily analyzed, manipulated, and extended before rendering to HTML. With Marked, the structure was essentially immutable — meaning it wasn't possible to add new nodes, elements, or link references before rendering the document.
 
 Moreover, the API for creating custom extensions was overly complex, particularly for advanced features that needed to understand the document’s structure and modify parts of the syntax tree. This made implementing the more advanced components of Nue impossible.
 
@@ -202,6 +202,3 @@ Full list of improvements and breaking changes on this release:
   - **`[image]` "srcset" removed**: The `srcset` and `sizes` parameters for the `[image]` tag have been removed due to their complexity. A simpler and more powerful system for responsive images is planned for future releases.
 
   - **`[video]` tag simplified**: The `[video]` tag has been simplified to only accept the `src` parameter, removing support for multiple video sources. A more robust video player and driver support system is coming in a future update, allowing for better video handling and greater flexibility.
-
-
-

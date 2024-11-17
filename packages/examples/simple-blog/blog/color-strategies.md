@@ -30,21 +30,21 @@ Working with color is one of the most fun parts of web design. But if you don't 
 
 Choosing the right colors for a website can be tricky. Get one wrong and your entire design can feel off. Luckily, there are some simple strategies to create a foolproof web color palette:
 
-- **Limit your palette** - Stick to just 2-4 core colors for most sites. Too many colors look disjointed.
+- **Limit your palette** — Stick to just 2-4 core colors for most sites. Too many colors look disjointed.
 
-- **Focus on one dominant hue** - Pick one main color and derive the rest of the palette from it. This creates cohesion.
+- **Focus on one dominant hue** — Pick one main color and derive the rest of the palette from it. This creates cohesion.
 
-- **Use color wheel relationships** - Choose adjacent or complementary colors on the wheel for built-in harmony.
+- **Use color wheel relationships** — Choose adjacent or complementary colors on the wheel for built-in harmony.
 
-- **Consider tone and contrast** - Include light, medium and dark tones for visual interest. Test contrast for accessibility.
+- **Consider tone and contrast** — Include light, medium and dark tones for visual interest. Test contrast for accessibility.
 
 [image img/colors-1.png]
 
-Considering the different formatting options, you can optimize CSS color usage for any need. Use hex for one-off values, RGBA where you need opacity control, HSL for color adjustments, variables for theming, and preprocessor operations for transformations. With the right format, implementing colors in CSS becomes much more flexible and manageable.
+Considering the different formatting options, you can optimize CSS color usage for any need. Use hex for one-off values, RGBA where you require opacity control, HSL for color adjustments, variables for theming, and preprocessor operations for transformations. With the right format, implementing colors in CSS becomes much more flexible and manageable.
 
 Following these simple tips will ensure you have a tightly edited, flexible, and foolproof palette ready for your next web project.
 
-> Focus on one dominant hue - Pick one main color and derive the rest of the palette from it. This creates cohesion.
+> Focus on one dominant hue — Pick one main color and derive the rest of the palette from it. This creates cohesion.
 
 ``` .pink
 /* Tab styling */

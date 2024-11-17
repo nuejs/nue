@@ -1,4 +1,3 @@
-
 ---
 include: [compare]
 inline_css: true
@@ -114,7 +113,7 @@ Key terms mentioned in this article:
 
 [define]
   #### Asset hot-reloading
-  A feature that instantly applies changes across all asset types—content, data, layouts, styles, and components—for faster, smoother development.
+  A feature that instantly applies changes across all asset types — content, data, layouts, styles, and components — for faster, smoother development.
 
   #### Turbolinking
   A technique that speeds up navigation by loading pages with AJAX, enabling faster transitions without full page reloads.
@@ -127,4 +126,3 @@ Key terms mentioned in this article:
 
   #### JS monolith
   JavaScript bundles that pack numerous features into a single file, often leading to complexity, reduced clarity, and maintenance challenges.
-

@@ -14,7 +14,7 @@ When designing for the web, keeping CSS in mind from the start prevents frustrat
 
 Designers should have a strong handle on core CSS concepts like the box model, selectors, specificity and inheritance.
 
-> When designing for the web, keeping CSS in mind from the start prevents frustration down the road. For example, **typography and color schemes are  heavily influenced by CSS** and layered graphical elements must be broken down into achievable HTML components.
+> When designing for the web, keeping CSS in mind from the start prevents frustration down the road. For example, **typography and color schemes are heavily influenced by CSS** and layered graphical elements must be broken down into achievable HTML components.
 
 ``` js.blue
 function toggleAttr(el, name, flag) {
@@ -33,7 +33,7 @@ function restoreTabs(flags) {
 
 ## Exploit the power of selectors
 
-On the development side, CSS itself involves visual design skills.Bringing a layout to life requires not just coding, but typographic, spacing and color sensibilities. CSS skills give developers control over the final look and feel.
+On the development side, CSS itself involves visual design skills. Bringing a layout to life requires not just coding, but typographic, spacing and color sensibilities. CSS skills give developers control over the final look and feel.
 
 [! img/dashboard-1.png]
 
@@ -56,7 +56,7 @@ Overall, CSS is a uniquely visual language, with a direct impact on user-facing 
 
 ## Conclusion
 
-In conclusion, thoughtfully naming CSS classes, IDs, and other selectors is an important part of keeping stylesheets scalable and maintainable. Use semantic, descriptive names that communicate what a selector is styling. Implement methodical naming conventions and structures for better organization
+In conclusion, thoughtfully naming CSS classes, IDs, and other selectors is an important part of keeping stylesheets scalable and maintainable. Use semantic, descriptive names that communicate what a selector is styling. Implement methodical naming conventions and structures for better organization.
 
 [! img/dashboard-2.png]
 

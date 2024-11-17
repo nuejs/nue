@@ -64,7 +64,6 @@ Global styles typically include:
 The `@` prefix for directory names is optional but serves as a useful convention to signify that the folder contains global assets rather than application-specific files like `blog`.
 
 
-
 ### UI libraries
 UI libraries are defined in your `site.yaml` configuration file like this:
 
@@ -81,7 +80,6 @@ Unlike global styles, these styles are included on demand. Typical **library fil
   caption: Global styles and library files
 
 
-
 ### Area-specific styles
 
 In Nue, **area-specific styles** allow you to apply unique design elements to different sections of your site, such as a blog, documentation, or store. These styles override or refine global rules while still adhering to the overall design system, ensuring consistency across your site.
@@ -95,7 +93,6 @@ include: [ form, card, motion ]
 
 
 When organizing your CSS with area-specific files, there is no need for class name prefixing (e.g., `.blog .card`). The styles within an area-specific file are automatically scoped to that section of your site, making class names like `.blog .card` redundant.
-
 
 
 ### Page-specific styles
@@ -419,5 +416,4 @@ Limiting options reduces the potential for errors and ensures the design remains
 
 ## Templates
 
-For many engineers, design can feel like a foreign concept—something abstract and difficult to master. The same often goes for CSS, which many find confusing or tricky to get right. Some even avoid it entirely. Nue’s **Templates** aim to bridge that gap. [Join the mailing](/index.html#roadmap) list to get notified when they are released.
-
+For many engineers, design can feel like a foreign concept — something abstract and difficult to master. The same often goes for CSS, which many find confusing or tricky to get right. Some even avoid it entirely. Nue’s **Templates** aim to bridge that gap. [Join the mailing](/index.html#roadmap) list to get notified when they are released.

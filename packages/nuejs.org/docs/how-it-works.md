@@ -26,7 +26,7 @@ With Nue, each page is built using an extended Markdown syntax designed for inte
 
 This **content-first approach** offers several advantages:
 
-1. **Easy Content Management**: Clean, isolated content is directly accessible to **marketers, content creators**, and **strategists**—no longer buried within a JavaScript monolith.
+1. **Easy Content Management**: Clean, isolated content is directly accessible to **marketers, content creators**, and **strategists** — no longer buried within a JavaScript monolith.
 
 2. **Better Design**: A clear understanding of your content and information architecture allows for more thoughtful design planning, ensuring functionality drives the process, with design applied later.
 
