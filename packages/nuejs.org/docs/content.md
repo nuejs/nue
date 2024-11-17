@@ -32,7 +32,7 @@ Building websites:
   - Content: content.html
 ```
 
-YAML excels at handling complex structures, such as **nested arrays**, which is ideal for organizing complex datasets in Nue. Unlike alternatives like **TOML**, YAML’s expressive syntax makes it easier to represent hierarchical data. Additionally, YAML has resolved it's infamous issues, such as the **"Norway problem"**.
+YAML excels at handling complex structures, such as **nested arrays**, which is ideal for organizing complex datasets in Nue. Unlike alternatives like **TOML**, YAML’s expressive syntax makes it easier to represent hierarchical data. Additionally, YAML has resolved its infamous issues, such as the **"Norway problem"**.
 
 
 ## Information architecture { #ia }

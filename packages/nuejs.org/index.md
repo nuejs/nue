@@ -19,7 +19,6 @@ Nue is a Static Site Generator (SSG) built from scratch for faster tooling, clea
   size: 950 x 603
 
 
-
 ## It's how the web works
 Nue is a content-first framework optimized for **progressive enhancement**. It changes the way you think about websites.
 
@@ -45,7 +44,6 @@ Nue is an ambitious project aiming to address the key issues in the frontend eco
   [join-list]
 
 
-
 ## Designer /engineer reactions
 
 [.heroquote]
@@ -59,4 +57,3 @@ Nue is an ambitious project aiming to address the key issues in the frontend eco
 
 
 [feedback]
-

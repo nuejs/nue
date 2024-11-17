@@ -141,7 +141,6 @@ Static directories are designed for non-content files that do not require proces
 In this example, the `img` folder contains sample images, such as screenshots or other real-world examples suitable for a blogger. The `icon` folder includes SVG files for icons, specifically `arrow-right.svg`, `arrow-left.svg`, and `three-dots.svg`. These assets can be referenced directly in your project without any processing.
 
 
-
 ## Example Structures
 
 ### Blogging Site
@@ -174,7 +173,6 @@ Example blogging site directory structure (files and folders):
 - **`index.md`**: The front page of the blog introducing visitors and guiding them to the latest articles.
 - **Blog Posts**: `post1.md` and `post2.md` contain articles on topics like "Understanding CSS Flexbox" and "Getting Started with JavaScript."
 - **Contact Page**: `index.md` under the `contact` directory provides a form for users to get in touch.
-
 
 
 ### Business Websites

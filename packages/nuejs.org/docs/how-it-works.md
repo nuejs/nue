@@ -1,4 +1,3 @@
-
 ---
 include: [compare]
 ---
@@ -107,7 +106,7 @@ Progressive enhancement opens new opportunities for performance improvement:
 
 
 ## Design engineering
-With Nue, you shift from **JavaScript engineering** to **Design Engineering**,  changing the way you build websites:
+With Nue, you shift from **JavaScript engineering** to **Design Engineering**, changing the way you build websites:
 
 [image.bordered]
   caption: "[button.above popovertarget=compare label='See the difference']"
@@ -159,4 +158,3 @@ Key terms mentioned in this article:
   ### Isomorphic Components
   Components that can be rendered both on the server and the client, combining the best of server-side performance and client-side interactivity.
   [Wikipedia](//en.wikipedia.org/wiki/Isomorphic_JavaScript)
-

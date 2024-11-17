@@ -242,5 +242,3 @@ With the above configuration in place, the document's `<head>` section is render
   <meta property="article:published_time" content="2023-12-05">
 </head>
 ```
-
-
