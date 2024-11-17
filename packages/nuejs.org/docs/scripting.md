@@ -6,7 +6,7 @@ Not all interactivity happens in isolated "islands." Vanilla JavaScript offers s
 
 1. **Global scripts**: Unlike islands, global scripts can control the entire site, working across pages and sections. This makes them ideal for seamless, site-wide functionality.
 
-1. **Non-UI functionality**: JavaScript has access to APIs for features beyond the visible interface, such as tracking user behavior or managing local storage through  `localStorage`, `sessionStorage`, or `IndexedDB`.
+1. **Non-UI functionality**: JavaScript has access to APIs for features beyond the visible interface, such as tracking user behavior or managing local storage through `localStorage`, `sessionStorage`, or `IndexedDB`.
 
 
 
@@ -218,7 +218,7 @@ This signals that all the imports in files named `index` will be bundled.
 ## TypeScript
 Nue supports TypeScript out of the box. Simply add `.ts` files, and they will automatically be transpiled to JavaScript using either Bun.build or ESBuild, depending on whether Nue is running under Bun or Node.js.
 
-TypeScript is a great choice for larger projects, especially when dealing with complex APIs or collaborating with multiple team members. However, for simpler projects—especially content-heavy websites—TypeScript might be unnecessary for two reasons:
+TypeScript is a great choice for larger projects, especially when dealing with complex APIs or collaborating with multiple team members. However, for simpler projects — especially content-heavy websites — TypeScript might be unnecessary for two reasons:
 
 1. **Small role of scripting**:
   In content-heavy sites, the focus is on delivering static or server-rendered content with minimal interactivity. Simple tasks like toggling elements or form validation can be handled efficiently with plain JavaScript.
@@ -227,4 +227,3 @@ TypeScript is a great choice for larger projects, especially when dealing with c
   Much of frontend development involves untyped elements like the DOM and CSS. While TypeScript excels in managing complex logic, its benefits are limited when working heavily with these untyped constructs.
 
 For most content-heavy sites, JavaScript is simpler and more efficient. However, if your project becomes more complex, such as a single-page application with multiple engineers, TypeScript is a good option.
-

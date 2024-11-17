@@ -20,7 +20,7 @@ Today we're launching *Glow* — a new take on syntax highlighting:
 
 *Glow is simple*: With just a few CSS variables, Glow adapts all languages to match your brand colors effortlessly.
 
-*Glow is small*: Glow is significantly smaller than mainstream alternatives—around [5KB](//pkg-size.dev/nue-glow) compared to [5MB](//pkg-size.dev/shiki). It’s the most compact implementation available.
+*Glow is small*: Glow is significantly smaller than mainstream alternatives — around [5KB](//pkg-size.dev/nue-glow) compared to [5MB](//pkg-size.dev/shiki). It’s the most compact implementation available.
 
 
 [image.tall]
@@ -67,7 +67,7 @@ Contrast this to grammar-aware theming systems, like Shiki and *Prism*, where a 
 
 
 ## Unlimited possibilities
-Glow's unique, [classless design system](/docs/syntax-highlighting.html#html-markup) gives you line numbers, selections, error highlights, insertions, deletions, and much much more.
+Glow's unique, [classless design system](/docs/syntax-highlighting.html#html-markup) gives you line numbers, selections, error highlights, insertions, deletions, and much, much more.
 
 ``` .gradient.sky numbered
 <script>
@@ -199,8 +199,3 @@ Now you can enjoy goodies content hot-reloading when the code blocks are edited:
   videoId: 38caf489-74f1-416a-9f23-694baa5500bb
   caption: Nue hot-reloading in action
   poster: thumbnail_1ca1bd66.jpg
-
-
-
-
-

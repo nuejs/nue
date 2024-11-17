@@ -12,11 +12,11 @@ Progressive enhancement opens new doors for performance optimization:
 
 ### Shift on thinking
 
-For years, the web engineering world has obsessed over JavaScript bundlers—complex, Rust/Go-based tools that slice, dice, and rearrange code in the name of performance. But for content-heavy websites, this approach is like using a sledgehammer to crack a nut. The truth is, JavaScript has minimal impact on performance for these types of sites, and all the bundling wizardry in the world won’t change that.
+For years, the web engineering world has obsessed over JavaScript bundlers — complex, Rust/Go-based tools that slice, dice, and rearrange code in the name of performance. But for content-heavy websites, this approach is like using a sledgehammer to crack a nut. The truth is, JavaScript has minimal impact on performance for these types of sites, and all the bundling wizardry in the world won’t change that.
 
 With **Nue**, we’re flipping that narrative.
 
-**What if performance didn’t depend on endless configurations and convoluted build steps?** What if, instead of wrestling with bundlers, you could simply *not need them*? That’s the radical shift Nue offers. Performance optimization doesn’t come from juggling dependencies—it comes from avoiding that complexity entirely.
+**What if performance didn’t depend on endless configurations and convoluted build steps?** What if, instead of wrestling with bundlers, you could simply *not need them*? That’s the radical shift Nue offers. Performance optimization doesn’t come from juggling dependencies — it comes from avoiding that complexity entirely.
 
 The breakthrough comes from **progressive enhancement**, which allows Nue to deliver the following:
 
@@ -31,7 +31,7 @@ The breakthrough comes from **progressive enhancement**, which allows Nue to del
 
 
 ## CSS inlining
-CSS inlining is one of the most effective optimizations for landing pages. It ensures that everything needed for the **first paint** (when visible content first appears on the screen) is delivered with the initial request. This includes HTML and CSS, while scripts and off-screen images are **lazily loaded**—only when they’re needed, typically as they come into view.
+CSS inlining is one of the most effective optimizations for landing pages. It ensures that everything needed for the **first paint** (when visible content first appears on the screen) is delivered with the initial request. This includes HTML and CSS, while scripts and off-screen images are **lazily loaded** — only when they’re needed, typically as they come into view.
 
 [image.bordered]
    small: /img/first-paint.png
@@ -45,8 +45,6 @@ inline_css: true
 ```
 
 This inlines all CSS directly into each page. While you might have concerns about increased page weight or needing to rebuild all pages when global CSS changes, it’s important to note that Nue’s CSS is extremely small, and the build process is so fast (sub-millisecond, even for large sites) that it has no noticeable impact on your development experience.
-
-
 
 
 ## View transitions
@@ -65,5 +63,3 @@ When enabled, view transitions only add a minimal 1.9kB (minified and gzipped) s
 ## Page Weight
 
 Nue always generates clean, semantic HTML with zero clutter. For guidance on writing efficient, modern CSS that remains lean as your site grows, refer to the [styling](styling.html) document.
-
-

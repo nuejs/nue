@@ -115,17 +115,17 @@ Nue supports art direction for images, allowing you to specify different sizes b
 The `large` and `small` attributes can define images with varying aspect ratios, optimizing the visual experience on different devices.
 
 [.options]
-#### Image options
-  - `alt` - Alternate text for accessibility, describing the image's content.
-  - `src` - Source URL of the image file.
-  - `caption` - Provides context for the image, enhancing user understanding.
-  - `href` - Adds a clickable link to the image, guiding users to related content.
-  - `large` - Specifies the large version of the image, which can differ in aspect ratio from the small version, allowing for creative art direction.
-  - `loading` - Determines the loading behavior: "lazy" enables [lazy loading](https://developer.mozilla.org/en-US/docs/Web/Performance/Lazy_loading) (default value) or "eager" for immediate loading.
-  - `small` - Defines the small version of the image for mobile displays, optimizing visual presentation.
-  - `offset` - Sets the screen size (in pixels) at which the small image switches to the large one, with a default of 750 pixels.
-  - `size` - A shortcut property to provide both width and height simultaneously, formatted as "width x height".
-  - `width` - Specifies the width of the image for precise layout control.
+  #### Image options
+  - `alt` — Alternate text for accessibility, describing the image's content.
+  - `src` — Source URL of the image file.
+  - `caption` — Provides context for the image, enhancing user understanding.
+  - `href` — Adds a clickable link to the image, guiding users to related content.
+  - `large` — Specifies the large version of the image, which can differ in aspect ratio from the small version, allowing for creative art direction.
+  - `loading` — Determines the loading behavior: "lazy" enables [lazy loading](https://developer.mozilla.org/en-US/docs/Web/Performance/Lazy_loading) (default value) or "eager" for immediate loading.
+  - `small` — Defines the small version of the image for mobile displays, optimizing visual presentation.
+  - `offset` — Sets the screen size (in pixels) at which the small image switches to the large one, with a default of 750 pixels.
+  - `size` — A shortcut property to provide both width and height simultaneously, formatted as "width x height".
+  - `width` — Specifies the width of the image for precise layout control.
 
 ### HTML output
 
@@ -206,14 +206,14 @@ Options can also be specified using YAML for enhanced organization:
 [.options]
   #### Video options
 
-  - `autoplay` - Starts the video when the page loads, providing an engaging experience right away. Must be used together with `muted` for autoplay to work across all browsers.
-  - `controls` - Displays the built-in video controls provided by the browser, allowing users to play, pause, and adjust the volume.
-  - `loop` - Makes the video restart automatically after it reaches the end, which is useful for continuous playback in presentations or promotional content.
-  - `muted` - Plays the video without sound, enabling autoplay in browsers that restrict sound playback.
-  - `poster` - A URL for an image that will be displayed before the video begins playing, giving users a preview of the content.
-  - `preload` - Provides a [hint to the browser](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#preload) about whether to load the video data before the user plays it.
-  - `src` - Specifies the URL to the video file, directing the browser to where it can retrieve the video content.
-  - `width` - Determines the width of the video player, allowing for precise control over the layout.
+  - `autoplay` — Starts the video when the page loads, providing an engaging experience right away. Must be used together with `muted` for autoplay to work across all browsers.
+  - `controls` — Displays the built-in video controls provided by the browser, allowing users to play, pause, and adjust the volume.
+  - `loop` — Makes the video restart automatically after it reaches the end, which is useful for continuous playback in presentations or promotional content.
+  - `muted` — Plays the video without sound, enabling autoplay in browsers that restrict sound playback.
+  - `poster` — A URL for an image that will be displayed before the video begins playing, giving users a preview of the content.
+  - `preload` — Provides a [hint to the browser](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#preload) about whether to load the video data before the user plays it.
+  - `src` — Specifies the URL to the video file, directing the browser to where it can retrieve the video content.
+  - `width` — Determines the width of the video player, allowing for precise control over the layout.
 
 ### HTML output
 
@@ -314,11 +314,11 @@ Nue supports standard Markdown syntax for tables, providing a straightforward wa
 Tables are created using the standard Markdown table syntax, which is simple but sometimes cumbersome when dealing with larger tables. Here is an example:
 
 ```md
-| Name            | Email                    | Work title         |
-| --------------- | ------------------------ | ------------------ |
-| Sarah Thompson  | sarah.thompson@demo.ai   | Graphic Designer   |
-| David Rodriguez | david.rodriguez@demo.ai  | Financial Analyst  |
-| Jessica Lee     | jessica.lee@demo.ai      | Project Manager    |
+\| Name            | Email                    | Work title         |
+\| --------------- | ------------------------ | ------------------ |
+\| Sarah Thompson  | sarah.thompson@demo.ai   | Graphic Designer   |
+\| David Rodriguez | david.rodriguez@demo.ai  | Financial Analyst  |
+\| Jessica Lee     | jessica.lee@demo.ai      | Project Manager    |
 ```
 
 ### Table tag
@@ -374,10 +374,10 @@ This allows you to render tables dynamically based on the structured data availa
 [.options]
   #### Table options
 
-  - `caption` - Defines a caption for the table, which appears above the table in HTML.
-  - `head` - Determines whether the first row should be rendered as a table head (`<th>` elements). The default is `true`.
-  - `:items` - Specifies the property name for externally defined table data that should be rendered.
-  - `wrapper` - Wraps the table inside a parent element with a class name specified on this property, typically used for adding colored backgrounds or other design elements from your design system.
+  - `caption` — Defines a caption for the table, which appears above the table in HTML.
+  - `head` — Determines whether the first row should be rendered as a table head (`<th>` elements). The default is `true`.
+  - `:items` — Specifies the property name for externally defined table data that should be rendered.
+  - `wrapper` — Wraps the table inside a parent element with a class name specified on this property, typically used for adding colored backgrounds or other design elements from your design system.
 
 
 ### HTML output
@@ -474,8 +474,8 @@ Accordions can be customized with various options to control their behavior and 
 [.options]
   #### Accordion options
 
-  - `name` - Use this to name individual entries. When supplied, only one entry can be open at a time, ensuring a true accordion effect.
-  - `open` - Set the initial state of the accordion. Use this to open the first tab by default or provide a numeric value for a specific item to be initially opened.
+  - `name` — Use this to name individual entries. When supplied, only one entry can be open at a time, ensuring a true accordion effect.
+  - `open` — Set the initial state of the accordion. Use this to open the first tab by default or provide a numeric value for a specific item to be initially opened.
 
 
 ### HTML output
@@ -572,9 +572,9 @@ The use of `pointer-events: none;` ensures that only the active tab can be inter
 
 - **Works Without JavaScript**: All the tab functionality is implemented purely using CSS. The tabs continue to work seamlessly even if JavaScript is disabled or not available in the browser.
 
-- **No Extra HTML/JS Coding**: You don't need to write new JavaScript functions or HTML structures—everything is done by simply adding styles to the existing markup.
+- **No Extra HTML/JS Coding**: You don't need to write new JavaScript functions or HTML structures — everything is done by simply adding styles to the existing markup.
 
-By creatively using CSS, Nue makes it easy to craft responsive, interactive tabbed interfaces while keeping the underlying codebase clean and maintainable—proving that CSS alone can create sophisticated UI elements.
+By creatively using CSS, Nue makes it easy to craft responsive, interactive tabbed interfaces while keeping the underlying codebase clean and maintainable — proving that CSS alone can create sophisticated UI elements.
 
 
 ## Description lists
@@ -635,12 +635,3 @@ Separation of concerns [^soc] is an important strategy.
 
 [Progressive Enhancement][^pe] is good for UX.
 ```
-
-
-
-
-
-
-
-
-

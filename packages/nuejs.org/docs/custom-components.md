@@ -121,7 +121,7 @@ In this case, Nue will first look for an implementation of the component or isla
 
 
 ## Passing data
-You can pass data to your components using attributes. These attributes can either be direct values or reference data from the [unstructured data](content.html) when the attribute name starts with a colon
+You can pass data to your components using attributes. These attributes can either be direct values or reference data from the [unstructured data](content.html) when the attribute name starts with a colon.
 
 #### Markdown example
 In Markdown content, you can pass data as follows:
@@ -736,4 +736,4 @@ You can add and import shared code within a top-level `<script>` tag. Here’s a
 
 
 ## Summary
-Nue opens the door to a new way of building web applications, allowing you to harness the power of Markdown extensions, server-side components, and client-side components—all with a simple and intuitive syntax. By focusing on an HTML-based approach, you can prioritize layout, structure, semantics, and accessibility, freeing yourself from the frustration of tangled JavaScript stack traces.
+Nue opens the door to a new way of building web applications, allowing you to harness the power of Markdown extensions, server-side components, and client-side components — all with a simple and intuitive syntax. By focusing on an HTML-based approach, you can prioritize layout, structure, semantics, and accessibility, freeing yourself from the frustration of tangled JavaScript stack traces.

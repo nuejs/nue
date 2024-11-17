@@ -3,7 +3,8 @@
 The default website template for `nue create` command:
 
 <a href="https://simple-blog.nuejs.org/">
-  <img src="https://nuejs.org/img/blog-hero-big.png" width="700" alt="Blog screenshots"></a>
+  <img src="https://nuejs.org/img/blog-hero-big.png" width="700" alt="Blog screenshots">
+</a>
 
 ## Links
 
