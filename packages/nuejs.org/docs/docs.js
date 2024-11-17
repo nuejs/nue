@@ -1,4 +1,3 @@
-
 import { $, $$ } from '/@nue/view-transitions.js'
 
 // scroll highlight for table of contents (on the right side)

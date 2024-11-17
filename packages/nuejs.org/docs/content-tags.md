@@ -72,7 +72,6 @@ This is an inline [svg "/icon/meow.svg"] image.
 - - -
 
 
-
 ## Images
 To include a basic image, use:
 

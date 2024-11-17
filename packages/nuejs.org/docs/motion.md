@@ -24,7 +24,6 @@ In Nue, motion is an enhancement, not a requirement. Motion can be applied or re
 **Stylesheets are pluggable**. CSS-based motion can be packaged into pluggable stylesheets, making it easy to enable or disable animations as needed. For example, subtle animations can be applied globally, with increased animation on marketing pages and no animation for technical documentation.
 
 
-
 ## Enter animations
 One of the most underused but incredibly powerful CSS properties is `@starting-style`. While not widely known, it already has an impressive 84% browser adoption rate according to [Can I Use](https://caniuse.com/?search=%40starting-style). This property enables you to define the starting values for an element before it becomes visible, allowing for smooth entry animations without the need for JavaScript workarounds or keyframe animations.
 
@@ -50,10 +49,9 @@ One of the most underused but incredibly powerful CSS properties is `@starting-s
 }
 ```
 
-In this example, the popover starts off scaled down and transparent, then smoothly transitions to full size and opacity when it opens. The backdrop also transitions to a blurred state, creating a polished and modern effect. Using `@starting-style` makes it easy to handle these first-load animations without needing heavy JavaScript solutions.
+In this example, the popover starts off scaled down and transparent, then smoothly transitions to full size and opacity when it opens. The backdrop also transitions to a blurred state, creating a polished and modern effect. Using `@starting-style` makes it easy to handle these first-load animations without requiring heavy JavaScript solutions.
 
 Despite its relative obscurity, `@starting-style` is a highly capable tool for creating entry animations and is well-supported in most modern browsers, making it a great choice for developers who prioritize performance and simplicity.
-
 
 
 ## View transitions
@@ -113,7 +111,6 @@ In this example, when the hero image transitions between views, it seamlessly mo
 Here’s the full **Scroll triggered transitions** section with comments added to the code, along with an adjusted explanation:
 
 
-
 ## Scroll triggered transitions
 One effective way to create smooth, visually engaging animations across a site is through scroll-triggered transitions. This can be done globally by adding a script that automatically detects when sections of the page scroll into view and applies custom CSS transitions for each section. With Nue, this system leverages a combination of JavaScript and CSS to achieve smooth animations while maintaining performance and separation of concerns.
 
@@ -140,7 +137,7 @@ UX development has always ...
 ```
 
 ### Step 2: Setting up the global scroll-triggered script
-Next, we create a script called `global/scroll.js` that will apply an `outside-viewport` class to each section when it is out of view and remove it when the section enters the viewport. This class will allow us to customize transitions based on whether an element is visible or not.
+Next, we create a script called `global/scroll.js` that will apply an `outside-viewport` class to each section when it is out of view and remove it when the section enters the viewport. This class allows us to customize transitions based on whether an element is visible or not.
 
 Here’s the script that makes this happen:
 
@@ -220,5 +217,3 @@ Now, you can use CSS to apply different animations to each section. Here’s how
 - **li elements**: The list items within `.explainer` start fully visible as well. When the section enters the viewport, the list items fade in with a slight delay between each item. The delays (`0.2s`, `0.4s`, `0.6s`) create a staggered animation effect.
 
 - **Nesting**: The CSS nesting ensures a clean structure by placing related styles inside the `.explainer` block. This keeps the code minimal and easy to maintain.
-
-

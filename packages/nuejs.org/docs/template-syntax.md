@@ -220,7 +220,7 @@ Use the `:if` attribute to conditionally render a block. The block will only be 
 ```
 
 ### :else condition
-Use `:else` to indicate an "else block" for `:if`.
+Use `:else` to indicate an "else-block" for `:if`.
 
 ```html
 <div>
@@ -377,4 +377,3 @@ Alternatively, you can use the [`:bind` attribute](#bind) to pass all the data a
 ```
 
 The `bind` attribute makes the item properties accessible directly to the component. So instead of `{ item.title }`, you can write `{ title }` inside the component.
-

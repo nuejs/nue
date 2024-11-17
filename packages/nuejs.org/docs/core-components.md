@@ -171,7 +171,3 @@ The HTML output will resemble the following:
 The built-in `<page-list>` tag allows you to render a list of pages, such as blog entries or other index content, directly within your templates. This tag is ideal for creating dynamic lists that automatically update as you add new content to your site.
 
 To see how to collect and customize the pages in your list, refer to the [content collections](content-collections.html) documentation.
-
-
-
-

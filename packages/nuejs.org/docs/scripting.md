@@ -35,7 +35,6 @@ The **Nue.js** template engine is a great example of this. It’s like React, bu
 Learning ES6 modules, modern APIs, and DOM manipulation will provide you with long-lasting, powerful skills.
 
 
-
 ## Scripting example
 
 Let’s explore a common use case for scripting: [popovers](//developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/popover). These elements have a `popover` global attribute, which allows them to function as modals. Here's an example on this website:
@@ -86,7 +85,6 @@ addEventListener('click', event => {
 2. **Static HTML enrichment**: By adding JavaScript, we make static HTML more interactive without relying on client-side rendering (CSR) or complex JavaScript islands.
 
 3. **Global scripting**: A single click handler efficiently manages all clickable elements across the site, making the JavaScript reusable and efficient.
-
 
 
 ## Scripting with view transitions
@@ -169,7 +167,6 @@ loadPage('thanks.html')
 ```
 
 
-
 ## Hot-reloading
 
 When the page content updates through Hot Module Replacement (HMR), you can re-attach your selectors or run other tasks:
@@ -181,7 +178,6 @@ addEventListener('reload', function() {
 ```
 
 Listening to the `reload` event is necessary if your script relies on DOM elements that might be replaced during HMR. In contrast, scripts using global event handlers (like our earlier example) are unaffected by HMR since they stay active.
-
 
 
 ## Importing modules
@@ -212,7 +208,6 @@ This signals that all the imports in files named `index` will be bundled.
 [.note]
   ### On performance
   Note that bundling has no impact on performance in Nue, as scripts are optional and loaded after HTML and CSS. For performance tips, see the [optimization](optimization.html) section.
-
 
 
 ## TypeScript

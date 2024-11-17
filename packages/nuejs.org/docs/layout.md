@@ -47,7 +47,7 @@ This code defines the global layout for the site and highlights the modular appr
 ## Slots
 In Nue, layout modules are designed to fill predefined slots in your page structure. Below are some typical modules you might create, each corresponding to a specific slot in the layout:
 
-| Module name   | Typical use case                                           |
+| Module name   | Typical use case                                          |
 |---------------|-----------------------------------------------------------|
 | “banner”      | Temporary news banners above the master header            |
 | “header”      | Global, site-wide header                                  |
@@ -71,7 +71,7 @@ Here's how the slots map to the DOM, determining where each layout module is pos
 
 ### Defining a module
 
-To create a specific module, such as the "banner," you need to create an `.html` file containing the HTML for the module and use the `@name` attribute:
+To create a specific module, such as the "banner", you need to create an `.html` file containing the HTML for the module and use the `@name` attribute:
 
 ```html
 <div @name="banner">

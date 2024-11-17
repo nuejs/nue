@@ -363,8 +363,6 @@ Let’s add a simple image gallery component to this page:
 ```
 
 
-
-
 Here’s the source code for the gallery component:
 
 ```html
@@ -505,15 +503,15 @@ You can use any valid key names from [KeyboardEvent.key](https://developer.mozil
 
 Nue provides aliases for commonly used keys:
 
-- `.enter`: Captures both "Enter" and "Return."
-- `.delete`: Captures both "Delete" and "Backspace."
-- `.esc`: Captures both "Esc" and "Escape."
-- `.space`: Captures "Spacebar", " ", "Space Bar."
-- `.tab`: Captures "Tab."
-- `.up`: Captures "Up" and "ArrowUp."
-- `.down`: Captures "Down" and "ArrowDown."
-- `.left`: Captures "Left" and "ArrowLeft."
-- `.right`: Captures "Right" and "ArrowRight."
+- `.enter`: Captures both "Enter" and "Return".
+- `.delete`: Captures both "Delete" and "Backspace".
+- `.esc`: Captures both "Esc" and "Escape".
+- `.space`: Captures "Spacebar", " ", "Space Bar".
+- `.tab`: Captures "Tab".
+- `.up`: Captures "Up" and "ArrowUp".
+- `.down`: Captures "Down" and "ArrowDown".
+- `.left`: Captures "Left" and "ArrowLeft".
+- `.right`: Captures "Right" and "ArrowRight".
 
 ## Dynamic arrays
 When you define a loop with the `:for` expression, Nue automatically detects if the looped array is mutated and triggers the necessary UI updates. The following [array methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) are supported:
@@ -653,7 +651,7 @@ You can hook custom functionality to these steps by creating instance methods wi
 </script>
 ```
 
-Inside these callback functions, `this` points to the [instance API](#api), allowing access to various properties and methods related to the component.
+Inside these callback functions, `this` points to the [instance API](#instance-api), allowing access to various properties and methods related to the component.
 
 ## Instance API
 The component API is accessible via the `this` variable inside the lifecycle methods. It has the following attributes and methods:

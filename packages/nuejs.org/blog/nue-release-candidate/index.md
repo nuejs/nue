@@ -146,7 +146,7 @@ The new parser introduces several powerful features to enhance your Markdown exp
 
 - **New `[define]` tag**: The [define] tag is designed for creating description lists, such as glossaries or key-value pairs. Similar to the [accordion] tag, it leverages the AST to automatically structure and render the content, offering a clean and consistent way to display terms and descriptions without requiring extra HTML markup.
 
-- **Updated `[tabs]`**: The `[tabs]` tags has been improved to now be based on the accordion tag and HTML `<summary>`/`<details>` elements. This means that tabs can be created with no JavaScript required, using the same simple, semantic structure, offering a native HTML solution for tabbed content.
+- **Updated `[tabs]`**: The `[tabs]` tag has been improved to now be based on the accordion tag and HTML `<summary>`/`<details>` elements. This means that tabs can be created with no JavaScript required, using the same simple, semantic structure, offering a native HTML solution for tabbed content.
 
 - **Generic blocks**: New generic blocks like `[.features]` allow you to easily define content blocks with nested sections. This takes advantage of the AST to create flexible layouts using native CSS features like flexbox and grid. Essentially, this provides a content-first approach to complex layouts, making it easier to organize and structure your content visually.
 

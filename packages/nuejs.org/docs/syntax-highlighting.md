@@ -19,12 +19,12 @@ For details on adding code blocks to your Markdown documents, refer to the [code
 ## The HTML output
 Syntax blocks are rendered as standard HTML tags, without additional class names. For example, the following Markdown block:
 
-```
+````md
  ```javascript
  // a comment
  "A string value"
  ```
-```
+````
 
 Produces the HTML:
 
@@ -98,7 +98,7 @@ To apply language-specific tweaks, use the `language` attribute, as in:
 ```
 
 ### Adjusting formatting
-Glow uses bolding with `--glow-special-color`, and other elements are styled by color alone. You can add formatting to any elements to fine-tune the syntax blocks. For example:
+Glow uses bolding with `--glow-special-color`, and other elements get styled by color alone. You can add formatting to any elements to fine-tune the syntax blocks. For example:
 
 ```css
 /* Bold all secondary syntax elements */
