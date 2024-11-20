@@ -7,7 +7,7 @@ const NL = '\n'
 
 const COMMON_WORDS = 'null|true|false|undefined|import|from|async|await|package|begin\
 |interface|class|new|int|func|function|get|set|export|default|const|var|let\
-|return|for|while|defer|if|then|else|elif|fi|int|string|number|def|public|static|void\
+|return|yield|for|while|defer|if|then|else|elif|fi|int|string|number|def|public|static|void\
 |continue|break|switch|case|final|finally|try|catch|while|super|long|float\
 |throw|fun|val|use|fn|my|end|local|until|next|bool|ns|defn|puts|require|each'
 
