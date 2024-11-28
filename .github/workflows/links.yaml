@@ -37,16 +37,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v2
 
-      - name: Install and build site
-        run: |
-          bun install
-          cd packages/nuekit
-          bun link
-          cd ../nuejs.org
-          nue build -p
-          nue -pP 8080 &
+      - name: Build docs
+        uses: ./.github/workflows/repo/build-page
+        with:
+          root: packages/nuejs.org
+
+      - name: Run server
+        run: nue -pr packages/nuejs.org -P 8080 &
 
       - name: Find files to check
         id: files
