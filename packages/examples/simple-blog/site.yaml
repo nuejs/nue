@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://json.schemastore.org/nuejs-site.json
 
 globals: ["@global"]
 libs: ["@library"]
