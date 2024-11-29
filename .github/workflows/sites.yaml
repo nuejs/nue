@@ -23,6 +23,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
       - name: Check dir changes
         run: git diff --name-only HEAD^ HEAD | grep -q "^${{ env.dir }}"
@@ -33,15 +35,13 @@ jobs:
           root: ${{ env.dir }}
 
       - name: Prepare SSH
-        run: |
-          mkdir -p ~/.ssh/
-          ssh-add - ${{ secrets.SSH_PRIVATE }}
-          ssh-keyscan -p 22 ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
-          chmod 644 ~/.ssh/known_hosts
+        uses: kielabokkie/ssh-key-and-known-hosts-action@v1
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE }}
+          ssh-host: ${{ secrets.SSH_HOST }}
 
       - name: Push files to web server
-        run:
-          scp ${{ env.dir }}.dist/prod/site.tar.gz ${{ env.host }}@${{ secrets.SSH_HOST }}
+        run: scp ${{ env.dir }}.dist/prod/site.tar.gz ${{ env.host }}@${{ secrets.SSH_HOST }}
           ssh ${{ env.host }}@${{ secrets.SSH_HOST }} "tar -xf site.tar.gz"
 
   examples:
@@ -58,24 +58,18 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
       - name: Check dir changes
         run: git diff --name-only HEAD^ HEAD | grep -q "^${{ env.dir }}"
 
-      - name: Setup Pages
-        id: pages
-        uses: actions/configure-pages@v5
+      - name: Create test archive
+        run: tar --exclude "*/img" -C ${{ env.dir }} -cf ${{ env.dir }}test.tar.gz .
+        if: ${{ matrix.dir == 'simple-blog' }}
 
       - name: Create source archive
-        run: |
-          # source archive
-          git archive -o ${{ env.dir }}source.tar.gz HEAD:${{ env.dir }}
-
-          # small test archive
-          if [[ "${{ matrix.dir }}" = "simple-blog" ]]; then
-            cd ${{env.dir}}
-            tar --exclude ".dist" --exclude "*/img/**" -cf test.tar.gz .
-          fi
+        run: git archive -o ${{ env.dir }}source.tar.gz HEAD:${{ env.dir }}
 
       - name: Nue build
         uses: ./.github/workflows/repo/build-page
@@ -83,11 +77,10 @@ jobs:
           root: ${{ env.dir }}
 
       - name: Prepare SSH
-        run: |
-          mkdir -p ~/.ssh/
-          ssh-add - ${{ secrets.SSH_PRIVATE }}
-          ssh-keyscan -p 22 ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
-          chmod 644 ~/.ssh/known_hosts
+        uses: kielabokkie/ssh-key-and-known-hosts-action@v1
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE }}
+          ssh-host: ${{ secrets.SSH_HOST }}
 
       - name: Push files to web server
         run: |
