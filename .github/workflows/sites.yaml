@@ -1,0 +1,91 @@
+name: Build and push sites to web server
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - packages/nuejs.org/**
+      - packages/examples/**
+
+concurrency:
+  group: 'pages'
+  cancel-in-progress: false
+
+jobs:
+  site:
+    if: ${{ github.repository_owner == 'nuejs' }}
+    env:
+      dir: 'packages/nuejs.org/'
+      host: 'nuejs.org'
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check dir changes
+        run: git diff --name-only HEAD^ HEAD | grep -q "^${{ env.dir }}"
+
+      - name: Nue build
+        uses: ./.github/workflows/repo/build-page
+        with:
+          root: ${{ env.dir }}
+
+      - name: Prepare SSH
+        run: |
+          mkdir -p ~/.ssh/
+          ssh-add - ${{ secrets.SSH_PRIVATE }}
+          ssh-keyscan -p 22 ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+
+      - name: Push files to web server
+        run: scp -r ${{ env.dir }}.dist/prod/ ${{ env.host }}@${{ secrets.SSH_HOST }}:./
+
+  examples:
+    if: ${{ github.repository_owner == 'nuejs' }}
+    strategy:
+      matrix:
+        dir:
+          - simple-blog
+    env:
+      dir: 'packages/examples/${{ matrix.dir }}/'
+      host: '${{ matrix.dir }}.nuejs.org'
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check dir changes
+        run: git diff --name-only HEAD^ HEAD | grep -q "^${{ env.dir }}"
+
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Create source archive
+        run: |
+          # source archive
+          git archive -o ${{ env.dir }}source.tar.gz HEAD:${{ env.dir }}
+
+          # small test archive
+          if [[ "${{ matrix.dir }}" = "simple-blog" ]]; then
+            cd ${{env.dir}}
+            tar --exclude ".dist" --exclude "*/img/**" -cf test.tar.gz .
+          fi
+
+      - name: Nue build
+        uses: ./.github/workflows/repo/build-page
+        with:
+          root: ${{ env.dir }}
+
+      - name: Prepare SSH
+        run: |
+          mkdir -p ~/.ssh/
+          ssh-add - ${{ secrets.SSH_PRIVATE }}
+          ssh-keyscan -p 22 ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+
+      - name: Push files to web server
+        run: scp -r ${{ env.dir }}.dist/prod/ ${{ env.host }}@${{ secrets.SSH_HOST }}:./

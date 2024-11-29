@@ -40,11 +40,11 @@ export async function create({ root, name = 'simple-blog', port }) {
   // download archive
   console.info('Loading template...')
   const archive_name = join(root, `${name}-source.tar.gz`)
-  const archive = await fetch(`https://${name}.nuejs.org/${debug ? 'test' : name}.tar.gz`)
+  const archive = await fetch(`https://${name}.nuejs.org/${debug ? 'test' : 'source'}.tar.gz`)
   await fs.writeFile(archive_name, Buffer.from(await archive.arrayBuffer()))
 
   // uncompress
-  execSync(`tar -C ${root} --strip-components 1 -xf ${archive_name}`)
+  execSync(`tar -C ${root} -xf ${archive_name}`)
 
   // remove archive
   await fs.rm(archive_name)
