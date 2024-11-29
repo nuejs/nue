@@ -20,3 +20,9 @@ runs:
     - name: Build Nue Project
       shell: bash
       run: nue build -pr "${{ inputs.root }}"
+
+    - name: Archive files
+      shell: bash
+      run: |
+        cd "${{ inputs.root }}/.dist/prod"
+        tar -cf site.tar.gz .

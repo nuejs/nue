@@ -40,7 +40,9 @@ jobs:
           chmod 644 ~/.ssh/known_hosts
 
       - name: Push files to web server
-        run: scp -r ${{ env.dir }}.dist/prod/ ${{ env.host }}@${{ secrets.SSH_HOST }}:./
+        run:
+          scp ${{ env.dir }}.dist/prod/site.tar.gz ${{ env.host }}@${{ secrets.SSH_HOST }}
+          ssh ${{ env.host }}@${{ secrets.SSH_HOST }} "tar -xf site.tar.gz"
 
   examples:
     if: ${{ github.repository_owner == 'nuejs' }}
@@ -88,4 +90,6 @@ jobs:
           chmod 644 ~/.ssh/known_hosts
 
       - name: Push files to web server
-        run: scp -r ${{ env.dir }}.dist/prod/ ${{ env.host }}@${{ secrets.SSH_HOST }}:./
+        run: |
+          scp ${{ env.dir }}.dist/prod/site.tar.gz ${{ env.host }}@${{ secrets.SSH_HOST }}
+          ssh ${{ env.host }}@${{ secrets.SSH_HOST }} "tar -xf site.tar.gz"
