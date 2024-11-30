@@ -6,7 +6,9 @@ const ATTR = 'id is class style hidden disabled popovertarget popover'.split(' '
 */
 export function parseTag(input) {
   const { str, getValue } = valueGetter(input)
-  const [specs, ...attribs] = str.split(/\s+/)
+  const strings = str.split(/\s+/)
+  const specs = strings.filter((s, i) => !i || s.match(/^[#|.]/)).join('')
+  const attribs = strings.filter(s => !specs.includes(s))
   const self = { ...parseSpecs(specs), data: {} }
 
 
@@ -51,7 +53,7 @@ export function valueGetter(input) {
 
   function getValue(key) {
     if (key[0] == ':' && key.slice(-1) == ':') {
-      return strings[1 * key.slice(1, -1) -1]
+      return strings[1 * key.slice(1, -1) - 1]
     }
   }
 

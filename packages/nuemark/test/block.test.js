@@ -5,7 +5,7 @@ import { nuemark } from '..'
 
 
 test('paragraphs', () => {
-  const { blocks } = parseBlocks([ 'a', 'b', '', '', 'c' ])
+  const { blocks } = parseBlocks(['a', 'b', '', '', 'c'])
   expect(blocks.length).toBe(2)
 
   const html = renderBlocks(blocks)
@@ -14,16 +14,16 @@ test('paragraphs', () => {
 })
 
 test('list items', () => {
-  const { blocks } = parseBlocks(['- a', '', '  a1',  '- b', '', '', '- c'])
+  const { blocks } = parseBlocks(['- a', '', '  a1', '- b', '', '', '- c'])
   expect(blocks.length).toBe(1)
-  expect(blocks[0].entries).toEqual([[ "a", "", "a1" ], [ "b", "", "" ], [ "c" ]])
+  expect(blocks[0].entries).toEqual([["a", "", "a1"], ["b", "", ""], ["c"]])
 })
 
 
 test('nested lists', () => {
-  const { blocks } = parseBlocks(['- item', '', '  - nested 1',  '', '', '  - nested 2'])
+  const { blocks } = parseBlocks(['- item', '', '  - nested 1', '', '', '  - nested 2'])
   expect(blocks.length).toBe(1)
-  expect(blocks[0].entries[0]).toEqual([ "item", "", "- nested 1", "", "", "- nested 2" ])
+  expect(blocks[0].entries[0]).toEqual(["item", "", "- nested 1", "", "", "- nested 2"])
 
   const html = renderBlocks(blocks)
   expect(html).toEndWith('<li><p>nested 2</p></li></ul></li></ul>')
@@ -55,12 +55,12 @@ test('subsequent blockquotes', () => {
 test('numbered items', () => {
   const { blocks } = parseBlocks(['1. Yo', '10. Bruh', '* Bro'])
   expect(blocks[0].numbered).toBeTrue()
-  expect(blocks[0].entries).toEqual([[ "Yo" ], [ "Bruh" ], [ "Bro" ]])
+  expect(blocks[0].entries).toEqual([["Yo"], ["Bruh"], ["Bro"]])
 })
 
 
 test('multiple thematic breaks', () => {
-  const { blocks } = parseBlocks(['A', '---', 'B', '---', 'C' ])
+  const { blocks } = parseBlocks(['A', '---', 'B', '---', 'C'])
   expect(blocks.length).toBe(5)
 })
 
@@ -128,8 +128,14 @@ test('render blockquote', () => {
 })
 
 test('render fenced code', () => {
-  const html = renderLines(['``` css.pink numbered', 'em {}', '```'])
-  expect(html).toStartWith('<div class="pink"><pre><code language="css"><span>')
+  const html0 = renderLines(['```css .pink numbered', 'em {}', '```'])
+  expect(html0).toStartWith('<div class="pink"><pre><code language="css"><span>')
+  const html1 = renderLines(['```css.pink numbered', 'em {}', '```'])
+  expect(html1).toStartWith('<div class="pink"><pre><code language="css"><span>')
+  const html2 = renderLines(['```.pink numbered', 'em {}', '```'])
+  expect(html2).toStartWith('<div class="pink"><pre><code language="*"><span>')
+  const html3 = renderLines(['```.pink', 'em {}', '```'])
+  expect(html3).toStartWith('<div class="pink"><pre><code language="*">')
 })
 
 test('fenced code with caption', () => {
@@ -141,29 +147,29 @@ test('fenced code with caption', () => {
 
 test('multi-line list entries', () => {
   const list = parseBlocks(['* foo', '  boy', '* bar']).blocks[0]
-  expect(list.entries).toEqual([ [ "foo", "boy" ], [ "bar" ] ])
+  expect(list.entries).toEqual([["foo", "boy"], ["bar"]])
 })
 
 test('nested list', () => {
   const { items } = parseBlocks(['* > foo', '  1. boy', '  2. bar']).blocks[0]
-  const [ [ quote, nested ] ] = items
+  const [[quote, nested]] = items
 
   expect(quote.is_quote).toBeTrue()
   expect(nested.is_list).toBeTrue()
 })
 
 test('blockquote', () => {
-  const [ quote ] = parseBlocks(['> foo', '> boy']).blocks
+  const [quote] = parseBlocks(['> foo', '> boy']).blocks
   expect(quote.is_quote).toBeTrue()
-  expect(quote.content).toEqual([ "foo", "boy" ])
+  expect(quote.content).toEqual(["foo", "boy"])
 })
 
 test('fenced code blocks', () => {
-  const [ code ] = parseBlocks(['``` css.foo numbered', 'func()', '```']).blocks
+  const [code] = parseBlocks(['``` css.foo numbered', 'func()', '```']).blocks
 
   expect(code.name).toBe('css')
   expect(code.attr).toEqual({ class: 'foo' })
-  expect(code.code).toEqual([ "func()" ])
+  expect(code.code).toEqual(["func()"])
   expect(code.data.numbered).toBeTrue()
 })
 
@@ -176,8 +182,8 @@ test('parse table', () => {
   ]
 
   // parse
-  const [ table ] = parseBlocks(lines).blocks
-  expect(table.rows[1]).toEqual([ "January", "$250" ])
+  const [table] = parseBlocks(lines).blocks
+  expect(table.rows[1]).toEqual(["January", "$250"])
   expect(table.rows.length).toBe(3)
   expect(table.head).toBeTrue()
 
