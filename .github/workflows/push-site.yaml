@@ -28,6 +28,7 @@ jobs:
         uses: ./.github/workflows/repo/build-page
         with:
           root: ${{ env.dir }}
+          archive: site.tar.gz
 
       - name: Prepare SSH
         uses: kielabokkie/ssh-key-and-known-hosts-action@v1

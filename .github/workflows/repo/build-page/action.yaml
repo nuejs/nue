@@ -4,6 +4,9 @@ inputs:
   root:
     default: '.'
     type: string
+  archive:
+    default: ''
+    type: string
 
 runs:
   using: composite
@@ -22,7 +25,8 @@ runs:
       run: nue build -pr "${{ inputs.root }}"
 
     - name: Archive files
+      if: ${{ inputs.archive }}
       shell: bash
       run: |
         cd "${{ inputs.root }}.dist/prod"
-        tar -czf site.tar.gz .
+        tar -czf ${{ inputs.archive }} .
