@@ -1,11 +1,10 @@
-name: Build and push sites to web server
+name: Push examples to web server
 
 on:
   push:
     branches:
       - master
     paths:
-      - packages/nuejs.org/**
       - packages/examples/**
 
 concurrency:
@@ -13,43 +12,14 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  site:
-    if: ${{ github.repository_owner == 'nuejs' }}
-    env:
-      dir: 'packages/nuejs.org/'
-      host: 'nuejs.org'
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 2
-
-      - name: Check dir changes
-        run: git diff --name-only HEAD^ HEAD | grep -q "^${{ env.dir }}"
-
-      - name: Nue build
-        uses: ./.github/workflows/repo/build-page
-        with:
-          root: ${{ env.dir }}
-
-      - name: Prepare SSH
-        uses: kielabokkie/ssh-key-and-known-hosts-action@v1
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE }}
-          ssh-host: ${{ secrets.SSH_HOST }}
-
-      - name: Push files to web server
-        run: scp ${{ env.dir }}.dist/prod/site.tar.gz ${{ env.host }}@${{ secrets.SSH_HOST }}
-          ssh ${{ env.host }}@${{ secrets.SSH_HOST }} "tar -xf site.tar.gz"
-
   examples:
     if: ${{ github.repository_owner == 'nuejs' }}
+
     strategy:
       matrix:
         dir:
           - simple-blog
+
     env:
       dir: 'packages/examples/${{ matrix.dir }}/'
       host: '${{ matrix.dir }}.nuejs.org'
@@ -62,6 +32,7 @@ jobs:
           fetch-depth: 2
 
       - name: Check dir changes
+        id: changes
         run: git diff --name-only HEAD^ HEAD | grep -q "^${{ env.dir }}"
 
       - name: Create test archive
