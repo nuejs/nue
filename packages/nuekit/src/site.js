@@ -41,6 +41,7 @@ export async function createSite(args) {
   }
 
   async function readData(path) {
+    if (!path) return
     try {
       const raw = await read(path)
       return yaml.load(raw)
