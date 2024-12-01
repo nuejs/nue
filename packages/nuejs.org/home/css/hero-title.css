@@ -44,7 +44,7 @@ h1 {
   }
 
 
-  /* design */
+  /* design
   em {
     border: 1px solid var(--gray-300);
     padding-right: .05em;
@@ -72,10 +72,11 @@ h1 {
 
     &::selection { background-color: var(--gray-600) }
   }
+  */
 
-  /* engineering */
   strong {
     font-weight: 900;
+    /* engineering
     position: relative;
     &:after {
       content: "";
@@ -90,6 +91,7 @@ h1 {
       z-index: -1;
       @media (width < 900px) { display: none }
     }
+    */
   }
 
 }
