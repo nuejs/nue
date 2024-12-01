@@ -35,7 +35,7 @@ export function getComponentName(root) {
   const { attribs } = root
   const name = attribs['@name'] || attribs['data-name'] // || attribs.id
   delete attribs['@name']
-  return name
+  return name?.toLowerCase()
 }
 
 export function selfClose(str) {
