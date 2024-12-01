@@ -1,5 +1,8 @@
 
-import { elem, parseSize, renderInline } from 'nuemark'
+import { elem, parseSize, renderInline, readIcon } from 'nuemark'
+
+import { readFileSync } from 'node:fs'
+import { join } from 'node:path'
 
 export function renderPageList(data) {
   const key = data.collection_name || data.content_collection
@@ -44,9 +47,15 @@ export function getLayoutComponents() {
     { name: 'toc', create: renderTOC },
     { name: 'markdown', create: ({ content }) => renderInline(content) },
     { name: 'pretty-date', create: ({ date }) => renderPrettyDate(date) },
+    { name: 'icon', create: renderIcon },
   ]
 }
 
+function renderIcon(data) {
+  const style = data.attr?.style || data.style
+  const svg = readIcon(data.src, data.icon_dir)
+  return svg && style ? svg.replace('<svg', `<svg style="${style}"`) : svg
+}
 
 
 /****** utilities ********/
@@ -103,11 +112,13 @@ export function parseLink(item) {
 }
 
 
+
 export function renderLink(item) {
   const img = item.image ? renderImage(item) : ''
+  const svg = item.icon ? readIcon(item.icon) : item.use ? elem('svg', `<use href="#${item.use}"/>`) : ''
   const link = parseLink(item)
   const attr = { href: link.url, class: link.class, role: item.role }
-  return elem('a', attr, img + renderInline(link.label))
+  return elem('a', attr, svg + img + renderInline(link.label))
 }
 
 export function renderImage(data) {

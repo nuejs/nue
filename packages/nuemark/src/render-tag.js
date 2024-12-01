@@ -85,13 +85,7 @@ const TAGS = {
 
   svg(data) {
     const src = data.src || data._
-    const path = join('.', src)
-
-    try {
-      return src?.endsWith('.svg') && readFileSync(path, 'utf-8')
-    } catch (e) {
-      console.error('svg not found', path)
-    }
+    return src ? readIcon(src) : ''
   },
 
   table() {
@@ -116,6 +110,23 @@ const TAGS = {
   '!': function() {
     const tag = getMimeType(this.data._).startsWith('video') ? TAGS.video : TAGS.image
     return tag.call(this)
+  }
+}
+
+
+export function readIcon(path, icon_dir) {
+  if (!path.endsWith('.svg')) {
+    path += '.svg'
+    if (icon_dir && path[0] != '/') path = join(icon_dir, path)
+  }
+
+  path = join('.', path)
+
+  try {
+    return readFileSync(path, 'utf-8')
+  } catch (e) {
+    console.error('svg not found', path)
+    return ''
   }
 }
 

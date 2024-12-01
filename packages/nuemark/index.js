@@ -13,6 +13,6 @@ export function nuemark(str, opts) {
 }
 
 /* utilities */
+export { parseSize, readIcon } from './src/render-tag.js'
 export { renderInline } from './src/render-inline.js'
-export { parseSize } from './src/render-tag.js'
 export { elem } from './src/render-blocks.js'
