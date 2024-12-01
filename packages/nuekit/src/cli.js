@@ -56,6 +56,7 @@ export function getArgs(argv) {
       else if (['-e', '--environment'].includes(arg)) opt = 'env'
       else if (['-r', '--root'].includes(arg)) opt = 'root'
       else if (['-P', '--port'].includes(arg)) opt = 'port'
+      else if (['-B', '--base'].includes(arg)) opt = 'base'
 
       // bad options
       else throw `Unknown option: "${arg}"`
