@@ -37,12 +37,16 @@ jobs:
 
       # creates archive of dir, removes img dirs, moves content to subdir "source"
       - name: Create test archive
-        run: tar -C "${{ env.dir }}" --exclude "*/img" --transform "s/^\./source/" -cf "${{ env.dir }}test.tar.gz" .
+        run: tar -C "${{ env.dir }}" --exclude "*/img" --transform "s/^\.\//source\//" -cf "${{ env.dir }}test.tar.gz" .
         if: ${{ matrix.dir == 'simple-blog' }}
 
       # creates archive of dir, moves content to subdir "source"
       - name: Create source archive
-        run: git archive --prefix "source/" -o "${{ env.dir }}source.tar.gz" HEAD:${{ env.dir }}
+        run: git archive --prefix "source/" -o "${{ env.dir }}source.tar.gz" "HEAD:${{ env.dir }}"
+      
+      # Copy source archive, to allow old source path on web server. Step should get removed after new release and a bit of time
+      - name: Duplicate source archive
+        run: cp "${{ env.dir }}source.tar.gz" "${{ env.dir }}${{ matrix.dir }}.tar.gz"
 
       - name: Nue build
         uses: ./.github/workflows/repo/build-page
@@ -59,5 +63,5 @@ jobs:
       # copies built site archive to server, unpacks archive on server
       - name: Push files to web server
         run: |
-          scp "${{ env.archive }}" ${{ env.host }}@${{ secrets.SSH_HOST }}
-          ssh ${{ env.host }}@${{ secrets.SSH_HOST }} "tar -xf site.tar.gz"
+          scp "${{ env.archive }}" "${{ env.host }}@${{ secrets.SSH_HOST }}"
+          ssh "${{ env.host }}@${{ secrets.SSH_HOST }}" "tar -xf site.tar.gz"
