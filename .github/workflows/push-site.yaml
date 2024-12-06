@@ -37,6 +37,7 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE }}
           ssh-host: ${{ secrets.SSH_HOST }}
 
+      # copies built site archive to server, unpacks archive on server
       - name: Push files to web server
         run: |
           scp "${{ env.archive }}" ${{ env.host }}@${{ secrets.SSH_HOST }}

@@ -17,7 +17,7 @@ jobs:
 
     strategy:
       matrix:
-        dir:
+        dir: # dirs in "examples" to run build & push process for
           - simple-blog
 
     env:
@@ -29,17 +29,18 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        with:
+        with: # get entries to check for change in dir
           fetch-depth: 2
 
       - name: Check dir changes
-        id: changes
         run: git diff --name-only HEAD^ HEAD | grep -q "^${{ env.dir }}"
 
+      # creates archive of dir, removes img dirs, moves content to subdir "source"
       - name: Create test archive
-        run: tar --exclude "*/img" --transform "s/^\./source/" -C "${{ env.dir }}" -cf "${{ env.dir }}test.tar.gz" .
+        run: tar -C "${{ env.dir }}" --exclude "*/img" --transform "s/^\./source/" -cf "${{ env.dir }}test.tar.gz" .
         if: ${{ matrix.dir == 'simple-blog' }}
 
+      # creates archive of dir, moves content to subdir "source"
       - name: Create source archive
         run: git archive --prefix "source/" -o "${{ env.dir }}source.tar.gz" HEAD:${{ env.dir }}
 
@@ -55,6 +56,7 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE }}
           ssh-host: ${{ secrets.SSH_HOST }}
 
+      # copies built site archive to server, unpacks archive on server
       - name: Push files to web server
         run: |
           scp "${{ env.archive }}" ${{ env.host }}@${{ secrets.SSH_HOST }}
