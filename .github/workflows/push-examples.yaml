@@ -23,6 +23,7 @@ jobs:
     env:
       dir: 'packages/examples/${{ matrix.dir }}/'
       host: '${{ matrix.dir }}.nuejs.org'
+      archive: 'site.tar.gz'
 
     runs-on: ubuntu-latest
 
@@ -36,17 +37,17 @@ jobs:
         run: git diff --name-only HEAD^ HEAD | grep -q "^${{ env.dir }}"
 
       - name: Create test archive
-        run: tar --exclude "*/img" -C ${{ env.dir }} -cf ${{ env.dir }}test.tar.gz .
+        run: tar --exclude "*/img" --transform "s/^\./source/" -C "${{ env.dir }}" -cf "${{ env.dir }}test.tar.gz" .
         if: ${{ matrix.dir == 'simple-blog' }}
 
       - name: Create source archive
-        run: git archive -o ${{ env.dir }}source.tar.gz HEAD:${{ env.dir }}
+        run: git archive --prefix "source/" -o "${{ env.dir }}source.tar.gz" HEAD:${{ env.dir }}
 
       - name: Nue build
         uses: ./.github/workflows/repo/build-page
         with:
           root: ${{ env.dir }}
-          archive: site.tar.gz
+          archive: ${{ env.archive }}
 
       - name: Prepare SSH
         uses: kielabokkie/ssh-key-and-known-hosts-action@v1
@@ -56,5 +57,5 @@ jobs:
 
       - name: Push files to web server
         run: |
-          scp ${{ env.dir }}.dist/prod/site.tar.gz ${{ env.host }}@${{ secrets.SSH_HOST }}
+          scp "${{ env.archive }}" ${{ env.host }}@${{ secrets.SSH_HOST }}
           ssh ${{ env.host }}@${{ secrets.SSH_HOST }} "tar -xf site.tar.gz"

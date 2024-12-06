@@ -44,7 +44,7 @@ export async function create({ root, name = 'simple-blog', port }) {
   await fs.writeFile(archive_name, Buffer.from(await archive.arrayBuffer()))
 
   // uncompress
-  execSync(`tar -C ${root} -xf ${archive_name}`)
+  execSync(`tar -C ${root} --strip-components 1 -xf ${archive_name}`)
 
   // remove archive
   await fs.rm(archive_name)

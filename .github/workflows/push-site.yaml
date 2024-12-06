@@ -18,6 +18,7 @@ jobs:
     env:
       dir: 'packages/nuejs.org/'
       host: 'nuejs.org'
+      archive: 'site.tar.gz'
 
     runs-on: ubuntu-latest
 
@@ -28,7 +29,7 @@ jobs:
         uses: ./.github/workflows/repo/build-page
         with:
           root: ${{ env.dir }}
-          archive: site.tar.gz
+          archive: ${{ env.archive }}
 
       - name: Prepare SSH
         uses: kielabokkie/ssh-key-and-known-hosts-action@v1
@@ -38,5 +39,5 @@ jobs:
 
       - name: Push files to web server
         run: |
-          scp ${{ env.dir }}.dist/prod/site.tar.gz ${{ env.host }}@${{ secrets.SSH_HOST }}
+          scp "${{ env.archive }}" ${{ env.host }}@${{ secrets.SSH_HOST }}
           ssh ${{ env.host }}@${{ secrets.SSH_HOST }} "tar -xf site.tar.gz"

@@ -27,6 +27,4 @@ runs:
     - name: Archive files
       if: ${{ inputs.archive }}
       shell: bash
-      run: |
-        cd "${{ inputs.root }}.dist/prod"
-        tar -czf ${{ inputs.archive }} .
+      run: tar --transform "s/^\.\///" -C "${{ inputs.root }}.dist/prod" -czf "${{ inputs.archive }}" .
