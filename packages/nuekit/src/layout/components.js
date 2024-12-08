@@ -1,12 +1,12 @@
 
-import { elem, parseSize, renderInline, readIcon } from 'nuemark'
+import { elem, parseSize, renderInline, renderIcon } from 'nuemark'
 
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 export function renderPageList(data) {
   const key = data.collection_name || data.content_collection
-  const items = key ? data[key] : data.itmes || data
+  const items = key ? data[key] : data.items || data
 
   if (!items?.length) {
     console.error('<page-list>: no content collection data')
@@ -14,16 +14,16 @@ export function renderPageList(data) {
   }
 
   const pages = items.map(renderPage)
-  return elem('ul', pages.join('\n'))
+  return elem('ul', this.attr, pages.join('\n'))
 }
 
 
 // the "main" method called by the <navi/> tag
 export function renderNavi(data) {
-  const { items } = data
+  const { items, icon_dir } = data
 
-  return Array.isArray(items) ? renderNav({ items }) :
-    typeof items == 'object' ? renderMultiNav(items, { class: data.class }) : ''
+  return Array.isArray(items) ? renderNav({ items, icon_dir }) :
+    typeof items == 'object' ? renderMultiNav(items, data) : ''
 }
 
 
@@ -47,16 +47,9 @@ export function getLayoutComponents() {
     { name: 'toc', create: renderTOC },
     { name: 'markdown', create: ({ content }) => renderInline(content) },
     { name: 'pretty-date', create: ({ date }) => renderPrettyDate(date) },
-    { name: 'icon', create: renderIcon },
+    { name: 'icon', create: (data) => renderIcon(data.src, data.symbol, data.icon_dir) },
   ]
 }
-
-function renderIcon(data) {
-  const style = data.attr?.style || data.style
-  const svg = readIcon(data.src, data.icon_dir)
-  return svg && style ? svg.replace('<svg', `<svg style="${style}"`) : svg
-}
-
 
 /****** utilities ********/
 
@@ -112,13 +105,16 @@ export function parseLink(item) {
 }
 
 
-
-export function renderLink(item) {
+export function renderLink(item, icon_dir) {
   const img = item.image ? renderImage(item) : ''
-  const svg = item.icon ? readIcon(item.icon) : item.use ? elem('svg', `<use href="#${item.use}"/>`) : ''
+  const icon = renderIcon(item.icon, item.symbol, icon_dir)
+  const icon_right = renderIcon(item.icon_right, item.symbol_right)
+  const kbd = item.kbd ? elem('kbd', item.kbd) : ''
+
   const link = parseLink(item)
+
   const attr = { href: link.url, class: link.class, role: item.role }
-  return elem('a', attr, svg + img + renderInline(link.label))
+  return elem('a', attr, icon + img + renderInline(link.label) + icon_right + kbd)
 }
 
 export function renderImage(data) {
@@ -137,21 +133,22 @@ export function parseClass(url) {
 }
 
 
-export function renderNav({ items, heading='' }) {
-  const html = items.map(renderLink)
+export function renderNav({ items, icon_dir, heading='' }) {
+  const html = items.map(item => renderLink(item, icon_dir))
   return elem('nav', heading + html.join('\n'))
 }
 
 
-export function renderMultiNav(data, attr={}) {
+export function renderMultiNav(cats, data={}) {
+  const { icon_dir } = data
   const html = []
 
-  for (const cat in data) {
+  for (const cat in cats) {
     const heading = elem('h3', cat)
-    const nav = renderNav({ items: data[cat], heading })
+    const nav = renderNav({ items: cats[cat], icon_dir, heading })
     html.push(nav)
   }
 
-  return elem('div', attr, html.join('\n'))
+  return elem('div', { class: data.class }, html.join('\n'))
 }
 
