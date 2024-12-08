@@ -87,7 +87,7 @@ function toRelative(path) {
   return curr.slice(0, curr.lastIndexOf('/') + 1) + path
 }
 
-export function setActive(path, attrname = 'aria-selected') {
+export function setActive(path, attrname = 'aria-current') {
   if (path[0] != '/') path = toRelative(path)
 
   // remove old selections
@@ -98,7 +98,7 @@ export function setActive(path, attrname = 'aria-selected') {
     if (!el.hash && el.pathname == path) {
 
       // set timeout needed @ nue docs area. TODO: remove this hack
-      setTimeout(() => el.setAttribute(attrname, ''), 50)
+      setTimeout(() => el.setAttribute(attrname, 'page'), 50)
     }
   })
 }
