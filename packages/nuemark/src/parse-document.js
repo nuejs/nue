@@ -7,7 +7,7 @@ import { load as parseYAML } from 'js-yaml'
 import { elem } from './render-blocks.js'
 
 
-// OPTS: { data, sections, heading_ids, links, tags }
+// OPTS: { data, sections, content_wrapper, heading_ids, links, tags }
 export function parseDocument(lines) {
   const meta = stripMeta(lines)
   const things = parseBlocks(lines)
@@ -29,10 +29,12 @@ export function parseDocument(lines) {
 
   function renderSections(opts) {
     const classList = Array.isArray(opts.sections) ? opts.sections : []
+    const wrap = opts.content_wrapper
     const html = []
 
     sections.forEach((section, i) => {
-      html.push(elem('section', { class: classList[i] }, renderBlocks(section, opts)))
+      const content = renderBlocks(section, opts)
+      html.push(elem('section', { class: classList[i] }, wrap ? elem('div', { class: wrap }, content) : content))
     })
     return html.join('\n\n')
   }
@@ -47,7 +49,14 @@ export function parseDocument(lines) {
 
     renderTOC(attr={}) {
       const navs = sections.map(renderNav).join('\n').trim()
-      return elem('div', { 'aria-label': 'Table of contents', ...attr }, navs)
+      return elem('div', { class: attr.class }, navs)
+    },
+
+    get headings() {
+      return blocks.filter(b => !!b.level).map(h => {
+        const id = h.attr.id || createHeadingId(h.text)
+        return { id, ...h }
+      })
     },
 
     codeblocks: blocks.filter(el => el.is_code),
@@ -91,7 +100,7 @@ function renderNav(blocks) {
   const headings = blocks.filter(b => [2, 3].includes(b.level))
 
   const links = headings.map(h => {
-    const id = h.attr.id ||createHeadingId(h.text)
+    const id = h.attr.id || createHeadingId(h.text)
     const label = h.level == 2 ? elem('strong', h.text) : h.text
     return elem('a', { href: `#${ id }` }, label)
   })
