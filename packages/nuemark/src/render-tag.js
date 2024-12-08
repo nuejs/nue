@@ -88,6 +88,10 @@ const TAGS = {
     return src ? readIcon(src) : ''
   },
 
+  icon(data) {
+    return renderIcon(data.src || data._, data.symbol, data.icon_dir)
+  },
+
   table() {
     const { attr, data, body, opts } = this
     let table = { rows: data.rows || data.items }
@@ -129,6 +133,11 @@ export function readIcon(path, icon_dir) {
     return ''
   }
 }
+
+export function renderIcon(name, symbol, icon_dir) {
+  return name ? readIcon(name, icon_dir) : symbol ? elem('svg', `<use href="#${symbol}"/>`) : ''
+}
+
 
 export function renderTag(tag, opts={}) {
   const tags = { ...TAGS, ...opts.tags }
