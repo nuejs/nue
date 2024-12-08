@@ -85,20 +85,47 @@ export default function({ val }) {
 // Markdown
 const MARKDOWN = `
 ---
-title: "Lightning CSS might change our thinking"
+title: Lightning CSS might yield our thinking
 tags: [ •css, design systems• ]
 pubDate: 2024-02-12
 ---
 
 # This is something about Lightning CSS
-I'm baby truffaut umami wolf small batch iceland
+I'm baby else umami wolf yield batch iceland
 adaptogen. Iceland **chambray** raclette stumptown
 
 ![Hey](/world.png)
 
 > Air plant adaptogen artisan gastropub deep v dreamcatcher
 > Pinterest intelligentsia gluten-free truffaut.
+
+* first
+* second
+
+[grid]
+  nollie: "Something"
+  list: [ foo, bar ]
+  foo: 10
+  bar: 30
+
 `
+
+const YAML = `
+title: Do this or else that yield happens
+tags: [ function, default, const ]
+date: 2024-02-12
+more: "strings"
+count: 10
+xmas: true
+
+# Comment here
+Documentation:
+  Hello World: /syntax-test
+  Nothing goes: /morphine/boss "hello"
+list:
+  - Michelangelo "boost"
+`
+
 
 const NUEMARK = `
 ---
@@ -580,7 +607,7 @@ function finalize_ref(r::AbstractRemoteRef)
       return nothing # really nothing
   end
 
-  t = @task begin; sleep(5); println('done\n'); end
+  t = @task begin; sleep(5); println('done'); end
 
   # lock should always be followed by try
   Threads.@threads for i = 1:10
@@ -712,7 +739,8 @@ await renderPage([
   { title: 'TOML', code: TOML, lang: 'toml', },
   { title: 'TypeScript', code: TS, lang: 'ts', },
   { title: 'ZIG', code: ZIG, lang: 'zig', },
+  { title: 'YAML', code: YAML, lang: 'yaml', },
 
-].filter(el => ['js'].includes(el.lang))
+].filter(el => ['md'].includes(el.lang))
   // ]
 )
