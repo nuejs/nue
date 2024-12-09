@@ -12,7 +12,7 @@ export function renderLines(lines, opts) {
   return renderBlocks(things.blocks, { ...opts, ...things })
 }
 
-export function renderBlocks(blocks, opts={}) {
+export function renderBlocks(blocks, opts = {}) {
   return blocks.map(b => renderBlock(b, opts)).join('\n')
 }
 
@@ -22,14 +22,14 @@ function renderBlock(block, opts) {
 
   return block.is_content ? renderContent(block.content, opts) :
     block.is_heading ? renderHeading(block, opts) :
-    block.is_quote ? elem('blockquote', renderBlocks(block.blocks, opts)) :
-    block.is_tag ? renderTag(block, opts) :
-    block.is_table ? renderTable(block, opts) :
-    block.is_list ? renderList(block, opts) :
-    block.is_code ? renderCode(block, opts) :
-    block.is_newline ? '' :
-    block.is_break ? '<hr>' :
-    console.error('Unknown block', block)
+      block.is_quote ? elem('blockquote', renderBlocks(block.blocks, opts)) :
+        block.is_tag ? renderTag(block, opts) :
+          block.is_table ? renderTable(block, opts) :
+            block.is_list ? renderList(block, opts) :
+              block.is_code ? renderCode(block, opts) :
+                block.is_newline ? '' :
+                  block.is_break ? '<hr>' :
+                    console.error('Unknown block', block)
 }
 
 // recursive
@@ -38,13 +38,13 @@ function renderList({ items, numbered }, opts) {
   return elem(numbered ? 'ol' : 'ul', html.join('\n'))
 }
 
-export function renderHeading(h, opts={}) {
+export function renderHeading(h, opts = {}) {
   const attr = { ...h.attr }
   const show_id = opts.heading_ids
   if (show_id && !attr.id) attr.id = createHeadingId(h.text)
 
   // anchor
-  const a = show_id ? elem('a', { href: `#${ attr.id }`, title: h.text }) : ''
+  const a = show_id ? elem('a', { href: `#${attr.id}`, title: h.text }) : ''
 
   return elem('h' + h.level, attr, a + renderTokens(h.tokens, opts))
 }
@@ -66,7 +66,7 @@ function renderCode({ name, code, attr, data }, opts) {
   const { numbered } = data
   const klass = attr.class
   delete attr.class
-  let html = elem('pre', attr, glow(code, { language: name, numbered}))
+  let html = elem('pre', attr, glow(code, { language: name, numbered }))
 
   const caption = data.caption || data._
 
@@ -96,7 +96,7 @@ function renderAttrs(attr) {
   const arr = []
   for (const key in attr) {
     const val = attr[key]
-    if (val) arr.push(val === true ? key :`${key}="${val}"`)
+    if (val) arr.push(val === true ? key : `${key}="${val}"`)
   }
   return arr[0] ? ' ' + arr.join(' ') : ''
 }
