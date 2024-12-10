@@ -43,9 +43,11 @@ jobs:
         with:
           root: packages/nuejs.org
 
+      # keep server running in background
       - name: Run server
         run: nue -pr packages/nuejs.org -P 8080 &
 
+      # find generated HTML files, convert paths to urls
       - name: Find files to check
         id: files
         run: |

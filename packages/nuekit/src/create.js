@@ -40,7 +40,7 @@ export async function create({ root, name = 'simple-blog', port }) {
   // download archive
   console.info('Loading template...')
   const archive_name = join(root, `${name}-source.tar.gz`)
-  const archive = await fetch(`https://${name}.nuejs.org/${debug ? 'test' : name}.tar.gz`)
+  const archive = await fetch(`https://${name}.nuejs.org/${debug ? 'test' : 'source'}.tar.gz`)
   await fs.writeFile(archive_name, Buffer.from(await archive.arrayBuffer()))
 
   // uncompress
