@@ -124,9 +124,8 @@ export async function createKit(args) {
     const data = await getPageData(path)
     const { document } = data
     const file = parsePath(path)
-
     const lib = await site.getServerComponents(data.appdir || file.dir, data)
-    return DOCTYPE + renderPage({ document, data, lib })
+    return DOCTYPE + renderPage({ document, data: { ...data, ...site.model }, lib })
   }
 
 

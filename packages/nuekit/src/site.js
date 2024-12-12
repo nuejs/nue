@@ -9,6 +9,7 @@ import { fswalk } from './nuefs.js'
 import {
   traverseDirsUp,
   parsePathParts,
+  importFromCWD,
   joinRootPath,
   extendData,
   getAppDir,
@@ -77,6 +78,22 @@ export async function createSite(args) {
   const dist = joinRootPath(root, site_data.dist || join('.dist', is_prod ? 'prod' : 'dev'))
   const port = args.port || site_data.port || (is_prod ? 8081 : 8080)
 
+
+  async function getModel() {
+    const { src, namespace='app' } = site_data.server_model || {}
+    if (!src) return
+
+    const fn = await importFromCWD(join(root, src))
+    if (fn?.default) {
+      const model = await fn.default(site_data)
+      log('Loaded model from', src)
+      return { [namespace]: model }
+    } else {
+      console.error('No default export in ', src)
+    }
+  }
+
+  self.model = await getModel()
 
   // flag if .dist is empty
   self.is_empty = !existsSync(dist)
@@ -356,5 +373,5 @@ export async function createSite(args) {
     return arr
   }
 
-  return { ...self, dist, port, read, write, copy }
+  return { ...self, dist, port, read, write, copy, getModel }
 }
