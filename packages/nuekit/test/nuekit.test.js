@@ -64,7 +64,6 @@ globals: [global]
 dist:    .mydist
 port:    1500
 title:   Hey
-
 `
 
 test('site.yaml', async () => {
@@ -86,6 +85,39 @@ test('environment', async () => {
 
   expect(site.dist).toMatchPath('_test/.alt')
   expect(site.port).toBe(8080)
+})
+
+
+const MODEL = `
+export default async function (opts) {
+  const { port } = opts
+  return {
+    port,
+    async conf() {
+      return opts.server_model
+    },
+  }
+}
+`
+
+const MODEL_CONF = `
+port: 666
+
+server_model:
+  src: _ssr/index.js
+  namespace: test
+`
+
+test('server_model', async () => {
+  await write('site.yaml', MODEL_CONF)
+  await write('_ssr/index.js', MODEL)
+
+  const site = await getSite()
+  const { test } = await site.getModel()
+  expect(test.port).toBe(666)
+
+  const { namespace } = await test.conf()
+  expect(namespace).toBe('test')
 })
 
 
