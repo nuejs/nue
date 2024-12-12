@@ -81,21 +81,49 @@ export async function createSite(args) {
   site_data.base = args.base || site_data.base
 
 
+  async function loadExtension(path, arg) {
+    const fn = await importFromCWD(join(root, path))
+    if (fn?.default) {
+      return await fn.default(site_data, arg)
+    } else {
+      console.error('No default export in', path)
+    }
+  }
+
   async function getModel() {
     const { src, namespace='app' } = site_data.server_model || {}
-    if (!src) return
-
-    const fn = await importFromCWD(join(root, src))
-    if (fn?.default) {
-      const model = await fn.default(site_data)
+    if (src) {
+      const model = await loadExtension(src)
       log('Loaded model from', src)
       return { [namespace]: model }
-    } else {
-      console.error('No default export in ', src)
     }
   }
 
   self.model = await getModel()
+
+
+  function toKebab(str) {
+    return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
+  }
+
+  async function getTags() {
+    const paths = site_data.custom_tags
+    if (!paths) return
+    const tags = {}
+
+    const model = self.model ? Object.values(self.model)[0] : null
+
+    for (const path of paths) {
+      const obj = await loadExtension(path, model)
+      log('Loaded tags from', path)
+      for (const name in obj) tags[toKebab(name)] = obj[name]
+    }
+
+    return tags
+  }
+
+  self.tags = await getTags()
+
 
   // flag if .dist is empty
   self.is_empty = !existsSync(dist)

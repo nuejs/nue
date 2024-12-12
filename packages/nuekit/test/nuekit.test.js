@@ -101,7 +101,7 @@ export default async function (opts) {
 `
 
 const MODEL_CONF = `
-port: 666
+devil: 666
 
 server_model:
   src: _ssr/index.js
@@ -114,10 +114,28 @@ test('server_model', async () => {
 
   const site = await getSite()
   const { test } = await site.getModel()
-  expect(test.port).toBe(666)
+  expect(test.devil).toBe(666)
 
   const { namespace } = await test.conf()
   expect(namespace).toBe('test')
+})
+
+
+const CUSTOM_TAGS = `
+export default async function (opts) {
+  return {
+    async lineGraph() {
+      return '<svg/>'
+    }
+  }
+}
+`
+
+test('custom tags', async () => {
+  await write('site.yaml', 'custom_tags: [ _ssr/tags.ts ]')
+  await write('_ssr/tags.ts', CUSTOM_TAGS)
+  const { tags } = await getSite()
+  expect(tags).toHaveProperty('line-graph')
 })
 
 
