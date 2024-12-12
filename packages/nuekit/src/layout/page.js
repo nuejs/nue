@@ -115,13 +115,15 @@ function convertToTags(components, data) {
 }
 
 
-export function renderPage({ document, data, lib }) {
+export function renderPage(data, lib, custom_tags) {
   const comps = [ ...lib, ...getLayoutComponents()]
+  const { document } = data
 
   const tags = {
     ...convertToTags(comps, data),
     'page-list': renderPageList,
-    toc: document.renderTOC
+    toc: document.renderTOC,
+    ...custom_tags
   }
 
   // nuemark opts: { data, sections, heading_ids, links, tags }
