@@ -47,6 +47,18 @@ test('disable mark', () => {
   expect(html).toInclude('• girl')
 })
 
+test('escape prefixes', () => {
+  const blocks = parseSyntax([
+    '\\+ not really adding a line',
+    '\\- not really removing a line',
+    '\\| not really marking a line'
+  ], 'md')
+
+  expect(blocks[0].line).toEqual('+ not really adding a line')
+  expect(blocks[1].line).toEqual('- not really removing a line')
+  expect(blocks[2].line).toEqual('| not really marking a line')
+})
+
 test('disable prefixes', () => {
   const blocks = parseSyntax([
     '+ not really adding a line',
