@@ -1,0 +1,67 @@
+name: Push examples to web server
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - packages/examples/**
+
+concurrency:
+  group: 'pages'
+  cancel-in-progress: false
+
+jobs:
+  examples:
+    if: ${{ github.repository_owner == 'nuejs' }}
+
+    strategy:
+      matrix:
+        dir: # dirs in "examples" to run build & push process for
+          - simple-blog
+
+    env:
+      dir: 'packages/examples/${{ matrix.dir }}/'
+      domain: '${{ matrix.dir }}.${{ vars.DOMAIN }}'
+      archive: 'site.tar.gz'
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with: # get entries to check for change in dir
+          fetch-depth: 2
+
+      - name: Check dir changes
+        run: git diff --name-only HEAD^ HEAD | grep -q "^${{ env.dir }}"
+
+      # creates archive of dir, removes img dirs, moves content to subdir "source"
+      - name: Create test archive
+        run: tar -C "${{ env.dir }}" --exclude "*/img" --transform "s/^\.\//source\//" -cf "${{ env.dir }}test.tar.gz" .
+        if: ${{ matrix.dir == 'simple-blog' }}
+
+      # creates archive of dir, moves content to subdir "source"
+      - name: Create source archive
+        run: git archive --prefix "source/" -o "${{ env.dir }}source.tar.gz" "HEAD:${{ env.dir }}"
+      
+      # Copy source archive, to allow old source path on web server. Step should get removed after new release and a bit of time
+      - name: Duplicate source archive
+        run: cp "${{ env.dir }}source.tar.gz" "${{ env.dir }}${{ matrix.dir }}.tar.gz"
+
+      - name: Nue build
+        uses: ./.github/workflows/repo/build-page
+        with:
+          root: ${{ env.dir }}
+          archive: ${{ env.archive }}
+
+      - name: Prepare SSH
+        uses: kielabokkie/ssh-key-and-known-hosts-action@v1
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh-host: ${{ secrets.SSH_HOST }}
+
+      # copies built site archive to server, unpacks archive on server
+      - name: Push files to web server
+        run: |
+          scp "${{ env.archive }}" "${{ env.domain }}@${{ secrets.SSH_HOST }}"
+          ssh "${{ env.domain }}@${{ secrets.SSH_HOST }}" "tar -xf ${{ env.archive }}"

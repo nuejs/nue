@@ -1,0 +1,44 @@
+name: Push site to web server
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - packages/nuejs.org/**
+
+concurrency:
+  group: 'pages'
+  cancel-in-progress: false
+
+jobs:
+  site:
+    if: ${{ github.repository_owner == 'nuejs' }}
+
+    env:
+      dir: 'packages/nuejs.org/'
+      domain: '${{ vars.DOMAIN }}'
+      archive: 'site.tar.gz'
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Nue build
+        uses: ./.github/workflows/repo/build-page
+        with:
+          root: ${{ env.dir }}
+          archive: ${{ env.archive }}
+
+      - name: Prepare SSH
+        uses: kielabokkie/ssh-key-and-known-hosts-action@v1
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh-host: ${{ secrets.SSH_HOST }}
+
+      # copies built site archive to server, unpacks archive on server
+      - name: Push files to web server
+        run: |
+          scp "${{ env.archive }}" "${{ env.domain }}@${{ secrets.SSH_HOST }}"
+          ssh "${{ env.domain }}@${{ secrets.SSH_HOST }}" "tar -xf ${{ env.archive }}"
