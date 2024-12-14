@@ -4,6 +4,9 @@ inputs:
   root:
     default: '.'
     type: string
+  archive:
+    default: ''
+    type: string
 
 runs:
   using: composite
@@ -20,3 +23,9 @@ runs:
     - name: Build Nue Project
       shell: bash
       run: nue build -pr "${{ inputs.root }}"
+
+    # archive generated site, remove leading "./" from file paths in archive
+    - name: Archive files
+      if: ${{ inputs.archive }}
+      shell: bash
+      run: tar -C "${{ inputs.root }}.dist/prod" --transform "s/^\.\///" -czf "${{ inputs.archive }}" .
