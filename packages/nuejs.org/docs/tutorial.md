@@ -1,6 +1,6 @@
 
 # Tutorial: Building Websites with Nue
-In this tutorial, we’ll explore the essential features of Nue by building a blogging website step-by-step.
+In this tutorial, we’ll explore the essential features of Nue by building a simple blogging website step-by-step.
 
 [image]
   small: /img/blog-hero.png
@@ -19,26 +19,26 @@ Once the command completes, your blog should be running at `http://localhost:808
 You can also explore the [source code](//github.com/nuejs/nue/tree/master/packages/examples/simple-blog) and view the [live demo](//simple-blog.nuejs.org).
 
 
-## Project Structure
+## Project structure
 Nue allows flexible organization through a **freeform directory structure**: you can name your files and folders as you like. The layout of your files reflects the structure seen on the website. Here’s the blog’s structure:
 
 [.folders]
-  - `@global`: global styles (colors, layout, typography)
-  - `@library`: reusable styles
-  - `blog`: blogging area
-  - `blog/blog.yaml`: blog-specific settings
-  - `contact`: contact app
-  - `img`: images and icons
-  - `index.md`: front page content
-  - `site.yaml`: global settings
+  * `@global`: global styles (colors, layout, typography)
+  * `@library`: reusable styles
+  * `blog`: blogging area
+  * `blog/blog.yaml`: blog-specific settings
+  * `contact`: contact app
+  * `img`: images and icons
+  * `index.md`: front page content
+  * `site.yaml`: global settings
 
 Let’s explore these assets, starting with the content.
 
 
 ## Content
-In Nue, content is stored separately from other site elements, like navigation, SEO metadata, and layouts. This organization keeps content easily accessible and well-structured.
+In Nue, content is stored separately from other site elements, like layouts and stylinng. This organization keeps content easily accessible and well-structured.
 
-### SEO and Metadata
+### SEO and metadata
 
 SEO and metadata settings are defined in the `site.yaml` file. Here’s a sample configuration for our blog:
 
@@ -51,7 +51,7 @@ favicon: /img/favicon.jpg
 
 These settings apply site-wide but can be customized for specific pages or areas. For more details, see the full [settings documentation](settings.html).
 
-### Page Content
+### Page content
 
 All blog entries in the `blog` folder are written in [extended Markdown](content-syntax.html), which supports rich content elements like images, videos, tables, accordions, and tabbed content. This provides a flexible and expressive way to manage content.
 
@@ -63,7 +63,7 @@ Nue’s hot-reloading feature detects content edits and only updates the changed
 
 
 ## Layout
-Markdown-generated HTML is complemented by layout modules. Our simple layout for the blog, located at `@global/layout.html`, looks like this:
+Markdown-generated HTML is complemented by [layout modules](layout.html). Our simple layout for the blog, located at `@global/layout.html`, looks like this:
 
 ```html
 <header>
@@ -101,7 +101,7 @@ navigation:
 Separating navigation data from templates gives centralized control over your site’s structure, keeping HTML clean and manageable.
 
 
-## Blog Entry Layout
+## Blog entry layout
 Each blog post includes a custom header, or "hero area," at the top of the article, defined in `blog/hero.html`:
 
 ```html
@@ -118,7 +118,7 @@ Each blog post includes a custom header, or "hero area," at the top of the artic
 These layout modules use a straightforward [template language](template-syntax.html) and [core components](core-components.html), making it easy to build complex layouts without deep JavaScript knowledge.
 
 
-## The Index Page
+## The index page
 The front page (`index.md`) displays a list of blog entries:
 
 ```md

@@ -1,10 +1,150 @@
-body {
-  background-color: var(--gray-800);
 
-  /* delayed header fade-in */
-  > header {
-    transition: opacity .4s .5s;
-    opacity: 1;
-    @starting-style { opacity: 0 }
+p {
+  color: var(--gray-500);
+  line-height: 1.5;
+}
+
+strong {
+  color: var(--gray-700);
+  font-weight: 550;
+}
+
+section {
+  max-width: 1150px;
+  margin: 5rem auto;
+}
+
+.follow {
+  max-width: 23rem;
+  margin: 4rem auto 0;
+}
+@keyframes hue-rotate {
+  0% { filter: hue-rotate(-90deg) }
+  30% { filter: hue-rotate(20deg) }
+
+}
+
+.hero {
+  font-size: 1.3rem;
+  text-align: center;
+  margin: 6em auto;
+
+  .video {
+    max-width: 950px;
+    aspect-ratio: 950 / 603;
+    display: block;
+    margin: 4em auto;
+    overflow: hidden;
+    border: var(--border);
+    position: relative;
+
+    video {
+      border: 0;
+      position:relative;
+      top: -1px;
+    }
+  }
+
+  figcaption {
+    position: absolute;
+    top: 110%;
+  }
+
+  .splash {
+    animation-timeline: scroll();
+    animation-name: hue-rotate;
+    border: 0;
+
+    figcaption {
+      z-index: 2;
+      top: 2rem;
+      left: 2rem;
+      color: #fffc;
+      font-size: 75%;
+      text-align: left;
+      border-left: 2px solid white;
+      padding-left: 1rem;
+
+      em {
+        display: block;
+        font-weight: 600;
+        font-style: normal;
+        margin-bottom: .3em;
+        color: white;
+      }
+
+      strong {
+        background-color: #0007;
+        border-radius: 3px;
+        padding: .1em .4em;
+        font-size: .9em;
+        color: white;
+      }
+    }
+  }
+
+  @media (width < 1000) { font-size: 1.2rem }
+  @media (width < 700) { font-size: 1.05em }
+  @media (width < 500) { font-size: .5em }
+}
+
+
+h2 {
+  font-size: 2.5rem;
+  letter-spacing: -.04em;
+  margin: .75rem;
+  text-align: center;
+
+  + p {
+    text-align: center;
+    font-size: 1.3rem;
+    text-wrap: balance;
+    max-width: 800px;
+    margin: 0 auto 1em;
+  }
+
+  @media (width < 900) {
+    font-size: 2rem;
+    + p { font-size: 1.1rem }
+  }
+  @media (width < 600) {
+    font-size: 1.5rem;
+    + p { font-size: 1rem }
   }
 }
+
+h3 {
+  margin: 0 0 .3em;
+  + p { margin: 0  }
+}
+
+form {
+  margin: 1em 0;
+  input {
+    font-size: 95%;
+  }
+}
+
+.explainer {
+  text-align: center;
+  max-width: 800px;
+  padding-bottom: 6em;
+  margin-bottom: 6em;
+  border-bottom: var(--border);
+
+  figure {
+    margin-bottom: 2rem;
+  }
+
+  [role=button] {
+    background-color: var(--gray-700);
+    &:hover { background-color: black; }
+    font-size: 1rem;
+  }
+}
+
+.project-status {
+  border-bottom: var(--border);
+  padding-bottom: 5em;
+}
+

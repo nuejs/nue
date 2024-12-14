@@ -7,7 +7,7 @@ const NL = '\n'
 
 const COMMON_WORDS = 'null|true|false|undefined|import|from|async|await|package|begin\
 |interface|class|new|int|func|function|get|set|export|default|const|var|let\
-|return|for|while|defer|if|then|else|elif|fi|int|string|number|def|public|static|void\
+|return|yield|for|while|defer|if|then|else|elif|fi|int|string|number|def|public|static|void\
 |continue|break|switch|case|final|finally|try|catch|while|super|long|float\
 |throw|fun|val|use|fn|my|end|local|until|next|bool|ns|defn|puts|require|each'
 
@@ -28,7 +28,10 @@ const RULES = {
 
   json: [
     { tag: 'b', re: /(".+"):/gi },
-  ]
+  ],
+  yaml: [
+    { tag: 'b', re: /([\w ]+):/gi },
+  ],
 }
 
 
@@ -47,7 +50,7 @@ const HTML_TAGS = [
   { tag: 'strong', re: /<\/?([\w\-]+)>/g, shift: true, lang: MIXED_HTML },
 
   // ALL CAPS (constants)
-  { tag: 'b', re: /\b[A-Z]{2,}\b/g },
+  // { tag: 'b', re: /\b[A-Z]{2,}\b/g },
 
   // @special
   { tag: 'label', re: /\B@[\w\-]+/gi },
@@ -76,7 +79,7 @@ function getTags(lang) {
   const tags = HTML_TAGS.filter(el => !el.lang || el.lang.includes(lang))
 
   // custom keywords
-  if (lang != 'html') {
+  if (!['yaml','html', 'json'].includes(lang)) {
     const w = SPECIAL_WORDS[lang]
     const words = (w ? w + '|' : '') + COMMON_WORDS
     const re = new RegExp(`\\b(${words})\\b`, 'gi')
@@ -242,8 +245,10 @@ export function parseSyntax(lines, lang, prefix = true) {
       } else {
 
         // highlighted line
+        const is_md = isMD(lang)
         const c = line[0]
-        const wrap = prefix && (isMD(lang) ? (c == '|' && 'dfn') : PREFIXES[c])
+        let wrap = prefix && (is_md ? (c == '|' && 'dfn') : PREFIXES[c])
+        if (wrap && is_md && line == '---') wrap = null
         if (wrap) line = (line[1] == ' ' ? ' ' : '') + line.slice(1)
 
         // escape character

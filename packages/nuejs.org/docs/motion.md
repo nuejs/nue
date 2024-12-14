@@ -15,14 +15,13 @@ Here are some key use cases for CSS transitions:
 
 4. **Mouse states**: Simple yet effective animations triggered by mouse interactions like hover or mousedown, adding visual feedback and improving interactivity.
 
-Modern CSS goes far beyond basic hover effects. It enables complex, highly-performant animations without the need for cumbersome JavaScript workarounds. Techniques that once required libraries like Framer Motion can now be achieved using pure CSS, providing a cleaner, faster, and more maintainable solution for developers.
+Modern CSS goes far beyond basic hover effects. It enables complex, highly-performant animations without the need for cumbersome JavaScript workarounds. Techniques that once required libraries like **Framer Motion** can now be achieved using pure CSS, providing a cleaner, faster, and more maintainable solution for developers.
+
 
 ### Progressive enhancement
 In Nue, motion is an enhancement, not a requirement. Motion can be applied or removed without affecting core functionality. This ensures your site remains accessible and lightweight, regardless of user preferences or device capabilities.
 
-### Stylesheets are pluggable
-CSS-based motion can be packaged into pluggable stylesheets, making it easy to enable or disable animations as needed. For example, subtle animations can be applied globally, with increased animation on marketing pages and no animation for technical documentation. You have full control over when and where motion is applied.
-
+**Stylesheets are pluggable**. CSS-based motion can be packaged into pluggable stylesheets, making it easy to enable or disable animations as needed. For example, subtle animations can be applied globally, with increased animation on marketing pages and no animation for technical documentation.
 
 
 ## Enter animations
@@ -50,10 +49,9 @@ One of the most underused but incredibly powerful CSS properties is `@starting-s
 }
 ```
 
-In this example, the popover starts off scaled down and transparent, then smoothly transitions to full size and opacity when it opens. The backdrop also transitions to a blurred state, creating a polished and modern effect. Using `@starting-style` makes it easy to handle these first-load animations without needing heavy JavaScript solutions.
+In this example, the popover starts off scaled down and transparent, then smoothly transitions to full size and opacity when it opens. The backdrop also transitions to a blurred state, creating a polished and modern effect. Using `@starting-style` makes it easy to handle these first-load animations without requiring heavy JavaScript solutions.
 
 Despite its relative obscurity, `@starting-style` is a highly capable tool for creating entry animations and is well-supported in most modern browsers, making it a great choice for developers who prioritize performance and simplicity.
-
 
 
 ## View transitions
@@ -113,7 +111,6 @@ In this example, when the hero image transitions between views, it seamlessly mo
 Here’s the full **Scroll triggered transitions** section with comments added to the code, along with an adjusted explanation:
 
 
-
 ## Scroll triggered transitions
 One effective way to create smooth, visually engaging animations across a site is through scroll-triggered transitions. This can be done globally by adding a script that automatically detects when sections of the page scroll into view and applies custom CSS transitions for each section. With Nue, this system leverages a combination of JavaScript and CSS to achieve smooth animations while maintaining performance and separation of concerns.
 
@@ -140,7 +137,7 @@ UX development has always ...
 ```
 
 ### Step 2: Setting up the global scroll-triggered script
-Next, we create a script called `global/scroll.js` that will apply an `outside-viewport` class to each section when it is out of view and remove it when the section enters the viewport. This class will allow us to customize transitions based on whether an element is visible or not.
+Next, we create a script called `global/scroll.js` that will apply an `outside-viewport` class to each section when it is out of view and remove it when the section enters the viewport. This class allows us to customize transitions based on whether an element is visible or not.
 
 Here’s the script that makes this happen:
 
@@ -220,6 +217,3 @@ Now, you can use CSS to apply different animations to each section. Here’s how
 - **li elements**: The list items within `.explainer` start fully visible as well. When the section enters the viewport, the list items fade in with a slight delay between each item. The delays (`0.2s`, `0.4s`, `0.6s`) create a staggered animation effect.
 
 - **Nesting**: The CSS nesting ensures a clean structure by placing related styles inside the `.explainer` block. This keeps the code minimal and easy to maintain.
-
-### Summary
-This scroll-triggered transition system works globally across your entire site, allowing for smooth animations on each page while maintaining performance and separation of concerns. By using JavaScript to detect when sections enter or exit the viewport, and leveraging CSS for custom transitions, this system enables a seamless, visually engaging experience. You can apply different transitions to sections globally, on specific pages, or even customize transitions for individual sections. This method follows progressive enhancement principles—users with JavaScript-enabled browsers benefit from advanced motion effects, while users without JavaScript still receive fully functional content.

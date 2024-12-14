@@ -2,44 +2,44 @@
 # Nue &nbsp;[![test status](https://github.com/nuejs/nue/actions/workflows/test.yaml/badge.svg?branch=master)](https://github.com/nuejs/nue/actions/workflows/test.yaml)&nbsp;[![link checker status](https://github.com/nuejs/nue/actions/workflows/links.yaml/badge.svg?branch=master)](https://github.com/nuejs/nue/actions/workflows/links.yaml)
 
 <a href="https://nuejs.org/">
-  <img src="https://nuejs.org/img/og-blue-big.png" width="900">
+  <img src="https://nuejs.org/img/og-dark-big.png" width="900">
 </a>
 
-### What is Nue?
-Nue is a web framework for UX developers. What used to take a React specialist, and an absurd amount of JavaScript can now be done by a UX developer and a small amount of CSS.
+## What is Nue?
 
-[Learn how it works](https://nuejs.org/docs/)
+Nue is a Static Site Generator (SSG) built from scratch for faster tooling, cleaner codebases, and better results. **It makes things •fun• again**
 
+[Why Nue?](https://nuejs.org/docs/)
 
-### Who is it for?
-Nue is designed for the following people:
+[How it works](https://nuejs.org/docs/how-it-works.html)
 
-1. **UX developers**: who natively jump between **Figma** and **CSS** without confusing [designer-developer handoff](https://medium.com/design-warp/5-most-common-designer-developer-handoff-mishaps-ba96012be8a7) processes in the way.
+## Who is Nue good for?
 
-2. **Beginner web developers**: who want to skip the [redundant frontend layers](https://roadmap.sh/frontend) and start building websites quickly with HTML, CSS, and JavaScript.
+Nue is a great fit for:
 
-3. **Experienced JS developers**: frustrated with the absurd amount of layers in the [React stack](https://roadmap.sh/react) and look for simpler ways to develop professional websites.
+1. **Beginner web developers**: Those looking to bypass [frontend redundancy](https://roadmap.sh/frontend) and work directly with the Web Standard Model: HTML, CSS, and JavaScript.
 
-4. **Designers**: aiming to transfer their design skills to CSS code, but find the React/JavaScript/CSS-in-JS ecosystem impossible to grasp
+2. **Experienced JavaScript developers**: Those frustrated with the overwhelming amount of abstractions in the [React stack](https://roadmap.sh/react) and seeking simpler ways to develop professional websites.
 
-5. **Parents & Teachers**: who wants to educate people [how the web works](https://www.websitearchitecture.co.uk/resources/examples/web-standards-model/)
+3. **Design-focused teams**: Those prioritizing user experience and design systems, leveraging modern CSS to create efficient, lightweight websites that enhance usability without the bloat of JS monoliths.
 
+In short: if you’re looking to build beautiful and innovative websites with faster tooling and a simpler development model, **Nue is the right choice for you**.
 
 ### Installation
 
 Check out [installation docs](https://nuejs.org/docs/installation.html)
 
-
 ### Ultimate goal
+
 Ultimately Nue will be a ridiculously simpler alternative to **Next.js**, **Gatsby**, and **Astro**
 
-[Learn more about the vision](https://nuejs.org/blog/perfect-web-framework/)
-
+<a href="https://nuejs.org/#roadmap">
+  <img src="https://nuejs.org/img/roadmap-2025-big.png" width="900">
+</a>
 
 ### Contributing
 
 Please see [CONTRIBUTING.md](/CONTRIBUTING.md)
-
 
 ### Community
 

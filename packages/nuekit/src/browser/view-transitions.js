@@ -40,9 +40,8 @@ export async function loadPage(path, replace_state) {
   const css_paths = updateStyles(dom)
 
   loadCSS(css_paths, () => {
-    simpleDiff($('main'), $('main', dom))
-    simpleDiff($('body'), $('body2', dom))
-    setActive(path)
+    const ignore_main = simpleDiff($('main'), $('main', dom))
+    simpleDiff($('body'), $('body2', dom), ignore_main)
 
     // scroll
     const { hash } = location
@@ -56,6 +55,7 @@ export async function loadPage(path, replace_state) {
     const [_, app ] = location.pathname.split('/')
     dispatchEvent(new Event(`route:${app || 'home'}`))
 
+    setActive(path)
   })
 
 }
@@ -82,14 +82,24 @@ export function onclick(root, fn) {
 }
 
 // developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-selected
-export function setActive(path, attrname = 'aria-selected') {
+function toRelative(path) {
+  const curr = location.pathname
+  return curr.slice(0, curr.lastIndexOf('/') + 1) + path
+}
+
+export function setActive(path, attrname = 'aria-current') {
+  if (path[0] != '/') path = toRelative(path)
 
   // remove old selections
   $$(`[${attrname}]`).forEach(el => el.removeAttribute(attrname))
 
   // add new ones
   $$('a').forEach(el => {
-    if (el.getAttribute('href') == path) el.setAttribute(attrname, '')
+    if (!el.hash && el.pathname == path) {
+
+      // set timeout needed @ nue docs area. TODO: remove this hack
+      setTimeout(() => el.setAttribute(attrname, 'page'), 50)
+    }
   })
 }
 
@@ -140,13 +150,16 @@ if (is_browser) {
 
 
 // primitive DOM diffing
-function simpleDiff(a, b) {
+function simpleDiff(a, b, ignore_main) {
   a.classList.value = b.classList.value
 
   if (a.children.length == b.children.length) {
-    ;[...a.children].forEach((el, i) => updateBlock(el, b.children[i]))
+    ;[...a.children].forEach((el, i) => {
+      if (!(ignore_main && el.tagName == 'MAIN')) updateBlock(el, b.children[i])
+    })
+    return true
+
   } else {
-    console.info(a, b)
     a.innerHTML = b.innerHTML
   }
 }

@@ -166,6 +166,7 @@ export function parseBlocks(lines, capture) {
 function processNestedBlocks(block, capture) {
   const { name } = block
 
+
   if (block.is_list) {
     block.items = block.entries.map(lines => {
       const { blocks } = parseBlocks(lines, capture)

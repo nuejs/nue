@@ -1,0 +1,26 @@
+
+compare:
+  baseurls:
+    - //github.com/tailwindlabs/tailwindcss.com/blob/master
+    - //github.com/nuejs/nue/blob/dev/packages/nuejs.org
+
+  steps:
+    - title: Rich landing pages
+      desc: Content first
+      img: [ tailwind-home-js, nue-home-md ]
+      src: [ src/pages/index.js, index.md ]
+
+    - title: Layouts
+      desc: Semantic HTML
+      img: [ tailwind-docs-layout, nue-docs-layout ]
+      src: [ src/layouts/SidebarLayout.js, docs/layout.html ]
+
+    - title: Design tokens
+      desc: CSS variables
+      img: [ tailwind-tokens, nue-tokens ]
+      src: [ src/tailwind.config.js, "@global/variables.css" ]
+
+    - title: HTML element styling
+      desc: Semantic CSS
+      img: [ tailwind-button, nue-button ]
+      src: [ src/components/Button.js, "@global/button.css" ]

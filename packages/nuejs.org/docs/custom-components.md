@@ -1,22 +1,45 @@
 ---
-include: [demos, button]
+include: [demos]
 ---
 
 # Custom components
-Nue's layout is built around custom components designed to enhance web development with a semantic approach. There are four types of components:
+There are four types of custom components in Nue:
 
-- **Markdown extensions**: Extend the Markdown syntax with custom tags for greater flexibility.
-- **Layout modules**: Fill the slots in the [page layout](layout.html) to create structured designs.
-- **Layout components**: Custom server-side components that reside within the layout modules, allowing for dynamic content.
-- **Islands**: Interactive [islands](islands.html) rendered on the client side (CSR), enhancing the user experience with minimal JavaScript.
+- **Markdown extensions**: These extend the Markdown syntax with custom tags, offering more flexibility in content formatting.
+- **Layout modules**: These components fill the slots in the [page layout](layout.html), helping create a structured design for your pages.
+- **Layout components**: These are custom server-side components used within layout modules, allowing for dynamic content rendering.
+- **Interactive islands**: These are rendered on the client side (CSR) and enhance user interaction with minimal JavaScript. Here’s an example:
 
-## Component syntax
-Nue features a built-in HTML-based template language that simplifies the development of both server- and client-side components.
+### Example island
+Nue makes it easy to build interactive components like this:
 
-### Like React, but semantic
-Nue components bring the power of React-like functionality while prioritizing semantic web principles. Think of them as programmable HTML fragments that function seamlessly on both the server and client sides. With a focus on clean, semantic markup, Nue enables developers to progressively enhance their applications without compromising structure.
+[array-demo]
+  users:
+    - name: Alex Martinez
+      role: Lead frontend developer
+      img: /img/face-3.jpg
+    - name: Sarah Park
+      role: UI/UX Designer
+      img: /img/face-4.jpg
+    - name: Jamie Huang
+      role: JS/TS developer
+      img: /img/face-2.jpg
+    - name: Heidi Blum
+      role: UX developer
+      img: /img/face-1.jpg
+    - name: Adam Nattie
+      role: Backend developer
+      img: /img/face-5.jpg
+    - name: Mila Harrison
+      role: Senior frontend developer
+      img: /img/face-6.jpg
 
-Whereas React can be seen as "just JavaScript," Nue is "just HTML." Any valid HTML in Nue is also a valid component, making it intuitive and accessible.
+- - -
+
+## Like React, but semantic
+Nue components offer React-like functionality while focusing on semantic web design. They work seamlessly on both the server and client sides, allowing developers to enhance applications progressively without losing structure.
+
+Unlike React, which relies heavily on JavaScript, Nue is based on HTML. Any valid HTML in Nue is also a valid component, making it simple and accessible.
 
 ```html
 <div class="{ type }">
@@ -87,17 +110,18 @@ In layout modules, components are mounted as custom HTML elements:
 ```
 
 ### Islands
-If a component is not defined server-side in a `.html` file, it can still be rendered directly as a custom element on the client side:
+If a component is not defined server-side in a `.html` file, it is rendered directly as a custom element on the client side. For example:
 
 ```html
 <!-- this gets rendered on the client-side -->
 <image-gallery custom="image-gallery"/>
 ```
 
-In this case, the component is automatically mounted on the client side. Nue will first look for an implementation of the component or island defined in a `.dhtml` file. If it is not found, a standard Web Component will be mounted as specified in a `.js` or `.ts` file. This allows for flexibility in using interactive elements without the need for server-side definitions.
+In this case, Nue will first look for an implementation of the component or island defined in a `.dhtml` file. If it is not found, a standard Web Component will be mounted as specified in a `.js` or `.ts` file.
 
-### Passing data
-You can pass data to your components using attributes. These attributes can either be direct values or reference data from the [application data](settings.md) when the attribute name starts with a colon. This flexibility allows for dynamic data handling within your components.
+
+## Passing data
+You can pass data to your components using attributes. These attributes can either be direct values or reference data from the [unstructured data](content.html) when the attribute name starts with a colon.
 
 #### Markdown example
 In Markdown content, you can pass data as follows:
@@ -118,7 +142,7 @@ In layout modules and interactive islands, you can similarly pass data as argume
 
 Here, `:items` pulls from the `products` data, and `index` is set to `2`. This allows the component to dynamically render based on the provided data while keeping your templates clean and maintainable.
 
-#### Client-side components
+#### Islands
 Client-side components, such as islands, receive data through nested JSON. This enables you to encapsulate data directly within the component:
 
 ```html
@@ -209,7 +233,7 @@ Here’s a simplified implementation of the `background-video` component:
 
 In this setup, the nested Markdown is processed and inserted into the `<slot/>` within the `background-video` component, allowing for rich content integration.
 
-## Scripting
+## Instances
 Both server-side and client-side components in Nue can be scripted before rendering on the page. The scripting API is inspired by [ES6 classes](//developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes), enabling each component to have properties and methods. You can reference these properties and call the methods directly from your template code.
 
 ### Properties and methods
@@ -255,7 +279,8 @@ In this example:
 - The **constructor** method runs when the component is created, allowing you to manipulate user-provided data (like `date` and `locale`) before it is processed by the template.
 - **Methods** are useful for formatting and transforming data. The `pretty` method formats the date for display, while the `toIso` method converts it to a standard format.
 
-The scripting block helps to extract complex JavaScript logic from the [HTML template block](template-syntax.html), resulting in cleaner and more readable markup. This is particularly important for [interactive islands](island-syntax.html), where the amount of scripting is typically much higher.
+The scripting block helps to extract complex JavaScript logic from the [HTML template block](template-syntax.html), resulting in cleaner and more readable markup. This is particularly important for interactive islands, where the amount of scripting is typically much higher.
+
 
 ### Local scripts
 You can set up local functions and variables using root-level script blocks:
@@ -322,14 +347,21 @@ The above will be rendered as:
 ## Interactive components
 Interactive components in Nue are executed on the client side, directly within the user's browser. They are created and mounted using the same syntax as server-side components, but interactive components can respond to user input and re-render themselves to reflect new states. This functionality makes them ideal for a variety of applications, such as feedback forms, login forms, registration flows, account dropdowns, image galleries, or any other component that requires interactivity.
 
+
 ### Example: Image Gallery
 Let’s add a simple image gallery component to this page:
+
+[image-gallery]
+  images: [tomatoes.jpg, lemons.jpg, peas.jpg, popcorn.jpg]
+  basedir: /img
+
 
 ```md render
 [image-gallery]
   images: [tomatoes.jpg, lemons.jpg, peas.jpg, popcorn.jpg]
   basedir: /img
 ```
+
 
 Here’s the source code for the gallery component:
 
@@ -471,15 +503,15 @@ You can use any valid key names from [KeyboardEvent.key](https://developer.mozil
 
 Nue provides aliases for commonly used keys:
 
-- `.enter`: Captures both "Enter" and "Return."
-- `.delete`: Captures both "Delete" and "Backspace."
-- `.esc`: Captures both "Esc" and "Escape."
-- `.space`: Captures "Spacebar", " ", "Space Bar."
-- `.tab`: Captures "Tab."
-- `.up`: Captures "Up" and "ArrowUp."
-- `.down`: Captures "Down" and "ArrowDown."
-- `.left`: Captures "Left" and "ArrowLeft."
-- `.right`: Captures "Right" and "ArrowRight."
+- `.enter`: Captures both "Enter" and "Return".
+- `.delete`: Captures both "Delete" and "Backspace".
+- `.esc`: Captures both "Esc" and "Escape".
+- `.space`: Captures "Spacebar", " ", "Space Bar".
+- `.tab`: Captures "Tab".
+- `.up`: Captures "Up" and "ArrowUp".
+- `.down`: Captures "Down" and "ArrowDown".
+- `.left`: Captures "Left" and "ArrowLeft".
+- `.right`: Captures "Right" and "ArrowRight".
 
 ## Dynamic arrays
 When you define a loop with the `:for` expression, Nue automatically detects if the looped array is mutated and triggers the necessary UI updates. The following [array methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) are supported:
@@ -502,48 +534,82 @@ search() {
 }
 ```
 
-#### Example: array.push
+### Example: array.push
 Here’s a simple demo of using an array:
 
-```md render
 [array-demo]
   users:
-    - [ Alex Martinez, Lead frontend developer, /img/face-3.jpg ]
-    - [ Sarah Park, UI/UX Designer, /img/face-4.jpg ]
-    - [ Jamie Huang, JS/TS developer, /img/face-2.jpg ]
-    - [ Heidi Blum, UX developer, /img/face-1.jpg ]
-    - [ Adam Nattie, Backend developer, /img/face-5.jpg ]
-    - [ Mila Harrison, Senior frontend developer, /img/face-6.jpg ]
+    - name: Alex Martinez
+      role: Lead frontend developer
+      img: /img/face-3.jpg
+    - name: Sarah Park
+      role: UI/UX Designer
+      img: /img/face-4.jpg
+    - name: Jamie Huang
+      role: JS/TS developer
+      img: /img/face-2.jpg
+    - name: Heidi Blum
+      role: UX developer
+      img: /img/face-1.jpg
+    - name: Adam Nattie
+      role: Backend developer
+      img: /img/face-5.jpg
+    - name: Mila Harrison
+      role: Senior frontend developer
+      img: /img/face-6.jpg
+
+
+```md
+[array-demo]
+  users:
+    - name: Alex Martinez
+      role: Lead frontend developer
+      img: /img/face-3.jpg
+    - name: Sarah Park
+      role: UI/UX Designer
+      img: /img/face-4.jpg
+    - name: Jamie Huang
+      role: JS/TS developer
+      img: /img/face-2.jpg
+    - name: Heidi Blum
+      role: UX developer
+      img: /img/face-1.jpg
+    - name: Adam Nattie
+      role: Backend developer
+      img: /img/face-5.jpg
+    - name: Mila Harrison
+      role: Senior frontend developer
+      img: /img/face-6.jpg
 ```
 
 Here's the source code for the above demo:
 
 ```html
-<div @name="array-demo">
+<div @name="array-demo" class="array-demo">
 
   <button @click="add" :disabled="items[5]">Add user</button>
 
   <ul>
-    <li :for="[ name, role, img] in items">
-      <img :src="img">
-      <h3>{ name }</h3>
-      <p>{ role }</p>
+    <li :for="el of items">
+      <img :src="el.img">
+      <h3>{ el.name }</h3>
+      <p>{ el.role }</p>
     </li>
   </ul>
 
   <script>
 
-    // Render first three users
+    // render first three users
     constructor({ users }) {
-      this.items = users.slice(0, 3);
-      this.all = users;
+      this.items = users.slice(0, 2)
+      this.all = users
     }
 
-    // Insert a new item
+    // insert a new item
     add() {
-      const { items, all } = this;
-      const item = all[items.length]; // Access the next user
-      if (item) items.push(item); // Add user if exists
+      const { items, all } = this
+      const item = all[items.length]
+      if (item) items.push(item)
     }
   </script>
 
@@ -551,6 +617,7 @@ Here's the source code for the above demo:
 ```
 
 Note that the transition effect is done with vanilla CSS using `@starting-style` without specialized `<transition>` elements or motion libraries. This keeps the implementation lean and clean.
+
 
 ## Lifecycle methods
 Each component instance goes through a series of steps during its lifetime: first, it is created, then mounted on the page, and finally, it gets updated one or more times. Sometimes the component is removed or "unmounted" from the page.
@@ -584,7 +651,7 @@ You can hook custom functionality to these steps by creating instance methods wi
 </script>
 ```
 
-Inside these callback functions, `this` points to the [instance API](#api), allowing access to various properties and methods related to the component.
+Inside these callback functions, `this` points to the [instance API](#instance-api), allowing access to various properties and methods related to the component.
 
 ## Instance API
 The component API is accessible via the `this` variable inside the lifecycle methods. It has the following attributes and methods:
@@ -667,4 +734,4 @@ You can add and import shared code within a top-level `<script>` tag. Here’s a
 
 
 ## Summary
-Nue opens the door to a new way of building web applications, allowing you to harness the power of Markdown extensions, server-side components, and client-side components—all with a simple and intuitive syntax. By focusing on an HTML-based approach, you can prioritize layout, structure, semantics, and accessibility, freeing yourself from the frustration of tangled JavaScript stack traces.
+Nue opens the door to a new way of building web applications, allowing you to harness the power of Markdown extensions, server-side components, and client-side components — all with a simple and intuitive syntax. By focusing on an HTML-based approach, you can prioritize layout, structure, semantics, and accessibility, freeing yourself from the frustration of tangled JavaScript stack traces.

@@ -14,24 +14,54 @@ on:
   workflow_dispatch:
 
 jobs:
-  links:
+  readme:
     if: ${{ github.repository_owner == 'nuejs' || github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v2
 
-      - name: Install and build docs
-        run: |
-          bun install
-          cd packages/nuekit
-          bun link
-          cd -
-          nue build -pr packages/nuejs.org
-
-      - name: Check links
-        if: success() || failure()
+      - name: Check README links
         uses: lycheeverse/lychee-action@v2
         with:
-          args: -v --no-progress --exclude-path node_modules --exclude localhost -- **/README.md packages/nuejs.org/.dist/prod/
+          args: >
+            --no-progress
+            --exclude-path node_modules
+            --exclude localhost
+            --base .
+            --
+            "**/README.md"
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  site:
+    if: ${{ github.repository_owner == 'nuejs' || github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build docs
+        uses: ./.github/workflows/repo/build-page
+        with:
+          root: packages/nuejs.org
+
+      - name: Run server
+        run: nue -pr packages/nuejs.org -P 8080 &
+
+      - name: Find files to check
+        id: files
+        run: |
+          links=$(find packages/nuejs.org/.dist/prod -name "*.html" -printf "http://localhost:8080/%P ")
+          echo "links=$links" >> $GITHUB_OUTPUT
+
+      - name: Check site links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >
+            --no-progress
+            --accept "403, 429, 503, 999"
+            --remap "http://localhost:8080/@ https://nuejs.org/@"
+            --remap "http://localhost:8080/todomvc https://nuejs.org/todomvc"
+            --remap "http://localhost:8080/glow-demo https://nuejs.org/glow-demo"
+            --exclude "http://localhost:8080/404.html"
+            --
+            ${{ steps.files.outputs.links }}
           token: ${{ secrets.GITHUB_TOKEN }}

@@ -5,10 +5,12 @@ on:
     branches:
       - master
     paths-ignore:
+      - .github/**
       - packages/examples/**
       - packages/nuejs.org/**
   pull_request:
     paths-ignore:
+      - .github/**
       - packages/examples/**
       - packages/nuejs.org/**
   workflow_dispatch:
@@ -31,10 +33,10 @@ jobs:
       # Testing `bun`
       - uses: oven-sh/setup-bun@v2
         if: ${{ matrix.tool == 'bun' }}
+
       - name: Install and test with Bun
         run: |
           bun -v
-          bun install
           bun install --no-save esbuild
           bun test --coverage
         if: ${{ matrix.tool == 'bun' }}
@@ -42,6 +44,7 @@ jobs:
       # Testing `node+jest`
       - uses: actions/setup-node@v4
         if: ${{ matrix.tool == 'node+jest' }}
+
       - name: Install and test with Node
         run: |
           node -v && npm -v

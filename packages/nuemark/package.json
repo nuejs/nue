@@ -1,7 +1,7 @@
 {
   "name": "nuemark",
-  "version": "0.5.0",
-  "description": "Markdown parser UX-focused web projects",
+  "version": "0.6.0",
+  "description": "Markdown flavour for rich, interactive websites",
   "homepage": "https://nuejs.org",
   "license": "MIT",
   "type": "module",

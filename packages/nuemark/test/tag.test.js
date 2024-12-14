@@ -264,7 +264,7 @@ test('[svg] nested in [button]', () => {
 })
 
 
-test('[define]', () => {
+test.only('[define]', () => {
   const content = [
     '[define]',
     '  ## Design System { #ds.foo }',

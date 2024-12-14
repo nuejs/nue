@@ -3,26 +3,28 @@ include: [syntax-table]
 ---
 
 
-# Syntax highlighting
+# Syntax highlighting: The look and feel
 
-Nue uses a built-in syntax highlighter, [Glow](/blog/introducing-glow/), to style your fenced code blocks with minimal setup. It includes the following features:
+Nue uses the built-in syntax highlighter, [Glow](/blog/introducing-glow/), to style your fenced code blocks with minimal setup. It offers the following features:
 
-- **Design focused**: Every language—Markdown, YAML, TypeScript, Perl, SQL, and more—appears consistent with your design system’s colors.
+- **Design focused**: Code blocks for languages like Markdown, YAML, TypeScript, Perl, SQL, and more, automatically match your design system’s colors.
 
-- **Easy to use**: By default, code blocks are automatically styled. To match your own design system, you only need to set 3-10 CSS variables.
+- **Easy to use**: Code blocks are styled by default. To align with your design system, just set 3-10 CSS variables.
 
-- **Small footprint**: The CSS required to highlight all languages is under 1 KB, which includes support for highlighted lines and regions.
+- **Small footprint**: The CSS for highlighting all languages is under 1 KB, including support for highlighted lines and regions.
 
-For details on adding code blocks to your Markdown documents, refer to the [code syntax](content-syntax.html#code-blocks) guide. This article will explain how to adjust the look and feel of the generated HTML.
+For details on adding code blocks to your Markdown documents, refer to the [code syntax](content-syntax.html#code-blocks) guide. This article also explains how to adjust the look and feel of the generated HTML.
 
 
 ## The HTML output
 Syntax blocks are rendered as standard HTML tags, without additional class names. For example, the following Markdown block:
 
-\```javascript
-// a comment
-"A string value"
-\```
+````md
+ ```javascript
+ // a comment
+ "A string value"
+ ```
+````
 
 Produces the HTML:
 
@@ -63,7 +65,6 @@ Below is a list of all CSS variables with the associated HTML elements for styli
 
 [table.syntax-table]
   CSS variable     | Default value    | HTML tag | Description
-  ---------
   accent-color     | `#419fff`        | strong   | special emphasis
   base-color       | `#555`           |          | foreground color
   char-color       | `#64748b`        | i        | brackets, commas...
@@ -97,7 +98,7 @@ To apply language-specific tweaks, use the `language` attribute, as in:
 ```
 
 ### Adjusting formatting
-Glow uses bolding with `--glow-special-color`, and other elements are styled by color alone. You can add formatting to any elements to fine-tune the syntax blocks. For example:
+Glow uses bolding with `--glow-special-color`, and other elements get styled by color alone. You can add formatting to any elements to fine-tune the syntax blocks. For example:
 
 ```css
 /* Bold all secondary syntax elements */

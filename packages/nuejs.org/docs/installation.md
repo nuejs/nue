@@ -30,7 +30,7 @@ nue create simple-blog
 
 Done! Your browser should now open to: `http://localhost:8083/welcome/`:
 
-![Welcome Screen](img/create-welcome.png)
+![Welcome Screen](/img/create-welcome.png)
 
 *Caption: The welcome screen after successful setup.*
 
@@ -38,7 +38,7 @@ Done! Your browser should now open to: `http://localhost:8083/welcome/`:
 
 Check out the [step-by-step tutorial](tutorial.html) to learn how to build websites with Nue.
 
----
+- - -
 
 ## Details
 

@@ -1,6 +1,11 @@
 
 /* documentation-specific content widgets  */
 
+h1 + p {
+  text-wrap: balance;
+  font-size: 1.15rem;
+}
+
 .gridpaper {
   background-image: url(/img/grid-paper.png);
   border: 1px solid var(--gray-200);
@@ -19,42 +24,21 @@
   }
 }
 
+.above {
+  background-color: var(--gray-600);
+  box-shadow: 0 0 4em #0007;
+  font-size: 1.2em;
+  position: relative;
+  top: -13em;
 
-/* "good" and "bad" code block captions */
-.good, .bad  {
-  margin-top: 2em;
-
-  figcaption {
-    background: url(/icon/bad.svg) -.2em center no-repeat;
-    padding: .2em 0  .2em 1.8em;
-    background-size: 1.6em;
-    color: var(--gray-900);
-    text-align: left;
-    font-weight: 550;
-    font-size: 95%;
-
-    &:after {
-      border-left: 1px solid var(--red);
-      position: relative;
-      top: 1.2em;
-      left: -1.2em;
-      content: "";
-      height: 1em;
-      display: block;
-      float: left;
-    }
+  &:hover {
+    background-color: var(--gray-700);
   }
 }
 
-.good figcaption {
-  background: url(/icon/good.svg) -1px center no-repeat;
-  background-size: 1.4em;
-
-  &:after {
-    border-color: var(--green);
-  }
+figure:has(.above) {
+  margin-bottom: -1rem;
 }
-
 
 .options {
   h4 {
@@ -69,17 +53,26 @@
   }
 
   code {
-    min-width: 8em;
+    min-width: 10em;;
   }
 }
 
 
-.apidoc section h3 {
+.apidoc article h3 {
   font-family: monospace;
   color: var(--main-600);
   background-color: var(--main-50);
   display: inline-block;
-  padding: .4em .6em;
+  padding: .3em .6em;
   margin-bottom: -.5em;
-  margin-left: -.6em;
+  border-radius: 2px;
+}
+
+.small {
+  font-size: 90%;
+}
+
+.columns {
+  column-width: 15em;
+  column-gap: 2em;
 }

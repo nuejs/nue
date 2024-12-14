@@ -109,6 +109,8 @@ export async function createKit(args) {
 
     // scripts & styling
     const asset_dir = meta.appdir || dir
+    data.use_syntax = data.syntax_highlight !== false && document.codeblocks[0]
+
     data.assets = {}
     await setupScripts(asset_dir, data)
     await setupStyles(asset_dir, data)
@@ -120,11 +122,9 @@ export async function createKit(args) {
   // Markdown page
   async function renderMPA(path) {
     const data = await getPageData(path)
-    const { document } = data
     const file = parsePath(path)
-
     const lib = await site.getServerComponents(data.appdir || file.dir, data)
-    return DOCTYPE + renderPage({ document, data, lib })
+    return DOCTYPE + renderPage({ ...data, ...site.model }, lib, site.tags)
   }
 
 

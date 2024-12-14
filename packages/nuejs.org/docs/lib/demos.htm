@@ -26,15 +26,15 @@
 </div>
 
 
-<div @name="array-demo">
+<div @name="array-demo" class="array-demo">
 
   <button @click="add" :disabled="items[5]">Add user</button>
 
   <ul>
-    <li :for="[ name, role, img] in items">
-      <img :src="img">
-      <h3>{ name }</h3>
-      <p>{ role }</p>
+    <li :for="el of items">
+      <img :src="el.img">
+      <h3>{ el.name }</h3>
+      <p>{ el.role }</p>
     </li>
   </ul>
 
@@ -42,14 +42,14 @@
 
     // render first three users
     constructor({ users }) {
-      this.items = items.slice(0, 2)
+      this.items = users.slice(0, 2)
       this.all = users
     }
 
     // insert a new item
     add() {
       const { items, all } = this
-      const item = all[all.length]
+      const item = all[items.length]
       if (item) items.push(item)
     }
   </script>

@@ -41,6 +41,7 @@ test('renderSlots', () => {
   expect(slots).toEqual({ head: "<meta>", banner: "<banner>" })
 })
 
+
 test('renderPage', () => {
   const document = { render: () => '<h1>Hello</h1>' }
   const lib = [{ tagName: 'header', render: () => '<header>' }]

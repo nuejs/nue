@@ -1,11 +1,17 @@
 
-# Nuemark
-Nuemark is a Markdown parser for UX-focused web projects. It extends basic Markdown with sections, grids, stacked layouts, responsive images, videos, code blocks, accordions, tabs, and more. It allows you to build rich landing pages with semantic HTML and vanilla CSS.
+
+# Markdown for rich, interactive websites
+Nuemark is a custom Markdown parser developed specifically for Nue's content-first development approach. It extends basic Markdown with sections, grids, stacked layouts, responsive images, videos, code blocks, accordions, tabs, and more. It allows you to build rich landing pages with nothing but content and modern CSS.
+
+
+<a href="https://nuejs.org/">
+  <img src="https://nuejs.org/img/content-files-big.png" width="900">
+</a>
 
 ### Links
 
-* [What is Nuemark?](https://nuejs.org/blog/introducing-nuemark/)
-* [Nuemark syntax](https://nuejs.org/docs/content.html)
+* [Syntax and semantics](https://nuejs.org/docs/content-syntax.html)
+* [Tag reference](https://nuejs.org/docs/content-tags.html)
 
 
 ### Contributing

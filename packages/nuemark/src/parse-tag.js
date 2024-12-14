@@ -67,7 +67,6 @@ export function parseSpecs(str) {
     self.name = str.slice(0, i) || null
     self.attr = parseAttr(str.slice(i))
   }
-
   return self
 }
 

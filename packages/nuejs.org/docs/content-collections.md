@@ -8,12 +8,12 @@ Content collections are arrays of content files where each entry represents a pa
 Each content entry is generated from metadata stored in the **front matter** of your Markdown files. For example:
 
 ```yaml
----
-title: My Blog Post
-thumb: /img/my-thumb.png
-author: John Doe
-date: 2023-12-11
----
+ ---
+ title: My Blog Post
+ thumb: /img/my-thumb.png
+ author: John Doe
+ date: 2023-12-11
+ ---
 ```
 
 You can define essential metadata like `title`, `date`, and `description`. In addition to these fields, Nue also provides the following system-generated properties for each content entry:

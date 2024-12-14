@@ -1,21 +1,17 @@
 
+
+// hide popover menus
 addEventListener('click', event => {
-  const { target } = event
+  const el = event.target
+  const dialog = el.closest('[popover]')
 
-  // hide popover menus
-  const dialog = target.closest('[popover]')
-  if (dialog && target.matches('a')) dialog.hidePopover()
-
-  // make cards clickable
-  const card = target.closest('.card')
-  if (card) {
-    const button = card.querySelector('button')
-    if (button) {
-      const popover = window[button.getAttribute('popovertarget')]
-      popover?.showPopover()
-    }
+  if (dialog) {
+    const link = el.getAttribute('href')
+    if (link) dialog.hidePopover()
   }
 })
+
+
 
 
 // analytics (released for public later)

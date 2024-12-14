@@ -1,7 +1,7 @@
 
 import { parse as parseNue } from 'nuejs-core'
 
-import { getLayoutComponents, renderPageList, } from './components.js'
+import { getLayoutComponents, renderPageList } from './components.js'
 
 import { renderHead } from './head.js'
 
@@ -102,7 +102,8 @@ function convertToTags(components, data) {
 
   components.forEach(comp => {
     const { name } = comp
-    if (name && !SLOTS.includes(name)) {
+
+    if (name && comp.render && !SLOTS.includes(name)) {
       tags[name] = function(data) {
         const { attr, innerHTML } = this
         return comp.render({ attr, ...data, innerHTML }, components)
@@ -114,19 +115,22 @@ function convertToTags(components, data) {
 }
 
 
-export function renderPage({ document, data, lib }) {
+export function renderPage(data, lib, custom_tags) {
   const comps = [ ...lib, ...getLayoutComponents()]
-  const slots = renderSlots(data, comps)
+  const { document } = data
 
   const tags = {
-    ...convertToTags(lib, data),
+    ...convertToTags(comps, data),
     'page-list': renderPageList,
-    toc: document.renderTOC
+    toc: document.renderTOC,
+    ...custom_tags
   }
 
   // nuemark opts: { data, sections, heading_ids, links, tags }
-  const { heading_ids, sections, links  } = data
-  const content = document.render({ data, heading_ids, sections, links, tags })
+  const { heading_ids, sections, content_wrapper, links  } = data
+  const content = document.render({ data, heading_ids, sections, content_wrapper, links, tags })
+
+  const slots = renderSlots({ ...data, content }, comps)
 
   // <main>...</main>
   if (!slots.main && data.main !== false) {

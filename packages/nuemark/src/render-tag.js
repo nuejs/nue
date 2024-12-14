@@ -85,13 +85,11 @@ const TAGS = {
 
   svg(data) {
     const src = data.src || data._
-    const path = join('.', src)
+    return src ? readIcon(src) : ''
+  },
 
-    try {
-      return src?.endsWith('.svg') && readFileSync(path, 'utf-8')
-    } catch (e) {
-      console.error('svg not found', path)
-    }
+  icon(data) {
+    return renderIcon(data.src || data._, data.symbol, data.icon_dir)
   },
 
   table() {
@@ -118,6 +116,28 @@ const TAGS = {
     return tag.call(this)
   }
 }
+
+
+export function readIcon(path, icon_dir) {
+  if (!path.endsWith('.svg')) {
+    path += '.svg'
+    if (icon_dir && path[0] != '/') path = join(icon_dir, path)
+  }
+
+  path = join('.', path)
+
+  try {
+    return readFileSync(path, 'utf-8')
+  } catch (e) {
+    console.error('svg not found', path)
+    return ''
+  }
+}
+
+export function renderIcon(name, symbol, icon_dir) {
+  return name ? readIcon(name, icon_dir) : symbol ? elem('svg', `<use href="#${symbol}"/>`) : ''
+}
+
 
 export function renderTag(tag, opts={}) {
   const tags = { ...TAGS, ...opts.tags }

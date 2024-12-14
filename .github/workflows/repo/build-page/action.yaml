@@ -1,0 +1,22 @@
+name: Repository nue page build
+
+inputs:
+  root:
+    default: '.'
+    type: string
+
+runs:
+  using: composite
+  steps:
+    - uses: oven-sh/setup-bun@v2
+
+    - name: Install and link nue
+      shell: bash
+      run: |
+        bun install
+        cd packages/nuekit/
+        bun link
+
+    - name: Build Nue Project
+      shell: bash
+      run: nue build -pr "${{ inputs.root }}"

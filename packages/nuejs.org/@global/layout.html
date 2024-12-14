@@ -3,17 +3,21 @@
 <header>
   <navi :items="globalnav.main"/>
   <navi :items="globalnav.toolbar"/>
-  <button popovertarget="menu"/>
+  <button class="action" popovertarget="menu">
+    <img src="/icon/dots.svg">
+  </button>
 </header>
 
 <!-- site footer -->
 <footer>
-  <span><img src="/img/logo.svg" alt="Nue logo"></span>
+  <p><img src="/img/logo-letter.png" alt="Nue logo"></p>
   <navi :items="globalnav.footer"/>
 </footer>
 
 <!-- burger menu -->
 <dialog @name="bottom" popover id="menu">
-  <button popovertarget="menu"></button>
+  <button class="action" popovertarget="menu">
+    <img src="/icon/close.svg">
+  </button>
   <navi :items="globalnav.menu"/>
 </dialog>

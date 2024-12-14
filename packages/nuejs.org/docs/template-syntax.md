@@ -1,6 +1,6 @@
 
 # Template syntax
-This document serves as a guide to Nue's HTML-based template syntax, which is shared across your Markdown extensions, server components, and client-side components. Understanding this syntax is key to effectively building and managing your components.
+This document serves as a guide to Nue's HTML-based template syntax, which is shared across your Markdown extensions, server components, and client-side components.
 
 ## Expressions
 
@@ -42,10 +42,10 @@ An expression is a piece of code that evaluates to a value. Therefore, the follo
 
 ```html
 <!-- This is a statement, not an expression -->
-{ var a = 1 }
+-{ var a = 1 }
 
 <!-- Use a ternary expression, not flow control  -->
-{ if (ok) { return message } }
+-{ if (ok) { return message } }
 ```
 
 ### Function calls
@@ -220,7 +220,7 @@ Use the `:if` attribute to conditionally render a block. The block will only be 
 ```
 
 ### :else condition
-Use `:else` to indicate an "else block" for `:if`.
+Use `:else` to indicate an "else-block" for `:if`.
 
 ```html
 <div>
@@ -377,4 +377,3 @@ Alternatively, you can use the [`:bind` attribute](#bind) to pass all the data a
 ```
 
 The `bind` attribute makes the item properties accessible directly to the component. So instead of `{ item.title }`, you can write `{ title }` inside the component.
-

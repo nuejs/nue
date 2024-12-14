@@ -79,13 +79,13 @@ View transitions is a broad standard with tons of visual possibilities that are 
 
 
 ## CSS best practices
-Nue's new [CSS best practices](/docs/css-best-practices.html) brings out the best of modern CSS:
+Nue's new [CSS best practices](/docs/styling.html) brings out the best of modern CSS:
 
 [image.larger]
   small: /img/blog-css-hierarchy.png
   large: /img/blog-css-hierarchy-big.png
   caption: Nue offers the shortest path from Figma to code
-  href: /docs/css-best-practices.html
+  href: /docs/styling.html
 
 These lessons focus on writing reusable CSS that is easy to read, maintain, and scale. It unpacks decades of CSS experience with a heavy focus on *clarity* and *minimalism*. In fact, all the lessons can squeezed into this one sentence:
 
@@ -97,7 +97,7 @@ Nue helps you build professional websites with the same amount of CSS as you can
 
 
 ## New website and documentation
-Unsurprisingly, the biggest job was the documentation area, which now focuses on [UX development](/docs/ux-development.html). About 80% of the documentation is completely rewritten and there are several new documents.
+Unsurprisingly, the biggest job was the documentation area, which now focuses on [Design Engineering](/docs/how-it-works.html#design-engineering). About 80% of the documentation is completely rewritten and there are several new documents.
 
 [image.larger.shadowed]
   small: /img/new-docs.png

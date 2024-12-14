@@ -13,11 +13,11 @@ body > header {
   margin-bottom: 5em;
 
   .nav-home {
-    background-image: url(/img/logo.svg);
-    background-size: cover;
+    background: url(/img/logomark-big.png) no-repeat;
+    background-size: contain;
     text-indent: -99em;
-    width: 60px;
-    height: 18px;
+    width: 4.5rem;
+    height: 1.7rem;
   }
 
   &, > * {
@@ -50,10 +50,15 @@ body > header {
   }
 
   .social {
-    background: url(/icon/twitter.svg) left .06em no-repeat;
+    background: url(/icon/twitter.svg) left no-repeat;
     background-size: 1.2em;
-    padding-left: 1.2rem;
-    &:hover { color: #4d9feb }
+    padding-left: 1.4rem;
+    color: var(--gray-800);
+
+    &:hover {
+      transform: scale(1.005);
+      color: black;
+    }
   }
 
   /* separator */
@@ -63,48 +68,47 @@ body > header {
   }
 
   /* burger menu opener */
-  [popovertarget] {
-    background-size: 1.8em;
+  button {
     margin-left: auto;
     display: none;
   }
 
-  @media (max-width: 800px) {
+  @media (width < 800px) {
     > * { display: none }
-    > :first-child, > [popovertarget] { display: inline-block }
+    button { display: inline-block }
+    nav:first-child {
+      display: flex;
+
+      @media (width < 650) {
+        gap: .75rem;
+        a:not(.nav-home, .pill) { display: none }
+      }
+    }
   }
-}
-
-/* burger menu opener */
-button[popovertarget] {
-  background: url(/icon/dots.svg) center center no-repeat;
-  background-color: var(--gray-50);
-  border-radius: .2em;
-  padding-inline: .8em;
-  height: 2rem;
-  width: 2rem;
-  padding: 0;
-  border: 0;
-
-  &:hover {
-    color: var(--gray-900);
-    background-color: var(--gray-100);
+  @media (width < 500) {
+    .pill { display: none }
   }
 }
 
 .pill {
-  background: var(--main-50) url(/icon/present.svg) .6em 50% no-repeat;
+  background: var(--main-50) url(/icon/cube.svg) .75em 50% no-repeat;
   padding: .6em 1em .6em 2.7em;
   background-size: 1.5em;
   color: var(--gray-600);
   font-weight: 550;
   border-radius: 9em;
-  font-size: 80%;
+  font-size: .8em;
+
+  em {
+    font-style: normal;
+    color: var(--main-600);
+    margin-right: .3em;
+    font-weight: 600;
+  }
 
   &:hover {
-    background-color: var(--main-500);
-    background-image: url(/icon/present-light.svg);
-    color: white;
+    transform: scale(1.005);
+    color: var(--gray-900);
   }
 
   &:active {
@@ -113,13 +117,6 @@ button[popovertarget] {
 
   &.github {
     background-image: url(/icon/github.svg);
-    background-color: #f4f4f4;
-    color: black;
-
-    &:hover {
-      filter: grayscale(1) invert(1);
-
-    }
   }
 
   &[aria-selected] {
@@ -127,42 +124,25 @@ button[popovertarget] {
   }
 }
 
-
-
 /* global footer */
 body > footer {
-  padding-block: 5em;
-  display: flex;
-  gap: 6em;
+  text-align: center;
+  padding: 2rem 0 5rem;
+  border-top: var(--border);
 
-  > :first-child {
-    width: 65px;
+  img {
+    width: 50px;
   }
 
-  h3 {
-    font-size: 95%;
-    margin: 0 0 .5em;
-  }
+  nav {
+    display: inline-flex;
+    margin-block: 1rem;
+    font-size: .9rem;
+    gap: 2rem;
 
-  nav a {
-    font-size: 90%;
-    display: block;
-    padding: .5em 0;
-    font-weight: 400;
-  }
-
-  @media (max-width: 700px) {
-    flex-direction: column;
-    gap: 3em;
-  }
-
-  > div {
-    display: flex;
-    gap: 6em;
-
-    @media (max-width: 400px) {
+    @media (width < 600) {
       flex-direction: column;
-      gap: 3em;
+      gap: 1.5rem;
     }
   }
 

@@ -1,6 +1,17 @@
 
 # Content syntax
-Nue provides an **extended Markdown syntax** for authoring rich web content. Building on top of basic Markdown, you can easily include complex elements like grids, responsive images, tables, accordions, tabbed content, and more. This allows you to rapidly create dynamic, responsive web pages without writing any additional code. Everything is managed through simple, versionable text files that can be edited directly on your file system with your favorite text editor.
+Nue provides an **extended Markdown syntax** for authoring rich web content. Building on top of basic Markdown, you can easily include complex elements like grids, responsive images, tables, accordions, tabbed content, and more.
+
+
+
+[image.bordered]
+  caption: Nue's extended Markdown syntax handles all varieties of content
+  small: /img/content-files.png
+  large: /img/content-files-big.png
+  size: 745 × 383
+
+This allows you to rapidly create dynamic, responsive web pages without writing any additional code. Everything is managed through simple, versionable text files that can be edited directly on your file system with your favorite text editor.
+
 
 ## Basic syntax
 Nue fully supports standard [Markdown](//daringfireball.net/projects/markdown/), allowing you to work with familiar formatting options like headings, quotes, lists, and fenced code blocks. Here's an example of the basic syntax:
@@ -23,6 +34,12 @@ Followed with:
 
 - An unordered
 - list of items
+
+
+And a horizontal line:
+
+***
+
 ```
 
 ## Standard Markdown extensions
@@ -32,11 +49,11 @@ Nue supports common **Markdown extensions** such as **tables** and **footnotes**
 Tables are useful for presenting structured information. Here’s an example:
 
 ```md
-| Principle                | Description                                                       |
-|--------------------------|-------------------------------------------------------------------|
-| Separation of Concerns   | Dividing a system into distinct sections with specific roles.     |
-| Progressive Enhancement  | Building core functionality first, then adding enhanced features. |
-| Information Architecture | Structuring content for usability and navigation clarity.         |
+\| Principle                | Description                                                       |
+\|--------------------------|-------------------------------------------------------------------|
+\| Separation of Concerns   | Dividing a system into distinct sections with specific roles.     |
+\| Progressive Enhancement  | Building core functionality first, then adding enhanced features. |
+\| Information Architecture | Structuring content for usability and navigation clarity.         |
 ```
 
 This table provides a simple breakdown of key principles.
@@ -55,36 +72,38 @@ Design principles like Separation of Concerns [^1], Progressive Enhancement [^2]
 Footnotes provide a way to include more detail without cluttering the main text.
 
 
-## No HTML allowed
-In Nue, the focus is on **pure content**—free from HTML markup. This ensures that your content remains clean, semantic, and focused on structure, while design and styling are handled by CSS and layout modules. By separating content from presentation, Nue enforces the **Separation of Concerns (SoC)** principle, leading to better maintainability and a more consistent design system.
+
+## Nue-specific things
+Nue extends standard Markdown with additional formatting options and powerful features to make content richer and more dynamic, without needing complex HTML.
+
+
+### No HTML allowed
+In Nue, the focus is on **pure content** — free from HTML markup. This ensures that your content remains clean, semantic, and focused on structure, while design and styling are handled by CSS and layout modules. By separating content from presentation, Nue enforces the **Separation of Concerns (SoC)** principle, leading to better maintainability and a more consistent design system.
 
 Instead of embedding HTML, Nue provides powerful Markdown extensions like **blocks**, which let you create rich, styled content while keeping the content layer pure.
 
 
-
-## Nue-specific Markdown extensions
-
-Nue extends standard Markdown with additional formatting options and powerful features to make content richer and more dynamic, without needing complex HTML.
-
 ### More formatting optionms
 Nue provides a variety of formatting options beyond standard Markdown, giving you more control over how text appears on the page. Here’s a comparison between the Markdown syntax and the corresponding HTML output:
 
-```md
-| Markdown         | HTML                       | Example          |
-|------------------|----------------------------|------------------|
-| `I'm **bold**`   | `<strong>bold</strong>`    | I'm **bold**     |
-| `I'm __bold__`   | `<strong>bold</strong>`    | I'm __bold__     |
-| `I'm •bold•`     | `<b>bold</b>`              | I'm •bold•       |
-| `I'm *italic*`   | `<em>italic</em>`          | I'm *italic*     |
-| `I'm _italic_`   | `<em>italic</em>`          | I'm _italic_     |
-| `I'm /italic/`   | `<i>italic</i>`            | I'm /italic/     |
-| `I'm \`code\``   | `<code>code</code>`        | I'm `code`       |
-| `I'm ~striked~`  | `<s>striked</s>`           | I'm ~striked~    |
-| `I'm "quoted"`   | `<q>quoted</q>`            | I'm "quoted"     |
-| `I'm |marked|`   | `<mark>marked</mark>`      | I'm |marked|     |
-```
+
+[table]
+  Markdown  | HTML | Example
+  ------
+  `I'm **bold**`   | `<strong>bold</strong>`    | I'm **bold**
+  `I'm __bold__`   | `<strong>bold</strong>`    | I'm __bold__
+  `I'm •bold•`     | `<b>bold</b>`              | I'm •bold•
+  `I'm *italic*`   | `<em>italic</em>`          | I'm *italic*
+  `I'm _italic_`   | `<em>italic</em>`          | I'm _italic_
+  `I'm /italic/`   | `<i>italic</i>`            | I'm /italic/
+  `I'm \`code\``   | `<code>code</code>`        | I'm `code`
+  `I'm ~striked~`  | `<s>striked</s>`           | I'm ~striked~
+  `I'm "quoted"`   | `<q>quoted</q>`            | I'm "quoted"
+  `I'm |marked|`   | `<mark>marked</mark>`      | I'm |marked|
+
 
 This extended set of formatting options helps you achieve more **precise styling** without needing to write raw HTML.
+
 
 ### Variables
 Nue allows the use of **variables** within Markdown files, enabling dynamic content based on your application data. Variables are wrapped in curly braces (`{}`) and will be replaced with their corresponding values when the page is rendered:
@@ -99,7 +118,7 @@ The values between curly braces are taken from the **application data** or **met
 
 
 ### Heading IDs
-Enabling the `heading_ids` option in your configuration automatically generates anchor links for each heading. For example, a heading like:
+Enabling the `heading_ids: true` option in your configuration automatically generates anchor links for each heading. For example, a heading like:
 
 ```md
 ## Less is More
@@ -138,16 +157,36 @@ Here, the ID is set to `less`, and the class is set to `more`, providing more co
 
 
 ### Expanded footnotes
-Nue enhances the standard Markdown footnote functionality by allowing you to mark entire phrases as part of the footnote, giving you more flexibility for styling and formatting. This makes it easier to create footnotes that are more descriptive and visually clear.
+Nue enhances the standard Markdown footnote functionality by allowing you to mark entire phrases as part of the footnote. This makes it easier to create footnotes that are more descriptive and visually clear.
 
-For example, instead of just marking a word, you can mark an entire phrase:
+For example, instead of just marking a single digit, you can mark an entire phrase:
 
 ```md
-Design principles like [Separation of Concerns][^1], [Progressive Enhancement][^2], and [Information Architecture][^3] are fundamental.
+Design principles like [Separation of Concerns][^1], [Progressive Enhancement][^2], and [Semantic markup][^3] are fundamental.
 ```
 
 This expanded capability allows you to reference full concepts or phrases, improving clarity in both technical and non-technical content, while maintaining the footnote's ease of use.
 
+
+### Sections
+You can split your content into sections with a triple dash `---` making your content render like this:
+
+```
+<article>
+  <section/>
+  <section/>
+  <section/>
+  ...
+</article>
+```
+
+You can also generate the sections by setting `sections: true` in your configuration. This will generate a new section based on `<h2>` headings so that each `<h2>` tag starts a new section.
+
+[.note]
+  ### Horizontal rules
+  Please use `***`, `___`, or `- - -` to generate a horizontal rule (`<hr>` tag).
+
+Sections are discussed in more detail in the [styling](styling.html#sections) document.
 
 ### Blocks
 **Blocks** in Nue are reusable chunks of content wrapped inside a class name, allowing you to build structured and styled sections while keeping the focus on pure content. No HTML is needed, making the content easy to manage and maintain.
@@ -271,7 +310,7 @@ This allows flexible layout creation, giving you control over content structure 
 
 1. **Create complex layouts with pure content**: There's literally zero bloat or extra markup needed to achieve advanced layouts such as **flex** or **grid**. Your design system’s CSS components handle the layout, keeping your Markdown clean and focused on content.
 
-2. **Supports rich, flexible designs**: You can easily render complex, visually engaging layouts like **bento-style cards** that mix videos, images, and text—**optionally enhanced** with scripting and motion. This flexibility allows you to create stunning, content-rich sections that work seamlessly across devices, without touching a line of HTML.
+2. **Supports rich, flexible designs**: You can easily render complex, visually engaging layouts like **bento-style cards** that mix videos, images, and text — **optionally enhanced** with scripting and motion. This flexibility allows you to create stunning, content-rich sections that work seamlessly across devices, without touching a line of HTML.
 
 ### Nesting
 Blocks can be nested to form more complex layouts on your richer marketing and landing pages, giving you the flexibility to create structured, multi-layered content without ever touching HTML. For example:
@@ -291,10 +330,10 @@ Blocks can be nested to form more complex layouts on your richer marketing and l
 
 This creates a flexible layout where a main **feature** block contains a nested **stack**, allowing for clean organization and structure in your content.
 
-The possibilities are endless. You can combine blocks in creative ways, stacking sections within sections to build rich, interactive landing pages. Imagine a **hero section** that introduces key features, followed by a **grid of cards**, each with its own stacked content blocks highlighting product details, testimonials, or case studies. With the power of **nesting**, you can craft visually complex layouts while keeping your Markdown easy to read and maintain. Whether you're building product showcases, multi-section promotional pages, or detailed service breakdowns, nesting unlocks a new level of creative control over your content structure—letting design systems handle the visual complexity.
+The possibilities are endless. You can combine blocks in creative ways, stacking sections within sections to build rich, interactive landing pages. Imagine a **hero section** that introduces key features, followed by a **grid of cards**, each with its own stacked content blocks highlighting product details, testimonials, or case studies. With the power of **nesting**, you can craft visually complex layouts while keeping your Markdown easy to read and maintain. Whether you're building product showcases, multi-section promotional pages, or detailed service breakdowns, nesting unlocks a new level of creative control over your content structure — letting design systems handle the visual complexity.
 
 ### Code blocks
-Code blocks in Nue are enclosed between triple backticks and can include an optional language hint for syntax highlighting using the [Glow syntax highlighter](blog/introducing-glow/). For example, a CSS code block would look like this:
+Code blocks in Nue are enclosed between triple backticks and can include an optional language hint for syntax highlighting using the [Glow syntax highlighter](/blog/introducing-glow/). For example, a CSS code block would look like this:
 
 ```md
 \```css
@@ -375,7 +414,7 @@ These **two words** are highlighted and **these words** are erroneous.
 #### Mixing content blocks and code blocks
 Here's an example combining content blocks and code blocks. Notice how clean the syntax is, avoiding excessive coding and ugly markup that often comes with complex layouts:
 
-```md
+````md
 [.stack]
 
   ### CSS animation setup
@@ -402,6 +441,11 @@ Here's an example combining content blocks and code blocks. Notice how clean the
     background-color: #ff4081;
   }
   ```
-```
+````
 
 This simple example demonstrates how you can create a **stacked layout** with content and code blocks, all within a clean, readable format. Mixing content and code blocks in this way allows you to present complex technical concepts, tutorials, or style guides without sacrificing readability or maintainability.
+
+### Content tags
+Nue offers a large amount of [tags](content-tags.html) that significantly enhance your ability to create rich and interactive websites. You can add responsive images, videos, buttons, accordions, tabs, and more.
+
+You can also extend the syntax with [custom components](custom-components.html).

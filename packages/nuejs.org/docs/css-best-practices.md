@@ -1,4 +1,11 @@
 
+# DEPRECIATED:
+
+See [Styling](styling.html)
+
+===
+
+
 # Nue CSS best practices
 This document describes the best practices for writing clean CSS that is easy to maintain and scale. This is a result of decades of coding with CSS and HTML.
 
@@ -84,10 +91,6 @@ Place all page-specific CSS under the leaf folder, where the `index.md` file res
 
 #### More info:
 - [MDN: Cascade, specificity, and inheritance](//developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Cascade_and_inheritance)
-
-
-
-
 
 
 ## Use simple selectors { #selectors }
@@ -191,12 +194,6 @@ Now the "card" class can be applied to any element or component you desire, redu
 [Nicolas Gallagher: Component Modifiers](//nicolasgallagher.com/about-html-semantics-front-end-architecture/#component-modifiers)
 
 
-
-
-
-
-
-
 #### Links
 [MDN: External Stylesheets](//developer.mozilla.org/en-US/docs/Learn/CSS/First_steps/How_CSS_is_structured#external_stylesheet)
 
@@ -234,18 +231,14 @@ Avoid CSS reset libraries. They just add extra complexity and baggage with very 
 This sets your [CSS box model](//developer.mozilla.org/en-US/docs/Web/CSS/box-sizing) globally to "border-box", which makes dealing with the sizes much easier and eliminates several issues while laying out your content.
 
 
-
 ## Avoid CSS frameworks
 Avoid CSS frameworks. They just add extra layers of complexity and very little value. Once you've created your design system, and know exactly what you're doing, the CSS comes naturally. Any 3rd party library is just on your way by adding tons of things you don't need. For example, Bootstrap 4 has around 9000 lines of CSS, which is orders of magnitude more than what is needed for this website. Minimalism might be the most undervalued development skill.
-
-
 
 
 ## Avoid CSS-in-JS
 CSS-in-JS was introduced in 2014 to solve the problem of a global namespace in Facebook's gigantic, PHP-based codebase. However, this is a non-issue in well-organized CSS architectures.
 
 A much better solution is to respect constraints and centralize your CSS for developers who care about UX. Having 5-15 carefully named components does not pollute anything. Instead, you'll create a library of reusable components that match your design system.
-
 
 
 ## Prefer CSS over JavaScript
@@ -262,7 +255,7 @@ Check [motion and reactivity](reactivity.html) for details.
 ## Learn modern CSS
 There is tons of [misinformation](/blog/tailwind-misinformation-engine/) about CSS that makes beginner developers move away from web standards and adopt the idea of inline styling.
 
-But if you grasp the power of the global design system and see how you can accomplish the same thing with significantly less effort, you begin to think why you ever bought the idea of tight coupling in the first place.
+But if you grasp the power of the global design system and see how you can accomplish the same thing with significantly less effort, you begin to think, why you ever bought the idea of tight coupling in the first place.
 
 Understand the power of constraints, design systems, and web standards. Become a professional UX developer and stay relevant for years to come.
 

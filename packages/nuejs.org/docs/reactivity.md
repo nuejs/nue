@@ -32,7 +32,6 @@ view_transitions: true
   Future versions of Nue will also support view transitions in [single-page applications](single-page-applications.html). The user can seamlessly switch between the content-focused pages and the views of the single-page application and experience the transition effect defined on your design system.
 
 
-
 ### Menus and dialogs
 Today popovers, dialogs, and [burger menus](page-layout.html#burger) can be natively implemented with the [Popover API](//developer.mozilla.org/en-US/docs/Web/API/Popover_API) and page-transitions can be styled with the CSS [@starting-style](//developer.mozilla.org/en-US/docs/Web/CSS/@starting-style) at-rule:
 
@@ -63,7 +62,6 @@ Today popovers, dialogs, and [burger menus](page-layout.html#burger) can be nati
 ```
 
 That's all. No JavaScript is needed, the code looks clean, and all the necessary popover features and animations are in place, including keyboard support for the ESC-key.
-
 
 
 ### Scroll linked transitions
@@ -121,8 +119,6 @@ customElements.define('zen-toggle', ZenToggle, { extends: 'input' })
 ```
 
 One major benefit of using a Web Component is that the browser automatically takes care of component mounting and you have hooks for cleaning up resources when the component is removed from the DOM. They work nicely together with [view transitions](#view-transitions) without extra coding for setting things up.
-
-
 
 
 ### Dynamic sections { #sections }
@@ -217,8 +213,7 @@ After this, we can use this component in a Markdown file:
 
 
 ## Reactive components
-More complex components with dynamically generated HTML are better implemented with a [reactive component](reactive-components.html). These components support the same [template syntax](template-syntax.html) as the server-side components, but the components can respond to user input.
-
+More complex components with dynamically generated HTML are better implemented with a [reactive component](islands.html). These components support the same [template syntax](template-syntax.html) as the server-side components, but the components can respond to user input.
 
 
 ### Islands of Interactivity
@@ -262,7 +257,7 @@ After saving the component to a file with `.htm` or `.nue` extension, you can us
 ```md
 ## Join our mailing list
 
->[join-list cta="Submit form"]
+> [join-list cta="Submit form"]
 ```
 
 The component can also be used on your [layout files](custom-layouts.html):
@@ -272,7 +267,6 @@ The component can also be used on your [layout files](custom-layouts.html):
 ```
 
 Nue mounts reactive components automatically and hot-reloads them if you make changes. The dynamics are powered by a tiny, 2.5kb Nue.js script.
-
 
 
 ### Isomorphic components
@@ -297,8 +291,6 @@ Isomorphic components are hybrid client-side and server-side components that are
 ```
 
 The `<bunny-player>` is a reactive component defined in [@lib/video.htm](//github.com/nuejs/nue/blob/dev/packages/nuejs.org/%40lib/video.htm) file, which implements simple quality detection and [adaptive bitrate streaming](//en.wikipedia.org/wiki/Adaptive_bitrate_streaming) for browsers supporting the technology.
-
-
 
 
 ## Plain JavaScript

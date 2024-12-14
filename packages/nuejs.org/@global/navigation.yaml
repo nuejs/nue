@@ -23,9 +23,8 @@ documentation:
     - Settings and metadata: settings.html
     - Content syntax: content-syntax.html
     - Content tags: content-tags.html
-    - Custom tags: custom-tags.html
-    - Core components: core-components.html
     - Custom components: custom-components.html
+    - Core components: core-components.html
     - Template syntax: template-syntax.html
     - Content collections: content-collections.html
     - Syntax highlighting: syntax-highlighting.html
@@ -38,12 +37,12 @@ globalnav:
     - Home: / "nav-home"
     - Docs: /docs/
     - Blog: /blog/
-    - Nue 1.0 beta ›: /blog/nue-1-beta/ "status pill"
+    - "*Nue 1.0 (RC)* • A better Next.js?": /blog/nue-release-candidate/ "status pill"
 
 
   # header toolbar (complementary)
   toolbar:
-    - tipiirai: //x.com/tipiirai "social"
+    - Feed: //x.com/tipiirai "social"
     - 6.1k: //github.com/nuejs/nue "github pill"
 
   # burger menu
@@ -51,15 +50,14 @@ globalnav:
     - Home: /
     - Docs: /docs/
     - Blog: /blog/
-    - ---
     - GitHub: //github.com/nuejs/nue
 
   # footer
   footer:
-    - Why Nue: /docs/
+    - Why Nue?: /docs/
     - How it works: /docs/how-it-works.html
-    - Docs: /docs/
+    - Documentation: /docs/
+    - Installation: /docs/installation.html
     - Blog: /blog/
-    - Get started: /docs/installation.html "button"
 
 

@@ -1,10 +1,8 @@
 
 # Command Line Interface
-
-The command line interface (CLI) for Nue can document itself using the `--help` option. This provides an overview of available commands and options.
+A list of available commands and options
 
 ## Options
-
 To view the help output, run:
 
 ```sh
