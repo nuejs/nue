@@ -24,7 +24,7 @@
     "diff-dom": "^5.1.4",
     "import-meta-resolve": "^4.1.0",
     "js-yaml": "^4.1.0",
-    "lightningcss": "^1.27.0",
+    "lightningcss": "^1.28.2",
     "nue-glow": "*",
     "nuejs-core": "*",
     "nuemark": "*"
