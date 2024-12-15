@@ -17,9 +17,9 @@ CSS is the design language of the internet:
 
 1. **Central control** a centrally managed design system is easy to control by CSS developers / design engineers.
 
-1. **Modern CSS** Modern CSS is a powerful, standalone language. The cascade, advanced selectors, and motion design are just few examples of it's power.
+1. **Modern CSS** Modern CSS is a powerful, standalone language. The cascade, advanced selectors, and motion design are just few examples of its power.
 
-1. **HMR Speed** — vanilla CSS don't need processing, while JavaScript monoliths with large dependencies can take several seconds to rebuild.
+1. **Hot Module Replacement (HMR) Speed** — vanilla CSS doesn't need processing, while JavaScript monoliths with large dependencies can take several seconds to rebuild.
 
 1. **Smaller footprint** — CSS results in a much lighter page weight. For example, this website's entire CSS footprint is about the same size as Tailwind's Preflight CSS.
 
