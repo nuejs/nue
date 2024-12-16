@@ -19,7 +19,7 @@
     "test": "node --experimental-vm-modules ../../node_modules/jest/bin/jest.js --runInBand"
   },
   "devDependencies": {
-    "lightningcss": "^1.27.0"
+    "lightningcss": "^1.28.2"
   },
   "jest": {
     "setupFilesAfterEnv": [
