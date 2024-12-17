@@ -144,7 +144,7 @@ export function renderMultiNav(cats, data={}) {
   const html = []
 
   for (const cat in cats) {
-    const heading = elem('h3', cat)
+    const heading = elem('h4', cat)
     const nav = renderNav({ items: cats[cat], icon_dir, heading })
     html.push(nav)
   }
