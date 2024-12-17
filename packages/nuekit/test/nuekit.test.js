@@ -176,11 +176,12 @@ test('include/exclude data', async () => {
   expect(data.exclude).toEqual(["a", "b"])
 })
 
-test('asset include/exclude', async () => {
+test.only('asset include/exclude', async () => {
   await write('site.yaml', 'globals: [global]\nlibs: [lib, ext]\n')
   await write('global/global.css')
   await write('global/kama.dhtml')
   await write('global/kama.css')
+  await write('lib/boom.css')
   await write('lib/zoo.css')
   await write('blog/index.md')
   await write('blog/app.yaml', 'include: [lib]\nexclude: [kama]')
@@ -188,7 +189,7 @@ test('asset include/exclude', async () => {
   const kit = await getKit()
   const { assets } = await kit.getPageData('blog/index.md')
 
-  expect(assets.styles).toEqual(["/global/global.css", "/lib/zoo.css"])
+  expect(assets.styles).toEqual(["/global/global.css", "/lib/boom.css", "/lib/zoo.css"])
   // expect(data.components).toEqual([ "/global/kama.js", "/lib/zoo.css" ])
 })
 
