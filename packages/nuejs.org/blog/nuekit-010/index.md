@@ -34,12 +34,12 @@ Use the same simple syntax and development model for content-focused websites or
 [image]
   small: /img/simple-blog.png
   large: /img/simple-blog-big.png
-  href: /@simple-blog # TODO: fix
+  href: //simple-blog.nuejs.org
   width: 650
 
-Build a simple blog: [Tutorial](/docs/tutorials/build-a-simple-blog.html)<!--TODO: fix--> /
-[Live demo](/@simple-blog)<!--TODO: fix--> /
-[Source code](//github.com/nuejs/create-nue/tree/master/simple-blog)
+Build a simple blog: [Tutorial](/docs/tutorial.html) /
+[Live demo](//simple-blog.nuejs.org) /
+[Source code](//github.com/nuejs/nue/tree/master/packages/examples/simple-blog)
 
 &nbsp;
 
@@ -49,8 +49,9 @@ Build a simple blog: [Tutorial](/docs/tutorials/build-a-simple-blog.html)<!--TOD
   href: /@simple-admin # TODO: fix
   width: 650
 
-Build a simple SPA: [Tutorial](/docs/tutorials/build-a-simple-spa.html)<!--TODO: fix--> /
-[Live demo](/@simple-admin)<!--TODO: fix--> /
+// TODO: fix links
+Build a simple SPA: [Tutorial](/docs/tutorials/build-a-simple-spa.html) /
+[Live demo](/@simple-admin) /
   [Source code](//github.com/nuejs/create-nue/tree/master/simple-app)
 
 
