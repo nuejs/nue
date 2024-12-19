@@ -45,8 +45,6 @@ When drafting your [design system](ux-development.html#design-system) limit your
 - [LogRocket: Design constraints: Why they’re actually useful](//blog.logrocket.com/ux-design/design-constraints-why-theyre-useful/)
 
 
-
-
 ## Organize your CSS { #organize }
 Your CSS code is applied to a standardized [HTML layout](page-layout.html) in the global design system. This CSS should be organized in such a way that the colors, elements and components are aligned with your design system.
 
@@ -64,11 +62,9 @@ Name the files in such a way that everyone can easily guess what's inside the fi
 - `form.css` with all form elements like inputs, text areas, select boxes, checkboxes, radios, sliders, etc.
 
 
-
 #### Links
 - [O'Reilly: Classifying Different Types of Styles](//www.oreilly.com/library/view/css-refactoring/9781491978528/ch04.html)
 - [Sparkbox: The Anatomy of a Design System](//sparkbox.com/foundry/design_system_makeup_design_system_layers_parts_of_a_design_system)
-
 
 
 ## Setup CSS cascade { #css-hierarchy }
@@ -127,7 +123,6 @@ Simple selectors make your CSS easy to read and maintain. They keep your file si
 [Specificity and Hierarchy in CSS](//kelvinofili.hashnode.dev/specificity-and-hierarchy-in-css)
 
 
-
 ## Write clean HTML { #clean-markup }
 Avoid using unnecessary divs, spans and class names in your [custom layouts](custom-layouts.html):
 
@@ -153,7 +148,6 @@ Instead, you should write clean and semantic HTML:
 ```
 
 Clean HTML is significantly easier to read and work with. Use a class name only on the root element and let CSS selectors do the rest. It's surprising how little class names you need with clean, semantic markup. This website, for example, has only four class names on the global scope: "grid", "card", "stack" and "note". "Global namespace pollution" is essentially a myth and is trivial to avoid.
-
 
 
 ## Create re-usable class names { #reuse }
@@ -216,7 +210,6 @@ One killer feature of external CSS is the ability to use the same markup, but a 
 Don't create a custom component for every possible situation where a standard HTML element would do the same job just fine. For example, the text components in [Tailwind Catalyst](//catalyst.tailwindui.com/docs): `<Description>`, `<DialogDescription>`, `<Text>`, `<AlertDescription>`, etc. could be all implemented with a single `<p>` element that is externally styled.
 
 Standard HTML helps you avoid *component overload* — a situation where you are constantly creating new components. It's not unusual to see massive codebases with hundreds, even thousands of components. Don't do that. Use semantic HTML and keep your codebase clean and lean.
-
 
 
 ## Avoid CSS reset libraries

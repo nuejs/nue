@@ -4,10 +4,9 @@ Not all interactivity happens in isolated "islands." Vanilla JavaScript offers s
 
 1. **Dynamic HTML**: JavaScript can grab the static HTML and make it interactive. This approach is at the heart of progressive enhancement, adding dynamic behavior to otherwise static content.
 
-1. **Global scripts**: Unlike islands, global scripts can control the entire site, working across pages and sections. This makes them ideal for seamless, site-wide functionality.
+2. **Global scripts**: Unlike islands, global scripts can control the entire site, working across pages and sections. This makes them ideal for seamless, site-wide functionality.
 
-1. **Non-UI functionality**: JavaScript has access to APIs for features beyond the visible interface, such as tracking user behavior or managing local storage through `localStorage`, `sessionStorage`, or `IndexedDB`.
-
+3. **Non-UI functionality**: JavaScript has access to APIs for features beyond the visible interface, such as tracking user behavior or managing local storage through `localStorage`, `sessionStorage`, or `IndexedDB`.
 
 
 ## Modern JavaScript

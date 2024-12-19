@@ -7,7 +7,6 @@
   [button "See the difference"]
     href: motion-demo.html
 
-
   ---
 
   [! /tour/img/simple-blog-hero.png ]

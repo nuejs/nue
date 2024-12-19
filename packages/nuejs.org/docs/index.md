@@ -47,7 +47,6 @@ With no burden of countless and unnecessary JavaScript abstractions and dependen
     [image /icon/close.svg]
 
 
-
 ## 2. Design engineering
 Nue is built on **progressive enhancement**, fundamentally transforming how websites are developed. What once required a **React specialist** and extensive **TypeScript** effort can now be achieved with a concise, standards-based codebase, allowing you to focus on what matters: **content**, **layout**, **design**, and **motion**.
 

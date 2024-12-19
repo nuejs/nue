@@ -3,7 +3,6 @@
 Nue provides an **extended Markdown syntax** for authoring rich web content. Building on top of basic Markdown, you can easily include complex elements like grids, responsive images, tables, accordions, tabbed content, and more.
 
 
-
 [image.bordered]
   caption: Nue's extended Markdown syntax handles all varieties of content
   small: /img/content-files.png
@@ -70,7 +69,6 @@ Design principles like Separation of Concerns [^1], Progressive Enhancement [^2]
 ```
 
 Footnotes provide a way to include more detail without cluttering the main text.
-
 
 
 ## Nue-specific things
@@ -153,7 +151,6 @@ This is rendered as:
 ```
 
 Here, the ID is set to `less`, and the class is set to `more`, providing more control over your heading's styling and link structure.
-
 
 
 ### Expanded footnotes

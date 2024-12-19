@@ -16,8 +16,6 @@ Tailwind CSS was born out of this sentence:
 The [sentence](//youtu.be/CLkxRnRQtDE?t=109) is from **Nicolas Gallagher**'s article about [HTML semantics and front-end architecture](//nicolasgallagher.com/about-html-semantics-front-end-architecture/). It was a turning point for **Adam Wathan**, the creator and frontman of Tailwind. After reading the article he was ["fully convinced that optimizing for reusable CSS was going to be the right choice"](//adamwathan.me/css-utility-classes-and-separation-of-concerns/)
 
 
-
-
 ## Phase 1: The Origins of Tailwind { #origins }
 
 Nicholas points out in the article that scalable HTML/CSS must ["rely on classes within the HTML to allow for the creation of reusable components"](//nicolasgallagher.com/about-html-semantics-front-end-architecture/). So instead of using a content-dependent class name like "news", one should use a **content-independent** name like "uilist" or "uilist-item":
@@ -82,7 +80,6 @@ In his keynote speech, Adam uses [harsh words](//youtu.be/CLkxRnRQtDE?si=s5bmoLn
 Old best practices like "semantic", "separation of concerns", or "clean" are usually quoted, which is a common way to question the validity of the word.
 
 Unfair or not, this marketing scheme worked. Developers took the new terms and practices for granted and started tweeting and blogging about them. It was a gold mine for Tailwind's commercial business model.
-
 
 
 ## Phase 2: Utility-first workflow { #phase2 }
@@ -299,7 +296,6 @@ The first step is to learn CSS. It's the ultimate design language for the web. A
 [specificity]: //developer.mozilla.org/en-US/docs/Web/CSS/CSS_nesting/Nesting_and_specificity
 
 
-
 ### Content first
 Here's a better workflow. It has many names: "standards first", "content first", or "progressive enhancement".
 
@@ -322,7 +318,6 @@ My guess: It's only a matter of time before Tailwind collapses. The vendor-speci
 Learn to write clean HTML and CSS and stay relevant for years to come.
 
 [image "img/tw-switch.png" width="600"]
-
 
 
 [.footnote]

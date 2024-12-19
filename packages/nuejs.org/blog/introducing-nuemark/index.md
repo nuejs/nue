@@ -23,7 +23,6 @@ Nuemark is a standalone library that works under Bun, Node, and Deno. However, i
   poster: /img/nuemark-splash.jpg
 
 
-
 ## Manage content like a hacker { #hacker }
 Nuemark lets you manage content [like a hacker](//tom.preston-werner.com/2008/11/17/blogging-like-a-hacker) without the complexity of large systems like *WordPress* or *Contentful*. Instead, you'll approach content from a software development perspective: The content is stored in Git and you manage it with your preferred editor like *VS Code* or *Sublime Text*.
 
@@ -47,9 +46,6 @@ Nuemark is designed for content creation. It's a simple, concise syntax that is 
 
 
 With Nuemark, you start with pure content: Text, images, and videos and only then move into layout and design. By starting with a content-first mindset, you will ensure that the page design evolves to support what's inside it. Not the other way around.
-
-
-
 
 
 ## Built-in set of headless UI components { #components }
@@ -160,7 +156,5 @@ Nuemark differs from prior alternatives like *MDX* and *Markdoc* in the followin
 3. When you edit Nuemark within the Nue framework you see your page update on the browser in real-time offering a true WYSIWYG experience for content creators.
 
 
-
 ### Where does the syntax come from?
 Nuemark takes inspiration from WordPress shortcodes, TOML configuration language, YAML front matter, and other Markdown elements like links and images. The goal make it approachable for people already familiar with Markdown and introduce as few new idioms as possible.
-

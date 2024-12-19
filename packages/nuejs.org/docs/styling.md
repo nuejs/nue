@@ -15,15 +15,15 @@ CSS is the design language of the internet:
 
 1. **Global by nature** — CSS and design systems are global. Elements like typography, colors, spacing, and base content (headings, paragraphs, etc.) should be managed globally for consistency.
 
-1. **Central control** a centrally managed design system is easy to control by CSS developers / design engineers.
+2. **Central control** a centrally managed design system is easy to control by CSS developers / design engineers.
 
-1. **Modern CSS** Modern CSS is a powerful, standalone language. The cascade, advanced selectors, and motion design are just few examples of its power.
+3. **Modern CSS** Modern CSS is a powerful, standalone language. The cascade, advanced selectors, and motion design are just few examples of its power.
 
-1. **Hot Module Replacement (HMR) Speed** — vanilla CSS doesn't need processing, while JavaScript monoliths with large dependencies can take several seconds to rebuild.
+4. **Hot Module Replacement (HMR) Speed** — vanilla CSS doesn't need processing, while JavaScript monoliths with large dependencies can take several seconds to rebuild.
 
-1. **Smaller footprint** — CSS results in a much lighter page weight. For example, this website's entire CSS footprint is about the same size as Tailwind's Preflight CSS.
+5. **Smaller footprint** — CSS results in a much lighter page weight. For example, this website's entire CSS footprint is about the same size as Tailwind's Preflight CSS.
 
-1. **Timeless skills and products** — The JS monolith and its various unstandardized features are popular right now, but it's hard to predict what will happen in five years. The complicated utility syntaxes and missed opportunities indicate potential technology debt. It's wise to stick with web standards, as this benefits your skills and career. Plus, the products you create will be more durable over time.
+6. **Timeless skills and products** — The JS monolith and its various unstandardized features are popular right now, but it's hard to predict what will happen in five years. The complicated utility syntaxes and missed opportunities indicate potential technology debt. It's wise to stick with web standards, as this benefits your skills and career. Plus, the products you create will be more durable over time.
 
 
 ## Design systems

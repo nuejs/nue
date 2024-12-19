@@ -55,7 +55,6 @@ Things work well if you can just copy/paste components and tweak settings, but i
   size: 450 × 460
 
 
-
 ### Single point of responsibility { #blocker }
 Today, JavaScript/React developers are responsible for everything. The components are modern-day "kitchen sinks" where content, layout, styling, and business logic are stuffed together.
 
@@ -64,8 +63,6 @@ Things that used to be separate, are now under the responsibility of a JavaScrip
 The talent is inefficiently spread when React developers work on issues outside their interests. Engineers are not necessarily the best designers and many of them *hate* CSS.
 
 Your team could do so much better.
-
-
 
 
 ## What if...
@@ -78,7 +75,6 @@ What if we get all the benefits of CSS-in-JS, but none of the problems? No troub
 What if we could offload the burden from JavaScript developers and hand all design/UX work to people who are the absolute masters of that craft?
 
 What would *that* look like?
-
 
 
 ## 1. Cascading CSS architecture
@@ -106,7 +102,6 @@ Nue makes sure your design is consistently applied across all the pages and comp
   size: 720 × 556
 
 
-
 The design is separated from the HTML structure so that the system can be controlled by designers and UX developers. This way, non-technical people can create content so that the pages automatically inherit the correct design. And there is no way they can break the design system with local or inline styling.
 
 
@@ -126,7 +121,6 @@ Nue has its own [CSS best practices](/docs/styling.html) for writing clear HTML 
 Naming things and minimalism go hand-in-hand. The more names you have, the more complex your design system API. In most cases, the component name is all the naming you need.
 
 Simple means lean and well-organized CSS that is easy to maintain and scale. There's less room for errors: No global namespace issues, no local breaking points, and no consistency issues. The simpler you design the system, the better. The fewer colors, font weights, elements, components, and variants you have, the better.
-
 
 
 ## 3. Ditch JavaScript
@@ -156,8 +150,6 @@ When everything is based on a single source of truth, it's trivial to ditch the 
     - Minimalism + Code splitting + Page inlining
 
 
-
-
 ## Less coding needed
 Sites made with Nue have extremely little CSS. For example, a basic Tailwind button has more styling than a complete Nue-powered website:
 
@@ -170,7 +162,6 @@ The combined amount of CSS in three Nue websites equals the size of a single Tai
 Design-system-powered websites stay lean as the site grows:
 
 [size-compare a="dialog" b="mona-editor"]
-
 
 
 ## Leaner sites
@@ -196,7 +187,6 @@ A surprising fact is that minimal, inlined CSS gets you to the same performance 
 No matter how clever the Rust-based Bundler, optimizing your JavaScript, nothing beats a tiny TCP packet that has everything to render the landing page.
 
 
-
 ## Separation of concerns
 Nue breaks you out from the [single point of responsibility](#blocker) and offloads the burden from the JavaScript/React engineer for the more talented ones, focusing on that specific field:
 
@@ -204,7 +194,6 @@ Nue breaks you out from the [single point of responsibility](#blocker) and offlo
 
 
 Separation of concerns equals scalability: Marketers and technical writers proceed with content, designers and UX developers focus on the user experience, and JavaScript developers perfect the [back of the frontend](//bradfrost.com/blog/post/front-of-the-front-end-and-back-of-the-front-end-web-development/). The same applies for one person projects too — all the UX talent just comes from one head.
-
 
 
 ## Timeless skills and products
@@ -215,13 +204,7 @@ CSS is the styling language of the Web
 Any developer with a background in CSS can maintain the codebase. And when you come back later, even years later, the codebase is still sound and clear. There is no fear of [technical debt](#debt) because the CSS you write today is valid forever.
 
 
-
 ## We're building the CSS framework of the future
 We're building the next version of Nue which contains a thing called [global design system](//bradfrost.com/blog/post/a-global-design-system/), coming out from **Brad Frost**. We believe it could be the next big thing in CSS:
 
 [image "/img/css-future.png"]
-
-
-
-
-

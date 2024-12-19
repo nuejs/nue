@@ -415,7 +415,6 @@ Tables are rendered as standard HTML5 tables, ensuring compatibility and accessi
 This structure includes a `<caption>` for the table title, a `<thead>` for the headers, a `<tbody>` for the main content, and a `<tfoot>` for any footer notes or summaries, ensuring that your tables are fully semantic and accessible.
 
 
-
 ## Accordions
 Accordions in Nue make it easy to create collapsible content sections, perfect for FAQs or structured information that benefits from an expandable layout.
 

@@ -1,4 +1,3 @@
-
 ---
 hero_title: "*Nue 1.0 (RC)* — Can it outshine Next.js?"
 title: "A better Next.js? • Nue 1.0 (RC) is out"
@@ -91,11 +90,9 @@ Surprisingly, these rich, interactive sites remain exceptionally lightweight, co
     [image /icon/close.svg]
 
 
-
 [.note]
   ### Understanding Nue
   To better grasp the benefits and unique development model of Nue, be sure to explore the newly updated documents for [Why Nue?](/docs/) and [How it works](/docs/how-it-works.html). This section focuses specifically on the new release.
-
 
 
 ## New Markdown parser
@@ -139,7 +136,6 @@ The new parser introduces several powerful features to enhance your Markdown exp
 - **Inline components**: Custom tags can now be inlined directly within the content, like `A inlined [custom-tag] is here`. This allows you to add dynamic or reusable components within the text flow, offering more flexibility in structuring your content.
 
 
-
 ### New tags
 
 - **New `[accordion]` tag**: The [accordion] tag allows you to create collapsible panels without the need for complex syntaxes or additional JavaScript. Using the AST, the parser automatically treats `h2` or `h3` headers as new accordion panels. This makes it easy to create interactive content sections simply by structuring your Markdown with headers.
@@ -161,7 +157,6 @@ Marked is well-known for its performance, especially in handling basic Markdown 
 These performance improvements stem from Nue's more efficient internal architecture, designed to handle both simple and advanced Markdown features with minimal overhead. While these results come from basic, informal tests conducted on my laptop, I encourage you to test them for yourself. It would be great to see real-world benchmarks and eventually share them on this website to provide a more accurate comparison for the community.
 
 
-
 ## Other improvements and changes
 Full list of improvements and breaking changes on this release:
 
@@ -176,7 +171,6 @@ Full list of improvements and breaking changes on this release:
   - **Markdown <slot/> support**: Markdown extensions and custom components can now capture nested Markdown content using the `<slot/>` element. This makes it easier to build reusable wrapper components that can enrich nested content and other components.
 
   - **Improved HMR error reporting**: YAML parsing errors are now displayed directly in the browser via the updated Hot Module Replacement (HMR) feature. With this improvement, developers can see parse errors related to YAML, JavaScript, CSS, and components right away, making the development process faster and more efficient.
-
 
 
   ## Breaking changes

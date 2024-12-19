@@ -17,7 +17,6 @@ I created a [project on GitHub](//github.com/nuejs/nue) and called it **"Nue"**.
   width: 550
 
 
-
 [.note]
   ## Terms
   **UX** = improved user experience, **DX** = improved developer experience
@@ -37,7 +36,6 @@ Note that single-page applications are no different: The content just comes from
   Popular frameworks like **Next.js** or **Astro** are optimized for JavaScript developers with a deep understanding of **React**, **TypeScript**, **CSS-in-JS**, **Tailwind**, and whatnot. For example, you need hundreds of lines of code spanning 10-20 files to create a rich/interactive web page.
 
 
-
 ## World-class design `UX` { #design }
 World-class means the highest caliber design in the world. The top 1% of websites. The future **Stripes**, **Amies**, and **Linears**.
 
@@ -47,7 +45,6 @@ When a content-first design system is in place, content teams can ship great-loo
 
 [.problem]
   Current frameworks like **Bootstrap** and Tailwind lack a global, content-first design system that spans the entire website. UX/CSS professionals have a hard time contributing because CSS is tightly coupled inside the JavaScript code.
-
 
 
 ## Motherf**king fast `UX` { #speed }
@@ -91,7 +88,6 @@ They use the same system for content-focused apps and single-page apps and enjoy
   Vite and **React** place all the burden on the JavaScript developer. They develop React components where content, styling, and logic are all mixed. Scaling becomes hard when content teams and UX developers cannot participate. And if you use different systems for blogging, documentation, and single-page apps – extra developer time is spent on keeping the external services together.
 
 
-
 ## Sub-second deploy times `DX` { #ship }
 When you push out a new blog entry or a product release, something always goes wrong: Typos, wording issues, missing links, broken styling on mobile, ... You name it. In this situation, it's critical to have a fast shipping engine in place. You want to fix your errors before the next bunch of visitors arrives.
 
@@ -123,8 +119,3 @@ We're looking at the fastest way to start a new, fully functional business.
 
 [.problem]
   Vercel, *Heroku*, or *Render* don't have integrated services. You need to build them yourself or fall back to external services like HubSpot or Google Analytics. It's impossible to get a consistent UX/DX across the board.
-
-
-
-
-
