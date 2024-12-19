@@ -3,7 +3,7 @@
 import { sep } from 'node:path'
 import { pathToFileURL } from 'node:url'
 
-import { log, colors, getVersion, getEngine } from './util.js'
+import { esMain, log, colors, getVersion, getEngine } from './util.js'
 
 
 // [-npe] --> [-n, -p, -e]
@@ -125,7 +125,7 @@ async function runCommand(args) {
 }
 
 // Only run main when called as real CLI
-if (import.meta.url === pathToFileURL(process.argv[1]).href) {
+if (esMain(import.meta)) {
 
   const args = getArgs(process.argv)
 

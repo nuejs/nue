@@ -1,13 +1,18 @@
 /* misc stuff. think shame.css */
 
 import { promises as fs } from 'node:fs'
-import { sep, parse, normalize, join, isAbsolute, dirname } from 'node:path'
+import { sep, parse, normalize, join, isAbsolute, dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 
 export const srcdir = dirname(fileURLToPath(import.meta.url))
 
 export const openUrl = process.platform == 'darwin' ? 'open' : process.platform == 'win32' ? 'start' : 'xdg-open'
+
+export function esMain(meta) {
+  if (!meta || !process.argv[1]) return false
+  return fileURLToPath(meta.resolve(process.argv[1])) === fileURLToPath(meta.url)
+}
 
 // read from package.json
 export async function getVersion() {
