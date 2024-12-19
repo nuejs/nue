@@ -69,7 +69,7 @@ function App() {
 
 [counter]
 
-[Source](//github.com/nuejs/nue/blob/master/packages/nuejs.org/blog/rethinking-reactivity/examples.nue)
+[Source](//github.com/nuejs/nue/blob/master/packages/nuejs.org/blog/rethinking-reactivity/examples.dhtml)
 
 To understand this choice we must go back in time. The world used to be slightly different before React and the kids entered the picture. There were two kinds of frontend skills: *UX development* and *JS development*:
 
