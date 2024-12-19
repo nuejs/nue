@@ -34,12 +34,12 @@ Use the same simple syntax and development model for content-focused websites or
 [image]
   small: /img/simple-blog.png
   large: /img/simple-blog-big.png
-  href: /@simple-blog
+  href: //simple-blog.nuejs.org
   width: 650
 
-Build a simple blog: [Tutorial](/docs/tutorials/build-a-simple-blog.html) /
-[Live demo](/@simple-blog) /
-[Source code](//github.com/nuejs/create-nue/tree/master/simple-blog)
+Build a simple blog: [Tutorial](/docs/tutorial.html) /
+[Live demo](//simple-blog.nuejs.org) /
+[Source code](//github.com/nuejs/nue/tree/master/packages/examples/simple-blog)
 
 &nbsp;
 
