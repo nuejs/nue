@@ -123,8 +123,6 @@ As you move from the site level to the page level, the data gets extended or ove
   caption: Data inheritance in Nue
 
 
-
-
 ## Unstructured content
 
 Unstructured content in Nue varies in terms of its **richness and interactivity**:
@@ -143,7 +141,6 @@ Nue supports an [extended Markdown syntax](content-syntax.html) that handles all
   small: /img/content-files.png
   large: /img/content-files-big.png
   size: 745 × 383
-
 
 
 ### Cloud storage

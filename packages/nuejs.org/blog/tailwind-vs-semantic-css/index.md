@@ -20,8 +20,6 @@ This study compares two websites with similar design: The commercial Spotlight t
     small: img/nue-home.png
 
 
-
-
 ## Front page HTML
 The main difference: Tailwind uses "utility" classes and the semantic version uses external stylesheets. That is: Tailwind styles elements inline, directly on the markup and the semantic version respects the [separation of concerns](//en.wikipedia.org/wiki/Separation_of_concerns) principle.
 
@@ -50,8 +48,6 @@ With Tailwind the [Text to HTML Ratio][tw-ratio] is only 2.3%, which is "Very lo
 [tw-ratio]: //www.siteguru.co/free-seo-tools/text-to-html-ratio?url=spotlight.tailwindui.com
 
 [nue-ratio]: //www.siteguru.co/free-seo-tools/text-to-html-ratio?url=nuejs.org/@spotlight/
-
-
 
 
 ## Front page CSS
@@ -91,7 +87,6 @@ The two metrics that measure page rendering speed are [first contentful paint](/
   caption: Largest Contentful Paint (LCP) rendering speed on mobile
 
 
-
 Please compare [Tailwind metrics](//pagespeed.web.dev/analysis/https-spotlight-tailwindui-com/cqtnf4xxoy?form_factor=mobile) with [Semantic CSS metrics](//pagespeed.web.dev/analysis/https-nuejs-org-spotlight/6nnhwwnz8b?form_factor=mobile).
 
 Two reasons why the semantic version is faster:
@@ -101,8 +96,6 @@ Two reasons why the semantic version is faster:
 2. The first request is [less than 14K][14k], which is the maximum size of the first TCP packet.
 
 [14k]: //endtimes.dev/why-your-website-should-be-under-14kb-in-size/
-
-
 
 
 ## Separation of concerns
@@ -198,4 +191,3 @@ If you really want to move faster, you'll create a set of CSS components that yo
 Because mastering CSS requires practice. It takes several failed attempts before you get it. Most developers haven't gone through that, so they only remember the bad things.
 
 The fact is that Tailwind's popularity will eventually fade. CSS-in-JS is trending now, but standards are forever. At some point, we'll all experience a "WTF moment" when looking at the tightly coupled Tailwind code.
-

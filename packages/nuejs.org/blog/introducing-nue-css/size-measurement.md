@@ -20,7 +20,6 @@ CSS size details for the [comparison graphs](.#size-graphs)
 - **DSL** refers to "domain specific language", which is the inline styling (utility classes + expressions) inside the class name attribute
 
 
-
 ## Nue sizes
 
 [size-table]

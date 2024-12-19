@@ -31,13 +31,11 @@ Today, there is an unexpected resistance towards vanilla JS and CSS. Nue is an a
 This article showcases the power of CSS and the web standards model by comparing the Tailwind "Spotlight" template (from the developers of Tailwind) with a version made with vanilla CSS.
 
 
-
 #### February 18, 2024 [Tailwind marketing and misinformation engine](/blog/tailwind-misinformation-engine/)
 How Tailwind positions vanilla CSS as the problem and the "utility first" approach as the hero. Well-known framing for CSS experts, but strongly [denied](//youtu.be/yGBjXsrwK4M) by the Tailwind community.
 
 #### March 20, 2024 [Nue CSS preview](/blog/introducing-nue-css/)
 Sneak preview of the upcoming design system approach and the best practices of writing maintainable CSS. The article demonstrates some crazy size differences to Tailwind.
-
 
 
 ## Project milestones
@@ -54,7 +52,6 @@ The idea of Nue was posted to Hacker News. Here's the [backstory](/blog/backstor
 
 #### February 13, 2024 [Markdown syntax highlighter](/blog/introducing-glow/)
 [Glow 0.1](/blog/introducing-glow/) A Markdown code block syntax highlighter to meet the aesthetics and extreme minimalistic demands of Nue.
-
 
 
 ## Current status: Beta
@@ -112,6 +109,3 @@ We want everyone to have the ability to take the quality levels of *Stripe*, *Li
 - [Alan Hemmings](//github.com/goblinfactory) for the developer feedback and the mental support. Much-needed!
 
 - Thanks to all [25+ contributors](//github.com/nuejs/nue/graphs/contributors) for improving Nue's codebase.
-
-
-

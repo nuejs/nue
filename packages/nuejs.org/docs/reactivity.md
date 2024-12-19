@@ -87,10 +87,8 @@ This animation is then bound to the progress of the scroll as follows:
 Again, this was a super simple and clean syntax for defining a scroll-linked animation that would be a rather large development effort with JavaScript.
 
 
-
 ## Web Components
 Loading a heavy front-end library is not always the best choice for simple reactivity. It's often better to go with [Web Components](//developer.mozilla.org/en-US/docs/Web/API/Web_components) because they are mounted natively by the browser and are easy to write for simple things.
-
 
 
 ### Simple enhancements

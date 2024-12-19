@@ -10,18 +10,18 @@ Exactly one year ago I [decided](/blog/backstory/) to create a super simple webs
 
 1. **UX developers**: who natively jump between **Figma** and **CSS** without a confusing [designer-developer handoff](//medium.com/design-warp/5-most-common-designer-developer-handoff-mishaps-ba96012be8a7) process in the way.
 
-1. **Beginner web developers**: who want to skip the [redundant frontend layers](//roadmap.sh/frontend) and start building websites quickly with HTML, CSS, and JavaScript.
+2. **Beginner web developers**: who want to skip the [redundant frontend layers](//roadmap.sh/frontend) and start building websites quickly with HTML, CSS, and JavaScript.
 
-1. **Experienced JS developers**: frustrated with the absurd amount of layers in the [React stack](//roadmap.sh/react) and looking for simpler ways to develop professional websites.
+3. **Experienced JS developers**: frustrated with the absurd amount of layers in the [React stack](//roadmap.sh/react) and looking for simpler ways to develop professional websites.
 
 [.quote]
   > “Nue is **exactly** what I want. As a technical founder, I need easier ways to build websites. I don't want to hire devs and watch all my profits disappear in salaries.”
 
   — Alan Hemmings / [BigNameHunter](//bignamehunter.com/?refer=nuejs) / CEO
 
-1. **Designers**: planning to learn web development, but find the JavaScript ecosystem too scary
+4. **Designers**: planning to learn web development, but find the JavaScript ecosystem too scary
 
-1. **Parents & Teachers**: who wants to educate people [how the web works](//www.websitearchitecture.co.uk/resources/examples/web-standards-model/)
+5. **Parents & Teachers**: who wants to educate people [how the web works](//www.websitearchitecture.co.uk/resources/examples/web-standards-model/)
 
 
 [image.larger]
@@ -36,7 +36,6 @@ Exactly one year ago I [decided](/blog/backstory/) to create a super simple webs
 **v1.0 Beta** is by far the biggest release yet with five months of work and over [500 files changed](https://github.com/nuejs/nue/pull/316). This is a breakdown of new features, updates, and breaking changes.
 
 
-
 ## Improved CSS stack
 Nue has a powerful CSS theming system that supports [hot-reloading](/docs/hot-reloading.html), CSS inlining, error reporting, and automatic dependency management. This version improves the system with the following features:
 
@@ -46,7 +45,6 @@ Nue has a powerful CSS theming system that supports [hot-reloading](/docs/hot-re
 - [Library folders](/docs/project-structure.html#libraries) to hold re-usable CSS which can be explicitly included on your pages with a new `include` property. You can include assets globally, at the application level, or page level. This helps you take maximum advantage of the [CSS cascade](//developer.mozilla.org/en-US/docs/Web/CSS/Cascade).
 
 - [Exclude property](/docs/project-structure.html#exclude) allows you to strip unneeded assets from the request and lighten the payload.
-
 
 
 ## CSS view transitions
@@ -77,7 +75,6 @@ Nue's view transition mechanism implements a simple diffing algorithm to check w
 View transitions is a broad standard with tons of visual possibilities that are yet unexplored. Nue helps you stay in the forefront CSS development.
 
 
-
 ## CSS best practices
 Nue's new [CSS best practices](/docs/styling.html) brings out the best of modern CSS:
 
@@ -95,7 +92,6 @@ These lessons focus on writing reusable CSS that is easy to read, maintain, and 
 Nue helps you build professional websites with the same amount of CSS as you can find on a typical normalization library or Tailwind's "preflight" CSS.
 
 
-
 ## New website and documentation
 Unsurprisingly, the biggest job was the documentation area, which now focuses on [Design Engineering](/docs/how-it-works.html#design-engineering). About 80% of the documentation is completely rewritten and there are several new documents.
 
@@ -107,7 +103,6 @@ Unsurprisingly, the biggest job was the documentation area, which now focuses on
   href: /docs/
 
 The most important thing, however, is that the website is generated with the public Nue version, forcing us to "eat our own dogfood".
-
 
 
 ## Easier setup
@@ -156,7 +151,6 @@ The web component can be assigned globally in `site.yaml` for all page sections 
 - You can use both `og_image` and a new, shorter `og` property to assign an open graph image for the page.
 
 
-
 ## Breaking changes
 The major version number goes from zero to one, which means that ~this version of Nue is not backward compatible~. There are the following changes that might break your HTML or CSS from working:
 
@@ -192,8 +186,5 @@ This will nest the generated `<pre>` element with a wrapper element like this:
 Previously the class name would be set directly to the `pre` element. This makes a more consistent behavior with the `[code]` tag.
 
 
-
 ## Try now!
 Please [try it out](/docs/installation.html) and experience the difference in UX development. You might wonder why you ever built websites any other way.
-
-

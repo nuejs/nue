@@ -92,8 +92,6 @@ To understand this choice we must go back in time. The world used to be slightly
   - Performance optimization
 
 
-
-
 People who cared about UX could focus on the *front of the frontend*, and JS developers could focus on the *back of the frontend*. The talent was naturally spread and people did what they loved. It was great. *Brad Frost* wrote a [great article][brad] on the topic.
 
 
@@ -102,7 +100,6 @@ Today frontend development is dictated by the JS developer and everything is ass
 Nue wants to change this and bring UX developers back to the forefront. For them, it's more natural to start with HTML (content first!), then add styling, and finally JavaScript if needed. JavaScript is *optional* in content-heavy websites. Yes, we're talking about "old school" things like progressive enhancement, separation of concerns, and semantic web design.
 
 Therefore: Nue is HTML first.
-
 
 
 ## Class-based
@@ -131,8 +128,6 @@ Suddenly I could do things like this:
   }
 </SCRIPT>
 ```
-
-
 
 
 Yes, HTML was in all caps back then. And there were no `type="email"` fields, no `<button>` tag, nor the ability to post data with JavaScript. AJAX was invented seven years later. But I could make HTML dynamic and could move some of the dynamics from backend to the frontend.
@@ -191,7 +186,6 @@ ES6 classes make your code look amazingly compact and clean. You can add variabl
 [classes]: //developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes
 [getters]: //developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get
 [setters]: //developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set
-
 
 
 ## Reactivity model
@@ -291,7 +285,6 @@ count = 0
 ```
 
 
-
 ## Reactivity under the hood
 Here's how Nue JS works.
 
@@ -340,7 +333,6 @@ That's Nue reactivity in short.
 [if]:  //github.com/nuejs/nue/blob/master/packages/nuejs/src/browser/if.js
 
 
-
 ## Keeping things small
 The compiled Nue code is very small: Only like ~1.2x larger than the HTML-based source code. This makes Nue applications the smallest on the market.
 
@@ -363,8 +355,6 @@ The compiled Nue code is very small: Only like ~1.2x larger than the HTML-based 
   width: 550
 
 
-
-
 ## Predicting the future
 I see that frontend development is trending into the following directions:
 
@@ -375,4 +365,3 @@ I see that frontend development is trending into the following directions:
 *More standards-based coding*. As developers move to multi-page applications JavaScript is rendered on the server side, and client-side JavaScript becomes optional. This forces the pre-SPA best practices to come back: Separation of concerns, progressive enhancement, and semantic web design.
 
 Nue is designed from the ground up to be on par with the above trends.
-

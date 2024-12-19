@@ -20,8 +20,3 @@ Nue brings UX development back to the forefront. What used to take a separate de
 ### Peace ❤️
 
 [!.signature /img/signature.png width="200"]
-
-
-
-
-

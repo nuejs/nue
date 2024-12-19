@@ -63,7 +63,6 @@ appdir: home
 With this setting, all assets inside the "home" directory become dependencies of your root-level `index.md`, keeping the root directory uncluttered.
 
 
-
 Here’s a more concise version of the "Globals" section, removing the specific reference to Tailwind and focusing on the importance of the Design System:
 
 

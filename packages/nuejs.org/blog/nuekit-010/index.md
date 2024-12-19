@@ -54,7 +54,6 @@ Build a simple SPA: [Tutorial](/docs/tutorials/build-a-simple-spa.html)<!--TODO:
   [Source code](//github.com/nuejs/create-nue/tree/master/simple-app)
 
 
-
 ## Significantly faster build times { #faster }
 Nue is an order of magnitude faster than its cousins. An identical blogging site takes around *50ms* to build with Nuekit and over *ten seconds* with Next.js:
 
@@ -80,7 +79,6 @@ With lots of explainer-images and -videos:
   small: /img/docs.png
   large: /img/docs-big.png
   href: /docs/
-
 
 
 ## Get started
