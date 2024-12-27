@@ -18,6 +18,9 @@
     "js-yaml": "^4.1.0",
     "nue-glow": "*"
   },
+  "devDependencies": {
+    "commonmark-spec": "^0.31.2"
+  },
   "jest": {
     "setupFilesAfterEnv": [
       "jest-extended/all",
