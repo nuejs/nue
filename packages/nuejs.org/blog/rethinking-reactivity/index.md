@@ -14,7 +14,7 @@ date: 2023-10-02
   caption: Less is more
 
 
-Nue was linked to [Hacker News][hn], [Lobsters][lobsters], and [Reddit][reddit] on September 2023 and it was really a dream start for the project. I received a super warm welcome from developers, over 120k people came to see the website, and the project rapidly got thousands of stars on GitHub. My time lately has gone on fixing bugs, merging pull requests, giving support, answering questions, and [providing examples](/docs/nuejs/examples).<!--TODO: fix-->
+Nue was linked to [Hacker News][hn], [Lobsters][lobsters], and [Reddit][reddit] on September 2023 and it was really a dream start for the project. I received a super warm welcome from developers, over 120k people came to see the website, and the project rapidly got thousands of stars on GitHub. My time lately has gone on fixing bugs, merging pull requests, giving support, answering questions, and [providing examples](/docs/nuejs/examples).
 
 Common questions are: "How does reactivity work"? and "How is this different from React or Svelte"? Here I do my best to answer those exact questions.
 
@@ -154,7 +154,6 @@ Nue uses classes to bring the DHTML vibes back to modern component-based web dev
 
 The most notable thing is the `<script>` tag, which is now nested *inside* the component. This is the place for your ES6 class variables and methods.
 
-// TODO: fix todomvc link
 ES6 classes make your code look amazingly compact and clean. You can add variables, methods, [getters][getters], [setters][setters], and `async` methods with the cute and short syntax. Here is a snippet from a [Todo MVC](/todomvc/) app written with Nue:
 
 
@@ -336,7 +335,7 @@ That's Nue reactivity in short.
 ## Keeping things small
 The compiled Nue code is very small: Only like ~1.2x larger than the HTML-based source code. This makes Nue applications the smallest on the market.
 
-*Evan You*'s (creator of Vue) [compared][evan] the generated code size of Vue and Svelte components. He used TodoMVC as the measure for an individual component. By adding add [Nue TodoMVC](/todomvc/)<!--TODO: fix--> to the mix we get the following data:
+*Evan You*'s (creator of Vue) [compared][evan] the generated code size of Vue and Svelte components. He used TodoMVC as the measure for an individual component. By adding [Nue TodoMVC](/todomvc/) to the mix we get the following data:
 
 [evan]: //github.com/yyx990803/vue-svelte-size-analysis
 

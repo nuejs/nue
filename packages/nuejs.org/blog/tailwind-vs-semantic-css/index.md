@@ -15,7 +15,7 @@ This study compares two websites with similar design: The commercial Spotlight t
     large: img/tw-home-big.png
   ---
   [image]
-    href: /@spotlight/ # TODO: fix
+    href: /@spotlight/
     large: img/nue-home-big.png
     small: img/nue-home.png
 
@@ -67,7 +67,7 @@ Some key takes:
 
 2. Most of the semantic CSS is re-usable on other pages and only a fraction of the CSS is specific to the front page. It's easy to create new pages when the groundwork is already done.
 
-3. "Spotlight" is just a *theme* extending a base design. There is an extremely minimalistic [base-version](/@base/)<!--TODO: fix--> of the website that can be used to create new themes, like our Spotlight theme.
+3. "Spotlight" is just a *theme* extending a base design. There is an extremely minimalistic [base-version](/@base/) of the website that can be used to create new themes, like our Spotlight theme.
 
 [image]
   small: img/extending.png
@@ -75,7 +75,7 @@ Some key takes:
   caption: Creating a new design by extending a semantic base design
 
 
-Theming is a powerful concept in CSS. You can alter your design by swapping parts of your CSS with another one or overriding a [base version](/@base/)<!--TODO: fix-->. Theming is impossible with Tailwind because the design is tightly coupled to the markup. If you want a new design, you must edit your markup and override your earlier work.
+Theming is a powerful concept in CSS. You can alter your design by swapping parts of your CSS with another one or overriding a [base version](/@base/). Theming is impossible with Tailwind because the design is tightly coupled to the markup. If you want a new design, you must edit your markup and override your earlier work.
 
 
 ## Rendering speed
@@ -119,7 +119,7 @@ Here's a better example. Let's look at the "Uses" or "Setup" page on both implem
     caption: Tailwind UI version →
   ---
   [image]
-    href: /@spotlight/setup/ # TODO: fix
+    href: /@spotlight/setup/
     large: img/nue-uses-big.png
     small: img/nue-uses.png
     caption: Semantic version →
