@@ -2,8 +2,8 @@
 # the information architecture
 documentation:
   Getting started:
-    - Why Nue: /docs/
-    - How it works: /docs/how-it-works.html
+    - What is Nue: /docs/
+    - FAQ: /docs/faq.html
     - Installation: installation.html
     - Command line interface: command-line-interface.html
 
@@ -38,7 +38,7 @@ globalnav:
     - Docs: /docs/
     - Blog: /blog/
     - Vision: /vision/
-    - "*Nue 1.0 (RC)* • A better Next.js?": /blog/nue-release-candidate/ "status pill"
+    - "The standards first framework ›": /blog/standards-first-web-framework/ "pill"
 
 
   # header toolbar (complementary)
