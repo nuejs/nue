@@ -46,7 +46,7 @@ aside {
 aside:first-child nav {
   margin-bottom: 1.5em;
 
-  [aria-selected] {
+  [aria-current] {
     background: var(--main-500);
     color: white;
     border-radius: 0 3px 3px 0;
@@ -79,7 +79,7 @@ aside:first-child nav {
   }
 
 
-  [aria-selected] {
+  [aria-current] {
     border-color: var(--main-500);
     border-width: 2px;
     color: var(--main-500);

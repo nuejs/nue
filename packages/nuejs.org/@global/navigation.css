@@ -37,7 +37,7 @@ body > header {
     display: inline-flex;
   }
 
-  [aria-selected] {
+  [aria-current] {
     text-decoration: var(--main-500) underline;
     text-decoration-thickness: 2px;
     text-underline-offset: 8px;
@@ -119,7 +119,7 @@ body > header {
     background-image: url(/icon/github.svg);
   }
 
-  &[aria-selected] {
+  &[aria-current] {
     display: none;
   }
 }

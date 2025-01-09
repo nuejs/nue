@@ -127,7 +127,8 @@ export function readIcon(path, icon_dir) {
   path = join('.', path)
 
   try {
-    return readFileSync(path, 'utf-8')
+    const svg = readFileSync(path, 'utf-8')
+    return svg.replace('<svg', '<svg class="icon"')
   } catch (e) {
     console.error('svg not found', path)
     return ''
@@ -135,7 +136,7 @@ export function readIcon(path, icon_dir) {
 }
 
 export function renderIcon(name, symbol, icon_dir) {
-  return name ? readIcon(name, icon_dir) : symbol ? elem('svg', `<use href="#${symbol}"/>`) : ''
+  return name ? readIcon(name, icon_dir) : symbol ? elem('svg', { class: 'icon icon-' + symbol }, `<use href="#${symbol}"/>`) : ''
 }
 
 

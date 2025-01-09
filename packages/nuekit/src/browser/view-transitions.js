@@ -81,7 +81,6 @@ export function onclick(root, fn) {
   })
 }
 
-// developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-selected
 function toRelative(path) {
   const curr = location.pathname
   return curr.slice(0, curr.lastIndexOf('/') + 1) + path
@@ -165,7 +164,7 @@ function simpleDiff(a, b, ignore_main) {
 }
 
 function updateBlock(a, b) {
-  const orig = a.outerHTML.replace(' aria-selected=""', '')
+  const orig = a.outerHTML.replace(' aria-current="page"', '')
   if (orig != b.outerHTML) a.replaceWith(b.cloneNode(true))
 }
 

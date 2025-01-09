@@ -37,13 +37,14 @@ globalnav:
     - Home: / "nav-home"
     - Docs: /docs/
     - Blog: /blog/
+    - Vision: /vision/
     - "*Nue 1.0 (RC)* • A better Next.js?": /blog/nue-release-candidate/ "status pill"
 
 
   # header toolbar (complementary)
   toolbar:
     - Feed: //x.com/tipiirai "social"
-    - 6.1k: //github.com/nuejs/nue "github pill"
+    - 6.2k: //github.com/nuejs/nue "github pill"
 
   # burger menu
   menu:

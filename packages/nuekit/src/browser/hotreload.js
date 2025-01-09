@@ -142,43 +142,9 @@ async function patch(html) {
 
   const diff = Diff.diff(old_body, body)
 
-  // tab state
-  const flags = $$('[role=tab]').map(el => el.getAttribute('aria-selected'))
-
   Diff.apply(old_body, diff)
-
-  // restore tabs
-  restoreTabs(flags)
 
   await mountAll()
 }
 
-function toggleAttr(el, name, flag) {
-  flag ? el.setAttribute(name, 1) : el.removeAttribute(name)
-}
 
-function restoreTabs(flags) {
-  const panels = $$('[role=tabpanel]')
-
-  $$('[role=tab]').forEach((el, i) => {
-    toggleAttr(el, 'aria-selected', flags[i])
-    toggleAttr(panels[i], 'hidden', !flags[i])
-  })
-}
-
-
-/*
-
-// patch triggers multiple events so it's impossible to know which one was the most recent update
-
-function inViewport(el) {
-  const rect = el.getBoundingClientRect()
-  return rect.top > 0 && rect.left > 0 && rect.bottom < innerHeight && rect.right < innerWidth
-}
-
-function scrollTo({ diff, node }) {
-  const p = node?.parentElement
-  const el = node?.closest ? node : p
-  if (!inViewport(el)) el.scrollIntoView({ behavior: 'smooth' })
-}
-*/
