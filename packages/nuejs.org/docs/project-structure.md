@@ -1,43 +1,38 @@
 
 # Project Structure
 
-The Nue project consists of various files and folders that you can organize based on your website's functionality. Understanding the project structure is key to building websites that are easy to manage and scale.
+A website consists of content, data, layout definitions, interactive components, styling, and scripts. In Nue, each of these lives in its proper place, maintaining clean separation between different concerns. Understanding this structure is key to building maintainable sites.
 
 ## Files
 
 Here are all the different kinds of files your project consists of:
 
-
 [table.deftable]
-  File type | Suffix | Description
+  File type | Suffix | Purpose
 
-  [Content](content.html) | `.md`
-  Files containing your website content written in extended Markdown format. This format facilitates a clear separation of content from code, enhancing readability and manageability, particularly in rich interactive websites.
+  Content | `.md`
+  Your website content in extended Markdown format.
 
-  [Data](content.html) | `.yaml`
-  Files that store structured data, encompassing SEO metadata, product listings, team member information, and navigational data. This structured approach is essential for establishing a clear information architecture, supporting a content-first philosophy by organizing and structuring content for improved usability and accessibility.
+  Data | `.yaml`
+  Structured data for SEO metadata, product info, team details, and navigation.
 
-  [Settings](settings.html) | `.yaml`
-  Configuration files that dictate how your site is generated. These files include metadata, layout settings, and other parameters that influence the overall structure and behavior of your application, ensuring a smooth and consistent site generation process.
+  Settings | `.yaml`
+  Configuration for site generation, metadata, and layout parameters.
 
-  [Layout modules](layout.html) | `.html`
-  These files define global layout components such as headers, footers, and sidebars that form the foundation of your semantic layout. They contribute to a consistent user interface and enhance the overall user experience by providing a familiar navigation structure.
+  Layout modules | `.html`
+  Global layout components like headers, footers, and sidebars.
 
-  [Custom components](custom-components.html) | `.html`
-  Custom Markdown extensions and other server-side components that assist in rendering the overall page layout. These components ensure that the layout remains cohesive and help structure the content effectively, while the interactive features are handled by client-side components.
+  Custom components | `.html`
+  Server-side components that extend Markdown capabilities.
 
-  [Interactive islands](islands.html) | `.dhtml`, `.htm`
-  Client-side components that create reactive "islands" of interactivity within a page. These components enable dynamic updates and user interactions without requiring a full page refresh, enhancing the user experience while keeping the core layout server-rendered.
+  Interactive islands | `.dhtml`, `.htm`
+  Client-side components for dynamic functionality.
 
-  [Styling](styling.html) | `.css`
-  Stylesheets that define global, application, and page-level styles. All CSS files contribute to the overarching design system, ensuring a cohesive visual language and consistent user experience across your project. This structured approach to styling facilitates easier maintenance and scalability as your project evolves.
+  Styling | `.css`
+  Global, application, and page-level styles.
 
-  [Scripting](scripting.html) | `.js`, `.ts`
-  Files that provide support for CSS-driven motion and animation effects, including the Intersection Observer API. These scripts also manage global keyboard and click event listeners in the document, enhancing interactivity while optimizing performance.
-
-
-### Static Files
-Static files like `.png`, `.jpg`, `.webp`, `.txt`, `.csv`, `.json`, etc. are copied directly from the source directory to the distribution directory without processing. They work outside the page dependency management system.
+  Scripting | `.js`, `.ts`
+  Support for CSS-driven motion and global event handling.
 
 ### 404 File
 A file named `404.md` at the root level acts as a target for non-existent files.
@@ -45,6 +40,37 @@ A file named `404.md` at the root level acts as a target for non-existent files.
 
 ## Directories
 Here are the different types of folders you can have in Nue:
+
+### Static Directories
+Static directories store assets that are served directly without processing. Common examples include:
+
+```
+/
+  ├── img/                     # Images
+  │   ├── hero/               # Hero images
+  │   │   ├── home.webp
+  │   │   └── about.webp
+  │   ├── blog/              # Blog post images
+  │   │   ├── post-1.webp
+  │   │   └── post-2.webp
+  │   └── team/              # Team member photos
+  │       ├── sarah.webp
+  │       └── james.webp
+  │
+  ├── icon/                   # UI icons
+  │   ├── navigation/
+  │   │   ├── menu.svg
+  │   │   └── close.svg
+  │   └── social/
+  │       ├── github.svg
+  │       └── twitter.svg
+  │
+  ├── video/                  # Video content
+  │   ├── demos/
+  │   │   └── feature-1.mp4
+  │   └── tutorials/
+  │       └── setup.mp4
+```
 
 
 ### Application Directories
@@ -148,20 +174,20 @@ Example blogging site directory structure (files and folders):
 ```
 /
   ├── @global                # Global styles: colors, layout, typography
-  │   ├── settings.css       # Site-wide settings
-  │   ├── colors.css         # Color palette
-  │   ├── typography.css     # Font styles
-  ├── @library               # Reusable styles
-  │   ├── button.css         # Button styles
-  │   ├── forms.css          # Form styles
-  │   ├── cards.css          # Card component styles
+  │   ├── settings.css
+  │   ├── colors.css
+  │   ├── typography.css
+  ├── @library
+  │   ├── button.css
+  │   ├── forms.css
+  │   ├── cards.css
   ├── blog                   # Blogging area
-  │   ├── blog.yaml          # Blog-specific settings
-  │   ├── index.md           # Blog index page
-  │   ├── post1.md           # Blog post example
-  │   ├── post2.md           # Another blog post
-  ├── contact                # Contact app
-  │   ├── index.md           # Contact form page
+  │   ├── blog.yaml
+  │   ├── index.md
+  │   ├── post1.md
+  │   ├── post2.md
+  ├── contact
+  │   ├── index.md
   ├── img                    # Images and icons
   ├── index.md               # The front page
   ├── site.yaml              # Global settings
@@ -179,38 +205,38 @@ Directory structure for a business website, including specific assets:
 
 ```
 /
-  ├── @global                  # Global styles: colors, layout, typography
-  │   ├── settings.css         # Site-wide settings
-  │   ├── colors.css           # Color palette
-  │   ├── typography.css       # Font styles
-  ├── @library                 # Reusable styles
-  │   ├── button.css           # Button styles
-  │   ├── forms.css            # Form styles
-  │   ├── cards.css            # Card component styles
-  ├── index.md                 # Rich front page content
-  ├── home                     # Front page assets
-  │   ├── home.yaml            # Front page settings
-  │   ├── styles.css           # Front page-specific styles
-  │   ├── scripts.js           # Front page-specific scripts
-  ├── docs                     # Documentation area
-  │   ├── index.md             # Documentation main page
-  │   ├── guide.md             # User guide
-  │   ├── reference.md         # API reference
-  ├── blog                     # Blogging area
-  │   ├── blog.yaml            # Blog settings
-  │   ├── post1.md             # Blog post example
-  │   ├── post2.md             # Another blog post
-  ├── about                    # About page
-  │   ├── index.md             # About page content
-  │   ├── team.md              # Team information
-  │   ├── history.md           # Company history
-  ├── pricing                  # Pricing page
-  │   ├── index.md             # Pricing page content
-  │   ├── plans.md             # Details of pricing plans
-  ├── img                      # Images and icons
-  │   ├── logo.png             # Company logo
-  │   ├── hero-banner.jpg      # Hero banner image
-  │   ├── product-image.png    # Product showcase image
+  ├── @global                # Global styles
+  │   ├── settings.css
+  │   ├── colors.css
+  │   ├── typography.css
+  ├── @library              # Reusable styles
+  │   ├── button.css
+  │   ├── forms.css
+  │   ├── cards.css
+  ├── index.md              # Front page
+  ├── home                  # Front page assets
+  │   ├── home.yaml
+  │   ├── styles.css
+  │   ├── scripts.js
+  ├── docs                  # Documentation
+  │   ├── index.md
+  │   ├── guide.md
+  │   ├── reference.md
+  ├── blog                  # Blog
+  │   ├── blog.yaml
+  │   ├── post1.md
+  │   ├── post2.md
+  ├── about                 # About section
+  │   ├── index.md
+  │   ├── team.md
+  │   ├── history.md
+  ├── pricing
+  │   ├── index.md
+  │   ├── plans.md
+  ├── img                   # Static assets
+  │   ├── logo.png
+  │   ├── hero-banner.jpg
+  │   ├── product-image.png
 ```
 
 **Content Explanation:**

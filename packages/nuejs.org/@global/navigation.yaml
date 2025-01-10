@@ -11,6 +11,7 @@ documentation:
     - Step-by-step tutorial: tutorial.html
     - Project structure: project-structure.html
     - Content: content.html
+    - Data: data.html
     - Layout: layout.html
     - Islands: islands.html
     - Styling: styling.html
@@ -21,8 +22,7 @@ documentation:
 
   Reference:
     - Settings and metadata: settings.html
-    - Content syntax: content-syntax.html
-    - Content tags: content-tags.html
+    - Markdown extensions: content-tags.html
     - Custom components: custom-components.html
     - Core components: core-components.html
     - Template syntax: template-syntax.html
