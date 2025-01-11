@@ -1,11 +1,12 @@
 
 # the information architecture
 documentation:
+
   Getting started:
-    - What is Nue: /docs/
-    - FAQ: /docs/faq.html
+    - Standards first: /docs/
     - Installation: installation.html
     - Command line interface: command-line-interface.html
+    - FAQ: /docs/faq.html
 
   Building websites:
     - Step-by-step tutorial: tutorial.html
@@ -38,7 +39,7 @@ globalnav:
     - Docs: /docs/
     - Blog: /blog/
     - Vision: /vision/
-    - "The standards first framework ›": /blog/standards-first-web-framework/ "pill"
+    - "Standards first launch ›": /blog/standards-first-web-framework/ "pill"
 
 
   # header toolbar (complementary)

@@ -4,8 +4,6 @@ main {
   flex-direction: column;
   display: flex;
   gap: 1em;
-
-  h1 { margin-top: 0 }
 }
 
 article {

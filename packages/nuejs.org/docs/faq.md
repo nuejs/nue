@@ -1,7 +1,32 @@
 
+---
+beside: false
+---
+
 # FAQ
 
-## Ecosystem questions
+
+### Who is Nue for?
+The standards-first approach to web development creates value for several distinct audiences, each finding different benefits in Nue's capabilities.
+
+
+- **Beginner web developers** — Nue offers a clearer path to mastery. Rather than immediately diving into complex framework abstractions, beginners can focus on understanding the core web technologies: HTML, CSS, and JavaScript. This creates stronger foundations that remain relevant regardless of which tools emerge in the future. Instead of learning temporary framework patterns, developers build deep knowledge of web standards that naturally compound over time.
+
+- **Experienced JavaScript developers** — Nue provides relief from framework complexity. After years of wrestling with React's growing abstractions - managing state, coordinating effects, optimizing builds - many developers seek simpler solutions. Nue demonstrates how modern web standards can replace many framework patterns naturally. Complex data flows become simple HTML forms. JavaScript-heavy animations transform into native CSS transitions. State management shifts to custom properties. The result is sophisticated applications with dramatically less code and complexity.
+
+- **Design-focused teams** — Nue enables a return to systematic thinking. Rather than embedding design decisions in utility classes or CSS-in-JS, teams can create true design systems that scale naturally. Modern CSS features like custom properties, calculations, and container queries provide unprecedented power for creating mathematical relationships. Design engineers can focus on building systems that unite marketing sites and applications under consistent visual languages. The emphasis stays on user experience and design systems rather than framework-specific patterns.
+
+In each case, Nue's standards-first approach creates more than just immediate benefits - it builds knowledge and systems that appreciate over time rather than decaying with each framework iteration. As browsers continue evolving, developers working directly with web standards find their capabilities expanding naturally. Their understanding grows deeper as the platform improves, rather than being repeatedly displaced by new framework patterns.
+
+This sustainable approach to skill development might be Nue's most important contribution. In a world of constant framework churn, learning web standards provides stable foundations that become more valuable over time. Whether you're just starting your journey or bringing years of experience, working closer to the web platform creates more resilient knowledge and more maintainable applications.
+
+
+### What is the status?
+
+...
+
+
+
 
 ### The frontend ecosystem has evolved for good reasons. Aren't you just turning back the clock by rejecting modern frameworks?
 The frontend ecosystem excelled at creating abstractions upon abstractions. While this solved problems initially, it has led to massive complexity: hundreds of dependencies, multiple build tools, conflicting patterns, and endless configuration. Meanwhile, browser standards have quietly evolved to provide native solutions that are often more powerful than their framework counterparts.
@@ -10,17 +35,17 @@ This isn't about rejecting progress - it's about recognizing that browsers now o
 
 
 ### Next.js and modern meta-frameworks solved real deployment and performance challenges. How does Nue compare to these full-stack solutions?
-Nue currently excels at what most teams actually need: sophisticated content management and blazing fast performance. For content-heavy sites, marketing pages, and documentation, Nue delivers better performance with far less complexity. Your content lives in clean Markdown files, your styling flows from mathematical systems, and your pages load instantly without framework overhead.
+Nue excels at what most teams actually need: sophisticated content management and blazing fast performance. For content-heavy sites, marketing pages, and documentation, Nue delivers better performance with far less complexity. Your content lives in clean Markdown files, your styling flows from mathematical systems, and your pages load instantly without framework overhead.
 
 While we're not yet a full-stack solution for complex applications, our [vision](/vision/) shows how proper separation of concerns creates stronger foundations for sophisticated interfaces. By starting with content-first architecture, we're building toward something more ambitious than current meta-frameworks can achieve.
 
 
 ### The industry has standardized around component-based architecture across React, Vue, and Svelte. Why go against this unified direction?
-Components are a powerful concept when used appropriately. The problem isn't components themselves - it's how current frameworks have turned them into monolithic units that mix concerns that should remain separate. We're seeing components that contain business logic, styling, database queries, and state management all in one file. This "kitchen sink" approach creates exactly the kind of tight coupling and maintenance challenges that components were supposed to solve.
+Components are a powerful concept when used appropriately. The problem isn't components themselves - it's how current frameworks have turned them into monolithic units that mix concerns that should remain separate. We're seeing components that contain business logic, styling, state management, even database queries — all in one file. This "kitchen sink" approach creates exactly the kind of tight coupling and maintenance challenges that components were supposed to solve.
 
 Modern web standards offer a cleaner path: HTML for structure, CSS for styling, and JavaScript for behavior. This separation isn't a limitation - it's a source of power. When each technology focuses on its strengths, we create systems that are both more sophisticated and easier to maintain.
 
-### Modern build tools like Vite have transformed development workflow. What's wrong with the current tooling ecosystem?
+### Modern build tools like Vite have transformed development workflow. What's wrong with the current tooling?
 Current build tools are optimizing the wrong thing. They're focused on making JavaScript monoliths build faster, but the real solution is questioning why we need such complex builds in the first place. When a simple landing page requires processing thousands of lines of JavaScript through multiple transformation steps, we've lost sight of what makes the web powerful.
 
 Nue's approach is different: optimize for the natural strengths of web standards. Content flows directly from Markdown to HTML. Styles compile through lightning-fast native CSS. JavaScript remains focused on true interactivity needs. The result isn't just faster builds - it's a development workflow that maintains flow and focus.
