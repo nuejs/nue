@@ -5,22 +5,24 @@ inline_css: true
 appdir: home
 ---
 
-
+**New**
 # Standards first web framework
 Nue is **HTML**, **CSS**, and **JavaScript** taken to their absolute peak
 
-[button "Learn how it works" href="/docs/"]
-[button.secondary "Get started" href="/docs/installation.html"]
+[button.continue href="/blog/standards-first-web-framework/"]
+  Read the announcement ›
+[button.ghost "Get started →" href="/docs/installation.html"]
 
+---
 [.stats]
   Around
-  ## 30× less
+  ## 30× smaller
   Megabytes than in Next.js [[1]](/blog/nue-vs-nextjs.html)
 
   ---
   Around
   ## 100× faster
-  HMR and builds than in Next.js [[2]](/blog/nue-vs-nextjs.html)
+  HMR than in Next.js [[2]](/blog/nue-vs-nextjs.html)
 
   ---
   Around
@@ -28,16 +30,17 @@ Nue is **HTML**, **CSS**, and **JavaScript** taken to their absolute peak
   Pages than in Next.js [[3]](/blog/nue-vs-nextjs.html)
 
 
-[.quote]
+[.quote.loom]
   > “Nue brings faster tooling, cleaner code, and a liberating experience. You must try it”
 
   — **Mauricio Wolff**, design engineering lead at **Loom**
 
 
+----
 ## A clean slate
 Nue is built from scratch to get web development back on it's track
 
-[Read the backstory ›](/blog/standards-first-web-framework/)
+[Learn how it works ›](/docs/)
 
 
 [.quote]
@@ -46,10 +49,11 @@ Nue is built from scratch to get web development back on it's track
   — **Elliot Jay Stocks**, Pioneer in semantic HTML
 
 
+----
 ## A rebirth of the frontend
-Nue is a full cleanup for the overly complex ecosystem
+Nue makes a full cleanup for the overly complex ecosystem
 
-[See the road ahead ›](/vision/)
+[See how it happens ›](/vision/)
 
 [image /img/roadmap-2025-1-big.png]
   href: /vision/

@@ -1,30 +1,25 @@
 ---
 title: A standards-first web framework
-description: Nue is a close-to-metal framework for fast tooling and clean code. It's the modern HTML, CSS, and JavaScript taken to their absolute peak.
-date: 2025-01-15
+description: Nue is HTML, CSS, and JavaScript taken to their absolute peak.
+date: 2025-01-17
 # unlisted: true
 ---
 
-Today, we're releasing a "standards-first web framework": a development environment that removes all redundant layers between you and the web. It leverages modern **HTML**, **Markdown**, **CSS**, and **JavaScript** directly, addressing the to key issues in frontend development:
-
-[.quote]
-  > “Nue is exactly what it promises: faster tooling, cleaner code, and a liberating experience. You must try it.”
-
-  **Mauricio Wolff**, design engineering lead at **Loom**
+Today is the day for the inevitable: Nue becomes a "standards-first web framework". It strips away the artificial layers between you and the web, taking modern **HTML**, **CSS**, and **JavaScript** to their absolute peak. This solves two major issues in frontend development:
 
 
-## The frontend engineering problem
+## 1: The frontend engineering problem
 I have lived through the eras of **DHTML**, **jQuery**, and now the era of **React**. I experienced positive growth in the first two eras, but this last one has been a struggle: instead of building on web standards, we've buried them under layers of abstractions. What began as elegant HTML, CSS, and JavaScript has devolved into a build theatre demanding hundreds of dependencies just to render a page.
 
 We've normalized this extraordinary complexity. Simple landing pages need hundreds of lines of **TypeScript**, complex configurations, module bundlers, CSS preprocessors, and an endless chain of plugins. Blog posts that should be static content require React components and state management. Documentation sites need a new framework with different patterns and a separate maintenance burden.
 
 The cost is more than just complexity, build times, and development speed. It's fundamentally changed how we think about web development. Teams spend more time wrestling with framework documentation than solving real problems. Build times that should take milliseconds are taking minutes. Each day we drift further from the web's core strengths.
 
-The biggest trouble is this: the more you invest in learning today's frameworks, the more technical debt you accumulate in your mind. React patterns from just a few years ago are now considered anti-patterns. State management solutions keep cycling through **Redux**, **MobX**, **Recoil**, and countless others. Meanwhile, the web platform itself has quietly evolved to provide native solutions for most of what these frameworks try to solve. The untapped power might surprise you.
+The biggest trouble is this: the more you invest in learning today's frameworks, the more technical debt you accumulate in your mind. React patterns from just a few years ago are now considered anti-patterns. State management solutions keep cycling through **Redux**, **MobX**, **Recoil**, and countless others. Meanwhile, the web platform itself has quietly evolved to provide native solutions for most of what these frameworks try to solve. This untapped power is enormous.
 
 
 
-## The design engineering problem
+## 2: The design engineering problem
 I've been building frontends for almost three decades now. I literally remember when CSS was released to **Internet Explorer 3.0**. Ever since, I've been living in the fascinating intersection between design and engineering. My heroes aren't framework creators but the masters of systematic design: **Mies van der Rohe** and **Dieter Rams**. They showed how math and minimalism create more impact than decoration.
 
 Today should be the golden age for design engineering. Modern CSS finally gives us the power to express sophisticated design systems through mathematics. We can create linear, typographic scales, color relationships through **OKLCH** calculations, and layouts with container queries. We have endless possibilities for systematic design.
@@ -47,31 +42,39 @@ Form follows function is dead.
 
 ## The standards-first web framework
 
-To relief my disappointment with the frontend ecosystem, I'm releasing a better way to build websites. It is based on the following foundations:
+To relief my disappointment with the frontend ecosystem, I'm showing a better way to build websites. It is based on the following foundations:
 
-1. [Standards first](/docs/): Modern browsers offer native capabilities that eliminate the need for most framework abstractions. By working with web standards rather than against them, we create better products with less code.
+1. **Standards first**: Browsers have evolved significantly in the past decade. By working with the standards rather than against them, we create better products with less code.
 
-1. [Content first](/docs/content.html): Rich Markdown syntax handles everything from marketing to documentation. Content lives in clean, accessible files - not in JavaScript.
+1. **HTML first**: semantic HTML is the foundation for everything: layouts, server components, and interactive islands. The same syntax and mental model is better for developers, search engines, and screen readers.
 
-1. [HTML first](/docs/layout.html): HTML should not be hidden behind abstractions. Better for search engines, screen readers, and developers.
+1. **Content first**: Rich Markdown syntax handles everything from marketing to documentation. Content lives in clean, accessible files - not in JavaScript.
 
+1. **Design systems**: modern, systematic CSS is more powerful than you think. Learn to build design systems, and you'll get better interfaces with less code.
 
-It's the perfect system for web developers offering a powerful solution for:
+Here's what this enables:
 
-1. [Styling](/docs/styling.html): I talked about this already. CSS is more powerful than you think. Master it, and you'll create better interfaces with less code.
+1. **Faster tooling**: Content updates in 10-50ms, style changes in 5-20ms, and component modifications in 20-100ms. It's s whole new hot-reloading experience.
 
-1. [Scripting](/docs/scripting.html): Same thing here. Focus on the core language rather than temporary framework patterns. Standards last forever.
+2. **Cleaner code**: No TypeScript imports, no utility classes, no state management complexity. Just clean, minimalistic code that naturally separates content, structure, and styling.
 
-1. [Motion](/docs/motion.html): Modern CSS handles all this with ease. Forget Framer motion and learn the fundaments insted. After all UX, is more about reduction than deco.
+1. **Faster pages**: The fastest page load is one that requires just a single request. No framework initialization, no cumulative layout shifts, no waiting for JavaScript. When content and styling arrive together, pages simply appear.
 
-1. [Performance](/docs/optimization.html): The fastest page load is one that requires just a single request. No framework initialization, no cumulative layout shifts, no waiting for JavaScript. When content and styling arrive together, pages simply appear.
+[Learn how Nue works in detail →](/docs/)
 
-This stack enables me to finally implement what I want:
+[image /img/standards-first.png]
+  alt: Standards first
+  width: 600
+
+[.heroquote.loom]
+  > “Nue is exactly what it promises: faster tooling, cleaner code, and a liberating experience. You must try it.”
+
+  — **Mauricio Wolff**, design engineering lead at **Loom**
 
 
 
 ## The design system of my dreams
-I've been a design engineer since CSS was invented. From the beginning, I've been obsessed with building "systems of design" - starting with stupid, clumsy attempts that slowly grew more sophisticated over time. Now, with modern CSS and proper separation of concerns, I can finally create the design system I've been building in my mind for decades:
+Now a little bit about the near future. I'm currently building something I've dreamed about since CSS was invented: A systematic design system that takes mathematical relationships to their ultimate conclusion. When finished in April 2025, it will be as simple as:
 
 ```sh
 nue create startup --design rams
@@ -81,8 +84,7 @@ Let's dive into this. First off, this command structure is the very reason I sta
 
 Behind the "rams" argument is something called a **global design system** that acts as a basis for four wildly different mathematical expressions, aka design systems:
 
-1. **Mies** — This design system is obviously special. It's the hardcore minimalism that designers look up to. The result looks remarkably similar to **Linear**, but achieves its commanding presence through mathematical precision: stark contrasts, intense whitespace, and bold architectural functionalism. Check **Seagram Building** in **New York** and you'll get the point.
-
+1. **Mies** — This design system is special. It's the hardcore minimalism that designers look up to. The result looks remarkably similar to **Linear**, but achieves its commanding presence through mathematical precision: stark contrasts, intense whitespace, and bold architectural functionalism. Check **Seagram Building** in **New York** and you'll get the point.
 
 2. **Rams** — Dieter Rams is the man behind **Apple**'s design philosophy. Like Mies, he used mathematics to achieve harmony. This design system is perhaps closest to what current utility-first frameworks aim for. Think **Stripe**, but without the decorative stripes.
 
@@ -97,13 +99,11 @@ But even this is just the beginning...
 
 
 ## Single-page applications
-As much as I love design, I've always loved JavaScript. Not because of its weaknesses obviously, but its strength in implementing beautiful, interactive frontends together with CSS. This is exactly what SPAs are about, and never before has the web been more ready for this level of design and functional quality.
-
-SPAs sit right in the middle of design and engineering and want Nue to go further than the JavaScript monolith ever could. Three ways:
+Once the design systems are out, I'll release the next major piece: single-page applications. These sit right in the middle of design and engineering and want Nue to take these artforms to their absolute peak. Three key methods:
 
 1. Architecture is based on **MVC** (model, view, controller) which creates the much needed separation of concerns. JS engineers work on pure business logic. UI developers craft the experience. Everyone stays in their zone of expertise.
 
-2. The design system is clearly separated. Change the look and feel of the website from Mies to Muriel, and the SPA will follow. Form follows function again.
+2. The design system is clearly separated. Change the look and feel of the website from Mies to Muriel, and the SPA will follow. Form follows function.
 
 3. The SPA becomes a seamless part of your marketing site: the design system, performance, and view transitions. The movement between static and dynamic pages is seamless. It all feels like one product.
 
@@ -117,8 +117,7 @@ This creates a complete startup platform, all expressing itself through the same
 
 You can see how this changes things. Instead of building from scratch, you get Linear-level design, Stripe-level functionality, and a consistent UX in an instant.
 
-But we will not stop here. Our [ultimate goal](/vision/) is to be the frontend cloud of the future without the unnecessary bloat. And unlike many ambitious visions in tech, this one is actually achievable.
-
+But we will not stop here. Our [ultimate goal](/vision/) is to cleanup the whole frontend ecosystem from the unnecessary bloat. And unlike many ambitious visions in tech, this one is actually achievable.
 
 
 ## Invest in Nue?

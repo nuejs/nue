@@ -11,3 +11,11 @@ article {
     color: var(--gray-500);
   }
 }
+
+.recap {
+  figure { margin-bottom: -2em }
+  form {
+    margin-top: 1em;
+    font-size: 15px;
+  }
+}

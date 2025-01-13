@@ -75,6 +75,32 @@ h1 {
 }
 
 
+.heroquote {
+  blockquote {
+    margin: 0;
+    font-size: 1.45em;
+    text-indent: -.35em;
+    letter-spacing: -.02em;
+    p { font-weight: 400 }
+  }
+  > p {
+    margin-left: 1rem;
+    strong { color: var(--gray-800) }
+  }
+}
+
+.loom {
+  blockquote p {
+    border-color: #605dec
+  }
+  > p strong:last-child {
+    background: url(/img/loom-small.png) 0 center no-repeat;
+    background-size: contain;
+    padding-left: 1.4em;
+    margin-left: .2em;
+  }
+}
+
 .footnote {
   color: var(--gray-400);
   line-height: 1.5;

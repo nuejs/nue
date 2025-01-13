@@ -1,6 +1,6 @@
 
 ---
-include: [technical-content]
+include: [technical-content, form]
 ---
 
 #### Nue vision
@@ -22,6 +22,8 @@ By putting these core elements back in their natural place, we now have a founda
 
 
 ## Phase 2: True templates
+_Expected release: April 2025_
+
 A true template maintains absolute separation between function and design. It comes down to a single command:
 
 ``` sh
@@ -62,6 +64,8 @@ I expect Templates and these mathematical design systems to be the moment when s
 
 
 ## Phase 3: Single-page applications
+_Expected release: July 2025_
+
 Single-page applications represent the ultimate artform of design engineering. They demand perfect harmony between systematic design and complex functionality. Today, this fusion requires months of specialized development. We make it possible through a single command:
 
 
@@ -80,6 +84,8 @@ But to make the reboot complete, we need one final piece:
 
 
 ## Phase 4: The cloud
+_Expected release: September 2025_
+
 On the final pahse it's time squeeze everything out from the cloud. It starts with a command that makes world-class web development accessible to everyone:
 
 ``` sh
@@ -100,3 +106,14 @@ Consider what this means: A single command creates not just a website, but a com
 
 This is what the web was always meant to be: bringing this immense power to everyone.
 
+
+[.recap]
+  ## Recap
+  How Nue reboots the the overly complex ecosystem
+
+  [! /img/roadmap-2025-1-big.png"]
+
+  ### Follow the progress
+  We'll send you email on each major update:
+
+  [join-list]
