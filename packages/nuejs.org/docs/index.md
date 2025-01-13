@@ -371,7 +371,7 @@ The simplicity is striking. If you know HTML, you know Nue. There's no need to l
 
 What sets Nue apart is how this simple syntax works everywhere: server-side rendering, client-side components ("islands"), and even hybrid components that adapt to their context. Most importantly, these components work seamlessly in both Markdown content and layout modules. The same component can render server-side in your marketing pages and client-side in your interactive features.
 
-# Motion
+## Motion
 Modern CSS handles a remarkable range of motion design natively:
 
 1. **State transitions**: Smoothly animate between element states through transitions, handle entry animations with `@starting-style`, and orchestrate complex sequences with keyframe animations.

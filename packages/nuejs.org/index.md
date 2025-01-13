@@ -1,5 +1,5 @@
 ---
-sections: [hero, quote, clean-slate, rebirth ]
+sections: [hero, clean-slate, rebirth ]
 include: [form, video]
 inline_css: true
 appdir: home
@@ -29,7 +29,7 @@ Nue is **HTML**, **CSS**, and **JavaScript** taken to their absolute peak
 
 
 [.quote]
-  > “Nue delivers: faster tooling, cleaner code, and a liberating experience. You must try it”
+  > “Nue brings faster tooling, cleaner code, and a liberating experience. You must try it”
 
   — **Mauricio Wolff**, design engineering lead at **Loom**
 
@@ -43,7 +43,7 @@ Nue is built from scratch to get web development back on it's track
 [.quote]
   > "Finally, a framework that works with standards instead of against them. I’m speedlearning the web again"
 
-  — **Elliot Jay Stocks**, Pioneer designer and HTML purist
+  — **Elliot Jay Stocks**, Pioneer in semantic HTML
 
 
 ## A rebirth of the frontend
