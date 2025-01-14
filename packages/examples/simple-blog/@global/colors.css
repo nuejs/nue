@@ -1,3 +1,4 @@
+
 :root {
 
   /* slate gray */
@@ -11,10 +12,6 @@
   /* main color */
   --main-500: #3b82f6;
   --main-600: #2563eb;
-
-  /* gradients */
-  --pink-gradient: linear-gradient(#e879f9, #ec4899);
-  --blue-gradient: linear-gradient(#0ea5e9, #67e8f9);
 
   /* special colors */
   --marker: #ffff7a;

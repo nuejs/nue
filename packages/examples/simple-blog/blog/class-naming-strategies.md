@@ -2,11 +2,11 @@
 title: CSS class naming strategies for scaleable dashboard design
 og: img/dashboard-3.png
 thumb: img/dashboard-thumb.png
-date: 2024-03-13
+date: 2024-08-13
 credits: ui8
 ---
 
-In web development, CSS and design work hand-in-hand to create compelling user experiences. CSS brings designs to life digitally, translating visual mockups into actual rendered elements. But CSS also informs the design process itself. Understanding its capabilities and limitations allows designers to craft effective layouts and interfaces.
+In web development, CSS and design work hand-in-hand to create compelling user experiences. CSS brings designs to life digitally, translating visual mockups into actual rendered elements.
 
 ## Keep them short
 
@@ -39,6 +39,12 @@ On the development side, CSS itself involves visual design skills. Bringing a la
 
 Overall, CSS is a uniquely visual language, with a direct impact on user-facing design. By embracing its connection to the design process, both designers and developers can build interfaces that are engaging and "CSS-native". The closer these roles work together, the better the end result. (edited)
 
+
+## Conclusion
+
+In conclusion, thoughtfully naming CSS classes, IDs, and other selectors is an important part of keeping stylesheets scalable and maintainable. Use semantic, descriptive names that communicate what a selector is styling. Implement methodical naming conventions and structures for better organization.
+
+
 ``` .pink
 .pink {
   background-image: linear-gradient(#e879f9, #ec4899);
@@ -53,11 +59,5 @@ Overall, CSS is a uniquely visual language, with a direct impact on user-facing 
   }
 }
 ```
-
-## Conclusion
-
-In conclusion, thoughtfully naming CSS classes, IDs, and other selectors is an important part of keeping stylesheets scalable and maintainable. Use semantic, descriptive names that communicate what a selector is styling. Implement methodical naming conventions and structures for better organization.
-
-[! img/dashboard-2.png]
 
 Avoid repetitive and overly specific names by separating structural styles from visual ones. And don’t be afraid to chain multiple classes together for more modular and flexible selectors.

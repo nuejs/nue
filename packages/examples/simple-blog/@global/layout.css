@@ -1,5 +1,5 @@
 
-/* all reset/normalization you need */
+/* CSS reset */
 *, *::before, *::after {
   box-sizing: border-box;
 }
@@ -35,7 +35,7 @@ body {
     > header { margin-bottom: 2rem }
 
     > section {
-      max-width: 650px;
+      max-width: 700px;
       margin: 0 auto;
     }
   }
