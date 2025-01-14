@@ -42,11 +42,18 @@ Nue is built from scratch to get web development back on it's track
 
 [Learn how it works ›](/docs/)
 
+[image]
+  alt: "Next.js vs Nue: tight coupling vs separation of concerns"
+  title: Learn how it works
+  src: /img/next-vs-nue-big.png
+  href: /docs/
+  size: 905 × 464 px
 
-[.quote]
-  > "Finally, a framework that works with standards instead of against them. I’m speedlearning the web again"
 
-  — **Elliot Jay Stocks**, Pioneer in semantic HTML
+[.quote.elliot]
+  > "Finally, a framework that embraces the modern web. I’m speedlearning things again!"
+
+  **Elliot Jay Stocks**, Pioneer in semantic HTML
 
 
 ----
@@ -55,7 +62,10 @@ Nue makes a full cleanup for the overly complex ecosystem
 
 [See how it happens ›](/vision/)
 
-[image /img/roadmap-2025-1-big.png]
+[image]
+  small: /img/roadmap-2025-1.png
+  large: /img/roadmap-2025-1-big.png
+  width: 800
   href: /vision/
   alt: Nue roadmap
 

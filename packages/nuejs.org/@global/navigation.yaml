@@ -39,7 +39,9 @@ globalnav:
     - Docs: /docs/
     - Blog: /blog/
     - Vision: /vision/
-    - "Standards first launch ›": /blog/standards-first-web-framework/ "pill"
+    - url: /blog/standards-first-web-framework/
+      label: "**NEW**: Standards first ›"
+      class: news pill
 
 
   # header toolbar (complementary)

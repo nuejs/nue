@@ -6,13 +6,14 @@
 
 body > header {
   margin-bottom: 1.5rem;
+  .news { display: none }
 }
 
 .hero {
   background-image: url(/img/metal.jpg), linear-gradient(#eb01a5, #d13531);
   background-size: cover;
   border-radius: .6em;
-  padding: 4em 0 6em var(--home-indent);
+  padding: 3.5em 0 5em var(--home-indent);
   outline: 1px solid var(--gray-300);
   outline-offset: 5px;
   margin-bottom: 2em;
@@ -21,7 +22,8 @@ body > header {
     text-transform: uppercase;
     letter-spacing: -0.02em;
     font-weight: 900;
-    font-size: 4.5em;
+    font-size: calc(3em + 1.5vw);
+    max-width: 10em;
     line-height: 1.1;
     color: white;
     margin: 0;
@@ -82,17 +84,43 @@ body > header {
     top: -.35em;
     font-size: 75%;
   }
+
+  @media (width < 950) {
+    flex-direction: column;
+    > * {
+      display: flex;
+      gap: 1.5em;
+      > :last-child {
+        align-self: flex-end;
+      }
+    }
+  }
+  @media (width < 550) {
+    h2 { font-size: 1.5em }
+    > * { gap: .75em }
+  }
+}
+
+@media(width < 1200px) {
+ :root {
+   --home-indent: 0;
+  }
+
+  .hero {
+    padding-inline: 8%;
+  }
 }
 
 
 .quote {
   > * {
-    padding-left: 2.5rem;
+    padding-left: calc(1rem + 2vw);
   }
 
   blockquote {
     border-left: 5px solid var(--main-400);
-    font-size: 2.5em;
+    max-width: 25em;
+    font-size: calc(1.75em + 1vw);
     font-weight: 425;
     letter-spacing: -.03em;
     margin: 0;
@@ -114,35 +142,48 @@ body > header {
   }
 }
 
+.elliot {
+  blockquote {
+    border-color: #D73A5D
+  }
+  > p strong:first-child {
+    background: url(/img/elliot.png) 0 center no-repeat;
+    background-size: contain;
+    padding-left: 1.6em;
+    margin-left: .5em;
+  }
+}
+
 
 article > section {
-  margin-bottom: 10rem;
+  margin-bottom: calc(4rem + 5vw);
 
   &:not(.hero) { margin-left: var(--home-indent) }
 
-  figure {
-    max-width: 850px;
-  }
 
   h2 {
     font-size: 3em;
     letter-spacing: -0.03em;
+    text-wrap: balance;
+    max-width: 10em;
     font-weight: 800;
     margin: 0;
   }
   > p {
     font-size: 1.45em;
-    margin: .5em 0 1em;
+    margin: .5em 0 .75em;
+    text-wrap: balance;
+    line-height: 1.4;
+  }
+
+  figure {
+    margin-top: 2.5em;
+
+    &:hover {
+      transform: scale(1.0025);
+    }
   }
 }
 
-@media(width < 1200px) {
- :root {
-   --home-indent: 0;
-  }
 
-  .hero {
-    padding-inline: 8%;
-  }
-}
 

@@ -6,7 +6,7 @@ article {
   /* eyebrow */
   > h4:first-child {
     margin-bottom: -1em;
-    font-weight: bold;
+    font-weight: 550;
     font-size: 1em;
     color: var(--gray-500);
   }

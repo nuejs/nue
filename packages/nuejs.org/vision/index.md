@@ -3,9 +3,9 @@
 include: [technical-content, form]
 ---
 
-#### Nue vision
+#### The Vision
 # A reboot of the frontend ecosystem
-Today, web development unnecessarily complex: we've normalized JavaScript monoliths and use only a fraction of what's possible with the modern web stack. It's time for a reboot:
+Today, web development is unnecessarily complex: we've normalized JavaScript monoliths and use only a fraction of what's possible with the modern web stack. It's time for a reboot:
 
 
 ## Phase 1: Standards-first framework

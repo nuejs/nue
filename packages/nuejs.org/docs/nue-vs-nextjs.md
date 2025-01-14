@@ -1,12 +1,14 @@
+
 # Development experience: Next.js vs Nue
 
 This benchmark compares the development experience between Next.js Blog Starter Kit and Nue Simple Blog through measurable metrics and reproducible scenarios. The analysis covers installation, codebase structure, build performance, and hot module replacement capabilities.
+
 
 ## Installation and Setup
 
 Installation metrics for both templates:
 
-Next.js Blog Starter:
+### Next.js Blog Starter:
 - Installation time: 45 seconds
 - Node modules: 345MB
 - Repository size: 12MB
@@ -14,7 +16,7 @@ Next.js Blog Starter:
 - Post-install steps: Manual browser navigation required
 - Commands required: 4
 
-Nue Simple Blog:
+### Nue Simple Blog:
 - Installation time: 3 seconds
 - Node modules: None
 - Repository size: 0.8MB
@@ -26,7 +28,7 @@ Nue Simple Blog:
 
 Structural comparison of template architectures:
 
-Next.js Blog Starter:
+### Next.js Blog Starter:
 - Content format: Markdown for blog posts only
 - Front page implementation: TypeScript/JSX
 - Layout system: TypeScript components
@@ -35,7 +37,7 @@ Next.js Blog Starter:
 - Total JavaScript: 4,200 lines
 - Total TypeScript: 2,800 lines
 
-Nue Simple Blog:
+### Nue Simple Blog:
 - Content format: Markdown for all content
 - Front page implementation: Markdown
 - Layout system: HTML templates
@@ -48,12 +50,12 @@ Nue Simple Blog:
 
 Build time measurements across multiple scenarios:
 
-Next.js Blog Starter:
+### Next.js Blog Starter:
 First build: 12.2 seconds
 Subsequent builds: 4.8 seconds
 Average build time: 5.4 seconds
 
-Nue Simple Blog:
+### Nue Simple Blog:
 First build: 0.4 seconds
 Subsequent builds: 0.1 seconds
 Average build time: 0.15 seconds
