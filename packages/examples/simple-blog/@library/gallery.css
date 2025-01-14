@@ -8,7 +8,7 @@
   list-style: none;
   padding: 0;
 
-  li { margin-bottom: 3rem }
+  li { margin-bottom: 10% }
   
   figure {
     transition: transform .1s;

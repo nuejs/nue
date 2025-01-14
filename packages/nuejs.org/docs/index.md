@@ -225,14 +225,18 @@ element.animate([
 
 Instead of framework complexity:
 
-```js.bad "Framer Motion"
-<motion.div
-  animate={{
-    scale: [1, 2, 2, 1, 1],
-    rotate: [0, 0, 270, 270, 0],
-    borderRadius: ["20%", "20%", "50%", "50%", "20%"],
-  }}
-/>
+```js.bad "JavaScript monolith"
+import { motion } from 'framer-motion'
+
+export default function MotionDiv() {
+  <motion.div
+    animate={{
+      scale: [1, 2, 2, 1, 1],
+      rotate: [0, 0, 270, 270, 0],
+      borderRadius: ["20%", "20%", "50%", "50%", "20%"],
+    }}
+  />
+}
 ```
 
 The JavaScript monolith approach doesn't just add unnecessary complexity - it actively prevents developers from learning these powerful browser APIs. Instead of mastering standards that will serve them for years, developers learn framework-specific patterns that quickly become outdated.
@@ -248,9 +252,17 @@ While Markdown is not an official web standard, it has become the de-facto stand
 
 Nue extends Markdown syntax to enable rich content authoring while maintaining the readability of a book. Whether you're creating documentation, blog posts, marketing pages, or product tours, content remains clean and easily editable by both non-technical teams and AI assistants.
 
-Consider how to structure a features section:
+[image.bordered]
+  caption: Nue's extended Markdown syntax handles all varieties of content
+  small: /img/content-files.png
+  large: /img/content-files-big.png
+  size: 745 × 383
 
-```md.good "Extended Markdown"
+
+
+Consider how to assemble a features section:
+
+```md.good "Content assembly"
 ## Amazing features
 Our platform provides everything you need for modern web development
 
@@ -441,8 +453,13 @@ Through web standards, Nue enables sophisticated motion while maintaining perfor
 ## Tooling
 Development speed depends critically on feedback time. When you make a change, how quickly do you see the result? Nue provides universal hot-reloading that transforms the development experience:
 
-[video demonstration of hot-reloading]
-  caption: Hot-reloading in action: content, styles, and components update instantly while maintaining page state
+[bunny-video]
+  videoId: abb2cf75-c7f9-43e6-b126-8827d0c8721e
+  style: "background-color: #282C30"
+  poster: /img/blog-content-editing-big.png
+
+
+In above, you can see hot-reloading in action: the content, styles, and components update instantly while maintaining page state.
 
 When you modify content, Nue performs DOM diffing to update only what actually changed. Input values remain preserved. Open dialogs stay open, even if you're editing the dialog's content. The system maintains document state while seamlessly integrating your changes.
 

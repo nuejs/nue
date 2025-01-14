@@ -54,7 +54,7 @@ export function parsePathParts(path) {
   const { dir, name, base } = parse(path)
   const basedir = getAppDir(path)
   const url = getUrl(dir, name)
-  return { url, dir, slug: name + '.html', basedir }
+  return { filepath: path, url, dir, slug: name + '.html', basedir }
 }
 
 export function joinRootPath(root, path, abs = false) {

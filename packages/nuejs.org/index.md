@@ -51,7 +51,7 @@ Nue is built from scratch to get web development back on it's track
 
 
 [.quote.elliot]
-  > "Finally, a framework that embraces the modern web. I’m speedlearning things again!"
+  > "Finally, a framework that embraces power of modern HTML and CSS. I’m speedlearning the web again!"
 
   **Elliot Jay Stocks**, Pioneer in semantic HTML
 
@@ -65,8 +65,9 @@ Nue makes a full cleanup for the overly complex ecosystem
 [image]
   small: /img/roadmap-2025-1.png
   large: /img/roadmap-2025-1-big.png
-  width: 800
+  width: 750
   href: /vision/
   alt: Nue roadmap
 
-// [feedback]
+[feedback]
+

@@ -10,11 +10,11 @@ body > header {
 }
 
 .hero {
-  background-image: url(/img/metal.jpg), linear-gradient(#eb01a5, #d13531);
+  background: url(/img/metal.jpg);
   background-size: cover;
   border-radius: .6em;
   padding: 3.5em 0 5em var(--home-indent);
-  outline: 1px solid var(--gray-300);
+  outline: 1px solid var(--gray-100);
   outline-offset: 5px;
   margin-bottom: 2em;
 
@@ -40,18 +40,38 @@ body > header {
   [role] { font-size: 1.1em }
   .ghost:not(:hover) { color: var(--main-300) }
 
-  /* eyebrow */
+  /* NEW */
   > :first-child {
     background-color: rgba(255,255,255,.15);
     box-shadow: 1px 1px .2em rgba(0,0,0,.5);
     display: inline-block;
     border-radius: 4px;
-    padding: .5em 1em;
+    padding: .3em .9em;
     text-transform: uppercase;
+    transform: rotate(-10deg) translate(-1.5em, .5em);
     font-size: .875em;
     margin-bottom: .5em;
   }
+
+  @media(width < 450) {
+    h1 { font-size: 2.5em }
+    .ghost { margin: 1em 0 0 }
+  }
 }
+
+
+@media(width < 1200px) {
+ :root {
+   --home-indent: 0;
+  }
+
+  .hero {
+    padding: 2em 8% 3.5em;
+  }
+}
+
+
+
 
 .stats {
   display: flex;
@@ -62,7 +82,7 @@ body > header {
     background-color: var(--gray-50);
     border: var(--border);
     border-radius: 4px;
-    padding: 1.5em 0 1.5em 2em;
+    padding: 1em 0 1.25em 2em;
     flex: 1;
   }
 
@@ -99,28 +119,21 @@ body > header {
     h2 { font-size: 1.5em }
     > * { gap: .75em }
   }
+
+  @media(width < 450) { display: none; }
 }
 
-@media(width < 1200px) {
- :root {
-   --home-indent: 0;
-  }
-
-  .hero {
-    padding-inline: 8%;
-  }
-}
 
 
 .quote {
   > * {
-    padding-left: calc(1rem + 2vw);
+    padding-left: calc(1rem + 1.5vw);
   }
 
   blockquote {
     border-left: 5px solid var(--main-400);
     max-width: 25em;
-    font-size: calc(1.75em + 1vw);
+    font-size: calc(1.5em + 1vw);
     font-weight: 425;
     letter-spacing: -.03em;
     margin: 0;
@@ -161,12 +174,16 @@ article > section {
   &:not(.hero) { margin-left: var(--home-indent) }
 
 
+  &:last-child {
+    margin-bottom: 0;
+  }
+
   h2 {
-    font-size: 3em;
+    font-size: calc(2em + 1vw);
     letter-spacing: -0.03em;
     text-wrap: balance;
-    max-width: 10em;
     font-weight: 800;
+    max-width: 10em;
     margin: 0;
   }
   > p {

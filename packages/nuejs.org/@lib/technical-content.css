@@ -332,6 +332,8 @@ pre {
 .good, .bad, .info  {
   margin-top: 2em;
 
+  pre { margin-top: .8rem; }
+
   figcaption {
     background: url(/icon/bad.svg) -.2em center no-repeat;
     padding: .2em 0 .2em 1.8em;

@@ -5,7 +5,7 @@ date: 2025-01-17
 # unlisted: true
 ---
 
-Today is the day for the inevitable: Nue becomes a "standards-first web framework". It strips away the artificial layers between you and the web, taking modern **HTML**, **CSS**, and **JavaScript** to their absolute peak. This solves two major issues in frontend development:
+Today the inevitable happens: Nue becomes a "standards-first web framework". It strips away the artificial layers between you and the web, taking modern **HTML**, **CSS**, and **JavaScript** to their absolute peak. This solves two major issues in frontend development:
 
 
 ## 1: The frontend engineering problem
