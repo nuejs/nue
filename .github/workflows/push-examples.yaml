@@ -23,8 +23,10 @@ jobs:
     env:
       dir: 'packages/examples/${{ matrix.dir }}/'
       archive: 'site.tar.gz'
-      storage_name_key: 'STORAGE_NAME_${{ matrix.dir }}'
-      storage_password_key: 'STORAGE_PASSWORD_${{ matrix.dir }}'
+      storage_name: 'STORAGE_NAME_${{ matrix.dir }}'
+      storage_pass: 'STORAGE_PASS_${{ matrix.dir }}'
+      storage_key: 'STORAGE_KEY_${{ matrix.dir }}'
+      storage_zone: 'STORAGE_ZONE_${{ matrix.dir }}'
 
     runs-on: ubuntu-latest
 
@@ -58,8 +60,10 @@ jobs:
         uses: ayeressian/bunnycdn-storage-deploy@v2.2.4
         with:
           source: '${{ env.dir }}.dist/prod'
-          storageZoneName: '${{ secrets[env.storage_name_key] }}'
-          storagePassword: '${{ secrets[env.storage_password_key] }}'
+          storageZoneName: '${{ secrets[env.storage_name] }}'
+          storagePassword: '${{ secrets[env.storage_pass] }}'
+          accessKey: "${{ secrets[env.storage_key] }}"
+          pullZoneId: "${{ secrets[env.storage_zone] }}"
           upload: 'true'
           remove: 'false'
           purgePullZone: 'false'
