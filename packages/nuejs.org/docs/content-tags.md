@@ -3,19 +3,14 @@ include: [tabs]
 ---
 
 # Built-in Markdown extensions
+Nue extends Markdown with a set of built-in tags that enhance content creation.
 
-Nue extends Markdown with a powerful set of built-in tags that enhance content creation. These tags use a simple bracket syntax - `[image]` for images, `[button]` for buttons, `[video]` for videos - to add rich functionality while maintaining clean, readable content.
+These tags use a simple bracket syntax - `[image]` for images, `[button]` for buttons, `[video]` for videos - to add functionality while maintaining readable content. These tags allow you to:
 
-Each layer in web development serves a distinct purpose: HTML for structure, CSS for presentation, JavaScript for behavior. These extensions bridge these layers elegantly - enabling interactive elements, rich layouts, and responsive media without mixing implementation details into your content.
-
-Through this system you can:
 1. Add dialogs, accordions, and tabs while staying in Markdown
 2. Create sophisticated layouts that preserve content structure
 3. Handle responsive images and art direction through clean syntax
 4. Extend functionality when native capabilities need enhancement
-
-Instead of polluting content with HTML markup or framework components, these extensions provide a minimal syntax that keeps your documents clear and maintainable.
-
 
 
 ## Tag syntax

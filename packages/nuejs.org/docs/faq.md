@@ -7,9 +7,11 @@ beside: false
 
 
 ### The industry has standardized around component-based architecture across React, Vue, and Svelte. Why go against this unified direction?
-Something went wrong in web development. The first waves of innovation - DHTML bringing interactivity to static pages, jQuery making cross-browser development possible - represented genuine progress. Each step made the web more dynamic and developer-friendly.
+Beacuse something went wrong in web development. Let me explain:
 
-Then came React and the component era. What started as a promise to simplify UI development and enable reuse has instead created a culture of JavaScript monoliths. Components became bloated units of markup, styles, business logic, state management — even database queries. Rather than simplifying the UI layer, this mixing of concerns made frontend development more complex than ever.
+If you look at the first waves of innovation - DHTML bringing interactivity to static pages, jQuery making cross-browser development possible — these technologies represented genuine progress. Each step made the web more dynamic and developer-friendly.
+
+Then came React and the component era. What started as a promise to simplify UI development and enable reuse has instead created a culture of JavaScript monoliths. Components became large containers for markup, styles, business logic, state management — even database queries. Rather than simplifying the UI layer, this mixing of concerns made frontend development more complex than ever.
 
 But while JavaScript frameworks kept adding new layers to the ever-growing stack, browsers quietly evolved. It's almost ironic: just as components became these "kitchen sinks" to solve every problem, native browser features emerged that made most of these framework abstractions unnecessary.
 

@@ -8,23 +8,23 @@ include: [technical-content, form]
 Today, web development is unnecessarily complex: we've normalized JavaScript monoliths and use only a fraction of what's possible with the modern web stack. It's time for a reboot:
 
 
-## Phase 1: Standards-first framework
-In Phase 1, [which is now done](/blog/standards-first-web-framework/), we correct three fundamental mistakes that led web development to get off the track:
-
-1. **Standards first**. Modern browsers offer remarkable capabilities that eliminate the need for framework abstractions. From native dialog elements through container queries to view transitions, we're using the platform's full power rather than fighting against it.
+## Phase 1: Framework
+This phase [is now done](/blog/standards-first-web-framework/). We built a framework to correct the mistakes that led web development to get off the track:
 
 2. **Closer to metal**. Cut down the immense amount of complexity and clutter. We've stripped away the labyrinth of dependencies, build tools, and framework abstractions. The entire framework needs just 10 core dependencies instead of 300+ typical in modern stacks. Build times drop from minutes to milliseconds.
 
-3. **Clean code**. Break away from the JavaScript monolith and establish true separation of concerns. By cleanly separating content, structure, styling, and behavior, we enable what was previously impossible: true systematic design at scale.
+1. **Standards first**. Modern browsers offer remarkable capabilities that eliminate the need for framework abstractions. From native dialog elements through container queries to view transitions, we're using the platform's full power rather than fighting against it.
 
-By putting these core elements back in their natural place, we now have a foundation for all the great things that follow:
+3. **Systematic design**. Break away from the JavaScript monolith and establish true separation of concerns. By cleanly separating content, structure, styling, and behavior, we enable what was previously impossible: true systematic design at scale.
+
+We use this framework to complete the next phase:
 
 
 
-## Phase 2: True templates
+## Phase 2: Templates
 _Expected release: April 2025_
 
-A true template maintains absolute separation between function and design. It comes down to a single command:
+On this phase, we'll implement true templates. For a template to be truly pure, it must maintain absolute separation between function and design. It comes down to a single command:
 
 ``` sh
 nue create startup --design rams
@@ -33,16 +33,17 @@ This is where the JavaScript monolith completely falls apart. When design decisi
 
 For agencies and creators, this transforms how websites are built. A template defines core functionality - whether it's a blog, an idea showcase, a startup platform, or an enterprise site. This purely functional foundation can express itself in radically different ways through mathematical design.
 
+
 ### Mathematical design systems
-Right now, I'm building a global design system that acts as the basis for four different mathematical expressions:
+Right now, I'm building four systems where all the visual relationships are calculated rather than guessed:
 
-1. **Mies** — This system is inspired by **Mies van der Rohe**. It achieves dramatic impact through extreme reduction. The result looks remarkably similar to **Linear**, but achieves its commanding presence through stark contrasts, intense whitespace, and bold architectural functionalism. When every relationship emerges from calculation, interfaces achieve a timeless sophistication.
+1. **Mies** — This design system is inspired by **Mies van der Rohe**. It achieves dramatic impact through extreme reduction. The result looks remarkably similar to **Linear**, but achieves its commanding presence through stark contrasts, intense whitespace, and bold architectural functionalism.
 
-2. **Rams** — This system builds on **Dieter Rams**'s human-centered functionalism. The end result closely resembles **Stripe**'s clean aesthetic, but stripped of ornamental elements. This is perhaps closest to what current utility-first frameworks aim for, but achieved through systematic thinking rather than arbitrary utility classes.
+2. **Rams** — This system builds on **Dieter Rams**'s human-centered functionalism. The end result closely resembles **Stripe**'s clean aesthetic, but stripped of ornamental elements. This design is perhaps closest to what current utility-first frameworks aim for, but achieved through systematic thinking.
 
-3. **Zaha** — Translates **Zaha Hadid**'s bold architectural vision into digital space. Where Linear suggests depth, this system fully embraces the third dimension. Systematic shadows, calculated blur effects, and precise transforms create dramatic movement that still maintains perfect mathematical relationships.
+3. **Zaha** — Translates **Zaha Hadid**'s bold architectural vision into digital space. Where Linear suggests depth, this system embraces the third dimension. Shadows, blur effects, and transforms create subtle movement while maintaining the  mathematical relationships.
 
-4. **Muriel** — Channels **Muriel Cooper**'s pioneering work in digital design. It captures **Apple**'s blend of precision and joy, proving how systematic thinking enables creative freedom while preserving absolute clarity. This isn't just about copying Apple's look - it's about understanding the mathematical principles that make their interfaces feel both playful and precise.
+4. **Muriel** — Channels **Muriel Cooper**'s pioneering work in digital design. It captures **Apple**'s blend of precision and joy, proving how systematic thinking enables creative freedom while preserving clarity. This isn't just about copying Apple's look - it's about understanding the mathematical principles that make their interfaces feel both playful and precise.
 
 Imagine building websites for clients:
 
@@ -66,7 +67,9 @@ I expect Templates and these mathematical design systems to be the moment when s
 ## Phase 3: Single-page applications
 _Expected release: July 2025_
 
-Single-page applications represent the ultimate artform of design engineering. They demand perfect harmony between systematic design and complex functionality. Today, this fusion requires months of specialized development. We make it possible through a single command:
+Single-page applications represent the ultimate artform of design engineering. They demand perfect harmony between systematic design and complex functionality. Today, this fusion requires months of specialized development.
+
+We'll make this possible through a single command:
 
 
 ``` sh
@@ -75,7 +78,7 @@ nue create spa --function crm --todir app --design inherit
 
 This changes how you build single-page apps. Whether you're a solo creator crafting the next Linear, a startup building your core product, or an agency delivering client solutions - you can now create complete platforms with enterprise-grade functionality that inherits your brand's mathematical design system.
 
-What previously demanded multiple teams, different frameworks, and months of coordination now emerges from one command. Your CRM isn't just functional - it's a natural extension of your marketing site's visual language. The same systematic thinking that powers your public pages now shapes your application interfaces.
+What previously demanded multiple teams, different frameworks, and months of coordination now emerges from one command. Your app isn't just functional - it's a natural extension of your marketing site's visual language. The same systematic thinking that powers your public pages now shapes your application interfaces.
 
 The impact is profound: Linear-level design meets Stripe-level functionality, achieved through pure separation of concerns. This is design engineering taken to its natural conclusion.
 
@@ -83,7 +86,7 @@ But to make the reboot complete, we need one final piece:
 
 
 
-## Phase 4: The cloud
+## Phase 4: Cloud
 _Expected release: September 2025_
 
 On the final pahse it's time squeeze everything out from the cloud. It starts with a command that makes world-class web development accessible to everyone:

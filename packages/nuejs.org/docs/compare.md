@@ -1,8 +1,8 @@
 # Development experience: Next.js vs Nue
 
-This benchmark compares the development experience between Next.js Blog Starter Kit and Nue Simple Blog through measurable metrics and reproducible scenarios. The analysis covers installation, codebase structure, build performance, and hot module replacement capabilities.
+This benchmark compares the development experience between **Next.js Blog Starter Kit** and **Nue Simple Blog** through measurable metrics and reproducible scenarios. The analysis covers installation, build performance, codebase structure, and hot module replacement capabilities.
 
-### Installation and Setup
+### Installation and setup { #install }
 
 | Metric | Next.js (15.0.2) | Nue (1.0.0-RC.2) |
 |--------|------------------|-------------------|
@@ -12,7 +12,7 @@ This benchmark compares the development experience between Next.js Blog Starter 
 | Dependencies | 254 packages | 10 packages |
 | Setup Steps | 4 commands + manual open | Single command, auto-opens |
 
-### Build Performance
+### Build performance { #build }
 
 | Metric | Next.js | Nue |
 |--------|---------|-----|
@@ -20,7 +20,16 @@ This benchmark compares the development experience between Next.js Blog Starter 
 | Subsequent Builds | 15-16s | 0.15s |
 | Output Size | 78M | 1.1MB |
 
-### Development Experience
+### Production output { #output }
+
+| Metric | Next.js | Nue |
+|--------|---------|-----|
+| Bundle Size | 265KB [^3] | 8.5KB [^4] |
+| HTTP Requests | 14 | 2 |
+| Time to Interactive | 2.1s | 0.3s |
+
+
+### Development experience
 
 | Metric | Next.js | Nue |
 |--------|---------|-----|
@@ -30,13 +39,6 @@ This benchmark compares the development experience between Next.js Blog Starter 
 | State Preservation | Variable | Consistent |
 
 
-### Production Output
-
-| Metric | Next.js | Nue |
-|--------|---------|-----|
-| Bundle Size | 265KB [^3] | 8.5KB [^4] |
-| HTTP Requests | 14 | 2 |
-| Time to Interactive | 2.1s | 0.3s |
 
 
 [^1]: Full breakdown: 16 JS files, 2 CSS files, 26 HMR modules
@@ -46,7 +48,7 @@ This benchmark compares the development experience between Next.js Blog Starter 
 
 
 
-## Conclusion
+### Conclusion
 The quantitative differences between Next.js and Nue represent fundamental architectural distinctions that affect development workflow. The following analysis examines these implications:
 
 Development Flow Impact:
@@ -69,7 +71,7 @@ These factors compound in production environments. The measured performance diff
 The benchmark metrics can be independently verified by replicating the test scenarios with both templates under similar conditions. Each factor was measured under controlled circumstances to ensure reproducibility.
 
 
-## URLs & Resources
+### URLs & Resources
 
 Next.js Blog Starter:
 - Template: [blog-starter-kit](//vercel.com/templates/next.js/blog-starter-kit)

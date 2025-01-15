@@ -8,7 +8,7 @@ Nue is a standards-first framework that returns web development back to its core
 ## Web standards
 Modern web development has become increasingly complex. What began as elegant HTML, CSS, and JavaScript has devolved into labyrinthine build systems demanding hundreds of dependencies. Today's projects require complex TypeScript configurations, module bundlers, CSS preprocessors, and an endless chain of plugins just to render a page. This mounting complexity doesn't merely slow development - it creates brittle foundations requiring constant maintenance.
 
-The cost becomes particularly apparent in how quickly framework knowledge depreciates. React patterns from just a few years ago - class components, lifecycle methods, higher-order components - are now considered anti-patterns. State management solutions have cycled through **Flux, Redux, MobX, Recoil**, and **Jotai**. Even fundamental concepts like server-side rendering have been reimagined multiple times through framework iterations.
+The cost becomes particularly apparent in how quickly framework knowledge depreciates. **React** patterns from just a few years ago - class components, lifecycle methods, higher-order components - are now considered anti-patterns. State management solutions have cycled through **Flux, Redux, MobX, Recoil**, and **Jotai**. Even fundamental concepts like server-side rendering have been reimagined multiple times through framework iterations.
 
 We've normalized the idea that simple tasks demand massive amounts of JavaScript. That basic styling needs thousands of utility classes. That design changes mean updating countless components. While this approach might seem efficient initially, it produces rigid systems that resist change and grow increasingly difficult to maintain over time.
 
@@ -229,13 +229,15 @@ Instead of framework complexity:
 import { motion } from 'framer-motion'
 
 export default function MotionDiv() {
-  <motion.div
-    animate={{
-      scale: [1, 2, 2, 1, 1],
-      rotate: [0, 0, 270, 270, 0],
-      borderRadius: ["20%", "20%", "50%", "50%", "20%"],
-    }}
-  />
+  return (
+    <motion.div
+      animate={{
+        scale: [1, 2, 2, 1, 1],
+        rotate: [0, 0, 270, 270, 0],
+        borderRadius: ["20%", "20%", "50%", "50%", "20%"],
+      }}
+    />
+  )
 }
 ```
 
@@ -257,8 +259,6 @@ Nue extends Markdown syntax to enable rich content authoring while maintaining t
   small: /img/content-files.png
   large: /img/content-files-big.png
   size: 745 × 383
-
-
 
 Consider how to assemble a features section:
 
@@ -349,7 +349,7 @@ Consider rendering a list of blog entries:
 </ul>
 ```
 
-The same functionality in a JavaScript monolith requires extensive setup:
+The same functionality in a JavaScript monolith requires extensive boilerplate, especially when types are involved:
 
 ```tsx.bad
 import type { BlogPost } from '@/types'
@@ -379,9 +379,10 @@ export function BlogList({ posts }: BlogListProps) {
 }
 ```
 
-The simplicity is striking. If you know HTML, you know Nue. There's no need to learn complex hooks patterns, master state management libraries, or understand years of framework evolution. No historical baggage of class components, higher-order components, or render props. Just HTML enhanced with minimal syntax for dynamic features.
+Nue is simpler. If you know HTML, you know Nue. There's no need to learn complex hooks patterns, master state management libraries, or understand years of framework evolution. No historical baggage of class components, higher-order components, or render props. Just HTML enhanced with minimal syntax for dynamic features.
 
-What sets Nue apart is how this simple syntax works everywhere: server-side rendering, client-side components ("islands"), and even hybrid components that adapt to their context. Most importantly, these components work seamlessly in both Markdown content and layout modules. The same component can render server-side in your marketing pages and client-side in your interactive features.
+What sets Nue apart is how this simple syntax works everywhere: server-side rendering, client-side components ("islands"), and even hybrid ("isomorphic") components that adapt to their context. Most importantly, these components work seamlessly in both Markdown content and layout modules. The same component can render server-side in your marketing pages and client-side in your interactive features.
+
 
 ## Motion
 Modern CSS handles a remarkable range of motion design natively:
@@ -451,7 +452,7 @@ Through web standards, Nue enables sophisticated motion while maintaining perfor
 
 
 ## Tooling
-Development speed depends critically on feedback time. When you make a change, how quickly do you see the result? Nue provides universal hot-reloading that transforms the development experience:
+Development speed depends critically on feedback time. When you make a change, how quickly do you see the result? Nue provides universal hot-reloading that impacts your workflow quite a bit:
 
 [bunny-video]
   videoId: abb2cf75-c7f9-43e6-b126-8827d0c8721e
@@ -465,26 +466,26 @@ When you modify content, Nue performs DOM diffing to update only what actually c
 
 The intelligence extends beyond the current page. If you modify content on another route, Nue automatically navigates to show you the updated page. Yet if you change an asset that isn't relevant to your current view, the system knows to ignore it. This contextual awareness means you always see relevant updates without unnecessary refreshes.
 
-The secret to this performance is staying closer to the metal. The entire Nue installation is just 8MB. Getting started requires only two files: `site.yaml` for configuration and `index.md` for content. There's no complex setup, no dependency chains to manage, no framework-specific patterns to learn.
+The secret to this performance is staying closer to the metal. The entire Nue installation is just 11MB. Getting started requires only two files: `site.yaml` for configuration and `index.md` for content. No programmatic setup, no dependency chains, no framework-specific patterns.
 
-Compare this to modern JavaScript monoliths:
-- A minimal Next.js installation consumes 330MB disk space
-- Over 300 NPM dependencies just to set up a development environment
-- Build times of 30 seconds or more for moderate-sized applications
-- Style changes take 1-5 seconds to compile
-- Component updates need 2-10 seconds to refresh
+Compare this to JavaScript monoliths:
+- A minimal Next.js installation consumes more than 300MB disk space
+- Over 250 NPM dependencies just to set up a development environment
+- Build times of 15 seconds or more for moderate-sized applications
+- Component updates need seconds to refresh
+- Content changes are ignored
 
-Teams have normalized this extraordinary slowness. But it isn't inherent to web development - it's a direct result of architectural choices. By working closer to web standards, Nue achieves dramatically better performance:
-- Content updates: 10-50ms
-- Style changes: 5-20ms
+Nue makes it better:
+- Content updates around 50ms
+- Style changes: 10-20ms
 - Component modifications: 20-100ms
-- Full site rebuild (100 pages): 0.1 seconds
+- Full site rebuild (100 pages) below 0.5 seconds
 
-This isn't just about faster numbers - it fundamentally transforms how development feels. The tight feedback loop keeps you in flow. Ideas can be explored rapidly. Adjustments feel immediate and natural. Development becomes truly enjoyable again.
+This changes how development feels. The tight feedback loop keeps you in flow. Ideas can be explored rapidly. Adjustments feel immediate and natural. Development becomes enjoyable.
 
 
 ## Optimization
-Nue attempts to build the fastest pages possible, and the fastest page load is one that requires just a single request. When the initial HTML response contains everything needed to render the page - structure, styles, and critical content - the browser can begin painting immediately. There's no waterfall of CSS and JavaScript requests, no cumulative layout shifts, no waiting for framework initialization. The page simply appears.
+Nue builds the fastest pages possible, which are the ones that require just one request. When the initial HTML response contains everything needed to render the page - content, structure, and styles - the browser can begin painting immediately. There's no waterfall of CSS and JavaScript requests, no cumulative layout shifts, no waiting for framework initialization. The page simply appears.
 
 The optimization secret is CSS inlining. Enable it in your `site.yaml`:
 
@@ -492,11 +493,11 @@ The optimization secret is CSS inlining. Enable it in your `site.yaml`:
 inline_css: true
 ```
 
-Nue's build system is designed from the ground up to support this technique. The initial response contains everything needed for the first meaningful paint. No framework initialization, no style recalculation, no JavaScript bootstrap - just instant content display.
+Nue's build system is designed from the ground up to support this technique.
 
-Contrast this to JavaScript monoliths that can never achieve this ideal. Their architecture fundamentally depends on shipping large amounts of framework code before meaningful content can be displayed. Even with aggressive optimization, they must send React, routing logic, and component code. Their dependence on massive CSS frameworks like Tailwind further increases the base payload that every user must download.
+Contrast this to JavaScript monoliths that can never achieve this ideal. Their architecture fundamentally depends on shipping large amounts of framework code before meaningful content can be displayed. Even with aggressive optimization, they must send React, routing logic, and component code. And it makes no sense to inline large CSS frameworks like Tailwind on every page.
 
-The web development world has become obsessed with the wrong kind of optimization. Complex bundlers written in Rust and Go slice, dice, and rearrange JavaScript code in increasingly sophisticated ways. Teams spend countless hours configuring build tools, optimizing chunk splitting, and fine-tuning tree-shaking algorithms. But this optimization theater misses the fundamental truth: proper separation of concerns naturally leads to better performance without complex bundling strategies.
+The web development world has become obsessed with the wrong kind of optimization. Complex bundlers written in Rust and Go slice, dice, and rearrange JavaScript code in increasingly sophisticated ways. Teams spend countless hours configuring build tools, optimizing chunk splitting, and fine-tuning tree-shaking algorithms. But this optimization theater misses the point: proper separation of concerns naturally leads to better performance without complex bundling strategies.
 
 
 ## Who is Nue for
@@ -508,6 +509,8 @@ The standards-first approach to web development creates value for several distin
 
 * **For design-focused teams**, Nue enables a return to systematic thinking. Rather than embedding design decisions in utility classes or CSS-in-JS, teams can create true design systems that scale naturally. Modern CSS features like custom properties, calculations, and container queries provide unprecedented power for creating mathematical relationships. Design engineers can focus on building systems that unite marketing sites and applications under consistent visual languages. The emphasis stays on user experience and design systems rather than framework-specific patterns.
 
-In each case, Nue's standards-first approach creates more than just immediate benefits - it builds knowledge and systems that appreciate over time rather than decaying with each framework iteration. As browsers continue evolving, developers working directly with web standards find their capabilities expanding naturally. Their understanding grows deeper as the platform improves, rather than being repeatedly displaced by new framework patterns.
+In each case, Nue's standards-first approach creates more than just immediate benefits - it builds knowledge and systems that appreciate over time rather than decaying with each framework iteration.
 
 This sustainable approach to skill development might be Nue's most important contribution. In a world of constant framework churn, learning web standards provides stable foundations that become more valuable over time. Whether you're just starting your journey or bringing years of experience, working closer to the web platform creates more resilient knowledge and more maintainable applications.
+
+

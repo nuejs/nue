@@ -6,7 +6,8 @@ documentation:
     - Standards first: /docs/
     - Installation: installation.html
     - Command line interface: command-line-interface.html
-    - FAQ: /docs/faq.html
+    - Compare: compare.html
+    - FAQ: faq.html
 
   Building websites:
     - Step-by-step tutorial: tutorial.html
