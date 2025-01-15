@@ -16,7 +16,7 @@ We've normalized this extraordinary complexity. Landing pages are turned into Ja
 
 The cost is more than just complexity, build times, and development speed. It's the whole culture of web development. Teams spend more time wrestling with framework documentation than solving real problems. Build times that should take milliseconds are taking minutes. Each day we drift further from the web's core strengths.
 
-The biggest trouble is this: the more you invest in learning today's frameworks, the more technical debt you accumulate in your mind. React patterns from just a few years ago are now considered anti-patterns. State management solutions keep cycling through **Redux**, **MobX**, **Recoil**, and countless others. Meanwhile, the web platform itself has quietly evolved to provide native solutions for most of what these frameworks try to solve.
+The biggest trouble is this: the more you invest in learning today's frameworks, the more technical debt you accumulate in your mind. React patterns from just a few years ago are now considered antipatterns. State management solutions keep cycling through **Redux**, **MobX**, **Recoil**, and countless others. Meanwhile, the web platform itself has quietly evolved to provide native solutions for most of what these frameworks try to solve.
 
 
 
@@ -41,23 +41,23 @@ The JavaScript monolith isn't just a technical problem, it is suffocating the cr
 
 ## The standards-first web framework
 
-To relief my disappointment with the frontend ecosystem, I'm showing a better way to build websites. It is based on the following foundations:
+To relieve my disappointment with the frontend ecosystem, I'm showing a better way to build websites. It is based on the following foundations:
 
 1. **Standards first**: Browsers have evolved significantly in the past decade. By working with the standards rather than against them, we create better products with less code.
 
-1. **HTML first**: semantic HTML is the foundation for everything: layouts, server components, and interactive islands. The same syntax and mental model is better for developers, search engines, and screen readers.
+2. **HTML first**: semantic HTML is the foundation for everything: layouts, server components, and interactive islands. The same syntax and mental model is better for developers, search engines, and screen readers.
 
-1. **Content first**: Rich Markdown syntax handles everything from marketing to documentation. Content lives in clean, accessible files - not in JavaScript.
+3. **Content first**: Rich Markdown syntax handles everything from marketing to documentation. Content lives in clean, accessible files - not in JavaScript.
 
-1. **Design systems**: modern, systematic CSS is more powerful than you think. Learn to build design systems, and you'll get better interfaces with less code.
+4. **Design systems**: modern, systematic CSS is more powerful than you think. Learn to build design systems, and you'll get better interfaces with less code.
 
 Here's what this enables:
 
-1. **Faster tooling**: Content updates in 10-50ms, style changes in 5-20ms, and component modifications in 20-100ms. It's s whole new hot-reloading experience.
+1. **Faster tooling**: Content updates in 10-50ms, style changes in 5-20ms, and component modifications in 20-100ms. It's a whole new hot-reloading experience.
 
 2. **Cleaner code**: No TypeScript imports, no utility classes, no state management complexity. Just clean, minimalistic code that naturally separates content, structure, and styling.
 
-1. **Faster pages**: The fastest page load is one that requires just a single request. No framework initialization, no cumulative layout shifts, no waiting for JavaScript. When content and styling arrive together, pages simply appear.
+3. **Faster pages**: The fastest page load is one that requires just a single request. No framework initialization, no cumulative layout shifts, no waiting for JavaScript. When content and styling arrive together, pages simply appear.
 
 
 [Learn how Nue works →](/docs/)
@@ -84,7 +84,7 @@ nue create startup --design rams
 
 Let's dive into this. First off, this command structure is the very reason I started building Nue in the first place. It demonstrates the benefits of separation of concerns as clearly as possible. A template defines the **function** - whether it's a blog, an idea showcase, a startup platform, or an enterprise site. The design system defines the **form**, which brings the template to life through a user-selected look and feel.
 
-Behind the "rams" argument is something called a **global design system** that acts as a basis for four wildly different mathematical expressions:
+Behind the "rams" command argument is something called a **global design system** that acts as a basis for four wildly different mathematical expressions:
 
 1. **Mies** — This design system is obviously special for me. It's the hardcore minimalism that many designers look up to. The result looks remarkably similar to **Linear**, but achieves its commanding presence through mathematical precision: stark contrasts, intense whitespace, and bold architectural functionalism. Check **Seagram Building** in **New York** and you'll get the idea.
 
@@ -92,7 +92,7 @@ Behind the "rams" argument is something called a **global design system** that a
 
 3. **Zaha** — Translates **Zaha Hadid**'s bold architectural vision into digital space. Where Linear suggests depth through noise via `feTurbulence`, Zaha fully embraces the third dimension through systematic shadows, calculated blur effects, and precise transforms that create dramatic movement while maintaining perfect mathematical relationships.
 
-4. **Muriel** —  **Muriel Cooper** revolutionized digital design at MIT by showing how mathematical systems could create both precision and joy. This system builds on her work, proving how systematic thinking enables creative freedom. Like Apple, it achieves playfulness through calculation - but goes further by making every relationship mathematically pure.
+4. **Muriel** — **Muriel Cooper** revolutionized digital design at MIT by showing how mathematical systems could create both precision and joy. This system builds on her work, proving how systematic thinking enables creative freedom. Like Apple, it achieves playfulness through calculation - but goes further by making every relationship mathematically pure.
 
 Imagine what this means for web development: you can create an Apple-like startup site for one client, a Stripe-like platform for another, and a Linear-inspired interface for a third. All through a single command that takes seconds rather than the months of custom development these looks typically require.
 
@@ -103,7 +103,7 @@ But even this is just the beginning...
 ## Single-page applications
 Once the design systems are out, I'll release the next major piece: single-page applications. These sit right in the middle of design and engineering and want Nue to take these artforms to their absolute peak. Three key methods:
 
-1. Architecture is based on **MVC** (model, view, controller) which creates the much needed separation of concerns. JS engineers work on pure business logic. UI developers craft the experience. Everyone stays in their zone of expertise.
+1. Architecture is based on **MVC** (model, view, controller) which creates the much-needed separation of concerns. JS engineers work on pure business logic. UI developers craft the experience. Everyone stays in their zone of expertise.
 
 2. The design system is clearly separated. Change the look and feel of the website from Mies to Muriel, and the SPA will follow. Form follows function.
 
@@ -119,7 +119,7 @@ This creates a complete startup platform, all expressing itself through the same
 
 You can see how this changes things. Instead of building from scratch, you get Linear-level design, Stripe-level functionality, and a consistent UX in an instant.
 
-But we will not stop here. Our [ultimate goal](/vision/) is to cleanup the whole frontend ecosystem from the unnecessary bloat. And unlike many ambitious visions in tech, this one is actually achievable.
+But we will not stop here. Our [ultimate goal](/vision/) is to clean up the whole frontend ecosystem from the unnecessary bloat. And unlike many ambitious visions in tech, this one is actually achievable.
 
 
 ## Invest in Nue?

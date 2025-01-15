@@ -1,4 +1,3 @@
-
 ---
 include: [technical-content, form]
 ---
@@ -41,7 +40,7 @@ Right now, I'm building four systems where all the visual relationships are calc
 
 2. **Rams** — This system builds on **Dieter Rams**'s human-centered functionalism. The end result closely resembles **Stripe**'s clean aesthetic, but stripped of ornamental elements. This design is perhaps closest to what current utility-first frameworks aim for, but achieved through systematic thinking.
 
-3. **Zaha** — Translates **Zaha Hadid**'s bold architectural vision into digital space. Where Linear suggests depth, this system embraces the third dimension. Shadows, blur effects, and transforms create subtle movement while maintaining the  mathematical relationships.
+3. **Zaha** — Translates **Zaha Hadid**'s bold architectural vision into digital space. Where Linear suggests depth, this system embraces the third dimension. Shadows, blur effects, and transforms create subtle movement while maintaining the mathematical relationships.
 
 4. **Muriel** — Channels **Muriel Cooper**'s pioneering work in digital design. It captures **Apple**'s blend of precision and joy, proving how systematic thinking enables creative freedom while preserving clarity. This isn't just about copying Apple's look - it's about understanding the mathematical principles that make their interfaces feel both playful and precise.
 
@@ -112,7 +111,7 @@ This is what the web was always meant to be: bringing this immense power to ever
 
 [.recap]
   ## Recap
-  How Nue reboots the the overly complex ecosystem
+  How Nue reboots the overly complex ecosystem
 
   [! /img/roadmap-2025-1-big.png"]
 
