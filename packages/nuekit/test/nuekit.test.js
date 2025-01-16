@@ -88,11 +88,11 @@ test('environment', async () => {
 })
 
 
+// NOTE: undocumented feature for the next release
 const MODEL = `
 export default async function (opts) {
-  const { port } = opts
   return {
-    port,
+    ...opts,
     async conf() {
       return opts.server_model
     },
@@ -176,7 +176,7 @@ test('include/exclude data', async () => {
   expect(data.exclude).toEqual(["a", "b"])
 })
 
-test.only('asset include/exclude', async () => {
+test('asset include/exclude', async () => {
   await write('site.yaml', 'globals: [global]\nlibs: [lib, ext]\n')
   await write('global/global.css')
   await write('global/kama.dhtml')

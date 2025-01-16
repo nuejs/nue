@@ -115,7 +115,7 @@ function convertToTags(components, data) {
 }
 
 
-export function renderPage(data, lib, custom_tags) {
+export function renderPage(data, lib, custom_tags={}) {
   const comps = [ ...lib, ...getLayoutComponents()]
   const { document } = data
 

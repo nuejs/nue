@@ -61,7 +61,6 @@ globalnav:
   footer:
     - How it works?: /docs/
     - Get started: /docs/installation.html
-    - Documentation: /docs/
     - Blog: /blog/
     - Vision: /vision/
 
