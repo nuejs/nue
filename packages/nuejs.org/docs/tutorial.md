@@ -105,7 +105,7 @@ Our blog adds metadata to each post through "front matter" - YAML at the start o
 
 ```yaml
 ---
-title: A standards-first framework
+title: A standards first framework
 description: Taking HTML, CSS and JavaScript to their peak
 date: 2024-01-15
 ---

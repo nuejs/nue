@@ -1,11 +1,10 @@
 ---
-title: A standards-first web framework
+title: A standards first web framework
 description: Nue is HTML, CSS, and JavaScript taken to their absolute peak.
 date: 2025-01-17
-# unlisted: true
 ---
 
-Today Nue takes a new, more natural direction: it becomes a **standards-first web framework**. The focus has always been to strip away artificial layers and help developers take modern HTML, CSS, and JavaScript to their absolute peak. This shift is important, because now we can more directly work on solving the two key issues in frontend development:
+Today Nue takes a new, more natural direction: it becomes a **standards first web framework**. The focus has always been to strip away artificial layers and help developers take modern HTML, CSS, and JavaScript to their absolute peak. This shift is important, because now we can more directly work on solving the two key issues in frontend development:
 
 
 
@@ -39,7 +38,7 @@ The JavaScript monolith isn't just a technical problem, it is suffocating the cr
 
 
 
-## The standards-first web framework
+## The standards first web framework
 
 To relieve my disappointment with the frontend ecosystem, I'm showing a better way to build websites. It is based on the following foundations:
 

@@ -3,7 +3,7 @@
 
 
 ## Standards first web framework
-Nue is a standards-first web framework that returns web development back to its core strengths. It takes modern HTML, CSS, and JavaScript to their natural peaks without introducing unnecessary abstractions.
+Nue is a standards first web framework that returns web development back to its core strengths. It takes modern HTML, CSS, and JavaScript to their natural peaks without introducing unnecessary abstractions.
 
 It is based on the following foundations:
 
