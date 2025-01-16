@@ -25,8 +25,8 @@ Exactly one year ago I [decided](/blog/backstory/) to create a super simple webs
 
 
 [image.larger]
-  small: /img/og-blue.png
-  large: /img/og-blue-big.png
+  small: img/og-blue.png
+  large: img/og-blue-big.png
   size: 747 x 474
 
 - - -

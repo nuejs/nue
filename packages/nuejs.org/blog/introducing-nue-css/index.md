@@ -190,7 +190,7 @@ No matter how clever the Rust-based Bundler, optimizing your JavaScript, nothing
 ## Separation of concerns
 Nue breaks you out from the [single point of responsibility](#blocker) and offloads the burden from the JavaScript/React engineer for the more talented ones, focusing on that specific field:
 
-[image "/img/without-js-bottleneck.svg"]
+[image "img/without-js-bottleneck.svg"]
 
 
 Separation of concerns equals scalability: Marketers and technical writers proceed with content, designers and UX developers focus on the user experience, and JavaScript developers perfect the [back of the frontend](//bradfrost.com/blog/post/front-of-the-front-end-and-back-of-the-front-end-web-development/). The same applies for one person projects too — all the UX talent just comes from one head.
