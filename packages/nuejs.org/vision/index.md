@@ -42,7 +42,7 @@ Right now, I'm building four systems where all the visual relationships are calc
 
 3. **Zaha** — Translates **Zaha Hadid**'s bold architectural vision into digital space. Where Linear suggests depth, this system embraces the third dimension. Shadows, blur effects, and transforms create subtle movement while maintaining the mathematical relationships.
 
-4. **Muriel** — Channels **Muriel Cooper**'s pioneering work in digital design. It captures **Apple**'s blend of precision and joy, proving how systematic thinking enables creative freedom while preserving clarity. This isn't just about copying Apple's look - it's about understanding the mathematical principles that make their interfaces feel both playful and precise.
+4. **Muriel** — Channels **Muriel Cooper**'s pioneering work in digital design. It captures **Apple**'s blend of precision and joy, proving how systematic thinking enables creative freedom while preserving clarity. This isn't just about copying Apple's look — it's about understanding the mathematical principles that make their interfaces feel both playful and precise.
 
 Imagine building websites for clients:
 
@@ -75,9 +75,9 @@ We'll make this possible through a single command:
 nue create spa --function crm --todir app --design inherit
 ```
 
-This changes how you build single-page apps. Whether you're a solo creator crafting the next Linear, a startup building your core product, or an agency delivering client solutions - you can now create complete platforms with enterprise-grade functionality that inherits your brand's mathematical design system.
+This changes how you build single-page apps. Whether you're a solo creator crafting the next Linear, a startup building your core product, or an agency delivering client solutions — you can now create complete platforms with enterprise-grade functionality that inherits your brand's mathematical design system.
 
-What previously demanded multiple teams, different frameworks, and months of coordination now emerges from one command. Your app isn't just functional - it's a natural extension of your marketing site's visual language. The same systematic thinking that powers your public pages now shapes your application interfaces.
+What previously demanded multiple teams, different frameworks, and months of coordination now emerges from one command. Your app isn't just functional — it's a natural extension of your marketing site's visual language. The same systematic thinking that powers your public pages now shapes your application interfaces.
 
 The impact is profound: Linear-level design meets Stripe-level functionality, achieved through pure separation of concerns. This is design engineering taken to its natural conclusion.
 
@@ -88,7 +88,7 @@ But to make the reboot complete, we need one final piece:
 ## Phase 4: Cloud
 _Expected release: September 2025_
 
-On the final pahse it's time squeeze everything out from the cloud. It starts with a command that makes world-class web development accessible to everyone:
+This is the final phase and it's time to squeeze everything out from the cloud. It starts with a command that makes world-class web development accessible to everyone:
 
 ``` sh
 nue push
