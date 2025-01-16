@@ -25,9 +25,10 @@ jobs:
         with:
           args: >
             --no-progress
-            --exclude-path node_modules
-            --exclude localhost
-            --base .
+            --include-fragments
+            --exclude-path "node_modules"
+            --exclude "localhost"
+            --base "."
             --
             "**/README.md"
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -60,6 +61,7 @@ jobs:
         with:
           args: >
             --no-progress
+            --include-fragments
             --accept "403, 429, 503, 999"
             --remap "http://localhost:8080/@ https://nuejs.org/@"
             --remap "http://localhost:8080/todomvc https://nuejs.org/todomvc"
