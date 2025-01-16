@@ -23,7 +23,7 @@ We use this framework to complete the next phase:
 ## Phase 2: Templates
 _Expected release: April 2025_
 
-On this phase, we'll implement true templates. For a template to be truly pure, it must maintain absolute separation between function and design. It comes down to a single command:
+In this phase, we'll implement true templates. For a template to be truly pure, it must maintain absolute separation between function and design. It comes down to a single command:
 
 ``` sh
 nue create startup --design rams
