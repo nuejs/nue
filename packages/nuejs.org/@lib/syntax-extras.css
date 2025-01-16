@@ -26,7 +26,7 @@
       }
     }
 
-    [aria-selected] {
+    [aria-current] {
       border-bottom: 2px solid var(--main-500);
       color: #fff;
     }

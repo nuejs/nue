@@ -1,8 +1,8 @@
 /* misc stuff. think shame.css */
 
 import { promises as fs } from 'node:fs'
-import { sep, parse, normalize, join, isAbsolute, dirname } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { sep, parse, resolve, normalize, join, isAbsolute, dirname } from 'node:path'
+import { fileURLToPath, pathToFileURL } from 'node:url'
 
 
 export const srcdir = dirname(fileURLToPath(import.meta.url))
@@ -14,6 +14,11 @@ export async function getVersion() {
   const path = join(srcdir, '../package.json')
   const json = await fs.readFile(path, 'utf-8')
   return JSON.parse(json).version
+}
+
+export async function importFromCWD(path) {
+  const abs_path = resolve(process.cwd(), path)
+  return import(pathToFileURL(abs_path).href)
 }
 
 export function getEngine() {
@@ -49,7 +54,7 @@ export function parsePathParts(path) {
   const { dir, name, base } = parse(path)
   const basedir = getAppDir(path)
   const url = getUrl(dir, name)
-  return { url, dir, slug: name + '.html', basedir }
+  return { filepath: path, url, dir, slug: name + '.html', basedir }
 }
 
 export function joinRootPath(root, path, abs = false) {

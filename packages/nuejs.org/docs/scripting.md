@@ -1,4 +1,3 @@
-
 # Scripting
 Not all interactivity happens in isolated "islands." Vanilla JavaScript offers several powerful ways to enrich the user experience:
 
@@ -27,16 +26,16 @@ JavaScript and browser APIs have evolved significantly since the jQuery era, ope
   * Selection API
   * Web Share API
 
-By focusing on JavaScript and web standards, you’ll gain a deeper understanding of how the web works. This lets you move beyond frameworks and libraries, and build something more general.
+By focusing on JavaScript and web standards, you'll gain a deeper understanding of how the web works. This lets you move beyond frameworks and libraries, and build something more general.
 
-The **Nue.js** template engine is a great example of this. It’s like React, but optimized for the semantic web, and packaged into just 2.5kb of vanilla JavaScript by working directly with the DOM and web standards.
+The **Nue.js** template engine is a great example of this. It's like React, but optimized for the semantic web, and packaged into just 2.5kb of vanilla JavaScript by working directly with the DOM and web standards.
 
 Learning ES6 modules, modern APIs, and DOM manipulation will provide you with long-lasting, powerful skills.
 
 
 ## Scripting example
 
-Let’s explore a common use case for scripting: [popovers](//developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/popover). These elements have a `popover` global attribute, which allows them to function as modals. Here's an example on this website:
+Let's explore a common use case for scripting: [popovers](//developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/popover). These elements have a `popover` global attribute, which allows them to function as modals. Here's an example on this website:
 
 ```html
 <dialog id="menu" popover>
@@ -63,7 +62,7 @@ Click on this button to see it in action:
 
 [button popovertarget="menu" "Open menu"]
 
-While no JavaScript is required to make the popover work, we want to ensure that the menu closes when any link is clicked. Here’s a global script to handle that:
+While no JavaScript is required to make the popover work, we want to ensure that the menu closes when any link is clicked. Here's a global script to handle that:
 
 ```js
 // hide popover menus
@@ -94,7 +93,7 @@ When [view transitions](motion.html#view-transitions) are enabled, your site is 
 
 Nue extends this concept with built-in view transition support, making page transitions visually smoother and more engaging, further improving user experience.
 
-With view transitions, you need to reinitialize your scripts each time a **virtual** page loads to ensure they work with the new content. Here’s how:
+With view transitions, you need to reinitialize your scripts each time a **virtual** page loads to ensure they work with the new content. Here's how:
 
 ```js
 // Runs after a virtual page is rendered
@@ -123,33 +122,28 @@ addEventListener('route:home', function() {
 
 ## View transition API
 
-The view transition script, located at `/@nue/view-transitions.js`, provides a set of helpful methods to make scripting smoother and more efficient. These methods simplify common DOM tasks, streamline page transitions, and bring a familiar scripting style to Nue.
-
-To use the API, start by importing the methods you need:
+The view transition script, located at `/@nue/view-transitions.js`, provides a set of helpful methods to make scripting smoother and more efficient:
 
 ```js
 import { $, $$, loadPage } from '/@nue/view-transitions.js'
 ```
 
 #### `$(selector)`
-
-A jQuery-style wrapper for `document.querySelector`, providing a shorthand way to select a single element by its CSS selector. This is especially useful for quickly grabbing elements without typing out the full `document.querySelector` syntax.
+A jQuery-style wrapper for `document.querySelector`. For example:
 
 ```js
-// select the first article element on the page
+// select the first article element
 const article = $('article')
 ```
 
 #### `$$(selector)`
-
-Similar to `$()`, but works with `document.querySelectorAll` to select multiple elements and return them as a real array. This simplifies iterating over elements without needing to convert the NodeList.
+Similar to `$()`, but works with `document.querySelectorAll` to select multiple elements and return them as a real array:
 
 ```js
-// select all anchor elements on the page and return an array
+// select all anchor elements and return an array
 const links = $$('a')
 
 links.forEach(link => {
-  // add event listeners or other logic to each link
   link.addEventListener('click', () => {
     console.log('Link clicked:', link.href)
   })
@@ -157,8 +151,7 @@ links.forEach(link => {
 ```
 
 #### `loadPage()`
-
-Triggers a view transition to load a new page programmatically. Instead of a full page reload, this method loads the content via JavaScript, allowing for a smoother transition that feels like a single-page application. It’s useful for creating custom navigation without full reloads or for handling redirects after form submissions, popups, or interactive components.
+Triggers a view transition to load a new page programmatically:
 
 ```js
 // transition smoothly to the "thanks.html" page

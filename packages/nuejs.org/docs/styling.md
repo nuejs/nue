@@ -1,29 +1,5 @@
-
 # Styling
 Nue uses CSS as the primary tool for styling, moving away from JavaScript monoliths that tightly couple structure and styling. This gives you more control and flexibility in your styling.
-
-
-[image]
-  small: /img/blog-colors.png
-  large: /img/blog-colors-big.png
-  caption: CSS is global by nature
-
-
-## Why CSS?
-
-CSS is the design language of the internet:
-
-1. **Global by nature** — CSS and design systems are global. Elements like typography, colors, spacing, and base content (headings, paragraphs, etc.) should be managed globally for consistency.
-
-2. **Central control** a centrally managed design system is easy to control by CSS developers / design engineers.
-
-3. **Modern CSS** Modern CSS is a powerful, standalone language. The cascade, advanced selectors, and motion design are just few examples of its power.
-
-4. **Hot Module Replacement (HMR) Speed** — vanilla CSS doesn't need processing, while JavaScript monoliths with large dependencies can take several seconds to rebuild.
-
-5. **Smaller footprint** — CSS results in a much lighter page weight. For example, this website's entire CSS footprint is about the same size as Tailwind's Preflight CSS.
-
-6. **Timeless skills and products** — The JS monolith and its various unstandardized features are popular right now, but it's hard to predict what will happen in five years. The complicated utility syntaxes and missed opportunities indicate potential technology debt. It's wise to stick with web standards, as this benefits your skills and career. Plus, the products you create will be more durable over time.
 
 
 ## Design systems
@@ -42,7 +18,7 @@ By organizing your styles into layers, you create a design framework that scales
 
 4. **Page-specific styles**: Applied to individual pages, giving you precise control over design and functionality for each page.
 
-Each layer builds upon the one below it, with **global styles** forming the base and more specific styles (area- and page-specific) overriding or refining them. This structure leverages CSS’s cascading nature, keeping your code clean, modular, and maintainable.
+Each layer builds upon the one below it, with **global styles** forming the base and more specific styles (area- and page-specific) overriding or refining them. This structure leverages CSS's cascading nature, keeping your code clean, modular, and maintainable.
 
 
 ### Global styles
@@ -60,8 +36,12 @@ Global styles typically include:
 - `typography.css` — Typographic styles for headings, paragraphs, text formatting, blockquotes, lists, and links.
 - `navigation.css` — Styles for global navigation components, including headers, footers, and other key navigation elements.
 
-
 The `@` prefix for directory names is optional but serves as a useful convention to signify that the folder contains global assets rather than application-specific files like `blog`.
+
+[image]
+  small: /img/blog-colors.png
+  large: /img/blog-colors-big.png
+  caption: CSS is global by nature
 
 
 ### UI libraries
@@ -89,7 +69,6 @@ Area-specific styles are applied using the `include` statement in the `.yaml` fi
 # blog/blog.yaml
 include: [ form, card, motion ]
 ```
-
 
 When organizing your CSS with area-specific files, there is no need for class name prefixing (e.g., `.blog .card`). The styles within an area-specific file are automatically scoped to that section of your site, making class names like `.blog .card` redundant.
 
@@ -174,7 +153,7 @@ This would generate the following HTML:
 
 #### Styling your sections
 
-Once your content is split into sections, you can style each section individually using class names like `.hero`, `.features`, or `.backstory`. Since your styles are scoped to sections through the `sections` configuration, there is no need for redundant prefixes like `.blog .hero`. The section-specific styles are already applied only within that section’s context.
+Once your content is split into sections, you can style each section individually using class names like `.hero`, `.features`, or `.backstory`. Since your styles are scoped to sections through the `sections` configuration, there is no need for redundant prefixes like `.blog .hero`. The section-specific styles are already applied only within that section's context.
 
 ```css
 /* Section-specific styles */
@@ -254,7 +233,7 @@ By removing unnecessary containers and focusing on meaningful, semantic elements
 
 ### Avoid inline styling
 
-When styling your components, it’s crucial to separate concerns by keeping styling out of the markup. This means avoiding inline styles, both through the `style` attribute and the use of class-based utility styles. Inline styling tightly couples the design to the structure, making it harder to maintain and update, and working against the principles of a **design system**.
+When styling your components, it's crucial to separate concerns by keeping styling out of the markup. This means avoiding inline styles, both through the `style` attribute and the use of class-based utility styles. Inline styling tightly couples the design to the structure, making it harder to maintain and update, and working against the principles of a **design system**.
 
 For example, avoid this:
 
@@ -288,7 +267,7 @@ Decoupling styles from markup keeps your design flexible, maintainable, and scal
 
 ### Create reusable components
 
-A scalable CSS strategy starts with reusable components. By extracting common patterns and styling them as reusable classes, you not only reduce code duplication but also create a design system that’s easy to maintain and scale. These reusable components should be derived from your **design system**, which acts as the single source of truth for consistent styling across your entire site.
+A scalable CSS strategy starts with reusable components. By extracting common patterns and styling them as reusable classes, you not only reduce code duplication but also create a design system that's easy to maintain and scale. These reusable components should be derived from your **design system**, which acts as the single source of truth for consistent styling across your entire site.
 
 For example, a notification component can be divided into reusable parts like this:
 
@@ -351,7 +330,7 @@ body > header {
 
 1. **Cleaner code**: CSS nesting mirrors your HTML structure, reducing the need for excessive class names and making your styles easier to read.
 
-2. **No naming of things**: With nesting, you don’t need to create class names for every element. This minimizes cognitive load and lets you focus on the structure of your HTML.
+2. **No naming of things**: With nesting, you don't need to create class names for every element. This minimizes cognitive load and lets you focus on the structure of your HTML.
 
 3. **No pre-processors needed**: By using native CSS features, you avoid needing pre-processors like SASS and stick to web standards, making your stylesheets more performant and future-proof.
 
@@ -366,7 +345,7 @@ Avoid relying on complex CSS reset libraries. In most cases, a minimal reset is 
 }
 ```
 
-Reset libraries can add unnecessary complexity, often resetting everything to zero only to reapply styling afterward. For instance, many resets remove default margins on elements like `h1` or `p`, which you’ll need to restore later:
+Reset libraries can add unnecessary complexity, often resetting everything to zero only to reapply styling afterward. For instance, many resets remove default margins on elements like `h1` or `p`, which you'll need to restore later:
 
 ```css
 h1, h2, h3, p {
@@ -406,7 +385,3 @@ When crafting your design system, limit yourself to as few fonts, font weights, 
 
 Limiting options reduces the potential for errors and ensures the design remains cohesive. A minimal design system fosters creativity by encouraging thoughtful combinations of the available resources. Fewer choices lead to more deliberate design decisions, making both development and design smoother.
 
-
-## Templates
-
-For many engineers, design can feel like a foreign concept — something abstract and difficult to master. The same often goes for CSS, which many find confusing or tricky to get right. Some even avoid it entirely. Nue's **templates** aim to bridge that gap. [Join the mailing](/index.html#roadmap) list to get notified when they are released.

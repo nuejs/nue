@@ -9,6 +9,7 @@ import { fswalk } from './nuefs.js'
 import {
   traverseDirsUp,
   parsePathParts,
+  importFromCWD,
   joinRootPath,
   extendData,
   getAppDir,
@@ -78,6 +79,50 @@ export async function createSite(args) {
   const dist = joinRootPath(root, site_data.dist || join('.dist', is_prod ? 'prod' : 'dev'))
   const port = args.port || site_data.port || (is_prod ? 8081 : 8080)
   site_data.base = args.base || site_data.base
+
+
+  async function loadExtension(path, arg) {
+    const fn = await importFromCWD(join(root, path))
+    if (fn?.default) {
+      return await fn.default(site_data, arg)
+    } else {
+      console.error('No default export in', path)
+    }
+  }
+
+  async function getModel() {
+    const { src, namespace='app' } = site_data.server_model || {}
+    if (src) {
+      const model = await loadExtension(src)
+      log('Loaded model from', src)
+      return { [namespace]: model }
+    }
+  }
+
+  self.model = await getModel()
+
+
+  function toKebab(str) {
+    return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
+  }
+
+  async function getTags() {
+    const paths = site_data.custom_tags
+    if (!paths) return
+    const tags = {}
+
+    const model = self.model ? Object.values(self.model)[0] : null
+
+    for (const path of paths) {
+      const obj = await loadExtension(path, model)
+      log('Loaded tags from', path)
+      for (const name in obj) tags[toKebab(name)] = obj[name]
+    }
+
+    return tags
+  }
+
+  self.tags = await getTags()
 
 
   // flag if .dist is empty
@@ -358,5 +403,5 @@ export async function createSite(args) {
     return arr
   }
 
-  return { ...self, dist, port, read, write, copy }
+  return { ...self, dist, port, read, write, copy, getModel }
 }

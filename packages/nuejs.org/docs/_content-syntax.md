@@ -1,16 +1,4 @@
 
-# Content syntax
-Nue provides an **extended Markdown syntax** for authoring rich web content. Building on top of basic Markdown, you can easily include complex elements like grids, responsive images, tables, accordions, tabbed content, and more.
-
-
-[image.bordered]
-  caption: Nue's extended Markdown syntax handles all varieties of content
-  small: /img/content-files.png
-  large: /img/content-files-big.png
-  size: 745 × 383
-
-This allows you to rapidly create dynamic, responsive web pages without writing any additional code. Everything is managed through simple, versionable text files that can be edited directly on your file system with your favorite text editor.
-
 
 ## Basic syntax
 Nue fully supports standard [Markdown](//daringfireball.net/projects/markdown/), allowing you to work with familiar formatting options like headings, quotes, lists, and fenced code blocks. Here's an example of the basic syntax:
@@ -81,7 +69,7 @@ In Nue, the focus is on **pure content** — free from HTML markup. This ensures
 Instead of embedding HTML, Nue provides powerful Markdown extensions like **blocks**, which let you create rich, styled content while keeping the content layer pure.
 
 
-### More formatting optionms
+### Extra formatting optionms
 Nue provides a variety of formatting options beyond standard Markdown, giving you more control over how text appears on the page. Here’s a comparison between the Markdown syntax and the corresponding HTML output:
 
 

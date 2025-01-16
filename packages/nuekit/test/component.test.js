@@ -75,7 +75,7 @@ test('render categorized nav', () => {
 
   }, { class: 'epic' })
 
-  expect(html).toStartWith('<div class="epic"><nav><h3>Hey</h3><a href="/">Foo</a></nav>')
-  expect(html).toEndWith('<nav><h3>Foo</h3><a href="/">Bar</a></nav></div>')
+  expect(html).toStartWith('<div class="epic"><nav><h4>Hey</h4><a href="/">Foo</a></nav>')
+  expect(html).toEndWith('<nav><h4>Foo</h4><a href="/">Bar</a></nav></div>')
 })
 

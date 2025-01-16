@@ -17,7 +17,7 @@ exclude:
 ---
 
 
-# UX developer blog
+# Web developer blog
 
 [button.secondary href="/#roadmap" "Join mailing list"]
 

@@ -1,4 +1,3 @@
-
 # Interactive islands
 
 Islands are interactive UI components integrated into the static HTML layout. Common examples include account menus, login pages, forms, and image galleries.
@@ -7,15 +6,11 @@ Islands are interactive UI components integrated into the static HTML layout. Co
 
 Nue islands have the following characteristics:
 
-1. **Interactivity**: Islands enable dynamic widgets and interactive components, such as forms that send data to your backend, allowing users to engage with your site and enhancing their experience.
+1. **Interactivity**: Islands enable dynamic widgets and interactive components, such as forms that send data to your backend, allowing users to engage with your site.
 
-2. **Isomorphism**: Nue islands can be isomorphic, meaning parts are rendered on the server and parts on the client. This ensures proper content indexing by search engines while providing a responsive, engaging experience for users.
+2. **Isomorphism**: Parts can render on the server, parts on the client. This ensures proper content indexing while providing responsive interactivity.
 
-3. **Loose coupling**: Islands can be created using **Web Components** for simple interactions or an HTML-based [template syntax](template-syntax.html) for more advanced functionality.
-
-[.note]
-  ### Islands: Nue vs. Astro
-  Astro Islands are a valuable addition to the JavaScript ecosystem, showcasing separation of concerns and progressive enhancement. However, Nue fully embodies these principles, integrating loose coupling and progressive enhancement as core features. This design choice protects developers from the complexities of JavaScript monoliths, offering a simpler, more efficient experience for the entire application.
+3. **Loose coupling**: Islands can use Web Components for simple interactions or an HTML-based template syntax for more advanced functionality.
 
 ## Creating an island
 
@@ -43,25 +38,21 @@ Islands are created using the same simple HTML-based [template syntax](template-
 </form>
 ```
 
-### The nue.js file
-Nue automatically includes a lightweight script (just 2.5 KB, located at `/@nue/nue.js`) to your page, enabling reactive features on the HTML layout. This script supports loops, conditionals, and re-rendering, allowing for React-like interactivity using a semantic, HTML-based syntax that prioritizes simplicity and accessibility.
+### Organization
 
-### Global, area, and page contexts
-Islands are defined as dynamic HTML components located in different contexts within the Nue framework:
+Islands can be defined at different levels in your project:
 
-- **Global islands**: Stored in the global directory (e.g., `@globals/join-list.dhtml`), accessible across the entire app.
-- **Area-specific islands**: Located within a specific application directory, such as `blog/islands.dhtml`, ensuring relevant functionality.
-- **Page-specific islands**: Defined within individual page directories, like `blog/announcing-v2.0/islands.dhtml`, for custom interactive elements.
+- **Global islands**: In the global directory (e.g., `@globals/join-list.dhtml`), accessible across the entire app
+- **Area-specific islands**: Within a specific application directory, like `blog/islands.dhtml`
+- **Page-specific islands**: In individual page directories, like `blog/announcing-v2.0/islands.dhtml`
 
-### Multiple islands in a single file
-Each `.dhtml` file can contain multiple islands, enabling related components to be grouped together. For example, `blog/islands.dhtml` could define a comment form, sharing widget, and related posts section, all reusable across blog entries. This promotes modularity, allowing the server to treat all defined islands as interactive components.
+Each `.dhtml` file can contain multiple islands, enabling related components to be grouped together. For example, `blog/islands.dhtml` could define a comment form, sharing widget, and related posts section.
 
-## Mounting
-
-Islands can be embedded as custom HTML elements within Markdown content or inside [layout modules](layout.html):
+## Using islands
 
 ### In Markdown content
-To integrate an island in Markdown, simply include the following:
+
+To include an island in Markdown:
 
 ```md
 ### Join our mailing list
@@ -71,6 +62,7 @@ Be the first to know about our new releases
 ```
 
 ### In layout modules
+
 To embed an island within a layout module:
 
 ```html
@@ -81,41 +73,32 @@ To embed an island within a layout module:
 </footer>
 ```
 
-Embedding islands in this way creates interactive components, enhancing user engagement while maintaining the simplicity and performance of a static site.
-
 ### Isomorphic islands
-Isomorphic islands are components rendered on both the server and client, benefiting SEO and accessibility while delivering interactivity on the client side. This approach allows search engines to index your content and ensures seamless user interaction.
 
-Here’s an example of a video component defined in `video.html`:
+Islands can render on both server and client, ensuring proper SEO while providing interactivity. Here's an example video component:
 
 ```html
 <div @name="video-player">
-
   <!-- For SEO and JS-disabled users/browsers -->
   <noscript>
-    <video src="https://video.nuejs.org/{videoId}/play_720p.mp4" type="video/mp4" controls>
+    <video src="https://video.nuejs.org/{videoId}/play_720p.mp4" controls>
       Your browser does not support the video tag.
     </video>
   </noscript>
 
-  <!-- The client-side part defined in video.dhtml -->
+  <!-- The client-side part -->
   <video-player :videoId="videoId" :poster="poster" :width="width"/>
 
-  <!-- Caption and metadata for search engines and AI crawlers -->
+  <!-- Caption for search engines -->
   <figcaption :if="caption">{ caption }</figcaption>
-
 </div>
 ```
 
-The `<noscript>` tag provides a fallback for browsers that do not support JavaScript, ensuring the video remains accessible, while the client-side component handles interactivity.
+## Web Components
 
-## Web components
-Web Components are a lightweight, standards-based alternative to interactive islands, ideal for simple interactivity. They enhance static HTML with JavaScript but do not re-render based on internal state, keeping the implementation minimal.
+Web Components offer a lightweight, standards-based alternative to islands for simple interactivity. They enhance static HTML with JavaScript but do not re-render based on internal state.
 
-Web Components do not require the `nue.js` library, offering a "no framework" approach with minimal code. This is ideal for developers who prioritize efficiency and small code footprints.
-
-### Example: Zen mode
-The Zen Mode toggle on this website is implemented as a Web Component. Here's the HTML markup:
+Here's a real example - the Zen Mode toggle:
 
 ```html
 <div class="zen-toggle">
@@ -126,7 +109,7 @@ The Zen Mode toggle on this website is implemented as a Web Component. Here's th
 </div>
 ```
 
-The Web Component is implemented as follows:
+With its implementation:
 
 ```javascript
 class ZenToggle extends HTMLInputElement {
@@ -141,10 +124,18 @@ class ZenToggle extends HTMLInputElement {
 customElements.define('zen-toggle', ZenToggle, { extends: 'input' });
 ```
 
-This `ZenToggle` component allows users to toggle Zen Mode on and off by checking a box, dynamically applying a Zen-themed style.
+## Technical details
 
-## React support?!
+### The runtime
 
-Islands provide an ideal framework for integrating React into Nue. While React and Nue may seem philosophically different, the architecture of islands allows for a seamless integration of React's concepts, such as hooks, without compromising Nue’s principles of progressive enhancement. This flexibility lets developers use React while keeping the benefits of Nue's lightweight, semantic approach.
+Nue includes a lightweight script (`/@nue/nue.js`, 2.5kb) that enables reactive features. This handles loops, conditionals, and re-rendering, allowing for React-like interactivity using semantic HTML-based syntax.
 
-This integration enables the gradual transition from traditional JavaScript monoliths to a more semantic, maintainable approach, leading to cleaner, more accessible code. If you’re interested in React support, please [join our mailing list](/index.html#roadmap) and share your thoughts.
+### Context and scope
+
+Islands have access to:
+- Global data from your site configuration
+- Area-specific data from application YAML files
+- Page-specific data from front matter
+- Dynamic state managed through the template syntax
+
+This layered approach maintains clean separation between content, presentation, and interactive functionality while enabling sophisticated features when needed.

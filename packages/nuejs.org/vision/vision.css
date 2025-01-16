@@ -1,0 +1,21 @@
+
+article {
+  max-width: 44rem;
+  margin: 0 auto;
+
+  /* eyebrow */
+  > h4:first-child {
+    margin-bottom: -1em;
+    font-weight: 550;
+    font-size: 1em;
+    color: var(--gray-500);
+  }
+}
+
+.recap {
+  figure { margin-bottom: -2em }
+  form {
+    margin-top: 1em;
+    font-size: 15px;
+  }
+}

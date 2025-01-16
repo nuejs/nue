@@ -2,7 +2,7 @@
 /* documentation-specific content widgets  */
 
 h1 + p {
-  text-wrap: balance;
+  text-wrap: pretty;
   font-size: 1.15rem;
 }
 

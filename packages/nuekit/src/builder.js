@@ -79,7 +79,7 @@ export function parseError(buildResult) {
 
 export async function lightningCSS(filename, minify, opts = {}) {
   let include = Features.Colors
-  if (opts.native_css_nesting) include |= Features.Nesting
+  if (!opts.native_css_nesting) include |= Features.Nesting
 
   try {
     return (await bundleAsync({ filename, include, minify })).code?.toString()

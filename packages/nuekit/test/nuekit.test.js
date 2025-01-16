@@ -64,7 +64,6 @@ globals: [global]
 dist:    .mydist
 port:    1500
 title:   Hey
-
 `
 
 test('site.yaml', async () => {
@@ -86,6 +85,57 @@ test('environment', async () => {
 
   expect(site.dist).toMatchPath('_test/.alt')
   expect(site.port).toBe(8080)
+})
+
+
+// NOTE: undocumented feature for the next release
+const MODEL = `
+export default async function (opts) {
+  return {
+    ...opts,
+    async conf() {
+      return opts.server_model
+    },
+  }
+}
+`
+
+const MODEL_CONF = `
+devil: 666
+
+server_model:
+  src: _ssr/index.js
+  namespace: test
+`
+
+test('server_model', async () => {
+  await write('site.yaml', MODEL_CONF)
+  await write('_ssr/index.js', MODEL)
+
+  const site = await getSite()
+  const { test } = await site.getModel()
+  expect(test.devil).toBe(666)
+
+  const { namespace } = await test.conf()
+  expect(namespace).toBe('test')
+})
+
+
+const CUSTOM_TAGS = `
+export default async function (opts) {
+  return {
+    async lineGraph() {
+      return '<svg/>'
+    }
+  }
+}
+`
+
+test('custom tags', async () => {
+  await write('site.yaml', 'custom_tags: [ _ssr/tags.ts ]')
+  await write('_ssr/tags.ts', CUSTOM_TAGS)
+  const { tags } = await getSite()
+  expect(tags).toHaveProperty('line-graph')
 })
 
 
@@ -131,6 +181,7 @@ test('asset include/exclude', async () => {
   await write('global/global.css')
   await write('global/kama.dhtml')
   await write('global/kama.css')
+  await write('lib/boom.css')
   await write('lib/zoo.css')
   await write('blog/index.md')
   await write('blog/app.yaml', 'include: [lib]\nexclude: [kama]')
@@ -138,7 +189,7 @@ test('asset include/exclude', async () => {
   const kit = await getKit()
   const { assets } = await kit.getPageData('blog/index.md')
 
-  expect(assets.styles).toEqual(["/global/global.css", "/lib/zoo.css"])
+  expect(assets.styles).toEqual(["/global/global.css", "/lib/boom.css", "/lib/zoo.css"])
   // expect(data.components).toEqual([ "/global/kama.js", "/lib/zoo.css" ])
 })
 

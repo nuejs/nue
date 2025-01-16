@@ -1,22 +1,25 @@
 
-ul:has(time) {
-  list-style: none;
-  margin: 4em 0;
-  padding: 0;;
+/*
+  Reusable gallery component. Used on front page
+*/
 
-  
-  li {
-    margin-bottom: 3em;
-  }
+.gallery {
+  margin-block: 4rem;
+  list-style: none;
+  padding: 0;
+
+  li { margin-bottom: 10% }
   
   figure {
     transition: transform .1s;
-    align-items: center;
+    align-items: flex-start;
     display: flex;
-    margin: 1em 0;
     gap: 3rem;
-    margin: 0;
     &:hover { transform: scale(1.01) }
+
+    @media(width < 900) {
+      img { display: none }
+    }
   }
 
   time {
@@ -31,11 +34,13 @@ ul:has(time) {
     font-size: 1.05em;
     font-weight: 500;
     line-height: 1.5;
-    margin: .3em 0 0;
+    margin: 0;
   }
 
+  p { margin-block: .5em }
+
   img {
-    max-width: 12em;
+    max-width: 18em;
     border-radius: 4px;
   }
 }

@@ -4,7 +4,7 @@ import { $, $$ } from '/@nue/view-transitions.js'
 let headings = []
 let clicked
 
-function setSelected(href, attr='aria-selected') {
+function setSelected(href, attr='aria-current') {
   $(`.toc [${attr}]`)?.removeAttribute(attr)
   $(`.toc [href="${href}"]`)?.setAttribute(attr, 1)
 }

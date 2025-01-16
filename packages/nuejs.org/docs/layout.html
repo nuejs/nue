@@ -20,7 +20,7 @@
 <aside @name="beside">
 
   <!-- table of contents -->
-  <h3>{ lang.on_this_page }</h3>
+  <h4>{ lang.on_this_page }</h4>
   <toc class="toc"/>
 
   <!-- "zen mode" switch -->
@@ -32,4 +32,8 @@
   </div>
 </aside>
 
-<a @name="pagefoot" class="edit-page" href="//github.com/nuejs/nue/edit/master/packages/nuejs.org{url.replace(/\.html$/, '.md').replace(/\/$/, '/index.md')}">Improve this page on GitHub</a>
+<footer @name="pagefoot">
+  <a class="edit-page" href="//github.com/nuejs/nue/edit/master/packages/nuejs.org/{ filepath }">
+    Edit this page on GitHub</a>
+</footer>
+

@@ -22,6 +22,7 @@ You can define essential metadata like `title`, `date`, and `description`. In ad
 - `dir`: The directory path, e.g., "docs/glossary"
 - `slug`: The filename, e.g., "copyleft.html"
 - `basedir`: The base directory for the content, e.g., "docs"
+- `filepath`: The path to the content file, e.g., "docs/index.md"
 
 These properties help you organize and retrieve content entries more efficiently across your project.
 

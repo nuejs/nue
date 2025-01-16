@@ -1,37 +1,16 @@
 
-.heroquote {
-  max-width: 750px;;
-  margin: 2em auto;
-  font-size: 1.3em;
-  display: flex;
-  gap: 1.5em;
-
-  p { margin-top: -.3em }
-
-  p:last-child {
-    font-size: 1.1rem;
-  }
-
-  img {
-    border-radius: 4px;
-    max-width: 120px;
-  }
-
-  @media (max-width: 700px) {
-    display: block;
-    img {
-      float: right;
-      margin-left: 2em;
-    }
-  }
-}
-
-
 .feedback {
+  max-width: 1100px;
+  margin-top: 3rem;
   column-width: 17em;
   column-gap: 1.5em;
   list-style: none;
   padding: 0;
+
+  p {
+    color: var(--gray-500);
+    line-height: 1.4;
+  }
 
   .card {
     background: url(/icon/ycombinator.svg) no-repeat;

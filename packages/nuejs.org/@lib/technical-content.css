@@ -52,6 +52,7 @@ article {
     line-height: 1.75;
     color: var(--gray-500);
     text-wrap: pretty;
+      margin: .5em 0;
 
     strong {
       font-weight: 550;
@@ -330,6 +331,8 @@ pre {
 /* "good" and "bad" code block captions */
 .good, .bad, .info  {
   margin-top: 2em;
+
+  pre { margin-top: .8rem; }
 
   figcaption {
     background: url(/icon/bad.svg) -.2em center no-repeat;

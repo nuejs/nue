@@ -1,59 +1,73 @@
 ---
-sections: [hero, explainer, project-status]
+sections: [hero, clean-slate, rebirth ]
 include: [form, video]
 inline_css: true
 appdir: home
 ---
 
+**New**
+# Standards first web framework
+Nue is **HTML**, **CSS**, and **JavaScript** taken to their absolute peak
 
-# The *Design* **Engineering** •Framework• for the •Web•
-Nue is a Static Site Generator (SSG) built from scratch for faster tooling, cleaner codebases, and better results. **It makes things •fun• again**
+[button.continue href="/blog/standards-first-web-framework/"]
+  Read the announcement ›
+[button.ghost "Get started →" href="/docs/installation.html"]
 
-[button "Why Nue" href="/docs/"]
-[button.secondary "Get started" href="/docs/installation.html"]
-
-[bunny-video]
-  videoId: 383e5c79-6747-4b1a-8d7a-9da9ae721d33
-  poster: /img/hero-splash.jpg
-  caption: "*Nue templates (preview)* Hit **F** for fullscreen"
-  size: 950 x 603
-
-
-## It's how the web works
-Nue is a content-first framework optimized for **progressive enhancement**. It changes the way you think about websites.
-
-
-[image]
-  small: /img/progressive-enhancement.png
-  large: /img/progressive-enhancement-big.png
-  size: 680 x 182
-
-[button.continue "Learn more" href="/docs/how-it-works.html"]
-
-
-## Product roadmap { #roadmap }
-Nue is an ambitious project aiming to address the key issues in the frontend ecosystem.
-
-[roadmap]
-
-
-[.follow]
-  ### Follow the progress
-  Get notified about new releases by email
-
-  [join-list]
-
-
-## Designer /engineer reactions
-
-[.heroquote]
-  [! /home/img/elliot-jay-stocks.jpg]
+---
+[.stats]
+  Around
+  ## 30× smaller
+  Megabytes than in Next.js [[1]](/docs/compare.html#install)
 
   ---
-  It's exciting to see Nue restoring the power of semantic CSS! Separating markup from presentation is something every web developer once believed in, and Nue is making that possible again.
+  Around
+  ## 100× faster
+  HMR than in Next.js [[2]](/docs/compare.html#build)
 
-  [Elliot Jay Stocks](//elliotjaystocks.com/) /
-  **Designer and typography enthusiast**
+  ---
+  Around
+  ## 30× lighter
+  Pages than in Next.js [[3]](/docs/compare.html#output)
 
+
+[.quote.loom]
+  > “Nue brings faster tooling, cleaner code, and a liberating experience. You must try it”
+
+  — **Mauricio Wolff**, design engineering lead at **Loom**
+
+
+----
+## A clean slate
+Nue is built from scratch to get web development back on its track
+
+[Learn how it works ›](/docs/)
+
+[image]
+  alt: "Next.js vs Nue: tight coupling vs separation of concerns"
+  title: Learn how it works
+  src: /img/next-vs-nue-big.png
+  href: /docs/
+  size: 905 × 464 px
+
+
+[.quote.elliot]
+  > "Finally, a framework that embraces power of modern HTML and CSS. I’m speed-learning the web again!"
+
+  **Elliot Jay Stocks**, Pioneer in semantic HTML
+
+
+----
+## A rebirth of the frontend
+Nue makes a full cleanup for the overly complex ecosystem
+
+[See how it happens ›](/vision/)
+
+[image]
+  small: /img/roadmap-2025-1.png
+  large: /img/roadmap-2025-1-big.png
+  width: 750
+  href: /vision/
+  alt: Nue roadmap
 
 [feedback]
+

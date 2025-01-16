@@ -122,11 +122,9 @@ export async function createKit(args) {
   // Markdown page
   async function renderMPA(path) {
     const data = await getPageData(path)
-    const { document } = data
     const file = parsePath(path)
-
     const lib = await site.getServerComponents(data.appdir || file.dir, data)
-    return DOCTYPE + renderPage({ document, data, lib })
+    return DOCTYPE + renderPage({ ...data, ...site.model }, lib, site.tags)
   }
 
 

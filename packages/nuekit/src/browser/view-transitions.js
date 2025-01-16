@@ -81,13 +81,12 @@ export function onclick(root, fn) {
   })
 }
 
-// developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-selected
 function toRelative(path) {
   const curr = location.pathname
   return curr.slice(0, curr.lastIndexOf('/') + 1) + path
 }
 
-export function setActive(path, attrname = 'aria-selected') {
+export function setActive(path, attrname = 'aria-current') {
   if (path[0] != '/') path = toRelative(path)
 
   // remove old selections
@@ -98,7 +97,7 @@ export function setActive(path, attrname = 'aria-selected') {
     if (!el.hash && el.pathname == path) {
 
       // set timeout needed @ nue docs area. TODO: remove this hack
-      setTimeout(() => el.setAttribute(attrname, ''), 50)
+      setTimeout(() => el.setAttribute(attrname, 'page'), 50)
     }
   })
 }
@@ -165,7 +164,7 @@ function simpleDiff(a, b, ignore_main) {
 }
 
 function updateBlock(a, b) {
-  const orig = a.outerHTML.replace(' aria-selected=""', '')
+  const orig = a.outerHTML.replace(' aria-current="page"', '')
   if (orig != b.outerHTML) a.replaceWith(b.cloneNode(true))
 }
 

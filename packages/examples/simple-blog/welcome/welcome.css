@@ -4,13 +4,13 @@
 
 /* layout */
 body {
-  background: #000 url(img/editor-split-big.png) 50% 50%;
+  background: #000 url(/img/editor-split.png) 50% 50%;
   transition: background-size 1s;
   background-size: 100%;
   margin: 0;
 
   @starting-style {
-    background-size: 500%;
+    background-size: 150%;
   }
 
   main {

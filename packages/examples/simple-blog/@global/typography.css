@@ -31,7 +31,7 @@ a {
     font-weight: 500;
     color: var(--gray-900);
 
-    &[aria-selected] {
+    &[aria-current] {
       text-decoration: 2px underline var(--main-500);
       text-underline-offset: 8px;
     }

@@ -115,7 +115,7 @@ test('table of contents', () => {
   ])
 
   const toc = doc.renderTOC()
-  expect(toc).toStartWith('<div aria-label="Table of contents">')
+  expect(toc).toStartWith('<div>')
   expect(toc).toInclude('<nav><a href="#foo"><strong>Foo</strong></a></nav>')
   expect(toc).toInclude('<nav><a href="#baz"><strong>Baz</strong></a></nav>')
 })

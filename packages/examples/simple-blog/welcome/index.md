@@ -12,4 +12,4 @@ footer: false
 2. Split the screen with your browser
 3. Edit files and see your site evolve
 
-[button href="/" "Start UX development"]
+[button href="/" "Go to blog index page"]
