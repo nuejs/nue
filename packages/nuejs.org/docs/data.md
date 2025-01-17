@@ -3,7 +3,7 @@
 
 Content and presentation alone aren't enough to build sophisticated websites. The third essential element is structured data: the information that defines your site's organization, enriches your content, and powers dynamic features. By keeping data separate and clean, we enable:
 
-1. Clean information architecture. Your site structure lives in simple YAML files.
+1. Clean information architecture. Your site structure lives in simple YAML files. 
 
 2. Content enrichment. Metadata and relationships enhance content without cluttering it.
 
