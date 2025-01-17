@@ -33,7 +33,8 @@ This benchmark compares the development experience between **Next.js Blog Starte
 
 | Metric | Next.js | Nue |
 |--------|---------|-----|
-| Dev Bundle | 85KB HTML + 2.7MB assets [^1] | 7KB HTML + 124KB assets [^2] |
+| Codebase | 95% JSX/JS | 90% standard CSS [^2] |
+| Dev bundle size | 2.7MB [^1] | 130KB [^2] |
 | HMR Latency | 0.5-1s | 50ms or less |
 | Page Navigation | ~1s first time | 50-100ms |
 | State Preservation | Variable | Consistent |

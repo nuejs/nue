@@ -16,6 +16,15 @@ Then came React and the component era. What started as a promise to simplify UI 
 But while JavaScript frameworks kept adding new layers to the ever-growing stack, browsers quietly evolved. It's almost ironic: just as components became these "kitchen sinks" to solve every problem, native browser features emerged that made most of these framework abstractions unnecessary.
 
 
+### How is Markdown "standards-first" when it's not even a web standard?
+While Markdown itself isn't a web standard, it's a strategic choice that reinforces standards-first development by generating pure, semantic HTML. This creates a natural separation between content structure and visual presentation.
+
+Consider the impact on CSS development. In React codebases, engineers spend 90% of their time writing JavaScript - managing state, coordinating effects, optimizing builds. Style sheets become an afterthought, buried under framework patterns and utility classes.
+
+Nue flips this ratio: codebases become 90% CSS, focusing engineering effort on systematic design through web standards. By keeping content in Markdown and presentation in stylesheets, we maximize the power of native CSS features - from custom properties and container queries to mathematical relationships for typography and spacing.
+
+This pure separation amplifies what browsers do best. Content flows naturally from semantic HTML into sophisticated visual systems through native CSS capabilities. It's standards-first architecture working exactly as intended.
+
 
 ### Teams have invested years in learning and building with React. What's the practical path to adopting a completely different approach?
 The secret is to understand that Nue can work alongside your React expertise - there's no need for an immediate, complete switch. You can start using Nue for content-heavy parts of your projects like marketing sites, documentation, or blogs, while keeping React for your complex applications. This practical approach lets you explore web standards without disrupting existing work.
@@ -26,6 +35,13 @@ This is an opportunity to deepen your understanding of what browsers can actuall
 
 These are timeless skills that grow more valuable as browsers evolve. When you understand the platform itself, you can evaluate frameworks based on what they truly add rather than accepting unnecessary complexity.
 
+
+### Why not use Web Components and Lit for a standards-first approach?
+While Web Components are indeed part of web standards, frameworks like Lit still perpetuate the JavaScript monolith problem. They encourage wrapping every UI element in JavaScript, even for content that should be purely semantic HTML.
+
+This misses a crucial point: most websites are fundamentally about content. Marketing pages, documentation, blogs - these don't need complex JavaScript components. They need clean content structures that flow naturally into systematic design.
+
+That's why Markdown is central to standards-first development. It enables content teams to work directly with structure and meaning, while systematic CSS handles sophisticated presentation through web standards. This separation creates cleaner architectures than wrapping everything in JavaScript components, regardless of whether those components use Web Component standards.
 
 
 ### Next.js and modern meta-frameworks solved real deployment and performance challenges. How does Nue compare to these full-stack solutions?
