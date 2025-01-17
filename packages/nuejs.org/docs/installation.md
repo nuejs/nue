@@ -30,9 +30,9 @@ nue create simple-blog
 
 Done! Your browser should now open to: `http://localhost:8083/welcome/`:
 
-![Welcome Screen](/img/create-welcome.png)
-
-*Caption: The welcome screen after successful setup.*
+[image]
+  caption: Welcome screen after successful setup
+  src: /img/create-welcome.png
 
 ## 4. Follow the Tutorial
 

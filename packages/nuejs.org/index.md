@@ -17,17 +17,17 @@ Nue is **HTML**, **CSS**, and **JavaScript** taken to their absolute peak
 [.stats]
   Around
   ## 30× smaller
-  Megabytes than in Next.js [[1]](/docs/compare.html#install)
+  Binary than Next.js [[1]](/docs/compare.html#install)
 
   ---
   Around
   ## 100× faster
-  HMR than in Next.js [[2]](/docs/compare.html#build)
+  Tooling than Next.js [[2]](/docs/compare.html#build)
 
   ---
   Around
   ## 30× lighter
-  Pages than in Next.js [[3]](/docs/compare.html#output)
+  Results than in Next.js [[3]](/docs/compare.html#output)
 
 
 [.quote.loom]
@@ -51,7 +51,7 @@ Nue is built from scratch to get web development back on its track
 
 
 [.quote.elliot]
-  > "Finally, a framework that embraces power of modern HTML and CSS. I’m speed-learning the web again!"
+  > "Nue with modern HTML and CSS is unreal. I’m speedlearning the web again!"
 
   **Elliot Jay Stocks**, Pioneer in semantic HTML
 
