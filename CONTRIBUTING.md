@@ -22,19 +22,18 @@ When fixing bugs, always include a test case that demonstrates both the issue an
 ## Feature Proposals
 Nue has a clear vision: take modern web standards to their absolute peak. Before implementing any new feature, no matter how small, let's discuss how it aligns with this goal. The framework's power comes from ruthless simplicity - every addition must justify its existence.
 
-## Development Philosophy
-You're right - let me enhance that section to be more direct about the philosophical contrast:
 
 ## Development Philosophy
 Nue's development style might surprise those coming from traditional JavaScript projects. For engineers steeped in TypeScript, dependency injection, and "enterprise patterns", the codebase might even look stupid or feel like a toy project at first glance. This reaction reveals a fundamental divide in how we think about web development.
 
-While most codebases optimize for type safety, abstraction layers, and "proper engineering practices", Nue pursues radical minimalism. The core philosophy is "Less is More": every line of code must prove its worth through both functionality and clarity.
+While most codebases optimize for type safety, abstraction layers, and "proper engineering practices", Nue pursues radical minimalism. We strive to make each line of code meaningful through its functionality and clarity. The goal is to figure out what's truly needed (and only that) and find out the cleanest way to implement it.
 
 This creates stark contrasts with framework implementations. Consider hot reloading: Nue's implementation is 150 lines of vanilla JavaScript in a single file. At first glance it might look naive - where are the TypeScript interfaces? The dependency injection containers? The state management patterns? But this "naive" implementation consistently outperforms Next.js's equivalent, which spans thousands of lines buried somewhere inside their 2.7MB development bundle.
 
 Or take view transitions: Nue's entire implementation fits in about 250 lines of focused code. A TypeScript purist might cringe at the lack of strict typing and interface definitions. Yet this "simplistic" approach delivers smoother animations and better performance than framework implementations that spread the same functionality across hundreds of files and multiple abstraction layers.
 
-This isn't accidental. By working directly with web standards rather than building layers of abstractions, we create systems that are both more powerful and easier to maintain. What looks like "missing engineering rigor" to framework-trained eyes is actually closer to how browser engineers themselves write code. The sophistication comes from deep understanding of web standards rather than framework patterns.
+By working directly with web standards rather than building layers of abstractions, we strive to create systems that are both more powerful and easier to maintain.
+
 
 
 ### Code Style
