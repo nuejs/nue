@@ -7,10 +7,6 @@ on:
     paths:
       - packages/examples/**
 
-concurrency:
-  group: 'pages'
-  cancel-in-progress: false
-
 jobs:
   examples:
     if: ${{ github.repository_owner == 'nuejs' }}
@@ -23,10 +19,6 @@ jobs:
     env:
       dir: 'packages/examples/${{ matrix.dir }}/'
       archive: 'site.tar.gz'
-      storage_name: 'STORAGE_NAME_${{ matrix.dir }}'
-      storage_pass: 'STORAGE_PASS_${{ matrix.dir }}'
-      storage_key: 'STORAGE_KEY_${{ matrix.dir }}'
-      storage_zone: 'STORAGE_ZONE_${{ matrix.dir }}'
 
     runs-on: ubuntu-latest
 
@@ -37,6 +29,15 @@ jobs:
 
       - name: Check dir changes
         run: git diff --name-only HEAD^ HEAD | grep -q "^${{ env.dir }}"
+
+      # subsitutes non-alphanumeric characters with _
+      - name: Build secret variable names
+        run: |
+          mdir="${{ matrix.dir }}"
+          name="${mdir//[^[:alnum:]]/_}"
+          echo "$name"
+          echo "storage_name=STORAGE_NAME_$name" >>  $GITHUB_ENV
+          echo "storage_pass=STORAGE_PASS_$name" >>  $GITHUB_ENV
 
       # creates archive of dir, removes img dirs, moves content to subdir "source"
       - name: Create test archive
@@ -62,8 +63,6 @@ jobs:
           source: '${{ env.dir }}.dist/prod'
           storageZoneName: '${{ secrets[env.storage_name] }}'
           storagePassword: '${{ secrets[env.storage_pass] }}'
-          accessKey: "${{ secrets[env.storage_key] }}"
-          pullZoneId: "${{ secrets[env.storage_zone] }}"
           upload: 'true'
           remove: 'false'
           purgePullZone: 'false'

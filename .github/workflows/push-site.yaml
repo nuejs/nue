@@ -7,10 +7,6 @@ on:
     paths:
       - packages/nuejs.org/**
 
-concurrency:
-  group: 'pages'
-  cancel-in-progress: false
-
 jobs:
   site:
     if: ${{ github.repository_owner == 'nuejs' }}
@@ -35,8 +31,6 @@ jobs:
           source: '${{ env.dir }}.dist/prod'
           storageZoneName: '${{ secrets.STORAGE_NAME_site }}'
           storagePassword: '${{ secrets.STORAGE_PASS_site }}'
-          accessKey: '${{ secrets.STORAGE_KEY_site }}'
-          pullZoneId: '${{ secrets.STORAGE_ZONE_site }}'
           upload: 'true'
           remove: 'false'
           purgePullZone: 'false'
