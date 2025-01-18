@@ -1,6 +1,6 @@
 # Layout modules
 
-Modern websites need consistent structure - headers, footers, navigation, sidebars. Layout modules in Nue let you define these structural elements once and reuse them across your site. Through modular HTML templates, you can:
+Modern websites need consistent structure – headers, footers, navigation, sidebars. Layout modules in Nue let you define these structural elements once and reuse them across your site. Through modular HTML templates, you can:
 
 1. Create site-wide layouts without JavaScript components
 2. Build application-specific structures when needed
@@ -150,7 +150,7 @@ Layout modules can be defined at three levels:
 
 ### Module Location
 
-Modules can be stored in any `.html` file. A single file can contain multiple modules - for example, your header, footer, and menu could all live in `layout.html`.
+Modules can be stored in any `.html` file. A single file can contain multiple modules – for example, your header, footer, and menu could all live in `layout.html`.
 
 ### Overriding Modules
 
