@@ -18,7 +18,6 @@ jobs:
 
     env:
       dir: 'packages/examples/${{ matrix.dir }}/'
-      archive: 'site.tar.gz'
 
     runs-on: ubuntu-latest
 

@@ -13,7 +13,6 @@ jobs:
 
     env:
       dir: 'packages/nuejs.org/'
-      archive: 'site.tar.gz'
 
     runs-on: ubuntu-latest
 
