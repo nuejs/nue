@@ -37,6 +37,7 @@ jobs:
           echo "$name"
           echo "storage_name=STORAGE_NAME_$name" >>  $GITHUB_ENV
           echo "storage_pass=STORAGE_PASS_$name" >>  $GITHUB_ENV
+          echo "pull_id=PULL_ID_$name" >>  $GITHUB_ENV
 
       # creates archive of dir, removes img dirs, moves content to subdir "source"
       - name: Create test archive
@@ -62,6 +63,8 @@ jobs:
           source: '${{ env.dir }}.dist/prod'
           storageZoneName: '${{ secrets[env.storage_name] }}'
           storagePassword: '${{ secrets[env.storage_pass] }}'
+          pullZoneId: '${{ secrets[env.pull_id] }}'
+          accessKey: '${{ secrets.BUNNY_API_KEY }}'
           upload: 'true'
           remove: 'false'
-          purgePullZone: 'false'
+          purgePullZone: 'true'
