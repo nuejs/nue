@@ -134,7 +134,7 @@ This approach fundamentally misunderstands the difference between development sp
 
 
 
-## Bunelers and tooling
+## Bundlers and tooling
 
 
 ### Modern JavaScript development relies on TypeScript and build tools. How do you ensure type safety and maintainability?
