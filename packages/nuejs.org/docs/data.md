@@ -141,7 +141,7 @@ og_image: "/images/math-design.jpg"
 ---
 ```
 
-Data flows naturally from global to specific, with each layer having the power to extend or override what came before. This creates a system that's both consistent and flexible - global changes propagate automatically, while individual pages maintain their autonomy when needed.
+Data flows naturally from global to specific, with each layer having the power to extend or override what came before. This creates a system that's both consistent and flexible – global changes propagate automatically, while individual pages maintain their autonomy when needed.
 
 This inheritance model embodies true separation of concerns: configuration stays isolated from content, making both easier to maintain and update.
 
