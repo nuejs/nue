@@ -94,7 +94,7 @@ This is the final phase and it's time to squeeze everything out from the cloud. 
 nue push
 ```
 
-With this command a single typo that previously required a full rebuild now deploys in milliseconds through our global CDN. Content creators update sites directly through Markdown. Designers iterate on pages without build complexity. Marketing teams publish sophisticated landing pages instantly.
+With this command what previously required a full rebuild now deploys to the server in milliseconds through our global CDN. Content creators update sites directly through Markdown. Designers iterate on pages without build complexity. Marketing teams publish sophisticated landing pages instantly.
 
 Then we enter an entirely new territory - something no existing system has dared to imagine. We're extending this command to provide complete, production-ready services:
 
