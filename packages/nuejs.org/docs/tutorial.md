@@ -66,7 +66,7 @@ The front page (`index.md`) and all blog posts are written in pure Markdown. Thi
 Common elements like headers and footers live in layout templates (`@global/layout.html`). They provide the structure without mixing in content or styling.
 
 **Styling flows from the design system**
-Global styles in `@global` define the systematic rules - colors, typography, spacing - that ensure consistent design across the site.
+Global styles in `@global` define the systematic rules – colors, typography, spacing – that ensure consistent design across the site.
 
 **Assets stay organized**
 Images and other static files live in their own directories, making them easy to manage and optimize.
@@ -101,7 +101,7 @@ All blog posts live in the `blog` directory as Markdown files. Take a look at an
   small: /img/blog-content-editing.png
   large: /img/blog-content-editing-big.png
 
-Our blog adds metadata to each post through "front matter" - YAML at the start of the file:
+Our blog adds metadata to each post through "front matter" – YAML at the start of the file:
 
 ```yaml
 ---
@@ -129,13 +129,13 @@ Then displayed on the page with a simple tag:
 This creates the list of posts you see on the blog homepage, with the newest posts first.
 
 ### Hot reloading
-Try editing any Markdown file - you'll see your changes instantly in the browser. Nue's hot reloading is smart enough to:
+Try editing any Markdown file – you'll see your changes instantly in the browser. Nue's hot reloading is smart enough to:
 - Update only what changed
 - Keep your scroll position
 - Maintain form input values
 - Keep open dialogs in place
 
-This makes content editing fast and fluid - perfect for both developers and content teams.
+This makes content editing fast and fluid – perfect for both developers and content teams.
 
 Let's see how layouts shape this content...
 
@@ -341,7 +341,7 @@ This demonstrates how modern CSS can handle sophisticated animations without Jav
 ## Islands
 Modern websites need dynamic features, but that doesn't mean everything should be controlled by JavaScript. Nue takes an HTML-first approach: your content and structure stay in clean, semantic HTML, and interactivity is added through small, focused components called "islands".
 
-Islands enhance static HTML with dynamic features exactly where needed - whether it's a contact form, image gallery, or interactive widget. The entire client-side runtime is just 2.5kb, yet it provides the same reactivity and DOM diffing capabilities as React.
+Islands enhance static HTML with dynamic features exactly where needed – whether it's a contact form, image gallery, or interactive widget. The entire client-side runtime is just 2.5kb, yet it provides the same reactivity and DOM diffing capabilities as React.
 
 ### Contact form
 Here's the contact form written as an island:
@@ -396,7 +396,7 @@ Get in touch to discuss your project.
 For more details on creating interactive components, see the [islands documentation](islands.html).
 
 
-You're right - view transitions belong in the motion section. Let me revise based on the original:
+You're right – view transitions belong in the motion section. Let me revise based on the original:
 
 
 ## Optimization
