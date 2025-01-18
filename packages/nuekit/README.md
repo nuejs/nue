@@ -51,7 +51,7 @@ Check out [installation docs](https://nuejs.org/docs/installation.html)
 Nue will cleanup the frontend ecosystem from the unnecessary abstractions and bloat as follows:
 
 <a href="https://nuejs.org/vision/">
-  <img src="https://nuejs.org/img/roadmap-2025-big.png" width="900">
+  <img src="https://nuejs.org/img/roadmap-2025-1-big.png" width="900">
 </a>
 
 ### Contributing
