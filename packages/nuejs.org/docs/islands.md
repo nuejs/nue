@@ -98,7 +98,7 @@ Islands can render on both server and client, ensuring proper SEO while providin
 
 Web Components offer a lightweight, standards-based alternative to islands for simple interactivity. They enhance static HTML with JavaScript but do not re-render based on internal state.
 
-Here's a real example - the Zen Mode toggle:
+Here's a real example – the Zen Mode toggle:
 
 ```html
 <div class="zen-toggle">
