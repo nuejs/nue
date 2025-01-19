@@ -25,6 +25,19 @@ Nue flips this ratio: codebases become 90% CSS, focusing engineering effort on s
 This pure separation amplifies what browsers do best. Content flows naturally from semantic HTML into sophisticated visual systems through native CSS capabilities. It's standards-first architecture working exactly as intended.
 
 
+### Isn't the comparison betwen "JavaScript monolith" and "Separation of concerns" apples vs oranges?
+
+This comparison reveals how deeply framework thinking has shaped our understanding of web development and how thoroughly we've accepted JavaScript monoliths as normal. Why have we normalized a world where marketing pages require JavaScript bundles with mixed content? Why do we consider utility classes more "maintainable" than systematic design? Why must every solution flow through JavaScript when browsers provide these capabilities natively?
+
+I have tremendous difficulty explaining these concepts to engineers, who consistently turn the discussion toward technical implementation details instead of examining the fundamental architectural principles.
+
+
+### I just getting more grumpy or is every new framework just complete bloat?
+
+There's an interesting cognitive bias at play. We've accepted Next.js requiring 330MB and 250+ dependencies as "production-ready," yet view simpler alternatives built on web standards as "yet another framework." This mindset often dismisses solutions that are smaller, faster, and closer to web standards in favor of established complexity. It's worth examining why we consider massive dependency chains stable and "boring" while viewing standards-first approaches with skepticism.
+
+
+
 ### Teams have invested years in learning and building with React. What's the practical path to adopting a completely different approach?
 The secret is to understand that Nue can work alongside your React expertise – there's no need for an immediate, complete switch. You can start using Nue for content-heavy parts of your projects like marketing sites, documentation, or blogs, while keeping React for your complex applications. This practical approach lets you explore web standards without disrupting existing work.
 
