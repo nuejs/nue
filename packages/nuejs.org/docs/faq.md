@@ -1,4 +1,3 @@
-
 ---
 beside: false
 ---
@@ -126,7 +125,7 @@ But this immediate productivity is deceptive. What starts as "just adding a few 
 This approach fundamentally misunderstands the difference between development speed and development efficiency. Real productivity comes from systems that grow cleanly, where changes flow naturally through mathematical relationships rather than requiring manual updates across templates. While the initial setup might take more thought, the long-term benefits in maintainability and consistency far outweigh the short-term convenience of utility classes.
 
 
-## Bunelers and tooling
+## Bundlers and tooling
 
 
 ### Modern JavaScript development relies on TypeScript and build tools. How do you ensure type safety and maintainability?

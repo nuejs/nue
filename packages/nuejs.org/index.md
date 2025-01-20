@@ -31,7 +31,7 @@ Nue is **HTML**, **CSS**, and **JavaScript** taken to their absolute peak
 
 
 [.quote.loom]
-  > “Nue brings faster tooling, cleaner code, and a liberating experience. You must try it”
+  > “Nue brings faster tooling, cleaner code, and a liberating experience. You must try it.”
 
   — **Mauricio Wolff**, design engineering lead at **Loom**
 

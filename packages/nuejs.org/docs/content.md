@@ -20,7 +20,7 @@ Instead of mixing content with application code or framework-specific markup, Nu
 
 Nue's content system differs from traditional Markdown approaches:
 
-1. **Structural understanding**. The parser automatically recognizes document structure and creates semantic sections from your headings - no manual markup needed. This enables sophisticated styling without polluting content.
+1. **Structural understanding**. The parser automatically recognizes document structure and creates semantic sections from your headings – no manual markup needed. This enables sophisticated styling without polluting content.
 
 2. **Rich layouts without markup**. Create sophisticated grid layouts, stacks, and nested structures using a simple block system that builds on the natural document structure.
 
@@ -363,7 +363,7 @@ function example() {
 
 ### Why this matters
 
-While these Markdown features are standard, Nue's implementation focuses on generating clean, semantic HTML that serves as a foundation for your design system. There's no framework-specific markup or special processing - just pure content that directly expresses meaning.
+While these Markdown features are standard, Nue's implementation focuses on generating clean, semantic HTML that serves as a foundation for your design system. There's no framework-specific markup or special processing – just pure content that directly expresses meaning.
 
 For complete Markdown syntax reference, see the [original Markdown specification](https://daringfireball.net/projects/markdown/). Nue builds on this foundation with powerful extensions covered in the following sections.
 
