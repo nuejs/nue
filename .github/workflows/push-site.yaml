@@ -1,0 +1,37 @@
+name: Push site to web server
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - packages/nuejs.org/**
+
+jobs:
+  site:
+    if: ${{ github.repository_owner == 'nuejs' }}
+
+    env:
+      dir: 'packages/nuejs.org/'
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Nue build
+        uses: ./.github/workflows/repo/build-page
+        with:
+          root: ${{ env.dir }}
+
+      - name: BunnyCDN storage deployer
+        uses: ayeressian/bunnycdn-storage-deploy@v2.2.5
+        with:
+          source: '${{ env.dir }}.dist/prod'
+          storageZoneName: '${{ secrets.STORAGE_NAME_site }}'
+          storagePassword: '${{ secrets.STORAGE_PASS_site }}'
+          pullZoneId: '${{ secrets.PULL_ID_site }}'
+          accessKey: '${{ secrets.BUNNY_API_KEY }}'
+          upload: 'true'
+          remove: 'false'
+          purgePullZone: 'true'
