@@ -25,7 +25,7 @@ jobs:
           root: ${{ env.dir }}
 
       - name: BunnyCDN storage deployer
-        uses: ayeressian/bunnycdn-storage-deploy@v2.2.4
+        uses: ayeressian/bunnycdn-storage-deploy@v2.2.5
         with:
           source: '${{ env.dir }}.dist/prod'
           storageZoneName: '${{ secrets.STORAGE_NAME_site }}'
