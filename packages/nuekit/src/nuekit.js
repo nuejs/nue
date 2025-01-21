@@ -15,7 +15,7 @@ import { log, colors, getAppDir, parsePathParts, extendData } from './util.js'
 import { renderPage, getSPALayout } from './layout/page.js'
 
 
-// the HTML5 doctype
+// the HTML5 doctype (can/prefer lowercase for consistency)
 const DOCTYPE = '<!doctype html>\n\n'
 
 
