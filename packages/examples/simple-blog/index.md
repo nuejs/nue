@@ -8,4 +8,3 @@ content_collection: blog
 I'm Emma Bennett, a design engineer from Berlin. I build websites that are exceptionally well-designed — inside, and outside.
 
 [page-list.gallery]
-
