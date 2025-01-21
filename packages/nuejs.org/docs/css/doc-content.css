@@ -1,4 +1,3 @@
-
 /* documentation-specific content widgets  */
 
 h1 + p {
@@ -42,29 +41,42 @@ figure:has(.above) {
 
 .options {
   h4 {
-    margin: 2.5em 0 1.5em .15em;
+    margin: 2.5em 0 1.5em 0.15em;
     font-weight: bold;
   }
 
-  p {
-    font-size: 95%;
+  table {
+    color: var(--gray-500);
     line-height: 1.4;
-    display: flex;
+    text-wrap: balance;
+    font-size: 95%;
   }
 
-  code {
-    min-width: 10em;;
+  td:first-child {
+    min-width: 9em;
+    display: list-item;
+    list-style-position: inside;
+    padding-inline-end: 0;
+
+    &::before {
+      content: '';
+      display: inline-block;
+      width: 0.6em;
+    }
+
+    &::marker {
+      color: var(--gray-400);
+    }
   }
 }
-
 
 .apidoc article h3 {
   font-family: monospace;
   color: var(--main-600);
   background-color: var(--main-50);
   display: inline-block;
-  padding: .3em .6em;
-  margin-bottom: -.5em;
+  padding: 0.3em 0.6em;
+  margin-bottom: -0.5em;
   border-radius: 2px;
 }
 

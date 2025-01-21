@@ -61,7 +61,7 @@ article {
   }
 
   /* internal links */
-  p > a, li > a {
+  p > a, li > a, td > a {
     text-decoration: underline var(--main-500) 1px;
     color: var(--gray-700);
 
