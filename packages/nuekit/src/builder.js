@@ -50,7 +50,7 @@ export async function buildJS(args) {
 
   } catch ({ errors }) {
     const [err] = errors
-    const error = { text: err.message || err.text, ...err.location, ...err.position }
+    const error = { text: err.message || err.text, ...(err.location || err.position) }
     error.title = error.text.includes('resolve') ? 'Import error' : 'Syntax error'
     delete error.file
     throw error
