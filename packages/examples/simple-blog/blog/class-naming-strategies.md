@@ -16,7 +16,7 @@ Designers should have a strong handle on core CSS concepts like the box model, s
 
 > When designing for the web, keeping CSS in mind from the start prevents frustration down the road. For example, **typography and color schemes are heavily influenced by CSS** and layered graphical elements must be broken down into achievable HTML components.
 
-``` js.blue
+``` js .blue
 function toggleAttr(el, name, flag) {
   flag ? el.setAttribute(name, 1) :  el.removeAttribute(name)
 }
@@ -45,7 +45,7 @@ Overall, CSS is a uniquely visual language, with a direct impact on user-facing 
 In conclusion, thoughtfully naming CSS classes, IDs, and other selectors is an important part of keeping stylesheets scalable and maintainable. Use semantic, descriptive names that communicate what a selector is styling. Implement methodical naming conventions and structures for better organization.
 
 
-``` .pink
+```css .pink
 .pink {
   background-image: linear-gradient(#e879f9, #ec4899);
   padding: 3em 0 0 3em;

@@ -422,4 +422,3 @@ nue build --production
 This command quickly compiles your site, similar to Rust and Go-based generators like Hugo. The production files will be in the `.dist/prod` folder, ready to deploy on a CDN like Cloudflare, CloudFront, or Fastly.
 
 In the future, the `nue push` command will streamline deployment further, but for now, you'll need to handle this step with your preferred CDN provider.
-
