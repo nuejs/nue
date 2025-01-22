@@ -18,7 +18,9 @@ beforeEach(async () => {
   await fs.mkdir(root, { recursive: true })
 })
 
-afterEach(async () => await fs.rm(root, { recursive: true, force: true }))
+afterEach(async () => {
+  await fs.rm(root, { recursive: true, force: true })
+})
 
 // helper function for creating files to the root directory
 async function write(path, content = '') {
@@ -193,6 +195,31 @@ test('asset include/exclude', async () => {
 
   expect(assets.styles).toEqual(["/global/global.css", "/lib/boom.css", "/lib/zoo.css"])
   // expect(data.components).toEqual([ "/global/kama.js", "/lib/zoo.css" ])
+})
+
+test.only('SPA', async () => {
+  await write('app/model/index.js')
+  await write('app/model/customer.js')
+  await write('app/model-rs/Cargo.toml')
+  await write('app/model-rs/src/customers.rs')
+  await write('app/model-rs/src/customers.test.js')
+  await write('app/model-rs/dist/model.wasm')
+  await write('app/model-rs/dist/Cargo.lock')
+  await write('app/index.html', '<test/>')
+
+  const site = await getSite()
+  const paths = await site.walk()
+
+  // paths to build
+  expect(paths.length).toBe(4)
+
+  // rendered page
+  const kit = await getKit()
+  const html = await kit.renderSPA('app/index.html')
+
+  expect(html).toInclude('hotreload.js')
+  expect(html).toInclude('<script src="/app/model/index.js" ')
+  expect(html).toInclude('<test custom="test">')
 })
 
 
@@ -384,16 +411,6 @@ test('page assets', async () => {
   expect(assets.scripts.length).toEqual(4)
 })
 
-
-test('single-page app index', async () => {
-  await write('index.html', '<test/>')
-  const kit = await getKit()
-  const html = await kit.renderSPA('index.html')
-  // const html = await readDist(kit.dist, 'index.html')
-
-  expect(html).toInclude('hotreload.js')
-  expect(html).toInclude('<test custom="test">')
-})
 
 
 test('bundle', async () => {

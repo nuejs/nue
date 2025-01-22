@@ -142,6 +142,11 @@ export async function createKit(args) {
     await setupScripts(dir, data)
     await setupStyles(dir, data)
 
+    // model/index.js
+    if (existsSync(join(root, dir, 'model', 'index.js'))) {
+      data.assets.scripts.unshift(`/${dir}/model/index.js`)
+    }
+
     // SPA components and layout
     const html = await read(index_path)
 
@@ -156,9 +161,11 @@ export async function createKit(args) {
 
 
   async function processScript(file) {
-    const { path } = file
+    const { base, path } = file
     const data = await site.getData(getAppDir(path))
-    const bundle = data.bundle?.includes(file.base)
+    const bundle = data.bundle?.includes(base)
+
+    // is_prod && base == 'index.js' ||
 
     // else -> build()
     await buildJS({
