@@ -29,7 +29,6 @@ export async function buildJS(args) {
     outdir,
     bundle,
     minify,
-    throw: true, // make bun always throw on build error
   }
 
   if (args.silent) opts.logLevel = 'silent'
@@ -42,6 +41,9 @@ export async function buildJS(args) {
       opts.naming = toname
     }
   }
+
+  // make bun always throw on build error
+  if (!is_esbuild) opts.throw = true
 
   try {
     await builder.build(opts)
