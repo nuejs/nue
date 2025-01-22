@@ -416,9 +416,9 @@ pre {
 details {
   font-weight: 500;
   padding: 1rem 0;
-  cursor: pointer;
-
+  
   summary {
+    cursor: pointer;
     font-size: 1.1rem;
     &::marker { color: var(--main-400) }
   }
