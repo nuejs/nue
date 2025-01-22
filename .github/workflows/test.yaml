@@ -32,8 +32,6 @@ jobs:
 
       # Testing `bun`
       - uses: oven-sh/setup-bun@v2
-        with: # until new release (after 1.1.45) of bun
-          bun-version: 1.1.43
         if: ${{ matrix.tool == 'bun' }}
 
       - name: Install and test with Bun
