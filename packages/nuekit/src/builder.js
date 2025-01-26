@@ -6,9 +6,12 @@ import { join } from 'node:path'
 import { resolve } from 'import-meta-resolve'
 import { Features, bundleAsync } from 'lightningcss'
 
+// don't reuse saved builder when in test mode
+const isTest = process.env.NODE_ENV == 'test'
+
 let jsBuilder
 export async function getBuilder(is_esbuild) {
-  if (jsBuilder) return jsBuilder
+  if (!isTest && jsBuilder) return jsBuilder
 
   try {
     return jsBuilder = is_esbuild ? await import(resolve('esbuild', `file://${process.cwd()}/`)) : Bun
