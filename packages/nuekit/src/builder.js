@@ -25,6 +25,10 @@ export async function getCssBuilder(is_lcss) {
 
   try {
     cssBuilder = is_lcss ? await import(resolve('lightningcss', `file://${process.cwd()}/`)) : Bun
+    if (!is_lcss) {
+      const v = Bun.version.split('.').map(i => parseInt(i))
+      if (!((v[0] >= 1 && v[1] >= 2) || (v[0] == 1 && v[1] == 1 && v[2] >= 34))) throw new Error('Bun version too low')
+    }
     return cssBuilder
   } catch {
     throw 'CSS bundler not found. Please use Bun >=1.1.34 or install lightningcss'
