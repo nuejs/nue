@@ -12,14 +12,11 @@
     "type": "git"
   },
   "engines": {
-    "bun": ">= 1",
+    "bun": ">= 1.1.34",
     "node": ">= 18"
   },
   "scripts": {
     "test": "node --experimental-vm-modules ../../node_modules/jest/bin/jest.js --runInBand"
-  },
-  "devDependencies": {
-    "lightningcss": "^1.27.0"
   },
   "jest": {
     "setupFilesAfterEnv": [
