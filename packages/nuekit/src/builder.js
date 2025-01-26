@@ -21,7 +21,6 @@ export async function buildJS(args) {
   const { outdir, toname, minify, bundle } = args
   const is_esbuild = args.esbuild || !process.isBun
   const builder = await getBuilder(is_esbuild)
-  let ret
 
   const opts = {
     external: bundle ? ['../@nue/*', '/@nue/*'] : is_esbuild ? undefined : ['*'],
@@ -43,38 +42,19 @@ export async function buildJS(args) {
     }
   }
 
+  // make bun always throw on build error
+  if (!is_esbuild) opts.throw = true
+
   try {
-    ret = await builder.build(opts)
+    await builder.build(opts)
 
-  } catch (e) { ret = e }
-
-  // console.info(ret)
-  const error = parseError(ret)
-  if (error) throw error
-}
-
-export function parseError(buildResult) {
-  const { logs = [], errors = [] } = buildResult
-  let error
-
-  // Bun
-  if (logs.length) {
-    const [err] = logs
-    error = { text: err.message, ...err.position }
-  }
-
-  // esbuild
-  if (errors.length) {
+  } catch ({ errors }) {
     const [err] = errors
-    error = { text: err.text, ...err.location }
-  }
-
-  if (error) {
+    const error = { text: err.message || err.text, ...(err.location || err.position) }
     error.title = error.text.includes('resolve') ? 'Import error' : 'Syntax error'
     delete error.file
-    return error
+    throw error
   }
-
 }
 
 export async function lightningCSS(filename, minify, opts = {}) {
