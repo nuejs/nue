@@ -11,7 +11,6 @@ expect.extend({ toMatchPath })
 // temporary directory
 const root = '_test'
 
-
 // setup and teardown
 beforeEach(async () => {
   await fs.rm(root, { recursive: true, force: true })
@@ -87,7 +86,6 @@ test('environment', async () => {
   expect(site.port).toBe(8080)
 })
 
-
 // NOTE: undocumented feature for the next release
 const MODEL = `
 export default async function (opts) {
@@ -120,7 +118,6 @@ test('server_model', async () => {
   expect(namespace).toBe('test')
 })
 
-
 const CUSTOM_TAGS = `
 export default async function (opts) {
   return {
@@ -140,7 +137,6 @@ test('custom tags', async () => {
   expect(tags).toHaveProperty('line-graph')
 })
 
-
 test('page styles', async () => {
   await write('site.yaml', 'globals: [globals]')
 
@@ -156,16 +152,14 @@ test('page styles', async () => {
   expect(arr2.length).toBe(3)
 })
 
-
 test('root styles', async () => {
   const kit = await getKit()
   await write('globals/bar.css')
   await write('home.css')
   await write('index.md')
   const { assets } = await kit.getPageData('index.md')
-  expect(assets.styles).toEqual(["/home.css"])
+  expect(assets.styles).toEqual(['/home.css'])
 })
-
 
 test('include/exclude data', async () => {
   await write('site.yaml', 'include: [a]\nexclude: [a]')
@@ -174,8 +168,8 @@ test('include/exclude data', async () => {
   const kit = await getKit()
   const data = await kit.getPageData('blog/index.md')
 
-  expect(data.include).toEqual(["a", "b", "c"])
-  expect(data.exclude).toEqual(["a", "b"])
+  expect(data.include).toEqual(['a', 'b', 'c'])
+  expect(data.exclude).toEqual(['a', 'b'])
 })
 
 test('asset include/exclude', async () => {
@@ -191,10 +185,9 @@ test('asset include/exclude', async () => {
   const kit = await getKit()
   const { assets } = await kit.getPageData('blog/index.md')
 
-  expect(assets.styles).toEqual(["/global/global.css", "/lib/boom.css", "/lib/zoo.css"])
+  expect(assets.styles).toEqual(['/global/global.css', '/lib/boom.css', '/lib/zoo.css'])
   // expect(data.components).toEqual([ "/global/kama.js", "/lib/zoo.css" ])
 })
-
 
 test('get data', async () => {
   await write('site.yaml', 'foo: 1')
@@ -207,7 +200,6 @@ test('get data', async () => {
   expect(data).toMatchObject({ foo: 1, bar: 1, baz: 1 })
 })
 
-
 test('content collection', async () => {
   await write('blog/first-a.md', '# First')
   await write('blog/first-b.md', createFront('Second', '2025-01-04'))
@@ -215,7 +207,7 @@ test('content collection', async () => {
   await write('blog/nested/hey2.md', createFront('Fourth', '2025-01-03'))
 
   // these should be excluded
-  await write('blog/functions/contact-us.md', "my secret notes")
+  await write('blog/functions/contact-us.md', 'my secret notes')
   await write('blog/.item6.md', createFront('Sixth', '2025-01-03'))
   await write('blog/_item7.md', createFront('Seventh', '2025-01-03'))
 
@@ -231,7 +223,7 @@ test('content collection', async () => {
   expect(coll[2].slug).toBe('hey2.html')
 
   // page metadata
-  expect(coll[0]).toMatchObject({ title: "First", slug: "first-a.html", basedir: "blog" })
+  expect(coll[0]).toMatchObject({ title: 'First', slug: 'first-a.html', basedir: 'blog' })
 })
 
 test('basic page generation', async () => {
@@ -249,7 +241,6 @@ test('basic page generation', async () => {
   expect(html).toInclude('<p>World</p>')
 })
 
-
 test('simple custom tag', async () => {
   await write('layout.html', '<a @name="test">Hey</a>')
   await write('index.md', '[test]')
@@ -266,11 +257,7 @@ test('custom tag with <slot/>', async () => {
       <slot/>
     </div>
   `
-  const MD = [
-    '[test]',
-    '  ### World',
-    '  { slug }',
-  ]
+  const MD = ['[test]', '  ### World', '  { slug }']
 
   await write('components.html', HTML)
   await write('index.md', MD.join('\n'))
@@ -281,7 +268,6 @@ test('custom tag with <slot/>', async () => {
   expect(html).toInclude('<h3>World</h3>')
   expect(html).toInclude('<p>index.html</p>')
 })
-
 
 test('layout components', async () => {
   const site = await getSite()
@@ -305,13 +291,15 @@ test('layout components', async () => {
   expect(comps3[0].name).toBe('c')
 })
 
-
 test('page layout', async () => {
-  await write('layout.html', `
+  await write(
+    'layout.html',
+    `
     <header>Header</header>
     <aside>Aside</aside>
     <aside @name="beside">Beside</aside>
-  `)
+  `
+  )
   await write('site.yaml', 'aside: false')
   await write('index.md', '# Hey')
 
@@ -323,7 +311,6 @@ test('page layout', async () => {
   expect(html).not.toInclude('<aside>Aside</aside>')
   expect(html).toInclude('<aside>Beside</aside>')
 })
-
 
 test('getRequestPaths', async () => {
   await write('index.md')
@@ -343,7 +330,6 @@ test('getRequestPaths', async () => {
   expect(await site.getRequestPaths('/admin/readme.html')).toMatchObject({ path: '404.html' })
 })
 
-
 test('inline CSS', async () => {
   const kit = await getKit()
   await write('inline/style.css', 'body { margin: 0 }')
@@ -356,10 +342,12 @@ test('inline CSS', async () => {
   expect(html).toInclude('margin:')
 })
 
-
 test('line endings', async () => {
   const kit = await getKit()
-  await write('index.md', '---\ntitle: Page title\rhero: img/image.png\r\n---\r\n\r# Hello\r\n\rWorld')
+  await write(
+    'index.md',
+    '---\ntitle: Page title\rhero: img/image.png\r\n---\r\n\r# Hello\r\n\rWorld'
+  )
   const data = await kit.getPageData('index.md')
   expect(data.title).toBe('Page title')
   expect(data.hero).toBe('img/image.png')
@@ -380,10 +368,9 @@ test('page assets', async () => {
   const kit = await getKit()
   const { assets } = await kit.getPageData('blog/index.md')
 
-  expect(assets.components).toEqual(["/blog/comp.js", "/lib/video.js"])
+  expect(assets.components).toEqual(['/blog/comp.js', '/lib/video.js'])
   expect(assets.scripts.length).toEqual(4)
 })
-
 
 test('single-page app index', async () => {
   await write('index.html', '<test/>')
@@ -394,7 +381,6 @@ test('single-page app index', async () => {
   expect(html).toInclude('hotreload.js')
   expect(html).toInclude('<test custom="test">')
 })
-
 
 test('bundle', async () => {
   await write('a.ts', 'export const foo = 30')
@@ -415,24 +401,27 @@ test('JS errors', async () => {
   await write('a.js', code)
   const opts = { path: `./${root}/a.js`, outdir: root, silent: true }
 
+  let err = null
   try {
     await buildJS(opts)
   } catch (e) {
-    // console.info(e)
-    expect(e.lineText).toBe(code)
+    err = e
   }
 
+  expect(err.lineText).toBe(code)
+
+  let err2 = null
   try {
     await buildJS({ ...opts, esbuild: true })
   } catch (e) {
-    expect(e.lineText).toBe(code)
+    err2 = e
   }
 
+  expect(err2.lineText).toBe(code)
 })
 
-
 test('the project was started for the first time', async () => {
-  await write('site.yaml', 'port: 9090')
+  await write('site.yaml', 'port: 8808')
   await write('globals/bar.css')
   await write('home.css')
   await write('index.md')
