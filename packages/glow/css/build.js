@@ -2,25 +2,16 @@
 import { promises as fs } from 'node:fs'
 
 async function minify(names, toname) {
-  const raw = []
-  for (const name of names) {
-    raw.push(await fs.readFile(`css/${name}.css`, 'utf-8'))
-  }
-
-  const filename = 'tmp.css'
-  await fs.writeFile(filename, raw.join('\n'))
-
   const min = await (await Bun.build({
-    entrypoints: [filename],
+    entrypoints: names.map(name => `css/${name}.css`),
     minify: true,
     throw: true,
-  })).outputs[0].text()
-
-  await fs.rm(filename)
+    experimentalCss: true,
+  })).outputs.map(async file => await file.text())
 
   const to = `minified/${toname}.css`
   await fs.writeFile(to, min)
-  console.log('>', to, min.length)
+  console.log('>', to, (await fs.stat(to)).size)
 }
 
 
