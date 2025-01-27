@@ -6,8 +6,11 @@
   gap: 1.5em;
 
   /* tabs */
+  details {
+    border: none;
+  }
+
   summary {
-    cursor: pointer;
     font-weight: 550;
     &::marker { font-size: 0 }
     &:hover { color: var(--main-600) }
@@ -15,7 +18,7 @@
 
   /* tab panes */
   div {
-    inset: 3em 0 0 1.5em;
+    inset: 5em 0 0 1.5em;
     position: absolute;
   }
 

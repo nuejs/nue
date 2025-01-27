@@ -559,7 +559,7 @@ The CSS below is used to style the above example, transforming the accordion int
 
   /* tab panes */
   div {
-    inset: 3em 0 0 1.5em;
+    inset: 5em 0 0 1.5em;
     position: absolute;
   }
 
