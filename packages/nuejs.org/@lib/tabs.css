@@ -6,7 +6,8 @@
   gap: 1.5em;
 
   /* tabs */
-  details {
+  /* increase specificity */
+  && details {
     border: none;
   }
 
