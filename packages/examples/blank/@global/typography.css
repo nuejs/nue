@@ -1,0 +1,23 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, Avenir Next, Segoe UI, Roboto;
+}
+
+/* heading and subtitle */
+h1 {
+  letter-spacing: -0.03em;
+  font-size: clamp(2rem, 5vw, 2.4rem);
+
+  &, + p {
+    line-height: 1.3;
+    margin: 0 auto .2em;
+    max-width: 40rem;
+    text-align: center;
+    text-wrap: balance;
+  }
+
+  + p {
+    font-size: clamp(1em, 5vw, 1.25em);
+    font-weight: 300;
+    margin-bottom: 2em;
+  }
+}

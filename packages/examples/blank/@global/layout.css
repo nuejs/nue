@@ -1,0 +1,36 @@
+/* CSS reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* consistent whitespace */
+ul, ol ,figure, pre {
+  margin: 2em 0;
+}
+
+/* page layout */
+body {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: max(4rem, 7.5%) 5% 5% 5%;
+
+  /* global footer */
+  > footer {
+    border-top: 1px solid var(--gray-200);
+    margin-top: 8rem;
+    padding-top: 1rem;
+    text-align: center;
+
+    nav {
+      a {
+        color: var(--gray-500);
+        opacity: .8;
+        text-decoration: none;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

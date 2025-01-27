@@ -1,0 +1,20 @@
+# yaml-language-server: $schema=https://json.schemastore.org/nuejs-site.json
+
+globals: ['@global']
+libs: ['@library']
+
+native_css_nesting: true
+inline_css: true
+sections: true
+
+title_template: 'Nue / %s'
+author: Nue
+favicon: /img/favicon.png
+description: A (mostly) blank Nue project
+port: 8083
+
+navigation:
+  footer:
+    - © Nue: https://nuejs.org/
+      target: _blank
+      rel: noopener noreferrer
