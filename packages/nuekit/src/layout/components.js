@@ -1,4 +1,3 @@
-
 import { elem, parseSize, renderInline, renderIcon } from 'nuemark'
 
 import { readFileSync } from 'node:fs'
@@ -17,15 +16,16 @@ export function renderPageList(data) {
   return elem('ul', this.attr, pages.join('\n'))
 }
 
-
 // the "main" method called by the <navi/> tag
 export function renderNavi(data) {
   const { items, icon_dir } = data
 
-  return Array.isArray(items) ? renderNav({ items, icon_dir }) :
-    typeof items == 'object' ? renderMultiNav(items, data) : ''
+  return Array.isArray(items)
+    ? renderNav({ items, icon_dir })
+    : typeof items == 'object'
+    ? renderMultiNav(items, data)
+    : ''
 }
-
 
 function renderTOC(data) {
   const { document, attr } = data
@@ -38,7 +38,6 @@ function renderPrettyDate(date) {
   return elem('time', { datetime: date.toISOString() }, prettyDate(date))
 }
 
-
 // in Nue JS component format
 export function getLayoutComponents() {
   return [
@@ -47,7 +46,7 @@ export function getLayoutComponents() {
     { name: 'toc', create: renderTOC },
     { name: 'markdown', create: ({ content }) => renderInline(content) },
     { name: 'pretty-date', create: ({ date }) => renderPrettyDate(date) },
-    { name: 'icon', create: (data) => renderIcon(data.src, data.symbol, data.icon_dir) },
+    { name: 'icon', create: data => renderIcon(data.src, data.symbol, data.icon_dir) },
   ]
 }
 
@@ -55,7 +54,7 @@ export function getLayoutComponents() {
 
 export function renderPage(page) {
   const { title, url } = page
-  const desc =  page.desc || page.description
+  const desc = page.desc || page.description
   const thumb = toAbsolute(page.thumb, page.dir)
 
   // date
@@ -66,18 +65,22 @@ export function renderPage(page) {
   const h2 = title ? elem('h2', renderInline(title)) : ''
   const p = desc ? elem('p', renderInline(desc)) : ''
 
-  const body = !thumb ? time + elem('a', { href: url }, h2 + p) :
-
-    // figure
-    elem('a', { href: url }, elem('figure',
-      elem('img', { src: thumb, loading: 'lazy' }) + elem('figcaption', time + h2 + p))
-  )
+  const body = !thumb
+    ? time + elem('a', { href: url }, h2 + p)
+    : // figure
+      elem(
+        'a',
+        { href: url },
+        elem(
+          'figure',
+          elem('img', { src: thumb, loading: 'lazy' }) + elem('figcaption', time + h2 + p)
+        )
+      )
 
   return elem('li', { class: isNew(date) && 'is-new' }, body)
 }
 
-
-function isNew(date, offset=4) {
+function isNew(date, offset = 4) {
   const diff = new Date() - date
   return diff < offset * 24 * 3600 * 1000
 }
@@ -86,12 +89,12 @@ function prettyDate(date) {
   return date.toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
-    day: 'numeric'
+    day: 'numeric',
   })
 }
 
 export function toAbsolute(path, dir) {
-  return path && path[0] != '/' ? `/${dir}/${path}`: path
+  return path && path[0] != '/' ? `/${dir}/${path}` : path
 }
 
 export function parseLink(item) {
@@ -100,10 +103,9 @@ export function parseLink(item) {
   if (typeof item == 'string') {
     return item.startsWith('---') ? { separator: item } : { label: item, url: '' }
   }
-  const [ label, url ] = Object.entries(item)[0]
+  const [label, url] = Object.entries(item)[0]
   return { label, ...parseClass(url) }
 }
-
 
 export function renderLink(item, icon_dir) {
   const img = item.image ? renderImage(item) : ''
@@ -113,7 +115,20 @@ export function renderLink(item, icon_dir) {
 
   const link = parseLink(item)
 
-  const attr = { href: link.url, class: link.class, role: item.role }
+  // Attributes supported by <a> in addition to "class" and "role"
+  // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes
+  const attr = {
+    class: link.class,
+    download: item.download,
+    href: link.url,
+    hreflang: item.hreflang,
+    ping: item.ping,
+    referrerpolicy: item.referrerpolicy,
+    rel: item.rel,
+    role: item.role,
+    target: item.target,
+    type: item.type,
+  }
   return elem('a', attr, icon + img + renderInline(link.label) + icon_right + kbd)
 }
 
@@ -132,14 +147,12 @@ export function parseClass(url) {
   return data
 }
 
-
-export function renderNav({ items, icon_dir, heading='' }) {
+export function renderNav({ items, icon_dir, heading = '' }) {
   const html = items.map(item => renderLink(item, icon_dir))
   return elem('nav', heading + html.join('\n'))
 }
 
-
-export function renderMultiNav(cats, data={}) {
+export function renderMultiNav(cats, data = {}) {
   const { icon_dir } = data
   const html = []
 
@@ -152,4 +165,3 @@ export function renderMultiNav(cats, data={}) {
 
   return elem('div', { class: data.class }, html.join('\n'))
 }
-
