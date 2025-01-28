@@ -78,7 +78,7 @@ const PARSERS = [
       // parse tag
       const tag = parseTag(str.slice(1, i).trim())
       const { name } = tag
-      const is_footnote = name[0] == '^'
+      const is_footnote = name && name[0] == '^'
       const end = i + 1
 
       // footnote?
@@ -89,6 +89,8 @@ const PARSERS = [
 
       // normal tag
       if (name == '!' || isValidName(name)) return { is_tag: true, ...tag, end }
+      // span
+      if (!name) return { is_span: true, ...tag, end }
 
       return { text: c }
     }
