@@ -14,7 +14,7 @@
     "nue": "./src/cli.js"
   },
   "engines": {
-    "bun": ">= 1.1.34",
+    "bun": ">= 1.2",
     "node": ">= 18"
   },
   "scripts": {

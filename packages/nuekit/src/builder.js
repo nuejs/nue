@@ -27,11 +27,11 @@ export async function getCssBuilder(is_lcss) {
     cssBuilder = is_lcss ? await import(resolve('lightningcss', `file://${process.cwd()}/`)) : Bun
     if (!is_lcss) {
       const v = Bun.version.split('.').map(i => parseInt(i))
-      if (!((v[0] >= 1 && v[1] >= 2) || (v[0] == 1 && v[1] == 1 && v[2] >= 34))) throw new Error('Bun version too low')
+      if (!(v[0] >= 1 && v[1] >= 2)) throw new Error('Bun version too low')
     }
     return cssBuilder
   } catch {
-    throw 'CSS bundler not found. Please use Bun >=1.1.34 or install lightningcss'
+    throw 'CSS bundler not found. Please use Bun >=1.2 or install lightningcss'
   }
 }
 
@@ -97,19 +97,26 @@ export async function buildCSS(filename, minify, opts = {}, lcss) {
       minify,
       throw: true,
       experimentalCss: true,
-      // mark basically everything but `.css` as external (TODO: find better solution to this one)
-      external: ['*.svg', '*.png', '*.jpg', '*.jpeg', '*.webp', '*.ico', '*.woff', '*.woff2', '*.ttf', '*.otf'],
+      plugins: [{
+        name: 'mark non-css files as external',
+        setup(build) {
+          build.onResolve({ filter: /.*/, namespace: 'file' }, args => {
+            // Mark non-css files external. Might need some more handling later on?
+            if (args.kind === 'internal') return { ...args, external: true }
+          })
+        },
+      }],
     })).outputs[0].text()
 
   } catch (e) {
     // bun aggregate error
-    const [err] = e.errors || [null]
+    const [err] = e.errors || [e]
 
     throw {
       title: 'CSS syntax error',
-      lineText: err?.position?.lineText || (await fs.readFile(e.fileName, 'utf-8')).split(/\r\n|\r|\n/)[e.loc.line - 1],
-      text: err?.message || e.data.type,
-      ...(err?.position || e.loc),
+      lineText: err?.position?.lineText || (err.fileName && (await fs.readFile(err.fileName, 'utf-8')).split(/\r\n|\r|\n/)[err.loc.line - 1]),
+      text: err?.message || err?.data?.type,
+      ...(err?.position || err?.loc),
     }
   }
 }
