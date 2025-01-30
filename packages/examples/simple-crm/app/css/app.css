@@ -1,0 +1,67 @@
+
+body {
+  font-family: system-ui;
+  padding: 1em;
+}
+
+.app {
+  display: flex;
+  gap: 3em;
+}
+
+.flex {
+  display: flex;
+
+  nav {
+    margin-left: auto;
+  }
+}
+
+aside {
+
+  nav a {
+    display: block;
+    padding: .25em 0;
+  }
+
+}
+
+.content {
+  max-width: 30em;
+}
+
+.context {
+  max-width: 20em;
+}
+
+.row {
+  display: block;
+  margin-block: 1em;
+  transition: .025s;
+  outline-offset: .5em;
+  outline-color: white;
+  text-decoration: none;
+
+  small {
+    float: right;
+  }
+
+  h3 {
+    color: black;
+    margin-block: .25em;
+    font-size: 1em;
+  }
+
+  p {
+    color: #666;
+    font-size: .875em;
+    margin: 0;
+  }
+
+  &:focus {
+    background-color: #eee;
+    outline-color: #ccc;
+  }
+
+}
+

@@ -1,0 +1,24 @@
+
+title: Simple CRM / Nue demo
+globals: [ view, uilib, css ]
+# inline_css: true
+
+views:
+
+  leads:
+    title: Leads
+    extra_columns: [ Visits, Joined ]
+
+  users:
+    title: Users
+    extra_columns: [ Sessions, Last active ]
+
+  customers:
+    title: Customers
+    extra_columns: [ MRR, Last active ]
+
+  feedback:
+    title: Feedback
+    extra_columns: [ Visits, Posted ]
+
+
