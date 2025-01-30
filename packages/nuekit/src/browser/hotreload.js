@@ -31,12 +31,10 @@ sse.onmessage = async function(e) {
     }
   }
 
-  // web components cannot be re-mounnted :(
-  // if (data.is_js) import('/' + path + '?' + Math.random())
-
-  // reactive component
-  if (data.is_dhtml || data.is_htm) remount('/' + data.path.replace(data.ext, '.js'))
-
+  // client-side component
+  if (data.is_dhtml || data.is_htm) {
+    remount('/' + data.path.replace(data.ext, '.js'))
+  }
 
   // styling (inline && stylesheets)
   if (css) {

@@ -75,7 +75,7 @@ export function onclick(root, fn) {
       (name?.includes('.') && !name?.endsWith('.html')) || !!target) return
 
     // all good
-    if (path != location.pathname) fn(path, el)
+    if (path != location.pathname) fn(el.pathname, el)
     e.preventDefault()
 
   })
@@ -132,8 +132,8 @@ if (is_browser) {
 
   // back button
   addEventListener('popstate', e => {
-    const { path } = e.state || {}
-    if (path) {
+    const { path, is_spa } = e.state || {}
+    if (path && !is_spa) {
       const pos = scrollPos[path]
 
       document.startViewTransition(async () => {

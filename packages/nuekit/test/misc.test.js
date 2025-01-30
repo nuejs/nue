@@ -1,7 +1,6 @@
 import { promises as fs } from 'node:fs'
 import { join } from 'node:path'
 
-import { match } from '../src/browser/app-router.js'
 import { buildCSS } from '../src/builder.js'
 import { getArgs } from '../src/cli.js'
 import { create } from '../src/create.js'
@@ -83,12 +82,6 @@ test('CLI args', () => {
   expect(args.verbose).toBe(true)
 })
 
-test('app router', async () => {
-  expect(match('/fail/:id', '/users/20')).toBeNull()
-  expect(match('/users/:id/edit', '/users/20')).toBeNull()
-  expect(match('/users/:id', '/users/20')).toEqual({ id: 20 })
-  expect(match('/:view/:id', '/users/20')).toEqual({ id: 20, view: 'users' })
-})
 
 test('path parts', () => {
   const parts = parsePathParts('docs/glossary/semantic-css.md')

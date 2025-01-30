@@ -1,0 +1,26 @@
+
+
+<a href="/app/users/100">/users/100</a>
+
+<a href="/app/users/5000">/users/5000</a>
+
+<a href="/app/customers/">/customers/</a>
+
+<a href="/something/else">/something/else</a>
+
+
+<script type="module">
+  import { router } from '/src/browser/app-router-2.js'
+
+  router.setup('/app/:type/:id', ['uid'])
+
+  router.on('type', data => {
+    console.info('type', data)
+  })
+
+  router.on('id', data => {
+    console.info('id', data)
+  })
+
+  router.start()
+</script>

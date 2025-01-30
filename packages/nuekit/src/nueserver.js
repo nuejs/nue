@@ -12,6 +12,7 @@ import { join, extname } from 'node:path'
 export const TYPES = {
   html: 'text/html; charset=UTF-8',
   js:   'application/javascript',
+  wasm: 'application/wasm',
   json: 'application/json',
   svg:  'image/svg+xml',
   ico:  'image/x-icon',
