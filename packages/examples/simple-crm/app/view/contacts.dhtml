@@ -1,0 +1,29 @@
+
+
+<div @name="contacts">
+
+  <a :for="{ type, data, ts } in items" :href="data.id" class="row">
+    <small>{ ts }</small>
+    <h3>{{ data.name }}</h3>
+    <p>{{ data.message }}</p>
+  </a>
+
+</div>
+
+<div @name="contact">
+
+  <h2>{ name }</h2>
+
+  <p>{ email }</p>
+
+  <p>{ message }</p>
+
+  <button @click="change">Change</button>
+
+  <script>
+    change() {
+      this.email = 'saodfijasödfoiajs'
+    }
+  </script>
+
+</div>

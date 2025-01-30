@@ -1,0 +1,104 @@
+
+<!--
+  This is the controller in the MVC pattern
+  Includes app layout and controls routing and how the (sub)views are rendered
+-->
+<script>
+  import { router } from '/@nue/app-router.js'
+  import { model } from '/model/index.js'
+</script>
+
+
+<!-- custom attribute needed for HMR -->
+<main @name="app" class="app" custom="app">
+
+  <aside>
+    <nav role="navigation">
+      <a data-accesskey="1" href="/question/">Questions</a>
+      <a data-accesskey="2" href="/demo_request/">Demo requests</a>
+      <a data-accesskey="3" href="/problem/">Problems</a>
+      <a data-accesskey="4" href="/feedback/">Feedback</a>
+    </nav>
+  </aside>
+
+  <article class="content">
+    <header class="flex">
+      <input @input="search" data-accesskey="/" :value="state.query"
+        type="search" placeholder="Search contacts">
+      <nav>
+         <span>{ statusText() }</span>
+         <button @click="seek(-1)" :disabled="!coll?.start">Prev</button>
+         <button @click="seek(1)" :disabled="coll?.start + coll?.length > coll?.total">Next</button>
+      </nav>
+    </header>
+    <section id="main-wrap"/>
+  </article>
+
+  <article class="context">
+    <section id="context-wrap"/>
+  </article>
+
+
+  <script>
+    renderList(data) {
+      this.mountChild('contacts', window['main-wrap'], data)
+    }
+
+    renderContact(data) {
+      this.mountChild('contact', window['context-wrap'], data)
+    }
+
+    constructor() {
+
+      router.setup('/:type/:id', ['query', 'start'])
+
+      router.on('type start query', params => {
+        this.coll = model.filter(params)
+        this.renderList(this.coll)
+        this.update()
+      })
+
+      router.on('id', ({ id }) => {
+        if (!id) return
+        const person = model.get(id)
+        this.renderContact(person.data)
+      })
+    }
+
+    // start router
+    mounted() {
+      this.state = router.state
+      router.start({ root: this.root })
+    }
+
+    search(e) {
+      router.route('/search', { query: e.target.value })
+    }
+
+    statusText() {
+      const { start, length, total } = this.coll || {}
+      return `${ start + 1 } – ${ start + length } of ${ total }`
+    }
+
+    seek(to) {
+      const { start, length } = this.coll
+      router.set('start', start + to*length)
+    }
+  </script>
+
+</main>
+
+
+
+<div @name="app-loader">
+  <h3>Loading...</h3>
+
+  <script>
+    async mounted() {
+      await model.init()
+      const wrap = this.root.closest('main')
+      this.mountChild('app', wrap)
+    }
+  </script>
+</div>
+
