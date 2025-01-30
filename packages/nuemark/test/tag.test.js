@@ -255,16 +255,16 @@ const svgpath = join(relpath, 'test.svg')
 
 test('[svg]', () => {
   const html = renderLines([`[svg ${svgpath}]`])
-  expect(html).toBe('<svg/>')
+  expect(html).toBe('<svg class="icon"/>')
 })
 
 test('[svg] nested in [button]', () => {
   const html = renderLines(['[button href="/"]', `  [svg ${svgpath}] *Yo*`])
-  expect(html).toBe('<a href="/" role="button"><svg/> <em>Yo</em></a>')
+  expect(html).toBe('<a href="/" role="button"><svg class="icon"/> <em>Yo</em></a>')
 })
 
 
-test.only('[define]', () => {
+test('[define]', () => {
   const content = [
     '[define]',
     '  ## Design System { #ds.foo }',
