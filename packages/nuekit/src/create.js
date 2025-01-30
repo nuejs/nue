@@ -40,7 +40,11 @@ export async function create({ root, name = 'simple-blog', port }) {
   // download archive
   console.info('Loading template...')
   const archive_name = join(root, `${name}-source.tar.gz`)
-  const archive = await fetch(`https://${name}.nuejs.org/${debug ? 'test' : 'source'}.tar.gz`)
+  const archive_web = `https://${name}.nuejs.org/${debug ? 'test' : 'source'}.tar.gz`
+  const archive = await fetch(archive_web)
+  
+  // catch download issues
+  if (archive.status != 200) return console.error(`Downloading template "${archive_web}" failed with "${archive.statusText}".`)
   await fs.writeFile(archive_name, Buffer.from(await archive.arrayBuffer()))
 
   // uncompress
