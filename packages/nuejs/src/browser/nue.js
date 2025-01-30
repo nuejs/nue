@@ -140,9 +140,10 @@ export default function createApp(component, data = {}, deps = [], $parent = {})
       // event handler
       node[`on${real}`] = evt => {
         fn.call(ctx, ctx, evt)
-        const up = $parent?.update || update
-        up()
+        $parent?.update()
+        update()
       }
+
     } else if (char == '$') {
       // boolean attribute
       expr.push(_ => {

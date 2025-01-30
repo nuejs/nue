@@ -83,7 +83,10 @@ export async function createKit(args) {
 
     if (is_dev && data.hotreload !== false) push('hotreload')
     if (assets.components?.length) push('mount')
-    if (data.view_transitions || data.router) push('view-transitions')
+
+    if (!data.is_spa) {
+      if (data.view_transitions || data.router) push('view-transitions')
+    }
   }
 
 
@@ -135,17 +138,12 @@ export async function createKit(args) {
     const file = parsePath(index_path)
     const dir = file.dir
     const appdir = getAppDir(index_path)
-    const data = { ...await site.getData(appdir), ...parsePathParts(index_path) }
+    const data = { ...await site.getData(appdir), ...parsePathParts(index_path), is_spa: true }
 
     // scripts & styling
     data.assets = {}
     await setupScripts(dir, data)
     await setupStyles(dir, data)
-
-    // model/index.js
-    if (existsSync(join(root, dir, 'model', 'index.js'))) {
-      data.assets.scripts.unshift(`/${dir}/model/index.js`)
-    }
 
     // SPA components and layout
     const html = await read(index_path)

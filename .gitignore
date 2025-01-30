@@ -8,3 +8,4 @@ dist
 _test
 coverage
 performance.js
+Makefile
