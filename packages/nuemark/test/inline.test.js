@@ -217,6 +217,23 @@ test('parse simple image', () => {
   expect(img.href).toBe('yo.svg')
 })
 
+test('inline span', () => {
+  const md = 'hello [.green "world"]!'
+  const [text, span] = parseInline(md)
+  expect(span.is_span).toBeTrue()
+  
+  const result = renderInline(md)
+  expect(result).toBe('hello <span class="green">world</span>!')
+})
+
+test('empty inline span', () => {
+  const result = renderInline('[.myclass#myid]')
+  expect(result).toStartWith('<span ')
+  expect(result).toInclude('class="myclass"')
+  expect(result).toInclude('id="myid"')
+  expect(result).toEndWith('></span>')
+})
+
 
 // parse tags and args
 test('inline tag', () => {
