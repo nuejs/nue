@@ -147,7 +147,6 @@ export function renderTag(tag, opts={}) {
   if (!fn) return renderIsland(tag, opts.data)
 
   const data = { ...opts.data, ...extractData(tag.data, opts.data) }
-  const { blocks } = tag
 
   const api = {
     ...tag,
