@@ -1,7 +1,5 @@
 import { elem, parseSize, renderInline, renderIcon } from 'nuemark'
 
-import { readFileSync } from 'node:fs'
-import { join } from 'node:path'
 
 export function renderPageList(data) {
   const key = data.collection_name || data.content_collection
@@ -23,8 +21,8 @@ export function renderNavi(data) {
   return Array.isArray(items)
     ? renderNav({ items, icon_dir })
     : typeof items == 'object'
-    ? renderMultiNav(items, data)
-    : ''
+      ? renderMultiNav(items, data)
+      : ''
 }
 
 function renderTOC(data) {
@@ -67,15 +65,15 @@ export function renderPage(page) {
 
   const body = !thumb
     ? time + elem('a', { href: url }, h2 + p)
-    : // figure
+    // figure
+    : elem(
+      'a',
+      { href: url },
       elem(
-        'a',
-        { href: url },
-        elem(
-          'figure',
-          elem('img', { src: thumb, loading: 'lazy' }) + elem('figcaption', time + h2 + p)
-        )
+        'figure',
+        elem('img', { src: thumb, loading: 'lazy' }) + elem('figcaption', time + h2 + p)
       )
+    )
 
   return elem('li', { class: isNew(date) && 'is-new' }, body)
 }

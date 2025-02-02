@@ -91,7 +91,7 @@ export async function createSite(args) {
   }
 
   async function getModel() {
-    const { src, namespace='app' } = site_data.server_model || {}
+    const { src, namespace = 'app' } = site_data.server_model || {}
     if (src) {
       const model = await loadExtension(src)
       log('Loaded model from', src)
@@ -263,7 +263,7 @@ export async function createSite(args) {
   self.getData = async function(pagedir) {
     const data = { nuekit_version, ...site_data, is_prod }
 
-    for (const dir of [ ...self.globals, ...traverseDirsUp(pagedir)]) {
+    for (const dir of [...self.globals, ...traverseDirsUp(pagedir)]) {
       extendData(data, await readDirData(dir))
     }
     return data

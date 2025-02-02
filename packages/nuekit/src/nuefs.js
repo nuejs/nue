@@ -84,9 +84,9 @@ export async function fswatch(root, callback, onremove) {
 }
 
 
-export async function fswalk(opts, _dir='', _ret=[]) {
+export async function fswalk(opts, _dir = '', _ret = []) {
   if (typeof opts == 'string') opts = { root: opts }
-  const { root, symdirs=true } = opts
+  const { root, symdirs = true } = opts
 
 
   const files = await fs.readdir(join(root, _dir), { withFileTypes: true })
@@ -105,7 +105,7 @@ export async function fswalk(opts, _dir='', _ret=[]) {
 
 const IGNORE = ['node_modules', 'functions', 'package.json', 'bun.lockb', 'pnpm-lock.yaml', 'README.md']
 
-function ignore(name='') {
+function ignore(name = '') {
   return '._'.includes(name[0]) || IGNORE.includes(name)
 }
 

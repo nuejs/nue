@@ -55,11 +55,11 @@ function compileNode(root) {
           attribs[name] = push(body, true)
         }
 
-      // for expression
+        // for expression
       } else if (key == ':for') {
         attribs[key] = push(compileLoop(val, node))
 
-      // attributes
+        // attributes
       } else if (':$'.includes(char) && val && key != ':is') {
         const expr = has_expr ? arrwrap(parseExpr(val)) : setContext(val)
         attribs[key] = push(expr)

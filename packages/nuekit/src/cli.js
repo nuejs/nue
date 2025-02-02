@@ -31,15 +31,15 @@ export function getArgs(argv) {
     // skip
     if (arg.endsWith(sep + 'cli.js') || checkExecutable.test(arg) || arg == '--') {
 
-    // test suite
+      // test suite
     } else if (arg.endsWith('.test.js')) {
       args.test = true
 
-    // command
+      // command
     } else if (commands.includes(arg)) {
       args.cmd = arg
 
-    // options
+      // options
     } else if (!opt && arg[0] == '-') {
 
       // booleans
@@ -119,7 +119,7 @@ async function runCommand(args) {
     const paths = await nue.build(args.paths)
     if (!dryrun && deploy && paths[0]) await deployer({ paths, root: nue.dist, init })
 
-  // serve
+    // serve
   } else {
     await nue.serve()
   }
@@ -134,11 +134,11 @@ if (esMain(import.meta)) {
   if (args.help) {
     await printHelp()
 
-  // version
+    // version
   } else if (args.version) {
     await printVersion()
 
-  // command
+    // command
   } else if (!args.test) {
     try {
       await runCommand(args)

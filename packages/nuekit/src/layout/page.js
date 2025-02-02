@@ -5,6 +5,7 @@ import { getLayoutComponents, renderPageList } from './components.js'
 
 import { renderHead } from './head.js'
 
+
 const SLOTS = 'head banner header subheader pagehead pagefoot aside beside footer bottom main'.split(' ')
 
 const MAIN = parseNue(`
@@ -54,7 +55,7 @@ export function getSPALayout(body, data) {
   return ltrim(`
     <html lang="${language}" dir="${direction}">
       <head>
-        ${ renderHead(data) }
+        ${renderHead(data)}
       </head>
 
       <body>
@@ -101,7 +102,7 @@ function convertToTags(components, data) {
   const tags = {}
 
   components.forEach(comp => {
-    const { name } = comp
+    const { name } = comp || {}
 
     if (name && comp.render && !SLOTS.includes(name)) {
       tags[name] = function(data) {
@@ -114,9 +115,8 @@ function convertToTags(components, data) {
   return tags
 }
 
-
-export function renderPage(data, lib, custom_tags={}) {
-  const comps = [ ...lib, ...getLayoutComponents()]
+export function renderPage(data, lib, custom_tags = {}) {
+  const comps = [...lib, ...getLayoutComponents()]
   const { document } = data
 
   const tags = {
@@ -127,7 +127,7 @@ export function renderPage(data, lib, custom_tags={}) {
   }
 
   // nuemark opts: { data, sections, heading_ids, links, tags }
-  const { heading_ids, sections, content_wrapper, links  } = data
+  const { heading_ids, sections, content_wrapper, links } = data
   const content = document.render({ data, heading_ids, sections, content_wrapper, links, tags })
 
   const slots = renderSlots({ ...data, content }, comps)

@@ -4,8 +4,8 @@ import { parseTag, parseAttr } from './parse-tag.js'
 
 
 export const FORMATTING = {
-  '***':  'EM',
-  '___':  'EM',
+  '***': 'EM',
+  '___': 'EM',
   '**':  'strong',
   '__':  'strong',
 
@@ -115,9 +115,9 @@ const PARSERS = [
       if (i == -1) return { text: c }
       const name = str.slice(1, i).trim()
 
-      return '.#'.includes(name[0]) ? { is_attr: true, attr: parseAttr(name), end: i + 1 } :
-        { is_var: true, name, end: i + 1 }
-      ;
+      return '.#'.includes(name[0])
+        ? { is_attr: true, attr: parseAttr(name), end: i + 1 }
+        : { is_var: true, name, end: i + 1 }
     }
   },
 
@@ -145,7 +145,7 @@ function isValidName(name) {
 export function parseInline(str) {
   const tokens = []
 
-  while(str) {
+  while (str) {
     for (const fn of PARSERS) {
       const item = fn(str, str[0])
       if (item) {
@@ -193,7 +193,7 @@ export function parseLink(str, is_reflink) {
     j = str.indexOf(close, i + 2)
     if (i == -1 || j == -1) return
 
-  } else  {
+  } else {
     // links with closing bracket (ie. Wikipedia)
     if (str[j + 1] == ')') j++
   }
@@ -203,7 +203,10 @@ export function parseLink(str, is_reflink) {
 
   // footnote reference
   const is_footnote = href[0] == '^'
-  if (is_footnote) { is_reflink = null;  href = '#' + href }
+  if (is_footnote) {
+    is_reflink = null
+    href = '#' + href
+  }
 
   return {
     href, title, label,

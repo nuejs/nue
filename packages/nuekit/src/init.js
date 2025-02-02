@@ -90,7 +90,7 @@ async function initDir({ dist, is_dev, esbuild, cwd, srcdir, outdir }) {
 
 
 function resolvePath(npm_path) {
-  const [ npm_name, ...parts ] = npm_path.split('/')
+  const [npm_name, ...parts] = npm_path.split('/')
   const module_path = dirname(fileURLToPath(resolve(npm_name, import.meta.url)))
   return join(module_path, ...parts)
 }

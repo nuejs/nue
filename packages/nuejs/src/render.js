@@ -128,7 +128,7 @@ function processIf(node, expr, data, deps) {
 
 // for
 function processFor(node, expr, data, deps) {
-  const [ $keys, for_expr, $index, is_object_loop ] = parseFor(expr)
+  const [$keys, for_expr, $index, is_object_loop] = parseFor(expr)
 
   // syntax error
   if (!for_expr) throw {
@@ -151,8 +151,8 @@ function processFor(node, expr, data, deps) {
 
         return key === $keys ? (item == null ? data[key] : item) :
           key == $index ? items.indexOf(item) :
-          $keys.includes(key) ? item[key] :
-          data[key]
+            $keys.includes(key) ? item[key] :
+              data[key]
       }
     })
 
@@ -207,11 +207,11 @@ function processNode(opts) {
       delete attribs.client
       // do nothing: pass content as is
 
-    // content
+      // content
     } else if (type == 'text') {
       setContent(node, data)
 
-    // element
+      // element
     } else if (type == 'tag' || type == 'style' || type == 'script') {
 
       // if
@@ -245,7 +245,7 @@ function processNode(opts) {
           if (html && html != 'false') DOM.replaceElement(node, mkdom(html))
           else removeNode(node)
 
-        // slot content provided as data
+          // slot content provided as data
         } else if (data.innerHTML) {
           DOM.replaceElement(node, mkdom(data.innerHTML))
 
@@ -295,17 +295,17 @@ function getJS(nodes) {
   return js.join('\n')
 }
 
-function createComponent(node, global_js='', template) {
+function createComponent(node, global_js = '', template) {
   const name = getComponentName(node)
 
   // javascript
   const js = getJS(node.children)
-  const Impl = js[0] && exec(`class Impl { ${ js } }\n${global_js}`)
+  const Impl = js[0] && exec(`class Impl { ${js} }\n${global_js}`)
 
   // must be after getJS()
   const tmpl = getOuterHTML(node)
 
-  function create(data, deps=[], inner) {
+  function create(data, deps = [], inner) {
     if (Impl) data = Object.assign(new Impl(data), data) // ...spread won't work
     try {
       return processNode({ root: mkdom(tmpl), data, deps, inner })

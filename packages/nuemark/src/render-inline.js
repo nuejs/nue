@@ -3,20 +3,20 @@ import { parseInline, ESCAPED } from './parse-inline.js'
 import { renderTag } from './render-tag.js'
 import { elem } from './render-blocks.js'
 
-export function renderToken(token, opts={}) {
-  const { data={} } = opts
+export function renderToken(token, opts = {}) {
+  const { data = {} } = opts
   const { text } = token
 
   return text ? text :
     token.is_format ? formatText(token, opts) :
-    token.is_var ? renderVariable(token.name, data) :
-    token.is_image ? renderImage(token) :
-    token.is_tag ? renderTag(token, opts) :
-    token.href ? renderLink(token, opts) :
-    ''
+      token.is_var ? renderVariable(token.name, data) :
+        token.is_image ? renderImage(token) :
+          token.is_tag ? renderTag(token, opts) :
+            token.href ? renderLink(token, opts) :
+              ''
 }
 
-function formatText({tag, body }, opts) {
+function formatText({ tag, body }, opts) {
   const html = tag == 'code' ? renderCode(body) : renderInline(body, opts)
   return tag == 'EM' ? elem('em', elem('strong', html)) : elem(tag, html)
 }
@@ -32,7 +32,7 @@ function renderImage(img) {
 
 function renderLink(link, opts) {
   const { is_footnote, href, title } = link
-  const { reflinks={}, noterefs=[] } = opts
+  const { reflinks = {}, noterefs = [] } = opts
   const url = reflinks[href] || { href }
 
   let label = renderInline(link.label, opts)

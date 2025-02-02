@@ -59,7 +59,7 @@ export async function createKit(args) {
     const arr = []
     for (const path of paths) {
       if (!path.startsWith('/@nue')) {
-        const { css } = await processCSS({ path, ...parsePath(path)})
+        const { css } = await processCSS({ path, ...parsePath(path) })
         arr.push({ path, css })
       }
     }
@@ -147,10 +147,10 @@ export async function createKit(args) {
 
     if (html.includes('<html')) {
       const lib = await site.getServerComponents(appdir, data)
-      const [ spa, ...spa_lib ] = parseNue(html)
+      const [spa, ...spa_lib] = parseNue(html)
       return DOCTYPE + spa.render(data, [...lib, ...spa_lib])
     }
-    const [ spa ] = parseNue(getSPALayout(html, data))
+    const [spa] = parseNue(getSPALayout(html, data))
     return DOCTYPE + spa.render(data)
   }
 
@@ -174,7 +174,7 @@ export async function createKit(args) {
     return { bundle }
   }
 
-  async function processCSS({ path, base, dir}) {
+  async function processCSS({ path, base, dir }) {
     const data = await site.getData()
     const css = data.lightning_css === false ?
       await read(path) :
@@ -260,11 +260,11 @@ export async function createKit(args) {
     islands: 'Transpiling components',
     pages: 'Generating pages',
     media: 'Copying static files',
-    spa:   'Single-page apps'
+    spa: 'Single-page apps'
   }
 
   // build all / given matches
-  async function build(matches=[]) {
+  async function build(matches = []) {
     const begin = Date.now()
     log('Building site to:', colors.cyan(dist))
 
@@ -334,7 +334,7 @@ export async function createKit(args) {
         console.error(file.path, e)
       }
 
-    // when a file/dir was removed
+      // when a file/dir was removed
     }, async path => {
       const dpath = join(dist, path)
       await fs.rm(dpath, { recursive: true, force: true })

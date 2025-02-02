@@ -79,7 +79,7 @@ function getTags(lang) {
   const tags = HTML_TAGS.filter(el => !el.lang || el.lang.includes(lang))
 
   // custom keywords
-  if (!['yaml','html', 'json'].includes(lang)) {
+  if (!['yaml', 'html', 'json'].includes(lang)) {
     const w = SPECIAL_WORDS[lang]
     const words = (w ? w + '|' : '') + COMMON_WORDS
     const re = new RegExp(`\\b(${words})\\b`, 'gi')
@@ -189,7 +189,7 @@ function renderString(str) {
 
 
 // exported for testing purposes
-export function renderRow(row, lang, mark=true) {
+export function renderRow(row, lang, mark = true) {
   if (!row) return ''
 
   const els = parseRow(row, lang)
