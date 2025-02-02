@@ -3,7 +3,6 @@
 import { promises as fs } from 'node:fs'
 import { join } from 'node:path'
 
-import { resolve } from 'import-meta-resolve'
 import { Features, bundleAsync } from 'lightningcss'
 
 // don't reuse saved builder when in test mode
@@ -14,7 +13,7 @@ export async function getBuilder(is_esbuild) {
   if (!isTest && jsBuilder) return jsBuilder
 
   try {
-    return jsBuilder = is_esbuild ? await import(resolve('esbuild', `file://${process.cwd()}/`)) : Bun
+    return jsBuilder = is_esbuild ? await import(import.meta.resolve('esbuild')) : Bun
   } catch {
     throw 'Bundler not found. Please use Bun or install esbuild'
   }
