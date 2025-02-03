@@ -82,7 +82,7 @@ One of the key ideas of Nue is to ditch the large JavaScript ecosystem and go di
 
 
 ### Your design is based on a design system { #architecture }
-Most companies have drafted some form of design system in softwares like **Figma** or **Sketch**. This system acts as their "single source of truth":
+Most companies have drafted some form of design system in software like **Figma** or **Sketch**. This system acts as their "single source of truth":
 
 [image]
   small: /img/abstract-design-system.png

@@ -68,7 +68,7 @@ The semantic approach means that you can customize the look and feel of your com
   caption: Same component, different CSS module
   width: 500
 
-This sort of content-first approach brings the legendary [CSS Zen Garden](//www.csszengarden.com/) back to the game. When your components always have the same structure you can re-use your CSS across your pages, apps, websites, and projects.
+This sort of content-first approach brings the legendary [CSS Zen Garden](//www.csszengarden.com/) back to the game. When your components always have the same structure you can reuse your CSS across your pages, apps, websites, and projects.
 
 ## Driven by Web Components
 Some components are *isomorphic* meaning that the content is rendered on the server side for search engines and the behavior of the component is spiced up with client-side JavaScript.

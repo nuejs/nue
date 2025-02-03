@@ -20,7 +20,7 @@ export const FORMATTING = {
   '•':   'b',
 }
 
-// chars to espace
+// chars to escape
 export const ESCAPED = { '<': '&lt;', '>': '&gt;' }
 
 // tested: regexp is faster than custom lookup function

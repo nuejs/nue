@@ -150,17 +150,17 @@ Instead, you should write clean and semantic HTML:
 Clean HTML is significantly easier to read and work with. Use a class name only on the root element and let CSS selectors do the rest. It's surprising how little class names you need with clean, semantic markup. This website, for example, has only four class names on the global scope: "grid", "card", "stack" and "note". "Global namespace pollution" is essentially a myth and is trivial to avoid.
 
 
-## Create re-usable class names { #reuse }
+## Create reusable class names { #reuse }
 Always find ways to extract reusable pieces from your CSS code. For example, the above notification component could be written as:
 
-```html.good "Using a re-usable class name"
+```html.good "Using a reusable class name"
 <div class="notification •card•">
   <h3>ChitChat</h3>
   <p>You have a new message</p>
 </div>
 ```
 
-Here, the component was broken into two pieces: A highly re-usable "card" component and a notification-specific "notification" component:
+Here, the component was broken into two pieces: A highly reusable "card" component and a notification-specific "notification" component:
 
 
 ```css
@@ -181,7 +181,7 @@ Here, the component was broken into two pieces: A highly re-usable "card" compon
 }
 ```
 
-Now the "card" class can be applied to any element or component you desire, reducing code duplication an making a smaller and clearer codebase.
+Now the "card" class can be applied to any element or component you desire, reducing code duplication and making a smaller and clearer codebase.
 
 
 #### Links:

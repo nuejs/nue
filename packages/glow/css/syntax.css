@@ -72,7 +72,7 @@ pre {
     }
   }
 
-  /* errorneous line number styling */
+  /* erroneous line number styling */
   span:has(u):before {
     background-color: var(--glow-error-color, red);
     border-radius: .2em;

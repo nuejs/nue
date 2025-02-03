@@ -65,7 +65,7 @@ Some key takes:
 
 1. Tailwind CSS is seven times larger: 33K vs 4.6K. Overall you need eight times more HTML/CSS code with Tailwind to render the page (108K vs 12.6K). While the design is not identical, but it's easy to see the ballpark figure in there. Tailwind-generated sites are multiple times larger.
 
-2. Most of the semantic CSS is re-usable on other pages and only a fraction of the CSS is specific to the front page. It's easy to create new pages when the groundwork is already done.
+2. Most of the semantic CSS is reusable on other pages and only a fraction of the CSS is specific to the front page. It's easy to create new pages when the groundwork is already done.
 
 3. "Spotlight" is just a *theme* extending a base design. There is an extremely minimalistic [base-version](/@base/) of the website that can be used to create new themes, like our Spotlight theme.
 
@@ -140,7 +140,7 @@ Loose coupling makes you think **content first**. There is no need to write a co
 
 
 ### But naming things is unnecessary
-Naming things is a skill. You name things that repeat. Think of function names in JavaScript or component names in Figma. The same goes for CSS class names. Be good at naming, and you can move from repeating things to re-using things. That is: You can move from this:
+Naming things is a skill. You name things that repeat. Think of function names in JavaScript or component names in Figma. The same goes for CSS class names. Be good at naming, and you can move from repeating things to reusing things. That is: You can move from this:
 
 ```html
 <!-- utility-first css -->
@@ -170,7 +170,7 @@ Without turning into components.
 
 
 ### But co-location is important?
-Co-location is a catchy name for tight coupling. A term to promote the idea that styling should be tied to the presentation. Repeating things vs. re-using things. See above.
+Co-location is a catchy name for tight coupling. A term to promote the idea that styling should be tied to the presentation. Repeating things vs. reusing things. See above.
 
 
 ### But Tailwind is a great design system

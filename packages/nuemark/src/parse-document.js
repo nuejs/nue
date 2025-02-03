@@ -19,7 +19,7 @@ export function parseDocument(lines) {
     meta.title = getTitle(blocks) || tag && getTitle(tag.blocks) || ''
   }
 
-  // descrption
+  // description
   if (!meta.description) {
     const block = blocks.find(el => el.is_content)
     meta.description = block?.content[0]

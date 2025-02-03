@@ -1,5 +1,5 @@
 ---
-title: Crafting a scaleable CSS design system
+title: Crafting a scalable CSS design system
 thumb: img/ui-thumb.png
 og: img/ui-1.png
 date: 2025-01-18
