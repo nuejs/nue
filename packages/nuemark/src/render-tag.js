@@ -158,8 +158,8 @@ export function renderTag(tag, opts = {}) {
   if (!fn) {
     // native html tags
     if (HTML_TAGS.includes(tag.name)) {
-      // inline / block without blocks, but with '_' data
-      if (tag.is_inline || (!tag.blocks?.length && tag.data?._)) return elem(tag.name, tag.attr, renderInline(tag.data?._, opts))
+      // inline / block without blocks
+      if (tag.is_inline || !tag.blocks?.length) return elem(tag.name, tag.attr, renderInline(tag.data?._, opts))
 
       // block
       tag.is_block = true
