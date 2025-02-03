@@ -39,6 +39,9 @@ const HTML_TAGS = [
 
   // line comment
   { tag: 'sup', re: /# .+/ },
+  
+  // inline comment
+  { tag: 'sup', re: /\/\*.*?\*\//g },
 
   { tag: 'label', re: /\[([a-z\-]+)/g, lang: ['md', 'toml'], shift: true },
 
@@ -223,7 +226,7 @@ export function renderRow(row, lang, mark = true) {
 
 
 // comment start & end
-const COMMENT = [/(\/\*|^ *{# |<!--|'''|=begin)/, /(\*\/|#}|-->|'''|=end)$/]
+const COMMENT = [/(\/\*|^ *{# |<!--|'''|=begin)/, /(\*\/|#}|-->|'''|=end)/]
 
 export function parseSyntax(lines, lang, prefix = true) {
   const [comm_start, comm_end] = COMMENT
@@ -232,16 +235,20 @@ export function parseSyntax(lines, lang, prefix = true) {
   // multi-line comment
   let comment
 
-  function endComment() {
-    html.push({ comment })
+  function endComment(partial) {
+    html.push({ comment, partial })
     comment = null
   }
 
-  lines.forEach((line, i) => {
+  for (let i = 0; i < lines.length; i++) {
+    let line = lines[i]
     if (!comment) {
-      if (comm_start.test(line)) {
+      const start_comm = comm_start.exec(line)
+      const end_comm = comm_end.exec(line)
+      if (start_comm && start_comm.index === 0 && (!end_comm || line.length === end_comm.index + end_comm[0].length)) {
+        // entire line is a complete comment OR the beginning of a block comment
         comment = [line]
-        if (comm_end.test(line) && line?.trim() != "'''") endComment()
+        if (end_comm && line?.trim() != "'''") endComment()
       } else {
 
         // highlighted line
@@ -258,11 +265,20 @@ export function parseSyntax(lines, lang, prefix = true) {
       }
 
     } else {
-      comment.push(line)
-      if (comm_end.test(line)) endComment()
+      const end_comm = comm_end.exec(line)
+      if (end_comm) {
+        const end = end_comm.index + end_comm[0].length
+        const [before, after] = [line.slice(0, end), line.slice(end)]
+        comment.push(before)
+        endComment(!!after.length)
+        if (after) {
+          lines.splice(i + 1, 0, after)
+        }
+      } else {
+        comment.push(line)
+      }
     }
-  })
-
+  }
 
   return html
 }
@@ -280,24 +296,30 @@ export function glow(str, opts = { prefix: true, mark: true }) {
   if (!lang && lines[0][0] == '<') lang = 'html'
   const html = []
 
+  let is_partial = false
   function push(line) {
-    html.push(opts.numbered ? elem('span', line) : line)
+    if (is_partial) html[html.length - 1] = html[html.length - 1] + line
+    else html.push(line)
+    is_partial = false
   }
 
   parseSyntax(lines, lang, opts.prefix).forEach(function(block) {
-    let { line, comment, wrap } = block
-
+    let { line, comment, wrap, partial } = block
+    
     // EOL comment
     if (comment) {
-      return comment.forEach(el => push(elem('sup', encode(el))))
-
+      comment.forEach(el => push(elem('sup', encode(el))))
+      is_partial = partial
+      return
+      
     } else {
       line = renderRow(line, lang, opts.mark)
     }
-
+    
     if (wrap) line = elem(wrap, line)
     push(line)
+    is_partial = partial
   })
 
-  return `<code language="${lang || '*'}">${html.join(NL)}</code>`
+  return `<code language="${lang || '*'}">${html.map(el => opts.numbered ? elem('span', el) : el).join(NL)}</code>`
 }
