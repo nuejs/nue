@@ -231,6 +231,15 @@ test('empty inline span', () => {
   expect(html).toEndWith('></span>')
 })
 
+test('inline html with attrs', () => {
+  const md = '[span myattr="data" "content"]'
+  const [tag] = parseInline(md)
+  expect(tag.data).toEqual({ myattr: 'data', _: 'content' })
+
+  const html = renderInline(md)
+  expect(html).toBe('<span myattr="data">content</span>')
+})
+
 // named default html tag
 test('inline html tag', () => {
   const html = renderInline('[b "*content*"]')

@@ -33,11 +33,13 @@ const TAGS = {
   },
 
   block() {
-    const { render, attr, blocks, name } = this
+    const { render, attr, data, blocks, name } = this
     const divs = sectionize(blocks)
 
     const html = !divs || !divs[1] ? render(blocks) :
       divs.map(blocks => elem('div', render(blocks))).join('\n')
+
+    Object.assign(attr, data)
 
     return elem(attr.popover ? 'dialog' : name || 'div', attr, html)
   },
@@ -85,6 +87,15 @@ const TAGS = {
     return elem('figure', attr, img)
   },
 
+  inline() {
+    const { name, attr, data, opts } = this
+
+    const content = data._
+    delete data._
+    Object.assign(attr, data)
+
+    return elem(name, attr, this.renderInline(content, opts))
+  },
 
   list() {
     const items = this.sections || getListItems(this.blocks)
@@ -153,16 +164,17 @@ export function renderIcon(name, symbol, icon_dir) {
 
 export function renderTag(tag, opts = {}) {
   const tags = { ...TAGS, ...opts.tags }
-  const fn = tags[!tag.is_block && tag.name || 'block']
+  const tag_fn = !tag.name || tag.to_block ? 'block' : tag.to_inline ? 'inline' : tag.name
+  const fn = tags[tag_fn]
 
   if (!fn) {
     // native html tags
     if (HTML_TAGS.includes(tag.name)) {
       // inline / block without blocks
-      if (tag.is_inline || !tag.blocks?.length) return elem(tag.name, tag.attr, renderInline(tag.data?._, opts))
-
+      if (tag.is_inline || !tag.blocks?.length) tag.to_inline = true
       // block
-      tag.is_block = true
+      else tag.to_block = true
+
       return renderTag(tag)
     }
 
