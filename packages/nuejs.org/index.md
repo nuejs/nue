@@ -30,10 +30,10 @@ Nue is **HTML**, **CSS**, and **JavaScript** taken to their absolute peak
   Results than in Next.js [[3]](/docs/compare.html#output)
 
 
-[.quote.loom]
+[.quote]
   > “Nue brings faster tooling, cleaner code, and a liberating experience. You must try it.”
 
-  — **Mauricio Wolff**, design engineering lead at **Loom**
+  — **Mauricio Wolff**, Staff Product Designer at **Miro**
 
 
 ----

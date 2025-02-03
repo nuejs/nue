@@ -23,7 +23,7 @@ const SVG = 'animate animatemotion animatetransform circle clippath defs desc el
 
 STD.push(...SVG)
 
-const BOOLEAN = 'allowfullscreen async autofocus autoplay checked controls default\
+const BOOLEAN = 'allowfullscreen aria-selected async autofocus autoplay checked controls default\
  defer disabled formnovalidate hidden ismap itemscope loop multiple muted nomodule\
  novalidate open playsinline readonly required reversed selected truespeed'.split(/\s+/)
 

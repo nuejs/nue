@@ -104,7 +104,10 @@ export default function createApp(component, data = {}, deps = [], $parent = {})
 
   function setAttr(node, key, val) {
     const orig = node.getAttribute(key)
-    if (orig !== val) node.setAttribute(key, val)
+    if (orig !== val) {
+      if (val) node.setAttribute(key, val)
+      else node.removeAttribute(key)
+    }
   }
 
   function processAttr(node, name, value) {
@@ -129,7 +132,7 @@ export default function createApp(component, data = {}, deps = [], $parent = {})
     }
 
     if (char == ':') {
-      if (real != 'bind') {
+      if (!['html', 'bind'].includes(real)) {
         // dynamic attributes
         expr.push(_ => {
           let val = fn(ctx)
@@ -153,7 +156,9 @@ export default function createApp(component, data = {}, deps = [], $parent = {})
     }
 
     // html
-    if (real == 'html') expr.push(_ => node.innerHTML = fn(ctx))
+    if (real == 'html') {
+      expr.push(_ => node.innerHTML = fn(ctx))
+    }
   }
 
   function walkChildren(node, fn) {

@@ -1,13 +1,22 @@
 
+<script>
+  import { formatDate } from './util.js'
+</script>
 
-<div @name="contacts">
+<div @name="contacts" role="list">
 
-  <a :for="{ type, data, ts } in items" :href="data.id" class="row">
-    <small>{ ts }</small>
+  <a :for="{ type, data, ts } in items" :href="?id={data.id}"
+    class="{ selected: data.id == state.id }">
+    <small>{ formatDate(data.created) }</small>
     <h3>{{ data.name }}</h3>
     <p>{{ data.message }}</p>
   </a>
 
+  <p :if="!items.length">No contacts</p>
+
+  <script>
+    formatDate = formatDate
+  </script>
 </div>
 
 <div @name="contact">
@@ -17,13 +26,4 @@
   <p>{ email }</p>
 
   <p>{ message }</p>
-
-  <button @click="change">Change</button>
-
-  <script>
-    change() {
-      this.email = 'saodfijasödfoiajs'
-    }
-  </script>
-
 </div>

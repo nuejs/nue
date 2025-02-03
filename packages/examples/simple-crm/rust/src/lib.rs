@@ -18,6 +18,23 @@ impl Model {
   }
 
   #[wasm_bindgen]
+  pub fn get_total(&self) -> usize {
+    self.events.len()
+  }
+
+  #[wasm_bindgen]
+  pub fn clear(&mut self) {
+      self.events.clear();
+  }
+
+  #[wasm_bindgen]
+  pub fn all(&self, start: usize, length: usize) -> String {
+    let mut matches: Vec<&String> = self.events.iter().collect();
+    Self::sort_by_id_desc(&mut matches);
+    self.paginate(matches, start, length)
+  }
+
+  #[wasm_bindgen]
   pub fn filter(&self, filters: String, start: usize, length: usize) -> String {
     let patterns: Vec<String> = filters.split(',')
      .map(|s| s.trim().to_string())
@@ -61,9 +78,31 @@ impl Model {
      items.iter().map(|s| s.as_str()).collect::<Vec<&str>>().join(","))
   }
 
+
   fn filter_events(&self, patterns: Vec<String>) -> Vec<&String> {
-    self.events.iter()
-     .filter(|line| patterns.iter().all(|p| line.contains(p)))
-     .collect()
+    let mut matches: Vec<&String> = self.events.iter()
+      .filter(|line| patterns.iter().all(|p| line.contains(p)))
+      .collect();
+
+    Self::sort_by_id_desc(&mut matches);
+    matches
   }
+
+
+  fn sort_by_id_desc(entries: &mut Vec<&String>) {
+    entries.sort_by(|a, b| {
+      let get_id = |s: &&String| {
+        s.split("id\":")
+          .nth(1)
+          .and_then(|id_part| id_part.split(',').next())
+          .and_then(|id_str| id_str.parse::<u32>().ok())
+          .unwrap_or(0)
+      };
+
+      let id_a = get_id(a);
+      let id_b = get_id(b);
+      id_b.cmp(&id_a)
+    });
+  }
+
 }
