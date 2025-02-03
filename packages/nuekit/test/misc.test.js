@@ -2,7 +2,7 @@ import { promises as fs } from 'node:fs'
 import { join } from 'node:path'
 
 import { match } from '../src/browser/app-router.js'
-import { lightningCSS } from '../src/builder.js'
+import { buildCSS } from '../src/builder.js'
 import { getArgs } from '../src/cli.js'
 import { create } from '../src/create.js'
 import { parsePathParts } from '../src/util.js'
@@ -29,34 +29,51 @@ async function write(filename, code) {
 }
 
 
-test('Lightning CSS errors', async () => {
+test('CSS errors', async () => {
   const code = 'body margin: 0 }'
   const filepath = await write('lcss.css', code)
 
+  // lcss
   try {
-    await lightningCSS(filepath, true)
+    await buildCSS(filepath, true, undefined, true)
+  } catch (e) {
+    expect(e.lineText).toBe(code)
+    expect(e.line).toBe(1)
+  }
+
+  // bcss
+  try {
+    await buildCSS(filepath, true)
   } catch (e) {
     expect(e.lineText).toBe(code)
     expect(e.line).toBe(1)
   }
 })
 
-test('Lightning CSS @import bundling', async () => {
+test('CSS @import bundling', async () => {
   const code = 'body { margin: 0 }'
   const filename = 'cssimport.css'
   await write(filename, code)
   const filepath = await write('lcss.css', `@import "${filename}"`)
 
-  const css = await lightningCSS(filepath, true)
-  expect(css).toBe(code.replace(/\s/g, ''))
+  const lcss = await buildCSS(filepath, true, undefined, true)
+  const bcss = await buildCSS(filepath, true)
+
+  const min = code.replace(/\s/g, '')
+  expect(lcss).toContain(min)
+  expect(bcss).toContain(min)
 })
 
-test('Lightning CSS', async () => {
+test('CSS', async () => {
   const code = 'body { margin: 0 }'
   const filepath = await write('lcss.css', code)
 
-  const css = await lightningCSS(filepath, true)
-  expect(css).toBe(code.replace(/\s/g, ''))
+  const lcss = await buildCSS(filepath, true, undefined, true)
+  const bcss = await buildCSS(filepath, true)
+
+  const min = code.replace(/\s/g, '')
+  expect(lcss).toContain(min)
+  expect(bcss).toContain(min)
 })
 
 test('CLI args', () => {
