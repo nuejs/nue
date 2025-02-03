@@ -8,7 +8,6 @@ export function renderToken(token, opts = {}) {
   const { text } = token
 
   return text ? text :
-    token.is_span ? elem('span', token.attr, renderInline(token.data?._)) :
     token.is_format ? formatText(token, opts) :
       token.is_var ? renderVariable(token.name, data) :
         token.is_image ? renderImage(token) :

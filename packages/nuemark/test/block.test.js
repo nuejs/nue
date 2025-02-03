@@ -30,6 +30,32 @@ test('nested lists', () => {
 })
 
 
+test('block html tag including non-html tag', () => {
+  const { blocks } = parseBlocks(['[section.hi]', '  content', '  [subtag "data"]'])
+  const parent = blocks[0]
+  expect(blocks.length).toBe(1)
+  expect(parent.is_tag).toBe(true)
+  expect(parent.attr.class).toBe('hi')
+  expect(parent.blocks.length).toBe(2)
+  const children = blocks[0].blocks
+  expect(children[0].is_content).toBe(true)
+  expect(children[1].is_tag).toBe(true)
+  expect(children[1].data).toEqual({ _: "data" })
+
+  const html = renderBlocks(blocks)
+  expect(html).toStartWith('<section class="hi"><p>content</p>')
+  expect(html).toInclude('<subtag custom="subtag"><script type="application/json">{"_":"data"}</script></subtag>')
+  expect(html).toEndWith('</section>')
+})
+
+test('block html tag without children with content', () => {
+  const { blocks } = parseBlocks(['[section "content"]', 'no content'])
+  expect(blocks.length).toBe(2)
+
+  const html = renderBlocks(blocks)
+  expect(html).toBe('<section>content</section>\n<p>no content</p>')
+})
+
 test('nested tag data', () => {
   const { blocks } = parseBlocks(['[hello]', '', '', '  foo: bar', '', '  bro: 10'])
   expect(blocks[0].data).toEqual({ foo: "bar", bro: 10 })

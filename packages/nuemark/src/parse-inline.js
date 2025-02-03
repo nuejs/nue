@@ -88,9 +88,7 @@ const PARSERS = [
       }
 
       // normal tag
-      if (name == '!' || isValidName(name)) return { is_tag: true, ...tag, end }
-      // span
-      if (!name) return { is_span: true, ...tag, end }
+      if (!name || name == '!' || isValidName(name)) return { is_inline: true, is_tag: true, ...tag, name: tag.name || 'span', end }
 
       return { text: c }
     }
