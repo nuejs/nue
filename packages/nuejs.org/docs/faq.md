@@ -6,7 +6,7 @@ beside: false
 
 
 ### The industry has standardized around component-based architecture across React, Vue, and Svelte. Why go against this unified direction?
-Beacuse something went wrong in web development. Let me explain:
+Because something went wrong in web development. Let me explain:
 
 If you look at the first waves of innovation – DHTML bringing interactivity to static pages, jQuery making cross-browser development possible – these technologies represented genuine progress. Each step made the web more dynamic and developer-friendly.
 
