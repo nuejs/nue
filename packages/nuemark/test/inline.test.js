@@ -217,23 +217,33 @@ test('parse simple image', () => {
   expect(img.href).toBe('yo.svg')
 })
 
+// anonymous tag
 test('inline span', () => {
-  const md = 'hello [.green "world"]!'
-  const [text, span] = parseInline(md)
-  expect(span.is_span).toBeTrue()
-  
-  const result = renderInline(md)
-  expect(result).toBe('hello <span class="green">world</span>!')
+  const html = renderInline('hello [.green "world"]!')
+  expect(html).toBe('hello <span class="green">world</span>!')
 })
 
 test('empty inline span', () => {
-  const result = renderInline('[.myclass#myid]')
-  expect(result).toStartWith('<span ')
-  expect(result).toInclude('class="myclass"')
-  expect(result).toInclude('id="myid"')
-  expect(result).toEndWith('></span>')
+  const html = renderInline('[.myclass#myid]')
+  expect(html).toStartWith('<span ')
+  expect(html).toInclude('class="myclass"')
+  expect(html).toInclude('id="myid"')
+  expect(html).toEndWith('></span>')
 })
 
+// named default html tag
+test('inline html tag', () => {
+  const html = renderInline('[b "*content*"]')
+  expect(html).toBe('<b><em>content</em></b>')
+})
+
+test('empty inline html tag', () =>  {
+  const html = renderInline('[del.pink.border#myid]')
+  expect(html).toStartWith('<del ')
+  expect(html).toInclude('id="myid"')
+  expect(html).toInclude('class="pink border"')
+  expect(html).toEndWith('></del>')
+})
 
 // parse tags and args
 test('inline tag', () => {
@@ -245,6 +255,7 @@ test('inline tag with reflink', () => {
   const els = parseInline('[tip] and [link][foo]')
   const [ tag, and, link] = els
   expect(tag.is_tag).toBeTrue()
+  expect(tag.name).toBe('tip')
   expect(link.is_reflink).toBeTrue()
 })
 
