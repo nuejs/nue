@@ -106,6 +106,33 @@ export class Model {
         wasm.model_add_events(this.__wbg_ptr, ptr0, len0);
     }
     /**
+     * @returns {number}
+     */
+    get_total() {
+        const ret = wasm.model_get_total(this.__wbg_ptr);
+        return ret >>> 0;
+    }
+    clear() {
+        wasm.model_clear(this.__wbg_ptr);
+    }
+    /**
+     * @param {number} start
+     * @param {number} length
+     * @returns {string}
+     */
+    all(start, length) {
+        let deferred1_0;
+        let deferred1_1;
+        try {
+            const ret = wasm.model_all(this.__wbg_ptr, start, length);
+            deferred1_0 = ret[0];
+            deferred1_1 = ret[1];
+            return getStringFromWasm0(ret[0], ret[1]);
+        } finally {
+            wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+        }
+    }
+    /**
      * @param {string} filters
      * @param {number} start
      * @param {number} length

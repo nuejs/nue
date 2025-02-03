@@ -1,10 +1,33 @@
 
-Features
 
-  Standards-first model initialization
-  Instant HMR, no model-reloads
-  data-accesskey="1" (separation of concerns)
-  title="Jotain vain"
+Standards first: Insanely Ambitious Web Applications
+  Yes. The word "insane" begs for drama, but it's here for accuacy.
+
+  SHOW: video
+
+  # What/Why
+  What's happening here
+    New levels of speed (Rust)
+    Size (bars: React lib, Tailwind, React router,
+    Codebase (~10x less, clarity)
+    The modern web (standards first: time to harness it!)
+
+  # The details
+  How
+    Model
+      JS / Rust
+
+    View (HTML)
+      Tooltips (CSS Anchor Positioning)
+      Keyboard (SoC, jQuery, data-accesskey)
+      JS (vanilla)
+      Motion (view transitions, @starting style)
+
+    Controller (URL based)
+      HMR (granula, CSS)
+
+
+
 
 Sidebar
   Search

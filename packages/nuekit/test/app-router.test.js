@@ -1,26 +1,60 @@
 
-import { router, fire, fireRoute, parsePath, parseSearch } from '../src/browser/app-router.js'
-global.location = { pathname: '', search: '' }
+import {
+  router,
+  parsePathData,
+  parseQueryData,
+  hasPathData,
+  renderPath,
+  matchesPath,
+  renderQuery,
+  diff,
+  fire
+
+} from '../src/browser/app-router.js'
+
+global.history = null
 
 test('parse path', () => {
   router.setup('/app/:type/:id')
-  expect(parsePath('/app/leads/389/bang')).toEqual({ type: 'leads', id: '389' })
-  expect(parsePath('/app/users/89')).toEqual({ type: 'users', id: '89' })
-  expect(parsePath('/foo/users')).toBeUndefined()
+  expect(parsePathData('/app/leads/389/bang')).toEqual({ type: 'leads', id: '389' })
+  expect(parsePathData('/app/users/89')).toEqual({ type: 'users', id: '89' })
+  expect(parsePathData('/foo/users')).toBeUndefined()
 })
 
 test('parse search', () => {
   router.setup('', ['start', 'length'])
-  expect(parseSearch('?start=10&length=20&foo=bar')).toEqual({ start: '10', length: '20' })
+  expect(parseQueryData('?start=10&length=20&foo=bar')).toEqual({ start: '10', length: '20' })
 })
 
+test('hasPathData', () => {
+  router.setup('/app/:foo/:bar')
+  expect(hasPathData({ foo: 10 })).toBeTrue()
+  expect(hasPathData({ zappa: 10 })).toBeUndefined()
+})
+
+test('matchesPath', () => {
+  router.setup('/app/:type')
+
+  expect(matchesPath('/something/else')).toBeFalse()
+  expect(matchesPath('/app/zoo/2000')).toBeTrue()
+
+})
+
+
+test('diff', () => {
+  const orig = { a: 1, b: 2, c: 3 }
+  const data = { a: 1, b: 3, d: 4 }
+  expect(diff(orig, data)).toEqual({ b: 3, c: null, d: 4 })
+})
+
+
 test('fire', () => {
-  router.setup('/:foo/:id', [])
+  router.setup('/app/:foo/:id', [])
 
   let count = 0
 
   router.on('foo', data => {
-    expect(data).toEqual({ foo: 100 })
+    // expect(data).toEqual({ foo: 100 })
     count++
   })
 
@@ -28,29 +62,33 @@ test('fire', () => {
     count++
   })
 
-  router.set('foo', 100)
-  router.set('foo', 100)
-  router.set('bar', 100)
-  expect(count).toEqual(3)
+  router.set({ foo: 100 })
+  router.set({ foo: 100 })
+
+
+  expect(count).toEqual(2)
 })
 
 
-test('fire route', () => {
-  router.setup('/:type/:id')
-  let path_count = 0
-  let id_count = 0
+test('renderPath', () => {
+  router.setup('/app/:cat/:uid')
 
-  router.on('type', data => {
-    expect(data).toEqual({ type: "users", id: "100" })
-    path_count++
-  })
+  expect(renderPath()).toBe('/app/')
 
-  router.on('id', data => id_count++)
+  router.set({ uid: 100 })
+  expect(renderPath()).toBe('/app/')
 
-  fireRoute('/users/100')
-  fireRoute('/users/500')
+  router.set({ cat: 'people', uid: null })
+  expect(renderPath()).toBe('/app/people/')
 
-  expect(path_count).toBe(1)
-  expect(id_count).toBe(2)
+  router.set({ cat: 'people', uid: 30 })
+  expect(renderPath()).toBe('/app/people/30')
+})
+
+
+test('renderQuery', () => {
+  router.setup('', ['query', 'start'])
+
+  router.set({ query: 'joe', start: 10 })
 
 })

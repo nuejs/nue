@@ -65,10 +65,10 @@ Here's what this enables:
   alt: Standards first
   width: 600
 
-[.heroquote.loom]
+[.heroquote]
   > “Nue is exactly what it promises: faster tooling, cleaner code, and a liberating experience. You must try it.”
 
-  — **Mauricio Wolff**, design engineering lead at **Loom**
+  — **Mauricio Wolff**, Staff Product Designer at Miro
 
 
 - - -

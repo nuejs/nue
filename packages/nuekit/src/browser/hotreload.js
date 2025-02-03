@@ -34,6 +34,7 @@ sse.onmessage = async function(e) {
   // client-side component
   if (data.is_dhtml || data.is_htm) {
     remount('/' + data.path.replace(data.ext, '.js'))
+    dispatchEvent(new Event('hmr'))
   }
 
   // styling (inline && stylesheets)

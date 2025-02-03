@@ -34,12 +34,10 @@ aside {
   max-width: 20em;
 }
 
-.row {
+[role="list"] > a {
   display: block;
   margin-block: 1em;
   transition: .025s;
-  outline-offset: .5em;
-  outline-color: white;
   text-decoration: none;
 
   small {
@@ -58,7 +56,7 @@ aside {
     margin: 0;
   }
 
-  &:focus {
+  &:focus  {
     background-color: #eee;
     outline-color: #ccc;
   }
