@@ -1,0 +1,15 @@
+img {
+  display: block;
+  height: auto;
+  margin: 0 auto 1vw;
+  width: max(20vw, 10rem);
+}
+
+a {
+  color: var(--main-500);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--main-600);
+  }
+}
