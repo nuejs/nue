@@ -7,7 +7,7 @@ date: 2024-11-14
 
 Nue is a static site generator (SSG) built from the ground up to offer faster tooling, cleaner codebases, and better results. Today, we’re releasing the first version of Nue that earns the "release candidate" (RC) status.
 
-[image]
+[image]:
   small: /img/og-dark.png
   large: /img/og-dark-big.png
 
@@ -20,14 +20,14 @@ I know, it might sound a bit over the top... but hear me out. Let’s break it d
 ## 1. Cleaner codebases
 Nue is an ambitious engineering project designed to simplify web development through **separation of concerns** and **progressive enhancement**. This approach fundamentally redefines how websites are developed:
 
-[image]
+[image]:
   small: /img/progressive-enhancement.png
   large: /img/progressive-enhancement-big.png
   size: 650 x 174
 
 What once required a **React specialist** and a large amount of **JavaScript** can now be achieved with clean, standards-based code:
 
-[image.bordered]
+[image.bordered]:
   large: /img/clean-code-big.png
   small: /img/clean-code.png
   size: 745 × 403
@@ -38,7 +38,7 @@ This means you’re no longer bogged down with debugging complex algorithms and 
 ## 2. Faster tooling
 One of Nue’s standout features is its hot-reloading mechanism, and with this version, the diff/patch system is stronger than ever. By instantly detecting changes in **content**, **data**, **layouts**, **styles**, **components**, and **islands**, Nue applies updates directly to your browser. This creates a smooth, lightning-fast feedback loop that makes the development process more exciting and fluid.
 
-[bunny-video]
+[bunny-video]:
   videoId: abb2cf75-c7f9-43e6-b126-8827d0c8721e
   style: "background-color: #282C30"
   poster: /img/blog-content-editing-big.png
@@ -57,7 +57,7 @@ With the new Markdown parser and the absence of unnecessary JavaScript abstracti
 ## 3. Better results
 Nue helps developers create **fast** and **user-friendly** websites with features like **turbolinking**, **CSS view transitions**, **interactive islands**, and **CSS inlining**:
 
-[bunny-video]
+[bunny-video]:
   videoId: 383e5c79-6747-4b1a-8d7a-9da9ae721d33
   poster: /img/hero-splash.jpg
   caption: "Nue templates preview. Hit **F** for fullscreen"

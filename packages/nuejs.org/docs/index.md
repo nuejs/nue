@@ -2,7 +2,7 @@
 # The standards first web framework
 Nue is a standards first framework that returns web development back to its core strengths. It takes modern HTML, CSS, and JavaScript to their natural peaks without introducing unnecessary abstractions.
 
-[image /img/standards-first.png]
+[image /img/standards-first.png]:
   width: 600
 
 ## Web standards
@@ -254,7 +254,7 @@ While Markdown is not an official web standard, it has become the de-facto stand
 
 Nue extends Markdown syntax to enable rich content authoring while maintaining the readability of a book. Whether you're creating documentation, blog posts, marketing pages, or product tours, content remains clean and easily editable by both non-technical teams and AI assistants.
 
-[image.bordered]
+[image.bordered]:
   caption: Nue's extended Markdown syntax handles all varieties of content
   small: /img/content-files.png
   large: /img/content-files-big.png
@@ -454,7 +454,7 @@ Through web standards, Nue enables sophisticated motion while maintaining perfor
 ## Tooling
 Development speed depends critically on feedback time. When you make a change, how quickly do you see the result? Nue provides universal hot-reloading that impacts your workflow quite a bit:
 
-[bunny-video]
+[bunny-video]:
   videoId: abb2cf75-c7f9-43e6-b126-8827d0c8721e
   style: "background-color: #282C30"
   poster: /img/blog-content-editing-big.png

@@ -4,7 +4,7 @@
   # Content first
   Assemble web pages without JavaScript
 
-  [button "See the difference"]
+  [button "See the difference"]:
     href: content-compare.html
 
   ---

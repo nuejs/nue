@@ -13,7 +13,7 @@ There are four types of custom components in Nue:
 ### Example island
 Nue makes it easy to build interactive components like this:
 
-[array-demo]
+[array-demo]:
   users:
     - name: Alex Martinez
       role: Lead frontend developer
@@ -351,13 +351,13 @@ Interactive components in Nue are executed on the client side, directly within t
 ### Example: Image Gallery
 Let’s add a simple image gallery component to this page:
 
-[image-gallery]
+[image-gallery]:
   images: [tomatoes.jpg, lemons.jpg, peas.jpg, popcorn.jpg]
   basedir: /img
 
 
 ```md render
-[image-gallery]
+[image-gallery]:
   images: [tomatoes.jpg, lemons.jpg, peas.jpg, popcorn.jpg]
   basedir: /img
 ```
@@ -537,7 +537,7 @@ search() {
 ### Example: array.push
 Here’s a simple demo of using an array:
 
-[array-demo]
+[array-demo]:
   users:
     - name: Alex Martinez
       role: Lead frontend developer
@@ -560,7 +560,7 @@ Here’s a simple demo of using an array:
 
 
 ```md
-[array-demo]
+[array-demo]:
   users:
     - name: Alex Martinez
       role: Lead frontend developer
