@@ -31,7 +31,7 @@ test('nested lists', () => {
 
 
 test('nested tag data', () => {
-  const { blocks } = parseBlocks(['[hello]', '', '', '  foo: bar', '', '  bro: 10'])
+  const { blocks } = parseBlocks(['[hello]:', '', '', '  foo: bar', '', '  bro: 10'])
   expect(blocks[0].data).toEqual({ foo: "bar", bro: 10 })
 })
 
@@ -228,7 +228,7 @@ test('footnotes with [define]', () => {
 
 
 test('complex tag data', () => {
-  const comp = parseBlocks(['[hello#foo.bar world size="10"]', '  foo: bar']).blocks[0]
+  const comp = parseBlocks(['[hello#foo.bar world size="10"]:', '  foo: bar']).blocks[0]
   expect(comp.attr).toEqual({ class: "bar", id: "foo", })
   expect(comp.data).toEqual({ world: true, size: 10, foo: "bar", })
 })
