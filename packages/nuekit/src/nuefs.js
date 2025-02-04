@@ -44,6 +44,8 @@ export async function fswatch(root, callback, onremove) {
   }
 
   return watch(root, { recursive: true }, async function(e, path) {
+    if (path.endsWith('~')) path = path.slice(0, -1)
+
     try {
       const file = parse(path)
       file.path = path
