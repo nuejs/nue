@@ -115,7 +115,7 @@ export function parseBlocks(lines, capture) {
     if (c == '[' && (trimmed.endsWith(']') || trimmed.endsWith(']:')) && !trimmed.includes('][')) {
       const has_yaml = trimmed.endsWith(':')
       const tag = parseTag(trimmed.slice(1, has_yaml ? -2 : -1))
-      block = { is_tag: true, has_yaml, ...tag, body: [] }
+      block = { is_tag: true, has_yaml, ...tag, name: tag.name || 'div', body: [] }
       return blocks.push(block)
     }
 
@@ -183,7 +183,7 @@ function processNestedBlocks(block, capture) {
     const body = block.body.join('\n')
 
     try {
-      if (body && block.has_yaml && isYAML(body.trim())) {
+      if (body && name && isYAML(body.trim())) {
         let data = parseYAML(body)
         if (Array.isArray(data)) data = { items: data }
         Object.assign(block.data, data)

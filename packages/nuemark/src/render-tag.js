@@ -44,11 +44,9 @@ const TAGS = {
     const html = !divs || !divs[1] ? render(blocks) :
       divs.map(blocks => elem('div', render(blocks))).join('\n')
 
-    Object.assign(attr, data)
-
-    return elem(attr.popover ? 'dialog' : name || 'div', attr, html)
+    if (this.to_block) Object.assign(attr, data)
+    return elem(attr.popover ? 'dialog' : name, attr, html)
   },
-
 
   button(data) {
     const { href } = data
@@ -69,7 +67,6 @@ const TAGS = {
 
     return html && elem('dl', this.attr, html.join('\n'))
   },
-
 
   image() {
     const { attr, data } = this
@@ -97,7 +94,7 @@ const TAGS = {
 
     const content = data._
     delete data._
-    Object.assign(attr, data)
+    if (this.to_inline) Object.assign(attr, data)
 
     return elem(name, attr, this.renderInline(content, opts))
   },
@@ -136,7 +133,6 @@ const TAGS = {
     return elem('video', attr, this.innerHTML)
   },
 
-
   // shortcut
   '!': function() {
     const tag = getMimeType(this.data._).startsWith('video') ? TAGS.video : TAGS.image
@@ -169,7 +165,7 @@ export function renderIcon(name, symbol, icon_dir) {
 
 export function renderTag(tag, opts = {}) {
   const tags = { ...TAGS, ...opts.tags }
-  const tag_fn = !tag.name || tag.to_block ? 'block' : tag.to_inline ? 'inline' : tag.name
+  const tag_fn = tag.to_block ? 'block' : tag.to_inline ? 'inline' : tag.name
   const fn = tags[tag_fn]
 
   if (!fn) {

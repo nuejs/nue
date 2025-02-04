@@ -56,7 +56,7 @@ test('block html tag without children with content', () => {
   expect(html).toBe('<section>content</section>\n<p>no content</p>')
 })
 
-test.skip('block html tag with starting ul', () => {
+test('block html tag with starting ul', () => {
   const { blocks } = parseBlocks(['[div]', '  - hi', '  - hello'])
   expect(blocks.length).toBe(1)
   expect(blocks[0].blocks.length).toBe(1)
