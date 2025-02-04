@@ -8,7 +8,7 @@ desc: A quick update to give you a little idea of the  past, present, and the fu
 
 The goal of Nue is to be the [perfect web framework](/blog/perfect-web-framework/) for UX developers and design-led organizations. We're not there yet, but here's how we keep the dream alive
 
-[image]
+[image]:
   small: /img/designers-vs-engineers.png
   large: /img/designers-vs-engineers-big.png
   caption:  "[The Great Divide](//css-tricks.com/the-great-divide/): UX developers are design-oriented and JS engineers are technology-oriented"
@@ -22,7 +22,7 @@ Today, there is an unexpected resistance towards vanilla JS and CSS. Nue is an a
 [Nue JS](//github.com/nuejs/nue/tree/master/packages/nuejs) is a small micro-library for building user interfaces. While still buggy and in early beta, it showcases the value of separation of concerns and an HTML-first approach. That is: Your code becomes easier to read.
 
 
-[image.floating src="/img/theo-tailwind-promoter.jpg"]
+[image.floating src="/img/theo-tailwind-promoter.jpg"]:
   href: //youtu.be/yGBjXsrwK4M
   caption: "**Theo** is a famous JS/CSS hater and a passionate Tailwind promoter"
 

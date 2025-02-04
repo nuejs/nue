@@ -8,7 +8,7 @@ desc: The origins of Tailwind and how it is framed to solve the proposed issues 
 
 Tailwind CSS was born out of this sentence:
 
-[image "img/adam-keynote.jpg"]
+[image "img/adam-keynote.jpg"]:
   caption: "Adam's [keynote speech](//youtu.be/CLkxRnRQtDE?t=109) in Tailwind Connect 2023"
   alt: The most reusable components are those with class names that are independent of the content.
 
@@ -61,7 +61,7 @@ On August 7, 2017, Adam wrote an article about [CSS utility classes and "Separat
 
 But there was a challenge: To make such a statement, he needed to reshape the established CSS best practices. So he introduced [new terms](//adamwathan.me/css-utility-classes-and-separation-of-concerns/) to back his contradictory idea:
 
-[image "img/tailwind-practises.png" width="570"]
+[image "img/tailwind-practises.png" width="570"]:
   caption: The new terms and phrases Tailwind developers are familiar with
 
 
@@ -74,7 +74,7 @@ This was a hefty statement as it contradicts with all the prior work and studies
 
 In his keynote speech, Adam uses [harsh words](//youtu.be/CLkxRnRQtDE?si=s5bmoLnGsmbYDzMA) to describe the traditional way of structuring CSS, as opposed to how Tailwind is described:
 
-[image "img/villain-and-hero.png" width="570"]
+[image "img/villain-and-hero.png" width="570"]:
   caption: Words used on the keynote speech and Tailwind website
 
 Old best practices like "semantic", "separation of concerns", or "clean" are usually quoted, which is a common way to question the validity of the word.
@@ -113,7 +113,7 @@ But what should I use @apply for if not for cleaning up? The documentation does 
 ### Step 3: Vendor lock-in
 So I keep coming back to the first step resulting in more and more utility classes. I'm locked inside a loop:
 
-[image "img/utility-first-loop.png"]
+[image "img/utility-first-loop.png"]:
   caption: Utility-first workflow
 
 I find this a rather clever way to lock people using Tailwind, resulting in more retention, loyalty, and money.
@@ -238,7 +238,7 @@ Another major feature in Catalyst was a new markup language that separates all t
 
 The markup feels surprisingly similar to semantic HTML:
 
-[image "img/catalyst-markup.png" width="570"]
+[image "img/catalyst-markup.png" width="570"]:
   caption: Web standards vs vendor-specific markup
 
 This raises more questions:
@@ -299,7 +299,7 @@ The first step is to learn CSS. It's the ultimate design language for the web. A
 ### Content first
 Here's a better workflow. It has many names: "standards first", "content first", or "progressive enhancement".
 
-[image "img/standards-first.png" width="650"]
+[image "img/standards-first.png" width="650"]:
   caption: Standards first model
 
 

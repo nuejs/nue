@@ -10,7 +10,7 @@
     Time goes to    | Coding, debugging    | Design, UX
     Amount of code  | 500-10,000+ lines    | 100-1000 lines
 
-  [button "See the difference"]
+  [button "See the difference"]:
     href: codebase-compare.html
 
   ---
