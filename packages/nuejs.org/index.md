@@ -1,5 +1,5 @@
 ---
-sections: [hero, clean-slate, rebirth ]
+sections: [hero, stats-section, clean-slate, rebirth ]
 include: [form, video]
 inline_css: true
 appdir: home
@@ -13,18 +13,18 @@ Nue is **HTML**, **CSS**, and **JavaScript** taken to their absolute peak
   Read the announcement ›
 [button.ghost "Get started →" href="/docs/installation.html"]
 
----
++++
 [.stats]
   Around
   ## 30× smaller
   Binary than Next.js [[1]](/docs/compare.html#install)
 
-  ---
+  +++
   Around
   ## 100× faster
   Tooling than Next.js [[2]](/docs/compare.html#build)
 
-  ---
+  +++
   Around
   ## 30× lighter
   Results than in Next.js [[3]](/docs/compare.html#output)
@@ -36,7 +36,7 @@ Nue is **HTML**, **CSS**, and **JavaScript** taken to their absolute peak
   — **Mauricio Wolff**, design engineering lead at **Loom**
 
 
-----
++++
 ## A clean slate
 Nue is built from scratch to get web development back on its track
 
@@ -56,7 +56,7 @@ Nue is built from scratch to get web development back on its track
   **Elliot Jay Stocks**, Pioneer in semantic HTML
 
 
-----
++++
 ## A rebirth of the frontend
 Nue makes a full cleanup for the overly complex ecosystem
 
@@ -70,4 +70,3 @@ Nue makes a full cleanup for the overly complex ecosystem
   alt: Nue roadmap
 
 [feedback]
-

@@ -8,7 +8,7 @@ class: compare-page
   # Roadmap
   For becominmg the UX framework for the Web
 
-  ---
+  +++
 
   1. ## Nue 1.0
     * •Smooth onboarding•

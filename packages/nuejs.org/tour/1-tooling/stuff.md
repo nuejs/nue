@@ -6,6 +6,6 @@
 
   [button "Show the difference"]
     href: stuff-compare.html
-  ---
+  +++
 
   [image /tour/img/simple-blog.png]

@@ -12,7 +12,7 @@ class: intro
   - Hot-reload anything
 
   [Show me how](/tour/1-tooling/speed.html)
-  ---
+  +++
 
   [! /tour/icon/code.svg]
   ## Better code
@@ -21,7 +21,7 @@ class: intro
   - Design engineering
 
   [Show me how](/tour/2-code/content.html)
-  ---
+  +++
 
   [! /tour/icon/globe.svg]
   ## Better websites
