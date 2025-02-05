@@ -44,9 +44,9 @@ test('sectionize', () => {
   const tests = [
     ['### h3', 'para', '### h3', 'para', '#### h4', 'para'],
     ['# h1', 'para', '## h2', 'para', '### h3', 'para'],
-    ['para', '## h3', '---', 'para', '## h2'],
-    ['## lol', '---', '## bol'],
-    ['lol', '---', 'bol'],
+    ['para', '## h3', '+++', 'para', '## h2'],
+    ['## lol', '+++', '## bol'],
+    ['lol', '+++', 'bol'],
   ]
 
   for (const test of tests) {

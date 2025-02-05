@@ -132,7 +132,7 @@ test('.note', () => {
 
 // anonymous .stack
 test('.stack', () => {
-  const html = renderLines(['[.stack]', '  Hey', '  ---', '  Girl'])
+  const html = renderLines(['[.stack]', '  Hey', '  +++', '  Girl'])
   expect(html).toStartWith('<div class="stack"><div><p>Hey</p></div>')
 })
 

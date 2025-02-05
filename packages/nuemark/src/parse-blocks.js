@@ -239,11 +239,11 @@ function getListItem(line) {
 }
 
 export function getBreak(str) {
-  const HR = ['---', '***', '___', '- - -', '* * *']
+  const HR = ['+++', '---', '***', '___', '- - -', '* * *']
 
   for (const hr of HR) {
-    if (str.startsWith(hr) && !/[^\*\-\_ ]/.test(str)) {
-      return { is_break: true, is_separator: hr == '---' }
+    if (str.startsWith(hr) && !/[^-_+* ]/.test(str)) {
+      return { is_break: true, is_separator: hr == '+++' }
     }
   }
 }
