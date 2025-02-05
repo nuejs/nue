@@ -1,108 +1,131 @@
 use wasm_bindgen::prelude::*;
+use serde::Deserialize;
+use std::collections::HashMap;
+use serde_json::Value;
+
+#[derive(Clone, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum SortField {
+ Id,
+ Cc,
+ Plan,
+ CompanySize,
+}
+
+#[derive(Deserialize)]
+pub struct QueryParams {
+ start: usize,
+ length: usize,
+ sort_by: Option<SortField>,
+ ascending: Option<bool>,
+}
 
 #[wasm_bindgen]
 pub struct Model {
-  events: Vec<String>,
+ events: Vec<String>,
 }
 
 #[wasm_bindgen]
 impl Model {
-  #[wasm_bindgen(constructor)]
-  pub fn new() -> Self {
-    Model { events: Vec::new() }
-  }
+ #[wasm_bindgen(constructor)]
+ pub fn new() -> Self {
+   Model { events: Vec::new() }
+ }
 
-  pub fn add_events(&mut self, input: String) {
-    let new_events: Vec<String> = input.lines().map(|s| s.to_string()).collect();
-    self.events.extend(new_events);
-  }
+ pub fn add_events(&mut self, input: String) {
+   let new_events: Vec<String> = input.lines().map(|s| s.to_string()).collect();
+   self.events.extend(new_events);
+ }
 
-  #[wasm_bindgen]
-  pub fn get_total(&self) -> usize {
-    self.events.len()
-  }
+ #[wasm_bindgen]
+ pub fn get_total(&self) -> usize {
+   self.events.len()
+ }
 
-  #[wasm_bindgen]
-  pub fn clear(&mut self) {
-      self.events.clear();
-  }
+ #[wasm_bindgen]
+ pub fn clear(&mut self) {
+   self.events.clear();
+ }
 
-  #[wasm_bindgen]
-  pub fn all(&self, start: usize, length: usize) -> String {
-    let mut matches: Vec<&String> = self.events.iter().collect();
-    Self::sort_by_id_desc(&mut matches);
-    self.paginate(matches, start, length)
-  }
+ #[wasm_bindgen]
+ pub fn all(&self, params: JsValue) -> Result<String, JsError> {
+   let params: QueryParams = serde_wasm_bindgen::from_value(params)?;
+   let mut matches: Vec<&String> = self.events.iter().collect();
+   sort_entries(&mut matches, params.sort_by.as_ref(), params.ascending.unwrap_or(false));
+   Ok(self.paginate(matches, params.start, params.length))
+ }
 
-  #[wasm_bindgen]
-  pub fn filter(&self, filters: String, start: usize, length: usize) -> String {
-    let patterns: Vec<String> = filters.split(',')
-     .map(|s| s.trim().to_string())
-     .collect();
-    let matches = self.filter_events(patterns);
-    self.paginate(matches, start, length)
-  }
+ #[wasm_bindgen]
+ pub fn filter(&self, filters: JsValue, params: JsValue) -> Result<String, JsError> {
+   let filters: HashMap<String, String> = serde_wasm_bindgen::from_value(filters)?;
+   let params: QueryParams = serde_wasm_bindgen::from_value(params)?;
 
-  #[wasm_bindgen]
-  pub fn search(&self, query: String, start: usize, length: usize) -> String {
-    let query = query.to_lowercase();
+   let mut matches = self.events.iter()
+     .filter(|line| filters.iter().all(|(k,v)| line.contains(&format!("{}\":\"{}\"", k, v))))
+     .collect::<Vec<_>>();
 
-    let matches: Vec<&String> = self.events.iter()
+   sort_entries(&mut matches, params.sort_by.as_ref(), params.ascending.unwrap_or(false));
+   Ok(self.paginate(matches, params.start, params.length))
+ }
+
+ #[wasm_bindgen]
+ pub fn search(&self, query: String, params: JsValue) -> Result<String, JsError> {
+   let params: QueryParams = serde_wasm_bindgen::from_value(params)?;
+   let query = query.to_lowercase();
+
+   let mut matches: Vec<&String> = self.events.iter()
      .filter(|line| {
-      let line = line.to_lowercase();
-      line.contains(&format!("message\":\"")) && line.contains(&query) ||
-      line.contains(&format!("name\":\"")) && line.contains(&query) ||
-      line.contains(&format!("email\":\"")) && line.contains(&query)
+       let line = line.to_lowercase();
+       line.contains(&format!("message\":\"")) && line.contains(&query) ||
+       line.contains(&format!("name\":\"")) && line.contains(&query) ||
+       line.contains(&format!("email\":\"")) && line.contains(&query)
      })
      .collect();
 
-    self.paginate(matches, start, length)
-  }
+   sort_entries(&mut matches, params.sort_by.as_ref(), params.ascending.unwrap_or(false));
+   Ok(self.paginate(matches, params.start, params.length))
+ }
 
-  #[wasm_bindgen]
-  pub fn get(&self, id: u32) -> Option<String> {
-    let pattern = format!("id\":{}", id);
-    self.events.iter()
-      .find(|line| line.contains(&pattern))
-      .cloned()
-  }
+ #[wasm_bindgen]
+ pub fn get(&self, id: u32) -> Option<String> {
+   let pattern = format!("id\":{}", id);
+   self.events.iter()
+     .find(|line| line.contains(&pattern))
+     .cloned()
+ }
 
+ fn paginate(&self, matches: Vec<&String>, start: usize, length: usize) -> String {
+   let total = matches.len();
+   let end = (start + length).min(matches.len());
+   let items = &matches[start..end];
 
-  fn paginate(&self, matches: Vec<&String>, start: usize, length: usize) -> String {
-    let total = matches.len();
-    let end = (start + length).min(matches.len());
-    let items = &matches[start..end];
-
-    format!("{{\"total\":{},\"start\":{},\"length\":{},\"items\":[{}]}}",
+   format!("{{\"total\":{},\"start\":{},\"length\":{},\"items\":[{}]}}",
      total, start, length,
      items.iter().map(|s| s.as_str()).collect::<Vec<&str>>().join(","))
-  }
+ }
+}
 
+fn sort_entries(entries: &mut Vec<&String>, sort_by: Option<&SortField>, ascending: bool) {
+ entries.sort_by(|a, b| {
+   let extract_field = |s: &&String, field: &str| {
+     let value: Value = serde_json::from_str(s).unwrap_or_default();
+     value["data"][field].as_str().unwrap_or("").to_string()
+   };
 
-  fn filter_events(&self, patterns: Vec<String>) -> Vec<&String> {
-    let mut matches: Vec<&String> = self.events.iter()
-      .filter(|line| patterns.iter().all(|p| line.contains(p)))
-      .collect();
+   let get_number = |s: &&String, field: &str| {
+     let value: Value = serde_json::from_str(s).unwrap_or_default();
+     value["data"][field].as_u64().unwrap_or(0)
+   };
 
-    Self::sort_by_id_desc(&mut matches);
-    matches
-  }
+   let compare = match sort_by {
+     Some(SortField::Id) => get_number(a, "id").cmp(&get_number(b, "id")),
+     Some(SortField::Cc) => extract_field(a, "cc").cmp(&extract_field(b, "cc")),
+     Some(SortField::Plan) => extract_field(a, "plan").cmp(&extract_field(b, "plan")),
+     Some(SortField::CompanySize) => extract_field(a, "company_size").cmp(&extract_field(b, "company_size")),
+     // Some(SortField::CompanySize) => get_number(a, "company_size").cmp(&get_number(b, "company_size")),
+     None => get_number(a, "id").cmp(&get_number(b, "id"))
+   };
 
-
-  fn sort_by_id_desc(entries: &mut Vec<&String>) {
-    entries.sort_by(|a, b| {
-      let get_id = |s: &&String| {
-        s.split("id\":")
-          .nth(1)
-          .and_then(|id_part| id_part.split(',').next())
-          .and_then(|id_str| id_str.parse::<u32>().ok())
-          .unwrap_or(0)
-      };
-
-      let id_a = get_id(a);
-      let id_b = get_id(b);
-      id_b.cmp(&id_a)
-    });
-  }
-
+   if ascending { compare } else { compare.reverse() }
+ });
 }

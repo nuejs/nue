@@ -4,62 +4,33 @@ body {
   padding: 1em;
 }
 
+img {
+  max-width: 100%;
+}
 .app {
   display: flex;
   gap: 3em;
+
+  > :first-child { width: 12em }
+  > main { flex: 1; }
+  > :last-child { width: 30em }
+}
+
+nav {
+  a {
+    display: block;
+    padding: .25em 0;
+  }
 }
 
 .flex {
   display: flex;
 
-  nav {
+  > div:last-child {
     margin-left: auto;
   }
 }
 
-aside {
-
-  nav a {
-    display: block;
-    padding: .25em 0;
-  }
-
+dialog::backdrop {
+  background: rgb(190 190 190 / 50%);
 }
-
-.content {
-  max-width: 30em;
-}
-
-.context {
-  max-width: 20em;
-}
-
-[role="list"] > a {
-  display: block;
-  margin-block: 1em;
-  transition: .025s;
-  text-decoration: none;
-
-  small {
-    float: right;
-  }
-
-  h3 {
-    color: black;
-    margin-block: .25em;
-    font-size: 1em;
-  }
-
-  p {
-    color: #666;
-    font-size: .875em;
-    margin: 0;
-  }
-
-  &:focus  {
-    background-color: #eee;
-    outline-color: #ccc;
-  }
-
-}
-

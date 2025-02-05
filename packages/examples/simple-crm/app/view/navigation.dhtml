@@ -1,0 +1,30 @@
+
+<div @name="navigation">
+  <nav>
+    <a data-accesskey="0" href="/">Everything</a>
+    <a data-accesskey="1" title="Somethingg" href="/question">Questions</a>
+    <a data-accesskey="2" href="/demo_request">Demo requests</a>
+    <a data-accesskey="3" href="/problem">Problems</a>
+    <a data-accesskey="4" href="/feedback">Feedback</a>
+  </nav>
+  <hr>
+
+  <details open>
+    <summary>Plans</summary>
+    <nav>
+      <a href="/plan/free">Free</a>
+      <a href="/plan/pro">Pro</a>
+      <a href="/plan/enterprise">Enterprise</a>
+    </nav>
+  </details>
+
+  <details open>
+    <summary>Company size</summary>
+    <nav>
+      <a href="/size/huge">Huge</a>
+      <a href="/size/large">Large</a>
+      <a href="/size/medium">Medium</a>
+      <a href="/size/small">Small</a>
+    </nav>
+  </details>
+</div>

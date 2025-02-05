@@ -10,3 +10,7 @@ export function formatDate(date) {
    : date.getFullYear() === now.getFullYear() ? THIS_YEAR.format(date)
    : OLDER.format(date)
 }
+
+export function formatBody(body) {
+  return body.split('\n').map(p => `<p>${p}</p>`).join('')
+}

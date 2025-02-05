@@ -3,7 +3,6 @@
 
 let curr_state = {}
 let fns = []
-let started
 let opts
 
 
@@ -26,25 +25,15 @@ export const router = {
     if (changes && history) setState(changes)
   },
 
+  del(key) {
+    router.set({ [key]: null })
+  },
+
   start(args={}) {
-    const changes = fire(parseData(location))
-    if (!started) init(args.root)
-    started = true
+    fire(parseData(location))
+    init(args.root)
   }
 }
-
-export function fire(data) {
-  const changes = diff(curr_state, data)
-  if (!changes) return
-
-  for (const el of fns) {
-    if (intersect(el.names, Object.keys(changes))) el.fn(data, changes)
-  }
-
-  curr_state = data
-  return changes
-}
-
 
 function init(root=document) {
 
@@ -64,9 +53,24 @@ function init(root=document) {
     fire(e.state || {})
   })
 
-  // .dhtml component reloads
-  addEventListener('hmr', e => fns = [])
+  // component reloads (.dhtml)
+  addEventListener('hmr', e => {
+    curr_state = {}
+    fns = []
+  })
 
+}
+
+export function fire(data) {
+  const changes = diff(curr_state, data)
+  if (!changes) return
+
+  for (const el of fns.reverse()) {
+    if (intersect(el.names, Object.keys(changes))) el.fn(data, changes)
+  }
+
+  curr_state = data
+  return changes
 }
 
 export function diff(orig, data) {

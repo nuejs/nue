@@ -5,53 +5,67 @@
 </script>
 
 <!-- custom attribute needed for HMR -->
-<main @name="app" class="app" custom="app">
+<div @name="app" class="app" custom="app">
 
-  <aside>
-    <nav role="navigation">
-      <a data-accesskey="0" href="/">Everything</a>
-      <hr>
-      <a data-accesskey="1" href="/question">Questions</a>
-      <a data-accesskey="2" href="/demo_request">Demo requests</a>
-      <a data-accesskey="3" href="/problem">Problems</a>
-      <a data-accesskey="4" href="/feedback">Feedback</a>
-    </nav>
+  <aside class="navigation">
+    <header>
+      <h1>Acme Inc</h1>
+    </header>
+
+    <navigation/>
   </aside>
 
-  <article class="content">
+  <main>
     <header class="flex">
-      <input @input="search" data-accesskey="/" :value="query"
-        type="search" placeholder="Search contacts">
-      <nav>
+      <label class="search">
+        <img src="/icon/search.svg" data-accesskey="/" title="Search contacts">
+        <input @input="search" :value="query" type="search" placeholder="Search contacts">
+        <kbd>/</kbd>
+      </label>
+
+      <div>
          <span>{ statusText() }</span>
          <button @click="seek(-1)" data-accesskey="h"
             :disabled="!coll?.start">Prev</button>
 
          <button @click="seek(1)" data-accesskey="l"
-            :disabled="coll?.start + coll?.length > coll?.total">Next</button>
-      </nav>
+            :disabled="coll?.start + coll?.length >= coll?.total">Next</button>
+      </div>
     </header>
-    <section id="main-wrap"/>
-  </article>
 
-  <article class="context">
+    <section id="main-wrap"/>
+  </main>
+
+  <aside :hidden="!item" class="details">
+    <header class="flex">
+      <h2>Contact</h2>
+      <div>
+        <button data-accesskey="?" popovertarget="help">Help</button>
+        <button @click="router.del('id')">×</button>
+      </div>
+    </header>
+
     <section id="context-wrap"/>
-  </article>
+  </aside>
 
 
   <script>
+    router = router
+
     mounted() {
-      router.on('type start query', params => {
-        this.coll = model.filter(params)
-        this.mountChild('contacts', window['main-wrap'], { state: router.state, ...this.coll })
-        this.query = params.query
+
+      router.on('type query filter start sort asc', args => {
+        const data = this.coll = model.filter(args)
+        this.mountChild('contacts', window['main-wrap'], data)
+        this.query = args.query
         this.update()
       })
 
       // item selected
       router.on('id', ({ id }) => {
-        const el = id && model.get(id)
-        if (el?.data) this.mountChild('contact', window['context-wrap'], el.data)
+        const data = this.item = id && model.get(id)
+        if (data) this.mountChild('contact', window['context-wrap'], data)
+        this.update()
       })
 
       router.start({ root: this.root })
@@ -61,18 +75,21 @@
       router.set({ type: 'search', query: e.target.value, start: null })
     }
 
+    seek(to) {
+      const { start, length } = this.coll
+      router.set({ start: start + to*length })
+    }
+
     statusText() {
       const { start, length, total } = this.coll || {}
       return `${ start + 1 } – ${ start + length } of ${ total }`
     }
 
-    seek(to) {
-      const { start, length } = this.coll
-      router.set({ start: start + to*length })
-    }
   </script>
 
-</main>
+</div>
+
+
 
 
 <div @name="app-loader">
@@ -81,10 +98,9 @@
   <script>
     async mounted() {
       await model.init()
-      router.setup('/:type', ['query', 'id', 'start'])
+      router.setup('/:type/:filter', ['query', 'id', 'start', 'sort', 'asc'])
       const wrap = this.root.closest('main')
       this.mountChild('app', wrap)
     }
   </script>
 </div>
-

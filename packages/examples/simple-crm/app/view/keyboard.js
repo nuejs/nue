@@ -1,15 +1,36 @@
 
 import { $, $$ } from '/@nue/view-transitions.js'
+import { router } from '/@nue/app-router.js'
 
-const ROW = '[role=list] > a'
+const ITEM = '.items a'
 
 document.addEventListener('keydown', (evt) => {
   const { target, key } = evt
-  const low = key.toLowerCase()
   const actions = {}
+  const first = $(ITEM)
 
-  if (target.oninput|| evt.defaultPrevented || evt.metaKey || evt.ctrlKey) return
 
+  // search blur/focus
+  const search = $('[type=search]')
+
+  if (key == 'Tab') {
+    if (target == search) {
+      evt.preventDefault()
+      first.focus()
+
+    } else if (evt.shiftKey && first == document.activeElement) {
+      evt.preventDefault()
+      search.focus()
+      search.select()
+    }
+  }
+
+  if (target.oninput || evt.defaultPrevented || evt.metaKey || evt.ctrlKey) return
+
+  // escape
+  if (key == 'Escape' && !$(':popover-open')) router.del('id')
+
+  // check for accesskey element
   $$('[data-accesskey]').forEach(el => {
     if (el.dataset.accesskey == key) {
       el.focus()
@@ -18,32 +39,35 @@ document.addEventListener('keydown', (evt) => {
     }
   })
 
-  const active = document.activeElement
-
-  // space selects
-  if (key == ' ' && active.click) {
-    evt.preventDefault()
-    active.click()
+  // next/prev seek
+  if ('jk'.includes(key)) {
+    const next = getNext(key == 'j')
+    next?.focus()
+    if (router.state.id) next?.click()
   }
 
-  // VIM shortcuts
-  if ('jk'.includes(low)) {
-    let next = $(ROW)
-
-    if (active.matches(ROW)) {
-      const go_forward = low == 'j'
-      next = go_forward ? active.nextElementSibling : active.previousElementSibling
-      if (next) next.focus()
-      else {
-        const btn = $(`[data-accesskey=${go_forward ? 'l' : 'h'}]`)
-        if (!btn.disabled) {
-          btn.click()
-          next = $(go_forward ? ROW : '[role=list] > a:last-child')
-        }
-      }
-    }
-
-    next.focus()
-    if (low != key) next.click()
-  }
 })
+
+
+function getNext(go_forward) {
+  const active = document.activeElement
+  if (!active || !active.matches(ITEM)) return $(ITEM)
+
+  // get next focused
+  const links = $$(ITEM)
+  const next = links[links.indexOf(active) + (go_forward ? 1 : -1)]
+  if (next) return next
+
+  // seek to next page
+  const btn = $(`[data-accesskey=${go_forward ? 'l' : 'h'}]`)
+
+  if (btn.disabled) {
+
+  } else {
+    btn.click()
+    const links = $$(ITEM)
+    return links[go_forward ? 0 : links.length -1]
+  }
+}
+
+
