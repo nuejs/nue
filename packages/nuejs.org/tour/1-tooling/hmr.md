@@ -17,6 +17,6 @@
     Page changes          |         | ×
     CSS errors            |         | ×
 
-  ---
+  +++
 
   [image /tour/img/hmr-hero.png]

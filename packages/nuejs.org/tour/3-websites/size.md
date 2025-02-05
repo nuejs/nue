@@ -14,6 +14,6 @@
     JavaScript        | 531kB     | 7kB      | 75 × less
     Total             | 644kB     | 19kB     | 34 × less
 
-  ---
+  +++
 
   [image /tour/img/documentation.png]
