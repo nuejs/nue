@@ -6,6 +6,7 @@ import {
   renderNav,
   renderLink,
   renderMultiNav,
+  renderSymbols,
 } from '../src/layout/components.js'
 
 test('render page', () => {
@@ -82,4 +83,9 @@ test('render categorized nav', () => {
 
   expect(html).toStartWith('<div class="epic"><nav><h4>Hey</h4><a href="/">Foo</a></nav>')
   expect(html).toEndWith('<nav><h4>Foo</h4><a href="/">Bar</a></nav></div>')
+})
+
+test('renderSymbols', () => {
+  const html = renderSymbols({ dir: 'icon', files: 'problem' })
+  expect(html).toInclude('<path')
 })
