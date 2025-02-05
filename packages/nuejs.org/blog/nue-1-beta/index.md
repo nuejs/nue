@@ -24,7 +24,7 @@ Exactly one year ago I [decided](/blog/backstory/) to create a super simple webs
 5. **Parents & Teachers**: who wants to educate people [how the web works](//www.websitearchitecture.co.uk/resources/examples/web-standards-model/)
 
 
-[image.larger]
+[image.larger]:
   small: img/og-blue.png
   large: img/og-blue-big.png
   size: 747 x 474
@@ -78,7 +78,7 @@ View transitions is a broad standard with tons of visual possibilities that are 
 ## CSS best practices
 Nue's new [CSS best practices](/docs/styling.html) brings out the best of modern CSS:
 
-[image.larger]
+[image.larger]:
   small: /img/blog-css-hierarchy.png
   large: /img/blog-css-hierarchy-big.png
   caption: Nue offers the shortest path from Figma to code
@@ -95,7 +95,7 @@ Nue helps you build professional websites with the same amount of CSS as you can
 ## New website and documentation
 Unsurprisingly, the biggest job was the documentation area, which now focuses on [Design Engineering](/docs/how-it-works.html#design-engineering). About 80% of the documentation is completely rewritten and there are several new documents.
 
-[image.larger.shadowed]
+[image.larger.shadowed]:
   small: /img/new-docs.png
   large: /img/new-docs-big.png
   _size: 747 x 474
@@ -109,7 +109,7 @@ The most important thing, however, is that the website is generated with the pub
 
 Nue [installation](/docs/installation.html) is now simpler and the onboarding now comes with a handy `nue create` command that installs an example website and opens it on your browser. The opening screen looks like this:
 
-[image]
+[image]:
   small: /img/create-welcome.png
   large: /img/create-welcome-big.png
   caption: The welcome screen after successful setup

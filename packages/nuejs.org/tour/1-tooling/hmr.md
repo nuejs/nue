@@ -4,7 +4,7 @@
   # Instant preview
   Nue hot-reloads everything
 
-  [button "Show me"]
+  [button "Show me"]:
     href: hmr-demo.html
 
   [table]

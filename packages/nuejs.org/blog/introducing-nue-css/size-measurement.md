@@ -30,7 +30,7 @@ CSS size details for the [comparison graphs](.#size-graphs)
 
 You can see the size details by running `nue --production stats .css` on your project directory:
 
-[image]
+[image]:
   small: /img/nue-stats.png
   large: /img/nue-stats-big.png
   width: 400

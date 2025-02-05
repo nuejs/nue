@@ -9,12 +9,12 @@ date: 2023-10-23
 This study compares two websites with similar design: The commercial Spotlight template from developers of Tailwind vs the same site with semantic CSS:
 
 [.stack]
-  [image]
+  [image]:
     href: //spotlight.tailwindui.com/
     small: img/tw-home.png
     large: img/tw-home-big.png
   ---
-  [image]
+  [image]:
     href: /@spotlight/
     large: img/nue-home-big.png
     small: img/nue-home.png
@@ -25,7 +25,7 @@ The main difference: Tailwind uses "utility" classes and the semantic version us
 
 You can see the difference by drilling down to the first A-element:
 
-[image]
+[image]:
   small: img/markup.png
   large: img/markup-big.png
   caption: Drilling down to the first element on the main navigation
@@ -35,7 +35,7 @@ Tailwind needs significantly more coding because you are completely lacking the 
 
 Here is the full HTML source code of the front page.
 
-[image]
+[image]:
   small: img/html.jpg
   large: img/html-big.jpg
   caption: Full HTML coding on the front page
@@ -53,7 +53,7 @@ With Tailwind the [Text to HTML Ratio][tw-ratio] is only 2.3%, which is "Very lo
 ## Front page CSS
 Let's study the difference in CSS coding:
 
-[image]
+[image]:
   small: img/css.jpg
   large: img/css-big.jpg
   caption: Full CSS coding on the front page
@@ -69,7 +69,7 @@ Some key takes:
 
 3. "Spotlight" is just a *theme* extending a base design. There is an extremely minimalistic [base-version](/@base/) of the website that can be used to create new themes, like our Spotlight theme.
 
-[image]
+[image]:
   small: img/extending.png
   large: img/extending-big.png
   caption: Creating a new design by extending a semantic base design
@@ -81,7 +81,7 @@ Theming is a powerful concept in CSS. You can alter your design by swapping part
 ## Rendering speed
 The two metrics that measure page rendering speed are [first contentful paint](//web.dev/articles/fcp) (FCP) and [largest contentful paint](//web.dev/articles/lcp) (LCP). The semantic version is faster than in both metrics and in both mobile and PC. Here's LCP on mobile for example:
 
-[image]
+[image]:
   small: img/lcp-mobile.png
   large: img/lcp-mobile-big.png
   caption: Largest Contentful Paint (LCP) rendering speed on mobile
@@ -101,7 +101,7 @@ Two reasons why the semantic version is faster:
 ## Separation of concerns
 Tailwind embraces **tight coupling**. That is: The structure and styling are tied together. The semantic approach is the opposite: The structure and styling are **loosely coupled**. Here's what that means:
 
-[image]
+[image]:
   small: img/coupling.png
   large: img/coupling-big.png
   caption: Tight coupling vs Loose coupling
@@ -112,13 +112,13 @@ The semantic version, allows you to change the design of the gallery freely. You
 Here's a better example. Let's look at the "Uses" or "Setup" page on both implementations:
 
 [.stack]
-  [image]
+  [image]:
     href: //spotlight.tailwindui.com/uses
     small: img/tw-uses.png
     large: img/tw-uses-big.png
     caption: Tailwind UI version →
   ---
-  [image]
+  [image]:
     href: /@spotlight/setup/
     large: img/nue-uses-big.png
     small: img/nue-uses.png
@@ -126,7 +126,7 @@ Here's a better example. Let's look at the "Uses" or "Setup" page on both implem
 
 With Tailwind, you must create a JavaScript component to construct a suitable HTML structure for the design. With the semantic version, we can use Markdown in place of the custom JSX component because the generated HTML is semantic and can be styled externally with CSS selectors:
 
-[image]
+[image]:
   small: img/content-first.png
   large: img/content-first-big.png
   caption: Tight vs loose coupling from a different angle

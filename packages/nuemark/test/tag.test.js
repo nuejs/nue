@@ -60,7 +60,7 @@ test('inline tag', () => {
 })
 
 test('block tag', () => {
-  const html = renderLines(['[print]', '  value: 110'], { tags })
+  const html = renderLines(['[print]:', '  value: 110'], { tags })
   expect(html).toBe('<b>110</b>')
 })
 
@@ -137,7 +137,7 @@ test('.stack', () => {
 })
 
 test('client-side island', () => {
-  const html = renderLines(['[contact-me]', '  cta: Submit'])
+  const html = renderLines(['[contact-me]:', '  cta: Submit'])
   expect(html).toStartWith('<contact-me custom="contact-me"><script')
 })
 
@@ -188,13 +188,13 @@ test('[table] with external data', () => {
 })
 
 test('[table] nested YAML', () => {
-  const html = renderLines(['[table]', '  - [foo, bar]', '  - [foo, bar]'])
+  const html = renderLines(['[table]:', '  - [foo, bar]', '  - [foo, bar]'])
   expect(html).toStartWith('<table><thead><tr><th>foo</th><th>')
   expect(html).toEndWith('<td>bar</td></tr></table>')
 })
 
 test('[table] backwards compatibility', () => {
-  const html = renderLines(['[table]', '  - foo | bar'])
+  const html = renderLines(['[table]:', '  - foo | bar'])
   expect(html).toStartWith('<table><tr><td>foo</td>')
 })
 
@@ -228,13 +228,13 @@ test('[image] tag', () => {
 })
 
 test('[image] nested arg', () => {
-  const html = renderLines(['[image]', '  src: img.png'])
+  const html = renderLines(['[image]:', '  src: img.png'])
   expect(html).toBe('<figure><img loading="lazy" src="img.png"></figure>')
 })
 
 test('picture', () => {
   const html = renderLines([
-    '[image caption="Hello"]',
+    '[image caption="Hello"]:',
     '  href: /',
     '  small: small.png',
     '  large: large.png',

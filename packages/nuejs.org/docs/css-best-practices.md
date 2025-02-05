@@ -48,7 +48,7 @@ When drafting your [design system](ux-development.html#design-system) limit your
 ## Organize your CSS { #organize }
 Your CSS code is applied to a standardized [HTML layout](page-layout.html) in the global design system. This CSS should be organized in such a way that the colors, elements and components are aligned with your design system.
 
-[image]
+[image]:
   small: /img/figma-to-css.png
   large: /img/figma-to-css-big.png
   size: 749 × 485 px

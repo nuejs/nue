@@ -11,7 +11,7 @@ In June 2023 I had my final frontend rage quit moment. The anger was so intense 
 I created a [project on GitHub](//github.com/nuejs/nue) and called it **"Nue"**. I wanted it to be the best web framework for [UX developers](//css-tricks.com/the-great-divide/) and design-led organizations. It'll consist of the following:
 
 
-[image]
+[image]:
   small: /img/perfect-banner.jpg
   large: /img/perfect-banner-big.jpg
   width: 550
