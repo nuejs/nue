@@ -13,6 +13,7 @@ import { fswatch } from './nuefs.js'
 
 import { log, colors, getAppDir, parsePathParts, extendData, toPosix } from './util.js'
 import { renderPage, getSPALayout } from './layout/page.js'
+import { getLayoutComponents } from './layout/components.js'
 
 
 // the HTML5 doctype (can/prefer lowercase for consistency)
@@ -122,7 +123,6 @@ export async function createKit(args) {
     return { ...data, ...parsePathParts(path), document }
   }
 
-
   // Markdown page
   async function renderMPA(path) {
     const data = await getPageData(path)
@@ -149,13 +149,16 @@ export async function createKit(args) {
     // SPA components and layout
     const html = await read(index_path)
 
+    const lib = await site.getServerComponents(appdir, data)
+    lib.push(...getLayoutComponents())
+
     if (html.includes('<html')) {
-      const lib = await site.getServerComponents(appdir, data)
       const [spa, ...spa_lib] = parseNue(html)
       return DOCTYPE + spa.render(data, [...lib, ...spa_lib])
     }
     const [spa] = parseNue(getSPALayout(html, data))
-    return DOCTYPE + spa.render(data)
+
+    return DOCTYPE + spa.render(data, lib)
   }
 
 

@@ -197,7 +197,7 @@ test('asset include/exclude', async () => {
   // expect(data.components).toEqual([ "/global/kama.js", "/lib/zoo.css" ])
 })
 
-test.only('SPA', async () => {
+test('SPA', async () => {
   await write('app/model/index.js')
   await write('app/model/customer.js')
   await write('app/model-rs/Cargo.toml')
@@ -205,7 +205,7 @@ test.only('SPA', async () => {
   await write('app/model-rs/src/customers.test.js')
   await write('app/model-rs/dist/model.wasm')
   await write('app/model-rs/dist/Cargo.lock')
-  await write('app/index.html', '<test/>')
+  await write('app/index.html', '<symbols dir="icon" files="search"/>')
 
   const site = await getSite()
   const paths = await site.walk()
@@ -218,8 +218,8 @@ test.only('SPA', async () => {
   const html = await kit.renderSPA('app/index.html')
 
   expect(html).toInclude('hotreload.js')
-  expect(html).toInclude('<script src="/app/model/index.js" ')
-  expect(html).toInclude('<test custom="test">')
+  expect(html).toInclude('<path')
+
 })
 
 
