@@ -12,10 +12,11 @@
     "type": "git"
   },
   "engines": {
-    "bun": ">= 1.1.34",
+    "bun": ">= 1",
     "node": ">= 18"
   },
   "scripts": {
+    "css": "bun ./css/build.js",
     "test": "node --experimental-vm-modules ../../node_modules/jest/bin/jest.js --runInBand"
   },
   "jest": {
