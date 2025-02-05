@@ -1,0 +1,16 @@
+
+[role=tooltip] {
+  position-anchor: --tip;
+  position: absolute;
+  background: black;
+  color: white;
+  padding: 4px 8px;
+  position-area: right;
+  margin-left: 10px;
+  bottom: -999em;
+
+  &.on-bottom {
+    position-area: bottom;
+    margin: 10px 0 0;
+  }
+}

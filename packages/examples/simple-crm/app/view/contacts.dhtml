@@ -1,29 +1,110 @@
 
 <script>
-  import { formatDate } from './util.js'
+  import { formatDate, formatBody } from './util.js'
+  import { $ } from '/@nue/view-transitions.js'
+  import { router } from '/@nue/app-router.js'
 </script>
 
-<div @name="contacts" role="list">
+<!--
+  Wide:
+    ❓  🇨🇳 Tao Zhang - Neatbird LLC   Msg...   [IMG] (2) (Large) (Free)  2h ago
 
-  <a :for="{ type, data, ts } in items" :href="?id={data.id}"
-    class="{ selected: data.id == state.id }">
-    <small>{ formatDate(data.created) }</small>
-    <h3>{{ data.name }}</h3>
-    <p>{{ data.message }}</p>
-  </a>
+  Compact:
+    ❓  Feedback [IMG] (2)        2h ago
+        🇨🇳 Tao Zhang - Neatbird LLC
+        How to implement...
 
-  <p :if="!items.length">No contacts</p>
+-->
+<div @name="contacts">
+  <p>
+    <a @click="sort('id')">By created</a>
+    <a @click="sort('cc')">By country</a>
+    <a @click="sort('plan')">By planni</a>
+    <a @click="sort('company_size')">By sizey</a>
+  </p>
+
+  <ul class="items">
+    <li :for="({ type, data }, i) in items">
+      <a :href="?id={data.id}">
+        <img src="/icon/{type}.svg">
+
+        <p class="flex">
+          <span>{ type }</span>
+          <span :if="data.shots">
+            <img src="/icon/image.svg">
+            ({ data.shots.length })
+          </span>
+          <nav><small>{ formatDate(data.created) }</small></nav>
+        </p>
+
+        <p class="flex">
+          <img src="/icon/cc/{ data.cc }.svg" class="cc">
+          <strong>{{ data.name }}</strong>
+          <strong :if="data.org"> • { data.org }</strong>
+        </p>
+        <p class="message">{{ data.message }}</p>
+        <p>
+          <span class="tag size">{ data.company_size }</span>
+          <span class="tag plan">{ data.plan }</span>
+        </p>
+      </a>
+    </li>
+    <li :if="!items.length">No contacts</li>
+  </ul>
 
   <script>
     formatDate = formatDate
+
+    sort(sort) {
+      router.set({ sort, asc: router.state.asc ? null : true })
+    }
   </script>
+
 </div>
 
-<div @name="contact">
+<section @name="contact">
+  <header>
+    <h2>{ name }</h2>
+    <p>{ email }</p>
+    <span>{ cc }</span>
+  </header>
 
-  <h2>{ name }</h2>
+  <dl :if="org">
+    <dt>Company</dt>      <dd>{ org }</dd>
+    <dt>Company size</dt> <dd>{ company_size }</dd>
+    <dt>Website</dt>      <dd>{ website }</dd>
+    <dt>Plan</dt>         <dd>{ plan }</dd>
+  </dl>
 
-  <p>{ email }</p>
+  <!-- screenshots -->
+  <ul :if="shots" class="thumbs">
+    <li :for="shot, i in shots">
+      <button popovertarget="zoom-{i}">
+        <img src="/img/{ shot }">
+      </button>
+      <dialog popover id="zoom-{i}">
+        <img :src="/img/{ shot }">
+        <button popovertarget="zoom-{i}">×</button>
+      </dialog>
+    </li>
+  </ul>
 
-  <p>{ message }</p>
-</div>
+  <div>{{ formatBody(message) }}</div>
+
+  <script>
+    formatBody = formatBody
+  </script>
+</section>
+
+
+<script>
+  router.on('id', ({ id }) => {
+
+    // remove previous selection
+    $('[aria-selected]')?.removeAttribute('aria-selected')
+
+    // Mark the new selection
+    $(`a[href$="id=${id}"]`)?.setAttribute('aria-selected', true)
+  })
+</script>
+

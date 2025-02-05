@@ -4,8 +4,6 @@ import init, { Model } from './engine.js'
 await init()
 const engine = new Model()
 
-const PAGE_SIZE = 10
-
 export const model = {
 
   async init() {
@@ -23,31 +21,51 @@ export const model = {
     localStorage.setItem('_ts', Date.now())
   },
 
-  search(query, start=0) {
-    const data = parseItems(engine.search(query, start, PAGE_SIZE))
+  all(params) {
+    return parseItems(engine.all(params))
+  },
+
+  search(query, params) {
+    const data = parseItems(engine.search(query, params))
     data.items.forEach(el => hilite(query, el.data))
     return data
   },
 
-  all(start=0) {
-    return parseItems(engine.all(start, PAGE_SIZE))
-  },
 
-  filter({ type, query, start=0 }) {
-    if (!type || (type == 'search' && !query)) return model.all(start)
-    if (query) return model.search(query, start)
-    const str = engine.filter(pack({ type }), start, PAGE_SIZE)
+  filter(args) {
+
+    // filtering parameters
+    const { type, query } = args
+
+    // query parameters
+    const params = {
+      ascending: !!args.asc || undefined,
+      start: parseInt(args.start) || 0,
+      sort_by: args.sort,
+      length: 10,
+    }
+
+    if (!type || (type == 'search' && !query)) return model.all(params)
+    if (query) return model.search(query, params)
+
+    // model.filter({ type: "question", cc: "cn" }, { start: 0, length: 10 })
+    console.info(getFilter(type, args.filter), params)
+    const str = engine.filter(getFilter(type, args.filter), params)
     return parseItems(str)
   },
 
   get(id) {
-    return JSON.parse(engine.get(id))
+    const item = engine.get(id)
+    if (item) {
+      const { type, ts, data } = JSON.parse(item)
+      const created = toDate(ts, model.total)
+      return { type, created, ...data }
+    }
   },
-
 }
 
-function pack(obj) {
-  return JSON.stringify(obj).slice(1, -1)
+function getFilter(type, filter) {
+  return type == 'size' ? { company_size: filter } : type == 'plan' ? { plan: filter } : { type }
 }
 
 async function loadChunk(ts) {
