@@ -65,7 +65,7 @@ test('multiple sections', () => {
   const lines = [
     '# Hello', 'World',
     '## Foo', 'Bar',
-    '---', 'Bruh', '***',
+    '+++', 'Bruh', '---',
   ]
 
   const doc = parseDocument(lines)
@@ -73,6 +73,7 @@ test('multiple sections', () => {
 
   const html = doc.render({ sections: ['hero'] })
   expect(html).toStartWith('<section class="hero"><h1>Hello</h1>')
+  expect(html).toInclude('</section>\n\n<section>')
   expect(html).toEndWith('<hr></section>')
 })
 
