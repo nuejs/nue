@@ -201,7 +201,7 @@ A content-first approach ensures that your design system is tailored to the real
 
 ### Use clean, semantic HTML
 
-When building your [layouts](layout.html) and [Markdown extensions](markdown-extensions.html), always prioritize clean, semantic HTML. Avoid unnecessary `<div>` and `<span>` elements, and remove class names that are purely for styling purposes. By doing so, your HTML becomes more accessible, SEO-friendly, and easier to maintain. It also aligns perfectly with the principles of a **design system** by ensuring that styles are applied consistently and meaningfully.
+When building your [layouts](layout.html) and [Markdown extensions](content-tags.html), always prioritize clean, semantic HTML. Avoid unnecessary `<div>` and `<span>` elements, and remove class names that are purely for styling purposes. By doing so, your HTML becomes more accessible, SEO-friendly, and easier to maintain. It also aligns perfectly with the principles of a **design system** by ensuring that styles are applied consistently and meaningfully.
 
 Instead of this:
 
