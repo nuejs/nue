@@ -7,7 +7,7 @@ class: nike
   # Templates
   The shortest path to great design
 
-  [button "Show the difference"]
+  [button "Show the difference"]:
     href: templates-demo.html
 
   ---

@@ -104,7 +104,7 @@ When a global directory is placed at the root level, all assets within it are au
 
 If a global directory resides inside an application directory, its assets will be included on all pages of that application, promoting modularity while allowing for shared styles and components.
 
-[image.gridpaper]
+[image.gridpaper]:
   small: /img/global-dirs.png
   large: /img/global-dirs-big.png
   alt: Global Directories

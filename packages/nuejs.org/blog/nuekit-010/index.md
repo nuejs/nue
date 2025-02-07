@@ -8,7 +8,7 @@ desc: A simple, minimalistic alternative to Next.js and Astro with universal hot
 
 Today I’m excited to share Nuekit: A new kind of static site generator and web application builder.
 
-[image.larger]
+[image.larger]:
   small: /img/nuekit-hero.jpg
   large: /img/nuekit-hero-big.jpg
 
@@ -23,7 +23,7 @@ In other words: Nuekit is an amazingly simple and powerful alternative to *Next.
 ## Universal hot-reloading { #uhr }
 Build entire websites without ever touching your browser. Your browser is instantly updated as you make changes to your content, styling, layout, and reactive islands:
 
-[bunny-video.larger]
+[bunny-video.larger]:
   videoId: 18714305-d2f3-453d-83a9-0bd017166949
   poster: /img/hot-reload-hero.jpg
 
@@ -31,7 +31,7 @@ Build entire websites without ever touching your browser. Your browser is instan
 ## Great for websites and single-page apps { #multi }
 Use the same simple syntax and development model for content-focused websites or reactive single-page applications — while enjoying the extra boost from universal hot-reloading.
 
-[image]
+[image]:
   small: /img/simple-blog.png
   large: /img/simple-blog-big.png
   href: //simple-blog.nuejs.org
@@ -43,7 +43,7 @@ Build a simple blog: [Tutorial](/docs/tutorial.html) /
 
 &nbsp;
 
-[image]
+[image]:
   small: /img/simple-spa.png
   large: /img/simple-spa-big.png
   href: /@simple-admin
@@ -57,7 +57,7 @@ Build a simple SPA: [Tutorial](/docs/tutorials/build-a-simple-spa.html) /
 ## Significantly faster build times { #faster }
 Nue is an order of magnitude faster than its cousins. An identical blogging site takes around *50ms* to build with Nuekit and over *ten seconds* with Next.js:
 
-[bunny-video]
+[bunny-video]:
   videoId: 45b73e3a-3edd-47af-bcd8-49039496b107
   caption: Building blog template with Nue in 39ms ¯\_(ツ)_/¯
   width: 650
@@ -75,7 +75,7 @@ Nue is an order of magnitude faster than its cousins. An identical blogging site
 ### New, beautiful documentation area
 With lots of explainer-images and -videos:
 
-[image]
+[image]:
   small: /img/docs.png
   large: /img/docs-big.png
   href: /docs/
