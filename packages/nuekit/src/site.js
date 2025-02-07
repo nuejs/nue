@@ -274,7 +274,7 @@ export async function createSite(args) {
   }
 
 
-  // get fromt matter data from all .md files on a directory
+  // get front matter data from all .md files on a directory
   self.getContentCollection = async function(dir) {
     const key = 'coll:' + dir
     if (cache[key]) return cache[key]

@@ -57,7 +57,7 @@ aside:first-child nav {
 .toc {
   margin: 1.5em 0 2.5em;
 
-  /* overlfow ellipsis */
+  /* overflow ellipsis */
   a {
     max-width: 16em;
     display: block;
