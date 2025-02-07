@@ -120,7 +120,7 @@ One major benefit of using a Web Component is that the browser automatically tak
 
 
 ### Dynamic sections { #sections }
-You can turn all the [page sections](page-layout.html#sections) into web components with a `section_component` configuration option. This can be assigned in the front matter or globally in the application data. On the front page of this website, for example, we have a "scroll-transition" component to help implement all the scroll-triggered CSS transitions:
+You can turn all the [page sections](content.html#sections) into web components with a `section_component` configuration option. This can be assigned in the front matter or globally in the application data. On the front page of this website, for example, we have a "scroll-transition" component to help implement all the scroll-triggered CSS transitions:
 
 ```yaml
 section_component: scroll-transition

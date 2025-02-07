@@ -128,7 +128,7 @@ There are no longer hard coded `app.yaml`, `layout.html`, or `main.js` file name
 
 
 ### Dynamic sections and grid items
-You can turn your [sections](/docs/page-layout.html#sections) and [grid items](/docs/reactivity.html#grid-items) into a native Web Component. For example, on the front page of this website, we have a "scroll-transition" component to help implement all the scroll-triggered CSS transitions.
+You can turn your [sections](/docs/content.html#sections) and [grid items](/docs/reactivity.html#grid-items) into a native Web Component. For example, on the front page of this website, we have a "scroll-transition" component to help implement all the scroll-triggered CSS transitions.
 
 ```yaml
 section_component: scroll-transition
