@@ -13,7 +13,7 @@ Nue uses the built-in syntax highlighter, [Glow](/blog/introducing-glow/), to st
 
 - **Small footprint**: The CSS for highlighting all languages is under 1 KB, including support for highlighted lines and regions.
 
-For details on adding code blocks to your Markdown documents, refer to the [code syntax](content-tags.html#code-blocks) guide. This article also explains how to adjust the look and feel of the generated HTML.
+For details on adding code blocks to your Markdown documents, refer to the [code syntax](content-syntax.html#code-blocks) guide. This article also explains how to adjust the look and feel of the generated HTML.
 
 
 ## The HTML output
