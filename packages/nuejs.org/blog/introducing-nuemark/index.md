@@ -137,7 +137,7 @@ ps: Check out [Getting started docs](/docs/#node) if you prefer Node.
 ### Learn Nuemark
 
 - [User guide](/docs/content.html)
-- [Tag reference](/docs/tags.html)
+- [Tag reference](/docs/content-tags.html)
 - [HTML output](/docs/page-layout.html#md)
 
 

@@ -46,7 +46,7 @@ When drafting your [design system](ux-development.html#design-system) limit your
 
 
 ## Organize your CSS { #organize }
-Your CSS code is applied to a standardized [HTML layout](page-layout.html) in the global design system. This CSS should be organized in such a way that the colors, elements and components are aligned with your design system.
+Your CSS code is applied to a standardized [HTML layout](layout.html) in the global design system. This CSS should be organized in such a way that the colors, elements and components are aligned with your design system.
 
 [image]
   small: /img/figma-to-css.png
@@ -90,7 +90,7 @@ Place all page-specific CSS under the leaf folder, where the `index.md` file res
 
 
 ## Use simple selectors { #selectors }
-One hugely important thing in the global design system is that you always know the exact [page layout](page-layout.html) you are styling. This allows you to take advantage of the global scope and use the simplest CSS selectors possible without worrying about conflicts.
+One hugely important thing in the global design system is that you always know the exact [page layout](layout.html) you are styling. This allows you to take advantage of the global scope and use the simplest CSS selectors possible without worrying about conflicts.
 
 
 ```css
@@ -124,7 +124,7 @@ Simple selectors make your CSS easy to read and maintain. They keep your file si
 
 
 ## Write clean HTML { #clean-markup }
-Avoid using unnecessary divs, spans and class names in your [custom layouts](custom-layouts.html):
+Avoid using unnecessary divs, spans and class names in your [custom layouts](layout.html):
 
 ```html.bad "Unnecessary divs and class names"
 <div class="chat-notification">
