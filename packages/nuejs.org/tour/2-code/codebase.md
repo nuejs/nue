@@ -13,6 +13,6 @@
   [button "See the difference"]
     href: codebase-compare.html
 
-  ---
+  +++
 
   [image /tour/img/simple-blog.png]
