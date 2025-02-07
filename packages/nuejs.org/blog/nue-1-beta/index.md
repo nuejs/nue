@@ -138,13 +138,13 @@ The web component can be assigned globally in `site.yaml` for all page sections 
 
 
 ### Miscellaneous new features
-- New `<navi>`, `<markdown>`, `<pretty-date>`, and `<toc>` tags to help building [custom layouts](/docs/custom-layouts.html)
+- New `<navi>`, `<markdown>`, `<pretty-date>`, and `<toc>` tags to help building [custom layouts](/docs/layout.html)
 
 - A new [`<gallery>`](/docs/content-collections.html#gallery) tag to render content collections
 
 - Inline SVG support: You can inline your SVG files with a new inline attribute. For example: `[image /img/my-animated.svg inline]`. This allows you to control the image and its transitions/animations with CSS.
 
-- Files with a `.htm` suffix are treated as [client-side components](/docs/reactive-components.html). Now both `.nue` and `.htm` files are treated the same.
+- Files with a `.htm` suffix are treated as [client-side components](/docs/islands.html). Now both `.nue` and `.htm` files are treated the same.
 
 - Blog entries are now sorted by both `pubDate` and a new, shorter `date` property.
 

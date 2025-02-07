@@ -249,7 +249,7 @@ Reactive islands are interactive components within the server-rendered, static H
 ```
 
 
-After saving the component to a file with `.htm` or `.nue` extension, you can use it in your Markdown content as follows:
+After saving the component to a file with `.htm` or `.dthml` extension, you can use it in your Markdown content as follows:
 
 
 ```md
@@ -258,7 +258,7 @@ After saving the component to a file with `.htm` or `.nue` extension, you can us
 > [join-list cta="Submit form"]
 ```
 
-The component can also be used on your [layout files](custom-layouts.html):
+The component can also be used in your [layout files](layout.html):
 
 ```html
 <join-list cta="Submit form"/>
@@ -310,7 +310,7 @@ addEventListener('click', e => {
 
 
 ### Google Analytics
-Google Analytics and other scripts that must be imported externally should go to the head section of your website. This happens by adding a custom `head` element to a root level [layout file](custom-layouts.html):
+Google Analytics and other scripts that must be imported externally should go to the head section of your website. This happens by adding a custom `head` element to a root level [layout file](layout.html):
 
 
 ```html
