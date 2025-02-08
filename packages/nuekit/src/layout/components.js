@@ -28,8 +28,8 @@ export function renderNavi(data) {
 }
 
 function toSymbol(svg, name='x', size=24) {
-  const id = `${name}-icon`
-  const attr = { id, viewBox: `0 0 ${size} ${size}`, width: size, height: size, class: `icon ${id}` }
+  const id = `${name}-symbol`
+  const attr = { id, viewBox: `0 0 ${size} ${size}` }
   const body = svg.slice(svg.indexOf('>') + 1, -6)
   return elem('symbol', attr, body)
 }

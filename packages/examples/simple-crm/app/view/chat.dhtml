@@ -1,0 +1,39 @@
+
+<script>
+  import { formatDate, formatBody } from './js/util.js'
+</script>
+
+<!-- discussion thread -->
+<ul @name="chat-thread" class="thread">
+  <li :for="msg in thread" class="{ reply: msg.is_reply }">
+    <time :if="msg.created">{ formatDate(msg.created) }</time>
+    <div class="{ isEmoji(msg.body) ? 'emoji' : 'post' }">{{ formatBody(msg.body) }}</div>
+  </li>
+
+  <script>
+    formatDate = formatDate
+    formatBody = formatBody
+
+    isEmoji(msg) {
+      return !msg[3] && /\p{Emoji}/u.test(msg)
+    }
+  </script>
+</ul>
+
+
+<form @name="chat-form" class="chat-form" @submit.prevent="submit">
+  <textarea name="body"></textarea>
+  <button class="primary"><icon key="problem"/></button>
+
+  <script>
+    submit(e) {
+      const input = e.target.body
+      const body = input.value
+
+      if (body.trim()) {
+        this.thread.reply(body)
+        input.value = ''
+      }
+    }
+  </script>
+</form>

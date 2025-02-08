@@ -5,12 +5,7 @@ use serde_json::Value;
 
 #[derive(Clone, Deserialize)]
 #[serde(rename_all = "snake_case")]
-pub enum SortField {
- Id,
- Cc,
- Plan,
- CompanySize,
-}
+pub enum SortField { Id, Cc, Plan, Size, }
 
 #[derive(Deserialize)]
 pub struct QueryParams {
@@ -121,8 +116,7 @@ fn sort_entries(entries: &mut Vec<&String>, sort_by: Option<&SortField>, ascendi
      Some(SortField::Id) => get_number(a, "id").cmp(&get_number(b, "id")),
      Some(SortField::Cc) => extract_field(a, "cc").cmp(&extract_field(b, "cc")),
      Some(SortField::Plan) => extract_field(a, "plan").cmp(&extract_field(b, "plan")),
-     Some(SortField::CompanySize) => extract_field(a, "company_size").cmp(&extract_field(b, "company_size")),
-     // Some(SortField::CompanySize) => get_number(a, "company_size").cmp(&get_number(b, "company_size")),
+     Some(SortField::Size) => extract_field(a, "size").cmp(&extract_field(b, "size")),
      None => get_number(a, "id").cmp(&get_number(b, "id"))
    };
 

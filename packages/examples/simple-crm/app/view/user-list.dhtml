@@ -1,0 +1,55 @@
+
+<script>
+  import { router } from '/@nue/app-router.js'
+  import { formatDate } from './js/util.js'
+</script>
+
+<section @name="user-list">
+
+  <header>
+    <h3>Sort by</h3>
+    <nav>
+      <a @click="sort('cc')">Country</a>
+      <a @click="sort('plan')">Plan</a>
+      <a @click="sort('size')">Size</a>
+      <a @click="sort('id')">Created</a>
+    </nav>
+  </header>
+
+  <!-- list or grid -->
+  <ul class="grid">
+    <li :for="el, i in items">
+
+      <a :href="?id={el.id}" class="item">
+        <aside>
+          <figure><icon :key="el.type"/></figure>
+          <time>{ formatDate(el.created) }</time>
+        </aside>
+
+        <header>
+          <h3>{{ el.name }}</h3>
+          <small>{ el.email }</small>
+        </header>
+
+        <div class="message">{{ el.message }}</div>
+
+        <footer>
+          <span class="country"><img src="/icon/cc/{ el.cc }.svg" class="cc"> { el.country }</span>
+          <pill :if="el.size" icon="dot" :label="el.size[0]"/>
+          <pill :if="el.size" icon="square" :label="el.plan"/>
+        </footer>
+      </a>
+
+    </li>
+    <li :if="!items.length">No contacts</li>
+  </ul>
+
+  <script>
+    formatDate = formatDate
+
+    sort(sort) {
+      router.set({ sort, asc: router.state.asc ? null : true })
+    }
+  </script>
+
+</section>

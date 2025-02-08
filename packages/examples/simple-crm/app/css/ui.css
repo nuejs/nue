@@ -1,0 +1,56 @@
+
+.ui {
+  font-size: 14px;
+  color: var(--base-700);
+  line-height: 1.25;
+
+  figure, h1, h2, h3, h4, h5 { margin: 0 }
+
+
+  [hidden] { display: none }
+
+  p {
+    margin: .25em 0;
+    color: var(--base-500);
+  }
+
+  h1 {
+    font-size: 1.25em;
+    font-weight: 600;
+    letter-spacing: -.025em;
+  }
+
+  h2 {
+    font-size: 1.125em;
+    font-weight: 550;
+  }
+
+  h1, h2, h3 {
+    align-items: center;
+    display: flex;
+    gap: .25em;
+  }
+
+  h3 {
+    font-size: 1em;
+    font-weight: 500;
+  }
+
+  h4 {
+    font-size: 1em;
+    font-weight: 500;
+  }
+
+  a {
+    text-decoration: none;
+    font-weight: 470;
+  }
+
+  h5, small { font-size: .875em }
+
+  ul {
+    padding: 0;
+    list-style: none;
+  }
+
+}

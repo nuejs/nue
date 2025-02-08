@@ -1,0 +1,36 @@
+
+.panel {
+  border: 1px solid transparent;
+  height: calc(100vh - 2em);
+  flex-direction: column;
+  padding: .75em;
+  display: flex;
+
+  header:has(nav) {
+    display: flex;
+    align-items: center;
+    padding-block: .75em;
+    margin-bottom: 1em;
+
+    small {
+      font-weight: 450;
+      margin-right: 1em;
+    }
+
+    nav {
+      margin-left: auto;
+      align-items: center;
+      display: inline-flex;
+      gap: .5em;
+    }
+  }
+
+  > section {
+    padding-bottom: 2em;
+    overflow: auto;
+    flex-grow: 1;
+  }
+
+
+}
+

@@ -1,0 +1,78 @@
+
+<script>
+  import { router } from '/@nue/app-router.js'
+  import { model } from '/model/index.js'
+</script>
+
+<aside @name="details-panel" :hidden="!item" class="details panel">
+
+  <header>
+    <h3>Discussion</h3>
+    <nav>
+      <button data-accesskey="?" popovertarget="help">Help</button>
+      <button @click="router.del('id')">×</button>
+    </nav>
+  </header>
+
+  <section id="details_body"/>
+
+  <footer>
+    <div id="details_footer"/>
+  </footer>
+
+  <script>
+    router = router
+
+    mounted() {
+      router.on('id', ({ id }) => {
+        const data = this.item = model.get(id)
+
+        if (data) {
+          this.mountChild('user', window.details_body, data)
+          this.mountChild('chat-form', window.details_footer, data)
+        }
+
+        this.update()
+      })
+    }
+  </script>
+</aside>
+
+<section @name="user" class="user">
+
+  <header>
+    <figure>
+      <img src="/icon/cc/{cc}.svg">
+    </figure>
+    <div>
+      <h2>{ name }</h2>
+      <p>{ email }</p>
+    </div>
+  </header>
+
+  <dl :if="org">
+    <dt>Company</dt>      <dd>{ org }</dd>
+    <dt>Country</dt>      <dd> { country }</dd>
+    <dt>Company size</dt> <dd>{ size[1] } employees ({ size[0] })</dd>
+    <dt>Website</dt>      <dd><a href="#">{ website }</a></dd>
+    <dt>Plan</dt>         <dd><pill icon="dot" :label="{ plan }"/></dd>
+  </dl>
+
+  <image-thumbs :items="shots"/>
+
+  <chat-thread :thread="thread"/>
+
+</section>
+
+
+<ul @name="image-thumbs" class="thumbs">
+  <li :for="name, i in items">
+    <button popovertarget="zoom-{i}">
+      <img src="/img/{ name }">
+    </button>
+    <dialog popover id="zoom-{i}">
+      <img :src="/img/{ name }">
+      <button popovertarget="zoom-{i}">×</button>
+    </dialog>
+  </li>
+</ul>

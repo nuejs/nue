@@ -1,0 +1,12 @@
+
+.pill {
+  text-transform: capitalize;
+  display: inline-flex;
+  font-size: .875em;
+  border: 1px solid var(--base-300);
+  padding: .1em .5em .1em .1em;
+  max-height: 2em;
+  border-radius: 1em;
+  align-items: center;
+  .icon { color: var(--main-500) }
+}

@@ -24,6 +24,12 @@ async function importAll(hmr_path) {
   return arr
 }
 
+export async function mount(name, wrap, data) {
+  const { createApp } = await import('./nue.js')
+  const lib = await importAll()
+  const comp = lib.find(el => el.name == name)
+  return comp && createApp(comp, data, lib).mount(wrap)
+}
 
 export async function mountAll(hmr_path) {
   const els = document.querySelectorAll('[custom]')

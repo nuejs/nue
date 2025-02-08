@@ -307,7 +307,7 @@ export default function createApp(component, data = {}, deps = [], $parent = {})
   }
 
   const ctx = new Proxy({}, {
-    get(__, key) {
+    get(_, key) {
 
       // keep this order
       for (const el of [self, impl, data, $parent, $parent.bind]) {
@@ -316,7 +316,7 @@ export default function createApp(component, data = {}, deps = [], $parent = {})
       }
     },
 
-    set(__, key, val) {
+    set(_, key, val) {
 
       // parent key? (loop items)
       if ($parent && $parent[key] !== undefined) {
