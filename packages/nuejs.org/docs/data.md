@@ -134,11 +134,11 @@ Individual pages have full control through front matter:
 
 ```yaml
 # blog/design-system.md
----
+\---
 title: "Mathematical Design Systems"
 description: "Creating interfaces through calculated precision"
 og_image: "/images/math-design.jpg"
----
+\---
 ```
 
 Data flows naturally from global to specific, with each layer having the power to extend or override what came before. This creates a system that's both consistent and flexible – global changes propagate automatically, while individual pages maintain their autonomy when needed.
