@@ -1,6 +1,6 @@
 
 title: Simple CRM / Nue demo
-globals: [ view, uilib, css ]
+globals: [ view, view/js, css ]
 # inline_css: true
 
 views:

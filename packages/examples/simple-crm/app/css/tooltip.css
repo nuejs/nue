@@ -1,13 +1,27 @@
 
-[role=tooltip] {
+span[role=tooltip] {
   position-anchor: --tip;
   position: absolute;
-  background: black;
-  color: white;
-  padding: 4px 8px;
   position-area: right;
   margin-left: 10px;
-  bottom: -999em;
+  right: -999em;
+  display: inline-flex;
+  align-items: center;
+  gap: .5em;
+
+  /* styling */
+  box-shadow: 0 1px 3px var(--alpha-300);
+  background-color: white;
+
+  border-radius: .25em;
+  padding: .25em .5em;
+  font-size: .75em;
+
+  kbd {
+    font-size: 1em;
+    font-weight: 550;
+    background-color: var(--alpha-100);
+  }
 
   &.on-bottom {
     position-area: bottom;

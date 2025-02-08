@@ -1,0 +1,48 @@
+
+<script>
+  import { router } from '/@nue/app-router.js'
+  import { model } from '/model/index.js'
+</script>
+
+<main @name="main-panel" class="panel">
+  <header>
+    <h3>{ router.state.type }s</h3>
+    <nav>
+      <small>{ status() }</small>
+      <button @click="seek(-1)" data-accesskey="h"
+         :disabled="!coll?.start">Prev <icon key="users"/></button>
+
+      <button @click="seek(1)" data-accesskey="l"
+         :disabled="coll?.start + coll?.length >= coll?.total">
+         <icon key="search"/>Next</button>
+
+       <button><icon key="question"/></button>
+    </nav>
+  </header>
+
+  <section id="main_wrap"/>
+
+  <script>
+    router = router
+
+    mounted() {
+      router.on('type query filter start sort asc', args => {
+        const data = this.coll = model.filter(args)
+        this.mountChild('user-list', window.main_wrap, data)
+        this.update()
+      })
+    }
+
+    seek(to) {
+      const { start, length } = this.coll
+      router.set({ start: start + to*length })
+    }
+
+    status() {
+      const { start, length, total } = this.coll || {}
+      return `${ start + 1 } – ${ start + length } of ${ total }`
+    }
+  </script>
+</main>
+
+

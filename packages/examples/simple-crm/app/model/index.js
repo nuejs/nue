@@ -27,7 +27,7 @@ export const model = {
 
   search(query, params) {
     const data = parseItems(engine.search(query, params))
-    data.items.forEach(el => hilite(query, el.data))
+    data.items.forEach(el => hilite(query, el))
     return data
   },
 
@@ -49,23 +49,22 @@ export const model = {
     if (query) return model.search(query, params)
 
     // model.filter({ type: "question", cc: "cn" }, { start: 0, length: 10 })
-    console.info(getFilter(type, args.filter), params)
     const str = engine.filter(getFilter(type, args.filter), params)
     return parseItems(str)
   },
 
   get(id) {
+    if (CACHE[id]) return CACHE[id]
     const item = engine.get(id)
-    if (item) {
-      const { type, ts, data } = JSON.parse(item)
-      const created = toDate(ts, model.total)
-      return { type, created, ...data }
-    }
+    if (item) return CACHE[id] = setup(JSON.parse(item))
   },
+
 }
 
+const CACHE = {}
+
 function getFilter(type, filter) {
-  return type == 'size' ? { company_size: filter } : type == 'plan' ? { plan: filter } : { type }
+  return filter ? { [type]: filter } : { type }
 }
 
 async function loadChunk(ts) {
@@ -82,9 +81,49 @@ function hilite(query, data) {
   })
 }
 
+// limited demo list
+const COUNTRIES = {
+  cn: 'China',
+  de: 'Germany',
+  fr: 'France',
+  jp: 'Japan',
+  uk: 'UK',
+  us: 'USA',
+}
+
+const SIZES = {
+  xl: ['Very large', '100 or more'],
+  s:  ['Large', '50 – 100'],
+  m:  ['Medium', '10 – 50'],
+  l:  ['Small', '0 – 10'],
+}
+
+function createThread(created, body) {
+  const thread = [{ created, body }]
+
+  thread.reply = function(body) {
+    thread.push({ created: new Date(), body, is_reply: true })
+  }
+
+  // temporary
+  thread.reply('Can you provide me your system information? Thanks.')
+
+  thread.push({ created: new Date(), body: '👍' })
+
+  return thread
+}
+
+function setup(item) {
+  const { type, ts, data } = item
+  const created = toDate(ts, model.total)
+  const country = COUNTRIES[data.cc]
+  const thread = createThread(created, data.message)
+  return { ...data, type, created, thread, country, size: SIZES[data.size] }
+}
+
 function parseItems(str) {
   const data = JSON.parse(str)
-  data.items.forEach(el => el.data.created = toDate(el.ts, model.total))
+  data.items = data.items.map(setup)
   return data
 }
 

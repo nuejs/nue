@@ -14,18 +14,18 @@ document.addEventListener('keydown', (evt) => {
   const search = $('[type=search]')
 
   if (key == 'Tab') {
-    if (target == search) {
+    if (target == search && search.value) {
       evt.preventDefault()
       first.focus()
-
-    } else if (evt.shiftKey && first == document.activeElement) {
+    }
+    if (evt.shiftKey && first == document.activeElement) {
       evt.preventDefault()
       search.focus()
       search.select()
     }
   }
 
-  if (target.oninput || evt.defaultPrevented || evt.metaKey || evt.ctrlKey) return
+  if (target.oninput || target.form || evt.defaultPrevented || evt.metaKey || evt.ctrlKey) return
 
   // escape
   if (key == 'Escape' && !$(':popover-open')) router.del('id')

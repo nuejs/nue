@@ -307,7 +307,7 @@ export default function createApp(component, data = {}, deps = [], $parent = {})
   }
 
   const ctx = new Proxy({}, {
-    get(__, key) {
+    get(_, key) {
 
       // special handling for $attrs
       if (key === '$attrs') return $parent.$attrs || {};
@@ -319,7 +319,7 @@ export default function createApp(component, data = {}, deps = [], $parent = {})
       }
     },
 
-    set(__, key, val) {
+    set(_, key, val) {
 
       // parent key? (loop items)
       if ($parent && $parent[key] !== undefined) {
