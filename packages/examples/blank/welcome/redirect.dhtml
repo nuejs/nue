@@ -1,0 +1,7 @@
+<div @name="redirect">
+  <script>
+    constructor() {
+      document.location.href = "/";
+    }
+  </script>
+</div>

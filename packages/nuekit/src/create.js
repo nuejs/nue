@@ -5,7 +5,6 @@ import { join } from 'node:path'
 import { openUrl } from './util.js'
 import { createKit } from './nuekit.js'
 
-
 async function serve(root, port, debug) {
   const nue = await createKit({ root, port })
   const terminate = await nue.serve()
@@ -22,8 +21,10 @@ export async function create({ root, name = 'simple-blog', port }) {
   const debug = name == 'test'
   if (debug) name = 'simple-blog'
 
-  // currently only simple-blog is available
-  if (name != 'simple-blog') return console.error(`Template "${name}" does not exist`)
+  // currently only 'simple-blog' and 'blank' are available
+  if (!['simple-blog', 'blank'].includes(name)) {
+    return console.error(`Template "${name}" does not exist`)
+  }
 
   if (existsSync(root)) {
     // read files
@@ -34,7 +35,6 @@ export async function create({ root, name = 'simple-blog', port }) {
 
     // must be empty directory
     if (files.length) return console.error('Please create the template to an empty directory')
-
   } else await fs.mkdir(root, { recursive: true })
 
   // download archive
