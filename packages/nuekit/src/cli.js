@@ -4,7 +4,7 @@ import { sep } from 'node:path'
 
 import esMain from 'es-main'
 
-import { log, colors, getVersion, getEngine } from './util.js'
+import { log, colors, version, getEngine } from './util.js'
 
 
 // [-npe] --> [-n, -p, -e]
@@ -83,9 +83,7 @@ async function printHelp() {
 }
 
 async function printVersion() {
-  const v = await getVersion()
-  log(`Nue ${v} ${colors.green('•')} ${getEngine()}`)
-  return v
+  log(`Nue ${version} ${colors.green('•')} ${getEngine()}`)
 }
 
 async function runCommand(args) {
@@ -96,14 +94,14 @@ async function runCommand(args) {
   if (!root) args.root = '.' // ensure root is unset for create, if not set manually
 
   console.info('')
+  await printVersion()
+  args.nuekit_version = version
 
   // create nue
   if (cmd == 'create') {
     const { create } = await import('./create.js')
-    return await create({ root, name: args.paths[0], port })
+    return await create({ ...args, root, name: args.paths[0], port })
   }
-
-  args.nuekit_version = await printVersion()
 
   const nue = await createKit(args)
   if (!nue) return
