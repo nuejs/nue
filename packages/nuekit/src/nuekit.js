@@ -176,7 +176,7 @@ export async function createKit(args) {
 
   async function processCSS({ path, base, dir}) {
     const data = await site.getData()
-    const css = data.lightning_css === false ?
+    const css = data.minify_css === false ?
       await read(path) :
       await buildCSS(join(root, path), is_prod, data, lcss)
     await write(css, dir, base)

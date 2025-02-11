@@ -41,11 +41,13 @@ links:
   soc: //en.wikipedia.org/wiki/Separation_of_concerns
 ```
 
-### lightning_css
+### minify_css
 
-This setting controls the processing of CSS by [Lightning CSS](//lightningcss.dev/), a tool that optimizes CSS for better performance. By default, this feature is enabled (`true`), which means that CSS will be processed for improvements. Setting this to `false` disables the default processing, and the CSS is served directly as is, which may be useful for debugging or specific use cases where processing is not desired.
+This setting controls the processing of CSS by Bun or [Lightning CSS](//lightningcss.dev/), which optimize CSS for better performance. By default, this feature is enabled (`true`), which means that CSS will be processed for improvements. Setting this to `false` disables the default processing, and the CSS is served directly as is, which may be useful for debugging or specific use cases where processing is not desired.
 
 ### native_css_nesting
+
+Currently only available with Lightning CSS (`--lcss` option).
 
 Determines whether to use native CSS nesting instead of converting them to un-nested style rules that are supported in all browsers. Native CSS nesting allows you to write more intuitive and organized CSS by nesting styles. Setting this to `true` generates a smaller CSS output, which can enhance performance, but it may not be supported by older browsers. Always check the current [Can I Use](//caniuse.com/css-nesting) statistics for details on browser compatibility.
 
