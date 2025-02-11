@@ -38,9 +38,10 @@ log.error = function(msg, extra = "") {
 export const colors = function() {
   const codes = { red: 31, green: 32, yellow: 33, blue: 34, magenta: 35, cyan: 36, gray: 90 }
   const fns = {}
+  const noColor = process.env.NO_COLOR || !(process.env.TERM || process.platform == 'win32')
 
   for (const key in codes) {
-    fns[key] = msg => process.env.NO_COLOR ? msg : `\u001b[${codes[key]}m${msg}\u001b[39m`
+    fns[key] = msg => noColor ? msg : `\u001b[${codes[key]}m${msg}\u001b[39m`
   }
   return fns
 }()
