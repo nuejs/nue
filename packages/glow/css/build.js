@@ -1,28 +1,21 @@
 // Running: bun css/build.js
 import { promises as fs } from 'node:fs'
 
-import { transform, Features } from 'lightningcss'
-
-
-async function minify(names, toname, include = 0) {
-  const raw = []
-  for (const name of names) {
-    raw.push(await fs.readFile(`css/${name}.css`, 'utf-8'))
-  }
-
-  const min = transform({
-    code: Buffer.from(raw.join('\n')),
+async function minify(names, toname) {
+  const min = await (await Bun.build({
+    entrypoints: names.map(name => `css/${name}.css`),
     minify: true,
-    include
-
-  }).code?.toString()
+    throw: true,
+    experimentalCss: true,
+  })).outputs.map(async file => await file.text())
 
   const to = `minified/${toname}.css`
+  await fs.mkdir('minified', { recursive: true })
   await fs.writeFile(to, min)
-  console.log('>', to, min.length)
+  console.log('>', to, (await fs.stat(to)).size)
 }
 
 
-await minify(['syntax', 'markers'], 'syntax', Features.Nesting)
-await minify(['syntax'], 'syntax.nano', Features.Nesting)
+await minify(['syntax', 'markers'], 'syntax')
+await minify(['syntax'], 'syntax.nano')
 

@@ -16,10 +16,8 @@
     "node": ">= 18"
   },
   "scripts": {
+    "css": "bun ./css/build.js",
     "test": "node --experimental-vm-modules ../../node_modules/jest/bin/jest.js --runInBand"
-  },
-  "devDependencies": {
-    "lightningcss": "^1.27.0"
   },
   "jest": {
     "setupFilesAfterEnv": [
