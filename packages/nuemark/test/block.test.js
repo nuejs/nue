@@ -233,6 +233,12 @@ test('complex tag data', () => {
   expect(comp.data).toEqual({ world: true, size: 10, foo: "bar", })
 })
 
+test('duplicate tag classes', () => {
+  const { blocks } = parseBlocks(['[hello.c.c.bar class="foo bar" world]'])
+  expect(blocks[0].attr.class).toBe('c bar foo')
+  expect(blocks[0].data).toEqual({ world: true })
+})
+
 test('escaping', () => {
   const html = renderLines([
     '\\[code]', '',
