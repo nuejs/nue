@@ -1,2 +1,4 @@
+.dist/
+
 *.gz
 .env
