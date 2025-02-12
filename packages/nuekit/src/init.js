@@ -6,7 +6,7 @@ import { resolve } from 'import-meta-resolve'
 import { compileFile as nueCompile } from 'nuejs-core'
 
 import { buildJS } from './builder.js'
-import { colors, srcdir } from './util.js'
+import { version, colors, srcdir } from './util.js'
 
 
 export async function initNueDir({ dist, is_dev, esbuild, force }) {
@@ -15,7 +15,7 @@ export async function initNueDir({ dist, is_dev, esbuild, force }) {
   const outdir = join(cwd, dist, '@nue')
 
   // has all latest?
-  const latest = join(outdir, '.rc-2')
+  const latest = join(outdir, `.v${version}`)
 
   if (force || !existsSync(latest)) {
     await fs.rm(outdir, { recursive: true, force: true })

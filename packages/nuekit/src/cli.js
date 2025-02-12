@@ -4,7 +4,7 @@ import { sep } from 'node:path'
 
 import esMain from 'es-main'
 
-import { log, colors, getVersion, getEngine } from './util.js'
+import { log, colors, version, getEngine, openUrl } from './util.js'
 
 
 // [-npe] --> [-n, -p, -e]
@@ -22,7 +22,7 @@ export function expandArgs(args) {
 
 // TODO: tests
 export function getArgs(argv) {
-  const commands = ['serve', 'build', 'init', 'create']
+  const commands = ['serve', 'build', 'init', 'create', 'docs']
   const args = { paths: [], root: null }
   const checkExecutable = /[\\\/]nue(\.(cmd|ps1|bunx|exe))?$/
   let opt
@@ -52,6 +52,7 @@ export function getArgs(argv) {
       else if (['-l', '--lcss'].includes(arg)) args.lcss = true
       else if (['-d', '--deploy'].includes(arg)) args.deploy = args.is_prod = true
       else if (['-I', '--incremental'].includes(arg)) args.incremental = true
+      else if (['-o', '--open'].includes(arg)) args.open = true
 
       // string values
       else if (['-e', '--environment'].includes(arg)) opt = 'env'
@@ -83,12 +84,12 @@ async function printHelp() {
 }
 
 async function printVersion() {
-  const v = await getVersion()
-  log(`Nue ${v} ${colors.green('•')} ${getEngine()}`)
-  return v
+  log(`Nue ${version} ${colors.green('•')} ${getEngine()}`)
 }
 
 async function runCommand(args) {
+  if (args.cmd == 'docs') return openUrl('https://nuejs.org/docs/')
+
   const { createKit } = await import('./nuekit.js')
   const { cmd = 'serve', dryrun, deploy, root = null, port } = args
   const init = cmd == 'init'
@@ -96,17 +97,18 @@ async function runCommand(args) {
   if (!root) args.root = '.' // ensure root is unset for create, if not set manually
 
   console.info('')
+  await printVersion()
+  args.nuekit_version = version
 
   // create nue
   if (cmd == 'create') {
     const { create } = await import('./create.js')
-    return await create({ root, name: args.paths[0], port })
+    return await create({ ...args, root, name: args.paths[0], port })
   }
-
-  args.nuekit_version = await printVersion()
 
   const nue = await createKit(args)
   if (!nue) return
+  if (args.open) openUrl(`http://localhost:${nue.port}/`)
 
   // deployer (private repo)
   const { deploy: deployer } = deploy ? await import('nue-deployer') : {}

@@ -5,32 +5,39 @@ import { join } from 'node:path'
 import { openUrl } from './util.js'
 import { createKit } from './nuekit.js'
 
+const templates = {
+  'simple-blog': 'welcome/',
+}
 
-async function serve(root, port, debug) {
-  const nue = await createKit({ root, port })
+
+async function serve(args) {
+  const nue = await createKit(args)
   const terminate = await nue.serve()
 
   // open welcome page
-  if (!debug) execSync(`${openUrl} http://localhost:${nue.port}/welcome/`)
+  if (!args.debug) openUrl(`http://localhost:${nue.port}/${templates[args.name]}`)
   return terminate
 }
 
-export async function create({ root, name = 'simple-blog', port }) {
-  if (!root) root = name
+export async function create(args = {}) {
+  if (!args.name) args.name = 'simple-blog'
+  if (!args.root) args.root = args.name
 
   // debug mode with: `nue create test`
-  const debug = name == 'test'
-  if (debug) name = 'simple-blog'
+  args.debug = args.name == 'test'
+  if (args.debug) args.name = 'simple-blog'
+
+  const { debug, name, root } = args
 
   // currently only simple-blog is available
-  if (name != 'simple-blog') return console.error(`Template "${name}" does not exist`)
+  if (!Object.keys(templates).includes(name)) return console.error(`Template "${name}" does not exist`)
 
   if (existsSync(root)) {
     // read files
     const files = (await fs.readdir(root)).filter(f => !f.startsWith('.'))
 
     // already created -> serve
-    if (files.includes('site.yaml')) return serve(root)
+    if (files.includes('site.yaml')) return serve(args)
 
     // must be empty directory
     if (files.length) return console.error('Please create the template to an empty directory')
@@ -54,5 +61,5 @@ export async function create({ root, name = 'simple-blog', port }) {
   await fs.rm(archive_name)
 
   // serve
-  return await serve(root, port, debug)
+  return await serve(args)
 }
