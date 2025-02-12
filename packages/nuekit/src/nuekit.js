@@ -4,7 +4,7 @@ import { join, parse as parsePath } from 'node:path'
 import { parse as parseNue, compile as compileNue } from 'nuejs-core'
 import { nuedoc } from 'nuemark'
 
-import { lightningCSS, buildJS } from './builder.js'
+import { buildCSS, buildJS } from './builder.js'
 import { createServer, send } from './nueserver.js'
 import { printStats, categorize } from './stats.js'
 import { initNueDir } from './init.js'
@@ -20,7 +20,7 @@ const DOCTYPE = '<!doctype html>\n\n'
 
 
 export async function createKit(args) {
-  const { root, is_prod, esbuild, dryrun } = args
+  const { root, is_prod, esbuild, lcss, dryrun } = args
 
   // site: various file based functions
   const site = await createSite(args)
@@ -176,9 +176,9 @@ export async function createKit(args) {
 
   async function processCSS({ path, base, dir }) {
     const data = await site.getData()
-    const css = data.lightning_css === false ?
+    const css = data.minify_css === false ?
       await read(path) :
-      await lightningCSS(join(root, path), is_prod, data)
+      await buildCSS(join(root, path), is_prod, data, lcss)
     await write(css, dir, base)
     return { css }
   }

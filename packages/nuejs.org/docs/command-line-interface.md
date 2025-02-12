@@ -40,6 +40,8 @@ Usage
 
 - **-b or --esbuild**: Uses esbuild as the bundler for your assets. Note that you need to install esbuild manually for this to work.
 
+- **-l or --lcss**: Uses lightningcss as the minifier for your CSS. Note that you need to install lightningcss manually for this to work.
+
 - **-P or --port**: Sets the port number to serve the site on. This is particularly useful if the default port (`8080`) is already in use.
 
 ### File Matches

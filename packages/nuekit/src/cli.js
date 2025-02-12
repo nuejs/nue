@@ -49,6 +49,7 @@ export function getArgs(argv) {
       else if (['-h', '--help'].includes(arg)) args.help = true
       else if (['-v', '--verbose'].includes(arg)) args.verbose = true
       else if (['-b', '--esbuild'].includes(arg)) args.esbuild = true
+      else if (['-l', '--lcss'].includes(arg)) args.lcss = true
       else if (['-d', '--deploy'].includes(arg)) args.deploy = args.is_prod = true
       else if (['-I', '--incremental'].includes(arg)) args.incremental = true
 
