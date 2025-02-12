@@ -29,8 +29,13 @@ export async function create(args = {}) {
 
   const { debug, name, root } = args
 
-  // currently only simple-blog is available
-  if (!Object.keys(templates).includes(name)) return console.error(`Template "${name}" does not exist`)
+  // check if template exists
+  if (!Object.keys(templates).includes(name)){
+    console.error(`Template "${name}" does not exist!`)
+    console.error('Available templates:')
+    for (const t of Object.keys(templates)) console.error(' -', t)
+    return
+  }
 
   if (existsSync(root)) {
     // read files
