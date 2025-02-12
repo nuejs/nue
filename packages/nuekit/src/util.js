@@ -34,19 +34,17 @@ log.error = function(msg, extra = "") {
   console.log(colors.red('!!'), msg, extra)
 }
 
-function getColorFunctions() {
+// console colors
+export const colors = function() {
   const codes = { red: 31, green: 32, yellow: 33, blue: 34, magenta: 35, cyan: 36, gray: 90 }
   const fns = {}
+  const noColor = process.env.NO_COLOR || !(process.env.TERM || process.platform == 'win32')
 
   for (const key in codes) {
-    fns[key] = msg => `\u001b[${codes[key]}m${msg}\u001b[39m`
+    fns[key] = msg => noColor ? msg : `\u001b[${codes[key]}m${msg}\u001b[39m`
   }
   return fns
-}
-
-// console colors
-export const colors = getColorFunctions()
-
+}()
 
 // returns { url, dir, slug, appdir }
 export function parsePathParts(path) {

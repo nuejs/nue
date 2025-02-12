@@ -65,7 +65,7 @@ function formatLine(line) {
 }
 
 export function getHelp() {
-  return !process.env.TERM ? HELP : HELP.split('\n').map(line => {
+  return HELP.split('\n').map(line => {
     return line[0] === ' ' ? formatLine(line) : line
   }).join('\n')
 }
