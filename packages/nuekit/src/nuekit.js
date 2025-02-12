@@ -11,7 +11,7 @@ import { initNueDir } from './init.js'
 import { createSite } from './site.js'
 import { fswatch } from './nuefs.js'
 
-import { log, colors, getAppDir, parsePathParts, extendData } from './util.js'
+import { log, colors, getAppDir, parsePathParts, extendData, toPosix } from './util.js'
 import { renderPage, getSPALayout } from './layout/page.js'
 
 
@@ -20,6 +20,7 @@ const DOCTYPE = '<!doctype html>\n\n'
 
 
 export async function createKit(args) {
+  args.root = args.root && toPosix(args.root) // fixes windows ".\" prefixed path
   const { root, is_prod, esbuild, lcss, dryrun } = args
 
   // site: various file based functions
