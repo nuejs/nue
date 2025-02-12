@@ -10,6 +10,7 @@ async function minify(names, toname) {
   })).outputs.map(async file => await file.text())
 
   const to = `minified/${toname}.css`
+  await fs.mkdir('minified', { recursive: true })
   await fs.writeFile(to, min)
   console.log('>', to, (await fs.stat(to)).size)
 }
