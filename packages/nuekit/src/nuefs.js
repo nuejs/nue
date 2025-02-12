@@ -44,6 +44,11 @@ export async function fswatch(root, callback, onremove) {
   }
 
   return watch(root, { recursive: true }, async function(e, path) {
+    // handle (neo)vim file saves
+    if (path.endsWith('~')) path = path.slice(0, -1)
+    // handle helix file saves
+    else if (path.endsWith('.bck')) path = path.slice(0, -10) // 6 char hash + 4 char ext
+
     try {
       const file = parse(path)
       file.path = path
