@@ -1,6 +1,6 @@
 
-import { renderBlocks, renderContent } from './render-blocks.js'
-import { sectionize,  } from './parse-document.js'
+import { renderBlocks } from './render-blocks.js'
+import { sectionize } from './parse-document.js'
 import { renderInline } from './render-inline.js'
 import { elem } from './render-blocks.js'
 import { readFileSync } from 'node:fs'
@@ -55,7 +55,7 @@ const TAGS = {
 
   image() {
     const { attr, data } = this
-    const { caption, href, loading='lazy' } = data
+    const { caption, href, loading = 'lazy' } = data
     const src = data.src || data._ || data.large
     const alt = data.alt || caption
 
@@ -140,14 +140,13 @@ export function renderIcon(name, symbol, icon_dir) {
 }
 
 
-export function renderTag(tag, opts={}) {
+export function renderTag(tag, opts = {}) {
   const tags = { ...TAGS, ...opts.tags }
   const fn = tags[tag.name || 'block']
 
   if (!fn) return renderIsland(tag, opts.data)
 
   const data = { ...opts.data, ...extractData(tag.data, opts.data) }
-  const { blocks } = tag
 
   const api = {
     ...tag,
@@ -186,13 +185,13 @@ const MIME = {
   mp4: 'video/mp4',
 }
 
-function getMimeType(path='') {
+function getMimeType(path = '') {
   const type = path.slice(path.lastIndexOf('.') + 1)
   return MIME[type] || `image/${type}`
 }
 
 export function createPicture(img_attr, data) {
-  const { small, offset=750 } = data
+  const { small, offset = 750 } = data
 
   const sources = [small, img_attr.src].map(src => {
     const prefix = src == small ? 'max' : 'min'
@@ -209,8 +208,8 @@ function getListItems(arr) {
 }
 
 export function parseSize(data) {
-  const { size='' } = data
-  const [ w, h ] = size.trim().split(/\s*\D\s*/)
+  const { size = '' } = data
+  const [w, h] = size.trim().split(/\s*\D\s*/)
   return { width: w || data.width, height: h || data.height }
 }
 
@@ -243,7 +242,7 @@ export function wrap(name, html) {
 
 
 function getInnerHTML(blocks = [], opts) {
-  const [ first, second ] = blocks
+  const [first, second] = blocks
   if (!first) return ''
   const { content } = first
   return content && !second ? renderInline(content.join(' '), opts) : renderBlocks(blocks, opts)
@@ -252,7 +251,7 @@ function getInnerHTML(blocks = [], opts) {
 
 // table helpers
 export function renderTable(table, opts) {
-  const { rows, attr, head=true } = table
+  const { rows, attr, head = true } = table
   if (!rows) return ''
 
   // column count
@@ -290,7 +289,7 @@ export function parseTable(lines) {
 
     if (line.startsWith('---')) {
       if (rows.length == 1) specs.head = true
-      else if (i == lines.length -2) specs.foot = true
+      else if (i == lines.length - 2) specs.foot = true
       return
     }
 
@@ -300,7 +299,7 @@ export function parseTable(lines) {
 
     // append to previous row
     if (els.length < specs.cols) {
-      const prev = rows[rows.length -1]
+      const prev = rows[rows.length - 1]
       if (prev.length < specs.cols) return prev.push(...els)
     }
 

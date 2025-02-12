@@ -19,13 +19,13 @@ export function parseDocument(lines) {
     meta.title = getTitle(blocks) || tag && getTitle(tag.blocks) || ''
   }
 
-  // descrption
+  // description
   if (!meta.description) {
     const block = blocks.find(el => el.is_content)
     meta.description = block?.content[0]
   }
 
-  const sections = sectionize(blocks) || [ blocks ]
+  const sections = sectionize(blocks) || [blocks]
 
   function renderSections(opts) {
     const classList = Array.isArray(opts.sections) ? opts.sections : []
@@ -40,14 +40,14 @@ export function parseDocument(lines) {
   }
 
   return {
-    render(opts={}) {
+    render(opts = {}) {
       Object.assign(things.reflinks, parseReflinks(opts.links))
       opts = { ...opts, ...things }
       const html = opts.sections ? renderSections(opts) : renderBlocks(blocks, opts)
       return html + renderFootnotes(things.footnotes)
     },
 
-    renderTOC(attr={}) {
+    renderTOC(attr = {}) {
       const navs = sections.map(renderNav).join('\n').trim()
       return elem('div', { class: attr.class }, navs)
     },
@@ -64,7 +64,7 @@ export function parseDocument(lines) {
   }
 }
 
-export function sectionize(blocks=[]) {
+export function sectionize(blocks = []) {
   const arr = []
   let section
 
@@ -91,7 +91,7 @@ export function sectionize(blocks=[]) {
 
 function renderFootnotes(arr) {
   if (!arr.length) return ''
-  const html = arr.map(el => elem('li', elem('a', { name: el.key }) + renderInline(el.value) ))
+  const html = arr.map(el => elem('li', elem('a', { name: el.key }) + renderInline(el.value)))
   return elem('ol', { role: 'doc-endnotes' }, html.join('\n'))
 }
 
@@ -102,7 +102,7 @@ function renderNav(blocks) {
   const links = headings.map(h => {
     const id = h.attr.id || createHeadingId(h.text)
     const label = h.level == 2 ? elem('strong', h.text) : h.text
-    return elem('a', { href: `#${ id }` }, label)
+    return elem('a', { href: `#${id}` }, label)
   })
 
   return links[0] ? elem('nav', links.join('\n')) : ''
@@ -134,7 +134,7 @@ export function stripMeta(lines) {
   return parseYAML(front)
 }
 
-function parseReflinks(links={}) {
+function parseReflinks(links = {}) {
   for (const key in links) {
     const href = links[key]
     if (typeof href == 'string') links[key] = parseLinkTitle(href)

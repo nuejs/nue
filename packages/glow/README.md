@@ -1,6 +1,6 @@
 
 # Glow
-Glow is a small, but powerful syntax highligher for web:
+Glow is a small, but powerful syntax highlighter for web:
 
 <a href="https://nuejs.org/blog/introducing-glow/">
   <img src="https://nuejs.org/img/glow-og-big.png"></a>

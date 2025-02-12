@@ -1,5 +1,6 @@
 /* misc stuff. think shame.css */
 
+import { execSync } from 'node:child_process'
 import { promises as fs } from 'node:fs'
 import { sep, parse, resolve, normalize, join, isAbsolute, dirname } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
@@ -7,14 +8,17 @@ import { fileURLToPath, pathToFileURL } from 'node:url'
 
 export const srcdir = dirname(fileURLToPath(import.meta.url))
 
-export const openUrl = process.platform == 'darwin' ? 'open' : process.platform == 'win32' ? 'start' : 'xdg-open'
+export function openUrl(url) {
+  const open = process.platform == 'darwin' ? 'open' : process.platform == 'win32' ? 'start' : 'xdg-open'
+  execSync(`${open} ${url}`)
+}
 
 // read from package.json
-export async function getVersion() {
+export const version = await async function() {
   const path = join(srcdir, '../package.json')
   const json = await fs.readFile(path, 'utf-8')
   return JSON.parse(json).version
-}
+}()
 
 export async function importFromCWD(path) {
   const abs_path = resolve(process.cwd(), path)
@@ -34,19 +38,17 @@ log.error = function(msg, extra = "") {
   console.log(colors.red('!!'), msg, extra)
 }
 
-function getColorFunctions() {
+// console colors
+export const colors = function() {
   const codes = { red: 31, green: 32, yellow: 33, blue: 34, magenta: 35, cyan: 36, gray: 90 }
   const fns = {}
+  const noColor = process.env.NO_COLOR || !(process.env.TERM || process.platform == 'win32')
 
   for (const key in codes) {
-    fns[key] = msg => `\u001b[${codes[key]}m${msg}\u001b[39m`
+    fns[key] = msg => noColor ? msg : `\u001b[${codes[key]}m${msg}\u001b[39m`
   }
   return fns
-}
-
-// console colors
-export const colors = getColorFunctions()
-
+}()
 
 // returns { url, dir, slug, appdir }
 export function parsePathParts(path) {

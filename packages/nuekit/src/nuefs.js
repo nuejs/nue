@@ -44,6 +44,11 @@ export async function fswatch(root, callback, onremove) {
   }
 
   return watch(root, { recursive: true }, async function(e, path) {
+    // handle (neo)vim file saves
+    if (path.endsWith('~')) path = path.slice(0, -1)
+    // handle helix file saves
+    else if (path.endsWith('.bck')) path = path.slice(0, -10) // 6 char hash + 4 char ext
+
     try {
       const file = parse(path)
       file.path = path
@@ -84,9 +89,9 @@ export async function fswatch(root, callback, onremove) {
 }
 
 
-export async function fswalk(opts, _dir='', _ret=[]) {
+export async function fswalk(opts, _dir = '', _ret = []) {
   if (typeof opts == 'string') opts = { root: opts }
-  const { root, symdirs=true } = opts
+  const { root, symdirs = true } = opts
 
 
   const files = await fs.readdir(join(root, _dir), { withFileTypes: true })
@@ -105,7 +110,7 @@ export async function fswalk(opts, _dir='', _ret=[]) {
 
 const IGNORE = ['node_modules', 'functions', 'package.json', 'bun.lockb', 'pnpm-lock.yaml', 'README.md']
 
-function ignore(name='') {
+function ignore(name = '') {
   return '._'.includes(name[0]) || IGNORE.includes(name)
 }
 

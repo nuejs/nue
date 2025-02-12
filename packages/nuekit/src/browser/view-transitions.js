@@ -52,7 +52,7 @@ export async function loadPage(path, replace_state) {
     dispatchEvent(new Event('route'))
 
     // route:app event
-    const [_, app ] = location.pathname.split('/')
+    const [_, app] = location.pathname.split('/')
     dispatchEvent(new Event(`route:${app || 'home'}`))
 
     setActive(path)

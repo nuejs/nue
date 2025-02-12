@@ -1,5 +1,5 @@
 ---
-title: CSS class naming strategies for scaleable dashboard design
+title: CSS class naming strategies for scalable dashboard design
 og: img/dashboard-3.png
 thumb: img/dashboard-thumb.png
 date: 2024-08-13

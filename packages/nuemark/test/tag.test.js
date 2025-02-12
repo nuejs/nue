@@ -120,6 +120,11 @@ test('[list] wrapper', () => {
 
 
 // anonymous tag
+test('.list', () => {
+  const html = renderLines(['[.list]', '  - elem 1', '  - elem 2'])
+  expect(html).toBe('<div class="list"><ul><li><p>elem 1</p></li>\n<li><p>elem 2</p></li></ul></div>')
+})
+
 test('.note', () => {
   const html = renderLines(['[.note]', '  ## Note', '  Hello'])
   expect(html).toBe('<div class="note"><h2>Note</h2>\n<p>Hello</p></div>')
@@ -255,16 +260,16 @@ const svgpath = join(relpath, 'test.svg')
 
 test('[svg]', () => {
   const html = renderLines([`[svg ${svgpath}]`])
-  expect(html).toBe('<svg/>')
+  expect(html).toBe('<svg class="icon"/>')
 })
 
 test('[svg] nested in [button]', () => {
   const html = renderLines(['[button href="/"]', `  [svg ${svgpath}] *Yo*`])
-  expect(html).toBe('<a href="/" role="button"><svg/> <em>Yo</em></a>')
+  expect(html).toBe('<a href="/" role="button"><svg class="icon"/> <em>Yo</em></a>')
 })
 
 
-test.only('[define]', () => {
+test('[define]', () => {
   const content = [
     '[define]',
     '  ## Design System { #ds.foo }',

@@ -1,4 +1,4 @@
-import { colors, openUrl, getVersion } from './util.js'
+import { colors, version } from './util.js'
 
 const HELP = `
 Usage
@@ -11,14 +11,17 @@ Commands
   build    Build the site under <root_dir>
   create   Use a project starter template
   init     Re-generate /@nue system files
+  docs     Open Nue's docs
 
 Options
   -r or --root          Source directory. Default "." (current working dir)
   -p or --production    Build production version / Show production stats
   -e or --environment   Read extra options to override defaults in site.yaml
   -n or --dry-run       Show what would be built. Does not create outputs
-  -b or --esbuild       Use esbuild as bundler. Please install it manually
-  -P or --port          Port to serve the site on
+  -b or --esbuild       Use esbuild as JS bundler. Please install it manually
+  -l or --lcss          Use lightningcss as CSS bundler. Please install it manually
+  -P or --port          Serves the site on the specified port
+  -o or --open          Opens the local site in the browser
 
 File matches
   Only build files that match the rest of the arguments. For example:
@@ -38,15 +41,15 @@ Examples
   nue build .md .css
 
   # more examples
-  ${openUrl} https://nuejs.org/docs/command-line-interface.html
+  Visit https://nuejs.org/docs/command-line-interface.html
 
  ┏━┓┏┓┏┳━━┓
- ┃┏┓┫┃┃┃┃━┫  ${await getVersion()}
+ ┃┏┓┫┃┃┃┃━┫  ${version}
  ┃┃┃┃┗┛┃┃━┫  nuejs.org
  ┗┛┗┻━━┻━━┛
 `
 
-const commands = ['serve', 'build', 'init', 'create']
+const commands = ['serve', 'build', 'init', 'create', 'docs']
 
 function formatLine(line) {
   const { gray, magenta, cyan, green } = colors
@@ -64,7 +67,7 @@ function formatLine(line) {
 }
 
 export function getHelp() {
-  return !process.env.TERM ? HELP : HELP.split('\n').map(line => {
+  return HELP.split('\n').map(line => {
     return line[0] === ' ' ? formatLine(line) : line
   }).join('\n')
 }

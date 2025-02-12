@@ -1,7 +1,7 @@
 ---
 date: 2024-03-22
 title: Introducing Nue CSS
-desc: A scaleable alternative to Tailwind, BEM, and CSS-in-JS
+desc: A scalable alternative to Tailwind, BEM, and CSS-in-JS
 thumb: glow-thumb.jpg
 unlisted: true
 ---

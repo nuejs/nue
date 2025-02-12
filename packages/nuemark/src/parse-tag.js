@@ -10,9 +10,11 @@ export function parseTag(input) {
   const specs = strings.filter((s, i) => !i || s.match(/^[#|.]/)).join('')
   const attribs = strings.filter(s => !specs.includes(s))
   const self = { ...parseSpecs(specs), data: {} }
-
+  const classes = new Set((self.attr?.class || '').split(' '))
 
   function set(key, val) {
+    if (key == 'class') return val.split(' ').forEach(v => classes.add(v))
+
     const ctx = ATTR.includes(key) || key.startsWith('data-') ? 'attr' : 'data'
     self[ctx][key] = val
   }
@@ -29,6 +31,8 @@ export function parseTag(input) {
     // default key
     else set('_', getValue(key) || key)
   }
+
+  if (classes.size) self.attr.class = [...classes].join(' ')
 
   return self
 }
@@ -76,9 +80,9 @@ export function parseAttr(str) {
   const attr = {}
 
   // classes
-  const classes = []
-  str.replace(/\.([\w\-]+)/g, (_, el) => classes.push(el))
-  if (classes[0]) attr.class = classes.join(' ')
+  const classes = new Set()
+  str.replace(/\.([\w\-]+)/g, (_, el) => classes.add(el))
+  if (classes.size) attr.class = [...classes].join(' ')
 
   // id
   str.replace(/#([\w\-]+)/, (_, el) => attr.id = el)

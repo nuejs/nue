@@ -93,10 +93,10 @@ When content entries include a `thumb` property, the layout adjusts to display a
   <li>
     <a href="/posts/scaleable-design-system.html">
       <figure>
-        <img src="/posts/img/ui-thumb.png" loading="lazy" alt="Scaleable design system">
+        <img src="/posts/img/ui-thumb.png" loading="lazy" alt="Scalable design system">
         <figcaption>
           <time datetime="2023-05-22T00:00:00.000Z">May 22, 2023</time>
-          <h2>Crafting a scaleable CSS design system</h2>
+          <h2>Crafting a scalable CSS design system</h2>
         </figcaption>
       </figure>
     </a>

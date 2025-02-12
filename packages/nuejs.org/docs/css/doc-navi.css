@@ -55,9 +55,9 @@ aside:first-child nav {
 
 /* table of contents */
 .toc {
-  margin: 1.5em 0;
+  margin: 1.5em 0 2.5em;
 
-  /* overlfow ellipsis */
+  /* overflow ellipsis */
   a {
     max-width: 16em;
     display: block;
@@ -111,7 +111,7 @@ aside:first-child nav {
   aside { height: calc(100vh - 2em) }
   h1 { margin-top: 0 }
 
-  body > header, body > nav, article + aside h3, .toc {
+  body > header, body > nav, article + aside h4, .toc {
     display: none
   }
 }
