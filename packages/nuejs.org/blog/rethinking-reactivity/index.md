@@ -82,7 +82,7 @@ To understand this choice we must go back in time. The world used to be slightly
   - Accessibility
   - UI libraries
 
-  ---
+  +++
   ### JS development
   - Advanced TypeScript/JS
   - Business logic

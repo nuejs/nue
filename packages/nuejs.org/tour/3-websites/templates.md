@@ -10,6 +10,6 @@ class: nike
   [button "Show the difference"]
     href: templates-demo.html
 
-  ---
+  +++
 
   [! /tour/img/ux-templates.png ]

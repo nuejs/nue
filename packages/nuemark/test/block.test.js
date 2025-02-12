@@ -66,7 +66,7 @@ test('multiple thematic breaks', () => {
 
 
 test('parse thematic break', () => {
-  const hrs = ['***', '___', '- - -', '*** --- ***']
+  const hrs = ['+++', '---', '***', '___', '- - -', '*** --- ***']
   for (const str of hrs) {
     expect(getBreak(str)).toBeDefined()
   }

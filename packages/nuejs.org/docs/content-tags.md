@@ -459,14 +459,14 @@ You can apply a specific class for styling. Here’s an example using `.card` to
 
 ### Defining separators
 
-Nue uses the first heading element (`h2` or `h3`) to create new accordion entries automatically. Alternatively, use the triple-dash (`---`) separator to define new entries explicitly:
+Nue uses the first heading element (`h2` or `h3`) to create new accordion entries automatically. Alternatively, use the triple-plus (`+++`) separator to define new entries explicitly:
 
 ```md
 [accordion]
   ## First element
   The contents of the first element.
 
-  ---
+  +++
 
   ## Second element
   The contents of the second element.
