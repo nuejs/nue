@@ -1,0 +1,79 @@
+{
+  "lockfileVersion": 1,
+  "workspaces": {
+    "": {
+      "name": "nue",
+    },
+    "packages/glow": {
+      "name": "nue-glow",
+      "version": "0.2.2",
+    },
+    "packages/nuejs": {
+      "name": "nuejs-core",
+      "version": "0.5.2",
+      "dependencies": {
+        "htmlparser2": "^9.1.0",
+      },
+    },
+    "packages/nuejs.org": {
+      "name": "nuejs.org",
+    },
+    "packages/nuekit": {
+      "name": "nuekit",
+      "version": "1.0.0-RC.2",
+      "bin": {
+        "nue": "./src/cli.js"
+      },
+      "dependencies": {
+        "diff-dom": "^5.1.4",
+        "es-main": "^1.3.0",
+        "import-meta-resolve": "^4.1.0",
+        "js-yaml": "^4.1.0",
+        "nue-glow": "*",
+        "nuejs-core": "*",
+        "nuemark": "*",
+      },
+    },
+    "packages/nuemark": {
+      "name": "nuemark",
+      "version": "0.6.1",
+      "dependencies": {
+        "js-yaml": "^4.1.0",
+        "nue-glow": "*",
+      },
+    },
+  },
+  "packages": {
+    "argparse": ["argparse@2.0.1", "", {}, "sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q=="],
+
+    "diff-dom": ["diff-dom@5.1.4", "", {}, "sha512-TSEaVdVGictY1KHg7VpVw2nuM02YKC9C8/qBkGiCnkiAybVbu1zQTMj2/dnVLRO7Z62UsqzHGpXweiOj5/jaZg=="],
+
+    "dom-serializer": ["dom-serializer@2.0.0", "", { "dependencies": { "domelementtype": "^2.3.0", "domhandler": "^5.0.2", "entities": "^4.2.0" } }, "sha512-wIkAryiqt/nV5EQKqQpo3SToSOV9J0DnbJqwK7Wv/Trc92zIAYZ4FlMu+JPFW1DfGFt81ZTCGgDEabffXeLyJg=="],
+
+    "domelementtype": ["domelementtype@2.3.0", "", {}, "sha512-OLETBj6w0OsagBwdXnPdN0cnMfF9opN69co+7ZrbfPGrdpPVNBUj02spi6B1N7wChLQiPn4CSH/zJvXw56gmHw=="],
+
+    "domhandler": ["domhandler@5.0.3", "", { "dependencies": { "domelementtype": "^2.3.0" } }, "sha512-cgwlv/1iFQiFnU96XXgROh8xTeetsnJiDsTc7TYCLFd9+/WNkIqPTxiM/8pSd8VIrhXGTf1Ny1q1hquVqDJB5w=="],
+
+    "domutils": ["domutils@3.2.2", "", { "dependencies": { "dom-serializer": "^2.0.0", "domelementtype": "^2.3.0", "domhandler": "^5.0.3" } }, "sha512-6kZKyUajlDuqlHKVX1w7gyslj9MPIXzIFiz/rGu35uC1wMi+kMhQwGhl4lt9unC9Vb9INnY9Z3/ZA3+FhASLaw=="],
+
+    "entities": ["entities@4.5.0", "", {}, "sha512-V0hjH4dGPh9Ao5p0MoRY6BVqtwCjhz6vI5LT8AJ55H+4g9/4vbHx1I54fS0XuclLhDHArPQCiMjDxjaL8fPxhw=="],
+
+    "es-main": ["es-main@1.3.0", "", {}, "sha512-AzORKdz1Zt97TzbYQnIrI3ZiibWpRXUfpo/w0xOJ20GpNYd2bd3MU9m31zS/aJ1TJl6JfLTok83Y8HjNunYT0A=="],
+
+    "htmlparser2": ["htmlparser2@9.1.0", "", { "dependencies": { "domelementtype": "^2.3.0", "domhandler": "^5.0.3", "domutils": "^3.1.0", "entities": "^4.5.0" } }, "sha512-5zfg6mHUoaer/97TxnGpxmbR7zJtPwIYFMZ/H5ucTlPZhKvtum05yiPK3Mgai3a0DyVxv7qYqoweaEd2nrYQzQ=="],
+
+    "import-meta-resolve": ["import-meta-resolve@4.1.0", "", {}, "sha512-I6fiaX09Xivtk+THaMfAwnA3MVA5Big1WHF1Dfx9hFuvNIWpXnorlkzhcQf6ehrqQiiZECRt1poOAkPmer3ruw=="],
+
+    "js-yaml": ["js-yaml@4.1.0", "", { "dependencies": { "argparse": "^2.0.1" }, "bin": { "js-yaml": "bin/js-yaml.js" } }, "sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA=="],
+
+    "nue-glow": ["nue-glow@workspace:packages/glow"],
+
+    "nuejs-core": ["nuejs-core@workspace:packages/nuejs"],
+
+    "nuejs.org": ["nuejs.org@workspace:packages/nuejs.org"],
+
+    "nuekit": ["nuekit@workspace:packages/nuekit"],
+
+    "nuemark": ["nuemark@workspace:packages/nuemark"],
+  }
+}
