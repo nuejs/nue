@@ -1,0 +1,30 @@
+
+:root {
+  accent-color: var(--main)
+}
+
+::placeholder {
+  color: var(--base-400);
+}
+
+form label{
+  margin-block: 1em;
+  display: block;
+
+  > :first-child {
+    font-size: 1em;
+    font-weight: 550;
+    margin-block: .5em;
+  }
+}
+
+input, textarea {
+  border: 1px solid var(--base-300);
+  font-family: inherit;
+  color: var(--base-800);
+  border-radius: .25em;
+  padding: .75em 1em;
+  font-size: 1em;
+  width: 100%;
+}
+

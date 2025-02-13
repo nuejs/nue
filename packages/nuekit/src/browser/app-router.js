@@ -7,8 +7,8 @@ let opts
 
 
 export const router = {
-  setup(path_pattern='', query_params=[]) {
-    opts = { path: path_pattern.split('/'), params: query_params }
+  configure({ route, params=[] }) {
+    opts = { route: route.split('/'), params }
   },
 
   get state() {
@@ -29,7 +29,7 @@ export const router = {
     router.set({ [key]: null })
   },
 
-  start(args={}) {
+  initialize(args={}) {
     fire(parseData(location))
     init(args.root)
   }
@@ -66,7 +66,7 @@ export function fire(data) {
   if (!changes) return
 
   for (const el of fns.reverse()) {
-    if (intersect(el.names, Object.keys(changes))) el.fn(data, changes)
+    if (intersect(el.names, Object.keys(changes))) el.fn(data, { path: renderPath(data) })
   }
 
   curr_state = data
@@ -88,14 +88,17 @@ export function diff(orig, data) {
 }
 
 
-// TODO front page:  || (!query && path == '/')
 function setState(changes) {
-  return hasPathData(changes) ? history.pushState(changes, 0, renderPath() + renderQuery())
-    : history.replaceState(changes, 0, renderQuery() || './')
+  if (hasPathData(changes)) {
+    history.pushState(changes, 0, renderPath() + renderQuery())
+
+  } else {
+    history.replaceState(changes, 0, renderQuery() || './')
+  }
 }
 
 export function hasPathData(data) {
-  for (let key of opts.path) {
+  for (let key of opts.route) {
     if (key[0] == ':' && data[key.slice(1)] !== undefined) return true
   }
 }
@@ -104,8 +107,8 @@ export function parsePathData(path) {
   const els = path.split('/')
   const data = {}
 
-  for (let i = 1; i < opts.path.length; i++) {
-    const token = opts.path[i]
+  for (let i = 1; i < opts.route.length; i++) {
+    const token = opts.route[i]
     const part = els[i]
 
     if (token[0] == ':') { if (part) data[token.slice(1)] = part }
@@ -133,19 +136,19 @@ function parseData({ pathname, search }) {
 
 
 function getFirstPart() {
-  const key = opts.path.find(el => el[0] == ':')
+  const key = opts.route.find(el => el[0] == ':')
   return key.slice(1)
 }
 
 
 export function matchesPath(path) {
-  const prefix = opts.path[1]
+  const prefix = opts.route[1]
   return prefix[0] == ':' || prefix == path.split('/')[1]
 }
 
 // from current state
-export function renderPath() {
-  let els = opts.path.map((key, i) => key[0] == ':' ? curr_state[key.slice(1)] : key)
+export function renderPath(data=curr_state) {
+  let els = opts.route.map((key, i) => key[0] == ':' ? data[key.slice(1)] : key)
   const i = els.findIndex(el => el == null)
   if (i > 0) els = els.slice(0, i + 1)
   return els.join('/').replaceAll('//', '/')

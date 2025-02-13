@@ -1,0 +1,68 @@
+
+<script>
+  import { router } from '/@nue/app-router.js'
+  import { onDialogClose } from './util.js'
+</script>
+
+<div @name="image-thumbs">
+
+  <ul class="thumbs">
+    <li :for="name, i in items">
+      <button @click="open(i)"><img src="/img/{ name }"></button>
+    </li>
+  </ul>
+
+  <!-- the zoom dialog -->
+  <dialog id="zoom"/>
+
+  <script>
+    open(i) {
+      router.set({ shot: i + 1})
+    }
+
+    constructor() {
+      router.on('shot', args => {
+        const index = args.shot
+        if (index && !zoom.checkVisibility()) {
+          this.mountChild('image-zoom', zoom, { index })
+          onDialogClose(zoom, () => router.set({ shot: null }))
+          zoom.showPopover()
+        }
+      })
+    }
+  </script>
+</div>
+
+
+<dialog @name="image-zoom" class="image-zoom" popover id="zoom">
+  <header>
+    <h2>Screenshots</h2>
+    <nav>
+      <button popovertarget="zoom" @click="close"><icon key="x"/></button>
+    </nav>
+  </header>
+
+  <figure>
+    <img :src="/img/{ shot }">
+  </figure>
+
+  <aside>
+    <ul class="thumbs">
+      <li :for="name, i in items">
+        <button @click="seek(i)"><img src="/img/{ name }"></button>
+      </li>
+    </ul>
+  </aside>
+
+  <script>
+    seek(i) {
+      this.shot = this.items[i]
+      this.open(i)
+    }
+
+    constructor({ items, index }) {
+      this.shot = items[index -1]
+      this.items = items
+    }
+  </script>
+</dialog>

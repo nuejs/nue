@@ -4,25 +4,16 @@ import init, { Model } from './engine.js'
 await init()
 const engine = new Model()
 
+const handlers = []
+
+function emit(event, data) {
+  handlers.forEach(h => { if (h.event === event) h.fn(data) })
+}
+
 export const model = {
 
-  async init() {
-
-    // might be cached via immutable header
-    engine.clear()
-    engine.add_events(await loadChunk())
-
-    const ts = localStorage.getItem('_ts') || 0
-
-    if (ts) engine.add_events(await loadChunk(ts))
-
-    model.total = engine.get_total()
-
-    localStorage.setItem('_ts', Date.now())
-  },
-
-  all(params) {
-    return parseItems(engine.all(params))
+  on(event, fn) {
+    handlers.push({ event, fn })
   },
 
   search(query, params) {
@@ -30,7 +21,6 @@ export const model = {
     data.items.forEach(el => hilite(query, el))
     return data
   },
-
 
   filter(args) {
 
@@ -59,6 +49,66 @@ export const model = {
     if (item) return CACHE[id] = setup(JSON.parse(item))
   },
 
+  all(params) {
+    return parseItems(engine.all(params))
+  },
+
+  // authentication API
+
+  get authenticated() {
+    return !!sessionStorage.sid
+  },
+
+  async login(email, password) {
+    const response = await fetch('/mocks/login.json', {
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+      method: 'POST',
+    })
+
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
+
+    const { sessionId, user } = await response.text()
+    sessionStorage.sid = sessionId
+    model.user = user
+    emit('authenticated', user)
+  },
+
+  async load() {
+    // engine.clear()
+    engine.add_events(await loadChunk())
+
+    const ts = localStorage.getItem('_ts') || 0
+
+    if (ts) engine.add_events(await loadChunk(ts))
+
+    model.total = engine.get_total()
+
+    localStorage.setItem('_ts', Date.now())
+  },
+
+  async initialize() {
+    if (model.authenticated) {
+      if (!model.user) model.user = await fetchData('user.json')
+      emit('authenticated')
+    }
+  }
+}
+
+/* fetch and auth */
+async function fetchData(path, as_text) {
+  const { sid } = sessionStorage
+  if (!sid) throw new Error('No active session')
+
+  const res = await fetch('/mocks/' + path, {
+    headers: { 'Authorization': `Bearer ${sid}` }
+  })
+
+  return as_text ? await res.text() : await res.json()
+}
+
+async function loadChunk(ts) {
+  return await fetchData(ts ? `updates.json?ts=${ts}` : 'init.json', true)
 }
 
 const CACHE = {}
@@ -67,11 +117,6 @@ function getFilter(type, filter) {
   return filter ? { [type]: filter } : { type }
 }
 
-async function loadChunk(ts) {
-  const path = ts ? `updates.json?ts=${ts}` : 'init.json'
-  const res = await fetch('/mocks/' + path)
-  return await res.text()
-}
 
 
 function hilite(query, data) {
@@ -92,10 +137,10 @@ const COUNTRIES = {
 }
 
 const SIZES = {
-  xl: ['Very large', '100 or more'],
-  s:  ['Large', '50 – 100'],
-  m:  ['Medium', '10 – 50'],
-  l:  ['Small', '0 – 10'],
+  xl: { label: 'Very large', desc: '100 or more' },
+  s:  { label: 'Large',   desc: '50 – 100' },
+  m:  { label: 'Medium', desc: '10 – 50' },
+  l:  { label: 'Small', desc: '0 – 10' },
 }
 
 function createThread(created, body) {

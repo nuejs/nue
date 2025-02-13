@@ -4,7 +4,7 @@
   import { model } from '/model/index.js'
 </script>
 
-<aside @name="details-panel" :hidden="!item" class="details panel">
+<aside @name="details-panel" :hidden="!item">
 
   <header>
     <h3>Discussion</h3>
@@ -38,22 +38,14 @@
   </script>
 </aside>
 
-<section @name="user" class="user">
 
-  <header>
-    <figure>
-      <img src="/icon/cc/{cc}.svg">
-    </figure>
-    <div>
-      <h2>{ name }</h2>
-      <p>{ email }</p>
-    </div>
-  </header>
+<section @name="user" class="user">
+  <user-header :bind="this"/>
 
   <dl :if="org">
     <dt>Company</dt>      <dd>{ org }</dd>
     <dt>Country</dt>      <dd> { country }</dd>
-    <dt>Company size</dt> <dd>{ size[1] } employees ({ size[0] })</dd>
+    <dt>Company size</dt> <dd>{ size.desc } employees ({ size.label })</dd>
     <dt>Website</dt>      <dd><a href="#">{ website }</a></dd>
     <dt>Plan</dt>         <dd><pill icon="dot" :label="{ plan }"/></dd>
   </dl>
@@ -65,14 +57,11 @@
 </section>
 
 
-<ul @name="image-thumbs" class="thumbs">
-  <li :for="name, i in items">
-    <button popovertarget="zoom-{i}">
-      <img src="/img/{ name }">
-    </button>
-    <dialog popover id="zoom-{i}">
-      <img :src="/img/{ name }">
-      <button popovertarget="zoom-{i}">×</button>
-    </dialog>
-  </li>
-</ul>
+<header @name="user-header" class="user-header">
+  <figure><img src="/icon/cc/{cc}.svg"></figure>
+  <div>
+    <h2>{{ name }}</h2>
+    <p>{{ email }}</p>
+  </div>
+</header>
+

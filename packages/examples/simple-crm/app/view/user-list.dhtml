@@ -1,43 +1,30 @@
 
 <script>
+  import { formatDate, setSelected } from './util.js'
   import { router } from '/@nue/app-router.js'
-  import { formatDate } from './js/util.js'
 </script>
 
+
 <section @name="user-list">
+  <user-sort/>
 
-  <header>
-    <h3>Sort by</h3>
-    <nav>
-      <a @click="sort('cc')">Country</a>
-      <a @click="sort('plan')">Plan</a>
-      <a @click="sort('size')">Size</a>
-      <a @click="sort('id')">Created</a>
-    </nav>
-  </header>
-
-  <!-- list or grid -->
-  <ul class="grid">
+  <ul class="{ view_mode } list">
     <li :for="el, i in items">
 
       <a :href="?id={el.id}" class="item">
         <aside>
-          <figure><icon :key="el.type"/></figure>
+          <small class=""><icon :key="el.type"/> { el.type }</small>
           <time>{ formatDate(el.created) }</time>
         </aside>
 
-        <header>
-          <h3>{{ el.name }}</h3>
-          <small>{ el.email }</small>
-        </header>
+        <user-header :bind="el"/>
+
+        <div class="meta" :if="el.size">
+          <pill icon="dot" :label="el.size.label"/>
+          <pill icon="square" :label="el.plan"/>
+        </div>
 
         <div class="message">{{ el.message }}</div>
-
-        <footer>
-          <span class="country"><img src="/icon/cc/{ el.cc }.svg" class="cc"> { el.country }</span>
-          <pill :if="el.size" icon="dot" :label="el.size[0]"/>
-          <pill :if="el.size" icon="square" :label="el.plan"/>
-        </footer>
       </a>
 
     </li>
@@ -46,10 +33,36 @@
 
   <script>
     formatDate = formatDate
+    view_mode = 'tabular'
 
-    sort(sort) {
-      router.set({ sort, asc: router.state.asc ? null : true })
+    mounted() {
+      router.on('grid', ({ grid }) => {
+        this.update({ view_mode: grid ? 'grid' : 'tabular' })
+      })
     }
   </script>
 
 </section>
+
+
+<header @name="user-sort">
+  <h3>Sort by</h3>
+  <nav>
+    <a @click="sort('id')">Created</a>
+    <a @click="sort('cc')">Country</a>
+    <a @click="sort('size')">Company size</a>
+    <a @click="sort('plan')">Plan</a>
+  </nav>
+  <script>
+    sort(sort) {
+      router.set({ sort, asc: router.state.asc ? null : true })
+    }
+  </script>
+</header>
+
+<script>
+  router.on('id', ({ id }) => {
+    setSelected(`a[href="?id=${id}"]`, 'aria-selected')
+  })
+</script>
+

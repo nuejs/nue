@@ -1,0 +1,32 @@
+
+*, *::before, *::after {
+  box-sizing: border-box
+}
+
+body {
+  font-family: system-ui;
+  font-size: var(--m);
+  margin: 0;
+}
+
+:focus-visible {
+  outline: .5px solid var(--base-500);
+  transition: outline-width .1s;
+  outline-offset: 1.5px
+}
+
+img {
+  max-width: 100%;
+}
+
+
+dialog {
+  padding: 1em 1.5em;
+  border-radius: .5em;
+  box-shadow: 0 0 2em var(--alpha-300);
+  border: 0;
+
+  &::backdrop {
+    background: rgb(190 190 190 / 50%);
+  }
+}

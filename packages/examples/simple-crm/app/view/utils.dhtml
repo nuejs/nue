@@ -1,0 +1,9 @@
+
+<svg @name="icon" class="icon {key}-icon">
+  <use href="#{key}-symbol"/>
+</svg>
+
+<span @name="pill" class="pill">
+  <icon :key="icon"/> { label }
+</span>
+

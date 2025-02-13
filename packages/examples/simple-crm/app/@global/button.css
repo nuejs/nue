@@ -6,13 +6,12 @@ button {
   display: inline-flex;
   align-items: center;
   font-family: inherit;
-  font-size: .875em;
+  font-size: inherit;
 
   .icon { width: 1.2em }
 
   /* dimensions */;
-  padding: .25em .75em;
-  gap: .25em;
+  padding: .75em 1em;
 
   /* styling */
   box-shadow: 1px 1px 1px var(--alpha-200);
@@ -24,12 +23,6 @@ button {
   font-weight: 450;
   cursor: pointer;
 
-  &.primary {
-    border-color: var(--main-500);
-    background-color: var(--main-500);
-    color: white;
-  }
-
   &:hover {
     border-color: var(--base-400);
     color: var(--base-900);
@@ -40,8 +33,21 @@ button {
     border-color: var(--base-300);
   }
 
+  &.primary {
+    border-color: var(--main-500);
+    background-color: var(--main-500);
+    color: white;
+
+    &:hover {
+      background-color: var(--main-600);
+      color: white;
+    }
+  }
+
+
   &:disabled {
     pointer-events: none;
     opacity: .5;
   }
+
 }

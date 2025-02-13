@@ -11,6 +11,7 @@ Standards first: Insanely Ambitious Web Applications
     Size (bars: React lib, Tailwind, React router,
     Codebase (~10x less, clarity)
     The modern web (standards first: time to harness it!)
+    All core interactions: nav, listing, viwe switch, item, dialog, ..
 
   # The details
   How
@@ -26,6 +27,9 @@ Standards first: Insanely Ambitious Web Applications
     Controller (URL based)
       HMR (granula, CSS)
 
+
+  Later
+    language tokens, passing YAML data
 
 
 

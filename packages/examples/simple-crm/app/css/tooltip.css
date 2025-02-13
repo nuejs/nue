@@ -1,4 +1,18 @@
 
+kbd {
+  border: 1px solid var(--base-200);
+  color: var(--base-500);
+  border-radius: .25em;
+  padding: .125em .5em;
+  margin-left: .25em;
+  font-weight: 550;
+  font-size: .875em;
+  strong {
+    transform: scale(1.2);
+    display: inline-block;
+  }
+}
+
 span[role=tooltip] {
   position-anchor: --tip;
   position: absolute;

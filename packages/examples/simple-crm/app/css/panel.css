@@ -1,10 +1,29 @@
 
+.card {
+  border-color: var(--alpha-100);
+  background-color: white;
+  border-radius: .5em;
+  padding: 1em 1.5em;
+
+  > header {
+    border-bottom: 1px solid var(--alpha-100);
+  }
+}
+
 .panel {
   border: 1px solid transparent;
   height: calc(100vh - 2em);
   flex-direction: column;
-  padding: .75em;
+  padding: 0 .75em;
   display: flex;
+
+  h1 {
+    font-size: 1.25em;
+  }
+
+  h2 {
+    font-size: 1.125em;
+  }
 
   header:has(nav) {
     display: flex;

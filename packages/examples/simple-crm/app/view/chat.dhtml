@@ -1,6 +1,6 @@
 
 <script>
-  import { formatDate, formatBody } from './js/util.js'
+  import { formatDate, formatBody } from './util.js'
 </script>
 
 <!-- discussion thread -->
@@ -37,3 +37,6 @@
     }
   </script>
 </form>
+
+
+

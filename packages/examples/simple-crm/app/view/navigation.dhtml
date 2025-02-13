@@ -1,9 +1,10 @@
 
 <script>
   import { router } from '/@nue/app-router.js'
+  import { setSelected } from './util.js'
 </script>
 
-<aside @name="nav-panel" class="navigation panel">
+<aside @name="nav-panel">
   <header>
     <h1><img class="logo" src="/img/logo.svg"> Big Design Inc.</h1>
   </header>
@@ -14,10 +15,10 @@
 
     <nav>
       <a data-accesskey="0" href="/"><icon key="users"/>All contacts</a>
-      <a data-accesskey="2" href="/demo_request"><icon key="demo_request"/>Demo requests</a>
-      <a data-accesskey="1" href="/question"><icon key="question"/>Questions</a>
-      <a data-accesskey="3" href="/problem"><icon key="problem"/>Problems</a>
-      <a data-accesskey="4" href="/feedback"><icon key="feedback"/>Feedback</a>
+      <a data-accesskey="2" href="/demo_request/"><icon key="demo_request"/>Demo requests</a>
+      <a data-accesskey="1" href="/question/"><icon key="question"/>Questions</a>
+      <a data-accesskey="3" href="/problem/"><icon key="problem"/>Problems</a>
+      <a data-accesskey="4" href="/feedback/"><icon key="feedback"/>Feedback</a>
     </nav>
 
     <details open>
@@ -57,3 +58,11 @@
   </script>
 
 </label>
+
+
+<script>
+  router.on('type filter', ({ type }, { path }) => {
+    setSelected(`a[href$="${path}"]`, 'aria-current', 'page')
+  })
+</script>
+

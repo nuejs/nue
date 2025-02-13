@@ -1,6 +1,8 @@
 
 title: Simple CRM / Nue demo
-globals: [ view, view/js, css ]
+globals: [ "@global", view, controllers, css ]
+exclude: [ util.js ]
+
 # inline_css: true
 
 views:
