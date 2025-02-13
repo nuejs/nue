@@ -1,29 +1,50 @@
 
+body {
+  background-color: var(--base-100);
+  overflow: hidden;
+  padding: 1em;
+}
+
 .app {
   display: flex;
   gap: 1em;
 
+  .logo { width: 1.75em }
+
   /* panel dimensions */
   .navigation { min-width: 16em; }
+
   main { flex-grow: 1 }
-  .details { min-width: 32em }
 
-
-  /* panel decoration */
-  .panel:not(.navigation) {
-    border-color: var(--alpha-100);
-    background-color: white;
-    padding-inline: 1.5em;
-    border-radius: .5em;
-
-    > header {
-      border-bottom: 1px solid var(--alpha-100);
-    }
+  .details {
+    min-width: 32em;
+    width: 32em;
   }
-
-/*  main { display: none }*/
 }
 
+/* app overries */
+.app {
+  button {
+    font-size: .875em;
+    padding: .25em .75em;
+    gap: .25em;
+  }
+}
+
+.login {
+  max-width: 25em;
+  margin: 10% auto;
+
+  &.card { padding: 1.5em 2em }
+
+  footer {
+    margin-block: 1.5em;
+  }
+
+  button {
+    width: 100%;
+  }
+}
 
 .loading {
   opacity: 0.1;

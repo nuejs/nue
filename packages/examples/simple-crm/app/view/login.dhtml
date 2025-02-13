@@ -1,0 +1,41 @@
+
+<script>
+  import { model } from '/model/index.js'
+</script>
+
+<div @name="login" class="login ui card">
+
+  <form @submit.prevent="login">
+    <header>
+      <img src="/img/logo.svg">
+      <h1>Login</h1>
+    </header>
+
+    <label>
+      <h2>Email</h2>
+      <input name="email" type="email" autofocus value="demo.user@bigdesign.com">
+    </label>
+
+    <label>
+      <h2>Password</h2>
+      <input name="password" type="password" value="password">
+    </label>
+
+    <footer>
+      <button class="primary">Log in</button>
+    </footer>
+  </form>
+
+  <script>
+    async login({ target }) {
+      try {
+        await model.login(target.email.value, target.password.value)
+        dispatchEvent(new Event('login'))
+
+      } catch {
+        this.update({ failure: true })
+      }
+    }
+  </script>
+
+</div>

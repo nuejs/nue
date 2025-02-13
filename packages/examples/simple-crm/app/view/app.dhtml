@@ -1,50 +1,29 @@
 
 <script>
-  import { $ } from '/@nue/view-transitions.js'
   import { router } from '/@nue/app-router.js'
-  import { model } from '/model/index.js'
 </script>
 
-<svg @name="icon" class="icon {key}-icon">
-  <use href="#{key}-symbol"/>
-</svg>
-
-<span @name="pill" class="pill">
-  <icon :key="icon"/> { label }
-</span>
-
 <!-- custom attribute needed for HMR -->
-<div @name="app" class="ui app" custom="app">
+<div @name="app" class="ui app">
 
-  <nav-panel/>
-  <main-panel/>
-  <details-panel/>
+  <nav-panel class="navigation panel"/>
+  <main-panel class="card panel"/>
+  <details-panel class="details card panel"/>
 
   <script>
     mounted() {
-      router.start({ root: this.root })
+      router.initialize({ root: this.root })
     }
   </script>
 </div>
 
 
-<script>
-  router.on('id', ({ id }) => {
-
-    // remove previous selection
-    $('[aria-selected]')?.removeAttribute('aria-selected')
-
-    // Mark the new selection
-    $(`a[href$="id=${id}"]`)?.setAttribute('aria-selected', true)
-  })
-
-  router.on('type', ({ type }) => {
-
-    // remove previous selection
-    $('[aria-current]')?.removeAttribute('aria-current')
-
-    // Mark the new selection
-    $(`a[href$="/${type}"]`)?.setAttribute('aria-current', true)
-  })
-</script>
-
+<div @name="load-screen" class="app ui">
+  <aside class="navigation panel">
+    <header>
+      <h1><img class="logo" src="/img/logo.svg"> Big Design Inc.</h1>
+    </header>
+  </aside>
+  <main  class="loading card panel"><h2>Loading...</h2></main>
+  <aside class="loading details card panel"/>
+</div>

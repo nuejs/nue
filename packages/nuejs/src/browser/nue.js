@@ -143,7 +143,8 @@ export default function createApp(component, data = {}, deps = [], $parent = {})
       // event handler
       node[`on${real}`] = evt => {
         fn.call(ctx, ctx, evt)
-        $parent?.update()
+        const $fn = $parent?.update
+        if ($fn) $fn()
         update()
       }
 
@@ -236,6 +237,7 @@ export default function createApp(component, data = {}, deps = [], $parent = {})
       if (comp) {
         const app = createApp(comp, data, deps, ctx)
         app.mount(wrap)
+        return app
       }
     },
 
