@@ -7,7 +7,7 @@ let opts
 
 
 export const router = {
-  configure({ route, params=[] }) {
+  configure({ route='/', params=[] }) {
     opts = { route: route.split('/'), params }
   },
 
@@ -16,7 +16,13 @@ export const router = {
   },
 
   on(names, fn) {
-    fns.push({ names: names.split(/\s+/), fn })
+    fns.push({ names, fn })
+  },
+
+  bind(key, fn) {
+    const [ names, namespace ] = key.split(':')
+    fns = fns.filter(el => !(el.namespace == namespace && el.names == names))
+    fns.push({ names, fn, namespace })
   },
 
   set(data) {
@@ -47,26 +53,32 @@ function init(root=document) {
     const changes = fire(a.search ? { ...curr_state, ...data } : data)
     if (changes) setState(changes)
   })
+}
 
-  // back button
-  addEventListener('popstate', e => {
-    fire(e.state || {})
-  })
+// back button
+addEventListener('popstate', e => {
+  const { path } = e.state
+  if (path && !matchesPath(path)) cleanup()
+  fire(e.state || {})
+})
 
-  // component reloads (.dhtml)
-  addEventListener('hmr', e => {
-    curr_state = {}
-    fns = []
-  })
+// component reloads (.dhtml)
+addEventListener('hmr', cleanup)
 
+function cleanup() {
+  curr_state = {}
+  fns = []
 }
 
 export function fire(data) {
   const changes = diff(curr_state, data)
   if (!changes) return
 
+  // if (changes.path == '/') return
   for (const el of fns.reverse()) {
-    if (intersect(el.names, Object.keys(changes))) el.fn(data, { path: renderPath(data) })
+    if (intersect(el.names.split(' '), Object.keys(changes))) {
+      el.fn(data, { path: renderPath(data) })
+    }
   }
 
   curr_state = data
@@ -90,10 +102,11 @@ export function diff(orig, data) {
 
 function setState(changes) {
   if (hasPathData(changes)) {
-    history.pushState(changes, 0, renderPath() + renderQuery())
+    history.pushState(curr_state, 0, renderPath() + renderQuery())
 
   } else {
-    history.replaceState(changes, 0, renderQuery() || './')
+    // TODO: make replaceState work
+    history.pushState(curr_state, 0, renderQuery() || './')
   }
 }
 
@@ -141,7 +154,7 @@ function getFirstPart() {
 }
 
 
-export function matchesPath(path) {
+export function matchesPath(path='') {
   const prefix = opts.route[1]
   return prefix[0] == ':' || prefix == path.split('/')[1]
 }

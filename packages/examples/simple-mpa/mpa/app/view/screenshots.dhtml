@@ -21,7 +21,7 @@
     }
 
     constructor() {
-      router.on('shot', args => {
+      router.bind('shot', args => {
         const index = args.shot
         if (index && !zoom.checkVisibility()) {
           this.mountChild('image-zoom', zoom, { index })

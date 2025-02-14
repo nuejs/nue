@@ -74,8 +74,16 @@ export const model = {
     emit('authenticated', user)
   },
 
+  logout() {
+    delete sessionStorage.sid
+    delete model.user
+    emit('logout')
+  },
+
   async load() {
-    // engine.clear()
+    const total = engine.get_total()
+    if (total > 0) return model.total = total
+
     engine.add_events(await loadChunk())
 
     const ts = localStorage.getItem('_ts') || 0
@@ -108,7 +116,7 @@ async function fetchData(path, as_text) {
 }
 
 async function loadChunk(ts) {
-  return await fetchData(ts ? `updates.json?ts=${ts}` : 'init.json', true)
+  return await fetchData(ts ? `chunk-1.json?ts=${ts}` : 'chunk-0.json', true)
 }
 
 const CACHE = {}
