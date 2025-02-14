@@ -24,7 +24,7 @@
     router = router
 
     mounted() {
-      router.on('id', ({ id }) => {
+      router.bind('id:details', ({ id }) => {
         const data = this.item = model.get(id)
 
         if (data) {

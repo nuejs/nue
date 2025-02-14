@@ -132,8 +132,9 @@ if (is_browser) {
 
   // back button
   addEventListener('popstate', e => {
-    const { path, is_spa } = e.state || {}
-    if (path && !is_spa) {
+    const { path } = e.state || {}
+
+    if (path) {
       const pos = scrollPos[path]
 
       document.startViewTransition(async () => {
@@ -150,7 +151,7 @@ if (is_browser) {
 
 // primitive DOM diffing
 function simpleDiff(a, b, ignore_main) {
-  a.classList.value = b.classList.value
+  if (!a || !b) return true
 
   if (a.children.length == b.children.length) {
     ;[...a.children].forEach((el, i) => {

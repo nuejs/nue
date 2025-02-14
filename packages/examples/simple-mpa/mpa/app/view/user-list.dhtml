@@ -36,7 +36,7 @@
     view_mode = 'tabular'
 
     mounted() {
-      router.on('grid', ({ grid }) => {
+      router.bind('grid', ({ grid }) => {
         this.update({ view_mode: grid ? 'grid' : 'tabular' })
       })
     }
@@ -61,7 +61,7 @@
 </header>
 
 <script>
-  router.on('id', ({ id }) => {
+  router.bind('id:route', ({ id }) => {
     setSelected(`a[href="?id=${id}"]`, 'aria-selected')
   })
 </script>

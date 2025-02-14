@@ -15,29 +15,28 @@ import {
 global.history = null
 
 test('parse path', () => {
-  router.setup('/app/:type/:id')
+  router.configure({ route: '/app/:type/:id' })
   expect(parsePathData('/app/leads/389/bang')).toEqual({ type: 'leads', id: '389' })
   expect(parsePathData('/app/users/89')).toEqual({ type: 'users', id: '89' })
   expect(parsePathData('/foo/users')).toBeUndefined()
 })
 
 test('parse search', () => {
-  router.setup('', ['start', 'length'])
+  router.configure({ params: ['start', 'length'] })
   expect(parseQueryData('?start=10&length=20&foo=bar')).toEqual({ start: '10', length: '20' })
 })
 
 test('hasPathData', () => {
-  router.setup('/app/:foo/:bar')
+  router.configure({ route: '/app/:foo/:bar' })
   expect(hasPathData({ foo: 10 })).toBeTrue()
   expect(hasPathData({ zappa: 10 })).toBeUndefined()
 })
 
 test('matchesPath', () => {
-  router.setup('/app/:type')
+  router.configure({ route: '/app/:type' })
 
   expect(matchesPath('/something/else')).toBeFalse()
   expect(matchesPath('/app/zoo/2000')).toBeTrue()
-
 })
 
 
@@ -49,7 +48,7 @@ test('diff', () => {
 
 
 test('fire', () => {
-  router.setup('/app/:foo/:id', [])
+  router.configure({ route: '/app/:foo/:id' })
 
   let count = 0
 
@@ -71,7 +70,7 @@ test('fire', () => {
 
 
 test('renderPath', () => {
-  router.setup('/app/:cat/:uid')
+  router.configure({ route: '/app/:cat/:uid' })
 
   expect(renderPath()).toBe('/app/')
 
@@ -87,7 +86,7 @@ test('renderPath', () => {
 
 
 test('renderQuery', () => {
-  router.setup('', ['query', 'start'])
+  router.configure({ params: ['query', 'start'] })
 
   router.set({ query: 'joe', start: 10 })
 
