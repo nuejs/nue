@@ -20,7 +20,7 @@ With proper separation of concerns, optimizations become natural: single request
 ## CSS inlining
 CSS inlining is one of the most effective optimizations for landing pages. It ensures that everything needed for the **first paint** (when visible content first appears on the screen) is delivered with the initial request. This includes HTML and CSS, while scripts and off-screen images are **lazily loaded** — only when they're needed, typically as they come into view.
 
-[image.bordered]
+[image.bordered]:
    small: /img/first-paint.png
    large: /img/first-paint-big.png
    width: 650

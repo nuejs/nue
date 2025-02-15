@@ -4,7 +4,7 @@
   # Nue is simpler
   With significantly less abstractions and complexity
 
-  [button "Show the difference"]
+  [button "Show the difference"]:
     href: stuff-compare.html
   ---
 

@@ -42,7 +42,7 @@ Nue is built from scratch to get web development back on its track
 
 [Learn how it works ›](/docs/)
 
-[image]
+[image]:
   alt: "Next.js vs Nue: tight coupling vs separation of concerns"
   title: Learn how it works
   src: /img/next-vs-nue-big.png
@@ -62,7 +62,7 @@ Nue makes a full cleanup for the overly complex ecosystem
 
 [See how it happens ›](/vision/)
 
-[image]
+[image]:
   small: /img/roadmap-2025-1.png
   large: /img/roadmap-2025-1-big.png
   width: 750
@@ -70,4 +70,3 @@ Nue makes a full cleanup for the overly complex ecosystem
   alt: Nue roadmap
 
 [feedback]
-
