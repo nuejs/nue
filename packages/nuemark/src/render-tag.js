@@ -43,14 +43,6 @@ const TAGS = {
     return elem(attr.popover ? 'dialog' : name, attr, html)
   },
 
-  button(data) {
-    const { href } = data
-    const label = this.renderInline(data.label || data._) || this.innerHTML || ''
-
-    return href ? elem('a', { ...this.attr, href, role: 'button' }, label) :
-      elem('button', this.attr, label)
-  },
-
   define() {
     const html = this.sections?.map((blocks, i) => {
       const { attr, text } = blocks[0]
