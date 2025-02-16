@@ -138,7 +138,7 @@ export async function createKit(args) {
     const file = parsePath(index_path)
     const dir = file.dir
     const appdir = getAppDir(index_path)
-    const data = { ...await site.getData(appdir), ...parsePathParts(index_path), is_spa: true }
+    const data = { root, ...await site.getData(appdir), ...parsePathParts(index_path), is_spa: true }
 
     // scripts & styling
     data.assets = {}
