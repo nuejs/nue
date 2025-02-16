@@ -120,7 +120,7 @@ One major benefit of using a Web Component is that the browser automatically tak
 
 
 ### Dynamic sections { #sections }
-You can turn all the [page sections](page-layout.html#sections) into web components with a `section_component` configuration option. This can be assigned in the front matter or globally in the application data. On the front page of this website, for example, we have a "scroll-transition" component to help implement all the scroll-triggered CSS transitions:
+You can turn all the [page sections](content.html#sections) into web components with a `section_component` configuration option. This can be assigned in the front matter or globally in the application data. On the front page of this website, for example, we have a "scroll-transition" component to help implement all the scroll-triggered CSS transitions:
 
 ```yaml
 section_component: scroll-transition
@@ -249,7 +249,7 @@ Reactive islands are interactive components within the server-rendered, static H
 ```
 
 
-After saving the component to a file with `.htm` or `.nue` extension, you can use it in your Markdown content as follows:
+After saving the component to a file with `.htm` or `.dthml` extension, you can use it in your Markdown content as follows:
 
 
 ```md
@@ -258,7 +258,7 @@ After saving the component to a file with `.htm` or `.nue` extension, you can us
 > [join-list cta="Submit form"]
 ```
 
-The component can also be used on your [layout files](custom-layouts.html):
+The component can also be used in your [layout files](layout.html):
 
 ```html
 <join-list cta="Submit form"/>
@@ -310,7 +310,7 @@ addEventListener('click', e => {
 
 
 ### Google Analytics
-Google Analytics and other scripts that must be imported externally should go to the head section of your website. This happens by adding a custom `head` element to a root level [layout file](custom-layouts.html):
+Google Analytics and other scripts that must be imported externally should go to the head section of your website. This happens by adding a custom `head` element to a root level [layout file](layout.html):
 
 
 ```html

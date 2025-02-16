@@ -12,7 +12,7 @@ roadmap:
       - package: nuemark
         title: Extended Markdown
         desc: Custom parser for rich, interactive websites
-        href: /docs/content-syntax.html
+        href: /docs/content-tags.html
 
       - package: nuejs
         title: HTML components
