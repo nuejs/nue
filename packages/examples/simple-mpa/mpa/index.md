@@ -1,5 +1,11 @@
 
+---
+include: [user-list, ui.css, list.css, utils]
+appdir: home
+---
+
 # Hello, World
 
 
-[button href="/app/" "Go to App"]
+[list-demo]
+

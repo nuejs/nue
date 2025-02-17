@@ -2,6 +2,7 @@
 <script>
   import { router } from '/@nue/app-router.js'
   import { model } from '/model/index.js'
+  import { setSelected } from './util.js'
 </script>
 
 <aside @name="details-panel" :hidden="!item">
@@ -24,13 +25,15 @@
     router = router
 
     mounted() {
-      router.bind('id:details', ({ id }) => {
+      router.bind('id', ({ id }) => {
         const data = this.item = model.get(id)
 
         if (data) {
           this.mountChild('user', window.details_body, data)
           this.mountChild('chat-form', window.details_footer, data)
         }
+
+        setSelected(`a[href="?id=${id}"]`, 'aria-selected')
 
         this.update()
       })
@@ -56,12 +59,4 @@
 
 </section>
 
-
-<header @name="user-header" class="user-header">
-  <figure><img src="/icon/cc/{cc}.svg"></figure>
-  <div>
-    <h2>{{ name }}</h2>
-    <p>{{ email }}</p>
-  </div>
-</header>
 

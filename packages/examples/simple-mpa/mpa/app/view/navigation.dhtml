@@ -46,6 +46,14 @@
   <footer>
     <account>
   </footer>
+
+  <script>
+    constructor() {
+      router.bind('type filter', (data, { path }) => {
+        setSelected(`a[href$="${path}"]`, 'aria-current', 'page')
+      })
+    }
+  </script>
 </aside>
 
 
@@ -77,9 +85,4 @@
 </div>
 
 
-<script>
-  router.bind('type filter', ({ type }, { path }) => {
-    setSelected(`a[href$="${path}"]`, 'aria-current', 'page')
-  })
-</script>
 

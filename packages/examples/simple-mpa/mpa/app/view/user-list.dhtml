@@ -1,7 +1,7 @@
 
 <script>
-  import { formatDate, setSelected } from './util.js'
   import { router } from '/@nue/app-router.js'
+  import { formatDate } from './util.js'
 </script>
 
 
@@ -44,6 +44,15 @@
 
 </section>
 
+<header @name="user-header" class="user-header">
+  <figure><img src="/icon/cc/{cc}.svg"></figure>
+  <div>
+    <h2>{{ name }}</h2>
+    <p>{{ email }}</p>
+  </div>
+</header>
+
+
 
 <header @name="user-sort">
   <h3>Sort by</h3>
@@ -59,10 +68,3 @@
     }
   </script>
 </header>
-
-<script>
-  router.bind('id:route', ({ id }) => {
-    setSelected(`a[href="?id=${id}"]`, 'aria-selected')
-  })
-</script>
-

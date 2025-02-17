@@ -1,7 +1,7 @@
 {
   "name": "nuejs-core",
   "version": "0.5.2",
-  "description": "Like React, but semantic",
+  "description": "Like React, but semantic HTML",
   "homepage": "https://nuejs.org",
   "license": "MIT",
   "type": "module",

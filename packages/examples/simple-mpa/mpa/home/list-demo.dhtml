@@ -1,0 +1,20 @@
+
+<script>
+  import { model } from '/model/index.js'
+  await model.load()
+</script>
+
+
+
+<div @name="list-demo" class="ui">
+  <h4>List demo</h4>
+
+  <div id="list_wrap"/>
+
+  <script>
+    mounted() {
+      const data = model.all({ start: 0, length: 15 })
+      this.mountChild('user-list', window.list_wrap, data)
+    }
+  </script>
+</div>
