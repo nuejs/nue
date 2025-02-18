@@ -58,7 +58,8 @@ bun install
 bun test
 
 # Node
-npm install --no-save jest jest-extended
+npm install
+npm install --no-save --legacy-peer-deps jest@>=30.0.0-alpha.4 jest-extended
 npm test
 ```
 
