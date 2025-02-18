@@ -15,14 +15,13 @@
   },
   "engines": {
     "bun": ">= 1.2",
-    "node": ">= 18"
+    "node": ">= 20.8"
   },
   "scripts": {
     "test": "node --experimental-vm-modules ../../node_modules/jest/bin/jest.js --runInBand"
   },
   "dependencies": {
     "diff-dom": "^5.1.4",
-    "import-meta-resolve": "^4.1.0",
     "js-yaml": "^4.1.0",
     "nue-glow": "*",
     "nuejs-core": "*",
