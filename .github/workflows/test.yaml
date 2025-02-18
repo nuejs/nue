@@ -50,6 +50,6 @@ jobs:
       - name: Install and test with Node
         run: |
           node -v && npm -v
-          npm install --no-save jest jest-extended
+          npm install --no-save --legacy-peer-deps jest@>=30.0.0-alpha.4 jest-extended
           npm test -- --coverage
         if: ${{ matrix.tool == 'node+jest' }}
