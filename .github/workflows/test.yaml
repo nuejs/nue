@@ -43,6 +43,8 @@ jobs:
 
       # Testing `node+jest`
       - uses: actions/setup-node@v4
+        with:
+          node-version: '>= 20.8'
         if: ${{ matrix.tool == 'node+jest' }}
 
       - name: Install and test with Node
