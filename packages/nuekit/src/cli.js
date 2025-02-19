@@ -24,12 +24,16 @@ export function expandArgs(args) {
 export function getArgs(argv) {
   const commands = ['serve', 'build', 'init', 'create', 'docs']
   const args = { paths: [], root: null }
-  const checkExecutable = /[\\\/]nue(\.(cmd|ps1|bunx|exe))?$/
   let opt
 
-  expandArgs(argv.slice(1)).forEach((arg, i) => {
+  // remove js runtime binary
+  argv.shift()
+  // remove nuekit cli
+  if (argv.length && /[\\\/](cli\.js|nue(\.(cmd|ps1|bunx|exe))?)$/.test(argv[0])) argv.shift()
+
+  expandArgs(argv).forEach((arg) => {
     // skip
-    if (arg.endsWith(sep + 'cli.js') || checkExecutable.test(arg) || arg == '--') {
+    if (arg == '--') {
 
       // test suite
     } else if (arg.endsWith('.test.js')) {
