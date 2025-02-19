@@ -21,7 +21,7 @@ async function serve(args) {
 
 export async function create(args = {}) {
   if (!args.name) args.name = args.paths.shift() || 'simple-blog'
-  if (!args.root) args.root = args.paths.shift() || args.name
+  if (!args.root) args.root = args.paths.shift() || args.name.replaceAll('/', '-')
 
   // debug mode with: `nue create test`
   args.debug = args.name == 'test'
@@ -29,8 +29,11 @@ export async function create(args = {}) {
 
   const { debug, name, root } = args
 
+  // TODO: needs more checks
+  const is_gh = name.includes('/')
+
   // check if template exists
-  if (!Object.keys(templates).includes(name)) {
+  if (!is_gh && !Object.keys(templates).includes(name)) {
     console.error(`Template "${name}" does not exist!`)
     console.error('Available templates:')
     for (const t of Object.keys(templates)) console.error(' -', t)
@@ -52,7 +55,7 @@ export async function create(args = {}) {
   // download archive
   console.info('Loading template...')
   const archive_name = join(root, 'source.tar.gz')
-  const archive_web = `https://${name}.nuejs.org/${debug ? 'test' : 'source'}.tar.gz`
+  const archive_web = is_gh ? `https://api.github.com/repos/${name}/tarball` : `https://${name}.nuejs.org/${debug ? 'test' : 'source'}.tar.gz`
   const archive = await fetch(archive_web)
 
   // catch download issues
@@ -67,5 +70,5 @@ export async function create(args = {}) {
 
   // serve
   console.info(`Created template "${name}" to "${root}".`)
-  return await serve(args)
+  if (!is_gh) return await serve(args)
 }
