@@ -20,7 +20,7 @@ async function serve(args) {
 }
 
 export async function create(args = {}) {
-  if (!args.name) args.name = args.paths.shift() || 'simple-blog'
+  if (!args.name) args.name = args.paths.shift().split('/').filter(Boolean).join('/') || 'simple-blog'
   if (!args.root) args.root = args.paths.shift() || args.name.replaceAll('/', '-')
 
   // debug mode with: `nue create test`
@@ -28,9 +28,7 @@ export async function create(args = {}) {
   if (args.debug) args.name = 'simple-blog'
 
   const { debug, name, root } = args
-
-  // TODO: needs more checks
-  const is_gh = name.includes('/')
+  const is_gh = name.split('/').length == 2
 
   // check if template exists
   if (!is_gh && !Object.keys(templates).includes(name)) {
