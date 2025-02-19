@@ -1,7 +1,5 @@
 #!/usr/bin/env bun
 
-import { sep } from 'node:path'
-
 import esMain from 'es-main'
 
 import { log, colors, version, getEngine, openUrl } from './util.js'
@@ -24,12 +22,11 @@ export function expandArgs(args) {
 export function getArgs(argv) {
   const commands = ['serve', 'build', 'init', 'create', 'docs']
   const args = { paths: [], root: null }
-  const checkExecutable = /[\\\/]nue(\.(cmd|ps1|bunx|exe))?$/
   let opt
 
-  expandArgs(argv.slice(1)).forEach((arg, i) => {
+  expandArgs(argv).forEach((arg) => {
     // skip
-    if (arg.endsWith(sep + 'cli.js') || checkExecutable.test(arg) || arg == '--') {
+    if (arg == '--') {
 
       // test suite
     } else if (arg.endsWith('.test.js')) {
@@ -131,7 +128,7 @@ async function runCommand(args) {
 // Only run main when called as real CLI
 if (esMain(import.meta)) {
 
-  const args = getArgs(process.argv)
+  const args = getArgs(process.argv.slice(2))
 
   // help
   if (args.help) {
