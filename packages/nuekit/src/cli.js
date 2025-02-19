@@ -1,7 +1,5 @@
 #!/usr/bin/env bun
 
-import { sep } from 'node:path'
-
 import esMain from 'es-main'
 
 import { log, colors, version, getEngine, openUrl } from './util.js'
@@ -25,11 +23,6 @@ export function getArgs(argv) {
   const commands = ['serve', 'build', 'init', 'create', 'docs']
   const args = { paths: [], root: null }
   let opt
-
-  // remove js runtime binary
-  argv.shift()
-  // remove nuekit cli
-  if (argv.length && /[\\\/](cli\.js|nue(\.(cmd|ps1|bunx|exe))?)$/.test(argv[0])) argv.shift()
 
   expandArgs(argv).forEach((arg) => {
     // skip
@@ -135,7 +128,7 @@ async function runCommand(args) {
 // Only run main when called as real CLI
 if (esMain(import.meta)) {
 
-  const args = getArgs(process.argv)
+  const args = getArgs(process.argv.slice(2))
 
   // help
   if (args.help) {
