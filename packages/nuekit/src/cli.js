@@ -103,7 +103,7 @@ async function runCommand(args) {
   // create nue
   if (cmd == 'create') {
     const { create } = await import('./create.js')
-    return await create({ ...args, root, name: args.paths[0], port })
+    return await create({ ...args, root, port })
   }
 
   const nue = await createKit(args)
