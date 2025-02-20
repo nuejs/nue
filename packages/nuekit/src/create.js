@@ -7,6 +7,7 @@ import { createKit } from './nuekit.js'
 
 const templates = {
   'simple-blog': 'welcome/',
+  'blank': '',
 }
 
 
@@ -46,7 +47,6 @@ export async function create(args = {}) {
 
     // must be empty directory
     if (files.length) return console.error('Please create the template to an empty directory')
-
   } else await fs.mkdir(root, { recursive: true })
 
   // download archive
