@@ -439,7 +439,7 @@ You can pass arguments to method calls:
 ```
 
 ### Event argument
-Method handlers always receive an [Event object](https://developer.mozilla.org/en-US/docs/Web/API/Event) as the last argument, unless it is explicitly named `$event`:
+Method handlers always receive an [Event object](//developer.mozilla.org/en-US/docs/Web/API/Event) as the last argument, unless it is explicitly named `$event`:
 
 ```html
 <div>
@@ -467,7 +467,7 @@ Method handlers always receive an [Event object](https://developer.mozilla.org/e
 ```
 
 ### Event modifiers
-Nue provides convenient shortcuts for common DOM event manipulation functions. For instance, `@submit.prevent` is a shortcut to call [event.preventDefault()](https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault).
+Nue provides convenient shortcuts for common DOM event manipulation functions. For instance, `@submit.prevent` is a shortcut to call [event.preventDefault()](//developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault).
 
 ```html
 <!-- Prevent the default event from occurring -->
@@ -483,7 +483,7 @@ Nue provides convenient shortcuts for common DOM event manipulation functions. F
 The following modifiers are supported:
 
 - `.prevent`: Prevents the default behavior of the event from occurring.
-- `.stop`: Prevents further [propagation](https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation) of the event.
+- `.stop`: Prevents further [propagation](//developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation) of the event.
 - `.self`: Only triggers the handler if `event.target` is the element itself.
 - `.once`: The event will be triggered at most once.
 
@@ -495,7 +495,7 @@ Key modifiers bind the event handler to specific keyboard keys:
 <input @keyup.enter="submit">
 ```
 
-You can use any valid key names from [KeyboardEvent.key](https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values) as modifiers, converting them to kebab-case. For example, the following handler is called only if `event.key` is equal to `PageDown`:
+You can use any valid key names from [KeyboardEvent.key](//developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values) as modifiers, converting them to kebab-case. For example, the following handler is called only if `event.key` is equal to `PageDown`:
 
 ```html
 <input @keyup.page-down="onPageDown">
@@ -514,7 +514,7 @@ Nue provides aliases for commonly used keys:
 - `.right`: Captures "Right" and "ArrowRight".
 
 ## Dynamic arrays
-When you define a loop with the `:for` expression, Nue automatically detects if the looped array is mutated and triggers the necessary UI updates. The following [array methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) are supported:
+When you define a loop with the `:for` expression, Nue automatically detects if the looped array is mutated and triggers the necessary UI updates. The following [array methods](//developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) are supported:
 
 - `push(item)`: Adds a new item to the end of the array.
 - `unshift(item)`: Adds a new item to the beginning of the array.

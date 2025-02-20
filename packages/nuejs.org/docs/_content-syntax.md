@@ -238,7 +238,7 @@ This button is linked to the popover and opens it when clicked.
 
 2. **No JavaScript needed**: You can wire up app-like dialog and popover functionality directly within your content using standard HTML attributes, without writing any JavaScript. This makes your content more accessible, reliable, and easy to manage.
 
-3. **Standards-based approach**: Nue uses the standard [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using), allowing the browser to handle the heavy lifting for opening, closing, and accessibility. This ensures that the popovers work even if JavaScript is disabled or fails to load,
+3. **Standards-based approach**: Nue uses the standard [Popover API](//developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using), allowing the browser to handle the heavy lifting for opening, closing, and accessibility. This ensures that the popovers work even if JavaScript is disabled or fails to load,
 
  making your content resilient and SEO-friendly.
 
