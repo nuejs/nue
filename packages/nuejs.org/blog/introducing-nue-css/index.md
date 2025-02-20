@@ -8,7 +8,7 @@ date: 2024-03-20
 
 Here's a preview of Nue's upcoming approach to styling things on the web. The key difference is *minimalism*: You can build an entire website with the same amount of CSS that goes into a single **Tailwind** button. Or even crazier: You can fit three websites to a single **Tailwind Catalyst** button.
 
-[image.larger]
+[image.larger]:
   small: /img/nue-css-hero.webp
   large: /img/nue-css-hero-big.webp
   caption: It's possible to write three entire websites with a size of a single Tailwind button
@@ -50,7 +50,7 @@ Large codebases can draw you down: Small styling changes trigger large compilati
 ### Technical debt { #debt }
 Things work well if you can just copy/paste components and tweak settings, but it gets wild pretty easily. You end up with a codebase that only specialists can understand:
 
-[image /img/inline-styling.png width="450"]
+[image /img/inline-styling.png width="450"]:
   caption: Future technical debt
   size: 450 × 460
 
@@ -84,7 +84,7 @@ One of the key ideas of Nue is to ditch the large JavaScript ecosystem and go di
 ### Your design is based on a design system { #architecture }
 Most companies have drafted some form of design system in software like **Figma** or **Sketch**. This system acts as their "single source of truth":
 
-[image]
+[image]:
   small: /img/abstract-design-system.png
   large: /img/abstract-design-system-big.png
   width: 500
@@ -96,7 +96,7 @@ Design system is really a simple concept: You define the master look and feel in
 
 Nue makes sure your design is consistently applied across all the pages and components on your website. It automatically binds the correct CSS files to your pages depending on where the page resides. There is no need to tinker with path names with JS/CSS import statements.
 
-[image]
+[image]:
   small: /img/css-architecture.png
   large: /img/css-architecture-big.png
   size: 720 × 556
@@ -126,7 +126,7 @@ Simple means lean and well-organized CSS that is easy to maintain and scale. The
 ## 3. Ditch JavaScript
 When everything is based on a single source of truth, it's trivial to ditch the redundant CSS-in-JS layer in front of your design system, be it Tailwind, **CSS Modules**, or Vanilla Extract. This makes a simpler stack:
 
-[table.small]
+[table.small]:
   - ["", CSS-in-JS, Tailwind, Nue]
 
   - - Key idea
@@ -167,7 +167,7 @@ Design-system-powered websites stay lean as the site grows:
 ## Leaner sites
 [motherfuckingwebsite.com](//motherfuckingwebsite.com/) is a developer meme from **Barry Smith** to demonstrate the power of minimalism. It's a text-only website that does not use CSS at all. It loads fast:
 
-[image]
+[image]:
   small: /img/mf-perf.png
   large: /img/mf-perf-big.png
   href: //pagespeed.web.dev/analysis/https-motherfuckingwebsite-com/jjbk58sczm
@@ -177,7 +177,7 @@ Design-system-powered websites stay lean as the site grows:
 A surprising fact is that minimal, inlined CSS gets you to the same performance levels without making compromises on design:
 
 
-[image]
+[image]:
   small: /img/nue-css-perf.png
   large: /img/nue-css-perf-big.png
   href: //pagespeed.web.dev/analysis/https-aimee-app-nuejs-org/qllf5ab934

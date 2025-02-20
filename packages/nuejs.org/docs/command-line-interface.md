@@ -85,6 +85,6 @@ This command compiles only Markdown and CSS files, ignoring other file types.
 
 Here's an example output of the `nue build` command. The operation usually takes less than 100 milliseconds, even with hundreds of files:
 
-[bunny-video]
+[bunny-video]:
   videoId: 45b73e3a-3edd-47af-bcd8-49039496b107
   width: 600
