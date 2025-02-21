@@ -31,7 +31,7 @@ export async function getCssBuilder(is_lcss) {
     }
     return cssBuilder
   } catch {
-    throw 'CSS bundler not found. Please use Bun >=1.2 or install lightningcss'
+    console.error('CSS bundler not found. Please use Bun >=1.2 or install lightningcss. Falling back to copy CSS.')
   }
 }
 
@@ -78,6 +78,7 @@ export async function buildJS(args) {
 export async function buildCSS(filename, minify, opts = {}, lcss) {
   const is_lcss = lcss || !process.isBun
   const builder = await getCssBuilder(is_lcss)
+  if (!builder) return
 
   let include
   if (is_lcss) {

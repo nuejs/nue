@@ -176,9 +176,13 @@ export async function createKit(args) {
 
   async function processCSS({ path, base, dir }) {
     const data = await site.getData()
-    const css = data.minify_css === false ?
-      await read(path) :
-      await buildCSS(join(root, path), is_prod, data, lcss)
+
+    const css = data.minify_css !== false
+      // try using bundler, if not data.minify_css === false
+      && await buildCSS(join(root, path), is_prod, data, lcss)
+      // fallback to copy css
+      || await read(path)
+
     await write(css, dir, base)
     return { css }
   }
