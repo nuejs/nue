@@ -28,7 +28,7 @@
 
       <hr>
 
-       <button><icon key="question"/></button>
+       <button data-accesskey="?" popovertarget="help"><icon key="question"/></button>
     </nav>
 
   </header>

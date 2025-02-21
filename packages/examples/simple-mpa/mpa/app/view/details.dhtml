@@ -9,7 +9,6 @@
   <header>
     <h3>Discussion</h3>
     <nav>
-      <button data-accesskey="?" popovertarget="help">Help</button>
       <button @click="router.del('id')">×</button>
     </nav>
   </header>
@@ -58,7 +57,7 @@
 
 
 <header @name="user-header" class="user-header">
-  <figure><img src="/icon/cc/{cc}.svg"></figure>
+  <figure><img src="/app/icon/cc/{cc}.svg"></figure>
   <div>
     <h2>{{ name }}</h2>
     <p>{{ email }}</p>
