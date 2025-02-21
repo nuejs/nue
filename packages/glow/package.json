@@ -21,7 +21,6 @@
   },
   "jest": {
     "setupFilesAfterEnv": [
-      "jest-extended/all",
       "<rootDir>/../../setup-jest.js"
     ]
   }

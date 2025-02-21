@@ -90,7 +90,7 @@ All attribute values are accessible inside the component:
 Standard HTML attributes like `id`, `class`, `style`, and `data-*` remain on the element, while nonstandard attributes like `:title` are removed after the value is passed to the component.
 
 ### Interpolation
-Nue supports both bracket syntax and [string interpolation](https://en.wikipedia.org/wiki/String_interpolation) directly in attribute values:
+Nue supports both bracket syntax and [string interpolation](//en.wikipedia.org/wiki/String_interpolation) directly in attribute values:
 
 ```html
 <!-- Attribute value with brackets -->
@@ -107,7 +107,7 @@ Nue supports both bracket syntax and [string interpolation](https://en.wikipedia
 ```
 
 ### Boolean attributes
-Nue automatically detects [boolean attributes](https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#boolean-attributes). In the following example, the `disabled` attribute will be included if `is_disabled` has a truthy value; otherwise, the attribute will be omitted.
+Nue automatically detects [boolean attributes](//html.spec.whatwg.org/multipage/common-microsyntaxes.html#boolean-attributes). In the following example, the `disabled` attribute will be included if `is_disabled` has a truthy value; otherwise, the attribute will be omitted.
 
 ```html
 <button :disabled="is_disabled">Press me</button>

@@ -6,23 +6,26 @@ import { openUrl } from './util.js'
 import { createKit } from './nuekit.js'
 
 const templates = {
-  'simple-blog': 'welcome/',
-  'blank': '',
+  'simple-blog': { open: 'welcome/' },
+  'blank': {},
 }
 
 
 async function serve(args) {
+  const tmpl = templates[args.name]
+  if (tmpl.root) args.root = join(args.root, tmpl.root)
+
   const nue = await createKit(args)
   const terminate = await nue.serve()
 
   // open welcome page
-  if (!args.debug) openUrl(`http://localhost:${nue.port}/${templates[args.name]}`)
+  if (!args.debug) openUrl(`http://localhost:${nue.port}/${tmpl.open || ''}`)
   return terminate
 }
 
 export async function create(args = {}) {
-  if (!args.name) args.name = 'simple-blog'
-  if (!args.root) args.root = args.name
+  if (!args.name) args.name = args.paths.shift() || 'simple-blog'
+  if (!args.root) args.root = args.paths.shift() || args.name
 
   // debug mode with: `nue create test`
   args.debug = args.name == 'test'
@@ -31,7 +34,7 @@ export async function create(args = {}) {
   const { debug, name, root } = args
 
   // check if template exists
-  if (!Object.keys(templates).includes(name)){
+  if (!Object.keys(templates).includes(name)) {
     console.error(`Template "${name}" does not exist!`)
     console.error('Available templates:')
     for (const t of Object.keys(templates)) console.error(' -', t)
@@ -51,7 +54,7 @@ export async function create(args = {}) {
 
   // download archive
   console.info('Loading template...')
-  const archive_name = join(root, `${name}-source.tar.gz`)
+  const archive_name = join(root, 'source.tar.gz')
   const archive_web = `https://${name}.nuejs.org/${debug ? 'test' : 'source'}.tar.gz`
   const archive = await fetch(archive_web)
 
@@ -66,5 +69,6 @@ export async function create(args = {}) {
   await fs.rm(archive_name)
 
   // serve
+  console.info(`Created template "${name}" to "${root}".`)
   return await serve(args)
 }

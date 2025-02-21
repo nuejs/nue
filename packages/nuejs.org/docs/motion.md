@@ -24,7 +24,7 @@ In Nue, motion is an enhancement, not a requirement. Motion can be applied or re
 
 
 ## Enter animations
-One of the most underused but incredibly powerful CSS properties is `@starting-style`. While not widely known, it already has an impressive 84% browser adoption rate according to [Can I Use](https://caniuse.com/?search=%40starting-style). This property enables you to define the starting values for an element before it becomes visible, allowing for smooth entry animations without the need for JavaScript workarounds or keyframe animations.
+One of the most underused but incredibly powerful CSS properties is `@starting-style`. While not widely known, it already has an impressive 84% browser adoption rate according to [Can I Use](//caniuse.com/?search=%40starting-style). This property enables you to define the starting values for an element before it becomes visible, allowing for smooth entry animations without the need for JavaScript workarounds or keyframe animations.
 
 `@starting-style` is especially useful for creating seamless animations for elements such as headers, hero images, sidebars, and dialogs. It defines the initial styles for an element, which the browser can transition from when the element first appears. Here's an example of how it can be applied to a popover:
 
@@ -64,7 +64,7 @@ When enabled, view transitions add only a minimal 1.9kB (minified and gzipped) s
 
 1. **Page diffing/swap**: Instead of fully reloading the entire page on each navigation, Page diff/swap intelligently updates only the elements that differ in the new document.
 
-2. **Transition effect**: Nue automatically invokes the [Document: startViewTransition()](https://developer.mozilla.org/en-US/docs/Web/API/Document/startViewTransition) method when a user navigates to a new page, enabling smooth transitions between views.
+2. **Transition effect**: Nue automatically invokes the [Document: startViewTransition()](//developer.mozilla.org/en-US/docs/Web/API/Document/startViewTransition) method when a user navigates to a new page, enabling smooth transitions between views.
 
 The best part for motion designers is the ability to fully customize the default fadeout/fadein transition with CSS. For example, here we implement a subtle yet attractive **fade and scale effect** for the main content:
 

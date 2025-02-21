@@ -62,11 +62,11 @@ feedback:
 
   - user: ctrlzkids
     text: Insanely impressive. Well done 👏
-    url: //www.reddit.com/r/vuejs/comments/16ifij7/comment/k0jhbyl/?utm_source=reddit&utm_medium=web2x&context=3
+    url: //www.reddit.com/r/vuejs/comments/16ifij7/comment/k0jhbyl/
     from: reddit
 
   - user: en_ka8
-    url: //www.reddit.com/r/vuejs/comments/16ifij7/comment/k0v49y7/?utm_source=reddit&utm_medium=web2x&context=3
+    url: //www.reddit.com/r/vuejs/comments/16ifij7/comment/k0v49y7/
     text: I'm really rooting for your project to grow. I'm very excited about its concept. Because I think no framework has it figured out yet, so I really welcome every new solution to make web dev easier.
     from: reddit
 

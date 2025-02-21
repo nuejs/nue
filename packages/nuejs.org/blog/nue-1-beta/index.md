@@ -33,7 +33,7 @@ Exactly one year ago I [decided](/blog/backstory/) to create a super simple webs
 
 
 ## What's new?
-**v1.0 Beta** is by far the biggest release yet with five months of work and over [500 files changed](https://github.com/nuejs/nue/pull/316). This is a breakdown of new features, updates, and breaking changes.
+**v1.0 Beta** is by far the biggest release yet with five months of work and over [500 files changed](//github.com/nuejs/nue/pull/316). This is a breakdown of new features, updates, and breaking changes.
 
 
 ## Improved CSS stack
@@ -55,7 +55,7 @@ View transitions are an important part of a seamless user experience and are a k
 view_transitions: true
 ```
 
-This option was previously called `router`, but this feature is now much more than just a router. It now triggers a [view transition](//developer.mozilla.org/en-US/docs/Web/API/ViewTransition) effect that you can customize with [::view-transition](https://developer.mozilla.org/en-US/docs/Web/CSS/::view-transition) CSS pseudo-element. This website, for example, has a "scale down" transition effect on the page's `article` element. It's defined with this compact CSS:
+This option was previously called `router`, but this feature is now much more than just a router. It now triggers a [view transition](//developer.mozilla.org/en-US/docs/Web/API/ViewTransition) effect that you can customize with [::view-transition](//developer.mozilla.org/en-US/docs/Web/CSS/::view-transition) CSS pseudo-element. This website, for example, has a "scale down" transition effect on the page's `article` element. It's defined with this compact CSS:
 
 
 ```css.blue

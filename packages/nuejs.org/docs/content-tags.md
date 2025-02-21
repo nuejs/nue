@@ -127,7 +127,7 @@ The `large` and `small` attributes can define images with varying aspect ratios,
   | `caption` | Provides context for the image, enhancing user understanding. |
   | `href` | Adds a clickable link to the image, guiding users to related content. |
   | `large` | Specifies the large version of the image, which can differ in aspect ratio from the small version, allowing for creative art direction. |
-  | `loading` | Determines the loading behavior: "lazy" enables [lazy loading](https://developer.mozilla.org/en-US/docs/Web/Performance/Lazy_loading) (default value) or "eager" for immediate loading. |
+  | `loading` | Determines the loading behavior: "lazy" enables [lazy loading](//developer.mozilla.org/en-US/docs/Web/Performance/Lazy_loading) (default value) or "eager" for immediate loading. |
   | `small` | Defines the small version of the image for mobile displays, optimizing visual presentation. |
   | `offset` | Sets the screen size (in pixels) at which the small image switches to the large one, with a default of 750 pixels. |
   | `size` | A shortcut property to provide both width and height simultaneously, formatted as "width x height". |
@@ -217,7 +217,7 @@ Options can also be specified using YAML for enhanced organization:
   | `loop` | Makes the video restart automatically after it reaches the end, which is useful for continuous playback in presentations or promotional content. |
   | `muted` | Plays the video without sound, enabling autoplay in browsers that restrict sound playback. |
   | `poster` | A URL for an image that will be displayed before the video begins playing, giving users a preview of the content. |
-  | `preload` | Provides a [hint to the browser](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#preload) about whether to load the video data before the user plays it. |
+  | `preload` | Provides a [hint to the browser](//developer.mozilla.org/en-US/docs/Web/HTML/Element/video#preload) about whether to load the video data before the user plays it. |
   | `src` | Specifies the URL to the video file, directing the browser to where it can retrieve the video content. |
   | `width` | Determines the width of the video player, allowing for precise control over the layout. |
 
