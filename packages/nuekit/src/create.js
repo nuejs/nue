@@ -6,16 +6,19 @@ import { openUrl } from './util.js'
 import { createKit } from './nuekit.js'
 
 const templates = {
-  'simple-blog': 'welcome/',
+  'simple-blog': { open: 'welcome/' },
 }
 
 
 async function serve(args) {
+  const tmpl = templates[args.name]
+  if (tmpl.root) args.root = join(args.root, tmpl.root)
+
   const nue = await createKit(args)
   const terminate = await nue.serve()
 
   // open welcome page
-  if (!args.debug) openUrl(`http://localhost:${nue.port}/${templates[args.name]}`)
+  if (!args.debug) openUrl(`http://localhost:${nue.port}/${tmpl.open || ''}`)
   return terminate
 }
 
