@@ -60,7 +60,7 @@ bun test
 
 # Node
 npm install
-npm install --no-save esbuild lightningcss jest jest-extended
+npm install --no-save esbuild lightningcss jest@>=30.0.0-alpha.4 jest-extended
 npm test
 ```
 

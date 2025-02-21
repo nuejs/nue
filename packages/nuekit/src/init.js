@@ -2,7 +2,6 @@ import { promises as fs, existsSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-import { resolve } from 'import-meta-resolve'
 import { compileFile as nueCompile } from 'nuejs-core'
 
 import { buildJS } from './builder.js'
@@ -91,6 +90,6 @@ async function initDir({ dist, is_dev, esbuild, cwd, srcdir, outdir }) {
 
 function resolvePath(npm_path) {
   const [npm_name, ...parts] = npm_path.split('/')
-  const module_path = dirname(fileURLToPath(resolve(npm_name, import.meta.url)))
+  const module_path = dirname(fileURLToPath(import.meta.resolve(npm_name)))
   return join(module_path, ...parts)
 }
