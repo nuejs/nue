@@ -20,7 +20,7 @@
     "compile": "cd test && bun compile.js"
   },
   "dependencies": {
-    "htmlparser2": "^9.1.0"
+    "htmlparser2": "^10.0.0"
   },
   "jest": {
     "setupFilesAfterEnv": [
