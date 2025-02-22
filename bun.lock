@@ -33,6 +33,14 @@
         "nuejs-core": "*",
         "nuemark": "*",
       },
+      "peerDependencies": {
+        "esbuild": ">= 0.25",
+        "lightningcss": ">= 1.29",
+      },
+      "optionalPeers": [
+        "esbuild",
+        "lightningcss",
+      ],
     },
     "packages/nuemark": {
       "name": "nuemark",

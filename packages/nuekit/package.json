@@ -29,6 +29,18 @@
     "nuejs-core": "*",
     "nuemark": "*"
   },
+  "peerDependencies": {
+    "esbuild": ">= 0.25",
+    "lightningcss": ">= 1.29"
+  },
+  "peerDependenciesMeta": {
+    "esbuild": {
+      "optional": true
+    },
+    "lightningcss": {
+      "optional": true
+    }
+  },
   "jest": {
     "setupFilesAfterEnv": [
       "<rootDir>/../../setup-jest.js"
