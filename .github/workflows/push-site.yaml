@@ -6,10 +6,11 @@ on:
       - master
     paths:
       - packages/nuejs.org/**
+  workflow_dispatch:
 
 jobs:
   site:
-    if: ${{ github.repository_owner == 'nuejs' }}
+    if: ${{ github.repository_owner == 'nuejs' || github.event_name == 'workflow_dispatch' }}
 
     env:
       dir: 'packages/nuejs.org/'
