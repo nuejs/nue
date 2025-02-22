@@ -303,6 +303,9 @@ export default function createApp(component, data = {}, deps = [], $parent = {})
   const ctx = new Proxy({}, {
     get(__, key) {
 
+      // special handling for $attrs
+      if (key === '$attrs') return $parent.$attrs || {};
+
       // keep this order
       for (const el of [self, impl, data, $parent, $parent.bind]) {
         const val = el && el[key]
