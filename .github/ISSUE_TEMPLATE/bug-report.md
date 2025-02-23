@@ -2,6 +2,7 @@
 name: 🐞 Bug Report
 about: Create a bug report to help us improve Nue
 labels: bug
+type: bug
 ---
 
 <!-- Please search to see if an issue or discussion already exists for the bug you encountered -->
