@@ -2,6 +2,7 @@
 name: 💡 Feature Request or Improvement
 about: Suggest an idea or improvement
 labels: new feature, improvement
+type: feature
 ---
 
 ### Is your feature request or improvement related to a problem?
