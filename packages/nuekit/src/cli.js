@@ -33,7 +33,7 @@ export function getArgs(argv) {
       args.test = true
 
       // command
-    } else if (commands.includes(arg)) {
+    } else if (!args.cmd && commands.includes(arg)) {
       args.cmd = arg
 
       // options
