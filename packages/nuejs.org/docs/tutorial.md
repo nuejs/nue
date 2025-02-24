@@ -2,7 +2,7 @@
 # Tutorial: Building Websites with Nue
 In this tutorial, we'll explore how modern web standards can create sophisticated websites without framework complexity. We'll use a simple blog that demonstrates the power of proper content structure, systematic styling, and native browser capabilities.
 
-[image]
+[image]:
   small: /img/blog-hero.png
   large: /img/blog-hero-big.png
   url: //simple-blog.nuejs.org
@@ -97,7 +97,7 @@ These settings apply across the site, but can be customized for specific areas o
 ### Blog entries
 All blog posts live in the `blog` directory as Markdown files. Take a look at any `.md` file and you'll see clean, readable content:
 
-[image.bordered]
+[image.bordered]:
   small: /img/blog-content-editing.png
   large: /img/blog-content-editing-big.png
 
