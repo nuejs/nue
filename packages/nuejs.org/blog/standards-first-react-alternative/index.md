@@ -8,7 +8,7 @@ date: 2025-05-08
 
 Hyper is a standards first markup language for building user interfaces. It enables developers (and AI models) to generate complex UIs with amazingly clean syntax.
 
-[image.bordered]
+[image.bordered]:
   large: img/hyper-banner-dark-big.png
   small: img/hyper-banner-dark.png
   size: 1305 × 517
@@ -40,15 +40,15 @@ Let's study the difference in more detail:
 Below is a basic `<table>` component defined in three ways:
 
 [.row]
-  [! img/simple-table-1.png]
+  [! img/simple-table-1.png]:
     caption: Modern React
     href: simple-table.html
 
-  [! img/simple-table-2.png]
+  [! img/simple-table-2.png]:
     caption: Old school React
     href: simple-table.html#oldschool
 
-  [! img/simple-table-3.png]
+  [! img/simple-table-3.png]:
     caption: Hyper
     href: simple-table.html#hyper
 
@@ -66,13 +66,13 @@ While these differences might seem minor, they become apparent when we move to m
 Next we examine how these approaches handle increasing complexity. Here's the same table component, but now with sorting and filtering:
 
 [.row]
-  [! img/complex-table-1.png caption="Modern React"]
+  [! img/complex-table-1.png caption="Modern React"]:
     href: complex-table.html
 
-  [! img/complex-table-2.png caption="Vanilla TSX"]
+  [! img/complex-table-2.png caption="Vanilla TSX"]:
     href: complex-table.html#oldschool
 
-  [! img/complex-table-3.png caption="Hyper"]
+  [! img/complex-table-3.png caption="Hyper"]:
     href: complex-table.html#hyper
 
 
@@ -87,7 +87,7 @@ Next we examine how these approaches handle increasing complexity. Here's the sa
 ## Design systems
 Here's an example dashboard assembled with Hyper:
 
-[image.large]
+[image.large]:
   large: img/minimalist-big.png
   small: img/minimalist.png
   href: /hyper/demo/dashboard/minimal.html
@@ -96,7 +96,7 @@ Here's an example dashboard assembled with Hyper:
 
 Here is the same dashboard, but with "Ramsian" look and feel:
 
-[image.large]
+[image.large]:
   large: img/ramsian-big.png
   small: img/ramsian.png
   href: /hyper/demo/dashboard/ramsian.html
@@ -107,7 +107,7 @@ This transformation required zero changes to component code. Just a [32-line CSS
 ### Modern React: tightly coupled design
 This kind of design swap becomes a large programming effort when design choices are coupled into components via CSS-in-JS or Tailwind. For example, in ShadCN, to change the typography of your headings, you need to edit [alert-dialog.tsx](//github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/alert-dialog.tsx), [alert.tsx](//github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/alert.tsx), [card.tsx](//github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/card.tsx), [dialog.tsx](//github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/dialog.tsx), [drawer.tsx](//github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/drawer.tsx), and [sheet.tsx](//github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/sheet.tsx). This requires understanding of idioms like `data-slot`, `{...props}`, `cn()`, `clsx()`, and `twMerge()`. Here's the code for the title and description elements:
 
-[image]
+[image]:
   large: img/shadcn-typo-big.png
   small: img/shadcn-typo.png
 
@@ -139,8 +139,8 @@ By contrast, Hyper colocates your typography concerns into a single CSS file, ac
 This solves three key issues in modern React:
 
 1. **Truly reusable components** across projects and styling contexts
-1. **Central design system** easily maintainable from the same place
-1. **Zero boilerplate** due to strict separation of concerns
+2. **Central design system** easily maintainable from the same place
+3. **Zero boilerplate** due to strict separation of concerns
 
 Nue actually _enforces_ you to external design system. Tight coupling in any form: CSS-in-JS, class name abuse, component-specific `<style>` elements, inline `style` attributes, or cryptic class name values like `size-[max(100%,2.75rem)]` are systematically eliminated.
 
@@ -148,7 +148,7 @@ Nue actually _enforces_ you to external design system. Tight coupling in any for
 ## Scalability
 Here's how simplicity scales: a full-scale [app](//mpa.nuejs.org/app/) lighter than a React button:
 
-[bunny-video]
+[bunny-video]:
   videoId: 39b76cca-e55b-4e9b-8583-b053f9dbd55d
   poster: thumbnail_70d8de32.jpg
   width: 704
@@ -156,7 +156,7 @@ Here's how simplicity scales: a full-scale [app](//mpa.nuejs.org/app/) lighter t
 
 Hyper's standard first approach establishes a different paradigm, centered around simplicity:
 
-[image]
+[image]:
   small: /img/react-button-vs-nue-spa.png
   large: /img/react-button-vs-nue-spa-big.png
   size:  704 × 394
@@ -205,7 +205,7 @@ While Svelte and Vue both offer a more lightweight development environment than 
 Nue is a website/webapp generator based on [Nue JS](//github.com/nuejs/nue/tree/master/packages/nuejs) templating. Hyper is the next evolution of Nue JS, which it will replace. All Nue projects reside under the same [monorepo](//github.com/nuejs/nue/tree/master/packages/). Here's how the product hierarchy will eventually look:
 
 
-[image]
+[image]:
   large: img/branding-big.png
   caption: Hyperlink is the upcoming router solution. The shield icon represents the close connection to web standards
   small: img/branding.png
@@ -251,7 +251,7 @@ A way for you and AI's to generate UIs with minimal effort:
 * Self-documenting API and patterns
 * Base design system (headless, grid only)
 
-Estimate: 4-5 months.
+Estimate: 4–5 months.
 
 
 ### How can a small library challenge React's dominance?

@@ -4,7 +4,7 @@ aside: false
 beside: false
 ---
 
-[array-demo]
+[array-demo]:
   users:
     - name: Alex Martinez
       role: Lead frontend developer

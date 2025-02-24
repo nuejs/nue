@@ -7,7 +7,7 @@ include: [video]
 # Apps lighter than a React button
 Nue is a standards-first framework that pushes HTML, CSS, JavaScript, and WASM to their limits. It helps you achieve more with significantly less code:
 
-[image]
+[image]:
   small: /img/react-button-vs-nue-spa.png
   large: /img/react-button-vs-nue-spa-big.png
   size: 720 × 402
@@ -20,7 +20,7 @@ See benchmark and details [here](react-button-vs-nue.html).
 
 The following demo uses **Rust** and **Event Sourcing** for instant keypress search over 150,000 — far beyond where JavaScript (and React) will crash with a stack overflow error:
 
-[bunny-video]
+[bunny-video]:
   videoId: eb65fcdd-5be4-4923-a783-f41efafe58a7
   caption: Instant operations across 150,000 records with Rust/WASM
   poster: /img/rust-splash.png
@@ -36,7 +36,7 @@ Nue apps use a separated model layer to shatter the limits of traditional framew
 
 Nue outperforms today’s frameworks across every key metric: bundle sizes, amount code needed, HMR speed, and build times.
 
-[bunny-video]
+[bunny-video]:
   videoId: ffbb6d40-5b74-4176-a115-d0ed040edca5
   caption: Immediate feedback for design and component updates, preserving app state
   // poster: thumbnail_1ca1bd66.jpg
@@ -66,7 +66,7 @@ Imagine building entire applications with the same code footprint as a single Re
 
 Nue is an ambitious project that reshapes the entire frontend ecosystem:
 
-[image]
+[image]:
   small: /img/roadmap-2025-2.png
   large: /img/roadmap-2025-2-big.png
   width: 650

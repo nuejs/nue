@@ -5,7 +5,7 @@ This tutorial guides you through creating a simple Markdown-based blog with Nue,
 
 [Source code](//github.com/nuejs/nue/tree/master/packages/examples/simple-blog) • [Live demo](//simple-blog.nuejs.org)
 
-[image]
+[image]:
   small: /img/blog-hero.png
   large: /img/blog-hero-big.png
   url: //simple-blog.nuejs.org
@@ -74,7 +74,7 @@ Content starts here...
 
 The front matter at the top provides metadata — title, description, date — that Nue uses to display the post. The Markdown below is the content itself.
 
-[image.bordered]
+[image.bordered]:
   small: /img/blog-content-editing.png
   large: /img/blog-content-editing-big.png
 

@@ -6,7 +6,7 @@ __The Vision__
 # Radically simpler stack
 We are building a radically simpler frontend tooling to bring back the joy of web development:
 
-[image]
+[image]:
   small: /img/roadmap-2025-2.png
   large: /img/roadmap-2025-2-big.png
   width: 750

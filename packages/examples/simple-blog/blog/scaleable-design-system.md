@@ -38,7 +38,7 @@ Use gradual rollouts: Introduce changes incrementally over time. Don't rebuild e
 
 By investing in these areas, you can craft a design system that brings cohesion and consistency to products, while still being flexible enough to allow for creative solutions. The ultimate goal is scalable, maintainable CSS that matches the ever-evolving needs of organizations and developers alike. Put in the work upfront, and your system will pay dividends down the road.
 
-[image]
+[image]:
   src: img/ui-2.png
   alt: UI panels
   size: 700 × 525 px
