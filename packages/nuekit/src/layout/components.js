@@ -34,12 +34,13 @@ function toSymbol(svg, name='x', size=24) {
   return elem('symbol', attr, body)
 }
 
-export function renderSymbols({ dir, files }) {
+export function renderSymbols({ args, dir, files }) {
+  const pth = join(args.root, dir)
   try {
     if (files) files = files.split(' ').map(name => `${name}.svg`)
-    else files = readdirSync(dir)
+    else files = readdirSync(pth)
   } catch (e) {
-    console.info('Could not find dir', process.cwd(), dir)
+    console.info('Could not find dir', dir)
     return ''
   }
   const html = []
@@ -47,7 +48,7 @@ export function renderSymbols({ dir, files }) {
   for (const name of files) {
     try {
       if (name.endsWith('.svg')) {
-        const svg = readFileSync(join(dir, name), 'UTF-8')
+        const svg = readFileSync(join(pth, name), 'UTF-8')
         html.push(toSymbol(svg, name.replace('.svg', '')))
       }
     } catch (e) {
