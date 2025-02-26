@@ -2,4 +2,4 @@
 title: Simple multi-page application / Nue
 globals: [ "@global", view, controllers, css ]
 view_transitions: true
-libs: [app]
+libs: [app/view]

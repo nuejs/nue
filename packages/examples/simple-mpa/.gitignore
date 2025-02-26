@@ -1,5 +1,4 @@
 
-mock-generator
-rust/target
-rust/pkg
+app/model-rs/target
+app/model-rs/pkg
 *.lock

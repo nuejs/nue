@@ -1,6 +1,6 @@
 
 <script>
-  import { model } from '/model/index.js'
+  import { model } from '../model/index.js'
 </script>
 
 <div @name="login">

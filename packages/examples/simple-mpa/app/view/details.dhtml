@@ -1,7 +1,7 @@
 
 <script>
   import { router } from '/@nue/app-router.js'
-  import { model } from '/model/index.js'
+  import { model } from '../model/index.js'
   import { setSelected } from './util.js'
 </script>
 

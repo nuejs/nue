@@ -1,9 +1,8 @@
 
 <script>
-  import { model } from '/model/index.js'
+  import { model } from '/app/model/index.js'
   await model.load()
 </script>
-
 
 
 <div @name="list-demo" class="ui">

@@ -1,6 +1,6 @@
 
 import { router } from '/@nue/app-router.js'
-import { model } from '/model/index.js'
+import { model } from '../model/index.js'
 import { mount } from '/@nue/mount.js'
 
 
@@ -21,5 +21,5 @@ addEventListener('route:app', async function() {
 })
 
 
-// page loaded directly
+// page loaded directly (not through MPA routing)
 if (window.app) dispatchEvent(new Event('route:app'))

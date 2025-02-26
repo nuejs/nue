@@ -3,7 +3,7 @@
   import { loadPage } from '/@nue/view-transitions.js'
   import { router } from '/@nue/app-router.js'
   import { setSelected } from './util.js'
-  import { model } from '/model/index.js'
+  import { model } from '../model/index.js'
 </script>
 
 <aside @name="nav-panel">

@@ -109,7 +109,7 @@ export async function fswalk(opts, _dir = '', _ret = []) {
   return _ret
 }
 
-const IGNORE = ['node_modules', 'functions', 'package.json', 'bun.lockb', 'pnpm-lock.yaml', 'README.md']
+const IGNORE = ['node_modules', 'functions', 'package.json', 'bun.lockb', 'pnpm-lock.yaml', 'README.md', 'model-rs']
 const IGNORE_EXT = ['.toml', '.rs', '.lock']
 
 function ignore(name = '') {
