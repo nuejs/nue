@@ -32,7 +32,7 @@ document.addEventListener('keydown', (evt) => {
   if (key == 'Escape' && !$(':popover-open')) router.del('id')
 
   // check for accesskey element
-  $$('[data-accesskey]').forEach(el => {
+  $$('[data-accesskey]').filter(el => !el.disabled).forEach(el => {
     if (el.dataset.accesskey == key) {
       el.focus()
       el.click()
@@ -62,9 +62,7 @@ function getNext(go_forward) {
   // seek to next page
   const btn = $(`[data-accesskey=${go_forward ? 'l' : 'h'}]`)
 
-  if (btn.disabled) {
-
-  } else {
+  if (!btn.disabled) {
     btn.click()
     const links = $$(ITEM)
     return links[go_forward ? 0 : links.length -1]

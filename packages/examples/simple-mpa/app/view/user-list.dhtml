@@ -35,10 +35,16 @@
     formatDate = formatDate
     view_mode = 'tabular'
 
+    toggleViewMode(grid) {
+      this.view_mode = grid ? 'grid' : 'tabular'
+    }
+
     mounted() {
       router.bind('grid', ({ grid }) => {
-        this.update({ view_mode: grid ? 'grid' : 'tabular' })
+        this.toggleViewMode(grid)
+        this.update()
       })
+      this.toggleViewMode(router.state.grid)
     }
   </script>
 

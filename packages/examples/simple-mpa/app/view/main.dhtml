@@ -12,7 +12,7 @@
       <small>{ status() }</small>
 
       <button @click="seek(-1)" data-accesskey="h"
-        title="Previous page" :disabled="!coll?.start"><icon key="chevron-left"/></button>
+        :disabled="!coll?.start" title="Previous page"><icon key="chevron-left"/></button>
 
       <button @click="seek(1)" data-accesskey="l"
         :disabled="coll?.start + coll?.length >= coll?.total" title="Next page">
@@ -21,10 +21,10 @@
       <hr>
 
       <button @click="toggleGrid(null)" data-accesskey="g"
-        title="Show table view"><icon key="list"/></button>
+        :disabled="!is_grid" title="Show table view"><icon key="list"/></button>
 
       <button @click="toggleGrid(1)" data-accesskey="g"
-        title="Show grid view"><icon key="grid"/></button>
+        :disabled="is_grid" title="Show grid view"><icon key="grid"/></button>
 
       <hr>
 
@@ -37,9 +37,11 @@
 
   <script>
     router = router
+    is_grid = false
 
     toggleGrid(grid) {
       router.set({ grid })
+      this.is_grid = grid
     }
 
     mounted() {
@@ -48,6 +50,7 @@
         this.mountChild('user-list', window.main_wrap, data)
         this.update()
       })
+      this.toggleGrid(router.state.grid)
     }
 
     seek(to) {
