@@ -16,6 +16,7 @@ jobs:
       matrix:
         dir: # dirs in "examples" to run build & push process for
           - simple-blog
+          - simple-mpa
 
     env:
       dir: 'packages/examples/${{ matrix.dir }}/'
