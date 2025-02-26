@@ -11,9 +11,9 @@ const COUNTRIES = {
 
 const SIZES = {
   xl: { label: 'Very large', desc: '100 or more' },
-  s:  { label: 'Large',   desc: '50 – 100' },
+  l:  { label: 'Large',   desc: '50 – 100' },
   m:  { label: 'Medium', desc: '10 – 50' },
-  l:  { label: 'Small', desc: '0 – 10' },
+  s:  { label: 'Small', desc: '0 – 10' },
 }
 
 export function createUser(item, total) {

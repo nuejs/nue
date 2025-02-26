@@ -71,9 +71,9 @@ impl Engine {
    let mut matches: Vec<&String> = self.events.iter()
      .filter(|line| {
        let line = line.to_lowercase();
-       line.contains(&format!("message\":\"")) && line.contains(&query) ||
-       line.contains(&format!("name\":\"")) && line.contains(&query) ||
-       line.contains(&format!("email\":\"")) && line.contains(&query)
+       line.contains(&"message\":\"".to_string()) && line.contains(&query) ||
+       line.contains(&"name\":\"".to_string()) && line.contains(&query) ||
+       line.contains(&"email\":\"".to_string()) && line.contains(&query)
      })
      .collect();
 
@@ -101,25 +101,32 @@ impl Engine {
 }
 
 fn sort_entries(entries: &mut Vec<&String>, sort_by: Option<&SortField>, ascending: bool) {
- entries.sort_by(|a, b| {
-   let extract_field = |s: &&String, field: &str| {
-     let value: Value = serde_json::from_str(s).unwrap_or_default();
-     value["data"][field].as_str().unwrap_or("").to_string()
-   };
+  let plan = vec!["free", "pro", "enterprise"];
+  let size = vec!["s", "m", "l", "xl"];
+  
+  let pos = |s: &str, vec: &Vec<&str>| {
+    vec.iter().position(|&r| r == s).unwrap_or(vec.len())
+  };
 
-   let get_number = |s: &&String, field: &str| {
-     let value: Value = serde_json::from_str(s).unwrap_or_default();
-     value["data"][field].as_u64().unwrap_or(0)
-   };
+  let extract_field = |s: &&String, field: &str| {
+    let value: Value = serde_json::from_str(s).unwrap_or_default();
+    value["data"][field].as_str().unwrap_or("").to_string()
+  };
 
-   let compare = match sort_by {
-     Some(SortField::Id) => get_number(a, "id").cmp(&get_number(b, "id")),
-     Some(SortField::Cc) => extract_field(a, "cc").cmp(&extract_field(b, "cc")),
-     Some(SortField::Plan) => extract_field(a, "plan").cmp(&extract_field(b, "plan")),
-     Some(SortField::Size) => extract_field(a, "size").cmp(&extract_field(b, "size")),
-     None => get_number(a, "id").cmp(&get_number(b, "id"))
-   };
+  let get_number = |s: &&String, field: &str| {
+    let value: Value = serde_json::from_str(s).unwrap_or_default();
+    value["data"][field].as_u64().unwrap_or(0)
+  };
+ 
+  entries.sort_by(|a, b| {
+    let compare = match sort_by {
+      Some(SortField::Id) => get_number(a, "id").cmp(&get_number(b, "id")),
+      Some(SortField::Cc) => extract_field(a, "cc").cmp(&extract_field(b, "cc")),
+      Some(SortField::Plan) => pos(extract_field(a, "plan").as_str(), &plan).cmp(&pos(extract_field(b, "plan").as_str(), &plan)),
+      Some(SortField::Size) => pos(extract_field(a, "size").as_str(), &size).cmp(&pos(extract_field(b, "size").as_str(), &size)),
+      None => get_number(a, "id").cmp(&get_number(b, "id"))
+    };
 
-   if ascending { compare } else { compare.reverse() }
- });
+    if ascending { compare } else { compare.reverse() }
+  });
 }

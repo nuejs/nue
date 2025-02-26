@@ -63,7 +63,7 @@
 <header @name="user-sort">
   <h3>Sort by</h3>
   <nav>
-    <button @click="sort('id')">Created</button>
+    <button @click="sort()">Created</button> <!-- sort('id') -->
     <button @click="sort('cc')">Country</button>
     <button @click="sort('size')">Company size</button>
     <button @click="sort('plan')">Plan</button>
