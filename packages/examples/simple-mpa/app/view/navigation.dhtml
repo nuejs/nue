@@ -16,11 +16,11 @@
     <search-input/>
 
     <nav>
-      <a data-accesskey="0" href="/app/"><icon key="users"/>All contacts</a>
+      <a data-accesskey="1" href="/app/"><icon key="users"/>All contacts</a>
       <a data-accesskey="2" href="/app/demo_request/"><icon key="demo_request"/>Demo requests</a>
-      <a data-accesskey="1" href="/app/question/"><icon key="question"/>Questions</a>
-      <a data-accesskey="3" href="/app/problem/"><icon key="problem"/>Problems</a>
-      <a data-accesskey="4" href="/app/feedback/"><icon key="feedback"/>Feedback</a>
+      <a data-accesskey="3" href="/app/question/"><icon key="question"/>Questions</a>
+      <a data-accesskey="4" href="/app/problem/"><icon key="problem"/>Problems</a>
+      <a data-accesskey="5" href="/app/feedback/"><icon key="feedback"/>Feedback</a>
     </nav>
 
     <details open>
@@ -74,7 +74,7 @@
 
 
 <div @name="account">
-  <a @click="logout">Logout</a>
+  <a href="#" @click="logout">Logout</a>
 
   <script>
     logout() {

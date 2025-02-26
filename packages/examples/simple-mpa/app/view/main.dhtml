@@ -28,7 +28,8 @@
 
       <hr>
 
-       <button><icon key="question"/></button>
+       <button popovertarget="help" data-accesskey="?"
+          title="Show keyboard shortcuts"><icon key="question"/></button>
     </nav>
 
   </header>

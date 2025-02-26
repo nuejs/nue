@@ -10,8 +10,7 @@
   <header>
     <h3>Discussion</h3>
     <nav>
-      <button data-accesskey="?" popovertarget="help">Help</button>
-      <button @click="router.del('id')">×</button>
+      <button @click="router.del('id')"><icon key="x"/></button>
     </nav>
   </header>
 
