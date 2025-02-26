@@ -2,13 +2,15 @@
 # Get Started with Nue
 
 ## 1. Install Bun
-
 First, install [Bun](//bun.sh):
 
 ```sh
 # Install Bun
 curl -fsSL https://bun.sh/install | bash
 ```
+
+Nue uses Bun for its superior web standards support, including native CSS parsing. Check details on why nue prefers Bun over Node.js from our [fAQ](faq.html).
+
 
 ## 2. Install Nue
 
@@ -18,6 +20,9 @@ Next, install Nue globally:
 # Install Nue
 bun install nuekit --global
 ```
+
+Nue uses global installation because it is a command line tool like Git or Docker. Just go to a directory and type `nue` to develop.
+
 
 ## 3. Create a Website
 
