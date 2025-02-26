@@ -11,7 +11,7 @@ const templates = {
 
 
 async function serve(args) {
-  const tmpl = templates[args.name]
+  const tmpl = templates[args.name] || {}
   if (tmpl.root) args.root = join(args.root, tmpl.root)
 
   const nue = await createKit(args)
@@ -34,7 +34,9 @@ export async function create(args = {}) {
   const is_gh = name.split('/').length == 2
 
   // check if template exists
-  if (!is_gh && !Object.keys(templates).includes(name)) {
+  const template_dirs = (await (await fetch('https://api.github.com/repos/nuejs/nue/contents/packages/examples')).json()).filter(el => el.type == 'dir')
+  const template_names = template_dirs.map(el => el.name)
+  if (!is_gh && !template_names.includes(name)) {
     console.error(`Template "${name}" does not exist!`)
     console.error('Available templates:')
     for (const t of Object.keys(templates)) console.error(' -', t)
