@@ -39,6 +39,8 @@ span[role=tooltip] {
 
   &.on-bottom {
     position-area: bottom;
+    position-try: bottom left;
+    right: -3em;
     margin: 10px 0 0;
   }
 }

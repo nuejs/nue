@@ -18,6 +18,14 @@ document.addEventListener('mouseenter', e => {
   const title = el.nodeType == 1 && el.title
   if (!title && !kbd) return
 
+  if (!CSS.supports('anchor-name: --tip')) {
+    if (data.titled) return
+
+    const text = [el.title || el.innerText?.replaceAll('\n', ' '), kbd && `[${kbd}]`]
+    el.title = text.filter(Boolean).join(' ')
+    return el.dataset.titled = true
+  }
+
   if (title) {
     el.removeAttribute('title')
     data.title = title
@@ -29,9 +37,8 @@ document.addEventListener('mouseenter', e => {
   timers[0] = setTimeout(_ => {
 
     // tip content
-    const html = [data.title || el.innerText]
-    if (kbd) html.push(`<kbd>${kbd}</kbd>`)
-    tip.innerHTML = html.join(' ')
+    const html = [data.title || el.innerText, kbd && `<kbd>${kbd}</kbd>`]
+    tip.innerHTML = html.filter(Boolean).join(' ')
 
     // position via anchor API
     el.style['anchor-name'] = '--tip'
