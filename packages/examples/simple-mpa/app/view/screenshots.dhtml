@@ -43,13 +43,13 @@
   </header>
 
   <figure>
-    <img :src="img/{ shot }">
+    <img :src="/app/img/{ shot }">
   </figure>
 
   <aside>
     <ul class="thumbs">
       <li :for="name, i in items">
-        <button @click="seek(i)"><img src="img/{ name }"></button>
+        <button @click="seek(i)"><img src="/app/img/{ name }"></button>
       </li>
     </ul>
   </aside>
