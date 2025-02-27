@@ -8,7 +8,7 @@
 
 <aside @name="nav-panel">
   <header>
-    <h1><img class="logo" src="/img/logo.svg"> Big Design Inc.</h1>
+    <h1><img class="logo" src="/app/img/logo.svg"> Big Design Inc.</h1>
   </header>
 
   <section>

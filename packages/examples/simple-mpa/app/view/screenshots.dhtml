@@ -8,7 +8,7 @@
 
   <ul class="thumbs">
     <li :for="name, i in items">
-      <button @click="open(i)"><img src="/img/{ name }"></button>
+      <button @click="open(i)"><img src="/app/img/{ name }"></button>
     </li>
   </ul>
 
@@ -43,13 +43,13 @@
   </header>
 
   <figure>
-    <img :src="/img/{ shot }">
+    <img :src="img/{ shot }">
   </figure>
 
   <aside>
     <ul class="thumbs">
       <li :for="name, i in items">
-        <button @click="seek(i)"><img src="/img/{ name }"></button>
+        <button @click="seek(i)"><img src="img/{ name }"></button>
       </li>
     </ul>
   </aside>

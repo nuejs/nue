@@ -7,7 +7,7 @@
 
   <form @submit.prevent="login" class="login ui card">
     <header>
-      <img src="/img/logo.svg">
+      <img src="/app/img/logo.svg">
       <h1>Login</h1>
     </header>
 
