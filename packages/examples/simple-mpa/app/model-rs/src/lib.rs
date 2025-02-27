@@ -16,15 +16,15 @@ pub struct QueryParams {
 }
 
 #[wasm_bindgen]
-pub struct Model {
+pub struct Engine {
  events: Vec<String>,
 }
 
 #[wasm_bindgen]
-impl Model {
+impl Engine {
  #[wasm_bindgen(constructor)]
  pub fn new() -> Self {
-   Model { events: Vec::new() }
+   Engine { events: Vec::new() }
  }
 
  pub fn add_events(&mut self, input: String) {

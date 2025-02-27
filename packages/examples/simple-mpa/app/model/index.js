@@ -1,14 +1,17 @@
 
-import init, { Model } from './engine.js'
+import init, { Engine } from './wasm/engine.js'
 
+import { loadChunks } from './event-sourcing.js'
+import { fetchData, login } from './auth.js'
+import { createUser } from './users.js'
+
+
+// initialize WASM engine
 await init()
-const engine = new Model()
+const engine = new Engine()
 
 const handlers = []
-
-function emit(event, data) {
-  handlers.forEach(h => { if (h.event === event) h.fn(data) })
-}
+const CACHE = {}
 
 export const model = {
 
@@ -25,7 +28,7 @@ export const model = {
   filter(args) {
 
     // filtering parameters
-    const { type, query } = args
+    const { type, query, filter } = args
 
     // query parameters
     const params = {
@@ -39,14 +42,15 @@ export const model = {
     if (query) return model.search(query, params)
 
     // model.filter({ type: "question", cc: "cn" }, { start: 0, length: 10 })
-    const str = engine.filter(getFilter(type, args.filter), params)
+    const opts = filter ? { [type]: filter } : { type }
+    const str = engine.filter(opts, params)
     return parseItems(str)
   },
 
   get(id) {
     if (CACHE[id]) return CACHE[id]
     const item = engine.get(id)
-    if (item) return CACHE[id] = setup(JSON.parse(item))
+    if (item) return CACHE[id] = createUser(JSON.parse(item), model.total)
   },
 
   all(params) {
@@ -60,15 +64,7 @@ export const model = {
   },
 
   async login(email, password) {
-    const response = await fetch('/mocks/login.json', {
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-      method: 'POST',
-    })
-
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
-
-    const { sessionId, user } = await response.text()
+    const { sessionId, user } = await login(email, password)
     sessionStorage.sid = sessionId
     model.user = user
     emit('authenticated', user)
@@ -83,16 +79,9 @@ export const model = {
   async load() {
     const total = engine.get_total()
     if (total > 0) return model.total = total
-
-    engine.add_events(await loadChunk())
-
-    const ts = localStorage.getItem('_ts') || 0
-
-    if (ts) engine.add_events(await loadChunk(ts))
-
+    const chunks = await loadChunks()
+    chunks.forEach(chunk => engine.add_events(chunk))
     model.total = engine.get_total()
-
-    localStorage.setItem('_ts', Date.now())
   },
 
   async initialize() {
@@ -103,28 +92,9 @@ export const model = {
   }
 }
 
-/* fetch and auth */
-async function fetchData(path, as_text) {
-  const { sid } = sessionStorage
-  if (!sid) throw new Error('No active session')
-
-  const res = await fetch('/mocks/' + path, {
-    headers: { 'Authorization': `Bearer ${sid}` }
-  })
-
-  return as_text ? await res.text() : await res.json()
+function emit(event, data) {
+  handlers.forEach(h => { if (h.event === event) h.fn(data) })
 }
-
-async function loadChunk(ts) {
-  return await fetchData(ts ? `chunk-1.json?ts=${ts}` : 'chunk-0.json', true)
-}
-
-const CACHE = {}
-
-function getFilter(type, filter) {
-  return filter ? { [type]: filter } : { type }
-}
-
 
 
 function hilite(query, data) {
@@ -134,59 +104,8 @@ function hilite(query, data) {
   })
 }
 
-// limited demo list
-const COUNTRIES = {
-  cn: 'China',
-  de: 'Germany',
-  fr: 'France',
-  jp: 'Japan',
-  uk: 'UK',
-  us: 'USA',
-}
-
-const SIZES = {
-  xl: { label: 'Very large', desc: '100 or more' },
-  s:  { label: 'Large',   desc: '50 – 100' },
-  m:  { label: 'Medium', desc: '10 – 50' },
-  l:  { label: 'Small', desc: '0 – 10' },
-}
-
-function createThread(created, body) {
-  const thread = [{ created, body }]
-
-  thread.reply = function(body) {
-    thread.push({ created: new Date(), body, is_reply: true })
-  }
-
-  // temporary
-  thread.reply('Can you provide me your system information? Thanks.')
-
-  thread.push({ created: new Date(), body: '👍' })
-
-  return thread
-}
-
-function setup(item) {
-  const { type, ts, data } = item
-  const created = toDate(ts, model.total)
-  const country = COUNTRIES[data.cc]
-  const thread = createThread(created, data.message)
-  return { ...data, type, created, thread, country, size: SIZES[data.size] }
-}
-
 function parseItems(str) {
   const data = JSON.parse(str)
-  data.items = data.items.map(setup)
+  data.items = data.items.map(item => createUser(item, model.total))
   return data
 }
-
-function toDate(index, total) {
-  const now = Date.now()
-  const twoYearsAgo = now - (2 * 365 * 24 * 60 * 60 * 1000)
-  const progress = Math.log(index) / Math.log(total)
-  const baseTime = twoYearsAgo + (now - twoYearsAgo) * progress
-  const jitter = (Math.random() - 0.5) * 12 * 60 * 60 * 1000 // ±12 hours
-  return new Date(baseTime + jitter)
-}
-
-

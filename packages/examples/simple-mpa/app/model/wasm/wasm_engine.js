@@ -574,7 +574,7 @@ async function __wbg_init(module_or_path) {
     }
 
     if (typeof module_or_path === 'undefined') {
-        module_or_path = new URL('engine_bg.wasm', import.meta.url);
+        module_or_path = new URL('wasm_engine_bg.wasm', import.meta.url);
     }
     const imports = __wbg_get_imports();
 
