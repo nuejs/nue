@@ -1,6 +1,6 @@
 
 /* fetch and auth */
-export async function fetchData(path, as_text) {
+export async function fetchWithAuth(path, as_text) {
   const { sid } = sessionStorage
   if (!sid) throw new Error('No active session')
 

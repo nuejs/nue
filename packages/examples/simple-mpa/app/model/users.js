@@ -18,14 +18,14 @@ const SIZES = {
 
 export function createUser(item, total) {
   const { type, ts, data } = item
-  const created = toDate(ts, total)
+  const created = fakeDate(ts, total)
   const country = COUNTRIES[data.cc]
-  const thread = createFakeDiscussion(created, data.message)
+  const thread = fakeDiscussion(created, data.message)
   return { ...data, type, created, thread, country, size: SIZES[data.size] }
 }
 
 
-function createFakeDiscussion(created, body) {
+function fakeDiscussion(created, body) {
   const thread = [{ created, body }]
 
   thread.reply = function(body) {
@@ -41,7 +41,7 @@ function createFakeDiscussion(created, body) {
 }
 
 
-function toDate(index, total) {
+function fakeDate(index, total) {
   const now = Date.now()
   const twoYearsAgo = now - (2 * 365 * 24 * 60 * 60 * 1000)
   const progress = Math.log(index) / Math.log(total)

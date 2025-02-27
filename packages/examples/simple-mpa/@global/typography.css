@@ -1,43 +1,45 @@
 
-:root {
-  --ui: 14px;
+@layer settings {
 
   /* typescale: perfect fifth */
-  --typescale: 1.33;
-
-  --m:    16px;
-  --s:    calc(var(--m) / var(--typescale));
-  --l:    calc(var(--m) * var(--typescale));
-  --xl:   calc(var(--m) * pow(var(--typescale), 2));
-  --xxl:  calc(var(--m) * pow(var(--typescale), 3));
-
+  :root {
+    --typescale: 1.33;
+    --m:    16px;
+    --s:    calc(var(--m) / var(--typescale));
+    --l:    calc(var(--m) * var(--typescale));
+    --xl:   calc(var(--m) * pow(var(--typescale), 2));
+    --xxl:  calc(var(--m) * pow(var(--typescale), 3));
+  }
 }
 
+@layer elements {
 
-h1, h2, h3, h4, h5 {
-  overflow-wrap: break-word;
-  text-wrap: balance;
-  margin-top: var(--l);
-  margin-bottom: var(--m);
-}
+  h1, h2, h3, h4, h5 {
+    overflow-wrap: break-word;
+    text-wrap: balance;
+    margin-top: var(--l);
+    margin-bottom: var(--m);
+  }
 
 
-h1 {
-  font-size: var(--xxl);
-  line-height: 1.1
-}
+  h1 {
+    font-size: var(--xxl);
+    line-height: 1.1
+  }
 
-h2 {
-  font-size: var(--xl);
-  line-height: 1.2
-}
+  h2 {
+    font-size: var(--xl);
+    line-height: 1.2
+  }
 
-h3 {
-  font-size: var(--l);
-  line-height: 1.3
-}
+  h3 {
+    font-size: var(--l);
+    line-height: 1.3
+  }
 
-h4 {
-  font-size: var(--m);
-  line-height: 1.4
+  h4 {
+    font-size: var(--m);
+    line-height: 1.4
+  }
+
 }

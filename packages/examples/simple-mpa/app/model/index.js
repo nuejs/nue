@@ -2,7 +2,7 @@
 import init, { Engine } from './wasm/engine.js'
 
 import { loadChunks } from './event-sourcing.js'
-import { fetchData, login } from './auth.js'
+import { fetchWithAuth, login } from './auth.js'
 import { createUser } from './users.js'
 
 
@@ -21,7 +21,7 @@ export const model = {
 
   search(query, params) {
     const data = parseItems(engine.search(query, params))
-    data.items.forEach(el => hilite(query, el))
+    data.items.forEach(el => searchHilite(query, el))
     return data
   },
 
@@ -47,6 +47,7 @@ export const model = {
     return parseItems(str)
   },
 
+  // caching persists discussion replies until reloaded
   get(id) {
     if (CACHE[id]) return CACHE[id]
     const item = engine.get(id)
@@ -86,7 +87,7 @@ export const model = {
 
   async initialize() {
     if (model.authenticated) {
-      if (!model.user) model.user = await fetchData('user.json')
+      if (!model.user) model.user = await fetchWithAuth('user.json')
       emit('authenticated')
     }
   }
@@ -97,7 +98,7 @@ function emit(event, data) {
 }
 
 
-function hilite(query, data) {
+function searchHilite(query, data) {
   const re = new RegExp(`(${query})`, 'gi')
   'name email message'.split(' ').forEach(key => {
     data[key] = data[key].replace(re, '<mark>$1</mark>')
