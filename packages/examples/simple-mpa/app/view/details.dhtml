@@ -25,16 +25,15 @@
 
     mounted() {
       router.bind('id', ({ id }) => {
-        const data = this.item = model.get(id)
+        const item = model.get(id)
 
-        if (data) {
-          this.mountChild('user', window.details_body, data)
-          this.mountChild('chat-form', window.details_footer, data)
+        if (item) {
+          this.mountChild('user', window.details_body, item)
+          this.mountChild('chat-form', window.details_footer, item)
         }
 
         setSelected(`a[href="?id=${id}"]`, 'aria-selected')
-
-        this.update()
+        this.update({ item })
       })
     }
   </script>

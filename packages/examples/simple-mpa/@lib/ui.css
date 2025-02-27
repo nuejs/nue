@@ -13,13 +13,13 @@
     h1, h2, h3, h4, h5, figure { margin: 0 }
 
     h1 {
-      font-size: 2em;
+      font-size: 1.5em;
       font-weight: 600;
       letter-spacing: -.025em;
     }
 
     h2 {
-      font-size: 1.5em;
+      font-size: 1.25em;
       font-weight: 550;
     }
 
