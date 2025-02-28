@@ -1,28 +1,31 @@
 
 
-.user-header {
-  align-items: center;
-  display: flex;
-  gap: .75em;
+@layer element {
+  dl {
+    display: grid;
+    grid-template-columns: 10em 1fr;
+    margin-block: 1em;
+    > * { margin: .25em 0 }
 
-  figure {
-    width: 3.5em;
-    img { border-radius: .25em }
+    dt { font-weight: 510 }
+
+    dd { color: var(--base-600) }
+
+    a  { color: var(--main-500) }
   }
 }
 
-/* metadata */
-.user dl {
-  display: grid;
-  grid-template-columns: 10em 1fr;
-  margin-block: 1em;
-  > * { margin: .25em 0 }
+@layer component {
+  .user-header {
+    align-items: center;
+    display: flex;
+    gap: .75em;
 
-  dt { font-weight: 510 }
-
-  dd { color: var(--base-600) }
-
-  a  { color: var(--main-500) }
+    figure {
+      width: 3.5em;
+      img { border-radius: .25em }
+    }
+  }
 }
 
 

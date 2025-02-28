@@ -1,69 +1,72 @@
 
 
-body {
-  background-color: var(--base-100);
-  overflow: hidden;
-  padding: 1em;
-}
-
-.app {
-  display: flex;
-  gap: 1em;
-
-  .logo { width: 1.75em }
-
-  /* panel dimensions */
-  .navigation { min-width: 16em; }
-
-  main { flex-grow: 1 }
-
-  .details {
-    min-width: 32em;
-    width: 32em;
+@layer element {
+  body {
+    background-color: var(--base-100);
+    overflow: hidden;
+    padding: 1em;
   }
 }
 
-/* app overries */
-.app {
-  button {
-    font-size: .875em;
-    padding: .25em .75em;
-    gap: .25em;
+@layer container {
+  .app {
+    display: flex;
+    gap: 1em;
+
+    .logo { width: 1.75em }
+
+    /* panel dimensions */
+    .navigation { min-width: 16em; }
+
+    main { flex-grow: 1 }
+
+    .details {
+      min-width: 32em;
+      width: 32em;
+    }
+
+    /* app overries */
+    button {
+      font-size: .875em;
+      padding: .25em .75em;
+      gap: .25em;
+    }
+  }
+
+  .login {
+    max-width: 25em;
+    margin: 10% auto;
+    padding: 1.5em 2em;
+
+    footer { margin-block: 1.5em }
+
+    button { width: 100% }
   }
 }
 
-.login {
-  max-width: 25em;
-  margin: 10% auto;
 
-  &.card { padding: 1.5em 2em }
+@layer utilities {
 
-  footer {
-    margin-block: 1.5em;
+  @keyframes pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
   }
 
-  button {
-    width: 100%;
+  .pulsating {
+    opacity: 0.1;
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+    &:nth-child(2) {
+      animation-delay: 0.25s;
+    }
+
+    &:nth-child(3) {
+      animation-delay: .5s;
+    }
   }
+
 }
 
-.loading {
-  opacity: 0.1;
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-
-  &:nth-child(2) {
-    animation-delay: 0.25s;
-  }
-
-  &:nth-child(3) {
-    animation-delay: .5s;
-  }
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; }
-}
 
 
 

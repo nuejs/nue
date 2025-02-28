@@ -1,3 +1,4 @@
+@layer components;
 
 kbd {
   border: 1px solid var(--base-200);
