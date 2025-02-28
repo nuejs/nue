@@ -24,7 +24,7 @@
     }
 
     /* with possible icon prefix */
-    h1, h2, h3 {
+    :is(h1, h2, h3):has(img, svg) {
       align-items: center;
       display: flex;
       gap: .25em;
