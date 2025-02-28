@@ -70,7 +70,7 @@
   </nav>
   <script>
     sort(sort) {
-      router.set({ sort, asc: router.state.asc ? null : true })
+      router.set({ sort, asc: sort != router.state.sort || !router.state.asc })
     }
   </script>
 </header>
