@@ -7,7 +7,8 @@ import { mount } from '/@nue/mount.js'
 router.configure({
   route: '/app/:type/:filter',
   url_params: ['query', 'id', 'start', 'sort', 'asc', 'shot'],
-  persistent_params: ['grid']
+  session_params: ['plans_opened', 'sizes_opened'],
+  persistent_params: ['show_grid_view']
 })
 
 model.on('authenticated', async () => {

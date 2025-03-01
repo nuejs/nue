@@ -32,10 +32,17 @@ export const router = {
     fns.push({ names, fn, namespace })
   },
 
-  set(data) {
+  set(data, _val) {
+    if (typeof data == 'string') data = { [data]: _val }
     if (contains(data, opts.url_params)) data = { ...curr_state, ...data }
     const changes = fire(data)
     if (changes && history) pushURLState(changes)
+  },
+
+  toggle(name, flag) {
+    if (flag === undefined) flag = !router.state[name]
+    router.set({ [name]: flag })
+    return flag
   },
 
   del(key) {

@@ -8,7 +8,7 @@
 <section @name="user-list">
   <user-sort/>
 
-  <ul class="{ router.state.grid ? 'grid' : 'tabular' } list">
+  <ul class="{ router.state.show_grid_view ? 'grid' : 'tabular' } list">
     <li :for="el, i in items">
 
       <a :href="?id={el.id}" class="item">

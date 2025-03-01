@@ -23,8 +23,8 @@
       <a data-accesskey="5" href="/app/feedback/"><icon key="feedback"/>Feedback</a>
     </nav>
 
-    <details open>
-      <summary>Plans</summary>
+    <details name="plans">
+      <summary @click="toggleDetails('plans')">Plans</summary>
       <nav>
         <a href="/app/plan/enterprise" class="plan-enterprise"><icon key="dot"/>Enterprise</a>
         <a href="/app/plan/pro"  class="plan-pro"><icon key="dot"/>Pro</a>
@@ -32,8 +32,8 @@
       </nav>
     </details>
 
-    <details open>
-      <summary>Company size</summary>
+    <details name="sizes">
+      <summary @click="toggleDetails('sizes')">Company size</summary>
       <nav>
         <a href="/app/size/xl" class="size-xl"><icon key="square"/>Very large</a>
         <a href="/app/size/l"  class="size-l"><icon key="square"/>Large</a>
@@ -48,12 +48,25 @@
   </footer>
 
   <script>
-    constructor() {
+    toggleDetails(key) {
+      router.toggle(key + '_opened')
+    }
+
+    mounted() {
       router.bind('type filter', (data, { path }) => {
         setSelected(`a[href$="${path}"]`, 'aria-current', 'page')
       })
+
+      /*
+        "open" attribute binding is problematic so we set initial states manually
+        Same problem in React too: //github.com/facebook/react/issues/15486
+      */
+      const { plans, sizes } = this.$refs
+      plans.open = !router.state.plans_opened
+      sizes.open = !router.state.sizes_opened
     }
   </script>
+
 </aside>
 
 

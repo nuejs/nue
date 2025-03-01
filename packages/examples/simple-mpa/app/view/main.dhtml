@@ -20,16 +20,18 @@
 
       <hr>
 
-      <button @click="toggleGrid(null)" data-accesskey="g"
-        :disabled="!router.state.grid" title="Show table view"><icon key="list"/></button>
+      <button @click="toggleGridView(null)" data-accesskey="g"
+        :disabled="!router.state.show_grid_view"
+        title="Show table view"><icon key="list"/></button>
 
-      <button @click="toggleGrid(1)" data-accesskey="g"
-        :disabled="router.state.grid" title="Show grid view"><icon key="grid"/></button>
+      <button @click="toggleGridView(true)" data-accesskey="g"
+        :disabled="router.state.show_grid_view"
+        title="Show grid view"><icon key="grid"/></button>
 
       <hr>
 
-       <button popovertarget="help" data-accesskey="?"
-          title="Show keyboard shortcuts"><icon key="question"/></button>
+      <button popovertarget="help" data-accesskey="?"
+        title="Show keyboard shortcuts"><icon key="question"/></button>
     </nav>
 
   </header>
@@ -40,8 +42,8 @@
     router = router
     title = router.state.type
 
-    toggleGrid(grid) {
-      router.set({ grid })
+    toggleGridView(show) {
+      router.set({ show_grid_view: show })
     }
 
     mounted() {
