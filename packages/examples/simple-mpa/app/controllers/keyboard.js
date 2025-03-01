@@ -33,7 +33,7 @@ document.addEventListener('keydown', (evt) => {
 
   // check for accesskey element
   $$('[data-accesskey]').filter(el => !el.disabled).forEach(el => {
-    if (el.dataset.accesskey == key) {
+    if (el.dataset.accesskey.split(' ').includes(key)) {
       el.focus()
       el.click()
       if (!el.href) evt.preventDefault()
@@ -41,8 +41,8 @@ document.addEventListener('keydown', (evt) => {
   })
 
   // next/prev seek
-  if ('jk'.includes(key)) {
-    const next = getNext(key == 'j')
+  if (['ArrowDown', 'j', 'ArrowUp', 'k'].includes(key)) {
+    const next = getNext(['ArrowDown', 'j'].includes(key))
     next?.focus()
     if (router.state.id) next?.click()
   }
@@ -60,7 +60,7 @@ function getNext(go_forward) {
   if (next) return next
 
   // seek to next page
-  const btn = $(`[data-accesskey=${go_forward ? 'l' : 'h'}]`)
+  const btn = $(`[data-accesskey="${go_forward ? 'ArrowRight l' : 'ArrowLeft h'}"]`)
 
   if (!btn.disabled) {
     btn.click()

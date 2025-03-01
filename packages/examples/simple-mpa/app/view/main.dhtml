@@ -11,10 +11,10 @@
     <nav>
       <small>{ status() }</small>
 
-      <button @click="seek(-1)" data-accesskey="h"
+      <button @click="seek(-1)" data-accesskey="ArrowLeft h"
         :disabled="!coll?.start" title="Previous page"><icon key="chevron-left"/></button>
 
-      <button @click="seek(1)" data-accesskey="l"
+      <button @click="seek(1)" data-accesskey="ArrowRight l"
         :disabled="coll?.start + coll?.length >= coll?.total" title="Next page">
         <icon key="chevron-right"/></button>
 
