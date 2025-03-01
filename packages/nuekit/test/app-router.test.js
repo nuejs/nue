@@ -22,7 +22,7 @@ test('parse path', () => {
 })
 
 test('parse search', () => {
-  router.configure({ params: ['start', 'length'] })
+  router.configure({ url_params: ['start', 'length'] })
   expect(parseQueryData('?start=10&length=20&foo=bar')).toEqual({ start: '10', length: '20' })
 })
 
@@ -86,8 +86,14 @@ test('renderPath', () => {
 
 
 test('renderQuery', () => {
-  router.configure({ params: ['query', 'start'] })
-
+  router.configure({ url_params: ['query', 'start'] })
   router.set({ query: 'joe', start: 10 })
+})
 
+test('storage', () => {
+  global.sessionStorage = {}
+  global.localStorage = {}
+  router.configure({ session_params: ['foo'] })
+  router.set({ foo: 10 })
+  expect(router.state.foo).toBe(10)
 })

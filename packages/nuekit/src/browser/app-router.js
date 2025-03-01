@@ -1,18 +1,25 @@
 
 // Router for single-page applications
-
 let curr_state = {}
 let fns = []
 let opts
 
 
 export const router = {
-  configure({ route='/', params=[] }) {
-    opts = { route: route.split('/'), params }
+  configure(args) {
+    const {
+      route='/',
+      url_params=[],
+      session_params=[],
+      persistent_params=[],
+    } = args
+
+    opts = { route: route.split('/'), url_params, session_params, persistent_params }
   },
 
   get state() {
-    return isEmpty(curr_state) ? parseData(location) : curr_state
+    const data = isEmpty(curr_state) ? parseData(location) : curr_state
+    return { ...data, ...getStoreData() }
   },
 
   on(names, fn) {
@@ -26,9 +33,9 @@ export const router = {
   },
 
   set(data) {
-    if (intersect(opts.params, Object.keys(data))) data = { ...curr_state, ...data }
+    if (contains(data, opts.url_params)) data = { ...curr_state, ...data }
     const changes = fire(data)
-    if (changes && history) setState(changes)
+    if (changes && history) pushURLState(changes)
   },
 
   del(key) {
@@ -51,7 +58,7 @@ function init(root=document) {
     e.preventDefault()
     const data = parseData(a)
     const changes = fire(a.search ? { ...curr_state, ...data } : data)
-    if (changes) setState(changes)
+    if (changes) pushURLState(changes)
   })
 }
 
@@ -71,12 +78,11 @@ function cleanup() {
 }
 
 export function fire(data) {
-  const changes = diff(curr_state, data)
+  const changes = {...setStoreData(data), ...diff(curr_state, data) }
   if (!changes) return
 
-  // if (changes.path == '/') return
   for (const el of fns.reverse()) {
-    if (intersect(el.names.split(' '), Object.keys(changes))) {
+    if (contains(changes, el.names.split(' '))) {
       el.fn(data, { path: renderPath(data) })
     }
   }
@@ -100,7 +106,7 @@ export function diff(orig, data) {
 }
 
 
-function setState(changes) {
+function pushURLState(changes) {
   if (hasPathData(changes)) {
     history.pushState(curr_state, 0, renderPath() + renderQuery())
 
@@ -136,7 +142,7 @@ export function parseQueryData(search) {
   const data = {}
 
   for (const [name, val] of els) {
-    if (opts.params.includes(name)) data[name] = val
+    if (opts.url_params.includes(name)) data[name] = val
   }
   return data
 }
@@ -146,7 +152,6 @@ function parseData({ pathname, search }) {
   if (!hasPathData(data)) data[getFirstPart()] = ''
   return data
 }
-
 
 function getFirstPart() {
   const key = opts.route.find(el => el[0] == ':')
@@ -170,7 +175,7 @@ export function renderPath(data=curr_state) {
 // from current state
 export function renderQuery() {
   const data = {}
-  opts.params.forEach(function(key) {
+  opts.url_params.forEach(function(key) {
     const val = curr_state[key]
     if (val) data[key] = val
   })
@@ -179,10 +184,45 @@ export function renderQuery() {
 }
 
 
-function intersect(arr_a, arr_b) {
-  return arr_a.filter(el => arr_b.includes(el))[0]
+function contains(data, params) {
+  const keys = Object.keys(data)
+  return params.filter(el => keys.includes(el))[0]
 }
 
 function isEmpty(obj) {
   return !obj || !Object.keys(obj)[0]
+}
+
+
+/* localStorage || sessionStorage */
+const STORE_KEY = '$nue_state'
+
+function setStoreData(data) {
+  const changes = {}
+
+  for (const [key, value] of Object.entries(data)) {
+    const changed = opts.session_params.includes(key) && setStoreValue(sessionStorage, key, value) ||
+      opts.persistent_params.includes(key) && setStoreValue(localStorage, key, value)
+
+    if (changed) changes[key] = value
+  }
+  return changes
+}
+
+function getStoreData() {
+  const data = {}
+  for (const store of [sessionStorage, localStorage]) {
+    const val = store[STORE_KEY]
+    if (val) Object.assign(data, JSON.parse(val))
+  }
+  return data
+}
+
+function setStoreValue(store, key, val) {
+  const data = JSON.parse(store[STORE_KEY] || '{}')
+  if (data[key] != val) {
+    data[key] = val
+    store[STORE_KEY] = JSON.stringify(data)
+    return true
+  }
 }
