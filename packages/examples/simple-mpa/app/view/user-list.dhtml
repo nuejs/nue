@@ -8,7 +8,7 @@
 <section @name="user-list">
   <user-sort/>
 
-  <ul class="{ view_mode } list">
+  <ul class="{ router.state.grid ? 'grid' : 'tabular' } list">
     <li :for="el, i in items">
 
       <a :href="?id={el.id}" class="item">
@@ -33,19 +33,6 @@
 
   <script>
     formatDate = formatDate
-    view_mode = 'tabular'
-
-    toggleViewMode(grid) {
-      this.view_mode = grid ? 'grid' : 'tabular'
-    }
-
-    mounted() {
-      router.bind('grid', ({ grid }) => {
-        this.toggleViewMode(grid)
-        this.update()
-      })
-      this.toggleViewMode(router.state.grid)
-    }
   </script>
 
 </section>
