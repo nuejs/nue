@@ -17,6 +17,7 @@
   },
   "scripts": {
     "test": "node --experimental-vm-modules ../../node_modules/jest/bin/jest.js --runInBand",
+    "test:browser": "bun test test/browser/*.test.js --timeout 10000",
     "compile": "cd test && bun compile.js"
   },
   "dependencies": {
@@ -26,5 +27,8 @@
     "setupFilesAfterEnv": [
       "<rootDir>/../../setup-jest.js"
     ]
+  },
+  "devDependencies": {
+    "happy-dom": "^17.1.8"
   }
 }
