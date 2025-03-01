@@ -1,5 +1,5 @@
 
-@layer component {
+@layer components {
   .emoji {
     font-size: 3em;
     line-height: .75;
@@ -31,9 +31,7 @@
     margin-block: 1em;
     li { width: calc(50% - .375em) }
   }
-}
 
-@layer container {
   .thread {
     time {
       display: inline-block;
@@ -41,7 +39,6 @@
       font-size: .75em;
     }
   }
-
   .chat-form {
     display: flex;
     position: relative;
@@ -66,6 +63,6 @@
 
     img { border-radius: .25em }
   }
-}
 
+}
 

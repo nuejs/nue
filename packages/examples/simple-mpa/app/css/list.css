@@ -1,5 +1,5 @@
 
-@layer component {
+@layer components {
   .item {
     margin-inline: 2px;
     border-radius: .25em;
@@ -77,9 +77,7 @@
     }
   }
 
-}
 
-@layer container {
   .list { container-type: size }
 
   .grid {
@@ -116,9 +114,5 @@
       padding-left: .75em;
     }
   }
+
 }
-
-
-
-
-

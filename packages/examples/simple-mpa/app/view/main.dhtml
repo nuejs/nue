@@ -21,10 +21,10 @@
       <hr>
 
       <button @click="toggleGrid(null)" data-accesskey="g"
-        :disabled="!is_grid" title="Show table view"><icon key="list"/></button>
+        :disabled="!router.state.grid" title="Show table view"><icon key="list"/></button>
 
       <button @click="toggleGrid(1)" data-accesskey="g"
-        :disabled="is_grid" title="Show grid view"><icon key="grid"/></button>
+        :disabled="router.state.grid" title="Show grid view"><icon key="grid"/></button>
 
       <hr>
 
@@ -38,22 +38,18 @@
 
   <script>
     router = router
-    is_grid = false
-    title = router.state?.type
+    title = router.state.type
 
     toggleGrid(grid) {
       router.set({ grid })
-      this.is_grid = grid
     }
 
     mounted() {
       router.bind('type query filter start sort asc', args => {
         const data = this.coll = model.filter(args)
         this.mountChild('user-list', window.main_wrap, data)
-        this.toggleGrid(args.grid)
         this.update({ title: args.type })
       })
-      this.toggleGrid(router.state.grid)
     }
 
     seek(to) {

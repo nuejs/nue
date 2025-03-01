@@ -1,6 +1,6 @@
 
 
-@layer element {
+@layer settings {
   body {
     background-color: var(--base-100);
     overflow: hidden;
@@ -8,7 +8,7 @@
   }
 }
 
-@layer container {
+@layer containers {
   .app {
     display: flex;
     gap: 1em;
@@ -45,7 +45,7 @@
 }
 
 
-@layer utilities {
+@layer adjustments {
 
   @keyframes pulse {
     0%, 100% { opacity: 0.5; }

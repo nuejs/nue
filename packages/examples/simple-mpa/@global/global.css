@@ -1,6 +1,6 @@
 
 /* layer order */
-@layer settings, elements, components, containers, utilities;
+@layer settings, elements, components, containers, adjustments;
 
 
 @layer settings {
@@ -49,7 +49,7 @@
   }
 }
 
-@layer utilities {
+@layer adjustments {
   [hidden] {
     display: none
   }

@@ -1,6 +1,5 @@
 
-
-@layer element {
+@layer components {
   dl {
     display: grid;
     grid-template-columns: 10em 1fr;
@@ -13,9 +12,7 @@
 
     a  { color: var(--main-500) }
   }
-}
 
-@layer component {
   .user-header {
     align-items: center;
     display: flex;
@@ -27,5 +24,4 @@
     }
   }
 }
-
 

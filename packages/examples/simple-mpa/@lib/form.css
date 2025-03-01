@@ -1,5 +1,5 @@
 
-@layer base {
+@layer settings {
   :root {
     accent-color: var(--main)
   }
