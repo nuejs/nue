@@ -7,12 +7,20 @@ import {
   renderPath,
   matchesPath,
   renderQuery,
+  cleanup,
   diff,
   fire
 
 } from '../src/browser/app-router.js'
 
+// browserify
 global.history = null
+global.sessionStorage = {}
+global.localStorage = {}
+
+// cleanup
+beforeEach(() => cleanup())
+
 
 test('parse path', () => {
   router.configure({ route: '/app/:type/:id' })
@@ -64,7 +72,6 @@ test('fire', () => {
   router.set({ foo: 100 })
   router.set({ foo: 100 })
 
-
   expect(count).toEqual(2)
 })
 
@@ -91,9 +98,11 @@ test('renderQuery', () => {
 })
 
 test('storage', () => {
-  global.sessionStorage = {}
-  global.localStorage = {}
-  router.configure({ session_params: ['foo'] })
-  router.set({ foo: 10 })
-  expect(router.state.foo).toBe(10)
+  router.configure({ url_params: ['id'], session_params: ['sess'] })
+  router.set({ sess: true, id: 100 })
+  expect(router.state.sess).toBe(true)
+
+  router.set({ sess: false })
+  expect(router.state).toEqual({sess: false, id: 100 })
+
 })

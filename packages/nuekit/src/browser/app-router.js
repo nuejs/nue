@@ -34,7 +34,11 @@ export const router = {
 
   set(data, _val) {
     if (typeof data == 'string') data = { [data]: _val }
-    if (contains(data, opts.url_params)) data = { ...curr_state, ...data }
+
+    if (contains(data, [...opts.url_params, ...opts.session_params, ...opts.persistent_params])) {
+      data = { ...curr_state, ...data }
+    }
+
     const changes = fire(data)
     if (changes && history) pushURLState(changes)
   },
@@ -79,7 +83,7 @@ addEventListener('popstate', e => {
 // component reloads (.dhtml)
 addEventListener('hmr', cleanup)
 
-function cleanup() {
+export function cleanup() {
   curr_state = {}
   fns = []
 }

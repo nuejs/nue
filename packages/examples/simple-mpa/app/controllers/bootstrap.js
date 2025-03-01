@@ -12,7 +12,6 @@ router.configure({
 })
 
 model.on('authenticated', async () => {
-  // mount('load-screen', window.app)
   await model.load()
   mount('app', window.app)
 })
