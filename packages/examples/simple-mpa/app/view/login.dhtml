@@ -13,12 +13,13 @@
 
     <label>
       <h2>Email</h2>
-      <input name="email" type="email" autofocus value="demo.user@bigdesign.com">
+      <input name="email" type="email" autofocus value="demo.user@bigdesign.com"
+        autocomplete="email">
     </label>
 
     <label>
       <h2>Password</h2>
-      <input name="password" type="password" value="password">
+      <input name="password" type="password" value="password" autocomplete="current-password">
     </label>
 
     <footer>

@@ -75,7 +75,7 @@ function init(root=document) {
 
 // back button
 addEventListener('popstate', e => {
-  const { path } = e.state
+  const path = e.state?.path
   if (path && !matchesPath(path)) cleanup()
   fire(e.state || {})
 })
