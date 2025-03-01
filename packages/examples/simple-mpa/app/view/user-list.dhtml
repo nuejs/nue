@@ -33,6 +33,10 @@
 
   <script>
     formatDate = formatDate
+
+    constructor() {
+      router.bind('show_grid_view', () => this.update())
+    }
   </script>
 
 </section>

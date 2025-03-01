@@ -6,7 +6,7 @@
 
 <main @name="main-panel">
   <header>
-    <h3>{ title && title[0].toUpperCase() }{ title ? title.slice(1).replaceAll('_', ' ') : 'All contact'}s</h3>
+    <h3>This is coming</h3>
 
     <nav>
       <small>{ status() }</small>
@@ -20,11 +20,11 @@
 
       <hr>
 
-      <button @click="toggleGridView(null)" data-accesskey="g"
+      <button @click="toggleGridView" data-accesskey="g"
         :disabled="!router.state.show_grid_view"
         title="Show table view"><icon key="list"/></button>
 
-      <button @click="toggleGridView(true)" data-accesskey="g"
+      <button @click="toggleGridView" data-accesskey="g"
         :disabled="router.state.show_grid_view"
         title="Show grid view"><icon key="grid"/></button>
 
@@ -40,10 +40,9 @@
 
   <script>
     router = router
-    title = router.state.type
 
-    toggleGridView(show) {
-      router.set({ show_grid_view: show })
+    toggleGridView() {
+      router.toggle('show_grid_view')
     }
 
     mounted() {
