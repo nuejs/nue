@@ -1,4 +1,5 @@
 import { Window } from 'happy-dom'
+import { parse } from '../../src/compile.js'
 
 /**
  * Creates a browser environment with Nue.js loaded
@@ -98,4 +99,75 @@ export async function mountComponent(window, document, component, data = {}, dep
       delete global.document
     },
   }
+}
+
+/**
+ * Simplified function to mount a component directly from source or component object
+ * @param {string|Object} sourceOrComponent - The component source string or component object
+ * @param {Object} data - The component data
+ * @param {Array} deps - Optional array of dependent components
+ * @returns {Object} The mounted component instance and cleanup function
+ */
+export async function mountComponentDirect(sourceOrComponent, data = {}, deps = []) {
+  // Setup happy-dom environment
+  const window = new Window()
+  const document = window.document
+  global.window = window
+  global.document = document
+
+  // Create a mount point
+  const mountPoint = document.createElement('div')
+  document.body.appendChild(mountPoint)
+
+  // Import createApp directly
+  const createApp = (await import('../../src/browser/nue.js')).default
+
+  // Handle string source by parsing it
+  if (typeof sourceOrComponent === 'string') {
+    const components = parseComponents(sourceOrComponent)
+
+    // Log the components for debugging
+    console.log('Parsed components:', JSON.stringify(components, null, 2))
+
+    // Get the main component and dependencies
+    const [App, ...parsedDeps] = components
+    deps = [...parsedDeps, ...deps]
+    sourceOrComponent = App
+  }
+
+  // Mount the component
+  const app = createApp(sourceOrComponent, data, deps)
+  app.mount(mountPoint)
+
+  // Wait for the component to be mounted and refs to be initialized
+  await new Promise(resolve => setTimeout(resolve, 0))
+
+  // Return app and cleanup function
+  return {
+    app,
+    cleanup: () => {
+      delete global.window
+      delete global.document
+    },
+  }
+}
+
+/**
+ * Parses component source and returns an array of component objects
+ * @param {string} source - The component source code
+ * @returns {Array} Array of parsed component objects
+ */
+function parseComponents(source) {
+  const { components } = parse(source)
+
+  // Convert the component strings to actual objects
+  return components.map(compStr => {
+    try {
+      // Wrap the component string in parentheses and evaluate it
+      return eval(`(${compStr})`)
+    } catch (e) {
+      console.error('Error parsing component:', compStr)
+      throw e
+    }
+  })
 }
