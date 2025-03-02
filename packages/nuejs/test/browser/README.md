@@ -1,6 +1,6 @@
 # Nue.js Browser Tests
 
-This directory contains tests for the browser version of Nue.js using happy-dom to simulate a browser environment.
+This directory contains tests for the browser version of Nue.js using domino to simulate a browser environment.
 
 ## Running the Tests
 
@@ -19,13 +19,9 @@ bun test test/browser/refs.test.js
 
 ## Test Structure
 
-The tests are organized by functionality:
+The tests focus on core Nue.js functionality:
 
 - `refs.test.js`: Tests for the refs functionality
-- `basics.test.js`: Tests for basic Nue.js functionality (refs, conditionals, slots)
-- `loops.test.js`: Tests for loop functionality
-- `expressions.test.js`: Tests for expression rendering
-- `attributes.test.js`: Tests for attribute binding
 
 ## Adding New Tests
 
@@ -38,42 +34,34 @@ To add a new test:
 
 ## Test Utilities
 
-The `test-utils.js` file provides several utilities to make testing easier:
+The `test-utils.js` file provides a utility to make testing easier:
 
-- `createBrowserEnv()`: Creates a simulated browser environment using happy-dom
-- `createComponent(template, name, scriptContent)`: Creates a component from a template string
-- `loadNueJs(window)`: Loads the Nue.js library into the window
-- `mountComponent(window, document, component, data, deps)`: Mounts a component to the document
+- `mountComponentDirect(source, data, deps)`: Mounts a component directly from source string
 
 ## Example
 
 ```javascript
-import { expect, test, describe, beforeEach } from 'bun:test'
-import { createBrowserEnv, createComponent, loadNueJs, mountComponent } from './test-utils.js'
+import { expect, test, describe } from 'bun:test'
+import { mountComponentDirect } from './test-utils.js'
 
 describe('My Feature Test', () => {
-  let env
-
-  beforeEach(() => {
-    env = createBrowserEnv()
-    loadNueJs(env.window)
-  })
-
-  test('my feature should work correctly', () => {
-    const template = `
+  test('my feature should work correctly', async () => {
+    const source = `
       <div>
         <h1>{ title }</h1>
+        <script>
+          mounted() {
+            this.title = 'Hello, World!'
+          }
+        </script>
       </div>
     `
 
-    const component = createComponent(template, 'my-component', {
-      title: 'Hello, World!',
-    })
-
-    const app = mountComponent(env.window, env.document, component)
+    const { app, cleanup } = await mountComponentDirect(source)
 
     const h1 = app.$el.querySelector('h1')
     expect(h1.textContent).toBe('Hello, World!')
+
   })
 })
 ```

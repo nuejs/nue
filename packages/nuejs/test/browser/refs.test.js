@@ -1,5 +1,5 @@
 import { expect, test, describe } from 'bun:test'
-import { mountComponentDirect } from './test-utils.js'
+import { mountTestComponent } from './test-utils.js'
 
 describe('Nue.js Refs Test', () => {
   test('component should set and access refs correctly', async () => {
@@ -18,7 +18,7 @@ describe('Nue.js Refs Test', () => {
       </div>
     `
 
-    const { app, cleanup } = await mountComponentDirect(source)
+    const { app, cleanup } = await mountTestComponent(source)
 
     const input = app.$el?.querySelector('input[name="email"]')
     expect(input).toBeDefined()
