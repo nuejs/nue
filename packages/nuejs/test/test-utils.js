@@ -1,13 +1,22 @@
 import { createWindow } from 'domino'
-import { parse } from '../../src/compile.js'
+import { parse } from '../src/compile.js'
+import fs from 'node:fs'
+import path from 'node:path'
 
 /**
- * Mounts a component directly from source string
- * @param {string} source - The component source string
- * @param {Object} data - Optional data for the component
+ * Mounts a component from a test directory
+//  * @param {string} testName - The name of the test directory
+//  * @param {string} componentName - Optional name of the specific component to mount (defaults to first component)
+//  * @param {Object} data - Optional data for the component
  * @returns {Object} The mounted component instance and cleanup function
  */
-export async function mountTestComponent(source, data = {}) {
+export async function mountTestComponent({ testName, componentName, data = {} }) {
+  if (!testName || !componentName) throw new Error('Missing testName or componentName')
+
+  // Load the component source from the component.dhtml file in the test directory
+  const dhtmlPath = path.resolve(__dirname, testName, 'component.dhtml')
+  const source = fs.readFileSync(dhtmlPath, 'utf-8')
+
   // Setup domino environment
   const window = createWindow('<!DOCTYPE html><html><body></body></html>')
   const document = window.document
@@ -15,6 +24,7 @@ export async function mountTestComponent(source, data = {}) {
   // Make browser globals available
   global.window = window
   global.document = document
+  window.fetch = globalThis.fetch
 
   // Create a mount point
   const mountPoint = document.createElement('div')
@@ -22,10 +32,18 @@ export async function mountTestComponent(source, data = {}) {
 
   // Parse the component source
   const components = parseComponents(source)
-  const [App, ...deps] = components
+
+  // Find the component with the matching name attribute
+  const App = components.find(comp => comp.name === componentName)
+  if (!App) {
+    throw new Error(`Component "${componentName}" not found in ${testName}/component.dhtml`)
+  }
+
+  // All other components become dependencies
+  const deps = components.filter(comp => comp !== App)
 
   // Mount the component
-  const { default: createApp } = await import('../../src/browser/nue.js')
+  const { default: createApp } = await import('../src/browser/nue.js')
   const app = createApp(App, data, deps)
   app.mount(mountPoint)
 
