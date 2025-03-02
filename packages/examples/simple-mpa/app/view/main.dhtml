@@ -49,7 +49,7 @@
       router.bind('type query filter start sort asc', args => {
         const data = this.coll = model.filter(args)
         this.mountChild('user-list', window.main_wrap, data)
-        this.update({ title: args.type })
+        this.update()
       })
     }
 
