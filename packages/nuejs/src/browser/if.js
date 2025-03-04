@@ -2,8 +2,7 @@
 
 import createApp from './nue.js'
 
-
-export default function(opts) {
+export default function (opts) {
   const { root, fn, fns, deps, ctx } = opts
   const blocks = []
   var node = root
@@ -19,16 +18,14 @@ export default function(opts) {
 
   addBlock(root, fn)
 
-  while (node = node.nextElementSibling) {
+  while ((node = node.nextElementSibling)) {
     const val = node.getAttribute(':else-if')
     if (val) {
       addBlock(node, fns[val])
       node.removeAttribute(':else-if')
-
     } else if (node.hasAttribute(':else')) {
       addBlock(node, () => true)
       node.removeAttribute(':else')
-
     } else {
       next = node
       break
@@ -38,12 +35,12 @@ export default function(opts) {
   function update() {
     if (!anchor) {
       const wrap = root.parentElement
-      anchor = new Text('')
+      anchor = document.createTextNode('')
       wrap.insertBefore(anchor, root)
     }
 
     const active = blocks.find(bl => bl.fn(ctx))
-    blocks.forEach(bl => bl == active ? bl.before(anchor) : bl.unmount())
+    blocks.forEach(bl => (bl == active ? bl.before(anchor) : bl.unmount()))
   }
 
   return { update, next }

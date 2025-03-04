@@ -18,4 +18,34 @@ describe('Nue.js Ifs Tests', () => {
 
     cleanup()
   })
+
+  test('The else-if statement should conditional render correctly', async () => {
+    const { app, cleanup } = await mountTestComponent(mkConfig('test-else-if'))
+
+    const div = app.$el.querySelector('.first')
+    expect(div).toBeUndefined()
+
+    const div2 = app.$el.querySelector('.second')
+    expect(div2.textContent).toBe('else-if')
+
+    const div3 = app.$el.querySelector('.third')
+    expect(div3).toBeUndefined()
+
+    cleanup()
+  })
+
+  test('The else statement should conditional render correctly', async () => {
+    const { app, cleanup } = await mountTestComponent(mkConfig('test-else'))
+
+    const div = app.$el.querySelector('.first')
+    expect(div).toBeUndefined()
+
+    const div2 = app.$el.querySelector('.second')
+    expect(div2).toBeUndefined()
+
+    const div3 = app.$el.querySelector('.third')
+    expect(div3.textContent).toBe('else')
+
+    cleanup()
+  })
 })
