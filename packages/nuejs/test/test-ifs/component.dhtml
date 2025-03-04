@@ -1,0 +1,35 @@
+<main class="grid">
+  <test-if class="card" />
+  <test-else-if class="card" />
+  <test-else class="card" />
+</main>
+
+<div @name="test-if">
+  <div :if="count == 0" class="first">if</div>
+  <div :else-if="count == 1" class="second">else-if</div>
+  <div :else class="third">else</div>
+
+  <script>
+    count = 0;
+  </script>
+</div>
+
+<div @name="test-else-if">
+  <div :if="count == 0" class="first">if</div>
+  <div :else-if="count == 1" class="second">else-if</div>
+  <div :else class="third">else</div>
+
+  <script>
+    count = 1;
+  </script>
+</div>
+
+<div @name="test-else">
+  <div :if="count == 0" class="first">if</div>
+  <div :else-if="count == 1" class="second">else-if</div>
+  <div :else class="third">else</div>
+
+  <script>
+    count = 2;
+  </script>
+</div>

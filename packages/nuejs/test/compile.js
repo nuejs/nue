@@ -9,7 +9,7 @@ if (!fs.existsSync(distDir)) {
 }
 
 // Compile browser test files
-const browserTestDir = path.join(process.cwd(), 'packages', 'nuejs', 'test', 'browser')
+const browserTestDir = path.join(process.cwd(), 'packages', 'nuejs', 'test')
 const testDirs = fs
   .readdirSync(browserTestDir, { withFileTypes: true })
   .filter(dirent => dirent.isDirectory() && dirent.name !== 'node_modules')
