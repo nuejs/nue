@@ -8,7 +8,6 @@ describe('Nue.js Refs Tests', () => {
     const { app, cleanup } = await mountTestComponent(mkConfig('basic-refs'))
 
     const input = app.$el.querySelector('input[name="email"]')
-    expect(input).toBeDefined()
     expect(input.placeholder).toBe('Your email')
     expect(input.value).toBe('Hey')
 
