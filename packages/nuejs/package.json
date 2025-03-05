@@ -16,8 +16,9 @@
     "node": ">= 18"
   },
   "scripts": {
-    "test": "node --experimental-vm-modules ../../node_modules/jest/bin/jest.js --runInBand",
-    "compile": "cd test && bun compile.js"
+    "test": "bun test --timeout 10000",
+    "compile": "bun test/compile.js",
+    "pretest": "bun run compile"
   },
   "dependencies": {
     "htmlparser2": "^10.0.0"
@@ -26,5 +27,8 @@
     "setupFilesAfterEnv": [
       "<rootDir>/../../setup-jest.js"
     ]
+  },
+  "devDependencies": {
+    "domino": "^2.1.6"
   }
 }

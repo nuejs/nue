@@ -1,0 +1,12 @@
+<link rel="stylesheet" href="../client/test.css">
+
+<h1>Clicks Tests</h1>
+
+<div id="container"></div>
+
+<script type="module">
+  import createApp from '../../src/browser/nue.js';
+  import { lib } from '../dist/test-clicks/index.js';
+  const [App, ...deps] = lib
+  createApp(App, {}, deps).mount(container)
+</script>
