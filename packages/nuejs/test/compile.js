@@ -3,24 +3,23 @@ import path from 'node:path'
 import { parse } from '../src/compile.js'
 
 // Ensure the dist directory exists
-const distDir = path.join(process.cwd(), 'packages', 'nuejs', 'test', 'dist')
+const distDir = path.join(process.cwd(), 'test', 'dist')
 if (!fs.existsSync(distDir)) {
   fs.mkdirSync(distDir, { recursive: true })
 }
 
 // Compile test files
-const testDir = path.join(process.cwd(), 'packages', 'nuejs', 'test')
 const testComponentDirs = fs
-  .readdirSync(testDir, { withFileTypes: true })
+  .readdirSync(path.join(process.cwd(), 'test'), { withFileTypes: true })
   .filter(dirent => dirent.isDirectory() && dirent.name.startsWith('test-'))
-  .map(dirent => dirent.name)
+  .map(dirent => ({ testPath: path.join(process.cwd(), 'test', dirent.name), name: dirent.name }))
 
-for (const testDir of testComponentDirs) {
-  const componentPath = path.join(testDir, 'component.dhtml')
+for (const { testPath, name } of testComponentDirs) {
+  const componentPath = path.join(testPath, 'component.dhtml')
 
   // Skip if component.dhtml doesn't exist
   if (!fs.existsSync(componentPath)) {
-    console.log(`Skipping ${testDir}: No component.dhtml found`)
+    console.log(`Skipping ${name}: No component.dhtml found`)
     continue
   }
 
@@ -28,7 +27,7 @@ for (const testDir of testComponentDirs) {
   const { components } = parse(source)
 
   // Create output directory
-  const outputDir = path.join(distDir, testDir)
+  const outputDir = path.join(distDir, name)
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true })
   }
@@ -37,5 +36,5 @@ for (const testDir of testComponentDirs) {
   const output = `export const lib = [${components.join(',')}]`
   fs.writeFileSync(outputPath, output)
 
-  console.log(`Compiled ${testDir}/component.dhtml to ${outputPath}`)
+  console.log(`Compiled ${name}: ${outputPath}`)
 }

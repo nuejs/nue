@@ -2,6 +2,10 @@
   <test-if class="card" />
   <test-else-if class="card" />
   <test-else class="card" />
+  <test-if-and-else-true class="card" />
+  <test-if-and-else-false class="card" />
+  <test-if-only class="card" />
+  <test-nested-if class="card" />
 </main>
 
 <div @name="test-if">

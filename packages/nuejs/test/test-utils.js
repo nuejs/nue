@@ -5,76 +5,76 @@ import path from 'node:path'
 
 /**
  * Mounts a component from a test directory
-//  * @param {string} testName - The name of the test directory
-//  * @param {string} componentName - Optional name of the specific component to mount (defaults to first component)
-//  * @param {Object} data - Optional data for the component
- * @returns {Object} The mounted component instance and cleanup function
+ * @param {Object} options - Mount options
+ * @param {string} options.testName - The name of the test directory
+ * @param {string} options.componentName - Name of the specific component to mount
+ * @param {Object} [options.data={}] - Data to initialize the component with
  */
 export async function mountTestComponent({ testName, componentName, data = {} }) {
-  if (!testName || !componentName) throw new Error('Missing testName or componentName')
-
-  // Load the component source from the component.dhtml file in the test directory
-  const dhtmlPath = path.resolve(__dirname, testName, 'component.dhtml')
-  const source = fs.readFileSync(dhtmlPath, 'utf-8')
-
-  // Setup domino environment
-  const window = createWindow('<!DOCTYPE html><html><body></body></html>')
-  const document = window.document
-
-  // Make browser globals available
-  global.window = window
-  global.document = document
-  window.fetch = globalThis.fetch
-
-  // Create a mount point
-  const mountPoint = document.createElement('div')
-  document.body.appendChild(mountPoint)
-
-  // Parse the component source
-  const components = parseComponents(source)
-
-  // Find the component with the matching name attribute
-  const App = components.find(comp => comp.name === componentName)
-  if (!App) {
-    throw new Error(`Component "${componentName}" not found in ${testName}/component.dhtml`)
+  // Validate inputs
+  if (!testName || !componentName) {
+    throw new Error('Required parameters missing: testName and componentName must be provided')
   }
 
-  // All other components become dependencies
-  const deps = components.filter(comp => comp !== App)
+  // Setup domino DOM environment
+  const window = createWindow('<!DOCTYPE html><html><body></body></html>')
+  const document = window.document
+  const mountPoint = document.createElement('div')
 
-  // Mount the component
-  const { default: createApp } = await import('../src/browser/nue.js')
-  const app = createApp(App, data, deps)
-  app.mount(mountPoint)
+  // Setup global context
+  const globalContext = { window, document, fetch: globalThis.fetch }
+  Object.assign(global, globalContext)
+  document.body.appendChild(mountPoint)
 
-  return {
-    app,
-    cleanup: () => {
-      delete global.window
-      delete global.document
-    },
+  try {
+    // Load and parse component
+    const dhtmlPath = path.resolve(__dirname, testName, 'component.dhtml')
+    const source = fs.readFileSync(dhtmlPath, 'utf-8')
+    const components = parseComponents(source)
+
+    const App = components.find(comp => comp.name === componentName)
+    if (!App) {
+      throw new Error(`Component "${componentName}" not found in ${testName}/component.dhtml`)
+    }
+
+    // Mount component
+    const { default: createApp } = await import('../src/browser/nue.js')
+    const deps = components.filter(comp => comp !== App)
+    const app = createApp(App, data, deps)
+    app.mount(mountPoint)
+
+    return {
+      app,
+      cleanup: () => {
+        // Clean up globals
+        Object.keys(globalContext).forEach(key => delete global[key])
+        mountPoint.remove()
+      },
+    }
+  } catch (error) {
+    // Clean up on error
+    Object.keys(globalContext).forEach(key => delete global[key])
+    throw error
   }
 }
 
 /**
  * Parses component source and returns an array of component objects
  * @param {string} source - The component source code
- * @returns {Array} Array of parsed component objects
+ * @returns {Array<Object>} Array of parsed component objects
+ * @throws {Error} If parsing fails
  */
 function parseComponents(source) {
   try {
     const { components } = parse(source)
-
     return components.map(compStr => {
       try {
         return eval(`(${compStr})`)
-      } catch (e) {
-        console.error('Error parsing component:', e.message)
-        throw e
+      } catch (error) {
+        throw new Error(`Failed to parse component: ${error.message}`)
       }
     })
-  } catch (e) {
-    console.error('Error parsing source:', e.message)
-    throw e
+  } catch (error) {
+    throw new Error(`Failed to parse source: ${error.message}`)
   }
 }
