@@ -8,15 +8,15 @@ if (!fs.existsSync(distDir)) {
   fs.mkdirSync(distDir, { recursive: true })
 }
 
-// Compile browser test files
-const browserTestDir = path.join(process.cwd(), 'packages', 'nuejs', 'test')
-const testDirs = fs
-  .readdirSync(browserTestDir, { withFileTypes: true })
-  .filter(dirent => dirent.isDirectory() && dirent.name !== 'node_modules')
+// Compile test files
+const testDir = path.join(process.cwd(), 'packages', 'nuejs', 'test')
+const testComponentDirs = fs
+  .readdirSync(testDir, { withFileTypes: true })
+  .filter(dirent => dirent.isDirectory() && dirent.name.startsWith('test-'))
   .map(dirent => dirent.name)
 
-for (const testDir of testDirs) {
-  const componentPath = path.join(browserTestDir, testDir, 'component.dhtml')
+for (const testDir of testComponentDirs) {
+  const componentPath = path.join(testDir, 'component.dhtml')
 
   // Skip if component.dhtml doesn't exist
   if (!fs.existsSync(componentPath)) {
@@ -39,25 +39,3 @@ for (const testDir of testDirs) {
 
   console.log(`Compiled ${testDir}/component.dhtml to ${outputPath}`)
 }
-
-// Compile client test files
-const clientTestDir = path.join(process.cwd(), 'packages', 'nuejs', 'test', 'client')
-if (fs.existsSync(clientTestDir)) {
-  const clientTestFiles = fs.readdirSync(clientTestDir).filter(file => file.endsWith('.dhtml'))
-
-  for (const file of clientTestFiles) {
-    const filePath = path.join(clientTestDir, file)
-    const source = fs.readFileSync(filePath, 'utf-8')
-    const { components } = parse(source)
-
-    const baseName = path.basename(file, '.dhtml')
-    const outputPath = path.join(distDir, `${baseName}.js`)
-
-    const output = `export const lib = [${components.join(',')}]`
-    fs.writeFileSync(outputPath, output)
-
-    console.log(`Compiled ${file} to ${outputPath}`)
-  }
-}
-
-console.log('All files compiled successfully!')

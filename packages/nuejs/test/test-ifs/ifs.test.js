@@ -48,4 +48,49 @@ describe('Nue.js Ifs Tests', () => {
 
     cleanup()
   })
+
+  test('If-else should render if branch when condition is true', async () => {
+    const { app, cleanup } = await mountTestComponent(mkConfig('test-if-and-else-true'))
+
+    const div = app.$el.querySelector('.first')
+    expect(div.textContent).toBe('visible')
+
+    const div2 = app.$el.querySelector('.second')
+    expect(div2).toBeUndefined()
+
+    cleanup()
+  })
+
+  test('If-else should render else branch when condition is false', async () => {
+    const { app, cleanup } = await mountTestComponent(mkConfig('test-if-and-else-false'))
+
+    const div = app.$el.querySelector('.first')
+    expect(div).toBeUndefined()
+
+    const div2 = app.$el.querySelector('.second')
+    expect(div2.textContent).toBe('visible')
+
+    cleanup()
+  })
+
+  test('Multiple independent if statements should render correctly', async () => {
+    const { app, cleanup } = await mountTestComponent(mkConfig('test-if-only'))
+
+    const div = app.$el.querySelector('.first')
+    expect(div.textContent).toBe('visible')
+
+    const div2 = app.$el.querySelector('.second')
+    expect(div2).toBeUndefined()
+
+    cleanup()
+  })
+
+  test('Nested if statements should render correctly', async () => {
+    const { app, cleanup } = await mountTestComponent(mkConfig('test-nested-if'))
+
+    const div2 = app.$el.querySelector('.nested')
+    expect(div2.textContent).toBe('visible')
+
+    cleanup()
+  })
 })
