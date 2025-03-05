@@ -14,6 +14,9 @@
       "dependencies": {
         "htmlparser2": "^10.0.0",
       },
+      "devDependencies": {
+        "domino": "^2.1.6",
+      },
     },
     "packages/nuejs.org": {
       "name": "nuejs.org",
@@ -22,7 +25,7 @@
       "name": "nuekit",
       "version": "1.0.0-RC.2",
       "bin": {
-        "nue": "./src/cli.js"
+        "nue": "./src/cli.js",
       },
       "dependencies": {
         "diff-dom": "^5.1.4",
@@ -53,6 +56,8 @@
     "domelementtype": ["domelementtype@2.3.0", "", {}, "sha512-OLETBj6w0OsagBwdXnPdN0cnMfF9opN69co+7ZrbfPGrdpPVNBUj02spi6B1N7wChLQiPn4CSH/zJvXw56gmHw=="],
 
     "domhandler": ["domhandler@5.0.3", "", { "dependencies": { "domelementtype": "^2.3.0" } }, "sha512-cgwlv/1iFQiFnU96XXgROh8xTeetsnJiDsTc7TYCLFd9+/WNkIqPTxiM/8pSd8VIrhXGTf1Ny1q1hquVqDJB5w=="],
+
+    "domino": ["domino@2.1.6", "", {}, "sha512-3VdM/SXBZX2omc9JF9nOPCtDaYQ67BGp5CoLpIQlO2KCAPETs8TcDHacF26jXadGbvUteZzRTeos2fhID5+ucQ=="],
 
     "domutils": ["domutils@3.2.2", "", { "dependencies": { "dom-serializer": "^2.0.0", "domelementtype": "^2.3.0", "domhandler": "^5.0.3" } }, "sha512-6kZKyUajlDuqlHKVX1w7gyslj9MPIXzIFiz/rGu35uC1wMi+kMhQwGhl4lt9unC9Vb9INnY9Z3/ZA3+FhASLaw=="],
 

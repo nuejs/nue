@@ -1,0 +1,55 @@
+<main class="grid">
+  <basic-refs class="card" />
+  <multiple-refs class="card" />
+  <nested-refs class="card" />
+</main>
+
+<div @name="basic-refs">
+  <h3>
+    Ref: { $refs.email.placeholder }
+  </h3>
+  <input name="email" placeholder="Your email">
+
+  <script>
+    mounted() {
+      this.$refs.email.value = 'Hey';
+    }
+  </script>
+</div>
+
+<div @name="multiple-refs">
+  <h3>Multiple Refs</h3>
+  <input name="username" ref="user" placeholder="Username">
+  <input name="password" ref="pass" placeholder="Password">
+  <p>{ message }</p>
+
+  <script>
+    message = '';
+
+    mounted() {
+      this.$refs.user.value = 'admin';
+      this.$refs.pass.value = 'secret';
+      this.message = `User: ${this.$refs.user.value}, Pass: ${this.$refs.pass.value}`;
+    }
+  </script>
+</div>
+
+<div @name="nested-refs">
+  <div ref="container">
+    <h3 ref="title">Nested Refs</h3>
+    <p ref="content">This is a nested ref test</p>
+  </div>
+
+  <p>Container tag: { containerTag }</p>
+  <p>Title text: { titleText }</p>
+
+  <script>
+    containerTag = '';
+    titleText = '';
+
+    mounted() {
+      this.containerTag = this.$refs.container.tagName.toLowerCase();
+      this.titleText = this.$refs.title.textContent;
+    }
+  </script>
+</div>

@@ -1,0 +1,76 @@
+<main class="grid">
+  <test-if class="card" />
+  <test-else-if class="card" />
+  <test-else class="card" />
+  <test-if-and-else-true class="card" />
+  <test-if-and-else-false class="card" />
+  <test-if-only class="card" />
+  <test-nested-if class="card" />
+</main>
+
+<div @name="test-if">
+  <div :if="count == 0" class="first">if</div>
+  <div :else-if="count == 1" class="second">else-if</div>
+  <div :else class="third">else</div>
+
+  <script>
+    count = 0;
+  </script>
+</div>
+
+<div @name="test-else-if">
+  <div :if="count == 0" class="first">if</div>
+  <div :else-if="count == 1" class="second">else-if</div>
+  <div :else class="third">else</div>
+
+  <script>
+    count = 1;
+  </script>
+</div>
+
+<div @name="test-else">
+  <div :if="count == 0" class="first">if</div>
+  <div :else-if="count == 1" class="second">else-if</div>
+  <div :else class="third">else</div>
+
+  <script>
+    count = 2;
+  </script>
+</div>
+
+<div @name="test-if-and-else-true">
+  <div :if="count == 0" class="first">visible</div>
+  <div :else class="second">not visible</div>
+
+  <script>
+    count = 0;
+  </script>
+</div>
+
+<div @name="test-if-and-else-false">
+  <div :if="count == 0" class="first">not visible</div>
+  <div :else class="second">visible</div>
+
+  <script>
+    count = 1;
+  </script>
+</div>
+
+<div @name="test-if-only">
+  <div :if="count == 0" class="first">visible</div>
+  <div :if="count == 1" class="second">not visible</div>
+
+  <script>
+    count = 0;
+  </script>
+</div>
+
+<div @name="test-nested-if">
+  <div :if="count == 0" class="first">
+    <div :if="count == 0" class="nested">visible</div>
+  </div>
+
+  <script>
+    count = 0;
+  </script>
+</div>
