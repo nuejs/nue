@@ -1,7 +1,21 @@
+import { readFileSync } from 'node:fs'
+import { dirname, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
+
 import { createWindow } from 'domino'
+
 import { parse } from '../src/compile.js'
-import fs from 'node:fs'
-import path from 'node:path'
+
+const srcdir = getDirname(import.meta.url)
+
+
+export function getDirname(url) {
+  return dirname(fileURLToPath(url))
+}
+
+export function mkConfigBase(url) {
+  return componentName => ({ testName: getDirname(url), componentName })
+}
 
 /**
  * Mounts a component from a test directory
@@ -28,8 +42,8 @@ export async function mountTestComponent({ testName, componentName, data = {} })
 
   try {
     // Load and parse component
-    const dhtmlPath = path.resolve(__dirname, testName, 'component.dhtml')
-    const source = fs.readFileSync(dhtmlPath, 'utf-8')
+    const dhtmlPath = resolve(srcdir, testName, 'component.dhtml')
+    const source = readFileSync(dhtmlPath, 'utf-8')
     const components = parseComponents(source)
 
     const App = components.find(comp => comp.name === componentName)

@@ -1,7 +1,7 @@
-import { expect, test, describe } from 'bun:test'
-import { mountTestComponent } from '../test-utils.js'
+import { mkConfigBase, mountTestComponent } from '../test-utils.js'
 
-const mkConfig = componentName => ({ testName: __dirname, componentName })
+const mkConfig = mkConfigBase(import.meta.url)
+
 
 describe('Nue.js Clicks Tests', () => {
   test('basic click events should update the DOM correctly', async () => {
