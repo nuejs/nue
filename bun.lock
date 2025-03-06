@@ -3,10 +3,6 @@
   "workspaces": {
     "": {
       "name": "nue",
-      "devDependencies": {
-        "esbuild": "^0.25",
-        "lightningcss": "^1.29",
-      },
     },
     "packages/glow": {
       "name": "nue-glow",
@@ -36,6 +32,10 @@
         "nue-glow": "*",
         "nuejs-core": "*",
         "nuemark": "*",
+      },
+      "devDependencies": {
+        "esbuild": "^0.25",
+        "lightningcss": "^1.29",
       },
       "peerDependencies": {
         "esbuild": "^0.25",
