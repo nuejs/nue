@@ -1,14 +1,12 @@
 import { readFileSync } from 'node:fs'
-import { dirname, resolve } from 'node:path'
+import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 import { createWindow } from 'domino'
 
 import { parse } from '../src/compile.js'
 
-const srcdir = getDirname(import.meta.url)
-
-
+/* Use like `getDirname(import.meta.url)` */
 export function getDirname(url) {
   return dirname(fileURLToPath(url))
 }
@@ -26,9 +24,7 @@ export function mkConfigBase(url) {
  */
 export async function mountTestComponent({ testName, componentName, data = {} }) {
   // Validate inputs
-  if (!testName || !componentName) {
-    throw new Error('Required parameters missing: testName and componentName must be provided')
-  }
+  if (!testName || !componentName) throw new Error('Required parameters missing: "testName" and "componentName" must be provided')
 
   // Setup domino DOM environment
   const window = createWindow('<!DOCTYPE html><html><body></body></html>')
@@ -42,14 +38,12 @@ export async function mountTestComponent({ testName, componentName, data = {} })
 
   try {
     // Load and parse component
-    const dhtmlPath = resolve(srcdir, testName, 'component.dhtml')
+    const dhtmlPath = join(testName, 'component.dhtml')
     const source = readFileSync(dhtmlPath, 'utf-8')
     const components = parseComponents(source)
 
     const App = components.find(comp => comp.name === componentName)
-    if (!App) {
-      throw new Error(`Component "${componentName}" not found in ${testName}/component.dhtml`)
-    }
+    if (!App) throw new Error(`Component "${componentName}" not found in "${dhtmlPath}"`)
 
     // Mount component
     const { default: createApp } = await import('../src/browser/nue.js')

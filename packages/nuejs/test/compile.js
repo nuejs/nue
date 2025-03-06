@@ -4,7 +4,7 @@ import { join } from 'node:path'
 import { parse } from '../src/compile.js'
 import { getDirname } from './test-utils.js'
 
-const srcdir = getDirname(import.meta.dirname)
+const srcdir = getDirname(import.meta.url)
 
 // Ensure the dist directory exists
 const distDir = join(srcdir, 'dist')
