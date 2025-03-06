@@ -30,16 +30,12 @@
     "nuemark": "*"
   },
   "peerDependencies": {
-    "esbuild": ">= 0.25",
-    "lightningcss": ">= 1.29"
+    "esbuild": "^0.25",
+    "lightningcss": "^1.29"
   },
   "peerDependenciesMeta": {
-    "esbuild": {
-      "optional": true
-    },
-    "lightningcss": {
-      "optional": true
-    }
+    "esbuild": {"optional": true},
+    "lightningcss": {"optional": true}
   },
   "jest": {
     "setupFilesAfterEnv": [
