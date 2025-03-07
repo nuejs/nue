@@ -55,12 +55,10 @@ Nue avoids Prettier/ESLint as they would add 40MB of complexity. The `.prettierr
 ```sh
 # Bun (recommended)
 bun install
-bun install --no-save esbuild lightningcss
 bun test
 
 # Node
-npm install
-npm install --no-save esbuild lightningcss jest jest-extended
+npm install --no-save jest jest-extended
 npm test
 ```
 
