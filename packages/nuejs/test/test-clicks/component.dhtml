@@ -1,0 +1,17 @@
+<main class="grid">
+  <basic-clicks class="card" />
+</main>
+
+<div @name="basic-clicks">
+  <h3>Count: { count }</h3>
+
+  <button @click="inc">Increment</button>
+
+  <script>
+    count = 0;
+
+    inc() {
+      this.count++
+    }
+  </script>
+</div>
