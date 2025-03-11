@@ -22,7 +22,7 @@ global.localStorage = {}
 beforeEach(() => cleanup())
 
 
-test('parse path', () => {
+test('parse path data', () => {
   router.configure({ route: '/app/:type/:id' })
   expect(parsePathData('/app/leads/389/bang')).toEqual({ type: 'leads', id: '389' })
   expect(parsePathData('/app/users/89')).toEqual({ type: 'users', id: '89' })

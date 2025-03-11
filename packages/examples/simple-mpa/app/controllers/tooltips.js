@@ -13,31 +13,27 @@ let is_shown
 
 document.addEventListener('mouseenter', e => {
   const el = e.target
-  const data = el.dataset
-  const kbd = data?.accesskey?.split(' ')?.pop()
-  const title = el.nodeType == 1 && el.title
-  if (!title && !kbd) return
+  if (el.nodeType != 1) return
+  const dataset = el.dataset
 
-  if (!CSS.supports('anchor-name: --tip')) {
-    if (data.titled) return
-
-    const text = [el.title || el.innerText?.replaceAll('\n', ' '), kbd && `[${kbd}]`]
-    el.title = text.filter(Boolean).join(' ')
-    return el.dataset.titled = true
-  }
-
-  if (title) {
+  // remove title attribute
+  if (el.title) {
+    dataset.title = el.title
     el.removeAttribute('title')
-    data.title = title
   }
+
+  // no title attribute
+  if (!dataset.title) return
 
   // clear timers
   timers.forEach(clearTimeout)
 
+
   timers[0] = setTimeout(_ => {
+    const kbd = dataset.accesskey
 
     // tip content
-    const html = [data.title || el.innerText, kbd && `<kbd>${kbd}</kbd>`]
+    const html = [dataset.title || el.innerText, kbd && `<kbd>${kbd}</kbd>`]
     tip.innerHTML = html.filter(Boolean).join(' ')
 
     // position via anchor API
@@ -45,7 +41,7 @@ document.addEventListener('mouseenter', e => {
     tip.classList.toggle('on-bottom', el.closest('header'))
     is_shown = true
 
-  }, is_shown ? 50 : 750)
+  }, is_shown ? 50 : 500)
 
 
 }, true)

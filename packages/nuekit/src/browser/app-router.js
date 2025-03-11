@@ -68,6 +68,7 @@ function init(root=document) {
 
     e.preventDefault()
     const data = parseData(a)
+
     const changes = fire(a.search ? { ...curr_state, ...data } : data)
     if (changes) pushURLState(changes)
   })
@@ -92,13 +93,14 @@ export function fire(data) {
   const changes = {...setStoreData(data), ...diff(curr_state, data) }
   if (!changes) return
 
+  curr_state = data
+
   for (const el of fns.reverse()) {
     if (contains(changes, el.names.split(' '))) {
       el.fn(data, { path: renderPath(data) })
     }
   }
 
-  curr_state = data
   return changes
 }
 

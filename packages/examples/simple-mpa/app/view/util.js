@@ -1,5 +1,5 @@
 
-import { $ } from '/@nue/view-transitions.js'
+import { $, $$ } from '/@nue/view-transitions.js'
 
 const TODAY = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit' })
 const THIS_YEAR = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric' })
@@ -37,7 +37,7 @@ export function onDialogClose(dialog, fn) {
 export function setSelected(query, attrname, value=true) {
 
   // remove previous selection
-  $(`[${attrname}]`)?.removeAttribute(attrname)
+  for (const el of $$(`[${attrname}]`)) el.removeAttribute(attrname)
 
   // Mark the new selection
   $(query)?.setAttribute(attrname, value)

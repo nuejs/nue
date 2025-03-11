@@ -22,9 +22,12 @@ document.addEventListener('keydown', (evt) => {
     if (evt.shiftKey && first == document.activeElement) {
       evt.preventDefault()
       search.focus()
-      search.select()
     }
   }
+
+  // Command (⌘) + K
+  if (key == 'k' && evt.metaKey) search.focus()
+
 
   if (target.oninput || target.form || evt.defaultPrevented || evt.metaKey || evt.ctrlKey) return
 

@@ -24,13 +24,6 @@
       min-width: 32em;
       width: 32em;
     }
-
-    /* app overrides */
-    button {
-      font-size: .875em;
-      padding: .25em .75em;
-      gap: .25em;
-    }
   }
 
   .login {
@@ -41,6 +34,18 @@
     footer { margin-block: 1.5em }
 
     button { width: 100% }
+  }
+}
+
+@layer overrides {
+  button {
+    font-size: .875em;
+    padding: .25em .75em;
+    gap: .25em;
+
+    &[aria-pressed] {
+      color: red;
+    }
   }
 }
 
