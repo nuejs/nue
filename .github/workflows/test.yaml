@@ -37,7 +37,7 @@ jobs:
       - name: Install and test with Bun
         run: |
           bun -v
-          bun install --no-save esbuild lightningcss
+          bun install
           bun test --coverage
         if: ${{ matrix.tool == 'bun' }}
 
@@ -48,6 +48,6 @@ jobs:
       - name: Install and test with Node
         run: |
           node -v && npm -v
-          npm install --no-save jest jest-extended esbuild lightningcss
+          npm install --no-save jest jest-extended
           npm test -- --coverage
         if: ${{ matrix.tool == 'node+jest' }}
