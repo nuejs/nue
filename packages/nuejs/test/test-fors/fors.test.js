@@ -39,6 +39,20 @@ describe('Nue.js Fors Tests', () => {
     cleanup()
   })
 
+  test('Array replaced', async () => {
+    const { app, cleanup } = await mountTestComponent(mkConfig('test-for-array-replace'))
+
+    const listA = Array.from(app.$el.querySelectorAll('li')).map(e => e.textContent)
+    expect(listA).toEqual(['hello'])
+
+    app.$el.querySelector('button').click()
+
+    const listB = Array.from(app.$el.querySelectorAll('li')).map(e => e.textContent)
+    expect(listB).toEqual(['world'])
+
+    cleanup()
+  })
+
   test('Array funcs', async () => {
     const { app, cleanup } = await mountTestComponent(mkConfig('test-for-array-funcs'))
     const arr = () => Array.from(app.$el.querySelectorAll('li')).map(e => e.textContent)
