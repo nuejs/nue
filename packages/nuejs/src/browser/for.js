@@ -107,7 +107,7 @@ export default function(opts) {
     if (arr) {
       // anchor
       const p = root.parentElement
-      anchor = new Text('')
+      anchor = document.createTextNode('')
       p.insertBefore(anchor, root)
 
       p.removeChild(root)
