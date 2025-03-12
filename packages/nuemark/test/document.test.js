@@ -44,9 +44,9 @@ test('sectionize', () => {
   const tests = [
     ['### h3', 'para', '### h3', 'para', '#### h4', 'para'],
     ['# h1', 'para', '## h2', 'para', '### h3', 'para'],
-    ['para', '## h3', '---', 'para', '## h2'],
-    ['## lol', '---', '## bol'],
-    ['lol', '---', 'bol'],
+    ['para', '## h3', '+++', 'para', '## h2'],
+    ['## lol', '+++', '## bol'],
+    ['lol', '+++', 'bol'],
   ]
 
   for (const test of tests) {
@@ -65,7 +65,7 @@ test('multiple sections', () => {
   const lines = [
     '# Hello', 'World',
     '## Foo', 'Bar',
-    '---', 'Bruh', '***',
+    '+++', 'Bruh', '---',
   ]
 
   const doc = parseDocument(lines)
@@ -73,6 +73,7 @@ test('multiple sections', () => {
 
   const html = doc.render({ sections: ['hero'] })
   expect(html).toStartWith('<section class="hero"><h1>Hello</h1>')
+  expect(html).toInclude('</section>\n\n<section>')
   expect(html).toEndWith('<hr></section>')
 })
 

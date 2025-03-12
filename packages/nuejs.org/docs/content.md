@@ -100,16 +100,16 @@ This generates sections with corresponding class names:
 
 ### Manual sections
 
-For more granular control, you can use triple dashes (`---`) to explicitly create section breaks:
+For more granular control, you can use triple pluses (`+++`) to explicitly create section breaks:
 
 ```md
 First section content...
 
----
++++
 
 Second section content...
 
----
++++
 
 Third section content...
 ```
@@ -175,19 +175,19 @@ This generates:
 </div>
 ```
 
-You can also create more flexible grid layouts using triple dash as separator:
+You can also create more flexible grid layouts using triple plus as separator:
 
 ```md
 [.grid]
   [image feature-1.jpg]
   First feature description
 
-  ---
+  +++
 
   [image feature-2.jpg]
   Second feature description
 
-  ---
+  +++
 
   [image feature-3.jpg]
   Third feature description

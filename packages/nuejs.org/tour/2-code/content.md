@@ -7,6 +7,6 @@
   [button "See the difference"]
     href: content-compare.html
 
-  ---
+  +++
 
   [image ../img/content-hero.png]

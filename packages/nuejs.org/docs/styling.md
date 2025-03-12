@@ -181,7 +181,7 @@ Once your content is split into sections, you can style each section individuall
 
 Nue can automatically split your content into sections based on `<h2>` headings. Each `<h2>` tag starts a new section, and the section is automatically assigned a class matching the heading (e.g., `.hero`, `.features`). This allows you to structure your content naturally without manually managing section breaks.
 
-Alternatively, you can manually define section breaks using three dashes `---` in your Markdown or YAML configuration for greater control.
+Alternatively, you can manually define section breaks using three pluses `+++` in your Markdown or YAML configuration for greater control.
 
 #### Reusing section styles for consistency
 
