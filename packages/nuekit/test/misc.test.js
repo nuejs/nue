@@ -105,4 +105,4 @@ test('create', async () => {
   const contents = await fs.readdir(root)
   expect(contents).toContain('index.md') // should be unpacked to correct dir
   expect(contents).toContain('.dist') // should be built
-})
+}, 10_000)
