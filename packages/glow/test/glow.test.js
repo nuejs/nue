@@ -25,6 +25,18 @@ test('Emphasis', () => {
   expect(html).toInclude('</i></mark> girl')
 })
 
+/* single line comments */
+test('parse Lua comment', () => {
+  const row = 'a=1 -- comment'
+  const html = renderRow(row, 'lua')
+  expect(html).toInclude('<sup>-- comment</sup>')
+})
+
+test('parse Haskell comment', () => {
+  const row = 'let a=1 -- comment'
+  const html = renderRow(row, 'haskell')
+  expect(html).toInclude('<sup>-- comment</sup>')
+})
 
 /* multiline comments */
 test('parse HTML comment', () => {
