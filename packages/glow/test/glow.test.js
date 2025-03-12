@@ -25,6 +25,11 @@ test('Emphasis', () => {
   expect(html).toInclude('</i></mark> girl')
 })
 
+test('parse Lua comment on its own line', () => {
+  const html = renderRow('-- comment', 'lua')
+  expect(html).toBe('<sup>-- comment</sup>')
+})
+
 
 /* multiline comments */
 test('parse HTML comment', () => {

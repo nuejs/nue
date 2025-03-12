@@ -249,6 +249,7 @@ export function parseSyntax(lines, lang, prefix = true) {
         const c = line[0]
         let wrap = prefix && (is_md ? (c == '|' && 'dfn') : PREFIXES[c])
         if (wrap && is_md && line == '---') wrap = null
+        if (wrap && ['lua', 'haskell'].includes(lang) && line.startsWith('--')) wrap = null 
         if (wrap) line = (line[1] == ' ' ? ' ' : '') + line.slice(1)
 
         // escape character
