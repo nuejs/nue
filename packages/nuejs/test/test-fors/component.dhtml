@@ -1,0 +1,44 @@
+<main class="grid">
+  <test-for-array class="card" />
+  <test-for-array-numbered class="card" />
+  <test-for-object-array class="card" />
+  <test-for-array-push class="card" />
+</main>
+
+<ul @name="test-for-array">
+  <li :for="e in items">{e}</li>
+
+  <script>
+    items = ['hello', 'world', 42]
+  </script>
+</ul>
+
+<ul @name="test-for-array-numbered">
+  <li :for="e, i in items">{i}: {e}</li>
+
+  <script>
+    items = ['hello', 'world', 42]
+  </script>
+</ul>
+
+
+<ul @name="test-for-object-array">
+  <li :for="e in items">{e.k}</li>
+
+  <script>
+    items = [
+      {k: 'hello'},
+      {k: 'world'},
+      {k: 42},
+    ]
+  </script>
+</ul>
+
+<ul @name="test-for-array-push">
+  <button @click="items.push(42)">Add 42</button>
+  <li :for="e in items">{e}</li>
+
+  <script>
+    items = ['hello', 'world']
+  </script>
+</ul>
