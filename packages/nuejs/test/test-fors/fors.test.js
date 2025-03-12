@@ -12,6 +12,15 @@ describe('Nue.js Fors Tests', () => {
     cleanup()
   })
 
+  test('Unpacking Array', async () => {
+    const { app, cleanup } = await mountTestComponent(mkConfig('test-for-array-unpack'))
+
+    const list = Array.from(app.$el.querySelectorAll('li')).map(e => e.textContent)
+    expect(list).toEqual(['hello', '42'])
+
+    cleanup()
+  })
+
   test('Numbered Array', async () => {
     const { app, cleanup } = await mountTestComponent(mkConfig('test-for-array-numbered'))
 

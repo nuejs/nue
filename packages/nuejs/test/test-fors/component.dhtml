@@ -1,8 +1,8 @@
 <main class="grid">
   <test-for-array class="card" />
+  <test-for-array-unpack class="card" />
   <test-for-array-numbered class="card" />
   <test-for-object-array class="card" />
-
   <test-for-array-funcs class="card" />
 </main>
 
@@ -11,6 +11,14 @@
 
   <script>
     items = ['hello', 'world', 42]
+  </script>
+</ul>
+
+<ul @name="test-for-array-unpack">
+  <li :for="[e] in items">{e}</li>
+
+  <script>
+    items = [['hello', 'world'], [42]]
   </script>
 </ul>
 
