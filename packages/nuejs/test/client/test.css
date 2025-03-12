@@ -112,7 +112,7 @@ button:active {
 
 /* grid */
 .grid {
-  grid-template-columns: repeat( auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
   display: grid;
   gap: 2.2em;
 }
@@ -122,7 +122,6 @@ button:active {
   box-shadow: 1px 1px .3em #ddd;
   border-radius: 4px;
   padding: 2em;
-  max-width: 350px;
 }
 
 
