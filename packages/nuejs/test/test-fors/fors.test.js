@@ -30,17 +30,38 @@ describe('Nue.js Fors Tests', () => {
     cleanup()
   })
 
-  test('Array update', async () => {
-    const { app, cleanup } = await mountTestComponent(mkConfig('test-for-array-push'))
+  test('Array funcs', async () => {
+    const { app, cleanup } = await mountTestComponent(mkConfig('test-for-array-funcs'))
+    const arr = () => Array.from(app.$el.querySelectorAll('li')).map(e => e.textContent)
 
-    const listA = Array.from(app.$el.querySelectorAll('li')).map(e => e.textContent)
-    expect(listA).toEqual(['hello', 'world'])
+    expect(arr()).toEqual(['hello', 'world'])
 
-    const button = app.$el.querySelector('button')
-    button.click()
-  
-    const listB = Array.from(app.$el.querySelectorAll('li')).map(e => e.textContent)
-    expect(listB).toEqual(['hello', 'world', '42'])
+    app.$refs.push.click()
+    app.$refs.push.click()
+    expect(arr()).toEqual(['hello', 'world', '42', '42'])
+
+    app.$refs.pop.click()
+    expect(arr()).toEqual(['hello', 'world', '42'])
+
+    app.$refs.unshift.click()
+    app.$refs.unshift.click()
+    expect(arr()).toEqual(['answer', 'answer', 'hello', 'world', '42'])
+
+    app.$refs.shift.click()
+    expect(arr()).toEqual(['answer', 'hello', 'world', '42'])
+
+    app.$refs.reverse.click()
+    expect(arr()).toEqual(['42', 'world', 'hello', 'answer'])
+
+    app.$refs.remove.click()
+    expect(arr()).toEqual([ '42', 'world', 'answer'])
+
+    app.$refs.splice.click()
+    expect(arr()).toEqual(['42', 'answer'])
+
+    app.$refs.push.click() // additional 42 at end for sort
+    app.$refs.sort.click()
+    expect(arr()).toEqual(['42', '42', 'answer'])
 
     cleanup()
   })

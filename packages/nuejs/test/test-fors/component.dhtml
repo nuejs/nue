@@ -2,7 +2,8 @@
   <test-for-array class="card" />
   <test-for-array-numbered class="card" />
   <test-for-object-array class="card" />
-  <test-for-array-push class="card" />
+
+  <test-for-array-funcs class="card" />
 </main>
 
 <ul @name="test-for-array">
@@ -34,11 +35,22 @@
   </script>
 </ul>
 
-<ul @name="test-for-array-push">
-  <button @click="items.push(42)">Add 42</button>
-  <li :for="e in items">{e}</li>
+<div @name="test-for-array-funcs">
+  <div>
+    <button ref="push" @click="items.push(42)">Push 42</button>
+    <button ref="pop" @click="items.pop()">Pop</button>
+    <button ref="unshift" @click="items.unshift('answer')">Unshift 'answer'</button>
+    <button ref="shift" @click="items.shift()">Shift</button>
+    <button ref="reverse" @click="items.reverse()">Reverse</button>
+    <button ref="remove" @click="items.remove('hello')">Remove 'hello'</button>
+    <button ref="splice" @click="items.splice(1, 1)">Splice second</button>
+    <button ref="sort" @click="items.sort()">Sort</button>
+  </div>
+  <ul>
+    <li :for="e in items">{e}</li>
+  </ul>
 
   <script>
     items = ['hello', 'world']
   </script>
-</ul>
+</div>
