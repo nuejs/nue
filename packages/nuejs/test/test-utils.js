@@ -6,25 +6,39 @@ import { createWindow } from 'domino'
 
 import { parse } from '../src/compile.js'
 
-/* Use like `getDirname(import.meta.url)` */
+
+/**
+ * Get directory from url
+ * @param {Url} url - Pass `import.meta.url`
+ * @returns {string} Directory path containing the current file
+ */
 export function getDirname(url) {
   return dirname(fileURLToPath(url))
 }
 
+/**
+ * Get directory path from url and return function for usage with {@linkcode mountTestComponent}
+ * @param {Url} url - `import.meta.url` to get the test directory
+ */
 export function mkConfigBase(url) {
-  return componentName => ({ testName: getDirname(url), componentName })
+  /**
+   * @param {string} componentName
+   * @param {Object?} data
+   */
+  return (componentName, data) => ({ testPath: getDirname(url), componentName, data })
 }
+
 
 /**
  * Mounts a component from a test directory
  * @param {Object} options - Mount options
- * @param {string} options.testName - The name of the test directory
+ * @param {string} options.testPath - The path to the test directory
  * @param {string} options.componentName - Name of the specific component to mount
  * @param {Object} [options.data={}] - Data to initialize the component with
  */
-export async function mountTestComponent({ testName, componentName, data = {} }) {
+export async function mountTestComponent({ testPath, componentName, data = {} }) {
   // Validate inputs
-  if (!testName || !componentName) throw new Error('Required parameters missing: "testName" and "componentName" must be provided')
+  if (!testPath || !componentName) throw new Error('Required parameters missing: "testPath" and "componentName" must be provided')
 
   // Setup domino DOM environment
   const window = createWindow('<!DOCTYPE html><html><body></body></html>')
@@ -38,7 +52,7 @@ export async function mountTestComponent({ testName, componentName, data = {} })
 
   try {
     // Load and parse component
-    const dhtmlPath = join(testName, 'component.dhtml')
+    const dhtmlPath = join(testPath, 'component.dhtml')
     const source = readFileSync(dhtmlPath, 'utf-8')
     const components = parseComponents(source)
 
@@ -65,6 +79,7 @@ export async function mountTestComponent({ testName, componentName, data = {} })
     throw error
   }
 }
+
 
 /**
  * Parses component source and returns an array of component objects
