@@ -30,7 +30,7 @@ When you create a page in Nue, it automatically generates a semantic HTML struct
 
 Here's how this looks in Chrome DevTools for a simple page containing just `# Hello, World!`:
 
-[image.bordered]
+[image.bordered]:
   small: /img/default-layout.png
   large: /img/default-layout-big.png
   size: 400 x 262
@@ -39,7 +39,7 @@ Here's how this looks in Chrome DevTools for a simple page containing just `# He
 
 Nue uses a slot system to enhance this basic structure. Slots are predefined positions where layout modules can be inserted:
 
-[image.bordered]
+[image.bordered]:
   small: /img/layout-slots.png
   large: /img/layout-slots-big.png
   size: 500 x 543

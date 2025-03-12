@@ -8,7 +8,7 @@ date: 2023-10-02
 
 [Nue JS][nuejs] is a tiny, 2.1kb min-brotlied library for building user interfaces. It's an alternative to frameworks like *Vue*, *React*, and *Svelte* — and it's the central piece of the [Nue ecosystem](/), which is a ridiculously easier alternative to *Next.js* and *Astro*
 
-[image]
+[image]:
   large: /img/meme-big.jpg
   small: /img/meme.jpg
   caption: Less is more
@@ -339,7 +339,7 @@ The compiled Nue code is very small: Only like ~1.2x larger than the HTML-based 
 
 [evan]: //github.com/yyx990803/vue-svelte-size-analysis
 
-[table head]
+[table head]:
   - Framework              | Vue     | Svelte  | Nue
   - Framework size         | 16.89kb | 1.85kb  | 2.13 kb
   - Todo MVC size          | 1.10kb  | 1.88kb  | 0.96 kb
@@ -348,7 +348,7 @@ The compiled Nue code is very small: Only like ~1.2x larger than the HTML-based 
 
 #### Nue has the smallest footprint
 
-[image]
+[image]:
   large: /img/file-sizes-big.png
   small: /img/file-sizes.png
   width: 550

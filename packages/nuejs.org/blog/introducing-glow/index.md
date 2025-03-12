@@ -9,7 +9,7 @@ include: [syntax-extras]
 
 Today we're launching *Glow* — a new take on syntax highlighting:
 
-[image.large]
+[image.large]:
   caption: 30+ languages colored. Click for a standalone view.
   large: /img/glow-og-big.png
   small: /img/glow-og.png
@@ -23,7 +23,7 @@ Today we're launching *Glow* — a new take on syntax highlighting:
 *Glow is small*: Glow is significantly smaller than mainstream alternatives — around [5KB](//pkg-size.dev/nue-glow) compared to [5MB](//pkg-size.dev/shiki). It’s the most compact implementation available.
 
 
-[image.tall]
+[image.tall]:
   small: /img/shiki-vs-glow.png
   large: /img/shiki-vs-glow-big.png
   width: 600
@@ -32,7 +32,7 @@ Today we're launching *Glow* — a new take on syntax highlighting:
 ## Coloring voodoo
 Be it **Haskell**, **TypeScript**, or **Zig**. **React**, **Vue** or **Svelte**. Whatever Turing-free **Markdown** artifact is mixed with another tightly coupled language-of-the-day oddity. And they will all glow:
 
-[image.larger]
+[image.larger]:
   small: /img/glow-light.png
   large: /img/glow-light-big.png
   href: /glow-demo/light.html
@@ -195,7 +195,7 @@ nue create simple-blog
 
 Now you can enjoy goodies content hot-reloading when the code blocks are edited:
 
-[bunny-video.larger]
+[bunny-video.larger]:
   videoId: 38caf489-74f1-416a-9f23-694baa5500bb
   caption: Nue hot-reloading in action
   poster: thumbnail_1ca1bd66.jpg
