@@ -40,8 +40,8 @@
     }
   },
   "devDependencies": {
-    "esbuild": "^0.25",
-    "lightningcss": "^1.29"
+    "esbuild": "^0.25.1",
+    "lightningcss": "^1.29.2"
   },
   "jest": {
     "setupFilesAfterEnv": [
