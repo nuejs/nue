@@ -49,16 +49,6 @@
     padding: 1em;
   }
 
-  button {
-    font-size: .875em;
-    padding: .25em .75em;
-    gap: .25em;
-
-    &[aria-pressed] {
-      color: red;
-    }
-  }
-
   :is(h1, h2, h3):has(img, svg) {
     align-items: center;
     display: flex;

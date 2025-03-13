@@ -11,7 +11,6 @@
 
 @layer settings {
   :root {
-    accent-color: var(--main-500);
 
     /* slate gray */
     --base-50: oklch(.984 .003 247.858);

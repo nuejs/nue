@@ -4,33 +4,57 @@
   /* typescale: perfect fifth */
   :root {
     --typescale: 1.33;
-    --m:    16px;
-    --s:    calc(var(--m) / var(--typescale));
-    --l:    calc(var(--m) * var(--typescale));
-    --xl:   calc(var(--m) * pow(var(--typescale), 2));
-    --xxl:  calc(var(--m) * pow(var(--typescale), 3));
+    --s:    16px;
+    --m:    calc(var(--s) * var(--typescale));
+    --l:    calc(var(--s) * pow(var(--typescale), 2));
+    --xl:   calc(var(--s) * pow(var(--typescale), 3));
+    --xxl:   calc(var(--s) * pow(var(--typescale), 4));
+
   }
 
   body {
-    font-size: var(--m);
+    font-size: var(--s);
+  }
+
+  body > header {
+    margin-bottom: var(--xl);
+  }
+
+  article > section {
+    padding-block: var(--xl);
+  }
+
+  figure {
+    margin-block: var(--xl);
+    opacity: .25;
   }
 
   h1, h2, h3, h4, h5 {
     overflow-wrap: break-word;
+    letter-spacing: -0.025em;
     text-wrap: balance;
-    margin-top: var(--l);
-    margin-bottom: var(--m);
+    margin: 0;
   }
 
 
   h1 {
     font-size: var(--xxl);
-    line-height: 1.1
+    line-height: 1.1;
+    font-weight: 650;
+    + p {
+      font-size: var(--m);
+      margin: var(--s) 0 var(--xl);
+    }
   }
 
   h2 {
     font-size: var(--xl);
-    line-height: 1.2
+    font-weight: 600;
+    line-height: 1.1;
+    + p {
+      margin: var(--s) 0 var(--xl);
+      font-size: var(--m);
+    }
   }
 
   h3 {
@@ -41,6 +65,10 @@
   h4 {
     font-size: var(--m);
     line-height: 1.4
+  }
+
+  [role=button] {
+    + & { margin-left: .5em }
   }
 
 }

@@ -1,7 +1,7 @@
 
 @layer components {
 
-  button {
+  button, [role=button] {
 
     /* layout */
     justify-content: space-around;
@@ -20,9 +20,10 @@
     border: 1px solid var(--base-300);
     border-radius: .25em;
     background-color: white;
+    text-decoration: none;
     transition: .2s;
     color: var(--base-600);
-    font-weight: 450;
+    font-weight: 500;
     cursor: pointer;
 
     &:hover {
@@ -42,6 +43,17 @@
 
       &:hover {
         background-color: var(--main-600);
+        color: white;
+      }
+    }
+
+    &.cta {
+      background-color: var(--base-800);
+      color: white;
+
+      &:hover {
+        background-color: var(--base-950);
+        border-color: var(--base-700);
         color: white;
       }
     }

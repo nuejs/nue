@@ -12,3 +12,5 @@ include: [ button, interfaces ]
 
 # enable "turbolinking" & view transitions
 view_transitions: true
+
+sections: true

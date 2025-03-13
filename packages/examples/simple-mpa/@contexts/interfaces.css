@@ -33,7 +33,7 @@
       color: var(--base-500);
     }
 
-    h1, h2, h3, h4, h5, figure { margin: 0 }
+    h1, h2, h3, h4, h5 { margin: 0 }
 
     h1 {
       font-size: 1.5em;
@@ -72,6 +72,16 @@
 
     small, time {
       color: var(--base-400)
+    }
+
+
+    button, [role=button] {
+      padding: .5em 1em;
+      gap: .25em;
+
+      &[aria-pressed] {
+        color: red;
+      }
     }
   }
 }
