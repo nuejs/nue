@@ -271,7 +271,7 @@ export function parseSyntax(lines, lang, prefix = true) {
 // code, { language: 'js', numbered: true }
 export function glow(str, opts = { prefix: true, mark: true }) {
   if (typeof opts == 'string') opts = { language: opts }
-  const lines = Array.isArray(str) ? str : str.trim().split(/\r\n|\r|\n/)
+  const lines = Array.isArray(str) ? str : str.trim().split(/\r?\n/)
 
   if (!lines[0]) return ''
 

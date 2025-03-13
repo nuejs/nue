@@ -115,7 +115,7 @@ export async function buildCSS(filename, minify, opts = {}, lcss) {
 
     throw {
       title: 'CSS syntax error',
-      lineText: err?.position?.lineText || (err.fileName && (await fs.readFile(err.fileName, 'utf-8')).split(/\r\n|\r|\n/)[err.loc.line - 1]),
+      lineText: err?.position?.lineText || (err.fileName && (await fs.readFile(err.fileName, 'utf-8')).split(/\r?\n/)[err.loc.line - 1]),
       text: err?.message || err?.data?.type,
       ...(err?.position || err?.loc),
     }
