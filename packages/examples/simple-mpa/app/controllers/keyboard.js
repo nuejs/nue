@@ -3,7 +3,7 @@ import { $, $$ } from '/@nue/view-transitions.js'
 import { router } from '/@nue/app-router.js'
 
 // list item query
-const ITEM = '.list a'
+const ITEM = 'a.list-item'
 
 document.addEventListener('keydown', (evt) => {
   const { target, key } = evt
