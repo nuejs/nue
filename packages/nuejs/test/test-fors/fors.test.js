@@ -77,7 +77,7 @@ describe('Nue.js Fors Tests', () => {
     expect(arr()).toEqual(['42', 'world', 'hello', 'answer'])
 
     app.$refs.remove.click()
-    expect(arr()).toEqual([ '42', 'world', 'answer'])
+    expect(arr()).toEqual(['42', 'world', 'answer'])
 
     app.$refs.splice.click()
     expect(arr()).toEqual(['42', 'answer'])
