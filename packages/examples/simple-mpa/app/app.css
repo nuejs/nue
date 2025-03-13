@@ -1,0 +1,80 @@
+
+@layer settings {
+  :root {
+
+    /* special colors */
+    --blue-100: oklch(95% 0.1 250);
+    --blue-500: oklch(70% 0.25 250);
+
+    --green-100: oklch(95% 0.1 150);
+    --green-500: oklch(70% 0.25 150);
+
+    /* maybe later
+
+    --violet-100: oklch(95% 0.1 290);
+    --violet-500: oklch(70% 0.25 290);
+
+    --cyan-100: oklch(95% 0.1 200);
+    --cyan-500: oklch(70% 0.25 200);
+
+    --pink-100: oklch(95% 0.1 350);
+    --pink-500: oklch(70% 0.25 350);
+    */
+  }
+}
+
+@layer structure {
+  .app {
+    display: flex;
+    gap: 1em;
+
+    .logo { width: 1.75em }
+
+    /* panel dimensions */
+    .navigation { min-width: 16em; }
+
+    main { flex-grow: 1 }
+
+    .details {
+      min-width: 32em;
+      width: 32em;
+    }
+  }
+}
+
+@layer adjustments {
+  body {
+    background-color: var(--base-100);
+    overflow: hidden;
+    padding: 1em;
+  }
+
+  button {
+    font-size: .875em;
+    padding: .25em .75em;
+    gap: .25em;
+
+    &[aria-pressed] {
+      color: red;
+    }
+  }
+
+  :is(h1, h2, h3):has(img, svg) {
+    align-items: center;
+    display: flex;
+    gap: .25em;
+  }
+
+  /* svg icons */
+  .plan-free svg  { color: var(--base-300) }
+  .plan-pro svg   {color: var(--blue-500) }
+  .plan-enterprise svg { color: var(--green-500) }
+
+  .size-s svg  { color: var(--base-300) }
+  .size-m svg  { color: var(--base-400) }
+  .size-l svg  { color: var(--base-700) }
+  .size-xl svg { color: var(--base-950) }
+}
+
+
+

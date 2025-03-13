@@ -1,6 +1,4 @@
 @layer components {
-
-
   kbd {
     border: 1px solid var(--base-200);
     color: var(--base-500);

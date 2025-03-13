@@ -24,14 +24,6 @@
     }
   }
 
-  .thumbs {
-    display: flex;
-    gap: .75em;
-    flex-wrap: wrap;
-    margin-block: 1em;
-    li { width: calc(50% - .375em) }
-  }
-
   .thread {
     time {
       display: inline-block;
@@ -53,16 +45,5 @@
       resize: none;
     }
   }
-
-  .image-zoom {
-    aside { text-align: center }
-
-    ul { display: inline-flex }
-
-    li { max-width: 10em }
-
-    img { border-radius: .25em }
-  }
-
 }
 

@@ -17,7 +17,7 @@ model.on('authenticated', async () => {
 })
 
 addEventListener('route:app', async function() {
-  if (!model.authenticated) mount('login', window.app)
+  if (!model.authenticated) mount('login-screen', window.app)
   await model.initialize()
 })
 

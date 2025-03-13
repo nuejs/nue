@@ -1,0 +1,27 @@
+
+<header @name="user-header" class="user-header">
+  <figure><img src="/app/icon/cc/{cc}.svg"></figure>
+  <div>
+    <h2>{{ name }}</h2>
+    <p>{{ email }}</p>
+  </div>
+</header>
+
+
+<section @name="user-details" class="user">
+  <user-header :bind="this"/>
+
+  <dl :if="org">
+    <dt>Company</dt>      <dd>{ org }</dd>
+    <dt>Country</dt>      <dd> { country }</dd>
+    <dt>Company size</dt> <dd>{ size.desc } employees ({ size.label })</dd>
+    <dt>Website</dt>      <dd><a href="#">{ website }</a></dd>
+    <dt>Plan</dt>         <dd><pill icon="dot" :label="{ plan }"/></dd>
+  </dl>
+
+  <image-thumbs :items="shots"/>
+
+  <chat-thread :thread="thread"/>
+</section>
+
+

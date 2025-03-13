@@ -1,6 +1,17 @@
 
+@layer
+  settings,     /* Mathematical basis: colors, typographic scales, resets that ground everything. */
+  structure,    /* The site’s skeleton—body, header, main, footer framing the big picture. */
+  components,   /* The building blocks—buttons, forms, bento grids you slot into place. */
+  effects,      /* Transforms, gradients, transitions, that can be slapped to any element */
+  contexts,     /* The vibes—.ui, .content shaping interactive or readable spaces. */
+  adjustments,  /* The tweaks—refining components for app-specific flair. */
+  overrides     /* The last word—rare, forceful rules like !important to fix clashes. */
+;
+
 @layer settings {
   :root {
+    accent-color: var(--main-500);
 
     /* slate gray */
     --base-50: oklch(.984 .003 247.858);
@@ -15,7 +26,6 @@
     --base-900: oklch(.208 .042 265.755);
     --base-950: oklch(.129 .042 264.695);
 
-
     /* main color */
     --main-500: #3b82f6;
     --main-600: #2563eb;
@@ -25,21 +35,5 @@
     --alpha-100: rgba(0,0,0,.05);
     --alpha-200: rgba(0,0,0,.1);
     --alpha-300: rgba(0,0,0,.2);
-
-    /* special colors */
-    --blue-100: oklch(95% 0.1 250);
-    --blue-500: oklch(70% 0.25 250);
-
-    --violet-100: oklch(95% 0.1 290);
-    --violet-500: oklch(70% 0.25 290);
-
-    --cyan-100: oklch(95% 0.1 200);
-    --cyan-500: oklch(70% 0.25 200);
-
-    --green-100: oklch(95% 0.1 150);
-    --green-500: oklch(70% 0.25 150);
-
-    --pink-100: oklch(95% 0.1 350);
-    --pink-500: oklch(70% 0.25 350);
   }
 }

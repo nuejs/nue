@@ -1,0 +1,77 @@
+
+/*
+  Defines the typography and spacing foundation for interactive UI contexts, such as
+  single-page apps (SPAs) and dynamic interfaces or "islands"
+
+  - Uses a `--ui-font` variable (e.g., set to 14px). Small font-size is better
+    for dense, information-rich UIs.
+
+  - Relies on `em` (relative to the parent’s font size) rather than `rem`
+    (relative to the root) to ensure spacing scales proportionally with the local font size.
+
+  - Uses fixed values like `.5em`, `1em`, and `1.5em` (sometimes `.875em` or `1.125em`)
+    directly instead of calculated variables (e.g., `calc(var(--base-unit) * 2)`).
+    This avoids unnecessary complexity.
+
+  - Employs a "boring," linear grid (e.g., `.25em` steps) over an exponential scale
+    (like a perfect fifth). This ensures predictable, uniform spacing.
+*/
+
+@layer contexts {
+
+  :root {
+    --ui-font: 14px;
+  }
+
+  .ui {
+    font-size: var(--ui-font);
+    line-height: 1.25;
+    color: var(--base-700);
+
+    p {
+      margin: .25em 0;
+      color: var(--base-500);
+    }
+
+    h1, h2, h3, h4, h5, figure { margin: 0 }
+
+    h1 {
+      font-size: 1.5em;
+      font-weight: 600;
+      letter-spacing: -.025em;
+    }
+
+    h2 {
+      font-size: 1.25em;
+      font-weight: 550;
+    }
+
+    h3 {
+      font-size: 1em;
+      font-weight: 500;
+    }
+
+    h4 {
+      font-size: 1em;
+      font-weight: 500;
+    }
+
+    a {
+      text-decoration: none;
+      font-weight: 470;
+    }
+
+    h5, small, time {
+      font-size: .875em
+    }
+
+    ul {
+      padding: 0;
+      list-style: none;
+    }
+
+    small, time {
+      color: var(--base-400)
+    }
+  }
+}

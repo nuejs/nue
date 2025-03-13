@@ -1,0 +1,13 @@
+
+@layer components {
+  dialog {
+    padding: 1em 1.5em;
+    border-radius: .5em;
+    box-shadow: 0 0 2em var(--alpha-300);
+    border: 0;
+
+    &::backdrop {
+      background: rgb(190 190 190 / 50%);
+    }
+  }
+}

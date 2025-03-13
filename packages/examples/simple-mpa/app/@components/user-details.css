@@ -1,5 +1,16 @@
 
 @layer components {
+  .user-header {
+    align-items: center;
+    display: flex;
+    gap: .75em;
+
+    figure {
+      width: 3.5em;
+      img { border-radius: .25em }
+    }
+  }
+
   dl {
     display: grid;
     grid-template-columns: 10em 1fr;
@@ -13,15 +24,5 @@
     a  { color: var(--main-500) }
   }
 
-  .user-header {
-    align-items: center;
-    display: flex;
-    gap: .75em;
-
-    figure {
-      width: 3.5em;
-      img { border-radius: .25em }
-    }
-  }
 }
 

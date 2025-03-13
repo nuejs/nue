@@ -28,7 +28,7 @@
         const item = model.get(id)
 
         if (item) {
-          this.mountChild('user', window.details_body, item)
+          this.mountChild('user-details', window.details_body, item)
           this.mountChild('chat-form', window.details_footer, item)
         }
 
@@ -38,23 +38,5 @@
     }
   </script>
 </aside>
-
-
-<section @name="user" class="user">
-  <user-header :bind="this"/>
-
-  <dl :if="org">
-    <dt>Company</dt>      <dd>{ org }</dd>
-    <dt>Country</dt>      <dd> { country }</dd>
-    <dt>Company size</dt> <dd>{ size.desc } employees ({ size.label })</dd>
-    <dt>Website</dt>      <dd><a href="#">{ website }</a></dd>
-    <dt>Plan</dt>         <dd><pill icon="dot" :label="{ plan }"/></dd>
-  </dl>
-
-  <image-thumbs :items="shots"/>
-
-  <chat-thread :thread="thread"/>
-
-</section>
 
 

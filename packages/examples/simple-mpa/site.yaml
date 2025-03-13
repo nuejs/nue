@@ -1,7 +1,14 @@
 
-title: Simple multi-page application / Nue
-globals: [ "@global", css, view, controllers ]
-libs: [ "@lib" ]
+title: Nue CRM / A single-page app demo
 
+# automatically included
+globals: [ "@globals", controllers, view, layout ]
+
+# libraries to include from
+libs: [ "@components", "@contexts", "app/@components"]
+
+# globally included components
+include: [ button, interfaces ]
+
+# enable "turbolinking" & view transitions
 view_transitions: true
-include: [ ui, button ]

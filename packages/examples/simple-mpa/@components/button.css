@@ -1,5 +1,5 @@
 
-@layer elements {
+@layer components {
 
   button {
 
@@ -45,7 +45,6 @@
         color: white;
       }
     }
-
 
     &:disabled {
       pointer-events: none;

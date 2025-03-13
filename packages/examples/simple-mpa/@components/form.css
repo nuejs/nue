@@ -1,21 +1,5 @@
 
-@layer settings {
-  :root {
-    accent-color: var(--main)
-  }
-
-  ::placeholder {
-    color: var(--base-400)
-  }
-
-  :focus-visible {
-    outline: .5px solid var(--base-500);
-    transition: outline-width .1s;
-    outline-offset: 1.5px
-  }
-}
-
-@layer elements {
+@layer components {
   input, textarea {
     border: 1px solid var(--base-300);
     font-family: inherit;

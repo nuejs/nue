@@ -3,7 +3,7 @@
   import { model } from '../model/index.js'
 </script>
 
-<div @name="login">
+<div @name="login-screen">
 
   <form @submit.prevent="login" class="login ui card">
     <header>

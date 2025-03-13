@@ -4,14 +4,13 @@
   import { formatDate } from './util.js'
 </script>
 
-
 <section @name="user-list">
   <user-sort/>
 
-  <ul class="{ router.state.show_grid_view ? 'grid' : 'tabular' } list">
+  <ul class="{ router.state.show_grid_view ? 'grid-view' : 'list-view' }">
     <li :for="el, i in items">
 
-      <a :href="?id={ el.id }" class="item">
+      <a :href="?id={ el.id }" class="list-item">
         <aside>
           <small class=""><icon :key="el.type"/> { el.type }</small>
           <time>{ formatDate(el.created) }</time>
@@ -40,14 +39,6 @@
   </script>
 
 </section>
-
-<header @name="user-header" class="user-header">
-  <figure><img src="/app/icon/cc/{cc}.svg"></figure>
-  <div>
-    <h2>{{ name }}</h2>
-    <p>{{ email }}</p>
-  </div>
-</header>
 
 
 <header @name="user-sort">

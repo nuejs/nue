@@ -1,0 +1,32 @@
+@layer components {
+  .grid-view {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    display: grid;
+    gap: 1em;
+  }
+
+  .grid-view .list-item {
+    border: 1px solid var(--base-200);
+    box-shadow: 0 0 1em var(--alpha-50);
+    border-radius: .5em;
+    height: 100%;
+    padding: 1.5em;
+    display: flex;
+    flex-direction: column;
+    gap: .75em;
+
+    .message {
+      border-left: 3px solid var(--base-300);
+      padding-left: .75em;
+    }
+
+    aside {
+      &, :first-child {
+        align-items: center;
+        display: flex;
+        gap: .5em;
+      }
+      :last-child { margin-left: auto; }
+    }
+  }
+}

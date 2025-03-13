@@ -1,0 +1,16 @@
+@layer components {
+  svg {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .icon {
+    width: 1.25em;
+    height: 1.25em;
+    stroke-width: 1.5;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+  }
+}

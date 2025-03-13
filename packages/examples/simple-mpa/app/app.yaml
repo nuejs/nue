@@ -1,4 +1,4 @@
 
-title: Simple CRM / Nue demo
-include: ["@lib"]
+include: ["@contexts/interfaces.css", "@components", controllers, view]
+exclude: ["structure"]
 

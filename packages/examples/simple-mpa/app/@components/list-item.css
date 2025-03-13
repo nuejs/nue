@@ -1,0 +1,30 @@
+
+@layer components {
+  .list-item {
+    border-radius: .25em;
+    color: unset;
+    margin-inline: 2px;
+
+    /* Shared user-header styles */
+    .user-header figure {
+      width: 2.75em;
+    }
+
+    /* Shared message styles */
+    .message {
+      color: var(--base-500);
+      line-height: 1.25;
+      font-weight: 400;
+    }
+
+    &:hover {
+      background-color: var(--base-50);
+    }
+
+    &[aria-selected] {
+      outline: 1px solid var(--base-200);
+      background-color: var(--base-50);
+      pointer-events: none;
+    }
+  }
+}

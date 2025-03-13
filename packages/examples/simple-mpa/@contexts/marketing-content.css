@@ -1,5 +1,5 @@
 
-@layer settings {
+@layer contexts {
 
   /* typescale: perfect fifth */
   :root {
@@ -10,9 +10,10 @@
     --xl:   calc(var(--m) * pow(var(--typescale), 2));
     --xxl:  calc(var(--m) * pow(var(--typescale), 3));
   }
-}
 
-@layer elements {
+  body {
+    font-size: var(--m);
+  }
 
   h1, h2, h3, h4, h5 {
     overflow-wrap: break-word;

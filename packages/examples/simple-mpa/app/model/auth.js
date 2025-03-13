@@ -4,7 +4,7 @@ export async function fetchWithAuth(path, as_text) {
   const { sid } = sessionStorage
   if (!sid) throw new Error('No active session')
 
-  const res = await fetch('/mocks/' + path, {
+  const res = await fetch('/app/mocks/' + path, {
     headers: { 'Authorization': `Bearer ${sid}` }
   })
 
@@ -13,7 +13,7 @@ export async function fetchWithAuth(path, as_text) {
 
 
 export async function login(email, password) {
-  const response = await fetch('/mocks/login.json', {
+  const response = await fetch('/app/mocks/login.json', {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password }),
     method: 'POST',

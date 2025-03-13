@@ -1,0 +1,38 @@
+
+@layer
+  settings,     /* Mathematical basis: colors, typographic scales, resets that ground everything. */
+  structure,    /* The site’s skeleton—body, header, main, footer framing the big picture. */
+  components,   /* The building blocks—buttons, forms, bento grids you slot into place. */
+  effects,      /* Transforms, gradients, transitions, that can be slapped to any element */
+  contexts,     /* The vibes—.ui, .content shaping interactive or readable spaces. */
+  adjustments,  /* The tweaks—refining components for app-specific flair. */
+  overrides     /* The last word—rare, forceful rules like !important to fix clashes. */
+;
+
+@layer settings {
+  *, *::before, *::after {
+    box-sizing: border-box
+  }
+
+  ::placeholder {
+    color: var(--base-400)
+  }
+
+  :focus-visible {
+    outline: .5px solid var(--base-500);
+    transition: outline-width .1s;
+    outline-offset: 1.5px
+  }
+
+  body {
+    font-family: system-ui;
+    font-size: 15px;
+    margin: 0;
+  }
+
+  img {
+    max-width: 100%;
+  }
+}
+
+
