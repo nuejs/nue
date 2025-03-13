@@ -22,12 +22,15 @@
   "dependencies": {
     "htmlparser2": "^10.0.0"
   },
+  "devDependencies": {
+    "domino": "^2.1.6"
+  },
   "jest": {
     "setupFilesAfterEnv": [
       "<rootDir>/../../setup-jest.js"
+    ],
+    "collectCoverageFrom": [
+      "<rootDir>/src/**"
     ]
-  },
-  "devDependencies": {
-    "domino": "^2.1.6"
   }
 }
