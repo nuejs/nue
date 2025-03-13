@@ -1,10 +1,27 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
-import { join } from 'node:path'
+import { join, dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 import { parse } from '../src/compile.js'
-import { getDirname } from './test-utils.js'
 
-const srcdir = getDirname(import.meta.url)
+const genIndex = (name) => `
+<meta charset="utf-8"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../../client/test.css">
+
+<h1>${name}</h1>
+
+<div id="container"></div>
+
+<script type="module">
+import createApp from '../../../src/browser/nue.js';
+import { lib } from './index.js';
+const [App, ...deps] = lib
+createApp(App, {}, deps).mount(container)
+</script>
+`
+
+const srcdir = dirname(fileURLToPath(import.meta.url))
 
 // Ensure the dist directory exists
 const distDir = join(srcdir, 'dist')
@@ -34,6 +51,8 @@ for (const { testPath, name } of testComponentDirs) {
   const outputPath = join(outputDir, 'index.js')
   const output = `export const lib = [${components.join(',')}]`
   writeFileSync(outputPath, output)
+
+  writeFileSync(join(outputDir, 'index.html'), genIndex(name))
 
   console.log(`Compiled ${name}: ${outputPath}`)
 }
