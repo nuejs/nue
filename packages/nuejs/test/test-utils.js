@@ -8,15 +8,6 @@ import { parse } from '../src/compile.js'
 
 
 /**
- * Get directory from url
- * @param {Url} url - Pass `import.meta.url`
- * @returns {string} Directory path containing the current file
- */
-export function getDirname(url) {
-  return dirname(fileURLToPath(url))
-}
-
-/**
  * Get directory path from url and return function for usage with {@linkcode mountTestComponent}
  * @param {Url} url - `import.meta.url` to get the test directory
  */
@@ -25,7 +16,7 @@ export function mkConfigBase(url) {
    * @param {string} componentName
    * @param {Object?} data
    */
-  return (componentName, data) => ({ testPath: getDirname(url), componentName, data })
+  return (componentName, data) => ({ testPath: dirname(fileURLToPath(url)), componentName, data })
 }
 
 
