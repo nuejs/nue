@@ -8,7 +8,7 @@
 
 <aside @name="nav-panel">
   <header>
-    <h1><img class="logo" src="/app/img/logo.svg"> Big Design Inc.</h1>
+    <img src="/img/logomark.png" width="60" height="23">
   </header>
 
   <section>

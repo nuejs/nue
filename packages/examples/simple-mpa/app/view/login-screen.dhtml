@@ -6,19 +6,19 @@
 <div @name="login-screen">
 
   <form @submit.prevent="login" class="login ui card">
-    <header>
-      <img src="/app/img/logo.svg">
-      <h1>Login</h1>
+    <header class="">
+      <img class="logo" src="/img/logo.png" width="40">
+      <h1>Demo Login</h1>
     </header>
 
     <label>
-      <h2>Email</h2>
-      <input name="email" type="email" autofocus value="demo.user@bigdesign.com"
+      <h3>Email</h3>
+      <input name="email" type="email" autofocus value="demo.user@example.com"
         autocomplete="email">
     </label>
 
     <label>
-      <h2>Password</h2>
+      <h3>Password</h3>
       <input name="password" type="password" value="password" autocomplete="current-password">
     </label>
 

@@ -2,18 +2,19 @@
 @layer components {
   .list-item {
     border-radius: .25em;
+    margin-inline: 1px;
     color: unset;
-    margin-inline: 2px;
 
     /* Shared user-header styles */
-    .user-header figure {
-      width: 2.75em;
+    .user-header {
+      font-size: .875em;
+      figure { width: 2.75em }
     }
 
     /* Shared message styles */
     .message {
       color: var(--base-500);
-      line-height: 1.25;
+      line-height: 1.5;
       font-weight: 400;
     }
 

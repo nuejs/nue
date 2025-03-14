@@ -1,8 +1,0 @@
-
-/* should stay small */
-
-@layer overrides {
-  [hidden] {
-    display: none
-  }
-}

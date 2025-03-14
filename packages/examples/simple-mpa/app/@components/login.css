@@ -1,11 +1,11 @@
 
-@layer components {
+@layer adjustments {
   .login {
     max-width: 25em;
     margin: 10% auto;
     padding: 1.5em 2em;
 
-    footer { margin-block: 1.5em }
+    header, footer { margin-block: 1.5em }
 
     button { width: 100% }
   }

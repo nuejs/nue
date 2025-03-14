@@ -1,10 +1,8 @@
 
 @layer components {
 
-  .navigation {
-
+  .nav-panel {
     > header { margin-bottom: .5em }
-    > section { overflow: unset }
 
     nav, details {
       margin: 1em 0 1.5em 0;

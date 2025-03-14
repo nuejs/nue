@@ -1,0 +1,19 @@
+
+@layer components {
+  dl {
+    display: grid;
+    grid-template-columns: 10em 1fr;
+    margin-block: 1em;
+    > * { margin: .25em 0 }
+
+    dt { font-weight: 400 }
+
+    dd { color: var(--base-600) }
+
+    a  { color: var(--main-500) }
+
+    &.full-size dd {
+      text-align: right;
+    }
+  }
+}

@@ -3,9 +3,9 @@
   input, textarea {
     border: 1px solid var(--base-300);
     font-family: inherit;
-    color: var(--base-800);
     border-radius: .25em;
     padding: .75em 1em;
+    color: inherit;
     font-size: 1em;
     width: 100%;
   }

@@ -5,7 +5,9 @@
 </script>
 
 <section @name="user-list">
-  <user-sort/>
+  <header class="subheader">
+    <sort-buttons/>
+  </header>
 
   <ul class="{ router.state.show_grid_view ? 'grid-view' : 'list-view' }">
     <li :for="el, i in items">
@@ -41,33 +43,3 @@
 </section>
 
 
-<header @name="user-sort">
-  <h3>Sort by</h3>
-  <nav>
-    <button
-      :for="col in sortable"
-      @click="sort(col.key)"
-      aria-pressed="{ state.sort == col.key }"
-      title="Sort by { col.label.toLowerCase() }">
-      { col.label }
-      <icon key="{ state.sort != col.key ? 'chevrons-up-down'
-        : state.asc ? 'chevron-up' : 'chevron-down' }"/>
-    </button>
-  </nav>
-
-  <script>
-    state = router.state
-
-    sortable = [
-      { key: 'id', label: 'Created' },
-      { key: 'cc', label: 'Country' },
-      { key: 'size', label: 'Company size' },
-      { key: 'plan', label: 'Plan' }
-    ]
-
-    sort(by) {
-      router.set({ sort: by, asc: by == router.state.sort ? !router.state.asc : null})
-    }
-  </script>
-
-</header>

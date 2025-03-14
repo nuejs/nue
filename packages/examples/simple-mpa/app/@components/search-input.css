@@ -5,11 +5,11 @@
     background-color: white;
     border-radius: .25em;
     align-items: center;
-    padding: .25em .75em;
+    padding: 0 .75em;
     display: flex;
 
     input {
-      padding-right: .25em;
+      padding: .75em .5em;
       width: 5em;
       outline: 0;
       border: 0;

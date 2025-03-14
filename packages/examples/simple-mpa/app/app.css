@@ -31,11 +31,11 @@
     .logo { width: 1.75em }
 
     /* panel dimensions */
-    .navigation { min-width: 16em; }
+    .nav-panel { min-width: 16em; }
 
-    main { flex-grow: 1 }
+    .content-panel { flex-grow: 1 }
 
-    .details {
+    .details-panel {
       min-width: 32em;
       width: 32em;
     }

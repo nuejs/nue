@@ -4,33 +4,33 @@
   import { model } from '../model/index.js'
 </script>
 
-<main @name="main-panel">
+<div @name="content-panel">
   <header>
-    <h3>This is coming</h3>
+    <h2>All contacts</h2>
 
     <nav>
       <small>{ status() }</small>
 
-      <button @click="seek(-1)" data-accesskey="ArrowLeft h"
+      <button class="ghost" @click="seek(-1)" data-accesskey="ArrowLeft h"
         :disabled="!coll?.start" title="Previous page"><icon key="chevron-left"/></button>
 
-      <button @click="seek(1)" data-accesskey="ArrowRight l"
+      <button class="ghost" @click="seek(1)" data-accesskey="ArrowRight l"
         :disabled="coll?.start + coll?.length >= coll?.total" title="Next page">
         <icon key="chevron-right"/></button>
 
       <hr>
 
-      <button @click="toggleGridView" data-accesskey="g"
+      <button class="ghost" @click="toggleGridView" data-accesskey="g"
         :disabled="!router.state.show_grid_view"
         title="Show table view"><icon key="list"/></button>
 
-      <button @click="toggleGridView" data-accesskey="g"
+      <button class="ghost" @click="toggleGridView" data-accesskey="g"
         :disabled="router.state.show_grid_view"
         title="Show grid view"><icon key="grid"/></button>
 
       <hr>
 
-      <button popovertarget="help" data-accesskey="?"
+      <button class="ghost" popovertarget="help" data-accesskey="?"
         title="Show keyboard shortcuts"><icon key="question"/></button>
     </nav>
 
@@ -63,6 +63,6 @@
       return `${ start + 1 } – ${ start + length } of ${ total }`
     }
   </script>
-</main>
+</div>
 
 

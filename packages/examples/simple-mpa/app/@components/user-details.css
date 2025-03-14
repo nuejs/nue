@@ -10,19 +10,5 @@
       img { border-radius: .25em }
     }
   }
-
-  dl {
-    display: grid;
-    grid-template-columns: 10em 1fr;
-    margin-block: 1em;
-    > * { margin: .25em 0 }
-
-    dt { font-weight: 510 }
-
-    dd { color: var(--base-600) }
-
-    a  { color: var(--main-500) }
-  }
-
 }
 

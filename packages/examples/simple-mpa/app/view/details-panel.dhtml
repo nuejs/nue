@@ -8,9 +8,11 @@
 <aside @name="details-panel" :hidden="!item">
 
   <header>
-    <h3>Discussion</h3>
+    <h2>Conversation</h2>
     <nav>
-      <button @click="router.del('id')"><icon key="x"/></button>
+      <button class="ghost" @click="router.del('id')">
+        <icon key="x"/>
+      </button>
     </nav>
   </header>
 

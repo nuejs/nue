@@ -1,28 +1,42 @@
 
-# the information architecture
 documentation:
 
-  Getting started:
-    - Standards first: /docs/
-    - Installation: installation.html
-    - Command line interface: command-line-interface.html
-    - Compare: compare.html
+  What is Nue:
+    - The Problem:  /docs/
+    - The Solution: why-nue.html
+    - How it Works: how-it-works.html
+    - Nue internals: nue-internals.html
     - FAQ: faq.html
 
-  Building websites:
-    - Step-by-step tutorial: tutorial.html
+  Getting started:
+    - Installation: installation.html
+    - Command line interface: command-line-interface.html
+
+  Single-page apps:
+    - Introduction: single-page-apps.html
+    - Model: models.html
+    - Views: views.html
+    - Routing: routing.html
+    - Controllers: controllers.html
+
+  Public websites:
+    - Tutorial: tutorial.html
     - Project structure: project-structure.html
     - Content: content.html
     - Data: data.html
     - Layout: layout.html
     - Islands: islands.html
-    - Styling: styling.html
     - Motion: motion.html
     - Scripting: scripting.html
-    - Optimization: optimization.html
 
+  Design systems:
+    - Introduction: design-systems.html
+    - Cascade layers: cascade-layers.html
+    - Directory structure: css-directories.html
+    - Mathematical design: mathematical-design.html
 
   Reference:
+    - Optimization: optimization.html
     - Settings and metadata: settings.html
     - Markdown extensions: content-tags.html
     - Custom components: custom-components.html

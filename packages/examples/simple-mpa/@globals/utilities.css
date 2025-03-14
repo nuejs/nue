@@ -1,0 +1,13 @@
+
+
+@layer utilities {
+  [hidden] {
+    display: none
+  }
+
+  .flex {
+    align-items: var(--align, center);
+    gap: var(--gap, .5em);
+    display: flex;
+  }
+}

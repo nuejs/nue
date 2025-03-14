@@ -1,9 +1,10 @@
+
 <div @name="load-screen" class="app ui">
-  <aside class="navigation panel">
-    <header>
-      <h1><img class="logo" src="/app/img/logo.svg"> Big Design Inc.</h1>
-    </header>
+  <aside class="panel nav-panel">
+    <header><img class="logo" src="/img/logomark.png"></header>
   </aside>
-  <main  class="pulsating card panel"><h2>Loading...</h2></main>
-  <aside class="pulsating details card panel"/>
+
+  <article  class="panel content-panel pulsating card"><h2>Loading...</h2></article>
+
+  <aside class="panel details-panel pulsating card"/>
 </div>

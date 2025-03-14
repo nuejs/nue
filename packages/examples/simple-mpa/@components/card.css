@@ -1,0 +1,9 @@
+
+@layer components {
+  .card {
+    border-color: var(--alpha-100);
+    background-color: white;
+    border-radius: .5em;
+    padding: 1em 1.5em;
+  }
+}

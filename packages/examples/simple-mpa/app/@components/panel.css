@@ -1,15 +1,4 @@
 @layer components {
-  .card {
-    border-color: var(--alpha-100);
-    background-color: white;
-    border-radius: .5em;
-    padding: 1em 1.5em;
-
-    > header {
-      border-bottom: 1px solid var(--alpha-100);
-    }
-  }
-
   .panel {
     border: 1px solid transparent;
     height: calc(100vh - 2em);
@@ -17,11 +6,10 @@
     padding: 0 .75em;
     display: flex;
 
-    header:has(nav) {
-      display: flex;
+    > header {
       align-items: center;
-      padding-block: .75em;
-      margin-bottom: 1em;
+      padding: .75em .5em;
+      display: flex;
 
       small {
         font-weight: 450;
@@ -34,10 +22,27 @@
         display: inline-flex;
         gap: .5em;
       }
+
+      hr {
+        height: 1em;
+        border-color: var(--base-200);
+        border-width: 0 1px 0 0;
+        margin: 0 .5em;
+        width: 1px;
+      }
+
+      &:has(nav) {
+        border-bottom: 1px solid var(--alpha-100);
+        margin-bottom: 1em;
+      }
+    }
+
+    .subheader {
+      margin-bottom: 1.5em;
     }
 
     > section {
-      padding-bottom: 2em;
+      padding: 2px;
       overflow: auto;
       flex-grow: 1;
     }

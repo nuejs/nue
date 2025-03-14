@@ -4,18 +4,19 @@
 </script>
 
 
-<div @name="app" class="ui app">
+<main @name="app" class="ui app">
 
-  <nav-panel class="navigation panel"/>
-  <main-panel class="card panel"/>
-  <details-panel class="details card panel"/>
+  <nav-panel class="panel nav-panel"/>
+  <content-panel class="panel content-panel card "/>
+  <details-panel class="panel details-panel card"/>
 
   <script>
     mounted() {
       router.initialize({ root: this.root })
     }
   </script>
-</div>
+
+</main>
 
 
 
