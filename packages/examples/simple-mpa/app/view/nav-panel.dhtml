@@ -15,29 +15,23 @@
     <search-input/>
 
     <nav>
-      <a data-accesskey="1" href="/app/"><icon key="users"/>All contacts</a>
-      <a data-accesskey="2" href="/app/demo_request/"><icon key="demo_request"/>Demo requests</a>
-      <a data-accesskey="3" href="/app/question/"><icon key="question"/>Questions</a>
-      <a data-accesskey="4" href="/app/problem/"><icon key="problem"/>Problems</a>
-      <a data-accesskey="5" href="/app/feedback/"><icon key="feedback"/>Feedback</a>
+      <a :for="el in config.views" href="/app/{ el.type }/">
+        <icon :key="el.icon || el.type"/>{ el.title }</a>
     </nav>
 
     <details name="plans">
       <summary @click="toggleDetails('plans')">Plans</summary>
       <nav>
-        <a href="/app/plan/enterprise" class="plan-enterprise"><icon key="dot"/>Enterprise</a>
-        <a href="/app/plan/pro"  class="plan-pro"><icon key="dot"/>Pro</a>
-        <a href="/app/plan/free" class="plan-free"><icon key="dot"/>Free</a>
+        <a :for="[plan, label] of Object.entries(config.plans)"
+          href="/app/plan/{ plan }" class="plan-{ plan }"><icon key="dot"/>{ label }</a>
       </nav>
     </details>
 
     <details name="sizes">
       <summary @click="toggleDetails('sizes')">Company size</summary>
       <nav>
-        <a href="/app/size/xl" class="size-xl"><icon key="square"/>Very large</a>
-        <a href="/app/size/l"  class="size-l"><icon key="square"/>Large</a>
-        <a href="/app/size/m"  class="size-m"><icon key="square"/>Medium</a>
-        <a href="/app/size/s"  class="size-s"><icon key="square"/>Small</a>
+        <a :for="[size, label] of Object.entries(config.company_sizes)"
+          href="/app/size/{ size }" class="size-{ size }"> <icon key="square"/> { label }</a>
       </nav>
     </details>
   </section>

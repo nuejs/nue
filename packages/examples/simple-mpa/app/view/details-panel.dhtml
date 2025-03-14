@@ -7,7 +7,7 @@
 
 <aside @name="details-panel" :hidden="!item">
 
-  <header>
+  <header class="appears" style="--delay: 0">
     <h2>Conversation</h2>
     <nav>
       <button class="ghost" @click="router.del('id')">
@@ -16,7 +16,7 @@
     </nav>
   </header>
 
-  <section id="details_body"/>
+  <section id="details_body" class="appears" style="--delay: 2"/>
 
   <footer>
     <div id="details_footer"/>

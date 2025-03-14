@@ -11,10 +11,9 @@
 
   <ul class="{ router.state.show_grid_view ? 'grid-view' : 'list-view' }">
     <li :for="el, i in items">
-
-      <a :href="?id={ el.id }" class="list-item">
+      <a :href="?id={ el.id }" class="list-item appears" :style="--delay: { i }">
         <aside>
-          <small class=""><icon :key="el.type"/> { el.type }</small>
+          <small class=""><icon :key="el.type"/> { el.type?.replace('_', ' ') }</small>
           <time>{ formatDate(el.created) }</time>
         </aside>
 

@@ -45,9 +45,9 @@
 
     button {
       position: absolute;
-      padding: .5em;
-      right: .75em;
-      bottom: .75em;
+      padding: .25em;
+      right: 1em;
+      bottom: 1em;
 
       :placeholder-shown + & {
         background-color: var(--base-200);

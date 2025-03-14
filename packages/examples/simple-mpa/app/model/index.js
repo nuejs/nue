@@ -35,7 +35,7 @@ export const model = {
       ascending: !!args.asc || undefined,
       start: parseInt(args.start) || 0,
       sort_by: args.sort,
-      length: 10,
+      length: 12,
     }
 
     if (!type || (type == 'search' && !query)) return model.all(params)

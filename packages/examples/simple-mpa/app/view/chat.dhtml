@@ -5,7 +5,7 @@
 
 <!-- discussion thread -->
 <ul @name="chat-thread" class="thread">
-  <li :for="msg in thread" class="{ reply: msg.is_reply }">
+  <li :for="msg, i in thread" class="{ reply: msg.is_reply }" :style="--index: { i }">
     <time :if="msg.created">{ formatDate(msg.created) }</time>
     <div class="{ isEmoji(msg.body) ? 'emoji' : 'post' }">{{ formatBody(msg.body) }}</div>
   </li>
@@ -21,7 +21,8 @@
 </ul>
 
 
-<form @name="chat-form" class="chat-form" @submit.prevent="submit">
+<form @name="chat-form" class="chat-form appears" class="appears" style="--delay: 6"
+  @submit.prevent="submit">
   <textarea name="body" placeholder="Type your reply..." required></textarea>
   <button class="primary"><icon key="send-horizontal"/></button>
 

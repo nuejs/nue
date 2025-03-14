@@ -19,4 +19,11 @@
     }
   }
 
+  .appears {
+    opacity: 1;
+    transition: opacity .75s;
+    transition-delay: calc(.0125s * var(--delay));
+    @starting-style { opacity: 0 }
+  }
+
 }

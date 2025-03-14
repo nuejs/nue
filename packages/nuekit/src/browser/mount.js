@@ -55,7 +55,7 @@ export async function mountAll(hmr_path) {
       // web component -> do nothing
 
     } else {
-      console.error(`Component not defined: "${name}"`)
+      // console.error(`Component not defined: "${name}"`)
     }
   }
 }

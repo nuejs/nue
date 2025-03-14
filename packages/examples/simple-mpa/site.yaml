@@ -2,7 +2,7 @@
 title: Nue CRM / A single-page app demo
 
 # automatically included
-globals: [ "@globals", controllers, view ]
+globals: [ "@globals", "@app", controllers, view ]
 
 # libraries to include from
 libs: [ "@components", "@contexts", "app/@components"]

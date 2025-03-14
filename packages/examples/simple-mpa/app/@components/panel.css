@@ -41,6 +41,7 @@
 
     .subheader {
       margin-bottom: 1.5em;
+      button { margin-right: .5em }
     }
 
     &.details-panel header {
