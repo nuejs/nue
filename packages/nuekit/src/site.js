@@ -5,7 +5,7 @@ import yaml from 'js-yaml'
 import { parse as parseNue } from 'nuejs-core'
 import { nuedoc } from 'nuemark'
 
-import { fswalk } from './nuefs.js'
+import { fswalk, IGNORE } from './nuefs.js'
 import {
   traverseDirsUp,
   parsePathParts,
@@ -72,6 +72,7 @@ export async function createSite(args) {
   }
 
   let site_data = await readOpts()
+  if (site_data.ignore) IGNORE.push(...site_data.ignore)
 
   const self = {
     globals: site_data.globals || [],
