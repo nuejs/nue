@@ -21,6 +21,7 @@ Options
   -b or --esbuild       Use esbuild as JS bundler. Please install it manually
   -l or --lcss          Use lightningcss as CSS bundler. Please install it manually
   -P or --port          Serves the site on the specified port
+  -i or --ignore        Ignore files or dirs. Can be used repeatedly
   -o or --open          Opens the local site in the browser
 
 File matches
