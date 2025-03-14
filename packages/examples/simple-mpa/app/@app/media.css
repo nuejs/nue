@@ -9,7 +9,11 @@
     }
   }
 
+  .mobile { display: none }
+
   @media(width <= 900) {
+
+    .mobile { display: unset }
     :root {
       --body-padding: 0px;
     }
@@ -23,7 +27,7 @@
       background-color: var(--base-100);
       width: min(20em, 100vw);
       position: absolute;
-      padding: 1em;
+      padding: 0 1em 1em .5em;
       z-index: 1;
       left: -30em;
 

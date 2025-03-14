@@ -5,7 +5,7 @@
 
 <!-- discussion thread -->
 <ul @name="chat-thread" class="thread">
-  <li :for="msg, i in thread" class="{ reply: msg.is_reply }" :style="--index: { i }">
+  <li :for="msg, i in thread" class="{ reply: msg.is_reply } appears">
     <time :if="msg.created">{ formatDate(msg.created) }</time>
     <div class="{ isEmoji(msg.body) ? 'emoji' : 'post' }">{{ formatBody(msg.body) }}</div>
   </li>

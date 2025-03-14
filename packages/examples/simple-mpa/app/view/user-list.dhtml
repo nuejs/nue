@@ -17,7 +17,7 @@
           <time>{ formatDate(el.created) }</time>
         </aside>
 
-        <media :image="/app/icon/cc/{el.cc}.svg" :title="el.name">
+        <media :image="/app/icon/cc/{el.cc}.svg" :title="el.name" width="32">
           <p>{{ el.email }}</p>
         </media>
 

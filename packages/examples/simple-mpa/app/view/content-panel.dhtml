@@ -7,11 +7,9 @@
 
 <div @name="content-panel">
   <header>
-    <button class="ghost" @click="router.toggle('nav_opened')">
-      <icon key="panel-left"/></button>
-    <hr>
+    <button class="ghost mobile mr" @click="navOpen"><icon key="panel-left"/></button>
 
-    <h2>{{ getTitle() }}</h2>
+    <h2 @click="navOpen">{{ getTitle() }}</h2>
 
     <nav>
       <small>{ status() }</small>
@@ -48,6 +46,10 @@
 
     toggleGridView() {
       router.toggle('show_grid_view')
+    }
+
+    navOpen() {
+      router.set('nav_opened', true)
     }
 
     getTitle() {

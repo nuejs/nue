@@ -1,5 +1,5 @@
 <div @name="media" class="media">
-  <figure><img :src="image" :width="width || 40" :height="height || 40"></figure>
+  <figure><img :src="image" :width="width || 40" :height="height || width || 40"></figure>
   <div>
     <h2>{{ title }}</h2>
     <slot/>

@@ -10,7 +10,7 @@
 
   <header>
     <img src="/img/logomark.png" width="60" height="23">
-    <button class="ghost" data-accesskey="Escape" @click="router.del('nav_opened')">
+    <button class="ghost mobile" data-accesskey="Escape" @click="router.del('nav_opened')">
       <icon key="x"/></button>
   </header>
 
