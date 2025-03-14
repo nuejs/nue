@@ -72,7 +72,8 @@ export async function createSite(args) {
   }
 
   let site_data = await readOpts()
-  if (site_data.ignore) IGNORE.push(...site_data.ignore)
+  if (args.ignore && Array.isArray(args.ignore)) IGNORE.push(...args.ignore)
+  if (site_data.ignore && Array.isArray(site_data.ignore)) IGNORE.push(...site_data.ignore)
 
   const self = {
     globals: site_data.globals || [],
