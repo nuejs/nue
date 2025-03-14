@@ -30,7 +30,7 @@ async function initDir({ dist, is_dev, esbuild, cwd, srcdir, outdir }) {
   const fromdir = join(srcdir, 'browser')
   const minify = !is_dev
 
-  // simple function to wtite dot
+  // simple function to write dot
   function dot() { process.stdout.write('•') }
 
   // copy from <fromdir>
