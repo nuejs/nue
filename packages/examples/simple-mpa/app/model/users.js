@@ -9,19 +9,19 @@ const COUNTRIES = {
   us: 'USA',
 }
 
-const SIZES = {
-  xl: { label: 'Very large', desc: '100 or more' },
-  l:  { label: 'Large',   desc: '50 – 100' },
-  m:  { label: 'Medium', desc: '10 – 50' },
-  s:  { label: 'Small', desc: '0 – 10' },
-}
+const SIZES = [
+  { key: 'xl', label: 'Very large', desc: '100 or more' },
+  { key: 'l',  label: 'Large',   desc: '50 – 100' },
+  { key: 'm',  label: 'Medium', desc: '10 – 50' },
+  { key: 's',  label: 'Small', desc: '0 – 10' },
+]
 
 export function createUser(item, total) {
   const { type, ts, data } = item
   const created = fakeDate(ts, total)
   const country = COUNTRIES[data.cc]
   const thread = fakeDiscussion(created, data.message)
-  return { ...data, type, created, thread, country, size: SIZES[data.size] }
+  return { ...data, type, created, thread, country, size: SIZES.find(el => el.key == data.size) }
 }
 
 

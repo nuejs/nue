@@ -28,21 +28,32 @@
     time {
       display: inline-block;
       margin: .25em .5em;
-      font-size: .75em;
+      font-size: 1em;
     }
   }
+
   .chat-form {
     display: flex;
     position: relative;
-
-    button {
-      position: absolute;
-      right: 1em;
-      top: 1em;
-    }
+    margin-bottom: .75em;
 
     textarea {
       resize: none;
+      field-sizing: content;
+      min-height: 3.85em;
+    }
+
+    button {
+      position: absolute;
+      padding: .5em;
+      right: .75em;
+      bottom: .75em;
+
+      :placeholder-shown + & {
+        background-color: var(--base-200);
+        border-color: transparent;
+        color: var(--base-400);
+      }
     }
   }
 }

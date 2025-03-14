@@ -43,10 +43,14 @@
   </section>
 
   <footer>
-    <a href="#" @click="logout">Logout</a>
+    <media :title="user.name" :image="user.avatar">
+      <p><a class="action" @click="logout">Logout</a></p>
+    </media>
   </footer>
 
   <script>
+    user = model.user || {}
+
     toggleDetails(key) {
       router.toggle(key + '_opened')
     }

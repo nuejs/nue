@@ -5,13 +5,8 @@
     margin-inline: 1px;
     color: unset;
 
-    /* Shared user-header styles */
-    .user-header {
-      font-size: .875em;
-      figure { width: 2.75em }
-    }
+    .media { font-size: .875em }
 
-    /* Shared message styles */
     .message {
       color: var(--base-500);
       line-height: 1.5;
@@ -19,13 +14,11 @@
     }
 
     &:hover {
-      background-color: var(--base-50);
+      box-shadow: 0 0 0 1px var(--base-300);
     }
 
     &[aria-selected] {
-      outline: 1px solid var(--base-200);
-      background-color: var(--base-50);
-      pointer-events: none;
+      box-shadow: 0 0 0 2px var(--main-500);
     }
   }
 }

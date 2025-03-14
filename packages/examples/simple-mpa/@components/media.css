@@ -1,0 +1,11 @@
+
+@layer components {
+  .media {
+    align-items: var(--align, center);
+    gap: var(--gap, .75em);
+    display: flex;
+
+    img { border-radius: 9em }
+    p { color: var(--base-400) }
+  }
+}

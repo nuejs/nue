@@ -21,12 +21,12 @@
       <hr>
 
       <button class="ghost" @click="toggleGridView" data-accesskey="g"
-        :disabled="!router.state.show_grid_view"
-        title="Show table view"><icon key="list"/></button>
+        :aria-pressed="!router.state.show_grid_view"
+        title="Toggle table view"><icon key="list"/></button>
 
       <button class="ghost" @click="toggleGridView" data-accesskey="g"
-        :disabled="router.state.show_grid_view"
-        title="Show grid view"><icon key="grid"/></button>
+        :aria-pressed="router.state.show_grid_view"
+        title="Toggle grid view"><icon key="grid"/></button>
 
       <hr>
 

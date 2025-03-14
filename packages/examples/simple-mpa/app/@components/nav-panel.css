@@ -2,13 +2,11 @@
 @layer components {
 
   .nav-panel {
-    > header { margin-bottom: .5em }
-
     nav, details {
       margin: 1em 0 1.5em 0;
     }
 
-    a {
+    nav a {
       color: var(--base-500);
       border: 1px solid transparent;
       border-radius: .25em;
@@ -45,9 +43,8 @@
     }
 
     details nav {
-      border-left: 3px solid var(--base-200);
+      border-left: 1px solid var(--base-300);
       margin-left: .75em;
-
       a { font-weight: 400; padding: .25em .5em }
     }
   }

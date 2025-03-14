@@ -22,8 +22,8 @@
 
 
 <form @name="chat-form" class="chat-form" @submit.prevent="submit">
-  <textarea name="body"></textarea>
-  <button class="primary"><icon key="problem"/></button>
+  <textarea name="body" placeholder="Type your reply..." required></textarea>
+  <button class="primary"><icon key="send-horizontal"/></button>
 
   <script>
     submit(e) {

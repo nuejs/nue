@@ -18,11 +18,21 @@
           <time>{ formatDate(el.created) }</time>
         </aside>
 
-        <user-header :bind="el"/>
+        <media :image="/app/icon/cc/{el.cc}.svg" :title="el.name">
+          <p>{{ el.email }}</p>
+        </media>
 
-        <div class="meta" :if="el.size">
-          <pill icon="dot" :label="el.size.label"/>
-          <pill icon="square" :label="el.plan"/>
+        <div class="meta">
+          <span :if="el.size">
+            <pill class="pill { 'size-' + el.size.key }"icon="dot" :label="el.size.label"/>
+          </span>
+          <span :if="el.plan">
+            <pill class="pill { 'plan-' + el.plan }" icon="square" :label="el.plan"/>
+          </span>
+          <span :if="el.shots" class="plain pill">
+            <icon key="image"/>
+            { el.shots.length }
+          </span>
         </div>
 
         <div class="message">{{ el.message }}</div>

@@ -1,14 +1,23 @@
 
 @layer components {
   .pill {
+    border: 1px solid var(--base-200);
+    color: var(--base-500);
     text-transform: capitalize;
     display: inline-flex;
     font-size: .875em;
-    border: 1px solid var(--base-300);
-    padding: .1em .5em .1em .1em;
-    max-height: 2em;
+    padding: .25em;
+    padding-right: .75em;
     border-radius: 1em;
     align-items: center;
+    gap: .25em;
     .icon { color: var(--main-500) }
+
+    &.plain {
+      border: unset;
+      .icon {
+        color: var(--base-400);
+      }
+    }
   }
 }

@@ -37,9 +37,7 @@
 <dialog @name="image-zoom" class="image-zoom" popover id="zoom">
   <header>
     <h2>Screenshots</h2>
-    <nav>
-      <button popovertarget="zoom" @click="close"><icon key="x"/></button>
-    </nav>
+    <button class="ghost" popovertarget="zoom" @click="close"><icon key="x"/></button>
   </header>
 
   <figure>
@@ -49,12 +47,16 @@
   <aside>
     <ul class="thumbs">
       <li :for="name, i in items">
-        <button @click="seek(i)"><img src="/app/img/{ name }"></button>
+        <button @click="seek(i)">
+          <img src="/app/img/{ name }">
+        </button>
       </li>
     </ul>
   </aside>
 
   <script>
+    state = router.state
+
     seek(i) {
       this.shot = this.items[i]
       this.open(i)

@@ -43,7 +43,7 @@
 
       .message {
         border-left: 2px solid var(--base-300);
-        padding-left: 1.75jem;
+        padding-left: 1.75em;
         margin-left: 1.125em;
         padding-right: 0;
       }

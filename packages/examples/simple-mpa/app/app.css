@@ -33,7 +33,9 @@
     /* panel dimensions */
     .nav-panel { min-width: 16em; }
 
-    .content-panel { flex-grow: 1 }
+    .content-panel {
+      flex-grow: 1;
+    }
 
     .details-panel {
       min-width: 32em;

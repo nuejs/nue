@@ -4,9 +4,12 @@
     display: grid;
     grid-template-columns: 10em 1fr;
     margin-block: 1em;
-    > * { margin: .25em 0 }
+    > * {
+      margin: .25em 0;
+      line-height: 1.4;
+     }
 
-    dt { font-weight: 400 }
+    dt { font-weight: 500 }
 
     dd { color: var(--base-600) }
 

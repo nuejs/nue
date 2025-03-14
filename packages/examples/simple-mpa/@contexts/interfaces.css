@@ -24,7 +24,6 @@
     color: var(--base-700);
 
     p {
-      color: var(--base-500);
       margin: .25em 0;
     }
 
@@ -37,13 +36,13 @@
     }
 
     h2 {
-      font-size: 1.125em;
+      font-size: 1em;
       font-weight: 550;
     }
 
     h3  {
       font-size: 1em;
-      font-weight: 500;
+      font-weight: 510;
     }
 
     h4 {
@@ -59,6 +58,20 @@
     ul {
       list-style: none;
       padding: 0;
+    }
+
+    .action {
+      color: var(--base-400);
+      font-weight: 500;
+      cursor: pointer;
+
+      &:hover {
+        border-bottom: 1px solid var(--base-400);
+      }
+    }
+
+    strong {
+      font-weight: 550;
     }
 
     small, time {

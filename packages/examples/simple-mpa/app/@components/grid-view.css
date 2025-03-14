@@ -7,7 +7,7 @@
 
   .grid-view .list-item {
     border: 1px solid var(--base-200);
-    box-shadow: 0 0 1em var(--alpha-50);
+    box-shadow: 0 0 2em var(--alpha-100);
     border-radius: .5em;
     height: 100%;
     padding: 1.5em;
@@ -16,8 +16,8 @@
     gap: .75em;
 
     .message {
-      border-left: 3px solid var(--base-300);
-      padding-left: .75em;
+      border-left: 1px solid var(--base-300);
+      padding-left: 1em;;
     }
 
     aside {

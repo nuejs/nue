@@ -34,5 +34,10 @@
     &:hover {
       background-color: var(--alpha-50);
     }
+
+    &[aria-pressed] {
+      background-color: var(--base-200);
+      cursor: default;
+    }
   }
 }

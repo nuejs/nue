@@ -1,15 +1,9 @@
 
-<header @name="user-header" class="user-header">
-  <figure><img src="/app/icon/cc/{cc}.svg"></figure>
-  <div>
-    <h2>{{ name }}</h2>
-    <p>{{ email }}</p>
-  </div>
-</header>
-
-
 <section @name="user-details" class="user">
-  <user-header :bind="this"/>
+
+  <media :image="/app/icon/cc/{cc}.svg" :title="name">
+    <p>{ email }</p>
+  </media>
 
   <dl :if="org">
     <dt>Company</dt>      <dd>{ org }</dd>
