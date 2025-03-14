@@ -1,7 +1,6 @@
 @layer components {
-  .list-view {
-    container-type: size;
-  }
+
+  .list-view { container-type: size }
 
   .list-view .list-item {
     display: grid;
@@ -10,7 +9,6 @@
     align-items: center;
     padding: .5em 1em;
     gap: 1em;
-    margin-bottom: .5em;
 
     aside {
       display: contents;
@@ -39,7 +37,6 @@
       grid-template-columns: minmax(150px, auto) 1fr;
       grid-template-areas: "header time" "message message";
       gap: .5em;
-      margin-bottom: 1.5em;
 
       .message {
         border-left: 2px solid var(--base-300);

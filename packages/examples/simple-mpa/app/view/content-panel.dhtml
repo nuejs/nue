@@ -7,6 +7,10 @@
 
 <div @name="content-panel">
   <header>
+    <button class="ghost" @click="router.toggle('nav_opened')">
+      <icon key="panel-left"/></button>
+    <hr>
+
     <h2>{{ getTitle() }}</h2>
 
     <nav>

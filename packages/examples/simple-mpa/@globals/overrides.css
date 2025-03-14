@@ -1,6 +1,6 @@
 
 
-@layer utilities {
+@layer overrides {
   [hidden] {
     display: none
   }

@@ -1,6 +1,6 @@
 
 include: ["@contexts/interfaces.css", "@components", controllers, view]
-exclude: ["structure"]
+exclude: ["@globals/structure"]
 
 
 app_config:

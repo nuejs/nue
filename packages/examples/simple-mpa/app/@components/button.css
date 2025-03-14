@@ -21,12 +21,13 @@
     }
 
     &[aria-pressed] {
-      background-color: var(--base-600);
-      color: white;
+      box-shadow: 0 0 0 1px var(--base-300);
+      background-color: var(--base-100);
     }
   }
 
   button.ghost {
+    background-color: unset;
     box-shadow: unset;
     padding: .25em;
     border: 0;

@@ -6,7 +6,8 @@
   effects,       /* Transforms, gradients, transitions, that can be slapped to any element */
   contexts,      /* The vibes—.ui, .content shaping interactive or readable spaces. */
   adjustments,   /* Area-specific component adjustments */
-  utilities      /* Utilities and overrides. Keep this small */
+  media,         /* Responsive media queries */
+  overrides      /* !imoprtant rules that override everything */
 ;
 
 @layer settings {

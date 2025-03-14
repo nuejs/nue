@@ -1,0 +1,26 @@
+@layer settings {
+  :root {
+
+    --border: 1px solid var(--base-200);
+    --body-padding: 1em;
+
+    /* special colors */
+    --blue-100: oklch(95% 0.1 250);
+    --blue-500: oklch(70% 0.25 250);
+
+    --green-100: oklch(95% 0.1 150);
+    --green-500: oklch(70% 0.25 150);
+
+    /* maybe later
+
+    --violet-100: oklch(95% 0.1 290);
+    --violet-500: oklch(70% 0.25 290);
+
+    --cyan-100: oklch(95% 0.1 200);
+    --cyan-500: oklch(70% 0.25 200);
+
+    --pink-100: oklch(95% 0.1 350);
+    --pink-500: oklch(70% 0.25 350);
+    */
+  }
+}

@@ -2,6 +2,16 @@
 @layer components {
 
   .nav-panel {
+
+    header {
+      display: flex;
+      justify-content: space-between;
+
+      button {
+        margin-right: -.5em;
+      }
+    }
+
     nav, details {
       margin: 1em 0 1.5em 0;
     }
@@ -46,6 +56,10 @@
       border-left: 1px solid var(--base-300);
       margin-left: .75em;
       a { font-weight: 400; padding: .25em .5em }
+    }
+
+    .media {
+      margin-left: .5em;
     }
   }
 }

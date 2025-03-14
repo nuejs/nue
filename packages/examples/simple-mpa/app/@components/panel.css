@@ -1,7 +1,7 @@
 @layer components {
   .panel {
+    height: calc(100vh - calc(var(--body-padding) * 2));
     border: 1px solid transparent;
-    height: calc(100vh - 2em);
     flex-direction: column;
     display: flex;
 

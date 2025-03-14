@@ -6,8 +6,8 @@
   }
 
   .grid-view .list-item {
-    border: 1px solid var(--base-200);
     box-shadow: 0 0 2em var(--alpha-100);
+    border: var(--border);
     border-radius: .5em;
     height: 100%;
     padding: 1.5em;

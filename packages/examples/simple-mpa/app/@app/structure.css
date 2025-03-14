@@ -1,0 +1,29 @@
+
+@layer structure {
+  body {
+    overflow: hidden;
+    padding: var(--body-padding);
+  }
+
+  .app {
+    display: flex;
+    gap: 1em;
+
+    .logo { width: 1.75em }
+
+    .nav-panel {
+      min-width: 16em;
+    }
+
+    .content-panel {
+      flex-grow: 1;
+    }
+
+    .details-panel {
+      min-width: 32em;
+      width: 32em;
+    }
+  }
+}
+
+

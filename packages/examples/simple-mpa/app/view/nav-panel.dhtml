@@ -6,9 +6,12 @@
   import { model } from '../model/index.js'
 </script>
 
-<aside @name="nav-panel">
+<aside @name="nav-panel" :aria-visible="router.state.nav_opened">
+
   <header>
     <img src="/img/logomark.png" width="60" height="23">
+    <button class="ghost" data-accesskey="Escape" @click="router.del('nav_opened')">
+      <icon key="x"/></button>
   </header>
 
   <section>
@@ -44,6 +47,7 @@
 
   <script>
     user = model.user || {}
+    router = router
 
     toggleDetails(key) {
       router.toggle(key + '_opened')
@@ -53,6 +57,8 @@
       router.bind('type filter', (data, { path }) => {
         setSelected(`a[href$="${path}"]`, 'aria-current', 'page')
       })
+
+      router.bind('nav_opened', this.update)
 
       /*
         "open" attribute binding is problematic so we set initial states manually

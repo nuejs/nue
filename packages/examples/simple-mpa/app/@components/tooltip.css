@@ -1,24 +1,13 @@
 @layer components {
-  kbd {
-    border: 1px solid var(--base-200);
-    color: var(--base-500);
-    border-radius: .25em;
-    padding: .125em .5em;
-    margin-left: .25em;
-    font-weight: 550;
-    font-size: .875em;
-    strong {
-      transform: scale(1.2);
-      display: inline-block;
-    }
-  }
 
   span[role=tooltip] {
     position-anchor: --tip;
     position: absolute;
     position-area: right;
+
     margin-left: 10px;
     right: -999em;
+
     display: inline-flex;
     align-items: center;
     gap: .5em;
@@ -31,12 +20,6 @@
     padding: .25em .5em;
     font-size: .75em;
 
-    kbd {
-      font-size: 1em;
-      font-weight: 550;
-      background-color: var(--alpha-100);
-    }
-
     &.on-bottom {
       position-area: bottom;
       position-try: bottom left;
@@ -45,4 +28,23 @@
     }
   }
 
+  /* keyboard shortcut */
+  kbd {
+    --size: 1.25em;
+    width: var(--size);
+    height: var(--size);
+    line-height: var(--size);
+    text-align: center;;
+
+    background-color: var(--alpha-100);
+    text-transform: uppercase;
+    color: var(--base-400);
+    font-weight: 550;
+    border-radius: .25em;
+
+    strong {
+      transform: scale(1.2);
+      display: inline-block;
+    }
+  }
 }

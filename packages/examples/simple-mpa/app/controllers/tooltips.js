@@ -2,7 +2,7 @@
 // singleton tip element
 const tip = document.createElement('span')
 document.body.append(tip)
-tip.classList.add('ui')
+// tip.classList.add('ui')
 tip.role = 'tooltip'
 tip.id = 'tip'
 

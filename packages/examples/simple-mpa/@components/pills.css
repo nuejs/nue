@@ -1,7 +1,7 @@
 
 @layer components {
   .pill {
-    border: 1px solid var(--base-200);
+    border: var(--border);
     color: var(--base-500);
     text-transform: capitalize;
     display: inline-flex;
