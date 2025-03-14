@@ -15,7 +15,7 @@
 
   <div class="meta">
     <span :if="size">
-      <pill class="pill { 'size-' + size.key }"icon="dot" :label="size.label"/>
+      <pill class="pill { 'size-' + size.key }" icon="dot" :label="size.label"/>
     </span>
     <span :if="plan">
       <pill class="pill { 'plan-' + plan }" icon="square" :label="plan"/>
