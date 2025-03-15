@@ -34,7 +34,7 @@
     width: var(--size);
     height: var(--size);
     line-height: var(--size);
-    text-align: center;;
+    text-align: center;
 
     background-color: var(--alpha-100);
     text-transform: uppercase;

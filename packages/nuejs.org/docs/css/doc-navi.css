@@ -25,7 +25,7 @@ aside {
 
   /* link styling */
   nav > a {
-    border-left: var(--border);;
+    border-left: var(--border);
     padding: .5em 1em;
     white-space: nowrap;
     display: block;
