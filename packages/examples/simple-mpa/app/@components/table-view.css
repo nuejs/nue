@@ -1,10 +1,10 @@
 @layer components {
 
-  .list-view { container-type: size }
+  .table-view { container-type: size }
 
-  .list-view .list-item {
+  .table-view .list-item {
     display: grid;
-    grid-template-columns: minmax(14em, auto) minmax(20em, 1fr) auto auto auto;
+    grid-template-columns: minmax(16em, auto) minmax(20em, 1fr) auto auto auto;
     grid-template-areas: "header message type meta time";
     align-items: center;
     padding: .5em 1em;
@@ -19,13 +19,9 @@
       }
     }
 
-    .message {
+    blockquote {
       grid-area: message;
-      padding-right: 5vw;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
+      --line-clamp: 2;
     }
 
     @container (width < 900px) {
@@ -38,7 +34,7 @@
       grid-template-areas: "header time" "message message";
       gap: .5em;
 
-      .message {
+      blockquote {
         border-left: 2px solid var(--base-300);
         padding-left: 1.75em;
         margin-left: 1.125em;

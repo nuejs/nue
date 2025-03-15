@@ -10,7 +10,7 @@ const COUNTRIES = {
 }
 
 const SIZES = [
-  { key: 'xl', label: 'Very large', desc: '100 or more' },
+  { key: 'xl', label: 'Very large', desc: '100+' },
   { key: 'l',  label: 'Large',   desc: '50 – 100' },
   { key: 'm',  label: 'Medium', desc: '10 – 50' },
   { key: 's',  label: 'Small', desc: '0 – 10' },

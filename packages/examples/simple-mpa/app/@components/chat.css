@@ -43,16 +43,26 @@
       min-height: 3.85em;
     }
 
+    /* TODO: make re-usable CTA button */
     button {
+      border-color: transparent;
+      background-color: var(--main-500);
+      pointer-events: unset;
       position: absolute;
       padding: .25em;
+      color: white;
       right: 1em;
       bottom: 1em;
 
+      &:hover {
+        color: white;
+        box-shadow: 0 0 0 1px var(--main-500);
+      }
+
       :placeholder-shown + & {
         background-color: var(--base-200);
-        border-color: transparent;
         color: var(--base-400);
+        pointer-events: none;
       }
     }
   }

@@ -1,6 +1,7 @@
 
 @layer components {  
-  .thumbs {
+
+  .media-thumbs {
     display: flex;
     gap: .75em;
     flex-wrap: wrap;
@@ -8,7 +9,7 @@
     li { width: calc(50% - .375em) }
   }
 
-  .image-zoom {
+  .media-overlay {
 
     aside { text-align: center }
 

@@ -13,8 +13,6 @@
 
     dd { color: var(--base-600) }
 
-    a  { color: var(--main-500) }
-
     &.full-size dd {
       text-align: right;
     }

@@ -18,8 +18,15 @@
 */
 
 @layer contexts {
+
+  :root {
+    --ui-font: 14px;
+    --smaller: 95%;
+    --small:   90%;
+  }
+
   .ui {
-    font-size: var(--ui-font, 14px);
+    font-size: var(--ui-font);
     line-height: 1.25;
     color: var(--base-700);
 
@@ -62,11 +69,10 @@
 
     .action {
       color: var(--base-400);
-      font-weight: 500;
       cursor: pointer;
 
       &:hover {
-        border-bottom: 1px solid var(--base-400);
+        border-bottom: 1px solid var(--base-300);
       }
     }
 
@@ -76,7 +82,7 @@
 
     small, time {
       font-size: .875em;
-      color: var(--base-500)
+      color: var(--base-00)
     }
 
     header {

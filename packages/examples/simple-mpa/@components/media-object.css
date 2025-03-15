@@ -1,4 +1,9 @@
 
+/*
+  "The media object saves hundreds of lines of code"
+
+  https://www.stubbornella.org/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/
+*/
 @layer components {
   .media {
     align-items: var(--align, center);

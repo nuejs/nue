@@ -1,5 +1,5 @@
 
-@layer media {
+@layer screens {
 
   @media(width <= 1200) {
     .details-panel {

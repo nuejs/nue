@@ -21,10 +21,10 @@
 </ul>
 
 
-<form @name="chat-form" class="chat-form appears" class="appears" style="--delay: 6"
-  @submit.prevent="submit">
+<form @name="chat-form" class="chat-form appears" @submit.prevent="submit">
+
   <textarea name="body" placeholder="Type your reply..." required></textarea>
-  <button class="primary"><icon key="send-horizontal"/></button>
+  <button><icon key="send-horizontal"/></button>
 
   <script>
     submit(e) {
