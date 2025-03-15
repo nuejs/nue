@@ -7,8 +7,7 @@ tip.role = 'tooltip'
 tip.id = 'tip'
 
 // tip hover state
-const timers = []
-let is_shown
+let is_shown = false
 const supportsAnchors = CSS.supports('anchor-name: --tip')
 
 
@@ -18,7 +17,7 @@ function setTooltip(el, title, accesskey) {
   // build tooltip: html / text
   const text = [title, kbd && (supportsAnchors ? `<kbd>${kbd}</kbd>` : `[${kbd}]`)]
     .filter(Boolean).join(' ')
-  
+
   // fallback to simple title
   if (!supportsAnchors) {
     el.title = text
@@ -52,27 +51,20 @@ document.addEventListener('mouseenter', e => {
   setTooltip(el, dataset.title, dataset.accesskey)
   if (!supportsAnchors) return
 
-  // clear timers
-  timers.forEach(clearTimeout)
-
   // show tooltip
-  timers[0] = setTimeout(_ => {
-    // position via anchor API
-    el.style['anchor-name'] = '--tip'
-    tip.classList.toggle('on-bottom', el.closest('header'))
-    is_shown = true
+  // position via anchor API
+  el.style['anchor-name'] = '--tip'
+  tip.classList.toggle('on-bottom', el.closest('header'))
+  is_shown = true
 
-  }, is_shown ? 50 : 500)
 }, true)
 
 
 function cleanup(e) {
   e.target.style?.removeProperty('anchor-name')
-  timers.forEach(clearTimeout)
-  timers[1] = setTimeout(() => { is_shown = false }, 250)
+  is_shown = false
 }
+
 
 document.addEventListener('mouseleave', cleanup, true)
 document.addEventListener('click', cleanup, true)
-
-
