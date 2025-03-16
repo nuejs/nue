@@ -6,6 +6,17 @@ import { elem } from './render-blocks.js'
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
+// mostly the same as first block from <../../nuejs/src/fn.js>, but excludes: html, head
+const HTML_TAGS = 'a abbr acronym address applet area article aside audio b base basefont bdi bdo big\
+ blockquote body br button canvas caption center circle cite clipPath code col colgroup data datalist\
+ dd defs del details dfn dialog dir div dl dt ellipse em embed fieldset figcaption figure font footer\
+ foreignObject form frame frameset g header hgroup h1 h2 h3 h4 h5 h6 hr i iframe image img\
+ input ins kbd keygen label legend li line link main map mark marker mask menu menuitem meta meter\
+ nav noframes noscript object ol optgroup option output p param path pattern picture polygon polyline\
+ pre progress q rect rp rt ruby s samp script section select small source span strike strong style sub\
+ summary sup svg switch symbol table tbody td template text textarea textPath tfoot th thead time\
+ title tr track tspan tt u ul use var video wbr'.split(' ')
+
 
 // built-in tags
 const TAGS = {
@@ -22,22 +33,14 @@ const TAGS = {
   },
 
   block() {
-    const { render, attr, blocks } = this
+    const { render, attr, data, blocks, name } = this
     const divs = sectionize(blocks)
 
     const html = !divs || !divs[1] ? render(blocks) :
       divs.map(blocks => elem('div', render(blocks))).join('\n')
 
-    return elem(attr.popover ? 'dialog' : 'div', attr, html)
-  },
-
-
-  button(data) {
-    const { href } = data
-    const label = this.renderInline(data.label || data._) || this.innerHTML || ''
-
-    return href ? elem('a', { ...this.attr, href, role: 'button' }, label) :
-      elem('button', this.attr, label)
+    if (this.to_block) Object.assign(attr, data)
+    return elem(attr.popover ? 'dialog' : name, attr, html)
   },
 
   define() {
@@ -51,7 +54,6 @@ const TAGS = {
 
     return html && elem('dl', this.attr, html.join('\n'))
   },
-
 
   image() {
     const { attr, data } = this
@@ -74,6 +76,15 @@ const TAGS = {
     return elem('figure', attr, img)
   },
 
+  inline() {
+    const { name, attr, data, opts } = this
+
+    const content = data._
+    delete data._
+    if (this.to_inline) Object.assign(attr, data)
+
+    return elem(name, attr, this.renderInline(content, opts))
+  },
 
   list() {
     const items = this.sections || getListItems(this.blocks)
@@ -109,7 +120,6 @@ const TAGS = {
     return elem('video', attr, this.innerHTML)
   },
 
-
   // shortcut
   '!': function() {
     const tag = getMimeType(this.data._).startsWith('video') ? TAGS.video : TAGS.image
@@ -142,9 +152,22 @@ export function renderIcon(name, symbol, icon_dir) {
 
 export function renderTag(tag, opts = {}) {
   const tags = { ...TAGS, ...opts.tags }
-  const fn = tags[tag.name || 'block']
+  const tag_fn = tag.to_block ? 'block' : tag.to_inline ? 'inline' : tag.name
+  const fn = tags[tag_fn]
 
-  if (!fn) return renderIsland(tag, opts.data)
+  if (!fn) {
+    // native html tags
+    if (HTML_TAGS.includes(tag.name)) {
+      // inline / block without blocks
+      if (tag.is_inline || !tag.blocks?.length) tag.to_inline = true
+      // block
+      else tag.to_block = true
+
+      return renderTag(tag)
+    }
+
+    return renderIsland(tag, opts.data)
+  }
 
   const data = { ...opts.data, ...extractData(tag.data, opts.data) }
 
