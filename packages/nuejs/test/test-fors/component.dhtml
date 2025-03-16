@@ -1,0 +1,85 @@
+<main class="grid">
+  <test-for-array class="card" />
+  <test-for-array-unpack class="card" />
+  <test-for-array-numbered class="card" />
+  <test-for-object-array class="card" />
+  <test-for-array-replace class="card" />
+  <test-for-array-funcs class="card" />
+</main>
+
+<div @name="test-for-array">
+  <ul>
+    <li :for="e in items">{e}</li>
+  </ul>
+
+  <script>
+    items = ['hello', 'world', 42]
+  </script>
+</div>
+
+<div @name="test-for-array-unpack">
+  <ul>
+    <li :for="[e] in items">{e}</li>
+  </ul>
+
+  <script>
+    items = [['hello', 'world'], [42]]
+  </script>
+</div>
+
+<div @name="test-for-array-numbered">
+  <ul>
+    <li :for="e, i in items">{i}: {e}</li>
+  </ul>
+
+  <script>
+    items = ['hello', 'world', 42]
+  </script>
+</div>
+
+
+<div @name="test-for-object-array">
+  <ul>
+    <li :for="e in items">{e.k}</li>
+  </ul>
+
+  <script>
+    items = [
+      {k: 'hello'},
+      {k: 'world'},
+      {k: 42},
+    ]
+  </script>
+</div>
+
+<div @name="test-for-array-replace">
+  <button @click="items[0] == 'hello' ? items = ['world'] : items = ['hello']">Change</button>
+  <ul>
+    <li :for="e in items">{e}</li>
+  </ul>
+
+  <script>
+    items = ['hello']
+  </script>
+</div>
+
+<div @name="test-for-array-funcs">
+  <div>
+    <button ref="push" @click="items.push(42)">Push 42</button>
+    <button ref="pop" @click="items.pop()">Pop</button>
+    <button ref="unshift" @click="items.unshift('answer')">Unshift 'answer'</button>
+    <button ref="shift" @click="items.shift()">Shift</button>
+    <button ref="reverse" @click="items.reverse()">Reverse</button>
+    <button ref="remove" @click="items.remove('hello')">Remove 'hello'</button>
+    <button ref="splice" @click="items.splice(1, 1)">Splice second</button>
+    <button ref="sort" @click="items.sort()">Sort</button>
+  </div>
+
+  <ul>
+    <li :for="e in items">{e}</li>
+  </ul>
+
+  <script>
+    items = ['hello', 'world']
+  </script>
+</div>
