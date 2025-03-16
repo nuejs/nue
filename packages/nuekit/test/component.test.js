@@ -1,4 +1,8 @@
 // tests for helper/core components
+
+import { dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
+
 import {
   renderPage,
   parseClass,
@@ -8,6 +12,9 @@ import {
   renderMultiNav,
   renderSymbols,
 } from '../src/layout/components.js'
+
+const root = dirname(fileURLToPath(import.meta.url))
+
 
 test('render page', () => {
   const html = renderPage({
@@ -86,6 +93,6 @@ test('render categorized nav', () => {
 })
 
 test('renderSymbols', () => {
-  const html = renderSymbols({ dir: 'icon', files: 'problem' })
+  const html = renderSymbols({ args: { root }, dir: 'icon', files: 'problem' })
   expect(html).toInclude('<path')
 })
