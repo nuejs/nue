@@ -61,7 +61,7 @@ Here's what this enables:
 
 [Learn how Nue works →](/docs/)
 
-[image /img/standards-first.png]
+[image /img/standards-first.png]:
   alt: Standards first
   width: 600
 

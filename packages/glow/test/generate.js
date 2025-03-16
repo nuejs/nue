@@ -153,7 +153,7 @@ adaptogen. Iceland **chambray** raclette stumptown
 
   ![Hello](/banger.png)
 
-[image loading="eager"]
+[image loading="eager"]:
 | small: "/img/explainer-tall.png"
   src: "/img/explainer.png"
   hidden: true

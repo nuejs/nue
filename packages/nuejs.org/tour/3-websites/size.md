@@ -4,7 +4,7 @@
   # Small and Fast
   The smallest you can get
 
-  [button "See the difference"]
+  [button "See the difference"]:
     href: size-compare.html
 
   [table.with-total hidden]
