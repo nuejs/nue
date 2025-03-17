@@ -37,4 +37,12 @@ if (CSS.supports('anchor-name: --tip')) {
   }
 
   document.addEventListener('click', cleanup, true)
+} else {
+  // fallback: add accesskey to title, if no anchor support
+  document.addEventListener('mouseenter', ({ target: el }) => {
+    if (el.nodeType == 1 && !el.dataset.titled && el.title && el.dataset.accesskey) {
+      el.title = `${el.title} [${el.dataset.accesskey.split(' ').pop()}]`
+      el.dataset.titled = true
+    }
+  }, true)
 }
