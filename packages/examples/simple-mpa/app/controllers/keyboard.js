@@ -41,7 +41,7 @@ document.addEventListener('keydown', (evt) => {
   if (key == '/') evt.preventDefault()
 
   // check for accesskey element
-  $$('[data-accesskey]').filter(el => !el.disabled).forEach(el => {
+  $$('[data-accesskey]').filter(el => !el.disabled && !el.ariaPressed).forEach(el => {
     if (el.dataset.accesskey.split(' ').includes(key)) {
       el.focus()
       el.click()
