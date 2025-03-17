@@ -63,6 +63,10 @@ function fakeDiscussion(created, body) {
     thread.push({ created: new Date(), body, is_reply: i % 2 == 0})
   })
 
+  thread.reply = function(body) {
+    thread.push({ created: new Date(), body, is_reply: true })
+  }
+
   return thread
 }
 
