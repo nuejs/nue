@@ -37,7 +37,7 @@
 <dialog @name="media-overlay" class="media-overlay" popover id="media">
   <header>
     <h2>Screenshots</h2>
-    <button class="ghost" popovertarget="media" data-accesskey="Escape"><icon key="x"/></button>
+    <button class="ghost" popovertarget="media"><icon key="x"/></button>
   </header>
 
   <figure>

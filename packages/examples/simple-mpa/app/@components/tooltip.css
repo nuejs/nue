@@ -7,6 +7,9 @@
 
     margin-left: 10px;
     right: -999em;
+    opacity: 0;
+    transition: opacity .1s .3s, transform .2s .3s;
+    transform: scale(.9);
 
     display: inline-flex;
     align-items: center;
@@ -19,6 +22,12 @@
     border-radius: .25em;
     padding: .25em .5em;
     font-size: .75em;
+
+
+    &.is-shown {
+      opacity: 1;
+      transform: scale(1);
+    }
 
     &.on-bottom {
       position-area: bottom;

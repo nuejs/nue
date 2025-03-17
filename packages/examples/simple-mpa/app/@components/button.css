@@ -38,6 +38,7 @@
 
     &[aria-pressed] {
       background-color: var(--base-200);
+      pointer-events: none;
       cursor: default;
     }
   }

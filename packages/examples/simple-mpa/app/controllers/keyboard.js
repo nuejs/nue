@@ -1,4 +1,6 @@
 
+/* Application specific keyboard controller */
+
 import { $, $$ } from '/@nue/view-transitions.js'
 import { router } from '/@nue/app-router.js'
 
@@ -31,15 +33,18 @@ document.addEventListener('keydown', (evt) => {
 
   if (target.oninput || target.form || evt.defaultPrevented || evt.metaKey || evt.ctrlKey) return
 
+
   // escape
   if (key == 'Escape' && !$(':popover-open')) router.del('id')
+
+  // don't write "/" to search input
+  if (key == '/') evt.preventDefault()
 
   // check for accesskey element
   $$('[data-accesskey]').filter(el => !el.disabled).forEach(el => {
     if (el.dataset.accesskey.split(' ').includes(key)) {
       el.focus()
       el.click()
-      if (!el.href) evt.preventDefault()
     }
   })
 
@@ -49,7 +54,6 @@ document.addEventListener('keydown', (evt) => {
     next?.focus()
     if (router.state.id) next?.click()
   }
-
 })
 
 

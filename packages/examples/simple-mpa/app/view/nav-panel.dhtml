@@ -10,7 +10,10 @@
 
   <header>
     <img src="/img/logomark.png" width="60" height="23">
-    <button class="ghost mobile" data-accesskey="Escape" @click="router.del('nav_opened')">
+    <button class="ghost mobile"
+      data-accesskey="Escape"
+      title="Close"
+      @click="router.del('nav_opened')">
       <icon key="x"/></button>
   </header>
 
@@ -18,7 +21,9 @@
     <search-input/>
 
     <nav>
-      <a :for="el in config.views" href="/app/{ el.type }/">
+      <a :for="el, i in config.views" href="/app/{ el.type }/"
+        :data-accesskey="i + 1" :title="el.title">
+
         <icon :key="el.icon || el.type"/>{ el.title }</a>
     </nav>
 
