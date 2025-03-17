@@ -10,7 +10,7 @@
   <header class="appears" style="--delay: 0">
     <h2>Conversation</h2>
     <nav>
-      <button class="ghost" title="Close (esc)" @click="router.del('id')">
+      <button class="ghost" title="Close" @click="router.del('id')" data-accesskey="Esc"> <!-- dummy for display, real key is named 'Escape' -->
         <icon key="x"/>
       </button>
     </nav>
