@@ -75,6 +75,7 @@
     }
 
     logout() {
+      router.cleanup()
       model.logout()
       loadPage('/')
     }

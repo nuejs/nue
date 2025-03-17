@@ -21,5 +21,5 @@ export async function login(email, password) {
 
   if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
 
-  return await response.text()
+  return await response.json()
 }

@@ -53,6 +53,7 @@ document.addEventListener('keydown', (evt) => {
     const next = getNext(['ArrowDown', 'j'].includes(key))
     next?.focus()
     if (router.state.id) next?.click()
+    evt.preventDefault()
   }
 })
 

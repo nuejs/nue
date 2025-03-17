@@ -77,6 +77,7 @@ export const model = {
     emit('logout')
   },
 
+  // fetch people data with event sourcing
   async load() {
     const total = engine.get_total()
     if (total > 0) return model.total = total
@@ -85,6 +86,7 @@ export const model = {
     model.total = engine.get_total()
   },
 
+  // fetch application data
   async initialize() {
     if (model.authenticated) {
       if (!model.user) model.user = await fetchWithAuth('user.json')

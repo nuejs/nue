@@ -5,6 +5,11 @@ let fns = []
 let opts
 
 
+export function cleanup() {
+  curr_state = {}
+  fns = []
+}
+
 export const router = {
   configure(args) {
     const {
@@ -56,7 +61,9 @@ export const router = {
   initialize(args={}) {
     fire(parseData(location))
     init(args.root)
-  }
+  },
+
+  cleanup
 }
 
 function init(root=document) {
@@ -84,10 +91,6 @@ addEventListener('popstate', e => {
 // component reloads (.dhtml)
 addEventListener('hmr', cleanup)
 
-export function cleanup() {
-  curr_state = {}
-  fns = []
-}
 
 export function fire(data) {
   const changes = {...setStoreData(data), ...diff(curr_state, data) }

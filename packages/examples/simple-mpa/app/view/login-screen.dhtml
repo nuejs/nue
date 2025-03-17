@@ -3,7 +3,7 @@
   import { model } from '../model/index.js'
 </script>
 
-<div @name="login-screen">
+<div @name="login-screen" class="{ pulsating: loading }">
 
   <form @submit.prevent="login" class="login ui card">
     <header class="">
@@ -28,14 +28,14 @@
   </form>
 
   <script>
-    async login({ target }) {
-      try {
-        await model.login(target.email.value, target.password.value)
+    login({ target }) {
+      this.loading = true
+      model.login(target.email.value, target.password.value).then(function() {
         dispatchEvent(new Event('login'))
 
-      } catch {
-        this.update({ failure: true })
-      }
+      }).catch(err => {
+        this.update({ failure: true, loading: false })
+      })
     }
   </script>
 
