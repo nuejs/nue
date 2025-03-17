@@ -24,23 +24,6 @@ export function createUser(item, total) {
   return { ...data, type, created, thread, country, size: SIZES.find(el => el.key == data.size) }
 }
 
-
-function fakeDiscussion(created, body) {
-  const thread = [{ created, body }]
-
-  thread.reply = function(body) {
-    thread.push({ created: new Date(), body, is_reply: true })
-  }
-
-  // temporary
-  thread.reply('Can you provide me your system information? Thanks.')
-
-  thread.push({ created: new Date(), body: '👍' })
-
-  return thread
-}
-
-
 function fakeDate(index, total) {
   const now = Date.now()
   const twoYearsAgo = now - (2 * 365 * 24 * 60 * 60 * 1000)
@@ -49,5 +32,41 @@ function fakeDate(index, total) {
   const jitter = (Math.random() - 0.5) * 12 * 60 * 60 * 1000 // ±12 hours
   return new Date(baseTime + jitter)
 }
+
+/* Random placeholder discussion */
+const THREADS = [
+  [
+    'Can you provide me your system information? Thanks.',
+    'Sure thing, gimme a second',
+    '👍',
+  ],
+  [
+    'Can you tell me what you were doing when it happened?',
+    'I was on the customer view, clicked on the notitication icon, and selected "never". The system did not respond. I\'m on latest Chrome',
+    'We found the issue and pushed a fix to production. Please reload the app.',
+    'Thank you! Works now 🎉🎉',
+  ],
+  [
+    'Which browser are you using? Chrome, Firefox, Safari? Are you on Windows, Mac, or Linux?',
+    'Alright, here’s the full rundown—OS: Windows 11, 64-bit, Version 22H2, CPU: Intel i7-12700, RAM: 16GB, Storage: 512GB SSD, GPU: NVIDIA RTX 3060, Browser: Chrome 123.0.6312.86. Let me know what’s next!',
+    'Thanks. Checking this out. Will be back later today',
+    '🫡',
+  ],
+]
+let index = 0
+
+function fakeDiscussion(created, body) {
+  if (index == THREADS.length) index = 0
+  const thread = [{ created, body }]
+
+  THREADS[index++].forEach(function(body, i) {
+    thread.push({ created: new Date(), body, is_reply: i % 2 == 0})
+  })
+
+  return thread
+}
+
+
+
 
 
