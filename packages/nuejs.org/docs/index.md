@@ -28,7 +28,6 @@ Nue applications follow this architecture. Development begins with the model. Yo
 Nue restores the art of crafting robust, functional software. It’s the ideal platform for system engineers who value timeless algorithms and data structures. Nue is for hackers who build on Gang of Four (GoF) Design Patterns, not React hooks.
 
 
-
 ### For design engineers
 The best UI designs out there are based on a carefully crafted _design system_, where typography, whitespace, motion, and colors follow exact mathematical precision — free from business logic, TypeScript types, or wild utility walls that block systematic thinking.
 

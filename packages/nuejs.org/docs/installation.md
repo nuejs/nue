@@ -9,7 +9,7 @@ First, install [Bun](//bun.sh):
 curl -fsSL https://bun.sh/install | bash
 ```
 
-Nue uses Bun for its superior web standards support, including native CSS parsing. Check details on why nue prefers Bun over Node.js from our [fAQ](faq.html).
+Nue uses Bun for its superior web standards support, including native CSS parsing. Check details on why Nue prefers Bun over Node.js from our [FAQ](faq.html).
 
 
 ## 2. Install Nue
