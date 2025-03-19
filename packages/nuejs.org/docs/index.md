@@ -1,71 +1,62 @@
 
-# Nue: Truly ambitious web applications
-Nue opens entirely new possibilities for differentiation. Build your business model in Rust that processes operations at native speed. Create a data visualization engine with sophisticated WebAssembly computations. Or craft interfaces that command attention through mathematical design system.
+# Why Nue
+Nue is a standards-first framework pushing HTML, CSS, JS, and WASM to their limits. It lets you build truly ambitious web applications that deliver more with a fraction of the code.
 
+[Video: Multi-page app demo]
+[github.com/nuejs/simple-mpa](#)
 
-[Video + Link to demo/github]
-
-Above you see a multi-page application that touches the boundaries of what's possible in the browser: instant keypress search across 50,000 records, seamless view transitions between marketing pages and dynamic interfaces, full-blown state management, a design system tying it all together.
-
+The demo above is a multi-page application (MPA) with instant search across 10,000+ records, seamless view transitions, state management, and a design system—all in a production bundle smaller than a React button.
 
 ## Smaller than a React button
-This isn't just marginally better than a React implementation—it's operating in an entirely different universe of performance and simplicity. Under the hood, Nue takes a fundamentally different approach to web development, achieving a level of performance, flexibility, and architectural clarity that simply isn't possible within the current React ecosystem:
+Yes — a single React button with a dialog, built with Shadcn/UI, weighs 249KB in production. The entire Nue MPA above is 60KB. That gap comes from an entirely different approach.
+
+| Metric            | React Button | Nue MPA     | Difference       |
+|-------------------|--------------|-------------|------------------|
+| Bundle Size (KB)  | 249          | 60          | 4.2× smaller     |
+| Dependencies      | 120 modules  | 5 modules   | 24× fewer        |
+
+Nue achieves this by sticking to web standards—HTML, CSS, JS, and WASM—without the layers of abstraction that bloat frameworks like React. Details are in our [benchmark](#).
+
+## Faster development
+Development with Nue moves at a different pace. Build times shrink from seconds to milliseconds. Updates land the instant you save. The feedback loop is tight and direct.
+
+| Metric            | React        | Nue         | Difference       |
+|-------------------|--------------|-------------|------------------|
+| Build Time (s)    | 2.5          | 0.15        | 17× faster       |
+| HMR Latency (ms)  | 100-500      | 5-50        | Up to 20× faster |
+| Dependencies      | 98MB, 77+    | 2MB, 5      | 49× smaller      |
+
+[Video: SPA build and HMR in action]
+
+This comes from a lean toolchain—fewer moving parts, no compromise on function.
+
+## Cleaner codebases
+Nue cuts the code you write and maintain. The MPA demo breaks down like this:
+
+- 150 lines of controller logic
+- 300 lines of model code
+- 600 lines of view templates
+- 1000 lines of CSS
+
+Compare that to a React equivalent: thousands of lines across components, hooks, and utilities—often 10× more for the same result. Separation of concerns keeps Nue’s code standards-based and focused. Less to manage, more to build on.
+
+## What this means
+Efficiency is only part of it. The real value lies in the new possibilities for developers
+
+### Systems engineering
+Build clean, testable business models without the clutter of frontend abstractions. Nue separates logic from the UI entirely, letting you create applications on the scale of Figma or Notion. Use Rust and WASM to get serious speed and type safety that TypeScript can’t deliver.
 
 
+### Design engineering
+Shift focus from framework patterns to design systems. A React theme like Shadcn/UI’s “New York” takes 40,000 lines of TypeScript. Nue does it in 1000 lines of CSS—color, typography, and layout, not component glue.
 
-| Dev bundle | 1.6MB | 200kB | 8 times less |
-| Production bundle | 317kB | 117kB | Almost 3 times leaner |
-
-
-
-## Tooling and development experience
-Build times drop from minutes to milliseconds. Hot Module Replacement becomes truly instant—changes appear the moment you save. Development loops tighten: write code, see results, iterate. This is what development should feel like.
-
-! video: SPA build
-
-| Framework | 98MB, 77+ pieces | 2MB, 5 pieces | 49 times smaller |
-| Build time | Around 3 seconds | 90ms | 33 times faster |
-| Updates | 100-500ms | 5-50ms | 20 times quicker |
-
-
-
-
-## Maintenance and scalability
-The big difference: you need significantly less code to do the same thing. And thanks to separation of concerns, the code is cleaner and standards based — opening new doors to system, design, and UX engineering.
-
-
-150 of controller code
-300 lines of model code
-600 lines of view code
-1000 lines of CSS
-
-contrast this to ..
-
-
-
-### Systems Engineering
-When business logic lives in a pure model layer, entirely new possibilities emerge. You can build sophisticated data engines in Rust, create real-time collaboration systems, or develop complex financial models - all properly isolated from presentation concerns. This is systems programming for the web: ironclad type safety, near-native performance, and properly architected business logic.
-
-
-### Design Engineering
-When conversations shift from state management to systematic design, true design engineering emerges. This vital field returns to those who understand design at its deepest level - not framework patterns, but the mathematical precision that makes interfaces command attention through pure visual relationships.
-
-Instead of 40,000 lines of TypeScript (ShadcnUI's "New York" theme) mixing framework concerns with visual choices, you craft design systems through 1,000 lines of modern CSS. Your code organizes itself around timeless design principles - color harmonies, typographic scales, spatial relationships - not engineering patterns.
-
-
-! Bars: JSX design system (ShadCN) vs CSS Design System
-
+[Bar chart: 40,000 lines TSX vs. 1000 lines CSS]
 
 ### UX Engineering
-With attention freed from component hierarchies and prop drilling, you can master the browser's full capabilities: view transitions, container queries, scroll-driven animations. Focus on creating exceptional experiences trough skills, that stand the test of time.
+Leverage the browser fully—view transitions, container queries, animations—with a view layer of 10 semantic files, not hundreds of components. Craft experiences that last, not frameworks that churn.
 
-! VIDEO:HMR components / styling /
+[Video: HMR and styling in action]
 
-When your view layer consists of 10 focused, semantic files instead of hundreds of monolithic components, development becomes the satisfaction of stripping away unnecessary complexity. Each component serves a clear purpose and nothing more. The complexity vanishes because there's simply less to manage—no state hierarchies to untangle, no prop drilling to trace, no utility classes to maintain.
-
-
-
-
-
-
+## The Gist
+Nue delivers ambitious applications with less code, faster builds, and cleaner structure. It’s a standards-first answer to a frontend weighed down by complexity. Find answers to common questions in our ]FAQ](faq.html)
 
