@@ -77,7 +77,7 @@ body > header {
   @media (width < 800px) {
     > * { display: none }
     button { display: inline-block }
-    nav:first-child {
+    nav:first-of-type {
       display: flex;
 
       @media (width < 650) {
