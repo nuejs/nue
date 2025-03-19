@@ -2,7 +2,7 @@
 // cross-platform walk & file watching library (Nue specific)
 
 import { watch, promises as fs } from 'node:fs'
-import { join, parse, sep } from 'node:path'
+import { join, parse } from 'node:path'
 
 
 // for avoiding double events

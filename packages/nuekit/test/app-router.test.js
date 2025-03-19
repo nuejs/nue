@@ -6,11 +6,8 @@ import {
   hasPathData,
   renderPath,
   matchesPath,
-  renderQuery,
   cleanup,
   diff,
-  fire
-
 } from '../src/browser/app-router.js'
 
 // browserify

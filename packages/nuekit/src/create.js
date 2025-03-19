@@ -7,7 +7,7 @@ import { createKit } from './nuekit.js'
 
 const templates = {
   'simple-blog': { open: 'welcome/' },
-  'simple-mpa': { open: 'app/' },
+  'simple-mpa': {},
 }
 
 

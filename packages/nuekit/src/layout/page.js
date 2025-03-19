@@ -2,7 +2,6 @@
 import { parse as parseNue } from 'nuejs-core'
 
 import { getLayoutComponents, renderPageList } from './components.js'
-
 import { renderHead } from './head.js'
 
 
