@@ -83,4 +83,18 @@ dl {
   }
 }
 
+/* skip to main content button */
+.skip {
+  position: absolute;
+  top: -100%;
+  left: -100%;
+  margin: 0.5em;
 
+  &:focus {
+    top: 0;
+    left: 0;
+  }
+}
+
+/* fix scrolling behind header */
+article, h1 { scroll-margin-top: 1.75em; }
