@@ -1,6 +1,8 @@
 
 # Tutorial: Building Websites with Nue
-In this tutorial, we'll explore how modern web standards can create sophisticated websites without framework complexity. We'll use a simple blog that demonstrates the power of proper content structure, systematic styling, and native browser capabilities.
+In this tutorial, we'll create a simple Markdown-based blog:
+
+[Source code](//github.com/nuejs/nue/tree/master/packages/examples/simple-blog) • [Live demo](//simple-blog.nuejs.org)
 
 [image]
   small: /img/blog-hero.png
@@ -8,12 +10,6 @@ In this tutorial, we'll explore how modern web standards can create sophisticate
   url: //simple-blog.nuejs.org
   size: 749 × 484 px
 
-This blog stands apart from typical framework-based sites:
-- All content is pure Markdown, making it easy to edit and maintain
-- The layout uses semantic HTML instead of JavaScript components
-- Styling flows from a systematic design system rather than utility classes
-- Interactions like page transitions work through native browser features
-- Everything loads instantly because there's no framework initialization
 
 To follow along, [install Nue](installation.html) first, then download and run this demo locally with:
 
@@ -21,62 +17,36 @@ To follow along, [install Nue](installation.html) first, then download and run t
 nue create simple-blog
 ```
 
-Your browser should open to `http://localhost:8083`. You can also explore the [source code](//github.com/nuejs/nue/tree/master/packages/examples/simple-blog) or view the [live demo](//simple-blog.nuejs.org).
-
-In this tutorial, you'll learn:
-- How to structure content for easy maintenance
-- How layouts work without JavaScript frameworks
-- How systematic styling creates consistent design
-- How modern browsers handle interactive features natively
-
-Let's start by exploring how the project is organized...
+Your browser should open to `http://localhost:8083`.
 
 
 ## Project structure
-Nue uses a freeform directory structure that reflects how your site is organized. Each directory and file has a clear purpose in creating what you see in the browser. Let's explore the key parts of our blog:
+Nue uses a freeform directory structure that reflects how your site is organized. Each directory and file mirrors towhat you see in the browser. Let's explore the key parts of our blog:
 
 ``` sh
 /
-  ├── @global            # Global styles and layouts
-  │   ├── colors.css     # Design system: colors
-  │   ├── layout.css     # Core layout styles
-  │   ├── layout.html    # Header and footer templates
-  │   └── typography.css # Typography scale
+  ├── @global             # Global styles and layouts
+  │   ├── colors.css      # Design system: colors
+  │   ├── layout.css      # Core layout styles
+  │   ├── layout.html     # Header and footer templates
+  │   └── typography.css  # Typography scale
   │
-  ├── @library           # Reusable styles
-  │   ├── content.css    # Blog content styling
-  │   └── motion.css     # Transitions & animations
+  ├── @library            # Reusable styles
+  │   ├── content.css     # Blog content styling
+  │   └── motion.css      # Transitions & animations
   │
-  ├── blog               # Blog content area
-  │   ├── blog.yaml      # Blog settings
-  │   ├── index.md       # Blog listing page
-  │   └── hero.html      # Blog post header template
+  ├── blog                # Blog content area
+  │   ├── blog.yaml       # Blog settings
+  │   ├── index.md        # Blog listing page
+  │   └── hero.html       # Blog post header template
   │
-  ├── img                # Images and icons
-  ├── index.md           # Front page content
-  └── site.yaml          # Global settings
+  ├── img                 # Images and icons
+  ├── index.md            # Front page content
+  └── site.yaml           # Global settings
 ```
 
-The structure shows how concerns are cleanly separated:
+The key concerns are cleanly separated:
 
-**Content lives in markdown**
-The front page (`index.md`) and all blog posts are written in pure Markdown. This keeps content clean and easy to edit without touching code.
-
-**Layout templates stay separate**
-Common elements like headers and footers live in layout templates (`@global/layout.html`). They provide the structure without mixing in content or styling.
-
-**Styling flows from the design system**
-Global styles in `@global` define the systematic rules – colors, typography, spacing – that ensure consistent design across the site.
-
-**Assets stay organized**
-Images and other static files live in their own directories, making them easy to manage and optimize.
-
-This organization enables teams to work independently:
-- Content writers focus on Markdown files
-- Designers work with the design system
-- Developers handle templates and functionality
-
-Let's look at how content works first...
 
 
 ## Content
@@ -338,7 +308,7 @@ This demonstrates how modern CSS can handle sophisticated animations without Jav
 
 
 
-## Islands
+## Interactive islands
 Modern websites need dynamic features, but that doesn't mean everything should be controlled by JavaScript. Nue takes an HTML-first approach: your content and structure stay in clean, semantic HTML, and interactivity is added through small, focused components called "islands".
 
 Islands enhance static HTML with dynamic features exactly where needed – whether it's a contact form, image gallery, or interactive widget. The entire client-side runtime is just 2.5kb, yet it provides the same reactivity and DOM diffing capabilities as React.
@@ -382,6 +352,7 @@ The island ehnances standard HTML with the following:
 - `@submit.prevent` stops the default form submission
 - `submit()` method handles the form data
 - `loadPage()` navigates to a new page with a smooth transition
+
 
 ### Using islands
 You can include the form in your Markdown content:

@@ -46,9 +46,9 @@ This field is waiting to be explored. Whether through Rust, advanced JavaScript 
 
 
 ## Isn't CSS a step backwards?
-This view perfectly captures how the React ecosystem has shaped our thinking. CSS has evolved into an incredibly sophisticated language for systematic design - but most developers never experience its power because their design decisions are trapped in JavaScript components.
+This view perfectly captures how the React ecosystem has shaped our thinking. CSS has evolved into an incredibly sophisticated language for systematic design - but most developers never experience its power because their design decisions are trapped in TypeScript components.
 
-Think about the interfaces you admire: Linear's dark, commanding presence or  Apple's functional clarity. These aren't achieved through component libraries or utility classes. They come from systematic design: precise color relationships, typography that follows musical scales, spacing built on consistent proportions.
+Think about the interfaces you admire: Linear's slick, dark look or Apple's functional clarity. These aren't achieved through component libraries or utility classes. They come from tailor made design systems built specifically for the purpose.
 
 Design engineering is an entirely new career path. Instead of being the person who converts Figma sketches to React components, you can be the engineer who creates sophisticated design systems.
 
@@ -86,7 +86,7 @@ The web platform itself is incredibly powerful. Instead of wrapping everything i
 
 ## I have proper, end-to-end type safety on my Remix app. How can Nue ever achieve this level of sophistication?
 
-The TypeScript integration in Remix represents the best possible implementation of types within the React monolith. It connects your routes, loaders, and components through carefully crafted type definitions. This provides valuable development-time checks and autocompletion—genuine developer benefits that shouldn't be dismissed.
+The TypeScript integration in Remix represents the best possible implementation of types within the React ecosystem. It connects your routes, loaders, and components through carefully crafted type definitions. This provides valuable development-time checks and autocompletion—genuine developer benefits that shouldn't be dismissed.
 
 But these type definitions only exist during development. At runtime—when your application is actually running for users—all TypeScript types are stripped away. Your data arrives as untyped JSON. Your DOM operations work with untyped elements. Your form submissions produce untyped objects.
 
@@ -119,10 +119,10 @@ Nue's extended Markdown takes this separation further. Your content lives in cle
 This clean separation between content and presentation is fundamental to scalable websites. Markdown isn't competing with web standards - it complements them by keeping content independent from presentation. It's a timeless skill that will serve you well regardless of how frontend frameworks evolve.
 
 
-## OMG. Is this all just technical debt that will blow up in our faces?
+## Do you mean my React app just technical debt then?
 Not so fast. Your React skills will be valuable for years to come, just like with jQuery or Angular the patterns remained for years, and the React ecosystem will follow a similar gradual transition.
 
-But yes, technical debt is a real concern. The React monolith keeps growing more complex while web standards become more powerful. Teams are maintaining thousands of dependencies and complex build pipelines to achieve what browsers can now do natively. This gap between framework complexity and platform capabilities will continue to widen.
+But yes, technical debt might become a concern in the long run. The React monolith keeps growing more complex while web standards become more powerful. Teams are maintaining thousands of dependencies and complex build pipelines to achieve what browsers can now do natively. This gap between framework complexity and platform capabilities will continue to widen.
 
 This is your opportunity to be at the forefront of change. Start learning the modern web stack alongside your React work. Experiment with standards-first development. Play around with Rust. Surprise your colleagues with dramatically better performance, cleaner code, and proper engineering principles.
 

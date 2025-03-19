@@ -5,3 +5,50 @@ footer: false
 lang:
   on_this_page: On this page
   zen_mode: Zen Mode
+
+
+documentation:
+
+  Getting started:
+    - Introduction: /docs/
+    - FAQ: faq.html
+    - Installation: installation.html
+    - Command line interface: command-line-interface.html
+
+  Single-page apps:
+    - Introduction: single-page-apps.html
+    - Model: model.html
+    - View: view.html
+    - Interactivity: interactivity.html
+
+  Content-heavy apps:
+    - Introduction: content-heavy-apps.html
+    - Tutorial: tutorial.html
+    - Project structure: project-structure.html
+    - Content: content.html
+    - Data: data.html
+    - Layout: layout.html
+    - Islands: islands.html
+    - Styling: styling.html
+    - Motion: motion.html
+    - Scripting: scripting.html
+
+  Design systems:
+    - Introduction: design-systems.html
+    - Directory structure: css-directories.html
+    - Cascade layers: cascade-layers.html
+    - CSS best practises: css-best-practises.html
+
+  Reference:
+    - Settings: settings.html
+    - Optimization: optimization.html
+    - App router: app-router.html
+    - Markdown extensions: content-tags.html
+    - Custom components: custom-components.html
+    - Core components: core-components.html
+    - Template syntax: template-syntax.html
+    - Content collections: content-collections.html
+    - Syntax highlighting: syntax-highlighting.html
+    - Technical details: technical-details.html
+    - React benchmarks: react-benchmarks.html
+

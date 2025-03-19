@@ -1,51 +1,4 @@
 
-documentation:
-
-  What is Nue:
-    - The Problem:  /docs/
-    - The Solution: why-nue.html
-    - How it Works: how-it-works.html
-    - Nue internals: nue-internals.html
-    - FAQ: faq.html
-
-  Getting started:
-    - Installation: installation.html
-    - Command line interface: command-line-interface.html
-
-  Single-page apps:
-    - Introduction: single-page-apps.html
-    - Model: models.html
-    - Views: views.html
-    - Routing: routing.html
-    - Controllers: controllers.html
-
-  Public websites:
-    - Tutorial: tutorial.html
-    - Project structure: project-structure.html
-    - Content: content.html
-    - Data: data.html
-    - Layout: layout.html
-    - Islands: islands.html
-    - Motion: motion.html
-    - Scripting: scripting.html
-
-  Design systems:
-    - Introduction: design-systems.html
-    - Cascade layers: cascade-layers.html
-    - Directory structure: css-directories.html
-    - Mathematical design: mathematical-design.html
-
-  Reference:
-    - Optimization: optimization.html
-    - Settings and metadata: settings.html
-    - Markdown extensions: content-tags.html
-    - Custom components: custom-components.html
-    - Core components: core-components.html
-    - Template syntax: template-syntax.html
-    - Content collections: content-collections.html
-    - Syntax highlighting: syntax-highlighting.html
-
-
 globalnav:
 
   # main navigation (header)
@@ -54,14 +7,14 @@ globalnav:
     - Docs: /docs/
     - Blog: /blog/
     - Vision: /vision/
-    - url: /blog/standards-first-web-framework/
-      label: "**NEW**: Standards first ›"
+    - url: /blog/single-page-applications/
+      label: "**NEW**: Single-page applications ›"
       class: news pill
 
 
   # header toolbar (complementary)
   toolbar:
-    - Feed: //x.com/tipiirai "social"
+    - Slack: //join.slack.com/t/nuejs/shared_invite/zt-2wf8ozu5i-N2Y9PA_D17weIWuN2QPOqQ "slack"
     - 6.6k: //github.com/nuejs/nue "github pill"
 
   # burger menu
@@ -69,12 +22,13 @@ globalnav:
     - Home: /
     - Docs: /docs/
     - Blog: /blog/
+    - Vision: /vision/
     - GitHub: //github.com/nuejs/nue
 
   # footer
   footer:
-    - How it works?: /docs/
-    - Get started: /docs/installation.html
+    - Problem: /docs/
+    - Solution: /docs/solution.html
     - Blog: /blog/
     - Vision: /vision/
 
