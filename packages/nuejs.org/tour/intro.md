@@ -20,7 +20,7 @@ class: intro
   - Timeless skills
   - Design engineering
 
-  [Show me how](/tour/2-code/content.html)
+  [Show me how](/tour/2-code/content-authoring.html)
   ---
 
   [! /tour/icon/globe.svg]

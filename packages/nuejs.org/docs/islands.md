@@ -1,20 +1,9 @@
+
 # Interactive islands
+Interactive islands in Nue bring dynamic functionality to static HTML, seamlessly blending into content-first websites. Think of them as small, focused components—like forms, menus, or galleries—that enhance your Markdown or layouts without disrupting the core experience. Built on web standards, islands keep interactivity lightweight and optional, aligning with Nue’s progressive enhancement model.
 
-Islands are interactive UI components integrated into the static HTML layout. Common examples include account menus, login pages, forms, and image galleries.
-
-## Nue islands
-
-Nue islands have the following characteristics:
-
-1. **Interactivity**: Islands enable dynamic widgets and interactive components, such as forms that send data to your backend, allowing users to engage with your site.
-
-2. **Isomorphism**: Parts can render on the server, parts on the client. This ensures proper content indexing while providing responsive interactivity.
-
-3. **Loose coupling**: Islands can use Web Components for simple interactions or an HTML-based template syntax for more advanced functionality.
-
-## Creating an island
-
-Islands are created using the same simple HTML-based [template syntax](template-syntax.html) used for layout modules on the server side. They are dynamic HTML components with a `.dhtml` extension, and their name is set using the `@name` attribute.
+## Creating islands
+Islands use an HTML-based [template syntax](template-syntax.html) stored in `.dhtml` files, identified by the `@name` attribute. Here’s a mailing list form:
 
 ```html
 <form @name="join-list" @submit.prevent="submit" autocomplete="on">
@@ -22,14 +11,11 @@ Islands are created using the same simple HTML-based [template syntax](template-
     <span>Your name</span>
     <input type="text" name="name" placeholder="Example: John Doe" required>
   </label>
-
   <label>
     <span>Your email</span>
     <input type="email" name="email" placeholder="your@email.com" required>
   </label>
-
   <button>Submit</button>
-
   <script>
     function submit() {
       // Send the form data with fetch()
@@ -38,32 +24,25 @@ Islands are created using the same simple HTML-based [template syntax](template-
 </form>
 ```
 
-### Organization
-
-Islands can be defined at different levels in your project:
-
-- **Global islands**: In the global directory (e.g., `@globals/join-list.dhtml`), accessible across the entire app
-- **Area-specific islands**: Within a specific application directory, like `blog/islands.dhtml`
-- **Page-specific islands**: In individual page directories, like `blog/announcing-v2.0/islands.dhtml`
-
-Each `.dhtml` file can contain multiple islands, enabling related components to be grouped together. For example, `blog/islands.dhtml` could define a comment form, sharing widget, and related posts section.
+This form renders as static HTML on the server for SEO and indexing, then becomes interactive on the client with a tiny 2.5kb runtime (`/@nue/nue.js`). The `@submit.prevent` attribute stops default form submission, letting the `submit` function handle it—say, with a `fetch()` call to your backend.
 
 ## Using islands
+You can drop islands into your content or layouts wherever interactivity is needed.
 
 ### In Markdown content
-
-To include an island in Markdown:
+Add an island to a Markdown file:
 
 ```md
 ### Join our mailing list
-Be the first to know about our new releases
+Be the first to know about our new releases.
 
 [join-list]
 ```
 
-### In layout modules
+Nue replaces `[join-list]` with the form’s HTML, ready to work when the page loads. This keeps content authoring simple—writers just use the tag, no HTML required.
 
-To embed an island within a layout module:
+### In layout modules
+Embed islands in layout templates:
 
 ```html
 <footer @name="pagefoot">
@@ -73,69 +52,52 @@ To embed an island within a layout module:
 </footer>
 ```
 
-### Isomorphic islands
+Here, the island slots into the footer, enhancing the static structure with a functional form. It’s a clean way to mix interactivity into reusable layouts.
 
-Islands can render on both server and client, ensuring proper SEO while providing interactivity. Here's an example video component:
+## Organization
+Islands can live at different levels in your project, depending on where you need them:
+- **Global islands**: Store them in `@globals/join-list.dhtml` for use across the entire site—like a universal signup form.
+- **Area-specific islands**: Put them in `blog/islands.dhtml` for app-specific features, such as a blog’s comment box.
+- **Page-specific islands**: Place them in `blog/post/islands.dhtml` for one-off needs tied to a single page.
+
+A single `.dhtml` file can hold multiple islands. For example, `blog/islands.dhtml` might include a comment form, a share button, and a related posts widget, keeping related functionality together.
+
+## Data access
+Islands pull data from multiple sources, keeping logic separate from content:
+- **Global data**: From `site.yaml`, like a site-wide title or API endpoint.
+- **App data**: From `blog.yaml`, such as a blog’s category list.
+- **Page data**: From front matter in `post.md`, like a post’s ID or author.
+
+For the `join-list` form, you might pass a custom button label from front matter:
+
+```md
+---
+cta: "Sign up now"
+---
+[join-list cta="{cta}"]
+```
+
+The island could then use it:
+
+```html
+<button>{ cta || 'Submit' }</button>
+```
+
+This flexibility ties islands to your content structure without hardcoding values.
+
+## Isomorphic islands
+For SEO-critical interactivity, islands can render on both server and client. Here’s a video player:
 
 ```html
 <div @name="video-player">
-  <!-- For SEO and JS-disabled users/browsers -->
   <noscript>
     <video src="https://video.nuejs.org/{videoId}/play_720p.mp4" controls>
       Your browser does not support the video tag.
     </video>
   </noscript>
-
-  <!-- The client-side part -->
   <video-player :videoId="videoId" :poster="poster" :width="width"/>
-
-  <!-- Caption for search engines -->
   <figcaption :if="caption">{ caption }</figcaption>
 </div>
 ```
 
-## Web Components
-
-Web Components offer a lightweight, standards-based alternative to islands for simple interactivity. They enhance static HTML with JavaScript but do not re-render based on internal state.
-
-Here's a real example – the Zen Mode toggle:
-
-```html
-<div class="zen-toggle">
-  <h5>{ lang.zen_mode }</h5>
-  <label class="toggle">
-    <input type="checkbox" is="zen-toggle">
-  </label>
-</div>
-```
-
-With its implementation:
-
-```javascript
-class ZenToggle extends HTMLInputElement {
-  constructor() {
-    super();
-    this.onchange = function() {
-      document.documentElement.classList.toggle('zen', this.checked);
-    };
-  }
-}
-
-customElements.define('zen-toggle', ZenToggle, { extends: 'input' });
-```
-
-## Technical details
-
-### The runtime
-
-Nue includes a lightweight script (`/@nue/nue.js`, 2.5kb) that enables reactive features. This handles loops, conditionals, and re-rendering, allowing for React-like interactivity using semantic HTML-based syntax.
-
-### Context and scope
-
-Islands have access to:
-- Global data from your site configuration
-- Area-specific data from application YAML files
-- Page-specific data from front matter
-- Dynamic state managed through the template syntax
-
-This layered approach maintains clean separation between content, presentation, and interactive functionality while enabling sophisticated features when needed.
+The `<noscript>` ensures playback for JavaScript-off users, the client-side `<video-player>` adds interactivity (e.g., quality switching), and the caption boosts search visibility—all in one component.

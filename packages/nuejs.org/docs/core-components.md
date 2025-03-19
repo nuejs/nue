@@ -3,7 +3,7 @@
 This section outlines the built-in server-side components in Nue, designed to assist you with common layout tasks.
 
 ## Navi
-Navigation is a fundamental aspect of web design, including elements like global headers, footers, sidebars, and burger menus. These navigational elements serve as wrappers for links that guide users through your site. The `<navi/>` tag is a useful utility for rendering these links based on the data defined in your [information architecture](content.html#ia). Here’s an example of how to create a header with navigation:
+Navigation is a fundamental aspect of web design, including elements like global headers, footers, sidebars, and burger menus. These navigational elements serve as wrappers for links that guide users through your site. The `<navi/>` tag is a useful utility for rendering these links based on the data defined in your [information architecture](content-authoring.html#ia). Here’s an example of how to create a header with navigation:
 
 ```html
 <header>

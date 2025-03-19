@@ -90,7 +90,7 @@ To explicitly include components from a [library folder](project-structure.html#
 Once a component is available on the page, mounting it is straightforward:
 
 ### In Markdown content
-Custom components are mounted in Markdown content just like the built-in [content tags](content-tags.html), using square brackets:
+Custom components are mounted in Markdown content just like the built-in [content tags](markdown-extensions.html.html), using square brackets:
 
 ```md
 [image-gallery]
@@ -121,7 +121,7 @@ In this case, Nue will first look for an implementation of the component or isla
 
 
 ## Passing data
-You can pass data to your components using attributes. These attributes can either be direct values or reference data from the [unstructured data](content.html) when the attribute name starts with a colon.
+You can pass data to your components using attributes. These attributes can either be direct values or reference data from the [unstructured data](content-authoring.html) when the attribute name starts with a colon.
 
 #### Markdown example
 In Markdown content, you can pass data as follows:

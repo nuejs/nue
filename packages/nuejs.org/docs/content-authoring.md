@@ -1,40 +1,10 @@
 
-# Content in Nue
+# Content authoring
+Nue equips you to author content with a specialized Markdown dialect, crafted for rich, interactive websites. This syntax extends standard Markdown with features that support dynamic, structured pages—your content becomes the backbone of the site. Nue pairs this with layout modules, which wrap your Markdown into a final HTML document, adding headers, footers, and sidebars without complicating your source.
 
-The web platform excels at sharing content, but modern development practices often overcomplicate this fundamental strength. By keeping content separate from presentation, we enable:
-
-1. **Direct content updates**. Change content through Markdown without rebuilding application code.
-
-2. **Clear separation of concerns**. Content teams work with clean Markdown while developers handle implementation.
-
-3. **Content team autonomy**. Update landing pages, documentation, and blog posts directly.
-
-4. **Simpler architecture**. Most content-heavy sites need minimal JavaScript.
-
-5. **Natural scalability**. As content grows, the system stays maintainable without complex state management.
-
-Instead of mixing content with application code or framework-specific markup, Nue provides a Markdown syntax that enables rich, interactive documents while maintaining pure content structure.
-
-
-### What makes Nue Markdown special
-
-Nue's content system differs from traditional Markdown approaches:
-
-1. **Structural understanding**. The parser automatically recognizes document structure and creates semantic sections from your headings – no manual markup needed. This enables sophisticated styling without polluting content.
-
-2. **Rich layouts without markup**. Create sophisticated grid layouts, stacks, and nested structures using a simple block system that builds on the natural document structure.
-
-3. **Interactive elements through built-in tags**. Add dialogs, tabs, and accordions using Nue's native browser-based components.
-
-4. **Custom components when needed**. Create your own server-side, client-side, or isomorphic tags for advanced functionality like image galleries or forms.
-
-
-### Key principles
-
-1. Content is wrapped with [layout modules](layout.html) to create the final HTML document structure including headers, footers, and potential sidebars.
-
-2. The generated HTML is [styled](styling.html) with an external design system, keeping presentation completely separate from content.
-
+#### Related content
+* [Full list of markdown extensions](markdown-extensions.html)
+* [Creating custom components](custom-components.html)
 
 
 ## Sections

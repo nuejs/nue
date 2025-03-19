@@ -21,7 +21,7 @@ documentation:
     - View: view.html
     - Interactivity: interactivity.html
 
-  Content-heavy apps:
+  Content-focused apps:
     - Introduction: content-heavy-apps.html
     - Tutorial: tutorial.html
     - Project structure: project-structure.html
@@ -30,13 +30,13 @@ documentation:
     - Layout: layout.html
     - Islands: islands.html
     - Styling: styling.html
-    - Motion: motion.html
     - Scripting: scripting.html
+    - View transitions: view-transitions.html
 
   Design systems:
     - Introduction: design-systems.html
-    - Directory structure: css-directories.html
     - Cascade layers: cascade-layers.html
+    - Directory structure: css-directory-structure.html
     - CSS best practises: css-best-practises.html
 
   Reference:
@@ -44,9 +44,9 @@ documentation:
     - Optimization: optimization.html
     - App router: app-router.html
     - Markdown extensions: content-tags.html
+    - Template syntax: template-syntax.html
     - Custom components: custom-components.html
     - Core components: core-components.html
-    - Template syntax: template-syntax.html
     - Content collections: content-collections.html
     - Syntax highlighting: syntax-highlighting.html
     - Technical details: technical-details.html
