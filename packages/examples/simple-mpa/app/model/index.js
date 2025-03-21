@@ -1,15 +1,24 @@
 
-import init, { Engine } from './wasm/engine.js'
-
 import { loadChunks } from './event-sourcing.js'
 import { fetchWithAuth, login } from './auth.js'
 import { createUser } from './users.js'
 
 
-// initialize WASM engine
-await init()
-const engine = new Engine()
+async function loadRustEngine() {
+  const module = await import('./wasm/engine.js')
+  const init = module.default
+  const { Engine } = module
+  await init()
+  return new Engine()
+}
 
+async function loadEngine() {
+  const use_rust = localStorage.rust || location.search.includes('rust')
+  if (use_rust) localStorage.rust = true
+  return use_rust ? await loadRustEngine() : await import('./engines/javascript.js')
+}
+
+const engine = await loadEngine()
 const handlers = []
 const CACHE = {}
 

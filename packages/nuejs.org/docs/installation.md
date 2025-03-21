@@ -1,5 +1,5 @@
 
-# Get Started with Nue
+# Get started with Nue
 
 ## 1. Install Bun
 First, install [Bun](//bun.sh):
@@ -13,7 +13,6 @@ Nue uses Bun for its superior web standards support, including native CSS parsin
 
 
 ## 2. Install Nue
-
 Next, install Nue globally:
 
 ```sh
@@ -24,22 +23,21 @@ bun install nuekit --global
 Nue uses global installation because it is a command line tool like Git or Docker. Just go to a directory and type `nue` to develop.
 
 
-## 3. Create a Website
-
-Create your new website with:
+## 3. Install demo
+Create your first app with:
 
 ```sh
-# Create a website
+
 nue create simple-blog
 ```
 
-Done! Your browser should now open to: `http://localhost:8083/welcome/`:
+Done! Your browser should now open to: `http://localhost:8083/`:
 
 [image]
   caption: Welcome screen after successful setup
   src: /img/create-welcome.png
 
-## 4. Follow the Tutorial
+## 4. Follow the tutorial
 
 Check out the [step-by-step tutorial](tutorial.html) to learn how to build websites with Nue.
 
@@ -52,16 +50,16 @@ Check out the [step-by-step tutorial](tutorial.html) to learn how to build websi
 - **Bun 1.2** or later. Recommended for *macOS* and *Linux* and *Windows*.
 - **Node.js 20.8** or later, if you prefer not using Bun.
 
-### No Windows Support
 
-Nue is not currently tested or developed under Windows, so use it at your own risk.
+### Uncertain Windows support
+Our Windows Tests pass, but nobody on our team uses it. So might work, might not.
+
 
 ### Having Problems?
+Please post an [issue](//github.com/nuejs/nue/issues)
 
-Please post an [issue](//github.com/nuejs/nue/issues). Thank you!
 
 ## Node Setup
-
 If you prefer to install Nue with `pnpm`, `npm`, or `yarn`, use:
 
 ```sh

@@ -1,62 +1,53 @@
 
 # Why Nue
-Nue is a standards-first framework pushing HTML, CSS, JS, and WASM to their limits. It lets you build truly ambitious web applications that deliver more with a fraction of the code.
+Nue is a standards-first framework pushing HTML, CSS, JS, and WASM to their limits. It lets you build truly ambitious web applications that deliver more with a fraction of the code. For example, here's a Rust-backed multi-page app, lighter than a React button:
 
 [Video: Multi-page app demo]
-[github.com/nuejs/simple-mpa](#)
 
-The demo above is a multi-page application (MPA) with instant search across 10,000+ records, seamless view transitions, state management, and a design system—all in a production bundle smaller than a React button.
+This app searches 50,000 records in an instant. It handles deep-linked URLs with state, routes between pages, runs Rust models, ties it together with a design system, and uses WASM for the heavy lifting. All that fits in 60KB.
 
-## Smaller than a React button
-Yes — a single React button with a dialog, built with Shadcn/UI, weighs 249KB in production. The entire Nue MPA above is 60KB. That gap comes from an entirely different approach.
+## Lighter than a React button
+Here's the reality we live in today:
 
-| Metric            | React Button | Nue MPA     | Difference       |
-|-------------------|--------------|-------------|------------------|
-| Bundle Size (KB)  | 249          | 60          | 4.2× smaller     |
-| Dependencies      | 120 modules  | 5 modules   | 24× fewer        |
+[image]
+  stacked bar chart
 
-Nue achieves this by sticking to web standards—HTML, CSS, JS, and WASM—without the layers of abstraction that bloat frameworks like React. Details are in our [benchmark](#).
+[How we measured this]()
 
-## Faster development
-Development with Nue moves at a different pace. Build times shrink from seconds to milliseconds. Updates land the instant you save. The feedback loop is tight and direct.
-
-| Metric            | React        | Nue         | Difference       |
-|-------------------|--------------|-------------|------------------|
-| Build Time (s)    | 2.5          | 0.15        | 17× faster       |
-| HMR Latency (ms)  | 100-500      | 5-50        | Up to 20× faster |
-| Dependencies      | 98MB, 77+    | 2MB, 5      | 49× smaller      |
-
-[Video: SPA build and HMR in action]
-
-This comes from a lean toolchain—fewer moving parts, no compromise on function.
-
-## Cleaner codebases
-Nue cuts the code you write and maintain. The MPA demo breaks down like this:
-
-- 150 lines of controller logic
-- 300 lines of model code
-- 600 lines of view templates
-- 1000 lines of CSS
-
-Compare that to a React equivalent: thousands of lines across components, hooks, and utilities—often 10× more for the same result. Separation of concerns keeps Nue’s code standards-based and focused. Less to manage, more to build on.
 
 ## What this means
-Efficiency is only part of it. The real value lies in the new possibilities for developers
-
-### Systems engineering
-Build clean, testable business models without the clutter of frontend abstractions. Nue separates logic from the UI entirely, letting you create applications on the scale of Figma or Notion. Use Rust and WASM to get serious speed and type safety that TypeScript can’t deliver.
 
 
-### Design engineering
-Shift focus from framework patterns to design systems. A React theme like Shadcn/UI’s “New York” takes 40,000 lines of TypeScript. Nue does it in 1000 lines of CSS—color, typography, and layout, not component glue.
+### For JS/TS/Rust engineers
+The most ambitious frontends built today rely on a separated model layer. **Figma** is a perfect example. They use Rust to create a vector computation engine that runs fast and stays separate from the frontend. **Notion** is another case: their Rust-based sync is a separate subsystem.
 
-[Bar chart: 40,000 lines TSX vs. 1000 lines CSS]
+[Video: Keypress search through 10k records in 2ms]
 
-### UX Engineering
-Leverage the browser fully—view transitions, container queries, animations—with a view layer of 10 semantic files, not hundreds of components. Craft experiences that last, not frameworks that churn.
+Nue applications follow this architecture. Development begins with the model. You design its API first, make it testable, and choose the best data-fetching approach for the job—perhaps event sourcing for instant, in-memory access. Rust can power the performance-critical parts when needed.
 
-[Video: HMR and styling in action]
+Nue restores the art of crafting robust, functional software. It’s the ideal platform for system engineers who value timeless algorithms and data structures. Nue is for hackers who build on Gang of Four (GoF) Design Patterns, not React hooks.
 
-## The Gist
-Nue delivers ambitious applications with less code, faster builds, and cleaner structure. It’s a standards-first answer to a frontend weighed down by complexity. Find answers to common questions in our ]FAQ](faq.html)
+
+
+### For design engineers
+The best UI designs out there are based on a carefully crafted _design system_, where typography, whitespace, motion, and colors follow exact mathematical precision — free from business logic, TypeScript types, or wild utility walls that block systematic thinking.
+
+[Video: CSS HMR for user grid width]
+
+Nue does exactly this. It takes styling out of the React monolith and hands the control to design engineers. It uses Bun’s internal CSS parser (or Lightning CSS under Node) to do the heavy lifting: CSS modernization, nesting, minification, and error reporting — plus it offers a millisecond-level HMR speed.
+
+Nue is a perfect system for developers, who understand the value in CSS @layers, --variables, and calc(). The idea of copy/pasting 40,000 lines of TSX to create a new ShadCN theme becomes a thing of the past.
+
+
+
+### For frontend engineers
+When the business model and styling are taken out from the view layer, the remaining code is clean and free from complexities. This changes the way you build interfaces:
+
+[Video: DHTML overlay editing + HMR, keeping the state]
+
+The view layer in our demo uses 600 lines of semantic HTML. Think of building complete applications with with the same amount of code that you find behind a single React button.
+
+Nue is a rapid application development (RAD) platform for frontend engineers.
+
+Find answers to common questions in our [FAQ](faq.html)
 

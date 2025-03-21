@@ -1,12 +1,12 @@
 
 # Technical details
-
+Total size of all repositories is roughly ~7800 lines of code and around 2MB of files under node_modules.
 
 ## Repositories
 Nuue consists of four projects within Nue [monorepo](//github.com/nuejs/nue/):
 
 ### Nuekit
-Standards-first web framework providing:
+Nuekit (or simply "Nue") is a standards-first web framework providing:
 
 - Website generation for both MPA and SPA
 - Development server with watch mode
@@ -51,11 +51,11 @@ Syntax highlighter for Markdown code blocks:
 
 No external dependencies
 
-Total size of all repositories is roughly ~7800 lines of code and around 2MB of files under node_modules.
+
 
 
 ## How it works
-Nue processes your project through the following steps:
+Nuekit processes your project through the following steps:
 
 1. File System Scanning
 - Scans all directories and files

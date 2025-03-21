@@ -1,6 +1,6 @@
 
 # Nue Vision: Rebuild the Frontend Ecosystem
-Nue is a project to rethink web development through three clear phases, each addressing a core problem in the current landscape.
+Nue is a project that reconstructs the web stack in three distinct phases, each addressing a key problem in the current landscape.
 
 ![Hero image: Phases and ETAs]
 
@@ -16,11 +16,11 @@ nue create simple-mpa
 ```
 
 ## Phase 2: Redefine Design Engineering
-Building a new theme shouldn’t require 40,000+ lines of TSX. The current ecosystem forces developers into rigid, bloated workflows that resist creativity and efficiency.
+Building a new theme shouldn’t require 40,000+ lines of TSX. Development should not be forced into rigid, bloated workflows that resist creativity and precision.
 
 ![Image: TSX bloat vs. Nue simplicity]
 
-Nue’s next step is true design engineering. Themes become adjustable through settings or light CSS tweaks, letting you shift from minimalist layouts to functional designs or vibrant styles with ease. This arrives later:
+Nue’s next step is to unlock design engineering. Themes become simple systems, letting you shift from Miesian layouts to Ramsian design with ease. This arrives later:
 
 ```sh
 nue create startup --design rams
@@ -33,6 +33,6 @@ Applications shouldn’t demand years, rare expertise, or long deployment times�
 nue create startup --design mies --live
 ```
 
-I know this sounds ambitious—maybe even impossible. But the reality is simpler than it seems: strip away the clutter, focus on better choices, and refine what matters. The result will be more powerful than you expect.
+I know this sounds overly ambitious—almost crazy. But the reality is simpler than it seems: the whole ecosystem might only need code worth of 10 React buttons, and the result will be more influental than you'd expect.
 
 Want to see this vision unfold? Join our mailing list for updates as Nue brings each phase to life.

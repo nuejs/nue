@@ -1,5 +1,7 @@
 
 /* fetch and auth */
+const is_live = location.hostname.endsWith('nuejs.org')
+
 export async function fetchWithAuth(path, as_text) {
   const { sid } = sessionStorage
   if (!sid) throw new Error('No active session')
@@ -13,7 +15,7 @@ export async function fetchWithAuth(path, as_text) {
 
 
 export async function login(email, password) {
-  const response = await fetch('/app/mocks/login.json', {
+  const response = await fetch('/app/mocks/login.json', is_live ? undefined : {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password }),
     method: 'POST',

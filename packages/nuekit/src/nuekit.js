@@ -284,9 +284,6 @@ export async function createKit(args) {
     // paths
     let paths = await site.walk()
 
-    // ignore layouts
-    paths = paths.filter(p => !p.endsWith('layout.html'))
-
 
     if (args.incremental) {
       paths = await site.filterUpdated(paths)
@@ -298,6 +295,7 @@ export async function createKit(args) {
     // categories
     const cats = categorize(paths)
 
+    // build
     for (const key in cats) {
       const paths = cats[key]
       const len = paths.length
