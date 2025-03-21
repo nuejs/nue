@@ -1,7 +1,7 @@
 
 include: ["@contexts/interfaces.css", "@components", controllers, view]
 exclude: ["@globals/structure"]
-
+inline_css: true
 
 app_config:
   views:

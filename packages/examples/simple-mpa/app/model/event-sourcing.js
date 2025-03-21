@@ -51,7 +51,7 @@ import { fetchWithAuth } from './auth.js'
  *
  * @returns {Promise<Array>} Array of event chunks
  */
-export async function loadChunks() {
+export async function loadChunks(use_rust) {
   const chunks = [await loadChunk()]
   const ts = localStorage.getItem('_ts') || 0
   if (ts) chunks.push(await loadChunk(ts))
@@ -72,6 +72,7 @@ export async function loadChunks() {
  * @returns {Promise<Array>} Array of events in the chunk
  */
 async function loadChunk(ts) {
-  return await fetchWithAuth(ts ? `chunk-1.json?ts=${ts}` : 'chunk-0.json', true)
+  const base = sessionStorage.rust ? 'big-chunk' : 'chunk'
+  return await fetchWithAuth(ts ? `${base}-1.json?ts=${ts}` : `${base}-0.json`, true)
 }
 

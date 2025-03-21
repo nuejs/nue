@@ -20,7 +20,6 @@ export function add_events(input) {
     .map(line => line.trim())
     .filter(line => line.length > 0)
     .map(line => JSON.parse(line))
-
   events.push(...arr)
 }
 
@@ -34,7 +33,6 @@ export function clear() {
 
 
 export function all(params) {
-  console.info(params)
   const entries = sortEntries(params.sort_by, params.ascending)
   return paginate(entries, params.start, params.length)
 }
@@ -72,7 +70,6 @@ export function search(query, params) {
 
 export function get(id) {
   const el = events.find(event => event.data.id == id)
-  console.info(el)
   return el ? JSON.stringify(el) : null
 }
 
@@ -95,7 +92,6 @@ const sizeOrder = ['s', 'm', 'l', 'xl']
 
 // id, cc, size, plan
 function sortEntries(sort_by, ascending) {
-  console.info(sort_by, ascending)
   return [...events].sort((a, b) => {
 
     const field = sort_by || 'id'

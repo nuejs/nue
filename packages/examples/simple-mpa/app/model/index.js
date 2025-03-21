@@ -3,6 +3,8 @@ import { loadChunks } from './event-sourcing.js'
 import { fetchWithAuth, login } from './auth.js'
 import { createUser } from './users.js'
 
+const use_rust = sessionStorage.rust || location.search.includes('rust')
+if (use_rust) sessionStorage.rust = true
 
 async function loadRustEngine() {
   const module = await import('./wasm/engine.js')
@@ -13,8 +15,6 @@ async function loadRustEngine() {
 }
 
 async function loadEngine() {
-  const use_rust = localStorage.rust || location.search.includes('rust')
-  if (use_rust) localStorage.rust = true
   return use_rust ? await loadRustEngine() : await import('./engines/javascript.js')
 }
 

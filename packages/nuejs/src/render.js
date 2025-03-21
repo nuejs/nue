@@ -28,10 +28,14 @@ function renderExpr(str, data, is_class) {
 
 
 function setContent(node, data) {
+
+  if (node.parent?.name == 'style') return
+
   // run once
   if (node.__is_set) return
 
   const str = node.data || ''
+
 
   if (str.includes('{')) {
     if (str.startsWith('{{')) {

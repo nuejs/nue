@@ -15,13 +15,13 @@ export async function fetchWithAuth(path, as_text) {
 
 
 export async function login(email, password) {
-  const response = await fetch('/app/mocks/login.json', is_live ? undefined : {
+  const res = await fetch('/app/mocks/login.json', is_live ? undefined : {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password }),
     method: 'POST',
   })
 
-  if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
+  if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`)
 
-  return await response.json()
+  return await res.json()
 }

@@ -9,13 +9,10 @@
   </header>
 
   <ul class="{ router.state.show_grid_view ? 'grid-view' : 'table-view' }">
-    <li :for="item, i in items">
+    <li :for="item, index in items">
 
       <!-- TODO: make generic / <a mount="${ component }" ... -->
-      <user-item
-        :bind="item"
-        class="list-item appears"
-        :style="--delay: { i }"/>
+      <user-item :bind="item" class="list-item appears" :style="--delay: { index }"/>
     </li>
     <li :if="!items.length">No records found</li>
   </ul>
