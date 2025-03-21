@@ -1,5 +1,5 @@
 import { promises as fs, existsSync } from 'node:fs'
-import { join, extname, parse as parsePath } from 'node:path'
+import { join, extname, parse as parsePath, resolve } from 'node:path'
 
 import yaml from 'js-yaml'
 import { parse as parseNue } from 'nuejs-core'
@@ -31,7 +31,8 @@ export async function createSite(args) {
   const cache = {}
 
   // make sure root exists
-  if (!existsSync(root)) throw `Root directory does not exist: ${root}`
+  // can theoretically remove `resolve()`-part when oven-sh/bun#17552 is fixed
+  if (!existsSync(resolve(root))) throw `Root directory does not exist: ${root}`
 
   /*
     Bun.file()::text() has equal performance
