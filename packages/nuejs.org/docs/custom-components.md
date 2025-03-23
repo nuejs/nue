@@ -90,7 +90,7 @@ To explicitly include components from a [library folder](project-structure.html#
 Once a component is available on the page, mounting it is straightforward:
 
 ### In Markdown content
-Custom components are mounted in Markdown content just like the built-in [content tags](markdown-extensions.html.html), using square brackets:
+Custom components are mounted in Markdown content just like the built-in [content tags](markdown-extensions.html), using square brackets:
 
 ```md
 [image-gallery]

@@ -11,7 +11,7 @@ Nuemark is a custom Markdown parser developed specifically for Nue's content-fir
 ### Links
 
 * [Syntax and semantics](https://nuejs.org/docs/content-syntax.html)
-* [Tag reference](https://nuejs.org/docs/markdown-extensions.html.html)
+* [Tag reference](https://nuejs.org/docs/markdown-extensions.html)
 
 
 ### Contributing

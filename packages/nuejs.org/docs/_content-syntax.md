@@ -215,7 +215,7 @@ You can further simplify the syntax by omitting the `block` component name and j
 ```
 
 ### Popovers
-Nue's block syntax makes it simple to create **popovers** that can be easily triggered using a [button](markdown-extensions.html.html#button) tag. Popovers are a great way to present additional information without cluttering the main content flow.
+Nue's block syntax makes it simple to create **popovers** that can be easily triggered using a [button](markdown-extensions.html#button) tag. Popovers are a great way to present additional information without cluttering the main content flow.
 
 Here’s how you define a popover:
 
@@ -431,6 +431,6 @@ Here's an example combining content blocks and code blocks. Notice how clean the
 This simple example demonstrates how you can create a **stacked layout** with content and code blocks, all within a clean, readable format. Mixing content and code blocks in this way allows you to present complex technical concepts, tutorials, or style guides without sacrificing readability or maintainability.
 
 ### Content tags
-Nue offers a large amount of [tags](markdown-extensions.html.html) that significantly enhance your ability to create rich and interactive websites. You can add responsive images, videos, buttons, accordions, tabs, and more.
+Nue offers a large amount of [tags](markdown-extensions.html) that significantly enhance your ability to create rich and interactive websites. You can add responsive images, videos, buttons, accordions, tabs, and more.
 
 You can also extend the syntax with [custom components](custom-components.html).
