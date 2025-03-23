@@ -3,14 +3,14 @@
 @import "../css/markers.css";
 /*@import "../css/light.css";*/
 
-*, *::before, *::after {
-  box-sizing: border-box;
-}
+*, *::before, *::after { box-sizing: border-box; }
+
+:root { --gap: clamp(1em, 5vmin, 3rem); }
 
 body {
   font-family: sf pro display;
-  margin: 3em;
-  gap: 3em;
+  margin: var(--gap);
+  gap: var(--gap);
   .syntax { break-inside: avoid; }
   @media (min-width: 1000px) {
     column-count: 2;
@@ -21,7 +21,7 @@ body {
 /* wrapper */
 .syntax {
   border-radius: 6px;
-  margin-bottom: 3em;
+  margin-bottom: var(--gap);
   header { padding: .7em 1.5em; }
 
   h2 {

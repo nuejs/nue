@@ -1,6 +1,10 @@
 import { promises as fs } from 'node:fs'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 import { glow } from '../src/glow.js'
+
+const root = dirname(fileURLToPath(import.meta.url))
 
 
 // Nue / html
@@ -107,7 +111,6 @@ adaptogen. Iceland **chambray** raclette stumptown
   list: [ foo, bar ]
   foo: 10
   bar: 30
-
 `
 
 const YAML = `
@@ -350,10 +353,10 @@ render(
 `
 
 const ASTRO = `
----
+\\---
 import MyComponent from "./MyComponent.astro";
 const items = ["Dog", "Cat", "Platypus"];
----
+\\---
 
 <ul>
 > {items.map((item) => (
@@ -472,14 +475,14 @@ while (my $file = $iter->()) {
 `
 
 const LUA = `
--- This here is a comment
+\\-- This here is a comment
 function perm (a)
   local n = table.getn(a)
   return coroutine.wrap(function () permgen(a, n) end)
 end
 
 
--- Another function
+\\-- Another function
 function printResult (a)
   for i,v in ipairs(a) do
     io.write(v, " ")
@@ -678,9 +681,12 @@ INNER JOIN payment_status p ON o.status_id = p.id;
 `
 
 async function renderPage(items) {
-  const html = ['<link rel="stylesheet" href="glow-test.css">']
-
-  html.push('<body class="is-dark">')
+  const html = [
+    '<meta charset="utf-8">',
+    '<meta name="viewport" content="width=device-width, initial-scale=1.0">',
+    '<link rel="stylesheet" href="glow-test.css">',
+    '<body class="is-dark">'
+  ]
 
   items.forEach(opts => {
     const { title } = opts
@@ -699,7 +705,7 @@ async function renderPage(items) {
 
   // save
   const path = 'glow-test.html'
-  await fs.writeFile(path, html.join('\n'), 'utf-8')
+  await fs.writeFile(join(root, path), html.join('\n'), 'utf-8')
   console.info('wrote', path)
 }
 
@@ -741,6 +747,6 @@ await renderPage([
   { title: 'ZIG', code: ZIG, lang: 'zig', },
   { title: 'YAML', code: YAML, lang: 'yaml', },
 
-].filter(el => ['md'].includes(el.lang))
+]//.filter(el => ['md'].includes(el.lang))
   // ]
 )
