@@ -1,13 +1,14 @@
 import { mkConfigBase, mountTestComponent } from '../test-utils.js'
 
 const mkConfig = mkConfigBase(import.meta.url)
+function arr(parent) { return Array.from(parent.querySelectorAll('li')).map(e => e.textContent) }
+
 
 describe('Nue.js Fors Tests', () => {
   test('Array', async () => {
     const { app, cleanup } = await mountTestComponent(mkConfig('test-for-array'))
 
-    const list = Array.from(app.$el.querySelectorAll('li')).map(e => e.textContent)
-    expect(list).toEqual(['hello', 'world', '42'])
+    expect(arr(app.$el)).toEqual(['hello', 'world', '42'])
 
     cleanup()
   })
@@ -15,8 +16,7 @@ describe('Nue.js Fors Tests', () => {
   test('Unpacking Array', async () => {
     const { app, cleanup } = await mountTestComponent(mkConfig('test-for-array-unpack'))
 
-    const list = Array.from(app.$el.querySelectorAll('li')).map(e => e.textContent)
-    expect(list).toEqual(['hello', '42'])
+    expect(arr(app.$el)).toEqual(['hello', '42'])
 
     cleanup()
   })
@@ -24,8 +24,7 @@ describe('Nue.js Fors Tests', () => {
   test('Numbered Array', async () => {
     const { app, cleanup } = await mountTestComponent(mkConfig('test-for-array-numbered'))
 
-    const list = Array.from(app.$el.querySelectorAll('li')).map(e => e.textContent)
-    expect(list).toEqual(['0: hello', '1: world', '2: 42'])
+    expect(arr(app.$el)).toEqual(['0: hello', '1: world', '2: 42'])
 
     cleanup()
   })
@@ -33,8 +32,7 @@ describe('Nue.js Fors Tests', () => {
   test('Object Array', async () => {
     const { app, cleanup } = await mountTestComponent(mkConfig('test-for-object-array'))
 
-    const list = Array.from(app.$el.querySelectorAll('li')).map(e => e.textContent)
-    expect(list).toEqual(['hello', 'world', '42'])
+    expect(arr(app.$el)).toEqual(['hello', 'world', '42'])
 
     cleanup()
   })
@@ -42,49 +40,44 @@ describe('Nue.js Fors Tests', () => {
   test('Array replaced', async () => {
     const { app, cleanup } = await mountTestComponent(mkConfig('test-for-array-replace'))
 
-    const listA = Array.from(app.$el.querySelectorAll('li')).map(e => e.textContent)
-    expect(listA).toEqual(['hello'])
-
+    expect(arr(app.$el)).toEqual(['hello'])
     app.$el.querySelector('button').click()
-
-    const listB = Array.from(app.$el.querySelectorAll('li')).map(e => e.textContent)
-    expect(listB).toEqual(['world'])
+    expect(arr(app.$el)).toEqual(['world'])
 
     cleanup()
   })
 
   test('Array funcs', async () => {
     const { app, cleanup } = await mountTestComponent(mkConfig('test-for-array-funcs'))
-    const arr = () => Array.from(app.$el.querySelectorAll('li')).map(e => e.textContent)
 
-    expect(arr()).toEqual(['hello', 'world'])
+    expect(arr(app.$el)).toEqual(['hello', 'world'])
 
     app.$refs.push.click()
     app.$refs.push.click()
-    expect(arr()).toEqual(['hello', 'world', '42', '42'])
+    expect(arr(app.$el)).toEqual(['hello', 'world', '42', '42'])
 
     app.$refs.pop.click()
-    expect(arr()).toEqual(['hello', 'world', '42'])
+    expect(arr(app.$el)).toEqual(['hello', 'world', '42'])
 
     app.$refs.unshift.click()
     app.$refs.unshift.click()
-    expect(arr()).toEqual(['answer', 'answer', 'hello', 'world', '42'])
+    expect(arr(app.$el)).toEqual(['answer', 'answer', 'hello', 'world', '42'])
 
     app.$refs.shift.click()
-    expect(arr()).toEqual(['answer', 'hello', 'world', '42'])
+    expect(arr(app.$el)).toEqual(['answer', 'hello', 'world', '42'])
 
     app.$refs.reverse.click()
-    expect(arr()).toEqual(['42', 'world', 'hello', 'answer'])
+    expect(arr(app.$el)).toEqual(['42', 'world', 'hello', 'answer'])
 
     app.$refs.remove.click()
-    expect(arr()).toEqual(['42', 'world', 'answer'])
+    expect(arr(app.$el)).toEqual(['42', 'world', 'answer'])
 
     app.$refs.splice.click()
-    expect(arr()).toEqual(['42', 'answer'])
+    expect(arr(app.$el)).toEqual(['42', 'answer'])
 
     app.$refs.push.click() // additional 42 at end for sort
     app.$refs.sort.click()
-    expect(arr()).toEqual(['42', '42', 'answer'])
+    expect(arr(app.$el)).toEqual(['42', '42', 'answer'])
 
     cleanup()
   })
