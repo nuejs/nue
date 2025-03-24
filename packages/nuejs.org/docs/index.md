@@ -1,8 +1,9 @@
 
 # Why Nue
-Nue is a standards-first framework that maximizes HTML, CSS, JavaScript, and WASM to build ambitious multi-page web applications with radically less code than traditional frameworks.
+Nue is a standards-first framework that pushes HTML, CSS, JavaScript, and WASM to theri limit. It helps you build ambitious web applications with radically less code than with traditional frameworks.
 
 [Video: Multi-page app demo]
+
 
 ## Lighter than a React button
 Nue redefines lightweight:
@@ -27,9 +28,9 @@ This is the playbook of top-tier apps like **Figma** and **Notion**: a decoupled
 
 
 ## For system engineers
-Nue revives the craft of building robust, functional software. It’s built for JS/TS/Rust/Go engineers who prize timeless algorithms and data structures over fleeting trends. With Nue, you create frontend models free from typical UI idioms and patterns, delivering clean, testable code. Experiment with performance algorithms, optimize freely, or shape the data flow—think event sourcing for instant in-memory access.
+Nue brings back the skill of making strong, working software. It’s made for JS/TS/Rust/Go engineers who value classic algorithms and data structures over fancy frontend trends. Nue gives you clean, testable code. You can try out performance tweaks or adjust the data setup—like event sourcing for quick in-memory access.
 
-Nue is for hackers who lean on Gang of Four (GoF) design patterns, not React hooks.
+Nue is for business model hackers who lean on Gang of Four (GoF) patterns, not React hooks.
 
 
 ## For design engineers
@@ -37,9 +38,7 @@ The best UI designs out there are based on a carefully crafted _design system_, 
 
 [Video: CSS HMR for user grid width]
 
-No more TypeScript types, business logic, or utility walls to block the designwork. [40,000-line](//github.com/shadcn-ui/ui/tree/main/apps/www/registry/new-york/ui) JSX themes become a thing of the past.
-
-Nue is a perfect system for design engineers, who see the strength in CSS @layers, --variables, and calc() —tools to build intentional, uncompromised interfaces.
+Nue is for design engineers, who see the strength in CSS @layers, --variables, and calc(), not in [40,000-line](//github.com/shadcn-ui/ui/tree/main/apps/www/registry/new-york/ui) JSX themes.
 
 
 ## For frontend engineers
