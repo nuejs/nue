@@ -9,7 +9,7 @@
 <aside @name="nav-panel" :aria-visible="router.state.nav_opened">
 
   <header>
-    <img src="/img/logomark.png" width="60" height="23">
+    <img src="/img/logomark.webp" width="60" height="23">
     <button class="ghost mobile"
       data-accesskey="Escape"
       title="Close"
