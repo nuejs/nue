@@ -3,37 +3,45 @@
 include: marketing-content
 ---
 
-# Standards first web framework
-Take HTML, CSS, JS, and WASM to their absolute peak
+# Build truly ambitious web applications
+Nue is a standards-first framework pushing HTML, CSS, and JS to their absolute peak.
 
 [button.primary href="/app/"]
-  Launch the demo [icon symbol="chevron-right-symbol"]
+  Launch local demo [icon symbol="chevron-right-symbol"]
 
 [button href="https://nuejs.org/docs/"]
-  The Problem in React [icon symbol="chevron-right-symbol"]
+  How it works [icon symbol="chevron-right-symbol"]
 
-[image /img/placeholder.jpg size="900 x 500"]
+[image]
+  small: https://nuejs.org/img/rust-search.webp
+  large: https://nuejs.org/img/rust-search-big.webp
+  href: https://mpa.nuejs.org/app/?rust
+  caption: Using Rust for Instant search across 150,000 records — where plain JS would crash. [Launch demo](https://mpa.nuejs.org/app/?rust)
 
 
 
 ## Lighter than a React button
-Build faster and bloat-free. Nue makes you a better developer
+Build simpler and faster products by working closer to metal
 
-[image /img/placeholder.jpg size="900 x 300"]
+[image]
+  small: https://nuejs.org/img/react-button-compare.webp
+  large: https://nuejs.org/img/react-button-compare-big.webp
+  href: https://nuejs.org/docs/react-button-vs-nue.html
+  caption: See benchmark and details [here](https://nuejs.org/docs/react-button-vs-nue.html)
 
-[button href="https://nuejs.org/docs/why-nue.html"]
-  How Nue fixes this mess [icon symbol="chevron-right-symbol"]
 
 
+## A simplified frontend stack
+We are rebuilding the entire ecosystem from scratch:
 
-## A rebirth of the frontend
-Nue is the next phase in web development
-
-// Templates (website, spa, design systems) -> Cloud (push, services)
-[image /img/placeholder.jpg size="900 x 300"]
+[image]
+  small: https://nuejs.org/img/roadmap-2025-2.png
+  large: https://nuejs.org/img/roadmap-2025-2-big.png
+  href: https://nuejs.org/vision/
+  size: 800 x 209
 
 [button href="https://nuejs.org/vision/"]
-  See the steps ahead [icon symbol="chevron-right-symbol"]
+  See the Roadmap [icon symbol="chevron-right-symbol"]
 
 
 

@@ -3,17 +3,17 @@
 
   /* typescale: perfect fifth */
   :root {
-    --typescale: 1.33;
-    --s:    16px;
+    --typescale: 1.5;
+    --s:    1rem;
     --m:    calc(var(--s) * var(--typescale));
     --l:    calc(var(--s) * pow(var(--typescale), 2));
     --xl:   calc(var(--s) * pow(var(--typescale), 3));
     --xxl:   calc(var(--s) * pow(var(--typescale), 4));
-
   }
 
   body {
-    font-size: var(--s);
+    color: var(--base-500);
+    font-size: 1rem;
   }
 
   body > header {
@@ -26,34 +26,42 @@
 
   figure {
     margin-block: var(--xl);
-    opacity: .25;
+  }
+
+  a img:hover {
+    transform: scale(1.003);
+  }
+
+  figcaption {
+    margin-top: .5em;
   }
 
   h1, h2, h3, h4, h5 {
     overflow-wrap: break-word;
     letter-spacing: -0.025em;
+    color: var(--base-900);
     text-wrap: balance;
     margin: 0;
   }
 
 
   h1 {
-    font-size: var(--xxl);
+    font-size: var(--xl);
     line-height: 1.1;
     font-weight: 650;
     + p {
-      font-size: var(--m);
+      font-size: 1.5rem;
       margin: var(--s) 0 var(--xl);
     }
   }
 
   h2 {
-    font-size: var(--xl);
+    font-size: var(--l);
     font-weight: 600;
     line-height: 1.1;
     + p {
       margin: var(--s) 0 var(--xl);
-      font-size: var(--m);
+      font-size: 1.25rem;
     }
   }
 
@@ -65,6 +73,17 @@
   h4 {
     font-size: var(--m);
     line-height: 1.4
+  }
+
+  a {
+    color: var(--main-500);
+    text-decoration-color: var(--base-300);
+    text-underline-offset: .2em;
+
+    &:hover {
+      text-decoration-color: var(--base-400);
+      color: var(--main-600);
+    }
   }
 
   [role=button] {

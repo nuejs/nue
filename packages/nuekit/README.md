@@ -47,12 +47,14 @@ Nue is a great fit for:
 
 Check out [installation docs](https://nuejs.org/docs/installation.html)
 
-### Ultimate goal
-Nue will cleanup the frontend ecosystem from the unnecessary abstractions and bloat as follows:
+## A simplified frontend stack
+We are rebuilding the entire ecosystem from scratch:
 
 <a href="https://nuejs.org/vision/">
-  <img src="https://nuejs.org/img/roadmap-2025-1-big.png" width="900">
+  <img src="https://nuejs.org/img/roadmap-2025-2-big.png" width="900">
 </a>
+
+[See our vision](https://nuejs.org/vision/)
 
 ### Contributing
 
