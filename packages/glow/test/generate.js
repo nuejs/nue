@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url'
 
 import { glow } from '../src/glow.js'
 
-const root = dirname(fileURLToPath(import.meta.url))
+const root = process.argv[2] || dirname(fileURLToPath(import.meta.url))
 
 
 // Nue / html
@@ -704,8 +704,8 @@ async function renderPage(items) {
   html.push('</body>')
 
   // save
-  const path = 'glow-test.html'
-  await fs.writeFile(join(root, path), html.join('\n'), 'utf-8')
+  const path = join(root, 'glow-test.html')
+  await fs.writeFile(path, html.join('\n'), 'utf-8')
   console.info('wrote', path)
 }
 
