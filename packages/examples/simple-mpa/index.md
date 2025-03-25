@@ -1,4 +1,3 @@
-
 ---
 include: marketing-content
 ---
@@ -42,9 +41,3 @@ We are rebuilding the entire ecosystem from scratch:
 
 [button href="https://nuejs.org/vision/"]
   See the Roadmap [icon symbol="chevron-right-symbol"]
-
-
-
-
-
-
