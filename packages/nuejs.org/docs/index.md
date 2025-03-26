@@ -1,61 +1,57 @@
 
-# Why Nue
-Nue is a standards-first framework that pushes HTML, CSS, JavaScript, and WASM to theri limit. It helps you build ambitious web applications with radically less code than with traditional frameworks.
-
-[Video: Multi-page app demo]
-
-
-## Lighter than a React button
-Nue redefines lightweight:
+#### Why Nue
+# Apps lighter than a React button
+Nue is a standards-first framework that pushes HTML, CSS, JavaScript, and WASM to their limits. It helps you achieve more with significantly less code:
 
 [image]
   small: /img/react-button-vs-nue-spa.png
   large: /img/react-button-vs-nue-spa-big.png
-  href: react-button-vs-nue.html
-  label: Check [comparison details](react-button-vs-nue.html)
+  class: taller
+
+See benchmark and details [here](react-button-vs-nue.html).
+
+## Extreme performance with Rust and WASM
+Nue apps use a separated model layer to shatter the limits of traditional frameworks. This demo uses **Rust** for instant keypress search across 150,000 records—far beyond where JavaScript hits a callstack overflow.
+
+[image]
+  small: /img/rust-search.webp
+  large: /img/rust-search-big.webp
+  href: https://mpa.nuejs.org/app/?rust
+  caption: "[Launch Rust demo ›](https://mpa.nuejs.org/app/?rust)"
+  size: 1028 × 433
+
+## New levels of HMR and tooling performance
+Nue outperforms today’s frameworks across every key metric: project size, build times, HMR speed, codebase size, and bundle sizes.
+
+! [Video: HMR]
+
+Build times consistently run in milliseconds, even for large-scale apps, delivering orders of magnitude boosts over traditional tools:
+
+! [Video: Build times]
 
 
-Across every metric—project size, build times, HMR speed, dev bundle, production bundle—Nue delivers 10x, 100x, even 1000x gains over the norm.
 
+## What this means
 
-## More ambitious apps with Rust and WASM
-Nue apps use a separated model layer to shatter the limits of traditional frameworks. With **Rust**, for instance, we deliver instant keypress search across 150,000 records—far past where JavaScript chokes on a callstack overflow.
+### Performance engineering
+Nue brings back the good practices of software engineering: simple, testable functions, modular design, minimal dependencies, and a model-first approach. It’s perfect for JS/TS/Rust/Go engineers who value classic algorithms and data structures over odd React idioms. You can build products with new levels of performance and clarity.
 
-[video]
+### Design engineering
+Building a new theme shouldn’t require [40,000+ lines of TSX][new_york]. Instead, you’ll craft a design system with modern CSS using @layers, variables, and calc(). You shift from React engineering to design engineering and start thinking about design topics like typographic scales and whitespace consistency.
 
-This is the playbook of top-tier apps like **Figma** and **Notion**: a decoupled layer handling the performance-critical work.
-
-
-## What this means?
-
-### For system engineers
-Nue brings back the skill of making strong, working software. It’s made for JS/TS/Rust/Go engineers who value classic algorithms and data structures over fancy frontend trends. Nue gives you clean, testable code. You can try out performance tweaks or adjust the data setup—like event sourcing for quick in-memory access.
-
-Nue is for business model hackers who lean on Gang of Four (GoF) patterns, not React hooks.
-
-
-### For design engineers
-The best UI designs out there are based on a carefully crafted _design system_, where typography, whitespace, and motion are expressed with the clarity and power of modern CSS.
-
-[Video: CSS HMR for user grid width]
-
-Nue is for design engineers, who see the strength in CSS @layers, --variables, and calc(), not in [40,000-line](//github.com/shadcn-ui/ui/tree/main/apps/www/registry/new-york/ui) JSX themes.
-
-
-### For frontend engineers
-Imagine the new reality: building entire applications with the same code footprint as a single React button.
-
-[Video: DHTML overlay editing + HMR, keeping the state]
-
-Nue is the fastest way to build ambitious applications that push the web forward.
-
-Find answers to common questions in our [FAQ](faq.html)
+### UX engineering
+Imagine building entire applications with the same code footprint as a single React button, focusing solely on the user experience. Nue is the easiest way to build large-scale applications that push the web (and your skills) forward.
 
 
 ## What’s next
-This is a wake-up call and we're only getting started. Nue is an ambitious project that reshapes the whole frontend ecosystem:
+Nue is an ambitious project that reshapes the entire frontend ecosystem:
 
-[Image]
+[image]
+  small: /img/roadmap-2025-2.png
+  large: /img/roadmap-2025-2-big.png
+  width: 650
 
-You can follow our progress to see how our [vision](/vision/) unfolds by joining the mailing list.
+Find answers to common questions in our [FAQ](faq.html).
+
+Please see how our [vision](/vision/) unfolds.
 

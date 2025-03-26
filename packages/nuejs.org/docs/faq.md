@@ -5,13 +5,13 @@ beside: false
 # FAQ
 
 ## We've spent years investing in React. Isn't this throwing away our expertise?
-React has pushed millions of developers to think deeply about user interfaces and application architecture. That knowledge is valuable. But ask yourself: how much of your time is spent wrestling with React-specific patterns versus exploring what genuinely interests you in web development?
+React has pushed millions of developers to think deeply about user interfaces and application architecture. That knowledge is valuable. But ask yourself: how much of your time is spent wrestling with React-specific patterns versus spending time on topics that genuinely interests you?
 
 The beauty of standards-first development is that it lets you go deeper into what actually excites you. If you love solving complex system challenges, you can focus purely on that - perhaps even diving into Rust and WebAssembly for high-performance computation. If you're drawn to design, you can master the mathematical precision that makes interfaces feel commanding. If you love crafting seamless user experiences, you can work directly with the platform's powerful capabilities.
 
 Instead of being a "React developer" juggling dozens of framework-specific patterns, you can become a true master of your craft. Your React experience gives you a strong foundation in thinking about interfaces and architecture. Now you can build on that foundation to develop deeper expertise in the areas that genuinely interest you.
 
-The practical path forward is simple: Start exploring Nue alongside your React work. Build something small that excites you. You'll find that working directly with web standards not only makes development faster, but opens up new possibilities for growing your expertise in the directions that matter most to you.
+Perhaps explore Nue alongside your React work. Build something small first. You'll find that working directly with web standards not only makes development faster, but helps you learn how the web actually works.
 
 
 ## Components naturally group related code together - why break that?
@@ -37,8 +37,8 @@ The WebAssembly example in our demo isn't about raw performance - it demonstrate
 But when your business logic lives in its own pure layer, entirely new possibilities emerge. Rust is just one example - you could model complex financial calculations, build sophisticated data visualization engines, or create real-time collaboration systems. Your logic can evolve independently of the interface, enabling the kind of architectural advances that the React monolith prevents.
 
 
-## Isn't systems engineering all too theoretical in the frontend?
-This is an untapped field. While most frontend teams are stuck in component patterns, WebAssembly has quietly matured into a powerful standard supported by every major browser. Look at Figma - their vector engine processes complex boolean operations instantly while keeping the interface perfectly responsive.
+## Isn't performance engineering all too theoretical in the frontend?
+This is actually an untapped opportunity in the React ecosystem. While most frontend teams are stuck in component patterns, WebAssembly has quietly matured into a powerful standard supported by every major browser. Look at Figma - their vector engine processes complex boolean operations instantly while keeping the interface perfectly responsive.
 
 These aren't theoretical possibilities - they're real applications pushing the boundaries of what's possible in the browser. But achieving this sophistication required breaking free from the component model.
 
@@ -98,7 +98,7 @@ When your business logic is properly separated from presentation, each part can 
 
 
 ## Isn't MVC an outdated pattern that we moved past with React?
-Every sophisticated web application is fundamentally an MVC system, whether it acknowledges this or not. Your application always has models that handle data and logic, views that present interfaces, and something orchestrating between them. This isn't a pattern you choose - it's the natural architecture of ambitious web applications.
+Every sophisticated web application is fundamentally an MVC system, whether it acknowledges this or not. Your application always has models that handle data and logic, views that present interfaces, and something orchestrating between them. This isn't a pattern you choose - it's the natural architecture of large-scale web applications.
 
 Look closely at React: it actually repeats MVC at the component level, cramming models, views, and controllers all into the same files. State management, presentation logic, and orchestration get tangled together, creating the complexity we see in modern applications. What began as a simple view library has become a maze of repeated patterns.
 

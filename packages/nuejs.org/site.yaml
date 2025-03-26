@@ -4,7 +4,7 @@ globals: ["@global", css]
 libs: ["@lib", docs/lib, blog/lib]
 
 og: /img/standards-first.png
-favicon: /img/favblue.png
+favicon: /img/logo.svg
 view_transitions: true
 native_css_nesting: true
 origin: https://nuejs.org
@@ -12,11 +12,12 @@ heading_ids: true
 
 # Content settings
 title: The standards-first web framework
-description: Nue is a close-to-metal framework for fast tooling and clean code. It's the modern HTML, Markdown, CSS, and JavaScript taken to their absolute peak
+description: Nue is a standards-first framework pushing HTML, CSS, and JS to their absolute peak. Build apps lighter than a React button.
 title_template: "%s - Nue"
 
 # Markdown link references
 links:
+  new_york: //github.com/shadcn-ui/ui/tree/main/apps/v4/registry/new-york-v4
   standards: //developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/The_web_and_web_standards
   nuejs: //github.com/nuejs/nue/tree/master/packages/nuejs
   divide: //css-tricks.com/the-great-divide/

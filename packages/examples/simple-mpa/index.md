@@ -15,6 +15,7 @@ Nue is a standards-first framework pushing HTML, CSS, and JS to their absolute p
   small: https://nuejs.org/img/rust-search.webp
   large: https://nuejs.org/img/rust-search-big.webp
   href: https://mpa.nuejs.org/app/?rust
+  size: 1028 × 433
   caption: Using Rust for Instant search across 150,000 records — where plain JS would crash. [Launch demo](https://mpa.nuejs.org/app/?rust)
 
 
@@ -23,9 +24,10 @@ Nue is a standards-first framework pushing HTML, CSS, and JS to their absolute p
 Build simpler and faster products by working closer to metal
 
 [image]
-  small: https://nuejs.org/img/react-button-compare.webp
-  large: https://nuejs.org/img/react-button-compare-big.webp
+  small: https://nuejs.org/img/react-button-compare.png
+  large: https://nuejs.org/img/react-button-compare-big.png
   href: https://nuejs.org/docs/react-button-vs-nue.html
+  size: 1028 × 326
   caption: See benchmark and details [here](https://nuejs.org/docs/react-button-vs-nue.html)
 
 

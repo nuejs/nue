@@ -1,9 +1,9 @@
 
 # Content-focused applications
-Web applications and websites serve distinct purposes. Applications transform data with complex logic, often leveraging Rust or WebAssembly, while websites deliver information through semantic HTML and Markdown. Nue is a framework that excels at both, supporting single-page applications (SPAs), content-focused sites, and their hybrids—multi-page applications (MPAs). This document explores Nue’s content-first approach, powered by a specialized Markdown dialect that builds rich, interactive websites with simplicity and scale.
+Web applications and websites serve distinct purposes. Applications present data with complex logic, sometimes leveraging Rust or WebAssembly, while websites deliver information through Markdown. Nue is a framework that excels at both, supporting single-page applications (SPAs), content-focused sites, and their hybrids—multi-page applications (MPAs).
 
 ## Content first
-Nue’s content-focused websites are driven by a unique Markdown dialect, designed to empower non-technical users—marketers, bloggers, and writers—to create and scale content independently. Unlike single-page applications (SPAs), which are model-first and assembled with HTML templates, these sites prioritize content over logic. What once took thousands of lines of TypeScript or TSX can now be achieved with concise Markdown, thanks to custom tags crafted by developers.
+Nue’s content-focused websites are driven by a unique Markdown dialect, designed to empower non-technical users—marketers, bloggers, and writers—to create and scale content independently. Even the richest of pages, that typilcally takes thousands of lines of TypeScript/TSX can now be assembled with Markdown-based content.
 
 For example, a developer might define a `[bento-grid]` tag to render a dynamic grid layout. Non-technical users can then use it in Markdown like this:
 

@@ -9,6 +9,7 @@
   .pulsating {
     opacity: 0.1;
     animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    pointer-events: none;
 
     &:nth-child(2) {
       animation-delay: 0.25s;

@@ -91,7 +91,7 @@ body > header {
 }
 
 .pill {
-  background: var(--main-50) url(/icon/rocket.svg) .75em 50% no-repeat;
+  background: var(--main-50) url(/icon/cube.svg) .9em 50% no-repeat;
   padding: .6em 1em .6em 2.7em;
   background-size: 1.5em;
   color: var(--gray-600);

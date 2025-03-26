@@ -7,8 +7,8 @@ globalnav:
     - Docs: /docs/
     - Blog: /blog/
     - Vision: /vision/
-    - url: /blog/single-page-applications/
-      label: "**NEW**: Single-page applications ›"
+    - url: /blog/large-scale-apps/
+      label: "*NEW* Large-scale apps ›"
       class: news pill
 
 

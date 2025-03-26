@@ -5,30 +5,58 @@ inline_css: true
 appdir: home
 ---
 
-**New**
-# Standards first web framework
-Nue is **HTML**, **CSS**, and **JavaScript** taken to their absolute peak
 
-[button.continue href="/blog/standards-first-web-framework/"]
-  Read the announcement ›
-[button.ghost "Get started →" href="/docs/installation.html"]
+# Break the limits of Web
+Take HTML, CSS, JS, and WASM to their absolute peak
 
----
-[.stats]
-  Around
-  ## 30× smaller
-  Binary than Next.js [[1]](/docs/compare.html#install)
+[button.continue "Why Nue ›" href="/docs/"]
+[button.secondary "Get started →" href="/docs/installation.html"]
 
-  ---
-  Around
-  ## 100× faster
-  Tooling than Next.js [[2]](/docs/compare.html#build)
 
-  ---
-  Around
-  ## 30× lighter
-  Results than in Next.js [[3]](/docs/compare.html#output)
+[image]
+  small: /img/rust-search.webp
+  large: /img/rust-search-big.webp
+  href: https://mpa.nuejs.org/app/?rust
+  size: 1028 × 433
+  caption: Using **Rust** and **Event Sourcing** for instant UX over 150,000 records—far past where JavaScript crashes with a stack overflow error. [Open this demo ›](https://mpa.nuejs.org/app/?rust)
 
+
+----
+## Large-scale apps lighter than a React button
+Build ambitious apps with a fraction of code
+
+[image]
+  small: /img/react-button-compare.png
+  large: /img/react-button-compare-big.png
+  href: /docs/react-button-vs-nue.html
+  size: 1000 x 349
+
+See benchmark and details [here ›](/docs/react-button-vs-nue.html)
+
+
+----
+## Orders of magnitude faster
+Crush the limits with ~10ms build times and instant HMR
+
+[video]
+  HMR
+  caption: Immediate feedback for design and component updates, preserving app state.
+
+
+----
+## A radically simpler stack
+We are rebuilding the entire ecosystem from scratch:
+
+[See the vision ›](/vision/)
+
+[image]
+  small: /img/roadmap-2025-2.png
+  large: /img/roadmap-2025-2-big.png
+  width: 750
+  href: /vision/
+
+
+----
 
 [.quote]
   > “Nue brings faster tooling, cleaner code, and a liberating experience. You must try it.”
@@ -36,38 +64,11 @@ Nue is **HTML**, **CSS**, and **JavaScript** taken to their absolute peak
   — **Mauricio Wolff**, Staff Product Designer at **Miro**
 
 
-----
-## A clean slate
-Nue is built from scratch to get web development back on its track
-
-[Learn how it works ›](/docs/)
-
-[image]
-  alt: "Next.js vs Nue: tight coupling vs separation of concerns"
-  title: Learn how it works
-  src: /img/next-vs-nue-big.png
-  href: /docs/
-  size: 905 × 464 px
-
-
 [.quote.elliot]
   > "Nue with modern HTML and CSS is unreal. I’m speedlearning the web again!"
 
   **Elliot Jay Stocks**, Pioneer in semantic HTML
 
-
-----
-## A rebirth of the frontend
-Nue makes a full cleanup for the overly complex ecosystem
-
-[See how it happens ›](/vision/)
-
-[image]
-  small: /img/roadmap-2025-1.png
-  large: /img/roadmap-2025-1-big.png
-  width: 750
-  href: /vision/
-  alt: Nue roadmap
 
 [feedback]
 

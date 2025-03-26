@@ -31,9 +31,10 @@ nue build --production
 [image]
   small: /img/nue-spa.png
   large: /img/nue-spa-big.png
-  href: //button.nuejs.org
+  href: //mpa.nuejs.org/app/
 
 Production build: [mpa.nuejs.org/app/](//mpa.nuejs.org/app/).
+
 
 Total size: 39kb (includes all code and SVG icons; excludes JSON data and content images).
 

@@ -1,5 +1,10 @@
 /* documentation-specific content widgets  */
 
+article > h4:first-child {
+  margin: 2rem  0 -1.5rem;
+  color: var(--gray-500);
+}
+
 h1 + p {
   text-wrap: pretty;
   font-size: 1.15rem;
