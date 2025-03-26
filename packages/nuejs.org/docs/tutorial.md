@@ -270,4 +270,4 @@ Build for production:
 nue build --production
 ```
 
-Files end up in `.dist/prod`, ready for a CDN like Cloudflare. Try adding more with [multi-page applications](content-focused-applications.html#multi-page-applications).
+Files end up in `.dist/prod`, ready for a CDN like Cloudflare. Try adding more with [multi-page applications](content-focused-apps.html#multi-page-applications).

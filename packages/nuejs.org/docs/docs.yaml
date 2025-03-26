@@ -43,7 +43,7 @@ documentation:
     - Settings: settings.html
     - Optimization: optimization.html
     - App router: app-router.html
-    - Markdown extensions: content-tags.html
+    - Markdown extensions: markdown-extensions.html
     - Template syntax: template-syntax.html
     - Custom components: custom-components.html
     - Core components: core-components.html
