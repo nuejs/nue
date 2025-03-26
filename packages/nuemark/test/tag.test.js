@@ -213,12 +213,12 @@ test('[table] empty cells', () => {
 
 test('[button] inline label', () => {
   const html = renderLines(['[button href="/" "Hey, *world*"]'])
-  expect(html).toBe('<a href="/" role="button">Hey, <em>world</em></a>')
+  expect(html).toBe('<button href="/">Hey, <em>world</em></button>')
 })
 
 test('[button] nested label', () => {
   const html = renderLines(['[button href=/]', '  ![](/joku.png)'])
-  expect(html).toStartWith('<a href="/" role="button"><img src="/joku.png"')
+  expect(html).toStartWith('<button href="/"><p><img src="/joku.png"')
 })
 
 
@@ -265,7 +265,7 @@ test('[svg]', () => {
 
 test('[svg] nested in [button]', () => {
   const html = renderLines(['[button href="/"]', `  [svg ${svgpath}] *Yo*`])
-  expect(html).toBe('<a href="/" role="button"><svg class="icon"/> <em>Yo</em></a>')
+  expect(html).toBe('<button href="/"><p><svg class="icon"/> <em>Yo</em></p></button>')
 })
 
 

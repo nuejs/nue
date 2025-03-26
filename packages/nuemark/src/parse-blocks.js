@@ -114,7 +114,7 @@ export function parseBlocks(lines, capture) {
     // tag
     if (c == '[' && trimmed.endsWith(']') && !trimmed.includes('][')) {
       const tag = parseTag(line.slice(1, -1))
-      block = { is_tag: true, ...tag, body: [] }
+      block = { is_tag: true, ...tag, name: tag.name || 'div', body: [] }
       return blocks.push(block)
     }
 
@@ -182,7 +182,9 @@ function processNestedBlocks(block, capture) {
     const body = block.body.join('\n')
 
     try {
-      if (body && name && isYAML(body.trim())) {
+      // TODO: add additional check for native html tags
+      // maybe new syntax? e.g. `[yaml-tag]:\n\thi` (note colon)
+      if (body && isYAML(body.trim())) {
         let data = parseYAML(body)
         if (Array.isArray(data)) data = { items: data }
         Object.assign(block.data, data)
