@@ -33,7 +33,7 @@ nue create startup --design "Mies" --live
 ```
 
 ## FAQ: Are You Nuts?
-Yes, and super excited. Let’s break it down with some numbers. The Nue codebase is 8,000 lines of code. Next.js? It’s 1,236,000 lines—150 times more to maintain.
+Yes, and super excited. Let’s break it down with some numbers. The Nue codebase is 8,000 lines of code. Next.js? It’s 1,236,000 lines — 150 times more to maintain.
 
 We can move fast because we don’t need a huge team to manage things. Minimalism is a strength in development that people often overlook. That’s our edge.
 

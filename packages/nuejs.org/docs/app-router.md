@@ -1,6 +1,6 @@
 
 # Application router
-In Nue, the application router—available at `/@nue/app-router.js`—is the backbone of single-page applications (SPAs). It acts as a controller in the MVC pattern, managing state and URLs while coordinating the model and views. It tracks URL, session, and persistent data, keeping your app in sync with the browser.
+In Nue, the application router — available at `/@nue/app-router.js` — is the backbone of single-page applications (SPAs). It acts as a controller in the MVC pattern, managing state and URLs while coordinating the model and views. It tracks URL, session, and persistent data, keeping your app in sync with the browser.
 
 ## Usage
 Import and configure it:
@@ -93,7 +93,7 @@ Toggle a view mode:
 </nav>
 ```
 
-The router abstracts storage—views don’t care if `grid_view` is in localStorage or the URL.
+The router abstracts storage — views don’t care if `grid_view` is in localStorage or the URL.
 
 ## Event binding
 Listen for state changes:
@@ -123,7 +123,7 @@ router.bind('id:user', (state) => {
 }, 'details')
 ```
 
-Namespaces like `:user` (think jQuery’s event namespaces) group bindings. A repeat call to `bind` with the same property and namespace replaces the old handler if both match—perfect for component updates.
+Namespaces like `:user` (think jQuery’s event namespaces) group bindings. A repeat call to `bind` with the same property and namespace replaces the old handler if both match — perfect for component updates.
 
 ## Browser integration
 The router handles:
@@ -153,7 +153,7 @@ Views trigger updates:
 <input @input="e => router.set({ query: e.target.value })" type="search"/>
 ```
 
-The router’s storage-agnostic API—URL, session, or persistent—lets you switch data homes without rewriting views or model logic.
+The router’s storage-agnostic API — URL, session, or persistent — lets you switch data homes without rewriting views or model logic.
 
 ## Cleanup
 Reset the router:
@@ -162,4 +162,4 @@ Reset the router:
 router.cleanup()
 ```
 
-Clears state and bindings—useful for hot module reloads or app resets.
+Clears state and bindings — useful for hot module reloads or app resets.

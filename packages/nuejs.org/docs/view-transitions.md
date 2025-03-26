@@ -52,6 +52,6 @@ A thumbnail can morph into a full header image across pages, linking views natur
 ## Performance tweaks
 Nue optimizes view transitions beyond standard turbolinking:
 - **Smart DOM diffing**: Instead of replacing the `<body>`, only differing elements update, minimizing reflows.
-- **Stylesheet toggling**: Linked stylesheets are enabled or disabled—not wiped and reloaded—boosting browser performance.
+- **Stylesheet toggling**: Linked stylesheets are enabled or disabled — not wiped and reloaded — boosting browser performance.
 
 These tweaks ensure fast, fluid transitions across MPAs, from content pages to app views, without sacrificing efficiency.

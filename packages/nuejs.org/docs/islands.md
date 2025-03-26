@@ -1,6 +1,6 @@
 
 # Interactive islands
-Interactive islands in Nue add dynamic features to your static web content. These are compact, targeted components—such as forms, menus, or image galleries—that seamlessly integrate with your Markdown or layout modules.
+Interactive islands in Nue add dynamic features to your static web content. These are compact, targeted components — such as forms, menus, or image galleries — that seamlessly integrate with your Markdown or layout modules.
 
 
 ## Creating islands
@@ -25,7 +25,7 @@ Islands use an HTML-based [templates](template-syntax.html) stored in `.dhtml` f
 </form>
 ```
 
-This form initially renders as static HTML on the server, which benefits search engine optimization and content indexing. When it loads in the browser, it becomes interactive using a lightweight 2.5kb runtime (`/@nue/nue.js`). The `@submit.prevent` attribute prevents the default form submission, allowing your custom `submit` function to manage the process—for example, by using a `fetch()` call to communicate with your backend.
+This form initially renders as static HTML on the server, which benefits search engine optimization and content indexing. When it loads in the browser, it becomes interactive using a lightweight 2.5kb runtime (`/@nue/nue.js`). The `@submit.prevent` attribute prevents the default form submission, allowing your custom `submit` function to manage the process — for example, by using a `fetch()` call to communicate with your backend.
 
 
 ## Using islands
@@ -41,7 +41,7 @@ Be the first to know about our new releases.
 [join-list]
 ```
 
-Nue replaces `[join-list]` with the form’s HTML, ready to work when the page loads. This keeps content authoring simple—writers just use the tag, no HTML required.
+Nue replaces `[join-list]` with the form’s HTML, ready to work when the page loads. This keeps content authoring simple — writers just use the tag, no HTML required.
 
 ### In layout modules
 Embed islands in layout templates:
@@ -58,7 +58,7 @@ Here, the island slots into the footer, enhancing the static structure with a fu
 
 ## Organization
 Islands can live at different levels in your project, depending on where you need them:
-- **Global islands**: Store them in `@globals/join-list.dhtml` for use across the entire site—like a universal signup form.
+- **Global islands**: Store them in `@globals/join-list.dhtml` for use across the entire site — like a universal signup form.
 - **Area-specific islands**: Put them in `blog/islands.dhtml` for app-specific features, such as a blog’s comment box.
 - **Page-specific islands**: Place them in `blog/post/islands.dhtml` for one-off needs tied to a single page.
 
@@ -102,4 +102,4 @@ For SEO-critical interactivity, islands can render on both server and client. He
 </div>
 ```
 
-The `<noscript>` ensures playback for JavaScript-off users, the client-side `<video-player>` adds interactivity (e.g., quality switching), and the caption boosts search visibility—all in one component.
+The `<noscript>` ensures playback for JavaScript-off users, the client-side `<video-player>` adds interactivity (e.g., quality switching), and the caption boosts search visibility — all in one component.

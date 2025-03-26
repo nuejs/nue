@@ -30,14 +30,14 @@ With logic in the model, views become pure templates:
 ```
 
 This approach delivers:
-1. **Pure presentation**: Views handle structure only, using standard HTML for clarity—bugs stay obvious.
+1. **Pure presentation**: Views handle structure only, using standard HTML for clarity — bugs stay obvious.
 2. **Semantic markup**: Native elements like `<h2>`, `<dl>`, or `<details>` boost accessibility and performance without JS overhead.
 3. **Minimal state**: Views track UI changes, leaving data and routing to the model and controllers.
 
 These templates keep your code light and maintainable, rooted in web standards.
 
 ## Directory structure
-Views live in `.dhtml` files, which group related components like CSS files—forming mini-libraries. Nue automatically makes components aware of each other, skipping manual imports. Place them in `app/view/`:
+Views live in `.dhtml` files, which group related components like CSS files — forming mini-libraries. Nue automatically makes components aware of each other, skipping manual imports. Place them in `app/view/`:
 
 ## Large applications
 For bigger apps, use a nested structure:
@@ -81,7 +81,7 @@ app/
     └── util.js            # Helpers
 ```
 
-Refactor to the nested setup as complexity grows—no renaming needed.
+Refactor to the nested setup as complexity grows — no renaming needed.
 
 ## View composition
 Views form a hierarchy:

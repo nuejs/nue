@@ -8,7 +8,7 @@ This benchmark compares a single React button component’s full production bund
 
 
 ## React button
-Built with Vite, TypeScript, Tailwind, and Shadcn/UI, following the official [ShadCN/Vite documentation](//ui.shadcn.com/docs/installation/vite) exactly—no additions or removals.
+Built with Vite, TypeScript, Tailwind, and Shadcn/UI, following the official [ShadCN/Vite documentation](//ui.shadcn.com/docs/installation/vite) exactly — no additions or removals.
 
 [image]
   small: /img/react-button.png

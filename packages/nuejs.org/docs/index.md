@@ -11,7 +11,7 @@ Nue is a standards-first framework that pushes HTML, CSS, JavaScript, and WASM t
 See benchmark and details [here](react-button-vs-nue.html).
 
 ## Extreme performance with Rust and WASM
-Nue apps use a separated model layer to shatter the limits of traditional frameworks. This demo uses **Rust** for instant keypress search across 150,000 records—far beyond where JavaScript hits a callstack overflow.
+Nue apps use a separated model layer to shatter the limits of traditional frameworks. This demo uses **Rust** for instant keypress search across 150,000 records — far beyond where JavaScript hits a callstack overflow.
 
 [image]
   small: /img/rust-search.webp

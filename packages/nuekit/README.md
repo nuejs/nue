@@ -11,7 +11,7 @@ It is based on the following foundations:
 
 1. **HTML first**: semantic HTML is the foundation for everything: layouts, server components, and interactive islands. The same syntax and mental model is better for developers, search engines, and screen readers.
 
-1. **Content first**: Rich Markdown syntax handles everything from marketing to documentation. Content lives in clean, accessible files - not in JavaScript.
+1. **Content first**: Rich Markdown syntax handles everything from marketing to documentation. Content lives in clean, accessible files — not in JavaScript.
 
 1. **Design systems**: modern, systematic CSS is more powerful than you think. Learn to build design systems, and you'll get better interfaces with less code.
 

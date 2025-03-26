@@ -12,7 +12,7 @@ Nue isolates your business model to a separate layer. This ensures your applicat
 
 1. **Model engineering**: The model can evolve independently of the UI, freeing performance engineers to build sophisticated logic without navigating unfamiliar frontend patterns. The interface can also advance on its own, unhindered by backend changes.
 
-2. **Extreme performance**: Performance-critical model operations can be written in languages like Rust, Go, or Zig and compiled to WebAssembly for native speed and true type safety, far beyond TypeScript’s capabilities—all independent of the UI.
+2. **Extreme performance**: Performance-critical model operations can be written in languages like Rust, Go, or Zig and compiled to WebAssembly for native speed and true type safety, far beyond TypeScript’s capabilities — all independent of the UI.
 
 3. **UX development**: Frontend developers can concentrate on crafting the presentation layer, building simple, focused components without wrestling with business logic complexities.
 
@@ -42,7 +42,7 @@ Each directory serves a distinct role:
 - **design/**: Holds application-specific styling, independent of structure.
 - **img/**: Stores images unique to the application, distinct from site-wide assets.
 
-This structure ensures each aspect of the app—logic, presentation, and behavior—stays modular and maintainable, aligning with Nue’s standards-first philosophy.
+This structure ensures each aspect of the app — logic, presentation, and behavior — stays modular and maintainable, aligning with Nue’s standards-first philosophy.
 
 
 ### Templates

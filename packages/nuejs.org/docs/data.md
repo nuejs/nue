@@ -6,7 +6,7 @@ Modern web projects need a clean way to manage content and data. Nue helps you k
 Nue organizes data into three key types, each serving a distinct purpose in your website.
 
 ### Information architecture
-This data outlines your site’s structure—navigation, hierarchies, and connections. Define it in YAML, like in `site.yaml`:
+This data outlines your site’s structure — navigation, hierarchies, and connections. Define it in YAML, like in `site.yaml`:
 
 ```yaml
 documentation:
@@ -21,7 +21,7 @@ documentation:
 This hierarchy shapes navigation menus or sidebars directly, no extra coding needed.
 
 ### Content metadata
-Metadata adds context to your content—titles, dates, SEO fields. It’s typically set in a page’s front matter:
+Metadata adds context to your content — titles, dates, SEO fields. It’s typically set in a page’s front matter:
 
 ```yaml
 # blog/post.md
@@ -37,7 +37,7 @@ og_image: "/images/design-system.jpg"
 This keeps content files clean while feeding layouts and search engines.
 
 ### Application data
-Application-specific data supports functionality—think product details or team info. Store it in a separate YAML file, like `team.yaml`:
+Application-specific data supports functionality — think product details or team info. Store it in a separate YAML file, like `team.yaml`:
 
 ```yaml
 team:
@@ -54,7 +54,7 @@ team:
 Use this data in templates or islands wherever it’s needed.
 
 ## Data inheritance
-Nue’s data flows through three levels—global, application, and page—ensuring consistency with room for overrides.
+Nue’s data flows through three levels — global, application, and page — ensuring consistency with room for overrides.
 
 ### Global data
 Set site-wide defaults in `site.yaml`:

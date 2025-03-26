@@ -6,7 +6,7 @@ These practises turn CSS into a powerful tool for design systems, emphasizing we
 These foundational rules shape how you write HTML and CSS to keep your design system lean and effective.
 
 ### Use semantic HTML
-Start with clean, meaningful HTML to reduce reliance on complex CSS. Semantic elements like `<details>` or `<h3>` carry built-in behavior and accessibility, cutting down on custom components. Aim for under 30 components total—more suggests you’re overcomplicating things.
+Start with clean, meaningful HTML to reduce reliance on complex CSS. Semantic elements like `<details>` or `<h3>` carry built-in behavior and accessibility, cutting down on custom components. Aim for under 30 components total — more suggests you’re overcomplicating things.
 
 ```html
 <!-- Good: Simple, semantic -->
@@ -26,7 +26,7 @@ This keeps markup minimal, boosts SEO, and aligns styles with structure naturall
 
 
 ### Separate style from structure
-Keep styling out of markup to maintain flexibility. Avoid inline `style` attributes or utility classes that tie design to HTML—they make updates a chore and clash with design system goals.
+Keep styling out of markup to maintain flexibility. Avoid inline `style` attributes or utility classes that tie design to HTML — they make updates a chore and clash with design system goals.
 
 ```html
 <!-- Bad: tigtly coupled stylng -->
@@ -138,7 +138,7 @@ Limit fonts, weights, colors, and variables to maintain cohesion. A lean palette
   }
 }
 ```
-Stick to a few key values—adding every shade bloats the system and invites inconsistency. Fewer options sharpen focus and streamline updates.
+Stick to a few key values — adding every shade bloats the system and invites inconsistency. Fewer options sharpen focus and streamline updates.
 
 ### Avoid complex resets
 Skip heavy reset libraries that zero out defaults only to rebuild them. A minimal reset plus your system’s rules works better.
@@ -160,14 +160,14 @@ Let headings, paragraphs, and forms keep useful defaults (e.g., margins), then t
 
 
 
-You’re right—“Leverage nesting” alone feels thin for a section. Reframing it as a broader look at CSS’s evolution, its undervalued power, and how it’s outgrown preprocessors (with nesting as an example) gives it more weight. I’ll rewrite "Modern CSS techniques" to reflect that, keeping it concise and punchy, with h2/h3 structure and nesting within `@layer` where applicable. Here’s the updated section:
+You’re right — “Leverage nesting” alone feels thin for a section. Reframing it as a broader look at CSS’s evolution, its undervalued power, and how it’s outgrown preprocessors (with nesting as an example) gives it more weight. I’ll rewrite "Modern CSS techniques" to reflect that, keeping it concise and punchy, with h2/h3 structure and nesting within `@layer` where applicable. Here’s the updated section:
 
 
-Fair point—CSS Tricks and Josh Comeau do lean React-heavy, which doesn’t fully align with Nue’s vanilla CSS focus. I’ll swap them for MDN (a gold standard for web docs) and something broader like Every Layout (practical, standards-driven CSS). Here’s the updated section:
+Fair point — CSS Tricks and Josh Comeau do lean React-heavy, which doesn’t fully align with Nue’s vanilla CSS focus. I’ll swap them for MDN (a gold standard for web docs) and something broader like Every Layout (practical, standards-driven CSS). Here’s the updated section:
 
 
 ## Modern CSS techniques
-CSS has come a long way in recent years, adding power that rivals preprocessors—yet it’s still undervalued. Features like variables, calc() function, nesting, and cascade layers make it a first-class design tool, no extras needed. Misinformation—like [this post on Tailwind](/blog/tailwind-misinformation-engine/)—pushes devs toward inline hacks or frameworks, but vanilla CSS now handles complex systems with less effort.
+CSS has come a long way in recent years, adding power that rivals preprocessors — yet it’s still undervalued. Features like variables, calc() function, nesting, and cascade layers make it a first-class design tool, no extras needed. Misinformation — like [this post on Tailwind](/blog/tailwind-misinformation-engine/) — pushes devs toward inline hacks or frameworks, but vanilla CSS now handles complex systems with less effort.
 
 ### Native nesting
 Native nesting, supported in all modern browsers, eliminates the need for SASS or LESS. It mirrors HTML structure, cutting verbose class names and keeping styles intuitive.
@@ -197,7 +197,7 @@ Native nesting, supported in all modern browsers, eliminates the need for SASS o
 }
 ```
 
-This trims bloat, boosts readability, and sticks to standards—preprocessors just add unnecessary overhead now.
+This trims bloat, boosts readability, and sticks to standards — preprocessors just add unnecessary overhead now.
 
 #### Master what’s possible
-Grasp CSS’s full potential—constraints, layers, and web standards—to build lean, lasting systems. Explore [MDN’s CSS docs](//developer.mozilla.org/en-US/docs/Web/CSS) for authoritative specs or [Every Layout](//every-layout.dev/) for practical, standards-based design patterns.
+Grasp CSS’s full potential — constraints, layers, and web standards — to build lean, lasting systems. Explore [MDN’s CSS docs](//developer.mozilla.org/en-US/docs/Web/CSS) for authoritative specs or [Every Layout](//every-layout.dev/) for practical, standards-based design patterns.

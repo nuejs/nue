@@ -75,7 +75,7 @@ Nue uses special directories to manage shared assets. Define them in `site.yaml`
 globals: ["@global"]    # Site-wide assets
 libs: ["@components"]   # Reusable library
 ```
-- **Globals**: Files in `@global` (e.g., `settings.css`) load on every page, setting up your design system—think base variables, typography, or resets.
+- **Globals**: Files in `@global` (e.g., `settings.css`) load on every page, setting up your design system — think base variables, typography, or resets.
 - **Libraries**: Files in `@components` (e.g., `button.css`) are included explicitly via `include` statements (see below), keeping reusable pieces modular.
 This setup, paired with layers, ensures a consistent cascade across all pages or apps.
 

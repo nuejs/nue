@@ -21,11 +21,11 @@ This setup has clear benefits:
 2. **Override control**: Adjustments and overrides always win when needed.
 3. **Documentation**: The layer names themselves explain the system’s intent.
 
-This structure ensures styles flow logically—base settings come first, followed by structural framing, then components, with adjustments and overrides refining as needed. It’s a system that scales well, keeping things predictable and easy to debug. Developers can quickly see where new styles belong without wrestling with nested rules.
+This structure ensures styles flow logically — base settings come first, followed by structural framing, then components, with adjustments and overrides refining as needed. It’s a system that scales well, keeping things predictable and easy to debug. Developers can quickly see where new styles belong without wrestling with nested rules.
 
 
 ## Layer examples
-Cascade layers are flexible by design, encouraging creativity and experimentation. The examples below showcase practical ways to structure layers, reflecting good development practices. They’re not strict rules—feel free to adapt them to your project’s needs. Let’s explore each layer with real-world scenarios.
+Cascade layers are flexible by design, encouraging creativity and experimentation. The examples below showcase practical ways to structure layers, reflecting good development practices. They’re not strict rules — feel free to adapt them to your project’s needs. Let’s explore each layer with real-world scenarios.
 
 
 ### Settings layer
@@ -130,7 +130,7 @@ This handles responsive design with media queries
 
 
 ### Overrides layer
-This is for rare, forceful overrides—use sparingly.
+This is for rare, forceful overrides — use sparingly.
 ```css
 @layer overrides {
   .is-hidden {

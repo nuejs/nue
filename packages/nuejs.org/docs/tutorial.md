@@ -10,7 +10,7 @@ This tutorial guides you through creating a simple Markdown-based blog with Nue,
   url: //simple-blog.nuejs.org
   size: 749 × 484 px
 
-Start by installing Nue—see the [installation guide](installation.html). Then, set up the demo:
+Start by installing Nue — see the [installation guide](installation.html). Then, set up the demo:
 
 ```sh
 nue create simple-blog
@@ -52,7 +52,7 @@ author: Emma Bennet
 favicon: /img/favicon.jpg
 ```
 
-This defines how page titles appear (e.g., “Emma Bennet / Blog”), adds a social sharing image, and sets a favicon—basic details for SEO and branding.
+This defines how page titles appear (e.g., “Emma Bennet / Blog”), adds a social sharing image, and sets a favicon — basic details for SEO and branding.
 
 ### Blog posts
 Posts are Markdown files in the `blog` directory. Here’s a sample, like `blog/post.md`:
@@ -67,7 +67,7 @@ date: 2024-01-15
 Content starts here...
 ```
 
-The front matter at the top provides metadata—title, description, date—that Nue uses to display the post. The Markdown below is the content itself.
+The front matter at the top provides metadata — title, description, date — that Nue uses to display the post. The Markdown below is the content itself.
 
 [image.bordered]
   small: /img/blog-content-editing.png
@@ -88,10 +88,10 @@ Then use it in `blog/index.md`:
 [page-list]
 ```
 
-The `[page-list]` tag pulls every post from `blog/`, sorting them by date—newest first. It’s a quick way to keep the list up to date.
+The `[page-list]` tag pulls every post from `blog/`, sorting them by date — newest first. It’s a quick way to keep the list up to date.
 
 ### Hot reloading
-Change a post—like its title—and save. Nue’s hot reloading updates the browser instantly, keeping your workflow smooth without manual refreshes.
+Change a post — like its title — and save. Nue’s hot reloading updates the browser instantly, keeping your workflow smooth without manual refreshes.
 
 ## Layout
 Layout modules are HTML files that define the blog’s structure, wrapping around your Markdown content for consistency.
@@ -176,7 +176,7 @@ body {
 }
 ```
 
-This aligns with a design system—see [design-systems.html](design-systems.html).
+This aligns with a design system — see [design-systems.html](design-systems.html).
 
 ### Component styles
 The blog adds specific styles in `blog.yaml`:

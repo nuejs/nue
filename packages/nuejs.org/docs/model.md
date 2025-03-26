@@ -44,7 +44,7 @@ export const customers = {
 }
 ```
 
-This encapsulates complexity and simplifies interfaces. For small apps, start with one `index.js`, then refactor into modules as needed—keeping the API stable.
+This encapsulates complexity and simplifies interfaces. For small apps, start with one `index.js`, then refactor into modules as needed — keeping the API stable.
 
 
 ## Core operations
@@ -142,7 +142,7 @@ Rust handles computation; JS keeps the API clean. Use types at boundaries for sa
 
 
 ### Event sourcing
-Typically, web apps fetch data on demand via REST or GraphQL, but event sourcing flips this: it loads all relevant data into memory upfront, treating it as a sequence of immutable events. Combined with Rust and WebAssembly, this makes operations like searches and filters instant—no server roundtrips after the initial load. Our demo (mpa.nuejs.org) shows this with 10,000+ records, cached immutably via HTTP, enabling real-time responsiveness.
+Typically, web apps fetch data on demand via REST or GraphQL, but event sourcing flips this: it loads all relevant data into memory upfront, treating it as a sequence of immutable events. Combined with Rust and WebAssembly, this makes operations like searches and filters instant — no server roundtrips after the initial load. Our demo (mpa.nuejs.org) shows this with 10,000+ records, cached immutably via HTTP, enabling real-time responsiveness.
 
 This pattern shines in SPAs like:
 - **CRM**: Rebuild customer profiles from interaction events.

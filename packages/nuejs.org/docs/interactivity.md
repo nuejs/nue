@@ -10,7 +10,7 @@ Interactivity in Nue follows a clear cycle:
 4. **Refresh views**: Views re-render with new data.
 5. **Coordinate flow**: Controllers oversee app-wide tasks like navigation or shortcuts.
 
-This keeps each layer focused—views don’t compute, models don’t render, and controllers tie it all together without bloating any single part.
+This keeps each layer focused — views don’t compute, models don’t render, and controllers tie it all together without bloating any single part.
 
 ## Event handlers
 Views use event handlers to kick off this cycle, listening for user actions and passing them to the model:
@@ -36,10 +36,10 @@ Views use event handlers to kick off this cycle, listening for user actions and 
 </form>
 ```
 
-Here, the view detects a form submission (step 1), sends the input to the model for processing (step 2), and clears the field. The model updates its state (step 3), which triggers a re-render elsewhere (step 4). No complex logic lives in the view—just a bridge to the model.
+Here, the view detects a form submission (step 1), sends the input to the model for processing (step 2), and clears the field. The model updates its state (step 3), which triggers a re-render elsewhere (step 4). No complex logic lives in the view — just a bridge to the model.
 
 ## Routing
-Routing in Nue drives navigation and state in single-page applications (SPAs), playing the controller role in the MVC pattern. Unlike React’s component-centric routing, Nue’s router—imported from `/@nue/app-router.js`—centralizes state and URL management, keeping views focused on display. It maps routes to data and components, syncing the app’s state with the browser’s URL. See the [router API](/docs/app-router.html) for full details.
+Routing in Nue drives navigation and state in single-page applications (SPAs), playing the controller role in the MVC pattern. Unlike React’s component-centric routing, Nue’s router — imported from `/@nue/app-router.js` — centralizes state and URL management, keeping views focused on display. It maps routes to data and components, syncing the app’s state with the browser’s URL. See the [router API](/docs/app-router.html) for full details.
 
 Configure it like this:
 
@@ -105,7 +105,7 @@ router.configure({
 })
 ```
 
-URL params sync with the address bar, session params persist across refreshes, and persistent params—like `show_grid_view`—store user preferences in local storage. Here’s an example toggling a grid view:
+URL params sync with the address bar, session params persist across refreshes, and persistent params — like `show_grid_view` — store user preferences in local storage. Here’s an example toggling a grid view:
 
 ```html
 <nav @name="view-toggler">
@@ -125,12 +125,12 @@ URL params sync with the address bar, session params persist across refreshes, a
 </nav>
 ```
 
-The router API doesn’t care where data is stored—URL, session, or local storage—making state management effortless. You can switch storage types (e.g., from session to persistent) without views needing to know, keeping the system flexible and views blissfully unaware.
+The router API doesn’t care where data is stored — URL, session, or local storage — making state management effortless. You can switch storage types (e.g., from session to persistent) without views needing to know, keeping the system flexible and views blissfully unaware.
 
 
 
 ## Controllers
-React devs manage interactivity within components, but Nue uses controllers—standalone scripts that handle app-wide concerns. Think of them as coordinators between the model and views, offloading tasks like navigation or keyboard shortcuts. This keeps views pure and models logic-focused, a separation unfamiliar in React but natural in MVC-style systems.
+React devs manage interactivity within components, but Nue uses controllers — standalone scripts that handle app-wide concerns. Think of them as coordinators between the model and views, offloading tasks like navigation or keyboard shortcuts. This keeps views pure and models logic-focused, a separation unfamiliar in React but natural in MVC-style systems.
 
 ### Bootstrap controller
 This starts the app:

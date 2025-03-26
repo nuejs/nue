@@ -18,7 +18,7 @@ Take HTML, CSS, JS, and WASM to their absolute peak
   large: /img/rust-search-big.webp
   href: https://mpa.nuejs.org/app/?rust
   size: 1028 × 433
-  caption: Using **Rust** and **Event Sourcing** for instant UX over 150,000 records—far past where JavaScript crashes with a stack overflow error. [Open this demo ›](https://mpa.nuejs.org/app/?rust)
+  caption: Using **Rust** and **Event Sourcing** for instant UX over 150,000 records — far past where JavaScript crashes with a stack overflow error. [Open this demo ›](https://mpa.nuejs.org/app/?rust)
 
 
 ----
