@@ -12,6 +12,6 @@
   [button "Show me"]
     href: speed-compare.html
 
-  ---
+  +++
 
   [image /tour/img/simple-blog.png]
