@@ -5,16 +5,6 @@ import { join } from 'node:path'
 import { openUrl } from './util.js'
 import { createKit } from './nuekit.js'
 
-const gh = {
-  base: 'https://api.github.com',
-  contents(repo, dir) {
-    return `${this.base}/repos/${repo}/contents/${dir}`
-  },
-  tarball(repo) {
-    return `${this.base}/repos/${repo}/tarball`
-  },
-}
-
 const remap = {
   'simple-blog': { open: 'welcome/' },
 }
@@ -32,6 +22,10 @@ async function serve(args) {
   return terminate
 }
 
+function gh(kind, repo, more='') {
+  return `https://api.github.com/repos/${repo}/${kind}/${more}`
+}
+
 export async function create(args = {}) {
   if (!args.name) args.name = args.paths.shift().split('/').filter(Boolean).join('/') || 'simple-blog'
   if (!args.root) args.root = args.paths.shift() || args.name.replaceAll('/', '-')
@@ -45,7 +39,7 @@ export async function create(args = {}) {
 
   // check if template exists
   const templates = is_gh ? [] : // no templates check if is_gh
-    (await (await fetch(gh.contents('nuejs/nue', 'packages/examples'))).json()).filter(el => el.type == 'dir').map(el => el.name)
+    (await (await fetch(gh('contents', 'nuejs/nue', 'packages/examples'))).json() || []).filter(el => el.type == 'dir').map(el => el.name)
 
   if (!is_gh && !templates.includes(name)) {
     console.error(`Template "${name}" does not exist!`)
@@ -69,7 +63,7 @@ export async function create(args = {}) {
   // download archive
   console.info('Loading template...')
   const archive_name = join(root, 'source.tar.gz')
-  const archive_web = is_gh ? gh.tarball(name) : `https://${name}.nuejs.org/${debug ? 'test' : 'source'}.tar.gz`
+  const archive_web = is_gh ? gh('tarball', name) : `https://${name}.nuejs.org/${debug ? 'test' : 'source'}.tar.gz`
   const archive = await fetch(archive_web)
 
   // catch download issues
