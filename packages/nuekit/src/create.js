@@ -5,13 +5,23 @@ import { join } from 'node:path'
 import { openUrl } from './util.js'
 import { createKit } from './nuekit.js'
 
-const templates = {
+const gh = {
+  base: 'https://api.github.com',
+  contents(repo, dir) {
+    return `${this.base}/repos/${repo}/contents/${dir}`
+  },
+  tarball(repo) {
+    return `${this.base}/repos/${repo}/tarball`
+  },
+}
+
+const remap = {
   'simple-blog': { open: 'welcome/' },
 }
 
 
 async function serve(args) {
-  const tmpl = templates[args.name] || {}
+  const tmpl = remap[args.name] || {}
   if (tmpl.root) args.root = join(args.root, tmpl.root)
 
   const nue = await createKit(args)
@@ -34,12 +44,13 @@ export async function create(args = {}) {
   const is_gh = name.split('/').length == 2
 
   // check if template exists
-  const template_dirs = (await (await fetch('https://api.github.com/repos/nuejs/nue/contents/packages/examples')).json()).filter(el => el.type == 'dir')
-  const template_names = template_dirs.map(el => el.name)
-  if (!is_gh && !template_names.includes(name)) {
+  const templates = is_gh ? [] : // no templates check if is_gh
+    (await (await fetch(gh.contents('nuejs/nue', 'packages/examples'))).json()).filter(el => el.type == 'dir').map(el => el.name)
+
+  if (!is_gh && !templates.includes(name)) {
     console.error(`Template "${name}" does not exist!`)
     console.error('Available templates:')
-    for (const t of Object.keys(templates)) console.error(' -', t)
+    for (const t of templates) console.error(' -', t)
     return
   }
 
@@ -58,7 +69,7 @@ export async function create(args = {}) {
   // download archive
   console.info('Loading template...')
   const archive_name = join(root, 'source.tar.gz')
-  const archive_web = is_gh ? `https://api.github.com/repos/${name}/tarball` : `https://${name}.nuejs.org/${debug ? 'test' : 'source'}.tar.gz`
+  const archive_web = is_gh ? gh.tarball(name) : `https://${name}.nuejs.org/${debug ? 'test' : 'source'}.tar.gz`
   const archive = await fetch(archive_web)
 
   // catch download issues
@@ -74,4 +85,5 @@ export async function create(args = {}) {
   // serve
   console.info(`Created template "${name}" to "${root}".`)
   if (!is_gh) return await serve(args)
+  else console.warn('Not launching public GitHub project.\nPlease verify the contents before running the project.')
 }
