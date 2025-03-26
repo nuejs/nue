@@ -8,7 +8,7 @@ og: /img/nuemark-splash.jpg
 
 Today, I'm excited to release Nuemark — a Markdown-based text editing format for rich internet content. It places content at the heart of everything, and brings (back) a content-first approach to web development:
 
-[image]
+[image]:
   small: /img/nuemark-content.png
   large: /img/nuemark-content-big.jpg
   caption: A content-first approach to web development
@@ -18,7 +18,7 @@ Today, I'm excited to release Nuemark — a Markdown-based text editing format f
 ### Content hot-reloading
 Nuemark is a standalone library that works under Bun, Node, and Deno. However, it is best served together with Nuekit and its [universal hot-reloading](/docs/hot-reloading.html) capability. Just edit your content freely and see the page shaping up in your browser in real time.
 
-[bunny-video.larger]
+[bunny-video.larger]:
   videoId: 3bf8f658-185a-449c-93b9-9bd5e1ad0d05
   poster: /img/nuemark-splash.jpg
 
@@ -39,7 +39,7 @@ Nuemark is designed for content creation. It's a simple, concise syntax that is 
 ```
 
 
-[image]
+[image]:
   small: /img/content-hero.png
   large: /img/content-hero-big.png
   caption: The content after applying some context-specific styling
@@ -51,7 +51,7 @@ With Nuemark, you start with pure content: Text, images, and videos and only the
 ## Built-in set of headless UI components { #components }
 Nuemark comes with a set of built-in components, which aim to tackle the most common content management use cases. There are buttons, icons, responsive images, videos, tables, tabs, and layout grids. And you can mix components to form more complex layouts.
 
-[image]
+[image]:
   small: /img/rich-content.png
   large: /img/rich-content-big.png
   caption: Nuemark content from the installable demo
@@ -62,7 +62,7 @@ All these components or "tags" are *headless* — meaning that there are no inli
 
 The semantic approach means that you can customize the look and feel of your components so that they look just right in the given context. For example, a tabbed layout may look completely different on your front page compared to what it looks like on the documentation area:
 
-[image]
+[image]:
   small: /img/tab-designs.jpg
   large: /img/tab-designs-big.jpg
   caption: Same component, different CSS module

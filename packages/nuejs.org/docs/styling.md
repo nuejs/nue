@@ -38,7 +38,7 @@ Global styles typically include:
 
 The `@` prefix for directory names is optional but serves as a useful convention to signify that the folder contains global assets rather than application-specific files like `blog`.
 
-[image]
+[image]:
   small: /img/blog-colors.png
   large: /img/blog-colors-big.png
   caption: CSS is global by nature
@@ -53,7 +53,7 @@ libs: ["@library"]
 Unlike global styles, these styles are included on demand. Typical **library files** might include `card.css` or `form.css`.
 
 
-[image]
+[image]:
   small: /img/blog-css-hierarchy.png
   large: /img/blog-css-hierarchy-big.png
   caption: Global styles and library files

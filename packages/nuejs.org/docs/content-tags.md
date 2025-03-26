@@ -35,7 +35,7 @@ You can specify options using named attributes. For example:
 Alternatively, you can use nested YAML to define the attributes:
 
 ```md
-[image]
+[image]:
 |  caption: Hello, World!
 |  large: hello-big.png
 |  small: hello.png
@@ -63,7 +63,7 @@ To set ID and class attributes, you can use the following syntax:
 Tags can also include nested content. Here’s how you can add a caption for an image:
 
 ```md
-[image explainer.png]
+[image explainer.png]:
 | This nested content is the caption for the image.
 | You can add Markdown here like *emphasis* and `inline code`.
 ```
@@ -98,7 +98,7 @@ You can also use a shortcut alias (`!`):
 Nue allows you to link images to specific URLs using the `href` attribute, making them interactive:
 
 ```md
-[image book.svg]
+[image book.svg]:
   caption: View documentation
   href: /docs/
 ```
@@ -110,7 +110,7 @@ This functionality enables you to guide users to additional resources or pages w
 Nue supports art direction for images, allowing you to specify different sizes based on screen dimensions. This feature ensures that users receive the best possible image for their device:
 
 ```md
-[image]
+[image]:
   large: ui-wide.png
   small: ui-tall.png
   caption: This is the image caption
@@ -203,7 +203,7 @@ All standard HTML5 video attributes are supported, providing flexibility and con
 Options can also be specified using YAML for enhanced organization:
 
 ```md
-[video.heroic]
+[video.heroic]:
   poster: hello.png
   src: hello.mp4
   width: 1000

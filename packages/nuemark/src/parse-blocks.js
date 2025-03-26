@@ -112,9 +112,10 @@ export function parseBlocks(lines, capture) {
 
 
     // tag
-    if (c == '[' && trimmed.endsWith(']') && !trimmed.includes('][')) {
-      const tag = parseTag(line.slice(1, -1))
-      block = { is_tag: true, ...tag, body: [] }
+    if (c == '[' && (trimmed.endsWith(']') || trimmed.endsWith(']:')) && !trimmed.includes('][')) {
+      const has_yaml = trimmed.endsWith(':')
+      const tag = parseTag(trimmed.slice(1, has_yaml ? -2 : -1))
+      block = { is_tag: true, has_yaml, ...tag, body: [] }
       return blocks.push(block)
     }
 
@@ -182,7 +183,7 @@ function processNestedBlocks(block, capture) {
     const body = block.body.join('\n')
 
     try {
-      if (body && name && isYAML(body.trim())) {
+      if (body && block.has_yaml && isYAML(body.trim())) {
         let data = parseYAML(body)
         if (Array.isArray(data)) data = { items: data }
         Object.assign(block.data, data)
@@ -225,7 +226,7 @@ function getFootnoteIds(blocks) {
 function parseRef(str) {
   if (str[0] == '[') {
     const i = str.indexOf(']:')
-    if (i > 1) {
+    if (i > 1 && i < str.length - 2) { // -2 because ']:' is 2 chars
       const key = str.slice(1, i)
       return { key, value: str.slice(i + 2).trim() }
     }

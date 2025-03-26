@@ -191,7 +191,7 @@ Data in Nue is defined at three levels:
 
 As you move from the site level to the page level, the data gets extended or overridden, allowing for granular control over content and settings.
 
-[image.gridpaper]
+[image.gridpaper]:
   small: /img/data-propagation.png
   large: /img/data-propagation-big.png
 
