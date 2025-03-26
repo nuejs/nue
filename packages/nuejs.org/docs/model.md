@@ -97,7 +97,7 @@ Your model defines unique business logic, like:
 These operations evolve independently, driving your app’s value without UI friction.
 
 ## Rust and WASM
-For high-performance needs, Rust and WebAssembly enhance the model. Our demo (simple-mpa.nuejs.org) loads 10,000+ records, making searches instant. Rust excels with:
+For high-performance needs, Rust and WebAssembly enhance the model. Our demo (mpa.nuejs.org) loads 10,000+ records, making searches instant. Rust excels with:
 
 - Native speed and no GC pauses.
 - True type safety beyond TypeScript.
@@ -142,7 +142,7 @@ Rust handles computation; JS keeps the API clean. Use types at boundaries for sa
 
 
 ### Event sourcing
-Typically, web apps fetch data on demand via REST or GraphQL, but event sourcing flips this: it loads all relevant data into memory upfront, treating it as a sequence of immutable events. Combined with Rust and WebAssembly, this makes operations like searches and filters instant—no server roundtrips after the initial load. Our demo (simple-mpa.nuejs.org) shows this with 10,000+ records, cached immutably via HTTP, enabling real-time responsiveness.
+Typically, web apps fetch data on demand via REST or GraphQL, but event sourcing flips this: it loads all relevant data into memory upfront, treating it as a sequence of immutable events. Combined with Rust and WebAssembly, this makes operations like searches and filters instant—no server roundtrips after the initial load. Our demo (mpa.nuejs.org) shows this with 10,000+ records, cached immutably via HTTP, enabling real-time responsiveness.
 
 This pattern shines in SPAs like:
 - **CRM**: Rebuild customer profiles from interaction events.

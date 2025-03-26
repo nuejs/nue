@@ -7,7 +7,7 @@ import { createKit } from './nuekit.js'
 
 const templates = {
   'simple-blog': { open: 'welcome/' },
-  'simple-mpa': {},
+  'simple-mpa': { sub: 'mpa' }, // resolve from 'mpa.nuejs.org' (not from 'simple-...')
 }
 
 
@@ -57,7 +57,7 @@ export async function create(args = {}) {
   // download archive
   console.info('Loading template...')
   const archive_name = join(root, 'source.tar.gz')
-  const archive_web = is_gh ? `https://api.github.com/repos/${name}/tarball` : `https://${name}.nuejs.org/${debug ? 'test' : 'source'}.tar.gz`
+  const archive_web = is_gh ? `https://api.github.com/repos/${name}/tarball` : `https://${templates[name].sub || name}.nuejs.org/${debug ? 'test' : 'source'}.tar.gz`
   const archive = await fetch(archive_web)
 
   // catch download issues
