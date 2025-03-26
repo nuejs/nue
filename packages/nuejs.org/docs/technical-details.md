@@ -1,11 +1,8 @@
 
 # Technical details
-Total size of all repositories is roughly ~7800 lines of code and around 2MB of files under node_modules.
+Nuue consists of four projects within Nue [monorepo](//github.com/nuejs/nue/) as follows:
 
-## Repositories
-Nuue consists of four projects within Nue [monorepo](//github.com/nuejs/nue/):
-
-### Nuekit
+## Nuekit
 Nuekit (or simply "Nue") is a standards-first web framework providing:
 
 - Website generation for both MPA and SPA
@@ -31,7 +28,7 @@ HTML-based template engine that handles:
 External dependencies:
 - [htmlparser2](//github.com/fb55/htmlparser2)
 
-### Nuemark
+## Nuemark
 Extended Markdown processor providing:
 - Content parsing and rendering
 - Rich layouts and sections
@@ -57,40 +54,42 @@ No external dependencies
 ## How it works
 Nuekit processes your project through the following steps:
 
-1. File System Scanning
-- Scans all directories and files
-- Identifies content files (Markdown, YAML)
-- Detects SPA entry points: `{appdir}/index.html`
-- Catalogs all assets (CSS, JS, layouts, components, images)
-- Creates content collections
-- Maps URL structure from directory hierarchy
+1. ### File System Scanning
+  - Scans all directories and files
+  - Identifies content files (Markdown, YAML)
+  - Detects SPA entry points: `{appdir}/index.html`
+  - Catalogs all assets (CSS, JS, layouts, components, images)
+  - Creates content collections
+  - Maps URL structure from directory hierarchy
 
-2. Asset Processing
-- Identifies shared/global resources
-- Detects includes and excludes for each app and page
-- Maps dependencies between content and assets
-- Maps dependencies between components and layout modules
-- Processes CSS (nested selectors, advanced functions)
-- Compiles client-side (reactive) components
+2. ### Asset Processing
+  - Identifies shared/global resources
+  - Detects includes and excludes for each app and page
+  - Maps dependencies between content and assets
+  - Maps dependencies between components and layout modules
+  - Processes CSS (nested selectors, advanced functions)
+  - Compiles client-side (reactive) components
 
-3. Content/SPA Processing
-- Builds content models for each Markdown file
-- Sets up component mounting
-- Parses YAML data and configuration
-- Parses all components and layout modules
-- Inlines CSS when configured for site/app/page
-- Renders parsed Markdown with dependent data and assets
-- Builds SPA entry points with dependencies
+3. ### Content/SPA Processing
+  - Builds content models for each Markdown file
+  - Sets up component mounting
+  - Parses YAML data and configuration
+  - Parses all components and layout modules
+  - Inlines CSS when configured for site/app/page
+  - Renders parsed Markdown with dependent data and assets
+  - Builds SPA entry points with dependencies
 
 
 ### Development vs Production
 In development mode, Nue runs a dedicated server optimized for:
+
 - Hot Module Replacement
 - MPA routing
 - Real-time error reporting
 - Instant feedback
 
 For production, Nue:
+
 - Processes and optimizes all assets
 - Minifies CSS and JavaScript
 - Generates static files

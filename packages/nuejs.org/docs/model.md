@@ -1,6 +1,6 @@
 
 # The model layer
-In Nue, single-page application (SPA) development begins with the model layer—your business logic and data core. You start with vanilla JavaScript for simplicity, shifting to Rust and WebAssembly when operations demand top performance or strict typing. This ensures your interface grows from your model’s capabilities, keeping your app lean and purposeful.
+In Nue, SPA development starts from your business- and data model. This ensures your interface grows from your model’s capabilities, keeping your app simple and purposeful.
 
 
 ## Structuring the model

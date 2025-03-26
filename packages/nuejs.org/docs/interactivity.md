@@ -1,6 +1,6 @@
 
 # Interactivity
-The view layer in Nue defines your interface with semantic HTML, but interactivity brings it to life. Where views focus on structure, interactivity connects user actions to the model and updates the display. Nue keeps this lightweight—avoiding the heavy state management or component logic common in frameworks like React—by distributing tasks across views, the model, and controllers. This builds on web standards, ensuring ambitious interfaces stay simple and scalable.
+The view layer in Nue defines your interface with semantic HTML, but interactivity brings it to life. Nue distributes tasks across views, the model, and controllers, ensuring interfaces stay simple and scalable.
 
 ## How it works
 Interactivity in Nue follows a clear cycle:

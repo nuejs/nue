@@ -1,6 +1,7 @@
 
 # Scripting
-Scripting in Nue adds lightweight interactivity to static, content-first websites, leveraging vanilla JavaScript and web standards. While islands handle isolated components, global scripts enhance the broader experience—optional, progressive, and built on HTML’s foundation.
+Scripting adds lightweight interactivity to static content. While islands handle isolated components, global scripts enhance the broader experience.
+
 
 ## Global scripts
 Global scripts enrich static HTML across the site. Take a popover menu:

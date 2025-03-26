@@ -2,27 +2,18 @@
 include: [tabs]
 ---
 
-# Built-in Markdown extensions
+# Markdown extensions
 Nue extends Markdown with a set of built-in extensions that enhance content creation.
 
-These extensions or "tags" use a simple bracket syntax - `[image]` for images, `[button]` for buttons, `[video]` for videos - to add functionality while maintaining readable content. These tags allow you to:
-
-1. Add dialogs, accordions, and tabs while staying in Markdown
-2. Create sophisticated layouts that preserve content structure
-3. Handle responsive images and art direction through clean syntax
-4. Extend functionality when native capabilities need enhancement
-
-
-## Tag syntax
-Tags are defined within square brackets. For example, to include an image, you would write:
+## Syntax
+Markdown extensions or "tags" use a simple bracket syntax, defined within square brackets. For example, to include an image, you would write:
 
 ```md
 [image /img/cat.png]
 ```
-
 The tag name (in this case, "image") can be followed by various options, which can be supplied in several ways:
 
-### Named options
+### Options
 
 You can specify options using named attributes. For example:
 
@@ -30,7 +21,7 @@ You can specify options using named attributes. For example:
 [image src="hello.png" caption="Hello, World" alt="Hello image"]
 ```
 
-### Nested YAML
+### Nested YAML data
 
 Alternatively, you can use nested YAML to define the attributes:
 

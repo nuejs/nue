@@ -1,6 +1,6 @@
 
-# Content authoring: Structured data
-Sophisticated websites need more than content and layout modules—they require structured data to define organization, enrich content, and drive functionality. Nue uses clean YAML files to keep this data separate from content and presentation, powering your site with clarity and flexibility.
+# Structured data
+Modern web projects need a clean way to manage content and data. Nue helps you keep your code tidy by storing different types of information in separate YAML files. This means your content stays neat and easy to work with, without cluttering up your main files.
 
 ## Types of data
 Nue organizes data into three key types, each serving a distinct purpose in your website.

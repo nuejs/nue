@@ -1,15 +1,10 @@
-# Layout modules
 
-Modern websites need consistent structure – headers, footers, navigation, sidebars. Layout modules in Nue let you define these structural elements once and reuse them across your site. Through modular HTML templates, you can:
+# Layout Modules
 
-1. Create site-wide layouts without JavaScript components
-2. Build application-specific structures when needed
-3. Override layouts for individual pages
-4. Keep content separate from structural markup
+Modern websites require consistent structural elements like headers, footers, navigation, and sidebars. Nue's layout modules provide a powerful approach to defining these components once and reusing them across your entire site.
 
-## Understanding Layout Structure
 
-### Default HTML Structure
+### Default HTML structure
 
 When you create a page in Nue, it automatically generates a semantic HTML structure around your content. Your Markdown is rendered inside this structure:
 

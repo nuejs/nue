@@ -1,6 +1,6 @@
 
-# CSS cascade Layers
-Cascade layers (`@layer`) bring a new level of control to CSS, allowing developers to define clear boundaries between different style types. This is a major step forward for organizing styles, especially in larger design systems. For the first time, CSS natively supports a way to separate concerns vertically, making it easier to manage how styles interact and override each other.
+# CSS Cascade Layers
+Cascade layers (`@layer`) provide a powerful new way to organize CSS styles. They help developers create clear boundaries between different types of styles, making it easier to manage how styles interact and override each other. This is especially useful in large design systems, offering a native method to separate and control CSS concerns more effectively.
 
 ## The @layer rule
 The `@layer` rule lets you define your system’s layers and set their order of precedence. A well-thought-out layer structure can make all the difference. Here’s an example that works effectively:

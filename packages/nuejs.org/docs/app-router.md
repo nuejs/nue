@@ -1,6 +1,6 @@
 
 # Application router
-In Nue, the application router—available at `/@nue/app-router.js`—is the backbone of single-page applications (SPAs). Unlike React’s component-driven navigation, it acts as a controller in the MVC pattern, managing state and URLs while coordinating the model and views. It tracks URL, session, and persistent data, keeping your app in sync with the browser. This replaces React’s useState or Redux with a simpler, standards-based approach.
+In Nue, the application router—available at `/@nue/app-router.js`—is the backbone of single-page applications (SPAs). It acts as a controller in the MVC pattern, managing state and URLs while coordinating the model and views. It tracks URL, session, and persistent data, keeping your app in sync with the browser.
 
 ## Usage
 Import and configure it:

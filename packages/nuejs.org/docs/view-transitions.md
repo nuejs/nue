@@ -1,6 +1,7 @@
 
 # View transitions
-Nue’s view transitions blend fast navigation with native CSS animations, enhancing multi-page applications (MPAs) as an optional progressive enhancement. Enabled with a single configuration, they deliver “turbolinking” speed—updating pages without full reloads—and customizable visual effects, all while playing seamlessly with the [app router](app-router.html) for smooth transitions across your entire site.
+Nue's view transitions provide smooth, fast page navigation with native CSS animations. With a simple configuration, you get quick page updates without full reloads, along with customizable visual effects.
+
 
 ## Setup and customization
 Turn on view transitions in `site.yaml`:

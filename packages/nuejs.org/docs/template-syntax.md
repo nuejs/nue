@@ -1,6 +1,6 @@
 
 # Template syntax
-This document serves as a guide to Nue's HTML-based template syntax, which is shared across your Markdown extensions, server components, and client-side components.
+Nue offers a HTML-based template syntax, which is shared across your Markdown extensions, server components, and client-side components.
 
 ## Expressions
 

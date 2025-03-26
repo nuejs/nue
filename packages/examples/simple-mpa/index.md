@@ -2,8 +2,9 @@
 include: marketing-content
 ---
 
-# Build truly ambitious web applications
-Nue is a standards-first framework pushing HTML, CSS, and JS to their absolute peak.
+# Break the limits of Web
+Take HTML, CSS, JS, and WASM to their bsolute peak
+
 
 [button.primary href="/app/"]
   Launch local demo [icon symbol="chevron-right-symbol"]
@@ -20,7 +21,7 @@ Nue is a standards-first framework pushing HTML, CSS, and JS to their absolute p
 
 
 
-## Lighter than a React button
+## Apps lighter than a React button
 Build simpler and faster products by working closer to metal
 
 [image]
@@ -32,7 +33,7 @@ Build simpler and faster products by working closer to metal
 
 
 
-## A simplified frontend stack
+## A radically simpler stack
 We are rebuilding the entire ecosystem from scratch:
 
 [image]

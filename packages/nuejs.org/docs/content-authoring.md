@@ -1,6 +1,7 @@
 
 # Content authoring
-Nue equips you to author content with a specialized Markdown dialect, crafted for rich, interactive websites. This syntax extends standard Markdown with features that support dynamic, structured pages—your content becomes the backbone of the site. Nue pairs this with layout modules, which wrap your Markdown into a final HTML document, adding headers, footers, and sidebars without complicating your source.
+In Nue, every content piece is authored with a specialized Markdown dialect, great for rich, interactive websites. This syntax extends standard Markdown with features that enable dynamic, structured pages.
+
 
 #### Related content
 * [Full list of markdown extensions](markdown-extensions.html)

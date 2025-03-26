@@ -1,6 +1,7 @@
 
 # Performance optimization
-Nue optimizes website performance by prioritizing CSS and first paint over JavaScript bundle tweaks, a winning strategy for content-focused apps. Fast rendering comes from inlined CSS, seamless navigation from view transitions, and low page weight from lean, standards-based markup.
+Nue improves website performance by bundling CSS directly with HTML, enabling complete page rendering in a single request. No amount of JS bundling can beat this strategy.
+
 
 ## CSS inlining
 Inlining CSS delivers HTML and styles in one request, rendering pages instantly. Enable it in `site.yaml`:

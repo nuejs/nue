@@ -23,23 +23,21 @@ bun install nuekit --global
 Nue uses global installation because it is a command line tool like Git or Docker. Just go to a directory and type `nue` to develop.
 
 
-## 3. Install demo
+## 3. Install app
 Create your first app with:
 
 ```sh
-
 nue create simple-blog
+```
+
+Alternatively, start with a multi-page app
+
+```sh
+nue create simple-mpa
 ```
 
 Done! Your browser should now open to: `http://localhost:8083/`:
 
-[image]
-  caption: Welcome screen after successful setup
-  src: /img/create-welcome.png
-
-## 4. Follow the tutorial
-
-Check out the [step-by-step tutorial](tutorial.html) to learn how to build websites with Nue.
 
 - - -
 
@@ -51,8 +49,8 @@ Check out the [step-by-step tutorial](tutorial.html) to learn how to build websi
 - **Node.js 20.8** or later, if you prefer not using Bun.
 
 
-### Uncertain Windows support
-Our Windows Tests pass, but nobody on our team uses it. So might work, might not.
+### Windows support
+Our Windows tests pass, the support is uncertain. Nobody on our team uses it actively.
 
 
 ### Having Problems?

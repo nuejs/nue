@@ -25,7 +25,7 @@ documentation:
     - Introduction: content-focused-apps.html
     - Tutorial: tutorial.html
     - Project structure: project-structure.html
-    - Content: content.html
+    - Content authoring: content-authoring.html
     - Data: data.html
     - Layout: layout.html
     - Islands: islands.html

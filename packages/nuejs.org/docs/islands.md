@@ -1,9 +1,10 @@
 
 # Interactive islands
-Interactive islands in Nue bring dynamic functionality to static HTML, seamlessly blending into content-first websites. Think of them as small, focused components—like forms, menus, or galleries—that enhance your Markdown or layouts without disrupting the core experience. Built on web standards, islands keep interactivity lightweight and optional, aligning with Nue’s progressive enhancement model.
+Interactive islands in Nue add dynamic features to your static web content. These are compact, targeted components—such as forms, menus, or image galleries—that seamlessly integrate with your Markdown or layout modules.
+
 
 ## Creating islands
-Islands use an HTML-based [template syntax](template-syntax.html) stored in `.dhtml` files, identified by the `@name` attribute. Here’s a mailing list form:
+Islands use an HTML-based [templates](template-syntax.html) stored in `.dhtml` files, identified by the `@name` attribute. Here’s a mailing list form:
 
 ```html
 <form @name="join-list" @submit.prevent="submit" autocomplete="on">
@@ -24,7 +25,8 @@ Islands use an HTML-based [template syntax](template-syntax.html) stored in `.dh
 </form>
 ```
 
-This form renders as static HTML on the server for SEO and indexing, then becomes interactive on the client with a tiny 2.5kb runtime (`/@nue/nue.js`). The `@submit.prevent` attribute stops default form submission, letting the `submit` function handle it—say, with a `fetch()` call to your backend.
+This form initially renders as static HTML on the server, which benefits search engine optimization and content indexing. When it loads in the browser, it becomes interactive using a lightweight 2.5kb runtime (`/@nue/nue.js`). The `@submit.prevent` attribute prevents the default form submission, allowing your custom `submit` function to manage the process—for example, by using a `fetch()` call to communicate with your backend.
+
 
 ## Using islands
 You can drop islands into your content or layouts wherever interactivity is needed.

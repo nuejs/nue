@@ -1,6 +1,7 @@
 
 # Directory structure
-The directory structure defines how you organize CSS files—and other assets—based on your application’s needs. It separates content, styles, and scripts into clear roles, making sites predictable and maintainable. Pairing folders with cascade layers builds a system that scales effortlessly, leveraging Nue’s automatic asset handling.
+The directory structure lets you organize CSS files according to your project's requirements. By combining folders with cascade layers, you create a scalable system that simplifies style management, with Nue automatically handling CSS imports.
+
 
 ### Small applications
 For small apps, a flat structure keeps everything simple yet organized:

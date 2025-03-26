@@ -1,8 +1,9 @@
 
 # The view layer
-Nue’s view layer focuses solely on presenting interfaces, echoing React 1.0’s simplicity but built on semantic HTML instead of JavaScript-heavy patterns. Business logic stays in the model, and a lightweight scripting layer handles re-rendering—listening to user actions or model updates to adjust the DOM. Views exclude `<style>` tags by design, leaving styling to your design system. This enforces a single job: transforming data into clean, standard markup.
+In Nue, complex apps are built with clean, semantic HTML. The view layer handles interfaces with light scripting, while styling is offloaded to an external design system.
 
-## Clean, semantic templates
+
+## Clean HTML templating
 With logic in the model, views become pure templates:
 
 ```html
