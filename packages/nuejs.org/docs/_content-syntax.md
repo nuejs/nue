@@ -69,7 +69,7 @@ In Nue, the focus is on **pure content** — free from HTML markup. This ensures
 Instead of embedding HTML, Nue provides powerful Markdown extensions like **blocks**, which let you create rich, styled content while keeping the content layer pure.
 
 
-### Extra formatting optionms
+### Extra formatting options
 Nue provides a variety of formatting options beyond standard Markdown, giving you more control over how text appears on the page. Here’s a comparison between the Markdown syntax and the corresponding HTML output:
 
 

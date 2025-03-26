@@ -139,4 +139,3 @@ Second, Bun shares the exact same core philosophies as Nue: minimalism and stand
 Third, Bun delivers consistently better performance across all operations — typically 20% to 100% faster than Node.js alternatives. This transforms development workflows, particularly with test suites that snap to completion using Bun's built-in Jest interface.
 
 While Nue maintains Node.js support for broader compatibility, certain optimizations like minification revert to simple file copying. Everything still works in Node.js, but the Bun experience represents Nue's ideal development environment: minimal, standards-focused, and blazingly fast.
-

@@ -36,5 +36,3 @@ Nue simplifies design engineering as follows:
 This documentation provides a solid starting point for systematic design with CSS, but mastering it takes practice. To help bridge that gap, Nue is developing templates for single-page applications and content-heavy websites. These templates draw on over 20 years of experience in vanilla CSS design and JavaScript frontend engineering. They offer pre-built examples of design systems — complete with variables, layers, and components — tailored to different use cases.
 
 If you’d like to know when these templates are available, join the mailing list for a notification.
-
-

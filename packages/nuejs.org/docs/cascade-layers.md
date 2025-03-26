@@ -143,5 +143,3 @@ This is for rare, forceful overrides — use sparingly.
 ```
 
 **Use-case**: A CMS-driven site uses `.is-hidden` to hide elements dynamically and `.force-center` to fix misaligned text in third-party widgets, keeping overrides minimal.
-
-

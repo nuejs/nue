@@ -1,4 +1,3 @@
-
 ---
 title: Large-scale apps lighter than a React button
 description: Nue is HTML, CSS, and JavaScript taken to their absolute peak.
@@ -43,5 +42,3 @@ Nue is a wake-up call for design engineers bogged down by React patterns instead
 
 ### For UX engineers
 Nue is a wake-up call for UX engineers tangled in React hooks and utility walls instead of owning the user experience. Build apps as light as a React button to push the web — and your skills — forward.
-
-

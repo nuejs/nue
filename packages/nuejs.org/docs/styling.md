@@ -170,6 +170,3 @@ Alternatively, you can manually define section breaks using three dashes `---` i
 To maintain design consistency across multiple pages, you can reuse the same section classes (like `.hero` or `.features`) on different pages. This ensures that similar content follows the same design patterns without needing to rewrite CSS for every page.
 
 By consolidating section styles, your CSS remains clean and modular, ensuring consistency across your entire site while simplifying maintenance.
-
-
-

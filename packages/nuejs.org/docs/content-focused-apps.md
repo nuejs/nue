@@ -4,7 +4,7 @@ Web apps and sites have different goals. Apps handle data and complex logic, oft
 
 
 ## Content first
-Nue’s content-focused websites are driven by a unique Markdown dialect, designed to empower non-technical users — marketers, bloggers, and writers — to create and scale content independently. Even the richest of pages, that typilcally takes thousands of lines of TypeScript/TSX can now be assembled with Markdown-based content.
+Nue’s content-focused websites are driven by a unique Markdown dialect, designed to empower non-technical users — marketers, bloggers, and writers — to create and scale content independently. Even the richest of pages, that typically takes thousands of lines of TypeScript/TSX can now be assembled with Markdown-based content.
 
 For example, a developer might define a `[bento-grid]` tag to render a dynamic grid layout. Non-technical users can then use it in Markdown like this:
 

@@ -33,7 +33,7 @@ addEventListener('click', event => {
 The menu works without JavaScript — clicking links navigates normally — but the script improves usability by auto-closing, showcasing progressive enhancement with minimal code.
 
 ## View transitions
-Enable [view transitions](view-transitions.html) in `site.yaml`, and pages load once, with JavaScript updating content like turbolinking. Re-run scripts on virtual page loads:
+Enable [view transitions](view-transitions.html) in `site.yaml`, and pages load once, with JavaScript updating content like turbo-linking. Re-run scripts on virtual page loads:
 
 ```js
 addEventListener('route', function() {

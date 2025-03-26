@@ -1,6 +1,6 @@
 
 # Technical details
-Nuue consists of four projects within Nue [monorepo](//github.com/nuejs/nue/) as follows:
+Nue consists of four projects within Nue [monorepo](//github.com/nuejs/nue/) as follows:
 
 ## Nuekit
 Nuekit (or simply "Nue") is a standards-first web framework providing:
@@ -94,6 +94,3 @@ For production, Nue:
 - Minifies CSS and JavaScript
 - Generates static files
 - Enables production preview through server
-
-
-

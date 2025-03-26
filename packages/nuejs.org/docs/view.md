@@ -114,5 +114,3 @@ Use clear, consistent names:
 3. **Kebab-case**: Match filenames to component names (e.g., `user-list.dhtml`).
 
 This aids discovery and routing, keeping the view layer organized.
-
-

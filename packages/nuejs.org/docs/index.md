@@ -54,4 +54,3 @@ Nue is an ambitious project that reshapes the entire frontend ecosystem:
 Find answers to common questions in our [FAQ](faq.html).
 
 Please see how our [vision](/vision/) unfolds.
-

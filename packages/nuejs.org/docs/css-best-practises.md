@@ -6,7 +6,7 @@ These practises turn CSS into a powerful tool for design systems, emphasizing we
 These foundational rules shape how you write HTML and CSS to keep your design system lean and effective.
 
 ### Use semantic HTML
-Start with clean, meaningful HTML to reduce reliance on complex CSS. Semantic elements like `<details>` or `<h3>` carry built-in behavior and accessibility, cutting down on custom components. Aim for under 30 components total — more suggests you’re overcomplicating things.
+Start with clean, meaningful HTML to reduce reliance on complex CSS. Semantic elements like `<details>` or `<h3>` carry built-in behavior and accessibility, cutting down on custom components. Aim for under 30 components total — more suggests you’re over-complicating things.
 
 ```html
 <!-- Good: Simple, semantic -->
@@ -29,7 +29,7 @@ This keeps markup minimal, boosts SEO, and aligns styles with structure naturall
 Keep styling out of markup to maintain flexibility. Avoid inline `style` attributes or utility classes that tie design to HTML — they make updates a chore and clash with design system goals.
 
 ```html
-<!-- Bad: tigtly coupled stylng -->
+<!-- Bad: tightly coupled styling -->
 <div class="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-lg">
   <h3 class="text-xl">ChitChat</h3>
   <p class="text-slate-500">New message</p>
@@ -41,7 +41,7 @@ Keep styling out of markup to maintain flexibility. Avoid inline `style` attribu
   <p>New message</p>
 </div>
 ```
-External classes like `notification` and `card` let the design system evolve without touching HTML, enabling tweaks or full rethemes via CSS alone.
+External classes like `notification` and `card` let the design system evolve without touching HTML, enabling tweaks or full re-themes via CSS alone.
 
 
 ### Scope modifiers to components

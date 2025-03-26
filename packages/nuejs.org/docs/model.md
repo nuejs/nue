@@ -142,11 +142,10 @@ Rust handles computation; JS keeps the API clean. Use types at boundaries for sa
 
 
 ### Event sourcing
-Typically, web apps fetch data on demand via REST or GraphQL, but event sourcing flips this: it loads all relevant data into memory upfront, treating it as a sequence of immutable events. Combined with Rust and WebAssembly, this makes operations like searches and filters instant — no server roundtrips after the initial load. Our demo (mpa.nuejs.org) shows this with 10,000+ records, cached immutably via HTTP, enabling real-time responsiveness.
+Typically, web apps fetch data on demand via REST or GraphQL, but event sourcing flips this: it loads all relevant data into memory upfront, treating it as a sequence of immutable events. Combined with Rust and WebAssembly, this makes operations like searches and filters instant — no server round-trips after the initial load. Our demo (mpa.nuejs.org) shows this with 10,000+ records, cached immutably via HTTP, enabling real-time responsiveness.
 
 This pattern shines in SPAs like:
 - **CRM**: Rebuild customer profiles from interaction events.
 - **Messaging**: Support local search and offline access with message events.
 
 JavaScript struggles with thousands of records, but Rust manages tens of thousands efficiently. Nue's extremely light footprint leaves more memory for this data-driven approach, making it a practical choice for ambitious applications.
-

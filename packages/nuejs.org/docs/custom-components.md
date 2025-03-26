@@ -396,7 +396,7 @@ Here’s the source code for the gallery component:
 Inside the component, all control flow operations, such as loops and conditionals, are reactive — they respond to user events and re-render based on the new state. Here, we have a numeric state variable `index`, which updates as the user clicks the navigational elements, automatically changing the displayed image accordingly.
 
 ## Event handlers
-In Nue, attributes starting with the `@` symbol define event handlers. These handlers are JavaScript functions that respond to user interactions, such as clicks, keypresses, or mouse movements.
+In Nue, attributes starting with the `@` symbol define event handlers. These handlers are JavaScript functions that respond to user interactions, such as clicks, key-presses, or mouse movements.
 
 ### Inline handlers
 Inline handlers are defined directly within the attribute:

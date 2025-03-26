@@ -9,11 +9,11 @@ It is based on the following foundations:
 
 1. **Standards first**: Browsers have evolved significantly in the past decade. By working with the standards rather than against them, we create better products with less code.
 
-1. **HTML first**: semantic HTML is the foundation for everything: layouts, server components, and interactive islands. The same syntax and mental model is better for developers, search engines, and screen readers.
+2. **HTML first**: semantic HTML is the foundation for everything: layouts, server components, and interactive islands. The same syntax and mental model is better for developers, search engines, and screen readers.
 
-1. **Content first**: Rich Markdown syntax handles everything from marketing to documentation. Content lives in clean, accessible files — not in JavaScript.
+3. **Content first**: Rich Markdown syntax handles everything from marketing to documentation. Content lives in clean, accessible files — not in JavaScript.
 
-1. **Design systems**: modern, systematic CSS is more powerful than you think. Learn to build design systems, and you'll get better interfaces with less code.
+4. **Design systems**: modern, systematic CSS is more powerful than you think. Learn to build design systems, and you'll get better interfaces with less code.
 
 Here's what this enables:
 
@@ -21,7 +21,7 @@ Here's what this enables:
 
 2. **Cleaner code**: No TypeScript imports, no utility classes, no state management complexity. Just clean, minimalistic code that naturally separates content, structure, and styling.
 
-1. **Faster pages**: The fastest page load is one that requires just a single request. No framework initialization, no cumulative layout shifts, no waiting for JavaScript. When content and styling arrive together, pages simply appear.
+3. **Faster pages**: The fastest page load is one that requires just a single request. No framework initialization, no cumulative layout shifts, no waiting for JavaScript. When content and styling arrive together, pages simply appear.
 
 
 [Learn how Nue works →](https://nuejs.org/docs/)

@@ -47,4 +47,3 @@ This structure ensures each aspect of the app — logic, presentation, and behav
 
 ### Templates
 Nue’s SPA demo (accessible at [mpa.nuejs.org](//mpa.nuejs.org/)\) showcases how models, views, and controllers work together in a single-page application. However, Nue remains in active development, tailored for early adopters seeking better ways to build. We’re currently creating templates that span the full frontend spectrum: standards-first UI libraries, SPAs, and content-rich MPAs, all integrated with a design system of your choice. To stay updated on their release, join our mailing list for a notification.
-

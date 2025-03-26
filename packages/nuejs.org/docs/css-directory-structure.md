@@ -121,4 +121,3 @@ marketing/
 ```
 
 Here, styles stay branded and focused, tailored to marketing needs without affecting the broader site.
-

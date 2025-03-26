@@ -127,4 +127,3 @@ I have no trouble completing this. As an independent developer I have time, and 
 However, I'm increasingly thinking about external guidance, and possibly investment. An ambitious project like this might benefit from someone who shares the same level of commitment. This could help me maintain deep focus on design engineering, while someone else could deal with the growing community. I'm notoriously bad at keeping in contact with people. Like Mies said: "Build, don't talk."
 
 Still, I would love to discuss the bigger picture with someone who gets it. It's lonely sometimes. If you feel drawn to this vision (or know someone who might be), reach out at tipiirai@gmail.com. I'm still in the thinking phase with no commitments. Getting the fundamentals right is more important than moving fast.
-
