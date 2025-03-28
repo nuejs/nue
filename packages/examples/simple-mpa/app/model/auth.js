@@ -3,7 +3,7 @@
 const is_live = location.hostname.endsWith('nuejs.org')
 
 export async function fetchWithAuth(path, as_text) {
-  const { sid } = sessionStorage
+  const { sid } = localStorage
   if (!sid) throw new Error('No active session')
 
   const res = await fetch('/app/mocks/' + path, {

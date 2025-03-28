@@ -1,11 +1,9 @@
 body > header {
-  margin-bottom: 8%;
+  margin-bottom: 9%;
 }
 
 article > section {
   margin-bottom: calc(5rem + 5vw);
-
-  &:not(.hero) { margin-left: var(--home-indent) }
 
   &:last-child {
     margin-bottom: 0;
@@ -48,14 +46,14 @@ article > section {
       transform: scale(1.0025);
     }
   }
-
-  figcaption {
-    margin-top: 1em;
-    line-height: 1.5;
-    max-width: 26em;
-  }
 }
 
+.hero {
+
+  [role=button] {
+    font-size: 1.05em;
+  }
+}
 
 
 .quote {

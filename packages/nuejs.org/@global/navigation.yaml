@@ -8,7 +8,7 @@ globalnav:
     - Blog: /blog/
     - Vision: /vision/
     - url: /blog/large-scale-apps/
-      label: "*NEW* Large-scale apps ›"
+      label: "*NEW* Breaking the limits of Web ›"
       class: news pill
 
 
@@ -27,8 +27,8 @@ globalnav:
 
   # footer
   footer:
-    - Problem: /docs/
-    - Solution: /docs/solution.html
+    - Why Nue: /docs/
+    - FAQ: /docs/faq.html
     - Blog: /blog/
     - Vision: /vision/
 

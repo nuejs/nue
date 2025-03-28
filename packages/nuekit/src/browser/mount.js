@@ -25,10 +25,11 @@ async function importAll(hmr_path) {
 }
 
 export async function mount(name, wrap, data) {
-  const { createApp } = await import('./nue.js')
   const lib = await importAll()
   const comp = lib.find(el => el.name == name)
   if (!comp) return
+
+  const { createApp } = await import('./nue.js')
   const app = createApp(comp, data, lib).mount(wrap)
   app.root.setAttribute('custom', name)
   return app

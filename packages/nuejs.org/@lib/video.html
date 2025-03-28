@@ -12,5 +12,11 @@
     <markdown :content="caption"/>
   </figcaption>
 
+  <script>
+    constructor(args) {
+      const { width, style } = args
+      if (width && !style) this.style = `max-width: ${width}px`
+    }
+  </script>
 
 </div>

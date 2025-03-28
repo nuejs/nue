@@ -1,4 +1,8 @@
 
+---
+include: [video-toggler]
+---
+
 #### Why Nue
 # Apps lighter than a React button
 Nue is a standards-first framework that pushes HTML, CSS, JavaScript, and WASM to their limits. It helps you achieve more with significantly less code:
@@ -10,36 +14,51 @@ Nue is a standards-first framework that pushes HTML, CSS, JavaScript, and WASM t
 
 See benchmark and details [here](react-button-vs-nue.html).
 
+
 ## Extreme performance with Rust and WASM
+<<<<<<< HEAD
 Nue apps use a separated model layer to shatter the limits of traditional frameworks. This demo uses **Rust** for instant keypress search across 150,000 records — far beyond where JavaScript hits a callstack overflow.
+=======
+The following demo uses **Rust** and **Event Sourcing** for instant keypress search over 150,000 — far beyond where JavaScript (and React) will crash with a stack overflow error:
+>>>>>>> 182132b (Release coming closer...)
 
-[image]
-  small: /img/rust-search.webp
-  large: /img/rust-search-big.webp
-  href: https://mpa.nuejs.org/app/?rust
-  caption: "[Launch Rust demo ›](https://mpa.nuejs.org/app/?rust)"
-  size: 1028 × 433
+[bunny-video]
+  videoId: eb65fcdd-5be4-4923-a783-f41efafe58a7
+  caption: Instant operations across 150.000 records with Rust/WASM
+  poster: thumbnail_071249a3.jpg
 
-## New levels of HMR and tooling performance
-Nue outperforms today’s frameworks across every key metric: project size, build times, HMR speed, codebase size, and bundle sizes.
 
-! [Video: HMR]
+Nue apps use a separated model layer to shatter the limits of traditional frameworks
 
-Build times consistently run in milliseconds, even for large-scale apps, delivering orders of magnitude boosts over traditional tools:
+[Launch Rust demo ›](https://mpa.nuejs.org/app/?rust)
 
-! [Video: Build times]
+
+
+## Millisecond HMR and build speeds
+Nue outperforms today’s frameworks across every key metric: bundle sizes, amount code needed, HMR speed, and build times.
+
+[bunny-video]
+  videoId: ffbb6d40-5b74-4176-a115-d0ed040edca5
+  caption: Immediate feedback for design and component updates, preserving app state
+  // poster: thumbnail_1ca1bd66.jpg
+
+Build times consistently run in milliseconds, even for large-scale apps, delivering orders of magnitude boosts over traditional tools. Here's how our demo is built and optimized for production:
+
+[video /img/mpa-build.mp4 autoplay loop muted width=350]
+
+
 
 
 
 ## What this means
 
-### Performance engineering
-Nue brings back the good practices of software engineering: simple, testable functions, modular design, minimal dependencies, and a model-first approach. It’s perfect for JS/TS/Rust/Go engineers who value classic algorithms and data structures over odd React idioms. You can build products with new levels of performance and clarity.
+### For software architects
+Nue brings back the good practices of software engineering: simple, testable functions, modular design, minimal dependencies, and a arcutecture-first approach. Build computation engines with the language of your choice (JavaScript, Rust, Go, or TypeScript) and reach new levels of performance and architectural clarity. Nue is for developers who wish to bulid on classic algorithms and data structures over React idioms.
 
-### Design engineering
+### For design engineers
 Building a new theme shouldn’t require [40,000+ lines of TSX][new_york]. Instead, you’ll craft a design system with modern CSS using @layers, variables, and calc(). You shift from React engineering to design engineering and start thinking about design topics like typographic scales and whitespace consistency.
 
-### UX engineering
+### For UX engineers
 Imagine building entire applications with the same code footprint as a single React button, focusing solely on the user experience. Nue is the easiest way to build large-scale applications that push the web (and your skills) forward.
 
 

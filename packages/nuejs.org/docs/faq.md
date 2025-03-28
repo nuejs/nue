@@ -119,7 +119,7 @@ Nue's extended Markdown takes this separation further. Your content lives in cle
 This clean separation between content and presentation is fundamental to scalable websites. Markdown isn't competing with web standards — it complements them by keeping content independent from presentation. It's a timeless skill that will serve you well regardless of how frontend frameworks evolve.
 
 
-## Do you mean my React app just technical debt then?
+## Do you mean my React app is just technical debt then?
 Not so fast. Your React skills will be valuable for years to come, just like with jQuery or Angular the patterns remained for years, and the React ecosystem will follow a similar gradual transition.
 
 But yes, technical debt might become a concern in the long run. The React monolith keeps growing more complex while web standards become more powerful. Teams are maintaining thousands of dependencies and complex build pipelines to achieve what browsers can now do natively. This gap between framework complexity and platform capabilities will continue to widen.

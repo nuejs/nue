@@ -13,12 +13,18 @@ router.configure({
 })
 
 // setup login screen
-addEventListener('route:app', async function() {
+addEventListener('route:app', async () => {
   if (model.authenticated) {
     await model.initialize()
   } else {
     mount('login-screen', window.login)
   }
+})
+
+// disable CSS transition distractions when hot-reloaded
+addEventListener('hmr', () => {
+  app.classList.add('hmr')
+  setTimeout(() => app.classList.remove('hmr'), 100)
 })
 
 model.on('authenticated', async () => {

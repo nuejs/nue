@@ -7,7 +7,7 @@ Take HTML, CSS, JS, and WASM to their bsolute peak
 
 
 [button.primary href="/app/"]
-  Launch local demo [icon symbol="chevron-right-symbol"]
+  Launch demo [icon symbol="chevron-right-symbol"]
 
 [button href="https://nuejs.org/docs/"]
   How it works [icon symbol="chevron-right-symbol"]

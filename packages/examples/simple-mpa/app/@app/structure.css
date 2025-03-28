@@ -6,23 +6,15 @@
   }
 
   .app {
-    display: flex;
     gap: 1em;
+    display: flex;
 
-    .logo { width: 1.75em }
-
-    .nav-panel {
-      min-width: 16em;
-    }
-
-    .content-panel {
-      flex-grow: 1;
-    }
-
-    .details-panel {
-      width: 28em;
-    }
+    /* wide-screen panel dimensions */
+    .nav-panel      { min-width: 16em }
+    .content-panel  { flex-grow: 1 }
+    .details-panel  { width: 28em }
   }
+
 }
 
 

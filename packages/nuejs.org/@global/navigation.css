@@ -49,15 +49,16 @@ body > header {
     transform: scale(1.03);
   }
 
-  .social {
-    background: url(/icon/twitter.svg) left no-repeat;
+  .slack {
+    background: url(/icon/slack.svg) left no-repeat;
     background-size: 1.2em;
-    padding-left: 1.4rem;
-    color: var(--gray-800);
+    padding-left: 1.3rem;
+    color: var(--gray-700);
 
     &:hover {
-      transform: scale(1.005);
-      color: black;
+      text-decoration-color: var(--gray-400) !important;
+      text-decoration: underline;
+      color: var(--gray-900);
     }
   }
 

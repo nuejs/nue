@@ -28,10 +28,12 @@
       width: min(20em, 100vw);
       position: absolute;
       padding: 0 1em 1em .5em;
-      z-index: 1;
+      transition: left .25s;
       left: -30em;
+      z-index: 1;
 
       &[aria-visible] {
+        box-shadow: 0 0 0 99em rgba(0,0,0,.4);
         left: 0;
       }
     }

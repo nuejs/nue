@@ -21,7 +21,7 @@
     <search-input/>
 
     <nav>
-      <a :for="el, i in config.views" href="/app/{ el.type }/"
+      <a :for="el, i in config.views" href="/app/{ el.type }{ el.type ? '/' : '' }"
         :data-accesskey="i + 1" :title="el.title">
 
         <icon :key="el.icon || el.type"/>{ el.title }</a>

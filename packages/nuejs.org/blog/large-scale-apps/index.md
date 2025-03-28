@@ -1,14 +1,18 @@
 ---
 title: Large-scale apps lighter than a React button
 description: Nue is HTML, CSS, and JavaScript taken to their absolute peak.
+cta: One by one, we're going to showcase the absurd scale of the frontend bloat.
 date: 2025-03-30
 ---
 
 Let’s see what you can do by taking the modern web standards — HTML, CSS, and JS — to their absolute peak:
 
-[video]
+[bunny-video]
+  videoId: 39b76cca-e55b-4e9b-8583-b053f9dbd55d
+  poster: thumbnail_70d8de32.jpg
 
-This large-scale application, with all the necessary features, is significantly lighter than a single React button:
+
+The entire app is significantly lighter than a React button:
 
 
 [image]
@@ -17,17 +21,31 @@ This large-scale application, with all the necessary features, is significantly 
   class: tall
   caption: See benchmark and details [here ›](/docs/react-button-vs-nue.html)
 
+
+## Scaling up
 Here’s the same app, now with a **Rust** computation engine and **Event Sourcing** for instant search and other operations over **150,000** records — far past where JavaScript (and React) would crash with a stack overflow error:
 
-[video]
-  Keypress search through 10k records in 2ms
+[bunny-video]
+  videoId: eb65fcdd-5be4-4923-a783-f41efafe58a7
+  caption: Instant operations across 150.000 records with Rust/WASM
+  poster: thumbnail_071249a3.jpg
 
-Let’s take a look under the hood:
 
-[video]
-  caption: Instant HMR for design and component updates, preserving app state.
+## Tooling
+Nue crushes HMR and build speed records and sets you up with a millisecond feedback loop for your day-to-day VSCode/Sublime file-save operations:
 
+[bunny-video]
+  videoId: ffbb6d40-5b74-4176-a115-d0ed040edca5
+  caption: Immediate feedback for design and component updates, preserving app state
+  // poster: thumbnail_1ca1bd66.jpg
+
+
+[video /img/mpa-build.mp4 autoplay loop muted width=350]
+
+<<<<<<< HEAD
 Nue shatters the limits of frontend tooling: HMR hits instantly, build times take milliseconds — even for large apps. This immediate feedback loop boosts day-to-day experience and productivity.
+=======
+>>>>>>> 182132b (Release coming closer...)
 
 &nbsp;
 

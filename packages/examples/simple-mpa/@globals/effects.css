@@ -20,7 +20,7 @@
     }
   }
 
-  .appears {
+  main:not(.hmr) .appears {
     opacity: 1;
     transition: opacity .75s;
     transition-delay: calc(.015s * var(--delay));

@@ -1,6 +1,6 @@
 ---
-sections: [hero, clean-slate, rebirth ]
 include: [form, video]
+sections: [hero]
 inline_css: true
 appdir: home
 ---
@@ -13,13 +13,14 @@ Take HTML, CSS, JS, and WASM to their absolute peak
 [button.secondary "Get started →" href="/docs/installation.html"]
 
 
-[image]
-  small: /img/rust-search.webp
-  large: /img/rust-search-big.webp
-  href: https://mpa.nuejs.org/app/?rust
-  size: 1028 × 433
-  caption: Using **Rust** and **Event Sourcing** for instant UX over 150,000 records — far past where JavaScript crashes with a stack overflow error. [Open this demo ›](https://mpa.nuejs.org/app/?rust)
+[bunny-video]
+  videoId: eb65fcdd-5be4-4923-a783-f41efafe58a7
+  caption: Using **Rust** and **Event Sourcing** for instant UX over 150,000 records—far past where JavaScript crashes with a stack overflow error.
+  width: 1000
+  height: 620
+  poster: thumbnail_071249a3.jpg
 
+[Launch Rust demo ›](https://mpa.nuejs.org/app/?rust)
 
 ----
 ## Large-scale apps lighter than a React button
@@ -35,17 +36,23 @@ See benchmark and details [here ›](/docs/react-button-vs-nue.html)
 
 
 ----
-## Orders of magnitude faster
-Crush the limits with ~10ms build times and instant HMR
+## Crush HMR and build speed records
+Set up millisecond feedback loop to your development cycle
 
-[video]
-  HMR
-  caption: Immediate feedback for design and component updates, preserving app state.
+
+[bunny-video]
+  videoId: ffbb6d40-5b74-4176-a115-d0ed040edca5
+  caption: Immediate feedback for design and component updates, preserving app state
+  width: 1000
+  height: 630
+  // poster: thumbnail_1ca1bd66.jpg
+
+[video /img/mpa-build.mp4 autoplay loop muted width=350]
 
 
 ----
 ## A radically simpler stack
-We are rebuilding the entire ecosystem from scratch:
+We are building a new frontend ecosystem from scratch:
 
 [See the vision ›](/vision/)
 

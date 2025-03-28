@@ -178,7 +178,8 @@ export async function createKit(args) {
       bundle
     })
 
-    log(path)
+    if (is_dev) log(path)
+
 
     return { bundle }
   }
@@ -268,12 +269,12 @@ export async function createKit(args) {
 
   // collect data
   const DESC = {
-    style: 'Processing styles',
-    scripts: 'Building scripts',
-    islands: 'Transpiling components',
-    pages: 'Generating pages',
-    media: 'Copying static files',
-    spa: 'Single-page apps'
+    style: 'Processing CSS',
+    scripts: 'Processing JS',
+    islands: 'Reactive components',
+    pages: 'Markdown content',
+    spa: 'SPA entry points',
+    media: 'Static files',
   }
 
   // build all / given matches
@@ -299,12 +300,12 @@ export async function createKit(args) {
     for (const key in cats) {
       const paths = cats[key]
       const len = paths.length
+      let start = Date.now()
       if (len) {
-        console.log('')
         log(DESC[key], len)
         for (const path of paths) {
           if (!dryrun) await gen(path, true)
-          console.log('  ', colors.gray(path))
+          if (args.verbose) console.log('  ', colors.gray(path))
         }
       }
     }

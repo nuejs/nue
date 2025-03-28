@@ -70,18 +70,18 @@ export const model = {
   // authentication API
 
   get authenticated() {
-    return !!sessionStorage.sid
+    return !!localStorage.sid
   },
 
   async login(email, password) {
     const { sessionId, user } = await login(email, password)
-    sessionStorage.sid = sessionId
+    localStorage.sid = sessionId
     model.user = user
     emit('authenticated', user)
   },
 
   logout() {
-    delete sessionStorage.sid
+    delete localStorage.sid
     delete model.user
     emit('logout')
   },

@@ -1,10 +1,11 @@
+
 @layer components {
 
   .table-view { container-type: size }
 
   .table-view .list-item {
     display: grid;
-    grid-template-columns: minmax(16em, auto) minmax(20em, 1fr) auto auto auto;
+    grid-template-columns: minmax(16em, auto) minmax(10em, 1fr) auto auto auto;
     grid-template-areas: "header message type meta time";
     align-items: center;
     padding: .5em 1em;
@@ -21,7 +22,7 @@
 
     blockquote {
       grid-area: message;
-      --line-clamp: 2;
+      --line-clamp: 3;
     }
 
     @container (width < 900px) {

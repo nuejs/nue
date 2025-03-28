@@ -67,15 +67,13 @@ export function createServer(root, callback) {
 
 export function send(data) {
   sessions = sessions.filter((session, i) => {
-    session.write(`data:${JSON.stringify(data)}\n\n`)
 
-    // Bun (v1.0.11) needs an extra call to bring the channel up
-    if (process.isBun && !session.alive) {
-      session.write(`data:{"ping":true}\n\n`)
-      session.alive = true
+    try {
+      session.write(`data:${JSON.stringify(data)}\n\n`)
+      return i < 5 // max browsers to notify: 5
+
+    } catch(e) {
+      return false
     }
-
-    // filter out dead sessions. max sessions = 5
-    return session.writable && i < 5
   })
 }

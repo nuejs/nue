@@ -1,15 +1,23 @@
 
 .video {
   border-radius: 4px;
-  display: inline-block;
   position: relative;
-  margin: .5em 0;
+  display: block;
+  margin: 1.5em 0;
   
   video {
     border: var(--border);
     border-radius: 4px;
     max-width: 100%;
     min-width: 100%;
+  }
+
+  figcaption {
+    margin-top: .5em;
+    line-height: 1.6;
+    text-wrap: balance;
+    color: var(--gray-600);
+    max-width: 35em;
   }
 }
   
