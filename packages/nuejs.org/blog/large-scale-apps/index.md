@@ -42,10 +42,6 @@ Nue crushes HMR and build speed records and sets you up with a millisecond feedb
 
 [video /img/mpa-build.mp4 autoplay loop muted width=350]
 
-<<<<<<< HEAD
-Nue shatters the limits of frontend tooling: HMR hits instantly, build times take milliseconds — even for large apps. This immediate feedback loop boosts day-to-day experience and productivity.
-=======
->>>>>>> 182132b (Release coming closer...)
 
 &nbsp;
 

@@ -16,11 +16,7 @@ See benchmark and details [here](react-button-vs-nue.html).
 
 
 ## Extreme performance with Rust and WASM
-<<<<<<< HEAD
-Nue apps use a separated model layer to shatter the limits of traditional frameworks. This demo uses **Rust** for instant keypress search across 150,000 records — far beyond where JavaScript hits a callstack overflow.
-=======
 The following demo uses **Rust** and **Event Sourcing** for instant keypress search over 150,000 — far beyond where JavaScript (and React) will crash with a stack overflow error:
->>>>>>> 182132b (Release coming closer...)
 
 [bunny-video]
   videoId: eb65fcdd-5be4-4923-a783-f41efafe58a7
@@ -45,8 +41,6 @@ Nue outperforms today’s frameworks across every key metric: bundle sizes, amou
 Build times consistently run in milliseconds, even for large-scale apps, delivering orders of magnitude boosts over traditional tools. Here's how our demo is built and optimized for production:
 
 [video /img/mpa-build.mp4 autoplay loop muted width=350]
-
-
 
 
 
