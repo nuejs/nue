@@ -49,8 +49,11 @@ Done! Your browser should now open to: `http://localhost:8083/`:
 - **Node.js 20.8** or later, if you prefer not using Bun.
 
 
-### Windows support
-Our Windows tests pass, the support is uncertain. Nobody on our team uses it actively.
+### Known issues
+
+- **Windows support** Windows tests pass, but support remains uncertain. Currently, no team member uses Windows.
+
+- **Reactive components** Reactive components start to struggle with complex nested loops and conditionals.
 
 
 ### Having Problems?

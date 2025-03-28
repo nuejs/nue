@@ -4,14 +4,19 @@ beside: false
 
 # FAQ
 
+
+## What is Nue?
+Nue is a web framework focused on web standards, currently in active development. Our goal is to expose the hidden complexity that's become standard in modern web development. When a single button weighs more than an entire application, something is undeniably broken.
+
+Nue makes the inevitable shift. We're rebuilding the entire ecosystem from scratch, with a cleaner, more efficient architecture. We're restoring the joy of web development for all key skillsets: frontend architects, design engineers, and UX engineers.
+
+
 ## We've spent years investing in React. Isn't this throwing away our expertise?
-React has pushed millions of developers to think deeply about user interfaces and application architecture. That knowledge is valuable. But ask yourself: how much of your time is spent wrestling with React-specific patterns versus spending time on topics that genuinely interests you?
+React has pushed millions of developers to think deeply about user interfaces and application architecture. That knowledge is valuable. But ask yourself: how much of your time is spent wrestling with React-specific patterns versus spending time on issues that matter?
 
-The beauty of standards-first development is that it lets you go deeper into what actually excites you. If you love solving complex system challenges, you can focus purely on that — perhaps even diving into Rust and WebAssembly for high-performance computation. If you're drawn to design, you can master the mathematical precision that makes interfaces feel commanding. If you love crafting seamless user experiences, you can work directly with the platform's powerful capabilities.
+The beauty of standards-first development is that it lets you go deeper into what makes great software. If you love solving complex system challenges, you can focus purely on that — perhaps even diving into Rust for high-performance parts. If you're drawn to design, you can master the systematic precision that makes or breaks interfaces. If you love UX development, you can assemble interfaces directly with HTML without distractions.
 
-Instead of being a "React developer" juggling dozens of framework-specific patterns, you can become a true master of your craft. Your React experience gives you a strong foundation in thinking about interfaces and architecture. Now you can build on that foundation to develop deeper expertise in the areas that genuinely interest you.
-
-Perhaps explore Nue alongside your React work. Build something small first. You'll find that working directly with web standards not only makes development faster, but helps you learn how the web actually works.
+Instead of being a "React developer" juggling dozens of framework-specific patterns, you can become a true master of your craft. Perhaps try Nue alongside your React work. Build something small first. You'll find that working directly with web standards not only makes development faster, but helps you learn how the web actually works.
 
 
 ## Components naturally group related code together — why break that?

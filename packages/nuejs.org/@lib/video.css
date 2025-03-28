@@ -21,8 +21,22 @@
   }
 }
   
-.play {
+.fullscreen {
+  background: rgba(0,0,0, .3) url(/icon/maximize.svg) 57% 50% no-repeat;
+  background-size: 1.25em;
+  position: absolute;
+  height: 1.5em;
+  padding: 1em;
+  width: 1.5em;
+  right: .5em;
+  top: .5em;
 
+  &:hover {
+    background-color: var(--gray-900);
+  }
+}
+
+.play {
   background: rgba(0,0,0, .7) url(/icon/play.svg) 57% 50% no-repeat;
   transform: translate(-50%, -50%);
   border: 3px solid white;
@@ -30,6 +44,7 @@
   border-radius: 99em;
   position: absolute;
   cursor: pointer;
+  display: none;
   height: 4.2em;
   width: 4.2em;
   left: 50%;
@@ -44,7 +59,7 @@
     top: 45.2%;
   }
 
-  .playing & {
-    display: none
+  .paused & {
+    display: inline-block
   }
 }

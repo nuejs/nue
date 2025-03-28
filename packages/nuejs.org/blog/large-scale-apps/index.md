@@ -1,11 +1,10 @@
 ---
 title: Large-scale apps lighter than a React button
 description: Nue is HTML, CSS, and JavaScript taken to their absolute peak.
-cta: One by one, we're going to showcase the absurd scale of the frontend bloat.
 date: 2025-03-30
 ---
 
-Let’s see what you can do by taking the modern web standards — HTML, CSS, and JS — to their absolute peak:
+On this release we're showing what you can do by taking the modern web standards — HTML, CSS, and JS — to their absolute peak:
 
 [bunny-video]
   videoId: 39b76cca-e55b-4e9b-8583-b053f9dbd55d
@@ -19,7 +18,9 @@ The entire app is significantly lighter than a React button:
   small: /img/react-button-vs-nue-spa.png
   large: /img/react-button-vs-nue-spa-big.png
   class: tall
-  caption: See benchmark and details [here ›](/docs/react-button-vs-nue.html)
+
+
+See benchmark and details [here ›](/docs/react-button-vs-nue.html)
 
 
 ## Scaling up
@@ -28,7 +29,7 @@ Here’s the same app, now with a **Rust** computation engine and **Event Sourci
 [bunny-video]
   videoId: eb65fcdd-5be4-4923-a783-f41efafe58a7
   caption: Instant operations across 150.000 records with Rust/WASM
-  poster: thumbnail_071249a3.jpg
+  poster: /img/rust-splash.png
 
 
 ## Tooling
@@ -56,3 +57,9 @@ Nue is a wake-up call for design engineers bogged down by React patterns instead
 
 ### For UX engineers
 Nue is a wake-up call for UX engineers tangled in React hooks and utility walls instead of owning the user experience. Build apps as light as a React button to push the web — and your skills — forward.
+
+
+## FAQ: WTH is Nue?
+Nue is a web framework focused on web standards, currently in active development. Our goal is to expose the hidden complexity that's become standard in modern web development. When a single button weighs more than an entire application, something is undeniably broken.
+
+Nue makes the inevitable shift. We're rebuilding the entire ecosystem from scratch, with a cleaner, more efficient architecture. We're restoring the joy of web development for all key skillsets: frontend architects, design engineers, and UX engineers.

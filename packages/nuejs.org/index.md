@@ -18,7 +18,7 @@ Take HTML, CSS, JS, and WASM to their absolute peak
   caption: Using **Rust** and **Event Sourcing** for instant UX over 150,000 records—far past where JavaScript crashes with a stack overflow error.
   width: 1000
   height: 620
-  poster: thumbnail_071249a3.jpg
+  poster: /img/rust-splash.png
 
 [Launch Rust demo ›](https://mpa.nuejs.org/app/?rust)
 
@@ -52,9 +52,9 @@ Set up millisecond feedback loop to your development cycle
 
 ----
 ## A radically simpler stack
-We are building a new frontend ecosystem from scratch:
+We are building the necessary tooling from scratch:
 
-[See the vision ›](/vision/)
+[See how it works ›](/vision/)
 
 [image]
   small: /img/roadmap-2025-2.png
