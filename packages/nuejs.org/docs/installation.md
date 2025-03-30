@@ -44,8 +44,8 @@ Check out the [step-by-step tutorial](tutorial.html) to learn how to build websi
 
 ### System Requirements
 
-- **Bun 1.0.10** or later. Recommended for *macOS* and *Linux*.
-- **Node.js 18.0.2** or later. Recommended for *Windows* or if you prefer not to use Bun.
+- **Bun 1.2** or later. Recommended for *macOS* and *Linux* and *Windows*.
+- **Node.js 20.8** or later, if you prefer not using Bun.
 
 ### No Windows Support
 
