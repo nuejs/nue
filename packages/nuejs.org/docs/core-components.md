@@ -117,6 +117,47 @@ The `<markdown>` component renders a Markdown-formatted string provided in the `
 <markdown :content="description"/>
 ```
 
+## Symbols
+The `<symbols/>` component scans your `.svg` icon files and turns them into SVG `<symbol/>` tags. These symbols are loaded once from the file system and reused across your app—think a “dot” or “search” icon that doesn’t bloat your JS bundle with duplicates. It’s a smart way to keep things lean.
+
+### Basic Usage
+Define a reusable icon component:
+```html
+<svg @name="icon" class="icon {key}-icon">
+  <use href="#{key}-symbol"/>
+</svg>
+```
+
+Then drop it anywhere:
+```html
+<icon key="search"/>
+```
+
+### Setup
+Stick the `<symbols/>` tag in your footer [layout module](layout.html):
+```html
+<symbols dir="app/icon"/>
+```
+
+This reads all `.svg` files from `app/icon/` and outputs:
+```html
+<svg>
+  <symbol id="search-symbol" viewBox="0 0 24 24">
+    <circle cx="11" cy="11" r="8"/>
+    <path d="m21 21-4.3-4.3"/>
+  </symbol>
+  <!-- more symbols from other .svg files -->
+</svg>
+```
+
+### Explicit File Selection
+Want specific icons? List them with a space-separated `files` attribute:
+```html
+<symbols dir="app/icon" files="search dot circle"/>
+```
+
+
+
 ## Pretty-date
 The `<pretty-date>` component displays a formatted date value provided in the `date` attribute. This is particularly useful in blogging areas and helps present dates in a more user-friendly manner:
 

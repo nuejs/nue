@@ -36,10 +36,10 @@ nue build --production
 Production build: [mpa.nuejs.org/app/](//mpa.nuejs.org/app/).
 
 
-Total size: 39kb (includes all code and SVG icons; excludes JSON data and content images).
+Total size: 39kb (includes all code and SVG icons; excludes JSON data and content images). Here are the 10 largest scripts in the app:
 
 [image]
   src: /img/10-largest-scripts.png
-  caption: The 10 largest scripts in the app
 
-Excludes XHR (17kb) and content images (8.5kb). Check developer console for details.
+
+Excludes files you see under the `XHR` tab (17kb) and content images inside the `Img` tab (8.5kb). Check developer console for details.
