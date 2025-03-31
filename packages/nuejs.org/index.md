@@ -23,8 +23,8 @@ Take HTML, CSS, JS, and WASM to their absolute peak
 [Launch Rust demo ›](https://mpa.nuejs.org/app/?rust)
 
 ----
-## Large-scale apps lighter than a React button
-Build ambitious apps with a fraction of code
+## Apps lighter than a React button
+Build ambitious, large-scale apps with a fraction of code
 
 [image]
   small: /img/react-button-compare.png
@@ -39,7 +39,6 @@ See benchmark and details [here ›](/docs/react-button-vs-nue.html)
 ## Crush HMR and build speed records
 Set up millisecond feedback loop to your development cycle
 
-
 [bunny-video]
   videoId: ffbb6d40-5b74-4176-a115-d0ed040edca5
   caption: Immediate feedback for design and component updates, preserving app state
@@ -47,7 +46,11 @@ Set up millisecond feedback loop to your development cycle
   height: 630
   // poster: thumbnail_1ca1bd66.jpg
 
+
 [video /img/mpa-build.mp4 autoplay loop muted width=350]
+
+[.small]
+  Build complex apps in millseconds
 
 
 ----

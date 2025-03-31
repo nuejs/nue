@@ -3,51 +3,32 @@
 
 
 ## Standards first web framework
-Nue is a standards first web framework that returns web development back to its core strengths. It takes modern HTML, CSS, and JavaScript to their natural peaks without introducing unnecessary abstractions.
+Nue is a web framework focused on web standards, currently in active development. Our goal is to expose the hidden complexity that's become a norm in modern web development. When a single button weighs more than an entire application, something is clearly broken.
 
-It is based on the following foundations:
+<a href="https://nuejs.org/">
+  <img src="https://nuejs.org/img/og-button.png" width="900">
+</a>
 
-1. **Standards first**: Browsers have evolved significantly in the past decade. By working with the standards rather than against them, we create better products with less code.
+Nue makes the inevitable shift. We're rebuilding the entire ecosystem from scratch, with a cleaner, more efficient core. Our goal is to restore the joy of web development for all key skillsets: frontend architects, design engineers, and UX engineers.
 
-2. **HTML first**: semantic HTML is the foundation for everything: layouts, server components, and interactive islands. The same syntax and mental model is better for developers, search engines, and screen readers.
 
-3. **Content first**: Rich Markdown syntax handles everything from marketing to documentation. Content lives in clean, accessible files — not in JavaScript.
+### What this means
 
-4. **Design systems**: modern, systematic CSS is more powerful than you think. Learn to build design systems, and you'll get better interfaces with less code.
+1. **Build apps with a fraction of the code**: The apps are literally smaller than a single React button. Modern web starndards are beasts.
 
-Here's what this enables:
+3. **Rust computation engines**: Write clean, isolated business models where the performance critical parst can be offloaded to Rust or Go.
 
-1. **Faster HMR and tooling**: Instant (below 50ms) content, style, data, and component updates. It feels different.
+1. **Faster HMR and tooling**: Instant HMR for all asset types: content, styling, data, and components. Build large applications in milliseconds.
 
-2. **Cleaner code**: No TypeScript imports, no utility classes, no state management complexity. Just clean, minimalistic code that naturally separates content, structure, and styling.
 
-3. **Faster pages**: The fastest page load is one that requires just a single request. No framework initialization, no cumulative layout shifts, no waiting for JavaScript. When content and styling arrive together, pages simply appear.
+https://nuejs.org/img/mpa-build.mp4
 
 
 [Learn how Nue works →](https://nuejs.org/docs/)
 
-<a href="https://nuejs.org/docs/">
-  <img src="https://nuejs.org/img/standards-first.png" width="600">
-</a>
 
 
-## Who is Nue good for?
-
-Nue is a great fit for:
-
-1. **Beginner web developers**: Those looking to bypass [frontend redundancy](https://roadmap.sh/frontend) and work directly with the Web Standard Model: HTML, CSS, and JavaScript.
-
-2. **Experienced JavaScript developers**: Those frustrated with the overwhelming amount of abstractions in the [React stack](https://roadmap.sh/react) and seeking simpler ways to develop professional websites.
-
-3. **Design-focused teams**: Those prioritizing user experience and design systems, leveraging modern CSS to create efficient, lightweight websites that enhance usability without the bloat of JS monoliths.
-
-
-
-### Installation
-
-Check out [installation docs](https://nuejs.org/docs/installation.html)
-
-## A simplified frontend stack
+## A radically simpler stack
 We are rebuilding the entire ecosystem from scratch:
 
 <a href="https://nuejs.org/vision/">
@@ -55,6 +36,11 @@ We are rebuilding the entire ecosystem from scratch:
 </a>
 
 [See our vision](https://nuejs.org/vision/)
+
+
+### Installation
+
+Check out [installation docs](https://nuejs.org/docs/installation.html)
 
 ### Contributing
 

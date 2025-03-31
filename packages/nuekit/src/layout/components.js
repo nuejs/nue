@@ -40,6 +40,7 @@ export function renderSymbols({ args, dir, files }) {
   try {
     if (files) files = files.split(' ').map(name => `${name}.svg`)
     else files = readdirSync(pth)
+
   } catch (e) {
     console.info('Could not find dir', dir)
     return ''

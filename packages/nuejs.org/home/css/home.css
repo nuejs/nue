@@ -24,6 +24,14 @@ article > section {
     }
   }
 
+  h3 {
+    font-size: 1.4em;
+    + p {
+      margin-top: -1em;
+      font-size: 1.2em;
+    }
+  }
+
   h2 {
     font-size: calc(2em + 1vw);
     letter-spacing: -0.03em;

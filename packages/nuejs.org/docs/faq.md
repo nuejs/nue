@@ -6,9 +6,9 @@ beside: false
 
 
 ## What is Nue?
-Nue is a web framework focused on web standards, currently in active development. Our goal is to expose the hidden complexity that's become standard in modern web development. When a single button weighs more than an entire application, something is undeniably broken.
+Nue is a web framework focused on web standards, currently in active development. Our goal is to expose the hidden complexity that's become a norm in modern web development. When a single button weighs more than an entire application, something is clearly broken.
 
-Nue makes the inevitable shift. We're rebuilding the entire ecosystem from scratch, with a cleaner, more efficient architecture. We're restoring the joy of web development for all key skillsets: frontend architects, design engineers, and UX engineers.
+Nue makes the inevitable shift. We're rebuilding the entire ecosystem from scratch, with a cleaner, more efficient core. Our goal is to restore the joy of web development for all key skillsets: frontend architects, design engineers, and UX engineers.
 
 
 ## We've spent years investing in React. Isn't this throwing away our expertise?

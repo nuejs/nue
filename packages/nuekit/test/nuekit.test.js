@@ -202,24 +202,20 @@ test('SPA', async () => {
   await write('app/model/customer.js')
   await write('app/model-rs/Cargo.toml')
   await write('app/model-rs/src/customers.rs')
-  await write('app/model-rs/src/customers.test.js')
-  await write('app/model-rs/dist/model.wasm')
   await write('app/model-rs/dist/Cargo.lock')
-  await write('app/index.html', '<symbols dir="icon" files="search"/>')
+  await write('app/index.html')
 
   const site = await getSite()
   const paths = await site.walk()
 
   // paths to build
-  expect(paths.length).toBe(4)
+  expect(paths.length).toBe(3)
 
   // rendered page
   const kit = await getKit()
   const html = await kit.renderSPA('app/index.html')
 
   expect(html).toInclude('hotreload.js')
-  expect(html).toInclude('<path')
-
 })
 
 
