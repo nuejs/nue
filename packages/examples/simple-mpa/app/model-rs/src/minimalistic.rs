@@ -1,3 +1,12 @@
+
+/*
+  Not currently in use.
+
+  The codebase is simpler and more readable, though less optimized for performance.
+  It delivers the same functionality but relies on looser type checking with
+  string-based matching.
+*/
+
 use wasm_bindgen::prelude::*;
 use serde::Deserialize;
 use std::collections::HashMap;
