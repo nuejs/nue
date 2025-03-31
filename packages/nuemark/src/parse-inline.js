@@ -16,7 +16,6 @@ export const FORMATTING = {
   '`':   'code',
   '~':   's',
   '|':   'mark',
-  '/':   'i',
   '•':   'b',
 }
 
@@ -24,7 +23,7 @@ export const FORMATTING = {
 export const ESCAPED = { '<': '&lt;', '>': '&gt;' }
 
 // tested: regexp is faster than custom lookup function
-const SIGNIFICANT = /[\*_\["`~\\/|•{\\<>]|!\[/
+const SIGNIFICANT = /[\*_\["`~\\|•{\\<>]|!\[/
 
 
 // c == first character (for quick tests)

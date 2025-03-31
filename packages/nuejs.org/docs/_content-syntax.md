@@ -81,7 +81,6 @@ Nue provides a variety of formatting options beyond standard Markdown, giving yo
   `I'm •bold•`     | `<b>bold</b>`              | I'm •bold•
   `I'm *italic*`   | `<em>italic</em>`          | I'm *italic*
   `I'm _italic_`   | `<em>italic</em>`          | I'm _italic_
-  `I'm /italic/`   | `<i>italic</i>`            | I'm /italic/
   `I'm \`code\``   | `<code>code</code>`        | I'm `code`
   `I'm ~striked~`  | `<s>striked</s>`           | I'm ~striked~
   `I'm "quoted"`   | `<q>quoted</q>`            | I'm "quoted"
