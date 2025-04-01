@@ -14,8 +14,8 @@ export function openUrl(url) {
 }
 
 export function esMain(meta) {
-  if (!meta || !process.argv[1]) return false;
-  return realpathSync(fileURLToPath(meta.url)) === realpathSync(process.argv[1]);
+  if (!meta || !process.argv[1]) return false
+  return realpathSync(fileURLToPath(meta.url)) === realpathSync(process.argv[1])
 }
 
 // read from package.json
