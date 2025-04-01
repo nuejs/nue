@@ -8,7 +8,7 @@ globalnav:
     - Blog: /blog/
     - Vision: /vision/
     - url: /blog/large-scale-apps/
-      label: "*NEW* Breaking the limits of Web ›"
+      label: "*NEW* Apps lighter than a React button ›"
       class: news pill
 
 

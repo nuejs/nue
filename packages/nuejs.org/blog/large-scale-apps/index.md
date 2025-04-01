@@ -23,13 +23,15 @@ The entire app is significantly lighter than a React button:
 See benchmark and details [here ›](/docs/react-button-vs-nue.html)
 
 
-## Large-scale apps
+## Going large-scale
 Here’s the same app, now with a **Rust** computation engine and **Event Sourcing** for instant search and other operations over **150,000** records — far past where JavaScript (and React) would crash with a stack overflow error:
 
 [bunny-video]
   videoId: eb65fcdd-5be4-4923-a783-f41efafe58a7
   caption: Instant operations across 150.000 records with Rust/WASM
   poster: /img/rust-splash.png
+
+See this demo [live ›](//mpa.nuejs.org/app/?rust)
 
 
 ## Tooling
@@ -49,17 +51,18 @@ Nue crushes HMR and build speed records and sets you up with a millisecond feedb
 Here's what this means:
 
 
-### For performance engineers
-This is a wake-up call for performance engineers stuck wrestling React patterns instead of chasing real gains. It brings simple, testable functions, modular design, minimal dependencies, and a model-first approach — best for JS/TS/Rust/Go devs whose skills shine under solid frontend architecture.
+### For Rust, Go, and JS engineers
+This is a wake-up call for Rust, Go, and JS engineers stuck wrestling with React idioms instead of leaning on timeless software patterns. Nue emphasizes a model-first approach, delivering modular design with simple, testable functions, true static typing, and minimal dependencies. Nue is a liberating experience for system devs whose skills can finally shine in a separated model layer.
 
-### For design engineers
-This is a wake-up call for design engineers bogged down by React patterns instead of shaping the design itself. Ditch [40,000+ lines of TSX][new_york] — build lean systems with modern CSS (@layers, variables, calc()) and own your typography and whitespace.
+### For Design Engineers
+This is a wake-up call for design engineers bogged down by React patterns and [40,000+ line][new_york] design systems. Build radically simpler systems with modern CSS (@layers, variables, calc()) and take control of your typography and whitespace.
 
-### For UX engineers
-This is a wake-up call for UX engineers tangled in React hooks and utility walls instead of owning the user experience. Build apps as light as a React button to push the web — and your skills — forward.
+
+### For UX Engineers
+This is a wake-up call for UX engineers tangled in React hooks and utility class walls instead of owning the user experience. Build apps as light as a React button to push the web—and your skills—forward.
 
 
 ## FAQ: WTH is Nue?
-Nue is a web framework focused on web standards, currently in active development. Our goal is to expose the hidden complexity that's become standard in modern web development. When a single button weighs more than an entire application, something is undeniably broken.
+Nue is a web framework focused on web standards, currently in active development. We aim to reveal the hidden complexity that’s become normalized in modern web development. When a single button outweighs an entire application, something’s fundamentally broken.
 
-Nue makes the inevitable shift. We're rebuilding the entire ecosystem from scratch, with a cleaner, more efficient architecture. Our goal is to restore the joy of web development for all key skillsets: frontend architects, design engineers, and UX engineers.
+Nue drives the inevitable shift. We’re rebuilding tools and frameworks from the ground up with a cleaner, more robust architecture. Our goal is to restore the joy of web development for all key skill sets: frontend architects, design engineers, and UX engineers.
