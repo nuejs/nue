@@ -21,9 +21,6 @@ Nue makes the inevitable shift. We're rebuilding the entire ecosystem from scrat
 1. **Faster HMR and tooling**: Instant HMR for all asset types: content, styling, data, and components. Build large applications in milliseconds.
 
 
-https://nuejs.org/img/mpa-build.mp4
-
-
 [Learn how Nue works →](https://nuejs.org/docs/)
 
 
