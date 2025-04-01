@@ -82,14 +82,14 @@ function init(root=document) {
 }
 
 // back button
-addEventListener('popstate', e => {
+if (typeof window == 'object') addEventListener('popstate', e => {
   const path = e.state?.path
   if (path && !matchesPath(path)) cleanup()
   fire(e.state || {})
 })
 
 // component reloads (.dhtml)
-addEventListener('hmr', cleanup)
+if (typeof window == 'object') addEventListener('hmr', cleanup)
 
 
 export function fire(data) {
