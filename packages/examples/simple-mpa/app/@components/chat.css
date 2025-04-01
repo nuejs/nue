@@ -1,0 +1,70 @@
+
+@layer components {
+  .emoji {
+    font-size: 3em;
+    line-height: .75;
+  }
+
+  .post {
+    background-color: var(--base-200);
+    text-wrap: balance;
+    padding: .5em 1em;
+    border-radius: 1em;
+    max-width: 66%;
+    p { color: var(--base-800); line-height: 1.33 }
+  }
+
+  .reply {
+    text-align: right;
+    .post {
+      background-color: var(--main-500);
+      margin-left: auto;
+      text-align: left;
+      p { color: white; }
+    }
+  }
+
+  .thread {
+    time {
+      display: inline-block;
+      margin: .25em .5em;
+      font-size: 1em;
+    }
+  }
+
+  .chat-form {
+    display: flex;
+    position: relative;
+    margin-bottom: .75em;
+
+    textarea {
+      resize: none;
+      field-sizing: content;
+      min-height: 3.85em;
+    }
+
+    /* TODO: make re-usable CTA button */
+    button {
+      border-color: transparent;
+      background-color: var(--main-500);
+      pointer-events: unset;
+      position: absolute;
+      padding: .25em;
+      color: white;
+      right: 1em;
+      bottom: 1em;
+
+      &:hover {
+        color: white;
+        box-shadow: 0 0 0 1px var(--main-500);
+      }
+
+      :placeholder-shown + & {
+        background-color: var(--base-200);
+        color: var(--base-400);
+        pointer-events: none;
+      }
+    }
+  }
+}
+

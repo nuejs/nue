@@ -58,8 +58,8 @@ export function categorize(paths) {
 
     const cat = ext == 'css' ? cats.style :
       ['js', 'ts'].includes(ext) ? cats.scripts :
-        ext == 'yaml' || ext == 'html' ? misc :
-          base == 'index.html' ? cats.spa :
+        base == 'index.html' ? cats.spa :
+          ext == 'yaml' || ext == 'html' ? misc :
             ext == 'dhtml' || ext == 'htm' ? cats.islands :
               ext == 'md' ? cats.pages :
                 cats.media

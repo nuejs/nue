@@ -1,0 +1,70 @@
+
+<script>
+  import { router } from '/@nue/app-router.js'
+  import { onDialogClose } from './util.js'
+</script>
+
+<div @name="media-thumbs">
+
+  <ul class="media-thumbs">
+    <li :for="name, i in items">
+      <button @click="open(i)"><img src="/app/img/{ name }"></button>
+    </li>
+  </ul>
+
+  <!-- media overlay -->
+  <dialog id="media"/>
+
+  <script>
+    open(i) {
+      router.set({ shot: i + 1})
+    }
+
+    constructor() {
+      router.bind('shot', args => {
+        const index = args.shot
+        if (index && !media.checkVisibility()) {
+          this.mountChild('media-overlay', media, { index })
+          onDialogClose(media, () => router.set({ shot: null }))
+          media.showPopover()
+        }
+      })
+    }
+  </script>
+</div>
+
+
+<dialog @name="media-overlay" class="media-overlay" popover id="media">
+  <header>
+    <h2>Screenshots</h2>
+    <button class="ghost" popovertarget="media"><icon key="x"/></button>
+  </header>
+
+  <figure>
+    <img :src="/app/img/{ shot }">
+  </figure>
+
+  <aside>
+    <ul class="media-thumbs">
+      <li :for="name, i in items">
+        <button @click="seek(i)">
+          <img src="/app/img/{ name }">
+        </button>
+      </li>
+    </ul>
+  </aside>
+
+  <script>
+    state = router.state
+
+    seek(i) {
+      this.shot = this.items[i]
+      this.open(i)
+    }
+
+    constructor({ items, index }) {
+      this.shot = items[index -1]
+      this.items = items
+    }
+  </script>
+</dialog>

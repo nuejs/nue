@@ -1,0 +1,46 @@
+
+@layer screens {
+
+  @media(width <= 1200) {
+    .details-panel {
+      box-shadow: 0 0 0 99em rgba(0,0,0,.4);
+      position: absolute;
+      right: 1em;
+    }
+  }
+
+  .mobile { display: none }
+
+  @media(width <= 900) {
+
+    .mobile { display: unset }
+    :root {
+      --body-padding: 0px;
+    }
+
+    .panel {
+      border-radius: 0;
+    }
+
+    .nav-panel {
+      border-right: var(--border);
+      background-color: var(--base-100);
+      width: min(20em, 100vw);
+      position: absolute;
+      padding: 0 1em 1em .5em;
+      transition: left .25s;
+      left: -30em;
+      z-index: 1;
+
+      &[aria-visible] {
+        box-shadow: 0 0 0 99em rgba(0,0,0,.4);
+        left: 0;
+      }
+    }
+
+    .details-panel {
+      right: 0;
+    }
+  }
+}
+

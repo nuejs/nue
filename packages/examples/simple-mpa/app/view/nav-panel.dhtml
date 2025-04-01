@@ -1,0 +1,88 @@
+
+<script>
+  import { loadPage } from '/@nue/view-transitions.js'
+  import { router } from '/@nue/app-router.js'
+  import { setSelected } from './util.js'
+  import { model } from '../model/index.js'
+</script>
+
+<aside @name="nav-panel" :aria-visible="router.state.nav_opened">
+
+  <header>
+    <img src="/img/logomark.webp" width="60" height="23">
+    <button class="ghost mobile"
+      data-accesskey="Escape"
+      title="Close"
+      @click="router.del('nav_opened')">
+      <icon key="x"/></button>
+  </header>
+
+  <section>
+    <search-input/>
+
+    <nav>
+      <a :for="el, i in config.views" href="/app/{ el.type }{ el.type ? '/' : '' }"
+        :data-accesskey="i + 1" :title="el.title">
+
+        <icon :key="el.icon || el.type"/>{ el.title }</a>
+    </nav>
+
+    <details name="plans">
+      <summary @click="toggleDetails('plans')">Plans</summary>
+      <nav>
+        <a :for="[plan, label] of Object.entries(config.plans)"
+          href="/app/plan/{ plan }" class="plan-{ plan }"><icon key="dot"/>{ label }</a>
+      </nav>
+    </details>
+
+    <details name="sizes">
+      <summary @click="toggleDetails('sizes')">Company size</summary>
+      <nav>
+        <a :for="[size, label] of Object.entries(config.company_sizes)"
+          href="/app/size/{ size }" class="size-{ size }"> <icon key="square"/> { label }</a>
+      </nav>
+    </details>
+  </section>
+
+  <footer>
+    <media :title="user.name" :image="user.avatar">
+      <p><a class="action" @click="logout">Logout</a></p>
+    </media>
+  </footer>
+
+  <script>
+    user = model.user || {}
+    router = router
+
+    toggleDetails(key) {
+      router.toggle(key + '_opened')
+    }
+
+    mounted() {
+      router.bind('type filter', (data, { path }) => {
+        setSelected(`a[href$="${path}"]`, 'aria-current', 'page')
+      })
+
+      router.bind('nav_opened', this.update)
+
+      /*
+        "open" attribute binding is problematic so we set initial states manually
+        Same problem in React too: //github.com/facebook/react/issues/15486
+      */
+      const { plans, sizes } = this.$refs
+      plans.open = !router.state.plans_opened
+      sizes.open = !router.state.sizes_opened
+    }
+
+    logout() {
+      router.cleanup()
+      model.logout()
+      loadPage('/')
+    }
+  </script>
+
+</aside>
+
+
+
+

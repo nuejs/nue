@@ -1,0 +1,42 @@
+
+@layer
+  settings,      /* Mathematical basis: colors, typographic scales, resets that ground everything. */
+  structure,     /* The site’s skeleton—body, header, main, footer framing the big picture. */
+  contexts,      /* The vibes—.ui, .content shaping interactive or readable spaces. */
+  components,    /* The building blocks—buttons, forms, bento grids you slot into place. */
+  effects,       /* Transforms, gradients, transitions, that can be slapped to any element */
+  adjustments,   /* Area-specific component adjustments */
+  screens,       /* Handling of different screen widths with @media queries */
+  overrides      /* !imoprtant rules that override everything */
+;
+
+@layer settings {
+
+  /* resets */
+  *, *::before, *::after { box-sizing: border-box }
+
+  img { max-width: 100%; }
+
+  figure { margin: 0 }
+
+  /* UI defaults */
+  :root {
+    accent-color: var(--main-500)
+  }
+
+  ::placeholder { color: var(--base-400) }
+
+  :focus-visible {
+    outline: .5px solid var(--base-500);
+    transition: outline-width .1s;
+    outline-offset: 1.5px
+  }
+
+  body {
+    font-family: system-ui;
+    font-size: 15px;
+    margin: 0;
+  }
+}
+
+

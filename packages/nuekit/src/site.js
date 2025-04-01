@@ -59,6 +59,7 @@ export async function createSite(args) {
 
   async function readOpts() {
     const data = await readData('site.yaml') || {}
+    data.args = args
 
     // environment
     try {
@@ -107,7 +108,8 @@ export async function createSite(args) {
     return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
   }
 
-  async function getTags() {
+  // custom Markdown extensions: aka "tags"
+  async function getCustomTags() {
     const paths = site_data.custom_tags
     if (!paths) return
     const tags = {}
@@ -123,7 +125,7 @@ export async function createSite(args) {
     return tags
   }
 
-  self.tags = await getTags()
+  self.tags = await getCustomTags()
 
 
   // flag if .dist is empty
@@ -206,7 +208,7 @@ export async function createSite(args) {
     let paths = [
       ...await walkDirs(self.globals),
       ...await walkDirs(subdirs),
-      ...await getPageAssets(dir)
+      ...await getPageAssets(dir),
     ]
 
     const ret = []

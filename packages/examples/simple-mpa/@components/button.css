@@ -1,0 +1,67 @@
+
+@layer components {
+
+  button, [role=button] {
+
+    /* layout */
+    justify-content: space-around;
+    display: inline-flex;
+    align-items: center;
+    font-family: inherit;
+    font-size: inherit;
+
+    .icon { width: 1.2em }
+
+    /* dimensions */;
+    padding: .75em 1em;
+
+    /* styling */
+    box-shadow: 1px 1px 1px var(--alpha-200);
+    border: 1px solid var(--base-300);
+    border-radius: .25em;
+    background-color: white;
+    text-decoration: none;
+    transition: .2s;
+    color: var(--base-600);
+    font-weight: 500;
+    cursor: pointer;
+
+    &:hover {
+      border-color: var(--base-400);
+      color: var(--base-900);
+    }
+
+    &:active {
+      box-shadow: 0 0 2px var(--alpha-200) inset;
+      border-color: var(--base-300);
+    }
+
+    &.primary {
+      border-color: var(--main-500);
+      background-color: var(--main-500);
+      color: white;
+
+      &:hover {
+        background-color: var(--main-600);
+        color: white;
+      }
+    }
+
+    &.cta {
+      background-color: var(--base-800);
+      color: white;
+
+      &:hover {
+        background-color: var(--base-950);
+        border-color: var(--base-700);
+        color: white;
+      }
+    }
+
+    &:disabled {
+      pointer-events: none;
+      opacity: .5;
+    }
+  }
+
+}

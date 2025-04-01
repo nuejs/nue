@@ -1,0 +1,20 @@
+
+favicon: /img/logo.svg
+
+title: Nue CRM / A single-page app demo
+
+# automatically included
+globals: [ "@globals", "@app", controllers, view ]
+
+# libraries to include from
+libs: [ "@components", "@contexts", "app/@components"]
+
+# globally included components
+include: [ button, interfaces ]
+
+# enable "turbolinking" & view transitions
+view_transitions: true
+
+sections: true
+
+port: 8083

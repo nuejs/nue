@@ -1,0 +1,28 @@
+
+<script>
+  import { router } from '/@nue/app-router.js'
+</script>
+
+<section @name="collection">
+  <header class="subheader">
+    <sort-buttons/>
+  </header>
+
+  <ul class="{ router.state.show_grid_view ? 'grid-view' : 'table-view' }">
+    <li :for="item, index in items">
+
+      <!-- TODO: make generic / <a mount="${ component }" ... -->
+      <user-item :bind="item" class="list-item appears" :style="--delay: { index }"/>
+    </li>
+    <li :if="!items.length">No records found</li>
+  </ul>
+
+  <script>
+    constructor() {
+      router.bind('show_grid_view', () => this.update())
+    }
+  </script>
+
+</section>
+
+

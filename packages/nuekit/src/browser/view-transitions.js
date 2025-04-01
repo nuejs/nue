@@ -75,7 +75,7 @@ export function onclick(root, fn) {
       (name?.includes('.') && !name?.endsWith('.html')) || !!target) return
 
     // all good
-    if (path != location.pathname) fn(path, el)
+    if (path != location.pathname) fn(el.pathname, el)
     e.preventDefault()
 
   })
@@ -103,10 +103,7 @@ export function setActive(path, attrname = 'aria-current') {
 }
 
 
-// browser environment
-const is_browser = typeof window == 'object'
-
-if (is_browser) {
+export function setupTransitions() {
 
   // view transition fallback (Safari, Firefox) • caniuse.com/view-transitions
   if (!document.startViewTransition) {
@@ -133,6 +130,7 @@ if (is_browser) {
   // back button
   addEventListener('popstate', e => {
     const { path } = e.state || {}
+
     if (path) {
       const pos = scrollPos[path]
 
@@ -148,11 +146,21 @@ if (is_browser) {
 /* -------- utilities ---------- */
 
 
+function sameKids(kids_a, kids_b) {
+  if (kids_a.length != kids_b.length) return false
+
+  for (let i = 0; i < kids_a.length; i++) {
+    if (kids_a[i].tagName != kids_b[i].tagName) return false
+  }
+
+  return true
+}
+
 // primitive DOM diffing
 function simpleDiff(a, b, ignore_main) {
-  a.classList.value = b.classList.value
+  if (!a || !b) return true
 
-  if (a.children.length == b.children.length) {
+  if (sameKids(a.children, b.children)) {
     ;[...a.children].forEach((el, i) => {
       if (!(ignore_main && el.tagName == 'MAIN')) updateBlock(el, b.children[i])
     })
@@ -252,3 +260,8 @@ function loadSheet(path, fn) {
   $('head').appendChild(el)
   el.onload = fn
 }
+
+
+// browser environment
+if (typeof window == 'object') setupTransitions()
+

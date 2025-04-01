@@ -90,7 +90,7 @@ To explicitly include components from a [library folder](project-structure.html#
 Once a component is available on the page, mounting it is straightforward:
 
 ### In Markdown content
-Custom components are mounted in Markdown content just like the built-in [content tags](content-tags.html), using square brackets:
+Custom components are mounted in Markdown content just like the built-in [content tags](markdown-extensions.html), using square brackets:
 
 ```md
 [image-gallery]
@@ -121,7 +121,7 @@ In this case, Nue will first look for an implementation of the component or isla
 
 
 ## Passing data
-You can pass data to your components using attributes. These attributes can either be direct values or reference data from the [unstructured data](content.html) when the attribute name starts with a colon.
+You can pass data to your components using attributes. These attributes can either be direct values or reference data from the [unstructured data](content-authoring.html) when the attribute name starts with a colon.
 
 #### Markdown example
 In Markdown content, you can pass data as follows:
@@ -396,7 +396,7 @@ Here’s the source code for the gallery component:
 Inside the component, all control flow operations, such as loops and conditionals, are reactive — they respond to user events and re-render based on the new state. Here, we have a numeric state variable `index`, which updates as the user clicks the navigational elements, automatically changing the displayed image accordingly.
 
 ## Event handlers
-In Nue, attributes starting with the `@` symbol define event handlers. These handlers are JavaScript functions that respond to user interactions, such as clicks, keypresses, or mouse movements.
+In Nue, attributes starting with the `@` symbol define event handlers. These handlers are JavaScript functions that respond to user interactions, such as clicks, key-presses, or mouse movements.
 
 ### Inline handlers
 Inline handlers are defined directly within the attribute:

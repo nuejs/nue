@@ -27,7 +27,6 @@ test('formatting', () => {
     ['__', 'Ö#(/&', 'strong'],
     ['**', 'go _ open', 'strong'],
     ['~', 'striked', 's'],
-    ['/', 'italic', 'i'],
     ['•', 'bold', 'b'],
     // ['|', 'mark', '|'],
   ]

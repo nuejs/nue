@@ -96,6 +96,7 @@ article {
 
   h2 {
     font-size: 1.25em;
+    line-height: 1.4;
   }
 
   h3, h4 {
@@ -133,6 +134,15 @@ article {
 
   hr {
     margin: 3em 0 5em;
+  }
+
+  > video {
+    border-radius: 6px;
+    cursor: pointer;
+
+    &:active {
+      transform: scale(.995);
+    }
   }
 }
 
@@ -245,11 +255,7 @@ figure {
 
 /* figcaption */
 figcaption {
-  color: var(--gray-400);
-  margin: 1em 0 0 0;
   font-size: 80%;
-  text-align: center;
-  text-wrap: balance;
 }
 
 /* image links  */

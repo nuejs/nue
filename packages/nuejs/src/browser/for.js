@@ -93,13 +93,16 @@ export default function(opts) {
 
   // update function
   function update() {
+
     var arr
     [$keys, arr = [], $index, is_object_loop] = fn(ctx)
 
     if (items) {
       // change of current array --> repaint
       if (arr !== current) {
-        items = arrProxy(arr); repaint(); current = arr
+        items = arrProxy(arr)
+        repaint()
+        current = arr
       }
       return blocks.forEach(el => el.update())
     }

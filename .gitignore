@@ -10,4 +10,5 @@ _test
 .vscode
 
 performance.js
+*.tar.gz
 .env

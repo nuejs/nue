@@ -1,0 +1,19 @@
+
+<script>
+  import { router } from '/@nue/app-router.js'
+</script>
+
+<label @name="search-input" class="search" data-accesskey="/">
+  <icon key="search"/>
+  <input @input="search" :value="value" type="search" placeholder="Search..." :autofocus="value">
+  <kbd><strong>⌘</strong></kbd><kbd>K</kbd>
+
+  <script>
+    value = router.state.query
+
+    search(e) {
+      router.set({ type: 'search', query: e.target.value, start: null })
+    }
+
+  </script>
+</label>

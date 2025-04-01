@@ -1,8 +1,7 @@
 
-# Get Started with Nue
+# Get started with Nue
 
 ## 1. Install Bun
-
 First, install [Bun](//bun.sh):
 
 ```sh
@@ -10,8 +9,10 @@ First, install [Bun](//bun.sh):
 curl -fsSL https://bun.sh/install | bash
 ```
 
-## 2. Install Nue
+Nue uses Bun for its superior web standards support, including native CSS parsing. Check details on why Nue prefers Bun over Node.js from our [FAQ](faq.html).
 
+
+## 2. Install Nue
 Next, install Nue globally:
 
 ```sh
@@ -19,24 +20,24 @@ Next, install Nue globally:
 bun install nuekit --global
 ```
 
-## 3. Create a Website
+Nue uses global installation because it is a command line tool like Git or Docker. Just go to a directory and type `nue` to develop.
 
-Create your new website with:
+
+## 3. Install app
+Create your first app with:
 
 ```sh
-# Create a website
 nue create simple-blog
 ```
 
-Done! Your browser should now open to: `http://localhost:8083/welcome/`:
+Alternatively, start with a multi-page app
 
-[image]
-  caption: Welcome screen after successful setup
-  src: /img/create-welcome.png
+```sh
+nue create simple-mpa
+```
 
-## 4. Follow the Tutorial
+Done! Your browser should now open to: `http://localhost:8083/`:
 
-Check out the [step-by-step tutorial](tutorial.html) to learn how to build websites with Nue.
 
 - - -
 
@@ -47,16 +48,19 @@ Check out the [step-by-step tutorial](tutorial.html) to learn how to build websi
 - **Bun 1.2** or later. Recommended for *macOS* and *Linux* and *Windows*.
 - **Node.js 20.8** or later, if you prefer not using Bun.
 
-### No Windows Support
 
-Nue is not currently tested or developed under Windows, so use it at your own risk.
+### Known issues
+
+- **Windows support** Windows tests pass, but support remains uncertain. Currently, no team member uses Windows.
+
+- **Reactive components** Reactive components start to struggle with complex nested loops and conditionals.
+
 
 ### Having Problems?
+Please post an [issue](//github.com/nuejs/nue/issues)
 
-Please post an [issue](//github.com/nuejs/nue/issues). Thank you!
 
 ## Node Setup
-
 If you prefer to install Nue with `pnpm`, `npm`, or `yarn`, use:
 
 ```sh

@@ -1,0 +1,33 @@
+
+include: ["@contexts/interfaces.css", "@components", controllers, view]
+exclude: ["@globals/structure"]
+inline_css: true
+
+app_config:
+  views:
+    - title: All contacts
+      icon: users
+
+    - title: Demo requests
+      type: demo_request
+
+    - title: Questions
+      type: question
+
+    - title: Problems
+      type: problem
+
+    - title: Feedback
+      type: feedback
+
+  plans:
+    enterprise: Enterprise
+    pro: Pro
+    free: Free
+
+  company_sizes:
+    xl: Very large
+    l: Large
+    m: Medium
+    s: Small
+

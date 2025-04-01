@@ -1,0 +1,58 @@
+
+<!-- For Bunny CDN -->
+<div @name="bunny-player" class="paused player">
+  <video ref="video" :poster="splash" :width="width" :height="height" muted/>
+  <a class="play"></a>
+  <a class="fullscreen" @click="fullscreen"></a>
+
+  <script>
+    mounted({ poster='', videoid }) {
+      const base = 'https://video.nuejs.org'
+      const video = this.video = this.$refs.video
+
+      this.splash = poster[0] == '/' ? poster : `${base}/${videoid}/${poster || 'thumbnail.jpg'}`
+
+      function addSource(filename, mime='video/mp4') {
+        const el = document.createElement('source')
+        el.src = `${base}/${videoid}/${filename}`
+        el.type = mime
+        video.appendChild(el)
+      }
+
+      if (video.canPlayType('application/vnd.apple.mpegURL')) {
+        addSource('playlist.m3u8', 'application/x-mpegURL')
+
+      } else {
+        const width = getQuality(innerWidth)
+        addSource(`play_${width}p.mp4`)
+      }
+    }
+
+    fullscreen() {
+      this.video.requestFullscreen()
+    }
+  </script>
+
+</div>
+
+
+<script>
+  let player = null
+
+  function getQuality(max) {
+    const widths = [720, 480, 360]
+    return widths.find(w => w < max)
+  }
+
+  document.addEventListener('click', e => {
+    const el = e.target
+    const parent = el.closest('.player')
+    const video = el.matches('video') ? el : parent.querySelector('video')
+
+    if (video && !el.matches('.fullscreen')) {
+      video.paused ? video.play() : video.pause()
+      parent?.classList.toggle('paused', video.paused)
+    }
+  })
+</script>
+

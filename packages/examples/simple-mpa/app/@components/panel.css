@@ -1,0 +1,58 @@
+@layer components {
+  .panel {
+    height: calc(100vh - calc(var(--body-padding) * 2));
+    border: 1px solid transparent;
+    flex-direction: column;
+    display: flex;
+
+    &.card { padding: 0 1em }
+
+    > header {
+      align-items: center;
+      padding: .75em .5em;
+      display: flex;
+
+      &:has(nav) {
+        border-bottom: 1px solid var(--alpha-100);
+        margin-bottom: .5em;
+      }
+
+      small {
+        font-weight: 450;
+        margin-right: 1em;
+      }
+
+      nav {
+        margin-left: auto;
+        align-items: center;
+        display: inline-flex;
+        gap: .5em;
+      }
+
+      hr {
+        height: 1em;
+        border-color: var(--base-200);
+        border-width: 0 1px 0 0;
+        margin: 0 .5em;
+        width: 1px;
+      }
+
+    }
+
+    .subheader {
+      margin-bottom: 1.5em;
+      button { margin-right: .5em }
+    }
+
+    &.details-panel header {
+      margin-bottom: 1em;
+    }
+
+    > section {
+      padding: 2px;
+      overflow: auto;
+      flex-grow: 1;
+    }
+  }
+}
+

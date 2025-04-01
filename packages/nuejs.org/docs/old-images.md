@@ -1,6 +1,4 @@
 
-
-
 [image.bordered]
   caption: "The markup of this documentation area"
   large: /img/clean-markup-big.png
@@ -27,4 +25,3 @@
   large: /img/first-paint-big.png
   caption: Inlined CSS loads faster
   width: 650
-

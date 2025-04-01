@@ -1,0 +1,59 @@
+@layer components {
+
+  span[role=tooltip] {
+    position-anchor: --tip;
+    position: absolute;
+    position-area: right;
+
+    margin-left: 10px;
+    right: -999em;
+    opacity: 0;
+    transition: opacity .1s .5s, transform .2s .5s;
+    transform: scale(.9);
+
+    display: inline-flex;
+    align-items: center;
+    gap: .5em;
+
+    /* styling */
+    box-shadow: 0 1px 3px var(--alpha-300);
+    background-color: white;
+
+    border-radius: .25em;
+    padding: .25em .5em;
+    font-size: .75em;
+
+
+    &.is-shown {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    &.on-bottom {
+      position-area: bottom;
+      position-try: bottom left;
+      right: -2em;
+      margin: 10px 0 0;
+    }
+  }
+
+  /* keyboard shortcut */
+  kbd {
+    --size: 1.25em;
+    width: var(--size);
+    height: var(--size);
+    line-height: var(--size);
+    text-align: center;
+
+    background-color: var(--alpha-100);
+    text-transform: uppercase;
+    color: var(--base-400);
+    font-weight: 550;
+    border-radius: .25em;
+
+    strong {
+      transform: scale(1.2);
+      display: inline-block;
+    }
+  }
+}

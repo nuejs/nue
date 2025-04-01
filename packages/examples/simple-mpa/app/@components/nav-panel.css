@@ -1,0 +1,65 @@
+
+@layer components {
+
+  .nav-panel {
+
+    header {
+      display: flex;
+      justify-content: space-between;
+
+      button {
+        margin-right: -.5em;
+      }
+    }
+
+    nav, details {
+      margin: 1em 0 1.5em 0;
+    }
+
+    nav a {
+      color: var(--base-500);
+      border: 1px solid transparent;
+      border-radius: .25em;
+      align-items: center;
+      padding: .5em .75em;
+      margin-bottom: 1px;
+      display: flex;
+      gap: .5em;
+
+      &:hover { background-color: var(--alpha-50) }
+
+      &[aria-current] {
+        background-color: var(--base-200);
+        pointer-events: none;
+        color: var(--base-900);
+
+        .icon {
+          color: var(--main-500);
+          stroke-width: 2.1;
+        }
+      }
+    }
+
+    summary {
+      text-transform: uppercase;
+      border-radius: .25em;
+      color: var(--base-500);
+      font-size: .75em;
+      letter-spacing: .75;
+      font-weight: 500;
+      padding: .5em .75em;
+      margin-bottom: -.75em;
+      cursor: pointer;
+    }
+
+    details nav {
+      border-left: 1px solid var(--base-300);
+      margin-left: .75em;
+      a { font-weight: 400; padding: .25em .5em }
+    }
+
+    .media {
+      margin-left: .5em;
+    }
+  }
+}

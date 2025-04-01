@@ -1,0 +1,52 @@
+
+<script>
+  import { formatDate, formatBody } from './util.js'
+</script>
+
+<!-- discussion thread -->
+<ul @name="chat-thread" class="thread">
+  <li :for="msg, i in thread" class="{ reply: msg.is_reply } appears">
+    <time :if="msg.created">{ formatDate(msg.created) }</time>
+    <div class="{ isEmoji(msg.body) ? 'emoji' : 'post' }">{{ formatBody(msg.body) }}</div>
+  </li>
+
+  <script>
+    formatDate = formatDate
+    formatBody = formatBody
+
+    isEmoji(msg) {
+      return !msg[3] && /\p{Emoji}/u.test(msg)
+    }
+  </script>
+</ul>
+
+
+<form @name="chat-form" class="chat-form appears" @submit.prevent="submit">
+
+  <textarea name="body" @keydown="keydown" placeholder="Type your reply..." required></textarea>
+  <button><icon key="send-horizontal"/></button>
+
+  <script>
+
+    keydown(e) {
+      if (e.key == 'Enter' && e.metaKey) {
+        this.submit(e)
+        e.preventDefault()
+      }
+    }
+
+    submit(e) {
+      const input = e.target.body || e.target
+      const body = input.value
+
+      if (body.trim()) {
+        this.thread.reply(body)
+        input.value = ''
+        details_body.scrollTop = 100000
+      }
+    }
+  </script>
+</form>
+
+
+

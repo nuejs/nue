@@ -1,0 +1,33 @@
+
+@layer effects {
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+
+  .pulsating {
+    opacity: 0.1;
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    pointer-events: none;
+
+    &:nth-child(2) {
+      animation-delay: 0.25s;
+    }
+
+    &:nth-child(3) {
+      animation-delay: .5s;
+    }
+  }
+
+  main:not(.hmr) .appears {
+    opacity: 1;
+    transition: opacity .75s;
+    transition-delay: calc(.015s * var(--delay));
+
+    @starting-style {
+      opacity: 0;
+    }
+  }
+
+}

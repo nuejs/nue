@@ -69,7 +69,7 @@ In Nue, the focus is on **pure content** — free from HTML markup. This ensures
 Instead of embedding HTML, Nue provides powerful Markdown extensions like **blocks**, which let you create rich, styled content while keeping the content layer pure.
 
 
-### Extra formatting optionms
+### Extra formatting options
 Nue provides a variety of formatting options beyond standard Markdown, giving you more control over how text appears on the page. Here’s a comparison between the Markdown syntax and the corresponding HTML output:
 
 
@@ -81,7 +81,6 @@ Nue provides a variety of formatting options beyond standard Markdown, giving yo
   `I'm •bold•`     | `<b>bold</b>`              | I'm •bold•
   `I'm *italic*`   | `<em>italic</em>`          | I'm *italic*
   `I'm _italic_`   | `<em>italic</em>`          | I'm _italic_
-  `I'm /italic/`   | `<i>italic</i>`            | I'm /italic/
   `I'm \`code\``   | `<code>code</code>`        | I'm `code`
   `I'm ~striked~`  | `<s>striked</s>`           | I'm ~striked~
   `I'm "quoted"`   | `<q>quoted</q>`            | I'm "quoted"
@@ -215,7 +214,7 @@ You can further simplify the syntax by omitting the `block` component name and j
 ```
 
 ### Popovers
-Nue's block syntax makes it simple to create **popovers** that can be easily triggered using a [button](content-tags.html#button) tag. Popovers are a great way to present additional information without cluttering the main content flow.
+Nue's block syntax makes it simple to create **popovers** that can be easily triggered using a [button](markdown-extensions.html#button) tag. Popovers are a great way to present additional information without cluttering the main content flow.
 
 Here’s how you define a popover:
 
@@ -431,6 +430,6 @@ Here's an example combining content blocks and code blocks. Notice how clean the
 This simple example demonstrates how you can create a **stacked layout** with content and code blocks, all within a clean, readable format. Mixing content and code blocks in this way allows you to present complex technical concepts, tutorials, or style guides without sacrificing readability or maintainability.
 
 ### Content tags
-Nue offers a large amount of [tags](content-tags.html) that significantly enhance your ability to create rich and interactive websites. You can add responsive images, videos, buttons, accordions, tabs, and more.
+Nue offers a large amount of [tags](markdown-extensions.html) that significantly enhance your ability to create rich and interactive websites. You can add responsive images, videos, buttons, accordions, tabs, and more.
 
 You can also extend the syntax with [custom components](custom-components.html).

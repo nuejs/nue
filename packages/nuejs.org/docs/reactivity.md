@@ -29,7 +29,7 @@ view_transitions: true
 
 [.note]
   ### Note
-  Future versions of Nue will also support view transitions in [single-page applications](single-page-applications.html). The user can seamlessly switch between the content-focused pages and the views of the single-page application and experience the transition effect defined on your design system.
+  Future versions of Nue will also support view transitions in [single-page applications](single-page-apps.html). The user can seamlessly switch between the content-focused pages and the views of the single-page application and experience the transition effect defined on your design system.
 
 
 ### Menus and dialogs

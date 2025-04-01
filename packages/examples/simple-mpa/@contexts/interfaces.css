@@ -1,0 +1,94 @@
+
+/*
+  Typography and spacing for interactive contexts, such as
+  single-page apps (SPAs), headers, footers, forms, ann dynamic islands
+
+  - Small font-size is better for dense, information-rich UIs.
+    Thus 14px (--ui-font) default size with 1.25 line height
+
+  - Relies on `em` rather than `rem` to ensure spacing scales proportionally
+    with the --ui-font size set for the root element
+
+  - Uses a "boring," linear grid (e.g., `.25em` steps) over an exponential scale
+    (like a perfect fifth). This makes predictable, uniform spacing.
+
+  - Uses fixed values like `.5em`, `1em`, and `1.5em` (sometimes `.875em` or `1.125em`)
+    for whitespace and font sizes instead `calc(var(--base-unit) * 2)`
+    This avoids unnecessary complexity.
+*/
+
+@layer contexts {
+
+  :root {
+    --ui-font: 14px;
+    --smaller: 95%;
+    --small:   90%;
+  }
+
+  .ui {
+    font-size: var(--ui-font);
+    line-height: 1.25;
+    color: var(--base-700);
+
+    p {
+      margin: .25em 0;
+    }
+
+    h1, h2, h3, h4, h5 { margin: 0 }
+
+    h1 {
+      font-size: 1.5em;
+      font-weight: 600;
+      letter-spacing: -.025em;
+    }
+
+    h2 {
+      font-size: 1em;
+      font-weight: 550;
+    }
+
+    h3  {
+      font-size: 1em;
+      font-weight: 510;
+    }
+
+    h4 {
+      font-size: 1em;
+      font-weight: 400;
+    }
+
+    a {
+      text-decoration: none;
+      font-weight: 470;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .action {
+      color: var(--base-400);
+      cursor: pointer;
+
+      &:hover {
+        border-bottom: 1px solid var(--base-300);
+      }
+    }
+
+    strong {
+      font-weight: 550;
+    }
+
+    small, time {
+      font-size: .875em;
+      color: var(--base-00)
+    }
+
+    header {
+      button, [role=button] {
+        padding: .5em 1em;
+      }
+    }
+  }
+}

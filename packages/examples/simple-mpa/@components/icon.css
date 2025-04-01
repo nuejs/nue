@@ -1,0 +1,13 @@
+@layer components {
+  .icon {
+    width: var(--size, 1.25em);
+    height: var(--size, 1.25em);
+    display: inline-block;
+    vertical-align: middle;
+    stroke-width: 1.5;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+  }
+}

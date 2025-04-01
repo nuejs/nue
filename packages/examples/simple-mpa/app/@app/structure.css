@@ -1,0 +1,20 @@
+
+@layer structure {
+  body {
+    overflow: hidden;
+    padding: var(--body-padding);
+  }
+
+  .app {
+    gap: 1em;
+    display: flex;
+
+    /* wide-screen panel dimensions */
+    .nav-panel      { min-width: 16em }
+    .content-panel  { flex-grow: 1 }
+    .details-panel  { width: 28em }
+  }
+
+}
+
+

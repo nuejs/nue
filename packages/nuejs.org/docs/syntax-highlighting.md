@@ -3,7 +3,7 @@ include: [syntax-table]
 ---
 
 
-# Syntax highlighting: The look and feel
+# Syntax highlighting for Markdown code blocks
 
 Nue uses the built-in syntax highlighter, [Glow](/blog/introducing-glow/), to style your fenced code blocks with minimal setup. It offers the following features:
 

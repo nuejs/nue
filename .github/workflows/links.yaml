@@ -67,6 +67,7 @@ jobs:
             --remap "http://localhost:8080/todomvc https://nuejs.org/todomvc"
             --remap "http://localhost:8080/glow-demo https://nuejs.org/glow-demo"
             --exclude "http://localhost:8080/404.html"
+            --exclude "https?://x.com/"
             --
             ${{ steps.files.outputs.links }}
           token: ${{ secrets.GITHUB_TOKEN }}

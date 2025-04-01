@@ -1,4 +1,8 @@
 // tests for helper/core components
+
+import { dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
+
 import {
   renderPage,
   parseClass,
@@ -6,7 +10,11 @@ import {
   renderNav,
   renderLink,
   renderMultiNav,
+  renderSymbols,
 } from '../src/layout/components.js'
+
+const root = dirname(fileURLToPath(import.meta.url))
+
 
 test('render page', () => {
   const html = renderPage({
@@ -82,4 +90,9 @@ test('render categorized nav', () => {
 
   expect(html).toStartWith('<div class="epic"><nav><h4>Hey</h4><a href="/">Foo</a></nav>')
   expect(html).toEndWith('<nav><h4>Foo</h4><a href="/">Bar</a></nav></div>')
+})
+
+test('renderSymbols', () => {
+  const html = renderSymbols({ args: { root }, dir: 'icon', files: 'problem' })
+  expect(html).toInclude('<path')
 })

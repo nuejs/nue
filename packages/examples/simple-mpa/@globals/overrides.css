@@ -1,0 +1,12 @@
+
+
+@layer overrides {
+  [hidden] {
+    display: none
+  }
+
+  /* Tailwind nano */
+  .mr {
+    margin-right: .25em;
+  }
+}

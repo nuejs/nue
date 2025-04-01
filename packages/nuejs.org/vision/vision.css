@@ -4,10 +4,9 @@ article {
   margin: 0 auto;
 
   /* eyebrow */
-  > h4:first-child {
-    margin-bottom: -1em;
+  > :first-child {
+    margin-bottom: -1.5em;
     font-weight: 550;
-    font-size: 1em;
     color: var(--gray-500);
   }
 }

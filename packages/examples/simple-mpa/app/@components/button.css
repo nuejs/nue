@@ -1,0 +1,45 @@
+
+
+@layer adjustments {
+
+  button.plain {
+    background-color: var(--alpha-50);
+    color: var(--base-500);
+    padding: .25em .75em;
+    font-size: .875em;
+    gap: .5em;
+    border: 0;
+
+    .icon { width: 1em }
+
+    &:hover {
+      background-color: var(--base-100);
+    }
+
+    &:active {
+      box-shadow: unset;
+    }
+
+    &[aria-pressed] {
+      box-shadow: 0 0 0 1px var(--base-300);
+      background-color: var(--base-100);
+    }
+  }
+
+  button.ghost {
+    background-color: unset;
+    box-shadow: unset;
+    padding: .25em;
+    border: 0;
+
+    &:hover {
+      background-color: var(--alpha-50);
+    }
+
+    &[aria-pressed] {
+      background-color: var(--base-200);
+      pointer-events: none;
+      cursor: default;
+    }
+  }
+}

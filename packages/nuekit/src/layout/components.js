@@ -1,5 +1,8 @@
-import { elem, parseSize, renderInline, renderIcon } from 'nuemark'
 
+import { readFileSync, readdirSync } from 'node:fs'
+import { join } from 'node:path'
+
+import { elem, parseSize, renderInline, renderIcon } from 'nuemark'
 
 export function renderPageList(data) {
   const key = data.collection_name || data.content_collection
@@ -25,6 +28,39 @@ export function renderNavi(data) {
       : ''
 }
 
+function toSymbol(svg, name='x', size=24) {
+  const id = `${name}-symbol`
+  const attr = { id, viewBox: `0 0 ${size} ${size}` }
+  const body = svg.slice(svg.indexOf('>') + 1, -6)
+  return elem('symbol', attr, body)
+}
+
+export function renderSymbols({ args, dir, files }) {
+  const pth = join(args.root, dir)
+  try {
+    if (files) files = files.split(' ').map(name => `${name}.svg`)
+    else files = readdirSync(pth)
+
+  } catch (e) {
+    console.info('Could not find dir', dir)
+    return ''
+  }
+  const html = []
+
+  for (const name of files) {
+    try {
+      if (name.endsWith('.svg')) {
+        const svg = readFileSync(join(pth, name), 'UTF-8')
+        html.push(toSymbol(svg, name.replace('.svg', '')))
+      }
+    } catch (e) {
+      console.info('Could not find icon', name, 'from', dir)
+    }
+  }
+
+  return elem('svg', html.join('\n'))
+}
+
 function renderTOC(data) {
   const { document, attr } = data
   return document.renderTOC(attr)
@@ -42,6 +78,7 @@ export function getLayoutComponents() {
     { name: 'navi', create: renderNavi },
     { name: 'page-list', create: renderPageList },
     { name: 'toc', create: renderTOC },
+    { name: 'symbols', create: renderSymbols },
     { name: 'markdown', create: ({ content }) => renderInline(content) },
     { name: 'pretty-date', create: ({ date }) => renderPrettyDate(date) },
     { name: 'icon', create: data => renderIcon(data.src, data.symbol, data.icon_dir) },
@@ -66,11 +103,7 @@ export function renderPage(page) {
   const body = !thumb
     ? time + elem('a', { href: url }, h2 + p)
     // figure
-    : elem(
-      'a',
-      { href: url },
-      elem(
-        'figure',
+    : elem('a', { href: url }, elem('figure',
         elem('img', { src: thumb, loading: 'lazy' }) + elem('figcaption', time + h2 + p)
       )
     )

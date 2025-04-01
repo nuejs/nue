@@ -1,0 +1,22 @@
+
+@layer components {
+  dialog {
+    padding: 1em 1.5em;
+    border-radius: .5em;
+    box-shadow: 0 0 2em var(--alpha-300);
+    border: 0;
+
+    header {
+      justify-content: space-between;
+      border-bottom: var(--border);
+      padding-block: .5em;
+      align-items: center;
+      min-width: 20em;
+      display: flex;
+    }
+
+    &::backdrop {
+      background: rgb(190 190 190 / 50%);
+    }
+  }
+}

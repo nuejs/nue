@@ -3,6 +3,10 @@
   "workspaces": {
     "": {
       "name": "nue",
+      "devDependencies": {
+        "esbuild": "^0.25",
+        "lightningcss": "^1.29",
+      },
     },
     "packages/glow": {
       "name": "nue-glow",

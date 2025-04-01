@@ -40,7 +40,7 @@
   }
 
   &:has(:checked) {
-    background-color: var(--main-500);;
+    background-color: var(--main-500);
   }
 
   @supports not selector(:has(*)) {

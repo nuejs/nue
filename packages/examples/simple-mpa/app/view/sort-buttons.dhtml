@@ -1,0 +1,38 @@
+
+<script>
+  import { router } from '/@nue/app-router.js'
+</script>
+
+<nav @name="sort-buttons" class="flex">
+  <button :for="button in buttons"
+    class="plain"
+    @click="sort(button.key)"
+    aria-pressed="{ !state.sort && button.is_default || state.sort == button.key }"
+    title="Sort by { button.label.toLowerCase() }">
+    { button.label }
+    <icon key="{ getIcon(button) }"/>
+  </button>
+
+  <script>
+    state = router.state
+
+    buttons = [
+      { key: 'id', label: 'Created', is_default: true  },
+      { key: 'cc', label: 'Country' },
+      { key: 'size', label: 'Company size' },
+      { key: 'plan', label: 'Plan' }
+    ]
+
+    getIcon(button) {
+      const { sort, asc } = router.state
+      if (button.key == sort || !sort && button.is_default) {
+        return asc ? 'chevron-up' : 'chevron-down'
+      }
+      return 'chevrons-up-down'
+    }
+
+    sort(by) {
+      router.set({ sort: by, asc: by == router.state.sort ? !router.state.asc : null})
+    }
+  </script>
+</nav>

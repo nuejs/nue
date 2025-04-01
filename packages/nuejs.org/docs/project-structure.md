@@ -80,7 +80,7 @@ Application directories encapsulate all assets specific to a single application,
 ### Root Directory
 The root directory contains scripts, styles, and components that are dependencies for the front page and all other root-level pages. Assets in this directory are not propagated upwards to application directories, ensuring that only relevant files are included in each application.
 
-To maintain organization, you may want to clean up the root directory from front page assets by placing them into a dedicated folder, such as "home." You can declare this folder in the frontmatter area of the front page as follows:
+To maintain organization, you may want to clean up the root directory from front page assets by placing them into a dedicated folder, such as "home". You can declare this folder in the front-matter area of the front page as follows:
 
 ```yaml
 appdir: home

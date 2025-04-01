@@ -104,7 +104,10 @@ export default function createApp(component, data = {}, deps = [], $parent = {})
 
   function setAttr(node, key, val) {
     const orig = node.getAttribute(key)
-    if (orig !== val) node.setAttribute(key, val)
+    if (orig !== val) {
+      if (val) node.setAttribute(key, val)
+      else node.removeAttribute(key)
+    }
   }
 
   function processAttr(node, name, value) {
@@ -129,7 +132,7 @@ export default function createApp(component, data = {}, deps = [], $parent = {})
     }
 
     if (char == ':') {
-      if (real != 'bind') {
+      if (!['html', 'bind'].includes(real)) {
         // dynamic attributes
         expr.push(_ => {
           let val = fn(ctx)
@@ -140,9 +143,11 @@ export default function createApp(component, data = {}, deps = [], $parent = {})
       // event handler
       node[`on${real}`] = evt => {
         fn.call(ctx, ctx, evt)
-        const up = $parent?.update || update
-        up()
+        const $fn = $parent?.update
+        if ($fn) $fn()
+        update()
       }
+
     } else if (char == '$') {
       // boolean attribute
       expr.push(_ => {
@@ -152,7 +157,9 @@ export default function createApp(component, data = {}, deps = [], $parent = {})
     }
 
     // html
-    if (real == 'html') expr.push(_ => node.innerHTML = fn(ctx))
+    if (real == 'html') {
+      expr.push(_ => node.innerHTML = fn(ctx))
+    }
   }
 
   function walkChildren(node, fn) {
@@ -230,6 +237,7 @@ export default function createApp(component, data = {}, deps = [], $parent = {})
       if (comp) {
         const app = createApp(comp, data, deps, ctx)
         app.mount(wrap)
+        return app
       }
     },
 
@@ -301,7 +309,7 @@ export default function createApp(component, data = {}, deps = [], $parent = {})
   }
 
   const ctx = new Proxy({}, {
-    get(__, key) {
+    get(_, key) {
 
       // special handling for $attrs
       if (key === '$attrs') return $parent.$attrs || {};
@@ -313,7 +321,7 @@ export default function createApp(component, data = {}, deps = [], $parent = {})
       }
     },
 
-    set(__, key, val) {
+    set(_, key, val) {
 
       // parent key? (loop items)
       if ($parent && $parent[key] !== undefined) {

@@ -132,11 +132,11 @@ bun create nue@latest
 
 Choose "nuemark-demo" on the last step and off you go.
 
-ps: Check out [Getting started docs](/docs/#node) if you prefer Node.
+PS: Check out [Getting started docs](/docs/#node) if you prefer Node.
 
 ### Learn Nuemark
 
-- [User guide](/docs/content.html)
+- [User guide](/docs/content-authoring.html)
 - [Tag reference](/docs/tags.html)
 - [HTML output](/docs/page-layout.html#md)
 

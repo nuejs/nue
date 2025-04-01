@@ -1,0 +1,11 @@
+
+@layer adjustments {
+  .plan-free svg  { color: var(--base-300) }
+  .plan-pro svg   {color: var(--blue-500) }
+  .plan-enterprise svg { color: var(--green-500) }
+
+  .size-s svg  { color: var(--base-300) }
+  .size-m svg  { color: var(--base-400) }
+  .size-l svg  { color: var(--base-700) }
+  .size-xl svg { color: var(--base-950) }
+}

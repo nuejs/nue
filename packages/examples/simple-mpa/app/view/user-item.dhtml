@@ -1,0 +1,34 @@
+
+<script>
+  import { formatDate } from './util.js'
+</script>
+
+<a @name="user-item" href="?id={ id }">
+  <aside>
+    <small class=""><icon :key="type"/> { type?.replace('_', ' ') }</small>
+    <time>{ formatDate(created) }</time>
+  </aside>
+
+  <media :image="/app/icon/cc/{cc}.svg" :title="name" width="32">
+    <p>{{ email }}</p>
+  </media>
+
+  <div class="meta">
+    <span :if="size">
+      <pill class="pill { 'size-' + size.key }" icon="dot" :label="size.label"/>
+    </span>
+    <span :if="plan">
+      <pill class="pill { 'plan-' + plan }" icon="square" :label="plan"/>
+    </span>
+    <span :if="shots" class="plain pill">
+      <icon key="image"/>
+      { shots.length }
+    </span>
+  </div>
+
+  <blockquote>{{ message }}</blockquote>
+
+  <script>
+    formatDate = formatDate
+  </script>
+</a>

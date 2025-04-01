@@ -1,0 +1,24 @@
+
+<script>
+  import { router } from '/@nue/app-router.js'
+</script>
+
+
+<main @name="app" class="ui app">
+
+  <nav-panel class="panel nav-panel" :config/>
+  <content-panel class="panel content-panel card" :config/>
+  <details-panel class="panel details-panel card"/>
+
+  <script>
+    mounted(args) {
+      router.initialize({ root: this.root })
+    }
+  </script>
+
+</main>
+
+
+
+
+

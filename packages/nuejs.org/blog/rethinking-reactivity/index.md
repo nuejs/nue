@@ -116,7 +116,7 @@ Suddenly I could do things like this:
 
 ```html
 <FORM ACTION="/cgi-bin/form.cgi"
-  ıONSUBMIT="return isValidEmail(this.email.value)"ı>
+  •ONSUBMIT="return isValidEmail(this.email.value)"•>
   <INPUT TYPE="text" NAME="email">
   <INPUT TYPE="submit" VALUE="Submit">
 </FORM>
@@ -141,13 +141,13 @@ Nue uses classes to bring the DHTML vibes back to modern component-based web dev
   <input type="email" name="email" placeholder="your@address.com" required>
   <button>Submit</button>
 
-  ı<script>ı
+  •<script>•
     // input validation is natively taken care of by the browser
     async submit({ target }) {
       await fetch(`/api/leads?email=${target.email.value}`)
       location.href = '/thank-you'
     }
-  ı</script>ı
+  •</script>•
 
 </form>
 ```
@@ -247,7 +247,7 @@ Sometimes only you know when an update must happen in which case you must call a
       const req = await fetch('jane.json')
       this.user = await req.json()
       this.is_loaded = true
-      ıthis.update()ı
+      •this.update()•
     }
   </script>
 </div>

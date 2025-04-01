@@ -1,0 +1,88 @@
+
+<script>
+  import { $ } from '/@nue/view-transitions.js'
+  import { router } from '/@nue/app-router.js'
+  import { model } from '../model/index.js'
+</script>
+
+<div @name="content-panel">
+  <header>
+    <button class="ghost mobile mr" @click="navOpen"><icon key="panel-left"/></button>
+
+    <h2 @click="navOpen">{{ getTitle() }}</h2>
+
+    <nav>
+      <small>{ status() }</small>
+
+      <button class="ghost" @click="seek(-1)" data-accesskey="ArrowLeft h"
+        :disabled="!coll?.start" title="Previous page"><icon key="chevron-left"/></button>
+
+      <button class="ghost" @click="seek(1)" data-accesskey="ArrowRight l"
+        :disabled="coll?.start + coll?.length >= coll?.total" title="Next page">
+        <icon key="chevron-right"/></button>
+
+      <hr>
+
+      <button class="ghost" @click="toggleGridView" data-accesskey="g"
+        :aria-pressed="!router.state.show_grid_view"
+        title="Toggle table view"><icon key="list"/></button>
+
+      <button class="ghost" @click="toggleGridView" data-accesskey="g"
+        :aria-pressed="router.state.show_grid_view"
+        title="Toggle grid view"><icon key="grid"/></button>
+
+      <hr>
+
+      <button class="ghost" popovertarget="help" data-accesskey="?"
+        title="Show keyboard shortcuts"><icon key="question"/></button>
+    </nav>
+
+  </header>
+
+  <section id="main_wrap"/>
+
+  <script>
+    router = router
+
+    toggleGridView() {
+      router.toggle('show_grid_view')
+    }
+
+    navOpen() {
+      router.set('nav_opened', true)
+    }
+
+    getTitle() {
+      const { views, company_sizes, plans } = this.config
+      const { type, filter } = router.state
+
+      const view = views.find(el => el.type == type)
+      const size = company_sizes[filter]
+      const plan = plans[filter]
+
+      return plan ? `${ plan } plans` : size ? `${ size } companies` :
+        view ? view.title : 'All contacts'
+    }
+
+    mounted() {
+      router.bind('type query filter start sort asc', args => {
+        const data = this.coll = model.filter(args)
+        this.mountChild('collection', window.main_wrap, data)
+        this.update()
+
+      })
+    }
+
+    seek(to) {
+      const { start, length } = this.coll
+      router.set({ start: start + to*length })
+    }
+
+    status() {
+      const { start, length, total } = this.coll || {}
+      return `${ start + 1 } – ${ start + length } of ${ total }`
+    }
+  </script>
+</div>
+
+

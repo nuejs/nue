@@ -1,0 +1,31 @@
+
+@layer components {
+  .list-item {
+    font-size: var(--smaller);
+    border-radius: .25em;
+    margin-inline: 1px;
+    color: unset;
+
+    small { text-transform: capitalize }
+
+    blockquote {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      -webkit-line-clamp: var(--line-clamp, 2);
+      color: var(--base-500);
+      line-height: 1.5;
+      font-weight: 400;
+      max-width: 40em;
+      margin: 0;
+    }
+
+    &:hover {
+      box-shadow: 0 0 0 1px var(--base-300);
+    }
+
+    &[aria-selected] {
+      box-shadow: 0 0 0 2px var(--main-500);
+    }
+  }
+}

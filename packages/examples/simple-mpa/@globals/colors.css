@@ -1,0 +1,28 @@
+
+@layer settings {
+  :root {
+
+    /* slate gray */
+    --base-50: oklch(.984 .003 247.858);
+    --base-100: oklch(.968 .007 247.896);
+    --base-200: oklch(.929 .013 255.508);
+    --base-300: oklch(.869 .022 252.894);
+    --base-400: oklch(.704 .04 256.788);
+    --base-500: oklch(.554 .046 257.417);
+    --base-600: oklch(.446 .043 257.281);
+    --base-700: oklch(.372 .044 257.287);
+    --base-800: oklch(.279 .041 260.031);
+    --base-900: oklch(.208 .042 265.755);
+    --base-950: oklch(.129 .042 264.695);
+
+    /* main color */
+    --main-500: #3b82f6;
+    --main-600: #2563eb;
+
+    /* alphas */
+    --alpha-50: rgba(0,0,0,.025);
+    --alpha-100: rgba(0,0,0,.05);
+    --alpha-200: rgba(0,0,0,.1);
+    --alpha-300: rgba(0,0,0,.2);
+  }
+}

@@ -1,0 +1,46 @@
+
+@layer components {
+
+  .table-view { container-type: size }
+
+  .table-view .list-item {
+    display: grid;
+    grid-template-columns: minmax(16em, auto) minmax(10em, 1fr) auto auto auto;
+    grid-template-areas: "header message type meta time";
+    align-items: center;
+    padding: .5em 1em;
+    gap: 1em;
+
+    aside {
+      display: contents;
+      small { grid-area: type; display: none; }
+      time {
+        grid-area: time;
+        text-align: right;
+      }
+    }
+
+    blockquote {
+      grid-area: message;
+      --line-clamp: 3;
+    }
+
+    @container (width < 900px) {
+      .meta { display: none; }
+    }
+
+    @container (width < 650px) {
+      align-items: flex-start;
+      grid-template-columns: minmax(150px, auto) 1fr;
+      grid-template-areas: "header time" "message message";
+      gap: .5em;
+
+      blockquote {
+        border-left: 2px solid var(--base-300);
+        padding-left: 1.75em;
+        margin-left: 1.125em;
+        padding-right: 0;
+      }
+    }
+  }
+}

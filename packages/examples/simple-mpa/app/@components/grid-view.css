@@ -1,0 +1,34 @@
+
+@layer components {
+  .grid-view {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    display: grid;
+    gap: 1em;
+  }
+
+  .grid-view .list-item {
+    box-shadow: 0 0 2em var(--alpha-100);
+    flex-direction: column;
+    border: var(--border);
+    border-radius: .5em;
+    height: 100%;
+    padding: 1.5em;
+    display: flex;
+    gap: .75em;
+
+    blockquote {
+      border-left: 1px solid var(--base-300);
+      padding-left: 1em;
+      --line-clamp: 1;
+    }
+
+    aside {
+      &, :first-child {
+        align-items: center;
+        display: flex;
+        gap: .5em;
+      }
+      :last-child { margin-left: auto; }
+    }
+  }
+}

@@ -1,4 +1,5 @@
-//  Extremely minimal and efficient cross-platform file watching library
+
+// cross-platform walk & file watching library (Nue specific)
 
 import { watch, promises as fs } from 'node:fs'
 import { join, parse } from 'node:path'
@@ -108,14 +109,20 @@ export async function fswalk(opts, _dir = '', _ret = []) {
   return _ret
 }
 
-const IGNORE = ['node_modules', 'functions', 'package.json', 'bun.lockb', 'pnpm-lock.yaml', 'README.md']
+const IGNORE = ['node_modules', 'functions', 'package.json', 'bun.lockb', 'pnpm-lock.yaml', 'README.md', 'model-rs']
+const IGNORE_EXT = ['.toml', '.rs', '.lock']
 
 function ignore(name = '') {
   return '._'.includes(name[0]) || IGNORE.includes(name)
 }
 
 function isLegit(file) {
-  return !ignore(file.name) && !ignore(file.base) && !ignore(file.dir)
+  let is_bad = ignore(file.name) || ignore(file.base) || ignore(file.dir)
+  if (file.name && !file.ext) {
+    const { ext, base } = parse(file.name)
+    if (IGNORE_EXT.includes(ext) || base.endsWith('.test.js')) is_bad = true
+  }
+  return !is_bad
 }
 
 

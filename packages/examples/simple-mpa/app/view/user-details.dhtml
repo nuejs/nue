@@ -1,0 +1,22 @@
+
+<section @name="user-details" class="user">
+
+  <media :image="/app/icon/cc/{cc}.svg" :title="name">
+    <p>{ email }</p>
+  </media>
+
+  <dl :if="org">
+    <dt>Company</dt>      <dd>{ org }</dd>
+    <dt>Country</dt>      <dd> { country }</dd>
+    <dt>Company size</dt> <dd>{ size.desc } ({ size.label })</dd>
+    <dt>Website</dt>      <dd><a class="action">{ website }</a></dd>
+    <dt>Plan</dt>         <dd><pill icon="dot" :label="{ plan }"/></dd>
+  </dl>
+
+  <media-thumbs :items="shots"/>
+
+  <chat-thread :thread="thread"/>
+</section>
+
+
+

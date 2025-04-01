@@ -24,6 +24,16 @@ async function importAll(hmr_path) {
   return arr
 }
 
+export async function mount(name, wrap, data) {
+  const lib = await importAll()
+  const comp = lib.find(el => el.name == name)
+  if (!comp) return
+
+  const { createApp } = await import('./nue.js')
+  const app = createApp(comp, data, lib).mount(wrap)
+  app.root.setAttribute('custom', name)
+  return app
+}
 
 export async function mountAll(hmr_path) {
   const els = document.querySelectorAll('[custom]')
@@ -46,7 +56,7 @@ export async function mountAll(hmr_path) {
       // web component -> do nothing
 
     } else {
-      console.error(`Component not defined: "${name}"`)
+      // console.error(`Component not defined: "${name}"`)
     }
   }
 }
