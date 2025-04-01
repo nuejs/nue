@@ -14,7 +14,7 @@ Nue makes the inevitable shift. We're rebuilding the entire ecosystem from scrat
 
 ### What this means
 
-1. **Build apps with a fraction of the code**: The apps are literally smaller than a single React button. Modern web starndards are beasts.
+1. **Build apps with a fraction of the code**: The apps are literally smaller than a single React button. Modern web standards are beasts.
 
 3. **Rust computation engines**: Write clean, isolated business models where the performance critical parst can be offloaded to Rust or Go.
 
