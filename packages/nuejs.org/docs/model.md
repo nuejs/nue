@@ -97,7 +97,7 @@ Your model defines unique business logic, like:
 These operations evolve independently, driving your app’s value without UI friction.
 
 ## Rust and WASM
-For high-performance needs, Rust and WebAssembly enhance the model. Our demo (mpa.nuejs.org) loads 10,000+ records, making searches instant. Rust excels with:
+For high-performance needs, Rust and WebAssembly enhance the model. Our demo (mpa.nuejs.org) loads 10,000+ records, making searches instant. Rust excels at:
 
 - Native speed and no GC pauses.
 - True type safety beyond TypeScript.
