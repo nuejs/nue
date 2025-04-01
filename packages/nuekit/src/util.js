@@ -6,6 +6,7 @@ import { promises as fs } from 'node:fs'
 import { sep, parse, resolve, normalize, join, isAbsolute, dirname } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 
+
 export const srcdir = dirname(fileURLToPath(import.meta.url))
 
 export function openUrl(url) {
