@@ -16,7 +16,7 @@ Nue makes the inevitable shift. We're rebuilding the entire ecosystem from scrat
 
 1. **Build apps with a fraction of the code**: The apps are literally smaller than a single React button. Modern web standards are beasts.
 
-3. **Rust computation engines**: Write clean, isolated business models where the performance critical parst can be offloaded to Rust or Go.
+3. **Rust computation engines**: Write clean, isolated business models where the performance critical parts can be offloaded to Rust or Go.
 
 1. **Faster HMR and tooling**: Instant HMR for all asset types: content, styling, data, and components. Build large applications in milliseconds.
 
