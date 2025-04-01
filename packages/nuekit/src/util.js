@@ -13,6 +13,11 @@ export function openUrl(url) {
   execSync(`${open} ${url}`)
 }
 
+export function esMain(meta) {
+  if (!meta || !process.argv[1]) return false
+  return fileURLToPath(meta.resolve(process.argv[1])) === fileURLToPath(meta.url)
+}
+
 // read from package.json
 export const version = await async function() {
   const path = join(srcdir, '../package.json')

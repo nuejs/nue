@@ -9,7 +9,7 @@
   ],
   "engines": {
     "bun": ">=1.2",
-    "node": ">=18"
+    "node": ">=20.8"
   },
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand"

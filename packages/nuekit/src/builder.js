@@ -3,17 +3,16 @@
 import { promises as fs } from 'node:fs'
 import { join } from 'node:path'
 
-import { resolve } from 'import-meta-resolve'
-
 // don't reuse saved builder when in test mode
 const isTest = process.env.NODE_ENV == 'test'
+
 
 let jsBuilder
 export async function getJsBuilder(is_esbuild) {
   if (!isTest && jsBuilder) return jsBuilder
 
   try {
-    return jsBuilder = is_esbuild ? await import(resolve('esbuild', `file://${process.cwd()}/`)) : Bun
+    return jsBuilder = is_esbuild ? await import(import.meta.resolve('esbuild')) : Bun
   } catch {
     throw 'JS bundler not found. Please use Bun or install esbuild'
   }
@@ -24,7 +23,7 @@ export async function getCssBuilder(is_lcss) {
   if (!isTest && cssBuilder) return cssBuilder
 
   try {
-    cssBuilder = is_lcss ? await import(resolve('lightningcss', `file://${process.cwd()}/`)) : Bun
+    cssBuilder = is_lcss ? await import(import.meta.resolve('lightningcss')) : Bun
     if (!is_lcss) {
       const v = Bun.version.split('.').map(i => parseInt(i))
       if (!(v[0] >= 1 && v[1] >= 2)) throw new Error('Bun version too low')

@@ -43,11 +43,13 @@ jobs:
 
       # Testing `node+jest`
       - uses: actions/setup-node@v4
+        with:
+          node-version: '>= 20.8'
         if: ${{ matrix.tool == 'node+jest' }}
 
       - name: Install and test with Node
         run: |
           node -v && npm -v
-          npm install --no-save jest jest-extended
+          npm install --no-save --legacy-peer-deps "jest@>=30.0.0-alpha.4" jest-extended
           npm test -- --coverage
         if: ${{ matrix.tool == 'node+jest' }}
