@@ -4,7 +4,7 @@ description: Nue is HTML, CSS, and JavaScript taken to their absolute peak.
 date: 2025-04-01
 ---
 
-On this release, we’re showing what happens when you push modern web standards—HTML, CSS, and JS—to their peak:
+On this release, we’re showing what happens when you push modern web standards — HTML, CSS, and JS — to their peak:
 
 [bunny-video]
   videoId: 39b76cca-e55b-4e9b-8583-b053f9dbd55d
@@ -66,7 +66,7 @@ This is an important shift for design engineers bogged down by React patterns an
 
 
 ### For UX Engineers
-This is a wake-up call for UX engineers tangled in React hooks and utility class walls instead of owning the user experience. Build apps as light as a React button to push the web—and your skills—forward.
+This is a wake-up call for UX engineers tangled in React hooks and utility class walls instead of owning the user experience. Build apps as light as a React button to push the web — and your skills — forward.
 
 
 ## FAQ: WTH is Nue?

@@ -46,7 +46,7 @@ To relieve my disappointment with the frontend ecosystem, I'm showing a better w
 
 2. **HTML first**: semantic HTML is the foundation for everything: layouts, server components, and interactive islands. The same syntax and mental model is better for developers, search engines, and screen readers.
 
-3. **Content first**: Rich Markdown syntax handles everything from marketing to documentation. Content lives in clean, accessible files – not in JavaScript.
+3. **Content first**: Rich Markdown syntax handles everything from marketing to documentation. Content lives in clean, accessible files — not in JavaScript.
 
 4. **Design systems**: modern, systematic CSS is more powerful than you think. Learn to build design systems, and you'll get better interfaces with less code.
 
@@ -81,7 +81,7 @@ I'm currently building something I've dreamed about since CSS was invented: A sy
 nue create startup --design rams
 ```
 
-Let's dive into this. First off, this command structure is the very reason I started building Nue in the first place. It demonstrates the benefits of separation of concerns as clearly as possible. A template defines the **function** – whether it's a blog, an idea showcase, a startup platform, or an enterprise site. The design system defines the **form**, which brings the template to life through a user-selected look and feel.
+Let's dive into this. First off, this command structure is the very reason I started building Nue in the first place. It demonstrates the benefits of separation of concerns as clearly as possible. A template defines the **function** — whether it's a blog, an idea showcase, a startup platform, or an enterprise site. The design system defines the **form**, which brings the template to life through a user-selected look and feel.
 
 Behind the "rams" command argument is something called a **global design system** that acts as a basis for four wildly different mathematical expressions:
 
@@ -91,7 +91,7 @@ Behind the "rams" command argument is something called a **global design system*
 
 3. **Zaha** — Translates **Zaha Hadid**'s bold architectural vision into digital space. Where Linear suggests depth through noise via `feTurbulence`, Zaha fully embraces the third dimension through systematic shadows, calculated blur effects, and precise transforms that create dramatic movement while maintaining perfect mathematical relationships.
 
-4. **Muriel** — **Muriel Cooper** revolutionized digital design at MIT by showing how mathematical systems could create both precision and joy. This system builds on her work, proving how systematic thinking enables creative freedom. Like Apple, it achieves playfulness through calculation – but goes further by making every relationship mathematically pure.
+4. **Muriel** — **Muriel Cooper** revolutionized digital design at MIT by showing how mathematical systems could create both precision and joy. This system builds on her work, proving how systematic thinking enables creative freedom. Like Apple, it achieves playfulness through calculation — but goes further by making every relationship mathematically pure.
 
 Imagine what this means for web development: you can create an Apple-like startup site for one client, a Stripe-like platform for another, and a Linear-inspired interface for a third. All through a single command that takes seconds rather than the months of custom development these looks typically require.
 

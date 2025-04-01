@@ -48,7 +48,7 @@ const THREADS = [
   ],
   [
     'Which browser are you using? Chrome, Firefox, Safari? Are you on Windows, Mac, or Linux?',
-    'Alright, here’s the full rundown—OS: Windows 11, 64-bit, Version 22H2, CPU: Intel i7-12700, RAM: 16GB, Storage: 512GB SSD, GPU: NVIDIA RTX 3060, Browser: Chrome 123.0.6312.86. Let me know what’s next!',
+    'Alright, here’s the full rundown — OS: Windows 11, 64-bit, Version 22H2, CPU: Intel i7-12700, RAM: 16GB, Storage: 512GB SSD, GPU: NVIDIA RTX 3060, Browser: Chrome 123.0.6312.86. Let me know what’s next!',
     'Thanks. Checking this out. Will be back later today',
     '🫡',
   ],

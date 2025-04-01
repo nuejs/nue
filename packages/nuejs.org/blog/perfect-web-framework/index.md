@@ -85,7 +85,7 @@ An ideal framework lets people with different backgrounds take part in scaling t
 They use the same system for content-focused apps and single-page apps and enjoy the productivity boost from universal hot-reloading. They share components and design elements, so they can move faster and keep things consistent.
 
 [.problem]
-  Vite and **React** place all the burden on the JavaScript developer. They develop React components where content, styling, and logic are all mixed. Scaling becomes hard when content teams and UX developers cannot participate. And if you use different systems for blogging, documentation, and single-page apps – extra developer time is spent on keeping the external services together.
+  Vite and **React** place all the burden on the JavaScript developer. They develop React components where content, styling, and logic are all mixed. Scaling becomes hard when content teams and UX developers cannot participate. And if you use different systems for blogging, documentation, and single-page apps — extra developer time is spent on keeping the external services together.
 
 
 ## Sub-second deploy times `DX` { #ship }

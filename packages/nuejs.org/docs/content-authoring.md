@@ -334,7 +334,7 @@ function example() {
 
 ### Why this matters
 
-While these Markdown features are standard, Nue's implementation focuses on generating clean, semantic HTML that serves as a foundation for your design system. There's no framework-specific markup or special processing – just pure content that directly expresses meaning.
+While these Markdown features are standard, Nue's implementation focuses on generating clean, semantic HTML that serves as a foundation for your design system. There's no framework-specific markup or special processing — just pure content that directly expresses meaning.
 
 For complete Markdown syntax reference, see the [original Markdown specification](//daringfireball.net/projects/markdown/). Nue builds on this foundation with powerful extensions covered in the following sections.
 

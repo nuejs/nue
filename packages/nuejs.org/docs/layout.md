@@ -145,7 +145,7 @@ Layout modules can be defined at three levels:
 
 ### Module Location
 
-Modules can be stored in any `.html` file. A single file can contain multiple modules – for example, your header, footer, and menu could all live in `layout.html`.
+Modules can be stored in any `.html` file. A single file can contain multiple modules — for example, your header, footer, and menu could all live in `layout.html`.
 
 ### Overriding Modules
 

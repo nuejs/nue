@@ -118,7 +118,7 @@ The `<markdown>` component renders a Markdown-formatted string provided in the `
 ```
 
 ## Symbols
-The `<symbols/>` component scans your `.svg` icon files and turns them into SVG `<symbol/>` tags. These symbols are loaded once from the file system and reused across your app—think a “dot” or “search” icon that doesn’t bloat your JS bundle with duplicates. It’s a smart way to keep things lean.
+The `<symbols/>` component scans your `.svg` icon files and turns them into SVG `<symbol/>` tags. These symbols are loaded once from the file system and reused across your app — think a “dot” or “search” icon that doesn’t bloat your JS bundle with duplicates. It’s a smart way to keep things lean.
 
 ### Basic Usage
 Define a reusable icon component:

@@ -15,7 +15,7 @@ Take HTML, CSS, JS, and WASM to their absolute peak
 
 [bunny-video]
   videoId: eb65fcdd-5be4-4923-a783-f41efafe58a7
-  caption: Using **Rust** and **Event Sourcing** for instant UX over 150,000 records—far past where JavaScript crashes with a stack overflow error.
+  caption: Using **Rust** and **Event Sourcing** for instant UX over 150,000 records — far past where JavaScript crashes with a stack overflow error.
   width: 1000
   height: 620
   poster: /img/rust-splash.png
