@@ -4,7 +4,7 @@ include: [technical-content, form]
 
 __The Vision__
 # Radically simpler stack
-We are building the necessary frontend tooling from scratch. It's the only way to address the systematic issues and bring back the joy of web development:
+We are building a radically simpler frontend tooling to bring back the joy of web development:
 
 [image]
   small: /img/roadmap-2025-2.png
@@ -12,14 +12,14 @@ We are building the necessary frontend tooling from scratch. It's the only way t
   width: 750
 
 ## Phase 1: Simplify frontend engineering (Done/Beta)
-A React button shouldn’t outweigh an entire single-page application. Nue crushes this. It allows you to build large-scale apps with a fraction of code. Try it yourself:
+A React button shouldn’t outweigh an entire single-page application. Nue fixes this. It allows you to build large-scale apps with a fraction of code. Try it yourself:
 
 ```sh
 nue create simple-mpa
 ```
 
-## Phase 2: Recover design engineering
-Building a new theme shouldn’t require [40,000+ lines of TSX][new_york]. Nue brings you true design systems with modern CSS. Themes become simple, lightweight layers, letting you decide and fine-tune the exact look and feel. Nue will fix this problem, even more severe than what the React button reveals. This arrives later:
+## Phase 2: Fix design engineering
+Building a new theme shouldn’t require [40,000+ lines of TSX][new_york]. Nue brings you true design systems with modern CSS. Themes become simple, lightweight layers, giving you full control over typography and whitespace. This arrives later:
 
 ```sh
 nue create startup --design "Rams"

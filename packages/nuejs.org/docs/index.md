@@ -10,6 +10,7 @@ Nue is a standards-first framework that pushes HTML, CSS, JavaScript, and WASM t
 [image]
   small: /img/react-button-vs-nue-spa.png
   large: /img/react-button-vs-nue-spa-big.png
+  size: 720 × 402
   class: taller
 
 See benchmark and details [here](react-button-vs-nue.html).

@@ -1,9 +1,10 @@
 
-/* background animation */
+/* background animation
 body {
   background: url(/blog/lib/blog-bg.svg) 0 0 no-repeat;
   background-size: 100% 500px;
 }
+*/
 
 main {
   text-align: center;

@@ -65,6 +65,10 @@ We are building the necessary tooling from scratch:
   width: 750
   href: /vision/
 
+### Keep up with Nue
+Get updates on major releases.
+
+[join-list]
 
 ----
 

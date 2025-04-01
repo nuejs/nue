@@ -17,8 +17,7 @@ exclude:
 ---
 
 
-# Web developer blog
+# Standards First
 
-[button.secondary href="/#roadmap" "Join mailing list"]
 
 [page-list]
