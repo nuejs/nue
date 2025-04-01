@@ -4,7 +4,7 @@ Nue is a web framework that prioritizes web standards, enabling developers to cr
 
 
 ## Large-scale web applications
-Large-scale or "ambitious" refers to an application that push the boundaries of browser capabilities, delivering complex functionality with native-like performance. **Figma** is a good example: a vector graphics editor that processes hundreds of layers instantly using WebAssembly, while its interface remains responsive. **Notion** is another case: its data engine enables real-time collaboration and fast searches across large documents, even offline, without bogging down the UI. These applications achieve their ambition by isolating sophisticated logic and data operations from presentation, raising the standard for web development.
+Large-scale or "ambitious" refers to an application that pushes the boundaries of browser capabilities, delivering complex functionality with native-like performance. **Figma** is a good example: a vector graphics editor that processes hundreds of layers instantly using WebAssembly, while its interface remains responsive. **Notion** is another case: its data engine enables real-time collaboration and fast searches across large documents, even offline, without bogging down the UI. These applications achieve their ambition by isolating sophisticated logic and data operations from presentation, raising the standard for web development.
 
 
 #### Model-first approach
