@@ -45,7 +45,7 @@ In content-heavy sites, JavaScript is optional, unlike in SPAs where it’s cent
 Motion enhances the experience through modern CSS, reducing reliance on JavaScript-heavy solutions common in frameworks. Scroll-linked effects via `[.progress]` or view transitions — enabled in `site.yaml` — add fluidity and engagement. These standards-based techniques progressively build on the content-first foundation with minimal overhead.
 
 
-You’re right — “unify” feels abrupt and doesn’t fully capture the intent. I’ll revise the *Multi-page applications* section to clarify how Nue supports developing both content-focused apps (e.g., docs, blogs, products) and SPAs within the same cohesive environment, choosing the best development model for each task. Here’s the updated version:
+You’re right — “unify” feels abrupt and doesn’t fully capture the intent. I’ll revise the *Multi-page applications* section to clarify how Nue supports developing both content-focused apps (e.g., docs, blogs, products) and SPAs within the same cohesive environment, choosing the best development model for each task. Here’s the updated version: 
 
 
 ## Multi-page applications
