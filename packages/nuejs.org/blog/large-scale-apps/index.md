@@ -1,7 +1,7 @@
 ---
 title: Apps lighter than a React button
 description: Nue is HTML, CSS, and JavaScript taken to their absolute peak.
-date: 2025-03-30
+date: 2025-04-01
 ---
 
 On this release we're showing what you can do by taking the modern web standards — HTML, CSS, and JS — to their absolute peak:
