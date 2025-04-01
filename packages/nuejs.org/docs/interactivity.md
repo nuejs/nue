@@ -99,7 +99,7 @@ The router in Nue goes beyond URL arguments, serving as a full state management 
 ```js
 router.configure({
   route: '/app/:type/:id',
-  url_params: ['search', start', 'sort', 'asc'],
+  url_params: ['search', 'start', 'sort', 'asc'],
   session_params: ['nav_opened'],
   persistent_params: ['show_grid_view']
 })
