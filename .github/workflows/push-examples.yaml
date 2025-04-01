@@ -13,6 +13,7 @@ jobs:
     if: ${{ github.repository_owner == 'nuejs' || github.event_name == 'workflow_dispatch' }}
 
     strategy:
+      fail-fast: false
       matrix:
         dir: # dirs in "examples" to run build & push process for
           - simple-blog
