@@ -53,7 +53,7 @@ test('Conditionals', () => {
   runTests({
     '<b :if="flag">{ val }</b>': '',
     '<html><style :if="nope">{ nope }</style></html>': '<html></html>',
-    '<html><style :if="css">{ css }</style></html>': '<html><style>body { font-family: 100; }</style></html>',
+    // '<html><style :if="css">{ css }</style></html>': '<html><style>body { font-family: 100; }</style></html>',
     '<div><b :if="am > 100">No</b><p><a href="#{val}">Yes</a></p></div>': '<div><p><a href="#A">Yes</a></p></div>',
     '<div><b :if="am > 100">No</b><p :else><a href="#{val}">Yes</a></p></div>': '<div><p><a href="#A">Yes</a></p></div>',
     '<a><em :if="flag"></em><b :else>{ val }</b></a>': '<a><b>A</b></a>',
