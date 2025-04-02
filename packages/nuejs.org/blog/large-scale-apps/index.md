@@ -27,10 +27,7 @@ See benchmark and details [here ›](/docs/react-button-vs-nue.html)
 
 
 ## Going large-scale
-
-Here’s the same app, now with a **Rust** computation engine and **Event Sourcing** for instant search and other operations over **150,000** records — far past where [JS-version](//github.com/nuejs/nue/blob/master/packages/examples/simple-mpa/app/model/engines/javascript.js) of the engine choked on recursive calls over the records.
-
-Maximum call stack exception:
+Here’s the same app, now with a **Rust** computation engine and **Event Sourcing** for instant search and other operations over **150,000** records — far past where [JS-version](//github.com/nuejs/nue/blob/master/packages/examples/simple-mpa/app/model/engines/javascript.js) of the engine crashed with a maximum call stack exception.
 
 [bunny-video]
   videoId: eb65fcdd-5be4-4923-a783-f41efafe58a7
@@ -75,7 +72,11 @@ This is a wake-up call for UX engineers tangled in React hooks and utility class
 
 
 ## FAQ: WTH is Nue?
+<<<<<<< HEAD
 
 Nue is a web framework focused on web standards, currently in active development. We aim to reveal the hidden complexity that’s become normalized in modern web development. When a single button outweighs an entire application, something’s fundamentally broken.
+=======
+Nue is a web framework focused on web standards, currently in active development. I'm aiming to reveal the hidden complexity that’s become normalized in modern web development. When a single button outweighs an entire application, something’s fundamentally broken.
+>>>>>>> 717c56e (Small website fixes)
 
-Nue drives the inevitable shift. We’re rebuilding tools and frameworks from the ground up with a cleaner, more robust architecture. Our goal is to restore the joy of web development for all key skill sets: frontend architects, design engineers, and UX engineers.
+Nue drives the inevitable shift. We’re rebuilding tools and frameworks from the ground up with a cleaner, more robust architecture. Our goal is to bring back the joy of web development for everyone—whether you’re focused on performance, design, or UX.

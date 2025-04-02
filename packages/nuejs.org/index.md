@@ -17,7 +17,6 @@ Take HTML, CSS, JS, and WASM to their absolute peak
   videoId: eb65fcdd-5be4-4923-a783-f41efafe58a7
   caption: Using **Rust** and **Event Sourcing** for instant UX over 150,000 records — far past where JavaScript crashes with a stack overflow error.
   width: 1000
-  height: 620
   poster: /img/rust-splash.png
 
 [Launch Rust demo ›](https://mpa.nuejs.org/app/?rust)
@@ -46,7 +45,6 @@ Set up millisecond feedback loop to your development cycle
   videoId: ffbb6d40-5b74-4176-a115-d0ed040edca5
   caption: Immediate feedback for design and component updates, preserving app state
   width: 1000
-  height: 630
   // poster: thumbnail_1ca1bd66.jpg
 
 [video /img/mpa-build.mp4 autoplay loop muted width=350]
