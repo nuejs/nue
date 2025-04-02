@@ -1,9 +1,11 @@
 
 # Design systems
+
 A design system is a set of rules and reusable components that brings consistency and structure to your application design. Nue embraces this through modern CSS: @layers, variables, and calc().
 
 
 ## What exactly is a CSS design system?
+
 A CSS design system organizes styling by keeping design separate from components. This split lets CSS handle the visual layer — using variables, cascade layers, and nesting to maintain consistency and scale — while components focus on structure and behavior. It’s a deliberate choice to use CSS as the design language, distinct from template logic.
 
 This separation makes theming practical. Change a few variables — colors, typography, spacing — and the whole system updates. For bigger shifts, override a layer or replace the stylesheet, all without altering markup. It’s a way to adjust design efficiently, from small tweaks to full reworks.
@@ -16,6 +18,7 @@ With CSS, theming stays simpler — variables and layers handle changes without 
 
 
 ## CSS processing in Nue
+
 Nue simplifies design engineering as follows:
 
 1. **CSS processing**
@@ -31,8 +34,8 @@ Nue simplifies design engineering as follows:
    Nue minifies CSS by removing unused code and whitespace. It also inlines critical styles where needed, reducing load times without overloading the markup. This keeps pages efficient while preserving design system flexibility.
 
 
-
 ## Templates
+
 This documentation provides a solid starting point for systematic design with CSS, but mastering it takes practice. To help bridge that gap, Nue is developing templates for single-page applications and content-heavy websites. These templates draw on over 20 years of experience in vanilla CSS design and JavaScript frontend engineering. They offer pre-built examples of design systems — complete with variables, layers, and components — tailored to different use cases.
 
 If you’d like to know when these templates are available, join the mailing list for a notification.

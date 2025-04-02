@@ -1,9 +1,11 @@
 
 # Scripting
+
 Scripting adds lightweight interactivity to static content. While islands handle isolated components, global scripts enhance the broader experience.
 
 
 ## Global scripts
+
 Global scripts enrich static HTML across the site. Take a popover menu:
 
 ```html
@@ -33,6 +35,7 @@ addEventListener('click', event => {
 The menu works without JavaScript — clicking links navigates normally — but the script improves usability by auto-closing, showcasing progressive enhancement with minimal code.
 
 ## View transitions
+
 Enable [view transitions](view-transitions.html) in `site.yaml`, and pages load once, with JavaScript updating content like turbo-linking. Re-run scripts on virtual page loads:
 
 ```js
@@ -67,6 +70,7 @@ loadPage('thanks.html')
 This keeps scripting lean, enhancing multipage apps without bloat.
 
 ## Hot reloading
+
 Hot Module Replacement (HMR) updates content live. Global scripts persist, but DOM-dependent logic needs reattachment:
 
 ```js

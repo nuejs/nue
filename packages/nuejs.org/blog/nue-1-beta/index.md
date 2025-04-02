@@ -33,12 +33,13 @@ Exactly one year ago I [decided](/blog/backstory/) to create a super simple webs
 
 
 ## What's new?
+
 **v1.0 Beta** is by far the biggest release yet with five months of work and over [500 files changed](//github.com/nuejs/nue/pull/316). This is a breakdown of new features, updates, and breaking changes.
 
 
 ## Improved CSS stack
-Nue has a powerful CSS theming system that supports [hot-reloading](/docs/hot-reloading.html), CSS inlining, error reporting, and automatic dependency management. This version improves the system with the following features:
 
+Nue has a powerful CSS theming system that supports [hot-reloading](/docs/hot-reloading.html), CSS inlining, error reporting, and automatic dependency management. This version improves the system with the following features:
 
 - [Lightning CSS](//lightningcss.dev/) is now enabled by default allowing you to use CSS nesting, color-mix, and other modern features now without browser-compatibility concerns.
 
@@ -48,6 +49,7 @@ Nue has a powerful CSS theming system that supports [hot-reloading](/docs/hot-re
 
 
 ## CSS view transitions
+
 View transitions are an important part of a seamless user experience and are a key feature in the Nue framework. They can now be enabled with this simple configuration variable:
 
 ``` yaml
@@ -56,7 +58,6 @@ view_transitions: true
 ```
 
 This option was previously called `router`, but this feature is now much more than just a router. It now triggers a [view transition](//developer.mozilla.org/en-US/docs/Web/API/ViewTransition) effect that you can customize with [::view-transition](//developer.mozilla.org/en-US/docs/Web/CSS/::view-transition) CSS pseudo-element. This website, for example, has a "scale down" transition effect on the page's `article` element. It's defined with this compact CSS:
-
 
 ```css.blue
 article {
@@ -76,6 +77,7 @@ View transitions is a broad standard with tons of visual possibilities that are 
 
 
 ## CSS best practices
+
 Nue's new [CSS best practices](/docs/styling.html) brings out the best of modern CSS:
 
 [image.larger]
@@ -84,7 +86,7 @@ Nue's new [CSS best practices](/docs/styling.html) brings out the best of modern
   caption: Nue offers the shortest path from Figma to code
   href: /docs/styling.html
 
-These lessons focus on writing reusable CSS that is easy to read, maintain, and scale. It unpacks decades of CSS experience with a heavy focus on *clarity* and *minimalism*. In fact, all the lessons can squeezed into this one sentence:
+These lessons focus on writing reusable CSS that is easy to read, maintain, and scale. It unpacks decades of CSS experience with a heavy focus on *clarity* and *minimalism*. In fact, all the lessons can be squeezed into this one sentence:
 
 [.blueprint]
   10 lines of code are easier to maintain than 100 lines of code
@@ -93,6 +95,7 @@ Nue helps you build professional websites with the same amount of CSS as you can
 
 
 ## New website and documentation
+
 Unsurprisingly, the biggest job was the documentation area, which now focuses on [Design Engineering](/docs/how-it-works.html#design-engineering). About 80% of the documentation is completely rewritten and there are several new documents.
 
 [image.larger.shadowed]
@@ -107,7 +110,7 @@ The most important thing, however, is that the website is generated with the pub
 
 ## Easier setup
 
-Nue [installation](/docs/installation.html) is now simpler and the onboarding now comes with a handy `nue create` command that installs an example website and opens it on your browser. The opening screen looks like this:
+Nue [installation](/docs/installation.html) is now simpler, and the onboarding now comes with a handy `nue create` command that installs an example website and opens it on your browser. The opening screen looks like this:
 
 [image]
   small: /img/create-welcome.png
@@ -122,12 +125,13 @@ The setup is supported by a [tutorial](/docs/tutorial.html) that explains how Nu
 
 ## Smaller updates
 
-
 ### Freeform file naming
+
 There are no longer hard coded `app.yaml`, `layout.html`, or `main.js` file names to give them a special meaning. You can now freely name your CSS, YAML, JavaScript, or HTML files. You can also have multiple data and layout files, and they are all grouped or concatenated together. You could, for example, create a `layout.html` file for layout-specific components and a `components.html` file for other server-side components.
 
 
 ### Dynamic sections and grid items
+
 You can turn your [sections](/docs/page-layout.html#sections) and [grid items](/docs/reactivity.html#grid-items) into a native Web Component. For example, on the front page of this website, we have a "scroll-transition" component to help implement all the scroll-triggered CSS transitions.
 
 ```yaml
@@ -138,7 +142,8 @@ The web component can be assigned globally in `site.yaml` for all page sections 
 
 
 ### Miscellaneous new features
-- New `<navi>`, `<markdown>`, `<pretty-date>`, and `<toc>` tags to help building [custom layouts](/docs/custom-layouts.html)
+
+- New `<navi>`, `<markdown>`, `<pretty-date>`, and `<toc>` tags to help build [custom layouts](/docs/custom-layouts.html)
 
 - A new [`<gallery>`](/docs/content-collections.html#gallery) tag to render content collections
 
@@ -152,6 +157,7 @@ The web component can be assigned globally in `site.yaml` for all page sections 
 
 
 ## Breaking changes
+
 The major version number goes from zero to one, which means that ~this version of Nue is not backward compatible~. There are the following changes that might break your HTML or CSS from working:
 
 - The former `css_2023` configuration is now called `native_css_nesting`, which attempts to more accurately describe what it does: Using native CSS nesting. Setting this to `true` generates a smaller CSS output, but is not supported by the oldest of browsers. Check the current [Can I Use](//caniuse.com/css-nesting) statistics for details.
@@ -187,4 +193,5 @@ Previously the class name would be set directly to the `pre` element. This makes
 
 
 ## Try now!
+
 Please [try it out](/docs/installation.html) and experience the difference in UX development. You might wonder why you ever built websites any other way.

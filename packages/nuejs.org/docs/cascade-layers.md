@@ -1,8 +1,10 @@
 
 # CSS Cascade Layers
+
 Cascade layers (`@layer`) provide a powerful new way to organize CSS styles. They help developers create clear boundaries between different types of styles, making it easier to manage how styles interact and override each other. This is especially useful in large design systems, offering a native method to separate and control CSS concerns more effectively.
 
 ## The @layer rule
+
 The `@layer` rule lets you define your system’s layers and set their order of precedence. A well-thought-out layer structure can make all the difference. Here’s an example that works effectively:
 
 ```css
@@ -17,6 +19,7 @@ The `@layer` rule lets you define your system’s layers and set their order of 
 ```
 
 This setup has clear benefits:
+
 1. **Encapsulation**: Components stay protected, only overridden by higher layers like adjustments or overrides.
 2. **Override control**: Adjustments and overrides always win when needed.
 3. **Documentation**: The layer names themselves explain the system’s intent.
@@ -25,10 +28,12 @@ This structure ensures styles flow logically — base settings come first, follo
 
 
 ## Layer examples
+
 Cascade layers are flexible by design, encouraging creativity and experimentation. The examples below showcase practical ways to structure layers, reflecting good development practices. They’re not strict rules — feel free to adapt them to your project’s needs. Let’s explore each layer with real-world scenarios.
 
 
 ### Settings layer
+
 This layer sets the foundation with design tokens, variables, and resets.
 
 ```css
@@ -45,10 +50,12 @@ This layer sets the foundation with design tokens, variables, and resets.
   }
 }
 ```
+
 **Use-case**: A news site uses this layer to define a consistent typography scale and spacing system across articles, ensuring all elements start from a clean slate with a shared accent color for links and highlights.
 
 
 ### Structure layer
+
 This layer frames the page’s overall structure like global headers and footers.
 
 ```css
@@ -68,10 +75,12 @@ This layer frames the page’s overall structure like global headers and footers
   }
 }
 ```
+
 **Use-case**: An e-commerce site applies this to enforce a sticky header and footer across all pages, keeping the main content flexible while maintaining a consistent site skeleton.
 
 
 ### Components layer
+
 Here, UI building blocks like buttons and cards take shape. This layer covers both semantic HTML elements and custom elements with a class name.
 
 ```css
@@ -90,11 +99,14 @@ Here, UI building blocks like buttons and cards take shape. This layer covers bo
   }
 }
 ```
+
 **Use-case**: A dashboard app uses this for reusable buttons and data cards, ensuring consistent styling for actions and displays across multiple views.
 
 
 ### Adjustments layer
+
 This refines components for specific areas like a blog or product page.
+
 ```css
 @layer adjustments {
   button {
@@ -106,10 +118,12 @@ This refines components for specific areas like a blog or product page.
   }
 }
 ```
+
 **Use-case**: A multisection site adjusts button colors for the blog to match its theme and tweaks card borders on product pages to highlight featured items.
 
 
 ### Screens layer
+
 This handles responsive design with media queries
 
 ```css
@@ -126,11 +140,14 @@ This handles responsive design with media queries
   }
 }
 ```
+
 **Use-case**: A portfolio site uses this to widen card padding on tablets and make buttons full-width on mobile, improving readability and touch targets.
 
 
 ### Overrides layer
+
 This is for rare, forceful overrides — use sparingly.
+
 ```css
 @layer overrides {
   .is-hidden {

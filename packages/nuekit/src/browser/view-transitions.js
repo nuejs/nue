@@ -1,4 +1,4 @@
-// Router for multi-page applications
+// Router for multipage applications
 
 // exported
 export function $(query, root = document) {

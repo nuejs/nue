@@ -33,7 +33,7 @@ The more generic the name, the more reusable it is. He used the famous [media ob
 
 But that's not how Adam understood the sentence. Instead of moving towards more reusable class names, he introduced a custom grammar to inline styling rules directly to HTML:
 
-```
+```html
 <!-- "uilist" -->
 <div class="
 > sticky top-0 z-40 w-full backdrop-blur flex-none
@@ -83,6 +83,7 @@ Unfair or not, this marketing scheme worked. Developers took the new terms and p
 
 
 ## Phase 2: Utility-first workflow { #phase2 }
+
 Once they started cashing, Tailwind wanted to make sure the users were properly onboarded and locked in to the system. They introduced ["utility-first workflow"](//tailwindcss.com/docs/reusing-styles).
 
 > Tailwind encourages a utility-first workflow, where designs are implemented using only low-level utility classes. This is a powerful way to avoid premature abstraction and the pain points that come with it.
@@ -91,6 +92,7 @@ Here's how the flow works:
 
 
 ### Step 1: Onboarding
+
 In the utility-first approach, the idea is to "build everything out of utilities, and later extract repeating patterns as they emerge". You are encouraged to try the system. Adam says:
 
 > [If you give it a chance, I really think you’ll wonder how you ever worked with CSS any other way.](//tailwindcss.com/)
@@ -101,6 +103,7 @@ Once installed, you quickly start to see why people enjoy Tailwind. You can writ
 
 
 ### Step 2: "Premature abstraction"
+
 At some point, hundreds of utilities later, the code you've written doesn't look pretty. You start wondering what comes next after the utility-first step. How to clean things up?
 
 Turns out there is no next step. Or it kind of exists, but it's called "premature abstraction". You can start extracting classes with @apply, but the documentation for [reusing styles](//tailwindcss.com/docs/reusing-styles) describes it as a bad practice.
@@ -111,6 +114,7 @@ But what should I use @apply for if not for cleaning up? The documentation does 
 
 
 ### Step 3: Vendor lock-in
+
 So I keep coming back to the first step resulting in more and more utility classes. I'm locked inside a loop:
 
 [image "img/utility-first-loop.png"]
@@ -124,10 +128,12 @@ Which is our next topic.
 
 
 ## Phase 3: Catalyst UI kit { #catalyst }
+
 In December 2023, Tailwind introduced *Catalyst* with a richer set of language expressions and a React-based UI library.
 
 
 ### Domain-specific language (DSL)
+
 To keep up with the ever-evolving CSS standard Tailwind introduced another set of language literals. Over the years, Tailwind has grown from a simple set of atoms to a vendor-specific language with expressions, operators, and method calls.
 
 Let's look at the source code of the first button on [Catalyst demo page](//catalyst.tailwindui.com/):
@@ -213,6 +219,7 @@ Also: Are there any limits to the utility-first workflow? When can I use @apply 
 
 
 ### "Modeled after HTML"
+
 Another major feature in Catalyst was a new markup language that separates all the language literals behind React components. Here's a dialog example using [Catalyst components](//catalyst.tailwindui.com/docs):
 
 ```html numbered
@@ -269,9 +276,10 @@ I'm confused, to say the least.
 
 
 ## I love ❤️ CSS
+
 I started web development at the age of a `<blink>` tag and CSS has always been my favorite part of the web development stack. I'm particularly fascinated about the crossing between design and [front-of-the frontend](//bradfrost.com/blog/post/front-of-the-front-end-and-back-of-the-front-end-web-development/).
 
-When Microsoft released [Internet Explorer 4.0](//en.wikipedia.org/wiki/Internet_Explorer_4) with solid support for both external stylesheets and DHTML, It nailed me to the separation of concerns pattern. I see it as the most important component for software scalability and it's particularly important with HTML and CSS. The way of organizing design has been around for centuries: There are element types and contexts. The nuanced relationship between [form and function](//en.wikipedia.org/wiki/Form_follows_function). CSS is the missing tool to bring foundational design-thinking to frontend development.
+When Microsoft released [Internet Explorer 4.0](//en.wikipedia.org/wiki/Internet_Explorer_4) with solid support for both external stylesheets and DHTML, It nailed me to the separation of concerns pattern. I see it as the most important component for software scalability, and it's particularly important with HTML and CSS. The way of organizing design has been around for centuries: There are element types and contexts. The nuanced relationship between [form and function](//en.wikipedia.org/wiki/Form_follows_function). CSS is the missing tool to bring foundational design-thinking to frontend development.
 
 Fast-forward to this date, and the solid foundation has almost disappeared. Styling is inlined and CSS is written with JavaScript. There are no element types, nor contexts. Styling is flat and not cascading. Global is feared instead of used.
 
@@ -283,6 +291,7 @@ I recommend everyone to take a closer look to what has happened to CSS there in 
 
 
 ### First things first: Learn CSS
+
 The first step is to learn CSS. It's the ultimate design language for the web. A safe bet for years to come.
 
 1. Start from the [Nicholas' post][nicolas] and learn the benefits of semantic naming. Understand how Adam cherry-picked one sentence and misused it to validate the contrasting practices of Tailwind.
@@ -297,6 +306,7 @@ The first step is to learn CSS. It's the ultimate design language for the web. A
 
 
 ### Content first
+
 Here's a better workflow. It has many names: "standards first", "content first", or "progressive enhancement".
 
 [image "img/standards-first.png" width="650"]
@@ -313,6 +323,7 @@ Because trends are temporary, but standards are forever.
 
 
 ### Stay relevant
+
 My guess: It's only a matter of time before Tailwind collapses. The vendor-specific language and the misleading communication cannot hold water very long. The utility soup produced today will eventually turn into a technical debt. The next generation looks back and asks: "You actually wrote **that**?"
 
 Learn to write clean HTML and CSS and stay relevant for years to come.
@@ -322,4 +333,3 @@ Learn to write clean HTML and CSS and stay relevant for years to come.
 
 [.footnote]
   Thanks to **Alan Hemmings, Janne Lehtinen, Anssi Piirainen, Anni Myllykangas, Courtney Couch, Lari Hotari, Joona Piirainen, Jukka Kujansivu, Lauri Heiskanen**, and **David Henzel** for reading drafts of this. And very special thanks to the friends (with no name) who use Tailwind daily. Your feedback was especially important.
-

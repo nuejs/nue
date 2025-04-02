@@ -21,6 +21,7 @@ This study compares two websites with similar design: The commercial Spotlight t
 
 
 ## Front page HTML
+
 The main difference: Tailwind uses "utility" classes and the semantic version uses external stylesheets. That is: Tailwind styles elements inline, directly on the markup and the semantic version respects the [separation of concerns](//en.wikipedia.org/wiki/Separation_of_concerns) principle.
 
 You can see the difference by drilling down to the first A-element:
@@ -51,6 +52,7 @@ With Tailwind the [Text to HTML Ratio][tw-ratio] is only 2.3%, which is "Very lo
 
 
 ## Front page CSS
+
 Let's study the difference in CSS coding:
 
 [image]
@@ -79,6 +81,7 @@ Theming is a powerful concept in CSS. You can alter your design by swapping part
 
 
 ## Rendering speed
+
 The two metrics that measure page rendering speed are [first contentful paint](//web.dev/articles/fcp) (FCP) and [largest contentful paint](//web.dev/articles/lcp) (LCP). The semantic version is faster than in both metrics and in both mobile and PC. Here's LCP on mobile for example:
 
 [image]
@@ -99,6 +102,7 @@ Two reasons why the semantic version is faster:
 
 
 ## Separation of concerns
+
 Tailwind embraces **tight coupling**. That is: The structure and styling are tied together. The semantic approach is the opposite: The structure and styling are **loosely coupled**. Here's what that means:
 
 [image]
@@ -136,10 +140,11 @@ Loose coupling makes you think **content first**. There is no need to write a co
 &nbsp;
 
 
-## But ...
+## But …
 
 
 ### But naming things is unnecessary
+
 Naming things is a skill. You name things that repeat. Think of function names in JavaScript or component names in Figma. The same goes for CSS class names. Be good at naming, and you can move from repeating things to reusing things. That is: You can move from this:
 
 ```html
@@ -170,14 +175,17 @@ Without turning into components.
 
 
 ### But co-location is important?
+
 Co-location is a catchy name for tight coupling. A term to promote the idea that styling should be tied to the presentation. Repeating things vs. reusing things. See above.
 
 
 ### But Tailwind is a great design system
+
 Tailwind has great defaults for colors, spacing, and responsive design. That part is roughly 3% of your Tailwind CSS file. It's easy to copy these defaults to your semantic design system if needed.
 
 
 ### But I move faster with Tailwind
+
 Yes. You can move faster with Tailwind. But only when:
 
 1. You are comparing Tailwind with your earlier, bad experiences with CSS or you are new to CSS development.
@@ -188,6 +196,7 @@ If you really want to move faster, you'll create a set of CSS components that yo
 
 
 ### But why is Tailwind so popular then?
+
 Because mastering CSS requires practice. It takes several failed attempts before you get it. Most developers haven't gone through that, so they only remember the bad things.
 
 The fact is that Tailwind's popularity will eventually fade. CSS-in-JS is trending now, but standards are forever. At some point, we'll all experience a "WTF moment" when looking at the tightly coupled Tailwind code.

@@ -1,9 +1,11 @@
 
 # The model layer
+
 In Nue, SPA development starts from your business- and data model. This ensures your interface grows from your model’s capabilities, keeping your app simple and purposeful.
 
 
 ## Structuring the model
+
 Keep the model layer separate in its own directory:
 
 ```
@@ -48,6 +50,7 @@ This encapsulates complexity and simplifies interfaces. For small apps, start wi
 
 
 ## Core operations
+
 The model provides a clean API for key tasks:
 
 ```js
@@ -88,6 +91,7 @@ export const model = {
 This handles authentication, data fetching with caching, and events. Transformations (e.g., codes to names) prep data for views, keeping presentation logic out of the UI.
 
 ## Domain-specific operations
+
 Your model defines unique business logic, like:
 
 - **CRM**: Lead scoring, customer segmentation.
@@ -97,6 +101,7 @@ Your model defines unique business logic, like:
 These operations evolve independently, driving your app’s value without UI friction.
 
 ## Rust and WASM
+
 For high-performance needs, Rust and WebAssembly enhance the model. Our demo (mpa.nuejs.org) loads 10,000+ records, making searches instant. Rust excels at:
 
 - Native speed and no GC pauses.
@@ -140,11 +145,12 @@ export const model = {
 Rust handles computation; JS keeps the API clean. Use types at boundaries for safety, flex internally.
 
 
-
 ### Event sourcing
+
 Typically, web apps fetch data on demand via REST or GraphQL, but event sourcing flips this: it loads all relevant data into memory upfront, treating it as a sequence of immutable events. Combined with Rust and WebAssembly, this makes operations like searches and filters instant — no server round-trips after the initial load. Our demo (mpa.nuejs.org) shows this with 10,000+ records, cached immutably via HTTP, enabling real-time responsiveness.
 
 This pattern shines in SPAs like:
+
 - **CRM**: Rebuild customer profiles from interaction events.
 - **Messaging**: Support local search and offline access with message events.
 

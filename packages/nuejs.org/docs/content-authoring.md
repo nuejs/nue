@@ -1,14 +1,17 @@
 
 # Content authoring
+
 In Nue, every content piece is authored with a specialized Markdown dialect, great for rich, interactive websites. This syntax extends standard Markdown with features that enable dynamic, structured pages.
 
 
 #### Related content
-* [Full list of markdown extensions](markdown-extensions.html)
-* [Creating custom components](custom-components.html)
+
+- [Full list of markdown extensions](markdown-extensions.html)
+- [Creating custom components](custom-components.html)
 
 
 ## Sections
+
 Modern web content often requires sophisticated layouts, but manually wrapping content in divs or custom HTML is messy and hard to maintain. Nue solves this by analyzing your content structure and generating semantic HTML sections.
 
 You can enable automatic sectioning by adding `sections: true` to your page configuration. When enabled, Nue treats each level 2 heading (`##`) as the start of a new section:
@@ -19,12 +22,15 @@ sections: true
 ---
 
 ## Introduction
+
 The first section content...
 
 ## Key features
+
 The second section content...
 
 ## Technical details
+
 The third section content...
 ```
 
@@ -339,7 +345,6 @@ While these Markdown features are standard, Nue's implementation focuses on gene
 For complete Markdown syntax reference, see the [original Markdown specification](//daringfireball.net/projects/markdown/). Nue builds on this foundation with powerful extensions covered in the following sections.
 
 
-
 ## Extended Markdown syntax
 
 Nue builds on standard Markdown by supporting common extensions and adding powerful features that enhance content creation while maintaining purity.
@@ -401,6 +406,7 @@ Add IDs and classes to headings for linking and styling:
 
 ```md
 ## Less is More { #less.minimalist }
+
 ## Another heading { #custom-id }
 ```
 
@@ -421,6 +427,7 @@ Progressive Enhancement[^pe] ensures accessibility.
 ### Why these extensions matter
 
 Each extension serves a specific purpose in creating better content:
+
 - IDs and classes enable styling without HTML pollution
 - Variables keep content dynamic and maintainable
 - Enhanced formatting provides semantic precision

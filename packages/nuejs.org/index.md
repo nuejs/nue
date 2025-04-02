@@ -7,11 +7,11 @@ appdir: home
 
 
 # Break the limits of Web
+
 Take HTML, CSS, JS, and WASM to their absolute peak
 
 [button.continue "Why Nue ›" href="/docs/"]
 [button.secondary "Get started →" href="/docs/installation.html"]
-
 
 [bunny-video]
   videoId: eb65fcdd-5be4-4923-a783-f41efafe58a7
@@ -23,7 +23,9 @@ Take HTML, CSS, JS, and WASM to their absolute peak
 [Launch Rust demo ›](https://mpa.nuejs.org/app/?rust)
 
 ----
+
 ## Apps lighter than a React button
+
 Build ambitious, large-scale apps with a fraction of code
 
 [image]
@@ -34,9 +36,10 @@ Build ambitious, large-scale apps with a fraction of code
 
 See benchmark and details [here ›](/docs/react-button-vs-nue.html)
 
-
 ----
+
 ## Crush HMR and build speed records
+
 Set up millisecond feedback loop to your development cycle
 
 [bunny-video]
@@ -46,15 +49,15 @@ Set up millisecond feedback loop to your development cycle
   height: 630
   // poster: thumbnail_1ca1bd66.jpg
 
-
 [video /img/mpa-build.mp4 autoplay loop muted width=350]
 
 [.small]
   Build complex apps in millseconds
 
-
 ----
+
 ## A radically simpler stack
+
 We are building the necessary tooling from scratch:
 
 [See how it works ›](/vision/)
@@ -66,6 +69,7 @@ We are building the necessary tooling from scratch:
   href: /vision/
 
 ### Keep up with Nue
+
 Get updates on major releases.
 
 [join-list]
@@ -77,11 +81,9 @@ Get updates on major releases.
 
   — **Mauricio Wolff**, Staff Product Designer at **Miro**
 
-
 [.quote.elliot]
   > "Nue with modern HTML and CSS is unreal. I’m speedlearning the web again!"
 
   **Elliot Jay Stocks**, Pioneer in semantic HTML
-
 
 [feedback]

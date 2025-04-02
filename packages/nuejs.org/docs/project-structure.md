@@ -35,19 +35,22 @@ Here are all the different kinds of files your project consists of:
   Support for CSS-driven motion and global event handling.
 
 ### 404 File
+
 A file named `404.md` at the root level acts as a target for non-existent files.
 
 
 ## Directories
+
 Here are the different types of folders you can have in Nue:
 
 ### Static Directories
+
 Static directories store assets that are served directly without processing. Common examples include:
 
 ```
 /
-  ├── img/                     # Images
-  │   ├── hero/               # Hero images
+  ├── img/                   # Images
+  │   ├── hero/              # Hero images
   │   │   ├── home.webp
   │   │   └── about.webp
   │   ├── blog/              # Blog post images
@@ -57,7 +60,7 @@ Static directories store assets that are served directly without processing. Com
   │       ├── sarah.webp
   │       └── james.webp
   │
-  ├── icon/                   # UI icons
+  ├── icon/                  # UI icons
   │   ├── navigation/
   │   │   ├── menu.svg
   │   │   └── close.svg
@@ -65,7 +68,7 @@ Static directories store assets that are served directly without processing. Com
   │       ├── github.svg
   │       └── twitter.svg
   │
-  ├── video/                  # Video content
+  ├── video/                 # Video content
   │   ├── demos/
   │   │   └── feature-1.mp4
   │   └── tutorials/
@@ -74,10 +77,12 @@ Static directories store assets that are served directly without processing. Com
 
 
 ### Application Directories
+
 Application directories encapsulate all assets specific to a single application, such as a blog or documentation site. This modular approach allows for clear separation of concerns and makes it easier to manage each part of your website independently. Each application can have its own settings, layouts, and content files, ensuring a tailored experience.
 
 
 ### Root Directory
+
 The root directory contains scripts, styles, and components that are dependencies for the front page and all other root-level pages. Assets in this directory are not propagated upwards to application directories, ensuring that only relevant files are included in each application.
 
 To maintain organization, you may want to clean up the root directory from front page assets by placing them into a dedicated folder, such as "home". You can declare this folder in the front-matter area of the front page as follows:
@@ -87,7 +92,6 @@ appdir: home
 ```
 
 With this setting, all assets inside the "home" directory become dependencies of your root-level `index.md`, keeping the root directory uncluttered.
-
 
 Here’s a more concise version of the "Globals" section, removing the specific reference to Tailwind and focusing on the importance of the Design System:
 
@@ -111,6 +115,7 @@ If a global directory resides inside an application directory, its assets will b
 
 
 ### Libraries
+
 Library folders are essential for organizing assets that can be explicitly included on a page using an `include` statement. You can define certain folders as libraries in the `site.yaml` file. For example:
 
 ```yaml
@@ -169,6 +174,7 @@ In this example, the `img` folder contains sample images, such as screenshots or
 ## Example Structures
 
 ### Blogging Site
+
 Example blogging site directory structure (files and folders):
 
 ```
@@ -201,6 +207,7 @@ Example blogging site directory structure (files and folders):
 
 
 ### Business Websites
+
 Directory structure for a business website, including specific assets:
 
 ```
@@ -240,6 +247,7 @@ Directory structure for a business website, including specific assets:
 ```
 
 **Content Explanation:**
+
 - **`index.md`**: The rich front page introducing the business and its offerings.
 - **Documentation**: Includes `index.md` for the main documentation page, with guides and API references to help users understand the services.
 - **Blog**: Similar to the blogging site, it has posts that provide insights and updates related to the business.

@@ -14,10 +14,12 @@ Nue is a static site generator (SSG) built from the ground up to offer faster to
 This major update introduces a range of improvements while simplifying the system. The documentation has been greatly enhanced, and we've built a completely new Markdown parser from the ground up, specifically designed to bring Nue’s content-first vision to life.
 
 ### But better than Next.js?!
+
 I know, it might sound a bit over the top... but hear me out. Let’s break it down into three concrete points:
 
 
 ## 1. Cleaner codebases
+
 Nue is an ambitious engineering project designed to simplify web development through **separation of concerns** and **progressive enhancement**. This approach fundamentally redefines how websites are developed:
 
 [image]
@@ -36,6 +38,7 @@ This means you’re no longer bogged down with debugging complex algorithms and 
 
 
 ## 2. Faster tooling
+
 One of Nue’s standout features is its hot-reloading mechanism, and with this version, the diff/patch system is stronger than ever. By instantly detecting changes in **content**, **data**, **layouts**, **styles**, **components**, and **islands**, Nue applies updates directly to your browser. This creates a smooth, lightning-fast feedback loop that makes the development process more exciting and fluid.
 
 [bunny-video]
@@ -55,6 +58,7 @@ With the new Markdown parser and the absence of unnecessary JavaScript abstracti
 
 
 ## 3. Better results
+
 Nue helps developers create **fast** and **user-friendly** websites with features like **turbolinking**, **CSS view transitions**, **interactive islands**, and **CSS inlining**:
 
 [bunny-video]
@@ -76,12 +80,14 @@ Surprisingly, these rich, interactive sites remain exceptionally lightweight, co
 [#resources.simple-compare popover]
 
   ## Nue documentation
+
   27kB of HTML/CSS/JS
 
   [! /tour/img/assets-nue.png ]
 
 
   ## Next.js documentation
+
   645kB of HTML/CSS/JS
 
   [! /tour/img/assets-next.png ]
@@ -96,6 +102,7 @@ Surprisingly, these rich, interactive sites remain exceptionally lightweight, co
 
 
 ## New Markdown parser
+
 In earlier versions of Nue, we used the **Marked** library to handle basic formatting for our extended Markdown syntax — known as **Nuemark**. While Marked is a solid, general-purpose Markdown parser with excellent performance, it became clear that it couldn't fully support the direction we wanted for Nue, particularly with our content-first development model.
 
 The main issue with Marked was its lack of a mutable **abstract syntax tree** (AST). The AST is a structured representation of the Markdown content, allowing it to be easily analyzed, manipulated, and extended before rendering to HTML. With Marked, the structure was essentially immutable — meaning it wasn't possible to add new nodes, elements, or link references before rendering the document.
@@ -121,6 +128,7 @@ To overcome these limitations, we built an **entirely new parser** from scratch.
 
 
 ### New parser features
+
 The new parser introduces several powerful features to enhance your Markdown experience:
 
 - **New formatting options**: You can now use custom syntaxes like `|highlighted|` to highlight text, `•bolded•` for bold text, and `/italics/` for italics, in addition to the standard Markdown `**strong**` and `_emphasized_`.
@@ -152,12 +160,14 @@ The new parser introduces several powerful features to enhance your Markdown exp
 
 
 ### Performance
-Marked is well-known for its performance, especially in handling basic Markdown parsing. However, Nue significantly outperforms Marked, offering around 20-50% faster processing for basic operations. As you introduce more complex features like tables, footnotes, and curly "smart" brackets, the performance gap becomes even more pronounced — with Nue being roughly 2-5 times faster in these scenarios.
+
+Marked is well-known for its performance, especially in handling basic Markdown parsing. However, Nue significantly outperforms Marked, offering around 20-50% faster processing for basic operations. As you introduce more complex features like tables, footnotes, and curly "smart" brackets, the performance gap becomes even more pronounced — with Nue being roughly 2–5 times faster in these scenarios.
 
 These performance improvements stem from Nue's more efficient internal architecture, designed to handle both simple and advanced Markdown features with minimal overhead. While these results come from basic, informal tests conducted on my laptop, I encourage you to test them for yourself. It would be great to see real-world benchmarks and eventually share them on this website to provide a more accurate comparison for the community.
 
 
 ## Other improvements and changes
+
 Full list of improvements and breaking changes on this release:
 
 [accordion]
@@ -168,7 +178,7 @@ Full list of improvements and breaking changes on this release:
 
   - **New `.dhtml` suffix**: A new `.dhtml` file extension is introduced for interactive islands, complementing the existing `.htm` files. The deprecated `.nue` extension no longer works. This distinction clarifies the separation between interactive components and regular (server-rendered) HTML files.
 
-  - **Markdown <slot/> support**: Markdown extensions and custom components can now capture nested Markdown content using the `<slot/>` element. This makes it easier to build reusable wrapper components that can enrich nested content and other components.
+  - **Markdown `<slot/>` support**: Markdown extensions and custom components can now capture nested Markdown content using the `<slot/>` element. This makes it easier to build reusable wrapper components that can enrich nested content and other components.
 
   - **Improved HMR error reporting**: YAML parsing errors are now displayed directly in the browser via the updated Hot Module Replacement (HMR) feature. With this improvement, developers can see parse errors related to YAML, JavaScript, CSS, and components right away, making the development process faster and more efficient.
 

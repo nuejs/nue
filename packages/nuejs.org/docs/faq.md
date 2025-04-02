@@ -6,12 +6,14 @@ beside: false
 
 
 ## What is Nue?
+
 Nue is a web framework focused on web standards, currently in active development. Our goal is to expose the hidden complexity that's become a norm in modern web development. When a single button weighs more than an entire application, something is clearly broken.
 
 Nue makes the inevitable shift. We're rebuilding the entire ecosystem from scratch, with a cleaner, more efficient core. Our goal is to restore the joy of web development for all key skillsets: frontend architects, design engineers, and UX engineers.
 
 
 ## We've spent years investing in React. Isn't this throwing away our expertise?
+
 React has pushed millions of developers to think deeply about user interfaces and application architecture. That knowledge is valuable. But ask yourself: how much of your time is spent wrestling with React-specific patterns versus spending time on issues that matter?
 
 The beauty of standards-first development is that it lets you go deeper into what makes great software. If you love solving complex system challenges, you can focus purely on that — perhaps even diving into Rust for high-performance parts. If you're drawn to design, you can master the systematic precision that makes or breaks interfaces. If you love UX development, you can assemble interfaces directly with HTML without distractions.
@@ -20,12 +22,14 @@ Instead of being a "React developer" juggling dozens of framework-specific patte
 
 
 ## Components naturally group related code together — why break that?
+
 You are correct. The first version of React beautifully solved UI rendering with a simple one-way data flow. Components were truly focused on the view layer. But that elegance slowly started to crack with Flux, then Redux, then more sophisticated state needs. Hooks tried to solve this growing complexity, but components kept accumulating more responsibilities: state management, side effects, styling, business logic. The simple model that made React beautiful became buried under layers of abstractions.
 
 This is why we need to return to proper architectural separation. Not because components are wrong, but because they should focus purely on what they do best: presenting interfaces. State management, business logic, and systematic design deserve their own dedicated layers where they can evolve independently.
 
 
 ## Our team ships fast with React — why change?
+
 React's component model can accelerate initial development. When your team has mastered React patterns and has a library of existing components, you can assemble features quickly. This is why so many teams feel productive with React.
 
 But consider what you're actually assembling: Every new feature means more components, more dependencies, more build complexity. What feels like rapid development is actually accumulating technical debt. Even simple UI patterns require dozens of component imports and potentially hundreds of new dependencies you're not keeping track of.
@@ -37,12 +41,14 @@ Try building something small with Nue alongside your React work. You'll find tha
 
 
 ## Most applications don't need WebAssembly or Rust — isn't this overkill?
+
 The WebAssembly example in our demo isn't about raw performance — it demonstrates something far more important: what becomes possible when your business logic is properly separated from presentation.
 
 But when your business logic lives in its own pure layer, entirely new possibilities emerge. Rust is just one example — you could model complex financial calculations, build sophisticated data visualization engines, or create real-time collaboration systems. Your logic can evolve independently of the interface, enabling the kind of architectural advances that the React monolith prevents.
 
 
 ## Isn't performance engineering all too theoretical in the frontend?
+
 This is actually an untapped opportunity in the React ecosystem. While most frontend teams are stuck in component patterns, WebAssembly has quietly matured into a powerful standard supported by every major browser. Look at Figma — their vector engine processes complex boolean operations instantly while keeping the interface perfectly responsive.
 
 These aren't theoretical possibilities — they're real applications pushing the boundaries of what's possible in the browser. But achieving this sophistication required breaking free from the component model.
@@ -51,6 +57,7 @@ This field is waiting to be explored. Whether through Rust, advanced JavaScript 
 
 
 ## Isn't CSS a step backwards?
+
 This view perfectly captures how the React ecosystem has shaped our thinking. CSS has evolved into an incredibly sophisticated language for systematic design — but most developers never experience its power because their design decisions are trapped in TypeScript components.
 
 Think about the interfaces you admire: Linear's slick, dark look or Apple's functional clarity. These aren't achieved through component libraries or utility classes. They come from tailor made design systems built specifically for the purpose.
@@ -62,14 +69,16 @@ The path is open: Start by understanding modern CSS capabilities alongside your 
 
 
 ## But isn't Tailwind already a great API to my design system?
+
 Let's be clear about what Tailwind actually is: it's inline styling with better ergonomics. Calling it a "design system API" is like saying a paint brush or CSS is a design system. It gives you utilities for direct styling, but it doesn't say how your buttons or cards must look like.
 
-This confusion between styling tools and design systems is telling. The React ecosystem's best attempts at true design systems are Shadcn and Catalyst. But they both carry a huge React tax. Look at Shadcn's "New York" theme — it requires ~40.000 lines of TSX to define what could be expressed with a few dozen CSS variables in a proper design system.
+This confusion between styling tools and design systems is telling. The React ecosystem's best attempts at true design systems are Shadcn and Catalyst. But they both carry a huge React tax. Look at Shadcn's "New York" theme — it requires ~40,000 lines of TSX to define what could be expressed with a few dozen CSS variables in a proper design system.
 
 Tailwind is a styling tool, not a design system. Understanding this difference is crucial for building truly sophisticated interfaces.
 
 
 ## Didn't we move past "semantic HTML" already? That's so 2010.
+
 Look at what's happening in React: Shadcn and Catalyst are actually attempting to bring semantics back, but with immense complexity. A simple button that opens a dialog requires importing "Button", "Dialog", "DialogTrigger", "DialogContent", "DialogHeader", "DialogFooter" — all to achieve what semantic HTML gives you naturally with `<button>` and `<dialog popover>`.
 
 The React ecosystem has normalized this complexity to the point where developers have forgotten what clean HTML looks like. Tailwind promoted the idea of building interfaces with "just HTML", but then buried that HTML under walls of utility classes.
@@ -80,6 +89,7 @@ This is about rediscovering how powerful HTML becomes when freed from framework 
 
 
 ## The codebase isn't using TypeScript. How can I take this seriously?
+
 The React ecosystem has created a culture where every project, no matter how simple, must become a complex TypeScript application. This mindset assumes JavaScript is a "toy" language and pushes developers away from understanding how the web actually works.
 
 But look at the most sophisticated web applications today. Figma's vector engine achieves its power through clean separation and WebAssembly, not TypeScript definitions. Notion's real-time collaboration comes from proper system architecture, not component types. The web's most ambitious applications succeed through architectural clarity, not type annotations.
@@ -103,6 +113,7 @@ When your business logic is properly separated from presentation, each part can 
 
 
 ## Isn't MVC an outdated pattern that we moved past with React?
+
 Every sophisticated web application is fundamentally an MVC system, whether it acknowledges this or not. Your application always has models that handle data and logic, views that present interfaces, and something orchestrating between them. This isn't a pattern you choose — it's the natural architecture of large-scale web applications.
 
 Look closely at React: it actually repeats MVC at the component level, cramming models, views, and controllers all into the same files. State management, presentation logic, and orchestration get tangled together, creating the complexity we see in modern applications. What began as a simple view library has become a maze of repeated patterns.
@@ -115,6 +126,7 @@ This isn't about going backwards — it's about understanding why the most ambit
 
 
 ## Why Markdown? It's not even a web standard.
+
 Web standards — HTML, CSS, and JavaScript — are about presentation, not content. HTML defines structure, CSS handles styling, and JavaScript adds interactivity. The content itself should live separately: in a database for applications, in content files for marketing sites, documentation, and blogs.
 
 Markdown has emerged as the closest thing to a content standard. It's a human-friendly format that lets writers focus purely on their message without technical distractions. Giants like GitHub, Notion, and Slack all use Markdown because it strikes the perfect balance between readability and structure.
@@ -125,6 +137,7 @@ This clean separation between content and presentation is fundamental to scalabl
 
 
 ## Do you mean my React app is just technical debt then?
+
 Not so fast. Your React skills will be valuable for years to come, just like with jQuery or Angular the patterns remained for years, and the React ecosystem will follow a similar gradual transition.
 
 But yes, technical debt might become a concern in the long run. The React monolith keeps growing more complex while web standards become more powerful. Teams are maintaining thousands of dependencies and complex build pipelines to achieve what browsers can now do natively. This gap between framework complexity and platform capabilities will continue to widen.
@@ -135,6 +148,7 @@ The really ambitious developers might see even bigger possibilities: The React e
 
 
 ## Why does Nue use Bun instead of Node.js?
+
 Bun offers three critical advantages that align perfectly with Nue's philosophy:
 
 First, Bun includes built-in support for JavaScript, TypeScript, and CSS parsing, bundling, and minification. This eliminates the need for heavy external dependencies like ESBuild or Lightning CSS that would bloat Nue's executable size by 5x or more. With Bun, these capabilities come standard, keeping the entire system lean and focused.

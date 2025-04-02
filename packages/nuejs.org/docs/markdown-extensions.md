@@ -6,11 +6,13 @@ include: [tabs]
 Nue extends Markdown with a set of built-in extensions that enhance content creation.
 
 ## Syntax
+
 Markdown extensions or "tags" use a simple bracket syntax, defined within square brackets. For example, to include an image, you would write:
 
 ```md
 [image /img/cat.png]
 ```
+
 The tag name (in this case, "image") can be followed by various options, which can be supplied in several ways:
 
 ### Options
@@ -71,6 +73,7 @@ This is an inline [svg "/icon/meow.svg"] image.
 
 
 ## Images
+
 To include a basic image, use:
 
 ```md
@@ -113,6 +116,7 @@ The `large` and `small` attributes can define images with varying aspect ratios,
 
 [.options]
   #### Image options
+
   | `alt` | Alternate text for accessibility, describing the image's content. |
   | `src` | Source URL of the image file. |
   | `caption` | Provides context for the image, enhancing user understanding. |
@@ -173,6 +177,7 @@ This renders as follows, enabling smooth integration with CSS styling:
 
 
 ## Videos
+
 The video tag in Nue serves as a content-focused interface for the standard HTML5 video tag, allowing you to easily incorporate video content into your pages. It is used as follows:
 
 ```md
@@ -304,6 +309,7 @@ When the button is used to trigger a popover, it is rendered with the `popoverta
 
 
 ## Tables
+
 Nue supports standard Markdown syntax for tables, providing a straightforward way to create structured data presentations.
 
 ### Standard tables
@@ -378,6 +384,7 @@ This allows you to render tables dynamically based on the structured data availa
 
 
 ### HTML output
+
 Tables are rendered as standard HTML5 tables, ensuring compatibility and accessibility across all browsers. Here is an example output:
 
 ```html
@@ -414,6 +421,7 @@ This structure includes a `<caption>` for the table title, a `<thead>` for the h
 
 
 ## Accordions
+
 Accordions in Nue make it easy to create collapsible content sections, perfect for FAQs or structured information that benefits from an expandable layout.
 
 The basic structure for creating an accordion is as follows:
@@ -516,6 +524,7 @@ Tabbed panes in Nue are created using `[accordion]` elements with `name` and `op
 
 
 ### Example rendering
+
 The above markup generates a series of tabbed sections, with each heading acting as a tab that can be selected to reveal the associated content pane.
 
 [accordion.card.tabs name="tabs" open]

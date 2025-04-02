@@ -1,9 +1,11 @@
 
 # Styling
+
 Nue uses CSS as the primary tool for styling. Your job is to create a [design system](design-systems.html). Here we focus on styling, specifically on content-focused apps.
 
 
 ### Global styles
+
 Global directories are defined in your `site.yaml` configuration file as follows:
 
 ```yaml
@@ -27,6 +29,7 @@ The `@` prefix for directory names is optional but serves as a useful convention
 
 
 ### UI libraries
+
 UI libraries are defined in your `site.yaml` configuration file like this:
 
 ```yaml
@@ -98,11 +101,13 @@ sections: [hero, features, backstory]
 This is an epic intro.
 
 ## Features
+
 - Great design
 - Stunning motion
 - Awesome UX
 
 ## Backstory
+
 Once upon a time...
 ```
 

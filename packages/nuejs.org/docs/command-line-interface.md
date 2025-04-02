@@ -1,8 +1,10 @@
 
 # Command Line Interface
+
 A list of available commands and options
 
-## Options
+## Help
+
 To view the help output, run:
 
 ```sh
@@ -47,6 +49,7 @@ Usage
 ### File Matches
 
 You can specify file patterns to only build certain files. For example:
+
 - Running `nue build .ts .css` will build all TypeScript and CSS files in the project.
 
 
@@ -57,6 +60,7 @@ You can specify file patterns to only build certain files. For example:
 ```sh
 nue
 ```
+
 This command starts the development server for the current directory.
 
 ### Build Everything
@@ -64,6 +68,7 @@ This command starts the development server for the current directory.
 ```sh
 nue build
 ```
+
 Compiles the entire site and prepares it for production.
 
 ### Build for Production with Extra Config
@@ -71,6 +76,7 @@ Compiles the entire site and prepares it for production.
 ```sh
 nue build --production --environment staging.yaml
 ```
+
 This command builds the production version of the site, using a staging configuration file for custom settings.
 
 ### Build All Markdown and CSS Files
@@ -78,6 +84,7 @@ This command builds the production version of the site, using a staging configur
 ```sh
 nue build .md .css
 ```
+
 This command compiles only Markdown and CSS files, ignoring other file types.
 
 

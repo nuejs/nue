@@ -3,6 +3,7 @@ include: marketing-content
 ---
 
 # Break the limits of Web
+
 Take HTML, CSS, JS, and WASM to their absolute peak
 
 
@@ -22,6 +23,7 @@ Take HTML, CSS, JS, and WASM to their absolute peak
 
 
 ## Apps lighter than a React button
+
 Build simpler and faster products by working closer to metal
 
 [image]
@@ -34,6 +36,7 @@ Build simpler and faster products by working closer to metal
 
 
 ## A radically simpler stack
+
 We are rebuilding the entire ecosystem from scratch:
 
 [image]

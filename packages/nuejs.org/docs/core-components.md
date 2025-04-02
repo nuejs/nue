@@ -1,8 +1,10 @@
 
 # Core components
+
 This section outlines the built-in server-side components in Nue, designed to assist you with common layout tasks.
 
 ## Navi
+
 Navigation is a fundamental aspect of web design, including elements like global headers, footers, sidebars, and burger menus. These navigational elements serve as wrappers for links that guide users through your site. The `<navi/>` tag is a useful utility for rendering these links based on the data defined in your [information architecture](content-authoring.html#ia). Here’s an example of how to create a header with navigation:
 
 ```html
@@ -18,6 +20,7 @@ Navigation is a fundamental aspect of web design, including elements like global
 ```
 
 ### Example navigation data
+
 Here’s how you can define the navigation data in a `site.yaml` file:
 
 ```yaml
@@ -47,6 +50,7 @@ When this data is utilized, your header will render as follows:
 In this example, a quoted string ("badge") after the URL will be converted into a class name for the corresponding link.
 
 ### Hierarchical navigation
+
 You can also supply hierarchical data for the `<navi>` tag, which helps create structured navigation menus:
 
 ```yaml
@@ -87,6 +91,7 @@ When you use `<navi :items="footer"/>`, it renders the following structure:
 ```
 
 ### Adding images and buttons
+
 You can also include images and buttons in your navigation configuration. Here’s an example:
 
 ```yaml
@@ -105,12 +110,14 @@ main_navigation:
 ```
 
 ### Why this is good
+
 Using the `<navi>` component offers several advantages:
 
 - **Centralized management**: It allows you to manage your information architecture from a single location, making updates easier and more consistent.
 - **Clean layout modules**: Your layout modules remain simple and easy to read, as the navigation structure is automatically generated from your defined data.
 
 ## Markdown
+
 The `<markdown>` component renders a Markdown-formatted string provided in the `content` attribute. This feature enables you to use Markdown in your metadata — typically for titles and descriptions — and then render it as HTML within your layout modules:
 
 ```html
@@ -118,10 +125,13 @@ The `<markdown>` component renders a Markdown-formatted string provided in the `
 ```
 
 ## Symbols
+
 The `<symbols/>` component scans your `.svg` icon files and turns them into SVG `<symbol/>` tags. These symbols are loaded once from the file system and reused across your app — think a “dot” or “search” icon that doesn’t bloat your JS bundle with duplicates. It’s a smart way to keep things lean.
 
 ### Basic Usage
+
 Define a reusable icon component:
+
 ```html
 <svg @name="icon" class="icon {key}-icon">
   <use href="#{key}-symbol"/>
@@ -129,12 +139,15 @@ Define a reusable icon component:
 ```
 
 Then drop it anywhere:
+
 ```html
 <icon key="search"/>
 ```
 
 ### Setup
+
 Stick the `<symbols/>` tag in your footer [layout module](layout.html):
+
 ```html
 <symbols dir="app/icon"/>
 ```
@@ -151,14 +164,16 @@ This reads all `.svg` files from `app/icon/` and outputs:
 ```
 
 ### Explicit File Selection
+
 Want specific icons? List them with a space-separated `files` attribute:
+
 ```html
 <symbols dir="app/icon" files="search dot circle"/>
 ```
 
 
-
 ## Pretty-date
+
 The `<pretty-date>` component displays a formatted date value provided in the `date` attribute. This is particularly useful in blogging areas and helps present dates in a more user-friendly manner:
 
 ```html
@@ -180,6 +195,7 @@ Here’s an example of a "hero" area for a blog entry that utilizes both the `ma
 ```
 
 ## Table of contents
+
 The built-in `<toc/>` component automatically generates a table of contents from the current Markdown document, focusing on its second and third-level headings (h2 and h3). This tag works seamlessly for all your Markdown files without requiring additional setup:
 
 ```html
@@ -209,6 +225,7 @@ The HTML output will resemble the following:
 
 
 ## Page list
+
 The built-in `<page-list>` tag allows you to render a list of pages, such as blog entries or other index content, directly within your templates. This tag is ideal for creating dynamic lists that automatically update as you add new content to your site.
 
 To see how to collect and customize the pages in your list, refer to the [content collections](content-collections.html) documentation.

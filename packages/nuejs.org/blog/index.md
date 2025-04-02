@@ -19,5 +19,4 @@ exclude:
 
 # Standards First
 
-
 [page-list]

@@ -1,8 +1,10 @@
 
 # Technical details
+
 Nue consists of four projects within Nue [monorepo](//github.com/nuejs/nue/) as follows:
 
 ## Nuekit
+
 Nuekit (or simply "Nue") is a standards-first web framework providing:
 
 - Website generation for both MPA and SPA
@@ -13,11 +15,13 @@ Nuekit (or simply "Nue") is a standards-first web framework providing:
 - CSS/JS optimization and minification
 
 External dependencies:
+
 - [diff-dom](//github.com/fiduswriter/diffDOM)
 - [js-yaml](//github.com/nodeca/js-yaml)
 
 
 ## Nue JS
+
 HTML-based template engine that handles:
 
 - Server-side rendering
@@ -26,19 +30,24 @@ HTML-based template engine that handles:
 - Template parsing and compilation
 
 External dependencies:
+
 - [htmlparser2](//github.com/fb55/htmlparser2)
 
 ## Nuemark
+
 Extended Markdown processor providing:
+
 - Content parsing and rendering
 - Rich layouts and sections
 - Core components and tags
 - Data model access
 
 External dependencies:
+
 - [js-yaml](//github.com/nodeca/js-yaml)
 
 ## Glow
+
 Syntax highlighter for Markdown code blocks:
 
 - Language detection
@@ -49,9 +58,8 @@ Syntax highlighter for Markdown code blocks:
 No external dependencies
 
 
-
-
 ## How it works
+
 Nuekit processes your project through the following steps:
 
 1. ### File System Scanning
@@ -81,6 +89,7 @@ Nuekit processes your project through the following steps:
 
 
 ### Development vs Production
+
 In development mode, Nue runs a dedicated server optimized for:
 
 - Hot Module Replacement

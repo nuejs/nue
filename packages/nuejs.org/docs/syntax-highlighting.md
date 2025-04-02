@@ -17,6 +17,7 @@ For details on adding code blocks to your Markdown documents, refer to the [code
 
 
 ## The HTML output
+
 Syntax blocks are rendered as standard HTML tags, without additional class names. For example, the following Markdown block:
 
 ````md
@@ -39,6 +40,7 @@ Produces the HTML:
 ```
 
 ### Built-in stylesheet
+
 Whenever you add a syntax block, Nue includes a [stylesheet](//github.com/nuejs/nue/blob/dev/packages/glow/css/syntax.css) for syntax highlighting. This stylesheet is configurable through CSS variables, and a few adjustments are usually all that’s needed to make code blocks match your design system:
 
 ```css
@@ -60,6 +62,7 @@ Then, add your own stylesheet with the variables and elements described below.
 
 
 ### CSS variables and HTML elements
+
 Below is a list of all CSS variables with the associated HTML elements for styling syntax blocks:
 
 
@@ -89,6 +92,7 @@ Below is a list of all CSS variables with the associated HTML elements for styli
 - Highlighted row colors are specified in RGB format for compatibility with CSS functions.
 
 ### Language-specific styling
+
 To apply language-specific tweaks, use the `language` attribute, as in:
 
 ```css
@@ -98,6 +102,7 @@ To apply language-specific tweaks, use the `language` attribute, as in:
 ```
 
 ### Adjusting formatting
+
 Glow uses bolding with `--glow-special-color`, and other elements get styled by color alone. You can add formatting to any elements to fine-tune the syntax blocks. For example:
 
 ```css

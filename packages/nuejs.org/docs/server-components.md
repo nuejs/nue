@@ -1,7 +1,6 @@
 
 This documentation area, for example, has the following documentation-specific layouts in [docs/layout.html](//github.com/nuejs/nue/blob/master/packages/nuejs.org/docs/layout.html):
 
-
 ```html
 <!-- main sidebar (left) -->
 <aside id="sidebar" popover>

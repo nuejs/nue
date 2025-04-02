@@ -1,5 +1,6 @@
 
 # Tutorial: Building websites with Nue
+
 This tutorial guides you through creating a simple Markdown-based blog with Nue, a framework that harnesses web standards for content-focused websites. You’ll build a lightweight personal blog, learning how Nue keeps content, structure, and style separate while adding interactivity where needed.
 
 [Source code](//github.com/nuejs/nue/tree/master/packages/examples/simple-blog) • [Live demo](//simple-blog.nuejs.org)
@@ -19,6 +20,7 @@ nue create simple-blog
 Run it, and open `http://localhost:8083` in your browser to follow along.
 
 ## Project structure
+
 Nue organizes your blog into a directory structure that separates content, layout, and styling, reflecting what appears online. This keeps everything clear and manageable. Here’s the layout:
 
 ```sh
@@ -40,9 +42,11 @@ Nue organizes your blog into a directory structure that separates content, layou
 The `@global` folder holds reusable pieces for the whole site. The `blog` folder is where posts and blog-specific files live. The `index.md` file is your homepage, and `site.yaml` ties it all together with settings.
 
 ## Content
+
 Nue stores blog content in Markdown files, making it easy to write and update. Let’s explore how this works.
 
 ### Site metadata
+
 The `site.yaml` file sets up metadata for the entire site:
 
 ```yaml
@@ -55,6 +59,7 @@ favicon: /img/favicon.jpg
 This defines how page titles appear (e.g., “Emma Bennet / Blog”), adds a social sharing image, and sets a favicon — basic details for SEO and branding.
 
 ### Blog posts
+
 Posts are Markdown files in the `blog` directory. Here’s a sample, like `blog/post.md`:
 
 ```md
@@ -74,6 +79,7 @@ The front matter at the top provides metadata — title, description, date — t
   large: /img/blog-content-editing-big.png
 
 ### Content collections
+
 The blog’s listing page, `blog/index.md`, shows all posts with a collection. Set it up in `blog/blog.yaml`:
 
 ```yaml
@@ -91,12 +97,15 @@ Then use it in `blog/index.md`:
 The `[page-list]` tag pulls every post from `blog/`, sorting them by date — newest first. It’s a quick way to keep the list up to date.
 
 ### Hot reloading
+
 Change a post — like its title — and save. Nue’s hot reloading updates the browser instantly, keeping your workflow smooth without manual refreshes.
 
 ## Layout
+
 Layout modules are HTML files that define the blog’s structure, wrapping around your Markdown content for consistency.
 
 ### Site-wide layout
+
 The `@global/layout.html` file provides a header and footer for all pages:
 
 ```html
@@ -127,6 +136,7 @@ navigation:
 This keeps navigation simple and centralized. See [layout.html](layout.html) for more on slots.
 
 ### Blog post layout
+
 Each post gets a header from `blog/hero.html`:
 
 ```html
@@ -143,9 +153,11 @@ Each post gets a header from `blog/hero.html`:
 It uses the post’s front matter to fill in details, sitting above the content.
 
 ## Styling
+
 Styling adds visual polish with CSS, kept separate from content and layout for flexibility.
 
 ### Global styles
+
 In `site.yaml`, global styles are included:
 
 ```yaml
@@ -179,6 +191,7 @@ body {
 This aligns with a design system — see [design-systems.html](design-systems.html).
 
 ### Component styles
+
 The blog adds specific styles in `blog.yaml`:
 
 ```yaml
@@ -188,9 +201,11 @@ include: [ content, cards, motion ]
 These handle content formatting, post cards, and animations.
 
 ## Interactive islands
+
 Islands add interactivity with custom tags, enhancing static content using a 2.5kb runtime.
 
 ### Contact form
+
 Here’s the island from the demo, in `contact-me.htm`:
 
 ```html
@@ -228,6 +243,7 @@ Add it to `index.md`:
 
 ```md
 ## Contact me
+
 Get in touch to discuss your project.
 
 [contact-me]
@@ -236,9 +252,11 @@ Get in touch to discuss your project.
 It submits and navigates to a “thanks” page with a transition. See [islands.html](islands.html) for details.
 
 ## Motion
+
 Motion enhances the blog with CSS, keeping it lightweight.
 
 ### View transitions
+
 Enable them in `site.yaml`:
 
 ```yaml
@@ -261,13 +279,15 @@ article {
 This smooths page changes without JavaScript.
 
 ## Optimization
+
 The blog stays fast with `inline_css: true` in `site.yaml`, loading CSS upfront. It works without JavaScript, and images load lazily.
 
 ## Deployment
+
 Build for production:
 
 ```sh
 nue build --production
 ```
 
-Files end up in `.dist/prod`, ready for a CDN like Cloudflare. Try adding more with [multipage applications](content-focused-apps.html#multi-page-applications).
+Files end up in `.dist/prod`, ready for a CDN like Cloudflare. Try adding more with [multipage applications](content-focused-apps.html#multipage-applications).

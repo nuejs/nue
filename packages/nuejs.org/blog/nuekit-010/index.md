@@ -21,6 +21,7 @@ In other words: Nuekit is an amazingly simple and powerful alternative to *Next.
 
 
 ## Universal hot-reloading { #uhr }
+
 Build entire websites without ever touching your browser. Your browser is instantly updated as you make changes to your content, styling, layout, and reactive islands:
 
 [bunny-video.larger]
@@ -29,6 +30,7 @@ Build entire websites without ever touching your browser. Your browser is instan
 
 
 ## Great for websites and single-page apps { #multi }
+
 Use the same simple syntax and development model for content-focused websites or reactive single-page applications — while enjoying the extra boost from universal hot-reloading.
 
 [image]
@@ -55,6 +57,7 @@ Build a simple SPA: [Tutorial](/docs/tutorials/build-a-simple-spa.html) /
 
 
 ## Significantly faster build times { #faster }
+
 Nue is an order of magnitude faster than its cousins. An identical blogging site takes around *50ms* to build with Nuekit and over *ten seconds* with Next.js:
 
 [bunny-video]
@@ -73,6 +76,7 @@ Nue is an order of magnitude faster than its cousins. An identical blogging site
 
 
 ### New, beautiful documentation area
+
 With lots of explainer-images and -videos:
 
 [image]
@@ -82,6 +86,7 @@ With lots of explainer-images and -videos:
 
 
 ## Get started
+
 Starting a new project in Nue is easy:
 
 ```sh
@@ -96,9 +101,10 @@ Check out our [Getting Started guide](/docs/) to learn the details
 
 
 ### Monorepo
+
 The "nuejs" GitHub repository was renamed to [nue](//github.com/nuejs/nue) and has been converted to a monrepo, now holding both [nuejs](//github.com/nuejs/nue/tree/master/packages/nuejs) and [nuekit](//github.com/nuejs/nue/tree/master/packages/nuekit) packages. This monorepo will hold all the upcoming Nue-related projects like *Nuemark* and *Nue CSS*.
 
 
 ## Thank you!
-Finally, I’d like to give a huge thanks to the [20+ developers](//github.com/nuejs/nue/graphs/contributors) who have participated in the early development of Nue JS. Your feedback has been essential in shaping Nue into the tool it is today. If you’re interested in getting involved, please join the [Discussion @ GitHub](//github.com/nuejs/nue/discussions)
 
+Finally, I’d like to give a huge thanks to the [20+ developers](//github.com/nuejs/nue/graphs/contributors) who have participated in the early development of Nue JS. Your feedback has been essential in shaping Nue into the tool it is today. If you’re interested in getting involved, please join the [Discussion @ GitHub](//github.com/nuejs/nue/discussions).

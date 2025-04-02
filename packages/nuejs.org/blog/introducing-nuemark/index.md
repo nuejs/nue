@@ -16,6 +16,7 @@ Today, I'm excited to release Nuemark — a Markdown-based text editing format f
 
 
 ### Content hot-reloading
+
 Nuemark is a standalone library that works under Bun, Node, and Deno. However, it is best served together with Nuekit and its [universal hot-reloading](/docs/hot-reloading.html) capability. Just edit your content freely and see the page shaping up in your browser in real time.
 
 [bunny-video.larger]
@@ -24,6 +25,7 @@ Nuemark is a standalone library that works under Bun, Node, and Deno. However, i
 
 
 ## Manage content like a hacker { #hacker }
+
 Nuemark lets you manage content [like a hacker](//tom.preston-werner.com/2008/11/17/blogging-like-a-hacker) without the complexity of large systems like *WordPress* or *Contentful*. Instead, you'll approach content from a software development perspective: The content is stored in Git and you manage it with your preferred editor like *VS Code* or *Sublime Text*.
 
 Nuemark is designed for content creation. It's a simple, concise syntax that is easy to learn. It is pure content, with no HTML, CSS, or JavaScript, so it's hard to break things.
@@ -38,7 +40,6 @@ Nuemark is designed for content creation. It's a simple, concise syntax that is 
   [! typography.png ]
 ```
 
-
 [image]
   small: /img/content-hero.png
   large: /img/content-hero-big.png
@@ -49,6 +50,7 @@ With Nuemark, you start with pure content: Text, images, and videos and only the
 
 
 ## Built-in set of headless UI components { #components }
+
 Nuemark comes with a set of built-in components, which aim to tackle the most common content management use cases. There are buttons, icons, responsive images, videos, tables, tabs, and layout grids. And you can mix components to form more complex layouts.
 
 [image]
@@ -58,6 +60,7 @@ Nuemark comes with a set of built-in components, which aim to tackle the most co
 
 
 ### Decoupled design
+
 All these components or "tags" are *headless* — meaning that there are no inline styling, CSS modules, or utility classes to impact their appearance. There is only one, semantic class name on the root element of the component, which *names* the component. Otherwise, the components are *classless* and consist purely of semantic HTML elements.
 
 The semantic approach means that you can customize the look and feel of your components so that they look just right in the given context. For example, a tabbed layout may look completely different on your front page compared to what it looks like on the documentation area:
@@ -71,6 +74,7 @@ The semantic approach means that you can customize the look and feel of your com
 This sort of content-first approach brings the legendary [CSS Zen Garden](//www.csszengarden.com/) back to the game. When your components always have the same structure you can reuse your CSS across your pages, apps, websites, and projects.
 
 ## Driven by Web Components
+
 Some components are *isomorphic* meaning that the content is rendered on the server side for search engines and the behavior of the component is spiced up with client-side JavaScript.
 
 Nuemark uses the standard [`is` attribute](//developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/is) to tell the browser that a particular HTML structure should be spiced up with a Web Component. For example, the `[tabs]` component is implemented as follows:
@@ -91,6 +95,7 @@ This is a modern/standard way to implement [progressive enhancement](//developer
 
 
 ### Build your own tags
+
 You can extend Nuemark with custom tags. Any JavaScript object with a `name` property and `render()` method is a legit Nuemark component. Here's a dummy TSX example:
 
 ```tsx
@@ -109,6 +114,7 @@ And here's the same with [Nue template syntax](/docs/template-syntax.html)
 
 
 ## Develop sites for content creators
+
 The primary purpose of a website is to present content. You want to raise awareness of your idea, generate sales, or just share information. The bottom line is that your website should be optimized for creating and managing content.
 
 Nuemark is a perfect choice for this purpose. After you have a proper design system in place, editors can create content that looks consistently great and fits your overall design. They can author new pages without ever leaving the content.
@@ -117,6 +123,7 @@ Nuemark is an ideal choice for static site generators and flat-file systems.
 
 
 ### Try now
+
 [Bun](//bun.sh) is the recommended engine for Nuemark:
 
 ```sh
@@ -140,13 +147,12 @@ PS: Check out [Getting started docs](/docs/#node) if you prefer Node.
 - [Tag reference](/docs/tags.html)
 - [HTML output](/docs/page-layout.html#md)
 
-
 - - -
 
 ## Frequently asked questions { #faq }
 
-
 ### How is this different from MDX?
+
 Nuemark differs from prior alternatives like *MDX* and *Markdoc* in the following ways:
 
 1. Nuemark is targeted at content creators. There are no "scary" JavaScript expressions or import statements that can break the page from rendering. Familiarity with Markdown and YAML front matters is enough for crafting rich, interactive content.
@@ -157,4 +163,5 @@ Nuemark differs from prior alternatives like *MDX* and *Markdoc* in the followin
 
 
 ### Where does the syntax come from?
+
 Nuemark takes inspiration from WordPress shortcodes, TOML configuration language, YAML front matter, and other Markdown elements like links and images. The goal make it approachable for people already familiar with Markdown and introduce as few new idioms as possible.

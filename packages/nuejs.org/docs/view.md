@@ -1,9 +1,11 @@
 
 # The view layer
+
 In Nue, complex apps are built with clean, semantic HTML. The view layer handles interfaces with light scripting, while styling is offloaded to an external design system.
 
 
 ## Clean HTML templating
+
 With logic in the model, views become pure templates:
 
 ```html
@@ -30,6 +32,7 @@ With logic in the model, views become pure templates:
 ```
 
 This approach delivers:
+
 1. **Pure presentation**: Views handle structure only, using standard HTML for clarity — bugs stay obvious.
 2. **Semantic markup**: Native elements like `<h2>`, `<dl>`, or `<details>` boost accessibility and performance without JS overhead.
 3. **Minimal state**: Views track UI changes, leaving data and routing to the model and controllers.
@@ -37,9 +40,11 @@ This approach delivers:
 These templates keep your code light and maintainable, rooted in web standards.
 
 ## Directory structure
+
 Views live in `.dhtml` files, which group related components like CSS files — forming mini-libraries. Nue automatically makes components aware of each other, skipping manual imports. Place them in `app/view/`:
 
 ## Large applications
+
 For bigger apps, use a nested structure:
 
 ```
@@ -66,6 +71,7 @@ app/
 This keeps roles clear and components grouped logically.
 
 ## Small applications
+
 For simpler apps, a flat structure works:
 
 ```
@@ -84,7 +90,9 @@ app/
 Refactor to the nested setup as complexity grows — no renaming needed.
 
 ## View composition
+
 Views form a hierarchy:
+
 1. **App shell**: The root, like `app.dhtml`, sets the UI frame.
 2. **Layout containers**: Sections like navigation or main content.
 3. **Screens**: Full-page states (e.g., login).
@@ -108,7 +116,9 @@ From the demo:
 The shell defines regions; subcomponents handle their jobs.
 
 ## Naming conventions
+
 Use clear, consistent names:
+
 1. **Descriptive**: `user-list` or `search-input` shows purpose.
 2. **Prefixes**: `list-`, `panel-` for roles.
 3. **Kebab-case**: Match filenames to component names (e.g., `user-list.dhtml`).

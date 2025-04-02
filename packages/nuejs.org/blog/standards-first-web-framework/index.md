@@ -7,8 +7,8 @@ date: 2025-01-16
 Today Nue takes a new, more natural direction: it becomes a **standards first web framework**. The focus has always been to strip away artificial layers and help developers take modern HTML, CSS, and JavaScript to their absolute peak. This shift is important, because now we can more directly work on solving the two key issues in frontend development:
 
 
-
 ## 1: The frontend engineering problem
+
 I have lived through the eras of **DHTML**, **jQuery**, and now the era of **React**. I experienced positive growth in the first two eras, but this last one has been painful to watch: instead of building on web standards, we've buried them under layers of abstractions. What began as HTML, CSS, and JavaScript has devolved into a complex build orchestration demanding hundreds of dependencies, even for a simple page.
 
 We've normalized this extraordinary complexity. Landing pages are turned into JavaScript monoliths with hundreds of lines of **TypeScript**. Blog posts that should be static content require multiple React components and a chain of plugins. Documentation and blogging areas need a new framework with different patterns and a separate maintenance burden.
@@ -18,8 +18,8 @@ The cost is more than just complexity, build times, and development speed. It's 
 The biggest trouble is this: the more you invest in learning today's frameworks, the more technical debt you accumulate in your mind. React patterns from just a few years ago are now considered antipatterns. State management solutions keep cycling through **Redux**, **MobX**, **Recoil**, and countless others. Meanwhile, the web platform itself has quietly evolved to provide native solutions for most of what these frameworks try to solve.
 
 
-
 ## 2: The design engineering problem
+
 I've been building frontends for almost three decades now. I remember when CSS was released to **Internet Explorer 3.0**. Ever since, I've enjoyed working in the intersection between design and engineering. My heroes aren't framework creators but the masters of Bauhaus: **Mies van der Rohe** and **Dieter Rams**. They showed how mathematics and systematic thinking create more impact than anything else.
 
 Today should be the golden age for design engineering. Modern CSS finally gives us the power to express sophisticated design systems through mathematics. We can create linear, typographic scales, color relationships through **OKLCH** calculations, and layouts with container queries. We have endless possibilities for systematic design.
@@ -35,7 +35,6 @@ But the JavaScript monolith has blocked the progress:
 By coupling design decisions to JavaScript components, we've created a design monoculture. You cannot take a headless structure and apply different designs to it. You can't switch between Rams's human-centric functionalism and Mies's architectural minimalism.
 
 The JavaScript monolith isn't just a technical problem, it is suffocating the creative results of systematic design. The grand, architectural idea of "form follows function" is dead.
-
 
 
 ## The standards first web framework
@@ -58,7 +57,6 @@ Here's what this enables:
 
 3. **Faster pages**: The fastest page load is one that requires just a single request. No framework initialization, no cumulative layout shifts, no waiting for JavaScript. When content and styling arrive together, pages simply appear.
 
-
 [Learn how Nue works →](/docs/)
 
 [image /img/standards-first.png]
@@ -70,11 +68,11 @@ Here's what this enables:
 
   — **Mauricio Wolff**, Staff Product Designer at Miro
 
-
 - - -
 Now a little bit about the future.
 
 ## The design system of my dreams
+
 I'm currently building something I've dreamed about since CSS was invented: A systematic design system that takes mathematical relationships to their ultimate conclusion. When finished in April 2025, it will be as simple as:
 
 ```sh
@@ -95,11 +93,11 @@ Behind the "rams" command argument is something called a **global design system*
 
 Imagine what this means for web development: you can create an Apple-like startup site for one client, a Stripe-like platform for another, and a Linear-inspired interface for a third. All through a single command that takes seconds rather than the months of custom development these looks typically require.
 
-But even this is just the beginning...
-
+But even this is just the beginning…
 
 
 ## Single-page applications
+
 Once the design systems are out, I'll release the next major piece: single-page applications. These sit right in the middle of design and engineering and want Nue to take these artforms to their absolute peak. Three key methods:
 
 1. Architecture is based on **MVC** (model, view, controller) which creates the much-needed separation of concerns. JS engineers work on pure business logic. UI developers craft the experience. Everyone stays in their zone of expertise.
@@ -122,6 +120,7 @@ But we will not stop here. Our [ultimate goal](/vision/) is to clean up the whol
 
 
 ## Invest in Nue?
+
 I have no trouble completing this. As an independent developer I have time, and with templates having a price tag, we'll have the money. That is: we can implement the vision without raising anything. And there's something powerful about maintaining complete creative freedom.
 
 However, I'm increasingly thinking about external guidance, and possibly investment. An ambitious project like this might benefit from someone who shares the same level of commitment. This could help me maintain deep focus on design engineering, while someone else could deal with the growing community. I'm notoriously bad at keeping in contact with people. Like Mies said: "Build, don't talk."

@@ -11,6 +11,7 @@ There are four types of custom components in Nue:
 - **Interactive islands**: These are rendered on the client side (CSR) and enhance user interaction with minimal JavaScript. Here’s an example:
 
 ### Example island
+
 Nue makes it easy to build interactive components like this:
 
 [array-demo]
@@ -37,6 +38,7 @@ Nue makes it easy to build interactive components like this:
 - - -
 
 ## Like React, but semantic
+
 Nue components offer React-like functionality while focusing on semantic web design. They work seamlessly on both the server and client sides, allowing developers to enhance applications progressively without losing structure.
 
 Unlike React, which relies heavily on JavaScript, Nue is based on HTML. Any valid HTML in Nue is also a valid component, making it simple and accessible.
@@ -53,6 +55,7 @@ Unlike React, which relies heavily on JavaScript, Nue is based on HTML. Any vali
 ```
 
 ### Block assembly language
+
 Nue components are named HTML fragments that can be looped and rendered conditionally, enabling nesting within other components. Assign a component name using the `@name` attribute:
 
 ```html
@@ -80,6 +83,7 @@ Once named, components can be nested inside one another to form more complex app
 ```
 
 ### Component libraries
+
 Server-side components are saved with a `.html` extension, while client-side components or islands use a `.dhtml` or `.htm` extension. You can group related components together in the same file to create a cohesive component library.
 
 Components can be stored at three levels: globally, area-level, or page-level. These components are automatically aware of each other, allowing you to reuse them in different files without the need for explicit import statements.
@@ -87,9 +91,11 @@ Components can be stored at three levels: globally, area-level, or page-level. T
 To explicitly include components from a [library folder](project-structure.html#libraries), you can use the [include](settings.html#include) statement. Components cascade similarly to CSS files, enabling a streamlined approach to component management.
 
 ## Mounting
+
 Once a component is available on the page, mounting it is straightforward:
 
 ### In Markdown content
+
 Custom components are mounted in Markdown content just like the built-in [content tags](markdown-extensions.html), using square brackets:
 
 ```md
@@ -100,6 +106,7 @@ Custom components are mounted in Markdown content just like the built-in [conten
 ```
 
 ### In layout modules
+
 In layout modules, components are mounted as custom HTML elements:
 
 ```html
@@ -110,6 +117,7 @@ In layout modules, components are mounted as custom HTML elements:
 ```
 
 ### Islands
+
 If a component is not defined server-side in a `.html` file, it is rendered directly as a custom element on the client side. For example:
 
 ```html
@@ -121,9 +129,11 @@ In this case, Nue will first look for an implementation of the component or isla
 
 
 ## Passing data
+
 You can pass data to your components using attributes. These attributes can either be direct values or reference data from the [unstructured data](content-authoring.html) when the attribute name starts with a colon.
 
 #### Markdown example
+
 In Markdown content, you can pass data as follows:
 
 ```md
@@ -134,6 +144,7 @@ In Markdown content, you can pass data as follows:
 In this example, `:items` references the `screenshots` array from the application data, while `index` is a direct value set to `1`.
 
 #### HTML component example
+
 In layout modules and interactive islands, you can similarly pass data as arguments:
 
 ```html
@@ -143,6 +154,7 @@ In layout modules and interactive islands, you can similarly pass data as argume
 Here, `:items` pulls from the `products` data, and `index` is set to `2`. This allows the component to dynamically render based on the provided data while keeping your templates clean and maintainable.
 
 #### Islands
+
 Client-side components, such as islands, receive data through nested JSON. This enables you to encapsulate data directly within the component:
 
 ```html
@@ -159,9 +171,11 @@ Client-side components, such as islands, receive data through nested JSON. This 
 In this structure, the JSON data is embedded within a `<script>` tag of type `application/json`, allowing the component to access it seamlessly on the client side.
 
 ### Nested HTML and slots
+
 Slots enable you to build highly reusable, multipurpose components by allowing a parent component to inherit functionality from a child component. Here’s how it works:
 
 #### Parent component
+
 The parent component defines a structure that includes a slot for nested content:
 
 ```html
@@ -177,6 +191,7 @@ The parent component defines a structure that includes a slot for nested content
 ```
 
 #### Passing custom content
+
 You can pass custom content to the parent component through the slot:
 
 ```html
@@ -190,6 +205,7 @@ You can pass custom content to the parent component through the slot:
 In this example, the `<slot/>` element in the `media-object` is replaced with the nested markup. The nested content can include anything from text and HTML tags to other custom components, such as product ratings, comment sections, or product metadata.
 
 #### Looping through nested content
+
 You can also pass nested content within loops, allowing for dynamic rendering:
 
 ```html
@@ -200,6 +216,7 @@ You can also pass nested content within loops, allowing for dynamic rendering:
 ```
 
 ### Nested Markdown
+
 Nue allows you to pass nested Markdown content to your components. For example, consider a custom `background-video` component that includes nested table data:
 
 ```md
@@ -220,6 +237,7 @@ Nue allows you to pass nested Markdown content to your components. For example, 
 ```
 
 #### Simplified component implementation
+
 Here’s a simplified implementation of the `background-video` component:
 
 ```html
@@ -234,9 +252,11 @@ Here’s a simplified implementation of the `background-video` component:
 In this setup, the nested Markdown is processed and inserted into the `<slot/>` within the `background-video` component, allowing for rich content integration.
 
 ## Instances
+
 Both server-side and client-side components in Nue can be scripted before rendering on the page. The scripting API is inspired by [ES6 classes](//developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes), enabling each component to have properties and methods. You can reference these properties and call the methods directly from your template code.
 
 ### Properties and methods
+
 Properties and methods are defined inside a `<script>` block that is a direct child of the component root. Here’s an example of a `pretty-date` server-side component:
 
 ```html
@@ -272,8 +292,8 @@ Properties and methods are defined inside a `<script>` block that is a direct ch
 ```
 
 ### How it works
-In this example:
 
+In this example:
 
 - **Properties** allow you to set default values and dynamic values for rendering. For instance, `locale` is initialized to `'en-US'` and can be overridden.
 - The **constructor** method runs when the component is created, allowing you to manipulate user-provided data (like `date` and `locale`) before it is processed by the template.
@@ -283,6 +303,7 @@ The scripting block helps to extract complex JavaScript logic from the [HTML tem
 
 
 ### Local scripts
+
 You can set up local functions and variables using root-level script blocks:
 
 ```html
@@ -316,6 +337,7 @@ Local variables and functions provide another way to decouple complex scripting 
 Note that currently, you can only use the `import` statement in client-side components, but support for server-side imports is planned for the future.
 
 ### Passthrough scripts
+
 Sometimes you may want the script block to be executed directly by the browser. You can achieve this by using the `type`, `src`, or `client` attributes, which instruct the compiler to pass the scripts directly to the client. For example:
 
 ```html
@@ -345,23 +367,23 @@ The above will be rendered as:
 ```
 
 ## Interactive components
+
 Interactive components in Nue are executed on the client side, directly within the user's browser. They are created and mounted using the same syntax as server-side components, but interactive components can respond to user input and re-render themselves to reflect new states. This functionality makes them ideal for a variety of applications, such as feedback forms, login forms, registration flows, account dropdowns, image galleries, or any other component that requires interactivity.
 
 
 ### Example: Image Gallery
+
 Let’s add a simple image gallery component to this page:
 
 [image-gallery]
   images: [tomatoes.jpg, lemons.jpg, peas.jpg, popcorn.jpg]
   basedir: /img
 
-
 ```md render
 [image-gallery]
   images: [tomatoes.jpg, lemons.jpg, peas.jpg, popcorn.jpg]
   basedir: /img
 ```
-
 
 Here’s the source code for the gallery component:
 
@@ -396,9 +418,11 @@ Here’s the source code for the gallery component:
 Inside the component, all control flow operations, such as loops and conditionals, are reactive — they respond to user events and re-render based on the new state. Here, we have a numeric state variable `index`, which updates as the user clicks the navigational elements, automatically changing the displayed image accordingly.
 
 ## Event handlers
+
 In Nue, attributes starting with the `@` symbol define event handlers. These handlers are JavaScript functions that respond to user interactions, such as clicks, key-presses, or mouse movements.
 
 ### Inline handlers
+
 Inline handlers are defined directly within the attribute:
 
 ```html
@@ -408,6 +432,7 @@ Inline handlers are defined directly within the attribute:
 Inline handlers are great for simple expressions that don’t require additional logic.
 
 ### Method handlers
+
 For more complex functionality, it's best to move the logic into an instance method:
 
 ```html
@@ -424,6 +449,7 @@ For more complex functionality, it's best to move the logic into an instance met
 ```
 
 ### Method calls
+
 You can pass arguments to method calls:
 
 ```html
@@ -439,6 +465,7 @@ You can pass arguments to method calls:
 ```
 
 ### Event argument
+
 Method handlers always receive an [Event object](//developer.mozilla.org/en-US/docs/Web/API/Event) as the last argument, unless it is explicitly named `$event`:
 
 ```html
@@ -467,6 +494,7 @@ Method handlers always receive an [Event object](//developer.mozilla.org/en-US/d
 ```
 
 ### Event modifiers
+
 Nue provides convenient shortcuts for common DOM event manipulation functions. For instance, `@submit.prevent` is a shortcut to call [event.preventDefault()](//developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault).
 
 ```html
@@ -488,6 +516,7 @@ The following modifiers are supported:
 - `.once`: The event will be triggered at most once.
 
 ### Key modifiers
+
 Key modifiers bind the event handler to specific keyboard keys:
 
 ```html
@@ -514,6 +543,7 @@ Nue provides aliases for commonly used keys:
 - `.right`: Captures "Right" and "ArrowRight".
 
 ## Dynamic arrays
+
 When you define a loop with the `:for` expression, Nue automatically detects if the looped array is mutated and triggers the necessary UI updates. The following [array methods](//developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) are supported:
 
 - `push(item)`: Adds a new item to the end of the array.
@@ -526,6 +556,7 @@ When you define a loop with the `:for` expression, Nue automatically detects if 
 - `remove(item)`: A Nue-specific helper method to remove the given item from the array.
 
 ### Replacing the array
+
 Mutation methods modify the original array they are called on. Non-mutating methods, such as `filter()`, `concat()`, and `slice()`, return a new array. In these cases, you should replace the old array with the new one, and Nue will render the updates accordingly:
 
 ```js
@@ -535,6 +566,7 @@ search() {
 ```
 
 ### Example: array.push
+
 Here’s a simple demo of using an array:
 
 [array-demo]
@@ -620,6 +652,7 @@ Note that the transition effect is done with vanilla CSS using `@starting-style`
 
 
 ## Lifecycle methods
+
 Each component instance goes through a series of steps during its lifetime: first, it is created, then mounted on the page, and finally, it gets updated one or more times. Sometimes the component is removed or "unmounted" from the page.
 
 You can hook custom functionality to these steps by creating instance methods with specific names:
@@ -654,6 +687,7 @@ You can hook custom functionality to these steps by creating instance methods wi
 Inside these callback functions, `this` points to the [instance API](#instance-api), allowing access to various properties and methods related to the component.
 
 ## Instance API
+
 The component API is accessible via the `this` variable inside the lifecycle methods. It has the following attributes and methods:
 
 - `root`: The root DOM node of the component instance.
@@ -668,6 +702,7 @@ The component API is accessible via the `this` variable inside the lifecycle met
 The component re-renders itself automatically after calling an event handler, but you need to call this manually if there is no clear interaction to detect.
 
 ### References
+
 You can obtain a handle to nested DOM elements or components via the `$refs` property:
 
 ```html
@@ -700,6 +735,7 @@ You can obtain a handle to nested DOM elements or components via the `$refs` pro
 ```
 
 ### Sharing code between components
+
 You can add and import shared code within a top-level `<script>` tag. Here’s an example library that defines both a shopping cart and a button component that adds items to the cart. The cart itself is defined in "cart.js", which is a plain JavaScript file. This cart is used by both components.
 
 ```html
@@ -734,4 +770,5 @@ You can add and import shared code within a top-level `<script>` tag. Here’s a
 
 
 ## Summary
+
 Nue opens the door to a new way of building web applications, allowing you to harness the power of Markdown extensions, server-side components, and client-side components — all with a simple and intuitive syntax. By focusing on an HTML-based approach, you can prioritize layout, structure, semantics, and accessibility, freeing yourself from the frustration of tangled JavaScript stack traces.

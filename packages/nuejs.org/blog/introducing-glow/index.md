@@ -30,6 +30,7 @@ Today we're launching *Glow* — a new take on syntax highlighting:
 
 
 ## Coloring voodoo
+
 Be it **Haskell**, **TypeScript**, or **Zig**. **React**, **Vue** or **Svelte**. Whatever Turing-free **Markdown** artifact is mixed with another tightly coupled language-of-the-day oddity. And they will all glow:
 
 [image.larger]
@@ -46,6 +47,7 @@ Contrast this to grammar-aware highlighters like *Shiki*, where it's a large pro
 
 
 ## Easy brand coloring
+
 If you look at the most recognizable brands on the internet, you'll notice that 80% of them are based on a single [brand color](//blog.hubspot.com/marketing/brand-colors). It is often coupled with a secondary color and a complementary accent color. This is exactly how Glow works. You can make the code blocks compatible with your brand just by adjusting a handful of CSS variables:
 
 ```css.blue
@@ -67,6 +69,7 @@ Contrast this to grammar-aware theming systems, like Shiki and *Prism*, where a 
 
 
 ## Unlimited possibilities
+
 Glow's unique, [classless design system](/docs/syntax-highlighting.html#html-markup) gives you line numbers, selections, error highlights, insertions, deletions, and much, much more.
 
 ``` .gradient.sky numbered
@@ -119,6 +122,7 @@ variables, and whatnot. Natively, today.
 
 
 ## Using together with Nue
+
 [Nue](/) is a web framework specializing on UX development. As of today, it has built-in support for Glow. You can easily extend your Markdown with stacks of code blocks or tabbed code panels. For example:
 
 
@@ -166,9 +170,11 @@ variables, and whatnot. Natively, today.
 
 
 ## Get started with Glow
+
 You can try Glow either as a standalone library or together with the Nue framework.
 
 ### Standalone library
+
 Install [nue-glow](//github.com/nuejs/nue/tree/master/packages/glow) with npm, pnpm, or bun:
 
 ```sh

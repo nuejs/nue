@@ -3,6 +3,7 @@
 
 
 ## Standards first web framework
+
 Nue is a web framework focused on web standards, currently in active development. Our goal is to expose the hidden complexity that's become a norm in modern web development. When a single button weighs more than an entire application, something is clearly broken.
 
 <a href="https://nuejs.org/">
@@ -26,6 +27,7 @@ Nue makes the inevitable shift. We're rebuilding the entire ecosystem from scrat
 
 
 ## A radically simpler stack
+
 We are rebuilding the entire ecosystem from scratch:
 
 <a href="https://nuejs.org/vision/">

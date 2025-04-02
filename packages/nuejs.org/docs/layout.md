@@ -88,6 +88,7 @@ For slots that aren't HTML5 landmarks, use the `@name` attribute:
 Three special modules provide deeper control over your layout:
 
 #### The Main Module
+
 Control the structure inside `<main>`:
 
 ```html
@@ -105,6 +106,7 @@ Control the structure inside `<main>`:
 ```
 
 #### The Root Module
+
 Override the entire HTML document structure:
 
 ```html
@@ -124,6 +126,7 @@ Override the entire HTML document structure:
 ```
 
 #### The Head Module
+
 Add custom elements to `<head>`:
 
 ```html

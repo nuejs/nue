@@ -1,8 +1,10 @@
 
 # Application router
+
 In Nue, the application router — available at `/@nue/app-router.js` — is the backbone of single-page applications (SPAs). It acts as a controller in the MVC pattern, managing state and URLs while coordinating the model and views. It tracks URL, session, and persistent data, keeping your app in sync with the browser.
 
 ## Usage
+
 Import and configure it:
 
 ```js
@@ -25,9 +27,11 @@ router.initialize({ root: document.body })
 - `initialize`: Starts event listeners, optionally scoped to a DOM root.
 
 ## State management
+
 The router unifies state:
 
 ### `router.state`
+
 Returns the current state:
 
 ```js
@@ -47,6 +51,7 @@ console.log(router.state)
 Combines path params, query params, and stored data.
 
 ### `router.set(data, value)`
+
 Updates state and URL:
 
 ```js
@@ -59,6 +64,7 @@ router.set('filter', 'all')               // /app/users/all?query=new&start=0
 Preserves unrelated params unless overridden.
 
 ### `router.toggle(key, [flag])`
+
 Flips a boolean state:
 
 ```js
@@ -68,6 +74,7 @@ router.toggle('grid_view')  // Toggles grid_view true/false
 Returns the new value, updates storage if persistent.
 
 ### `router.del(key)`
+
 Clears a state key:
 
 ```js
@@ -75,6 +82,7 @@ router.del('query')  // /app/users/active?start=0
 ```
 
 ### Example
+
 Toggle a view mode:
 
 ```html
@@ -96,9 +104,11 @@ Toggle a view mode:
 The router abstracts storage — views don’t care if `grid_view` is in localStorage or the URL.
 
 ## Event binding
+
 Listen for state changes:
 
 ### `router.on(names, callback)`
+
 Runs on param changes:
 
 ```js
@@ -110,6 +120,7 @@ router.on('type', data => {
 Stays active until `cleanup()`.
 
 ### `router.bind(propertyNames, callback, [namespace])`
+
 Runs on specific param changes:
 
 ```js
@@ -126,13 +137,16 @@ router.bind('id:user', (state) => {
 Namespaces like `:user` (think jQuery’s event namespaces) group bindings. A repeat call to `bind` with the same property and namespace replaces the old handler if both match — perfect for component updates.
 
 ## Browser integration
+
 The router handles:
+
 - **Clicks**: Intercepts `<a href="/app/...">` links, updates state, and pushes history.
 - **Back/Forward**: Syncs state via `popstate`, triggers bindings.
 
 No extra setup needed.
 
 ## Coordinating layers
+
 Tie model and views together:
 
 ```js
@@ -156,6 +170,7 @@ Views trigger updates:
 The router’s storage-agnostic API — URL, session, or persistent — lets you switch data homes without rewriting views or model logic.
 
 ## Cleanup
+
 Reset the router:
 
 ```js

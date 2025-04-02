@@ -2,6 +2,7 @@
 # Get started with Nue
 
 ## 1. Install Bun
+
 First, install [Bun](//bun.sh):
 
 ```sh
@@ -13,6 +14,7 @@ Nue uses Bun for its superior web standards support, including native CSS parsin
 
 
 ## 2. Install Nue
+
 Next, install Nue globally:
 
 ```sh
@@ -24,6 +26,7 @@ Nue uses global installation because it is a command line tool like Git or Docke
 
 
 ## 3. Install app
+
 Create your first app with:
 
 ```sh
@@ -37,7 +40,6 @@ nue create simple-mpa
 ```
 
 Done! Your browser should now open to: `http://localhost:8083/`:
-
 
 - - -
 
@@ -57,10 +59,12 @@ Done! Your browser should now open to: `http://localhost:8083/`:
 
 
 ### Having Problems?
+
 Please post an [issue](//github.com/nuejs/nue/issues).
 
 
 ## Node Setup
+
 If you prefer to install Nue with `pnpm`, `npm`, or `yarn`, use:
 
 ```sh

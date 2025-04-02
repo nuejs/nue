@@ -1,11 +1,14 @@
 
 # Structured data
+
 Modern web projects need a clean way to manage content and data. Nue helps you keep your code tidy by storing different types of information in separate YAML files. This means your content stays neat and easy to work with, without cluttering up your main files.
 
 ## Types of data
+
 Nue organizes data into three key types, each serving a distinct purpose in your website.
 
 ### Information architecture
+
 This data outlines your site’s structure — navigation, hierarchies, and connections. Define it in YAML, like in `site.yaml`:
 
 ```yaml
@@ -21,6 +24,7 @@ documentation:
 This hierarchy shapes navigation menus or sidebars directly, no extra coding required.
 
 ### Content metadata
+
 Metadata adds context to your content — titles, dates, SEO fields. It’s typically set in a page’s front matter:
 
 ```yaml
@@ -37,6 +41,7 @@ og_image: "/images/design-system.jpg"
 This keeps content files clean while feeding layouts and search engines.
 
 ### Application data
+
 Application-specific data supports functionality — think product details or team info. Store it in a separate YAML file, like `team.yaml`:
 
 ```yaml
@@ -54,9 +59,11 @@ team:
 Use this data in templates or islands wherever it’s needed.
 
 ## Data inheritance
+
 Nue’s data flows through three levels — global, application, and page — ensuring consistency with room for overrides.
 
 ### Global data
+
 Set site-wide defaults in `site.yaml`:
 
 ```yaml
@@ -67,6 +74,7 @@ og_image: "/images/nue-og.jpg"
 ```
 
 ### Application data
+
 Override globals for specific areas in files like `blog.yaml`:
 
 ```yaml
@@ -77,6 +85,7 @@ og_image: "/images/blog-og.jpg"
 ```
 
 ### Page data
+
 Fine-tune individual pages in front matter:
 
 ```md
@@ -91,6 +100,7 @@ og_image: "/images/math-design.jpg"
 Data cascades from global to page, balancing uniformity and control.
 
 ## Why YAML?
+
 Nue picks YAML for its readability and natural fit with content hierarchies. Compare this:
 
 ```yaml
