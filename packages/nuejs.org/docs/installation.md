@@ -30,7 +30,7 @@ Create your first app with:
 nue create simple-blog
 ```
 
-Alternatively, start with a multi-page app
+Alternatively, start with a multipage app
 
 ```sh
 nue create simple-mpa
@@ -51,13 +51,13 @@ Done! Your browser should now open to: `http://localhost:8083/`:
 
 ### Known issues
 
-- **Windows support** Windows tests pass, but support remains uncertain. Currently, no team member uses Windows.
+- **Windows support** — Windows tests pass, but support remains uncertain. Currently, no team member uses Windows.
 
-- **Reactive components** Reactive components start to struggle with complex nested loops and conditionals.
+- **Reactive components** — Reactive components start to struggle with complex nested loops and conditionals.
 
 
 ### Having Problems?
-Please post an [issue](//github.com/nuejs/nue/issues)
+Please post an [issue](//github.com/nuejs/nue/issues).
 
 
 ## Node Setup

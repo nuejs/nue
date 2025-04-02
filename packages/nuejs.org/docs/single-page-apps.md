@@ -1,6 +1,6 @@
 
 # Single-page applications
-Nue is a web framework that prioritizes web standards, enabling developers to create large-scale single-page applications (SPAs) with less code than mainstream tools require and your codebase stays clean so it is easier to maintain and scale.
+Nue is a web framework that prioritizes web standards, enabling developers to create large-scale single-page applications (SPAs) with less code than mainstream tools require, and your codebase stays clean so it is easier to maintain and scale.
 
 
 ## Large-scale web applications

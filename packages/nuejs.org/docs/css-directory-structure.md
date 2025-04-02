@@ -42,7 +42,7 @@ app/
 Each component file still uses `@layer components`, but the split avoids clutter, making it easier to find and edit styles without scrolling through a massive file.
 
 ### Large applications
-Big, multi-page projects need distinct scopes: global styles, reusable components, and app-specific tweaks. A structured directory delivers:
+Big, multipage projects need distinct scopes: global styles, reusable components, and app-specific tweaks. A structured directory delivers:
 ```
 website/
 ├── @global/           # Shared foundations
@@ -93,7 +93,7 @@ include: [card, button]  # Pulls @components/card.css, etc.
 This loads matching library assets across the app, keeping inclusion effortless and tied to your structure.
 
 ## Areas
-Style specific areas in a multi-page app with scoped directories.
+Style specific areas in a multipage app with scoped directories.
 
 ### For a blog
 ```

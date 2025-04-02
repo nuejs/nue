@@ -67,7 +67,7 @@ Below is a list of all CSS variables with the associated HTML elements for styli
   CSS variable     | Default value    | HTML tag | Description
   accent-color     | `#419fff`        | strong   | special emphasis
   base-color       | `#555`           |          | foreground color
-  char-color       | `#64748b`        | i        | brackets, commas...
+  char-color       | `#64748b`        | i        | brackets, commas…
   comment-color    | `#4e5d61`        | sup      | comments
   counter-color    | `#475569`        |          | line numbers
   del-color        | `250, 110, 130`  | del      | deleted lines

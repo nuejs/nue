@@ -21,7 +21,7 @@ router.initialize({ root: document.body })
 - `route`: Sets the URL pattern (e.g., `/app/users/active`).
 - `url_params`: Tracks query params like `?query=test`.
 - `session_params`: Persists across refreshes (sessionStorage).
-- `persistent_params`: Stores long-term prefs (localStorage).
+- `persistent_params`: Stores long-term preferences (localStorage).
 - `initialize`: Starts event listeners, optionally scoped to a DOM root.
 
 ## State management

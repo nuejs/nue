@@ -159,7 +159,7 @@ Client-side components, such as islands, receive data through nested JSON. This 
 In this structure, the JSON data is embedded within a `<script>` tag of type `application/json`, allowing the component to access it seamlessly on the client side.
 
 ### Nested HTML and slots
-Slots enable you to build highly reusable, multi-purpose components by allowing a parent component to inherit functionality from a child component. Here’s how it works:
+Slots enable you to build highly reusable, multipurpose components by allowing a parent component to inherit functionality from a child component. Here’s how it works:
 
 #### Parent component
 The parent component defines a structure that includes a slot for nested content:

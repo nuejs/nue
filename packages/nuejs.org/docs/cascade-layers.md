@@ -106,7 +106,7 @@ This refines components for specific areas like a blog or product page.
   }
 }
 ```
-**Use-case**: A multi-section site adjusts button colors for the blog to match its theme and tweaks card borders on product pages to highlight featured items.
+**Use-case**: A multisection site adjusts button colors for the blog to match its theme and tweaks card borders on product pages to highlight featured items.
 
 
 ### Screens layer

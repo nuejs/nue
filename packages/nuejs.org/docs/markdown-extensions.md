@@ -562,6 +562,7 @@ The CSS below is used to style the above example, transforming the accordion int
   }
 }
 ```
+
 The use of `pointer-events: none;` ensures that only the active tab can be interacted with, creating a smooth user experience without extra JavaScript logic. Additionally, pseudo-elements like `&::marker` help to refine the visual style without modifying the HTML.
 
 ### Why this is good

@@ -18,7 +18,7 @@ documentation:
     - Data: /docs/data.html
 ```
 
-This hierarchy shapes navigation menus or sidebars directly, no extra coding needed.
+This hierarchy shapes navigation menus or sidebars directly, no extra coding required.
 
 ### Content metadata
 Metadata adds context to your content — titles, dates, SEO fields. It’s typically set in a page’s front matter:

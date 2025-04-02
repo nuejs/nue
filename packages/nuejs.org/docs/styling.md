@@ -32,8 +32,8 @@ UI libraries are defined in your `site.yaml` configuration file like this:
 ```yaml
 libs: ["@library"]
 ```
-Unlike global styles, these styles are included on demand. Typical **library files** might include `card.css` or `form.css`.
 
+Unlike global styles, these styles are included on demand. Typical **library files** might include `card.css` or `form.css`.
 
 [image]
   small: /img/blog-css-hierarchy.png

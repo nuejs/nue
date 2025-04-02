@@ -10,7 +10,7 @@ This separation makes theming practical. Change a few variables — colors, typo
 
 If you’re from the React world, design systems might not be as front-and-center as in design circles. In React, styling often mixes with components, and standalone design systems are less common. ShadCN is perhaps the closest implementation of design systems when it comes to the React ecosystem. It provides a default theme built with about 44,000 lines of TSX, including hooks and logic.
 
-Theming it, however, shows the limits of TSX: creating something like the ["New York " theme][new_york] means copying and modifying that entire codebase.
+Theming it, however, shows the limits of TSX: creating something like the ["New York" theme][new_york] means copying and modifying that entire codebase.
 
 With CSS, theming stays simpler — variables and layers handle changes without duplicating everything. For example, Nue’s demo styles an entire CRM/SPA application in around 1,000 lines total, which includes both global and application-specific components and styling.
 

@@ -64,7 +64,7 @@ main.style.display = 'block'
 loadPage('thanks.html')
 ```
 
-This keeps scripting lean, enhancing multi-page apps without bloat.
+This keeps scripting lean, enhancing multipage apps without bloat.
 
 ## Hot reloading
 Hot Module Replacement (HMR) updates content live. Global scripts persist, but DOM-dependent logic needs reattachment:

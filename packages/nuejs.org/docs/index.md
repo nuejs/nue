@@ -21,7 +21,7 @@ The following demo uses **Rust** and **Event Sourcing** for instant keypress sea
 
 [bunny-video]
   videoId: eb65fcdd-5be4-4923-a783-f41efafe58a7
-  caption: Instant operations across 150.000 records with Rust/WASM
+  caption: Instant operations across 150,000 records with Rust/WASM
   poster: /img/rust-splash.png
 
 
