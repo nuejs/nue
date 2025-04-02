@@ -3,7 +3,7 @@ include: marketing-content
 ---
 
 # Break the limits of Web
-Take HTML, CSS, JS, and WASM to their bsolute peak
+Take HTML, CSS, JS, and WASM to their absolute peak
 
 
 [button.primary href="/app/"]
