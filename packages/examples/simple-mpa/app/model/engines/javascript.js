@@ -16,11 +16,12 @@
 const events = []
 
 export function add_events(input) {
-  const arr = input.split('\n')
+  for (const event of input.split('\n')
     .map(line => line.trim())
     .filter(line => line.length > 0)
-    .map(line => JSON.parse(line))
-  events.push(...arr)
+    .map(line => JSON.parse(line))) {
+    events.push(event)
+  }
 }
 
 export function get_total() {
