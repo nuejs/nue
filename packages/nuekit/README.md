@@ -7,7 +7,7 @@
 Nue is a web framework focused on web standards, currently in active development. Our goal is to expose the hidden complexity that's become a norm in modern web development. When a single button weighs more than an entire application, something is clearly broken.
 
 <a href="https://nuejs.org/">
-  <img src="https://nuejs.org/img/og-button.png" width="900">
+  <img src="https://nuejs.org/img/og-blue.png" width="900">
 </a>
 
 Nue makes the inevitable shift. We're rebuilding the entire ecosystem from scratch, with a cleaner, more efficient core. Our goal is to restore the joy of web development for all key skillsets: frontend architects, design engineers, and UX engineers.
@@ -31,7 +31,7 @@ Nue makes the inevitable shift. We're rebuilding the entire ecosystem from scrat
 We are rebuilding the entire ecosystem from scratch:
 
 <a href="https://nuejs.org/vision/">
-  <img src="https://nuejs.org/img/roadmap-2025-2-big.png" width="900">
+  <img src="https://nuejs.org/img/roadmap-2025-2-big.png" width="700">
 </a>
 
 [See our vision](https://nuejs.org/vision/)
