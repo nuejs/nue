@@ -141,6 +141,28 @@ test('parse reflink', () => {
   expect(link).toMatchObject({ href: 'world', title: 'now', label: 'Hello' })
 })
 
+test('parse reflink + link', () => {
+  const tokens = parseInline('hello [ref][r] world [link](/)')
+  expect(tokens.length).toBe(4)
+  expect(tokens).toEqual([
+    { text: 'hello ' },
+    {
+      href: "r",
+      title: undefined,
+      label: "ref",
+      is_footnote: false,
+      is_reflink: true,
+    },
+    { text: ' world ' },
+    {
+      href: "/",
+      title: undefined,
+      label: "link",
+      is_footnote: false,
+      is_reflink: undefined,
+    },
+  ])
+})
 
 test('bad component names', () => {
   const tests = ['[(10)] [3 % 8]', '[-hey]', '[he+y] there']
