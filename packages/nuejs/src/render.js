@@ -304,7 +304,18 @@ function createComponent(node, global_js = '', template) {
 
   // javascript
   const js = getJS(node.children)
-  const Impl = js[0] && exec(`class Impl { ${js} }\n${global_js}`)
+  let Impl
+  try {
+    Impl = js[0] && exec(`class Impl { ${js} }\n${global_js}`)
+  } catch (e) {
+    if (e instanceof SyntaxError) {
+      throw [
+        e.toString(),
+        "Failed building component class, maybe you wanted to use '<script>' with a 'type' attribute?"
+      ].join('\n  ' + ''.padStart(e.name.length))
+    }
+    throw e
+  }
 
   // must be after getJS()
   const tmpl = getOuterHTML(node)
