@@ -98,7 +98,7 @@ export function renderPage(page) {
 
   const time = date ? renderPrettyDate(date) : ''
   const h2 = title ? elem('h2', renderInline(title)) : ''
-  const p = desc ? elem('p', renderInline(desc)) : ''
+  const p = desc ? elem('p', renderInline(desc).replace(/<\/?a(\s.+?)?>/g, '')) : '' // remove <a ...> tags (nesting is not allowed)
 
   const body = !thumb
     ? time + elem('a', { href: url }, h2 + p)
