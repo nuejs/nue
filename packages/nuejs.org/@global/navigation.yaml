@@ -15,7 +15,7 @@ globalnav:
   # header toolbar (complementary)
   toolbar:
     - Slack: //join.slack.com/t/nuejs/shared_invite/zt-2wf8ozu5i-N2Y9PA_D17weIWuN2QPOqQ "slack"
-    - 7.6k: //github.com/nuejs/nue "github pill"
+    - 7.9k: //github.com/nuejs/nue "github pill"
 
   # burger menu
   menu:

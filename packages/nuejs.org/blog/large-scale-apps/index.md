@@ -72,7 +72,6 @@ This is a wake-up call for UX engineers tangled in React hooks and utility class
 
 
 ## FAQ: WTH is Nue?
-
 Nue is a web framework focused on web standards, currently in active development. I'm aiming to reveal the hidden complexity that’s become normalized in modern web development. When a single button outweighs an entire application, something’s fundamentally broken.
 
 Nue drives the inevitable shift. We’re rebuilding tools and frameworks from the ground up with a cleaner, more robust architecture. Our goal is to bring back the joy of web development for everyone—whether you’re focused on performance, design, or UX.
