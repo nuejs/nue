@@ -99,3 +99,12 @@ test('create', async () => {
   expect(contents).toContain('index.md') // should be unpacked to correct dir
   expect(contents).toContain('.dist') // should be built
 }, 10_000)
+
+test('create without name arg', async () => {
+  const terminate = await create({ root, paths: [], debug: true })
+  terminate()
+
+  const contents = await fs.readdir(root)
+  expect(contents).toContain('index.md') // should use simple-blog template as the default
+  expect(contents).toContain('.dist') // should still be built
+}, 10_000)
