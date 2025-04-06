@@ -24,7 +24,7 @@ async function serve(args) {
 }
 
 export async function create(args = {}) {
-  if (!args.name) args.name = args.paths.shift().split('/').filter(Boolean).join('/') || 'simple-blog'
+  if (!args.name) args.name = args.paths.shift()?.split('/').filter(Boolean).join('/') || 'simple-blog'
   if (!args.root) args.root = args.paths.shift() || args.name.replaceAll('/', '-')
 
   // debug mode with: `nue create test`
