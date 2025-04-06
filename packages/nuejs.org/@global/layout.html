@@ -23,10 +23,12 @@
 </dialog>
 
 <!-- copy button on code block -->
-<pre @name="codeblock">
-<button class="copy" :data-copy="copy">Copy</button>
-<slot/>
-<script>
-  constructor({ code }) { this.copy = encodeURIComponent(code.join('\n')) }
-</script>
-</pre>
+<div @name="codeblock" class="codeblock">
+  <button class="copy" :data-copy="copy" title="Copy codeblock"><img src="/icon/copy.svg"></button>
+  <pre><slot/></pre>
+  <script>
+    constructor({ code }) {
+      this.copy = encodeURIComponent(code.join('\n'))
+    }
+  </script>
+</div>
