@@ -113,7 +113,7 @@ export function parseBlocks(lines, capture) {
 
     // tag
     if (c == '[' && trimmed.endsWith(']') && !trimmed.includes('][')) {
-      const tag = parseTag(line.slice(1, -1))
+      const tag = parseTag(trimmed.slice(1, -1))
       block = { is_tag: true, ...tag, body: [] }
       return blocks.push(block)
     }

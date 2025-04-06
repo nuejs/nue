@@ -31,7 +31,8 @@ test('nested lists', () => {
 
 
 test('nested tag data', () => {
-  const { blocks } = parseBlocks(['[hello]', '', '', '  foo: bar', '', '  bro: 10'])
+  const { blocks } = parseBlocks(['[hello] ', '', '', '  foo: bar', '', '  bro: 10'])
+  expect(blocks[0].name).toBe('hello')
   expect(blocks[0].data).toEqual({ foo: "bar", bro: 10 })
 })
 
