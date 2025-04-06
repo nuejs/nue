@@ -3,6 +3,7 @@
   text-align: center;
   position: relative;
   width: 400px;
+  max-width: calc(100% - 6em);
   margin: 0 auto;
 
   .seek {
