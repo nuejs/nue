@@ -28,7 +28,7 @@ export async function create(args = {}) {
   if (!args.root) args.root = args.paths.shift() || args.name.replaceAll('/', '-')
 
   // debug mode with: `nue create test`
-  args.debug = args.name == 'test'
+  if (!args.debug) args.debug = args.name == 'test'
   if (args.debug) args.name = 'simple-blog'
 
   const { debug, name, root } = args

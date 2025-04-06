@@ -101,7 +101,7 @@ test('create', async () => {
 }, 10_000)
 
 test('create without name arg', async () => {
-  const terminate = await create({ root, paths: [] })
+  const terminate = await create({ root, paths: [], debug: true })
   terminate()
 
   const contents = await fs.readdir(root)
