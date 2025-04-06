@@ -66,7 +66,13 @@ function renderCode({ name, code, attr, data }, opts) {
   const { numbered } = data
   const klass = attr.class
   delete attr.class
-  let html = elem('pre', attr, glow(code, { language: name, numbered }))
+  let html = renderTag(
+    {
+      name: 'codeblock', attr,
+      data: { code, html: glow(code, { language: name, numbered }) }
+    },
+    opts,
+  )
 
   const caption = data.caption || data._
 

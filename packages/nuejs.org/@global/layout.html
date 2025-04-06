@@ -21,3 +21,12 @@
   </button>
   <navi :items="globalnav.menu"/>
 </dialog>
+
+<!-- copy button on code block -->
+<div @name="codeblock">
+  <button class="copy" :data-copy="encoded" onclick="navigator.clipboard.writeText(decodeURIComponent(event.target.dataset.copy))">copy</button>
+  <pre>{{html}}</pre>
+  <script>
+    constructor({ code }) { this.encoded = encodeURIComponent(code.join('\n')) }
+  </script>
+</div>
