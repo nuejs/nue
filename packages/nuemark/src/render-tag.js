@@ -10,6 +10,11 @@ import { join } from 'node:path'
 // built-in tags
 const TAGS = {
 
+  codeblock() {
+    const { attr, data } = this
+    return elem('pre', attr, data.html)
+  },
+
   accordion({ name, open }) {
     const html = this.sections?.map((blocks, i) => {
       const head = elem('summary', blocks[0].text)
