@@ -9,6 +9,12 @@ addEventListener('click', event => {
     const link = el.getAttribute('href')
     if (link) dialog.hidePopover()
   }
+  else if (el.dataset.copy) { // is copy button
+    navigator.clipboard.writeText(decodeURIComponent(el.dataset.copy))
+    const html = el.innerHTML
+    el.innerText = 'Copied'
+    setTimeout(() => el.innerHTML = html, 1500)
+  }
 })
 
 

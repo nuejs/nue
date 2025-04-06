@@ -11,8 +11,8 @@ import { join } from 'node:path'
 const TAGS = {
 
   codeblock() {
-    const { attr, data } = this
-    return elem('pre', attr, data.html)
+    const { attr, blocks, render } = this
+    return elem('pre', attr, render(blocks))
   },
 
   accordion({ name, open }) {
