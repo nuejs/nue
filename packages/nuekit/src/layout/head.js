@@ -1,10 +1,27 @@
-
-import { extname } from 'node:path'
+import { existsSync } from 'node:fs'
+import { readFileSync } from 'node:fs'
+import { join, dirname, extname } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 import { elem } from 'nuemark'
 
 import { TYPES } from '../nueserver.js'
 
+// Get the path to code-copy-util.js
+const __dirname = dirname(fileURLToPath(import.meta.url))
+const CODE_COPY_UTIL_PATH = join(__dirname, '..', '..', '..', '..', 'packages', 'nuemark', 'src', 'code-copy-util.js')
+
+// Load the code copy utility script
+let codeCopyUtilScript = '';
+try {
+  if (existsSync(CODE_COPY_UTIL_PATH)) {
+    codeCopyUtilScript = readFileSync(CODE_COPY_UTIL_PATH, 'utf8');
+  } else {
+    console.error(`Code copy utility script not found at: ${CODE_COPY_UTIL_PATH}`);
+  }
+} catch (err) {
+  console.error('Could not load code-copy-util.js:', err);
+}
 
 function getMime(path) {
   const ext = extname(path).slice(1)
@@ -13,14 +30,14 @@ function getMime(path) {
 
 export function renderHead(data) {
   const {
-    version    = data.nuekit_version,
-    generator  = `Nue v${version} (nuejs.org)`,
-    viewport   = 'width=device-width,initial-scale=1',
-    charset    = 'utf-8',
+    version = data.nuekit_version,
+    generator = `Nue v${version} (nuejs.org)`,
+    viewport = 'width=device-width,initial-scale=1',
+    charset = 'utf-8',
     title_template = '%s',
-    prefetch   = [],
-    base       = '',
-    origin     = '',
+    prefetch = [],
+    base = '',
+    origin = '',
     favicon,
     title,
     is_prod,
@@ -70,6 +87,11 @@ export function renderHead(data) {
 
   // misc
   if (favicon) head.push(`<link rel="icon" type="${getMime(favicon)}" href="${favicon}">`)
+
+  // Add the code copy utility script for pages with code blocks
+  if (data.use_syntax && codeCopyUtilScript) {
+    head.push(`<script>${codeCopyUtilScript}</script>`);
+  }
 
   // inline style
   if (is_prod) {

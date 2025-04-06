@@ -1,4 +1,3 @@
-
 import { glow } from 'nue-glow'
 
 import { renderInline, renderTokens } from './render-inline.js'
@@ -66,16 +65,66 @@ function renderCode({ name, code, attr, data }, opts) {
   const { numbered } = data
   const klass = attr.class
   delete attr.class
-  let html = elem('pre', attr, glow(code, { language: name, numbered }))
 
-  const caption = data.caption || data._
+  // Create a wrapper with the copy button and the code block
+  let codeHtml = glow(code, { language: name, numbered })
 
-  if (caption) {
-    const figcaption = elem('figcaption', renderInline(caption))
-    return elem('figure', { class: klass }, figcaption + html)
+  // Add a copy button with appropriate styles and functionality
+  const copyButton = `<button class="code-copy-btn" onclick="copyCode(this)" title="Copy code" aria-label="Copy code to clipboard">
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+    </svg>
+  </button>`;
+
+  // Set data attributes for language and numbered properties
+  const dataAttrs = name ? ` data-language="${name}"` : '';
+  const numberedAttr = numbered ? ' data-numbered="true"' : '';
+  const uniqueId = `code-block-${Math.random().toString(36).substring(2, 10)}`;
+
+  // Calculate proper padding based on code content (safely handle code if it's not a string)
+  let additionalPadding = 'padding-right: 45px;';
+  if (typeof code === 'string') {
+    const codeLines = code.split('\n');
+    const maxLineLength = Math.max(...codeLines.map(line => line.length));
+    additionalPadding = numbered ? 'padding-right: 60px;' : (maxLineLength < 30 ? 'padding-right: 40px;' : 'padding-right: 45px;');
+  } else {
+    // Fallback if code is not a string
+    additionalPadding = numbered ? 'padding-right: 60px;' : 'padding-right: 45px;';
   }
 
-  return wrap(klass, html)
+  // Set button position based on code content
+  const buttonPosition = numbered ? 'right: 2.5em;' : 'right: 0.5em;';
+  const buttonTop = (name === 'bash' || name === 'sh' || name === 'shell') ? 'top: 0.8em;' : 'top: 0.5em;';
+
+  // Inline style ensures correct positioning without requiring JavaScript positioning
+  const inlineStyles = `
+    <style>
+      #${uniqueId} pre {
+        ${additionalPadding}
+      }
+      #${uniqueId} .code-copy-btn {
+        ${buttonPosition}
+        ${buttonTop}
+      }
+    </style>
+  `;
+
+  // Add copy button and inline styles for immediate correct positioning
+  let html = `<div id="${uniqueId}" class="code-block-wrapper"${dataAttrs}${numberedAttr}>
+    ${inlineStyles}
+    ${copyButton}
+    <pre ${renderAttrs(attr)}>${codeHtml}</pre>
+  </div>`;
+
+  const caption = data.caption || data._;
+
+  if (caption) {
+    const figcaption = elem('figcaption', renderInline(caption));
+    return elem('figure', { class: klass }, figcaption + html);
+  }
+
+  return wrap(klass, html);
 }
 
 /**** utilities ****/

@@ -10,7 +10,7 @@ The most valuable contribution right now is spreading awareness about standards-
 
 Focus especially on:
 
-- How modern CSS enables sophisticated design systems
+- How modern CSS enables sophisticated design systems~
 - The untapped power of semantic HTML
 - Progressive enhancement through vanilla JavaScript
 - Real-world examples of framework complexity vs web standards simplicity

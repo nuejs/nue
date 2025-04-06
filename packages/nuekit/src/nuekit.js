@@ -1,8 +1,9 @@
 import { promises as fs, existsSync } from 'node:fs'
-import { join, parse as parsePath } from 'node:path'
+import { join, parse as parsePath, dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 import { parse as parseNue, compile as compileNue } from 'nuejs-core'
-import { nuedoc } from 'nuemark'
+import { nuedoc, CODE_COPY_SCRIPT_PATH } from 'nuemark'
 
 import { buildCSS, buildJS } from './builder.js'
 import { createServer, send } from './nueserver.js'
@@ -88,6 +89,35 @@ export async function createKit(args) {
 
     if (!data.is_spa) {
       if (data.view_transitions || data.router) push('view-transitions')
+    }
+
+    // Add code-copy.js script for pages that contain code blocks
+    if (data.use_syntax) {
+      // Make sure we don't add the script twice
+      const codeCopyScriptPath = '/@nue/code-copy.js'
+      if (!scripts.includes(codeCopyScriptPath)) {
+        // Add it at the beginning to ensure it loads early
+        scripts.unshift(codeCopyScriptPath)
+      }
+
+      // Copy the code-copy.js file to the @nue directory during build
+      try {
+        // Get path to the source code-copy.js file
+        const modulePath = dirname(fileURLToPath(import.meta.url))
+        // Corrected path to code-copy.js in nuemark package using proper path resolution
+        const codeCopySource = join(modulePath, '..', '..', '..', 'packages', 'nuemark', 'src', 'code-copy.js')
+
+        const nueDir = join(process.cwd(), dist, '@nue')
+        if (!dryrun && existsSync(nueDir)) {
+          if (existsSync(codeCopySource)) {
+            await fs.copyFile(codeCopySource, join(nueDir, 'code-copy.js'))
+          } else {
+            console.error(`Code copy script not found at: ${codeCopySource}`)
+          }
+        }
+      } catch (err) {
+        console.error('Failed to copy code-copy.js:', err)
+      }
     }
   }
 
