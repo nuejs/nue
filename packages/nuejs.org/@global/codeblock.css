@@ -1,6 +1,8 @@
 .codeblock {
   position: relative;
 
+  &:hover .copy { opacity: 0.5; }
+
   .copy {
     font-size: 0.85rem;
     position: absolute;
@@ -15,8 +17,8 @@
     border: var(--border);
 
     transition: opacity 250ms;
-    opacity: 0.5;
-    &:is(:hover, :focus) { opacity: 0.75; }
+    opacity: 0.25;
+    &:is(:hover, :focus) { opacity: 1; }
 
     img {
       filter: invert(1);
