@@ -32,12 +32,16 @@
     "lightningcss": "^1.29"
   },
   "peerDependenciesMeta": {
-    "esbuild": {"optional": true},
-    "lightningcss": {"optional": true}
+    "esbuild": {
+      "optional": true
+    },
+    "lightningcss": {
+      "optional": true
+    }
   },
   "devDependencies": {
-    "esbuild": "^0.25.1",
-    "lightningcss": "^1.29.2"
+    "esbuild": "^0.25.2",
+    "lightningcss": "^1.29.3"
   },
   "jest": {
     "setupFilesAfterEnv": [

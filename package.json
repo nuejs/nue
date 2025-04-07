@@ -14,10 +14,6 @@
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand"
   },
-  "devDependencies": {
-    "esbuild": "^0.25",
-    "lightningcss": "^1.29"
-  },
   "jest": {
     "setupFilesAfterEnv": [
       "<rootDir>/setup-jest.js"
