@@ -1,4 +1,3 @@
-The draft looks good and covers the key aspects, but let's enhance it to better reflect Nue's vision and standards-first philosophy. Here's my refined version:
 
 # Contributing to Nue
 
@@ -65,37 +64,48 @@ npm test
 
 ### Local Development
 
+Ensure you don't have `nuekit` globally installed.
+
+```sh
+bun rm -g nuekit
+npm rm -g nuekit
+```
+
 #### Using Bun (recommended)
 
 ```sh
 # Clone the Nue repository
-cd your-projects-dir
 git clone git@github.com:nuejs/nue.git
 cd nue
 # Install dependencies
 bun install
-# Link the nuekit package
+# Link the nuekit package globally
 cd packages/nuekit
 bun link
-# Link the nuekit package in your project
-cd your-projects-dir/your-nue-project-dir
-bun link nuekit
-# Serve the project using the local nuekit package
+
+# Go to your project
+cd your-nue-project-dir
+# Serve it using the local nuekit package
 nue
 ```
 
 #### Using Node
 
 ```sh
-cd your-projects-dir
+# Clone the Nue repository
 git clone git@github.com:nuejs/nue.git
 cd nue
-npm install
+# Install dependencies
+npm install --no-save esbuild lightningcss
+# Optionally install testing dependencies
+npm install --no-save --legacy-peer-deps "jest@>=30.0.0-alpha.4" jest-extended
+# Link the nuekit package globally
 cd packages/nuekit
 npm link
-cd your-projects-dir/your-nue-project-dir
-npm link nuekit
-npm install --save-dev esbuild
+
+# Go to your project
+cd your-nue-project-dir
+# Serve it using the local nuekit package
 node $(which nue)
 ```
 
