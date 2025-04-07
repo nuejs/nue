@@ -288,7 +288,7 @@ Isomorphic components are hybrid client-side and server-side components that are
 </figure>
 ```
 
-The `<bunny-player>` is a reactive component defined in [@lib/video.htm](//github.com/nuejs/nue/blob/dev/packages/nuejs.org/%40lib/video.htm) file, which implements simple quality detection and [adaptive bitrate streaming](//en.wikipedia.org/wiki/Adaptive_bitrate_streaming) for browsers supporting the technology.
+The `<bunny-player>` is a reactive component defined in [@lib/video.dhtml](//github.com/nuejs/nue/blob/dev/packages/nuejs.org/@lib/video.dhtml) file, which implements simple quality detection and [adaptive bitrate streaming](//en.wikipedia.org/wiki/Adaptive_bitrate_streaming) for browsers supporting the technology.
 
 
 ## Plain JavaScript
