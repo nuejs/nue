@@ -69,7 +69,7 @@ function renderCode({ name, code, attr, data }, opts) {
   delete attr.class
 
   let html = renderTag({
-      name: 'codeblock', attr, data: { code },
+      name: 'codeblock', attr, data: { ...data, language: name, code },
       blocks: [{ is_html: true, html: glow(code, { language: name, numbered }) }],
     }, opts)
 
