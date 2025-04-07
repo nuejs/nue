@@ -23,7 +23,7 @@
 </dialog>
 
 <!-- copy button on code block -->
-<div @name="codeblock" class="codeblock">
+<div @name="codeblock" class="codeblock" :attr>
   <button class="copy" :data-copy="copy" title="Copy code block"><img src="/icon/copy.svg"></button>
   <pre><slot/></pre>
   <script>
