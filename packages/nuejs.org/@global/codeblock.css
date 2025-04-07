@@ -17,7 +17,7 @@
     border: var(--border);
 
     transition: opacity 250ms;
-    opacity: 0.25;
+    opacity: 0;
     &:is(:hover, :focus) { opacity: 1; }
 
     img {
