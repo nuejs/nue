@@ -21,7 +21,7 @@
     <button @click="images.pop()" :disabled="!images[4]">Remove</button>
   </p>
 
-  <img :for="img in images" :src="/img/{img}.jpg">
+  <img :for="img in images" :src="/img/{img}.jpg" :alt="img">
 
   <script>
     images = ['popcorn', 'peas', 'lemons', 'tomatoes']
@@ -35,7 +35,7 @@
 
 
 <div @name="user-update" class="demo card">
-  <img :src="user.avatar">
+  <img :src="user.avatar" :alt="user.name">
   <h3>{ user.name }</h3>
   <p>{ user.email }</p>
 

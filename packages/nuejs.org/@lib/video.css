@@ -8,7 +8,6 @@
   video {
     border: var(--border);
     border-radius: 4px;
-    max-width: 100%;
     min-width: 100%;
   }
 
@@ -48,7 +47,7 @@
   height: 4.2em;
   width: 4.2em;
   left: 50%;
-  top: 45%;
+  top: calc(50% - 2.1em);
 
   &:hover {
     background-color: #0009;
