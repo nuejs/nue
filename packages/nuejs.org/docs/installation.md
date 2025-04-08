@@ -19,7 +19,7 @@ Next, install Nue globally:
 
 ```sh
 # Install Nue
-bun install nuekit --global
+bun install --global nuekit
 ```
 
 Nue uses global installation because it is a command line tool like Git or Docker. Just go to a directory and type `nue` to develop.
@@ -68,7 +68,7 @@ Please post an [issue](//github.com/nuejs/nue/issues).
 If you prefer to install Nue with `pnpm`, `npm`, or `yarn`, use:
 
 ```sh
-pnpm install nuekit --global
+pnpm install --global nuekit esbuild lightningcss
 ```
 
 The default engine is Bun, so the command line interface starts with `#!/usr/bin/env bun`. To override the shebang with Node, run:

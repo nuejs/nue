@@ -27,7 +27,7 @@ Total size: 73.2kb (Vite-optimized, Brotli-compressed).
 Built with:
 
 ```sh
-bun install nuekit --global
+bun install --global nuekit
 nue create simple-mpa
 nue build --production
 ```

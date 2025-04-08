@@ -96,7 +96,7 @@ nue
 git clone git@github.com:nuejs/nue.git
 cd nue
 # Install dependencies
-npm install --no-save esbuild lightningcss
+npm install
 # Optionally install testing dependencies
 npm install --no-save --legacy-peer-deps "jest@>=30.0.0-alpha.4" jest-extended
 # Link the nuekit package globally
