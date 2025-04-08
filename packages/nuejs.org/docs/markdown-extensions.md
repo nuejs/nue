@@ -317,11 +317,11 @@ Nue supports standard Markdown syntax for tables, providing a straightforward wa
 Tables are created using the standard Markdown table syntax, which is simple but sometimes cumbersome when dealing with larger tables. Here is an example:
 
 ```md
-\| Name            | Email                    | Work title         |
-\| --------------- | ------------------------ | ------------------ |
-\| Sarah Thompson  | sarah.thompson@demo.ai   | Graphic Designer   |
-\| David Rodriguez | david.rodriguez@demo.ai  | Financial Analyst  |
-\| Jessica Lee     | jessica.lee@demo.ai      | Project Manager    |
+ | Name            | Email                    | Work title         |
+ | --------------- | ------------------------ | ------------------ |
+ | Sarah Thompson  | sarah.thompson@demo.ai   | Graphic Designer   |
+ | David Rodriguez | david.rodriguez@demo.ai  | Financial Analyst  |
+ | Jessica Lee     | jessica.lee@demo.ai      | Project Manager    |
 ```
 
 ### Table tag

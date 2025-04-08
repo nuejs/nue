@@ -38,11 +38,11 @@ Nue supports common **Markdown extensions** such as **tables** and **footnotes**
 Tables are useful for presenting structured information. Here’s an example:
 
 ```md
-\| Principle                | Description                                                       |
-\|--------------------------|-------------------------------------------------------------------|
-\| Separation of Concerns   | Dividing a system into distinct sections with specific roles.     |
-\| Progressive Enhancement  | Building core functionality first, then adding enhanced features. |
-\| Information Architecture | Structuring content for usability and navigation clarity.         |
+ | Principle                | Description                                                       |
+ |--------------------------|-------------------------------------------------------------------|
+ | Separation of Concerns   | Dividing a system into distinct sections with specific roles.     |
+ | Progressive Enhancement  | Building core functionality first, then adding enhanced features. |
+ | Information Architecture | Structuring content for usability and navigation clarity.         |
 ```
 
 This table provides a simple breakdown of key principles.
@@ -340,15 +340,15 @@ The possibilities are endless. You can combine blocks in creative ways, stacking
 Code blocks in Nue are enclosed between triple backticks and can include an optional language hint for syntax highlighting using the [Glow syntax highlighter](/blog/introducing-glow/). For example, a CSS code block would look like this:
 
 ```md
-\```css
-// here is a CSS code block
-:root {
-  --base-100: #f3f4f6;
-  --base-200: #e5e7eb;
-  --base-300: #d1d5db;
-  --base-400: #6b7280;
-}
-\```
+ ```css
+ // here is a CSS code block
+ :root {
+   --base-100: #f3f4f6;
+   --base-200: #e5e7eb;
+   --base-300: #d1d5db;
+   --base-400: #6b7280;
+ }
+ ```
 ```
 
 The language hint (`css`) enables syntax highlighting for the specified language.
@@ -358,11 +358,11 @@ The language hint (`css`) enables syntax highlighting for the specified language
 You can also apply custom class names and enable **line numbering** for your code blocks. Here's how to set it up:
 
 ```md
-\``` •.purple numbered•
-function hello() {
-  // world
-}
-\```
+ ``` •.purple numbered•
+ function hello() {
+   // world
+ }
+ ```
 ```
 
 The above example will be rendered with **purple text** and line numbers enabled:

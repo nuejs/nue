@@ -175,9 +175,9 @@ The major version number goes from zero to one, which means that ~this version o
 - Fenced code blocks can now be assigned with a class name as follows:
 
 ```html
-\``` .blue
-<p>the code here is rendered bigger</p>
-\```
+ ``` .blue
+ <p>the code here is rendered bigger</p>
+ ```
 ```
 
 This will nest the generated `<pre>` element with a wrapper element like this:

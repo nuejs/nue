@@ -331,11 +331,11 @@ This paragraph has **bold** and *italic* text, plus a `code snippet`.
 Fenced code blocks use triple backticks, with optional language hints for syntax highlighting:
 
 ```md
-\```js
-function example() {
-  return "Hello world"
-}
-\```
+ ```js
+ function example() {
+   return "Hello world"
+ }
+ ```
 ```
 
 ### Why this matters
@@ -356,11 +356,11 @@ Standard Markdown lacks certain features needed for complex content. Nue include
 Tables help present structured data in a readable format:
 
 ```md
-| Feature   | Description           | Status  |
-|-----------|----------------------|---------|
-| Grid      | Layout system        | Done    |
-| Sections  | Document structure   | Done    |
-| Themes    | Design systems       | Soon    |
+ | Feature   | Description          | Status  |
+ |-----------|----------------------|---------|
+ | Grid      | Layout system        | Done    |
+ | Sections  | Document structure   | Done    |
+ | Themes    | Design systems       | Soon    |
 ```
 
 Footnotes allow you to add references or asides without disrupting content flow:
