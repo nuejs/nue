@@ -66,6 +66,7 @@ jobs:
             --remap "http://localhost:8080/@ https://nuejs.org/@"
             --remap "http://localhost:8080/todomvc https://nuejs.org/todomvc"
             --remap "http://localhost:8080/glow-demo https://nuejs.org/glow-demo"
+            --remap "http://localhost:8080/docs/nuejs/examples https://nuejs.org/docs/nuejs/examples"
             --exclude "http://localhost:8080/404.html"
             --exclude "https?://x.com/"
             --
