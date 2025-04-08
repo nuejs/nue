@@ -124,7 +124,7 @@ async function runCommand(args) {
 }
 
 // Only run main when called as real CLI
-if (esMain(import.meta)) {
+if (esMain(import.meta.url)) {
 
   const args = getArgs(process.argv.slice(2))
 

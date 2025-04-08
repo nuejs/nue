@@ -1,7 +1,7 @@
 /* misc stuff. think shame.css */
 
 import { execSync } from 'node:child_process'
-import { promises as fs } from 'node:fs'
+import { promises as fs, realpathSync } from 'node:fs'
 import { sep, parse, resolve, normalize, join, isAbsolute, dirname } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 
@@ -13,9 +13,9 @@ export function openUrl(url) {
   execSync(`${open} ${url}`)
 }
 
-export function esMain(meta) {
-  if (!meta || !process.argv[1]) return false
-  return fileURLToPath(meta.resolve(process.argv[1])) === fileURLToPath(meta.url)
+export function esMain(url) {
+  if (!url || !process.argv[1]) return false
+  return realpathSync(fileURLToPath(url)) === realpathSync(process.argv[1])
 }
 
 // read from package.json
