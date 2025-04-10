@@ -185,8 +185,8 @@ export function parseLink(str, is_reflink) {
   // label
   let label = str.slice(1, i)
 
-  // image inside label
-  if (label.includes('![')) {
+  // image / reflink inside label
+  if (label.includes('![') || label.includes('][')) {
     i = str.indexOf(']' + open, j)
     label = str.slice(1, i)
     j = str.indexOf(close, i + 2)
