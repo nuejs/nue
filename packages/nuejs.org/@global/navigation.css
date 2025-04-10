@@ -8,6 +8,19 @@ nav a {
 }
 
 
+/* skip to main content button */
+.skip {
+  position: absolute;
+  top: -100%;
+  left: -100%;
+  margin: 0.5em;
+
+  &:focus {
+    top: 0;
+    left: 0;
+  }
+}
+
 /* global header */
 body > header {
   margin-bottom: 5em;
