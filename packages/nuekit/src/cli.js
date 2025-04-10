@@ -123,9 +123,7 @@ async function runCommand(args) {
   }
 }
 
-// Only run main when called as real CLI
-if (esMain(import.meta.url)) {
-
+export async function run() {
   const args = getArgs(process.argv.slice(2))
 
   // help
@@ -145,3 +143,5 @@ if (esMain(import.meta.url)) {
     }
   }
 }
+
+if (esMain(import.meta.url)) await run()
