@@ -29,7 +29,8 @@ function renderBlock(block, opts) {
               block.is_code ? renderCode(block, opts) :
                 block.is_newline ? '' :
                   block.is_break ? '<hr>' :
-                    console.error('Unknown block', block)
+                    block.is_html ? block.html :
+                      console.error('Unknown block', block)
 }
 
 // recursive
@@ -66,7 +67,11 @@ function renderCode({ name, code, attr, data }, opts) {
   const { numbered } = data
   const klass = attr.class
   delete attr.class
-  let html = elem('pre', attr, glow(code, { language: name, numbered }))
+
+  let html = renderTag({
+      name: 'codeblock', attr, data: { ...data, language: name, code },
+      blocks: [{ is_html: true, html: glow(code, { language: name, numbered }) }],
+    }, opts)
 
   const caption = data.caption || data._
 
