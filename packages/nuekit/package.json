@@ -11,7 +11,8 @@
     "type": "git"
   },
   "bin": {
-    "nue": "./src/cli.js"
+    "nue": "./src/cli.js",
+    "nue-node": "./src/cli-node.js"
   },
   "engines": {
     "bun": ">= 1.2",
