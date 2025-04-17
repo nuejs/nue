@@ -145,7 +145,7 @@ PS: Check out [Getting started docs](/docs/#node) if you prefer Node.
 
 - [User guide](/docs/content-authoring.html)
 - [Tag reference](/docs/markdown-extensions.html)
-- [HTML output](/docs/page-layout.html#md)
+- [HTML output](/docs/layout.html#default-html-structure)
 
 - - -
 

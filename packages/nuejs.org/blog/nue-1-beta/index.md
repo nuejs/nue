@@ -143,7 +143,7 @@ The web component can be assigned globally in `site.yaml` for all page sections 
 
 ### Miscellaneous new features
 
-- New `<navi>`, `<markdown>`, `<pretty-date>`, and `<toc>` tags to help build [custom layouts](/docs/custom-layouts.html)
+- New `<navi>`, `<markdown>`, `<pretty-date>`, and `<toc>` tags to help build [custom layouts](/docs/layout.html)
 
 - A new [`<gallery>`](/docs/content-collections.html#gallery) tag to render content collections
 

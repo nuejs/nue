@@ -68,7 +68,7 @@ Nue is an order of magnitude faster than its cousins. An identical blogging site
 ## Other notable highlights { #other }
 
 - [View transitions](/docs/reactivity.html)
-- [Layout components](/docs/custom-layouts.html)
+- [Layout components](/docs/layout.html)
 - [JS/TypeScript modules](/docs/reactivity.html)
 - [Content collections](/docs/content-collections.html)
 - [Reactive components](/docs/reactive-components.html)
