@@ -44,7 +44,7 @@ Here, the view detects a form submission (step 1), sends the input to the model 
 
 ## Routing
 
-Routing in Nue drives navigation and state in single-page applications (SPAs), playing the controller role in the MVC pattern. Unlike React’s component-centric routing, Nue’s router — imported from `/@nue/app-router.js` — centralizes state and URL management, keeping views focused on display. It maps routes to data and components, syncing the app’s state with the browser’s URL. See the [router API](/docs/app-router.html) for full details.
+Routing in Nue drives navigation and state in single-page applications (SPAs), playing the controller role in the MVC pattern. Unlike React’s component-centric routing, Nue’s router — imported from `/@nue/app-router.js` — centralizes state and URL management, keeping views focused on display. It maps routes to data and components, syncing the app’s state with the browser’s URL. See the [router API](app-router.html) for full details.
 
 Configure it like this:
 

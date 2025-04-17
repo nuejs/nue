@@ -36,7 +36,7 @@ view_transitions: true
 
 ### Menus and dialogs
 
-Today popovers, dialogs, and [burger menus](page-layout.html#burger) can be natively implemented with the [Popover API](//developer.mozilla.org/en-US/docs/Web/API/Popover_API) and page-transitions can be styled with the CSS [@starting-style](//developer.mozilla.org/en-US/docs/Web/CSS/@starting-style) at-rule:
+Today [popovers, dialogs, and burger menus](markdown-extensions.html#button-triggering-a-popover) can be natively implemented with the [Popover API](//developer.mozilla.org/en-US/docs/Web/API/Popover_API) and page-transitions can be styled with the CSS [@starting-style](//developer.mozilla.org/en-US/docs/Web/CSS/@starting-style) at-rule:
 
 ```css
 [popover] {
@@ -122,7 +122,7 @@ One major benefit of using a Web Component is that the browser automatically tak
 
 ### Dynamic sections { #sections }
 
-You can turn all the [page sections](page-layout.html#sections) into web components with a `section_component` configuration option. This can be assigned in the front matter or globally in the application data. On the front page of this website, for example, we have a "scroll-transition" component to help implement all the scroll-triggered CSS transitions:
+You can turn all the [page sections](content-authoring.html#sections) into web components with a `section_component` configuration option. This can be assigned in the front matter or globally in the application data. On the front page of this website, for example, we have a "scroll-transition" component to help implement all the scroll-triggered CSS transitions:
 
 ```yaml
 section_component: scroll-transition
