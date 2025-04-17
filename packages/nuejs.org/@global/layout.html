@@ -21,3 +21,14 @@
   </button>
   <navi :items="globalnav.menu"/>
 </dialog>
+
+<!-- copy button on code block -->
+<div @name="codeblock" class="codeblock" :attr>
+  <button class="copy" :data-copy="copy" title="Copy code block"><img src="/icon/copy.svg" alt=""></button>
+  <pre><slot/></pre>
+  <script>
+    constructor({ code }) {
+      this.copy = encodeURIComponent(code.join('\n'))
+    }
+  </script>
+</div>
