@@ -4,10 +4,10 @@ roadmap:
     icon: check-circle
     items:
       - package: nuekit
-        title: Design engineering framework
-        version: v1.0-RC1
+        title: Standards first web framework
+        version: v1.0-RC3
         desc: With content-first development model
-        href: /docs/how-it-works.html
+        href: /blog/standards-first-web-framework/
 
       - package: nuemark
         title: Extended Markdown
