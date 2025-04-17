@@ -38,10 +38,6 @@ This article showcases the power of CSS and the web standards model by comparing
 
 How Tailwind positions vanilla CSS as the problem and the "utility first" approach as the hero. Well-known framing for CSS experts, but strongly [denied](//youtu.be/yGBjXsrwK4M) by the Tailwind community.
 
-#### March 20, 2024 [Nue CSS preview](/blog/introducing-nue-css/)
-
-Sneak preview of the upcoming design system approach and the best practices of writing maintainable CSS. The article demonstrates some crazy size differences to Tailwind.
-
 
 ## Project milestones
 

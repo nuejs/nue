@@ -83,14 +83,14 @@ Surprisingly, these rich, interactive sites remain exceptionally lightweight, co
 
   27kB of HTML/CSS/JS
 
-  [! /tour/img/assets-nue.png ]
+  [! img/assets-nue.png ]
 
 
   ## Next.js documentation
 
   645kB of HTML/CSS/JS
 
-  [! /tour/img/assets-next.png ]
+  [! img/assets-next.png ]
 
   [button.action popovertarget="resources"]
     [image /icon/close.svg]
