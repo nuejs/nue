@@ -17,7 +17,7 @@ Today, I'm excited to release Nuemark — a Markdown-based text editing format f
 
 ### Content hot-reloading
 
-Nuemark is a standalone library that works under Bun, Node, and Deno. However, it is best served together with Nuekit and its [universal hot-reloading](/docs/hot-reloading.html) capability. Just edit your content freely and see the page shaping up in your browser in real time.
+Nuemark is a standalone library that works under Bun, Node, and Deno. However, it is best served together with Nuekit and its universal hot-reloading capability. Just edit your content freely and see the page shaping up in your browser in real time.
 
 [bunny-video.larger]
   videoId: 3bf8f658-185a-449c-93b9-9bd5e1ad0d05
@@ -144,7 +144,7 @@ PS: Check out [Getting started docs](/docs/#node) if you prefer Node.
 ### Learn Nuemark
 
 - [User guide](/docs/content-authoring.html)
-- [Tag reference](/docs/tags.html)
+- [Tag reference](/docs/markdown-extensions.html)
 - [HTML output](/docs/page-layout.html#md)
 
 - - -

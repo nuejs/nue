@@ -39,7 +39,7 @@ Exactly one year ago I [decided](/blog/backstory/) to create a super simple webs
 
 ## Improved CSS stack
 
-Nue has a powerful CSS theming system that supports [hot-reloading](/docs/hot-reloading.html), CSS inlining, error reporting, and automatic dependency management. This version improves the system with the following features:
+Nue has a powerful CSS theming system that supports hot-reloading, CSS inlining, error reporting, and automatic dependency management. This version improves the system with the following features:
 
 - [Lightning CSS](//lightningcss.dev/) is now enabled by default allowing you to use CSS nesting, color-mix, and other modern features now without browser-compatibility concerns.
 
