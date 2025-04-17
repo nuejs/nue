@@ -26,6 +26,7 @@
       "version": "1.0.0-RC.3",
       "bin": {
         "nue": "./src/cli.js",
+        "nue-node": "./src/cli-node.js",
       },
       "dependencies": {
         "diff-dom": "^5.1.4",
