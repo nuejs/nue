@@ -13,7 +13,7 @@ import { fswatch } from './nuefs.js'
 
 import { log, colors, getAppDir, parsePathParts, extendData, toPosix } from './util.js'
 import { renderPage, getSPALayout } from './layout/page.js'
-import { getLayoutComponents } from './layout/components.js'
+import { getLayoutComponents, toFeed } from './layout/components.js'
 
 
 // the HTML5 doctype (can/prefer lowercase for consistency)
@@ -110,6 +110,8 @@ export async function createKit(args) {
     if (cdir) {
       const key = data.collection_name || cdir
       data[key] = await site.getContentCollection(cdir)
+
+      write(...toFeed(data))
     }
 
     // scripts & styling

@@ -13,32 +13,38 @@ export function toFeed(data) {
     elem('guid', `${data.origin}${e.url}`),
     elem('link', `${data.origin}${e.url}`),
     elem('pubDate', e.date.toUTCString()),
-    elem('title', escape(renderInline(e.title))),
+    elem('title', e.title),
     elem('description', escape(renderInline(e.description))),
   ].join('\n'))).join('')
 
   const channel = elem('channel', [
     elem('title', data.title_template.replaceAll('%s', key)),
     elem('description', ''),
-    elem('link', `${data.origin}${data.url}`),
+    elem('link', data.origin),
     elem('image', [
-      elem('title', key),
+      elem('title', data.title_template.replaceAll('%s', key)),
       elem('url', `${data.origin}${data.favicon}`),
-      elem('link', `${data.origin}${data.url}`),
+      elem('link', data.origin),
     ].join('')),
     elem('lastBuildDate', new Date().toUTCString()),
     elem('generator', `Nue v${data.nuekit_version} (nuejs.org)`),
+    elem('atom:link', { href: `${data.origin}/${data.content_collection}/feed.xml`, rel: 'self', type: 'application/rss+xml' }),
     items,
   ].join(''))
 
-  return '<?xml version="1.0" encoding="UTF-8"?>' + elem('rss', { version: '2.0' }, channel)
+  return [
+    '<?xml version="1.0" encoding="UTF-8"?>' + elem('rss', {
+      version: '2.0',
+      'xmlns:atom': 'http://www.w3.org/2005/Atom',
+    }, channel),
+    data.content_collection,
+    'feed.xml',
+  ]
 }
 
 export function renderPageList(data) {
   const key = data.collection_name || data.content_collection
   const items = key ? data[key] : data.items || data
-
-  console.log(toFeed(data))
 
   if (!items?.length) {
     console.error('<page-list>: no content collection data')
