@@ -7,39 +7,48 @@ import { elem, parseSize, renderInline, renderIcon } from 'nuemark'
 export function toFeed(data) {
   const key = data.collection_name || data.content_collection
 
-  const escape = e => e.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')
+  const title = data.title_template.replaceAll('%s', key)
+  const icon = `${data.origin}${data.favicon}`
+  const site = data.origin
 
-  const items = (data[key] || []).map(e => elem('item', [
-    elem('guid', `${data.origin}${e.url}`),
-    elem('link', `${data.origin}${e.url}`),
-    elem('pubDate', e.date.toUTCString()),
-    elem('title', e.title),
-    elem('description', escape(renderInline(e.description))),
-  ].join('\n'))).join('')
+  const feed_file = 'feed.xml'
+  const feed_dir = data.content_collection
+  const feed_url = `${data.origin}/${feed_dir}/${feed_file}`
 
-  const channel = elem('channel', [
-    elem('title', data.title_template.replaceAll('%s', key)),
-    elem('description', ''),
-    elem('link', data.origin),
-    elem('image', [
-      elem('title', data.title_template.replaceAll('%s', key)),
-      elem('url', `${data.origin}${data.favicon}`),
-      elem('link', data.origin),
-    ].join('')),
-    elem('lastBuildDate', new Date().toUTCString()),
-    elem('generator', `Nue v${data.nuekit_version} (nuejs.org)`),
-    elem('atom:link', { href: `${data.origin}/${data.content_collection}/feed.xml`, rel: 'self', type: 'application/rss+xml' }),
-    items,
-  ].join(''))
+  const feed_content = [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    elem('rss', { version: '2.0', 'xmlns:atom': 'http://www.w3.org/2005/Atom' },
+      elem('channel', [
+        // feed info
+        elem('title', title),
+        elem('description', ''),
+        elem('link', site),
+        elem('image', [
+          elem('title', title),
+          elem('url', icon),
+          elem('link', site),
+        ].join('')),
+        elem('lastBuildDate', new Date().toUTCString()),
+        elem('generator', `Nue v${data.nuekit_version} (nuejs.org)`),
+        elem('atom:link', { href: feed_url, rel: 'self', type: 'application/rss+xml' }),
 
-  return [
-    '<?xml version="1.0" encoding="UTF-8"?>' + elem('rss', {
-      version: '2.0',
-      'xmlns:atom': 'http://www.w3.org/2005/Atom',
-    }, channel),
-    data.content_collection,
-    'feed.xml',
-  ]
+        // items
+        (data[key] || []).map(({url, date, title, description}) => {
+          const link = `${data.origin}${url}`
+
+          return elem('item', [
+            elem('guid', link),
+            elem('link', link),
+            elem('pubDate', date.toUTCString()),
+            elem('title', title),
+            elem('description', renderInline(description).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')),
+          ].join(''))
+        }).join(''),
+      ].join(''))
+    ),
+  ].join('')
+
+  return [feed_content, feed_dir, feed_file]
 }
 
 export function renderPageList(data) {
