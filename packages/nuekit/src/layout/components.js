@@ -4,9 +4,41 @@ import { join } from 'node:path'
 
 import { elem, parseSize, renderInline, renderIcon } from 'nuemark'
 
+export function toFeed(data) {
+  const key = data.collection_name || data.content_collection
+
+  const escape = e => e.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')
+
+  const items = (data[key] || []).map(e => elem('item', [
+    elem('guid', `${data.origin}${e.url}`),
+    elem('link', `${data.origin}${e.url}`),
+    elem('pubDate', e.date.toUTCString()),
+    elem('title', escape(renderInline(e.title))),
+    elem('description', escape(renderInline(e.description))),
+  ].join('\n'))).join('')
+
+  const channel = elem('channel', [
+    elem('title', data.title_template.replaceAll('%s', key)),
+    elem('description', ''),
+    elem('link', `${data.origin}${data.url}`),
+    elem('image', [
+      elem('title', key),
+      elem('url', `${data.origin}${data.favicon}`),
+      elem('link', `${data.origin}${data.url}`),
+    ].join('')),
+    elem('lastBuildDate', new Date().toUTCString()),
+    elem('generator', `Nue v${data.nuekit_version} (nuejs.org)`),
+    items,
+  ].join(''))
+
+  return '<?xml version="1.0" encoding="UTF-8"?>' + elem('rss', { version: '2.0' }, channel)
+}
+
 export function renderPageList(data) {
   const key = data.collection_name || data.content_collection
   const items = key ? data[key] : data.items || data
+
+  console.log(toFeed(data))
 
   if (!items?.length) {
     console.error('<page-list>: no content collection data')
@@ -28,7 +60,7 @@ export function renderNavi(data) {
       : ''
 }
 
-function toSymbol(svg, name='x', size=24) {
+function toSymbol(svg, name = 'x', size = 24) {
   const id = `${name}-symbol`
   const attr = { id, viewBox: `0 0 ${size} ${size}` }
   const body = svg.slice(svg.indexOf('>') + 1, -6)
@@ -104,8 +136,8 @@ export function renderPage(page) {
     ? time + elem('a', { href: url }, h2 + p)
     // figure
     : elem('a', { href: url }, elem('figure',
-        elem('img', { src: thumb, loading: 'lazy' }) + elem('figcaption', time + h2 + p)
-      )
+      elem('img', { src: thumb, loading: 'lazy' }) + elem('figcaption', time + h2 + p)
+    )
     )
 
   return elem('li', { class: isNew(date) && 'is-new' }, body)
