@@ -3,8 +3,8 @@
 <header>
   <navi :items="globalnav.main"/>
   <navi :items="globalnav.toolbar"/>
-  <button class="action" popovertarget="menu">
-    <img src="/icon/dots.svg">
+  <button class="action" popovertarget="menu" title="Open menu">
+    <img src="/icon/dots.svg" alt="">
   </button>
 </header>
 
@@ -16,8 +16,8 @@
 
 <!-- burger menu -->
 <dialog @name="bottom" popover id="menu">
-  <button class="action" popovertarget="menu">
-    <img src="/icon/close.svg">
+  <button class="action" popovertarget="menu" title="Close menu">
+    <img src="/icon/close.svg" alt="">
   </button>
   <navi :items="globalnav.menu"/>
 </dialog>

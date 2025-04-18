@@ -1,8 +1,8 @@
 
 <!-- subheader -->
 <nav @name="subheader">
-  <button class="action" popovertarget="sidebar">
-    <img src="/icon/menu.svg">
+  <button class="action" popovertarget="sidebar" title="Open sidebar">
+    <img src="/icon/menu.svg" alt="">
   </button>
   <strong>{ title }</strong>
 </nav>
@@ -10,8 +10,8 @@
 
 <!-- main sidebar  -->
 <aside id="sidebar" popover>
-  <button class="action" popovertarget="sidebar">
-    <img src="/icon/close.svg">
+  <button class="action" popovertarget="sidebar" title="Close sidebar">
+    <img src="/icon/close.svg" alt="">
   </button>
   <navi :items="documentation"/>
 </aside>

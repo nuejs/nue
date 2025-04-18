@@ -2,8 +2,8 @@
 <!-- For Bunny CDN -->
 <div @name="bunny-player" class="paused player">
   <video ref="video" :poster="splash" :width="width" :height="height" muted/>
-  <a class="play"></a>
-  <a class="fullscreen" @click="fullscreen"></a>
+  <a class="play" title="Play"></a>
+  <a class="fullscreen" @click="fullscreen" title="Fullscreen"></a>
 
   <script>
     mounted({ poster='', videoid }) {
