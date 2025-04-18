@@ -92,7 +92,7 @@ export function elem(name, attr, body) {
   const html = [`<${name}${renderAttrs(attr)}>`]
 
   if (body) html.push(body)
-  if (!SELF_CLOSING.includes(name)) html.push(`</${name}>`)
+  if (body || !(SELF_CLOSING.includes(name))) html.push(`</${name}>`)
   return html.join('')
 }
 
