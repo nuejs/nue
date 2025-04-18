@@ -4,7 +4,8 @@ import { join } from 'node:path'
 
 import { elem, parseSize, renderInline, renderIcon } from 'nuemark'
 
-export function toFeed(data) {
+
+export function collectionToFeed(data) {
   const key = data.collection_name || data.content_collection
 
   const title = data.title_template.replaceAll('%s', key)
@@ -33,7 +34,7 @@ export function toFeed(data) {
         elem('atom:link', { href: feed_url, rel: 'self', type: 'application/rss+xml' }),
 
         // items
-        (data[key] || []).map(({url, date, title, description}) => {
+        (data[key] || []).map(({ url, date, title, description }) => {
           const link = `${data.origin}${url}`
 
           return elem('item', [
