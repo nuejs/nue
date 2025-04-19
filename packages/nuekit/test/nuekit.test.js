@@ -39,12 +39,12 @@ async function readDist(dist, path) {
 }
 
 // default site and kit
-async function getSite() {
-  return await createSite({ root })
+async function getSite(opts = {}) {
+  return await createSite({ root, ...opts })
 }
 
-async function getKit(dryrun = true) {
-  if (!existsSync(join(root, 'site.yaml'))) await write('site.yaml', '')
+async function getKit(config = '', dryrun = true) {
+  if (!existsSync(join(root, 'site.yaml'))) await write('site.yaml', config)
   return await createKit({ root, dryrun })
 }
 
@@ -242,7 +242,7 @@ test('content collection', async () => {
   await write('blog/.item6.md', createFront('Sixth', '2025-01-03'))
   await write('blog/_item7.md', createFront('Seventh', '2025-01-03'))
 
-  const site = await getSite()
+  const site = await getSite({ ignore: ['functions'] })
   const coll = await site.getContentCollection('blog')
 
   // exclude `functions` directory, dotfiles etc..
@@ -450,7 +450,7 @@ test('the project was started for the first time', async () => {
   await write('home.css')
   await write('index.md')
 
-  const kit = await getKit(false)
+  const kit = await getKit('', false)
   const terminate = await kit.serve()
   try {
     const html = await readDist(kit.dist, 'index.html')
