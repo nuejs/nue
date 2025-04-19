@@ -1,10 +1,6 @@
-
 import { extname } from 'node:path'
-
 import { elem } from 'nuemark'
-
 import { TYPES } from '../nueserver.js'
-
 
 function getMime(path) {
   const ext = extname(path).slice(1)
@@ -28,17 +24,39 @@ export function renderHead(data) {
 
   const { scripts = [], styles = [], inline_css = [], components = [] } = data.assets || {}
 
-  const head = [`<meta charset="${charset}">`]
-  if (title) head.push(elem('title', title_template.replace(/%s/gi, title)))
-
   // meta
   const pushMeta = (key, val, type = 'name') => val && head.push(elem('meta', { [type]: key, content: val }))
   const pushProp = (key, val) => pushMeta(key, val, 'property')
 
+  const head = [`<meta charset="${charset}">`]
+  pushMeta('viewport', viewport)
+  if (title) head.push(elem('title', title_template.replace(/%s/gi, title)))
+
+  // scripts (type=module)
+  scripts.forEach(src => head.push(`<script src="${base}${src}" type="module"></script>`))
+
+  // inline style
+  if (is_prod) {
+    const css = inline_css.map(el => el.css).join('')
+    head.push(elem('style', css))
+
+    // dev mode: keep path info for hot-reloading
+  } else {
+    inline_css.forEach(el => head.push(elem('style', { href: base + el.path }, el.css)))
+  }
+
+  // external stylesheets
+  styles.forEach(href => head.push(`<link href="${base}${href}" rel="stylesheet">`))
+
+  // CSS prefetch
+  prefetch.forEach(href => {
+    const is_image = getMime(href).startsWith('image')
+    head.push(`<link href="${base}${href}" ${is_image ? 'rel="preload" as="image"' : 'rel="prefetch"'}>`)
+  })
+
   if (version) pushMeta('generator', generator)
   const desc = data.desc || data.description
   pushMeta('date.updated', new Date().toISOString())
-  pushMeta('viewport', viewport)
   pushMeta('description', desc)
   pushMeta('author', data.author)
   pushMeta('robots', data.robots)
@@ -70,28 +88,6 @@ export function renderHead(data) {
 
   // misc
   if (favicon) head.push(`<link rel="icon" type="${getMime(favicon)}" href="${favicon}">`)
-
-  // inline style
-  if (is_prod) {
-    const css = inline_css.map(el => el.css).join('')
-    head.push(elem('style', css))
-
-    // dev mode: keep path info for hot-reloading
-  } else {
-    inline_css.forEach(el => head.push(elem('style', { href: base + el.path }, el.css)))
-  }
-
-  // external stylesheets
-  styles.forEach(href => head.push(`<link href="${base}${href}" rel="stylesheet">`))
-
-  // scripts (type=module)
-  scripts.forEach(src => head.push(`<script src="${base}${src}" type="module"></script>`))
-
-  // CSS prefetch
-  prefetch.forEach(href => {
-    const is_image = getMime(href).startsWith('image')
-    head.push(`<link href="${base}${href}" ${is_image ? 'rel="preload" as="image"' : 'rel="prefetch"'}>`)
-  })
 
   return head.join('\n')
 }
