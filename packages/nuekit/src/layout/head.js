@@ -1,6 +1,9 @@
 import { extname } from 'node:path'
+
 import { elem } from 'nuemark'
+
 import { TYPES } from '../nueserver.js'
+
 
 function getMime(path) {
   const ext = extname(path).slice(1)
@@ -24,34 +27,40 @@ export function renderHead(data) {
 
   const { scripts = [], styles = [], inline_css = [], components = [] } = data.assets || {}
 
-  // meta
+  const head = []
+
+  // helpers
+  const pushEl = (name, attr, body) => head.push(elem(name, attr, body))
   const pushMeta = (key, val, type = 'name') => val && head.push(elem('meta', { [type]: key, content: val }))
   const pushProp = (key, val) => pushMeta(key, val, 'property')
 
-  const head = [`<meta charset="${charset}">`]
+  // top
+  pushEl('meta', { charset })
   pushMeta('viewport', viewport)
-  if (title) head.push(elem('title', title_template.replace(/%s/gi, title)))
+  if (title) pushEl('title', title_template.replace(/%s/gi, title))
+  if (favicon) pushEl('link', { rel: 'icon', type: getMime(favicon), href: favicon })
 
-  // scripts (type=module)
-  scripts.forEach(src => head.push(`<script src="${base}${src}" type="module"></script>`))
+  // module scripts
+  scripts.forEach(src => pushEl('script', { src: base + src, type: 'module' }))
 
   // inline style
   if (is_prod) {
     const css = inline_css.map(el => el.css).join('')
-    head.push(elem('style', css))
+    pushEl('style', css)
 
     // dev mode: keep path info for hot-reloading
   } else {
-    inline_css.forEach(el => head.push(elem('style', { href: base + el.path }, el.css)))
+    inline_css.forEach(el => pushEl('style', { href: base + el.path }, el.css))
   }
 
   // external stylesheets
-  styles.forEach(href => head.push(`<link href="${base}${href}" rel="stylesheet">`))
+  styles.forEach(href => pushEl('link', { href: base + href, rel: 'stylesheet' }))
 
   // CSS prefetch
   prefetch.forEach(href => {
     const is_image = getMime(href).startsWith('image')
-    head.push(`<link href="${base}${href}" ${is_image ? 'rel="preload" as="image"' : 'rel="prefetch"'}>`)
+    const load_type = is_image ? { rel: 'preload', as: 'image' } : { rel: 'prefetch' }
+    pushEl('link', { href: base + href, ...load_type })
   })
 
   if (version) pushMeta('generator', generator)
@@ -85,9 +94,6 @@ export function renderHead(data) {
       pushMeta(`nue:${key}`, arr?.join(' '))
     }
   }
-
-  // misc
-  if (favicon) head.push(`<link rel="icon" type="${getMime(favicon)}" href="${favicon}">`)
 
   return head.join('\n')
 }
