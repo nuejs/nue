@@ -40,7 +40,7 @@ export function collectionToFeed(data) {
           return elem('item', [
             elem('guid', link),
             elem('link', link),
-            elem('pubDate', date.toUTCString()),
+            elem('pubDate', (date || new Date()).toUTCString()),
             elem('title', title),
             elem('description', renderInline(description).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')),
           ].join(''))
