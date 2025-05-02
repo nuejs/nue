@@ -1,0 +1,22 @@
+
+/*
+  @import url("https://unpkg.com/leaflet@1.9.4/dist/leaflet.css") layer(components);
+*/
+@layer components {
+  .leaflet-container {
+    background: var(--base-100);
+    min-height: 22.5em;
+    height: 100%;
+
+    /* circle  */
+    .leaflet-interactive {
+      stroke: var(--base-900);
+      fill: var(--accent);
+      fill-opacity: .5;
+      stroke-width: 1;
+    }
+
+    .leaflet-control { font-size: .875em; }
+    .leaflet-attribution-flag { width: 0; }
+  }
+}

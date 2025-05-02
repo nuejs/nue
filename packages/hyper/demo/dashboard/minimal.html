@@ -1,0 +1,18 @@
+
+<head>
+  <link rel="stylesheet" href="builds/dashboard.css">
+  <script>console.time('load')</script>
+</head>
+
+<main></main>
+
+
+<script type="module">
+  import { createApp } from '../dist/hyper.js'
+  import { lib } from './builds/dashboard.min.js'
+  import { data } from './data/acme.js'
+
+  const app = createApp(lib, data)
+  app.mount(document.querySelector('main'))
+  console.timeEnd('load')
+</script>

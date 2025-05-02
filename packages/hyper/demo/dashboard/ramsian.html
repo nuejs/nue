@@ -1,0 +1,17 @@
+
+<head>
+  <link rel="stylesheet" href="builds/dashboard.css">
+  <link rel="stylesheet" href="ramsian.css">
+</head>
+
+<main></main>
+
+<script type="module">
+  import { createApp } from '../dist/hyper.js'
+  import { lib } from './builds/dashboard.min.js'
+  import { data } from './data/rams.js'
+
+  const app = createApp(lib, data)
+
+  app.mount(document.querySelector('main'))
+</script>

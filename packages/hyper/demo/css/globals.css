@@ -1,0 +1,49 @@
+
+@layer globals {
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: helvetica neue, system-ui;
+    background-color: var(--base-50);
+    padding: var(--grid-gap);
+    font-size: 13.5px;
+    margin: 0;
+  }
+
+  main {
+    max-width: 1100px;
+    margin: 0 auto;
+
+    &.compact {
+      max-width: 800px;
+      margin-top: 5em;
+    }
+  }
+
+  hr {
+    border: 1px solid var(--base-200);
+    border-width: 1px 0 0;
+    margin: 1.5em 0;
+  }
+
+  figure {
+    margin: 0;
+    padding: 0;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  .avatar img {
+    background-color: var(--base-100);
+    border-radius: 10em;
+  }
+
+}
+
+
+
+

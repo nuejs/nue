@@ -2,7 +2,7 @@
 ---
 # Show HN: Hyper — Crush React on every front (developer preview)
 title: "Hyper: Crush React on every metric"
-hero_title: "Introducing Hyper — Crush React on every metric _(developer preview)_"
+hero_title: "Introducing Hyper — Crush React on every metric _(Developer Preview)_"
 og: img/hyper-og.png
 date: 2025-05-02
 unlisted: true
@@ -12,7 +12,8 @@ Today I'm releasing Hyper: a simple markup language for building user interfaces
 
 [image.bordered]
   large: img/hyper-banner-dark-big.png
-  small: img/hyper-banner.png
+  small: img/hyper-banner-dark.png
+  size: 1305 × 517
 
 ### Compare: React vs Hyper
 * Phase 1: [Simple components](#simple)
@@ -96,7 +97,7 @@ Modern React components aren't reusable across projects with varying design requ
   large: img/shadcn-typo-big.png
   small: img/shadcn-typo.png
 
-This design hardcoding creates significant scalability problems. Look at ShadCN: their "New York" theme essentially duplicates their default theme, resulting in 40,000+ lines of [additional TSX code][new_york] and creating a maintenance nightmare.
+This design hardcoding creates significant scalability problems. Look at ShadCN: their "New York" theme essentially duplicates their default theme, resulting in 40,000+ lines of [additional TSX code][new_york] and creating a maintenance nightmare. Something that would have been trivially solved with CSS cascade.
 
 
 ### Hyper's solution: decoupled design
@@ -121,9 +122,9 @@ By contrast, Hyper colocates your typography concerns into a single CSS file, ac
 
 This solves all the major problems in modern React:
 
-1. **Universally reusable components** accross all projects and different contexts
-1. **Central design system** easily maintainable from the same location
-1. **Zero boilerplate** due to clean separation of concerns
+1. **Universally reusable components** accross projects and context
+1. **Central design system** easily maintainable from the same place
+1. **Zero boilerplate** due to stirct separation of concerns
 
 Nue actually _enforces_ you to build simple, reusable components. Tight coupling in any form: CSS-in-JS, class name abuse, component-specific `<style>` elements, inline `style` attributes, or cryptic utility classes like `dark:bg-lime-400/10 size-[max(100%,2.75rem)]`—is systematically eliminated.
 
@@ -156,8 +157,21 @@ This [app](//mpa.nuejs.org/app/) showcases how simple building blocks demolish R
 ## HTML needs a Hero
 Hyper reveals the immense power in web standards, but we're just getting started. Our vision extends beyond components to make sophisticated UI development accessible to everyone—backend developers, beginners, and AI models alike:
 
-### Phase 5: Generative UIs
-We're building a system where creating beautiful, functional interfaces requires minimal effort:
+
+### Phase 5: Full-stack applications
+A demonstration to what Hyper and Nue are capable of:
+
+* Simple cross-component communication
+* Intuitive routing and navigation system
+* Backend server & database integrations
+* Local development & production edge
+* Three swappable design systems
+
+Estimate: 3 months.
+
+
+### Phase 6: Generative UIs
+A way for you and AI's to generate UIs with minimal effort:
 
 * Basic HTML and CSS building blocks
 * Higher-level compositions
@@ -165,18 +179,7 @@ We're building a system where creating beautiful, functional interfaces requires
 * Self-documenting API and patterns
 * Base design system
 
-Estimate: 2 months.
-
-### Phase 6: Generative Apps
-Here we introduce "Hyperlink" to  simplify the entire development process:
-
-* Simple cross-component communication
-* Intuitive routing and navigation system
-* Server/client boundary clarity
-* Trivial state management
-* Clean, testable business models
-
-Estimate: 3-4 months.
+Estimate: 4-5 months.
 
 
 [image]

@@ -1,0 +1,11 @@
+
+<!-- bar chart -->
+<bar-chart class="bar-chart">
+  <bar :for="value of data" :value :max/>
+  <script>
+    this.max = this.max || Math.max(...this.data)
+  </script>
+</bar-chart>
+
+<!-- bar -->
+<bar --height="${ Math.round(value / max * 100) }"/>

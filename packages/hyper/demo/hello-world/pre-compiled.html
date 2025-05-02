@@ -1,0 +1,13 @@
+
+<script>console.time('load')</script>
+
+<main></main>
+
+<script type="module">
+  import { createApp } from '../../dist/hyper.js'
+  import { lib } from './builds/hello.js'
+  const app = createApp(lib, { name: 'Hyper' })
+  app.mount(document.querySelector('main'))
+  console.timeEnd('load')
+</script>
+
