@@ -14,6 +14,16 @@ body > nav {
   }
 }
 
+.row {
+  display: flex;
+  gap: 1em;
+  figcaption {
+    color: var(--gray-500);
+    margin-top: .25em;
+    text-align: center;
+  }
+}
+
 article, body > footer  {
   max-width: 44rem;
   margin: 0 auto;
