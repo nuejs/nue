@@ -27,7 +27,7 @@ bun install nue-hyper
 
 ### Examples
 
-Examples are under [examples folder](//github.com/nuejs/nue/tree/dev/packages/hyper/examples/). To run the examples locally go to nue-hyper folder and execute a local web server in there. For example:
+Examples are under [demo folder](//github.com/nuejs/nue/tree/dev/packages/hyper/demo/). To run the examples locally go to nue-hyper folder and execute a local web server in there. For example:
 
 ```
 cd nue-hyper
