@@ -1,14 +1,13 @@
 
 ---
-# Show HN: Hyper — Crush React on every front (developer preview)
 title: "Hyper: Crush React on every metric"
 hero_title: "Introducing Hyper — Crush React on every metric _(Developer Preview)_"
 og: img/hyper-og.png
-date: 2025-05-02
+date: 2025-06-02
 unlisted: true
 ---
 
-Today I'm releasing Hyper: a simple markup language for building user interfaces. It enables developers (and AI models) to generate complex UIs with amazingly clean syntax. It makes frontend development an enjoyable, almost liberating experience.
+Today I'm releasing Hyper: a simple markup language for building user interfaces. It enables developers (and AI models) to generate complex UIs with amazingly clean syntax. It aims to make frontend development an enjoyable experience.
 
 [image.bordered]
   large: img/hyper-banner-dark-big.png
@@ -70,9 +69,9 @@ Next we examine how these approaches handle increasing complexity. Here's the sa
 
 Modern React ([Source](complex-table.html) • [Demo](/hyper/demo/react/complex-table.html))) extends the ShadCN table with features from Tanstack Table. The difference to Hyper ([Source](complex-table.html#hyper) • [Demo](/hyper/demo/table/complex-table.html))) becomes apparent:
 
-1. **Excessive boilerplate:** Through Radix UI, Tanstack Table, and TypeScript interfaces. This results in approximately 170 lines of code, versus 40 lines in Hyper. An 75% increase in code and congitive load.
+1. **Excessive boilerplate:** Through Radix UI, Tanstack Table, and TypeScript interfaces. This results in approximately 170 lines of code, versus 40 lines in Hyper. A 75% increase in code and congitive load.
 
-1. **Abstraction layers:** Six layers of abstraction are in play: React, ShadCN, Radix, Tanstack, TypeScript, and Tailwind. The bundled JavaScript is **91.3KB** and the Vite repository weighs 160MB. Hyper's table runs at **3.9KB** (1.2KB + 2.7KB for hyper.js).
+1. **Abstraction layers:** Six layers of abstraction are in play: React, ShadCN, Radix, Tanstack, TypeScript, and Tailwind in 160MB Vite stack. The bundled JavaScript is **91.3KB**Hyper offres the same at **3.9KB** (1.2KB + 2.7KB for hyper.js).
 
 1. **Multiple transpilers:** ShadCN table requires six different transpilers: ESBuild, JSX Transform, Rollup, TypeScript, Tailwind, and PostCSS. AI models like Claude and ChatGPT cannot generate preview for this large dependency tree. Hyper runs in the browser without compilation, or with single compilation step for a  production version.
 
@@ -130,9 +129,9 @@ By contrast, Hyper colocates your typography concerns into a single CSS file, ac
 
 This solves three major issues in modern React:
 
-1. **Reusable components** accross projects and contexts
+1. **Reusable components** across projects and contexts
 1. **Central design system** easily maintainable from the same place
-1. **Zero boilerplate** due to stirct separation of concerns
+1. **Zero boilerplate** due to strict separation of concerns
 
 Nue actually _enforces_ you to build simple, reusable components. Tight coupling in any form: CSS-in-JS, class name abuse, component-specific `<style>` elements, inline `style` attributes, or cryptic utility classes like `dark:bg-lime-400/10 size-[max(100%,2.75rem)]`—is systematically eliminated.
 
@@ -162,33 +161,6 @@ Hyper establishes an entirely different paradigm, centered around simplicity:
 
 - - -
 
-## HTML needs a Hero
-Hyper reveals the immense power in web standards, but we're just getting started. Our vision extends beyond components to make sophisticated UI development accessible to everyone—backend developers, beginners, and AI models alike:
-
-
-### Phase 5: Full-stack applications
-A demonstration to what Hyper and Nue are capable of:
-
-* Intuitive routing and navigation system
-* Simple cross-component communication
-* Backend server & database integrations
-* Three swappable design systems
-* Deployement to the cloud (runtime agnostic)
-
-Estimate: 3 months.
-
-
-### Phase 6: Generative UIs
-A way for you and AI's to generate UIs with minimal effort:
-
-* Basic HTML and CSS building blocks
-* Higher-level compositions
-* Built-in accessibility and responsivity
-* Self-documenting API and patterns
-* Base design system (headless, grid only)
-
-Estimate: 4-5 months.
-
 
 ## Get started with Hyper
 First, install [Bun](//bun.sh):
@@ -213,19 +185,45 @@ bun install nue-hyper
 Check examples, API docs, and language syntax from [Hyper documentation](/hyper/)
 
 
-
 ## FAQ
 
 
 ### What is Nue?
-Nue is the "framework" (think Next.js + Astro, but simpler) and Hyper is the "language" (think React, but simpler). Both are developed under the same [monorepo](https://github.com/nuejs/nue/tree/master/packages/). Here's how the product hierarchy will look like.
+Nue is the "framework" (think Next.js + Astro, but simpler) and Hyper is the "language" (think React, but simpler). Both are developed under the same [monorepo](https://github.com/nuejs/nue/tree/master/packages/). Here's how the product hierarchy will eventually look like:
 
 [image]
   large: img/branding-big.png
-  caption: The shield icon represents the close connection to web standards
+  caption: Hyperlink is the upcoming router solution. The shield icon represents the close connection to web standards
   small: img/branding.png
   width: 400
 
+
+### What's next in line?
+We make Hyper more easily accessible to everyone including backend developers, beginners, and AI models in two phases:
+
+
+#### Full-stack applications
+A demonstration to what Hyper and Nue are capable of:
+
+* Intuitive routing and navigation system
+* Simple cross-component communication
+* Backend server & database integrations
+* Three swappable design systems
+* Deployment to the cloud (runtime agnostic)
+
+Estimate: 3 months.
+
+
+#### Generative UIs
+A way for you and AI's to generate UIs with minimal effort:
+
+* Basic HTML and CSS building blocks
+* Higher-level compositions
+* Built-in accessibility and responsivity
+* Self-documenting API and patterns
+* Base design system (headless, grid only)
+
+Estimate: 4-5 months.
 
 
 ### Isn't this just another framework?

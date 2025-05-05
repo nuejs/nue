@@ -4,10 +4,9 @@ include: [technical-content]
 ---
 
 # Hyper documentation
-Hyper is a simple markup language for building user interfaces. It enables developers (and AI models) to generate complex UIs with amazingly clean syntax. this is a developer preview, and not ready for production use yet.
+Hyper is a simple markup language for building user interfaces. Currently in **development preview**, it enables developers (and AI models) to generate complex UIs with a clean syntax.
 
 [Read the launch post](/blog/introducing-hyper/) for the backstory an FAQ
-
 
 [image.bordered]
   large: /blog/introducing-hyper/img/hyper-banner-big.png
@@ -23,6 +22,8 @@ bun install nue-hyper
 ```
 
 [Hyper source code]((//github.com/nuejs/nue/tree/dev/packages/hyper/)
+
+[Report an issue](//github.com/nuejs/nue/issues)
 
 
 ### Examples
@@ -40,12 +41,14 @@ And you'll have the examples running at: http://localhost:8000/examples/
 
 ## Changes from Nue JS
 
-Hyper is a rewrite of the current Nue JS library with the following improvements:
+Hyper is a rewrite of the current [Nue JS](https://github.com/nuejs/nue/tree/master/packages/nuejs) library with the following improvements:
 
 1. Cleaner, more standards-compatible syntax with fewer special characters and idioms
 2. Components can be rendered on both server and client side, using identical code in both environments, which simplifies implementation and reduces edge cases
 3. Internal diffing algorithm uses virtual DOM, similar to React's approach
 4. Extensive test suite for both static rendering and interactive features
+5. Cleaner, more accessible internal architecture that new developers can easily make sense
+
 
 ### Enforced Separation of Concerns
 The most significant change is the strict separation between components and CSS-based design systems:
@@ -55,7 +58,10 @@ The most significant change is the strict separation between components and CSS-
 3. Inline styling via `class` attribute is not permitted (expressions like `size-[max(100%,2.75rem)]` are ignored)
 4. You can set a limit on class names per element to prevent inline styling via utility classes (default is 3)
 
+For 3 and 4 Hyper currently issues a warning, but on the official releases there will be a configurable strict mode for production environments that throws an error.
+
 Read the [launch post](/blog/introducing-hyper/) for the complete rationale.
+
 
 
 ## API
@@ -94,7 +100,6 @@ const html = render('<h1>Hello, ${ name }!</h1>', { name: 'World' })
 
 console.info(html) /* --> <h1>Hello, World!</h1> */
 ```
-
 
 
 ### Client-side rendering
@@ -183,7 +188,7 @@ Hyper extends standard HTML with expressions, loops, conditionals, and custom co
 <!-- interpolation -->
 <div class="gallery ${ class }">
 
-<!-- class helper syntax -->
+<!-- class helper syntax. An object constructor (no $ prefix) -->
 <label class="{ is-active: isActive, has-error: hasError }">
 
 <!-- all together-->
@@ -198,7 +203,8 @@ Hyper extends standard HTML with expressions, loops, conditionals, and custom co
 
 <!-- loop index -->
 <li :for="(el, i) in items">
-  ${ i + 1 }: ${ el.text }
+  Text: ${ el.text }
+  Index: ${ i }
 </li>
 
 <!-- destructuring -->
@@ -255,10 +261,10 @@ Hyper extends standard HTML with expressions, loops, conditionals, and custom co
   </script>
 </counter>
 
-<!-- counter usage -->
+<!-- component usage -->
 <div>
   <h1>Counter</h1>
-  <counter/>
+  •<counter/>•
 </div>
 
 <!-- passing data  -->
@@ -269,9 +275,9 @@ Hyper extends standard HTML with expressions, loops, conditionals, and custom co
   <button :click="incr">${ count }</button>
 
   <script>
-    this.incr() = function() {
-      this.count++
-    }
+>   this.incr() = function() {
+>     this.count++
+>   }
   </script>
 </counter>
 
@@ -280,9 +286,9 @@ Hyper extends standard HTML with expressions, loops, conditionals, and custom co
   <button :click="incr">${ count }</button>
 
   <script>
-    incr() {
-      this.count++
-    }
+>   incr() {
+>     this.count++
+>   }
   </script>
 </counter>
 
@@ -291,7 +297,7 @@ Hyper extends standard HTML with expressions, loops, conditionals, and custom co
 
 
 <!-- define a component with a specific root element (default: div) -->
-<figure :is="image">
+<figure •:is="image"•>
   ...
 </figure>
 ```
@@ -309,9 +315,13 @@ Hyper extends standard HTML with expressions, loops, conditionals, and custom co
 </hello>
 
 
-<!-- slot usage: nested content goes under slot -->
+<!-- slot usage -->
 <hello>
+
+  <!-- <slot/> is replaced by this nested content (h4 + p) -->
   <h4>World!</h4>
+  <p>Lets go</p>
+
 </hello>
 
 
@@ -323,7 +333,10 @@ Hyper extends standard HTML with expressions, loops, conditionals, and custom co
 
 <!-- attribute binding -->
 <hello :for="item in items" :bind="item">
+
+  <!-- item properties are directly accessible -->
   <h4>${ text }</h4>
+
 </hello>
 ```
 
@@ -384,6 +397,7 @@ Scripts with `type` or `src` attributes are passed direclty to the client
 
 ```
 <footer>
+  <!-- this script block is rendered directly -->
   <script type="module">
      console.info({ hello: 'World' })
   </script>
