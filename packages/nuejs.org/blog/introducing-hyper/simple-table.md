@@ -10,8 +10,11 @@ unlisted: true
 ## With modern React
 Modern React uses TypeScript and component libraries like ShadCN or Chakra UI. Here's ShadCN <Table> in action:
 
+
 ``` jsx
 import React from "react";
+
+import { User, UserTableProps } from "./UserTable.types.ts";
 
 import {
   Table,
@@ -22,16 +25,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
-interface User {
-  name: string;
-  email: string;
-  age: number;
-}
-
-interface UserTableProps {
-  users: User[];
-}
 
 export const UserTable: React.FC<UserTableProps> = ({ users }) => {
   return (
@@ -59,8 +52,23 @@ export const UserTable: React.FC<UserTableProps> = ({ users }) => {
 export default UserTable;
 ```
 
+Here is the extra TypeScript needed (not included in the comparison images):
 
-## Old school React
+```
+// UserTable.types.ts
+export interface User {
+  name: string;
+  email: string;
+  age: number;
+}
+
+export interface UserTableProps {
+  users: User[];
+}
+```
+
+
+## Old school React { #oldschool }
 In the early days of React (circa 2013-2016), styling followed standard web development patterns with completely separate concerns. CSS files were loaded directly in HTML, not into the React file. A simple table component would be implemented like this:
 
 ``` jsx

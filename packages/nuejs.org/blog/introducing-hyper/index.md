@@ -22,8 +22,14 @@ Today I'm releasing Hyper: a simple markup language for building user interfaces
 * Phase 4: [Scalability](#scalability)
 
 
+## Backstory
+Hyper is the new reactive library for Nue, eventually replacing the current [Nue JS](https://github.com/nuejs/nue/tree/master/packages/nuejs) package. The sole purpose of this library is to embrace **simplicity** and **minimalism**. It stands against the complexity and bloat that pervade the current frontend ecosystem. This is particularly evident in modern React components where everything — logic, structure, and styling are mixed together. Hyper, however, is what React 1.0 originally envisioned: just a _headless view layer_ focused on rendering, with clear separation from styling concerns.
+
+Let's study the difference.
+
+
 ## Phase 1: Simple components { #simple }
-We begin with the fundamentals: how to define basic UI elements. Below is the same `<table>` component implemented three ways:
+We begin with the fundamentals: how to define basic UI elements. Below is a simple `<table>` component defined in three ways:
 
 [.row]
   [! img/simple-table-1.png]
@@ -39,7 +45,7 @@ We begin with the fundamentals: how to define basic UI elements. Below is the sa
     href: simple-table.html#hyper
 
 
-1. **Modern React:** ShadCN <Table> with TypeScript. The extra boilerplate comes through idiomatic React patterns and the custom <Table> syntax. [Source](simple-table.html) • [Demo](/hyper/demo/react/simple-table.html)
+1. **Modern React:** ShadCN <Table> component and TypeScript. The extra boilerplate comes through React patterns and the custom <Table> syntax. [Source](simple-table.html) • [Demo](/hyper/demo/react/simple-table.html)
 
 2. **Old school React:** JSX with decoupled CSS. More straightforward markup but still needs JavaScript wiring and JSX transformation. [Source](simple-table.html#oldschool) • [Demo](/hyper/demo/react/simple-table-oldschool.html)
 
@@ -64,18 +70,18 @@ Next we examine how these approaches handle increasing complexity. Here's the sa
 
 Modern React ([Source](complex-table.html) • [Demo](/hyper/demo/react/complex-table.html))) extends the ShadCN table with features from Tanstack Table. The difference to Hyper ([Source](complex-table.html#hyper) • [Demo](/hyper/demo/table/complex-table.html))) becomes apparent:
 
-1. **Excessive boilerplate:** Through Radix UI, Tanstack Table, and TypeScript interfaces. This results in approximately 170 lines of code, versus 40 lines in Hyper. An 75% reduction in code and congitive load.
+1. **Excessive boilerplate:** Through Radix UI, Tanstack Table, and TypeScript interfaces. This results in approximately 170 lines of code, versus 40 lines in Hyper. An 75% increase in code and congitive load.
 
-1. **Abstraction layers:** Six layers of abstraction are in play: React, ShadCN, Radix, Tanstack, TypeScript, and Tailwind. The bundled JavaScript balloons to 91.3KB. The server situation is even more alarming: the Vite repository weighs a staggering 160MB. Hyper's table runs at 3.9KB (1.2KB + 2.7KB for hyper.js) — 23 times less bloat and complexity.
+1. **Abstraction layers:** Six layers of abstraction are in play: React, ShadCN, Radix, Tanstack, TypeScript, and Tailwind. The bundled JavaScript is **91.3KB** and the Vite repository weighs 160MB. Hyper's table runs at **3.9KB** (1.2KB + 2.7KB for hyper.js).
 
-1. **Huge bundler circus:** ShadCN table requires six different transpilers: ESBuild, JSX Transform, Rollup, TypeScript, Tailwind, and PostCSS. Only complex builders like Vite or Next.js can handle this ecosystem. AI models like Claude and ChatGPT struggle to generate previews with such large dependency trees. Hyper runs smoothly in the browser without compilation, or with just one compilation step for production-grade performance.
+1. **Multiple transpilers:** ShadCN table requires six different transpilers: ESBuild, JSX Transform, Rollup, TypeScript, Tailwind, and PostCSS. AI models like Claude and ChatGPT cannot generate preview for this large dependency tree. Hyper runs in the browser without compilation, or with single compilation step for a  production version.
 
 
 
 ## Phase 3: Reusable components { #reusable }
 Here's a simple dashboard assembled with Hyper:
 
-[image.larger]
+[image.large]
   large: img/minimalist-big.png
   small: img/minimalist.png
   href: /hyper/demo/dashboard/minimal.html
@@ -87,17 +93,19 @@ Now, the same dashboard with a "Ramsian" look:
   small: img/ramsian.png
   href: /hyper/demo/dashboard/ramsian.html
 
-This transformation required zero changes to component code. Just a [30-line CSS file](/hyper/demo/dashboard/ramsian.css) extending the base design system. This kind of design swaps are literally _impossible_ with modern React. Lets see why:
+This transformation required zero changes to component code. Just a [30-line CSS file](/hyper/demo/dashboard/ramsian.css) extending the base design system.
+
+Design system switching is impossible with modern React. Lets see why:
 
 
 ### The problem in React: hardcoded design
-Modern React components aren't reusable across projects with varying design requirements, because the design is hardcoded in the component. Even trivial typography changes (`h2` and `p`) thrust you into a coding labyrinthine. In ShadCN you need to modify [alert-dialog.tsx](//github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/alert-dialog.tsx), [alert.tsx](//github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/alert.tsx), [card.tsx](//github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/card.tsx), [dialog.tsx](//github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/dialog.tsx), [drawer.tsx](//github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/drawer.tsx), and [sheet.tsx](//github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/sheet.tsx), each requiring deep understanding of React idioms (`data-slot`, `{...props}`), utility functions (`cn()`, `clsx()`, `twMerge()`) that merge and generate classes, and a circus of primitives (`<AlertDialogPrimitive.Title>`, `<DrawerPrimitive.Description>`) and how these constructs ultimately map to actual CSS:
+Modern React components aren't reusable across projects with varying design requirements because the design is hardcoded in the component. Even trivial typography changes (`h2` and `p`) require edits to multiple files. In ShadCN, you need to modify [alert-dialog.tsx](//github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/alert-dialog.tsx), [alert.tsx](//github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/alert.tsx), [card.tsx](//github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/card.tsx), [dialog.tsx](//github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/dialog.tsx), [drawer.tsx](//github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/drawer.tsx), and [sheet.tsx](//github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/sheet.tsx). Each file requires understanding of several React idioms (`data-slot`, `{...props}`), utility functions (`cn()`, `clsx()`, `twMerge()`), and primitives like `<AlertDialogPrimitive.Title>` and `<DrawerPrimitive.Description>` until these constructs ultimately map to CSS. Here are the title and description elements in the ShadCN .tsx files:
 
 [image]
   large: img/shadcn-typo-big.png
   small: img/shadcn-typo.png
 
-This design hardcoding creates significant scalability problems. Look at ShadCN: their "New York" theme essentially duplicates their default theme, resulting in 40,000+ lines of [additional TSX code][new_york] and creating a maintenance nightmare. Something that would have been trivially solved with CSS cascade.
+This hardcoding creates a scalability issue. For example, ShadCN's "New York" theme duplicates their default theme, resulting in 40,000+ lines of [additional TSX code][new_york]. This is a problem that would have been easily solved with CSS inheritance and cascade.
 
 
 ### Hyper's solution: decoupled design
@@ -120,9 +128,9 @@ By contrast, Hyper colocates your typography concerns into a single CSS file, ac
 }
 ```
 
-This solves all the major problems in modern React:
+This solves three major issues in modern React:
 
-1. **Universally reusable components** accross projects and context
+1. **Reusable components** accross projects and contexts
 1. **Central design system** easily maintainable from the same place
 1. **Zero boilerplate** due to stirct separation of concerns
 
@@ -132,7 +140,7 @@ These simple units are the secret to truly scalable apps:
 
 
 ## Phase 4: Scalability { #scalability }
-Here's how simplicity scales: a full-scale app lighter than a single React button:
+Here's how simplicity scales: a full-scale [app](//mpa.nuejs.org/app/) lighter than a single React button:
 
 [bunny-video]
   videoId: 39b76cca-e55b-4e9b-8583-b053f9dbd55d
@@ -140,7 +148,7 @@ Here's how simplicity scales: a full-scale app lighter than a single React butto
   width: 704
   height: 407
 
-This [app](//mpa.nuejs.org/app/) showcases how simple building blocks demolish React. While React adds layers of abstraction that grow exponentially with scale, Hyper establishes an entirely different paradigm, centered around simplicity:
+Hyper establishes an entirely different paradigm, centered around simplicity:
 
 [image]
   small: /img/react-button-vs-nue-spa.png
@@ -150,7 +158,7 @@ This [app](//mpa.nuejs.org/app/) showcases how simple building blocks demolish R
 
 [.note]
   ### Note
-  The above app is still written with "Nue JS", which Hyper is to replace. When converted, the app becomes even smaller with virtually zero boilerplate.
+  The above app is still written with Nue JS, but when converted to Hyper, the app becomes even smaller with virtually zero boilerplate.
 
 - - -
 
@@ -161,11 +169,11 @@ Hyper reveals the immense power in web standards, but we're just getting started
 ### Phase 5: Full-stack applications
 A demonstration to what Hyper and Nue are capable of:
 
-* Simple cross-component communication
 * Intuitive routing and navigation system
+* Simple cross-component communication
 * Backend server & database integrations
-* Local development & production edge
 * Three swappable design systems
+* Deployement to the cloud (runtime agnostic)
 
 Estimate: 3 months.
 
@@ -177,15 +185,9 @@ A way for you and AI's to generate UIs with minimal effort:
 * Higher-level compositions
 * Built-in accessibility and responsivity
 * Self-documenting API and patterns
-* Base design system
+* Base design system (headless, grid only)
 
 Estimate: 4-5 months.
-
-
-[image]
-  large: img/branding-big.png
-  small: img/branding.png
-  width: 400
 
 
 ## Get started with Hyper
@@ -216,7 +218,14 @@ Check examples, API docs, and language syntax from [Hyper documentation](/hyper/
 
 
 ### What is Nue?
-Nue is the "framework" (think Next.js + Astro, but simpler) and Hyper is the "language" (think React, but simpler). Both are developed under the same monorepo.
+Nue is the "framework" (think Next.js + Astro, but simpler) and Hyper is the "language" (think React, but simpler). Both are developed under the same [monorepo](https://github.com/nuejs/nue/tree/master/packages/). Here's how the product hierarchy will look like.
+
+[image]
+  large: img/branding-big.png
+  caption: The shield icon represents the close connection to web standards
+  small: img/branding.png
+  width: 400
+
 
 
 ### Isn't this just another framework?
@@ -238,10 +247,10 @@ Standards are forever.
 The idea of generative HTML assembly unveils once Hyper, and the core UI primitives are ready. After that, both you and AI models can rapidly generate user interfaces with simple, minimal syntax. No unnecessary junk in your way.
 
 
-### Can Hyper actually challenge React?
+### Can Hyper actually challenge the status quo?
 Absolutely. To succeed, we need to address two things:
 
-1. **Developer perception**: React developers view layers of abstraction as essential. As Hyper demonstrates how professional UIs can be generated without them, this perception will shift.
+1. **Developer perception**: Frontend developers view layers of abstraction as essential. As Hyper demonstrates how professional UIs can be generated without them, this perception will shift.
 
 2. **Finish the product**: Several critical pieces remain in development, particularly the generative approach and design systems.
 

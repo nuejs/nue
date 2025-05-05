@@ -11,7 +11,7 @@ A sortable/filterable table component, wrapped inside a card component. Implemen
 ## With modern React
 Excessive boilerplate through Tanstack Table, ShadCN, and TypeScript interfaces
 
-``` jsx numbered
+``` jsx
 import * as React from "react"
 
 import {
@@ -48,13 +48,8 @@ import {
   CardContent,
 } from "@/components/ui/card"
 
-type Person = {
-  id: string
-  name: string
-  email: string
-  age: number
-  total: number
-}
+import { Person, DataTableProps } from "./DataTable.types.ts";
+
 
 // Create a reusable sortable header component
 const SortableHeader = ({ column, title, align = "left" }) => (
@@ -92,10 +87,6 @@ const columns: ColumnDef<Person>[] = [
     },
   },
 ]
-
-interface DataTableProps {
-  data: Person[]
-}
 
 export default function DataTable({ data }: DataTableProps) {
   const [sorting, setSorting] = React.useState<SortingState>([])
@@ -185,13 +176,9 @@ export default function DataTable({ data }: DataTableProps) {
 }
 ```
 
-
-## With vanilla TSX
-This is a theoretical example with vanilla TSX and external CSS. Vanilla CSS is no longer "idiomatic" React, so this is just for reference:
+Here is the extra TypeScript needed (not included in the comparison images):
 
 ```
-import React, { useState, useMemo } from "react";
-
 type Person = {
   id: string;
   name: string;
@@ -201,8 +188,18 @@ type Person = {
 };
 
 interface DataTableProps {
-  data: Person[];
+  data: Person[]
 }
+```
+
+
+## With vanilla TSX { #oldschool }
+This is an oldschool example using external CSS, which is no longer the "idiomatic" way to build React compomnents:
+
+```
+import React, { useState, useMemo } from "react";
+
+import { Person, DataTableProps } from "./DataTable.types.ts";
 
 export default function DataTable({ data }: DataTableProps) {
   const [sortField, setSortField] = useState<keyof Person | null>(null);
