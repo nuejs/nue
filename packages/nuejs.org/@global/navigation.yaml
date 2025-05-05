@@ -7,8 +7,8 @@ globalnav:
     - Docs: /docs/
     - Blog: /blog/
     - Vision: /vision/
-    - url: /blog/large-scale-apps/
-      label: "*NEW* Apps lighter than a React button ›"
+    - url: /blog/introducing-hyper/
+      label: "*Introducing Hyper* Crush Reach on every metric ›"
       class: news pill
 
 
