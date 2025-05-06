@@ -1,11 +1,11 @@
 ---
-title: "Hyper: Outperform React on every metric"
-hero_title: "Introducing Hyper — Outperform React on every metric _(Developer Preview)_"
+title: "Hyper: Simple React alternative"
+hero_title: "Introducing Hyper — A simple React alternative _(Developer Preview)_"
 og: img/hyper-og.png
 date: 2025-05-06
 ---
 
-Today I'm releasing Hyper: a simple markup language for building user interfaces. It enables developers (and AI models) to generate complex UIs with amazingly clean syntax. It aims to make frontend development enjoyable.
+Today I'm releasing Hyper: a simple markup language for building user interfaces. It enables developers (and AI models) to generate complex UIs with amazingly clean syntax.
 
 [image.bordered]
   large: img/hyper-banner-dark-big.png
@@ -20,7 +20,7 @@ Today I'm releasing Hyper: a simple markup language for building user interfaces
 
 
 ## Backstory
-Hyper is the new reactive library for Nue, eventually replacing the current [Nue JS](https://github.com/nuejs/nue/tree/master/packages/nuejs) package. The sole purpose of this library is to embrace **simplicity** and **minimalism**. It stands against the complexity and bloat that pervade the current frontend ecosystem. This is particularly evident in modern React components where everything — logic, structure, and styling are mixed together. Hyper, however, is what React 1.0 originally envisioned: just a _headless view layer_ focused on rendering, with clear separation from styling concerns.
+Hyper is the new reactive library for Nue, eventually replacing the current [Nue JS](https://github.com/nuejs/nue/tree/master/packages/nuejs) package. The  purpose of this library is to make frontend development simpler. It stands against the complexity and bloat that pervade the current frontend ecosystem, particularly in monolithic React where logic, structure, and styling are mixed together. Hyper, however, is what React 1.0 originally envisioned: just a _headless view layer_ focused on rendering, with clear separation from styling concerns.
 
 Let's study the difference.
 
@@ -30,7 +30,7 @@ We begin with the fundamentals: how to define basic UI elements. Below is a simp
 
 [.row]
   [! img/simple-table-1.png]
-    caption: Modern React
+    caption: Idiomatic React
     href: simple-table.html
 
   [! img/simple-table-2.png]
@@ -42,9 +42,9 @@ We begin with the fundamentals: how to define basic UI elements. Below is a simp
     href: simple-table.html#hyper
 
 
-1. **Modern React:** ShadCN <Table> component and TypeScript. The extra boilerplate comes through React patterns and the custom <Table> syntax. [Source](simple-table.html) • [Demo](/hyper/demo/react/simple-table.html)
+1. **Idiomatic React:** ShadCN, Tailwind, and TypeScript. The extra boilerplate comes through React patterns and the custom <Table> syntax. [Source](simple-table.html) • [Demo](/hyper/demo/react/simple-table.html)
 
-2. **Old school React:** JSX with decoupled CSS. More straightforward markup but still needs JavaScript wiring and JSX transformation. [Source](simple-table.html#oldschool) • [Demo](/hyper/demo/react/simple-table-oldschool.html)
+2. **Old school React:** JSX with vanilla CSS. More straightforward markup but still needs JavaScript wiring and JSX transformation. [Source](simple-table.html#oldschool) • [Demo](/hyper/demo/react/simple-table-oldschool.html)
 
 3. **Hyper:** Clean, standards- compliant HTML. Table is a <table>. [Source](simple-table.html#hyper) • [Demo](/hyper/demo/table/simple-table.html)
 
@@ -55,7 +55,7 @@ While these differences might seem minor, they become apparent when we move to m
 Next we examine how these approaches handle increasing complexity. Here's the same table component, but now with sorting and filtering:
 
 [.row]
-  [! img/complex-table-1.png caption="Modern React"]
+  [! img/complex-table-1.png caption="Idiomatic React"]
     href: complex-table.html
 
   [! img/complex-table-2.png caption="Vanilla TSX"]
@@ -65,7 +65,7 @@ Next we examine how these approaches handle increasing complexity. Here's the sa
     href: complex-table.html#hyper
 
 
-Modern React ([Source](complex-table.html) • [Demo](/hyper/demo/react/complex-table.html)\) extends the ShadCN table with features from Tanstack Table. The difference to Hyper ([Source](complex-table.html#hyper) • [Demo](/hyper/demo/table/complex-table.html)\) becomes apparent:
+Idiomatic React ([Source](complex-table.html) • [Demo](/hyper/demo/react/complex-table.html)\) extends the ShadCN table with features from Tanstack Table. The difference to Hyper ([Source](complex-table.html#hyper) • [Demo](/hyper/demo/table/complex-table.html)\) becomes apparent:
 
 1. **Excessive boilerplate:** Through Radix UI, Tanstack Table, and TypeScript interfaces. This results in approximately 170 lines of code, versus 40 lines in Hyper. A 75% increase in code and congitive load.
 
@@ -96,7 +96,7 @@ Design system switching is impossible with modern React. Lets see why:
 
 
 ### The problem in React: hardcoded design
-Modern React components aren't reusable across projects with varying design requirements because the design is hardcoded in the component. Even trivial typography changes (`h2` and `p`) require edits to multiple files. In ShadCN, you need to modify [alert-dialog.tsx](//github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/alert-dialog.tsx), [alert.tsx](//github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/alert.tsx), [card.tsx](//github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/card.tsx), [dialog.tsx](//github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/dialog.tsx), [drawer.tsx](//github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/drawer.tsx), and [sheet.tsx](//github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/sheet.tsx). Each file requires understanding of several React idioms (`data-slot`, `{...props}`), utility functions (`cn()`, `clsx()`, `twMerge()`), and primitives like `<AlertDialogPrimitive.Title>` and `<DrawerPrimitive.Description>` until these constructs ultimately map to CSS. Here are the title and description elements in the ShadCN .tsx files:
+Idiomatic React components aren't reusable across projects with varying design requirements because the design is hardcoded in the component. Even trivial typography changes (`h2` and `p`) require edits to multiple files. In ShadCN, you need to modify [alert-dialog.tsx](//github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/alert-dialog.tsx), [alert.tsx](//github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/alert.tsx), [card.tsx](//github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/card.tsx), [dialog.tsx](//github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/dialog.tsx), [drawer.tsx](//github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/drawer.tsx), and [sheet.tsx](//github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/sheet.tsx). Each file requires understanding of several React idioms (`data-slot`, `{...props}`), utility functions (`cn()`, `clsx()`, `twMerge()`), and primitives like `<AlertDialogPrimitive.Title>` and `<DrawerPrimitive.Description>` until these constructs ultimately map to CSS. Here are the title and description elements in the ShadCN .tsx files:
 
 [image]
   large: img/shadcn-typo-big.png
