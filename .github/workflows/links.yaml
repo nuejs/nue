@@ -70,6 +70,7 @@ jobs:
             --remap "http://localhost:8080/docs/tutorials https://nuejs.org/docs/tutorials"
             --remap "http://localhost:8080/hyper/demo/ https://nuejs.org/hyper/demo/"
             --exclude "http://localhost:8080/docs/how-it-works.html"
+            --exclude "http://localhost:8080/img/mpa-build.mp4"
             --exclude "http://localhost:8080/404.html"
             --exclude "https?://x.com/"
             --
