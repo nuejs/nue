@@ -21,7 +21,7 @@ Install with Bun:
 bun install nue-hyper
 ```
 
-[Hyper source code]((//github.com/nuejs/nue/tree/dev/packages/hyper/)
+[Hyper source code](//github.com/nuejs/nue/tree/dev/packages/hyper/)
 
 [Report an issue](//github.com/nuejs/nue/issues)
 
