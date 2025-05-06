@@ -8,7 +8,7 @@ build-demos:
 
 minify:
 	@ bun bin/minify.js
-	cp dist/*.js demo/dist
+	cp -r dist demo/dist
 	# @ cd dist && brotli -f hyper.js hyper-jit.js
 
 # http://localhost:8000/test/test.html

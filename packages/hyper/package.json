@@ -15,7 +15,19 @@
   "engines": {
     "bun": ">= 1.2"
   },
+  "scripts": {
+    "test": "node --experimental-vm-modules ../../node_modules/jest/bin/jest.js --runInBand",
+    "minify": "bun bin/minify.js && cp -r dist demo/dist"
+  },
   "dependencies": {
     "domino": "^2.1.6"
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "<rootDir>/../../setup-jest.js"
+    ],
+    "collectCoverageFrom": [
+      "<rootDir>/src/**"
+    ]
   }
 }
