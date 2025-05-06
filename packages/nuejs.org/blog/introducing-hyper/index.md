@@ -1,12 +1,11 @@
 ---
-title: "Hyper: Crush React on every metric"
-hero_title: "Introducing Hyper — Crush React on every metric _(Developer Preview)_"
+title: "Hyper: Outperform React on every metric"
+hero_title: "Introducing Hyper — Outperform React on every metric _(Developer Preview)_"
 og: img/hyper-og.png
-date: 2025-06-02
-unlisted: true
+date: 2025-05-06
 ---
 
-Today I'm releasing Hyper: a simple markup language for building user interfaces. It enables developers (and AI models) to generate complex UIs with amazingly clean syntax. It aims to make frontend development an enjoyable experience.
+Today I'm releasing Hyper: a simple markup language for building user interfaces. It enables developers (and AI models) to generate complex UIs with amazingly clean syntax. It aims to make frontend development enjoyable.
 
 [image.bordered]
   large: img/hyper-banner-dark-big.png
