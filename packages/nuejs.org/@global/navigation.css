@@ -85,6 +85,7 @@ body > header {
         a:not(.nav-home, .pill) { display: none }
       }
     }
+
   }
   @media (width < 500) {
     .pill { display: none }
@@ -105,6 +106,7 @@ body > header {
     color: var(--main-600);
     margin-right: .3em;
     font-weight: 600;
+    @media (width < 1000px) { display: none }
   }
 
   &:hover {

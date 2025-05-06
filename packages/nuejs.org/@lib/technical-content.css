@@ -52,12 +52,15 @@ article {
     line-height: 1.75;
     color: var(--gray-500);
     text-wrap: pretty;
-      margin: .5em 0;
 
     strong {
       font-weight: 550;
       color: var(--gray-600);
     }
+  }
+
+  p {
+    margin: .5em 0;
   }
 
   /* internal links */
@@ -263,7 +266,7 @@ figure > a {
   display: block;
 
   img:hover {
-    box-shadow: 0 0 0 2px white, 0 0 0 5px var(--main-500);
+    box-shadow: 0 0 0 2px white, 0 0 0 3.5px var(--main-500);
   }
 
   &:active img {

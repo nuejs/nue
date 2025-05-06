@@ -1,0 +1,20 @@
+
+<head>
+  <link rel="stylesheet" href="../css/0-settings.css">
+  <link rel="stylesheet" href="../css/globals.css">
+  <link rel="stylesheet" href="../css/typography.css">
+  <link rel="stylesheet" href="../css/components/table.css">
+  <link rel="stylesheet" href="../css/components/card.css">
+  <link rel="stylesheet" href="../css/components/form.css">
+</head>
+
+<main class="compact"></main>
+
+<script type="module">
+  import { createApp } from '../dist/hyper.js'
+  import { lib } from './builds/table.min.js'
+  import { users } from './users.js'
+  const app = createApp(lib, { users })
+  app.mount(document.querySelector('main'))
+</script>
+

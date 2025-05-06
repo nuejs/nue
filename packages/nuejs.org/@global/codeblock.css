@@ -1,28 +1,27 @@
 .codeblock {
   position: relative;
 
-  &:hover .copy { opacity: 0.5; }
+  &:hover .copy { opacity: 0.75; }
 
   .copy {
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     position: absolute;
     top: 0;
     right: 0;
     display: inline-flex;
-    margin: 0.75rem;
-    padding: 0.25rem;
+    margin: 0.5rem;
+    padding: 0.5rem;
 
-    background: color-mix(in srgb, var(--gray-500), transparent);
-    backdrop-filter: blur(5px);
-    border: var(--border);
-
-    transition: opacity 250ms;
+    background: transparent;
+    transition: opacity .25s;
     opacity: 0;
+
     &:is(:hover, :focus) { opacity: 1; }
 
     img {
       filter: invert(1);
       pointer-events: none;
     }
+
   }
 }

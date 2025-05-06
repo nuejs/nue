@@ -1,0 +1,1 @@
+export const lib = [ { tag: 'h1', children: [ { text: 'Hello, ' }, { fn: _=>_.name }, { text: '!' } ] } ]

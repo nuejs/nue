@@ -1,0 +1,34 @@
+
+<head>
+  <link rel="stylesheet" href="../css/0-settings.css">
+  <link rel="stylesheet" href="../css/globals.css">
+  <link rel="stylesheet" href="../css/typography.css">
+  <link rel="stylesheet" href="../css/components/table.css">
+</head>
+
+<main class="compact"></main>
+
+<script type="text/hyper">
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Age</th>
+    </tr>
+    <tr :for="user of users">
+      <td>${ user.name }</td>
+      <td>${ user.email }</td>
+      <td>${ user.age }</td>
+    </tr>
+  </table>
+</script>
+
+
+<script type="module">
+  import { createApp } from '../dist/hyper-jit.js'
+  import { users } from './users.js'
+  const hypertext = document.querySelector('[type="text/hyper"]').textContent
+  const app = createApp(hypertext, { users })
+  app.mount(document.querySelector('main'))
+</script>
+

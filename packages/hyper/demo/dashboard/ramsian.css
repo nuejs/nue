@@ -1,0 +1,32 @@
+@layer theme {
+  :root {
+    --grid-gap: 1.5em;
+    --main-500: #306FDB;
+  }
+
+  body {
+    font-family: SF pro display, system-ui;
+    background-color: var(--base-200);
+  }
+
+  h1 {
+    font-weight: 500;
+    font-size: 1.5em;
+  }
+
+  h3 { font-weight: 550 }
+
+  .card {
+    box-shadow: 1px 1px 1px var(--base-300);
+    border-radius: .75em;
+  }
+
+  button {
+    padding-inline: var(--grid-gap);
+    &.primary { border-radius: 9em }
+    &:not(.primary) { background-color: var(--base-100) }
+  }
+
+  .bar-chart > * { background-color: var(--main-500) }
+  .avatar img { background-color: var(--base-200) }
+}

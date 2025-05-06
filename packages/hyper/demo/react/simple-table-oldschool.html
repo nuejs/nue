@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React Table with Babel</title>
+
+  <!-- External CSS (loaded globally, not imported in components) -->
+  <link rel="stylesheet" href="../css/0-settings.css">
+  <link rel="stylesheet" href="../css/globals.css">
+  <link rel="stylesheet" href="../css/typography.css">
+  <link rel="stylesheet" href="../css/components/table.css">
+
+  <!-- React and ReactDOM -->
+  <script src="//unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="//unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+  <!-- Babel for JSX transpilation -->
+  <script src="//unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <main id="root" class="compact"></main>
+
+  <script type="text/babel">
+
+    // imports not allowed inside text/babel scripts
+    const users = [
+      { id: 1,  name: 'John Doe', email: 'john@example.com', age: 32 },
+      { id: 2,  name: 'Jane Smith', email: 'jane@example.com', age: 27 },
+      { id: 3,  name: 'Bob Johnson', email: 'bob@example.com', age: 45 },
+      { id: 4,  name: 'Alice Williams', email: 'alice@example.com', age: 29 },
+      { id: 5,  name: 'Michael Brown', email: 'michael@example.com', age: 38 },
+      { id: 6,  name: 'Emily Davis', email: 'emily@example.com', age: 31 },
+      { id: 7,  name: 'David Miller', email: 'david@example.com', age: 42 },
+      { id: 8,  name: 'Sarah Wilson', email: 'sarah@example.com', age: 25 },
+      { id: 9,  name: 'James Taylor', email: 'james@example.com', age: 36 },
+      { id: 10, name: 'Jennifer Anderson', email: 'jennifer@example.com', age: 33  }
+    ]
+
+    class TableComponent extends React.Component {
+      render() {
+        return (
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Age</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.props.users.map(user => (
+                <tr key={ user.id }>
+                  <td>{user.name}</td>
+                  <td>{user.email}</td>
+                  <td>{user.age}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        );
+      }
+    }
+
+
+    // Root component to render the table
+    function App() {
+      return <TableComponent users={users} />;
+    }
+
+    // Render the app
+    const container = document.getElementById('root');
+    const root = ReactDOM.createRoot(container);
+    root.render(<App />);
+  </script>
+</body>
+
+</html>

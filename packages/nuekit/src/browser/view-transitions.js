@@ -17,8 +17,6 @@ export async function loadPage(path, replace_state) {
   // save scroll position
   scrollPos[location.pathname] = window.scrollY
 
-  if (!replace_state) history.pushState({ path }, 0, path)
-
   // DOM of the new page
   const dom = mkdom(await getHTML(path))
 
@@ -28,7 +26,12 @@ export async function loadPage(path, replace_state) {
 
   // update component list
   const query = '[name="nue:components"]'
-  $(query).content = $(query, dom).content
+  const comps = $(query, dom)
+
+  // not a Nue page -> full page load
+  if (!comps) return location.href = path
+
+  $(query).content = comps.content
 
   // forEach() does not work due to timing issues
   for (const script of $$('script[src]', dom)) {
@@ -57,6 +60,8 @@ export async function loadPage(path, replace_state) {
 
     setActive(path)
   })
+
+  if (!replace_state) history.pushState({ path }, 0, path)
 
 }
 

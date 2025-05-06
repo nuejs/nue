@@ -1,0 +1,14 @@
+
+@layer components {
+  .media {
+    align-items: center;
+    display: flex;
+    gap: 2em;
+
+    img {
+      object-fit: cover;
+      height: 20em;
+      width: 28em;
+    }
+  }
+}
