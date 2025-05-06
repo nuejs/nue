@@ -1,4 +1,3 @@
-
 ---
 include: [technical-content]
 ---
@@ -21,14 +20,14 @@ Install with Bun:
 bun install nue-hyper
 ```
 
-[Hyper source code](//github.com/nuejs/nue/tree/dev/packages/hyper/)
+[Hyper source code](//github.com/nuejs/nue/tree/master/packages/hyper/)
 
 [Report an issue](//github.com/nuejs/nue/issues)
 
 
 ### Examples
 
-Examples are under [demo folder](//github.com/nuejs/nue/tree/dev/packages/hyper/demo/). To run the examples locally go to nue-hyper folder and execute a local web server in there. For example:
+Examples are under [demo folder](//github.com/nuejs/nue/tree/master/packages/hyper/demo/). To run the examples locally go to nue-hyper folder and execute a local web server in there. For example:
 
 ```
 cd nue-hyper
@@ -36,7 +35,7 @@ cd nue-hyper
 python3 -m http.server
 ```
 
-And you'll have the examples running at: http://localhost:8000/examples/
+And you'll have the examples running at: http://localhost:8000/demo/
 
 
 ## Changes from Nue JS
