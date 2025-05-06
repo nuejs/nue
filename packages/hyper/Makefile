@@ -1,7 +1,7 @@
 
 run-tests:
-	cd test && bun test # block
-	# cd test && bun test --coverage
+	bun test # block
+	# bun test --coverage
 
 build-demos:
 	@ cd demo && bun build.js

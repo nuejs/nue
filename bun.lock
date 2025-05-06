@@ -8,6 +8,13 @@
       "name": "nue-glow",
       "version": "0.2.2",
     },
+    "packages/hyper": {
+      "name": "nue-hyper",
+      "version": "0.1.0",
+      "dependencies": {
+        "domino": "^2.1.6",
+      },
+    },
     "packages/nuejs": {
       "name": "nuejs-core",
       "version": "0.5.3",
@@ -155,6 +162,8 @@
     "lightningcss-win32-x64-msvc": ["lightningcss-win32-x64-msvc@1.29.3", "", { "os": "win32", "cpu": "x64" }, "sha512-IszwRPu2cPnDQsZpd7/EAr0x2W7jkaWqQ1SwCVIZ/tSbZVXPLt6k8s6FkcyBjViCzvB5CW0We0QbbP7zp2aBjQ=="],
 
     "nue-glow": ["nue-glow@workspace:packages/glow"],
+
+    "nue-hyper": ["nue-hyper@workspace:packages/hyper"],
 
     "nuejs-core": ["nuejs-core@workspace:packages/nuejs"],
 

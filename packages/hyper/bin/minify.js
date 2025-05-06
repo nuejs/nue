@@ -1,7 +1,7 @@
 
 import { build } from 'bun'
+import { version } from '../package.json' with { type: 'json' }
 
-const { version } = await Bun.file('package.json').json()
 const year = new Date().getFullYear()
 
 const banner = `/**
