@@ -1,4 +1,3 @@
-
 ---
 title: "Hyper: Crush React on every metric"
 hero_title: "Introducing Hyper — Crush React on every metric _(Developer Preview)_"
@@ -67,7 +66,7 @@ Next we examine how these approaches handle increasing complexity. Here's the sa
     href: complex-table.html#hyper
 
 
-Modern React ([Source](complex-table.html) • [Demo](/hyper/demo/react/complex-table.html))) extends the ShadCN table with features from Tanstack Table. The difference to Hyper ([Source](complex-table.html#hyper) • [Demo](/hyper/demo/table/complex-table.html))) becomes apparent:
+Modern React ([Source](complex-table.html) • [Demo](/hyper/demo/react/complex-table.html)\) extends the ShadCN table with features from Tanstack Table. The difference to Hyper ([Source](complex-table.html#hyper) • [Demo](/hyper/demo/table/complex-table.html)\) becomes apparent:
 
 1. **Excessive boilerplate:** Through Radix UI, Tanstack Table, and TypeScript interfaces. This results in approximately 170 lines of code, versus 40 lines in Hyper. A 75% increase in code and congitive load.
 
