@@ -10,21 +10,7 @@ Nue is a web framework focused on web standards, currently in active development
   <img src="https://nuejs.org/img/og-blue.png" width="900">
 </a>
 
-Nue makes the inevitable shift. We're rebuilding the entire ecosystem from scratch, with a cleaner, more efficient core. Our goal is to restore the joy of web development for all key skillsets: frontend architects, design engineers, and UX engineers.
-
-
-### What this means
-
-1. **Build apps with a fraction of the code**: The apps are literally smaller than a single React button. Modern web standards are beasts.
-
-3. **Rust computation engines**: Write clean, isolated business models where the performance critical parts can be offloaded to Rust or Go.
-
-1. **Faster HMR and tooling**: Instant HMR for all asset types: content, styling, data, and components. Build large applications in milliseconds.
-
-
 [Learn how Nue works →](https://nuejs.org/docs/)
-
-
 
 ## A radically simpler stack
 
