@@ -70,7 +70,7 @@ Modern React ([Source](complex-table.html) • [Demo](/hyper/demo/react/complex-
 
 1. **Excessive boilerplate:** Through Radix UI, Tanstack Table, and TypeScript interfaces. This results in approximately 170 lines of code, versus 40 lines in Hyper. A 75% increase in code and congitive load.
 
-1. **Abstraction layers:** Six layers of abstraction are in play: React, ShadCN, Radix, Tanstack, TypeScript, and Tailwind in 160MB Vite stack. The bundled JavaScript is **91.3KB** Hyper offers the same at **3.9KB** (1.2KB + 2.7KB for hyper.js).
+1. **Abstraction layers:** Six layers of abstraction are in play: React, ShadCN, Radix, Tanstack, TypeScript, and Tailwind in 160MB Vite stack. The bundled JavaScript is **91.3KB**. Hyper offers the same at **3.9KB** (1.2KB + 2.7KB for hyper.js).
 
 1. **Multiple transpilers:** ShadCN table requires six different transpilers: ESBuild, JSX Transform, Rollup, TypeScript, Tailwind, and PostCSS. AI models like Claude and ChatGPT cannot generate preview for this large dependency tree. Hyper runs in the browser without compilation, or with single compilation step for a  production version.
 
