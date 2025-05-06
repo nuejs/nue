@@ -1,7 +1,7 @@
 {
   "name": "nue-hyper",
-  "version": "0.1.0",
-  "description": "Hyper is a simple markup language for building user interfaces",
+  "version": "0.1.1",
+  "description": "Hyper is HTML markup for building user interfaces",
   "homepage": "https://nuejs.org/blog/introducing-hyper/",
   "main": "src/index.js",
   "license": "MIT",

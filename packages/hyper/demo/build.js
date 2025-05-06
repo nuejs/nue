@@ -1,7 +1,8 @@
 
+/* bun build.js */
+
 import { compile, render } from '..'
 import { $ } from 'bun'
-
 
 async function read(path) {
   return $`cat < ${path}`.text()
@@ -45,11 +46,13 @@ function minifyCSS(css) {
 async function buildHello() {
   const src = '<h1>Hello, ${ name }!</h1>'
   await compileTo('hello-world/builds', 'hello.js', src)
+  console.info('done: hello')
 }
 
 async function buildTable() {
   const src = await read('table/table-component.html')
   await compileTo('table/builds', 'table.js', src)
+  console.info('done: table')
 }
 
 
@@ -64,25 +67,48 @@ async function readDashboardCSS() {
 async function buildDashboardCSS() {
   const minified = minifyCSS(await readDashboardCSS())
   Bun.write('dashboard/builds/dashboard.css', minified)
+  console.info('done: dashboard.css')
 }
 
-async function buildDashboard() {
+async function buildDashboardJS() {
   const html = await readdir('dashboard/components', '.html')
   await compileTo('dashboard/builds', 'dashboard.js', html)
+  console.info('done: dashboard.js')
 }
 
-async function renderDashboard() {
-  const page = await read('dashboard/ssr/page-source.html')
+
+const SSR_PAGE = `
+<html>
+  <head>
+    <link rel="stylesheet" href="builds/dashboard.css">
+    <link rel="stylesheet" href="ramsian.css">
+  </head>
+
+  <main>
+    <dashboard :bind="data"/>
+  </main>
+
+</html>
+`
+
+/* server-side rendering */
+async function buildDashboardHTML() {
   const components = await readdir('dashboard/components', '.html')
   const { data } = await import('./dashboard/data/rams.js')
 
-  const html = render(page + components, { data })
-  Bun.write('dashboard/ssr/ramsian.html', html)
+  const html = render(SSR_PAGE + components, { data })
+  Bun.write('dashboard/ramsian-ssr.html', html)
+  console.info('done: ramsian-ssr.html')
 }
 
+async function buildAll() {
+  console.time('to build all')
+  await buildHello()
+  await buildTable()
+  await buildDashboardCSS()
+  await buildDashboardJS()
+  await buildDashboardHTML()
+  console.timeEnd('to build all')
+}
 
-// await buildHello()
-// await buildTable()
-// await buildDashboardCSS()
-await buildDashboard()
-// await renderDashboard()
+await buildAll()

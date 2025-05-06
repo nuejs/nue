@@ -1,59 +1,59 @@
 
-import { renderTemplate } from '../src'
+import { render } from '../src'
 
 jest.spyOn(console, 'error').mockImplementation(() => {})
 afterEach(() => console.error.mockClear())
 
 test('element', () => {
-  expect(renderTemplate('<div/>')).toBe('<div></div>')
+  expect(render('<div/>')).toBe('<div></div>')
 })
 
 test('text', () => {
-  expect(renderTemplate('<div>Hello</div>')).toBe('<div>Hello</div>')
+  expect(render('<div>Hello</div>')).toBe('<div>Hello</div>')
 })
 
 test('expression', () => {
-  expect(renderTemplate('<div>${ 1 + 2 }</div>')).toBe('<div>3</div>')
+  expect(render('<div>${ 1 + 2 }</div>')).toBe('<div>3</div>')
 })
 
 test('NaN values', () => {
-  expect(renderTemplate('<div>${ a * b }</div>')).toBe('<div>N/A</div>')
+  expect(render('<div>${ a * b }</div>')).toBe('<div>N/A</div>')
 })
 
 test('expression whitespace', () => {
-  expect(renderTemplate('<a>${ "a" } ${ "b" }</a>')).toBe('<a>a b</a>')
+  expect(render('<a>${ "a" } ${ "b" }</a>')).toBe('<a>a b</a>')
 })
 
 test('errors', () => {
-  const html = renderTemplate('<div>${ foo() }</div>')
+  const html = render('<div>${ foo() }</div>')
   expect(html).toBe('<div>[Error]</div>')
   expect(console.error).toHaveBeenCalled()
 })
 
 test('do not render event handlers', () => {
-  const html = renderTemplate('<a :click="click"></a>', { click: () => true })
+  const html = render('<a :click="click"></a>', { click: () => true })
   expect(html).toBe('<a></a>')
 })
 
 test('attributes', () => {
-  const html = renderTemplate(`<a class="btn" disabled/>`)
+  const html = render(`<a class="btn" disabled/>`)
   expect(html).toBe('<a class="btn" disabled=""></a>')
 })
 
 test('attribute expressions', () => {
-  const html = renderTemplate(`<a class="${'f' + 1}"/>`)
+  const html = render(`<a class="${'f' + 1}"/>`)
   expect(html).toBe('<a class="f1"></a>')
 })
 
 test('render prop', () => {
-  const html = renderTemplate('<h1>${ msg }</h1>', { msg: 'Hello'})
+  const html = render('<h1>${ msg }</h1>', { msg: 'Hello'})
   expect(html).toBe('<h1>Hello</h1>')
 })
 
 
 test('nesting', () => {
   const template = '<div><span>${ text }</span></div>'
-  const html = renderTemplate(template, { text: 'Nested' })
+  const html = render(template, { text: 'Nested' })
   expect(html).toBe('<div><span>Nested</span></div>')
 })
 
@@ -64,7 +64,7 @@ test('svg', () => {
       <path d="M6 8a6 6 0 0 1 12"/>
     </svg>
   `
-  const svg = renderTemplate(template)
+  const svg = render(template)
 
   expect(svg).toStartWith('<svg xmlns="http://www.w3.org/2000/svg"')
   expect(svg).toInclude('<path d="M6 8a6 6 0 0 1 12">')
@@ -72,63 +72,63 @@ test('svg', () => {
 
 test('interpolation', () => {
   const template = '<div class="item ${ type }"/>'
-  const html = renderTemplate(template, { type: 'active' })
+  const html = render(template, { type: 'active' })
   expect(html).toBe('<div class="item active"></div>')
 })
 
 test('text whitespace', () => {
   const template = '<div>${ a } / ${ b } (${ c }) !</div>'
-  const html = renderTemplate(template, { a: 1, b: 2, c: 3 })
+  const html = render(template, { a: 1, b: 2, c: 3 })
   expect(html).toBe('<div>1 / 2 (3) !</div>')
 })
 
 test('tag whitespace', () => {
-  const html = renderTemplate('<a><b>Hey</b> <em>Yo</em></a>')
+  const html = render('<a><b>Hey</b> <em>Yo</em></a>')
   expect(html).toInclude('</b> <em>')
 })
 
 test('html', () => {
   const template = '<div>#{ html } here</div>'
-  const html = renderTemplate(template, { html: '<b>Bold</b> text' })
+  const html = render(template, { html: '<b>Bold</b> text' })
   expect(html).toBe('<div><b>Bold</b> text here</div>')
 })
 
 test('class mapping', () => {
   const template = '<label class="{ is-active: foo } bar">Test</label>'
-  const html = renderTemplate(template, { foo: true })
+  const html = render(template, { foo: true })
   expect(html).toBe('<label class="is-active bar">Test</label>')
 })
 
 test('class mapping with functions', () => {
   const template = '<div class="{ active: isActive(), error: hasError() }">Test</div>'
-  const html = renderTemplate(template, { isActive: () => true, hasError: () => true })
+  const html = render(template, { isActive: () => true, hasError: () => true })
   expect(html).toBe('<div class="active error">Test</div>')
 })
 
 test(':var-* attributes', () => {
   const template = '<a --index="1" --random="${ random }"></a>'
-  const html = renderTemplate(template, { random: 100 })
+  const html = render(template, { random: 100 })
   expect(html).toBe('<a style="--index:1;--random:100;"></a>')
 })
 
 test('max class names', () => {
   const tmpl = '<a class="${ class }"/>'
-  renderTemplate(tmpl, { class: 'foo bar baz boo' })
-  renderTemplate(tmpl, { class: 'foo bar' }, { max_class_names: 1 })
+  render(tmpl, { class: 'foo bar baz boo' })
+  render(tmpl, { class: 'foo bar' }, { max_class_names: 1 })
   expect(console.error).toHaveBeenCalledTimes(2)
 })
 
 test('invalid character warnings', () => {
-  renderTemplate('<a class="hover:md"/>')
-  renderTemplate('<a class="foo[1]"/>')
-  renderTemplate('<a class="bar"/>')
+  render('<a class="hover:md"/>')
+  render('<a class="foo[1]"/>')
+  render('<a class="bar"/>')
   expect(console.error).toHaveBeenCalledTimes(2)
 })
 
 
 test('loop', () => {
   const template = '<ul><li :for="(el, i) in items">${i}: ${el}</li></ul>'
-  const html = renderTemplate(template, { items: ['a', 'b'] })
+  const html = render(template, { items: ['a', 'b'] })
   expect(html).toBe('<ul><li>0: a</li><li>1: b</li></ul>')
 })
 
@@ -146,7 +146,7 @@ test('template loop', () => {
     { title: 'Age', data: '30' }
   ]
 
-  const html = renderTemplate(template, { meta })
+  const html = render(template, { meta })
   expect(html).toBe('<dl><dt>Name</dt><dd>Alice</dd><dt>Age</dt><dd>30</dd></dl>')
 })
 
@@ -160,7 +160,7 @@ test('Object.entries()', () => {
     </dl>
   `
   const items = { Email: 'm@example.com' }
-  const html = renderTemplate(template, { items })
+  const html = render(template, { items })
   expect(html).toBe('<dl><td>Email</td><dd>m@example.com</dd></dl>')
 })
 
@@ -174,7 +174,7 @@ test('loop deconstruct', () => {
     </dl>
   `
   const items = [{ key: 'Email', val: 'm@example.com' }]
-  const html = renderTemplate(template, { items })
+  const html = render(template, { items })
   expect(html).toBe('<dl><td>Email</td><dd>m@example.com</dd></dl>')
 })
 
@@ -187,13 +187,13 @@ test('nested loop', () => {
     </ul>
   `
   const items = [['A', 'B'], ['C', 'D']]
-  const html = renderTemplate(template, { items })
+  const html = render(template, { items })
   expect(html).toBe('<ul><li><p>A</p><p>B</p></li><li><p>C</p><p>D</p></li></ul>')
 })
 
 test('loop data access', () => {
   const template = '<div><p :for="el in items">${el} ${foo}</p></div>'
-  const html = renderTemplate(template, { foo: 1, items: ['F', 'F'] })
+  const html = render(template, { foo: 1, items: ['F', 'F'] })
   expect(html).toInclude('<p>F 1</p><p>F 1</p>')
 })
 
@@ -208,13 +208,13 @@ test('if-else', () => {
       <a :if="none">Empty</a>
     </div>`
 
-  const html = renderTemplate(template, { am: 30 })
+  const html = render(template, { am: 30 })
   expect(html).toBe('<div><h3>Hello</h3><b>Mid</b></div>')
 })
 
 
 test('passtrough scripts', () => {
-  const html = renderTemplate(`
+  const html = render(`
     <body>
       <script src="/analytics.js"></script>
       <script type="module">track(666)</script>

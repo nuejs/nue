@@ -1,7 +1,4 @@
 
-/*
-  Server-side rendering (SSR)
-*/
 import domino from 'domino'
 
 import { parseTemplate, compileTemplate } from './compiler'
@@ -27,11 +24,13 @@ export function render(template, data, opts={}) {
   const [ app ] = nodes
 
   if (app.is_custom)  {
-    delete app.is_custom
-    app.tag = 'div'
+    // delete app.is_custom
+    // app.tag = 'div'
   }
   return renderToString(nodes[0], data, opts)
 }
 
 
 export { compileTemplate as compile }
+
+export { parseTemplate }

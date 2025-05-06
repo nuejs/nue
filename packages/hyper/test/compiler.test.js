@@ -1,6 +1,6 @@
 
 // compiler.test.js
-import { convertFns, convertFn, compileFile, parseTemplate } from '../src/compiler'
+import { convertFns, convertFn, compileTemplate, parseTemplate } from '../src/compiler'
 import { inspect } from 'node:util'
 
 test('convertFn', () => {
@@ -18,7 +18,7 @@ test('parseTemplate', () => {
 })
 
 test('<script> block', () => {
-  const js = compileFile(`
+  const js = compileTemplate(`
     <a>
       \${ val }
       <script>
@@ -36,7 +36,7 @@ test('<script> block', () => {
 })
 
 test('complex <script> block', () => {
-  const js = compileFile(`
+  const js = compileTemplate(`
     <a>
       <script>
         format(str) {
@@ -53,13 +53,13 @@ test('complex <script> block', () => {
 
 test('empty template', () => {
   const template = ''
-  const js = compileFile(template)
+  const js = compileTemplate(template)
   expect(js).toContain('export const lib = []')
 })
 
-test('compileFile', () => {
+test('compileTemplate', () => {
   const template = '<p>Hello</p>'
-  const js = compileFile(template)
+  const js = compileTemplate(template)
   expect(js).toStartWith('export const lib = [')
 })
 
@@ -69,18 +69,18 @@ test('multiple components', () => {
     <comp1>\${ fn(1) }</comp1>
     <comp2>\${ fn(2) }</comp2>
   `
-  const js = compileFile(template)
+  const js = compileTemplate(template)
   expect(js).toContain("tag: 'comp1'")
   expect(js).toContain("tag: 'comp2'")
 })
 
 test('function', () => {
-  const js = compileFile('<b>${ fn(2) }</b>')
+  const js = compileTemplate('<b>${ fn(2) }</b>')
   expect(js).toInclude('fn: _=>(_.fn(2))')
 })
 
 test('quoted function', () => {
-  const js = compileFile(`<b>\${ 'foo' + "bar" }</b>`)
+  const js = compileTemplate(`<b>\${ 'foo' + "bar" }</b>`)
   expect(js).toInclude(`=>('foo' + "bar")`)
 })
 
@@ -94,7 +94,7 @@ test('script blocks', () => {
     </script>
     <time is="pretty-date">\${ format(date) }</time>
   `
-  const js = compileFile(template)
+  const js = compileTemplate(template)
   expect(js).toContain('import { format }')
   expect(js).toContain('pretty() { }')
   expect(js).toContain('export const lib =')
