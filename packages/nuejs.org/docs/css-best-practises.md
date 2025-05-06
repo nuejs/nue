@@ -172,11 +172,6 @@ Skip heavy reset libraries that zero out defaults only to rebuild them. A minima
 
 Let headings, paragraphs, and forms keep useful defaults (e.g., margins), then tweak them in higher layers. This avoids redundant code and keeps styling intentional.
 
-You’re right — “Leverage nesting” alone feels thin for a section. Reframing it as a broader look at CSS’s evolution, its undervalued power, and how it’s outgrown preprocessors (with nesting as an example) gives it more weight. I’ll rewrite "Modern CSS techniques" to reflect that, keeping it concise and punchy, with h2/h3 structure and nesting within `@layer` where applicable. Here’s the updated section:
-
-Fair point — CSS Tricks and Josh Comeau do lean React-heavy, which doesn’t fully align with Nue’s vanilla CSS focus. I’ll swap them for MDN (a gold standard for web docs) and something broader like Every Layout (practical, standards-driven CSS). Here’s the updated section:
-
-
 ## Modern CSS techniques
 
 CSS has come a long way in recent years, adding power that rivals preprocessors — yet it’s still undervalued. Features like variables, calc() function, nesting, and cascade layers make it a first-class design tool, no extras needed. Misinformation — like [this post on Tailwind](/blog/tailwind-misinformation-engine/) — pushes devs toward inline hacks or frameworks, but vanilla CSS now handles complex systems with less effort.
