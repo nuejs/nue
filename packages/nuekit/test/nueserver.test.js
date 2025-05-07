@@ -13,7 +13,7 @@ test('serves all MIME types with correct content-type', async () => {
   server.listen(PORT)
 
   try {
-    // Setup: Create a temporary directory & a test file for each MIIME type
+    // Setup: Create a temporary directory & a test file for each MIME type
     const testFiles = []
     await mkdir(TEST_DIR, { recursive: true })
 
