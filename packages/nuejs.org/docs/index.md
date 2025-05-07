@@ -51,7 +51,7 @@ Build times consistently run in milliseconds, even for large-scale apps, deliver
 
 ### For software architects
 
-Nue brings back the good practices of software engineering: simple, testable functions, modular design, minimal dependencies, and a arcutecture-first approach. Build computation engines with the language of your choice (JavaScript, Rust, Go, or TypeScript) and reach new levels of performance and architectural clarity. Nue is for developers who wish to bulid on classic algorithms and data structures over React idioms.
+Nue brings back the good practices of software engineering: simple, testable functions, modular design, minimal dependencies, and a architecture-first approach. Build computation engines with the language of your choice (JavaScript, Rust, Go, or TypeScript) and reach new levels of performance and architectural clarity. Nue is for developers who wish to bulid on classic algorithms and data structures over React idioms.
 
 ### For design engineers
 
