@@ -18,10 +18,21 @@ export const TYPES = {
   ico:  'image/x-icon',
   webp: 'image/webp',
   png:  'image/png',
-  jpeg: 'image/jpg',
-  jpg:  'image/jpg',
+  jpeg: 'image/jpeg',
+  jpg:  'image/jpeg',
+  txt:  'text/plain',
   css:  'text/css',
   csv:  'text/csv',
+  woff: 'font/woff',
+  woff2: 'font/woff2',
+  ttf:  'font/ttf',
+  otf:  'font/otf',
+  eot:  'application/vnd.ms-fontobject',
+  mp4:  'video/mp4',
+  webm: 'video/webm',
+  mp3:  'audio/mpeg',
+  ogg:  'audio/ogg',
+  default: 'application/octet-stream'
 }
 
 let sessions = []
@@ -53,7 +64,9 @@ export function createServer(root, callback) {
       const { code, path } = !ext || ext == 'html' ? await callback(url, _) : { path: url }
       if (!path) throw { errno: -2 }
       const buffer = await fs.readFile(join(root, path))
-      res.writeHead(code || 200, { 'content-type': TYPES[ext] })
+      res.writeHead(code || 200, {
+        'content-type': TYPES[ext] || TYPES.default
+      })      
       res.end(buffer)
 
     } catch (e) {
