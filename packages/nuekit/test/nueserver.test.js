@@ -1,8 +1,10 @@
 import { writeFile, rm, mkdir } from 'node:fs/promises'
-import { join } from 'node:path'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { createServer, TYPES } from '../src/nueserver.js'
 
-const TEST_DIR = join(import.meta.dir, 'tmp-mime-types')
+const __dirname = dirname(fileURLToPath(import.meta.url))
+const TEST_DIR = join(__dirname, 'tmp-mime-types')
 const PORT = 3403
 const HOST = `http://localhost:${PORT}`
 
