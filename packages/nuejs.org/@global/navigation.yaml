@@ -8,14 +8,14 @@ globalnav:
     - Blog: /blog/
     - Vision: /vision/
     - url: /blog/introducing-hyper/
-      label: "*Introducing Hyper* Crush React on every metric ›"
+      label: "*Introducing Hyper* A simple React alternative ›"
       class: news pill
 
 
   # header toolbar (complementary)
   toolbar:
     - Slack: //join.slack.com/t/nuejs/shared_invite/zt-2wf8ozu5i-N2Y9PA_D17weIWuN2QPOqQ "slack"
-    - 8.4k: //github.com/nuejs/nue "github pill"
+    - 8.5k: //github.com/nuejs/nue "github pill"
 
   # burger menu
   menu:
