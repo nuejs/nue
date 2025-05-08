@@ -1,37 +1,40 @@
-import { writeFile, rm, mkdir } from 'node:fs/promises'
-import { dirname, join } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { promises as fs } from 'node:fs'
+import { join } from 'node:path'
+
 import { createServer, TYPES } from '../src/nueserver.js'
 
-const __dirname = dirname(fileURLToPath(import.meta.url))
-const TEST_DIR = join(__dirname, 'tmp-mime-types')
+// temporary directory
+const root = '_test'
 const PORT = 3403
 const HOST = `http://localhost:${PORT}`
+const testFiles = []
 
-test('serves all MIME types with correct content-type', async () => {
-  const server = createServer(TEST_DIR, (url) => {
-    return { path: url.replace(/^\//, '') }
-  })
+
+// setup and teardown
+beforeAll(async () => {
+  await fs.rm(root, { recursive: true, force: true })
+  await fs.mkdir(root, { recursive: true })
+
+  // Setup: Create a temporary directory & a test file for each MIME type
+  for (const ext in TYPES) {
+    const filename = `test.${ext == 'default' ? 'unknown' : ext}`
+    const filePath = join(root, filename)
+
+    await fs.writeFile(filePath, '')
+    testFiles.push({ ext, filename, filePath })
+  }
+})
+
+afterAll(async () => {
+  await fs.rm(root, { recursive: true, force: true })
+})
+
+
+test('serve all file extensions with correct MIME type', async () => {
+  const server = createServer(root, (path) => ({ path }))
   server.listen(PORT)
 
   try {
-    // Setup: Create a temporary directory & a test file for each MIME type
-    const testFiles = []
-    await mkdir(TEST_DIR, { recursive: true })
-
-    for (const ext in TYPES) {
-      const testExt = ext === 'default' ? 'unknown' : ext
-      const filename = `test.${testExt}`
-      const filePath = join(TEST_DIR, filename)
-      
-      const pngHeader = '\x89PNG\r\n'
-      const content = ext.startsWith('image') ? pngHeader : 'nue'
-      
-      await writeFile(filePath, content)
-      testFiles.push({ ext, filename, filePath })
-    }
-
-    // Test
     for (const { ext, filename } of testFiles) {
       const res = await fetch(`${HOST}/${filename}`)
       const contentType = res.headers.get('content-type')
@@ -39,9 +42,5 @@ test('serves all MIME types with correct content-type', async () => {
       expect(res.status).toBe(200)
       expect(contentType).toBe(TYPES[ext])
     }
-  } finally {
-    // Teardown
-    await rm(TEST_DIR, { recursive: true, force: true })
-    server.close()
-  }
+  } finally { server.close() }
 })
