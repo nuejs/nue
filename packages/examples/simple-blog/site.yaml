@@ -4,7 +4,6 @@ globals: ["@global"]
 libs: ["@library"]
 
 view_transitions: true
-native_css_nesting: true
 inline_css: true
 sections: true
 

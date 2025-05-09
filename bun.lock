@@ -10,18 +10,8 @@
     },
     "packages/hyper": {
       "name": "nue-hyper",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "dependencies": {
-        "domino": "^2.1.6",
-      },
-    },
-    "packages/nuejs": {
-      "name": "nuejs-core",
-      "version": "0.5.3",
-      "dependencies": {
-        "htmlparser2": "^10.0.0",
-      },
-      "devDependencies": {
         "domino": "^2.1.6",
       },
     },
@@ -39,7 +29,7 @@
         "diff-dom": "^5.1.4",
         "js-yaml": "^4.1.0",
         "nue-glow": "*",
-        "nuejs-core": "*",
+        "nue-hyper": "*",
         "nuemark": "*",
       },
       "devDependencies": {
@@ -164,8 +154,6 @@
     "nue-glow": ["nue-glow@workspace:packages/glow"],
 
     "nue-hyper": ["nue-hyper@workspace:packages/hyper"],
-
-    "nuejs-core": ["nuejs-core@workspace:packages/nuejs"],
 
     "nuejs.org": ["nuejs.org@workspace:packages/nuejs.org"],
 

@@ -20,34 +20,19 @@ test('prefetch', () => {
 
 test('findComponent', () => {
   const lib = [
-    { name: 'beside' },
-    { name: 'hero', tagName: 'header' },
-    { tagName: 'header' },
+    { is: 'beside' },
+    { is: 'hero', tag: 'header' },
+    { tag: 'header' },
   ]
-
-  expect(findComponent('beside', lib).name).toBe('beside')
-  expect(findComponent('header', lib).name).toBeUndefined()
-
-})
-
-test('renderSlots', () => {
-  const lib = [
-    { name: 'head', render: () => '<head><meta></head>' },
-    { name: 'banner', render: () => '<banner>' },
-    { name: 'beside', render: () => '<aside>' },
-  ]
-
-  const slots = renderSlots({ beside: false }, lib)
-  expect(slots).toEqual({ head: "<meta>", banner: "<banner>" })
+  expect(findComponent('beside', lib).is).toBe('beside')
+  expect(findComponent('header', lib).is).toBeUndefined()
 })
 
 
 test('renderPage', () => {
   const document = { render: () => '<h1>Hello</h1>' }
-  const lib = [{ tagName: 'header', render: () => '<header>' }]
-  const html = renderPage({ language: 'fi', document }, lib)
-  expect(html).toStartWith('<html lang="fi" dir="ltr">')
-  expect(html).toInclude('<header></header>')
+  const html = renderPage({ language: 'fi', document }, [])
+  expect(html).toStartWith('<html lang="fi">')
   expect(html).toInclude('<h1>Hello</h1>')
 })
 

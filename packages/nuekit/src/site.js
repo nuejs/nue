@@ -2,7 +2,7 @@ import { promises as fs, existsSync } from 'node:fs'
 import { join, extname, parse as parsePath, resolve } from 'node:path'
 
 import yaml from 'js-yaml'
-import { parse as parseNue } from 'nuejs-core'
+import { parseHyper } from 'nue-hyper'
 import { nuedoc } from 'nuemark'
 
 import { fswalk } from './nuefs.js'
@@ -344,7 +344,7 @@ export async function createSite(args) {
     for (const path of paths) {
       try {
         const html = await read(path)
-        lib.unshift(...parseNue(html))
+        lib.unshift(...parseHyper(html))
       } catch (e) {
         if (!fileNotFound(e)) {
           log.error('parse error', path)

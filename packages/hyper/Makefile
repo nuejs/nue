@@ -1,6 +1,6 @@
 
 run-tests:
-	bun test # block
+	bun test block
 	# bun test --coverage
 
 build-demos:

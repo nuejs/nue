@@ -88,9 +88,14 @@ test('tag whitespace', () => {
 })
 
 test('html', () => {
-  const template = '<div>#{ html } here</div>'
-  const html = render(template, { html: '<b>Bold</b> text' })
+  const html = render('<div>#{ html } here</div>', { html: '<b>Bold</b> text' })
   expect(html).toBe('<div><b>Bold</b> text here</div>')
+})
+
+test.only('html false', () => {
+  const html = render('<a>#{ html }</a>', { html: false })
+  console.info(html)
+  // expect(html).toBe('<div><b>Bold</b> text here</div>')
 })
 
 test('class mapping', () => {
@@ -224,3 +229,15 @@ test('passtrough scripts', () => {
   expect(html).toInclude('analytics.js')
   expect(html).toInclude('type="module')
 })
+
+
+test('render functions', () => {
+  function heading(data) {
+    return `<h1>${ data.hello }, ${ data.who }</h1>`
+  }
+
+  const html = render(`<div><heading hello="Hello"/></div>`, { who: 'World'}, { fns: { heading } })
+  expect(html).toBe('<div><h1>Hello, World</h1></div>')
+})
+
+

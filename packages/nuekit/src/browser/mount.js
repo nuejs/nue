@@ -40,16 +40,16 @@ export async function mountAll(hmr_path) {
   const lib = els[0] ? await importAll(hmr_path) : []
   if (!lib[0]) return
 
-  const { createApp } = await import('./nue.js')
+  const { createApp } = await import('./hyper.js')
 
   for (const node of [...els]) {
     const name = node.getAttribute('custom') // || node.tagName.toLowerCase()
     const next = node.nextElementSibling
     const data = next?.type == 'application/json' ? JSON.parse(next.textContent) : {}
-    const comp = lib.find(a => a.name == name)
+    const comp = lib.find(a => [a.tag, a.is].includes(name))
 
     if (comp) {
-      const app = createApp(comp, data, lib).mount(node)
+      const app = createApp(lib, data).mount(node)
       apps.push(app)
 
     } else if (customElements.get(name)) {

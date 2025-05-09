@@ -2,7 +2,7 @@ import { promises as fs, existsSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-import { compileFile as nueCompile } from 'nuejs-core'
+import { compileHyper } from 'nue-hyper'
 
 import { buildJS } from './builder.js'
 import { version, colors, srcdir } from './util.js'
@@ -63,8 +63,7 @@ async function initDir({ dist, is_dev, esbuild, cwd, srcdir, outdir }) {
   // lets do it
   process.stdout.write(colors.green('✓') + ` Initialize ${dist}: `)
 
-  // await buildPackage('nuemark/src/browser/nuemark.js', 'nuemark.js')
-  await buildPackage('nuejs-core/src/browser/nue.js', 'nue.js')
+  await buildPackage('nue-hyper/hyper.js', 'hyper.js')
   await buildFile('view-transitions')
   await buildFile('app-router')
   await buildFile('mount')
@@ -77,7 +76,7 @@ async function initDir({ dist, is_dev, esbuild, cwd, srcdir, outdir }) {
     await buildPackage('diff-dom', 'diffdom.js')
     await buildFile('hotreload')
     await copy('error.css', outdir)
-    await nueCompile(join(fromdir, 'error.dhtml'), join(outdir, 'error.js'))
+    await buildHyper(join(fromdir, 'error.dhtml'), join(outdir, 'error.js'))
   }
 
   // favicon
@@ -87,6 +86,12 @@ async function initDir({ dist, is_dev, esbuild, cwd, srcdir, outdir }) {
   console.log()
 }
 
+
+async function buildHyper(from, to) {
+  const html = await fs.readFile(from, 'utf-8')
+  await fs.writeFile(to, compileHyper(html))
+
+}
 
 function resolvePath(npm_path) {
   const [npm_name, ...parts] = npm_path.split('/')

@@ -1,8 +1,8 @@
 
-import { parseTemplate, renderBlock } from '../src'
+import { parseHyper, renderBlock } from '../src'
 
 export function clickable(template, data) {
-  const lib = parseTemplate(template)
+  const lib = parseHyper(template)
   const block = renderBlock(lib[0], data, { lib })
   const { root } = block
 

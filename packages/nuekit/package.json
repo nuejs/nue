@@ -25,7 +25,7 @@
     "diff-dom": "^5.1.4",
     "js-yaml": "^4.1.0",
     "nue-glow": "*",
-    "nuejs-core": "*",
+    "nue-hyper": "*",
     "nuemark": "*"
   },
   "peerDependencies": {

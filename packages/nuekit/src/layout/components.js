@@ -73,16 +73,17 @@ function renderPrettyDate(date) {
 }
 
 // in Nue JS component format
-export function getLayoutComponents() {
-  return [
-    { name: 'navi', create: renderNavi },
-    { name: 'page-list', create: renderPageList },
-    { name: 'toc', create: renderTOC },
-    { name: 'symbols', create: renderSymbols },
-    { name: 'markdown', create: ({ content }) => renderInline(content) },
-    { name: 'pretty-date', create: ({ date }) => renderPrettyDate(date) },
-    { name: 'icon', create: data => renderIcon(data.src, data.symbol, data.icon_dir) },
-  ]
+export function getServerFunctions() {
+  return {
+    navi: renderNavi ,
+    toc: renderTOC,
+    symbols: renderSymbols,
+
+    'page-list': renderPageList,
+    markdown: data => renderInline(data.content) ,
+    icon: data => renderIcon(data.src, data.symbol, data.icon_dir) ,
+    'pretty-date': data => renderPrettyDate(data.date) ,
+  }
 }
 
 /****** utilities ********/

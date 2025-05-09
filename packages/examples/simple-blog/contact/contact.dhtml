@@ -3,7 +3,7 @@
   import { loadPage } from '/@nue/view-transitions.js'
 </script>
 
-<form @name="contact-me" @submit.prevent="submit" autocomplete="on">
+<form :is="contact-me" :submit="submit" autocomplete="on">
   <label>
     <span>Your name</span>
     <input type="text" name="name" placeholder="Example: John Doe" required>
@@ -22,8 +22,9 @@
   <button>Lets talk!</button>
 
   <script>
-    submit() {
+    submit(e) {
       loadPage('thanks.html')
+      e.preventDefault()
     }
   </script>
 </form>

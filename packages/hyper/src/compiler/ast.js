@@ -10,6 +10,7 @@ export function parseTags(tokens) {
   const blocks = []
   let i = 0
 
+
   function parseNode() {
     if (i >= tokens.length || !tokens[i].startsWith('<') || tokens[i].startsWith('</')) return
 

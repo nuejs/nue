@@ -1,51 +1,50 @@
 
-import { parse as parseNue } from 'nuejs-core'
+import { parseHyper, renderHyper, renderToString } from 'nue-hyper'
 
-import { getLayoutComponents, renderPageList } from './components.js'
+import { getServerFunctions } from './components.js'
 import { renderHead } from './head.js'
 
 
 const SLOTS = 'head banner header subheader pagehead pagefoot aside beside footer bottom main'.split(' ')
 
-const MAIN = parseNue(`
+const MAIN = parseHyper(`
   <main>
-    <slot for="aside"/>
+    #{ aside }
 
     <article>
-      <slot for="pagehead"/>
-      <slot for="content"/>
-      <slot for="pagefoot"/>
+      #{ pagehead }
+      #{ content }
+      #{ pagefoot }
     </article>
 
-    <slot for="beside"/>
+    #{ beside }
   </main>
 `)[0]
 
 function getPageLayout(data) {
-  const { language = 'en-US', direction = 'ltr' } = data
+  const { language = 'en-US', direction } = data
   const body_class = data.class ? ` class="${data.class}"` : ''
+  const dir = direction ? ` dir="${direction}"` : ''
 
   const html = ltrim(`
-    <html lang="${language}" dir="${direction}">
-
+    <html lang="${language}"${dir}>
       <head>
-        <slot for="system_head"/>
-        <slot for="head"/>
+        #{ system_head }
+        #{ head }
       </head>
 
       <body${body_class}>
-        <slot for="banner"/>
-        <slot for="header"/>
-        <slot for="subheader"/>
-        <slot for="main"/>
-        <slot for="footer"/>
-        <slot for="bottom"/>
+        #{ banner}
+        #{ header }
+        #{ subheader }
+        #{ main }
+        #{ footer }
+        #{ bottom }
       </body>
-
     </html>
   `)
 
-  return parseNue(html)[0]
+  return parseHyper(html)[0]
 }
 
 export function getSPALayout(body, data) {
@@ -71,18 +70,19 @@ function ltrim(str) {
 
 
 export function findComponent(name, lib) {
-  return lib.find(comp => comp.name == name || !comp.name && comp.tagName == name)
+  return lib.find(comp => comp.is == name || !comp.is && comp.tag == name)
 }
 
 
-export function renderSlots(data, lib) {
+export function renderSlots(data, opts) {
   const slots = {}
 
   for (const name of SLOTS) {
-    const comp = findComponent(name, lib)
+    const comp = findComponent(name, opts.lib)
     if (comp && data[name] !== false) {
       try {
-        let html = comp.render(data, lib)
+        console.info(comp)
+        let html = renderToString(comp, data, opts)
         if (html && name == 'head') html = html.slice(6, -7)
         slots[name] = html
 
@@ -97,46 +97,47 @@ export function renderSlots(data, lib) {
 
 
 // custom components as Markdown extensions (tags)
-function convertToTags(components, data) {
-  const tags = {}
+function convertToFns(lib, data) {
+  const fns = {}
 
-  components.forEach(comp => {
-    const { name } = comp || {}
+  lib.forEach(ast => {
+    const name = ast.is || ast.tag
 
-    if (name && comp.render && !SLOTS.includes(name)) {
-      tags[name] = function(data) {
-        const { attr, innerHTML } = this
-        return comp.render({ attr, ...data, innerHTML }, components)
+    if (name && !SLOTS.includes(name)) {
+      fns[name] = function(data) {
+        return renderToString(ast, data, { lib })
       }
     }
   })
 
-  return tags
+  return fns
 }
 
 export function renderPage(data, lib, custom_tags = {}) {
-  const comps = [...lib, ...getLayoutComponents()]
   const { document } = data
 
-  const tags = {
-    ...convertToTags(comps, data),
-    'page-list': renderPageList,
+  const fns = {
     toc: document.renderTOC,
+    ...convertToFns(lib, data),
+    ...getServerFunctions(),
     ...custom_tags
   }
 
-  // nuemark opts: { data, sections, heading_ids, links, tags }
+  // nuemark opts: { data, sections, heading_ids, links, fns }
   const { heading_ids, sections, content_wrapper, links } = data
-  const content = document.render({ data, heading_ids, sections, content_wrapper, links, tags })
 
-  const slots = renderSlots({ ...data, content }, comps)
+  const content = document.render({
+    data, heading_ids, sections, content_wrapper, links, tags: fns
+  })
+
+  const slots = renderSlots({ ...data, content }, { lib, fns })
 
   // <main>...</main>
   if (!slots.main && data.main !== false) {
-    slots.main = MAIN.render({ ...slots, ...data, content }, comps)
+    slots.main = renderToString(MAIN, { ...slots, ...data, content }, { lib })
   }
-
   // <html>...</html>
-  return getPageLayout(data).render({ system_head: renderHead(data), ...slots, ...data }, comps)
+  const ast = getPageLayout(data)
+  return renderToString(ast, { system_head: renderHead(data), ...slots, ...data }, { lib })
 }
 

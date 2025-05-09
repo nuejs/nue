@@ -19,18 +19,12 @@ Design systems are key to managing code at scale, but creating one that’s flex
 It's important to keep things lightweight: Write CSS that’s DRY, separating structure from skin using methodologies like BEM. Don't over-engineer — keep logic simple.
 
 ``` html numbered
-<figure @name="img" :class="class" :id="id">
-  <img loading="lazy" :alt="alt" :src="_ || src">
+<figure :is="img" class="${ class }" id="${ id }">
+  <img loading="lazy" src="${ src }">
 
--  <figcaption :if="caption">{{ caption }}</figcaption>
+-  <figcaption :if="caption">#{ caption }</figcaption>
 
-+  <p :if="caption">{{ caption }}</p>
-
-  <script>
-    •constructor(data)• {
-      this.caption = data.caption || ''
-    }
-  </script>
++  <p :if="caption">#{ caption }</p>
 </figure>
 ```
 
@@ -49,7 +43,7 @@ Once a painting is underway, digital photography can also assist the process. Ta
 > Put in the work upfront, and your system will pay dividends down the road.
 
 ``` .blue
-<form @name="join-list">
+<form :is="join-list">
   <label>
     <h4>Your name</h4>
     <input type="text" name="name" required>

@@ -1,7 +1,7 @@
 import { promises as fs, existsSync } from 'node:fs'
 import { join, parse as parsePath } from 'node:path'
 
-import { parse as parseNue, compile as compileNue } from 'nuejs-core'
+import { compileHyper, parseHyper, renderHyper } from 'nue-hyper'
 import { nuedoc } from 'nuemark'
 
 import { buildCSS, buildJS } from './builder.js'
@@ -13,7 +13,7 @@ import { fswatch } from './nuefs.js'
 
 import { log, colors, getAppDir, parsePathParts, extendData, toPosix } from './util.js'
 import { renderPage, getSPALayout } from './layout/page.js'
-import { getLayoutComponents } from './layout/components.js'
+import { getServerFunctions } from './layout/components.js'
 
 
 // the HTML5 doctype (can/prefer lowercase for consistency)
@@ -148,17 +148,21 @@ export async function createKit(args) {
 
     // SPA components and layout
     const html = await read(index_path)
-
     const lib = await site.getServerComponents(appdir, data)
-    lib.push(...getLayoutComponents())
 
     if (html.includes('<html')) {
-      const [spa, ...spa_lib] = parseNue(html)
-      return DOCTYPE + spa.render(data, [...lib, ...spa_lib])
+      const spa = parseHyper(html)
+      return DOCTYPE + renderHyper([...spa, ...lib], data, {
+        fns: getServerFunctions()
+      })
     }
-    const [spa] = parseNue(getSPALayout(html, data))
 
-    return DOCTYPE + spa.render(data, lib)
+    const layout = getSPALayout(html, data)
+    const spa = parseHyper(layout)
+
+    return DOCTYPE + renderHyper([...spa, ...lib], data, {
+      fns: getServerFunctions()
+    })
   }
 
 
@@ -238,7 +242,7 @@ export async function createKit(args) {
     // reactive component (.dhtml, .htm)
     if (file.is_dhtml || file.is_htm) {
       const raw = await read(path)
-      const js = await compileNue(raw)
+      const js = await compileHyper(raw)
       await write(js, dir, `${name}.js`)
       return { size: js.length }
     }

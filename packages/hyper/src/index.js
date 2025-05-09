@@ -5,6 +5,7 @@ import { parseTemplate, compileTemplate } from './compiler'
 
 import { createBlock } from './block/block.js'
 
+
 export function renderBlock(ast, data, opts) {
   const document = domino.createDocument()
   if (!global.document) global.document = document
@@ -14,23 +15,24 @@ export function renderBlock(ast, data, opts) {
 }
 
 export function renderToString(ast, data, opts) {
+  if (ast.is_custom) { delete ast.is_custom; ast.tag = 'div' }
   return renderBlock(ast, data, opts).root.innerHTML
 }
+
 
 export function render(template, data, opts={}) {
   const nodes = parseTemplate(template)
   const { lib=[] } = opts
   opts.lib = [...nodes, ...lib]
-  const [ app ] = nodes
-
-  if (app.is_custom)  {
-    // delete app.is_custom
-    // app.tag = 'div'
-  }
   return renderToString(nodes[0], data, opts)
 }
 
 
-export { compileTemplate as compile }
+export function renderHyper(lib, data, opts={}) {
+  opts.lib = lib.slice(1)
+  return renderToString(lib[0], data, opts)
+}
 
-export { parseTemplate }
+export { compileTemplate as compileHyper }
+
+export { parseTemplate as parseHyper }

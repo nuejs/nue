@@ -1,5 +1,6 @@
+
 <dialog class="nuerr">
-  <a @click="unmount">&times;</a>
+  <a :click="root.remove()">&times;</a>
   <h3><b class="nue-{ ext }">{ ext }</b> { title }</h3>
   <p>{ text }</p>
   <pre>{ lineText }</pre>
@@ -21,8 +22,8 @@
   }
 
   export async function showError(data) {
-    const { createApp } = await import('/@nue/nue.js')
-    const app = createApp(lib[0], data).append(document.body)
+    const { createApp } = await import('/@nue/hyper.js')
+    const app = createApp(lib, data).append(document.body)
     loadCSS('/@nue/error.css', () => app.root.showModal())
   }
 </script>

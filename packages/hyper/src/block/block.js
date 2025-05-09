@@ -139,6 +139,12 @@ export function createBlock(ast, data={}, opts={}, parent) {
   }
 
   function renderComponent(ast, data) {
+
+    // render function?
+    const fn = opts.fns && opts.fns[ast.tag]
+    if (fn) return renderHTML(fn({ ...getAttrData(ast, data), ...data }, opts))
+
+    // custom component
     const comp = findComponent(ast, data)
     if (!comp) return renderTag({ tag: 'div' }, data)
 
@@ -224,7 +230,7 @@ function exec(fn, data, e) {
 function renderHTML(html) {
   const frag = createFragment()
   const temp = document.createElement('div')
-  temp.innerHTML = html
+  temp.innerHTML = html || ''
   while (temp.firstChild) frag.appendChild(temp.firstChild)
   return frag
 }

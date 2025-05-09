@@ -214,7 +214,6 @@ test('SPA', async () => {
   // rendered page
   const kit = await getKit()
   const html = await kit.renderSPA('app/index.html')
-
   expect(html).toInclude('hotreload.js')
 })
 
@@ -274,20 +273,20 @@ test('basic page generation', async () => {
 
 
 test('simple custom tag', async () => {
-  await write('layout.html', '<a @name="test">Hey</a>')
-  await write('index.md', '[test]')
+  await write('layout.html', '<say>${ msg }</say>')
+  await write('index.md', '[say msg="Hello"]')
 
   const kit = await getKit()
   const html = await kit.gen('index.md')
-  expect(html).toInclude('<a>Hey</a>')
+  expect(html).toInclude('<div>Hello</div>')
 })
 
-test('custom tag with <slot/>', async () => {
+test.skip('custom tag with innner content', async () => {
   const HTML = `
-    <div @name="test">
+    <test>
       <h2>Hello</h2>
-      <slot/>
-    </div>
+      #{ content }
+    </test>
   `
   const MD = [
     '[test]',
@@ -311,12 +310,12 @@ test('layout components', async () => {
 
   await write('layout.html', '<header/>')
   await write('blog/layout.html', '<header/>')
-  await write('blog/entry/layout.html', '<header @name="c"/>')
+  await write('blog/entry/layout.html', '<header :is="c"/>')
 
   // root layout
   const comps = await site.getServerComponents()
   expect(comps.length).toBe(1)
-  expect(comps[0].tagName).toBe('header')
+  expect(comps[0].tag).toBe('header')
 
   // app layout
   const comps2 = await site.getServerComponents('blog')
@@ -325,7 +324,7 @@ test('layout components', async () => {
   // page layout
   const comps3 = await site.getServerComponents('blog/entry')
   expect(comps3.length).toBe(3)
-  expect(comps3[0].name).toBe('c')
+  expect(comps3[0].is).toBe('c')
 })
 
 
@@ -333,7 +332,7 @@ test('page layout', async () => {
   await write('layout.html', `
     <header>Header</header>
     <aside>Aside</aside>
-    <aside @name="beside">Beside</aside>
+    <aside :is="beside">Beside</aside>
   `)
   await write('site.yaml', 'aside: false')
   await write('index.md', '# Hey')

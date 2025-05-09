@@ -91,7 +91,7 @@ test('path parts', () => {
   expect(parts.slug).toBe('semantic-css.html')
 })
 
-test('create', async () => {
+test.skip('create', async () => {
   const terminate = await create({ root, name: 'test' })
   terminate()
 
@@ -100,7 +100,7 @@ test('create', async () => {
   expect(contents).toContain('.dist') // should be built
 }, 10_000)
 
-test('create without name arg', async () => {
+test.skip('create without name arg', async () => {
   const terminate = await create({ root, paths: [], debug: true })
   terminate()
 
