@@ -78,9 +78,9 @@ Next we examine how these approaches handle increasing complexity. Here's the sa
 
 1. **Modern React** is assembled according to ShadCN's [data table](//ui.shadcn.com/docs/components/data-table) documentation. The bundled JavaScript is **91.3KB**. [Source](complex-table.html) • [Demo](/hyper/demo/react/complex-table.html)
 
-2. **Vanilla TSX** uses `useState` and `useMemo` to implement the added functionality, and the HTML is tagged with numerous class names.
+2. **Vanilla TSX** uses `useState` and `useMemo` to implement the added functionality, and the HTML is tagged the old school way with numerous class names.
 
-3. **Hyper** uses semantic HTML with two instance methods for sorting and filtering. The resulting JS is only **3.9KB** minzipped (1.2KB + 2.7KB for hyper.js). [Source](complex-table.html#hyper) • [Demo](/hyper/demo/table/complex-table.html)
+3. **Hyper** uses semantic HTML with minimal class names and two instance methods for sorting and filtering. The resulting JS is only **3.9KB** minzipped (1.2KB + 2.7KB for hyper.js). [Source](complex-table.html#hyper) • [Demo](/hyper/demo/table/complex-table.html)
 
 
 
@@ -101,7 +101,7 @@ Here is the same dashboard, but with "Ramsian" look and feel:
   small: img/ramsian.png
   href: /hyper/demo/dashboard/ramsian.html
 
-This transformation required zero changes to component code. Just a [32-line CSS file](//github.com/nuejs/nue/blob/master/packages/hyper/demo/dashboard/ramsian.css) extending the base design system. [Demo](/hyper/demo/dashboard/minimal.html)
+This transformation required zero changes to component code. Just a [32-line CSS file](//github.com/nuejs/nue/blob/master/packages/hyper/demo/dashboard/ramsian.css) extending the base design system. [Demo](/hyper/demo/dashboard/ramsian.html)
 
 
 ### Modern React: tightly coupled design
@@ -142,7 +142,7 @@ This solves three key issues in modern React:
 1. **Central design system** easily maintainable from the same place
 1. **Zero boilerplate** due to strict separation of concerns
 
-Nue actually _enforces_ you to external design system. Tight coupling in any form: CSS-in-JS, class name abuse, component-specific `<style>` elements, inline `style` attributes, or cryptic utility classes like `size-[max(100%,2.75rem)] are systematically eliminated.
+Nue actually _enforces_ you to external design system. Tight coupling in any form: CSS-in-JS, class name abuse, component-specific `<style>` elements, inline `style` attributes, or cryptic class name values like `size-[max(100%,2.75rem)]` are systematically eliminated.
 
 
 ## Scalability
@@ -213,7 +213,7 @@ Nue is a website/webapp generator based on [Nue JS](//github.com/nuejs/nue/tree/
 
 
 ### Isn't this just another framework?
-Hyper takes a different approach than what this question suggests. Rather than adding to the ecosystem of tools and abstractions, Hyper aims to reduce complexity by returning to web standards. It eliminates the need for many specialized frameworks, libraries, and practices that have emerged to solve challenges within the React ecosystem. Our goal is to offer a simpler path reducing the need for constantly learning new frameworks and tools.
+Hyper takes a different approach than what this question suggests. Rather than adding to the ecosystem of tools and abstractions, Hyper aims to reduce tooling and complexity by returning to web standards. It eliminates the need for many specialized frameworks, libraries, and practices that have emerged to solve challenges within the React ecosystem. Our goal is to offer a simpler path reducing the need for constantly learning new frameworks and tools.
 
 
 ### Why are standards so important?
@@ -255,7 +255,7 @@ Estimate: 4-5 months.
 
 
 ### How can a small library challenge React's dominance?
-Gradually and strategically. To succeed, we need to address two key challenges:
+Gradually. To succeed, we particularly need to address the following:
 
 1. **Developer perception**: Many frontend developers have come to view abstraction layers as essential. As Hyper demonstrates how professional UIs can be built without these complexities, this perception will shift.
 
@@ -268,7 +268,7 @@ Once these challenges are addressed, Hyper has the potential to gain significant
 Yes, "Hyper" a Rust HTTP library, an Electron terminal emulator, and now a HTML-based language syntax. Each serving a unique purpose in different contexts.
 
 ### Can I contribute?
-Yes. Especially ideas that don't interfere with the core architecture. If you have deep CSS expertise, especially those with experience in standards-first approaches, I'd particularly love to connect with you!
+Yes. Especially ideas that don't interfere with the core architecture. If you have deep CSS expertise, I'd particularly love to connect with you.
 
 
 ### Can I give feedback?
