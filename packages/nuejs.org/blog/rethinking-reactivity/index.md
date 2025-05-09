@@ -290,7 +290,7 @@ Here's how Nue JS works.
 First, a Nue component is compiled or "transpiled" to plain JavaScript so that browsers can run it. Let's look at our counter component again:
 
 ```html
-<button @name="counter" @click="count++">
+<button :is="counter" @click="count++">
   Clicked { count } { count == 1 ? 'time' : 'times' }
   <script>count = 0</script>
 </button>

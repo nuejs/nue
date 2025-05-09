@@ -15,7 +15,7 @@
 </footer>
 
 <!-- burger menu -->
-<dialog @name="bottom" popover id="menu">
+<dialog :is="bottom" popover id="menu">
   <button class="action" popovertarget="menu">
     <img src="/icon/close.svg">
   </button>
@@ -23,9 +23,14 @@
 </dialog>
 
 <!-- copy button on code block -->
-<div @name="codeblock" class="codeblock" :attr>
-  <button class="copy" :data-copy="copy" title="Copy code block"><img src="/icon/copy.svg" alt=""></button>
+<div :is="codeblock" class="codeblock">
+
+  <button class="copy" :data-copy="copy" title="Copy code block">
+    <img src="/icon/copy.svg">
+  </button>
+
   <pre><slot/></pre>
+
   <script>
     constructor({ code }) {
       this.copy = encodeURIComponent(code.join('\n'))

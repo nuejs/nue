@@ -59,7 +59,7 @@ Unlike React, which relies heavily on JavaScript, Nue is based on HTML. Any vali
 Nue components are named HTML fragments that can be looped and rendered conditionally, enabling nesting within other components. Assign a component name using the `@name` attribute:
 
 ```html
-<div •@name="media-object"• class="{ class }">
+<div •:is="media-object"• class="{ class }">
   <img src="{ img }">
   <aside>
     <h3>{ title }</h3>
@@ -71,7 +71,7 @@ Nue components are named HTML fragments that can be looped and rendered conditio
 Once named, components can be nested inside one another to form more complex applications and tree-like structures. For example:
 
 ```html
-<section @name="image-gallery" class="gallery">
+<section :is="image-gallery" class="gallery">
   <header>
     <h1>{ title }</h1>
     <p>{ desc }</p>
@@ -241,7 +241,7 @@ Nue allows you to pass nested Markdown content to your components. For example, 
 Here’s a simplified implementation of the `background-video` component:
 
 ```html
-<div @name="background-video" class="bg-video">
+<div :is="background-video" class="bg-video">
   <video :src/>
 
   <!-- the Markdown generated HTML goes here -->
@@ -260,7 +260,7 @@ Both server-side and client-side components in Nue can be scripted before render
 Properties and methods are defined inside a `<script>` block that is a direct child of the component root. Here’s an example of a `pretty-date` server-side component:
 
 ```html
-<time @name="pretty-date" :datetime="toIso(date)">
+<time :is="pretty-date" :datetime="toIso(date)">
   { pretty(date) }
 
   <!-- Properties and methods -->
@@ -311,7 +311,7 @@ You can set up local functions and variables using root-level script blocks:
   let counter = 0; // Initialize a counter variable
 </script>
 
-<div @name="comp-a">
+<div :is="comp-a">
   <h3>A count: { counter }</h3>
 
   <script>
@@ -321,7 +321,7 @@ You can set up local functions and variables using root-level script blocks:
   </script>
 </div>
 
-<div @name="comp-b">
+<div :is="comp-b">
   <h3>B count: { counter }</h3>
 
   <script>
@@ -388,7 +388,7 @@ Let’s add a simple image gallery component to this page:
 Here’s the source code for the gallery component:
 
 ```html
-<div @name="image-gallery" class="image-gallery" translate="no">
+<div :is="image-gallery" class="image-gallery" translate="no">
 
   <!-- Action to seek to the previous image -->
   <a class="seek prev" @click="index--" :if="index"></a>
@@ -617,7 +617,7 @@ Here’s a simple demo of using an array:
 Here's the source code for the above demo:
 
 ```html
-<div @name="array-demo" class="array-demo">
+<div :is="array-demo" class="array-demo">
 
   <button @click="add" :disabled="items[5]">Add user</button>
 
@@ -706,7 +706,7 @@ The component re-renders itself automatically after calling an event handler, bu
 You can obtain a handle to nested DOM elements or components via the `$refs` property:
 
 ```html
-<div @name="my-component">
+<div :is="my-component">
 
   <!-- Name a DOM node with the "ref" attribute -->
   <figure ref="image"></figure>
@@ -745,7 +745,7 @@ You can add and import shared code within a top-level `<script>` tag. Here’s a
 </script>
 
 <!-- Shopping cart component -->
-<article @name="shopping-cart">
+<article :is="shopping-cart">
   <div :for="item in items">
     <h3>{ item.price }</h3>
     <p>{ item.amount }</p>
@@ -759,7 +759,7 @@ You can add and import shared code within a top-level `<script>` tag. Here’s a
 </article>
 
 <!-- "Add to cart" component -->
-<button @name="add-to-cart" @click="click">
+<button :is="add-to-cart" @click="click">
   <script>
     click() {
       addToCart(this.data); // Add item to the cart

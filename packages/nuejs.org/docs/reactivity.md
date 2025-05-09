@@ -219,7 +219,7 @@ More complex components with dynamically generated HTML are better implemented w
 Reactive islands are interactive components within the server-rendered, static HTML. This progressively rendering pattern is called the [islands architecture](//www.patterns.dev/vanilla/islands-architecture/). On this website, we have "join mailing list" islands, that are implemented as follows:
 
 ```html
-<div @name="join-list">
+<div :is="join-list">
 
   <h4 :if="sessionStorage.joined">
     You have successfully joined the mailing list. Thank you for your interest!
@@ -272,7 +272,7 @@ Isomorphic components are hybrid client-side and server-side components that are
 
 ```html
 <!-- isomorphic video component utilizing Bunny CDN -->
-<figure class="video" @name="bunny-video">
+<figure class="video" :is="bunny-video">
 
   <!-- client-side video player -->
   <bunny-player :videoId="videoId" :poster="poster" :width="width"/>

@@ -140,7 +140,7 @@ This keeps navigation simple and centralized. See [layout.html](layout.html) for
 Each post gets a header from `blog/hero.html`:
 
 ```html
-<header @name="pagehead">
+<header :is="pagehead">
   <h1>{ title }</h1>
   <p>
     <pretty-date :date="pubDate"/> • Content by AI
@@ -213,7 +213,7 @@ Here’s the island from the demo, in `contact-me.htm`:
   import { loadPage } from '/@nue/view-transitions.js'
 </script>
 
-<form @name="contact-me" @submit.prevent="submit" autocomplete="on">
+<form :is="contact-me" @submit.prevent="submit" autocomplete="on">
   <label>
     <span>Your name</span>
     <input type="text" name="name" placeholder="Example: John Doe" required>

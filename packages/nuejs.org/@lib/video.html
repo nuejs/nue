@@ -1,22 +1,14 @@
 
 <!-- From Bunny CDN -->
-<div @name="bunny-video" class="video splash { attr?.class }" :style>
+<div :is="bunny-video" class="video splash ${ attr?.class }" :style>
 
   <noscript>
-    <video src="https://video.nuejs.org/{videoId}/play_720p.mp4" type="video/mp4" controls>
+    <video src="https://video.nuejs.org/${videoId}/play_720p.mp4" type="video/mp4" controls>
   </noscript>
 
-  <bunny-player :videoId="videoId" :poster :width :height/>
+  <bunny-player :videoId :poster :width :height/>
 
   <figcaption :if="caption">
     <markdown :content="caption"/>
   </figcaption>
-
-  <script>
-    constructor(args) {
-      const { width, style } = args
-      if (width && !style) this.style = `max-width: ${width}px`
-    }
-  </script>
-
 </div>

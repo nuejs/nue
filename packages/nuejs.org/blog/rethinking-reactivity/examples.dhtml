@@ -1,12 +1,12 @@
 
-<div @name="counter" class="demo card">
+<div :is="counter" class="demo card">
   <h3>You clicked {count} times!</h3>
   <button @click="count--">Decrement</button>
   <button @click="count++">Increment</button>
   <script>count = 0</script>
 </div>
 
-<div  @name="simple-counter" class="demo card">
+<div  :is="simple-counter" class="demo card">
   <button @click="count++">
     Clicked { count } { count == 1 ? 'time' : 'times' }
   </button>
@@ -14,7 +14,7 @@
   <script>count = 0</script>
 </div>
 
-<div @name="reactive-loop" class="demo card">
+<div :is="reactive-loop" class="demo card">
 
   <p>
     <button @click="addFruit">Add</button>
@@ -34,10 +34,10 @@
 </div>
 
 
-<div @name="user-update" class="demo card">
+<div :is="user-update" class="demo card">
   <img :src="user.avatar">
-  <h3>{ user.name }</h3>
-  <p>{ user.email }</p>
+  <h3>${ user.name }</h3>
+  <p>${ user.email }</p>
 
   <button @click="loadJane" :disabled="is_loaded">Load Jane</button>
 

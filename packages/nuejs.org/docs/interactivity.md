@@ -24,7 +24,7 @@ Views use event handlers to kick off this cycle, listening for user actions and 
   import { model } from './model/index.js'
 </script>
 
-<form @name="chat-form" @submit.prevent="submit">
+<form :is="chat-form" @submit.prevent="submit">
   <textarea name="body"></textarea>
   <button class="primary"><icon key="send"/></button>
   <script>
@@ -60,7 +60,7 @@ router.configure({
 This updates the route:
 
 ```html
-<div @name="search-input" class="search" data-accesskey="/">
+<div :is="search-input" class="search" data-accesskey="/">
   <icon key="search"/>
   <input @input="search" :value="value" type="search" placeholder="Search..." :autofocus="value">
   <kbd><strong>⌘</strong></kbd><kbd>K</kbd>
@@ -78,7 +78,7 @@ This updates the route:
 This responds to route changes:
 
 ```html
-<section @name="content-panel">
+<section :is="content-panel">
   <header>
     <h2>{ renderHeader() }s</h2>
     <nav>...</nav>
@@ -116,7 +116,7 @@ router.configure({
 URL params sync with the address bar, session params persist across refreshes, and persistent params — like `show_grid_view` — store user preferences in local storage. Here’s an example toggling a grid view:
 
 ```html
-<nav @name="view-toggler">
+<nav :is="view-toggler">
   <button @click="toggleGridView"
     :aria-pressed="!router.state.show_grid_view"
     title="Toggle table view"><icon key="list"/></button>

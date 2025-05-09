@@ -9,7 +9,7 @@ In Nue, complex apps are built with clean, semantic HTML. The view layer handles
 With logic in the model, views become pure templates:
 
 ```html
-<article @name="user-profile">
+<article :is="user-profile">
   <header>
     <img :src="user.avatar" class="avatar">
     <div>
@@ -101,7 +101,7 @@ Views form a hierarchy:
 From the demo:
 
 ```html
-<div @name="app" class="ui app">
+<div :is="app" class="ui app">
   <nav-panel class="navigation panel"/>
   <main-panel class="card panel"/>
   <details-panel class="details card panel"/>

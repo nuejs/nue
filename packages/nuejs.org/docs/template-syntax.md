@@ -88,7 +88,7 @@ You can pass values to your components using attributes. These values can be sta
 All attribute values are accessible inside the component:
 
 ```html
-<div @name="media">
+<div :is="media">
   <h3>{ title }</h3>
 </div>
 ```
@@ -146,7 +146,7 @@ You can combine the object notation with other bracket expressions:
 The parent class attribute is automatically merged with the child's class attribute. Suppose we have the following component:
 
 ```html
-<button @name="my-button" class="btn">Click me</button>
+<button :is="my-button" class="btn">Click me</button>
 ```
 
 If we mount it as follows:
@@ -202,7 +202,7 @@ Would be rendered as:
 All parent attributes are accessible via the `$attrs` property. In this example, the nested input field will inherit all parent attributes.
 
 ```html
-<label @name="field">
+<label :is="field">
   <h5>{ title }</h5>
   <input :attr="$attrs">
 </label>

@@ -86,7 +86,7 @@ router.del('query')  // /app/users/active?start=0
 Toggle a view mode:
 
 ```html
-<nav @name="view-toggler">
+<nav :is="view-toggler">
   <button @click="toggleGridView" :aria-pressed="!router.state.grid_view">
     <icon key="list"/>
   </button>

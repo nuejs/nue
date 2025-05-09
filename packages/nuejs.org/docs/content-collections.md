@@ -112,7 +112,7 @@ Example: [simple-blog.nuejs.org](//simple-blog.nuejs.org/)
 For full control over the rendered output, you can create a [custom component](custom-components.html). For example:
 
 ```html
-<div @name="blog-posts">
+<div :is="blog-posts">
   <div :for="post in posts">
     <img :src="post.thumb" alt="{ post.title } thumbnail">
     <h3>{ post.title }</h3>
@@ -124,7 +124,7 @@ For full control over the rendered output, you can create a [custom component](c
 The `posts` variable is a standard JavaScript Array, which means you can use array methods to slice, map, and filter your collection as needed. You can also add JavaScript logic to customize the collection further.
 
 ```html
-<div @name="blog-posts">
+<div :is="blog-posts">
   <div :for="post in posts">
     <img :src="post.thumb" alt="{ post.title } thumbnail">
     <h3>{ post.title }</h3>

@@ -1,6 +1,6 @@
 
 <!-- For Bunny CDN -->
-<div @name="bunny-player" class="paused player">
+<div :is="bunny-player" class="paused player">
   <video ref="video" :poster="splash" :width="width" :height="height" muted/>
   <a class="play"></a>
   <a class="fullscreen" @click="fullscreen"></a>

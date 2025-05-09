@@ -10,7 +10,7 @@ This documentation area, for example, has the following documentation-specific l
 
 
 <!-- complementary sidebar (right) -->
-<aside @name="complementary">
+<aside :is="complementary">
   <h3>{ lang.this_page }</h3>
   <toc is="observing-nav"/>
 
@@ -23,7 +23,7 @@ This documentation area, for example, has the following documentation-specific l
 </aside>
 
 <!-- the back button below the global header -->
-<nav @name="subheader">
+<nav :is="subheader">
   <button popovertarget="sidebar"/>
   <strong>{ lang.menu } &rsaquo; { title }</strong>
 </nav>

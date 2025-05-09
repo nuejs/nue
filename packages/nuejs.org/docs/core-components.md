@@ -133,7 +133,7 @@ The `<symbols/>` component scans your `.svg` icon files and turns them into SVG 
 Define a reusable icon component:
 
 ```html
-<svg @name="icon" class="icon {key}-icon">
+<svg :is="icon" class="icon {key}-icon">
   <use href="#{key}-symbol"/>
 </svg>
 ```
@@ -183,7 +183,7 @@ The `<pretty-date>` component displays a formatted date value provided in the `d
 Here’s an example of a "hero" area for a blog entry that utilizes both the `markdown` and `pretty-date` components:
 
 ```html
-<header @name="pagehead">
+<header :is="pagehead">
   <pretty-date :date="date"/>
 
   <h1><markdown :content="title"/></h1>
@@ -236,7 +236,7 @@ The built-in `codeblock` component can be overwritten, to implement for example 
 It has to be a layout component, and is by default defined as:
 
 ```html
-<pre @name="codeblock" :attr><slot/></pre>
+<pre :is="codeblock" :attr><slot/></pre>
 ```
 
 The component gets access to the data `language` and original `code` block code as list of lines.

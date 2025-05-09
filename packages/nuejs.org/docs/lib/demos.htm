@@ -1,5 +1,5 @@
 
-<div @name="image-gallery" class="image-gallery" translate="no">
+<div :is="image-gallery" class="image-gallery" translate="no">
 
   <a class="seek prev" @click="index--" :if="index"></a>
   <img src="{ basedir }/{ images && images[index] }">
@@ -16,7 +16,7 @@
 </div>
 
 
-<div @name="media-object" :class="type">
+<div :is="media-object" :class="type">
   <img :src="img" loading="lazy">
   <div>
     <h3>{ title }</h3>
@@ -26,7 +26,7 @@
 </div>
 
 
-<div @name="array-demo" class="array-demo">
+<div :is="array-demo" class="array-demo">
 
   <button @click="add" :disabled="items[5]">Add user</button>
 

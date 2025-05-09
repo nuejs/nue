@@ -77,7 +77,7 @@ Here's a simple site header:
 For slots that aren't HTML5 landmarks, use the `@name` attribute:
 
 ```html
-<div @name="banner">
+<div :is="banner">
   <strong>Major update available!</strong>
   <a href="/blog/release-2.0/">Check out v2.0</a>
 </div>

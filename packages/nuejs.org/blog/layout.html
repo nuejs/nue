@@ -1,31 +1,36 @@
 
 <!-- back button  -->
-<nav @name="subheader">
-  <a href="/blog/{ back_to }">Back</a>
+<nav :is="subheader">
+  <a href="/blog/${ back_to }">Back</a>
 </nav>
 
 <!-- the hero area for each blog entry -->
-<header @name="pagehead">
+<header :is="pagehead">
   <pretty-date :date/>
 
-  <h1><markdown :content="hero_title || title"/></h1>
+  <h1>
+    <!--
+    <markdown :content="hero_title || title"/>
+    -->
+    ${ title }
+  </h1>
 
   <author :bind="authors[author || authors.default]"/>
 
 </header>
 
 <!-- custom component: <author/> -->
-<div @name="author" class="author">
-  <span><img :src="img" width="36" height="36"></span>
+<div :is="author" class="author">
+  <span><img src="${ img }" width="36" height="36"></span>
 
   <aside>
-    <b>{ name }</b>
-    <a href="//x.com/{ username }">@{ username }</a>
+    <b>${ name }</b>
+    <a href="//x.com/${ username }">@${ username }</a>
   </aside>
 </div>
 
 <!-- page footer: join mailing list / "call to action" -->
-<footer @name="pagefoot">
+<footer :is="pagefoot">
 
   <h2>Ultimate goal</h2>
   <p>
@@ -36,10 +41,11 @@
     <img src="/img/roadmap-2025-2-big.png" alt="Nue roadmap" loading="lazy">
   </a>
 
-  <p>Join the mailing list to follow our progress and see how our <a href="/vision/">vision</a> unfolds:</p>
+  <p>
+    Join the mailing list to follow our progress and see how our <a href="/vision/">vision</a> unfolds:
+  </p>
 
   <join-list/>
-
 
 </footer>
 

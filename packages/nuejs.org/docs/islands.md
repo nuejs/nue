@@ -9,7 +9,7 @@ Interactive islands in Nue add dynamic features to your static web content. Thes
 Islands use an HTML-based [templates](template-syntax.html) stored in `.dhtml` files, identified by the `@name` attribute. Here’s a mailing list form:
 
 ```html
-<form @name="join-list" @submit.prevent="submit" autocomplete="on">
+<form :is="join-list" @submit.prevent="submit" autocomplete="on">
   <label>
     <span>Your name</span>
     <input type="text" name="name" placeholder="Example: John Doe" required>
@@ -53,7 +53,7 @@ Nue replaces `[join-list]` with the form’s HTML, ready to work when the page l
 Embed islands in layout templates:
 
 ```html
-<footer @name="pagefoot">
+<footer :is="pagefoot">
   <h3>Join our mailing list</h3>
   <p>Be the first to know about our new releases</p>
   <join-list/>
@@ -102,7 +102,7 @@ This flexibility ties islands to your content structure without hardcoding value
 For SEO-critical interactivity, islands can render on both server and client. Here’s a video player:
 
 ```html
-<div @name="video-player">
+<div :is="video-player">
   <noscript>
     <video src="https://video.nuejs.org/{videoId}/play_720p.mp4" controls>
       Your browser does not support the video tag.

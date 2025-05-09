@@ -92,10 +92,9 @@ test('html', () => {
   expect(html).toBe('<div><b>Bold</b> text here</div>')
 })
 
-test.only('html false', () => {
+test('html false', () => {
   const html = render('<a>#{ html }</a>', { html: false })
-  console.info(html)
-  // expect(html).toBe('<div><b>Bold</b> text here</div>')
+  expect(html).toBe('<a></a>')
 })
 
 test('class mapping', () => {
@@ -241,3 +240,6 @@ test('render functions', () => {
 })
 
 
+test.only('isomorphism', () => {
+
+})
