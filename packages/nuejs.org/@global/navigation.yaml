@@ -7,8 +7,8 @@ globalnav:
     - Docs: /docs/
     - Blog: /blog/
     - Vision: /vision/
-    - url: /blog/introducing-hyper/
-      label: "*Introducing Hyper* A simple React alternative ›"
+    - url: /blog/standards-first-react-alternative/
+      label: "*Hyper* Standards first React alternative ›"
       class: news pill
 
 
