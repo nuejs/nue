@@ -19,7 +19,9 @@ beforeEach(async () => {
   await fs.mkdir(root, { recursive: true })
 })
 
-afterEach(async () => await fs.rm(root, { recursive: true, force: true }))
+afterEach(async () => {
+  await fs.rm(root, { recursive: true, force: true })
+})
 
 async function write(filename, code) {
   const file = join(root, filename)
