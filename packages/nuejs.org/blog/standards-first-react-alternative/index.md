@@ -255,7 +255,7 @@ Estimate: 4-5 months.
 
 
 ### How can a small library challenge React's dominance?
-Gradually. To succeed, we particularly need to address the following:
+Gradually. To succeed, we need to address the following:
 
 1. **Developer perception**: Many frontend developers have come to view abstraction layers as essential. As Hyper demonstrates how professional UIs can be built without these complexities, this perception will shift.
 
