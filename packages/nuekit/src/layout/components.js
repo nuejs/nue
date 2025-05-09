@@ -18,34 +18,30 @@ export function collectionToFeed(data) {
 
   const feed_content = [
     '<?xml version="1.0" encoding="UTF-8"?>',
-    elem('rss', { version: '2.0', 'xmlns:atom': 'http://www.w3.org/2005/Atom' },
-      elem('channel', [
+    elem('feed', { xmlns: 'http://www.w3.org/2005/Atom' },
+      [
         // feed info
         elem('title', title),
         elem('description', ''),
-        elem('link', site),
-        elem('image', [
-          elem('title', title),
-          elem('url', icon),
-          elem('link', site),
-        ].join('')),
-        elem('lastBuildDate', new Date().toUTCString()),
-        elem('generator', `Nue v${data.nuekit_version} (nuejs.org)`),
-        elem('atom:link', { href: feed_url, rel: 'self', type: 'application/rss+xml' }),
+        `<link href="${site}"/>`,
+        elem('id', feed_url),
+        elem('updated', new Date().toISOString()),
+        elem('generator', { uri: 'https://nuejs.org/', version: data.nuekit_version }, 'Nuekit'),
+        `<link href="${feed_url}" rel="self" type="application/atom+xml"/>`,
 
-        // items
-        (data[key] || []).map(({ url, date, title, description }) => {
+        // entries
+        ...(data[key] || []).map(({ url, date, title, description }) => {
           const link = `${data.origin}${url}`
 
-          return elem('item', [
-            elem('guid', link),
-            elem('link', link),
-            elem('pubDate', (date || new Date()).toUTCString()),
+          return elem('entry', [
             elem('title', title),
-            elem('description', renderInline(description).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')),
+            elem('id', link),
+            `<link href="${link}"/>`,
+            elem('published', (date || new Date()).toISOString()),
+            elem('summary', { type: 'xhtml' }, renderInline(description)),
           ].join(''))
-        }).join(''),
-      ].join(''))
+        })
+      ].join('\n')
     ),
   ].join('')
 
