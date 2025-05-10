@@ -281,17 +281,18 @@ test('simple custom tag', async () => {
   expect(html).toInclude('<div>Hello</div>')
 })
 
-test.skip('custom tag with innner content', async () => {
+test('custom tag with innner content', async () => {
   const HTML = `
     <test>
       <h2>Hello</h2>
-      #{ content }
+      <slot/>
+      <p>MD: <markdown :content="filepath"/></p>
     </test>
   `
   const MD = [
     '[test]',
     '  ### World',
-    '  { slug }',
+    '  Page: { filepath }',
   ]
 
   await write('components.html', HTML)
@@ -299,9 +300,11 @@ test.skip('custom tag with innner content', async () => {
 
   const kit = await getKit()
   const html = await kit.gen('index.md')
+
   expect(html).toInclude('<h2>Hello</h2>')
   expect(html).toInclude('<h3>World</h3>')
-  expect(html).toInclude('<p>index.html</p>')
+  expect(html).toInclude('<p>Page: index.md</p>')
+  expect(html).toInclude('<p>MD: index.md</p>')
 })
 
 

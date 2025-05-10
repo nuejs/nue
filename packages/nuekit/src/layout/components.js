@@ -80,7 +80,9 @@ export function getServerFunctions() {
     symbols: renderSymbols,
 
     'page-list': renderPageList,
-    markdown: data => renderInline(data.content) ,
+    markdown: data => {
+      return renderInline(data.content)
+    },
     icon: data => renderIcon(data.src, data.symbol, data.icon_dir) ,
     'pretty-date': data => renderPrettyDate(data.date) ,
   }

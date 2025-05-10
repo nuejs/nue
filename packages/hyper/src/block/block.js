@@ -89,6 +89,9 @@ export function createBlock(ast, data={}, opts={}, parent) {
 
     ast.children?.forEach((child, i) => {
       if (child.slot) {
+        // slot content from opts
+        if (opts.slot) return tag.appendChild(renderHTML(opts.slot))
+
         parent?.ast.children?.forEach((node, i) => {
           tag.appendChild(render(node, parent.data))
           addSpace(tag, node, parent.ast.children[i + 1])
@@ -140,19 +143,26 @@ export function createBlock(ast, data={}, opts={}, parent) {
 
   function renderComponent(ast, data) {
 
+    const attr_data = getAttrData(ast, data)
+
     // render function?
     const fn = opts.fns && opts.fns[ast.tag]
-    if (fn) return renderHTML(fn({ ...getAttrData(ast, data), ...data }, opts))
+    if (fn) return renderHTML(fn({ ...attr_data, ...data }, opts))
 
-    // custom component
+    // find component
     const comp = findComponent(ast, data)
-    if (!comp) return renderTag({ tag: 'div' }, data)
+
+    if (!comp) return renderTag({
+      attr: [{ name: 'type', val: 'application/json' }, { name: 'component', val: ast.tag }],
+      children: [ {text: JSON.stringify(attr_data) }],
+      tag: 'script',
+    })
 
     const tag = ast.mount ? ast.tag : comp.is ? comp.tag : 'div'
 
     const block = createBlock(
       { ...comp, tag, is_custom: false, is_child: true },
-      getAttrData(ast, data),
+      attr_data,
       opts,
       createBlock(ast, data, opts, parent)
     )

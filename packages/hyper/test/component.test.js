@@ -2,31 +2,26 @@
 import { render } from '../src'
 
 test('self-closing', () => {
-  const html = render('<foo/>')
-  expect(html).toBe('<div></div>')
+  expect(render('<a/>')).toBe('<a></a>')
 })
 
 test('render', () => {
-  const html = render('<hey/><hey>Hello</hey>')
-  expect(html).toBe('<div>Hello</div>')
+  expect(render('<hey/><hey>Hello</hey>')).toBe('<div>Hello</div>')
 })
 
 test('child', () => {
-  const template = '<a><hey/></a> <hey>Hello</hey>'
-  const html = render(template)
+  const html = render('<a><hey/></a> <hey>Hello</hey>')
   expect(html).toBe('<a><div>Hello</div></a>')
 })
 
 
 test(':is=name', () => {
-  const template = '<hey/> <a :is="hey">Hello</a>'
-  const html = render(template)
+  const html = render('<hey/> <a :is="hey">Hello</a>')
   expect(html).toBe('<a>Hello</a>')
 })
 
 test('params', () => {
-  const template = `<hey text="foo" :text="'bar'"/> <hey>\${ text }</hey>`
-  const html = render(template)
+  const html = render(`<hey text="foo" :text="'bar'"/> <hey>\${ text }</hey>`)
   expect(html).toBe('<div text="foo">bar</div>')
 })
 

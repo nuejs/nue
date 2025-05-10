@@ -81,7 +81,6 @@ export function renderSlots(data, opts) {
     const comp = findComponent(name, opts.lib)
     if (comp && data[name] !== false) {
       try {
-        console.info(comp)
         let html = renderToString(comp, data, opts)
         if (html && name == 'head') html = html.slice(6, -7)
         slots[name] = html
@@ -98,14 +97,17 @@ export function renderSlots(data, opts) {
 
 // custom components as Markdown extensions (tags)
 function convertToFns(lib, data) {
-  const fns = {}
+  const fns = { ...getServerFunctions() }
 
   lib.forEach(ast => {
     const name = ast.is || ast.tag
 
-    if (name && !SLOTS.includes(name)) {
+    if (ast.is_custom && !SLOTS.includes(name)) {
+      delete ast.is_custom
+      ast.tag = 'div'
+
       fns[name] = function(data) {
-        return renderToString(ast, data, { lib })
+        return renderToString(ast, data, { fns, slot: this.innerHTML, lib })
       }
     }
   })
@@ -120,7 +122,7 @@ export function renderPage(data, lib, custom_tags = {}) {
     toc: document.renderTOC,
     ...convertToFns(lib, data),
     ...getServerFunctions(),
-    ...custom_tags
+    ...custom_tags,
   }
 
   // nuemark opts: { data, sections, heading_ids, links, fns }

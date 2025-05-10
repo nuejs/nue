@@ -231,15 +231,16 @@ test('passtrough scripts', () => {
 
 
 test('render functions', () => {
-  function heading(data) {
-    return `<h1>${ data.hello }, ${ data.who }</h1>`
-  }
-
-  const html = render(`<div><heading hello="Hello"/></div>`, { who: 'World'}, { fns: { heading } })
+  const custom = (data) => `<h1>${ data.hello }, ${ data.who }</h1>`
+  const template = `<div><custom hello="Hello"/></div>`
+  const html = render(template, { who: 'World'}, { fns: { custom } })
   expect(html).toBe('<div><h1>Hello, World</h1></div>')
 })
 
 
-test.only('isomorphism', () => {
-
+test('JSON stubs', () => {
+  const template = `<div><custom hello="Hello"/></div>`
+  const html = render(template)
+  expect(html).toInclude('<script type="application/json" component="custom">')
+  expect(html).toInclude('{"hello":"Hello"}')
 })

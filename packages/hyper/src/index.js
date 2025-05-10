@@ -15,7 +15,7 @@ export function renderBlock(ast, data, opts) {
 }
 
 export function renderToString(ast, data, opts) {
-  if (ast.is_custom) { delete ast.is_custom; ast.tag = 'div' }
+  if (ast.is_custom && !opts.lib?.length) { delete ast.is_custom; ast.tag = 'div' }
   return renderBlock(ast, data, opts).root.innerHTML
 }
 

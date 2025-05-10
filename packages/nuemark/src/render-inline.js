@@ -55,6 +55,7 @@ export function renderInline(str, opts) {
 }
 
 function renderVariable(expr, data) {
+  console.info(expr)
   const fn = new Function('data', `return data.${expr}`)
   try {
     return fn(data) || ''
