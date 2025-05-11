@@ -17,7 +17,7 @@ Nuekit (or simply "Nue") is a standards-first web framework providing:
 External dependencies:
 
 - [diff-dom](//github.com/fiduswriter/diffDOM)
-- [js-yaml](//github.com/nodeca/js-yaml)
+- [@std/yaml](//github.com/denoland/std/tree/main/yaml)
 
 
 ## Nue JS
@@ -44,7 +44,7 @@ Extended Markdown processor providing:
 
 External dependencies:
 
-- [js-yaml](//github.com/nodeca/js-yaml)
+- [@std/yaml](//github.com/denoland/std/tree/main/yaml)
 
 ## Glow
 

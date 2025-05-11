@@ -1,7 +1,7 @@
 import { promises as fs, existsSync } from 'node:fs'
 import { join, extname, parse as parsePath, resolve } from 'node:path'
 
-import yaml from 'js-yaml'
+import { parse as parseYAML } from '@std/yaml'
 import { parse as parseNue } from 'nuejs-core'
 import { nuedoc } from 'nuemark'
 
@@ -46,7 +46,7 @@ export async function createSite(args) {
     if (!path) return
     try {
       const raw = await read(path)
-      return yaml.load(raw)
+      return parseYAML(raw)
     } catch (e) {
       if (!fileNotFound(e)) {
         const { line, column } = e.mark
