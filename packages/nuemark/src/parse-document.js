@@ -3,7 +3,7 @@ import { renderBlocks, createHeadingId } from './render-blocks.js'
 import { parseLinkTitle } from './parse-inline.js'
 import { renderInline } from './render-inline.js'
 import { parseBlocks } from './parse-blocks.js'
-import { load as parseYAML } from 'js-yaml'
+import { parse as parseYAML } from '@std/yaml'
 import { elem } from './render-blocks.js'
 
 
@@ -141,6 +141,3 @@ function parseReflinks(links = {}) {
   }
   return links
 }
-
-
-
