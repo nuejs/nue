@@ -1,9 +1,14 @@
 name: Repository nue page build
+description: |
+  Composite action to install dependencies, link nue, and build a Nue project.
 
 inputs:
   root:
+    description: |
+      The root directory of the Nue project to build.
+      This is passed to the `nue build` command.
     default: '.'
-    type: string
+    required: false
 
 runs:
   using: composite
