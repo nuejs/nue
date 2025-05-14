@@ -2,7 +2,7 @@
   "name": "nue-hyper",
   "version": "0.1.1",
   "description": "Hyper is HTML markup for building user interfaces",
-  "homepage": "https://nuejs.org/blog/introducing-hyper/",
+  "homepage": "https://nuejs.org/blog/standards-first-react-alternative/",
   "main": "src/index.js",
   "license": "MIT",
   "type": "module",

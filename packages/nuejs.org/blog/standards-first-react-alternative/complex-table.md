@@ -1,6 +1,6 @@
 
 ---
-back_to: introducing-hyper/
+back_to: standards-first-react-alternative/
 pagehead: false
 unlisted: true
 ---
@@ -353,9 +353,3 @@ Uses only about 40 lines of code, roughly 75% reduction in code to impolement th
   </script>
 </div>
 ```
-
-
-
-
-
-

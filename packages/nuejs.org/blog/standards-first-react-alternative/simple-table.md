@@ -1,6 +1,6 @@
 
 ---
-back_to: introducing-hyper/
+back_to: standards-first-react-alternative/
 pagehead: false
 unlisted: true
 ---
