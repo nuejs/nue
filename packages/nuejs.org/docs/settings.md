@@ -63,6 +63,10 @@ This setting controls the built-in stylesheet for code blocks within your Markdo
 
 Setting this to `true` enables [view transitions](reactivity.html#view-transitions) for instant and smooth page switches. This feature enhances user experience by providing fluid transitions between different views or pages, making navigation feel more seamless.
 
+### ignore
+
+This array setting ignores all listed files or directories from being built to the output directory.
+
 ### inline_css
 
 Setting this to `true` inlines all CSS directly into the HTML page, enabling the entire page to render in one request. This setting can also be configured at the area and page levels. For more details, see [performance optimization](optimization.html).
