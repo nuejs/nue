@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "diff-dom": "^5.1.4",
-    "js-yaml": "^4.1.0",
+    "@std/yaml": "npm:@jsr/std__yaml",
     "nue-glow": "*",
     "nuejs-core": "*",
     "nuemark": "*"
