@@ -5,11 +5,11 @@ include: [technical-content]
 # Hyper documentation
 Hyper is a simple markup language for building user interfaces. Currently in **development preview**, it enables developers (and AI models) to generate complex UIs with a clean syntax.
 
-[Read the launch post](/blog/introducing-hyper/) for the backstory an FAQ
+[Read the launch post](/blog/standards-first-react-alternative/) for the backstory an FAQ
 
 [image.bordered]
-  large: /blog/introducing-hyper/img/hyper-banner-big.png
-  small: /blog/introducing-hyper/img/hyper-banner.png
+  large: /blog/standards-first-react-alternative/img/hyper-banner-big.png
+  small: /blog/standards-first-react-alternative/img/hyper-banner.png
   size: 598 × 237
 
 
@@ -59,7 +59,7 @@ The most significant change is the strict separation between components and CSS-
 
 For 3 and 4 Hyper currently issues a warning, but on the official releases there will be a configurable strict mode for production environments that throws an error.
 
-Read the [launch post](/blog/introducing-hyper/) for the complete rationale.
+Read the [launch post](/blog/standards-first-react-alternative/) for the complete rationale.
 
 
 
@@ -411,4 +411,3 @@ Pass arguments to CSS components without inline styling:
 <!-- renders as style="--gap: 3px" -->
 <div --gap="3px">...</div>
 ```
-
