@@ -1,30 +1,30 @@
 
 <div :is="counter" class="demo card">
   <h3>You clicked {count} times!</h3>
-  <button @click="count--">Decrement</button>
-  <button @click="count++">Increment</button>
+  <button :click="count--">Decrement</button>
+  <button :click="count++">Increment</button>
   <script>count = 0</script>
 </div>
 
 <div  :is="simple-counter" class="demo card">
-  <button @click="count++">
+  <button :click="count++">
     Clicked { count } { count == 1 ? 'time' : 'times' }
   </button>
 
-  <script>count = 0</script>
+  <script>this.count = 0</script>
 </div>
 
 <div :is="reactive-loop" class="demo card">
 
   <p>
-    <button @click="addFruit">Add</button>
-    <button @click="images.pop()" :disabled="!images[4]">Remove</button>
+    <button :click="addFruit">Add</button>
+    <button :click="images.pop()" :disabled="!images[4]">Remove</button>
   </p>
 
   <img :for="img in images" :src="/img/{img}.jpg">
 
   <script>
-    images = ['popcorn', 'peas', 'lemons', 'tomatoes']
+    this.images = ['popcorn', 'peas', 'lemons', 'tomatoes']
 
     addFruit() {
       const img = this.images[Math.floor(Math.random() * 4)]
@@ -39,10 +39,10 @@
   <h3>${ user.name }</h3>
   <p>${ user.email }</p>
 
-  <button @click="loadJane" :disabled="is_loaded">Load Jane</button>
+  <button :click="loadJane" :disabled="is_loaded">Load Jane</button>
 
   <script>
-    user = {
+    this.user = {
       avatar: '/img/face-4.jpg',
       email: 'john@acme.org',
       name: 'John Doe',

@@ -46,10 +46,11 @@ export async function mountAll(hmr_path) {
     const name = node.getAttribute('custom') // || node.tagName.toLowerCase()
     const next = node.nextElementSibling
     const data = next?.type == 'application/json' ? JSON.parse(next.textContent) : {}
-    const comp = lib.find(a => [a.tag, a.is].includes(name))
+    const comp = lib.find(a => a.is == name || a.tag == name)
 
     if (comp) {
-      const app = createApp(lib, data).mount(node)
+      const app = createApp(comp, data, { lib })
+      app.mount(node)
       apps.push(app)
 
     } else if (customElements.get(name)) {

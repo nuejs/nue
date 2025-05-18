@@ -115,7 +115,7 @@ Render a compiled JavaScript on the browser
   import { lib } from '/builds/hello.js'
 
   // create a new app
-  const app = createApp(lib, { name: 'Hyper' })
+  const app = createApp(lib[0], { name: 'Hyper' })
 
   // mount it to our container
   app.mount(document.querySelector('main'))

@@ -22,21 +22,23 @@ export function renderNavi(data) {
   const { items, icon_dir } = data
 
   return Array.isArray(items)
-    ? renderNav({ items, icon_dir })
+    ? renderNav({ items, icon_dir, klass: data.class })
     : typeof items == 'object'
       ? renderMultiNav(items, data)
       : ''
 }
 
 function toSymbol(svg, name='x', size=24) {
-  const id = `${name}-symbol`
+  const id = name // `${name}-symbol`
   const attr = { id, viewBox: `0 0 ${size} ${size}` }
   const body = svg.slice(svg.indexOf('>') + 1, -6)
   return elem('symbol', attr, body)
 }
 
-export function renderSymbols({ args, dir, files }) {
-  const pth = join(args.root, dir)
+export function renderSymbols(opts) {
+  let { args, dir, ddir, files } = opts
+  const pth = join(args.root, ddir)
+
   try {
     if (files) files = files.split(' ').map(name => `${name}.svg`)
     else files = readdirSync(pth)
@@ -80,9 +82,7 @@ export function getServerFunctions() {
     symbols: renderSymbols,
 
     'page-list': renderPageList,
-    markdown: data => {
-      return renderInline(data.content)
-    },
+    markdown: data => renderInline(data.ccontent),
     icon: data => renderIcon(data.src, data.symbol, data.icon_dir) ,
     'pretty-date': data => renderPrettyDate(data.date) ,
   }
@@ -181,9 +181,9 @@ export function parseClass(url) {
   return data
 }
 
-export function renderNav({ items, icon_dir, heading = '' }) {
+export function renderNav({ items, icon_dir, klass, heading = '' }) {
   const html = items.map(item => renderLink(item, icon_dir))
-  return elem('nav', heading + html.join('\n'))
+  return elem('nav', { class: klass }, heading + html.join('\n'))
 }
 
 export function renderMultiNav(cats, data = {}) {

@@ -14,7 +14,7 @@
   import { createApp } from '../dist/hyper.js'
   import { lib } from './builds/table.min.js'
   import { users } from './users.js'
-  const app = createApp(lib, { users })
+  const app = createApp(lib[0], { users })
   app.mount(document.querySelector('main'))
 </script>
 

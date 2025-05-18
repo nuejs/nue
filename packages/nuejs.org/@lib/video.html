@@ -1,9 +1,9 @@
 
 <!-- From Bunny CDN -->
-<div :is="bunny-video" class="video splash ${ attr?.class }" :style>
+<bunny-video class="video splash ${ attr?.class }">
 
   <noscript>
-    <video src="https://video.nuejs.org/${videoId}/play_720p.mp4" type="video/mp4" controls>
+    <video src="https://video.nuejs.org/${videoId}/play_720p.mp4" type="video/mp4" controls/>
   </noscript>
 
   <bunny-player :videoId :poster :width :height/>
@@ -11,4 +11,5 @@
   <figcaption :if="caption">
     <markdown :content="caption"/>
   </figcaption>
-</div>
+
+</bunny-video>

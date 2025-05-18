@@ -1,20 +1,19 @@
 
 <!-- For Bunny CDN -->
-<div :is="bunny-player" class="paused player">
+<bunny-player class="paused player">
   <video ref="video" :poster="splash" :width="width" :height="height" muted/>
   <a class="play"></a>
-  <a class="fullscreen" @click="fullscreen"></a>
+  <a class="fullscreen" :click="fullscreen"></a>
 
   <script>
-    mounted({ poster='', videoid }) {
+    mounted({ poster='', videoId }) {
       const base = 'https://video.nuejs.org'
-      const video = this.video = this.$refs.video
-
-      this.splash = poster[0] == '/' ? poster : `${base}/${videoid}/${poster || 'thumbnail.jpg'}`
+      const video = this.video = this.root.querySelector('video')
+      this.splash = poster[0] == '/' ? poster : `${base}/${videoId}/${poster || 'thumbnail.jpg'}`
 
       function addSource(filename, mime='video/mp4') {
         const el = document.createElement('source')
-        el.src = `${base}/${videoid}/${filename}`
+        el.src = `${base}/${videoId}/${filename}`
         el.type = mime
         video.appendChild(el)
       }
@@ -33,7 +32,7 @@
     }
   </script>
 
-</div>
+</bunny-player>
 
 
 <script>

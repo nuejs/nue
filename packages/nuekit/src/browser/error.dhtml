@@ -23,7 +23,7 @@
 
   export async function showError(data) {
     const { createApp } = await import('/@nue/hyper.js')
-    const app = createApp(lib, data).append(document.body)
+    const app = createApp(lib[0], data).append(document.body)
     loadCSS('/@nue/error.css', () => app.root.showModal())
   }
 </script>

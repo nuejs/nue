@@ -6,7 +6,7 @@
 <script type="module">
   import { createApp } from '../../dist/hyper.js'
   import { lib } from './builds/hello.js'
-  const app = createApp(lib, { name: 'Hyper' })
+  const app = createApp(lib[0], { name: 'Hyper' })
   app.mount(document.querySelector('main'))
   console.timeEnd('load')
 </script>

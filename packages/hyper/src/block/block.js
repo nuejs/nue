@@ -151,12 +151,7 @@ export function createBlock(ast, data={}, opts={}, parent) {
 
     // find component
     const comp = findComponent(ast, data)
-
-    if (!comp) return renderTag({
-      attr: [{ name: 'type', val: 'application/json' }, { name: 'component', val: ast.tag }],
-      children: [ {text: JSON.stringify(attr_data) }],
-      tag: 'script',
-    })
+    if (!comp) return renderHTML(renderStub(ast.tag, attr_data))
 
     const tag = ast.mount ? ast.tag : comp.is ? comp.tag : 'div'
 
@@ -257,4 +252,10 @@ function addSpace(to, child, next) {
   if (child.tag && next?.tag || child.fn && next?.fn) {
     to.appendChild(document.createTextNode(' '))
   }
+}
+
+function renderStub(tag, data) {
+  const json = JSON.stringify(data)
+  const js = json != '{}' ? `<script type="application/json">${json}</script>` : ''
+  return `<${tag} custom="${tag}"></${tag}>${js}`
 }

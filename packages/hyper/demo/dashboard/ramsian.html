@@ -11,7 +11,7 @@
   import { lib } from './builds/dashboard.min.js'
   import { data } from './data/rams.js'
 
-  const app = createApp(lib, data)
+  const app = createApp(lib[0], data, { lib })
 
   app.mount(document.querySelector('main'))
 </script>

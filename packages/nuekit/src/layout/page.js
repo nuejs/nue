@@ -70,7 +70,7 @@ function ltrim(str) {
 
 
 export function findComponent(name, lib) {
-  return lib.find(comp => comp.is == name || !comp.is && comp.tag == name)
+  return lib.find(comp => [comp.is, comp.tag].includes(name))
 }
 
 
@@ -81,7 +81,7 @@ export function renderSlots(data, opts) {
     const comp = findComponent(name, opts.lib)
     if (comp && data[name] !== false) {
       try {
-        let html = renderToString(comp, data, opts)
+        let html = renderToString(comp, { ...data }, opts)
         if (html && name == 'head') html = html.slice(6, -7)
         slots[name] = html
 
@@ -102,9 +102,8 @@ function convertToFns(lib, data) {
   lib.forEach(ast => {
     const name = ast.is || ast.tag
 
-    if (ast.is_custom && !SLOTS.includes(name)) {
-      delete ast.is_custom
-      ast.tag = 'div'
+    if ((ast.is_custom || ast.is) && !SLOTS.includes(name)) {
+      if (ast.is_custom) { delete ast.is_custom; ast.tag = 'div' }
 
       fns[name] = function(data) {
         return renderToString(ast, data, { fns, slot: this.innerHTML, lib })
@@ -121,12 +120,13 @@ export function renderPage(data, lib, custom_tags = {}) {
   const fns = {
     toc: document.renderTOC,
     ...convertToFns(lib, data),
-    ...getServerFunctions(),
     ...custom_tags,
   }
 
+  console.info('here', convertToFns(lib, data))
+
   // nuemark opts: { data, sections, heading_ids, links, fns }
-  const { heading_ids, sections, content_wrapper, links } = data
+  const { heading_ids, sections, content_wrapper, links, } = data
 
   const content = document.render({
     data, heading_ids, sections, content_wrapper, links, tags: fns
