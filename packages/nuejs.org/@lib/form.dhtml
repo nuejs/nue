@@ -1,21 +1,20 @@
 
-<div :is="join-list" class="join-list">
+<div @name="join-list" class="join-list">
 
   <h4 :if="sessionStorage.joined">
     You have successfully joined the mailing list. Thank you for your interest!
   </h4>
 
-  <form :else :submit="submit">
-    <p :if="desc">${ desc }</p>
+  <form :else @submit.prevent="submit">
+    <p :if="desc">{ desc }</p>
     <input type="email" name="email" placeholder="Your email" required>
     <textarea name="comment" placeholder="Feedback (Optional but valued!)"></textarea>
-    <button>${ cta || 'Join mailing list' }</button>
+    <button>{ cta || 'Join mailing list' }</button>
   </form>
 
   <script>
-    submit(e) {
-      const form = e.target
-      const data = Object.fromEntries(new FormData(form).entries())
+    submit({ target }) {
+      const data = Object.fromEntries(new FormData(target).entries())
 
       fetch('/public/members', {
         'Content-Type': 'application/json',
@@ -24,7 +23,6 @@
       })
 
       sessionStorage.joined = true
-      e.preventDefault()r
     }
   </script>
 </div>
