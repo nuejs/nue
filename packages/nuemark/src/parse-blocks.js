@@ -1,5 +1,5 @@
 
-import { load as parseYAML } from 'js-yaml'
+import { parse as parseYAML } from '@std/yaml'
 
 import { parseInline, parseLinkTitle } from './parse-inline.js'
 import { parseTag } from './parse-tag.js'
@@ -262,5 +262,3 @@ function addListEntry({ entries }, line) {
   const last = entries[entries.length - 1]
   last.push(line)
 }
-
-
