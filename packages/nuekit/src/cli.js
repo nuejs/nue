@@ -52,17 +52,28 @@ export function getArgs(argv) {
       // string values
       else if (['-e', '--environment'].includes(arg)) opt = 'env'
       else if (['-r', '--root'].includes(arg)) opt = 'root'
-      else if (['-P', '--port'].includes(arg)) opt = 'port'
       else if (['-B', '--base'].includes(arg)) opt = 'base'
+      else if (['-P', '--port'].includes(arg)) opt = 'port'
+      else if (['-i', '--ignore'].includes(arg)) opt = 'ignore'
 
       // bad options
       else throw `Unknown option: "${arg}"`
 
     } else if (arg && arg[0] != '-') {
       if (opt) {
-        args[opt] = opt == 'port' ? Number(arg) : arg
-        // Number(alphabetic characters) is falsy. Check if port is really set:
-        if (opt != 'port' || (opt == 'port' && args.port)) opt = null
+        const num = ['port']
+        const arr = ['ignore']
+
+        if (num.includes(opt)) args[opt] = Number(arg)
+        else if (arr.includes(opt)) {
+          if (!args[opt]) args[opt] = []
+          args[opt].push(arg)
+        }
+        else args[opt] = arg
+
+        if (!num.includes(opt)) opt = null
+        // Number(alphabetic characters) is falsy. Check if numeric arg is really set:
+        else if (args[opt]) opt = null
       }
       else args.paths.push(arg)
     } else if (opt) throw `"${opt}" option is not set`
