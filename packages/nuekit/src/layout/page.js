@@ -123,8 +123,6 @@ export function renderPage(data, lib, custom_tags = {}) {
     ...custom_tags,
   }
 
-  console.info('here', convertToFns(lib, data))
-
   // nuemark opts: { data, sections, heading_ids, links, fns }
   const { heading_ids, sections, content_wrapper, links, } = data
 

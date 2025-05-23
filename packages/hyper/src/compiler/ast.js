@@ -1,6 +1,6 @@
 
+import { addContext, HTML5_TAGS, SVG_TAGS } from './html5.js'
 import { parseAttributes } from './attributes.js'
-import { addContext, HTML5_TAGS } from './html5.js'
 
 export function parse(tokens) {
   return parseTags(tokens).map(el => parseTag(el))
@@ -63,7 +63,9 @@ export function parseTag(node) {
 
   const specs = attr ? parseAttributes(attr) : {}
   const comp = { tag: tagName.trim(), ...specs }
-  if (tagName.includes('-') || !HTML5_TAGS.includes(tagName)) comp.is_custom = true
+
+  if (SVG_TAGS.includes(tagName)) comp.svg = true
+  else if (tagName.includes('-') || !HTML5_TAGS.includes(tagName)) comp.is_custom = true
 
   const mount = comp.attr?.find(a => a.name == 'mount')
   if (mount) {
@@ -121,6 +123,7 @@ function parseText(text) {
 function convertFunctions(script) {
   return script.replace(
     /^( *)(async\s+)?(\w+)\s*\(([^)]*)\)\s*{/gm, (_, indent, asy, name, args) => {
+      if (_.includes('function') || _.includes('for ')) return _
       return `${indent}this.${name} = ${asy ? 'async ' : ''}function(${args.trim()}) {`
     }
   )

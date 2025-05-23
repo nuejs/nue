@@ -70,7 +70,7 @@ export function sectionize(blocks = []) {
 
   // first (sub)heading
   const hr = blocks.find(el => el.is_separator)
-  const h = blocks.find(el => el.level > 1)
+  const h = blocks.find(el => el.level > 0)
 
   // no heading nor separator -> no sections
   if (!h && !hr) return

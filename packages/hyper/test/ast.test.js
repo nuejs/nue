@@ -55,7 +55,7 @@ test('closed tag', () => {
 })
 
 test('SVG tag', () => {
-  parseTest('<path/>', { tag: 'path' })
+  parseTest('<path/>', { tag: 'path', svg: true })
 })
 
 test('is attrib', () => {

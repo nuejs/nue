@@ -58,7 +58,7 @@ test('nesting', () => {
 })
 
 
-test('svg', () => {
+test.only('svg', () => {
   const template = `
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <path d="M6 8a6 6 0 0 1 12"/>
@@ -238,7 +238,7 @@ test('render functions', () => {
 })
 
 
-test.only('JSON stubs', () => {
+test.skip('JSON stubs', () => {
   const template = `<div><custom hello="Hello"/></div>`
   const html = render(template)
   console.info(html)

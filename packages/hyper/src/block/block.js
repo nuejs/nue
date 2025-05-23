@@ -64,7 +64,8 @@ export function createBlock(ast, data={}, opts={}, parent) {
   }
 
   function renderTag(ast, data) {
-    const tag = document.createElement(ast.tag)
+    const tag = ast.svg ? document.createElementNS('http://www.w3.org/2000/svg', ast.tag) :
+      document.createElement(ast.tag)
 
     setAttributes(tag, ast, data)
     if (parent && ast.is_child) setAttributes(tag, parent.ast, parent.data)
@@ -75,7 +76,7 @@ export function createBlock(ast, data={}, opts={}, parent) {
     }
 
     const cls = tag.className
-    if (cls && /[:\[\]]/.test(cls)) {
+    if (typeof cls == 'string' && /[:\[\]]/.test(cls)) {
       console.error(`Invalid characters in class name: ${cls}`)
     }
 
