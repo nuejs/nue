@@ -6,7 +6,6 @@
   "main": "src/index.js",
   "license": "MIT",
   "type": "module",
-
   "repository": {
     "url": "https://github.com/nuejs/nue",
     "directory": "packages/hyper",
