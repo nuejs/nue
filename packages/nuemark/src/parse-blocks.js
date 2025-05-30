@@ -183,7 +183,7 @@ function processNestedBlocks(block, capture) {
     const body = block.body.join('\n')
 
     try {
-      if (body && name && isYAML(body.trim())) {
+      if (body && block.has_yaml && name && isYAML(body.trim())) {
         let data = parseYAML(body)
         if (Array.isArray(data)) data = { items: data }
         Object.assign(block.data, data)

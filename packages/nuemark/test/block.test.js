@@ -62,12 +62,11 @@ test('block html tag with starting ul', () => {
   expect(blocks[0].blocks.length).toBe(1)
 
   const html = renderBlocks(blocks)
-  expect(html).toBe('<div><ul><li>hi</li>\n<li>hello</li></ul></div>')
+  expect(html).toBe('<div><ul><li><p>hi</p></li>\n<li><p>hello</p></li></ul></div>')
 })
 
 test('inlined block html with attrs', () => {
   const { blocks } = parseBlocks(['[div myattr="data" "content"]'])
-  console.log(blocks)
   expect(blocks.length).toBe(1)
   expect(blocks[0].data).toEqual({ myattr: 'data', _: 'content' })
 
