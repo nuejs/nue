@@ -7,7 +7,7 @@ Hyper is a simple markup language for building user interfaces. Currently in **d
 
 [Read the launch post](/blog/standards-first-react-alternative/) for the backstory an FAQ
 
-[image.bordered]
+[image.bordered]:
   large: /blog/standards-first-react-alternative/img/hyper-banner-big.png
   small: /blog/standards-first-react-alternative/img/hyper-banner.png
   size: 598 × 237
@@ -16,7 +16,7 @@ Hyper is a simple markup language for building user interfaces. Currently in **d
 ## Getting started
 Install with Bun:
 
-``` sh
+```sh
 bun install nue-hyper
 ```
 
@@ -29,7 +29,7 @@ bun install nue-hyper
 
 Examples are under [demo folder](//github.com/nuejs/nue/tree/master/packages/hyper/demo/). To run the examples locally go to nue-hyper folder and execute a local web server in there. For example:
 
-```
+```sh
 cd nue-hyper
 
 python3 -m http.server
@@ -104,7 +104,7 @@ console.info(html) /* --> <h1>Hello, World!</h1> */
 ### Client-side rendering
 Render a compiled JavaScript on the browser
 
-```
+```html
 <!-- container for the app -->
 <main></main>
 
@@ -125,7 +125,7 @@ Render a compiled JavaScript on the browser
 ### Just-in-time (JIT) rendering
 Compiles the template directly on the browser befor rendering. Check `demo/table/simple-table.html` for a demo:
 
-```
+```html
 <script type="text/hyper">
   <table>
     <tr>
@@ -167,7 +167,7 @@ Hyper extends standard HTML with expressions, loops, conditionals, and custom co
 
 ### Expressions
 
-```
+```html
 <span>${ text }</span>
 
 <p>${ text.toUpperCase() }</p>
@@ -178,7 +178,7 @@ Hyper extends standard HTML with expressions, loops, conditionals, and custom co
 
 ### Attributes
 
-```
+```html
 <time datetime="${ date.toISOString() }">
 
 <!-- boolean attributes (falsy properties omitted) -->
@@ -197,7 +197,7 @@ Hyper extends standard HTML with expressions, loops, conditionals, and custom co
 
 ### Loops
 
-```
+```html
 <li :for="el in items">${ el.text }</li>
 
 <!-- loop index -->
@@ -237,7 +237,7 @@ Hyper extends standard HTML with expressions, loops, conditionals, and custom co
 
 ### Conditionals
 
-```
+```html
 <p :if="foo > 100">${ foo }</p>
 <p :else-if="bar == 10">${ foo }</p>
 <p :else>Baz</p>
@@ -249,7 +249,7 @@ Hyper extends standard HTML with expressions, loops, conditionals, and custom co
 
 ### Components
 
-```
+```html
 <!-- component definition -->
 <counter>
   <button :click="count++">${ count }</button>
@@ -304,7 +304,7 @@ Hyper extends standard HTML with expressions, loops, conditionals, and custom co
 
 ### Slots
 
-```
+```html
 <!-- define component with a slot -->
 <hello>
   <h3>Hello</h3>
@@ -342,7 +342,7 @@ Hyper extends standard HTML with expressions, loops, conditionals, and custom co
 
 ### Lifecycle events
 
-```
+```html
 <counter>
   <button :click="incr">${ count }</button>
 
@@ -370,7 +370,7 @@ Hyper extends standard HTML with expressions, loops, conditionals, and custom co
 
 ### JavaScript imports
 
-```
+```html
 <!-- import utility functions -->
 <script>
   import { prettyDate } from './utils.js'
@@ -394,7 +394,7 @@ Hyper extends standard HTML with expressions, loops, conditionals, and custom co
 ### Passtrough JavaScript
 Scripts with `type` or `src` attributes are passed direclty to the client
 
-```
+```html
 <footer>
   <!-- this script block is rendered directly -->
   <script type="module">
@@ -407,7 +407,7 @@ Scripts with `type` or `src` attributes are passed direclty to the client
 ### CSS variables
 Pass arguments to CSS components without inline styling:
 
-```
+```html
 <!-- renders as style="--gap: 3px" -->
 <div --gap="3px">...</div>
 ```
