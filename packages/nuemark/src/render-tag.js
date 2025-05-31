@@ -168,7 +168,7 @@ export function renderTag(tag, opts = {}) {
       // block
       else tag.to_block = true
 
-      return renderTag(tag)
+      return renderTag(tag, opts)
     }
 
     return renderIsland(tag, opts.data)
