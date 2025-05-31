@@ -6,7 +6,7 @@ date: 2025-04-01
 
 On this release, we’re showing what happens when you push modern web standards — HTML, CSS, and JS — to their peak:
 
-[bunny-video]
+[bunny-video]:
   videoId: 39b76cca-e55b-4e9b-8583-b053f9dbd55d
   poster: thumbnail_70d8de32.jpg
   width: 704
@@ -16,7 +16,7 @@ On this release, we’re showing what happens when you push modern web standards
 This entire [app](//mpa.nuejs.org/app/) is _lighter_ than a React/ShadCN button:
 
 
-[image]
+[image]:
   small: /img/react-button-vs-nue-spa.png
   large: /img/react-button-vs-nue-spa-big.png
   size:  704 × 394
@@ -29,7 +29,7 @@ See benchmark and details [here ›](/docs/react-button-vs-nue.html)
 ## Going large-scale
 Here’s the same app, now with a **Rust** computation engine and **Event Sourcing** for instant search and other operations over **150,000** records — far past where [JS-version](//github.com/nuejs/nue/blob/master/packages/examples/simple-mpa/app/model/engines/javascript.js) of the engine crashed with a maximum call stack exception.
 
-[bunny-video]
+[bunny-video]:
   videoId: eb65fcdd-5be4-4923-a783-f41efafe58a7
   caption: Instant operations across 150,000 records with Rust/WASM
   poster: /img/rust-splash.png
@@ -43,7 +43,7 @@ This demo is [here ›](//mpa.nuejs.org/app/?rust)
 
 Nue crushes HMR and build speed records and sets you up with a millisecond feedback loop for your everyday VSCode/Sublime file-save operations:
 
-[bunny-video]
+[bunny-video]:
   videoId: ffbb6d40-5b74-4176-a115-d0ed040edca5
   caption: Immediate feedback for design and component updates, preserving app state
   // poster: thumbnail_1ca1bd66.jpg
