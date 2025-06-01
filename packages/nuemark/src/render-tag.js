@@ -38,13 +38,13 @@ const TAGS = {
   },
 
   block() {
-    const { render, attr, data, blocks, name } = this
+    const { render, attr, blocks, own_data, name } = this
     const divs = sectionize(blocks)
 
     const html = !divs || !divs[1] ? render(blocks) :
       divs.map(blocks => elem('div', render(blocks))).join('\n')
 
-    if (this.to_block) Object.assign(attr, data)
+    if (this.to_block) Object.assign(attr, own_data)
     return elem(attr.popover ? 'dialog' : name, attr, html)
   },
 
@@ -82,11 +82,11 @@ const TAGS = {
   },
 
   inline() {
-    const { name, attr, data, opts } = this
+    const { name, attr, own_data, opts } = this
 
-    const content = data._
-    delete data._
-    if (this.to_inline) Object.assign(attr, data)
+    const content = own_data._
+    delete own_data._
+    if (this.to_inline) Object.assign(attr, own_data)
 
     return elem(name, attr, this.renderInline(content, opts))
   },
@@ -160,6 +160,8 @@ export function renderTag(tag, opts = {}) {
   const tag_fn = tag.to_block ? 'block' : tag.to_inline ? 'inline' : tag.name
   const fn = tags[tag_fn]
 
+  const own_data = extractData(tag.data, opts.data)
+
   if (!fn) {
     // native html tags
     if (HTML_TAGS.includes(tag.name)) {
@@ -171,11 +173,10 @@ export function renderTag(tag, opts = {}) {
       return renderTag(tag, opts)
     }
 
-    return renderIsland(tag, opts.data)
+    return renderIsland(tag, own_data)
   }
 
-  const data = { ...opts.data, ...extractData(tag.data, opts.data) }
-
+  const data = { ...opts.data, ...own_data }
   const api = {
     ...tag,
     get innerHTML() { return getInnerHTML(this.blocks, opts) },
@@ -183,6 +184,7 @@ export function renderTag(tag, opts = {}) {
     renderInline(str) { return renderInline(str, opts) },
     sections: sectionize(tag.blocks),
     data,
+    own_data,
     opts,
     tags,
   }
@@ -191,9 +193,8 @@ export function renderTag(tag, opts = {}) {
 }
 
 
-export function renderIsland(tag, all_data) {
+export function renderIsland(tag, data) {
   const { name, attr } = tag
-  const data = extractData(tag.data, all_data)
 
   const json = !Object.keys(data)[0] ? '' :
     elem('script', { type: 'application/json' }, JSON.stringify(data))
