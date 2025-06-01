@@ -72,7 +72,7 @@ You can use Nue to build production-ready websites but with the following limita
   #### Help wanted
   Please [contact us](//github.com/nuejs/nue/discussions) if you are interested in building a HTML-first React alternative for UX developers. The reactive lib is our current development bottleneck.
 
-[button.button href="/docs/" "Try beta now"]
+[a.button.button href="/docs/" "Try beta now"]
 
 ## Up next: ☀️ Summertime
 

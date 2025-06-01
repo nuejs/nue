@@ -7,10 +7,10 @@ include: marketing-content
 Take HTML, CSS, JS, and WASM to their absolute peak
 
 
-[button.primary href="/app/"]
+[a.button.primary href="/app/"]
   Launch demo [icon symbol="chevron-right-symbol"]
 
-[button href="https://nuejs.org/docs/"]
+[a.button href="https://nuejs.org/docs/"]
   How it works [icon symbol="chevron-right-symbol"]
 
 [image]:
@@ -45,5 +45,5 @@ We are rebuilding the entire ecosystem from scratch:
   href: https://nuejs.org/vision/
   size: 800 x 209
 
-[button href="https://nuejs.org/vision/"]
+[a.button href="https://nuejs.org/vision/"]
   See the Roadmap [icon symbol="chevron-right-symbol"]

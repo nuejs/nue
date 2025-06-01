@@ -35,7 +35,7 @@ Nuemark is designed for content creation. It's a simple, concise syntax that is 
   # Content is king
   Web design is 100% content and 95% typography
 
-  [button "Learn more" href="/docs"]
+  [a.button "Learn more" href="/docs"]
   ---
   [! typography.png ]
 ```

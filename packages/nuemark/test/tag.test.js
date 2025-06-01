@@ -224,14 +224,14 @@ test('[table] empty cells', () => {
 })
 
 
-test('[button] inline label', () => {
-  const html = renderLines(['[button href="/" "Hey, *world*"]'])
-  expect(html).toBe('<button href="/">Hey, <em>world</em></button>')
+test('[a.button] inline label', () => {
+  const html = renderLines(['[a.button href="/" "Hey, *world*"]'])
+  expect(html).toBe('<a class="button" href="/">Hey, <em>world</em></a>')
 })
 
-test('[button] nested label', () => {
-  const html = renderLines(['[button href=/]', '  ![](/joku.png)'])
-  expect(html).toStartWith('<button href="/"><p><img src="/joku.png"')
+test('[a.button] nested label', () => {
+  const html = renderLines(['[a.button href=/]', '  ![](/joku.png)'])
+  expect(html).toStartWith('<a class="button" href="/"><p><img src="/joku.png"')
 })
 
 
@@ -276,9 +276,9 @@ test('[svg]', () => {
   expect(html).toBe('<svg class="icon"/>')
 })
 
-test('[svg] nested in [button]', () => {
-  const html = renderLines(['[button href="/"]', `  [svg ${svgpath}] *Yo*`])
-  expect(html).toBe('<button href="/"><p><svg class="icon"/> <em>Yo</em></p></button>')
+test('[svg] nested in [a.button]', () => {
+  const html = renderLines(['[a.button href="/"]', `  [svg ${svgpath}] *Yo*`])
+  expect(html).toBe('<a class="button" href="/"><p><svg class="icon"/> <em>Yo</em></p></a>')
 })
 
 

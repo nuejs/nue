@@ -10,8 +10,8 @@ appdir: home
 
 Take HTML, CSS, JS, and WASM to their absolute peak
 
-[button.continue "Why Nue ›" href="/docs/"]
-[button.secondary "Get started →" href="/docs/installation.html"]
+[a.button.continue "Why Nue ›" href="/docs/"]
+[a.button.secondary "Get started →" href="/docs/installation.html"]
 
 [bunny-video]:
   videoId: eb65fcdd-5be4-4923-a783-f41efafe58a7
