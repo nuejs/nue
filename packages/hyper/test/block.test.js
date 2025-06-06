@@ -58,7 +58,7 @@ test('nesting', () => {
 })
 
 
-test.only('svg', () => {
+test('svg', () => {
   const template = `
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <path d="M6 8a6 6 0 0 1 12"/>

@@ -50,7 +50,8 @@ export async function mountAll(hmr_path) {
 
     if (comp) {
       const app = createApp(comp, data, { lib })
-      app.mount(node)
+      const root = app.mount(node)
+      root.setAttribute('custom', name)
       apps.push(app)
 
     } else if (customElements.get(name)) {

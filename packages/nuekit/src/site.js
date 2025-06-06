@@ -343,8 +343,10 @@ export async function createSite(args) {
 
     for (const path of paths) {
       try {
-        const html = await read(path)
-        lib.unshift(...parseHyper(html))
+        if (!path.endsWith('index.html')) {
+          const html = await read(path)
+          lib.unshift(...parseHyper(html))
+        }
       } catch (e) {
         if (!fileNotFound(e)) {
           log.error('parse error', path)

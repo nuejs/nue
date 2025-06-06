@@ -56,9 +56,7 @@ export function getSPALayout(body, data) {
         ${renderHead(data)}
       </head>
 
-      <body>
-        ${body}
-      </body>
+      ${body}
     </html>
   `)
 }

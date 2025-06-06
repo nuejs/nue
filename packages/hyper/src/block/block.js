@@ -9,7 +9,8 @@ export function createBlock(ast, data={}, opts={}, parent) {
   const { script } = ast
   let root
 
-  Object.assign(data, getAttrData(ast, data))
+  // Object.assign(data, getAttrData(ast, data))
+  data = { ...data, ...getAttrData(ast, data) }
 
   if (script) {
     try {
@@ -24,14 +25,16 @@ export function createBlock(ast, data={}, opts={}, parent) {
   function fire(name, wrap) {
     const fn = data[name]
     if (wrap?.tagName) root = data.root = wrap
-    if (is_browser && fn && typeof fn == 'function') return fn.call(data, data)
+    if (is_browser && fn && typeof fn == 'function') return fn.call(data, data, update)
   }
 
   function mount(wrap) {
     fire('onmount', wrap)
     const frag = render(ast, data)
-    wrap.appendChild(frag.firstChild)
-    if (is_browser) fire('mounted')
+    const root = frag.firstChild
+    is_browser ? wrap.replaceWith(root) : wrap.appendChild(root)
+    if (is_browser) fire('mounted', root)
+    return root
   }
 
   function update(values) {
@@ -39,20 +42,24 @@ export function createBlock(ast, data={}, opts={}, parent) {
 
     if (fire('onupdate') !== false) {
       const frag = render(ast, data)
-      domdiff(parent ? root : root.firstChild, frag.firstChild, parent ? root.parentNode : root)
+
+      /*
+        TODO: simplify
+
+        // Browsers: root can be swapped
+        domdiff(root, frag.firstChild, parent ? root.parentNode : root)
+
+        // Domino demands nodes are present or fails (no swapping allowed)
+        domdiff(root?.firstChild, frag.firstChild, root)
+      */
+      if (is_browser) domdiff(root, frag.firstChild, root)
+      else domdiff(parent ? root : root.firstChild, frag.firstChild, parent ? root.parentNode : root)
       fire('updated')
     }
 
-    /*
-      The above domdiff clause combines these two purposes:
-
-      // For browsers: root can be swapped (via initRoot)
-      domdiff(root, frag.firstChild, parent ? root.parentNode : root)
-
-      // Domino demands nodes are present or fails (no swapping allowed)
-      domdiff(root?.firstChild, frag.firstChild, root)
-    */
   }
+
+  data.update = update
 
   function render(_ast=ast, _data=data) {
     return _ast.text || _ast.fn ? renderText(_ast, _data) :
@@ -211,7 +218,7 @@ function setAttributes(el, ast, data) {
     } else if (a.bool) {
       if (val) el.setAttribute(name, '')
     } else if (name == 'class') {
-      el.classList.add(...val.split(/ +/))
+      el.classList.add(...val.trim().split(/ +/))
     } else {
       el.setAttribute(name, val)
     }

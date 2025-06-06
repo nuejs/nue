@@ -5,9 +5,11 @@
   2. Dynamic requests
   3. Server-send events (SSE)
 */
+import { join, extname } from 'node:path'
 import { promises as fs } from 'node:fs'
 import http from 'node:http'
-import { join, extname } from 'node:path'
+
+import { getWorker } from './worker'
 
 export const TYPES = {
   html:  'text/html; charset=UTF-8',
@@ -38,8 +40,15 @@ export const TYPES = {
 let sessions = []
 
 
-export function createServer(root, callback) {
+export function createServer(opts, callback) {
+  const worker = getWorker(opts.worker)
+
   return http.createServer(async (req, res) => {
+    let [url, _] = req.url.split('?')
+    let ext = extname(url).slice(1)
+
+    // worker request
+    if (await worker.matches(req)) return await worker.handle(req, res)
 
     // SSE for hot-reloading
     if (req.headers.accept == 'text/event-stream') {
@@ -52,18 +61,12 @@ export function createServer(root, callback) {
       })
     }
 
-    let [url, _] = req.url.split('?')
-    let ext = extname(url).slice(1)
-
-    if (!ext) {
-      url = join(url, 'index.html')
-      ext = 'html'
-    }
+    if (!ext) { url = join(url, 'index.html'); ext = 'html' }
 
     try {
       const { code, path } = !ext || ext == 'html' ? await callback(url, _) : { path: url }
       if (!path) throw { errno: -2 }
-      const buffer = await fs.readFile(join(root, path))
+      const buffer = await fs.readFile(join(opts.dist, path))
       res.writeHead(code || 200, {
         'content-type': TYPES[ext] || TYPES.default
       })      

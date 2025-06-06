@@ -334,7 +334,7 @@ export async function createKit(args) {
 
     if (is_empty) await build()
 
-    const server = createServer(dist, async (req_url) => {
+    const server = createServer({ dist, ...await site.getData() }, async (req_url) => {
       const { src, path, name } = await site.getRequestPaths(req_url) || {}
       if (src) await gen(src)
       return { path, code: name == 404 ? 404 : 200 }
