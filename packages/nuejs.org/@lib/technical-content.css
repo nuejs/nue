@@ -142,6 +142,7 @@ article {
   > video {
     border-radius: 6px;
     cursor: pointer;
+    max-width: 100%;
 
     &:active {
       transform: scale(.995);
