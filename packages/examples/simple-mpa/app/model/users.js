@@ -42,7 +42,7 @@ const THREADS = [
   ],
   [
     'Can you tell me what you were doing when it happened?',
-    'I was on the customer view, clicked on the notitication icon, and selected "never". The system did not respond. I\'m on latest Chrome',
+    'I was on the customer view, clicked on the notification icon, and selected "never". The system did not respond. I\'m on latest Chrome',
     'We found the issue and pushed a fix to production. Please reload the app.',
     'Thank you! Works now 🎉🎉',
   ],

@@ -50,7 +50,7 @@ Set up millisecond feedback loop to your development cycle
 [video /img/mpa-build.mp4 autoplay loop muted width=350]
 
 [.small]
-  Build complex apps in millseconds
+  Build complex apps in milliseconds
 
 ----
 

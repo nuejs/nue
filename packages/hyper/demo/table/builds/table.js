@@ -16,7 +16,7 @@ export const lib = [ { tag: 'div',
          children:
           [ { tag: 'h1', children: [ { text: 'Table example' } ] },
             { tag: 'p',
-              children: [ { text: 'A more compex table with filtering and sortable columns' } ] },
+              children: [ { text: 'A more complex table with filtering and sortable columns' } ] },
             { tag: 'input',
               attr:
                [ { name: 'type', val: 'search' },

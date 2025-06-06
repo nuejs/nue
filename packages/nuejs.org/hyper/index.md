@@ -123,7 +123,7 @@ Render a compiled JavaScript on the browser
 ```
 
 ### Just-in-time (JIT) rendering
-Compiles the template directly on the browser befor rendering. Check `demo/table/simple-table.html` for a demo:
+Compiles the template directly on the browser before rendering. Check `demo/table/simple-table.html` for a demo:
 
 ```
 <script type="text/hyper">
@@ -391,8 +391,8 @@ Hyper extends standard HTML with expressions, loops, conditionals, and custom co
   Import statements are not working on server side in developer preview.
 
 
-### Passtrough JavaScript
-Scripts with `type` or `src` attributes are passed direclty to the client
+### Passthrough JavaScript
+Scripts with `type` or `src` attributes are passed directly to the client
 
 ```
 <footer>
