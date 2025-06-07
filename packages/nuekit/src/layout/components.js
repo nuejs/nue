@@ -4,6 +4,50 @@ import { join } from 'node:path'
 
 import { elem, parseSize, renderInline, renderIcon } from 'nuemark'
 
+
+export function collectionToFeed(data) {
+  const key = data.collection_name || data.content_collection
+
+  const title = data.title_template.replaceAll('%s', key)
+  const icon = `${data.origin}${data.favicon}`
+  const site = data.origin
+
+  const feed_file = 'feed.xml'
+  const feed_dir = data.content_collection
+  const feed_url = `${data.origin}/${feed_dir}/${feed_file}`
+
+  const feed_content = [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    elem('feed', { xmlns: 'http://www.w3.org/2005/Atom' },
+      [
+        // feed info
+        elem('title', title),
+        elem('description', ''),
+        `<link href="${site}"/>`,
+        elem('id', feed_url),
+        elem('updated', new Date().toISOString()),
+        elem('generator', { uri: 'https://nuejs.org/', version: data.nuekit_version }, 'Nuekit'),
+        `<link href="${feed_url}" rel="self" type="application/atom+xml"/>`,
+
+        // entries
+        ...(data[key] || []).map(({ url, date, title, description }) => {
+          const link = `${data.origin}${url}`
+
+          return elem('entry', [
+            elem('title', title),
+            elem('id', link),
+            `<link href="${link}"/>`,
+            elem('published', (date || new Date()).toISOString()),
+            elem('summary', { type: 'xhtml' }, renderInline(description)),
+          ].join(''))
+        })
+      ].join('\n')
+    ),
+  ].join('')
+
+  return [feed_content, feed_dir, feed_file]
+}
+
 export function renderPageList(data) {
   const key = data.collection_name || data.content_collection
   const items = key ? data[key] : data.items || data
@@ -28,7 +72,7 @@ export function renderNavi(data) {
       : ''
 }
 
-function toSymbol(svg, name='x', size=24) {
+function toSymbol(svg, name = 'x', size = 24) {
   const id = `${name}-symbol`
   const attr = { id, viewBox: `0 0 ${size} ${size}` }
   const body = svg.slice(svg.indexOf('>') + 1, -6)
@@ -104,8 +148,8 @@ export function renderPage(page) {
     ? time + elem('a', { href: url }, h2 + p)
     // figure
     : elem('a', { href: url }, elem('figure',
-        elem('img', { src: thumb, loading: 'lazy' }) + elem('figcaption', time + h2 + p)
-      )
+      elem('img', { src: thumb, loading: 'lazy' }) + elem('figcaption', time + h2 + p)
+    )
     )
 
   return elem('li', { class: isNew(date) && 'is-new' }, body)
