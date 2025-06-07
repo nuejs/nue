@@ -11,6 +11,6 @@ title: Contact me
   [contact-me]
 
   ---
-  [image]
+  [image]:
     src: /img/profile.jpg
     size: 460 x 460
