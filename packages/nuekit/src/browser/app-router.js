@@ -20,6 +20,8 @@ export const router = {
     } = args
 
     opts = { route: route.split('/'), url_params, session_params, persistent_params }
+
+    return router
   },
 
   get state() {

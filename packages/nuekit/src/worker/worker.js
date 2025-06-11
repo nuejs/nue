@@ -2,7 +2,7 @@
 import { createKV } from './kv.js'
 import { createDB } from './db.js'
 
-async function getServer(conf) {
+async function createServer(conf) {
   const path = `${conf.dir}/${conf.server}` + (conf.reload ? '?t=' + Date.now() : '')
   const server = await import(process.cwd() + '/' + path)
   return server.default
@@ -11,7 +11,7 @@ async function getServer(conf) {
 // local worker
 export function createWorker(conf) {
   const env = {
-    ...process.env,
+    ...process.env, ...conf,
     DB: createDB(`${conf.dir}/db/app.db`),
     KV: createKV(`${conf.dir}/db/app.json`),
   }
@@ -20,15 +20,17 @@ export function createWorker(conf) {
 
   return {
     async matches(req) {
-      if (!server || conf.reload) server = await getServer(conf)
+      if (!server || conf.reload) server = await createServer(conf)
       return matches(server.routes, req)
     },
 
     async handle(req, res) {
+
+
       const request = new Request(`http://localhost${req.url}`, {
         method: req.method,
-        headers: req.headers,
-        body: req.body
+        headers: { 'cf-ipcountry': 'FI', ...req.headers },
+        body: await parseBody(req),
       })
 
       const response = await server.fetch(request, env)
@@ -38,6 +40,15 @@ export function createWorker(conf) {
   }
 
 }
+
+
+// required when using Node's old school http package (Not fetch based server like Bun)
+async function parseBody(req) {
+  const chunks = []
+  for await (const chunk of req) chunks.push(chunk)
+  return chunks.length > 0 ? Buffer.concat(chunks).toString() : null
+}
+
 
 export function matches(routes, { url, method }) {
   
