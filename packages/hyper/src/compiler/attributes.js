@@ -34,9 +34,9 @@ export function parseAttributes(attrs) {
       result[base] = base == 'else' ? true : addContext(value)
 
     // event handler
-    } else if (is_colon && EVENTS.includes(base)) {
+    } else if (name.slice(0, 3) == ':on' && EVENTS.includes(name.slice(3))) {
       if (!/\W/.test(value)) value += '($e)'
-      push('handlers', { name: 'on' + base, h_fn: addContext(value) })
+      push('handlers', { name: base, h_fn: addContext(value) })
 
     } else {
       const attr = { name: base }

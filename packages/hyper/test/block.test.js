@@ -31,7 +31,7 @@ test('errors', () => {
 })
 
 test('do not render event handlers', () => {
-  const html = render('<a :click="click"></a>', { click: () => true })
+  const html = render('<a :onclick="click"></a>', { click: () => true })
   expect(html).toBe('<a></a>')
 })
 

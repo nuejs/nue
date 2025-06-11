@@ -1,8 +1,8 @@
 
 import { clickable } from './clickable.js'
 
-test('event handler', () => {
-  const template = '<button :click="counter[0]++">${ counter[0] }</button>'
+test.only('event handler', () => {
+  const template = '<button :onclick="counter[0]++">${ counter[0] }</button>'
   const data = { counter: [1] }
   const root = clickable(template, data)
   expect(root.html).toBe('<button>1</button>')
@@ -13,7 +13,7 @@ test('event handler', () => {
 
 test('event argument', () => {
   const template = `
-    <button :click="setName($event)">
+    <button :onclick="setName($event)">
       \${ name }
 
       <script>
@@ -34,7 +34,7 @@ test('conditional', () => {
   const template = `
     <div>
       <h3 :if="count">Hello</h3>
-      <a :click="count++"/>
+      <a :onclick="count++"/>
     </div>
   `
   const root = clickable(template, { count: 0 })
@@ -48,7 +48,7 @@ test('loop + if', () => {
   const template = `
     <div>
       <a :for="val in [1,2]" :if="doit">\${val}</a>
-      <button :click="doit = true"/>
+      <button :onclick="doit = true"/>
     </div>
   `
   const root = clickable(template)
@@ -66,7 +66,7 @@ test('callback', () => {
     </div>
 
     <child>
-      <button :click=run/>
+      <button :onclick=run/>
       <script>
         run() {
           this.callback()
@@ -83,7 +83,7 @@ test('callback', () => {
 
 test('method', () => {
   const template = `
-    <a :click="increment()">
+    <a :onclick="increment()">
       Count: \${ count }
       <script>
         this.count = 0
@@ -102,7 +102,7 @@ test('method', () => {
 
 test('method syntax', () => {
   const template = `
-    <a :click="hey()">
+    <a :onclick="hey()">
       \${ val }  \${ avg }
       <script>
         hey() {
@@ -127,7 +127,7 @@ test('child/bind updates', () => {
     <div>
       <h1>\${ data.hello }</h1>
       <child :bind="data"/>
-      <button :click="change"/>
+      <button :onclick="change"/>
       <script>
         this.data = {
           hello: 'Hello',

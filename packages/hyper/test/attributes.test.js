@@ -11,8 +11,8 @@ import {
 
 
 test('attr tokenize basics', () => {
-  const attr = 'class=test disabled :click="log($event)"'
-  expect(tokenizeAttr(attr)).toEqual(['class=test', 'disabled', ':click=log($event)'])
+  const attr = 'class=test disabled :onclick="log($event)"'
+  expect(tokenizeAttr(attr)).toEqual(['class=test', 'disabled', ':onclick=log($event)'])
 })
 
 test('tokenize class helper', () => {
@@ -21,9 +21,9 @@ test('tokenize class helper', () => {
 })
 
 test('tokenize complex', () => {
-  const attr = `:click="this.fire('bomb' == state) || console.log(a || $event)" disabled goto="10"`
+  const attr = `:onclick="this.fire('bomb' == state) || console.log(a || $event)" disabled goto="10"`
   const attrs = tokenizeAttr(attr)
-  expect(attrs[0]).toBe(":click=this.fire('bomb' == state) || console.log(a || $event)")
+  expect(attrs[0]).toBe(":onclick=this.fire('bomb' == state) || console.log(a || $event)")
   expect(attrs.length).toBe(3)
 })
 
@@ -116,7 +116,7 @@ test('equals character', () => {
 
 
 test('event argument', () => {
-  expect(parseAttributes(':input="seek(index, $event)"').handlers[0]).toEqual({
+  expect(parseAttributes(':oninput="seek(index, $event)"').handlers[0]).toEqual({
     h_fn: '_.seek(_.index, $e)',
     name: 'oninput',
   })

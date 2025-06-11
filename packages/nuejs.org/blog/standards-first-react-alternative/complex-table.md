@@ -322,10 +322,10 @@ Uses only about 40 lines of code, roughly 75% reduction in code to impolement th
 
   <table>
     <tr>
-      <th><a :click="sort('name')">Name</a></th>
-      <th><a :click="sort('email')">Email</a></th>
-      <th><a :click="sort('age')">Age</a></th>
-      <th><a :click="sort('total')">Total</a></th>
+      <th><a :onclick="sort('name')">Name</a></th>
+      <th><a :onclick="sort('email')">Email</a></th>
+      <th><a :onclick="sort('age')">Age</a></th>
+      <th><a :onclick="sort('total')">Total</a></th>
     </tr>
 
     <tr :for="user of subset || users" key="${ user.id }">

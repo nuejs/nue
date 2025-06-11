@@ -35,8 +35,8 @@ test('complex', () => {
 })
 
 test('simple, unquoted attributes', () => {
-  const els = tokenize('<p :click=hey>Hi</p>')
-  expect(els[0]).toBe('<p :click=hey>')
+  const els = tokenize('<p :onclick=hey>Hi</p>')
+  expect(els[0]).toBe('<p :onclick=hey>')
   expect(els.length).toBe(3)
 })
 

@@ -9,13 +9,13 @@ export const BOOLEAN = 'disabled checked selected hidden readonly required autof
 export const HTML5_TAGS = 'a abbr address area article aside audio b base bdi bdo blockquote body br button canvas caption cite code col colgroup data datalist dd del details dfn dialog div dl dt em embed fieldset figcaption figure footer form h1 h2 h3 h4 h5 h6 head header hr html i iframe img input ins kbd label legend li link main map mark meta meter nav noscript object ol optgroup option output p param picture pre progress q rp rt ruby s samp script section select small source span strong style sub summary sup table tbody td template textarea tfoot th thead time title tr track u ul var video wbr slot portal'.split(' ')
 
 
-export const SVG_TAGS = 'animate animatemotion animatetransform circle clippath defs desc ellipse\
- feblend fecolormatrix fecomponenttransfer fecomposite feconvolvematrix fediffuselighting\
- fedisplacementmap fedistantlight fedropshadow feflood fefunca fefuncb fefuncg fefuncr\
- fegaussianblur feimage femerge femergenode femorphology feoffset fepointlight fespecularlighting\
- fespotlight fetile feturbulence filter foreignobject g hatch hatchpath image line lineargradient\
- marker mask metadata mpath path pattern polygon polyline radialgradient rect set stop style svg\
- switch symbol text textpath title tspan use view'.split(' ')
+export const SVG_TAGS = 'animate animateMotion animateTransform circle clipPath defs desc ellipse\
+ feBlend feColorMatrix feComponentTransfer feComposite feConvolveMatrix feDiffuseLighting\
+ feDisplacementMap feDistantLight feDropShadow feFlood feFuncA feFuncB feFuncG feFuncR\
+ feGaussianBlur feImage feMerge feMergeNode feMorphology feOffset fePointLight feSpecularLighting\
+ feSpotLight feTile feTurbulence filter foreignObject g hatch hatchPath image line linearGradient\
+ marker mask metadata mpath path pattern polygon polyline radialGradient rect set stop style svg\
+ switch symbol text textPath title tspan use view'.split(' ')
 
 export const SELF_CLOSING = 'img br hr input meta link area base col embed keygen param source track wbr'.split(' ')
 

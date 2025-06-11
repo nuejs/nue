@@ -252,7 +252,7 @@ Hyper extends standard HTML with expressions, loops, conditionals, and custom co
 ```
 <!-- component definition -->
 <counter>
-  <button :click="count++">${ count }</button>
+  <button :onclick="count++">${ count }</button>
 
   <!-- initialization script -->
   <script>
@@ -271,7 +271,7 @@ Hyper extends standard HTML with expressions, loops, conditionals, and custom co
 
 <!-- instance methods -->
 <counter>
-  <button :click="incr">${ count }</button>
+  <button :onclick="incr">${ count }</button>
 
   <script>
 >   this.incr() = function() {
@@ -282,7 +282,7 @@ Hyper extends standard HTML with expressions, loops, conditionals, and custom co
 
 <!-- object-style method definition -->
 <counter>
-  <button :click="incr">${ count }</button>
+  <button :onclick="incr">${ count }</button>
 
   <script>
 >   incr() {
@@ -292,7 +292,7 @@ Hyper extends standard HTML with expressions, loops, conditionals, and custom co
 </counter>
 
 <!-- event argument -->
-<button :click="log('Hey', $event)">Hey</button>
+<button :onclick="log('Hey', $event)">Hey</button>
 
 
 <!-- define a component with a specific root element (default: div) -->
@@ -344,7 +344,7 @@ Hyper extends standard HTML with expressions, loops, conditionals, and custom co
 
 ```
 <counter>
-  <button :click="incr">${ count }</button>
+  <button :onclick="incr">${ count }</button>
 
   <script>
     incr() {

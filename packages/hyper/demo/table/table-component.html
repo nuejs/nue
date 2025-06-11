@@ -5,15 +5,15 @@
   <header>
     <h1>Table example</h1>
     <p>A more compex table with filtering and sortable columns</p>
-    <input type="search" :input="filter" placeholder="Filter by name...">
+    <input type="search" :oninput="filter" placeholder="Filter by name...">
   </header>
 
   <table>
     <tr>
-      <th><a :click="sort('name')">Name</a></th>
-      <th><a :click="sort('email')">Email</a></th>
-      <th><a :click="sort('age')">Age</a></th>
-      <th><a :click="sort('total')">Total</a></th>
+      <th><a :onclick="sort('name')">Name</a></th>
+      <th><a :onclick="sort('email')">Email</a></th>
+      <th><a :onclick="sort('age')">Age</a></th>
+      <th><a :onclick="sort('total')">Total</a></th>
     </tr>
 
     <tr :for="user of subset || users" key="${ user.id }">

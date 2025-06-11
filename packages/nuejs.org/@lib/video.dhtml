@@ -3,7 +3,7 @@
 <bunny-player class="paused player">
   <video ref="video" :poster="splash" :width="width" :height="height" muted/>
   <a class="play"></a>
-  <a class="fullscreen" :click="fullscreen"></a>
+  <a class="fullscreen" :onclick="fullscreen"></a>
 
   <script>
     mounted({ poster='', videoId }) {
