@@ -63,9 +63,18 @@ export function parseTag(node) {
 
   const specs = attr ? parseAttributes(attr) : {}
   const comp = { tag: tagName.trim(), ...specs }
+  const i = SVG_TAGS.findIndex(el => el.toLowerCase() == tagName.toLowerCase())
 
-  if (SVG_TAGS.includes(tagName)) comp.svg = true
-  else if (tagName.includes('-') || !HTML5_TAGS.includes(tagName)) comp.is_custom = true
+  if (i >= 0) {
+    comp.svg = true
+
+    const correct = SVG_TAGS[i]
+    if (correct != tagName) {
+      comp.tag = correct
+      console.warn(`Fixed SVG case: ${tagName} -> ${correct}`)
+    }
+
+  } else if (tagName.includes('-') || !HTML5_TAGS.includes(tagName)) comp.is_custom = true
 
   const mount = comp.attr?.find(a => a.name == 'mount')
   if (mount) {

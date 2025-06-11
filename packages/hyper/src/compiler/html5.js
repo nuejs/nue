@@ -19,7 +19,8 @@ export const SVG_TAGS = 'animate animateMotion animateTransform circle clipPath 
 
 export const SELF_CLOSING = 'img br hr input meta link area base col embed keygen param source track wbr'.split(' ')
 
-
+// case sensitive, or rendering breaks
+export const STRICT_ATTRS = 'viewBox preserveAspectRatio'.split(' ')
 
 /*
 export const ATTR = 'class id style lang dir title accesskey tabindex href src alt type value name for rel target action method placeholder pattern min max step width height poster media sizes srcset content role form download'.split(' ')

@@ -2,6 +2,7 @@
 import { render } from '../src'
 
 jest.spyOn(console, 'error').mockImplementation(() => {})
+jest.spyOn(console, 'warn').mockImplementation(() => {})
 afterEach(() => console.error.mockClear())
 
 test('element', () => {
@@ -60,7 +61,8 @@ test('nesting', () => {
 
 test('svg', () => {
   const template = `
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24">
+      <foreignobject/>
       <path d="M6 8a6 6 0 0 1 12"/>
     </svg>
   `
@@ -68,6 +70,10 @@ test('svg', () => {
 
   expect(svg).toStartWith('<svg xmlns="http://www.w3.org/2000/svg"')
   expect(svg).toInclude('<path d="M6 8a6 6 0 0 1 12">')
+
+  // fix cases
+  expect(svg).toInclude('viewBox')
+  expect(svg).toInclude('foreignObject')
 })
 
 test('interpolation', () => {

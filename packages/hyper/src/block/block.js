@@ -60,7 +60,6 @@ export function createBlock(ast, data={}, opts={}, parent) {
   }
 
 
-
   function render(_ast=ast, data=self) {
     return _ast.text || _ast.fn ? renderText(_ast, data) :
       _ast.some ? renderIf(_ast, data) :

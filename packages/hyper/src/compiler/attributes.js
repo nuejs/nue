@@ -1,5 +1,5 @@
 
-import { addContext, EVENTS, BOOLEAN } from './html5.js'
+import { addContext, EVENTS, BOOLEAN, STRICT_ATTRS } from './html5.js'
 
 export function tokenizeAttr(attrStr) {
   return (attrStr.match(/[^\s=]+(?:=(?:"[^"]*"|\${[^}]+}|[^\s]+))?/g) || []).map(token =>
@@ -58,6 +58,14 @@ export function parseAttributes(attrs) {
 
       } else if (is_colon) {
         attr.is_data = true
+
+      } else {
+        const correct = STRICT_ATTRS.find(el => el.toLowerCase() == name.toLowerCase())
+
+        if (correct && name != correct) {
+          attr.name = correct
+          console.warn(`Fixed SVG case: ${name} -> ${correct}`)
+        }
       }
 
       push('attr', attr)
