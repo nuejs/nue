@@ -13,7 +13,7 @@
   </thead>
 
   <tbody>
-    <tr :for="user, i of users">
+    <tr :each="user, i of users">
       <td><avatar :src="user.avatar"/></td>
       <td>
         <h3>${ user.name }</h3>

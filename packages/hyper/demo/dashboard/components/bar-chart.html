@@ -1,7 +1,7 @@
 
 <!-- bar chart -->
 <bar-chart class="bar-chart">
-  <bar :for="value of data" :value :max/>
+  <bar :each="value of data" :value :max/>
   <script>
     this.max = this.max || Math.max(...this.data)
   </script>

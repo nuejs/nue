@@ -137,7 +137,7 @@ test('invalid character warnings', () => {
 
 
 test('loop', () => {
-  const template = '<ul><li :for="(el, i) in items">${i}: ${el}</li></ul>'
+  const template = '<ul><li :each="(el, i) in items">${i}: ${el}</li></ul>'
   const html = render(template, { items: ['a', 'b'] })
   expect(html).toBe('<ul><li>0: a</li><li>1: b</li></ul>')
 })
@@ -145,7 +145,7 @@ test('loop', () => {
 test('template loop', () => {
   const template = `
     <dl>
-      <template :for="(el, i) in meta">
+      <template :each="(el, i) in meta">
         <dt>\${ el.title }</dt>
         <dd>\${ el.data }</dd>
       </template>
@@ -163,7 +163,7 @@ test('template loop', () => {
 test('Object.entries()', () => {
   const template = `
     <dl>
-      <template :for="[key, val] in Object.entries(items)">
+      <template :each="[key, val] in Object.entries(items)">
         <td>\${ key }</td>
         <dd>\${ val }</dd>
       </template>
@@ -177,7 +177,7 @@ test('Object.entries()', () => {
 test('loop deconstruct', () => {
   const template = `
     <dl>
-      <template :for="{ key, val } in items">
+      <template :each="{ key, val } in items">
         <td>\${ key }</td>
         <dd>\${ val }</dd>
       </template>
@@ -191,8 +191,8 @@ test('loop deconstruct', () => {
 test('nested loop', () => {
   const template = `
     <ul>
-      <li :for="arr in items">
-        <p :for="el in arr">\${ el }</p>
+      <li :each="arr in items">
+        <p :each="el in arr">\${ el }</p>
       </li>
     </ul>
   `
@@ -202,7 +202,7 @@ test('nested loop', () => {
 })
 
 test('loop data access', () => {
-  const template = '<div><p :for="el in items">${el} ${foo}</p></div>'
+  const template = '<div><p :each="el in items">${el} ${foo}</p></div>'
   const html = render(template, { foo: 1, items: ['F', 'F'] })
   expect(html).toInclude('<p>F 1</p><p>F 1</p>')
 })

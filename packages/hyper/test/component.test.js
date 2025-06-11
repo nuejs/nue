@@ -56,7 +56,7 @@ test('script', () => {
 test('loop', () => {
   const template = `
     <ul>
-      <item :for="text of arr" :text="\${ text }"/>
+      <item :each="text of arr" :text="\${ text }"/>
       <script>
         this.arr = ['hello', 'world']
       </script>
@@ -151,7 +151,7 @@ test('slot', () => {
 test('slot loop', () => {
   const html = render(`
     <a>
-      <child :for="el, i in new Array(2).fill(1)">\${i}</child>
+      <child :each="el, i in new Array(2).fill(1)">\${i}</child>
     </a>
     <b :is="child">i: <slot/></b>
   `)

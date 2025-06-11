@@ -47,7 +47,7 @@ test('conditional', () => {
 test('loop + if', () => {
   const template = `
     <div>
-      <a :for="val in [1,2]" :if="doit">\${val}</a>
+      <a :each="val in [1,2]" :if="doit">\${val}</a>
       <button :onclick="doit = true"/>
     </div>
   `

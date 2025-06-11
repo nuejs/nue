@@ -16,7 +16,7 @@
       <th><a :onclick="sort('total')">Total</a></th>
     </tr>
 
-    <tr :for="user of subset || users" key="${ user.id }">
+    <tr :each="user of subset || users" key="${ user.id }">
       <td>${ user.name }</td>
       <td>${ user.email }</td>
       <td>${ user.age }</td>

@@ -15,7 +15,7 @@
       <th>Email</th>
       <th>Age</th>
     </tr>
-    <tr :for="user of users">
+    <tr :each="user of users">
       <td>${ user.name }</td>
       <td>${ user.email }</td>
       <td>${ user.age }</td>

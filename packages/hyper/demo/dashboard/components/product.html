@@ -17,7 +17,7 @@
 </product>
 
 <dl :is="deflist">
-  <template :for="[key, val] in Object.entries(items)">
+  <template :each="[key, val] in Object.entries(items)">
     <td>${ key }</td>
     <dd>${ val }</dd>
   </template>

@@ -123,7 +123,7 @@ test('event argument', () => {
 })
 
 test('for attribute', () => {
-  expect(parseAttributes(':for="item, i of items"').for).toMatchObject({
+  expect(parseAttributes(':each="item, i of items"').for).toMatchObject({
     fn: '_.items',
     keys: [ 'item' ],
     index: 'i',

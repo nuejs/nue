@@ -21,7 +21,7 @@ export function parseAttributes(attrs) {
     const is_colon = name[0] == ':'
     const base = is_colon ? name.slice(1) : name
 
-    if (name == ':for') {
+    if (name == ':each') {
       result.for = parseFor(value)
 
     } else if (name == ':is') {
