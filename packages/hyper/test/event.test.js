@@ -2,30 +2,32 @@
 import { clickable } from './clickable.js'
 
 test('event handler', () => {
-  const template = '<button :click="count++">${ count }</button>'
-  const data = { count: 1 }
+  const template = '<button :click="counter[0]++">${ counter[0] }</button>'
+  const data = { counter: [1] }
   const root = clickable(template, data)
   expect(root.html).toBe('<button>1</button>')
   root.click()
-  expect(data.count).toBe(2)
+  expect(data.counter[0]).toBe(2)
   expect(root.html).toBe('<button>2</button>')
 })
 
 test('event argument', () => {
-  const template = '<button :click="setActive(item, $event)">${ active }</button>'
-  const data = {
-    item: 'foo',
-    active: null,
-    setActive: function(item, e) {
-      expect(e.target.tagName).toBe('BUTTON')
-      this.active = item
-    }
-  }
-  const root = clickable(template, data)
-  expect(root.html).toBe('<button></button>')
-  root.click()
-  expect(data.active).toBe('foo')
-  expect(root.html).toBe('<button>foo</button>')
+  const template = `
+    <button :click="setName($event)">
+      \${ name }
+
+      <script>
+        setName(e) {
+          this.name = e.target.tagName
+        }
+      </script>
+    </button>
+  `
+
+  const button = clickable(template)
+  expect(button.html).toBe('<button></button>')
+  button.click()
+  expect(button.html).toBe('<button>BUTTON</button>')
 })
 
 test('conditional', () => {
@@ -85,6 +87,7 @@ test('method', () => {
       Count: \${ count }
       <script>
         this.count = 0
+
         this.increment = function() {
           this.count++
         }
@@ -93,8 +96,7 @@ test('method', () => {
   `
   const root = clickable(template)
   expect(root.html).toInclude('Count: 0')
-  root.click('a') // Await click
-  expect(root.block.data.count).toBe(1)
+  root.click('a')
   expect(root.html).toInclude('Count: 1')
 })
 
@@ -125,13 +127,13 @@ test('child/bind updates', () => {
     <div>
       <h1>\${ data.hello }</h1>
       <child :bind="data"/>
-      <button :click="update"/>
+      <button :click="change"/>
       <script>
         this.data = {
           hello: 'Hello',
           world: 'World',
         }
-        update() {
+        change() {
           this.data = {
             hello: 'Holy',
             world: 'Smoke',

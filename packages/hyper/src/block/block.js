@@ -9,39 +9,12 @@ export function createBlock(ast, data={}, opts={}, parent) {
   const { script } = ast
   let root
 
-  // Object.assign(data, getAttrData(ast, data))
-  data = { ...data, ...getAttrData(ast, data) }
-
-  if (script) {
-    try {
-      if (typeof script == 'string') new Function(script).call(data)
-      else script.call(data)
-
-    } catch (e) {
-      console.error('<script> error:', script, e)
-    }
-  }
-
-  function fire(name, wrap) {
-    const fn = data[name]
-    if (wrap?.tagName) root = data.root = wrap
-    if (is_browser && fn && typeof fn == 'function') return fn.call(data, data, update)
-  }
-
-  function mount(wrap) {
-    fire('onmount', wrap)
-    const frag = render(ast, data)
-    const root = frag.firstChild
-    is_browser ? wrap.replaceWith(root) : wrap.appendChild(root)
-    if (is_browser) fire('mounted', root)
-    return root
-  }
 
   function update(values) {
-    if (values) Object.assign(data, values)
+    if (values) Object.assign(self, values)
 
     if (fire('onupdate') !== false) {
-      const frag = render(ast, data)
+      const frag = render(ast, self)
 
       /*
         TODO: simplify
@@ -56,26 +29,53 @@ export function createBlock(ast, data={}, opts={}, parent) {
       else domdiff(parent ? root : root.firstChild, frag.firstChild, parent ? root.parentNode : root)
       fire('updated')
     }
-
   }
 
-  data.update = update
+  // Object.assign(self, getAttrData(ast, self))
+  const self = { ...data, ...getAttrData(ast, data), update }
 
-  function render(_ast=ast, _data=data) {
-    return _ast.text || _ast.fn ? renderText(_ast, _data) :
-      _ast.some ? renderIf(_ast, _data) :
-      _ast.for ? renderLoop(_ast, _data) :
-      _ast.is_custom ? renderComponent(_ast, _data) :
-      _ast.tag ? renderTag(_ast, _data) :
+  if (script) {
+    try {
+      if (typeof script == 'string') new Function(script).call(self)
+      else script.call(self)
+
+    } catch (e) {
+      console.error('<script> error:', script, e)
+    }
+  }
+
+  function fire(name, wrap) {
+    const fn = self[name]
+    if (wrap?.tagName) root = self.root = wrap
+    if (is_browser && fn && typeof fn == 'function') return fn.call(self, self, update)
+  }
+
+  function mount(wrap) {
+    fire('onmount', wrap)
+    const frag = render(ast, self)
+    const root = frag.firstChild
+    is_browser ? wrap.replaceWith(root) : wrap.appendChild(root)
+    if (is_browser) fire('mounted', root)
+    return root
+  }
+
+
+
+  function render(_ast=ast, data=self) {
+    return _ast.text || _ast.fn ? renderText(_ast, data) :
+      _ast.some ? renderIf(_ast, data) :
+      _ast.for ? renderLoop(_ast, data) :
+      _ast.is_custom ? renderComponent(_ast, data) :
+      _ast.tag ? renderTag(_ast, data) :
       createFragment()
   }
 
-  function renderTag(ast, data) {
+  function renderTag(ast, self) {
     const tag = ast.svg ? document.createElementNS('http://www.w3.org/2000/svg', ast.tag) :
       document.createElement(ast.tag)
 
-    setAttributes(tag, ast, data)
-    if (parent && ast.is_child) setAttributes(tag, parent.ast, parent.data)
+    setAttributes(tag, ast, self)
+    if (parent && ast.is_child) setAttributes(tag, parent.ast, parent.self)
 
     const am = tag.classList.length
     if (am > (opts.max_class_names || 3)) {
@@ -90,7 +90,7 @@ export function createBlock(ast, data={}, opts={}, parent) {
 
     ast.handlers?.forEach(h => {
       tag.addEventListener(h.name.slice(2), function(e) {
-        exec(h.h_fn, data, e)
+        exec(h.h_fn, self, e)
         update()
       })
     })
@@ -101,11 +101,11 @@ export function createBlock(ast, data={}, opts={}, parent) {
         if (opts.slot) return tag.appendChild(renderHTML(opts.slot))
 
         parent?.ast.children?.forEach((node, i) => {
-          tag.appendChild(render(node, parent.data))
+          tag.appendChild(render(node, parent.self))
           addSpace(tag, node, parent.ast.children[i + 1])
         })
       } else {
-        tag.appendChild(render(child, data))
+        tag.appendChild(render(child, self))
       }
       addSpace(tag, child, ast.children[i+1])
     })
@@ -115,25 +115,25 @@ export function createBlock(ast, data={}, opts={}, parent) {
     return frag
   }
 
-  function renderIf(ast, data) {
+  function renderIf(ast, self) {
     const child = ast.some.find(el => {
       const fn = el.if || el['else-if']
-      return fn ? exec(fn, data) : true
+      return fn ? exec(fn, self) : true
     })
-    return child ? render(child, data) : createFragment()
+    return child ? render(child, self) : createFragment()
   }
 
-  function renderLoop(impl, data) {
+  function renderLoop(impl, self) {
     const ast = { ...impl }
     const { keys, is_entries, index, fn } = ast.for
     delete ast.for
 
     const frag = createFragment()
     const is_template = ast.tag == 'template'
-    const items = exec(fn, data) || []
+    const items = exec(fn, self) || []
 
     items.forEach((item, i) => {
-      const loopData = { ...data }
+      const loopData = { ...self }
       if (keys[1]) keys.forEach((key, i ) => loopData[key] = item[is_entries ? i : key])
       else loopData[keys[0]] = item
       if (index) loopData[index] = i
@@ -149,16 +149,16 @@ export function createBlock(ast, data={}, opts={}, parent) {
     return frag
   }
 
-  function renderComponent(ast, data) {
+  function renderComponent(ast, self) {
 
-    const attr_data = getAttrData(ast, data)
+    const attr_data = getAttrData(ast, self)
 
     // render function?
     const fn = opts.fns && opts.fns[ast.tag]
-    if (fn) return renderHTML(fn({ ...attr_data, ...data }, opts))
+    if (fn) return renderHTML(fn({ ...attr_data, ...self }, opts))
 
     // find component
-    const comp = findComponent(ast, data)
+    const comp = findComponent(ast, self)
     if (!comp) return renderHTML(renderStub(ast.tag, attr_data))
 
     const tag = ast.mount ? ast.tag : comp.is ? comp.tag : 'div'
@@ -167,7 +167,7 @@ export function createBlock(ast, data={}, opts={}, parent) {
       { ...comp, tag, is_custom: false, is_child: true },
       attr_data,
       opts,
-      createBlock(ast, data, opts, parent)
+      createBlock(ast, self, opts, parent)
     )
     const frag = block.render()
     block.fire('onmount', frag.firstChild)
@@ -175,27 +175,27 @@ export function createBlock(ast, data={}, opts={}, parent) {
     return frag
   }
 
-  function findComponent(ast, data) {
+  function findComponent(ast, self) {
     let { mount, tag } = ast
-    if (mount) tag = mount.fn ? exec(mount.fn, data) : mount.val
+    if (mount) tag = mount.fn ? exec(mount.fn, self) : mount.val
     return opts.lib?.find(c => c != ast && tag == (c.is || c.tag))
   }
 
   return {
-    mount, update, render, ast, data, fire, get root() { return root },
+    mount, update, render, ast, self, fire, get root() { return root },
   }
 }
 
-function renderText(ast, data) {
-  const val = ast.fn ? exec(ast.fn, data) : ast.text || ''
+function renderText(ast, self) {
+  const val = ast.fn ? exec(ast.fn, self) : ast.text || ''
   return ast.html ? renderHTML(val) : document.createTextNode(val)
 }
 
-function getAttrData(ast, data) {
+function getAttrData(ast, self) {
 
   const ret = {}
   ast.attr?.forEach(a => {
-    const val = a.fn ? exec(a.fn, { ...data, $concat }) : a.val
+    const val = a.fn ? exec(a.fn, { ...self, $concat }) : a.val
     if (a.name == 'bind') {
       if (typeof val == 'object') Object.assign(ret, val)
     } else {
@@ -205,13 +205,13 @@ function getAttrData(ast, data) {
   return ret
 }
 
-function setAttributes(el, ast, data) {
+function setAttributes(el, ast, self) {
   const vars = []
 
   ast.attr?.forEach(a => {
     if (a.is_data) return
     let { name, val, fn } = a
-    if (fn) val = exec(fn, { ...data, $concat })
+    if (fn) val = exec(fn, { ...self, $concat })
 
     if (a.is_var) {
       vars.push({ name, val })
@@ -229,10 +229,10 @@ function setAttributes(el, ast, data) {
   }
 }
 
-function exec(fn, data, e) {
+function exec(fn, self, e) {
   try {
     if (typeof fn == 'string') fn = new Function('_', '$e', 'return ' + fn)
-    let val = fn(data, e)
+    let val = fn(self, e)
     return val == null ? '' : Number.isNaN(val) ? 'N/A' : val
   } catch (e) {
     console.error('Hyper error:', e.message)
@@ -262,8 +262,9 @@ function addSpace(to, child, next) {
   }
 }
 
-function renderStub(tag, data) {
-  const json = JSON.stringify(data)
+function renderStub(tag, self) {
+  const json = JSON.stringify(self)
   const js = json != '{}' ? `<script type="application/json">${json}</script>` : ''
   return `<${tag} custom="${tag}"></${tag}>${js}`
 }
+

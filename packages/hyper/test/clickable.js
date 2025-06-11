@@ -1,6 +1,7 @@
 
 import { parseHyper, renderBlock } from '../src'
 
+
 export function clickable(template, data) {
   const lib = parseHyper(template)
   const block = renderBlock(lib[0], data, { lib })
