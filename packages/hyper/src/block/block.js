@@ -89,7 +89,9 @@ export function createBlock(ast, data={}, opts={}, parent) {
 
 
     ast.handlers?.forEach(h => {
-      tag.addEventListener(h.name.slice(2), function(e) {
+      const name = h.name.slice(2)
+      tag.addEventListener(name, function(e) {
+        if (name == 'submit') e.preventDefault()
         exec(h.h_fn, self, e)
         update()
       })
