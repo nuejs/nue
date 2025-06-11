@@ -129,17 +129,17 @@ function parseText(text) {
 
 
 // foo() {} --> this.foo = function() { }
-function convertFunctions(script) {
+export function convertFunctions(script) {
   return script.replace(
     /^( *)(async\s+)?(\w+)\s*\(([^)]*)\)\s*{/gm, (_, indent, asy, name, args) => {
-      if (_.includes('function') || _.includes('for ')) return _
+      if (_.includes('function') || ['for', 'if'].includes(name)) return _
       return `${indent}this.${name} = ${asy ? 'async ' : ''}function(${args.trim()}) {`
     }
   )
 }
 
 // get foo() {} --> Object.defineProperty
-function convertGetters(script) {
+export function convertGetters(script) {
   return script.replace(
     /^( *)get (\w+)\(\)\s*{([^}]+)}/gm, (_, indent, name, body) => {
       return `${indent}Object.defineProperty(this, '${name}', { get() {${body}} })`

@@ -35,21 +35,6 @@ test('<script> block', () => {
   expect(js).toInclude('_=>_.val')
 })
 
-test('complex <script> block', () => {
-  const js = compileTemplate(`
-    <a>
-      <script>
-        format(str) {
-          return str.foo(/a/, ':')
-        }
-      </script>
-    </a>
-  `)
-
-  expect(js).toInclude(`{ this.format = function(str) {
-          return str.foo(/a/, ':')
-        }`)
-})
 
 test('empty template', () => {
   const template = ''

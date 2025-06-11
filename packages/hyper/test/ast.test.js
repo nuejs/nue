@@ -1,5 +1,5 @@
 
-import { parseTags, parseTag } from '../src/compiler/ast.js'
+import { parseTags, parseTag, convertFunctions, convertGetters } from '../src/compiler/ast.js'
 import { tokenize } from '../src/compiler/tokenizer.js'
 import { inspect } from 'node:util'
 
@@ -161,4 +161,17 @@ test('newlines', () => {
 test('skip style tags', () => {
   expect(parseTest('<style></style>', true)).toBeUndefined()
   parseTest('<div><style></style></div>', { tag: 'div' })
+})
+
+
+test('convert function', () => {
+  expect(convertFunctions(`format(str) {}`)).toEqual('this.format = function(str) {}')
+  expect(convertFunctions(`async format(str) {}`)).toEqual('this.format = async function(str) {}')
+  expect(convertFunctions(`if(true) {}`)).toEqual('if(true) {}')
+  expect(convertFunctions(`for(true) {}`)).toEqual('for(true) {}')
+  expect(convertFunctions(`for (true) {}`)).toEqual('for (true) {}')
+})
+
+test('convert getters', () => {
+  expect(convertGetters('get foo() { }')).toEqual("Object.defineProperty(this, 'foo', { get() { } })")
 })
