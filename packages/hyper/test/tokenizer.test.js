@@ -89,6 +89,18 @@ test('comments', () => {
   expect(els.join('').trim()).toEqual('<h1>Hello</h1>')
 })
 
+test('annotations', () => {
+  const els = tokenize(`
+    <!--
+      @license MIT
+      @author tipiirai
+    -->
+    <h1>Hello</h1>
+  `)
+
+  expect(els[0].meta).toEqual({license: "MIT", author: "tipiirai" })
+})
+
 
 test('scripts with expressions', () => {
   const tokens = tokenize('<a><script>`${expr}`</script></a>')

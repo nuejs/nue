@@ -16,8 +16,14 @@ function parseTest(str, expected) {
 }
 
 
+test('annotations', () => {
+  const lib = parseTags(tokenize('<!-- @dynamic --> <foo/>'))
+  expect(lib[0].meta.dynamic).toBeTrue()
+})
+
 test('parseTags', () => {
   const lib = `
+    <!-- @author john -->
     <foo>
       <h3 disabled class="\${ foo }"/>
       <p>\${ bar } baz</p>
@@ -34,21 +40,15 @@ test('parseTags', () => {
 
   expect(blocks.length).toBe(3)
 
-  expect(blocks[0]).toEqual(  {
+  expect(blocks[0]).toMatchObject(  {
+    meta: { author: 'john' },
     tag: "<foo>",
     children: [
-      {
-        tag: "<h3 disabled class=\"${ foo }\"/>",
-        children: [],
-      },
-      {
-        tag: "<p>",
-        children: [{ text: "${ bar }" }, { text: " baz" }],
-      }
-    ],
+      { tag: "<h3 disabled class=\"${ foo }\"/>" },
+      { tag: "<p>", children: [{ text: "${ bar }" }, { text: " baz" }] }
+    ]
   })
 })
-
 
 test('closed tag', () => {
   parseTest('<foo/>', { tag: 'foo', is_custom: true })

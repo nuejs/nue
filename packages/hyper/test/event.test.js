@@ -1,7 +1,7 @@
 
 import { clickable } from './clickable.js'
 
-test.only('event handler', () => {
+test('event handler', () => {
   const template = '<button :onclick="counter[0]++">${ counter[0] }</button>'
   const data = { counter: [1] }
   const root = clickable(template, data)

@@ -8,43 +8,50 @@ export function parse(tokens) {
 
 export function parseTags(tokens) {
   const blocks = []
-  let i = 0
-
-
-  function parseNode() {
-    if (i >= tokens.length || !tokens[i].startsWith('<') || tokens[i].startsWith('</')) return
-
-    const tag = tokens[i]
-    i++
-
-    // ignore <style> blocks
-    if (tag.toLowerCase().startsWith('<style')) return null
-
-    if (tag.endsWith('/>')) return { tag, children: [] }
-
-    const children = []
-    while (i < tokens.length && !tokens[i].startsWith('</')) {
-      if (tokens[i].startsWith('<') && !tokens[i].startsWith('</')) {
-        const child = parseNode()
-        if (child) children.push(child)
-      } else {
-        children.push({ text: tokens[i] })
-        i++
-      }
-    }
-
-    if (i < tokens.length) i++ // Skip closing tag
-
-    return { tag, children }
-  }
+  const meta = tokens[0]?.meta
+  let i = meta ? 1 : 0
 
   while (i < tokens.length) {
-    const node = parseNode()
-    if (node) blocks.push(node)
-    else i++ // Skip non-tag tokens
+    const result = parseNode(tokens, i)
+    if (result.node) blocks.push(result.node)
+    i = result.next
   }
 
+  if (meta) blocks[0].meta = meta
+
   return blocks
+}
+
+function parseNode(tokens, i) {
+  const tag = tokens[i]
+
+  if (i >= tokens.length || !tag.startsWith('<') || tag.startsWith('</')) {
+    return { next: i + 1 }
+  }
+
+  i++
+
+  // ignore <style> blocks
+  if (tag.toLowerCase().startsWith('<style')) return { next: i }
+
+  if (tag.endsWith('/>')) return { node: { tag, children: [] }, next: i }
+
+  const children = []
+
+  while (i < tokens.length && !tokens[i].startsWith('</')) {
+    if (tokens[i].startsWith('<') && !tokens[i].startsWith('</')) {
+      const result = parseNode(tokens, i)
+      if (result.node) children.push(result.node)
+      i = result.next
+    } else {
+      children.push({ text: tokens[i] })
+      i++
+    }
+  }
+
+  if (i < tokens.length) i++ // Skip closing tag
+
+  return { node: { tag, children }, next: i }
 }
 
 function parseOpeningTag(tag) {

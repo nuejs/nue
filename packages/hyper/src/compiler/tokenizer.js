@@ -9,7 +9,7 @@ export function tokenize(template) {
   while (pos < template.length) {
     const char = template[pos]
     if (char == '<' && template.slice(pos, pos + 4) == '<!--') {
-      pos = skipComment(template, pos)
+      pos = parseComment(template, pos, tokens)
     } else if (char == '<') {
       if (template.slice(pos, pos + 7) == '<script') {
         pos = addScript(template, pos, tokens)
@@ -23,13 +23,36 @@ export function tokenize(template) {
     }
   }
 
-  return tokens.filter(el => el.trim())
+  return tokens.filter(el => el.meta || el.trim())
 }
 
-function skipComment(template, pos) {
+function parseComment(template, pos, tokens) {
   const end = template.indexOf('-->', pos + 4)
   if (end == -1) throw new SyntaxError(`Unclosed comment at ${pos}`)
+
+  // annotations
+  const is_first = !template.slice(0, pos).trim()
+  const meta = is_first && parseAnnotations(template.slice(pos + 4, end))
+  if (meta) tokens.unshift({ meta })
+
   return end + 3
+}
+
+
+function parseAnnotations(comment) {
+  const lines = comment.split('\n')
+  const ret = {}
+  lines.forEach(line => {
+    const trimmed = line.trim()
+    if (trimmed[0] == '@') {
+      const match = trimmed.match(/^@(\w+)(?:\s+(.+))?$/)
+      if (match) {
+        const [, key, value] = match
+        ret[key] = value || true
+      }
+    }
+  })
+  return Object.keys(ret).length ? ret : null
 }
 
 function addTag(template, pos, tokens) {

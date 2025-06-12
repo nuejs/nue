@@ -16,16 +16,10 @@ export function createBlock(ast, data={}, opts={}, parent) {
     if (fire('onupdate') !== false) {
       const frag = render(ast, self)
 
-      /*
-        TODO: simplify
-
-        // Browsers: root can be swapped
-        domdiff(root, frag.firstChild, parent ? root.parentNode : root)
-
-        // Domino demands nodes are present or fails (no swapping allowed)
-        domdiff(root?.firstChild, frag.firstChild, root)
-      */
+      // Browsers: root can be swapped
       if (is_browser) domdiff(root, frag.firstChild, root)
+
+      // Domino demands nodes are present or fails (event tests only)
       else domdiff(parent ? root : root.firstChild, frag.firstChild, parent ? root.parentNode : root)
       fire('updated')
     }

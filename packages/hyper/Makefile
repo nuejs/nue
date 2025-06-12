@@ -1,6 +1,6 @@
 
 run-tests:
-	bun test component
+	bun test
 	# bun test --coverage
 
 build-demos:
