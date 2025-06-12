@@ -17,8 +17,8 @@ function parseTest(str, expected) {
 
 
 test('annotations', () => {
-  const lib = parseTags(tokenize('<!-- @dynamic --> <foo/>'))
-  expect(lib[0].meta.dynamic).toBeTrue()
+  const lib = parseTags(tokenize('<!-- @reactive --> <foo/>'))
+  expect(lib[0].meta.reactive).toBeTrue()
 })
 
 test('parseTags', () => {
