@@ -116,12 +116,31 @@ export function createBlock(ast, data={}, opts={}, parent) {
     return frag
   }
 
-  function renderIf(ast, self) {
+  function _renderIf(ast, self) {
     const child = ast.some.find(el => {
       const fn = el.if || el['else-if']
       return fn ? exec(fn, self) : true
     })
     return child ? render(child, self) : createFragment()
+  }
+
+  function renderIf(ast, self) {
+    const child = ast.some.find(el => {
+      const fn = el.if || el['else-if']
+      return fn ? exec(fn, self) : true
+    })
+
+    if (!child) return createFragment()
+
+    if (child.tag == 'template') {
+      const frag = createFragment()
+      child.children.forEach(node => {
+        frag.appendChild(render(node, self))
+      })
+      return frag
+    } else {
+      return render(child, self)
+    }
   }
 
   function renderLoop(impl, self) {

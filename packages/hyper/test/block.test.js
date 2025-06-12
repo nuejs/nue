@@ -160,6 +160,22 @@ test('template loop', () => {
   expect(html).toBe('<dl><dt>Name</dt><dd>Alice</dd><dt>Age</dt><dd>30</dd></dl>')
 })
 
+test('template if', () => {
+  const template = `
+    <dl>
+      <template :if="flag">
+        <dt>Foo</dt>
+      </template>
+      <template :else>
+        <dt>Bar</dt>
+      </template>
+    </dl>
+  `
+  expect(render(template, { flag: true })).toBe('<dl><dt>Foo</dt></dl>')
+  expect(render(template)).toBe('<dl><dt>Bar</dt></dl>')
+})
+
+
 test('Object.entries()', () => {
   const template = `
     <dl>
