@@ -30,7 +30,7 @@ collection_name: pages
 
 const LAYOUT = `
 <main>
-  <div :for="page in pages.slice(0, 10)">{ page.url }</div>
+  <div :each="page in pages.slice(0, 10)">{ page.url }</div>
 </main>
 `
 

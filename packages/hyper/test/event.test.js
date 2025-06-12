@@ -154,18 +154,16 @@ test('child/bind updates', () => {
 })
 
 
-test('async method', async () => {
+test('event bind shortcut', async () => {
   const template = `
-    <form :is="test-form">
+    <a :onclick disabled="\${ disabled }">
       <script>
-        this.status = 'init'
-
-        async set() {
-
-        }
+        onclick() { this.disabled = 1 }
       </script>
-    </form>
+    </a>
   `
-  const block = clickable(template)
-  expect(block.html).toBe('<form></form>')
+  const root = clickable(template)
+  expect(root.html).toBe('<a></a>')
+  root.click('a')
+  expect(root.html).toBe('<a disabled=""></a>')
 })

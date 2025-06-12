@@ -35,6 +35,7 @@ export function parseAttributes(attrs) {
 
     // event handler
     } else if (name.slice(0, 3) == ':on' && EVENTS.includes(name.slice(3))) {
+      if (!value) value = name.slice(1)
       if (!/\W/.test(value)) value += '($e)'
       push('handlers', { name: base, h_fn: addContext(value) })
 
