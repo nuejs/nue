@@ -181,7 +181,7 @@ export function createBlock(ast, data={}, opts={}, parent) {
     const comp = findComponent(ast, self)
     if (!comp) return renderHTML(renderStub(ast.tag, attr_data))
 
-    const tag = ast.mount ? ast.tag : comp.is ? comp.tag : 'div'
+    const tag = ast.mount && ast.tag != 'template' ? ast.tag : comp.is ? comp.tag : 'div'
 
     const block = createBlock(
       { ...comp, tag, is_custom: false, is_child: true },

@@ -161,7 +161,7 @@ test('slot loop', () => {
 
 test('mount attribute', () => {
   const template = `
-    <a :mount="\${ type }" :key="id"/>
+    <a :mount="type" :key="id"/>
 
     <item href="id:\${ key }">
       <b>Hello</b>
@@ -170,6 +170,18 @@ test('mount attribute', () => {
   const html = render(template, { type: 'item', id: 1 })
   expect(html).toBe('<a href="id:1"><b>Hello</b></a>')
 })
+
+test('<template :mount>', () => {
+  const template = `
+    <template mount="item"/>
+    <item>
+      <b>Hello</b>
+    </item>
+  `
+  const html = render(template)
+  expect(html).toBe('<div><b>Hello</b></div>')
+})
+
 
 test.skip('onmount mounted callbacks', () => {
   jest.spyOn(console, 'info').mockImplementation(() => {})
