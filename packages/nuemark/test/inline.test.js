@@ -1,6 +1,6 @@
 
-import { renderTokens, renderToken, renderInline } from '../src/render-inline.js'
 import { parseInline, parseLink } from '../src/parse-inline.js'
+import { renderInline, renderToken, renderTokens } from '../src/render-inline.js'
 
 
 test('plain text', () => {

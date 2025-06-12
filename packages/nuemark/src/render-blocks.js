@@ -1,9 +1,9 @@
 
 import { glow } from 'nue-glow'
 
+import { parseBlocks } from './parse-blocks.js'
 import { renderInline, renderTokens } from './render-inline.js'
 import { renderTable, renderTag, wrap } from './render-tag.js'
-import { parseBlocks } from './parse-blocks.js'
 
 
 // for testing only

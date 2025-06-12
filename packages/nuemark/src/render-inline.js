@@ -1,7 +1,8 @@
 
-import { parseInline, ESCAPED } from './parse-inline.js'
-import { renderTag } from './render-tag.js'
+import { ESCAPED, parseInline } from './parse-inline.js'
 import { elem } from './render-blocks.js'
+import { renderTag } from './render-tag.js'
+
 
 export function renderToken(token, opts = {}) {
   const { data = {} } = opts

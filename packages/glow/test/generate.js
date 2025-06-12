@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url'
 
 import { glow } from '../src/glow.js'
 
+
 const root = process.argv[2] || dirname(fileURLToPath(import.meta.url))
 
 

@@ -1,10 +1,10 @@
 
-import { renderBlocks } from './render-blocks.js'
-import { sectionize } from './parse-document.js'
-import { renderInline } from './render-inline.js'
-import { elem } from './render-blocks.js'
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
+
+import { sectionize } from './parse-document.js'
+import { elem, renderBlocks } from './render-blocks.js'
+import { renderInline } from './render-inline.js'
 
 
 // built-in tags

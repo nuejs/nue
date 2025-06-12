@@ -1,6 +1,7 @@
 
-import { createKV } from './kv.js'
 import { createDB } from './db.js'
+import { createKV } from './kv.js'
+
 
 async function createServer(conf) {
   const path = `${conf.dir}/${conf.server}` + (conf.reload ? '?t=' + Date.now() : '')

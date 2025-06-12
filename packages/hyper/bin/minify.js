@@ -1,6 +1,8 @@
 
 import { build } from 'bun'
+
 import { version } from '../package.json' with { type: 'json' }
+
 
 const year = new Date().getFullYear()
 

@@ -1,8 +1,10 @@
 
 /* bun build.js */
 
-import { compile, render } from '..'
 import { $ } from 'bun'
+
+import { compile, render } from '../src/index.js'
+
 
 async function read(path) {
   return $`cat < ${path}`.text()

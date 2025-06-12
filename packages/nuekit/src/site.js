@@ -1,5 +1,5 @@
-import { promises as fs, existsSync } from 'node:fs'
-import { join, extname, parse as parsePath, resolve } from 'node:path'
+import { existsSync, promises as fs } from 'node:fs'
+import { extname, join, parse as parsePath, resolve } from 'node:path'
 
 import yaml from 'js-yaml'
 import { parseHyper } from 'nue-hyper'
@@ -7,15 +7,15 @@ import { nuedoc } from 'nuemark'
 
 import { fswalk } from './nuefs.js'
 import {
-  traverseDirsUp,
-  parsePathParts,
-  importFromCWD,
-  joinRootPath,
   extendData,
   getAppDir,
+  importFromCWD,
+  joinRootPath,
+  log,
+  parsePathParts,
   sortCSS,
   toPosix,
-  log,
+  traverseDirsUp,
 } from './util.js'
 
 

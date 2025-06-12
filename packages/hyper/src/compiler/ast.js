@@ -2,6 +2,7 @@
 import { addContext, HTML5_TAGS, SVG_TAGS } from './html5.js'
 import { parseAttributes } from './attributes.js'
 
+
 export function parse(tokens) {
   return parseTags(tokens).map(el => parseTag(el))
 }

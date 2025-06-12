@@ -1,5 +1,6 @@
 
-import { addContext, EVENTS, BOOLEAN, STRICT_ATTRS } from './html5.js'
+import { addContext, BOOLEAN, EVENTS, STRICT_ATTRS } from './html5.js'
+
 
 export function tokenizeAttr(attrStr) {
   return (attrStr.match(/[^\s=]+(?:=(?:"[^"]*"|\${[^}]+}|[^\s]+))?/g) || []).map(token =>

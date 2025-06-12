@@ -1,5 +1,6 @@
 
-import { render } from '../src'
+import { render } from '../src/index.js'
+
 
 jest.spyOn(console, 'error').mockImplementation(() => {})
 jest.spyOn(console, 'warn').mockImplementation(() => {})

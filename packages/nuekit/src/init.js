@@ -1,11 +1,11 @@
-import { promises as fs, existsSync } from 'node:fs'
+import { existsSync, promises as fs } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 import { compileHyper } from 'nue-hyper'
 
 import { buildJS } from './builder.js'
-import { version, colors, srcdir } from './util.js'
+import { colors, srcdir, version } from './util.js'
 
 
 export async function initNueDir({ dist, is_dev, esbuild, force }) {

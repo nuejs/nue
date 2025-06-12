@@ -1,7 +1,7 @@
 
+import { nuemark } from '../index.js'
+import { getBreak, parseBlocks, parseHeading } from '../src/parse-blocks.js'
 import { renderBlocks, renderHeading, renderLines } from '../src/render-blocks.js'
-import { parseBlocks, getBreak, parseHeading } from '../src/parse-blocks.js'
-import { nuemark } from '..'
 
 
 test('paragraphs', () => {

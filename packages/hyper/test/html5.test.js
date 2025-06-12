@@ -1,4 +1,6 @@
+
 import { addContext } from '../src/compiler/html5.js'
+
 
 // addContext tests
 test('scopes simple variable', () => {

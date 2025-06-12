@@ -1,10 +1,10 @@
 
-import { renderBlocks, createHeadingId } from './render-blocks.js'
-import { parseLinkTitle } from './parse-inline.js'
-import { renderInline } from './render-inline.js'
-import { parseBlocks } from './parse-blocks.js'
 import { load as parseYAML } from 'js-yaml'
-import { elem } from './render-blocks.js'
+
+import { parseBlocks } from './parse-blocks.js'
+import { parseLinkTitle } from './parse-inline.js'
+import { createHeadingId, elem, renderBlocks } from './render-blocks.js'
+import { renderInline } from './render-inline.js'
 
 
 // OPTS: { data, sections, content_wrapper, heading_ids, links, tags }

@@ -1,6 +1,7 @@
 
 import { Database } from 'bun:sqlite'
 
+
 export function createDB(path) {
   const db = new Database(path, { create: true })
   

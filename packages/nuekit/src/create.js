@@ -1,9 +1,9 @@
 import { execSync } from 'node:child_process'
-import { promises as fs, existsSync } from 'node:fs'
+import { existsSync, promises as fs } from 'node:fs'
 import { join } from 'node:path'
 
-import { openUrl } from './util.js'
 import { createKit } from './nuekit.js'
+import { openUrl } from './util.js'
 
 const templates = {
   'simple-blog': { open: 'welcome/' },

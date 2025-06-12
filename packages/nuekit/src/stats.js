@@ -4,7 +4,7 @@
 */
 
 import { promises as fs } from 'node:fs'
-import { join, extname, parse as parsePath } from 'node:path'
+import { extname, join, parse as parsePath } from 'node:path'
 
 import { fswalk } from './nuefs.js'
 import { colors, sortCSS } from './util.js'

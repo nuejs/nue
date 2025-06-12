@@ -5,15 +5,14 @@ import { compileHyper, parseHyper, renderHyper } from 'nue-hyper'
 import { nuedoc } from 'nuemark'
 
 import { buildCSS, buildJS } from './builder.js'
-import { createServer, send } from './nueserver.js'
-import { printStats, categorize } from './stats.js'
 import { initNueDir } from './init.js'
-import { createSite } from './site.js'
 import { fswatch } from './nuefs.js'
-
-import { log, colors, getAppDir, parsePathParts, extendData, toPosix } from './util.js'
-import { renderPage, getSPALayout } from './layout/page.js'
+import { getSPALayout, renderPage } from './layout/page.js'
 import { getServerFunctions } from './layout/components.js'
+import { createServer, send } from './nueserver.js'
+import { createSite } from './site.js'
+import { categorize, printStats } from './stats.js'
+import { colors, extendData, getAppDir, log, parsePathParts, toPosix } from './util.js'
 
 
 // the HTML5 doctype (can/prefer lowercase for consistency)

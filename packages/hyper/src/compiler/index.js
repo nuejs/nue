@@ -1,7 +1,9 @@
 
 import { inspect } from 'node:util'
-import { tokenize } from './tokenizer.js'
+
 import { parse } from './ast.js'
+import { tokenize } from './tokenizer.js'
+
 
 export function parseTemplate(template) {
   const tokens = tokenize(template)

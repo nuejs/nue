@@ -1,5 +1,6 @@
 
-import { render } from '../src'
+import { render } from '../src/index.js'
+
 
 test('self-closing', () => {
   expect(render('<a/>')).toBe('<a></a>')

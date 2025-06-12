@@ -4,14 +4,15 @@ import { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 import {
-  renderPage,
   parseClass,
   parseLink,
-  renderNav,
   renderLink,
   renderMultiNav,
+  renderNav,
+  renderPage,
   renderSymbols,
 } from '../src/layout/components.js'
+
 
 const root = dirname(fileURLToPath(import.meta.url))
 

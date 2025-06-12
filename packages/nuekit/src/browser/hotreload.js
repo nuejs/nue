@@ -1,5 +1,6 @@
 import { mountAll } from './mount.js'
 
+
 const sse = new EventSource(location.origin)
 
 const $$ = (query, root = document) => [...root.querySelectorAll(query)]

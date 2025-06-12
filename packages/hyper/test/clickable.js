@@ -1,5 +1,5 @@
 
-import { parseHyper, renderBlock } from '../src'
+import { parseHyper, renderBlock } from '../src/index.js'
 
 
 export function clickable(template, data) {

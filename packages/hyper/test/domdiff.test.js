@@ -1,5 +1,8 @@
-import { domdiff } from '../src/block/domdiff.js'
+
 import domino from 'domino'
+
+import { domdiff } from '../src/block/domdiff.js'
+
 
 function createDOM(html) {
   const doc = domino.createDocument(html)

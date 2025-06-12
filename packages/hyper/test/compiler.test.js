@@ -1,7 +1,6 @@
 
-// compiler.test.js
-import { convertFns, convertFn, compileTemplate, parseTemplate } from '../src/compiler'
-import { inspect } from 'node:util'
+import { convertFn, compileTemplate, parseTemplate } from '../src/compiler/index.js'
+
 
 test('convertFn', () => {
   expect(convertFn('_.foo')).toBe('_=>_.foo')

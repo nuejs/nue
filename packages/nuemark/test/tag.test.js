@@ -1,9 +1,11 @@
-import { fileURLToPath } from 'node:url'
-import { dirname, relative, join } from 'node:path'
 
-import { parseTag, valueGetter, parseAttr, parseSpecs } from '../src/parse-tag.js'
-import { renderTable, parseTable } from '../src/render-tag.js'
+import { dirname, join, relative } from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+import { parseAttr, parseSpecs, parseTag, valueGetter } from '../src/parse-tag.js'
 import { renderLines } from '../src/render-blocks.js'
+import { parseTable, renderTable } from '../src/render-tag.js'
+
 
 const relpath = relative(process.cwd(), dirname(fileURLToPath(import.meta.url)))
 

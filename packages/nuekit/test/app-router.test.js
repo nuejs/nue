@@ -1,14 +1,15 @@
 
 import {
-  router,
-  parsePathData,
-  parseQueryData,
-  hasPathData,
-  renderPath,
-  matchesPath,
   cleanup,
   diff,
+  hasPathData,
+  matchesPath,
+  parsePathData,
+  parseQueryData,
+  renderPath,
+  router,
 } from '../src/browser/app-router.js'
+
 
 // browserify
 global.history = null

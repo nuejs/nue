@@ -1,12 +1,11 @@
 
 import {
+  parseAttributes,
+  parseClassHelper,
+  parseExpression,
   parseFor,
   parseForArgs,
   tokenizeAttr,
-  parseExpression,
-  parseAttributes,
-  parseClassHelper
-
 } from '../src/compiler/attributes.js'
 
 

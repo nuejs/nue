@@ -2,7 +2,7 @@
 
 import { execSync } from 'node:child_process'
 import { promises as fs, realpathSync } from 'node:fs'
-import { sep, parse, resolve, normalize, join, isAbsolute, dirname } from 'node:path'
+import { dirname, isAbsolute, join, normalize, parse, resolve, sep } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 
 

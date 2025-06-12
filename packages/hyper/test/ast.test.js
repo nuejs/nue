@@ -1,7 +1,8 @@
 
-import { parseTags, parseTag, convertFunctions, convertGetters } from '../src/compiler/ast.js'
-import { tokenize } from '../src/compiler/tokenizer.js'
 import { inspect } from 'node:util'
+
+import { convertFunctions, convertGetters, parseTag, parseTags } from '../src/compiler/ast.js'
+import { tokenize } from '../src/compiler/tokenizer.js'
 
 
 function parseTest(str, expected) {

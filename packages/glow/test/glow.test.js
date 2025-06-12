@@ -1,4 +1,5 @@
-import { parseRow, renderRow, parseSyntax } from '../src/glow.js'
+import { parseRow, parseSyntax, renderRow } from '../src/glow.js'
+
 
 test('HTML', () => {
   const row = '<div class="hello">'

@@ -5,11 +5,12 @@
   2. Dynamic requests
   3. Server-send events (SSE)
 */
-import { join, extname } from 'node:path'
 import { promises as fs } from 'node:fs'
 import http from 'node:http'
+import { join, extname } from 'node:path'
 
-import { getWorker } from './worker'
+import { getWorker } from './worker/index.js'
+
 
 export const TYPES = {
   html:  'text/html; charset=UTF-8',

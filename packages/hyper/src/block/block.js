@@ -5,6 +5,7 @@ import { domdiff } from './domdiff.js'
 
 const is_browser = typeof window == 'object'
 
+
 export function createBlock(ast, data={}, opts={}, parent) {
   const { script } = ast
   let root

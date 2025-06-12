@@ -1,6 +1,7 @@
 
 import { tokenize } from '../src/compiler/tokenizer.js'
 
+
 test('tag', () => {
   expect(tokenize('<p>Hello</p>')).toEqual(['<p>', 'Hello', '</p>'])
 })

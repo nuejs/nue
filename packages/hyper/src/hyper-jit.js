@@ -1,7 +1,8 @@
 
 import { createBlock } from './block/block.js'
-import { tokenize } from './compiler/tokenizer.js'
 import { parse } from './compiler/ast.js'
+import { tokenize } from './compiler/tokenizer.js'
+
 
 export function createApp(template, data, opts={}) {
   const lib = parse(tokenize(template))

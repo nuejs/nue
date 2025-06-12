@@ -1,6 +1,6 @@
 
 /* Inline tokenizer */
-import { parseTag, parseAttr } from './parse-tag.js'
+import { parseAttr, parseTag } from './parse-tag.js'
 
 
 export const FORMATTING = {

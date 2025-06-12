@@ -1,8 +1,7 @@
 
 import domino from 'domino'
 
-import { parseTemplate, compileTemplate } from './compiler'
-
+import { parseTemplate, compileTemplate } from './compiler/index.js'
 import { createBlock } from './block/block.js'
 
 

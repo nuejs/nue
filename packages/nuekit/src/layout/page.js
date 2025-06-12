@@ -1,5 +1,5 @@
 
-import { parseHyper, renderHyper, renderToString } from 'nue-hyper'
+import { parseHyper, renderToString } from 'nue-hyper'
 
 import { getServerFunctions } from './components.js'
 import { renderHead } from './head.js'

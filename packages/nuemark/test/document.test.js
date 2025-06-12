@@ -1,6 +1,7 @@
 
-import { parseDocument, stripMeta, sectionize } from '../src/parse-document.js'
 import { parseBlocks } from '../src/parse-blocks.js'
+import { parseDocument, sectionize, stripMeta } from '../src/parse-document.js'
+
 
 test('front matter', () => {
   const lines = ['---', 'foo: 10', 'bar: 20', '---', '# Hello']

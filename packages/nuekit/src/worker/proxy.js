@@ -1,6 +1,4 @@
 
-import http from 'node:http'
-
 export function createProxy(conf) {
   return {
 

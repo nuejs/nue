@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
 
-import { esMain, log, colors, version, getEngine, openUrl } from './util.js'
+import { colors, esMain, getEngine, log, openUrl, version } from './util.js'
 
 
 // [-npe] --> [-n, -p, -e]

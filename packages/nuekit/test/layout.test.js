@@ -1,6 +1,6 @@
 
 // content collection rendering
-import { findComponent, renderSlots, renderPage, getSPALayout } from '../src/layout/page.js'
+import { findComponent, getSPALayout, renderPage } from '../src/layout/page.js'
 import { renderHead } from '../src/layout/head.js'
 
 
