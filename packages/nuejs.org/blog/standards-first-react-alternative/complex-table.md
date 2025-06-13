@@ -309,7 +309,7 @@ export default function DataTable({ data }: DataTableProps) {
 
 
 ## With Hyper
-Uses only about 40 lines of code, roughly 75% reduction in code to impolement the same features.
+Uses only about 40 lines of code, roughly 75% reduction in code to implement the same features.
 
 
 ``` html
