@@ -82,7 +82,7 @@ li {
     color: white;
   }
 
-  @media (width > 800) {
+  @media (width > 800px) {
     flex-direction: row;
     margin-bottom: 0;
     gap: 1.5em;

@@ -72,7 +72,7 @@ h1 {
 
 
 /* image.large, image.larger */
-@media (min-width: 950px) {
+@media (width >= 950px) {
   .large, .larger {
     margin-inline: -12vw;
     img { width: 999% }

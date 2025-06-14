@@ -53,7 +53,7 @@
     }
   }
 
-  @media (max-width: 500px) {
+  @media (width <= 500px) {
     overflow-x: auto;
     padding: .5em;
     [glow] { border-radius: .5em; }

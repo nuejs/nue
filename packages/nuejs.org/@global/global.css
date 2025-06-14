@@ -5,6 +5,7 @@
 
 html {
   scroll-behavior: smooth;
+  hyphens: auto;
   overflow-x: hidden;
 }
 
@@ -14,8 +15,8 @@ body {
   font-family: system-ui;
   margin: 0;
 
-  @media (width < 900) { font-size: 15px }
-  @media (width < 600) { font-size: 14px }
+  @media (width < 900px) { font-size: 15px }
+  @media (width < 600px) { font-size: 14px }
 
 }
 

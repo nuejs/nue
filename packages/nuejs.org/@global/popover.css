@@ -80,7 +80,7 @@ dialog {
     figure { margin: 0 }
   }
 
-  @media(width < 900) {
+  @media(width < 900px) {
     max-height: 96vh;
     flex-direction: column;
     h3 span { display: none }

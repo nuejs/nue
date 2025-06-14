@@ -88,7 +88,7 @@
 
   h3 { color: var(--gray-200) }
 
-  @media (max-width: 750px) {
+  @media (width <= 750px) {
     flex-direction: column;
   }
 }

@@ -41,7 +41,7 @@
     margin: 0 0 var(--gap);
   }
 
-  @media (800 < width < 1100) {
+  @media (800px < width < 1100px) {
     .panel:last-child {
       max-width: 100%;
       ul {

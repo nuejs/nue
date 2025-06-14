@@ -26,7 +26,7 @@ article + aside {
 }
 
 /* small screens  */
-@media (max-width: 1000px) {
+@media (width <= 1000px) {
 
   /* left sidebar */
   aside:first-child {
@@ -42,7 +42,7 @@ article + aside {
 }
 
 /* medium screens ( < 1300px) */
-@media (width > 1000) {
+@media (width > 1000px) {
   body > header {
     position: fixed;
     top: 0;
@@ -74,6 +74,7 @@ article + aside {
 
     /* left sidebar */
     &[popover] {
+      max-width: 18em;
       margin: auto 0 0 2em;
       padding-right: 4em;
       button { display: none }
@@ -82,7 +83,7 @@ article + aside {
 }
 
 /* big screens */
-@media (width > 1300) {
+@media (width > 1300px) {
   article {
     max-width: 50vw;
 

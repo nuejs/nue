@@ -235,7 +235,7 @@ h2[id], section > h3[id] {
       display: none;
     }
 
-    @media(width > 800) {
+    @media(width > 800px) {
       &:hover:before {
         display: inline;
       }

@@ -43,7 +43,7 @@
 }
 
 
-@media (max-width: 600px) {
+@media (width <= 600px) {
   :root { --body-padding: 1.2em; }
 }
 
