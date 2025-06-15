@@ -28,7 +28,7 @@ You can specify options using named attributes. For example:
 Alternatively, you can use nested YAML to define the attributes:
 
 ```md
-[image]
+[image]:
 |  caption: Hello, World!
 |  large: hello-big.png
 |  small: hello.png
@@ -57,8 +57,8 @@ Tags can also include nested content. Here’s how you can add a caption for an 
 
 ```md
 [image explainer.png]
-| This nested content is the caption for the image.
-| You can add Markdown here like *emphasis* and `inline code`.
+|  This nested content is the caption for the image.
+|  You can add Markdown here like *emphasis* and `inline code`.
 ```
 
 ### Inline tags
@@ -78,7 +78,7 @@ To include a basic image, use:
 
 ```md
 [image hello.webp]
-| This content here is the caption. Markdown *formatting* is supported.
+|  This content here is the caption. Markdown *formatting* is supported.
 ```
 
 You can also use a shortcut alias (`!`):
@@ -92,7 +92,7 @@ You can also use a shortcut alias (`!`):
 Nue allows you to link images to specific URLs using the `href` attribute, making them interactive:
 
 ```md
-[image book.svg]
+[image book.svg]:
   caption: View documentation
   href: /docs/
 ```
@@ -104,7 +104,7 @@ This functionality enables you to guide users to additional resources or pages w
 Nue supports art direction for images, allowing you to specify different sizes based on screen dimensions. This feature ensures that users receive the best possible image for their device:
 
 ```md
-[image]
+[image]:
   large: ui-wide.png
   small: ui-tall.png
   caption: This is the image caption
@@ -162,14 +162,14 @@ Inline SVG images can be added using the following syntax, which renders rich ve
 This feature allows you to incorporate sharp, scalable images into your design easily. It’s especially useful when paired with other tags, such as buttons:
 
 ```md
-[button href="/docs/"]
+[a.button href="/docs/"]
   *Learn more* [svg /icon/chevron-right.svg]
 ```
 
 This renders as follows, enabling smooth integration with CSS styling:
 
 ```html
-<a href="/docs/" role="button">
+<a class="button" href="/docs/">
   <em>Learn more</em>
   <svg viewBox="0 0 24 24">...</svg>
 </a>
@@ -199,7 +199,7 @@ All standard HTML5 video attributes are supported, providing flexibility and con
 Options can also be specified using YAML for enhanced organization:
 
 ```md
-[video.heroic]
+[video.heroic]:
   poster: hello.png
   src: hello.mp4
   width: 1000
@@ -229,6 +229,8 @@ When rendered, videos appear as a native HTML5 video element, enabling smooth in
 
 ## Buttons
 
+// TODO: update docs to use native <a> for links
+
 Buttons in Nue are marked with a specific tag syntax to create interactive and accessible button elements directly from Markdown. This tag makes it easy to create buttons without requiring HTML or JavaScript, allowing for clean and maintainable content.
 
 ### Basic button
@@ -236,7 +238,7 @@ Buttons in Nue are marked with a specific tag syntax to create interactive and a
 Buttons are marked as follows:
 
 ```md
-[button label="Learn more" href="/docs/"]
+[a.button label="Learn more" href="/docs/"]
 ```
 
 The `button` tag allows you to specify various options to control the appearance and behavior of the button. In this example, the `label` and `href` attributes are used to define the button text and target link respectively.
@@ -246,7 +248,7 @@ The `button` tag allows you to specify various options to control the appearance
 Instead of using the `label` attribute, you can provide the button text directly as a plain value. This is a more concise way to define a button label:
 
 ```md
-[button "Learn more" href="/docs/"]
+[a.button "Learn more" href="/docs/"]
 ```
 
 ### Styled button
@@ -254,7 +256,7 @@ Instead of using the `label` attribute, you can provide the button text directly
 You can include a class name to style the button differently, using a nested body to define the button label. In this example, `.secondary` indicates a secondary button style, and the button label is provided as nested content:
 
 ```md
-[button.secondary href="/docs/"]
+[a.button.secondary href="/docs/"]
   Explore the docs
 ```
 
@@ -263,7 +265,7 @@ You can include a class name to style the button differently, using a nested bod
 Buttons can include inline SVG elements to provide additional visual cues, such as icons. In this example, the button includes a right-pointing arrow icon to indicate navigation:
 
 ```md
-[button href="/docs/"]
+[a.button href="/docs/"]
   *Learn more* [svg /icon/chevron-right.svg]
 ```
 
@@ -294,7 +296,7 @@ This example creates a button labeled "Learn more" that opens a popover with ext
 Buttons are rendered as follows:
 
 ```html
-<a role="button" href="/docs/">Learn more</a>
+<a class="button" href="/docs/">Learn more</a>
 ```
 
 Buttons are essentially links (`<a>` elements) with a `role="button"` attribute. This ensures accessibility and allows the button to be styled and function like a traditional button while keeping the implementation simple and lightweight. When used with popovers, the button is rendered as a `<button>` element to properly integrate with the popover functionality.

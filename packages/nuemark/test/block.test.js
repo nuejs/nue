@@ -30,8 +30,61 @@ test('nested lists', () => {
 })
 
 
+test('block html tag including non-html tag', () => {
+  const { blocks } = parseBlocks(['[section.hi]', '  content', '  [subtag "data"]'])
+  const parent = blocks[0]
+  expect(blocks.length).toBe(1)
+  expect(parent.is_tag).toBe(true)
+  expect(parent.attr.class).toBe('hi')
+  expect(parent.blocks.length).toBe(2)
+  const children = blocks[0].blocks
+  expect(children[0].is_content).toBe(true)
+  expect(children[1].is_tag).toBe(true)
+  expect(children[1].data).toEqual({ _: "data" })
+
+  const html = renderBlocks(blocks)
+  expect(html).toStartWith('<section class="hi"><p>content</p>')
+  expect(html).toInclude('<subtag custom="subtag"><script type="application/json">{"_":"data"}</script></subtag>')
+  expect(html).toEndWith('</section>')
+})
+
+test('block html tag without children with content', () => {
+  const { blocks } = parseBlocks(['[section "content"]', 'no content'])
+  expect(blocks.length).toBe(2)
+
+  const html = renderBlocks(blocks)
+  expect(html).toBe('<section>content</section>\n<p>no content</p>')
+})
+
+test('block html tag with starting ul', () => {
+  const { blocks } = parseBlocks(['[div]', '  - hi', '  - hello'])
+  expect(blocks.length).toBe(1)
+  expect(blocks[0].blocks.length).toBe(1)
+
+  const html = renderBlocks(blocks)
+  expect(html).toBe('<div><ul><li><p>hi</p></li>\n<li><p>hello</p></li></ul></div>')
+})
+
+test('inlined block html with attrs', () => {
+  const { blocks } = parseBlocks(['[div myattr="data" "content"]'])
+  expect(blocks.length).toBe(1)
+  expect(blocks[0].data).toEqual({ myattr: 'data', _: 'content' })
+
+  const html = renderBlocks(blocks)
+  expect(html).toBe('<div myattr="data">content</div>')
+})
+
+test('block html with attrs', () => {
+  const { blocks } = parseBlocks(['[div myattr="data" "not content"]', '  content'])
+  expect(blocks.length).toBe(1)
+  expect(blocks[0].data).toEqual({ myattr: 'data', _: "not content" })
+
+  const html = renderBlocks(blocks)
+  expect(html).toBe('<div myattr="data" _="not content"><p>content</p></div>')
+})
+
 test('nested tag data', () => {
-  const { blocks } = parseBlocks(['[hello] ', '', '', '  foo: bar', '', '  bro: 10'])
+  const { blocks } = parseBlocks(['[hello]: ', '', '', '  foo: bar', '', '  bro: 10'])
   expect(blocks[0].name).toBe('hello')
   expect(blocks[0].data).toEqual({ foo: "bar", bro: 10 })
 })
@@ -229,7 +282,7 @@ test('footnotes with [define]', () => {
 
 
 test('complex tag data', () => {
-  const comp = parseBlocks(['[hello#foo.bar world size="10"]', '  foo: bar']).blocks[0]
+  const comp = parseBlocks(['[hello#foo.bar world size="10"]:', '  foo: bar']).blocks[0]
   expect(comp.attr).toEqual({ class: "bar", id: "foo", })
   expect(comp.data).toEqual({ world: true, size: 10, foo: "bar", })
 })
