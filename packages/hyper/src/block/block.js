@@ -15,13 +15,12 @@ export function createBlock(ast, data={}, opts={}, parent) {
     if (values) Object.assign(self, values)
 
     if (fire('onupdate') !== false) {
-      const frag = render(ast, self)
+      const next = render(ast, self).firstChild
 
-      // Browsers: root can be swapped
-      if (is_browser) domdiff(root, frag.firstChild, root)
+      // Domino: cannot be swapped
+      if (is_browser || parent) domdiff(root, next, root.parentNode)
+      else domdiff(root.firstChild, next, root)
 
-      // Domino demands nodes are present or fails (event tests only)
-      else domdiff(parent ? root : root.firstChild, frag.firstChild, parent ? root.parentNode : root)
       fire('updated')
     }
   }
@@ -52,6 +51,12 @@ export function createBlock(ast, data={}, opts={}, parent) {
     is_browser ? wrap.replaceWith(root) : wrap.appendChild(root)
     if (is_browser) fire('mounted', root)
     return root
+  }
+
+  self.mount = function(name, wrap, data) {
+    const ast = opts.lib?.find(c => name == (c.is || c.tag))
+    const block = createBlock(ast, data, opts, self)
+    block.mount(wrap)
   }
 
 
@@ -174,7 +179,7 @@ export function createBlock(ast, data={}, opts={}, parent) {
 
     // find component
     const comp = findComponent(ast, self)
-    if (!comp) return renderHTML(renderStub(ast.tag, attr_data))
+    if (!comp) return renderHTML(renderClientStub(ast.tag, attr_data))
 
     const tag = ast.mount && ast.tag != 'template' ? ast.tag : comp.is ? comp.tag : 'div'
 
@@ -184,6 +189,7 @@ export function createBlock(ast, data={}, opts={}, parent) {
       opts,
       createBlock(ast, self, opts, parent)
     )
+
     const frag = block.render()
     block.fire('onmount', frag.firstChild)
     block.fire('mounted')
@@ -277,7 +283,7 @@ function addSpace(to, child, next) {
   }
 }
 
-function renderStub(tag, self) {
+function renderClientStub(tag, self) {
   const json = JSON.stringify(self)
   const js = json != '{}' ? `<script type="application/json">${json}</script>` : ''
   return `<${tag} custom="${tag}"></${tag}>${js}`

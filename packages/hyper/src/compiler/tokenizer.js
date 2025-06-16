@@ -11,12 +11,12 @@ export function tokenize(template) {
     const char = template[pos]
 
     if (template.slice(pos, pos + 9).toLowerCase() == '<!doctype') {
-      const i = template.indexOf('>', pos + 9) + 1
-      const doctype = template.slice(pos, i).includes('dhtml') ? 'dhtml' : 'html'
+      const i = template.indexOf('>', pos + 9)
+      const doctype = template.slice(pos + 9, i).trim()
 
       // must be first element on the page
-      if (!pos) tokens.push({ meta: { doctype }})
-      pos = i
+      if (!tokens.length) tokens.push({ meta: { doctype }})
+      pos = i + 1
 
     } else if (char == '<' && template.slice(pos, pos + 4) == '<!--') {
       pos = parseComment(template, pos, tokens)

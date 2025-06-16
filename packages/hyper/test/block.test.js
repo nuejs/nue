@@ -261,10 +261,9 @@ test('render functions', () => {
 })
 
 
-test.skip('JSON stubs', () => {
-  const template = `<div><custom hello="Hello"/></div>`
+test('JSON stubs', () => {
+  const template = `<div><foo hello="Hello"/></div>`
   const html = render(template)
-  console.info(html)
-  // expect(html).toInclude('<script type="application/json" component="custom">')
-  // expect(html).toInclude('{"hello":"Hello"}')
+  expect(html).toInclude('<foo custom="foo">')
+  expect(html).toInclude('<script type="application/json">{"hello":"Hello"}')
 })

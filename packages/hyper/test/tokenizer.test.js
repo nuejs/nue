@@ -105,12 +105,13 @@ test('annotations', () => {
 
 test('doctype', () => {
   const els = tokenize(`
-    <!doctype dhtml>
+    <!doctype svg>
 
     <!-- @license MIT -->
     <h1>Hello</h1>
   `)
-  expect(els[0].meta).toEqual({ doctype: "dhtml", license: "MIT" })
+
+  expect(els[0].meta).toEqual({ doctype: "svg", license: "MIT" })
 })
 
 test('scripts with expressions', () => {

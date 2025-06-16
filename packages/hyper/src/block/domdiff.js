@@ -23,7 +23,8 @@
      Low-level control over output and performance
 */
 
-export function domdiff(prev, next, parent) {
+export function domdiff(prev, next) {
+  const parent = prev.parentNode
   if (prev == next) return prev
   if (!prev && next) return parent?.appendChild(next)
   if (!next && prev) return parent?.removeChild(prev)

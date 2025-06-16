@@ -184,22 +184,6 @@ test('<template :mount>', () => {
 })
 
 
-test.skip('onmount mounted callbacks', () => {
-  jest.spyOn(console, 'info').mockImplementation(() => {})
-
-  const html = render(`
-    <a><inner/></a>
-
-    <b :is="inner">
-      ${ val }
-      <script>
-        onmount() { this.val = 'ok' }
-        mounted() { console.info(this.val) }
-      </script>
-    </b>
-  `)
-  expect(console.info).toHaveBeenCalledWith('ok')
-})
 
 
 
