@@ -26,7 +26,7 @@ export const router = {
 
   get state() {
     const data = isEmpty(curr_state) ? parseData(location) : curr_state
-    return { ...data, ...getStoreData() }
+    return stripEmpty({ ...data, ...getStoreData() })
   },
 
   on(names, fn) {
@@ -125,18 +125,17 @@ export function diff(orig, data) {
 
 
 function pushURLState(changes) {
-  if (hasPathData(changes)) {
+  if (hasPathValues(changes)) {
     history.pushState(curr_state, 0, renderPath() + renderQuery())
 
   } else {
-    // TODO: make replaceState work
-    history.pushState(curr_state, 0, renderQuery() || './')
+    history.replaceState(curr_state, 0, renderQuery() || './')
   }
 }
 
-export function hasPathData(data) {
+export function hasPathValues(data) {
   for (let key of opts.route) {
-    if (key[0] == ':' && data[key.slice(1)] !== undefined) return true
+    if (key[0] == ':' && data[key.slice(1)]) return true
   }
 }
 
@@ -167,7 +166,7 @@ export function parseQueryData(search) {
 
 function parseData({ pathname, search }) {
   const data = { ...parsePathData(pathname), ...parseQueryData(search) }
-  if (!hasPathData(data)) data[getFirstPart()] = ''
+  if (!hasPathValues(data)) data[getFirstPart()] = ''
   return data
 }
 
@@ -225,6 +224,16 @@ function setStoreData(data) {
     if (changed) changes[key] = value
   }
   return changes
+}
+
+function stripEmpty(data) {
+ const result = {}
+ for (const [key, value] of Object.entries(data)) {
+   if (value != null && value !== '') {
+     result[key] = value
+   }
+ }
+ return result
 }
 
 function getStoreData() {

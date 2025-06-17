@@ -55,23 +55,25 @@ export function matches(routes, { url, method }) {
   
   return routes.some(route => {
     const { path } = route
-
     // Check method first
     if (route.method != method) return false
-    
+
+    // Strip query string from URL for matching
+    const urlPath = url.split('?')[0]
+
     // Exact match
-    if (path == url) return true
-    
+    if (path == urlPath) return true
+
     // Wildcard match (/api/* matches /api/anything)
     if (path.endsWith('/*')) {
-      return url.startsWith(path.slice(0, -1))
+      return urlPath.startsWith(path.slice(0, -1))
     }
-    
+
     // Parameter match (/api/:id)
     if (path.includes(':')) {
       const routeParts = path.split('/')
-      const pathParts = url.split('/')
-      
+      const pathParts = urlPath.split('/')
+
       return routeParts.length == pathParts.length &&
         routeParts.every((part, i) => part.startsWith(':') || part == pathParts[i])
     }
