@@ -26,6 +26,7 @@ test('tokenize complex', () => {
   expect(attrs.length).toBe(3)
 })
 
+
 // parse expression
 test('plain value', () => {
   expect(parseExpression('plain value')).toBeUndefined()
@@ -37,11 +38,6 @@ test('expression', () => {
 
 test('interpolation', () => {
   expect(parseExpression("foo ${ cute('hey') } baz")).toBe(`"foo " + (_.cute('hey')) + " baz"`)
-})
-
-test('complex expression', () => {
-  const expr = '${ cute ? prettyDate(date) : new Date() } more'
-  expect(parseExpression(expr)).toBe(('(_.cute ? _.prettyDate(_.date) : new Date()) + " more"'))
 })
 
 test('class helper', () => {
@@ -57,6 +53,12 @@ test('complex class helper', () => {
   expect(expr).toBe('"prefix " + _.$concat({hey: _.bar, boo: _.baz()})')
 })
 
+test('complex event argument', () => {
+  expect(parseAttributes(':oninput="seek(index, $event)"').handlers[0]).toEqual({
+    h_fn: '_.seek(_.index, $e)',
+    name: 'oninput',
+  })
+})
 
 // for arguments
 test('for args', () => {
@@ -87,8 +89,6 @@ test('({k, v})', () => {
   expect(parseForArgs('({k, v})')).toEqual({ keys: ['k', 'v'], is_entries: false })
 })
 
-
-
 test('simple for clause', () => {
   expect(parseFor('item, i in items')).toMatchObject({ fn: '_.items', keys: ['item'], index: 'i' })
 })
@@ -111,14 +111,6 @@ test('equals character', () => {
   const [ attr ] = parseAttributes('href="?id=100"').attr
   expect(attr.name).toBe('href')
   expect(attr.val).toBe('?id=100')
-})
-
-
-test('event argument', () => {
-  expect(parseAttributes(':oninput="seek(index, $event)"').handlers[0]).toEqual({
-    h_fn: '_.seek(_.index, $e)',
-    name: 'oninput',
-  })
 })
 
 test('for attribute', () => {

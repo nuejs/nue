@@ -29,7 +29,6 @@ test('<script> block', () => {
       </script>
     </a>
   `)
-
   expect(js).toInclude('script: function()')
   expect(js).toInclude('_=>_.val')
 })

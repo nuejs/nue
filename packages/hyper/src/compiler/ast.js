@@ -1,6 +1,7 @@
 
-import { addContext, HTML5_TAGS, SVG_TAGS } from './html5.js'
+import { HTML5_TAGS, SVG_TAGS } from './html5.js'
 import { parseAttributes } from './attributes.js'
+import { addContext } from './context.js'
 
 
 export function parse(tokens) {
@@ -128,7 +129,7 @@ function mergeConditionals(arr) {
 function parseText(text) {
   const c = text[0]
   if ('$#'.includes(c) && text[1] == '{' && text.endsWith('}')) {
-    const expr = { fn: addContext(text.slice(2, -1)) }
+    const expr = { fn: addContext(text.slice(2, -1)).trim() }
     if (c == '#') expr.html = true
     return expr
   }

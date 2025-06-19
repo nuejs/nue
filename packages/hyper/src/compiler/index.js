@@ -36,7 +36,10 @@ export function convertFns(js) {
 }
 
 export function convertFn(str, is_event) {
+  str = str.trim()
+
   const word = str.startsWith('_.') ? str.slice(2) : str
+
   const is_simple = !/\W/.test(word)
 
   if (is_event) {

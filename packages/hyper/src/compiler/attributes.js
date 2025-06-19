@@ -1,5 +1,6 @@
 
-import { addContext, BOOLEAN, EVENTS, STRICT_ATTRS } from './html5.js'
+import { BOOLEAN, EVENTS, STRICT_ATTRS } from './html5.js'
+import { addContext } from './context.js'
 
 
 export function tokenizeAttr(attrStr) {

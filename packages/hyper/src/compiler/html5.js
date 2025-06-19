@@ -30,15 +30,3 @@ export const SVG_ATTR = 'x y cx cy r rx ry d points fill stroke stroke-width tra
  ATTR.push(...SVG_ATTR)
 */
 
-const RE = /(^|[\-\+\*\/\!\s\(\[]+)([\$a-z_]\w*)(?=(?:[^'"]|'[^']*'|"[^"]*")*$)/g
-
-export function addContext(expr, imports=[]) {
-  return expr.replace(RE, (match, prefix, varname) => {
-    if (varname == '$event') varname = '$e'
-    if (varname == 'this') varname = '_'
-    return prefix + ([...imports, ...JS].includes(varname) ? varname : '_.' + varname)
-  }).trim()
-}
-
-
-

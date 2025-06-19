@@ -26,7 +26,7 @@ export function createBlock(ast, data={}, opts={}, parent) {
   }
 
   // Object.assign(self, getAttrData(ast, self))
-  const self = { ...data, ...getAttrData(ast, data), update }
+  const self = { ...data, ...getAttrData(ast, data), update, parent }
 
   if (script) {
     try {

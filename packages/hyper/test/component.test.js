@@ -113,7 +113,7 @@ test(':bind', () => {
   expect(html).toBe('<div><h1>Hello</h1> <p>World</p></div>')
 })
 
-test(':bind="foo', () => {
+test(':bind this', () => {
   const html = render(`
     <div>
       <item :bind="\${ this }"/>
@@ -123,7 +123,7 @@ test(':bind="foo', () => {
       </script>
     </div>
     <item>
-      <h1>\${title}</h1>
+      <h1>\${ title }</h1>
       <p>\${ desc }</p>
     </item>
   `)
