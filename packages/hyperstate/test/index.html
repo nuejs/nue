@@ -1,0 +1,42 @@
+
+<p>
+  <a href="/test/">Home</a>
+</p>
+
+<p>
+  <a href="/test/customers/">/customers/</a>
+  <a href="/test/users/">/users/</a>
+  <a href="/test/users/100">/users/100</a>
+  <a href="3000">3000</a>
+</p>
+
+<p>
+  <a href="?start=0">?start=0</a>
+  <a href="?start=10">?start=10</a>
+  <a href="?uid=2000">?uid=2000</a>
+</p>
+
+<p>
+  <a href="/something/else">/something/else</a>
+</p>
+
+<script type="module">
+  import { state } from '/src/hyperstate.js'
+
+  state.setup({
+    route: '/test/:type/:id',
+    query: ['uid', 'start'],
+    autolink: true
+  })
+
+  state.on('type start', changes => {
+    console.info('type start', changes)
+  })
+
+  state.on('id uid', changes => {
+    console.info('id uid', changes)
+  })
+
+  state.init()
+
+</script>
