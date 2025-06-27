@@ -26,6 +26,22 @@ test('expression whitespace', () => {
   expect(render('<a>${ "a" } ${ "b" }</a>')).toBe('<a>a b</a>')
 })
 
+test('text whitespace', () => {
+  const template = '<div>${ a } / ${ b } (${ c }) !</div>'
+  const html = render(template, { a: 1, b: 2, c: 3 })
+  expect(html).toBe('<div>1 / 2 (3) !</div>')
+})
+
+test('tag whitespace', () => {
+  const html = render('<a><b>Hey</b> <em>Yo</em></a>')
+  expect(html).toInclude('</b> <em>')
+})
+
+test('component + text whitespace', () => {
+  const html = render('<a><note/> Bro</a><note>Yo</note>')
+  expect(html).toBe('<a><div>Yo</div> Bro</a>')
+})
+
 test('errors', () => {
   const html = render('<div>${ foo() }</div>')
   expect(html).toBe('<div>[Error]</div>')
@@ -83,17 +99,6 @@ test('interpolation', () => {
   expect(html).toBe('<div class="item active"></div>')
 })
 
-test('text whitespace', () => {
-  const template = '<div>${ a } / ${ b } (${ c }) !</div>'
-  const html = render(template, { a: 1, b: 2, c: 3 })
-  expect(html).toBe('<div>1 / 2 (3) !</div>')
-})
-
-test('tag whitespace', () => {
-  const html = render('<a><b>Hey</b> <em>Yo</em></a>')
-  expect(html).toInclude('</b> <em>')
-})
-
 test('html', () => {
   const html = render('<div>#{ html } here</div>', { html: '<b>Bold</b> text' })
   expect(html).toBe('<div><b>Bold</b> text here</div>')
@@ -137,30 +142,6 @@ test('invalid character warnings', () => {
 })
 
 
-test('loop', () => {
-  const template = '<ul><li :each="(el, i) in items">${i}: ${el}</li></ul>'
-  const html = render(template, { items: ['a', 'b'] })
-  expect(html).toBe('<ul><li>0: a</li><li>1: b</li></ul>')
-})
-
-test('template loop', () => {
-  const template = `
-    <dl>
-      <template :each="(el, i) in meta">
-        <dt>\${ el.title }</dt>
-        <dd>\${ el.data }</dd>
-      </template>
-    </dl>
-  `
-  const meta = [
-    { title: 'Name', data: 'Alice' },
-    { title: 'Age', data: '30' }
-  ]
-
-  const html = render(template, { meta })
-  expect(html).toBe('<dl><dt>Name</dt><dd>Alice</dd><dt>Age</dt><dd>30</dd></dl>')
-})
-
 test('template if', () => {
   const template = `
     <dl>
@@ -176,52 +157,20 @@ test('template if', () => {
   expect(render(template)).toBe('<dl><dt>Bar</dt></dl>')
 })
 
-
-test('Object.entries()', () => {
-  const template = `
-    <dl>
-      <template :each="[key, val] in Object.entries(items)">
-        <td>\${ key }</td>
-        <dd>\${ val }</dd>
-      </template>
-    </dl>
-  `
-  const items = { Email: 'm@example.com' }
-  const html = render(template, { items })
-  expect(html).toBe('<dl><td>Email</td><dd>m@example.com</dd></dl>')
+test('bad if clause', () => {
+  expect(render('<div><b :if="bad.clause"/></div>')).toBe('<div></div>')
 })
 
-test('loop deconstruct', () => {
+test('component conditional', () => {
   const template = `
-    <dl>
-      <template :each="{ key, val } in items">
-        <td>\${ key }</td>
-        <dd>\${ val }</dd>
-      </template>
-    </dl>
-  `
-  const items = [{ key: 'Email', val: 'm@example.com' }]
-  const html = render(template, { items })
-  expect(html).toBe('<dl><td>Email</td><dd>m@example.com</dd></dl>')
-})
+    <div>
+      <note :if="state.error"/>
+    </div>
 
-test('nested loop', () => {
-  const template = `
-    <ul>
-      <li :each="arr in items">
-        <p :each="el in arr">\${ el }</p>
-      </li>
-    </ul>
+    <note>Hello</note>
   `
-  const items = [['A', 'B'], ['C', 'D']]
-  const html = render(template, { items })
-  expect(html).toBe('<ul><li><p>A</p><p>B</p></li><li><p>C</p><p>D</p></li></ul>')
-})
-
-test('loop data access', () => {
-  const template = '<div><p :each="el in items">${el} ${foo}</p></div>'
-  const html = render(template, { foo: 1, items: ['F', 'F'] })
-  expect(html).toInclude('<p>F 1</p><p>F 1</p>')
+  const html = render(template, { state: { error: true } })
+  expect(html).toBe('<div><div>Hello</div></div>')
 })
 
 

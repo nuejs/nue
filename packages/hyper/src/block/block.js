@@ -28,6 +28,13 @@ export function createBlock(ast, data={}, opts={}, parent) {
   // Object.assign(self, getAttrData(ast, self))
   const self = { ...data, ...getAttrData(ast, data), update, parent }
 
+
+  /*
+  Object.entries(ast.imports || {}).forEach(([name, fn]) => {
+    self[name] = fn
+  })
+  */
+
   if (script) {
     try {
       if (typeof script == 'string') new Function(script).call(self)
@@ -116,18 +123,17 @@ export function createBlock(ast, data={}, opts={}, parent) {
     return frag
   }
 
-  function _renderIf(ast, self) {
-    const child = ast.some.find(el => {
-      const fn = el.if || el['else-if']
-      return fn ? exec(fn, self) : true
-    })
-    return child ? render(child, self) : createFragment()
-  }
 
   function renderIf(ast, self) {
+
     const child = ast.some.find(el => {
       const fn = el.if || el['else-if']
-      return fn ? exec(fn, self) : true
+      if (fn) {
+        const ret = exec(fn, self)
+        return ret && ret != '[Error]'
+      } else if (el.else) {
+        return true
+      }
     })
 
     if (!child) return createFragment()
@@ -148,22 +154,23 @@ export function createBlock(ast, data={}, opts={}, parent) {
     const { keys, is_entries, index, fn } = ast.for
     delete ast.for
 
+    const items = exec(fn, self) || []
     const frag = createFragment()
     const is_template = ast.tag == 'template'
-    const items = exec(fn, self) || []
 
     items.forEach((item, i) => {
-      const loopData = { ...self }
-      if (keys[1]) keys.forEach((key, i ) => loopData[key] = item[is_entries ? i : key])
-      else loopData[keys[0]] = item
-      if (index) loopData[index] = i
+      // set loop variables
+      const child = { ...self }
+      if (index) child[index] = i
+      if (keys[1]) keys.forEach((key, i ) => child[key] = item[is_entries ? i : key])
+      else child[keys[0]] = item
 
       if (is_template) {
-        ast.children.forEach(child => {
-          frag.appendChild(render(child, loopData))
+        ast.children.forEach(node => {
+          frag.appendChild(render(node, child))
         })
       } else {
-        frag.appendChild(render(ast, loopData))
+        frag.appendChild(render(ast, child))
       }
     })
     return frag

@@ -18,7 +18,9 @@ export function compileTemplate(template) {
 
   scripts.forEach(script => js.push(script.children[0].text.trim()))
 
+  //
   const lib_str = inspect(lib, { compact: true, depth: Infinity })
+
   js.push(`export const lib = ${ convertFns(lib_str) }`)
 
   return js.join('\n')
@@ -31,11 +33,12 @@ const RE_FN = /(script|h_fn|fn):\s*(['"`])([^\2]*?)\2/g
 export function convertFns(js) {
   return js.replace(RE_FN, function(_, key, __, expr) {
     return key == 'script' ? `${key}: function() { ${expr.trim().replaceAll('\\n', '\n')} \n\t\t}`
-      : `${key}: ${convertFn(expr, key[0] == 'h')}`
+      : `${key}: ${toFunction(expr, key[0] == 'h')}`
   })
 }
 
-export function convertFn(str, is_event) {
+// compiler.test.js: _.foo + 1 --> _=>(_.foo + 1)
+export function toFunction(str, is_event) {
   str = str.trim()
 
   const word = str.startsWith('_.') ? str.slice(2) : str
@@ -52,18 +55,27 @@ export function convertFn(str, is_event) {
 }
 
 
+export function parseImports(importString) {
+  const lines = importString.trim().split('\n')
+  const imports = []
 
-/* not currently in use
+  for (const line of lines) {
+    // Skip lines that start with //
+    if (line.trim().startsWith('//')) continue
 
-  const names = parseImports(imports)
-  if (names.length) js.push(`const imports = { ${names.join(',')} }`)
-
-export function parseImports(script) {
-  const arr = []
-  const matches = script.matchAll(/import\s*{([^}]+)}\s*from\s*['"][^'"]+['"]/g)
-  for (const match of matches) {
-    arr.push(...match[1].split(',').map(name => name.trim().split(' as ')[0]))
+    const match = line.match(/import\s*{\s*([^}]+)\s*}/)
+    if (match) {
+      const items = match[1].split(',').map(item => {
+        const trimmed = item.trim()
+        // Check if it's an alias (contains 'as')
+        if (trimmed.includes(' as ')) {
+          return trimmed.split(' as ')[1].trim()
+        }
+        return trimmed
+      })
+      imports.push(...items)
+    }
   }
-  return arr
+
+  return `const imports = { ${imports.join(', ')} }`
 }
-*/

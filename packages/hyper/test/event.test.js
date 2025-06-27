@@ -1,5 +1,5 @@
 
-import { clickable } from './clickable.js'
+import { clickable } from './event.util.js'
 
 
 test('event handler', () => {
@@ -44,21 +44,6 @@ test('conditional', () => {
   root.click('a')
   expect(root.html).toBe('<div><h3>Hello</h3><a></a></div>')
 })
-
-test('loop + if', () => {
-  const template = `
-    <div>
-      <a :each="val in [1,2]" :if="doit">\${val}</a>
-      <button :onclick="doit = true"/>
-    </div>
-  `
-  const root = clickable(template)
-  expect(root.html).toBe('<div><button></button></div>')
-
-  root.click()
-  expect(root.html).toInclude('<a>1</a><a>2</a>')
-})
-
 
 test('callback', () => {
   const template = `

@@ -4,7 +4,7 @@ import { JS } from './html5.js'
 const RE = /'[^']*'|"[^"]*"|[a-zA-Z_$][a-zA-Z0-9_$]*(?:\.[a-zA-Z_$][a-zA-Z0-9_$]*)*/g
 
 
-export function addContext(expr, exceptions = []) {
+export function addContext(expr, exceptions = ['state']) {
   const reserved = new Set([...JS, ...exceptions ])
 
   return expr.replace(RE, (match, offset, str) => {

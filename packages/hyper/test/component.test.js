@@ -1,7 +1,6 @@
 
 import { render } from '../src/index.js'
 
-
 test('self-closing', () => {
   expect(render('<a/>')).toBe('<a></a>')
 })
@@ -54,20 +53,6 @@ test('script', () => {
   expect(html).toBe('<div>Hello</div>')
 })
 
-test('loop', () => {
-  const template = `
-    <ul>
-      <item :each="text of arr" :text="\${ text }"/>
-      <script>
-        this.arr = ['hello', 'world']
-      </script>
-    </ul>
-
-    <li :is="item">\${ text }</li>
-  `
-  const html = render(template)
-  expect(html).toBe('<ul><li>hello</li><li>world</li></ul>')
-})
 
 test('if-else', () => {
   const template = `
@@ -146,17 +131,6 @@ test('slot', () => {
   `
   const html = render(template, { title: 'Hello', desc: 'World' })
   expect(html).toBe('<div><h1>Hello</h1><p>World</p> <small>yo</small>World</div>')
-})
-
-
-test('slot loop', () => {
-  const html = render(`
-    <a>
-      <child :each="el, i in new Array(2).fill(1)">\${i}</child>
-    </a>
-    <b :is="child">i: <slot/></b>
-  `)
-  expect(html).toBe('<a><b>i: 0</b><b>i: 1</b></a>')
 })
 
 

@@ -4,24 +4,24 @@ import { parseAttributes } from './attributes.js'
 import { addContext } from './context.js'
 
 
-export function parse(tokens) {
-  return parseTags(tokens).map(el => parseTag(el))
+export function parse(tokens, imports) {
+  return parseTags(tokens).map(el => parseTag(el, imports))
 }
 
 export function parseTags(tokens) {
-  const blocks = []
   const meta = tokens[0]?.meta
   let i = meta ? 1 : 0
+  const tags = []
 
   while (i < tokens.length) {
     const result = parseNode(tokens, i)
-    if (result.node) blocks.push(result.node)
+    if (result.node) tags.push(result.node)
     i = result.next
   }
 
-  if (meta) blocks[0].meta = meta
+  if (meta) tags[0].meta = meta
 
-  return blocks
+  return tags
 }
 
 function parseNode(tokens, i) {
@@ -56,12 +56,7 @@ function parseNode(tokens, i) {
   return { node: { tag, children }, next: i }
 }
 
-function parseOpeningTag(tag) {
-  tag = tag.replace('/>', '>')
-  const i = tag.indexOf(' ')
-  if (i == -1) return { tagName: tag.slice(1, -1) }
-  return { tagName: tag.slice(1, i), attr: tag.slice(i + 1, -1).trim() }
-}
+
 
 export function parseTag(node) {
   const { tag, children, text } = node
@@ -98,6 +93,13 @@ export function parseTag(node) {
     if (ret.children.length) comp.children = ret.children
   }
   return comp
+}
+
+function parseOpeningTag(tag) {
+  tag = tag.replace('/>', '>')
+  const i = tag.indexOf(' ')
+  if (i == -1) return { tagName: tag.slice(1, -1) }
+  return { tagName: tag.slice(1, i), attr: tag.slice(i + 1, -1).trim() }
 }
 
 function parseChildren(arr) {
