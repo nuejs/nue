@@ -4,69 +4,18 @@ import { parseAttributes } from './attributes.js'
 import { addContext } from './context.js'
 
 
-export function parse(tokens, imports) {
-  return parseTags(tokens).map(el => parseTag(el, imports))
-}
-
-export function parseTags(tokens) {
-  const meta = tokens[0]?.meta
-  let i = meta ? 1 : 0
-  const tags = []
-
-  while (i < tokens.length) {
-    const result = parseNode(tokens, i)
-    if (result.node) tags.push(result.node)
-    i = result.next
-  }
-
-  if (meta) tags[0].meta = meta
-
-  return tags
-}
-
-function parseNode(tokens, i) {
-  const tag = tokens[i]
-
-  if (i >= tokens.length || !tag.startsWith('<') || tag.startsWith('</')) {
-    return { next: i + 1 }
-  }
-
-  i++
-
-  // ignore <style> blocks
-  if (tag.toLowerCase().startsWith('<style')) return { next: i }
-
-  if (tag.endsWith('/>')) return { node: { tag, children: [] }, next: i }
-
-  const children = []
-
-  while (i < tokens.length && !tokens[i].startsWith('</')) {
-    if (tokens[i].startsWith('<') && !tokens[i].startsWith('</')) {
-      const result = parseNode(tokens, i)
-      if (result.node) children.push(result.node)
-      i = result.next
-    } else {
-      children.push({ text: tokens[i] })
-      i++
-    }
-  }
-
-  if (i < tokens.length) i++ // Skip closing tag
-
-  return { node: { tag, children }, next: i }
-}
-
-
-
-export function parseTag(node) {
-  const { tag, children, text } = node
-  if (text) return parseText(text)
+export function parseTag(node, imports) {
+  const { tag, children, text, meta } = node
+  if (text) return parseText(text, imports)
 
   const { tagName, attr } = parseOpeningTag(tag)
   if (tagName == 'slot') return { slot: true }
 
-  const specs = attr ? parseAttributes(attr) : {}
+  const specs = attr ? parseAttributes(attr, imports) : {}
   const comp = { tag: tagName.trim(), ...specs }
+
+  if (meta) comp.meta = meta
+
   const i = SVG_TAGS.findIndex(el => el.toLowerCase() == tagName.toLowerCase())
 
   if (i >= 0) {
@@ -88,7 +37,7 @@ export function parseTag(node) {
   }
 
   if (children.length) {
-    const ret = parseChildren(children)
+    const ret = parseChildren(children, imports)
     if (ret.script) comp.script = convertGetters(convertFunctions(ret.script))
     if (ret.children.length) comp.children = ret.children
   }
@@ -102,9 +51,9 @@ function parseOpeningTag(tag) {
   return { tagName: tag.slice(1, i), attr: tag.slice(i + 1, -1).trim() }
 }
 
-function parseChildren(arr) {
+function parseChildren(arr, imports) {
   const scriptEl = arr.find(el => el.tag == '<script>')
-  const children = arr.filter(el => el != scriptEl).map(el => parseTag(el))
+  const children = arr.filter(el => el != scriptEl).map(el => parseTag(el, imports))
   const script = scriptEl ? scriptEl.children[0]?.text.trim() : ''
   return { children: mergeConditionals(children), script }
 }
@@ -128,15 +77,16 @@ function mergeConditionals(arr) {
 }
 
 
-function parseText(text) {
+function parseText(text, imports) {
   const c = text[0]
   if ('$#'.includes(c) && text[1] == '{' && text.endsWith('}')) {
-    const expr = { fn: addContext(text.slice(2, -1)).trim() }
+    const expr = { fn: addContext(text.slice(2, -1), imports).trim() }
     if (c == '#') expr.html = true
     return expr
   }
   return { text }
 }
+
 
 
 // foo() {} --> this.foo = function() { }
@@ -157,4 +107,3 @@ export function convertGetters(script) {
     }
   )
 }
-

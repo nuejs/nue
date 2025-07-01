@@ -1,71 +1,34 @@
 
-import { inspect } from 'node:util'
-
-import { convertFunctions, convertGetters, parseTag, parseTags } from '../src/compiler/ast.js'
+import { parseTag, convertFunctions, convertGetters } from '../src/compiler/tag.js'
 import { tokenize } from '../src/compiler/tokenizer.js'
+import { parseBlocks } from '../src/compiler/page.js'
 
 
-function parseTest(str, expected) {
-  const [ node ] = parseTags(tokenize(str))
-  if (!node) return
+function testTag(template, expected) {
+  const [ block ] = parseBlocks(tokenize(template))
 
-  const tag  = parseTag(node)
+  const tag  = parseTag(block)
   if (expected === true) return tag
 
-  if (expected) expect(tag).toEqual(expected)
-  else console.info(inspect(tag, { depth: 10 }))
+  expect(tag).toEqual(expected)
 }
 
 
-test('annotations', () => {
-  const lib = parseTags(tokenize('<!-- @reactive --> <foo/>'))
-  expect(lib[0].meta.reactive).toBeTrue()
-})
-
-test('parseTags', () => {
-  const lib = `
-    <!-- @author john -->
-    <foo>
-      <h3 disabled class="\${ foo }"/>
-      <p>\${ bar } baz</p>
-    </foo>
-
-    <self-closing/>
-
-    <bar-tag>
-      <h3>Hello</h3>
-      <close/>
-    </bar-tag>
-  `
-  const blocks = parseTags(tokenize(lib))
-
-  expect(blocks.length).toBe(3)
-
-  expect(blocks[0]).toMatchObject(  {
-    meta: { author: 'john' },
-    tag: "<foo>",
-    children: [
-      { tag: "<h3 disabled class=\"${ foo }\"/>" },
-      { tag: "<p>", children: [{ text: "${ bar }" }, { text: " baz" }] }
-    ]
-  })
-})
-
 test('closed tag', () => {
-  parseTest('<foo/>', { tag: 'foo', is_custom: true })
+  testTag('<foo/>', { tag: 'foo', is_custom: true })
 })
 
 test('SVG tag', () => {
-  parseTest('<path/>', { tag: 'path', svg: true })
+  testTag('<path/>', { tag: 'path', svg: true })
 })
 
 test('is attrib', () => {
-  parseTest('<p :is="hey">Hello</p>', { tag: 'p', is: 'hey', children: [{ text: 'Hello' }] })
+  testTag('<p :is="hey">Hello</p>', { tag: 'p', is: 'hey', children: [{ text: 'Hello' }] })
 })
 
 
 test('nested element', () => {
-  parseTest('<foo><p>Hi</p></foo>', {
+  testTag('<foo><p>Hi</p></foo>', {
     tag: "foo",
     is_custom: true,
     children: [{ tag: "p", children: [{ text: "Hi" }]}]
@@ -73,7 +36,7 @@ test('nested element', () => {
 })
 
 test('nested tag', () => {
-  parseTest('<p><bar :count=2></p>', {
+  testTag('<p><bar :count=2></p>', {
     tag: 'p',
     children: [{
       tag: 'bar',
@@ -84,7 +47,7 @@ test('nested tag', () => {
 })
 
 test('element with expression', () => {
-  parseTest('<p>${ val } #{ val }</p>', {
+  testTag('<p>${ val } #{ val }</p>', {
     children: [ {fn: '_.val', }, {fn: '_.val', html: true, }],
     tag: "p",
   })
@@ -96,7 +59,7 @@ test('nested script', () => {
       <script>this.count = 1</script>
     </counter>
   `
-  parseTest(template, {
+  testTag(template, {
     tag: "counter",
     script: "this.count = 1",
     is_custom: true,
@@ -104,7 +67,7 @@ test('nested script', () => {
 })
 
 test('client script', () => {
-  const ast = parseTest(`
+  const ast = testTag(`
     <body>
       <script src="/analytics.js"></script>
       <script type="module">alalytics(666)</script>
@@ -126,7 +89,7 @@ test('conditional', () => {
       <a :if="foo">Test</a>
     </cond-test>
   `
-  const kids = parseTest(template, true).children
+  const kids = testTag(template, true).children
   expect(kids.length).toBe(3)
   expect(kids[1].some.length).toBe(3)
   expect(kids[2].some.length).toBe(1)
@@ -139,7 +102,7 @@ test('slot', () => {
       <slot/>
     </slot-test>
   `
-  const kids = parseTest(template, true).children
+  const kids = testTag(template, true).children
   expect(kids[1]).toEqual({ slot: true })
 })
 
@@ -152,7 +115,7 @@ test('newlines', () => {
       bar
     </textarea>
   `
-  const tag = parseTest(template, true)
+  const tag = testTag(template, true)
   expect(tag.tag).toBe('textarea')
   expect(tag.attr.length).toBe(2)
   expect(tag.children[0].text).toInclude('\n')
@@ -160,10 +123,8 @@ test('newlines', () => {
 
 
 test('skip style tags', () => {
-  expect(parseTest('<style></style>', true)).toBeUndefined()
-  parseTest('<div><style></style></div>', { tag: 'div' })
+  testTag('<div><style></style></div>', { tag: 'div' })
 })
-
 
 test('convert function', () => {
   expect(convertFunctions(`format(str) {}`)).toEqual('this.format = function(str) {}')

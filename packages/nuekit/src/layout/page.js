@@ -19,7 +19,7 @@ const MAIN = parseHyper(`
 
     #{ beside }
   </main>
-`)[0]
+`).tags[0]
 
 function getPageLayout(data) {
   const { language = 'en-US', direction } = data
@@ -44,7 +44,7 @@ function getPageLayout(data) {
     </html>
   `)
 
-  return parseHyper(html)[0]
+  return parseHyper(html).tags[0]
 }
 
 export function getSPALayout(body, data) {

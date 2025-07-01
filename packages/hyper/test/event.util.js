@@ -1,10 +1,11 @@
 
-import { parseHyper, renderBlock } from '../src/index.js'
+import { parsePage } from '../src/compiler/page.js'
+import { renderBlock } from '../src/index.js'
 
 
 export function clickable(template, data) {
-  const lib = parseHyper(template)
-  const block = renderBlock(lib[0], data, { lib })
+  const { tags } = parsePage(template)
+  const block = renderBlock(tags[0], data, { lib: tags })
   const { root } = block
 
   function click(selector='button') {

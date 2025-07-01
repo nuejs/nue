@@ -164,12 +164,12 @@ test('bad if clause', () => {
 test('component conditional', () => {
   const template = `
     <div>
-      <note :if="state.error"/>
+      <note :if="obj.error"/>
     </div>
 
     <note>Hello</note>
   `
-  const html = render(template, { state: { error: true } })
+  const html = render(template, { obj: { error: true } })
   expect(html).toBe('<div><div>Hello</div></div>')
 })
 

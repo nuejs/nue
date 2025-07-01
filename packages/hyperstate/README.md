@@ -28,7 +28,7 @@ import { state } from 'hyperstate.js'
 
 // Configure which data goes where
 state.setup({
-  route: '/contacts/:id',
+  route: '/contacts/:view/:id',
   query: ['search', 'page'],
   session: ['user'],
   local: ['theme'],
@@ -36,7 +36,8 @@ state.setup({
 })
 
 // Use state anywhere
-state.search = 'john'  // Updates URL: ?search=john
+state.view = 'users' // Updates URL: /contacts/users
+state.search = 'john'  // Updates query string: ?search=john
 state.user = { name: 'Alice' }  // Saves to sessionStorage
 state.theme = 'dark'  // Saves to localStorage
 ```

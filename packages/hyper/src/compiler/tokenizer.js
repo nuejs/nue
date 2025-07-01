@@ -10,15 +10,7 @@ export function tokenize(template) {
   while (pos < template.length) {
     const char = template[pos]
 
-    if (template.slice(pos, pos + 9).toLowerCase() == '<!doctype') {
-      const i = template.indexOf('>', pos + 9)
-      const doctype = template.slice(pos + 9, i).trim()
-
-      // must be first element on the page
-      if (!tokens.length) tokens.push({ meta: { doctype }})
-      pos = i + 1
-
-    } else if (char == '<' && template.slice(pos, pos + 4) == '<!--') {
+    if (char == '<' && template.slice(pos, pos + 4) == '<!--') {
       pos = parseComment(template, pos, tokens)
 
     } else if (char == '<') {
@@ -42,11 +34,8 @@ function parseComment(template, pos, tokens) {
   if (end == -1) throw new SyntaxError(`Unclosed comment at ${pos}`)
 
   // annotations
-  const orig = tokens[0]?.meta
-  if (orig || !tokens.length) {
-    const meta = parseAnnotations(template.slice(pos + 4, end))
-    if (meta) orig ? Object.assign(orig, meta) : tokens.push({ meta })
-  }
+  const meta = parseAnnotations(template.slice(pos + 4, end))
+  if (meta) tokens.push({ meta })
 
   return end + 3
 }

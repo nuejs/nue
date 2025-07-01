@@ -9,7 +9,7 @@ export function tokenizeAttr(attrStr) {
   )
 }
 
-export function parseAttributes(attrs) {
+export function parseAttributes(attrs, imports) {
   const tokens = tokenizeAttr(attrs)
   const result = {}
 
@@ -24,7 +24,7 @@ export function parseAttributes(attrs) {
     const base = is_colon ? name.slice(1) : name
 
     if (name == ':each') {
-      result.for = parseFor(value)
+      result.for = parseFor(value, imports)
 
     } else if (name == ':is') {
       result.is = value
@@ -33,20 +33,20 @@ export function parseAttributes(attrs) {
       // ignore
 
     } else if ([':if', ':else-if', ':else'].includes(name)) {
-      result[base] = base == 'else' ? true : addContext(value)
+      result[base] = base == 'else' ? true : addContext(value, imports)
 
     // event handler
     } else if (name.slice(0, 3) == ':on' && EVENTS.includes(name.slice(3))) {
       if (!value) value = name.slice(1)
       if (!/\W/.test(value)) value += '($e)'
-      push('handlers', { name: base, h_fn: addContext(value) })
+      push('handlers', { name: base, h_fn: addContext(value, imports) })
 
     } else {
       const attr = { name: base }
 
       // :href --> :href="href"
       if (is_colon && !value) value = base
-      const fn = is_colon && !value.includes('{') ? addContext(value) : parseExpression(value, name)
+      const fn = is_colon && !value.includes('{') ? addContext(value, imports) : parseExpression(value, name, imports)
 
       if (fn) attr.fn = fn
       else attr.val = value
@@ -86,10 +86,10 @@ function parseNameVal(attr) {
   return { name, value }
 }
 
-export function parseFor(str) {
+export function parseFor(str, imports) {
   const [args, _, expr] = str.split(/\s+(in|of)\s+/)
   const for_args = parseForArgs(args.trim())
-  const fn = addContext(expr)
+  const fn = addContext(expr, imports)
   return { fn, ...for_args }
 }
 
@@ -110,30 +110,30 @@ export function parseForArgs(args) {
   return hasIndex ? { keys: keys.slice(0, -1), index: keys.pop(), is_entries } : { keys, is_entries };
 }
 
-export function parseExpression(str, attr_name) {
+export function parseExpression(str, attr_name, imports) {
   const parts = str.split(/(\$?{[^}]+})/)
   if (parts.length < 2) return
 
   return parts.map(part => {
     if (part[0] == '{' && attr_name == 'class') {
-      return parseClassHelper(part.slice(1, -1).trim())
+      return parseClassHelper(part.slice(1, -1).trim(), imports)
 
     } else if (part.startsWith('${')) {
-      return `(${ addContext(part.slice(2, -1).trim()) })`
+      return `(${ addContext(part.slice(2, -1).trim(), imports) })`
     }
     return part ? `"${part}"` : ''
 
   }).filter(part => part !== '').join(' + ')
 }
 
-export function parseClassHelper(val) {
+export function parseClassHelper(val, imports) {
   const pairs = val.split(',').map(pair => pair.trim())
 
   const obj = pairs.map(pair => {
     let [name, expr] = pair.split(':').map(s => s.trim())
     if (!expr) expr = name
     if (name.includes('-')) name = `"${ name }"`
-    return `${ name }: ${ addContext(expr) }`
+    return `${ name }: ${ addContext(expr, imports) }`
   })
 
   return `_.$concat({${obj.join(', ')}})`

@@ -103,17 +103,6 @@ test('annotations', () => {
 })
 
 
-test('doctype', () => {
-  const els = tokenize(`
-    <!doctype svg>
-
-    <!-- @license MIT -->
-    <h1>Hello</h1>
-  `)
-
-  expect(els[0].meta).toEqual({ doctype: "svg", license: "MIT" })
-})
-
 test('scripts with expressions', () => {
   const tokens = tokenize('<a><script>`${expr}`</script></a>')
   expect(tokens.length).toBe(5)

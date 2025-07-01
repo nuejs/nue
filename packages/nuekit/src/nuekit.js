@@ -150,16 +150,16 @@ export async function createKit(args) {
     const lib = await site.getServerComponents(appdir, data)
 
     if (html.includes('<html')) {
-      const spa = parseHyper(html)
-      return DOCTYPE + renderHyper([...spa, ...lib], data, {
+      const { tags } = parseHyper(html)
+      return DOCTYPE + renderHyper([...tags, ...lib], data, {
         fns: getServerFunctions()
       })
     }
 
     const layout = getSPALayout(html, data)
-    const spa = parseHyper(layout)
+    const { tags } = parseHyper(layout)
 
-    return DOCTYPE + renderHyper([...spa, ...lib], data, {
+    return DOCTYPE + renderHyper([...tags, ...lib], data, {
       fns: getServerFunctions()
     })
   }

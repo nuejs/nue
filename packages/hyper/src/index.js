@@ -1,7 +1,8 @@
 
 import domino from 'domino'
 
-import { parseTemplate, compileTemplate } from './compiler/index.js'
+import { compileTemplate } from './compiler/compiler.js'
+import { parsePage } from './compiler/page.js'
 import { createBlock } from './block/block.js'
 
 
@@ -20,10 +21,10 @@ export function renderToString(ast, data, opts) {
 
 
 export function render(template, data, opts={}) {
-  const nodes = parseTemplate(template)
+  const { tags } = parsePage(template)
   const { lib=[] } = opts
-  opts.lib = [...nodes, ...lib]
-  return renderToString(nodes[0], data, opts)
+  opts.lib = [...tags, ...lib]
+  return renderToString(tags[0], data, opts)
 }
 
 
@@ -34,4 +35,4 @@ export function renderHyper(lib, data, opts={}) {
 
 export { compileTemplate as compileHyper }
 
-export { parseTemplate as parseHyper }
+export { parsePage as parseHyper }

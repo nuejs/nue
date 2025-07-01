@@ -29,12 +29,6 @@ export function createBlock(ast, data={}, opts={}, parent) {
   const self = { ...data, ...getAttrData(ast, data), update, parent }
 
 
-  /*
-  Object.entries(ast.imports || {}).forEach(([name, fn]) => {
-    self[name] = fn
-  })
-  */
-
   if (script) {
     try {
       if (typeof script == 'string') new Function(script).call(self)
