@@ -29,12 +29,16 @@ test('dollar variable', () => {
   expect(addContext("$foo")).toBe("_.$foo")
 })
 
-test('dollar variable', () => {
+test('this', () => {
   expect(addContext("this")).toBe("_")
 })
 
-test('dollar variable', () => {
+test('$event variable', () => {
   expect(addContext("$event")).toBe("$e")
+})
+
+test('$event.target', () => {
+  expect(addContext('$event.target')).toBe('$e.target')
 })
 
 test('string expression', () => {

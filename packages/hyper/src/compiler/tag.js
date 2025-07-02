@@ -99,11 +99,20 @@ export function convertFunctions(script) {
   )
 }
 
-// get foo() {} --> Object.defineProperty
 export function convertGetters(script) {
-  return script.replace(
-    /^( *)get (\w+)\(\)\s*{([^}]+)}/gm, (_, indent, name, body) => {
-      return `${indent}Object.defineProperty(this, '${name}', { get() {${body}} })`
-    }
-  )
+  return script
+    // Handle multiline getters first
+    .replace(
+      /^( *)get (\w+)\(\)\s*\{([\s\S]*?)\n\1\}/gm,
+      (_, indent, name, body) => {
+        return `${indent}Object.defineProperty(this, '${name}', { get() {${body}} })`
+      }
+    )
+    // Then handle single-line getters
+    .replace(
+      /^( *)get (\w+)\(\)\s*\{([^}]*)\}/gm,
+      (_, indent, name, body) => {
+        return `${indent}Object.defineProperty(this, '${name}', { get() {${body}} })`
+      }
+    )
 }

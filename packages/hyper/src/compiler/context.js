@@ -9,7 +9,7 @@ export function addContext(expr, exceptions = ['state']) {
 
   return expr.replace(CONTEXT_RE, (match, offset, str) => {
 
-    if (match == '$event') return '$e'
+    if (match.includes('$event')) return match.replaceAll('$event', '$e')
     if (match == 'this') return '_'
 
     // Skip string literals

@@ -39,8 +39,9 @@ export function parsePage(template) {
 
   page.script = script.join('\n')
 
-  const imports = parseImports(page.script)
-  page.tags = tags.map(el => parseTag(el, imports))
+  // reserved names
+  const names = parseNames(page.script)
+  page.tags = tags.map(el => parseTag(el, names))
 
   return page
 }
@@ -105,27 +106,31 @@ function parseBlock(tokens, i) {
 }
 
 
-export function parseImports(script) {
+export function parseNames(script) {
   const lines = script.trim().split('\n')
-  const imports = []
+  const arr = []
 
   for (const line of lines) {
-    // Skip lines that start with //
     if (line.trim().startsWith('//')) continue
 
-    const match = line.match(/import\s*{\s*([^}]+)\s*}/)
-    if (match) {
-      const items = match[1].split(',').map(item => {
-        const trimmed = item.trim()
-        // Check if it's an alias (contains 'as')
-        if (trimmed.includes(' as ')) {
-          return trimmed.split(' as ')[1].trim()
-        }
-        return trimmed
-      })
-      imports.push(...items)
-    }
+    arr.push(
+      ...getFunctioneNames(line),
+      ...getVariableNames(line)
+    )
   }
-  return imports
+  return arr
 }
+
+function getVariableNames(line) {
+  const match = line.match(/(import|const|var|let)\s*({\s*([^}]+)\s*})/)
+  return !match ? [] : match[3].split(',').map(el => {
+    return el.includes(' as ') ? el.split(' as ')[1].trim() : el.trim()
+  })
+}
+
+function getFunctioneNames(line) {
+  const match = line.match(/function\s*([^\(]+)\s*\(/)
+  return match ? [match[1]] : []
+}
+
 

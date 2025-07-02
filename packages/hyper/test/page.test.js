@@ -1,5 +1,5 @@
 
-import { parsePage, parseImports } from '../src/compiler/page.js'
+import { parsePage, parseNames } from '../src/compiler/page.js'
 
 
 test('minimal', () => {
@@ -71,15 +71,23 @@ test('full', () => {
 })
 
 
-test('parseImports', () => {
+test('parseNames', () => {
   const template = `
-    import { getContacts } from '/@system/model.js'
-    import { foo as state } from './foo.js'
-    // import { nothing } from './nothing.js'
+    import { getContacts } from 'model.js'
+    import { foo as state } from 'foo.js'
+    // import { nothing } from 'nothing.js'
 
-    const { foo } = await import('/kama')
+    const { MEME, PRANK } = await import('/kama')
+
+    export function format() {
+
+    }
+
+    function trick() {
+
+    }
   `
-  expect(parseImports(template)).toEqual(['getContacts', 'state'])
+  expect(parseNames(template)).toEqual([ "getContacts", "state", "MEME", "PRANK", "format", "trick" ])
 })
 
 

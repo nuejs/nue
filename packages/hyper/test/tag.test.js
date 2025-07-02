@@ -134,6 +134,18 @@ test('convert function', () => {
   expect(convertFunctions(`for (true) {}`)).toEqual('for (true) {}')
 })
 
-test('convert getters', () => {
+test('simple getter', () => {
   expect(convertGetters('get foo() { }')).toEqual("Object.defineProperty(this, 'foo', { get() { } })")
+})
+
+test('multiline getter', () => {
+  const js = convertGetters(`
+    get status() {
+      const { start, length } = view
+      return start + length
+    }
+  `)
+
+  expect(js).toInclude('{ get() {')
+  expect(js).toInclude('return start + length} })')
 })
