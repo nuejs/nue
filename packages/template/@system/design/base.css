@@ -1,0 +1,26 @@
+
+@layer base, component, modifier;
+
+@layer base {
+
+  :root {
+
+    /* base colors */
+    --base-200: #E2E8F0;
+    --base-400: #94A3B8;
+    --base-600: #475569;
+    --base-800: #1E293B;
+
+    /* link colors */
+    --link: #00e;
+    --visited: #551a8b;
+
+    /* typographic grid */
+    --m: 1.5rem;
+    --l: 3rem;
+    --xl: 4.5rem;
+    --max-line-width: 45rem;
+  }
+}
+
+

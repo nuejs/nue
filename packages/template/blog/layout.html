@@ -1,0 +1,7 @@
+
+<table :is="contents">
+  <tr :each="el in blog">
+    <td><pretty-date :date="el.date"/></td>
+    <td><a href="${ el.url }">${ el.title }</a></td>
+  </tr>
+</table>

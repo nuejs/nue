@@ -1,413 +1,113 @@
-import { existsSync, promises as fs } from 'node:fs'
-import { extname, join, parse as parsePath, resolve } from 'node:path'
 
-import yaml from 'js-yaml'
-import { parseHyper } from 'nue-hyper'
-import { nuedoc } from 'nuemark'
+import { mkdir } from 'node:fs/promises'
+import { join } from 'node:path'
 
-import { fswalk } from './nuefs.js'
-import {
-  extendData,
-  getAppDir,
-  importFromCWD,
-  joinRootPath,
-  log,
-  parsePathParts,
-  sortCSS,
-  toPosix,
-  traverseDirsUp,
-} from './util.js'
+import { createAssets } from './assets.js'
+import { renderDoc } from './render.js'
+import { fswatch } from './fswatch.js'
+import { fswalk } from './fswalk.js'
+import { minifyCSS } from './css.js'
+import { parseYAML } from './yaml.js'
 
 
-// file not found error
-function fileNotFound({ errno }) {
-  return [-2, -4058].includes(errno)
-}
+const IGNORE = `_* _*/** .* .*/** node_modules/** @system/worker/**\
+ *.toml *.rs *.lock package.json bun.lockb pnpm-lock.yaml README.md`.split(' ')
 
-export async function createSite(args) {
 
-  const { root, is_prod, env, nuekit_version } = args
-  const { is_bulk = args.cmd == 'build' || args.push } = args
-  const cache = {}
+export async function createSite(opts) {
+  const { root, is_prod, dryrun } = opts
 
-  // make sure root exists
-  // can theoretically remove `resolve()`-part when oven-sh/bun#17552 is fixed
-  if (!existsSync(resolve(root))) throw `Root directory does not exist: ${root}`
+  // site config
+  const conf = await readData(root, 'site.yaml')
+  if (!conf) return console.error('Not a Nue directory')
+  const { port, worker } = conf
 
-  /*
-    Bun.file()::text() has equal performance
-    caching here is unnecessary
-  */
-  async function read(path) {
-    return (await fs.readFile(join(root, path), 'utf-8')).replace(/\r\n|\r/g, '\n')
+  // assets
+  const ignore = [...IGNORE, ...(conf.ignore || [])]
+  const paths = await fswalk(root, { ignore, followSymlinks: conf.follow_symlinks })
+  const assets = await createAssets(root, paths)
+
+  // dist directory
+  const dist = join(root, opts.dist || (is_prod ? '.dist/prod' : '.dist/dev'))
+  await mkdir(dist, { recursive: true })
+
+
+  async function processCSS(file) {
+    return is_prod ? await write(file, minifyCSS(await file.read()))
+      : await file.copy(dist)
   }
 
-  async function readData(path) {
-    if (!path) return
-    try {
-      const raw = await read(path)
-      return yaml.load(raw)
-    } catch (e) {
-      if (!fileNotFound(e)) {
-        const { line, column } = e.mark
-        const err = { line, column, lineText: e.reason }
-        throw err
-      } else if (path == env) throw e
-    }
+  async function processJS(file) {
+    return is_prod || file.is_ts ? await buildJS({ path: file.fullpath, dist, minify: is_prod })
+      : await file.copy(dist)
   }
 
-
-  async function readOpts() {
-    const data = await readData('site.yaml') || {}
-    data.args = args
-
-    // environment
-    try {
-      if (env) Object.assign(data, await readData(env))
-    } catch {
-      throw `Environment file not found: "${env}"`
-    }
-
-    return data
+  async function processDoc(file) {
+    await file.write(dist, await renderDoc(file))
   }
 
-  let site_data = await readOpts()
-
-  const self = {
-    globals: site_data.globals || [],
-    libs: site_data.libs || [],
+  async function process(file) {
+    return file.is_html || file.is_svg || file.is_md ? await processDoc(file)
+      : file.is_js || file.is_ts ? await processJS(file)
+      : file.is_yaml ? assets.update(file.path)
+      : file.is_css ? await processCSS(file)
+      : await file.copy(dist)
   }
 
-  const dist = joinRootPath(root, site_data.dist || join('.dist', is_prod ? 'prod' : 'dev'))
-  const port = args.port || site_data.port || (is_prod ? 8081 : 8080)
-  site_data.base = args.base || site_data.base
-
-
-  async function loadExtension(path, arg) {
-    const fn = await importFromCWD(join(root, path))
-    if (fn?.default) {
-      return await fn.default(site_data, arg)
-    } else {
-      console.error('No default export in', path)
-    }
+  async function build() {
+    await Promise.all(assets.map(process))
+    stats(assets).forEach(console.info)
+    return assets
   }
 
-  async function getModel() {
-    const { src, namespace = 'app' } = site_data.server_model || {}
-    if (src) {
-      const model = await loadExtension(src)
-      log('Loaded model from', src)
-      return { [namespace]: model }
-    }
+  async function results() {
+    return await fswalk(dist)
   }
 
-  self.model = await getModel()
+  function watch() {
 
-
-  function toKebab(str) {
-    return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
-  }
-
-  // custom Markdown extensions: aka "tags"
-  async function getCustomTags() {
-    const paths = site_data.custom_tags
-    if (!paths) return
-    const tags = {}
-
-    const model = self.model ? Object.values(self.model)[0] : null
-
-    for (const path of paths) {
-      const obj = await loadExtension(path, model)
-      log('Loaded tags from', path)
-      for (const name in obj) tags[toKebab(name)] = obj[name]
-    }
-
-    return tags
-  }
-
-  self.tags = await getCustomTags()
-
-
-  // flag if .dist is empty
-  self.is_empty = !existsSync(dist)
-
-  async function write(content, dir, filename) {
-    const todir = join(dist, dir)
-
-    try {
-      const to = join(todir, filename)
-      await fs.writeFile(to, content)
-      if (!is_bulk && !self.is_empty) log(join(dir, filename))
-      return to
-
-    } catch (e) {
-      if (!fileNotFound(e)) throw e
-      await fs.mkdir(todir, { recursive: true })
-      return await write(content, dir, filename)
-    }
-  }
-
-  async function copy(file) {
-    const { dir, base } = file
-    const to = join(dist, dir, base)
-
-    try {
-      await fs.copyFile(join(root, dir, base), to)
-      if (!is_bulk && !self.is_empty) log(join(dir, base))
-
-    } catch (e) {
-      if (!fileNotFound(e)) throw e
-      await fs.mkdir(join(dist, dir), { recursive: true })
-      await copy(file)
-    }
-  }
-
-  async function getPageAssets(page_dir) {
-    const key = ':' + page_dir
-    if (cache[key]) return cache[key]
-    const arr = []
-
-    for (const dir of traverseDirsUp(page_dir || '.')) {
-      try {
-        const paths = await fs.readdir(join(root, dir))
-        paths.forEach(path => arr.push(join(dir, path)))
-
-      } catch (e) {
-        if (!fileNotFound(e)) return console.error(e)
-      }
-    }
-
-    if (is_bulk) cache[key] = arr
-    return arr
-  }
-
-
-  async function walkDirs(dirs) {
-    const key = '@' + dirs
-    if (cache[key]) return cache[key]
-    const arr = []
-
-    for (const dir of dirs) {
-      try {
-        const paths = await fswalk(join(root, dir))
-        paths.forEach(path => arr.push(join(dir, path)))
-      } catch (e) {
-        if (!fileNotFound(e)) return console.error(e)
-      }
-    }
-
-    if (is_bulk) cache[key] = arr
-    return arr
-  }
-
-
-  async function getAssets({ dir, exts, to_ext, data = {} }) {
-    const { include = [], exclude = [] } = data
-    const subdirs = !dir ? [] : self.globals.map(el => join(dir, el))
-
-    let paths = [
-      ...await walkDirs(self.globals),
-      ...await walkDirs(subdirs),
-      ...await getPageAssets(dir),
-    ]
-
-    const ret = []
-
-    // library files
-    if (include[0]) {
-      for (const path of await walkDirs(self.libs)) {
-        // included only
-        if (include.find(match => toPosix(path).includes(match))) paths.push(path)
-      }
-    }
-
-    paths.forEach(path => {
-      const ext = extname(path)
-      path = '/' + toPosix(path)
-
-      // include / exclude
-      if (exts.includes(ext.slice(1)) && !exclude.find(match => path.includes(match))) {
-        if (to_ext) path = path.replace(ext, '.' + to_ext)
-        ret.push(path)
-      }
+    const server = createServer({ port, worker, dist }, async (url) => {
+      const file = assets.find(el => el.url == url)
+      await process(file)
     })
 
-    return ret
-  }
+    const watcher = fswatch(root, { ignore })
 
-
-  self.update = async function() {
-    site_data = await readOpts()
-    const { globals = [], libs = [] } = site_data
-
-    if ('' + self.globals != '' + globals) {
-      self.globals = globals
-      return true
-    }
-
-    if ('' + self.libs != '' + libs) {
-      self.libs = libs
-      return true
-    }
-  }
-
-
-  async function readDirData(dir) {
-    const paths = await getPageAssets(dir)
-    const data = {}
-    for (const path of paths) {
-      if (path.endsWith('.yaml')) {
-        Object.assign(data, await readData(path))
+    watcher.onupdate = async function(path) {
+      const file = await assets.update(path)
+      if (file) {
+        await process(file)
+        server.broadcast(file)
       }
     }
-    return data
-  }
 
-  self.getData = async function(pagedir) {
-    const data = { nuekit_version, ...site_data, is_prod }
-
-    for (const dir of [...self.globals, ...traverseDirsUp(pagedir)]) {
-      extendData(data, await readDirData(dir))
-    }
-    return data
-  }
-
-  self.walk = async function() {
-    return await fswalk(root)
-  }
-
-
-  // get front matter data from all .md files on a directory
-  self.getContentCollection = async function(dir) {
-    const key = 'coll:' + dir
-    if (cache[key]) return cache[key]
-    const arr = []
-
-    // make sure dir exists
-    if (!existsSync(join(root, dir))) {
-      console.error(`content collection: "${dir}" does not exist`)
-      return arr
-    }
-
-    const paths = await fswalk(join(root, dir))
-    const mds = paths.filter(el => el.endsWith('.md')).map(el => join(dir, el))
-
-    for (const path of mds) {
-      const document = nuedoc(await read(path))
-      const { meta } = document
-      if (!meta.unlisted) arr.push({ ...meta, ...parsePathParts(path) })
-    }
-
-    arr.sort((a, b) => {
-      const [d1, d2] = [a, b].map(v => v.pubDate || v.date || Infinity)
-      return d2 - d1
-    })
-
-    if (is_bulk) cache[key] = arr
-
-    return arr
-  }
-
-  self.getStyles = async function(dir, data = {}) {
-    let paths = await getAssets({ dir, exts: ['css'], data })
-
-    // syntax highlighting
-    if (data.use_syntax) paths.push(`/@nue/syntax.css`)
-
-    // cascading order: globals -> area -> page
-    sortCSS({ paths, globals: self.globals, dir })
-
-    return paths
-  }
-
-  self.getScripts = async function(dir, data) {
-    return await getAssets({ dir, exts: ['js', 'ts'], to_ext: 'js', data })
-  }
-
-  self.getClientComponents = async function(dir, data) {
-    return await getAssets({ dir, exts: ['dhtml', 'htm'], to_ext: 'js', data })
-  }
-
-
-  self.getServerComponents = async function(dir, data) {
-    const paths = await getAssets({ dir, exts: ['html'], data })
-
-    if (dir && dir != '.') {
-      const more = await fs.readdir(join(root, dir))
-      more.forEach(p => {
-        if (p.endsWith('.html')) paths.unshift(p)
-      })
-    }
-
-    const lib = []
-
-    for (const path of paths) {
-      try {
-        if (!path.endsWith('index.html')) {
-          const html = await read(path)
-          const { tags } = parseHyper(html)
-          lib.unshift(...tags)
-        }
-      } catch (e) {
-        if (!fileNotFound(e)) {
-          log.error('parse error', path)
-          console.error(e)
-        }
-      }
-    }
-    return lib
-  }
-
-  // @returns { src, path, code: 200 }
-  self.getRequestPaths = async function(url) {
-    let { dir, name, base, ext } = parsePath(url.slice(1))
-    if (!name) name = 'index'
-
-    const try_files = [[dir, name, 'md']]
-
-    // SPA page
-    if (!ext || name == 'index') {
-      const appdir = getAppDir(url.slice(1))
-      if (appdir != '.') try_files.push([appdir, 'index', 'html'])
-      try_files.push(['', 'index', 'html'])
-    }
-
-    // custom 404 page
-    try_files.push(['', 404, 'md'])
-
-
-    for (const [dir, name, ext] of try_files) {
-      const src = join(dir, `${name}.${ext}`)
-      if (existsSync(join(root, src)))
-        return { src, path: join(dir, `${name}.html`), name }
+    watcher.onremove = async function(path) {
+      assets.remove(path)
+      server.broadcast({ remove: path })
     }
   }
 
-
-  async function getLastRun() {
-    const path = join(dist, '.lastrun')
-
-    try {
-      const stat = await fs.stat(path)
-      return stat.mtimeMs
-
-    } catch {
-      await fs.writeFile(path, '')
-      return 0
-    }
-  }
-
-  self.filterUpdated = async function(paths) {
-    const since = await getLastRun()
-    const arr = []
-
-    for (const path of paths) {
-      const stat = await fs.stat(path)
-      if (stat.mtimeMs > since) arr.push(path)
-    }
-
-    return arr
-  }
-
-  return { ...self, dist, port, read, write, copy, getModel }
+  return { build, watch, results }
 }
+
+
+export function stats(assets) {
+  return []
+}
+
+async function buildJS({ path, dist, minify }) {
+  return await Bun.build({
+    entrypoints: [path],
+    external: ['*'],
+    outdir: dist,
+    minify
+  })
+}
+
+async function readData(root, name) {
+  const file = Bun.file(join(root, name))
+  if (await file.exists()) {
+    return parseYAML(await file.text())
+  }
+}
+

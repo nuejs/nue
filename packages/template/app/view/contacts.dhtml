@@ -1,0 +1,94 @@
+
+<script>
+  import { getContacts } from '/@system/model/index.js'
+  import { state } from '/@nue/hyperstate.js'
+</script>
+
+<article :is="contact-list">
+
+  <h1>Contacts</h1>
+
+  <header>
+
+    <!-- search -->
+    <form :onsubmit="state.query = $event.target.query.value">
+      <input type="search" name="query" placeholder="Search..."
+        :oninput="clear" value="${ state.query }">
+    </form>
+
+    <!-- filtering -->
+    <fieldset>
+      <label :each="{ type, label } in types" :onclick="state.type = type">
+        <input type="radio" name="type" value="${ type }" checked="${ state.type == type }">
+        ${ label }
+      </label>
+    </fieldset>
+
+    <!-- pagination -->
+    <nav>
+      <button class="plain" :onclick="seek(-1)" :disabled="!coll?.start">←</button>
+      <small>${ status }</small>
+      <button class="plain" :onclick="seek(1)" :disabled="!hasNext()">→</button>
+    </nav>
+  </header>
+
+  <table>
+    <tr :each="el in coll?.results" key="${ el.id }">
+      <td>
+        <country-emoji :code="el.country"/>
+        <a href="${ el.id }">${ el.name || el.email }</a>
+      </td>
+      <td>${ el.comment }</td>
+      <td><pretty-date :date="el.created"/></td>
+      <td>
+        <button class="plain" popovertarget="confirm-delete" title="Delete"
+          :onclick="state.ondelete = el.id">×</button>
+      </td>
+    </tr>
+  </table>
+
+  <toast :message :if="message"/>
+
+  <script>
+    this.types = [
+      { label: 'All' },
+      { type: 'member', label: 'Members' },
+      { type: 'contact', label: 'Contacts' }
+    ]
+
+    clear(e) {
+      if (!e.target.value) state.query = null
+    }
+
+    get status() {
+      const { start, length, count } = this.coll || {}
+      return `${ start + 1 } – ${ start + length } of ${ count }`
+    }
+
+    hasNext() {
+      const { start, length, count } = this.coll || {}
+      return start + length < count
+    }
+
+    seek(to) {
+      const { start, length } = this.coll
+      state.start = start + length * to
+    }
+
+    showToast(message, delay=3000) {
+      this.update({ message })
+      setTimeout(() => this.update({ message: null }), delay)
+    }
+
+    state.on('deleted', ({ deleted }) => {
+      if (this.coll) this.coll.results = this.coll.results.filter(el => el.id != deleted)
+      this.showToast('Contact deleted succesfully')
+    })
+
+    state.on('id type query start', async ({ id }) => {
+      this.update({ coll: await getContacts(state.data) })
+    })
+  </script>
+</article>
+
+

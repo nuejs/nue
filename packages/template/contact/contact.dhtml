@@ -1,0 +1,46 @@
+
+<script>
+  import { postContact } from '/@system/model/index.js'
+</script>
+
+<form :is="contact-form" :onsubmit="onsubmit" class="thin">
+  <label>
+    <h3>Full name</h3>
+    <input type="text" name="name" required autocomplete="name">
+  </label>
+
+  <label>
+    <h3>Company email</h3>
+    <input type="email" name="email" required autocomplete="email">
+  </label>
+
+  <label>
+    <h3>Company website</h3>
+    <input type="url" name="website" autocomplete="url">
+  </label>
+
+  <label>
+    <h3>How can we help?</h3>
+    <textarea name="comment" rows="4"
+      placeholder="Tell us about your project, needs, and timeline"></textarea>
+  </label>
+
+  <label>
+    <input type="checkbox" name="subscribed" value="1">
+    Get emails from Acme about product updates. You can unsubscribe at any time.
+  </label>
+
+  <p>
+    <button type="submit">Submit info</button>
+  </p>
+
+  <script>
+    async onsubmit(e) {
+      const data = Object.fromEntries(new FormData(e.target))
+      await postContact(data)
+      location.href = 'thanks.html'
+    }
+  </script>
+
+</form>
+

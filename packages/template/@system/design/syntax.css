@@ -1,0 +1,64 @@
+
+@layer base {
+  pre {
+    border: 1px solid var(--base-200);
+    counter-reset: line-number 0;
+    color: var(--base-600);
+    padding: 2em;
+
+    /* reset */
+    * {
+      font-weight: 400;
+      font-style: inherit;
+      text-decoration: inherit
+    }
+
+    /* primary accent color */
+    b { color: #ff3aa1 }
+
+    /* secondary accent color */
+    em { color: #4065ff }
+
+    /* special emphasis */
+    strong { color: #419fff }
+
+    /* brackets, commas, semicolons... */
+    i { color: var(--base-400) }
+
+    /* comments */
+    sup {
+      opacity: .5;
+      vertical-align: inherit;
+      font-size: inherit;
+    }
+
+    /* marked segments */
+    mark {
+      background-color: #2bb8ff26;
+      color: inherit;
+      border-radius: .2em;
+      padding-block: .25em;
+    }
+
+    /* spotlight */
+    label {
+      font-weight: bold;
+      color: var(--base-800);
+    }
+
+    /* line numbers */
+    span {
+      counter-increment: line-number 1;
+
+      &:before {
+        opacity: .3;
+        content: counter(line-number);
+        display: inline-block;
+        text-align: right;
+        padding-right: 1em;
+        margin-right: 1em;
+        width: 2.5em;
+      }
+    }
+  }
+}

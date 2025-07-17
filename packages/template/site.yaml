@@ -1,0 +1,19 @@
+
+view_transitions: true
+
+# use custom CSS (syntax.css) instead of default
+syntax_highlight: false
+
+sections: true
+
+globals:
+  - "@system/design"
+  - "@system/view"
+  - view
+
+worker:
+  dir: "@system/worker"
+  server: server.js
+  version: 1.0
+  reload: true
+

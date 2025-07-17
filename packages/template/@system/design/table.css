@@ -1,0 +1,28 @@
+
+@layer base {
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+
+    th, td {
+      border-bottom: 1px solid var(--base-200);
+      padding: .5em 0;
+      text-align: left;
+
+      /* gap */
+      &:not(:first-child) { padding-left: 2em }
+    }
+
+    td:first-child {
+      white-space: nowrap;
+      width: 25%;
+    }
+
+    tfoot td {
+      color: var(--base-800);
+      font-weight: 500;
+      border: 0;
+    }
+  }
+}

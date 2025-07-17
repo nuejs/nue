@@ -1,0 +1,40 @@
+
+<script>
+  import { login } from '/@system/model/index.js'
+</script>
+
+<form :is="login" :submit="login" class="thin">
+  <div class="error note" :if="failure">
+    Failure
+  </div>
+
+  <label>
+    <h3>Email</h3>
+    <input name="email" type="email" value="admin@example.com"
+      autofocus autocomplete="email" class="fullsize">
+  </label>
+
+  <label>
+    <h3>Password</h3>
+    <input name="password" type="password" value="demo123"
+      autocomplete="current-password" class="fullsize">
+  </label>
+
+  <p>
+    <button class="fullsize" :disabled>Log in</button>
+  </p>
+
+  <script>
+    login(e) {
+      const form = e.target
+      this.disabled = true
+
+      login(form.email.value, form.password.value).then(res => {
+        location.href = '/app/'
+
+      }).catch(err => {
+        this.update({ failure: true, disabled: false })
+      })
+    }
+  </script>
+</form>

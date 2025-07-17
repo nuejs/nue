@@ -1,0 +1,45 @@
+
+@layer base {
+  body {
+    max-width: 1000px;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0 auto;
+    display: flex;
+    gap: var(--l);
+
+    > * { padding: 1em }
+    > main { flex: 1 }
+  }
+
+  header, footer {
+    align-items: center;
+    display: flex;
+    gap: 1em;
+
+    nav:last-of-type {
+      margin-left: auto;
+      justify-content: right;
+    }
+  }
+
+  nav {
+    align-items: center;
+    display: flex;
+    gap: 2em;
+
+    a {
+      &, &:visited { color: var(--base-600) }
+      text-decoration: none;
+      white-space: nowrap;
+
+      &[aria-current="page"] {
+        font-weight: 800;
+        color: var(--base-800);
+      }
+    }
+
+    /* toolbars */
+    &:has(button) { gap: .75em }
+  }
+}

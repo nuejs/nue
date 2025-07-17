@@ -1,0 +1,52 @@
+
+<script>
+  import { state } from '/@nue/hyperstate.js'
+  import { hasSession, logout } from '/@system/model/client.js'
+  if (!hasSession()) location.href = '/login/'
+
+  state.setup({
+    query: ['type', 'query', 'start'],
+    emit_only: ['deleted'],
+    memory: ['ondelete'],
+    route: '/app/:id',
+    autolink: true,
+  })
+</script>
+
+<body :is="app">
+
+  <header>
+    <nav>
+      <a href="/"><img src="/img/logo.png" width="60" height="22"></a>
+      <a href="/app/">Contacts</a>
+    </nav>
+    <nav>
+      <button class="plain" :onclick="logout">Logout</button>
+    </nav>
+  </header>
+
+  <main>
+    <article/>
+  </main>
+
+  <confirm-delete/>
+
+  <script>
+    state.on('id', ({ id }) => {
+      const article = this.root.querySelector('article')
+      this.mount(id ? 'contact-details' : 'contact-list', article)
+    })
+
+    async logout() {
+      await logout()
+      location.href = '/'
+    }
+
+    mounted() {
+      console.info('started')
+      state.init()
+    }
+  </script>
+
+</body>
+
