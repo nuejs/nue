@@ -1,9 +1,5 @@
 
-import { build } from 'bun'
-
 import { version } from '../package.json' with { type: 'json' }
-
-
 const year = new Date().getFullYear()
 
 const banner = `/**
@@ -14,7 +10,7 @@ const banner = `/**
 
 for (const name of ['nue', 'nue-jit']) {
   try {
-    const result = await build({
+    const result = await Bun.build({
       entrypoints: [`src/${name}.js`],
       naming: `[dir]/${name}.js`,
       target: 'browser',
@@ -32,6 +28,7 @@ for (const name of ['nue', 'nue-jit']) {
 
   } catch (err) {
     console.error(`Bundling error: ${err.message}`)
+    console.info(err)
     process.exit(1)
   }
 }
