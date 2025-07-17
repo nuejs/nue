@@ -31,6 +31,23 @@ test('meta', () => {
   expect(page.meta.license).toBe('MIT')
 })
 
+test('svg document', () => {
+  const page = parsePage(`
+    <?xml version="1.0" standalone="no"?>
+
+    <!--
+      @use [foo, bar]
+    -->
+    <svg></svg>
+  `)
+  expect(page.standalone).toBeFalse()
+  expect(page.tags[0]).toMatchObject({
+    meta: { use: "[foo, bar]" },
+    svg: true,
+  })
+
+})
+
 
 test('full', () => {
   const page = parsePage(`
@@ -87,7 +104,10 @@ test('parseNames', () => {
 
     }
   `
-  expect(parseNames(template)).toEqual([ "getContacts", "state", "MEME", "PRANK", "format", "trick" ])
+  expect(parseNames(template)).toEqual([
+    "getContacts", "state", "MEME", "PRANK", "format", "trick"
+  ])
+
 })
 
 

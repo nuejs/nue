@@ -1,5 +1,5 @@
 
-// Hyper • (c) 2025 Tero Piirainen & contributors, MIT Licensed
+// Nue • (c) 2025 Tero Piirainen & contributors, MIT Licensed
 
 /*
   Universal DOM diff optimized for simplicity and performance:

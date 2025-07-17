@@ -1,17 +1,12 @@
 
 run-tests:
-	bun test tag
-	# bun test --coverage
+	bun test
 
-build-demos:
-	@ cd demo && bun build.js
+coverage:
+	bun test --coverage
 
 minify:
 	@ bun bin/minify.js
 	cp -r dist demo/dist
-	# @ cd dist && brotli -f hyper.js hyper-jit.js
 
-# http://localhost:8000/test/test.html
-serve:
-	python3 -m http.server
 

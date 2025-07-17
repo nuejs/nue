@@ -1,12 +1,12 @@
 
-// Hyper • (c) 2025 Tero Piirainen & contributors, MIT Licensed
+// Nue • (c) 2025 Tero Piirainen & contributors, MIT Licensed
 
-import { domdiff } from './domdiff.js'
+import { domdiff } from './diff.js'
 
 const is_browser = typeof window == 'object'
 
 
-export function createBlock(ast, data={}, opts={}, parent) {
+export function createNode(ast, data={}, opts={}, parent) {
   const { script } = ast
   let root
 
@@ -56,7 +56,7 @@ export function createBlock(ast, data={}, opts={}, parent) {
 
   self.mount = function(name, wrap, data) {
     const ast = opts.lib?.find(c => name == (c.is || c.tag))
-    const block = createBlock(ast, data, opts, self)
+    const block = createNode(ast, data, opts, self)
     block.mount(wrap)
   }
 
@@ -184,11 +184,11 @@ export function createBlock(ast, data={}, opts={}, parent) {
 
     const tag = ast.mount && ast.tag != 'template' ? ast.tag : comp.is ? comp.tag : 'div'
 
-    const block = createBlock(
+    const block = createNode(
       { ...comp, tag, is_custom: false, is_child: true },
       attr_data,
       opts,
-      createBlock(ast, self, opts, parent)
+      createNode(ast, self, opts, parent)
     )
 
     const frag = block.render()
@@ -257,7 +257,7 @@ function exec(fn, self, e) {
     let val = fn(self, e)
     return val == null ? '' : Number.isNaN(val) ? 'N/A' : val
   } catch (e) {
-    console.error('Hyper error:', e.message)
+    console.error('Nue error:', e.message)
     return '[Error]'
   }
 }

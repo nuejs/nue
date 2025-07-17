@@ -1,7 +1,7 @@
 
 import domino from 'domino'
 
-import { domdiff } from '../src/block/domdiff.js'
+import { domdiff } from '../src/dom/diff.js'
 
 
 function createDOM(html) {

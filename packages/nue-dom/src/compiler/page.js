@@ -22,6 +22,9 @@ export function parsePage(template) {
     if (el.doctype) {
       page.doctype = el.doctype
 
+    } else if (el.xml) {
+      page.standalone = el.standalone
+
     } else if (el.tag) {
       if (isScript(el)) {
         script.push(el.children[0].text.trim())
@@ -74,14 +77,21 @@ function parseBlock(tokens, i) {
   if (i >= tokens.length || !tag.startsWith('<') || tag.startsWith('</')) return { next: i + 1 }
   i++
 
+  const low = tag.toLowerCase()
+
+  if (low.startsWith('<?xml')) {
+    const node = { xml: true, standalone: !low.includes('standalone="no"') }
+    return { node, next: i++ }
+  }
+
   // !doctype
-  if (tag.toLowerCase().startsWith('<!doctype')) {
-    const doctype = tag.slice(10, tag.indexOf('>')).trim()
-    return { node: { doctype }, next: i++ }
+  if (low.startsWith('<!doctype')) {
+    const node = { doctype: tag.slice(10, tag.indexOf('>')).trim() }
+    return { node, next: i++ }
   }
 
   // ignore <style> blocks
-  if (tag.toLowerCase().startsWith('<style')) return { next: i }
+  if (low.startsWith('<style')) return { next: i }
 
   if (tag.endsWith('/>')) return { node: { tag, children: [] }, next: i }
 

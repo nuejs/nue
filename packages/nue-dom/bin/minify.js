@@ -7,12 +7,12 @@ import { version } from '../package.json' with { type: 'json' }
 const year = new Date().getFullYear()
 
 const banner = `/**
- * Hyper v${version} - Copyright (c) ${year} Tero Piirainen and contributors
+ * Nue v${version} - Copyright (c) ${year} Tero Piirainen and contributors
  *
  * Licensed under the MIT License
  */`
 
-for (const name of ['hyper', 'hyper-jit']) {
+for (const name of ['nue', 'nue-jit']) {
   try {
     const result = await build({
       entrypoints: [`src/${name}.js`],
