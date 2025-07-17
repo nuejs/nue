@@ -27,7 +27,6 @@ export function render(template, data, opts={}) {
   return renderToString(tags[0], data, opts)
 }
 
-
 export function renderHyper(lib, data, opts={}) {
   opts.lib = lib.slice(1)
   return renderToString(lib[0], data, opts)

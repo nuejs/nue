@@ -346,7 +346,7 @@ export async function createSite(args) {
         if (!path.endsWith('index.html')) {
           const html = await read(path)
           const { tags } = parseHyper(html)
-          lib.unshift(tags)
+          lib.unshift(...tags)
         }
       } catch (e) {
         if (!fileNotFound(e)) {

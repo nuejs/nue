@@ -2,16 +2,14 @@
 import { parseDocument } from './src/parse-document.js'
 import { renderLines } from './src/render-blocks.js'
 
-
 const EOL = /\r\n|\r|\n/
 
-
-export function nuedoc(str, opts) {
-  return parseDocument(str.split(EOL), opts)
+export function nuemark(content, opts) {
+  return renderLines(content.split(EOL), opts)
 }
 
-export function nuemark(str, opts) {
-  return renderLines(str.split(EOL), opts)
+export function nuedoc(content) {
+  return parseDocument(content.split(EOL))
 }
 
 /* utilities */

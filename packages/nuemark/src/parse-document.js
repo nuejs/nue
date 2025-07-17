@@ -70,16 +70,16 @@ export function sectionize(blocks = []) {
 
   // first (sub)heading
   const hr = blocks.find(el => el.is_separator)
-  const h = blocks.find(el => el.level > 0)
+  const level = blocks.find(el => el.level <= 3)?.level
 
   // no heading nor separator -> no sections
-  if (!h && !hr) return
+  if (!level && !hr) return
 
   blocks.forEach((el, i) => {
-    const is_separator = hr ? el.is_separator : el.level <= h?.level
+    const cut = hr ? el.is_separator : level == 3 ? el.level == 3 : el.level <= 2
 
     // add new section
-    if (!section || is_separator) arr.push(section = [])
+    if (!section || cut) arr.push(section = [])
 
     // add content to section
     if (!el.is_separator) section?.push(el)

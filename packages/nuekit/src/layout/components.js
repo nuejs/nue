@@ -37,8 +37,8 @@ function toSymbol(svg, name='x', size=24) {
 }
 
 export function renderSymbols(opts) {
-  let { args, dir, ddir, files } = opts
-  const pth = join(args.root, ddir)
+  let { args, dir, files } = opts
+  const pth = join(args.root, dir)
 
   try {
     if (files) files = files.split(' ').map(name => `${name}.svg`)
@@ -83,7 +83,7 @@ export function getServerFunctions() {
     symbols: renderSymbols,
 
     'page-list': renderPageList,
-    markdown: data => renderInline(data.ccontent),
+    markdown: data => renderInline(data.content),
     icon: data => renderIcon(data.src, data.symbol, data.icon_dir) ,
     'pretty-date': data => renderPrettyDate(data.date) ,
   }

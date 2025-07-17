@@ -182,6 +182,7 @@ test('include/exclude data', async () => {
   expect(data.exclude).toEqual(["a", "b"])
 })
 
+
 test('asset include/exclude', async () => {
   await write('site.yaml', 'globals: [global]\nlibs: [lib, ext]\n')
   await write('global/global.css')
