@@ -1,15 +1,15 @@
 
-# Hyperstate
+# Nuestate
 
 ## Introduction
 
-Hyperstate is a minimal state management library designed to work with Hyper. It handles URL synchronization, browser storage, and reactive updates in just a few kilobytes. State changes automatically update the URL and trigger component re-renders.
+Nuestate is a minimal state management library designed to work with Nue's standard first approach. It handles URL synchronization, browser storage, and reactive updates in just a few kilobytes. State changes automatically update the URL and trigger component re-renders.
 
 The library provides a simple `state` proxy object that lets you read and write application state directly. Changes are automatically persisted to session storage, local storage, or kept in memory based on your configuration.
 
 ## Rationale
 
-Most state management solutions are either too complex or don't handle URL synchronization well. Hyperstate fills this gap by:
+Most state management solutions are either too complex or don't handle URL synchronization well. Nuestate fills this gap by:
 
 **URL-first approach** - Your application state lives in the URL by default. This makes features like bookmarking, sharing, and browser navigation work naturally without extra code.
 
@@ -17,14 +17,15 @@ Most state management solutions are either too complex or don't handle URL synch
 
 **Storage flexibility** - Choose where each piece of state lives: URL params, query string, session storage, local storage, or memory.
 
-**Tiny footprint** - Under 2KB gzipped. No dependencies.
+**Tiny footprint** - Under 2KB compressed. No dependencies.
+
 
 ## Examples
 
 ### Basic setup
 
 ```javascript
-import { state } from 'hyperstate.js'
+import { state } from 'state'
 
 // Configure which data goes where
 state.setup({
@@ -76,11 +77,11 @@ state.size = 'large'
 // URL becomes: /products/shoes/123?color=red&size=large
 ```
 
-### Hyper component integration
+### Nue's standard first approach component integration
 
 ```html
 <script>
-  import { state } from 'hyperstate.js'
+  import { state } from 'state'
 
   state.setup({
     query: ['search', 'filter'],

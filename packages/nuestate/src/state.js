@@ -214,7 +214,7 @@ export function renderQuery(params, data={}) {
 
 
 // storage
-const KEY = '$hyper'
+const KEY = '$state'
 
 function getStoreData(store) {
   return JSON.parse(store[KEY] || '{}')

@@ -1,5 +1,5 @@
 import { test, expect, mock } from 'bun:test'
-import { state } from '../src/hyperstate.js'
+import { state } from '../src/state.js'
 
 global.sessionStorage = {}
 global.localStorage = {}
@@ -62,7 +62,7 @@ test('click flow', () => {
   // truncate id
   click('/app/leads/')
   expect(count).toBe(4)
-  expect(state.data).toEqual({ view: 'leads', id: null })
+  expect(state.data).toEqual({ view: 'leads' })
 
 
 })

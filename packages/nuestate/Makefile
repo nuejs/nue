@@ -1,3 +1,3 @@
 
 run-tests:
-	cd test && bun test hyper
+	cd test && bun test browser

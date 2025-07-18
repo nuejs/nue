@@ -64,7 +64,7 @@ export async function createFile(root, path) {
     const file = Bun.file(fullpath)
     const mtime = stat.mtime
 
-    // cached text content
+    // cached content
     let text
 
     delete info.root

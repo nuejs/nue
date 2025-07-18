@@ -1,5 +1,5 @@
 
-import { getPathData, getQueryData, renderPath, renderQuery, api, state } from '../src/hyperstate.js'
+import { getPathData, getQueryData, renderPath, renderQuery, api, state } from '../src/state.js'
 
 
 describe('internal methods', () => {
