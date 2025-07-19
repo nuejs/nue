@@ -1,15 +1,15 @@
 
-/* Compiles AST to JavaScript */
+/* Compiles template string to JavaScript object (AST) */
 import { inspect } from 'node:util'
-import { parsePage } from './page.js'
+import { parseNue } from './document.js'
 
-export function compileTemplate(template) {
-  const { script, tags } = parsePage(template)
+export function compileNue(template) {
+  const { script, elements } = parseNue(template)
   const js = []
 
   if (script) js.push(script)
 
-  const lib = compileJS(inspect(tags, { compact: true, depth: Infinity }))
+  const lib = compileJS(inspect(elements, { compact: true, depth: Infinity }))
   js.push(`export const lib = ${ lib }`)
 
   return js.join('\n')

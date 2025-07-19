@@ -10,7 +10,6 @@ export function createNode(ast, data={}, opts={}, parent) {
   const { script } = ast
   let root
 
-
   function update(values) {
     if (values) Object.assign(self, values)
 
@@ -55,7 +54,7 @@ export function createNode(ast, data={}, opts={}, parent) {
   }
 
   self.mount = function(name, wrap, data) {
-    const ast = opts.lib?.find(c => name == (c.is || c.tag))
+    const ast = opts.deps?.find(c => name == (c.is || c.tag))
     const block = createNode(ast, data, opts, self)
     block.mount(wrap)
   }
@@ -200,7 +199,7 @@ export function createNode(ast, data={}, opts={}, parent) {
   function findComponent(ast, self) {
     let { mount, tag } = ast
     if (mount) tag = mount.fn ? exec(mount.fn, self) : mount.val
-    return opts.lib?.find(c => c != ast && tag == (c.is || c.tag))
+    return opts.deps?.find(c => c != ast && tag == (c.is || c.tag))
   }
 
   return {

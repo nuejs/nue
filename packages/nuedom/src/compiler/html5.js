@@ -1,4 +1,6 @@
 
+// Web platform constants (HTML5, SVG, DOM APIs)
+
 export const JS = '_ $e document window location localStorage sessionStorage alert Array Boolean Date Error false in Infinity instanceof isFinite isNaN JSON Math NaN new null Number Object parseFloat parseInt String true typeof undefined history navigator screen scrollTo scrollBy innerWidth innerHeight outerWidth outerHeight console'.split(' ')
 
 export const EVENTS = 'click submit change input focus blur keydown keyup keypress mouseover mouseout mousedown mouseup mousemove mouseenter mouseleave wheel scroll resize load unload beforeunload error abort touchstart touchend touchmove touchcancel drag dragstart dragend dragenter dragleave dragover drop animationstart animationend animationiteration transitionend contextmenu dblclick pointerdown pointermove cut copy paste'.split(' ')

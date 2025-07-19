@@ -1,20 +1,20 @@
 
+import { createASTElement } from './ast-element.js'
 import { tokenize } from './tokenizer.js'
-import { parseTag } from './tag.js'
 
 /*
   {
     doctype: 'html',
     script: 'imort { foo, bar } from ...',
+    elements: []
     meta: {},
-    tags: []
   }
 */
-export function parsePage(template) {
+export function parseNue(template) {
   const tokens = tokenize(template)
   const blocks = parseBlocks(tokens)
+  const elements = []
   const script = []
-  const tags = []
   const page = {}
 
   blocks.forEach((el, i) => {
@@ -30,7 +30,7 @@ export function parsePage(template) {
         script.push(el.children[0].text.trim())
 
       } else {
-        tags.push(el)
+        elements.push(el)
       }
 
     } else if (el.meta) {
@@ -44,7 +44,7 @@ export function parsePage(template) {
 
   // reserved names
   const names = parseNames(page.script)
-  page.tags = tags.map(el => parseTag(el, names))
+  page.elements = elements.map(el => createASTElement(el, names))
 
   return page
 }

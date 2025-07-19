@@ -1,15 +1,15 @@
 
-import { compileTemplate, compileFn } from '../src/compiler/compiler.js'
+import { compileNue, compileFn } from '../src/compiler/compiler.js'
 
 
 test('empty template', () => {
-  const js = compileTemplate('')
+  const js = compileNue('')
   expect(js).toContain('export const lib = []')
 })
 
-test('compileTemplate', () => {
+test('compileNue', () => {
   const template = '<p>Hello</p>'
-  const js = compileTemplate(template)
+  const js = compileNue(template)
   expect(js).toStartWith('export const lib = [')
 })
 
@@ -19,18 +19,18 @@ test('multiple components', () => {
     <comp1>\${ fn(1) }</comp1>
     <comp2>\${ fn(2) }</comp2>
   `
-  const js = compileTemplate(template)
+  const js = compileNue(template)
   expect(js).toContain("tag: 'comp1'")
   expect(js).toContain("tag: 'comp2'")
 })
 
 test('function', () => {
-  const js = compileTemplate('<b>${ fn(2) }</b>')
+  const js = compileNue('<b>${ fn(2) }</b>')
   expect(js).toInclude('fn: _=>(_.fn(2))')
 })
 
 test('quoted function', () => {
-  const js = compileTemplate(`<b>\${ 'foo' + "bar" }</b>`)
+  const js = compileNue(`<b>\${ 'foo' + "bar" }</b>`)
   expect(js).toInclude(`=>('foo' + "bar")`)
 })
 
@@ -44,14 +44,14 @@ test('script blocks', () => {
     </script>
     <time is="pretty-date">\${ format(date) }</time>
   `
-  const js = compileTemplate(template)
+  const js = compileNue(template)
   expect(js).toContain('import { format }')
   expect(js).toContain('pretty() { }')
   expect(js).toContain('export const lib =')
 })
 
 test('<script> block', () => {
-  const js = compileTemplate(`
+  const js = compileNue(`
     <a>
       \${ val }
       <script>

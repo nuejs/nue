@@ -1,11 +1,11 @@
 
-import { parsePage } from '../src/compiler/page.js'
-import { renderBlock } from '../src/index.js'
+import { parseNue } from '../src/compiler/document.js'
+import { mountAST } from '../src/dom/render.js'
 
 
 export function clickable(template, data) {
-  const { tags } = parsePage(template)
-  const block = renderBlock(tags[0], data, { lib: tags })
+  const { elements } = parseNue(template)
+  const block = mountAST(elements[0], { data, deps: elements.slice(1) })
   const { root } = block
 
   function click(selector='button') {

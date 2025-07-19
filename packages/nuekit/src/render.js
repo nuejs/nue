@@ -1,6 +1,6 @@
 
 import { nuedoc, elem } from 'nuemark'
-import { parseNue } from 'nuejs-core'
+import { parseNue } from 'nue-dom'
 
 
 // .svg, .html, .md

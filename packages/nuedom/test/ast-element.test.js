@@ -1,13 +1,13 @@
 
-import { parseTag, convertFunctions, convertGetters } from '../src/compiler/tag.js'
+import { createASTElement, convertFunctions, convertGetters } from '../src/compiler/ast-element.js'
 import { tokenize } from '../src/compiler/tokenizer.js'
-import { parseBlocks } from '../src/compiler/page.js'
+import { parseBlocks } from '../src/compiler/document.js'
 
 
 function testTag(template, expected) {
   const [ block ] = parseBlocks(tokenize(template))
 
-  const tag  = parseTag(block)
+  const tag  = createASTElement(block)
   if (expected === true) return tag
 
   expect(tag).toEqual(expected)

@@ -1,8 +1,8 @@
 {
-  "name": "nue-dom",
+  "name": "nuedom",
   "version": "2.0-beta",
-  "description": "HTML-first markup for reactive interfaces",
-  "homepage": "https://nuejs.org/docs/nue-markup/",
+  "description": "Standards first markup for reactive interfaces",
+  "homepage": "https://nuejs.org/docs/nue-templating/",
   "main": "src/index.js",
   "license": "MIT",
   "type": "module",

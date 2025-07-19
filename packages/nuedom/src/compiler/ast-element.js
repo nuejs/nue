@@ -4,8 +4,9 @@ import { parseAttributes } from './attributes.js'
 import { addContext } from './context.js'
 
 
-export function parseTag(node, imports) {
-  const { tag, children, text, meta } = node
+// former tag.js / parseTag
+export function createASTElement(block, imports) {
+  const { tag, children, text, meta } = block
   if (text) return parseText(text, imports)
 
   const { tagName, attr } = parseOpeningTag(tag)
@@ -53,7 +54,7 @@ function parseOpeningTag(tag) {
 
 function parseChildren(arr, imports) {
   const scriptEl = arr.find(el => el.tag == '<script>')
-  const children = arr.filter(el => el != scriptEl).map(el => parseTag(el, imports))
+  const children = arr.filter(el => el != scriptEl).map(el => createASTElement(el, imports))
   const script = scriptEl ? scriptEl.children[0]?.text.trim() : ''
   return { children: mergeConditionals(children), script }
 }

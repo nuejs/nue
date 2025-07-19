@@ -1,16 +1,16 @@
 
 import { clickable } from './event.util.js'
-import { render } from '../src/index.js'
+import { renderNue } from '../src/dom/render.js'
 
 test('loop index', () => {
   const template = '<ul><li :each="(el, i) in items">${i}: ${el}</li></ul>'
-  const html = render(template, { items: ['a', 'b'] })
+  const html = renderNue(template, { data: { items: ['a', 'b'] } })
   expect(html).toBe('<ul><li>0: a</li><li>1: b</li></ul>')
 })
 
 test('loop data access', () => {
   const template = '<div><p :each="el in items">${el} ${foo}</p></div>'
-  const html = render(template, { foo: 1, items: ['F', 'F'] })
+  const html = renderNue(template, { data: { foo: 1, items: ['F', 'F'] }})
   expect(html).toInclude('<p>F 1</p><p>F 1</p>')
 })
 
@@ -28,7 +28,7 @@ test('template loop', () => {
     { title: 'Age', data: '30' }
   ]
 
-  const html = render(template, { meta })
+  const html = renderNue(template, { data: { meta } })
   expect(html).toBe('<dl><dt>Name</dt><dd>Alice</dd><dt>Age</dt><dd>30</dd></dl>')
 })
 
@@ -43,7 +43,7 @@ test('Object.entries()', () => {
     </dl>
   `
   const items = { Email: 'm@example.com' }
-  const html = render(template, { items })
+  const html = renderNue(template, { data: { items } })
   expect(html).toBe('<dl><td>Email</td><dd>m@example.com</dd></dl>')
 })
 
@@ -57,7 +57,7 @@ test('loop deconstruct', () => {
     </dl>
   `
   const items = [{ key: 'Email', val: 'm@example.com' }]
-  const html = render(template, { items })
+  const html = renderNue(template, { data: { items } })
   expect(html).toBe('<dl><td>Email</td><dd>m@example.com</dd></dl>')
 })
 
@@ -70,7 +70,7 @@ test('nested loop', () => {
     </ul>
   `
   const items = [['A', 'B'], ['C', 'D']]
-  const html = render(template, { items })
+  const html = renderNue(template, { data: { items } })
   expect(html).toBe('<ul><li><p>A</p><p>B</p></li><li><p>C</p><p>D</p></li></ul>')
 })
 
@@ -85,13 +85,13 @@ test('component loop', () => {
 
     <li :is="item">\${ text }</li>
   `
-  const html = render(template)
+  const html = renderNue(template)
   expect(html).toBe('<ul><li>hello</li><li>world</li></ul>')
 })
 
 
 test('slot loop', () => {
-  const html = render(`
+  const html = renderNue(`
     <a>
       <child :each="el, i in new Array(2).fill(1)">\${i}</child>
     </a>
