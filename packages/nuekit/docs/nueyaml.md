@@ -1,13 +1,11 @@
 
 # Nueyaml specification
-A human-first data format for configuration files. Nueyaml prioritizes readability and predictability over developer convenience features.
+A developer-first data format for configuration files. It prioritizes readability and predictability over convenience.
 
 ## Design philosophy
-
-Less is more. The format uses a spartan type system with clear, predictable rules. No property needs to be quoted. Structure emerges naturally from indentation rather than syntax.
+Less is more: the syntax uses a limited type system with clear, predictable rules ditching most features and gimmicks from the original YAML specification.
 
 ## File structure
-
 All Nueyaml files must start with an object at the root level. The parser always returns an object, never an array or primitive value.
 
 Files are encoded in UTF-8.
@@ -15,7 +13,6 @@ Files are encoded in UTF-8.
 ## Data types
 
 ### Strings
-
 Everything is a string by default. No quotes required unless forcing a value that looks like another type.
 
 ```
@@ -141,11 +138,9 @@ api_key: sk-1234#abcd#5678  # Safe for cryptic values
 ```
 
 ## Error handling
-
 The parser provides clear error messages with line numbers and specific suggestions when parsing fails.
 
 ## What's not supported
-
 - Anchors and references
 - Merge keys
 - Sets or ordered maps
@@ -153,6 +148,22 @@ The parser provides clear error messages with line numbers and specific suggesti
 - Complex multi-line string operators
 - Type casting or tagging
 - Inline objects with `{}`
+- Multiple date formats
+- Timezone specifications in timestamps
+- Weird Norway-style conversions
+- Binary data encoding
+- Octal and hexadecimal numbers
+- Scientific notation
+- Infinity and NaN values
+- Custom directives and processing instructions
+- Flow collections spanning multiple lines
+- Escaped unicode sequences
+- Case-insensitive boolean variations
+- Block scalar indicators (`|` and `>` variations)
+- Quoted key syntax
+- Comment placement restrictions
+- Nested tag inheritance
+
 
 ## Example
 

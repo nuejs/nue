@@ -1,41 +1,18 @@
 
+import { parseNue, renderNue, compileNue } from 'nuedom'
 import { nuedoc, elem } from 'nuemark'
-import { parseNue } from 'nue-dom'
+import { minifyCSS } from './css.js'
 
-
-// .svg, .html, .md
-export async function renderDoc(file) {
-  if (true) return '<h1>Hello</h1>'
-
-  const content = await file.read()
-
-
-  const document = file.is_md ? parseNue(content) : nuedoc(content)
-  const { meta, tags } = document
-
-  const fn = file.is_md ? renderPage :
-    file.is_svg ? renderSVG :
-    meta.spa ? renderSPA :
-    renderHTML
-
-  return fn({
-    data: await file.data(),
-    deps: await file.deps(),
-    lib: await file.lib(),
-    document,
-    meta,
-    tags
-  })
-}
-
-export function renderPage({ document, meta, data, deps, lib }) {
-  const alldata = { ...data, ...meta }
+export async function renderMD(file) {
+  const { meta, document } = nuedoc(await file.text())
+  const data = { ...await file.data(), ...meta }
+  const comps = await file.serverComponents()
+  const assets = file.assets()
   const attr = getAttr(alldata)
-  const html = []
 
   function slot(name) {
-    const comp = lib.find(el => [el.is, el.tag].includes(name))
-    return comp ? comp.render(alldata, lib) : ''
+    const comp = comps.find(el => [el.is, el.tag].includes(name))
+    return comp ? renderNue(comp, { data, deps: comps }) : ''
   }
 
   const main = `
@@ -44,7 +21,7 @@ export function renderPage({ document, meta, data, deps, lib }) {
 
       <article>
         ${ slot('pagehead') }
-        ${ document.render(alldata) }
+        ${ document.render(data) }
         ${ slot('pagefoot') }
       </article>
 
@@ -55,7 +32,7 @@ export function renderPage({ document, meta, data, deps, lib }) {
   return trim(`
     <html lang="${attr.language}"${attr.dir}>
       <head>
-        ${ renderHead(alldata, deps).join('\n\t\t') }
+        ${ renderHead(data, assets).join('\n\t\t') }
         ${ slot('head') }
       </head>
 
@@ -71,35 +48,96 @@ export function renderPage({ document, meta, data, deps, lib }) {
   `)
 }
 
-export function renderSPA({ tags, data, deps, lib }) {
+
+export async function renderSVG(file, minify) {
+  const { standalone, elements } = parseNue(await file.text())
+  const deps = await file.serverComponents()
+  const assets = await file.assets()
+
+  const ast = elements[0]
+  const is_external = !standalone || ast.meta.interactive
+
+  // scripts
+  if (is_external) renderScripts(assets).forEach(script => ast.children.unshift(script))
+
+  // style
+  const css = is_external ? importCSS(assets) : await inlineCSS(assets, minify)
+  ast.children.unshift({ tag: 'style', text: minify ? minifyCSS(css) : css })
+
+  return renderNue(ast, { data: await file.data(), deps })
+}
+
+export async function renderHTML(file) {
+  const document = parseNue(await file.text())
+  const { doctype, elements } = document
+
+  const main = elements[0]
+
+  const opts = {
+    data: await file.data(),
+    deps: await file.serverComponents(),
+    assets: await file.assets(),
+  }
+
+  if (doctype == 'dhtml') {
+    const is_index = file.base == 'index.html'
+    const js = compileNue(document)
+    const html = is_index ? renderSPA(main, opts) : null
+    return { js, html }
+  }
+
+  return { html: renderElement(main, opts) }
+}
+
+// interactive element (embedded with <object> tag)
+export function renderElement(elem, { data, assets, deps }) {
+  return trim(`
+    <!doctype html>
+
+    <head>${ renderHead(data, assets).join('\n') }</head>
+    ${ renderNue(elem, { data, deps }) }
+  `)
+}
+
+export function renderSPA(spa, { data, assets, deps }) {
+  const head = deps.find(el => el.tag == 'head')
   const attr = getAttr(data)
-  const head = tags.find(el => el.tag == 'head')
-  const name = tags[0].is
 
   return trim(`
+    <!doctype html>
+
     <html lang="${attr.language}"${attr.dir}>
       <head>
-        ${ renderHead(data, deps).join('\n\t\t') }
-        ${ head ? head.render(data, lib) : '' }
+        ${ renderHead(data, assets).join('\n') }
+        ${ head ? renderNue(head, { data, deps })  : '' }
       </head>
 
-      <body custom="${ name }"></body>
+      <body :is="${ spa.is }"></body>
 
     </html>
   `)
 }
 
 
-export function renderScripts(deps) {
-  return deps.filter(file => ['.js', '.ts'].includes(file.ext))
+export function renderScripts(assets) {
+  return assets.filter(file => ['.js', '.ts'].includes(file.ext))
     .map(file => elem('script', { src: `/${file.dir}/${file.name}.js`, type: 'module' }))
 }
 
-export function renderStyles(deps) {
-  return deps.filter(file => file.ext == '.css')
+export function renderStyles(assets) {
+  return assets.filter(file => file.ext == '.css')
     .map(file => elem('link', { rel: 'stylesheet', href: `/${file.path}` }))
 }
 
+async function inlineCSS(assets, minify) {
+  const css_files = assets.filter(el => el.is_css)
+  const css = await Promise.all(css_files.map(file => file.text()))
+  return css.join('\n')
+}
+
+function importCSS(assets) {
+  return assets.filter(el => el.is_css).map(el => `@import url("${el.url}");`).join('\n')
+}
 
 function ogImage(data) {
   const og = data.og_image || data.og

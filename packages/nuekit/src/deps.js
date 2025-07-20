@@ -10,24 +10,25 @@ function resolvePath(pattern, contextPath) {
 }
 
 function matchPaths(paths, pattern, lib, contextPath) {
-  // Try exact glob matching first
-  const glob = new Glob(pattern)
-  let matches = paths.filter(file => glob.match(file))
 
-  // Try with lib prefixes for path patterns
+  // exact glob matching first
+  const glob = new Glob(pattern)
+  let matches = paths.filter(path => glob.match(path))
+
+  // try with lib prefixes for path patterns
   if (matches.length == 0 && (pattern.includes('/') || pattern.includes('*'))) {
     for (const libPath of lib) {
       const resolvedLib = resolvePath(libPath, contextPath)
       const libPattern = resolvedLib + '/' + pattern
       const libGlob = new Glob(libPattern)
-      matches = [...matches, ...paths.filter(file => libGlob.match(file))]
+      matches = [...matches, ...paths.filter(path => libGlob.match(path))]
     }
   }
 
-  // Fuzzy matching for simple names
+  // fuzzy matching for simple names
   if (matches.length == 0 && !pattern.includes('/') && !pattern.includes('*')) {
-    matches = paths.filter(file => {
-      const filename = file.split('/').pop()
+    matches = paths.filter(path => {
+      const filename = path.split('/').pop()
       return filename.includes(pattern)
     })
   }
@@ -35,27 +36,27 @@ function matchPaths(paths, pattern, lib, contextPath) {
   return [...new Set(matches)]
 }
 
-export function filterByLib(path, lib = DEFAULT_LIB, paths) {
-  return paths.filter(file =>
+export function filterByLib(filepath, lib = DEFAULT_LIB, paths) {
+  return paths.filter(path =>
     lib.some(libPath => {
-      const resolved = resolvePath(libPath, path)
-      return file.startsWith(resolved + '/')
+      const resolved = resolvePath(libPath, filepath)
+      return path.startsWith(resolved + '/')
     })
   )
 }
 
-export function applyUsePatterns(path, { use, paths, lib = DEFAULT_LIB }) {
+export function applyUsePatterns(filepath, { use, paths, lib = DEFAULT_LIB }) {
   let result = []
 
   for (const pattern of use) {
-    const resolved = resolvePath(pattern, path)
+    const resolved = resolvePath(pattern, filepath)
 
     if (resolved.startsWith('!')) {
-      const exclude = resolved.slice(1)
-      const toExclude = matchPaths(paths, exclude, lib, path)
-      result = result.filter(file => !toExclude.includes(file))
+      const toExclude = matchPaths(paths, resolved.slice(1), lib, filepath)
+      result = result.filter(path => !toExclude.includes(path))
+
     } else {
-      const matched = matchPaths(paths, resolved, lib, path)
+      const matched = matchPaths(paths, resolved, lib, filepath)
       result = [...result, ...matched]
     }
   }
@@ -63,28 +64,32 @@ export function applyUsePatterns(path, { use, paths, lib = DEFAULT_LIB }) {
   return [...new Set(result)]
 }
 
-function addDirFiles(contentPath, allFiles, use_local_css) {
-  const dir = contentPath.split('/').slice(0, -1).join('/')
+function addDirFiles(filepath, allFiles, use_local_css) {
+  const dir = filepath.split('/').slice(0, -1).join('/')
   const extensions = ['.html', '.js', '.ts']
   if (use_local_css) extensions.push('.css')
 
-  return allFiles.filter(file => {
-    const fileDir = file.split('/').slice(0, -1).join('/')
-    return fileDir == dir && extensions.some(ext => file.endsWith(ext))
+  return allFiles.filter(path => {
+
+    // exclude self
+    // if (filepath == path) return false
+
+    const fileDir = path.split('/').slice(0, -1).join('/')
+    return fileDir == dir && extensions.some(ext => path.endsWith(ext))
   })
 }
 
 
-export function listDependencies(path, { paths, lib, use, use_local_css }) {
-  let arr = filterByLib(path, lib, paths)
+export function listDependencies(filepath, { paths, lib, use, use_local_css }) {
+  let arr = filterByLib(filepath, lib, paths)
 
   if (!use_local_css) {
-    arr = arr.filter(file => !file.endsWith('.css') || file.startsWith('@system/'))
+    arr = arr.filter(path => !path.endsWith('.css') || path.startsWith('@system/'))
   }
 
-  arr = applyUsePatterns(path, { use, lib, paths: arr })
+  arr = applyUsePatterns(filepath, { use, lib, paths: arr })
 
-  arr.push(...addDirFiles(path, paths, use_local_css))
+  arr.push(...addDirFiles(filepath, paths, use_local_css))
 
   return [...new Set(arr)]
 }

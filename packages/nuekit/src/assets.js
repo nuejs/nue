@@ -1,6 +1,7 @@
 
-import { lstat } from 'node:fs/promises'
 import { normalize, relative, parse, sep, join } from 'node:path'
+import { lstat } from 'node:fs/promises'
+import { parseNue } from 'nuedom'
 
 import { listDependencies } from './deps.js'
 import { parseYAML } from './yaml.js'
@@ -8,7 +9,6 @@ import { parseYAML } from './yaml.js'
 
 export function createAsset(file, files) {
   const { path, ext } = file
-  const kind = `is_${ext.slice(1)}`
 
   async function data() {
     return await readData(file.dir, files)
@@ -20,16 +20,24 @@ export function createAsset(file, files) {
     return listDependencies(path, { paths, lib, use })
   }
 
-  async function lib() {
+  async function assets() {
+    const paths = await deps()
+    return paths.map(path => files.find(file => file.path == path))
+  }
+
+  async function serverComponents() {
+    const arr = await assets()
     const ret = []
-    await deps().filter(el => el.ext == '.html').forEach(async file => {
-      const pate = await parsePage()
-      ret.push(...page.tags)
-    })
+
+    for (const asset of arr.filter(el => el.is_html)) {
+      const { doctype, elements } = await parseNue(await asset.text())
+      if (doctype != 'dhtml') ret.push(...elements)
+    }
+
     return ret
   }
 
-  return { ...file, data, deps, lib, [kind]: true }
+  return { ...file, data, assets, serverComponents }
 }
 
 
@@ -40,14 +48,15 @@ export function parseDirs(dir) {
 }
 
 export async function readData(dir, files) {
+  const dirs = ['', ...parseDirs(dir)]
   const ret = {}
   const use = []
 
-  for (const cwd of ['', ...parseDirs(dir)]) {
+  for (const cwd of dirs) {
     const path = join(cwd, cwd ? 'app.yaml' : 'site.yaml')
     const file = files.find(el => el.path == path)
     if (file) {
-      const data = parseYAML(await file.read())
+      const data = parseYAML(await file.text())
       if (Array.isArray(data.use)) use.push(...data.use)
       Object.assign(ret, data)
     }
@@ -64,27 +73,31 @@ export async function createFile(root, path) {
     const file = Bun.file(fullpath)
     const mtime = stat.mtime
 
-    // cached content
-    let text
+    // is_md, is_js, ...
+    info[`is_${info.ext.slice(1)}`] = true
+
+    // cached text content
+    let cached
 
     delete info.root
     if (stat.isSymbolicLink()) info.is_symlink = true
     if (info.dir.includes(sep)) info.basedir = info.dir.split(sep)[0]
 
-    async function read() {
-      if (!text) text = await file.text()
-      return text
+    async function text() {
+      if (!cached) cached = await file.text()
+      return cached
     }
 
     async function copy(dist) {
       await Bun.write(join(dist, path), file)
     }
 
-    async function write(dist, content) {
-      await Bun.write(join(dist, path), content)
+    async function write(dist, content, ext) {
+      const toname = ext ? file.base.replace(file.ext, ext) : file.base
+      await Bun.write(join(dist, info.dir, toname), content)
     }
 
-    return { ...info, path, fullpath, mtime, read, copy, write, flush() { text = null } }
+    return { ...info, path, fullpath, mtime, text, copy, write, flush() { cached = null } }
 
   } catch (error) {
     console.warn(`Warning: Error reading ${path}: ${error.message}`)

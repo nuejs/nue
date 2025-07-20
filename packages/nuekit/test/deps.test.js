@@ -14,20 +14,20 @@ describe('lib[] filtering', () => {
     'blog/nested/components/footer.html'
   ]
 
-  test('filters @system paths', () => {
+  test('@system paths', () => {
     expect(filterByLib('blog/post.md', ['@system'], paths)).toEqual([
       '@system/design/button.css',
       '@system/components/nav.html'
     ])
   })
 
-  test('filters relative view paths', () => {
+  test('relative paths', () => {
     expect(filterByLib('blog/post.md', ['./view'], paths)).toEqual([
       'blog/view/layout.html'
     ])
   })
 
-  test('filters multiple libs', () => {
+  test('multiple libs', () => {
     expect(filterByLib('blog/post.md', ['@system', './view'], paths)).toEqual([
       '@system/design/button.css',
       '@system/components/nav.html',
@@ -35,13 +35,13 @@ describe('lib[] filtering', () => {
     ])
   })
 
-  test('resolves relative paths from different contexts', () => {
+  test('relative paths from different contexts', () => {
     expect(filterByLib('docs/article.md', ['./components'], paths)).toEqual([
       'docs/components/sidebar.js'
     ])
   })
 
-  test('handles root level context', () => {
+  test('root level context', () => {
     expect(filterByLib('index.md', ['./home/view'], paths)).toEqual([
       'home/view/index.html'
     ])
@@ -170,7 +170,7 @@ describe('use[] filtering', () => {
 
 describe('dir level paths', () => {
 
-  test('includes directory-level paths automatically', () => {
+  test('dir paths', () => {
     const paths = [
       '@system/design/button.css',
       'blog/post.md',
@@ -178,17 +178,17 @@ describe('dir level paths', () => {
       'blog/utils.js',
       'blog/types.ts',
       'blog/local.css',
-      'docs/guide.md',
       'docs/sidebar.html'
     ]
 
-    const result = listDependencies('blog/post.md', {
+    const result = listDependencies('blog/header.html', {
       paths,
       lib: ['@system', './blog'],
       use: [],
       use_local_css: true
     })
 
+    // self included
     expect(result).toContain('blog/header.html')
     expect(result).toContain('blog/utils.js')
     expect(result).toContain('blog/types.ts')

@@ -4,11 +4,13 @@ import domino from 'domino'
 import { parseNue } from '../compiler/document.js'
 import { createNode } from './node.js'
 
-export function renderAST(ast, opts={}) {
+
+function renderAST(ast, opts={}) {
   return mountAST(ast, opts).root.innerHTML
 }
 
 export function renderNue(template, opts={}) {
+  if (typeof template != 'string') return renderAST(template, opts)
   const { elements } = parseNue(template)
   const { deps=[] } = opts
   opts.deps = [...elements.slice(1), ...deps]

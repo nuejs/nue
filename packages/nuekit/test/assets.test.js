@@ -11,9 +11,9 @@ test('parseDirs', () => {
 
 test('readData', async () => {
   const files = [
-    { path: 'site.yaml', async read() { return 'site: true' } },
-    { path: 'blog/app.yaml', async read() { return 'app: true' } },
-    { path: 'docs/app.yaml', async read() { return 'docs: true' } },
+    { path: 'site.yaml', async text() { return 'site: true' } },
+    { path: 'blog/app.yaml', async text() { return 'app: true' } },
+    { path: 'docs/app.yaml', async text() { return 'docs: true' } },
   ]
 
   const data = await readData('blog/entry/index.md', files)
@@ -22,45 +22,31 @@ test('readData', async () => {
 
 test('use array', async () => {
   const files = [
-    { path: 'site.yaml', async read() { return 'use: [foo]' } },
-    { path: 'blog/app.yaml', async read() { return 'use: [bar]' } },
+    { path: 'site.yaml', async text() { return 'use: [foo]' } },
+    { path: 'blog/app.yaml', async text() { return 'use: [bar]' } },
   ]
 
   const data = await readData('blog/entry/index.md', files)
   expect(data.use).toEqual([ "foo", "bar" ])
 })
 
-test('createAsset', async () => {
-  const file = { dir: 'blog', ext: '.md', path: 'blog/index.md' }
-  const files = [
-    { path: '@system/design/base.css', async read() { return '' } },
-    { path: 'site.yaml', async read() { return 'use: [ design/* ]' } },
-  ]
-
-  const asset = createAsset(file, files)
-
-  expect(asset).toMatchObject({ dir: "blog", ext: ".md", path: "blog/index.md" })
-  expect(await asset.deps()).toEqual([ "@system/design/base.css" ])
-  expect(asset.is_md).toBeTrue()
-
-})
-
-
 test('createFile', async () => {
   const path = await write('@system/model/index.ts', '// hello')
   const file = await createFile(testDir, path)
 
   expect(file).toMatchObject({
+    fullpath: 'test_dir/@system/model/index.ts',
     path: '@system/model/index.ts',
     dir: '@system/model',
     basedir: '@system',
     base: 'index.ts',
     name: 'index',
+    is_ts: true,
     ext: '.ts',
   })
 
   expect(file.mtime).toBeInstanceOf(Date)
-  expect(await file.read()).toBe('// hello')
+  expect(await file.text()).toBe('// hello')
 
   // copy operation
   await file.copy(join(testDir, '.dist'))
@@ -70,7 +56,21 @@ test('createFile', async () => {
 })
 
 
-test('createAssets', async () => {
+test('createAsset', async () => {
+  const files = [
+    { path: 'blog/index.html', dir: 'blog', ext: '.html' },
+    { path: '@system/design/base.css', async text() { return '' } },
+    { path: 'site.yaml', async text() { return 'use: [ design/*, view/* ]' } },
+  ]
+
+  const file = createAsset(files[0], files)
+  const assets = await file.assets()
+  expect(assets.length).toEqual(2)
+  expect(assets[0].path).toEqual('@system/design/base.css')
+})
+
+
+test('asset update & remove', async () => {
   const paths = await writeAll([
     ['site.yaml', { foo: true }],
     ['blog/app.yaml', { bar: true }],
@@ -85,16 +85,31 @@ test('createAssets', async () => {
   expect(await page.data()).toMatchObject({ foo: true, bar: true })
 
   // data should be cached
-  await write('blog/app.yaml', { bar: false })
+  await write('blog/app.yaml', { bar: 100 })
   expect(await page.data()).toMatchObject({ foo: true, bar: true })
 
   // update -> flush cache
   assets.update('blog/app.yaml')
-  expect(await page.data()).toMatchObject({ foo: true, bar: false })
+  expect(await page.data()).toMatchObject({ foo: true, bar: 100 })
 
   // remove -> update cache
   assets.remove('blog/app.yaml')
   expect(await page.data()).toEqual({ foo: true, use: [] })
+
+  await removeAll()
+})
+
+test('asset.serverComponents()', async () => {
+
+  const paths = await writeAll([
+    ['blog/index.md', '# Hello'],
+    ['blog/header.html', '<header/>'],
+    ['blog/footer.html','<footer/>'],
+  ])
+
+  const assets = await createAssets(testDir, paths)
+  const comps = await assets[0].serverComponents()
+  expect(comps).toEqual([{ tag: "header" }, {tag: "footer" }])
 
   await removeAll()
 })

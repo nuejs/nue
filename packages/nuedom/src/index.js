@@ -1,5 +1,5 @@
 
 // The public API
-export { compileNue } from './compiler/compiler.js'
+export { renderNue } from './dom/render.js'
 export { parseNue } from './compiler/document.js'
-export { renderAST, renderNue } from './dom/render.js'
+export { compileNue } from './compiler/compiler.js'

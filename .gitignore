@@ -4,6 +4,7 @@ coverage
 .dist
 dist
 _test
+test_dir
 
 .DS_Store
 .idea

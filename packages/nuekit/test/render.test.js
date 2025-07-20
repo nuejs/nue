@@ -71,7 +71,7 @@ test('renderPage', () => {
   expect(html).toInclude('<h1>Hello</h1>')
 })
 
-test.only('renderSPA', () => {
+test('renderSPA', () => {
   const tags = [
     { is: 'app', render() {}},
     { tag: 'head', render() { return '<!-- comment -->' }},

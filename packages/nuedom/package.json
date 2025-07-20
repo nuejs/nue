@@ -1,7 +1,7 @@
 {
   "name": "nuedom",
   "version": "2.0-beta",
-  "description": "Standards first markup for reactive interfaces",
+  "description": "HTML first UI language",
   "homepage": "https://nuejs.org/docs/nue-templating/",
   "main": "src/index.js",
   "license": "MIT",
@@ -9,7 +9,7 @@
 
   "repository": {
     "url": "https://github.com/nuejs/nue",
-    "directory": "packages/nue-dom",
+    "directory": "packages/nuedom",
     "type": "git"
   },
   "engines": {

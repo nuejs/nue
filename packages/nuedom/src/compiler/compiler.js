@@ -3,8 +3,14 @@
 import { inspect } from 'node:util'
 import { parseNue } from './document.js'
 
+
 export function compileNue(template) {
-  const { script, elements } = parseNue(template)
+  const doc = typeof template == 'string' ? parseNue(template) : template
+  return compileDoc(doc)
+}
+
+function compileDoc(doc) {
+  const { script, elements } = doc
   const js = []
 
   if (script) js.push(script)
@@ -14,6 +20,8 @@ export function compileNue(template) {
 
   return js.join('\n')
 }
+
+
 
 const RE_FN = /(script|h_fn|fn):\s*(['"`])([^\2]*?)\2/g
 

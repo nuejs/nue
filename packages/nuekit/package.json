@@ -20,9 +20,9 @@
     "test": "node --experimental-vm-modules ../../node_modules/jest/bin/jest.js --runInBand"
   },
   "dependencies": {
-    "nue-dom": "*",
-    "nue-glow": "*",
-    "nuemark": "*"
+    "nuedom": "*",
+    "nuemark": "*",
+    "nue-glow": "*"
   },
   "jest": {
     "setupFilesAfterEnv": [

@@ -2,8 +2,8 @@
 import { mkdir } from 'node:fs/promises'
 import { join } from 'node:path'
 
+import { renderMD, renderSVG, renderHTML } from './render.js'
 import { createAssets } from './assets.js'
-import { renderDoc } from './render.js'
 import { fswatch } from './fswatch.js'
 import { fswalk } from './fswalk.js'
 import { minifyCSS } from './css.js'
@@ -33,7 +33,7 @@ export async function createSite(opts) {
 
 
   async function processCSS(file) {
-    return is_prod ? await write(file, minifyCSS(await file.read()))
+    return is_prod ? await write(file, minifyCSS(await file.text()))
       : await file.copy(dist)
   }
 
@@ -42,15 +42,39 @@ export async function createSite(opts) {
       : await file.copy(dist)
   }
 
-  async function processDoc(file) {
-    await file.write(dist, await renderDoc(file))
+  async function processMD(file) {
+    const html = await renderMD(file)
+    await file.write(dist, html, '.html')
+  }
+
+  async function processSVG(file) {
+    const data = await file.data()
+    if (data.process_svg) {
+      const svg = await renderSVG(file, is_prod)
+      await file.write(dist, svg)
+    } else {
+      await file.copy(dist)
+    }
+  }
+
+  // server rendered or compiled to client JS
+  async function processHTML(file) {
+    const { html, js } = await renderHTML(file)
+    if (html) await file.write(dist, html)
+    if (js) await file.write(dist, js, '.js')
+  }
+
+  async function processYAML(file) {
+
   }
 
   async function process(file) {
-    return file.is_html || file.is_svg || file.is_md ? await processDoc(file)
-      : file.is_js || file.is_ts ? await processJS(file)
-      : file.is_yaml ? assets.update(file.path)
+    return file.is_js || file.is_ts ? await processJS(file)
+      : file.is_yaml ? await processYAML(file)
+      : file.is_html ? await processHTML(file)
+      : file.is_svg ? await processSVG(file)
       : file.is_css ? await processCSS(file)
+      : file.is_md ? await processMD(file)
       : await file.copy(dist)
   }
 
