@@ -31,7 +31,7 @@ export function createAsset(file, files) {
 
     for (const asset of arr.filter(el => el.is_html)) {
       const { doctype, elements } = await parseNue(await asset.text())
-      if (doctype != 'dhtml') ret.push(...elements)
+      if (!doctype) ret.push(...elements)
     }
 
     return ret
@@ -108,6 +108,10 @@ export async function createFile(root, path) {
 export async function createAssets(root, paths) {
   const files = await Promise.all(paths.map(path => createFile(root, path)))
   const assets = files.map(file => createAsset(file, files))
+
+  assets.get = function(path) {
+    return assets.find(el => el.path == path)
+  }
 
   assets.remove = function(path) {
     const i = files.findIndex(el => el.path == path)

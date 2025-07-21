@@ -1,14 +1,5 @@
 
-import {
-  renderPage,
-  renderSPA,
-  renderScripts,
-  renderStyles,
-  renderMeta,
-  renderHead,
-
-} from '../src/render.js'
-
+import { renderScripts, renderStyles, renderMeta, renderHead, } from '../src/render.js'
 
 test('renderScripts', () => {
   const [foo, bar] = renderScripts([
@@ -48,34 +39,22 @@ test('renderMeta', () => {
 })
 
 test('renderHead', async () => {
-  const deps = [
+  const data = {
+    title: 'Hello',
+    version: '1.0',
+    imports: { d3: 'd3.js' }
+  }
+
+  const head = renderHead(data, [
     { ext: '.css', path: 'foo.css' },
     { ext: '.js', dir: 'blog', name: 'bar' },
-  ]
+  ])
 
-  const head = renderHead({ title: 'Hello', version: '1.0' }, deps)
   expect(head.length).toBeGreaterThan(7)
+
+  expect(head[head.length -1]).toBe(
+    '<script type="importmap">{"imports":{"d3":"d3.js"}}</script>'
+  )
 })
 
 
-test('renderPage', () => {
-  const data = { sections: true }
-  const lib = [{ tag: 'header', render() { return '<a>Home</a>' }}]
-  const document = { meta: { title: 'Hello' }, render() { return '<h1>Hello</h1>' } }
-  const html = renderPage({ document, data, deps: [], lib })
-
-  expect(html).toInclude('<head>')
-  expect(html).toInclude('<body>')
-  expect(html).toInclude('<a>Home</a>')
-  expect(html).toInclude('<main>')
-  expect(html).toInclude('<h1>Hello</h1>')
-})
-
-test('renderSPA', () => {
-  const tags = [
-    { is: 'app', render() {}},
-    { tag: 'head', render() { return '<!-- comment -->' }},
-  ]
-  const html = renderSPA({ tags, data: {}, deps: [], lib: tags })
-  console.info(html)
-})

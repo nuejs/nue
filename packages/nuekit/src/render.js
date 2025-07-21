@@ -4,11 +4,11 @@ import { nuedoc, elem } from 'nuemark'
 import { minifyCSS } from './css.js'
 
 export async function renderMD(file) {
-  const { meta, document } = nuedoc(await file.text())
-  const data = { ...await file.data(), ...meta }
+  const doc = nuedoc(await file.text())
+  const data = { ...await file.data(), ...doc.meta }
   const comps = await file.serverComponents()
-  const assets = file.assets()
-  const attr = getAttr(alldata)
+  const assets = await file.assets()
+  const attr = getAttr(data)
 
   function slot(name) {
     const comp = comps.find(el => [el.is, el.tag].includes(name))
@@ -21,7 +21,7 @@ export async function renderMD(file) {
 
       <article>
         ${ slot('pagehead') }
-        ${ document.render(data) }
+        ${ doc.render(data) }
         ${ slot('pagefoot') }
       </article>
 
@@ -50,19 +50,19 @@ export async function renderMD(file) {
 
 
 export async function renderSVG(file, minify) {
-  const { standalone, elements } = parseNue(await file.text())
+  const { standalone, meta, elements } = parseNue(await file.text())
   const deps = await file.serverComponents()
   const assets = await file.assets()
 
   const ast = elements[0]
-  const is_external = !standalone || ast.meta.interactive
+  const is_external = standalone === false || ast.meta?.interactive
 
   // scripts
   if (is_external) renderScripts(assets).forEach(script => ast.children.unshift(script))
 
   // style
   const css = is_external ? importCSS(assets) : await inlineCSS(assets, minify)
-  ast.children.unshift({ tag: 'style', text: minify ? minifyCSS(css) : css })
+  ast.children.unshift({ tag: 'style', children: [{ text: minify ? minifyCSS(css) : css }] })
 
   return renderNue(ast, { data: await file.data(), deps })
 }
@@ -90,12 +90,14 @@ export async function renderHTML(file) {
 }
 
 // interactive element (embedded with <object> tag)
-export function renderElement(elem, { data, assets, deps }) {
+export function renderElement(element, { data, assets, deps }) {
   return trim(`
     <!doctype html>
 
-    <head>${ renderHead(data, assets).join('\n') }</head>
-    ${ renderNue(elem, { data, deps }) }
+    <head>
+      ${ renderHead(data, assets).join('\n\t') }
+    </head>
+    ${ renderNue(element, { data, deps }) }
   `)
 }
 
@@ -119,6 +121,19 @@ export function renderSPA(spa, { data, assets, deps }) {
 }
 
 
+
+/***** Helper functions *****/
+
+async function inlineCSS(assets, minify) {
+  const css_files = assets.filter(el => el.is_css)
+  const css = await Promise.all(css_files.map(file => file.text()))
+  return css.join('\n')
+}
+
+function importCSS(assets) {
+  return assets.filter(el => el.is_css).map(el => `@import url("/${el.path}");`).join('\n')
+}
+
 export function renderScripts(assets) {
   return assets.filter(file => ['.js', '.ts'].includes(file.ext))
     .map(file => elem('script', { src: `/${file.dir}/${file.name}.js`, type: 'module' }))
@@ -129,14 +144,8 @@ export function renderStyles(assets) {
     .map(file => elem('link', { rel: 'stylesheet', href: `/${file.path}` }))
 }
 
-async function inlineCSS(assets, minify) {
-  const css_files = assets.filter(el => el.is_css)
-  const css = await Promise.all(css_files.map(file => file.text()))
-  return css.join('\n')
-}
-
-function importCSS(assets) {
-  return assets.filter(el => el.is_css).map(el => `@import url("${el.url}");`).join('\n')
+function importMap(imports) {
+  return elem('script', { type: 'importmap' }, JSON.stringify({ imports }))
 }
 
 function ogImage(data) {
@@ -176,15 +185,20 @@ export function renderMeta(data, nue={}) {
 
 }
 
-export function renderHead(data, deps) {
-  const { title } = data
+export function renderHead(data, assets) {
+  const { title, imports } = data
   const head = []
 
   if (title) head.push(elem('title', data.title))
 
+  // meta
   head.push(...renderMeta(data))
-  head.push(...renderStyles(deps))
-  head.push(...renderScripts(deps))
+
+  // scripts and styles
+  head.push(...renderStyles(assets))
+  head.push(...renderScripts(assets))
+
+  if (imports) head.push(importMap(imports))
 
   return head
 }

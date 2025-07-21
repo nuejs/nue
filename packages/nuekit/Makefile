@@ -1,3 +1,3 @@
 
 test-kit:
-	cd test && bun test asset
+	cd test && bun test render.page
