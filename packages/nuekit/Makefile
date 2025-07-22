@@ -1,3 +1,3 @@
 
 test-kit:
-	cd test && bun test render.page
+	cd test && bun test server

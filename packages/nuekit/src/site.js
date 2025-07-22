@@ -3,9 +3,10 @@ import { mkdir } from 'node:fs/promises'
 import { join } from 'node:path'
 
 import { renderMD, renderSVG, renderHTML } from './render.js'
-import { createAssets } from './assets.js'
+import { createAssets, createFile } from './assets.js'
+import { fswalk, matches } from './fswalk.js'
+import { createServer } from './server.js'
 import { fswatch } from './fswatch.js'
-import { fswalk } from './fswalk.js'
 import { minifyCSS } from './css.js'
 import { parseYAML } from './yaml.js'
 
@@ -14,8 +15,8 @@ const IGNORE = `_* _*/** .* .*/** node_modules/** @system/worker/**\
  *.toml *.rs *.lock package.json bun.lockb pnpm-lock.yaml README.md`.split(' ')
 
 
-export async function createSite(opts) {
-  const { root, is_prod, dryrun } = opts
+export async function createSite(root, opts={}) {
+  const { is_prod } = opts
 
   // site config
   const conf = await readData(root, 'site.yaml')
@@ -38,13 +39,13 @@ export async function createSite(opts) {
   }
 
   async function processJS(file) {
-    return is_prod || file.is_ts ? await buildJS({ path: file.fullpath, dist, minify: is_prod })
+    return is_prod || file.is_ts ? await buildJS({ file, dist, minify: is_prod })
       : await file.copy(dist)
   }
 
   async function processMD(file) {
     const html = await renderMD(file)
-    await file.write(dist, html, '.html')
+    return await file.write(dist, html, '.html')
   }
 
   async function processSVG(file) {
@@ -78,21 +79,33 @@ export async function createSite(opts) {
       : await file.copy(dist)
   }
 
-  async function build() {
-    await Promise.all(assets.map(process))
-    stats(assets).forEach(console.info)
-    return assets
+  async function build(args={}) {
+    const { filters, dryrun } = args
+    const subset = Array.isArray(filters) ? assets.filter(el => matches(el.path, filters)) : assets
+    if (!dryrun) await Promise.all(subset.map(process))
+    stats(subset).forEach(console.info)
+    return subset
   }
 
+  // for debugging / testing
   async function results() {
-    return await fswalk(dist)
+    const paths = await fswalk(dist)
+    const files = await Promise.all(paths.map(path => createFile(dist, path)))
+
+    files.read = async function(path) {
+      const file = files.find(el => el.path == path)
+      return await file?.text()
+    }
+    return files
   }
 
-  function watch() {
+  function serve() {
 
-    const server = createServer({ port, worker, dist }, async (url) => {
-      const file = assets.find(el => el.url == url)
-      await process(file)
+    const server = createServer({ port, dist, worker }, async (pathname) => {
+      const file = assets.find(file => file.url == pathname)
+      if (file) {
+        return await process(file)
+      }
     })
 
     const watcher = fswatch(root, { ignore })
@@ -109,9 +122,17 @@ export async function createSite(opts) {
       assets.remove(path)
       server.broadcast({ remove: path })
     }
+
+    console.log(`Serving on ${server.url}`)
+
+    return {
+      stop() { watcher.close(); server.stop() },
+      url: server.url.toString(),
+      port,
+    }
   }
 
-  return { build, watch, results }
+  return { build, serve, results }
 }
 
 
@@ -119,11 +140,12 @@ export function stats(assets) {
   return []
 }
 
-async function buildJS({ path, dist, minify }) {
+async function buildJS({ file, dist, minify }) {
   return await Bun.build({
-    entrypoints: [path],
+    entrypoints: [file.fullpath],
+    outdir: join(dist, file.dir),
+    target: 'browser',
     external: ['*'],
-    outdir: dist,
     minify
   })
 }

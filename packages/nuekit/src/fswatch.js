@@ -1,7 +1,7 @@
 
 import { promises as fs, watch } from 'node:fs'
 import { join, extname } from 'node:path'
-import { isIgnored, fswalk} from './fswalk.js'
+import { fswalk, matches } from './fswalk.js'
 
 // Main fswatch function
 export function fswatch(root, opts = {}) {
@@ -20,7 +20,7 @@ export function fswatch(root, opts = {}) {
     if (!shouldProcess()) return
 
     // Check if path should be ignored
-    if (isIgnored(path, ignore)) return
+    if (matches(path, ignore)) return
 
     try {
       const fullPath = join(root, path)

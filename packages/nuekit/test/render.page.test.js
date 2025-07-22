@@ -38,6 +38,9 @@ const paths = await writeAll([
 
   // SPA
   ['app/index.html', '<!doctype dhtml><body :is="app">Hello</body>'],
+
+  // dynamic components
+  ['app/components.html', '<!doctype dhtml><table :is="userlist"></table>'],
 ])
 
 const assets = await createAssets(testDir, paths)
@@ -72,7 +75,7 @@ test('external SVG', async () => {
   expect(svg).toInclude('@import url("/@system/design/base.css");')
 })
 
-test('standalone (server) HTML', async () => {
+test('custom HTML page', async () => {
   const file = assets.get('server.html')
   const { html } = await renderHTML(file)
   expect(html).toInclude('<main>Acme</main>')
@@ -86,4 +89,10 @@ test('SPA', async () => {
   expect(js).toInclude("export const lib = [ { tag: 'body'")
 })
 
+test('dynamic components', async () => {
+  const file = assets.get('app/components.html')
+  const { html, js } = await renderHTML(file)
+  expect(html).toBeNull()
+  expect(js).toBe("export const lib = [ { tag: 'table', is: 'userlist' } ]")
+})
 

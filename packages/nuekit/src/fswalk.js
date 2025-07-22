@@ -1,11 +1,10 @@
 
 import { readdir, stat } from 'node:fs/promises'
 import { join, relative } from 'node:path'
-import { Glob } from 'bun'
 
-export function isIgnored(path, patterns) {
+export function matches(path, patterns) {
   return patterns.some(pattern => {
-    const glob = new Glob(pattern)
+    const glob = new Bun.Glob(pattern)
     return glob.match(path)
   })
 }
@@ -25,16 +24,16 @@ async function walkDirectory(dir, root, opts) {
       const fullPath = join(dir, entry.name)
       const relativePath = relative(root, fullPath)
 
-      if (isIgnored(relativePath, ignore)) {
-        continue
-      }
+      if (matches(relativePath, ignore)) continue
 
       try {
         if (entry.isDirectory()) {
           const subResults = await walkDirectory(fullPath, root, opts)
           results.push(...subResults)
+
         } else if (entry.isFile()) {
           results.push(relativePath)
+
         } else if (entry.isSymbolicLink() && followSymlinks) {
           try {
             const stats = await stat(fullPath)
@@ -44,6 +43,7 @@ async function walkDirectory(dir, root, opts) {
             } else if (stats.isFile()) {
               results.push(relativePath)
             }
+
           } catch (symlinkError) {
             if (symlinkError.code == 'ENOENT') {
               warn('Broken symlink', relativePath)

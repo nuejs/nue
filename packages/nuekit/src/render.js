@@ -30,6 +30,8 @@ export async function renderMD(file) {
   `
 
   return trim(`
+    <!doctype html>
+
     <html lang="${attr.language}"${attr.dir}>
       <head>
         ${ renderHead(data, assets).join('\n\t\t') }

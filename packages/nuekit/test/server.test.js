@@ -1,22 +1,21 @@
-
 import { testDir, writeAll, removeAll } from './test-utils.js'
 import { createServer } from '../src/server.js'
-
 
 await writeAll([
   ['index.html', '<h1>Home</h1>'],
   ['about.html', '<h1>About</h1>'],
   ['style.css',  'body { color: red; }'],
+  ['404.html', '<h1>Not Found</h1>']
 ])
 
 const server = createServer({
   port: 0,
   dist: testDir
-}, async (path, query) => {
-  if (path == '/dynamic') return { path: 'index.html', code: 200 }
-  if (path == '/missing') return { path: null }
-  if (path == '/') return { path: 'index.html' }
-  return { path: path.slice(1) }
+}, async (pathname) => {
+  if (pathname == '/dynamic') return Bun.file(`${testDir}/index.html`)
+  if (pathname == '/missing') return Bun.file(`${testDir}/404.html`)
+  if (pathname == '/') return Bun.file(`${testDir}/index.html`)
+  return Bun.file(`${testDir}${pathname}`)
 })
 
 afterAll(async () => {
@@ -24,60 +23,35 @@ afterAll(async () => {
   server.stop()
 })
 
-test('serves static files', async () => {
+test('static file', async () => {
   const res = await server.fetch(new Request('http://localhost/style.css'))
   expect(res.status).toBe(200)
   expect(await res.text()).toBe('body { color: red; }')
 })
 
-test('serves html files', async () => {
-  const res = await server.fetch(new Request('http://localhost/about.html'))
-  expect(res.status).toBe(200)
-  expect(await res.text()).toBe('<h1>About</h1>')
-})
 
-test('handles index.html for directories', async () => {
+test('index.html for directories', async () => {
   const res = await server.fetch(new Request('http://localhost/'))
   expect(res.status).toBe(200)
   expect(await res.text()).toBe('<h1>Home</h1>')
 })
 
-test('calls callback for html files', async () => {
-  const res = await server.fetch(new Request('http://localhost/dynamic'))
-  expect(res.status).toBe(200)
-  expect(await res.text()).toBe('<h1>Home</h1>')
-})
-
-test('passes query string to callback', async () => {
-  let capturedQuery
-  const testServer = createServer({
-    dist: testDir
-  }, async (path, query) => {
-    capturedQuery = query
-    return { path: 'index.html' }
-  })
-
-  await testServer.fetch(new Request('http://localhost/test?foo=bar'))
-  expect(capturedQuery).toBe('?foo=bar')
-
-  testServer.stop()
-})
-
-test('returns 404 for missing files', async () => {
+test('404 for missing files', async () => {
   const res = await server.fetch(new Request('http://localhost/missing'))
   expect(res.status).toBe(404)
-  expect(await res.text()).toBe('404 | Not found')
+  expect(await res.text()).toBe('<h1>Not Found</h1>')
 })
 
-test('handles worker requests', async () => {
+test('worker requests', async () => {
   const workerServer = createServer({
+    port: 0,
     dist: testDir,
     worker: (req) => {
       if (new URL(req.url).pathname == '/api/test') {
         return new Response('worker response')
       }
     }
-  })
+  }, async (pathname) => Bun.file(`${testDir}${pathname}`))
 
   const res = await workerServer.fetch(new Request('http://localhost/api/test'))
   expect(res.status).toBe(200)
@@ -86,7 +60,7 @@ test('handles worker requests', async () => {
   workerServer.stop()
 })
 
-test('handles SSE connections', async () => {
+test('SSE', async () => {
   const res = await server.fetch(new Request('http://localhost/', {
     headers: { accept: 'text/event-stream' }
   }))
@@ -95,7 +69,7 @@ test('handles SSE connections', async () => {
   expect(res.headers.get('content-type')).toBe('text/event-stream')
 })
 
-test('broadcast sends to SSE clients', async () => {
+test('broadcast', async () => {
   const res = await server.fetch(new Request('http://localhost/', {
     headers: { accept: 'text/event-stream' }
   }))

@@ -5,9 +5,7 @@ let sessions = []
 export function createServer({ port=3000, worker, dist }, callback) {
 
   async function fetch(req) {
-    const url = new URL(req.url)
-    let path = url.pathname
-    let ext = extname(path).slice(1)
+    const { pathname } = new URL(req.url)
 
     // worker request
     if (worker) {
@@ -16,39 +14,19 @@ export function createServer({ port=3000, worker, dist }, callback) {
     }
 
     // SSE for hot-reloading
-    if (req.headers.get('accept') == 'text/event-stream') {
-      return handleSSE()
-    }
+    if (req.headers.get('accept') == 'text/event-stream') return handleSSE()
 
-    // default to index.html for directories
-    if (!ext) {
-      ext = 'html'
-    }
 
+    // regular file serving
     try {
-      const result = (!ext || ext == 'html')
-        ? await callback(path, url.search)
-        : { path }
-
-      if (!result.path) {
-        return new Response('404 | Not found', { status: 404 })
-      }
-
-      let filePath = result.path
-      if (!extname(filePath)) {
-        filePath = join(filePath, 'index.html')
-      }
-
-      const file = Bun.file(join(dist, filePath))
+      const file = await callback(pathname)
 
       if (!(await file.exists())) {
-        console.log('Not found', path)
+        console.error('Not found', pathname)
         return new Response('404 | Not found', { status: 404 })
       }
 
-      return new Response(file, {
-        status: result.code || 200
-      })
+      return new Response(file, { status: file.name.endsWith('404.html') ? 404 : 200 })
 
     } catch (e) {
       console.error(e)
@@ -57,25 +35,6 @@ export function createServer({ port=3000, worker, dist }, callback) {
   }
 
   const server = Bun.serve({port, fetch })
-
-  function handleSSE() {
-    let controller
-
-    const stream = new ReadableStream({
-      start(c) {
-        controller = c
-        sessions.unshift(controller)
-      }
-    })
-
-    return new Response(stream, {
-      headers: {
-        'Content-Type': 'text/event-stream',
-        'Cache-Control': 'no-cache',
-        'Connection': 'keep-alive'
-      }
-    })
-  }
 
   server.broadcast = function(data) {
     const message = `data:${JSON.stringify(data)}\n\n`
@@ -90,4 +49,23 @@ export function createServer({ port=3000, worker, dist }, callback) {
   }
 
   return server
+}
+
+function handleSSE() {
+  let controller
+
+  const stream = new ReadableStream({
+    start(c) {
+      controller = c
+      sessions.unshift(controller)
+    }
+  })
+
+  return new Response(stream, {
+    headers: {
+      'Content-Type': 'text/event-stream',
+      'Cache-Control': 'no-cache',
+      'Connection': 'keep-alive'
+    }
+  })
 }

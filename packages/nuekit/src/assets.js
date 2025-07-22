@@ -93,7 +93,7 @@ export async function createFile(root, path) {
     }
 
     async function write(dist, content, ext) {
-      const toname = ext ? file.base.replace(file.ext, ext) : file.base
+      const toname = ext ? info.base.replace(info.ext, ext) : info.base
       await Bun.write(join(dist, info.dir, toname), content)
     }
 
