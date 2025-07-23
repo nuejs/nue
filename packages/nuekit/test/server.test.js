@@ -11,7 +11,7 @@ await writeAll([
 const server = createServer({
   port: 0,
   dist: testDir
-}, async (pathname) => {
+}, async ({ pathname }) => {
   if (pathname == '/dynamic') return Bun.file(`${testDir}/index.html`)
   if (pathname == '/missing') return Bun.file(`${testDir}/404.html`)
   if (pathname == '/') return Bun.file(`${testDir}/index.html`)
@@ -51,7 +51,7 @@ test('worker requests', async () => {
         return new Response('worker response')
       }
     }
-  }, async (pathname) => Bun.file(`${testDir}${pathname}`))
+  }, async ({ pathname }) => Bun.file(`${testDir}${pathname}`))
 
   const res = await workerServer.fetch(new Request('http://localhost/api/test'))
   expect(res.status).toBe(200)

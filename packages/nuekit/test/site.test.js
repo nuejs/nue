@@ -9,6 +9,7 @@ beforeEach(async () => {
     ['@system/controller/keyboard.ts', 'export const foo = 100'],
     ['@system/design/base.css', '/* hey */'],
     ['index.md', '# Hello'],
+    ['404.md', '# 404'],
     'blog/index.md',
     'docs/index.md',
 
@@ -40,8 +41,8 @@ test('build all', async () => {
   const assets = await site.build()
   const results = await site.results()
 
-  expect(assets.length).toBe(6)
-  expect(results.length).toBe(5)
+  expect(assets.length).toBe(7)
+  expect(results.length).toBe(assets.length - 1)
 
   // markdown
   const home = await results.read('index.html')
@@ -59,7 +60,7 @@ test('build all', async () => {
 })
 
 
-test.only('serve', async () => {
+test('serve', async () => {
   const site = await createSite(testDir)
 
   // server
@@ -69,15 +70,22 @@ test.only('serve', async () => {
 
   // request home page
   const res = await fetch(new Request(server.url))
-  console.info(res.status)
-  // expect(res.status).toBe(404)
+  expect(res.status).toBe(200)
+  expect(await res.text()).toInclude('<h1>Hello</h1>')
 
-  await new Promise(resolve => {
+  // 404 page
+  const fail = await fetch(new Request(server.url + 'missing'))
+  expect(fail.status).toBe(404)
+  expect(await fail.text()).toInclude('<h1>404</h1>')
 
-    server.stop()
-    resolve()
+  // request CSS
+  await site.build({ filters: ['**/*.css'] })
+  const css = await fetch(new Request(server.url + '@system/design/base.css'))
+  expect(await css.text()).toBe('/* hey */')
 
-  })
+  server.stop()
+
+  // await new Promise(resolve => {resolve() })
 
 
 })

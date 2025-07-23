@@ -1,11 +1,10 @@
-import { join, extname } from 'node:path'
 
 let sessions = []
 
 export function createServer({ port=3000, worker, dist }, callback) {
 
   async function fetch(req) {
-    const { pathname } = new URL(req.url)
+    const url = new URL(req.url)
 
     // worker request
     if (worker) {
@@ -14,19 +13,20 @@ export function createServer({ port=3000, worker, dist }, callback) {
     }
 
     // SSE for hot-reloading
-    if (req.headers.get('accept') == 'text/event-stream') return handleSSE()
+    if (req.headers.get('accept')?.includes('text/event-stream')) return handleSSE()
 
 
     // regular file serving
     try {
-      const file = await callback(pathname)
+      const file = await callback(url)
 
-      if (!(await file.exists())) {
-        console.error('Not found', pathname)
+      if (file && await file.exists()) {
+        const status = file.name.endsWith('404.html') ? 404 : 200
+        return new Response(file, { status })
+      } else {
+        console.error('Not found', url.pathname)
         return new Response('404 | Not found', { status: 404 })
       }
-
-      return new Response(file, { status: file.name.endsWith('404.html') ? 404 : 200 })
 
     } catch (e) {
       console.error(e)

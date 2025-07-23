@@ -1,12 +1,20 @@
 
-import { readData, parseDirs, createFile, createAsset, createAssets } from '../src/assets.js'
+import { readData, parseDirs, createFile, createAsset, createAssets, toURL } from '../src/assets.js'
 import { testDir, write, writeAll, removeAll } from './test-utils.js'
-import { join } from 'node:path'
+import { join, parse } from 'node:path'
 
 test('parseDirs', () => {
   expect(parseDirs('')).toEqual(['.'])
   expect(parseDirs('blog')).toEqual(['blog'])
   expect(parseDirs('news/entry')).toEqual(['news', 'news/entry'])
+})
+
+test('toURL', () => {
+  expect(toURL(parse('index.md'))).toBe('/')
+  expect(toURL(parse('blog/index.html'))).toBe('/blog/')
+  expect(toURL(parse('docs/installation.md'))).toBe('/docs/installation')
+  expect(toURL(parse('@system/design/base.css'))).toBe('/@system/design/base.css')
+  expect(toURL(parse('site.yaml'))).toBe('/site.yaml')
 })
 
 test('readData', async () => {

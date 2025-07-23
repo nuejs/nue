@@ -1,6 +1,6 @@
 
+import { join, extname } from 'node:path'
 import { mkdir } from 'node:fs/promises'
-import { join } from 'node:path'
 
 import { renderMD, renderSVG, renderHTML } from './render.js'
 import { createAssets, createFile } from './assets.js'
@@ -15,7 +15,7 @@ const IGNORE = `_* _*/** .* .*/** node_modules/** @system/worker/**\
  *.toml *.rs *.lock package.json bun.lockb pnpm-lock.yaml README.md`.split(' ')
 
 
-export async function createSite(root, opts={}) {
+export async function createSite(root='.', opts={}) {
   const { is_prod } = opts
 
   // site config
@@ -61,8 +61,8 @@ export async function createSite(root, opts={}) {
   // server rendered or compiled to client JS
   async function processHTML(file) {
     const { html, js } = await renderHTML(file)
-    if (html) await file.write(dist, html)
     if (js) await file.write(dist, js, '.js')
+    if (html) return await file.write(dist, html)
   }
 
   async function processYAML(file) {
@@ -100,11 +100,14 @@ export async function createSite(root, opts={}) {
   }
 
   function serve() {
+    const server = createServer({ port, dist, worker }, async ({ pathname }) => {
+      const is_page = !extname(pathname)
+      let asset = assets.find(asset => asset.url == pathname)
+      if (!asset && is_page) asset = assets.find(asset => asset.name == '404')
 
-    const server = createServer({ port, dist, worker }, async (pathname) => {
-      const file = assets.find(file => file.url == pathname)
-      if (file) {
-        return await process(file)
+      if (asset) {
+        const distpath = is_page ? await process(asset) : join(dist, pathname)
+        return Bun.file(distpath)
       }
     })
 
@@ -112,9 +115,11 @@ export async function createSite(root, opts={}) {
 
     watcher.onupdate = async function(path) {
       const file = await assets.update(path)
+
       if (file) {
-        await process(file)
-        server.broadcast(file)
+        const distpath = await process(file)
+        const content = distpath ? await Bun.file(distpath).text() : null
+        server.broadcast({ ...file, content })
       }
     }
 
@@ -123,7 +128,7 @@ export async function createSite(root, opts={}) {
       server.broadcast({ remove: path })
     }
 
-    console.log(`Serving on ${server.url}`)
+    if (!opts.silent) console.log(`Serving on ${server.url}`)
 
     return {
       stop() { watcher.close(); server.stop() },

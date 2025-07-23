@@ -2,6 +2,7 @@
 import { parseNue, renderNue, compileNue } from 'nuedom'
 import { nuedoc, elem } from 'nuemark'
 import { minifyCSS } from './css.js'
+import { version } from './help.js'
 
 export async function renderMD(file) {
   const doc = nuedoc(await file.text())
@@ -165,7 +166,7 @@ export function renderMeta(data, nue={}) {
     charset:  'utf-8',
     viewport: 'width=device-width,initial-scale=1',
     'article:published_time': data.date || data.pubDate,
-    generator: `Nue v${data.version} (nuejs.org)`,
+    generator: `Nue v${version} (nuejs.org)`,
     'date.updated': new Date().toISOString(),
     'nue:components': nue.components,
 

@@ -72,6 +72,7 @@ export async function createFile(root, path) {
     const info = parse(path)
     const file = Bun.file(fullpath)
     const mtime = stat.mtime
+    const url = toURL(info)
 
     // is_md, is_js, ...
     info[`is_${info.ext.slice(1)}`] = true
@@ -89,20 +90,35 @@ export async function createFile(root, path) {
     }
 
     async function copy(dist) {
-      await Bun.write(join(dist, path), file)
+      const to = join(dist, path)
+      await Bun.write(to, file)
+      return to
     }
 
     async function write(dist, content, ext) {
       const toname = ext ? info.base.replace(info.ext, ext) : info.base
-      await Bun.write(join(dist, info.dir, toname), content)
+      const to = join(dist, info.dir, toname)
+      await Bun.write(to, content)
+      return to
     }
 
-    return { ...info, path, fullpath, mtime, text, copy, write, flush() { cached = null } }
+    return { ...info, path, fullpath, url, mtime, text, copy, write, flush() { cached = null } }
 
   } catch (error) {
     console.warn(`Warning: Error reading ${path}: ${error.message}`)
     return null
   }
+}
+
+export function toURL(file) {
+  let { name, ext, dir } = file
+  if (name == 'index') name = ''
+  if (['.html', '.md'].includes(ext)) ext = ''
+  if (ext == '.ts') ext = '.js'
+  const els = dir.split(sep)
+  els.push(name + ext)
+
+  return `/${ els.join('/') }`.replace('//', '/')
 }
 
 export async function createAssets(root, paths) {

@@ -1,3 +1,3 @@
 
 test-kit:
-	cd test && bun test server
+	cd test && bun test cli
