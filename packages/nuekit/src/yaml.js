@@ -12,10 +12,53 @@ export function measureIndent(line) {
   let indent = 0
   for (let char of line) {
     if (char == ' ') indent++
-    else if (char == '\t') indent += 4
     else break
   }
   return indent
+}
+
+export function detectIndentSize(lines) {
+  for (let line of lines) {
+    const stripped = stripComments(line)
+    if (stripped.trim() == '') continue
+
+    const indent = measureIndent(stripped)
+    if (indent > 0) return indent
+  }
+  return 2 // default to 2 spaces
+}
+
+export function validateIndentation(lines) {
+  // Check for tabs in indentation (beginning of line only)
+  for (let i = 0; i < lines.length; i++) {
+    const line = stripComments(lines[i])
+    const leadingWhitespace = line.match(/^[\s]*/)[0]
+    if (leadingWhitespace.includes('\t')) {
+      throw new Error(`Tabs not allowed for indentation. Use spaces only. Line ${i + 1}`)
+    }
+  }
+
+  const indentSize = detectIndentSize(lines)
+  const indentLevels = new Set()
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = stripComments(lines[i])
+    if (line.trim() == '') continue
+
+    const indent = measureIndent(line)
+    if (indent > 0) {
+      indentLevels.add(indent)
+    }
+  }
+
+  // Check that all indentation levels are multiples of the base indent size
+  for (let level of indentLevels) {
+    if (level % indentSize != 0) {
+      throw new Error(`Inconsistent indentation. Expected multiples of ${indentSize} spaces.`)
+    }
+  }
+
+  return indentSize
 }
 
 export function isNumber(str) {
@@ -214,6 +257,7 @@ export function buildObject(blocks) {
 
 export function parseYAML(text) {
   const lines = text.split('\n')
+  validateIndentation(lines)
   const blocks = detectStructure(lines)
   return buildObject(blocks)
 }

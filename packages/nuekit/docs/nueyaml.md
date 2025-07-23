@@ -1,4 +1,3 @@
-
 # Nueyaml specification
 A developer-first data format for configuration files. It prioritizes readability and predictability over convenience.
 
@@ -122,9 +121,24 @@ Note: Unlike standard YAML, Nueyaml does not support quoted property names. This
 
 ## Indentation and whitespace
 
-Indentation is flexible. Tabs and spaces can coexist. The parser detects indentation patterns automatically.
+Indentation must use spaces only. Tabs are not allowed for indentation to ensure consistent visual appearance across all editors and environments.
 
-Trailing spaces are ignored. Blank lines are allowed and preserved in multi-line strings.
+The parser detects the indentation size from the first indented line (typically 2 or 4 spaces) and enforces consistent multiples throughout the file.
+
+```
+# Valid - consistent 2-space indentation
+app:
+  name: Test
+  config:
+    debug: true
+
+# Invalid - mixed indentation levels
+app:
+  name: Test
+   config: mixed    # Error: not a multiple of 2
+```
+
+Trailing spaces are ignored. Blank lines are allowed and preserved in multi-line strings. Tabs are permitted within string values but not for structural indentation.
 
 ## Comments
 
@@ -164,6 +178,86 @@ The parser provides clear error messages with line numbers and specific suggesti
 - Comment placement restrictions
 - Nested tag inheritance
 
+## FAQ
+
+### Why not TOML?
+
+TOML becomes verbose for nested structures, requiring explicit section headers and repetitive dotted notation:
+
+```toml
+# TOML - verbose and repetitive
+[database]
+host = "localhost"
+port = 5432
+
+[database.credentials]
+username = "admin"
+
+[[servers]]
+name = "web-01"
+ip = "192.168.1.1"
+
+[[servers]]
+name = "web-02"
+ip = "192.168.1.2"
+```
+
+```yaml
+# Nueyaml - natural hierarchy
+database:
+  host: localhost
+  port: 5432
+  credentials:
+    username: admin
+
+servers:
+  - name: web-01
+    ip: 192.168.1.1
+  - name: web-02
+    ip: 192.168.1.2
+```
+
+TOML's flat structure with section headers makes it hard to see relationships at a glance, while Nueyaml's indentation-based structure makes hierarchy immediately visible.
+
+### Why not JSON5?
+
+JSON5 improves JSON but retains its verbose syntax requirements:
+
+```json5
+// JSON5 - still requires quotes and brackets everywhere
+{
+  "database": {
+    "host": "localhost",
+    "port": 5432,
+    "credentials": {
+      "username": "admin",
+      "password": null
+    }
+  },
+  "servers": [
+    {
+      "name": "web-01",
+      "ip": "192.168.1.1"
+    }
+  ]
+}
+```
+
+```yaml
+# Nueyaml - minimal syntax, maximum readability
+database:
+  host: localhost
+  port: 5432
+  credentials:
+    username: admin
+    password:
+
+servers:
+  - name: web-01
+    ip: 192.168.1.1
+```
+
+JSON5 requires quotes around all keys and extensive bracketing, creating visual noise. Nueyaml eliminates syntactic overhead while maintaining structure through indentation, making configuration files more readable and writable by humans.
 
 ## Example
 
