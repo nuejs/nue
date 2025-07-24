@@ -107,17 +107,34 @@ test('asset update & remove', async () => {
   await removeAll()
 })
 
-test('asset.serverComponents()', async () => {
+test('HTML assets', async () => {
 
   const paths = await writeAll([
-    ['blog/index.md', '# Hello'],
-    ['blog/header.html', '<header/>'],
+    ['blog/hello.md', '# Hello'],
+    ['blog/index.html', '<!doctype dhtml> <body/> <helper/>'],
+    ['blog/header.html', '<header/> <navi/>'],
     ['blog/footer.html','<footer/>'],
+    ['blog/components.html','<!doctype dhtml> <users/> <user/>'],
+    ['blog/join.html', '<!doctype html> <join/>'],
   ])
 
   const assets = await createAssets(testDir, paths)
-  const comps = await assets[0].serverComponents()
-  expect(comps).toEqual([{ tag: "header" }, {tag: "footer" }])
+  const [ page, spa ] = assets
 
-  await removeAll()
+  expect(await page.isDHTML()).toBeFalse()
+
+  expect((await page.components()).map(el => el.tag)).toEqual(['header', 'navi', 'footer', 'join'])
+
+  expect(await spa.isSPA()).toBeTrue()
+
+  expect((await spa.components()).map(el => el.tag)).toEqual(['body', 'helper', 'users', 'user'])
+
+  // cache test
+  await write('blog/header.html', '<custom/>')
+  await Bun.file(`${testDir}/blog/footer.html`).delete()
+  expect((await page.components()).length).toBe(4)
+
+  assets.update('blog/header.html')
+  assets.remove('blog/footer.html')
+  expect((await page.components()).length).toBe(2)
 })

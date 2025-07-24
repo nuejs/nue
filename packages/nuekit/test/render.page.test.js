@@ -49,9 +49,9 @@ afterAll(async () => { await removeAll() })
 
 
 test('MD', async () => {
-  const file = assets.get('index.md')
+  const asset = assets.get('index.md')
 
-  const html = await renderMD(file)
+  const html = await renderMD(asset)
 
   expect(html).toInclude('<title>Hello</title>')
   expect(html).toInclude('<meta name="description" content="Description">')
@@ -64,34 +64,34 @@ test('MD', async () => {
 })
 
 test('standalone SVG', async () => {
-  const file = assets.get('visuals/standalone.svg')
-  const svg = await renderSVG(file)
+  const asset = assets.get('visuals/standalone.svg')
+  const svg = await renderSVG(asset)
   expect(svg).toBe('<svg><style>:root { --accent: red }</style> <div>Hello</div></svg>')
 })
 
 test('external SVG', async () => {
-  const file = assets.get('visuals/external.svg')
-  const svg = await renderSVG(file)
+  const asset = assets.get('visuals/external.svg')
+  const svg = await renderSVG(asset)
   expect(svg).toInclude('@import url("/@system/design/base.css");')
 })
 
 test('custom HTML page', async () => {
-  const file = assets.get('server.html')
-  const { html } = await renderHTML(file)
+  const asset = assets.get('server.html')
+  const { html } = await renderHTML(asset)
   expect(html).toInclude('<main>Acme</main>')
   expect(html).not.toInclude('<body')
 })
 
 test('SPA', async () => {
-  const file = assets.get('app/index.html')
-  const { html, js } = await renderHTML(file)
+  const asset = assets.get('app/index.html')
+  const { html, js } = await renderHTML(asset)
   expect(html).toInclude('<body :is="app"></body>')
   expect(js).toInclude("export const lib = [ { tag: 'body'")
 })
 
 test('dynamic components', async () => {
-  const file = assets.get('app/components.html')
-  const { html, js } = await renderHTML(file)
+  const asset = assets.get('app/components.html')
+  const { html, js } = await renderHTML(asset)
   expect(html).toBeNull()
   expect(js).toBe("export const lib = [ { tag: 'table', is: 'userlist' } ]")
 })

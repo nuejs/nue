@@ -4,11 +4,11 @@ import { nuedoc, elem } from 'nuemark'
 import { minifyCSS } from './css.js'
 import { version } from './help.js'
 
-export async function renderMD(file) {
-  const doc = nuedoc(await file.text())
-  const data = { ...await file.data(), ...doc.meta }
-  const comps = await file.serverComponents()
-  const assets = await file.assets()
+export async function renderMD(asset) {
+  const doc = await asset.document()
+  const data = { ...await asset.data(), ...doc.meta }
+  const comps = await asset.components()
+  const assets = await asset.assets()
   const attr = getAttr(data)
 
   function slot(name) {
@@ -52,10 +52,10 @@ export async function renderMD(file) {
 }
 
 
-export async function renderSVG(file, minify) {
-  const { standalone, meta, elements } = parseNue(await file.text())
-  const deps = await file.serverComponents()
-  const assets = await file.assets()
+export async function renderSVG(asset, minify) {
+  const { standalone, meta, elements } = await asset.document()
+  const deps = await asset.components()
+  const assets = await asset.assets()
 
   const ast = elements[0]
   const is_external = standalone === false || ast.meta?.interactive
@@ -67,23 +67,23 @@ export async function renderSVG(file, minify) {
   const css = is_external ? importCSS(assets) : await inlineCSS(assets, minify)
   ast.children.unshift({ tag: 'style', children: [{ text: minify ? minifyCSS(css) : css }] })
 
-  return renderNue(ast, { data: await file.data(), deps })
+  return renderNue(ast, { data: await asset.data(), deps })
 }
 
-export async function renderHTML(file) {
-  const document = parseNue(await file.text())
+export async function renderHTML(assets) {
+  const document = await assets.document()
   const { doctype, elements } = document
 
   const main = elements[0]
 
   const opts = {
-    data: await file.data(),
-    deps: await file.serverComponents(),
-    assets: await file.assets(),
+    data: await assets.data(),
+    deps: await assets.components(),
+    assets: await assets.assets(),
   }
 
   if (doctype == 'dhtml') {
-    const is_index = file.base == 'index.html'
+    const is_index = assets.base == 'index.html'
     const js = compileNue(document)
     const html = is_index ? renderSPA(main, opts) : null
     return { js, html }

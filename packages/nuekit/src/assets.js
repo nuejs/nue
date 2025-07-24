@@ -1,6 +1,7 @@
 
 import { normalize, relative, parse, sep, join } from 'node:path'
 import { lstat } from 'node:fs/promises'
+import { nuedoc, elem } from 'nuemark'
 import { parseNue } from 'nuedom'
 
 import { listDependencies } from './deps.js'
@@ -9,35 +10,67 @@ import { parseYAML } from './yaml.js'
 
 export function createAsset(file, files) {
   const { path, ext } = file
+  let cachedObj = null
 
   async function data() {
     return await readData(file.dir, files)
   }
 
-  async function deps() {
+  // private
+  async function linkedPaths() {
     const { lib, use } = await data()
     const paths = files.map(el => el.path)
     return listDependencies(path, { paths, lib, use })
   }
 
   async function assets() {
-    const paths = await deps()
-    return paths.map(path => files.find(file => file.path == path))
+    const paths = await linkedPaths()
+    const linkedFiles = paths.map(path => files.find(file => file.path == path))
+    return linkedFiles.map(file => createAsset(file, files))
   }
 
-  async function serverComponents() {
+  function flush() {
+    cachedObj = null
+    file.flush()
+  }
+
+  async function document() {
+    if (!cachedObj) {
+      const str = await file.text()
+      cachedObj = file.is_md ? nuedoc(str) : parseNue(str)
+    }
+    return cachedObj
+  }
+
+  async function isDHTML() {
+    const { doctype } = await document()
+    return doctype == 'dhtml'
+  }
+
+  async function isSPA() {
+    return file.base == 'index.html' && await isDHTML()
+  }
+
+  async function components() {
+    const dhtml = await isDHTML()
     const arr = await assets()
     const ret = []
 
     for (const asset of arr.filter(el => el.is_html)) {
-      const { doctype, elements } = await parseNue(await asset.text())
-      if (!doctype) ret.push(...elements)
+      const { doctype, elements } = await asset.document()
+      const reactive = await asset.isDHTML()
+
+      // client components
+      if (dhtml && reactive) ret.push(...elements)
+
+      // server components
+      if (!dhtml && !reactive) ret.push(...elements)
     }
 
     return ret
   }
 
-  return { ...file, data, assets, serverComponents }
+  return { ...file, data, assets, document, flush, isDHTML, isSPA, components }
 }
 
 
@@ -65,28 +98,39 @@ export async function readData(dir, files) {
   return { ...ret, use }
 }
 
+export function getFileInfo(path) {
+  const info = parse(path)
+  delete info.root
+
+  const { ext, dir } = info
+  const type = info.ext.slice(1)
+  const url = toURL(info)
+
+  if (dir.includes(sep)) info.basedir = dir.split(sep)[0]
+
+  return { ...info, path, type, url, [`is_${type}`]: true }
+}
+
+
 export async function createFile(root, path) {
   try {
     const fullpath = join(root, path)
     const stat = await lstat(fullpath)
-    const info = parse(path)
+    const info = getFileInfo(path)
     const file = Bun.file(fullpath)
     const mtime = stat.mtime
-    const url = toURL(info)
+    let cachedText = null
 
     // is_md, is_js, ...
-    info[`is_${info.ext.slice(1)}`] = true
-
-    // cached text content
-    let cached
-
-    delete info.root
     if (stat.isSymbolicLink()) info.is_symlink = true
-    if (info.dir.includes(sep)) info.basedir = info.dir.split(sep)[0]
 
     async function text() {
-      if (!cached) cached = await file.text()
-      return cached
+      if (!cachedText) cachedText = await file.text()
+      return cachedText
+    }
+
+    function flush() {
+      cachedText = null
     }
 
     async function copy(dist) {
@@ -102,7 +146,7 @@ export async function createFile(root, path) {
       return to
     }
 
-    return { ...info, path, fullpath, url, mtime, text, copy, write, flush() { cached = null } }
+    return { ...info, fullpath, mtime, text, copy, write, flush }
 
   } catch (error) {
     console.warn(`Warning: Error reading ${path}: ${error.message}`)

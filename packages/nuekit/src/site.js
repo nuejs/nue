@@ -4,11 +4,11 @@ import { mkdir } from 'node:fs/promises'
 
 import { renderMD, renderSVG, renderHTML } from './render.js'
 import { createAssets, createFile } from './assets.js'
-import { fswalk, matches } from './fswalk.js'
 import { createServer } from './server.js'
 import { fswatch } from './fswatch.js'
 import { minifyCSS } from './css.js'
 import { parseYAML } from './yaml.js'
+import { fswalk } from './fswalk.js'
 
 
 const IGNORE = `_* _*/** .* .*/** node_modules/** @system/worker/**\
@@ -16,7 +16,7 @@ const IGNORE = `_* _*/** .* .*/** node_modules/** @system/worker/**\
 
 
 export async function createSite(root='.', opts={}) {
-  const { is_prod } = opts
+  const { is_prod, silent } = opts
 
   // site config
   const conf = await readData(root, 'site.yaml')
@@ -79,11 +79,18 @@ export async function createSite(root='.', opts={}) {
       : await file.copy(dist)
   }
 
-  async function build(args={}) {
-    const { filters, dryrun } = args
-    const subset = Array.isArray(filters) ? assets.filter(el => matches(el.path, filters)) : assets
+  async function build() {
+    const { paths=[], dryrun } = opts
+    const subset = paths.length ? assets.filter(el => matches(el.path, paths)) : assets
+    const start = performance.now()
     if (!dryrun) await Promise.all(subset.map(process))
-    stats(subset).forEach(console.info)
+
+    if (!silent) {
+      stats(subset).forEach(line => console.log(line))
+      const time = Math.round(performance.now() - start)
+      console.log(`-----\nBuilt in: ${time}ms\n`)
+    }
+
     return subset
   }
 
@@ -128,7 +135,7 @@ export async function createSite(root='.', opts={}) {
       server.broadcast({ remove: path })
     }
 
-    if (!opts.silent) console.log(`Serving on ${server.url}`)
+    if (!silent) console.log(`Serving on ${server.url}`)
 
     return {
       stop() { watcher.close(); server.stop() },
@@ -141,9 +148,40 @@ export async function createSite(root='.', opts={}) {
 }
 
 
-export function stats(assets) {
-  return []
+export function matches(path, matches) {
+  return matches.some(match => {
+    return match.startsWith('./') ? path == match.slice(2) : path.includes(match)
+  })
 }
+
+
+export function stats(assets) {
+  const lines = []
+
+  const types = {
+    md: 'Markdown',
+    js: 'JavaScript',
+    ts: 'TypeScript',
+    html: 'HTML',
+    svg: 'SVG',
+    css: 'CSS',
+    png: 'PNG',
+    webp: 'WebP',
+  }
+
+  for (const type in types) {
+    const count = assets.filter(el => el.type == type).length
+    if (count) lines.push(`${types[type]} files: ${count}`)
+  }
+
+  // misc files
+  const basics = ['yaml', ...Object.keys(types)]
+  const count = assets.filter(el => !basics.includes(el.type)).length
+  if (count) lines.push(`Misc files: ${count}`)
+
+  return lines
+}
+
 
 async function buildJS({ file, dist, minify }) {
   return await Bun.build({
