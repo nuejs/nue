@@ -1,3 +1,3 @@
 
 test-kit:
-	cd test && bun test
+	cd test && bun test init

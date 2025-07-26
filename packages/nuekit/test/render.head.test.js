@@ -21,20 +21,19 @@ test('renderStyles', () => {
 
 })
 
-test('renderMeta', () => {
-  const meta = renderMeta({
+test('renderMeta', async () => {
+  const meta = await renderMeta({
     author: 'tipiirai',
     version: '1.0',
     desc: 'hello',
     og: 'foo.png',
     dir: 'blog',
 
-  }, {
-    components: ' ',
+  }, ['/blog/foo.js'])
 
-  })
   expect(meta.length).toBeGreaterThan(7)
   expect(meta.includes('<meta name="author" content="tipiirai">')).toBeTrue()
+  expect(meta.includes('<meta name="libs" content="/blog/foo.js">')).toBeTrue()
 
 })
 

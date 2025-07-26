@@ -12,8 +12,8 @@ export function createServer({ port=3000, worker, dist }, callback) {
       if (result) return result
     }
 
-    // SSE for hot-reloading
-    if (req.headers.get('accept')?.includes('text/event-stream')) return handleSSE()
+    // hot reloading
+    if (url.pathname == '/hmr') return handleHMR()
 
 
     // regular file serving
@@ -51,14 +51,9 @@ export function createServer({ port=3000, worker, dist }, callback) {
   return server
 }
 
-function handleSSE() {
-  let controller
-
+function handleHMR() {
   const stream = new ReadableStream({
-    start(c) {
-      controller = c
-      sessions.unshift(controller)
-    }
+    start(session) { sessions.unshift(session) }
   })
 
   return new Response(stream, {
@@ -69,3 +64,4 @@ function handleSSE() {
     }
   })
 }
+

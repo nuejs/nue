@@ -43,6 +43,7 @@ export function createAsset(file, files) {
   }
 
   async function isDHTML() {
+    if (!file.is_html) return false
     const { doctype } = await document()
     return doctype == 'dhtml'
   }

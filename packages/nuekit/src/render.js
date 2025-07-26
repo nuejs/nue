@@ -9,6 +9,7 @@ export async function renderMD(asset) {
   const data = { ...await asset.data(), ...doc.meta }
   const comps = await asset.components()
   const assets = await asset.assets()
+  const libs = await getLibs(assets)
   const attr = getAttr(data)
 
   function slot(name) {
@@ -35,7 +36,7 @@ export async function renderMD(asset) {
 
     <html lang="${attr.language}"${attr.dir}>
       <head>
-        ${ renderHead(data, assets).join('\n\t\t') }
+        ${ renderHead(data, assets, libs).join('\n\t\t') }
         ${ slot('head') }
       </head>
 
@@ -70,20 +71,21 @@ export async function renderSVG(asset, minify) {
   return renderNue(ast, { data: await asset.data(), deps })
 }
 
-export async function renderHTML(assets) {
-  const document = await assets.document()
+export async function renderHTML(asset) {
+  const document = await asset.document()
   const { doctype, elements } = document
-
+  const assets = await asset.assets()
   const main = elements[0]
 
   const opts = {
-    data: await assets.data(),
-    deps: await assets.components(),
-    assets: await assets.assets(),
+    data: await asset.data(),
+    deps: await asset.components(),
+    libs: await getLibs(assets),
+    assets,
   }
 
   if (doctype == 'dhtml') {
-    const is_index = assets.base == 'index.html'
+    const is_index = asset.base == 'index.html'
     const js = compileNue(document)
     const html = is_index ? renderSPA(main, opts) : null
     return { js, html }
@@ -93,18 +95,18 @@ export async function renderHTML(assets) {
 }
 
 // interactive element (embedded with <object> tag)
-export function renderElement(element, { data, assets, deps }) {
+export function renderElement(element, { data, assets, deps, libs }) {
   return trim(`
     <!doctype html>
 
     <head>
-      ${ renderHead(data, assets).join('\n\t') }
+      ${ renderHead(data, assets, libs).join('\n\t') }
     </head>
     ${ renderNue(element, { data, deps }) }
   `)
 }
 
-export function renderSPA(spa, { data, assets, deps }) {
+export function renderSPA(spa, { data, assets, deps, libs }) {
   const head = deps.find(el => el.tag == 'head')
   const attr = getAttr(data)
 
@@ -113,7 +115,7 @@ export function renderSPA(spa, { data, assets, deps }) {
 
     <html lang="${attr.language}"${attr.dir}>
       <head>
-        ${ renderHead(data, assets).join('\n') }
+        ${ renderHead(data, assets, libs).join('\n') }
         ${ head ? renderNue(head, { data, deps })  : '' }
       </head>
 
@@ -159,7 +161,16 @@ function ogImage(data) {
   }
 }
 
-export function renderMeta(data, nue={}) {
+
+async function getLibs(assets) {
+  const paths = []
+  for (const asset of assets) {
+    if (await asset.isDHTML()) paths.push(asset.url + '.js')
+  }
+  return paths
+}
+
+export function renderMeta(data, libs) {
   const desc = data.desc || data.description
 
   const meta = {
@@ -168,11 +179,11 @@ export function renderMeta(data, nue={}) {
     'article:published_time': data.date || data.pubDate,
     generator: `Nue v${version} (nuejs.org)`,
     'date.updated': new Date().toISOString(),
-    'nue:components': nue.components,
 
     'og:title': data.title,
     'og:description': desc,
     'og:image': ogImage(data),
+    libs: libs?.join(' '),
 
     description: desc,
     'theme-color': '',
@@ -185,17 +196,16 @@ export function renderMeta(data, nue={}) {
     return content && elem('meta', { name: key, content })
 
   }).filter(el => !!el)
-
 }
 
-export function renderHead(data, assets) {
+export function renderHead(data, assets, libs) {
   const { title, imports } = data
   const head = []
 
   if (title) head.push(elem('title', data.title))
 
   // meta
-  head.push(...renderMeta(data))
+  head.push(...renderMeta(data, libs))
 
   // scripts and styles
   head.push(...renderStyles(assets))
