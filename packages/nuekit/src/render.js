@@ -1,16 +1,20 @@
 
-import { parseNue, renderNue, compileNue } from 'nuedom'
-import { nuedoc, elem } from 'nuemark'
+import { parse } from 'node:path'
+import { renderScripts, renderHead } from './head.js'
+import { renderNue, compileNue } from 'nuedom'
 import { minifyCSS } from './css.js'
-import { version } from './help.js'
 
-export async function renderMD(asset) {
+
+export async function renderMD(asset, is_prod) {
   const doc = await asset.document()
   const data = { ...await asset.data(), ...doc.meta }
   const comps = await asset.components()
   const assets = await asset.assets()
   const libs = await getLibs(assets)
   const attr = getAttr(data)
+
+  if (libs.length) assets.push(parse('@nue/mount.js'))
+  if (!is_prod) assets.push(parse('@nue/hotreload.js'))
 
   function slot(name) {
     const comp = comps.find(el => [el.is, el.tag].includes(name))
@@ -107,7 +111,7 @@ export function renderElement(element, { data, assets, deps, libs }) {
 }
 
 export function renderSPA(spa, { data, assets, deps, libs }) {
-  const head = deps.find(el => el.tag == 'head')
+  const customHead = deps.find(el => el.tag == 'head')
   const attr = getAttr(data)
 
   return trim(`
@@ -116,7 +120,7 @@ export function renderSPA(spa, { data, assets, deps, libs }) {
     <html lang="${attr.language}"${attr.dir}>
       <head>
         ${ renderHead(data, assets, libs).join('\n') }
-        ${ head ? renderNue(head, { data, deps })  : '' }
+        ${ customHead ? renderNue(customHead, { data, deps })  : '' }
       </head>
 
       <body :is="${ spa.is }"></body>
@@ -124,7 +128,6 @@ export function renderSPA(spa, { data, assets, deps, libs }) {
     </html>
   `)
 }
-
 
 
 /***** Helper functions *****/
@@ -139,81 +142,12 @@ function importCSS(assets) {
   return assets.filter(el => el.is_css).map(el => `@import url("/${el.path}");`).join('\n')
 }
 
-export function renderScripts(assets) {
-  return assets.filter(file => ['.js', '.ts'].includes(file.ext))
-    .map(file => elem('script', { src: `/${file.dir}/${file.name}.js`, type: 'module' }))
-}
-
-export function renderStyles(assets) {
-  return assets.filter(file => file.ext == '.css')
-    .map(file => elem('link', { rel: 'stylesheet', href: `/${file.path}` }))
-}
-
-function importMap(imports) {
-  return elem('script', { type: 'importmap' }, JSON.stringify({ imports }))
-}
-
-function ogImage(data) {
-  const og = data.og_image || data.og
-  if (og) {
-    const img = og[0] == '/' ? og : `/${data.dir}/${og}`
-    return (data.origin || '') + img
-  }
-}
-
-
 async function getLibs(assets) {
   const paths = []
   for (const asset of assets) {
     if (await asset.isDHTML()) paths.push(asset.url + '.js')
   }
   return paths
-}
-
-export function renderMeta(data, libs) {
-  const desc = data.desc || data.description
-
-  const meta = {
-    charset:  'utf-8',
-    viewport: 'width=device-width,initial-scale=1',
-    'article:published_time': data.date || data.pubDate,
-    generator: `Nue v${version} (nuejs.org)`,
-    'date.updated': new Date().toISOString(),
-
-    'og:title': data.title,
-    'og:description': desc,
-    'og:image': ogImage(data),
-    libs: libs?.join(' '),
-
-    description: desc,
-    'theme-color': '',
-    author: '',
-    robots: '',
-  }
-
-  return Object.entries(meta).map(([key, val]) => {
-    const content = val || data[key]
-    return content && elem('meta', { name: key, content })
-
-  }).filter(el => !!el)
-}
-
-export function renderHead(data, assets, libs) {
-  const { title, imports } = data
-  const head = []
-
-  if (title) head.push(elem('title', data.title))
-
-  // meta
-  head.push(...renderMeta(data, libs))
-
-  // scripts and styles
-  head.push(...renderStyles(assets))
-  head.push(...renderScripts(assets))
-
-  if (imports) head.push(importMap(imports))
-
-  return head
 }
 
 function getAttr(data) {
@@ -224,7 +158,6 @@ function getAttr(data) {
     language,
   }
 }
-
 
 function trim(str) {
   return str.replace(/^\s*[\r\n]/gm, '').replace(/^ {4}/gm, '')

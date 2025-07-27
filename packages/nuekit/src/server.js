@@ -18,7 +18,8 @@ export function createServer({ port=3000, worker, dist }, callback) {
 
     // regular file serving
     try {
-      const file = await callback(url)
+      let file = await callback(url)
+      if (typeof file == 'string') file = Bun.file(file)
 
       if (file && await file.exists()) {
         const status = file.name.endsWith('404.html') ? 404 : 200
@@ -34,14 +35,14 @@ export function createServer({ port=3000, worker, dist }, callback) {
     }
   }
 
-  const server = Bun.serve({port, fetch })
+  const server = Bun.serve({ idleTimeout: 0, port, fetch })
 
   server.broadcast = function(data) {
     const message = `data:${JSON.stringify(data)}\n\n`
     sessions = sessions.filter((session, i) => {
       try {
         session.enqueue(new TextEncoder().encode(message))
-        return i < 5
+        return true
       } catch(e) {
         return false
       }

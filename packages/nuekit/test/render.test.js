@@ -49,9 +49,8 @@ const assets = await createAssets(testDir, paths)
 afterAll(async () => { await removeAll() })
 
 
-test('MD', async () => {
+test.only('MD', async () => {
   const asset = assets.get('index.md')
-
   const html = await renderMD(asset)
 
   expect(html).toInclude('<title>Hello</title>')
@@ -59,6 +58,10 @@ test('MD', async () => {
   expect(html).toInclude('<link rel="stylesheet" href="/@system/design/base.css">')
   expect(html).toInclude('<meta name="libs" content="/@system/view/components.js">')
   expect(html).not.toInclude('href="/@system/design/app.css"')
+  expect(html).toInclude('<footer>Copyright</footer>')
+  expect(html).toInclude('/@nue/hotreload.js')
+  expect(html).toInclude('/@nue/mount.js')
+
   expect(html).toInclude('<body class="wide">')
   expect(html).toInclude('<header>Acme</header>')
   expect(html).toInclude('<section><h1>Hello</h1>')

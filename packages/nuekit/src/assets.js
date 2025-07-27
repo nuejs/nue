@@ -18,9 +18,9 @@ export function createAsset(file, files) {
 
   // private
   async function linkedPaths() {
-    const { lib, use } = await data()
+    const { lib, use, use_local_css } = await data()
     const paths = files.map(el => el.path)
-    return listDependencies(path, { paths, lib, use })
+    return listDependencies(path, { paths, lib, use, use_local_css })
   }
 
   async function assets() {
@@ -181,7 +181,10 @@ export async function createAssets(root, paths) {
 
   assets.update = function(path) {
     const asset = assets.find(el => el.path == path)
-    return asset?.flush()
+    if (asset) {
+      asset.flush()
+      return asset
+    }
   }
 
   return assets

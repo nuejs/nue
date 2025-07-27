@@ -1,5 +1,5 @@
 
-import { renderScripts, renderStyles, renderMeta, renderHead, } from '../src/render.js'
+import { renderScripts, renderStyles, renderMeta, renderHead, } from '../src/head.js'
 
 test('renderScripts', () => {
   const [foo, bar] = renderScripts([
@@ -51,9 +51,10 @@ test('renderHead', async () => {
 
   expect(head.length).toBeGreaterThan(7)
 
-  expect(head[head.length -1]).toBe(
-    '<script type="importmap">{"imports":{"d3":"d3.js"}}</script>'
-  )
+  const imap = head.find(el => el.includes('importmap'))
+  expect(imap).toInclude('"nue":')
+  expect(imap).toInclude('"d3":')
+
 })
 
 

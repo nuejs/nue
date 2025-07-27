@@ -1,6 +1,6 @@
 
-import { join, extname } from 'node:path'
-import { mkdir } from 'node:fs/promises'
+import { join, extname, basename } from 'node:path'
+import { mkdir, readdir } from 'node:fs/promises'
 
 import { renderMD, renderSVG, renderHTML } from './render.js'
 import { createAssets, createFile } from './assets.js'
@@ -9,19 +9,18 @@ import { fswatch } from './fswatch.js'
 import { minifyCSS } from './css.js'
 import { parseYAML } from './yaml.js'
 import { fswalk } from './fswalk.js'
-
+import { init } from './init.js'
 
 const IGNORE = `_* _*/** .* .*/** node_modules/** @system/worker/**\
  *.toml *.rs *.lock package.json bun.lockb pnpm-lock.yaml README.md`.split(' ')
 
 
 export async function createSite(root='.', opts={}) {
-  const { is_prod, silent } = opts
+  const { is_prod, dryrun, silent } = opts
 
   // site config
-  const conf = await readData(root, 'site.yaml')
+  const conf = await isNueDir(root)
   if (!conf) return console.error('Not a Nue directory')
-  const { port, worker } = conf
 
   // assets
   const ignore = [...IGNORE, ...(conf.ignore || [])]
@@ -32,6 +31,11 @@ export async function createSite(root='.', opts={}) {
   const dist = join(root, opts.dist || (is_prod ? '.dist/prod' : '.dist/dev'))
   await mkdir(dist, { recursive: true })
 
+  // init @nue directory
+  if (!dryrun && !opts.noinit) {
+    const nuedir = await init({ dist, minify: is_prod, force: opts.init })
+    if (nuedir && !silent) console.log(`@nue directory initialized`)
+  }
 
   async function processCSS(file) {
     return is_prod ? await write(file, minifyCSS(await file.text()))
@@ -39,12 +43,12 @@ export async function createSite(root='.', opts={}) {
   }
 
   async function processJS(file) {
-    return is_prod || file.is_ts ? await buildJS({ file, dist, minify: is_prod })
-      : await file.copy(dist)
+    return !is_prod && !file.is_ts ? await file.copy(dist)
+      : await buildJS(file.fullpath, join(dist, file.dir), is_prod)
   }
 
   async function processMD(file) {
-    const html = await renderMD(file)
+    const html = await renderMD(file, is_prod)
     return await file.write(dist, html, '.html')
   }
 
@@ -80,7 +84,7 @@ export async function createSite(root='.', opts={}) {
   }
 
   async function build() {
-    const { paths=[], dryrun } = opts
+    const { paths=[] } = opts
     const subset = paths.length ? assets.filter(el => matches(el.path, paths)) : assets
     const start = performance.now()
     if (!dryrun) await Promise.all(subset.map(process))
@@ -107,15 +111,17 @@ export async function createSite(root='.', opts={}) {
   }
 
   function serve() {
+    const { worker } = conf
+    const port = opts.port || conf.port
+
     const server = createServer({ port, dist, worker }, async ({ pathname }) => {
       const is_page = !extname(pathname)
       let asset = assets.find(asset => asset.url == pathname)
+
+      // error page
       if (!asset && is_page) asset = assets.find(asset => asset.name == '404')
 
-      if (asset) {
-        const distpath = is_page ? await process(asset) : join(dist, pathname)
-        return Bun.file(distpath)
-      }
+      return is_page ? await process(asset) : join(dist, pathname)
     })
 
     const watcher = fswatch(root, { ignore })
@@ -183,20 +189,34 @@ export function stats(assets) {
 }
 
 
-async function buildJS({ file, dist, minify }) {
+export async function buildJS(path, outdir, minify) {
   return await Bun.build({
-    entrypoints: [file.fullpath],
-    outdir: join(dist, file.dir),
+    entrypoints: [path],
     target: 'browser',
     external: ['*'],
+    outdir,
     minify
   })
 }
 
+
 async function readData(root, name) {
-  const file = Bun.file(join(root, name))
   if (await file.exists()) {
     return parseYAML(await file.text())
   }
+}
+
+async function isNueDir(root) {
+  const files = await readdir(root)
+
+  // site.yaml
+  if (files.includes('site.yaml')) {
+    const file = Bun.file(join(root, 'site.yaml'))
+    return await parseYAML(await file.text())
+  }
+
+  // index file
+  const index = files.find(name => ['index.md', 'index.html'].includes(name))
+  if (index) return {}
 }
 

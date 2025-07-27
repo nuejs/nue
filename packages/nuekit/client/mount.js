@@ -1,8 +1,8 @@
 
-// paths is optional
-export async function mountAll(paths) {
+// _paths is optional
+export async function mountAll(_paths) {
   const roots = document.querySelectorAll('[custom]')
-  const deps = roots.length ? await importComponents(paths) : []
+  const deps = roots.length ? await importComponents(_paths) : []
   if (!deps.length) return
 
   const { mount } = await import('nue')

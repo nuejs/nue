@@ -1,33 +1,38 @@
 
 import { mkdir, rm, readdir } from 'node:fs/promises'
-import { join, extname } from 'node:path'
-
+import { join, extname, basename } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { buildJS } from './site.js'
 import { version } from './help.js'
 
 
-export async function init({ dist, is_prod, force }) {
-  const to = await initDir(dist, force)
+export async function init({ dist, minify, force }) {
+  const outdir = await initDir(dist, force)
+  if (!outdir) return
 
-  await deployPackage('nuedom/mount', { to, is_prod, name: 'nue'})
-  await deployPackage('nuestate/src/state', { to, is_prod })
-  await deployClient(to, is_prod)
+  await deployPackage('nuestate/src/state.js', outdir, minify)
+  await deployPackage('nuedom/src/nue.js', outdir, minify)
+  await deployClient(outdir, minify)
+  return outdir
 }
 
 export async function initDir(dist, force) {
-  const to = join(process.cwd(), dist, '@nue')
+  const outdir = join(process.cwd(), dist, '@nue')
 
-  const ver = Bun.file(join(to, `.v${version}`))
-  if (!force || await file.exists()) return
+  const ver = Bun.file(join(outdir, version))
+  if (!force && await ver.exists()) return
 
   // recreate direcotry
-  await rm(to, { recursive: true, force: true })
-  await mkdir(to, { recursive: true })
+  await rm(outdir, { recursive: true, force: true })
+  await mkdir(outdir, { recursive: true })
+
+  // write version file
   await ver.writer().end()
-  return to
+  return outdir
 }
 
 
-export async function deployClient(to, is_prod) {
+export async function deployClient(outdir, minify) {
   const dir = join(import.meta.dir, '../client')
   const names = await readdir(dir)
 
@@ -35,30 +40,25 @@ export async function deployClient(to, is_prod) {
     const path = join(dir, name)
     const ext = extname(name)
 
-    if (is_prod && ext == '.js') {
-      await minifyJS(path, dir)
+    if (minify && ext == '.js') {
+      await buildJS(path, outdir, true)
+
     } else if (ext) {
-      const file = Bun.file(path)
-      await Bun.write(join(to, name), file)
+      await Bun.write(join(outdir, name), Bun.file(path))
     }
   }
 }
 
-async function minifyJS(path, outdir) {
+export async function deployPackage(relativePath, outdir, minify) {
+  const path = fileURLToPath(import.meta.resolve(relativePath))
 
-  const ret = await Bun.build({
+  return await Bun.build({
     entrypoints: [path],
     target: 'browser',
-    external: ['*'],
-    minify: true,
-    outdir,
+    minify,
+    outdir
   })
-  console.info(ret)
 }
 
 
-export function resolvePath(npm_path) {
-  const [npm_name, ...parts] = npm_path.split('/')
-  const module_path = dirname(fileURLToPath(import.meta.resolve(npm_name)))
-  return join(module_path, ...parts)
-}
+

@@ -2,12 +2,26 @@
 const server = new EventSource(location.origin + '/hmr')
 const hmr_count = 0
 
+/*
+{
+  dir: '',
+  base: 'index.md',
+  ext: '.md',
+  name: 'index',
+  path: 'index.md',
+  type: 'md',
+  url: '/',
+  is_md: true,
+  fullpath: 'index.md',
+  content: '...'
+}
+*/
 
 server.onmessage = async function(e) {
   const asset = JSON.parse(e.data)
 
   return asset.error ? await handleError(asset)
-    : assset.is_html ? await reloadComponents(asset)
+    : asset.is_html ? await reloadComponents(asset)
     : asset.is_md ? await reloadContent(asset)
     : asset.is_css ? reloadCSS(asset)
     : null
@@ -25,10 +39,10 @@ async function reloadContent(asset) {
   if (url != location.pathname) return location.href = url
 
   // domdiff
-  const { mountAll } = await import('./mounter.js')
+  const { mountAll } = await import('./mount.js')
   const { domdiff } = await import('nue')
 
-  const { title, body } = parsePage(html)
+  const { title, body } = parsePage(asset.content)
   if (title) document.title = title
   domdiff($('body'), body)
   await mountAll()
@@ -45,7 +59,7 @@ function reloadCSS(asset) {
 }
 
 async function reloadComponents(asset) {
-  const { getImportPaths, mountAll } = await import('./mounter.js')
+  const { getImportPaths, mountAll } = await import('./mount.js')
   const state = saveState()
 
   const paths = getImportPaths().map(path => {

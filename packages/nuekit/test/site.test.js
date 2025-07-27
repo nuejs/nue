@@ -51,7 +51,7 @@ describe('build & serve', async () => {
 
 
   test('build all', async () => {
-    const site = await createSite(testDir, { silent: true })
+    const site = await createSite(testDir, { silent: true, noinit: true })
     const assets = await site.build()
     const results = await site.results()
 
@@ -75,7 +75,7 @@ describe('build & serve', async () => {
 
 
   test('serve', async () => {
-    const site = await createSite(testDir, { silent: true })
+    const site = await createSite(testDir, { silent: true, noinit: true })
 
     // server
     const server = site.serve()
