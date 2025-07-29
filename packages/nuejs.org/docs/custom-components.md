@@ -271,7 +271,7 @@ Properties and methods are defined inside a `<script>` block that is a direct ch
     // Constructor method runs when the component is created
     constructor({ date, locale }) {
       if (locale) this.locale = locale;
-      this.date = date;
+      this.date = new Date(date);
     }
 
     // Method to format the date into a readable string
