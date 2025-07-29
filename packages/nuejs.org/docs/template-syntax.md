@@ -54,7 +54,7 @@ An expression is a piece of code that evaluates to a value. Therefore, the follo
 
 ### Function calls
 
-Expressions can also call [instance methods](#instances):
+Expressions can also call [instance methods](custom-components.html#instances):
 
 ```html
 <time :datetime="date.toISOString()">
