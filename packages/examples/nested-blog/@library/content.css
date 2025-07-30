@@ -1,0 +1,64 @@
+
+/* Styling for technical content */
+
+article a {
+  text-decoration: underline var(--main-500) 1px;
+  text-underline-offset: 3px;
+  color: var(--gray-800);
+  font-weight: 500;
+
+  &:hover {
+    text-decoration-color: var(--main-600);
+    text-decoration-thickness: 2px;
+    color: black;
+  }
+}
+
+h2 {
+  color: var(--gray-900);
+  font-size: 1.1rem;
+  margin: 4em 0 0;
+  font-weight: 500;
+}
+
+li {
+  text-wrap: balance;
+  margin-bottom: 1em;
+}
+
+/* syntax highlighted code */
+pre {
+  --glow-padding: 2em;
+  font-size: 105%;
+}
+
+/* images and code blocks */
+img, pre {
+  border-radius: 8px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+blockquote {
+  border-left: 5px solid var(--gray-900);
+  text-wrap: balance;
+  padding-left: 1.5em;
+  margin: 2.5em 0;
+
+  p {
+    font-weight: 600;
+    line-height: 1.5;
+    font-size: 140%;
+    color: var(--gray-900);
+  }
+
+  strong {
+    background-color: var(--marker);
+    font-weight: inherit;
+    padding: .1em .2em;
+    margin-inline: -.2em;
+  }
+}

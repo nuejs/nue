@@ -1,0 +1,9 @@
+<header @name="pagehead">
+  <h1>{ title }</h1>
+  <p>
+    <pretty-date :date="pubDate"/> • Content by AI •
+    Photo credits: <a href="//dribbble.com/{ credits }">{ credits }</a>
+  </p>
+
+  <img :src="og" width="1000" height="800" alt="Hero image for { title }">
+</header>

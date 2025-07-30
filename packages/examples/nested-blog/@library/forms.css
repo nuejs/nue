@@ -1,0 +1,54 @@
+
+
+/* basic form styling  */
+:focus-visible {
+  outline: 3px solid var(--gray-100);
+  border-color: var(--main-500);
+  outline-offset: 1px;
+}
+
+label {
+  display: block;
+  margin-bottom: 1em;
+  span {
+    font-weight: 500;
+    margin-bottom: .3em;
+    display: block;
+  }
+}
+
+input, textarea {
+  border: 1px solid var(--gray-200);
+  font-family: inherit;
+  font-size: inherit;
+  padding: .7em 1em;
+  border-radius: 4px;
+  width: 100%;
+}
+
+textarea {
+  resize: vertical;
+  form-sizing: normal;
+  min-height: 80px;
+}
+
+button, [role=button] {
+  background-color: var(--main-500);
+  font-family: inherit;
+  font-size: inherit;
+  width: 100%;
+  padding: .75em 1.5em;
+  border-radius: 4px;
+  font-weight: 550;
+  cursor: pointer;
+  color: white;
+  border: 0;
+
+  &:hover {
+    background-color: var(--main-600);
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}

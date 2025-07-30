@@ -1,0 +1,49 @@
+
+/* because layout.css is excluded */
+* { box-sizing: border-box }
+
+/* layout */
+body {
+  background: #000 url(/img/editor-split.png) 50% 50%;
+  transition: background-size 1s;
+  background-size: 100%;
+  margin: 0;
+
+  @starting-style {
+    background-size: 150%;
+  }
+
+  main {
+    background: radial-gradient(transparent, #0009);
+    backdrop-filter: blur(3px);
+    transition-delay: .5s;
+    padding-top: 22vh;
+    height: 100vh;
+  }
+
+  article {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 3em #0008;
+    max-width: 420px;
+    margin: 0 auto;
+    padding: 2em 2.2em 3em;
+    transition-delay: 1s;
+
+    h1 {
+      text-align: left;
+      font-size: 2em;
+    }
+
+    ol {
+      padding: 0 1.4em 1em;
+    }
+  }
+}
+
+/* motion */
+main, article {
+  transition: .5s;
+  opacity: 1;
+  @starting-style { opacity: 0  }
+}

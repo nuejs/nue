@@ -1,0 +1,3 @@
+
+include: [ content, cards, motion ]
+has_feed: false

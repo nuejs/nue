@@ -1,0 +1,46 @@
+
+/*
+  Reusable gallery component. Used on front page
+*/
+
+.gallery {
+  margin-block: 4rem;
+  list-style: none;
+  padding: 0;
+
+  li { margin-bottom: 10% }
+  
+  figure {
+    transition: transform .1s;
+    align-items: flex-start;
+    display: flex;
+    gap: 3rem;
+    &:hover { transform: scale(1.01) }
+
+    @media(width < 900) {
+      img { display: none }
+    }
+  }
+
+  time {
+    color: var(--gray-500);
+    font-weight: 300;
+    font-size: 85%;
+  }
+
+  h2 {
+    color: var(--gray-800);
+    text-wrap: balance;
+    font-size: 1.05em;
+    font-weight: 500;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  p { margin-block: .5em }
+
+  img {
+    max-width: 18em;
+    border-radius: 4px;
+  }
+}

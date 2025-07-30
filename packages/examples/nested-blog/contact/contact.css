@@ -1,0 +1,20 @@
+
+/* contact page layout */
+main article section {
+  max-width: none;
+  h1, p { text-align: left }
+}
+
+.stack {
+  display: flex;
+  gap: 3em;
+
+  > * { flex: 1 }
+  figure { margin: 0 }
+  img { border-radius: 4px }
+
+  @media(max-width: 1000px) {
+    flex-direction: column;
+    max-width: 460px
+  }
+}

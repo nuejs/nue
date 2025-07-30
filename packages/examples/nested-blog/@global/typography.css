@@ -1,0 +1,46 @@
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, Avenir Next, Segoe UI, Roboto;
+}
+
+/* heading and subtitle */
+h1 {
+  letter-spacing: -0.03em;
+  font-size: 2.6rem;
+
+  &, + p {
+    text-align: center;
+    text-wrap: balance;
+    max-width: 40rem;
+    margin: 0 auto .2em;
+  }
+
+  + p {
+    font-size: 1.15em;
+    font-weight: 300;
+    margin-bottom: 2em;
+  }
+}
+
+/* links */
+a {
+  text-decoration: none;
+
+  /* navigational links */
+  nav & {
+    font-weight: 500;
+    color: var(--gray-900);
+
+    &[aria-current] {
+      text-decoration: 2px underline var(--main-500);
+      text-underline-offset: 8px;
+    }
+  }
+}
+
+/* bulk content */
+p, li {
+  color: var(--gray-500);
+  line-height: 1.65;
+  strong { color: var(--gray-800) }
+}
