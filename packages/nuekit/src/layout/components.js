@@ -5,12 +5,26 @@ import { join } from 'node:path'
 import { elem, parseSize, renderInline, renderIcon } from 'nuemark'
 
 
+function generateFeedTitle(data, key) {
+  if (data.feed_title) {
+    return data.title_template.replaceAll('%s', data.feed_title)
+  }
+
+  // "blog/child-2" -> "Blog → Child 2"
+  const formattedKey = key
+    .split('/')
+    .map(part => part.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()))
+    .join(' → ')
+
+  return data.title_template.replaceAll('%s', formattedKey)
+}
+
 export function collectionToFeed(feed_file, data, collection_dir = null, items = null) {
 
   const feed_dir = collection_dir || data.content_collection
   const key = data.collection_name || feed_dir
 
-  const title = data.title_template.replaceAll('%s', key)
+  const title = generateFeedTitle(data, key)
   const icon = `${data.origin}${data.favicon}` // todo
   const site = data.origin
 
