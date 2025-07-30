@@ -1,7 +1,7 @@
 
 import { promises as fs, watch } from 'node:fs'
 import { join, extname } from 'node:path'
-import { fswalk, matches } from './fswalk.js'
+import { fswalk, matches } from './fswalk'
 
 // Main fswatch function
 export function fswatch(root, opts = {}) {

@@ -1,91 +1,18 @@
 
-import { readData, parseDirs, createFile, createAsset, createAssets, toURL } from '../src/assets.js'
-import { testDir, write, writeAll, removeAll } from './test-utils.js'
-import { join, parse } from 'node:path'
+import { testDir, write, writeAll, removeAll } from './test-utils'
+import { readAssets } from '../src/assets'
 
-test('parseDirs', () => {
-  expect(parseDirs('')).toEqual(['.'])
-  expect(parseDirs('blog')).toEqual(['blog'])
-  expect(parseDirs('news/entry')).toEqual(['news', 'news/entry'])
-})
+afterAll(async () => await removeAll())
 
-test('toURL', () => {
-  expect(toURL(parse('index.md'))).toBe('/')
-  expect(toURL(parse('blog/index.html'))).toBe('/blog/')
-  expect(toURL(parse('docs/installation.md'))).toBe('/docs/installation')
-  expect(toURL(parse('@system/design/base.css'))).toBe('/@system/design/base.css')
-  expect(toURL(parse('site.yaml'))).toBe('/site.yaml')
-})
+test('caching', async () => {
 
-test('readData', async () => {
-  const files = [
-    { path: 'site.yaml', async text() { return 'site: true' } },
-    { path: 'blog/app.yaml', async text() { return 'app: true' } },
-    { path: 'docs/app.yaml', async text() { return 'docs: true' } },
-  ]
-
-  const data = await readData('blog/entry/index.md', files)
-  expect(data).toEqual({ site: true, app: true, use: [] })
-})
-
-test('use array', async () => {
-  const files = [
-    { path: 'site.yaml', async text() { return 'use: [foo]' } },
-    { path: 'blog/app.yaml', async text() { return 'use: [bar]' } },
-  ]
-
-  const data = await readData('blog/entry/index.md', files)
-  expect(data.use).toEqual([ "foo", "bar" ])
-})
-
-test('createFile', async () => {
-  const path = await write('@system/model/index.ts', '// hello')
-  const file = await createFile(testDir, path)
-
-  expect(file).toMatchObject({
-    fullpath: 'test_dir/@system/model/index.ts',
-    path: '@system/model/index.ts',
-    dir: '@system/model',
-    basedir: '@system',
-    base: 'index.ts',
-    name: 'index',
-    is_ts: true,
-    ext: '.ts',
-  })
-
-  expect(file.mtime).toBeInstanceOf(Date)
-  expect(await file.text()).toBe('// hello')
-
-  // copy operation
-  await file.copy(join(testDir, '.dist'))
-  expect(await Bun.file(join(testDir, '.dist', file.path)).exists()).toBeTrue()
-
-  await removeAll()
-})
-
-
-test('createAsset', async () => {
-  const files = [
-    { path: 'blog/index.html', dir: 'blog', ext: '.html' },
-    { path: '@system/design/base.css', async text() { return '' } },
-    { path: 'site.yaml', async text() { return 'use: [ design/*, view/* ]' } },
-  ]
-
-  const file = createAsset(files[0], files)
-  const assets = await file.assets()
-  expect(assets.length).toEqual(2)
-  expect(assets[0].path).toEqual('@system/design/base.css')
-})
-
-
-test('asset update & remove', async () => {
   const paths = await writeAll([
     ['site.yaml', { foo: true }],
     ['blog/app.yaml', { bar: true }],
     ['blog/index.md', '# Hello'],
   ])
 
-  const assets = await createAssets(testDir, paths)
+  const { assets } = await readAssets(testDir, paths)
   expect(assets.length).toBe(3)
 
   // page data
@@ -103,38 +30,55 @@ test('asset update & remove', async () => {
   // remove -> update cache
   assets.remove('blog/app.yaml')
   expect(await page.data()).toEqual({ foo: true, use: [] })
-
-  await removeAll()
 })
 
 test('HTML assets', async () => {
 
   const paths = await writeAll([
-    ['blog/hello.md', '# Hello'],
-    ['blog/index.html', '<!doctype dhtml> <body/> <helper/>'],
-    ['blog/header.html', '<header/> <navi/>'],
-    ['blog/footer.html','<footer/>'],
-    ['blog/components.html','<!doctype dhtml> <users/> <user/>'],
-    ['blog/join.html', '<!doctype html> <join/>'],
+    ['hello.md', '# Hello'],
+    ['index.html', '<!doctype dhtml> <body/> <helper/>'],
+    ['header.html', '<header/> <navi/>'],
+    ['footer.html','<footer/>'],
+    ['components.html','<!doctype dhtml> <users/> <user/>'],
+    ['join.html', '<!doctype html> <join/>'],
   ])
 
-  const assets = await createAssets(testDir, paths)
+  const { assets } = await readAssets(testDir, paths)
   const [ page, spa ] = assets
 
   expect(await page.isDHTML()).toBeFalse()
 
-  expect((await page.components()).map(el => el.tag)).toEqual(['header', 'navi', 'footer', 'join'])
+  const comps = await page.components()
+  expect(comps.map(el => el.tag).sort()).toEqual(['footer', 'header', 'join', 'navi'])
 
   expect(await spa.isSPA()).toBeTrue()
 
   expect((await spa.components()).map(el => el.tag)).toEqual(['body', 'helper', 'users', 'user'])
 
   // cache test
-  await write('blog/header.html', '<custom/>')
-  await Bun.file(`${testDir}/blog/footer.html`).delete()
+  await write('header.html', '<custom/>')
+  await Bun.file(`${testDir}/footer.html`).delete()
   expect((await page.components()).length).toBe(4)
 
-  assets.update('blog/header.html')
-  assets.remove('blog/footer.html')
+  assets.update('header.html')
+  assets.remove('footer.html')
   expect((await page.components()).length).toBe(2)
+
+  // render
+  const html = await assets[0].render()
+  expect(html).toInclude('<!doctype html>')
+
+})
+
+test('Other assets', async () => {
+  const paths = await writeAll([
+    ['index.html', '<!doctype dhtml><app/>'],
+    ['base.css', '/* CSS */\ body { }'],
+  ])
+
+  const { assets } = await readAssets(testDir, paths)
+
+  expect(await assets.get('base.css').render(true)).toBe('body{}')
+  const ret = await assets.get('index.html').render()
+  expect(Object.keys(ret)).toEqual(['is_spa', 'js', 'html'])
 })

@@ -1,8 +1,8 @@
 
 import { parse } from 'node:path'
-import { renderScripts, renderHead } from './head.js'
+import { renderScripts, renderHead } from './head'
 import { renderNue, compileNue } from 'nuedom'
-import { minifyCSS } from './css.js'
+import { minifyCSS } from './css'
 
 
 export async function renderMD(asset, is_prod) {
@@ -14,7 +14,7 @@ export async function renderMD(asset, is_prod) {
   const attr = getAttr(data)
 
   if (libs.length) assets.push(parse('@nue/mount.js'))
-  if (!is_prod) assets.push(parse('@nue/hotreload.js'))
+  if (!is_prod) assets.push(parse('@nue/hmr.js'))
 
   function slot(name) {
     const comp = comps.find(el => [el.is, el.tag].includes(name))
@@ -40,7 +40,7 @@ export async function renderMD(asset, is_prod) {
 
     <html lang="${attr.language}"${attr.dir}>
       <head>
-        ${ renderHead(data, assets, libs).join('\n\t\t') }
+        ${ renderHead(data, assets, libs).join('\n\t') }
         ${ slot('head') }
       </head>
 
@@ -59,6 +59,7 @@ export async function renderMD(asset, is_prod) {
 
 export async function renderSVG(asset, minify) {
   const { standalone, meta, elements } = await asset.document()
+  const data = await asset.data()
   const deps = await asset.components()
   const assets = await asset.assets()
 
@@ -72,7 +73,7 @@ export async function renderSVG(asset, minify) {
   const css = is_external ? importCSS(assets) : await inlineCSS(assets, minify)
   ast.children.unshift({ tag: 'style', children: [{ text: minify ? minifyCSS(css) : css }] })
 
-  return renderNue(ast, { data: await asset.data(), deps })
+  return renderNue(ast, { data, deps })
 }
 
 export async function renderHTML(asset) {
@@ -92,10 +93,10 @@ export async function renderHTML(asset) {
     const is_index = asset.base == 'index.html'
     const js = compileNue(document)
     const html = is_index ? renderSPA(main, opts) : null
-    return { js, html }
+    return { is_spa: true, js, html }
   }
 
-  return { html: renderElement(main, opts) }
+  return renderElement(main, opts)
 }
 
 // interactive element (embedded with <object> tag)
@@ -123,7 +124,7 @@ export function renderSPA(spa, { data, assets, deps, libs }) {
         ${ customHead ? renderNue(customHead, { data, deps })  : '' }
       </head>
 
-      <body :is="${ spa.is }"></body>
+      <body :is="${ spa?.is }"></body>
 
     </html>
   `)
@@ -145,7 +146,7 @@ function importCSS(assets) {
 async function getLibs(assets) {
   const paths = []
   for (const asset of assets) {
-    if (await asset.isDHTML()) paths.push(asset.url + '.js')
+    if (await asset.isDHTML()) paths.push(`/${asset.dir}/${asset.name}.html.js`)
   }
   return paths
 }

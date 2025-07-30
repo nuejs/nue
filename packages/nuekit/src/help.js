@@ -1,15 +1,5 @@
 
-import { join } from 'node:path'
-import { color } from 'bun'
-
-
-async function getVersion() {
-  const file = Bun.file(join(import.meta.dir, '../package.json'))
-  const json = await file.json()
-  return json.version
-}
-
-export const version = await getVersion()
+import { version } from './system'
 
 const HELP = `
 Usage

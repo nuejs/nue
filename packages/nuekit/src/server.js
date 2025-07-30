@@ -1,10 +1,10 @@
 
 let sessions = []
 
-export function createServer({ port=3000, worker, dist }, callback) {
+export function createServer({ port=3000, worker }, callback) {
 
   async function fetch(req) {
-    const url = new URL(req.url)
+    const { pathname } = new URL(req.url)
 
     // worker request
     if (worker) {
@@ -13,19 +13,26 @@ export function createServer({ port=3000, worker, dist }, callback) {
     }
 
     // hot reloading
-    if (url.pathname == '/hmr') return handleHMR()
+    if (pathname == '/hmr') return handleHMR()
 
 
     // regular file serving
     try {
-      let file = await callback(url)
-      if (typeof file == 'string') file = Bun.file(file)
+      const res = await callback(pathname)
 
-      if (file && await file.exists()) {
-        const status = file.name.endsWith('404.html') ? 404 : 200
-        return new Response(file, { status })
+      // Bun.file
+      if (res?.stream) {
+        return new Response(res, { status: 200 })
+
+      // Object: { content, type, status }
+      } else if (res) {
+        return new Response(res.content || res, {
+          headers: { 'Content-Type': res.type || 'text/html' },
+          status: res.status || 200
+        })
+
       } else {
-        console.error('Not found', url.pathname)
+        console.error('Not found', pathname)
         return new Response('404 | Not found', { status: 404 })
       }
 

@@ -1,5 +1,5 @@
 
-import { renderScripts, renderStyles, renderMeta, renderHead, } from '../src/head.js'
+import { renderScripts, renderStyles, renderMeta, renderHead, } from '../src/head'
 
 test('renderScripts', () => {
   const [foo, bar] = renderScripts([

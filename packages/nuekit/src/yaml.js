@@ -1,3 +1,4 @@
+
 export function stripComments(line) {
   // Full line comment
   if (line.trim().startsWith('#')) return ''

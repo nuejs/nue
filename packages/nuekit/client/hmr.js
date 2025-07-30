@@ -12,7 +12,7 @@ const hmr_count = 0
   type: 'md',
   url: '/',
   is_md: true,
-  fullpath: 'index.md',
+  rootpath: 'index.md',
   content: '...'
 }
 */

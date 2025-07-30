@@ -8,7 +8,7 @@ import {
   buildObject,
   validateIndentation,
   parseYAML
-} from '../src/yaml.js'
+} from '../src/yaml'
 
 // stripComments tests
 describe('stripComments', () => {

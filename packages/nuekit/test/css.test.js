@@ -1,5 +1,5 @@
 
-import { tokenize, parseCSS, minifyCSS } from '../src/css.js'
+import { tokenize, parseCSS, minifyCSS } from '../src/css'
 
 describe('tokenizer', () => {
   test('comments', () => {
@@ -105,6 +105,10 @@ describe('minify', () => {
       }
     `)
     expect(result).toBe('.header{padding:1rem;margin:0}')
+  })
+
+  test('comment', () => {
+    expect(minifyCSS('/* CSS */')).toBe('')
   })
 
   test('strips comments', () => {

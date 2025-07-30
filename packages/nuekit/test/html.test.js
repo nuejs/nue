@@ -1,7 +1,7 @@
 
-import { renderMD, renderSVG, renderHTML, renderSPA } from '../src/render.js'
-import { writeAll, removeAll, testDir } from './test-utils.js'
-import { createAssets } from '../src/assets.js'
+import { renderMD, renderSVG, renderHTML, renderSPA } from '../src/html'
+import { writeAll, removeAll, testDir } from './test-utils'
+import { readAssets } from '../src/assets'
 
 // converted to YAML by writeAll
 const SITE_DATA = {
@@ -44,22 +44,22 @@ const paths = await writeAll([
   ['app/components.html', '<!doctype dhtml><table :is="userlist"></table>'],
 ])
 
-const assets = await createAssets(testDir, paths)
+const { assets } = await readAssets(testDir, paths)
 
 afterAll(async () => { await removeAll() })
 
 
-test.only('MD', async () => {
+test('MD', async () => {
   const asset = assets.get('index.md')
   const html = await renderMD(asset)
 
   expect(html).toInclude('<title>Hello</title>')
   expect(html).toInclude('<meta name="description" content="Description">')
   expect(html).toInclude('<link rel="stylesheet" href="/@system/design/base.css">')
-  expect(html).toInclude('<meta name="libs" content="/@system/view/components.js">')
+  expect(html).toInclude('<meta name="libs" content="/@system/view/components.html.js">')
   expect(html).not.toInclude('href="/@system/design/app.css"')
   expect(html).toInclude('<footer>Copyright</footer>')
-  expect(html).toInclude('/@nue/hotreload.js')
+  expect(html).toInclude('/@nue/hmr.js')
   expect(html).toInclude('/@nue/mount.js')
 
   expect(html).toInclude('<body class="wide">')
@@ -82,14 +82,15 @@ test('external SVG', async () => {
 
 test('custom HTML page', async () => {
   const asset = assets.get('server.html')
-  const { html } = await renderHTML(asset)
+  const html = await renderHTML(asset)
   expect(html).toInclude('<main>Acme</main>')
   expect(html).not.toInclude('<body')
 })
 
 test('SPA', async () => {
   const asset = assets.get('app/index.html')
-  const { html, js } = await renderHTML(asset)
+  const { is_spa, html, js } = await renderHTML(asset)
+  expect(is_spa).toBeTrue()
   expect(html).toInclude('<body :is="app"></body>')
   expect(js).toInclude("export const lib = [ { tag: 'body'")
 })

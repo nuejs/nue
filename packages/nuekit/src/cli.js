@@ -1,6 +1,7 @@
 #!/usr/bin/env bun
 
-import { printHelp, version } from './help.js'
+import { printHelp } from './help'
+import { version } from './system'
 
 // [-npe] --> [-n, -p, -e]
 export function expandArgs(args) {
@@ -18,7 +19,9 @@ export function expandArgs(args) {
 
 export function getArgs(argv) {
   const commands = ['serve', 'build', 'create', 'push']
-  const args = { paths: [] }
+
+  // default values
+  const args = { paths: [], root: '.' }
   let opt
 
   expandArgs(argv).forEach((arg) => {
@@ -33,17 +36,22 @@ export function getArgs(argv) {
     // options
     } else if (!opt && arg[0] == '-') {
 
-      // booleans
+      // global options
       if (['-h', '--help'].includes(arg)) args.help = true
       else if (['-v', '--version'].includes(arg)) args.version = true
-      else if (['-p', '--production'].includes(arg)) args.is_prod = true
+      else if (['-s', '--silent'].includes(arg)) args.silent = true
+      else if (['-r', '--root'].includes(arg)) opt = 'root'
+
+      // serve options
+      else if (['--production'].includes(arg)) args.is_prod = true
+      else if (['-p', '--port'].includes(arg)) opt = 'port'
+
+      // build options
       else if (['-n', '--dry-run'].includes(arg)) args.dryrun = true
       else if (['-i', '--init'].includes(arg)) args.init = true
-      else if (['-s', '--silent'].includes(arg)) args.silent = true
+      else if (['--verbose'].includes(arg)) args.verbose = true
 
       // values
-      else if (['-r', '--root'].includes(arg)) opt = 'root'
-      else if (['-P', '--port'].includes(arg)) opt = 'port'
 
       // bad argument
       else throw `Unknown option: "${arg}"`
@@ -65,7 +73,7 @@ export function getArgs(argv) {
 
 
 function printVersion() {
-  console.info(`Nue ${ version } • Bun ${ Bun.version }`)
+  console.log(`Nue ${ version } • Bun ${ Bun.version }`)
 }
 
 async function run(args) {
@@ -78,25 +86,28 @@ async function run(args) {
 
 
   // command
-  const { createSite } = await import('./site.js')
-  const { root, cmd, paths, is_prod } = args
-  const site = await createSite(root, args)
+  const { readAssets } = await import('./assets.js')
+  const { root, cmd, paths } = args
+  const { assets, ignore } = await readAssets(root)
+  args.ignore = ignore
 
   // not a nue directory
-  if (!site) return
+  if (!assets) return
 
   if (cmd == 'push') {
-    console.info('pushing', paths)
+    console.log('pushing', paths)
 
   } else if (cmd == 'create') {
     const [ app ] = paths
-    console.info('creating', app)
+    console.log('creating', app)
 
   } else if (cmd == 'build' || paths.length) {
-    await site.build()
+    const { build } = await import('./build.js')
+    await build(assets, args)
 
   } else if (cmd == 'serve' || !cmd) {
-    site.serve()
+    const { serve } = await import('./serve.js')
+    serve(assets, args)
   }
 
 }

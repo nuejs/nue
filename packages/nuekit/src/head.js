@@ -1,6 +1,6 @@
 
 import { elem } from 'nuemark'
-import { version } from './help.js'
+import { version } from './system'
 
 export function renderHead(data, assets, libs) {
   const { title, imports } = data

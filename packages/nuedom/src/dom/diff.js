@@ -20,7 +20,7 @@
      Brutally simple: just two Array.from() calls, no deep cloning or state tracking
 
   6. Raw JavaScript
-     Low-level control over output and performance
+     Low-level control over output (no extra transpilile step)
 */
 
 export function domdiff(prev, next) {

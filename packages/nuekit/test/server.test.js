@@ -1,20 +1,21 @@
-import { testDir, writeAll, removeAll } from './test-utils.js'
-import { createServer } from '../src/server.js'
+import { testDir, writeAll, removeAll } from './test-utils'
+import { createServer } from '../src/server'
 
 await writeAll([
   ['index.html', '<h1>Home</h1>'],
-  ['about.html', '<h1>About</h1>'],
   ['style.css',  'body { color: red; }'],
-  ['404.html', '<h1>Not Found</h1>']
 ])
 
 const server = createServer({
   port: 0,
   dist: testDir
-}, async ({ pathname }) => {
-  if (pathname == '/dynamic') return Bun.file(`${testDir}/index.html`)
-  if (pathname == '/missing') return Bun.file(`${testDir}/404.html`)
+
+}, async (pathname) => {
+  if (pathname == '/html') return { content: '<p>Hello</p>' }
+  if (pathname == '/css') return { content: 'body {}', type: 'text/css' }
+  if (pathname == '/custom-404') return { content: 'Not found', status: 404 }
   if (pathname == '/') return Bun.file(`${testDir}/index.html`)
+  if (pathname == '/not-found') return null
   return Bun.file(`${testDir}${pathname}`)
 })
 
@@ -30,16 +31,34 @@ test('static file', async () => {
 })
 
 
-test('index.html for directories', async () => {
+test('/', async () => {
   const res = await server.fetch(new Request('http://localhost/'))
   expect(res.status).toBe(200)
   expect(await res.text()).toBe('<h1>Home</h1>')
 })
 
-test('404 for missing files', async () => {
-  const res = await server.fetch(new Request('http://localhost/missing'))
+test('html response', async () => {
+  const res = await server.fetch(new Request('http://localhost/html'))
+  expect(await res.text()).toBe('<p>Hello</p>')
+  expect(res.headers.get('content-type')).toBe('text/html')
+})
+
+test('custom mime type', async () => {
+  const res = await server.fetch(new Request('http://localhost/css'))
+  expect(await res.text()).toBe('body {}')
+  expect(res.headers.get('content-type')).toBe('text/css')
+})
+
+test('custom 404 response', async () => {
+  const res = await server.fetch(new Request('http://localhost/custom-404'))
   expect(res.status).toBe(404)
-  expect(await res.text()).toBe('<h1>Not Found</h1>')
+  expect(await res.text()).toBe('Not found')
+})
+
+test('not found', async () => {
+  const res = await server.fetch(new Request('http://localhost/not-found'))
+  expect(res.status).toBe(404)
+  expect(await res.text()).toBe('404 | Not found')
 })
 
 test('worker requests', async () => {
@@ -60,20 +79,14 @@ test('worker requests', async () => {
   workerServer.stop()
 })
 
-test('SSE', async () => {
-  const res = await server.fetch(new Request('http://localhost/', {
-    headers: { accept: 'text/event-stream' }
-  }))
-
+test('HMR', async () => {
+  const res = await server.fetch(new Request('http://localhost/hmr'))
   expect(res.status).toBe(200)
   expect(res.headers.get('content-type')).toBe('text/event-stream')
 })
 
 test('broadcast', async () => {
-  const res = await server.fetch(new Request('http://localhost/', {
-    headers: { accept: 'text/event-stream' }
-  }))
-
+  const res = await server.fetch(new Request('http://localhost/hmr'))
   const reader = res.body.getReader()
 
   server.broadcast({ type: 'reload' })

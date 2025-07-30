@@ -1,5 +1,5 @@
-import { applyUsePatterns, listDependencies, filterByLib } from '../src/deps.js'
 
+import { applyUsePatterns, listDependencies, filterByLib } from '../src/deps'
 
 describe('lib[] filtering', () => {
 

@@ -1,8 +1,8 @@
 
-import { testDir, writeAll, removeAll } from './test-utils.js'
+import { testDir, writeAll, removeAll } from './test-utils'
 import { mkdir } from 'node:fs/promises'
 import { join } from 'node:path'
-import { fswalk } from '../src/fswalk.js'
+import { fswalk } from '../src/fswalk'
 
 
 beforeEach(async () => {
