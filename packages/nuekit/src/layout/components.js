@@ -28,7 +28,7 @@ export function renderNavi(data) {
       : ''
 }
 
-function toSymbol(svg, name='x', size=24) {
+function toSymbol(svg, name = 'x', size = 24) {
   const id = `${name}-symbol`
   const attr = { id, viewBox: `0 0 ${size} ${size}` }
   const body = svg.slice(svg.indexOf('>') + 1, -6)
@@ -104,8 +104,8 @@ export function renderPage(page) {
     ? time + elem('a', { href: url }, h2 + p)
     // figure
     : elem('a', { href: url }, elem('figure',
-        elem('img', { src: thumb, loading: 'lazy' }) + elem('figcaption', time + h2 + p)
-      )
+      elem('img', { src: thumb, loading: 'lazy' }) + elem('figcaption', time + h2 + p)
+    )
     )
 
   return elem('li', { class: isNew(date) && 'is-new' }, body)
