@@ -31,7 +31,6 @@ This generates a styled, interactive grid — say, a responsive bento-box layout
 
 Nue begins with content in its specialized Markdown dialect, delivering a semantic, accessible baseline. From there, it layers enhancements like interactive islands, and motion to create a robust user experience. Each step builds on the content-first foundation, using web standards to keep the process simple and maintainable.
 
-
 ### Layout modules
 
 Layout modules are clean, semantic HTML templates attached to specific "slots" in the page layout. A header module might slot in navigation, while a footer includes a `<join-list/>` custom tag for a mailing list submissions. Defined once and reused across pages, they structure Markdown content consistently without burdening creators with markup.
@@ -53,17 +52,11 @@ In content-heavy sites, JavaScript is optional, unlike in SPAs where it’s cent
 Motion enhances the experience through modern CSS, reducing reliance on JavaScript-heavy solutions common in frameworks. Scroll-linked effects via `[.progress]` or view transitions — enabled in `site.yaml` — add fluidity and engagement. These standards-based techniques progressively build on the content-first foundation with minimal overhead.
 
 
-You’re right — “unify” feels abrupt and doesn’t fully capture the intent. I’ll revise the *Multipage applications* section to clarify how Nue supports developing both content-focused apps (e.g., docs, blogs, products) and SPAs within the same cohesive environment, choosing the best development model for each task. Here’s the updated version: 
-
-
 ## Multipage applications
 
 Nue enables developers to build content-focused applications — like documentation, blogs, or product pages — alongside single-page applications (SPAs) within a single, cohesive development environment. Each type uses the right model for the job: Markdown-driven simplicity for content apps and logic-focused templates for SPAs. This flexibility ties everything together with a shared design system and seamless navigation.
 
 For example, a site might include a blog and docs as content-focused pages, authored in Markdown, and an SPA dashboard built with HTML templates. Nue’s routing manages transitions across both, enhanced by view transitions defined in CSS, like a smooth scale effect between pages. The shared design system ensures visual consistency, making the site feel integrated without forcing a one-size-fits-all approach.
-
-
-Fair point — limiting it to React devs narrows the scope unnecessarily. I’ll generalize it to reflect that the standards-first model might be new to developers from various backgrounds. Here’s the updated *Templates* section:
 
 
 ## Templates
