@@ -5,16 +5,18 @@ import { join } from 'node:path'
 import { elem, parseSize, renderInline, renderIcon } from 'nuemark'
 
 
-export function collectionToFeed(data) {
-  const key = data.collection_name || data.content_collection
+export function collectionToFeed(feed_file, data, collection_dir = null, items = null) {
+
+  const feed_dir = collection_dir || data.content_collection
+  const key = data.collection_name || feed_dir
 
   const title = data.title_template.replaceAll('%s', key)
-  const icon = `${data.origin}${data.favicon}`
+  const icon = `${data.origin}${data.favicon}` // todo
   const site = data.origin
 
-  const feed_file = 'feed.xml'
-  const feed_dir = data.content_collection
   const feed_url = `${data.origin}/${feed_dir}/${feed_file}`
+
+  const feed_items = items || data[key] || []
 
   const feed_content = [
     '<?xml version="1.0" encoding="UTF-8"?>',
@@ -30,14 +32,14 @@ export function collectionToFeed(data) {
         `<link href="${feed_url}" rel="self" type="application/atom+xml"/>`,
 
         // entries
-        ...(data[key] || []).map(({ url, date, title, description }) => {
+        ...feed_items.map(({ url, date, title, description }) => {
           const link = `${data.origin}${url}`
 
           return elem('entry', [
             elem('title', title),
             elem('id', link),
             `<link href="${link}"/>`,
-            elem('published', (date || new Date()).toISOString()),
+            elem('published', (new Date(date) || new Date()).toISOString()),
             elem('summary', { type: 'xhtml' }, renderInline(description)),
           ].join(''))
         })
@@ -46,6 +48,54 @@ export function collectionToFeed(data) {
   ].join('')
 
   return [feed_content, feed_dir, feed_file]
+}
+
+// Generate feeds for all `has_feed=true` collections and their subcategories
+export async function generateCollectionFeeds(data, site, write) {
+  const cdir = data.content_collection
+  if (!cdir) return
+
+  const feed_file = 'feed.xml'
+
+  const key = data.collection_name || cdir
+  const all_items = data[key] || []
+
+  // Group items by directory
+  const items_by_dir = {}
+  all_items.forEach(item => {
+    if (!items_by_dir[item.dir]) {
+      items_by_dir[item.dir] = []
+    }
+    items_by_dir[item.dir].push(item)
+  })
+
+  for (const [dir, items] of Object.entries(items_by_dir)) {
+    const dir_data = await site.getData(dir)
+
+    // Will be true if explicitly in the collections .yaml, or if
+    // the .yaml in a child directory of a "feedable" parent has
+    // no `has_feed` defined. Excluded when collection or child
+    // explicitly opt-out via `has_feed: false`.
+
+    if (dir_data.has_feed !== true) {
+      try {
+
+        // todo:
+        // Nue does not seem to wipe the build folder on new builds.
+        // This can cause leftover `feed.xml` files when the config
+        // in `.yaml` files changes. Hence, we cleanup ourselves.
+
+        const { promises: fs } = await import('node:fs')
+        await fs.unlink(join(site.dist, dir, feed_file))
+
+      } catch (e) {
+        // No file, all good.
+      }
+      continue
+    }
+
+    await write(...collectionToFeed(feed_file, { ...data, ...dir_data }, dir, items))
+  }
 }
 
 export function renderPageList(data) {
