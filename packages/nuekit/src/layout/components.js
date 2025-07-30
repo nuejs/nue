@@ -26,7 +26,6 @@ export function collectionToFeed(feed_file, data, collection_dir = null, items =
 
   const title = generateFeedTitle(data, key)
   const description = data.feed_description || ''
-  const icon = `${data.origin}${data.favicon}` // todo
   const site = data.origin
 
   const feed_url = `${data.origin}/${feed_dir}/${feed_file}`
@@ -45,6 +44,7 @@ export function collectionToFeed(feed_file, data, collection_dir = null, items =
         elem('updated', new Date().toISOString()),
         elem('generator', { uri: 'https://nuejs.org/', version: data.nuekit_version }, 'Nuekit'),
         `<link href="${feed_url}" rel="self" type="application/atom+xml"/>`,
+        data.favicon ? elem('icon', `${data.origin}${data.favicon}`) : '',
 
         // entries
         ...feed_items.map(({ url, date, title, description }) => {
