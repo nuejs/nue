@@ -54,7 +54,10 @@ export function collectionToFeed(feed_file, data, collection_dir = null, items =
             elem('id', link),
             elem('title', title),
             `<link href="${link}"/>`,
-            elem('published', (new Date(date) || new Date()).toISOString()),
+            elem('published', (() => {
+              const parsedDate = new Date(date)
+              return isNaN(parsedDate.getTime()) ? new Date().toISOString() : parsedDate.toISOString()
+            })()),
             data.author ? elem('author', [
               elem('name', data.author),
               data.author_mail ? elem('email', data.author_mail) : ''
