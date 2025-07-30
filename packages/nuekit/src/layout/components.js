@@ -38,7 +38,7 @@ export function collectionToFeed(feed_file, data, collection_dir = null, items =
       [
         // feed info
         elem('title', title),
-        elem('subtitle', description),
+        description ? elem('subtitle', description) : '',
         `<link href="${site}"/>`,
         elem('id', feed_url),
         elem('updated', new Date().toISOString()),
