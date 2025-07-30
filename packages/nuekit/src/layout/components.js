@@ -51,10 +51,14 @@ export function collectionToFeed(feed_file, data, collection_dir = null, items =
           const link = `${data.origin}${url}`
 
           return elem('entry', [
-            elem('title', title),
             elem('id', link),
+            elem('title', title),
             `<link href="${link}"/>`,
             elem('published', (new Date(date) || new Date()).toISOString()),
+            data.author ? elem('author', [
+              elem('name', data.author),
+              data.author_mail ? elem('email', data.author_mail) : ''
+            ].filter(Boolean).join('')) : '',
             elem('summary', { type: 'xhtml' }, renderInline(description)),
           ].join(''))
         })
