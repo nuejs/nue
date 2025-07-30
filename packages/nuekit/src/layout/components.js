@@ -25,6 +25,7 @@ export function collectionToFeed(feed_file, data, collection_dir = null, items =
   const key = data.collection_name || feed_dir
 
   const title = generateFeedTitle(data, key)
+  const description = data.feed_description || ''
   const icon = `${data.origin}${data.favicon}` // todo
   const site = data.origin
 
@@ -38,7 +39,7 @@ export function collectionToFeed(feed_file, data, collection_dir = null, items =
       [
         // feed info
         elem('title', title),
-        elem('description', ''),
+        elem('description', description),
         `<link href="${site}"/>`,
         elem('id', feed_url),
         elem('updated', new Date().toISOString()),

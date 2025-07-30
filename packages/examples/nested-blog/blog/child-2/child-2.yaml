@@ -2,3 +2,4 @@
 include: [ content, cards, motion ]
 has_feed: true
 feed_title: Something
+feed_description: foo
