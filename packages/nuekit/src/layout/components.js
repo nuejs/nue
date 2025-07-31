@@ -21,18 +21,14 @@ function generateFeedTitle(data, path) {
   return data.title_template.replaceAll('%s', formatted)
 }
 
-export function collectionToFeed(feed_file, data, collection_dir = null, items = null) {
+export function collectionToFeed(data) {
 
-  const feed_dir = collection_dir || data.content_collection
-  const key = data.collection_name || feed_dir
-
-  const title = generateFeedTitle(data, key)
-  const description = data.feed_description || ''
-  const site = data.origin
-
+  const feed_dir = data.dir
+  const feed_file = 'feed.xml'
+  const site_url = `${data.origin}/${feed_dir}/`
   const feed_url = `${data.origin}/${feed_dir}/${feed_file}`
 
-  const feed_items = items || data[key] || []
+  let title = generateFeedTitle(data, feed_dir)
 
   const feed_content = [
     '<?xml version="1.0" encoding="UTF-8"?>',
@@ -40,16 +36,15 @@ export function collectionToFeed(feed_file, data, collection_dir = null, items =
       [
         // feed info
         elem('title', title),
-        description ? elem('subtitle', description) : '',
-        `<link href="${site}"/>`,
+        `<link href="${site_url}" rel="alternate"/>`,
+        `<link href="${feed_url}" rel="self" type="application/atom+xml"/>`,
         elem('id', feed_url),
         elem('updated', new Date().toISOString()),
         elem('generator', { uri: 'https://nuejs.org/', version: data.nuekit_version }, 'Nuekit'),
-        `<link href="${feed_url}" rel="self" type="application/atom+xml"/>`,
         data.favicon ? elem('icon', `${data.origin}${data.favicon}`) : '',
 
         // entries
-        ...feed_items.map(({ url, date, title, description }) => {
+        ...data.items.map(({ url, date, title, description }) => {
           const link = `${data.origin}${url}`
 
           return elem('entry', [
@@ -72,54 +67,6 @@ export function collectionToFeed(feed_file, data, collection_dir = null, items =
   ].join('')
 
   return [feed_content, feed_dir, feed_file]
-}
-
-// Generate feeds for all `has_feed=true` collections and their subcategories
-export async function generateCollectionFeeds(data, site, write) {
-  const cdir = data.content_collection
-  if (!cdir) return
-
-  const feed_file = 'feed.xml'
-
-  const key = data.collection_name || cdir
-  const all_items = data[key] || []
-
-  // Group items by directory
-  const items_by_dir = {}
-  all_items.forEach(item => {
-    if (!items_by_dir[item.dir]) {
-      items_by_dir[item.dir] = []
-    }
-    items_by_dir[item.dir].push(item)
-  })
-
-  for (const [dir, items] of Object.entries(items_by_dir)) {
-    const dir_data = await site.getData(dir)
-
-    // Will be true if explicitly in the collections .yaml, or if
-    // the .yaml in a child directory of a "feedable" parent has
-    // no `has_feed` defined. Excluded when collection or child
-    // explicitly opt-out via `has_feed: false`.
-
-    if (dir_data.has_feed !== true) {
-      try {
-
-        // todo:
-        // Nue does not seem to wipe the build folder on new builds.
-        // This can cause leftover `feed.xml` files when the config
-        // in `.yaml` files changes. Hence, we cleanup ourselves.
-
-        const { promises: fs } = await import('node:fs')
-        await fs.unlink(join(site.dist, dir, feed_file))
-
-      } catch (e) {
-        // No file, all good.
-      }
-      continue
-    }
-
-    await write(...collectionToFeed(feed_file, { ...data, ...dir_data }, dir, items))
-  }
 }
 
 export function renderPageList(data) {
