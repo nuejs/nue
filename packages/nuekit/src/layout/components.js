@@ -5,47 +5,49 @@ import { join } from 'node:path'
 import { elem, parseSize, renderInline, renderIcon } from 'nuemark'
 
 
-function generateFeedTitle(data, path) {
+export function formatFeedTitle(template, title = '') {
 
-  // e.g. "blog/child-1" to "Blog → Child 1"
-  const formatted = path
-    .split(/[/_]/)
-    .map(part => part.replace(/[-+]/g, ' ').replace(/\b\w/g, c => c.toUpperCase()))
+  // Beautifies the given title:
+  // "blog/child-1" to "Blog → Child 1"
+  // "blog_posts" to "Blog Posts"
+
+  const formatted = title
+    .split(/[/]/)
+    .map(part => part.replace(/[-+_]/g, ' ').replace(/\b\w/g, c => c.toUpperCase()))
     .join(' → ')
 
   // unlikely, but what if
-  if(!data.title_template) {
+  if(!template) {
     return formatted
   }
 
-  return data.title_template.replaceAll('%s', formatted)
+  return template.replace('%s', formatted)
 }
 
 export function collectionToFeed(data) {
 
-  const feed_dir = data.dir
-  const feed_file = 'feed.xml'
-  const site_url = `${data.origin}/${feed_dir}/`
-  const feed_url = `${data.origin}/${feed_dir}/${feed_file}`
-
-  let title = generateFeedTitle(data, feed_dir)
-
-  const feed_content = [
+  return [
     '<?xml version="1.0" encoding="UTF-8"?>',
     elem('feed', { xmlns: 'http://www.w3.org/2005/Atom' },
       [
         // feed info
-        elem('title', title),
-        `<link href="${site_url}" rel="alternate"/>`,
-        `<link href="${feed_url}" rel="self" type="application/atom+xml"/>`,
-        elem('id', feed_url),
+        elem('title', formatFeedTitle(data.title_template, data.title)),
+        (data.author?.name || data.author?.mail) ? elem('author', [
+            data.author.name ? elem('name', data.author.name) : '',
+            data.author.mail ? elem('email', data.author.mail) : '',
+          ].filter(Boolean).join(''))
+          : '',
+        `<link href="${data.link_alternate}" rel="alternate"/>`,
+        `<link href="${data.link_self}" rel="self" type="application/atom+xml"/>`,
+        elem('id', data.link_self),
         elem('updated', new Date().toISOString()),
         elem('generator', { uri: 'https://nuejs.org/', version: data.nuekit_version }, 'Nuekit'),
-        data.favicon ? elem('icon', `${data.origin}${data.favicon}`) : '',
+        data.icon ? elem('icon', `${data.origin}/${data.icon}`) : '',
 
         // entries
-        ...data.items.map(({ url, date, title, description }) => {
+        ...data.items.map(({ url, date, title, description, author }) => {
           const link = `${data.origin}${url}`
+          const authorObj = (author = author || data.author || {})
 
           return elem('entry', [
             elem('id', link),
@@ -55,9 +57,9 @@ export function collectionToFeed(data) {
               const parsedDate = new Date(date)
               return isNaN(parsedDate.getTime()) ? new Date().toISOString() : parsedDate.toISOString()
             })()),
-            data.author ? elem('author', [
-              elem('name', data.author),
-              data.author_mail ? elem('email', data.author_mail) : ''
+            (authorObj.name || authorObj.mail) ? elem('author', [
+              authorObj.name ? elem('name', authorObj.name) : '',
+              authorObj.mail ? elem('email', authorObj.mail) : '',
             ].filter(Boolean).join('')) : '',
             elem('summary', { type: 'xhtml' }, renderInline(description)),
           ].join(''))
@@ -65,8 +67,6 @@ export function collectionToFeed(data) {
       ].join('\n')
     ),
   ].join('')
-
-  return [feed_content, feed_dir, feed_file]
 }
 
 export function renderPageList(data) {

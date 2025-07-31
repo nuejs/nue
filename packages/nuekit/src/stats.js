@@ -67,7 +67,7 @@ export function categorize(paths) {
     cat.push(path)
   }
 
-  return cats
+  return { cats, misc }
 }
 
 

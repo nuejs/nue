@@ -13,7 +13,7 @@ import { fswatch } from './nuefs.js'
 
 import { log, colors, getAppDir, parsePathParts, extendData, toPosix } from './util.js'
 import { renderPage, getSPALayout } from './layout/page.js'
-import { getLayoutComponents, collectionToFeed } from './layout/components.js'
+import { getLayoutComponents, collectionToFeed, formatFeedTitle } from './layout/components.js'
 
 
 // the HTML5 doctype (can/prefer lowercase for consistency)
@@ -110,8 +110,6 @@ export async function createKit(args) {
     if (cdir) {
       const key = data.collection_name || cdir
       data[key] = await site.getContentCollection(cdir)
-
-      await generateCollectionFeeds(data, site)
     }
 
     // scripts & styling
@@ -123,50 +121,6 @@ export async function createKit(args) {
     await setupStyles(asset_dir, data)
 
     return { ...data, ...parsePathParts(path), document }
-  }
-
-  // Generate feeds for all `has_feed: true` collections
-  // and their non-excluded subcategories.
-  async function generateCollectionFeeds(data, site) {
-
-    const key = data.collection_name || data.content_collection
-
-    // Group items by dir to later only
-    // need a single call to `getData`.
-
-    const items_by_dir = {}
-    data[key].forEach(item => {
-      (items_by_dir[item.dir] ||= []).push(item)
-    })
-
-    for (const [dir, items] of Object.entries(items_by_dir)) {
-
-      const dir_data = await site.getData(dir)
-
-      // Will be true if explicitly in the collections .yaml, or if
-      // the .yaml in a child directory of a "feedable" parent has
-      // no `has_feed` defined. Excluded when collection or child
-      // explicitly opt-out via `has_feed: false`.
-
-      if (dir_data.has_feed !== true) {
-        try {
-
-          // todo: do we need this or is it a Nue bug?
-          // Nue does not seem to wipe the build folder on new builds.
-          // This can cause leftover `feed.xml` files when the config
-          // in `.yaml` files changes. Hence, we cleanup ourselves.
-
-          const { promises: fs } = await import('node:fs')
-          await fs.unlink(join(site.dist, dir, 'feed.xml'))
-
-        } catch (e) {
-          // No file, all good.
-        }
-        continue
-      }
-
-      await write(...collectionToFeed({ dir, ...dir_data, items }))
-    }
   }
 
   // Markdown page
@@ -207,6 +161,97 @@ export async function createKit(args) {
     return DOCTYPE + spa.render(data, lib)
   }
 
+  // Generate feeds for all `has_feed: true` collections
+  // and their non-excluded subdirectories.
+  async function renderFeeds(pages, misc) {
+
+    const feedFile = 'feed.xml'
+
+    const getDir = p => p.slice(0, p.lastIndexOf('/'))
+
+    const siteData = await site.getData()
+
+    // sorted by depth to make sure we later can exclude
+    // based on child directories in `excludedDirs`.
+
+    const yamlFiles = misc
+      .filter(f => f.endsWith('.yaml'))
+      .sort((a, b) => b.split('/').length - a.split('/').length);
+
+    const excludedDirs = []
+
+    for (const yamlPath of yamlFiles) {
+
+      if (yamlPath === 'site.yaml') continue
+
+      const baseDir = getDir(yamlPath)
+
+      const yaml = {}
+      Object.assign(yaml, await site.getData(baseDir))
+
+      // Will be true if explicitly in the collections .yaml, or if
+      // the .yaml in a child directory of a "feedable" parent has
+      // no `has_feed` defined. Excluded when collection or child
+      // explicitly opt-out via `has_feed: false`.
+
+      if (!yaml.has_feed) {
+        excludedDirs.push(baseDir)
+
+        try {
+
+          // todo: do we need this or is it a Nue bug?
+          // Nue does not seem to wipe the build folder on new builds.
+          // This can cause leftover `feed.xml` files when the config
+          // in `.yaml` files changes. Hence, we cleanup ourselves.
+
+          const { promises: fs } = await import('node:fs')
+          await fs.unlink(join(site.dist, baseDir, 'feed.xml'))
+
+        } catch (e) {
+          // No file, all good.
+        }
+
+        continue
+      }
+
+      const feedObj = {
+        nuekit_version: yaml.nuekit_version,
+        title_template: siteData.title_template,
+        origin: siteData.origin,
+        title: yaml.collection_name || baseDir,
+        subtitle: yaml.description,
+        icon: siteData.favicon,
+        author: typeof yaml.author == 'object' && yaml.author
+          ? yaml.author
+          : { name: yaml.author, mail: undefined },
+
+        link_self: `${siteData.origin}/${baseDir}/${feedFile}`,
+        link_alternate: (() => {
+          const pagesSet = new Set(pages)
+
+          // find out whether the parent directory is an actual
+          // page or simply a URL structure kinda thingy. If we
+          // find an index.md, it's a page. Otherwise, we walk
+          // up until the next actual linkable page.
+
+          let dir = baseDir
+          while (!pagesSet.has(`${dir}/index.md`)) {
+            const idx = dir.lastIndexOf('/')
+            if (idx < 0) break // no more parents
+            dir = dir.slice(0, idx)
+          }
+
+          return `${siteData.origin}/${dir}/`
+        })(),
+        items: (await site.getContentCollection(baseDir)).filter(item =>
+          // we don't vibe items from a `has_feed: false` dir
+          !excludedDirs.some(ex => item.dir == ex)
+        ),
+      }
+
+      await write(collectionToFeed(feedObj), baseDir, feedFile)
+    }
+  }
 
   async function processScript(file) {
     const { base, path } = file
@@ -340,7 +385,7 @@ export async function createKit(args) {
     }
 
     // categories
-    const cats = categorize(paths)
+    const {cats, misc} = categorize(paths)
 
     // build
     for (const key in cats) {
@@ -355,6 +400,8 @@ export async function createKit(args) {
         }
       }
     }
+
+    if (!dryrun) await renderFeeds(cats.pages, misc)
 
     // stats
     if (args.stats) await stats(args)
