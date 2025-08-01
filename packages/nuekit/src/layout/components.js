@@ -3,6 +3,7 @@ import { readFileSync, readdirSync } from 'node:fs'
 import { join } from 'node:path'
 
 import { elem, parseSize, renderInline, renderIcon } from 'nuemark'
+import { toPosix } from '../util.js'
 
 
 export function formatFeedTitle(template, title = '') {
@@ -11,8 +12,8 @@ export function formatFeedTitle(template, title = '') {
   // "blog/child-1" to "Blog → Child 1"
   // "blog_posts" to "Blog Posts"
 
-  const formatted = title
-    .split(/[/]/)
+  const formatted = toPosix(title)
+    .split('/')
     .map(part => part.replace(/[-+_]/g, ' ').replace(/\b\w/g, c => c.toUpperCase()))
     .join(' → ')
 

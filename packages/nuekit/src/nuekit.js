@@ -167,7 +167,10 @@ export async function createKit(args) {
 
     const feedFile = 'feed.xml'
 
-    const getDir = p => p.slice(0, p.lastIndexOf('/'))
+    const getDir = p => {
+      const posixPath = toPosix(p)
+      return posixPath.slice(0, posixPath.lastIndexOf('/'))
+    }
 
     const siteData = await site.getData()
 
@@ -176,7 +179,7 @@ export async function createKit(args) {
 
     const yamlFiles = misc
       .filter(f => f.endsWith('.yaml'))
-      .sort((a, b) => b.split('/').length - a.split('/').length);
+      .sort((a, b) => toPosix(b).split('/').length - toPosix(a).split('/').length);
 
     const excludedDirs = []
 
