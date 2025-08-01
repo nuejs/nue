@@ -32,7 +32,7 @@ export function collectionToFeed(data) {
       [
         // feed info
         elem('title', formatFeedTitle(data.title_template, data.title)),
-        elem('subtitle', data.subtitle),
+        data.subtitle ? elem('subtitle', data.subtitle) : '',
         (data.author?.name || data.author?.mail) ? elem('author', [
             data.author.name ? elem('name', data.author.name) : '',
             data.author.mail ? elem('email', data.author.mail) : '',
