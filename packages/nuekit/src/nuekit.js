@@ -239,16 +239,17 @@ export async function createKit(args) {
 
           let dir = baseDir
           while (!pagesSet.has(`${dir}/index.md`)) {
-            const idx = dir.lastIndexOf('/')
+            const posixDir = toPosix(dir)
+            const idx = posixDir.lastIndexOf('/')
             if (idx < 0) break // no more parents
-            dir = dir.slice(0, idx)
+            dir = posixDir.slice(0, idx)
           }
 
           return `${siteData.origin}/${dir}/`
         })(),
         items: (await site.getContentCollection(baseDir)).filter(item =>
           // we don't vibe items from a `has_feed: false` dir
-          !excludedDirs.some(ex => item.dir == ex)
+          !excludedDirs.some(ex => toPosix(item.dir) == ex)
         ),
       }
 
