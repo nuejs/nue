@@ -114,6 +114,23 @@ const TAGS = {
     return elem('video', attr, this.innerHTML)
   },
 
+  object() {
+    const { attr, data } = this
+    const { href, loading = 'lazy' } = data
+    const src = data.data || data._
+
+    const obj_attr = { ...parseSize(data), type: getMimeType(src), data: src, loading }
+
+    let tag = elem('object', obj_attr, this.innerHTML)
+
+    // wrap object inside a link
+    if (href) tag = elem('a', { href }, tag)
+
+    // always wrapped inside a figure
+    return elem('figure', attr, tag)
+  },
+
+
 
   // shortcut
   '!': function() {
@@ -188,6 +205,7 @@ const MIME = {
   mov: 'video/mov',
   webm: 'video/webm',
   mp4: 'video/mp4',
+  html: 'text/html'
 }
 
 function getMimeType(path = '') {

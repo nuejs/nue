@@ -5,11 +5,12 @@ coverage
 dist
 _test
 test_dir
+playground
+performance.js
 
 .DS_Store
 .idea
 .vscode
 
-performance.js
 *.tar.gz
 .env

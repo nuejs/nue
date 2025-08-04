@@ -246,6 +246,16 @@ test('picture', () => {
   expect(html).toEndWith('</a><figcaption>Hello</figcaption></figure>')
 })
 
+test('[object] tag', () => {
+  const html = renderLines(['[object table.html]', '  [! foo.png]'])
+  expect(html).toInclude('<object type="text/html" data="table.html" loading="lazy">')
+  expect(html).toInclude('<img loading="lazy" src="foo.png">')
+})
+
+test('[object] tag data', () => {
+  const html = renderLines(['[object]', '  data: meow.svg', '  loading: eager'])
+  expect(html).toStartWith('<figure><object type="image/svg+xml" data="meow.svg" loading="eager">')
+})
 
 test('[video] tag', () => {
   const html = renderLines(['[video /meow.mp4 autoplay]', '  ### Hey'])

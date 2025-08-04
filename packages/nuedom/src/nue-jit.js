@@ -9,5 +9,5 @@ export function mount(template, opts={}) {
   opts.deps = [...els.slice(1), ...(opts.deps || [])]
   const node = createNode(els[0], opts)
   node.mount(opts.root)
-  return node.update
+  return node
 }
