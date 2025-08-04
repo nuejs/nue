@@ -253,8 +253,10 @@ test('[object] tag', () => {
 })
 
 test('[object] tag data', () => {
-  const html = renderLines(['[object]', '  data: meow.svg', '  loading: eager'])
-  expect(html).toStartWith('<figure><object type="image/svg+xml" data="meow.svg" loading="eager">')
+  const html = renderLines(['[object.foo /visuals/table]', '  loading: eager'])
+  expect(html).toStartWith(
+    '<figure class="foo"><object type="text/html" data="/visuals/table" loading="eager">'
+  )
 })
 
 test('[video] tag', () => {

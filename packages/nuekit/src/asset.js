@@ -58,6 +58,12 @@ export function createAsset(file, files) {
     return doctype == 'dhtml'
   }
 
+  async function isPage() {
+    if (!file.is_html) return false
+    const { doctype } = await document()
+    return doctype == 'html'
+  }
+
   async function isSPA() {
     return file.base == 'index.html' && await isDHTML()
   }
@@ -103,7 +109,11 @@ export function createAsset(file, files) {
     return TYPES[await toExt()]
   }
 
-  return { ...file, data, assets, document, flush, isDHTML, isSPA, components, render, ext, contentType }
+  return {
+    ...file, data, assets, document, flush, components,
+    render, isDHTML, isSPA, isPage, toExt, contentType,
+  }
+
 }
 
 

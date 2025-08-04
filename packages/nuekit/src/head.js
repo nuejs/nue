@@ -11,10 +11,16 @@ export function renderHead(data, assets, libs) {
   // meta
   head.push(...renderMeta(data, libs))
 
-  // scripts and styles
+  // styles
   head.push(...renderStyles(assets))
-  head.push(...renderScripts(assets))
-  head.push(importMap(imports))
+
+  // scripts
+  const scripts = renderScripts(assets)
+
+  if (scripts.length || libs.length) {
+    head.push(...scripts)
+    head.push(importMap(imports))
+  }
 
   return head
 }

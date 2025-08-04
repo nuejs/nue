@@ -49,7 +49,12 @@ export function serve(assets, opts) {
 
     if (asset) {
       const content = await asset.render() || await asset.text()
-      if (asset.is_html) asset.is_dhtml = await asset.isDHTML()
+
+      if (asset.is_html) {
+        asset.is_html_page = await asset.isPage()
+        asset.is_dhtml = await asset.isDHTML()
+        asset.is_spa = await asset.isSPA()
+      }
 
       sessions.forEach(session => {
         session.broadcast({ ...asset, content })

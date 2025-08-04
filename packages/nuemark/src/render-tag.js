@@ -1,6 +1,6 @@
 
+import { join, extname } from 'node:path'
 import { readFileSync } from 'node:fs'
-import { join } from 'node:path'
 
 import { sectionize } from './parse-document.js'
 import { elem, renderBlocks } from './render-blocks.js'
@@ -209,8 +209,8 @@ const MIME = {
 }
 
 function getMimeType(path = '') {
-  const type = path.slice(path.lastIndexOf('.') + 1)
-  return MIME[type] || `image/${type}`
+  const type = extname(path).slice(1)
+  return type ? MIME[type] || `image/${type}` : 'text/html'
 }
 
 export function createPicture(img_attr, data) {

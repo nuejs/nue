@@ -7,18 +7,18 @@ const server = new EventSource(
 let reload_count = 0
 
 /*
-{
-  dir: '',
-  base: 'index.md',
-  ext: '.md',
-  name: 'index',
-  path: 'index.md',
-  type: 'md',
-  url: '/',
-  is_md: true,
-  rootpath: 'index.md',
-  content: '...'
-}
+  {
+    dir: '',
+    base: 'index.md',
+    ext: '.md',
+    name: 'index',
+    path: 'index.md',
+    type: 'md',
+    url: '/',
+    is_md: true,
+    rootpath: 'index.md',
+    content: '...'
+  }
 */
 
 server.onmessage = async function(e) {
@@ -28,8 +28,9 @@ server.onmessage = async function(e) {
     : asset.is_dhtml ? await reloadComponents(asset)
     : asset.is_md ? await reloadContent(asset)
     : asset.is_css ? reloadCSS(asset)
-    : asset.is_svg ? reloadSVG(asset)
-    : asset.is_html ? location.reload()
+    : asset.is_svg || asset.is_html_page ? reloadVisual(asset)
+
+    : asset.is_html ? location.reload() // server layout
     : asset.is_yaml ? location.reload()
     : null
 }
@@ -57,7 +58,7 @@ async function reloadContent(asset) {
 }
 
 
-function reloadSVG(asset) {
+function reloadVisual(asset) {
   const { url } = asset
 
   function reload(el, attr) {
