@@ -71,7 +71,11 @@ export async function renderSVG(asset, minify) {
 
   // style
   const css = is_external ? importCSS(assets) : await inlineCSS(assets, minify)
-  ast.children.unshift({ tag: 'style', children: [{ text: minify ? minifyCSS(css) : css }] })
+
+  if (css) {
+    if (!ast.children) ast.children = []
+    ast.children.unshift({ tag: 'style', children: [{ text: minify ? minifyCSS(css) : css }] })
+  }
 
   return renderNue(ast, { data, deps })
 }
@@ -146,7 +150,7 @@ function importCSS(assets) {
 async function getLibs(assets) {
   const paths = []
   for (const asset of assets) {
-    if (await asset.isDHTML()) paths.push(`/${asset.dir}/${asset.name}.html.js`)
+    if (await asset.isDHTML()) paths.push(`/${asset.dir}/${asset.name}.html.js`.replace('//', '/'))
   }
   return paths
 }

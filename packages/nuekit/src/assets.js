@@ -34,10 +34,19 @@ export async function readAssets(root) {
     if (i >= 0) files.splice(i, 1)
   }
 
-  assets.update = function(path) {
-    const asset = assets.get(path)
-    if (asset) {
-      asset.flush()
+  assets.update = async function(path) {
+    let asset = assets.get(path)
+
+    // update existing
+    if (asset) { asset.flush(); return asset }
+
+    // add new one
+    const file = await createFile(root, path)
+
+    if (file) {
+      files.push(file)
+      asset = createAsset(file, files)
+      assets.push(asset)
       return asset
     }
   }

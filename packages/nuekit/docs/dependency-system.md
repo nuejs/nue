@@ -14,8 +14,8 @@ lib: ["@system", "./view", "./components"]
 **Default behavior**: If no `lib` is specified, Nue defaults to:
 
 - `@system` - Your system directory
-- `./view` - Local HTML templates and layouts
-- `./components` - Local component files
+- `./layout` - Local HTML templates and layouts
+- `./ui` - Local component files
 
 
 ## Use declarations

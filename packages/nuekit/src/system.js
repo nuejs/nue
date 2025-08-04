@@ -38,8 +38,11 @@ export function getSystemFiles(is_prod) {
     file.url = `/@nue/${file.base}`
 
     file.render = async function() {
-      if (!file.content) file.content = await compileJS(file.rootpath, is_prod, file.bundle)
-      return file.content
+      if (is_prod || file.bundle) {
+        return await compileJS(file.rootpath, is_prod, file.bundle)
+      }
+      // if (!file.content) file.content =
+      // return file.content
     }
 
     file.contentType = async function() {

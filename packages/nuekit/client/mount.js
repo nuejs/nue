@@ -14,8 +14,8 @@ export async function mountAll(_paths) {
     const comp = deps.find(a => [a.is, a.tag].includes(name))
 
     if (comp) {
-      mount(comp, { root, data, deps })
-      root.setAttribute('custom', name)
+      const node = mount(comp, { root, data, deps })
+      node.root.setAttribute('custom', name)
     }
   }
 }
@@ -25,8 +25,7 @@ export function getImportPaths() {
   return el ? el.getAttribute('content').split(' ') : []
 }
 
-async function importComponents(paths) {
-  if (!paths) paths = getImportPaths()
+async function importComponents(paths=getImportPaths()) {
   const comps = []
 
   for (let path of paths) {

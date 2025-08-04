@@ -1,7 +1,7 @@
 
 import { extname, join } from 'node:path'
+import { createServer, sessions } from './server'
 import { getSystemFiles } from './system.js'
-import { createServer } from './server'
 import { fswatch } from './fswatch'
 
 
@@ -9,7 +9,7 @@ const sysfiles = getSystemFiles()
 
 export function findAssetByURL(url, assets=[]) {
   return [...sysfiles, ...assets].find(asset =>
-    asset.url == (url.endsWith('.html.js') ? url.slice(0, -3) : url)
+    asset.url == (url.endsWith('.html.js') ? url.slice(0, -8) : url)
   )
 }
 
@@ -21,7 +21,7 @@ export async function onServe(url, assets) {
   if (asset) {
     const result = await asset.render()
     return !result ? Bun.file(asset.rootpath) :
-      { content: result?.html || result, type: await asset.contentType() }
+      { content: result.html || result.js || result, type: await asset.contentType() }
   }
 
   // custom error page
@@ -48,8 +48,12 @@ export function serve(assets, opts) {
     const asset = await assets.update(path)
 
     if (asset) {
-      const content = await renderFile(asset)
-      server.broadcast({ ...asset, content })
+      const content = await asset.render() || await asset.text()
+      if (asset.is_html) asset.is_dhtml = await asset.isDHTML()
+
+      sessions.forEach(session => {
+        session.broadcast({ ...asset, content })
+      })
     }
   }
 

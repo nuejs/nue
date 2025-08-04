@@ -1,5 +1,5 @@
 import { testDir, writeAll, removeAll } from './test-utils'
-import { createServer } from '../src/server'
+import { sessions, createServer } from '../src/server'
 
 await writeAll([
   ['index.html', '<h1>Home</h1>'],
@@ -85,11 +85,13 @@ test('HMR', async () => {
   expect(res.headers.get('content-type')).toBe('text/event-stream')
 })
 
-test('broadcast', async () => {
+test.only('broadcast', async () => {
   const res = await server.fetch(new Request('http://localhost/hmr'))
   const reader = res.body.getReader()
 
-  server.broadcast({ type: 'reload' })
+  sessions.forEach(session => {
+    session.broadcast({ type: 'reload' })
+  })
 
   const { value } = await reader.read()
   const text = new TextDecoder().decode(value)

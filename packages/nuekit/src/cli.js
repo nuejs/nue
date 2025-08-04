@@ -82,7 +82,8 @@ async function run(args) {
   if (args.help) return printHelp()
 
   // version
-  if (args.version) return printVersion()
+  printVersion()
+  if (args.version) return
 
 
   // command

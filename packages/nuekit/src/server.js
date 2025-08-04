@@ -1,5 +1,5 @@
 
-let sessions = []
+export const sessions = []
 
 export function createServer({ port=3000, worker }, callback) {
 
@@ -13,7 +13,7 @@ export function createServer({ port=3000, worker }, callback) {
     }
 
     // hot reloading
-    if (pathname == '/hmr') return handleHMR()
+    if (pathname == '/hmr') return handleHMR(req)
 
 
     // regular file serving
@@ -42,26 +42,33 @@ export function createServer({ port=3000, worker }, callback) {
     }
   }
 
-  const server = Bun.serve({ idleTimeout: 0, port, fetch })
-
-  server.broadcast = function(data) {
-    const message = `data:${JSON.stringify(data)}\n\n`
-    sessions = sessions.filter((session, i) => {
-      try {
-        session.enqueue(new TextEncoder().encode(message))
-        return true
-      } catch(e) {
-        return false
-      }
-    })
-  }
-
-  return server
+  return Bun.serve({ idleTimeout: 0, port, fetch })
 }
 
-function handleHMR() {
+
+
+function handleHMR(req) {
+  const url = new URL(req.url)
+  const params = url.searchParams
+
   const stream = new ReadableStream({
-    start(session) { sessions.unshift(session) }
+    start(session) {
+
+      session.location = params.get('url')
+
+      session.broadcast = function(data) {
+        try {
+          const message = `data:${JSON.stringify(data)}\n\n`
+          session.enqueue(new TextEncoder().encode(message))
+
+        } catch(e) {
+          const i = sessions.indexOf(session)
+          sessions.splice(i, 1) // cleanup
+        }
+      }
+
+      sessions.push(session)
+    }
   })
 
   return new Response(stream, {

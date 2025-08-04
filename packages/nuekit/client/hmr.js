@@ -1,6 +1,10 @@
 
-const server = new EventSource(location.origin + '/hmr')
-const hmr_count = 0
+//
+const server = new EventSource(
+  location.origin + '/hmr?url=' + encodeURIComponent(location.pathname)
+)
+
+let reload_count = 0
 
 /*
 {
@@ -21,9 +25,11 @@ server.onmessage = async function(e) {
   const asset = JSON.parse(e.data)
 
   return asset.error ? await handleError(asset)
-    : asset.is_html ? await reloadComponents(asset)
+    : asset.is_dhtml ? await reloadComponents(asset)
     : asset.is_md ? await reloadContent(asset)
     : asset.is_css ? reloadCSS(asset)
+    : asset.is_html ? location.reload()
+    : asset.is_yaml ? location.reload()
     : null
 }
 
@@ -36,6 +42,7 @@ async function handleError(asset) {
 
 async function reloadContent(asset) {
   const { url } = asset
+
   if (url != location.pathname) return location.href = url
 
   // domdiff
@@ -62,11 +69,15 @@ async function reloadComponents(asset) {
   const { getImportPaths, mountAll } = await import('./mount.js')
   const state = saveState()
 
-  const paths = getImportPaths().map(path => {
-    return asset.path == path ? `${path}?${reload_count++}` : path
+
+  const paths = getImportPaths().map(url => {
+    return asset.url + '.html.js' == url  ? `${url}?${reload_count++}` : url
   })
 
+  console.info('FUX', paths)
+
   await mountAll(paths)
+
 
   restoreState(state)
 }
@@ -87,10 +98,10 @@ function saveState() {
   const el = $('[popover]')
   const popover = el?.checkVisibility() && el.id
   const dialog = $('dialog[open]')?.id
-  return { formdate, popover, dialog }
+  return { formdata, popover, dialog }
 }
 
-function restoreState({ formdate, popover, dialog }) {
+function restoreState({ formdata, popover, dialog }) {
   formdata.forEach((data, i) => deserialize(document.forms[i], data))
 
   // re-open popover
