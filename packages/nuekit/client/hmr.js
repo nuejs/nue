@@ -28,6 +28,7 @@ server.onmessage = async function(e) {
     : asset.is_dhtml ? await reloadComponents(asset)
     : asset.is_md ? await reloadContent(asset)
     : asset.is_css ? reloadCSS(asset)
+    : asset.is_svg ? reloadSVG(asset)
     : asset.is_html ? location.reload()
     : asset.is_yaml ? location.reload()
     : null
@@ -55,6 +56,17 @@ async function reloadContent(asset) {
   await mountAll()
 }
 
+
+function reloadSVG(asset) {
+  const { url } = asset
+
+  function reload(el, attr) {
+    if (el) el[attr] = `${url}?${reload_count++}`
+  }
+
+  reload($(`object[data*='${url}']`), 'data')
+  reload($(`img[src*='${url}']`), 'src')
+}
 
 function reloadCSS(asset) {
   const { path } = asset

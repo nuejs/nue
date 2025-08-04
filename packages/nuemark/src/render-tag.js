@@ -232,8 +232,8 @@ function getListItems(arr) {
 
 export function parseSize(data) {
   const { size = '' } = data
-  const [w, h] = size.trim().split(/\s*\D\s*/)
-  return { width: w || data.width, height: h || data.height }
+  const [w, h] = ('' + size).trim().split(/\s*\D\s*/)
+  return { width: w || data.width, height: h || data.height || w }
 }
 
 
