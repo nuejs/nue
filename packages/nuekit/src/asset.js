@@ -3,10 +3,11 @@ import { normalize, sep, join } from 'node:path'
 import { parseNue } from 'nuedom'
 import { nuedoc } from 'nuemark'
 
+import { parseYAML } from './tools/yaml'
+import { minifyCSS } from './tools/css'
+
 import { renderMD, renderSVG, renderHTML } from './html'
 import { listDependencies } from './deps'
-import { parseYAML } from './yaml'
-import { minifyCSS } from './css'
 
 
 // only processed file types

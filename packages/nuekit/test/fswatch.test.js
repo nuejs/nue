@@ -1,11 +1,12 @@
 import { test, expect } from 'bun:test'
 import { promises as fs } from 'node:fs'
 import { join } from 'node:path'
+
 import {
   createDeduplicator,
   isEditorBackup,
   fswatch,
-} from '../src/fswatch.js'
+} from '../src/tools/fswatch.js'
 
 // Helper function to wait for expected array length
 async function waitForEvents(array, expectedCount, maxWait = 1000) {

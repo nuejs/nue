@@ -2,7 +2,7 @@
 import { parse } from 'node:path'
 import { renderScripts, renderHead, inlineCSS } from './head'
 import { renderNue, compileNue } from 'nuedom'
-import { minifyCSS } from './css'
+import { minifyCSS } from './tools/css'
 
 
 export async function renderMD(asset, is_prod) {

@@ -1,5 +1,6 @@
+
 import { testDir, writeAll, removeAll } from './test-utils'
-import { sessions, createServer } from '../src/server'
+import { sessions, createServer } from '../src/tools/server'
 
 await writeAll([
   ['index.html', '<h1>Home</h1>'],

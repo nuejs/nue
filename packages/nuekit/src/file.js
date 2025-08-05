@@ -1,7 +1,8 @@
 
 import { parse, sep, join } from 'node:path'
 import { lstat } from 'node:fs/promises'
-import { fswalk } from './fswalk'
+
+import { fswalk } from './tools/fswalk'
 
 export async function createFile(root, path) {
   try {

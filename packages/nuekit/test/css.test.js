@@ -1,5 +1,5 @@
 
-import { tokenize, parseCSS, minifyCSS } from '../src/css'
+import { tokenize, parseCSS, minifyCSS } from '../src/tools/css'
 
 describe('tokenizer', () => {
   test('comments', () => {
