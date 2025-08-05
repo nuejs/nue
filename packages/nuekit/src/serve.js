@@ -48,7 +48,7 @@ export function serve(assets, opts) {
     const asset = await assets.update(path)
 
     if (asset) {
-      const content = await asset.render() || await asset.text()
+      asset.content = await asset.render() || await asset.text()
 
       if (asset.is_html) {
         asset.is_html_page = await asset.isPage()
@@ -56,9 +56,7 @@ export function serve(assets, opts) {
         asset.is_spa = await asset.isSPA()
       }
 
-      sessions.forEach(session => {
-        session.broadcast({ ...asset, content })
-      })
+      sessions.forEach(session => session.broadcast(asset))
     }
   }
 

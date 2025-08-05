@@ -1,3 +1,3 @@
 
 tests:
-	cd test && bun test server
+	cd test && bun test

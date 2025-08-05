@@ -10,15 +10,22 @@ test('renderScripts', () => {
   expect(bar).toInclude('/blog/bar.js')
 })
 
-test('renderStyles', () => {
-  const [ foo, bar ] = renderStyles([
-    { ext: '.css', path: 'foo.css' },
-    { ext: '.css', path: 'bar.css' }
-  ])
+test.only('renderStyles', async () => {
+  const files = [
+    { is_css: true, path: 'b/style.css', async text() { return '' } },
+    { is_css: true, path: 'base.css', base: 'base.css', async text() { return '' } },
+    { is_css: true, path: 'a/style.css', async text() { return 'body {}' } },
+  ]
 
-  expect(foo).toBe('<link rel="stylesheet" href="/foo.css">')
-  expect(bar).toInclude('href="/bar.css"')
+  // sort base first
+  const css = await renderStyles(files)
+  expect(css[0]).toBe('<link rel="stylesheet" href="/base.css">')
+  expect(css[1]).toContain('a/style.css')
+  expect(css[2]).toContain('b/style.css')
 
+  // inline css
+  const style = await renderStyles(files, { is_prod: true, design: { inline_css: true }})
+  expect(style).toBe('<style>body {}</style>')
 })
 
 test('renderMeta', async () => {
@@ -44,7 +51,7 @@ test('renderHead', async () => {
     imports: { d3: 'd3.js' }
   }
 
-  const head = renderHead(data, [
+  const head = await renderHead(data, [
     { ext: '.css', path: 'foo.css' },
     { ext: '.js', dir: 'blog', name: 'bar' },
   ])

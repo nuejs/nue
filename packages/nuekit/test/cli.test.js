@@ -7,13 +7,12 @@ test('expandArgs', () => {
 
 test('getArgs', () => {
   const args = getArgs([
-    'build', '--silent', '--port', '2000', '--production', '-ni', '--', 'index.md', '.css'
+    'build', '--silent', '--port', '2000', '-ni', '--', 'index.md', '.css'
   ])
 
   expect(args).toMatchObject({
     cmd: 'build',
     paths: [ 'index.md', '.css' ],
-    is_prod: true,
     silent: true,
     dryrun: true,
     init: true,

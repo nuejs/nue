@@ -23,7 +23,10 @@ export function createAsset(file, files) {
   let cachedObj = null
 
   async function data() {
-    return await readData(file.dir, files)
+    return {
+      ...await readGlobalData(files),
+      ...await readAppData(file.dir, files)
+    }
   }
 
   // private
@@ -87,14 +90,14 @@ export function createAsset(file, files) {
     return ret
   }
 
-  async function render(minify) {
+  async function render(is_prod) {
     const asset = createAsset(file, files)
 
-    return file.is_js && minify || file.is_ts ? compileJS(file.rootpath, minify)
-      : file.is_svg && (await data()).process_svg ? renderSVG(asset, minify)
-      : file.is_css && minify ? minifyCSS(await file.text())
-      : file.is_md ? await renderMD(asset, minify)
-      : file.is_html ? await renderHTML(asset)
+    return file.is_js && is_prod || file.is_ts ? compileJS(file.rootpath, is_prod)
+      : file.is_svg && (await data()).process_svg ? renderSVG(asset, is_prod)
+      : file.is_css && is_prod ? minifyCSS(await file.text())
+      : file.is_html ? await renderHTML(asset, is_prod)
+      : file.is_md ? await renderMD(asset, is_prod)
       : null
   }
 
@@ -123,7 +126,17 @@ export function parseDirs(dir) {
   return els.map((el, i) => els.slice(0, i + 1).join('/'))
 }
 
-export async function readData(dir, files) {
+export async function readGlobalData(files) {
+  const data = {}
+  for (const file of files) {
+    if (file.is_yaml && file.dir == '@system/data') {
+      Object.assign(data, parseYAML(await file.text()))
+    }
+  }
+  return data
+}
+
+export async function readAppData(dir, files) {
   const dirs = ['', ...parseDirs(dir)]
   const ret = {}
   const use = []

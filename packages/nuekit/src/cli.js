@@ -43,7 +43,6 @@ export function getArgs(argv) {
       else if (['-r', '--root'].includes(arg)) opt = 'root'
 
       // serve options
-      else if (['--production'].includes(arg)) args.is_prod = true
       else if (['-p', '--port'].includes(arg)) opt = 'port'
 
       // build options

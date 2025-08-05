@@ -85,13 +85,11 @@ test('HMR', async () => {
   expect(res.headers.get('content-type')).toBe('text/event-stream')
 })
 
-test.only('broadcast', async () => {
+test('broadcast', async () => {
   const res = await server.fetch(new Request('http://localhost/hmr'))
   const reader = res.body.getReader()
 
-  sessions.forEach(session => {
-    session.broadcast({ type: 'reload' })
-  })
+  sessions.forEach(session => session.broadcast({ type: 'reload' }))
 
   const { value } = await reader.read()
   const text = new TextDecoder().decode(value)

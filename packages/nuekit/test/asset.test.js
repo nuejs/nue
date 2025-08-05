@@ -1,7 +1,7 @@
 
 import { join, parse } from 'node:path'
 
-import { readData, parseDirs, createAsset } from '../src/asset'
+import { readGlobalData, readAppData, parseDirs, createAsset } from '../src/asset'
 import { testDir, write, writeAll, removeAll } from './test-utils'
 import { createFile, toURL } from '../src/file'
 
@@ -19,14 +19,23 @@ test('toURL', () => {
   expect(toURL(parse('site.yaml'))).toBe('/site.yaml')
 })
 
-test('readData', async () => {
+test('readGlobalData', async () => {
+  const files = [
+    { is_yaml: true, dir: '@system/data', async text() { return 'foo: 1' } },
+    { is_yaml: true, dir: '@system/data', async text() { return 'bar: 1' } },
+    { dir: '@system/data', async text() { return 'baz: 1' } },
+  ]
+  expect(await readGlobalData(files)).toEqual({ foo: 1, bar: 1 })
+})
+
+test('readAppData', async () => {
   const files = [
     { path: 'site.yaml', async text() { return 'site: true' } },
     { path: 'blog/app.yaml', async text() { return 'app: true' } },
     { path: 'docs/app.yaml', async text() { return 'docs: true' } },
   ]
 
-  const data = await readData('blog/entry/index.md', files)
+  const data = await readAppData('blog/entry/index.md', files)
   expect(data).toEqual({ site: true, app: true, use: [] })
 })
 
@@ -36,7 +45,7 @@ test('use array', async () => {
     { path: 'blog/app.yaml', async text() { return 'use: [bar]' } },
   ]
 
-  const data = await readData('blog/entry/index.md', files)
+  const data = await readAppData('blog/entry/index.md', files)
   expect(data.use).toEqual([ "foo", "bar" ])
 })
 

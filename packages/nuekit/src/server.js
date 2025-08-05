@@ -20,12 +20,11 @@ export function createServer({ port=3000, worker }, callback) {
     try {
       const res = await callback(pathname)
 
-      // Bun.file
-      if (res?.stream) {
-        return new Response(res, { status: 200 })
+      // res = Bun.file
+      if (res?.stream) return new Response(res, { status: 200 })
 
-      // Object: { content, type, status }
-      } else if (res) {
+      // res = { content, type, status } || HTML <string>
+      if (res) {
         return new Response(res.content || res, {
           headers: { 'Content-Type': res.type || 'text/html' },
           status: res.status || 200

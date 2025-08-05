@@ -1,17 +1,16 @@
 
 import { parse } from 'node:path'
-import { renderScripts, renderHead } from './head'
+import { renderScripts, renderHead, inlineCSS } from './head'
 import { renderNue, compileNue } from 'nuedom'
 import { minifyCSS } from './css'
 
 
 export async function renderMD(asset, is_prod) {
   const doc = await asset.document()
-  const data = { ...await asset.data(), ...doc.meta }
+  const data = { ...await asset.data(), ...doc.meta, is_prod }
   const comps = await asset.components()
   const assets = await asset.assets()
   const libs = await getLibs(assets)
-  const attr = getAttr(data)
 
   if (libs.length) assets.push(parse('@nue/mount.js'))
   if (!is_prod) assets.push(parse('@nue/hmr.js'))
@@ -35,12 +34,14 @@ export async function renderMD(asset, is_prod) {
     </main>
   `
 
+  const attr = getAttr(data)
+
   return trim(`
     <!doctype html>
 
     <html lang="${attr.language}"${attr.dir}>
       <head>
-        ${ renderHead(data, assets, libs).join('\n\t') }
+        ${ (await renderHead(data, assets, libs)).join('\n\t') }
         ${ slot('head') }
       </head>
 
@@ -80,14 +81,14 @@ export async function renderSVG(asset, minify) {
   return renderNue(ast, { data, deps })
 }
 
-export async function renderHTML(asset) {
+export async function renderHTML(asset, is_prod) {
   const document = await asset.document()
   const { doctype, elements } = document
   const assets = await asset.assets()
   const main = elements[0]
 
   const opts = {
-    data: await asset.data(),
+    data: { ...await asset.data(), is_prod },
     deps: await asset.components(),
     libs: await getLibs(assets),
     assets,
@@ -96,7 +97,7 @@ export async function renderHTML(asset) {
   if (doctype == 'dhtml') {
     const is_index = asset.base == 'index.html'
     const js = compileNue(document)
-    const html = is_index ? renderSPA(main, opts) : null
+    const html = is_index ? await renderSPA(main, opts) : null
     return { is_spa: true, js, html }
   }
 
@@ -104,18 +105,19 @@ export async function renderHTML(asset) {
 }
 
 // interactive element (embedded with <object> tag)
-export function renderElement(element, { data, assets, deps, libs }) {
+export async function renderElement(element, { data, assets, deps, libs }) {
   return trim(`
     <!doctype html>
 
     <head>
-      ${ renderHead(data, assets, libs).join('\n\t') }
+      ${ (await renderHead(data, assets, libs)).join('\n\t') }
     </head>
+
     ${ renderNue(element, { data, deps }) }
   `)
 }
 
-export function renderSPA(spa, { data, assets, deps, libs }) {
+export async function renderSPA(spa, { data, assets, deps, libs }) {
   const customHead = deps.find(el => el.tag == 'head')
   const attr = getAttr(data)
 
@@ -124,7 +126,7 @@ export function renderSPA(spa, { data, assets, deps, libs }) {
 
     <html lang="${attr.language}"${attr.dir}>
       <head>
-        ${ renderHead(data, assets, libs).join('\n') }
+        ${ (await renderHead(data, assets, libs)).join('\n') }
         ${ customHead ? renderNue(customHead, { data, deps })  : '' }
       </head>
 
@@ -136,12 +138,6 @@ export function renderSPA(spa, { data, assets, deps, libs }) {
 
 
 /***** Helper functions *****/
-
-async function inlineCSS(assets, minify) {
-  const css_files = assets.filter(el => el.is_css)
-  const css = await Promise.all(css_files.map(file => file.text()))
-  return css.join('\n')
-}
 
 function importCSS(assets) {
   return assets.filter(el => el.is_css).map(el => `@import url("/${el.path}");`).join('\n')

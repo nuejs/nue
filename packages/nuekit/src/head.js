@@ -2,7 +2,7 @@
 import { elem } from 'nuemark'
 import { version } from './system'
 
-export function renderHead(data, assets, libs) {
+export async function renderHead(data, assets, libs) {
   const { title, imports } = data
   const head = []
 
@@ -12,7 +12,7 @@ export function renderHead(data, assets, libs) {
   head.push(...renderMeta(data, libs))
 
   // styles
-  head.push(...renderStyles(assets))
+  head.push(...await renderStyles(assets, data))
 
   // scripts
   const scripts = renderScripts(assets)
@@ -53,15 +53,35 @@ export function renderMeta(data, libs) {
   }).filter(el => !!el)
 }
 
+
 export function renderScripts(assets) {
   return assets.filter(file => ['.js', '.ts'].includes(file.ext))
     .map(file => elem('script', { src: `/${file.dir}/${file.name}.js`, type: 'module' }))
 }
 
-export function renderStyles(assets) {
-  return assets.filter(file => file.ext == '.css')
-    .map(file => elem('link', { rel: 'stylesheet', href: `/${file.path}` }))
+export async function renderStyles(assets, opts={}) {
+  const { base='base.css', inline_css } = opts?.design || {}
+  const css = assets.filter(file => file.is_css)
+
+  css.sort((a, b) => {
+    if (a.base == base) return -1
+    if (b.base == base) return 1
+    return a.path.localeCompare(b.path)
+  })
+
+  if (opts.is_prod && inline_css) {
+    return elem('style', await inlineCSS(css, true))
+  }
+
+  return css.map(file => elem('link', { rel: 'stylesheet', href: `/${file.path}` }))
 }
+
+export async function inlineCSS(assets, minify) {
+  const css_files = assets.filter(el => el.is_css)
+  const css = await Promise.all(css_files.map(file => file.text()))
+  return css.join('\n').trim()
+}
+
 
 function importMap(map) {
   const imports = { nue: '/@nue/nue.js', ...map }
