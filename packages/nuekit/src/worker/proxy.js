@@ -3,7 +3,7 @@ export function createProxy(opts) {
 
   return async function(req) {
     const url = new URL(req.url)
-    const match = opts.routes.some(path => url.pathname.startsWith(path))
+    const match = opts.routes?.some(path => url.pathname.startsWith(path))
     if (!match) return null
 
     const { method, headers } = req

@@ -1,7 +1,7 @@
 
 export const sessions = []
 
-export function createServer({ port=3000, worker }, callback) {
+export function createServer({ port=4000, worker }, callback) {
 
   async function fetch(req) {
     const { pathname } = new URL(req.url)
@@ -30,12 +30,12 @@ export function createServer({ port=3000, worker }, callback) {
 
       } else {
         console.error('Not found', pathname)
-        return new Response('404 | Not found', { status: 404 })
+        return new Response('404 Not Found', { status: 404 })
       }
 
     } catch (e) {
       console.error(e)
-      return new Response('500 | Server error', { status: 500 })
+      return new Response('500 Server Error', { status: 500 })
     }
   }
 

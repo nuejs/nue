@@ -59,7 +59,7 @@ test('custom 404 response', async () => {
 test('not found', async () => {
   const res = await server.fetch(new Request('http://localhost/not-found'))
   expect(res.status).toBe(404)
-  expect(await res.text()).toBe('404 | Not found')
+  expect(await res.text()).toBe('404 Not Found')
 })
 
 test('worker requests', async () => {
