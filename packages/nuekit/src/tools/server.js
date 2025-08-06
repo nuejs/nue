@@ -7,10 +7,8 @@ export function createServer({ port=3000, worker }, callback) {
     const { pathname } = new URL(req.url)
 
     // worker request
-    if (worker) {
-      const result = await worker(req)
-      if (result) return result
-    }
+    const result = worker && await worker(req)
+    if (result) return result
 
     // hot reloading
     if (pathname == '/hmr') return handleHMR(req)
@@ -43,7 +41,6 @@ export function createServer({ port=3000, worker }, callback) {
 
   return Bun.serve({ idleTimeout: 0, port, fetch })
 }
-
 
 
 function handleHMR(req) {

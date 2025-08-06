@@ -21,5 +21,8 @@
     "collectCoverageFrom": [
       "<rootDir>/packages/*/src/**"
     ]
+  },
+  "dependencies": {
+    "hono": "^4.8.12"
   }
 }

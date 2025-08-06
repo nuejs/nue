@@ -11,7 +11,6 @@ export function createDB() {
       const createMethods = (boundParams = []) => ({
         first: async (...params) => stmt.get(...boundParams, ...params),
         all: async (...params) => stmt.all(...boundParams, ...params),
-        raw: async (...params) => stmt.raw(...boundParams, ...params),
         run: async (...params) => stmt.run(...boundParams, ...params),
         bind: (...params) => createMethods([...boundParams, ...params])
       })

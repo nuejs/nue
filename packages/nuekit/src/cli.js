@@ -106,7 +106,7 @@ async function run(args) {
 
   } else if (cmd == 'serve' || !cmd) {
     const { serve } = await import('./serve.js')
-    serve(assets, args)
+    await serve(assets, args)
   }
 
 }

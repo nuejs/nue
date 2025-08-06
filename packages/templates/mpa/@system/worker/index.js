@@ -5,7 +5,6 @@ import { createCRM } from './model/crm.js'
 
 const server = new Hono()
 
-
 server.get('/api', async (c) => {
   const { version } = c.env
   return c.json({ version })

@@ -5,7 +5,7 @@ import { createServer, sessions } from './tools/server'
 import { fswatch } from './tools/fswatch'
 
 import { getSystemFiles } from './system.js'
-
+import { getWorker } from './worker'
 
 const sysfiles = getSystemFiles()
 
@@ -38,11 +38,13 @@ export async function onServe(url, assets) {
 }
 
 
-// OPTS: { root, port, worker, ignore }
-export function serve(assets, opts) {
-  const { root, port, ignore, silent } = opts
+export async function serve(assets, args) {
+  const { root, port, ignore, silent } = args
+  const opts = await assets.get('site.yaml')?.data()
 
-  const server = createServer(opts, url => onServe(url, assets))
+  const worker = await getWorker(opts?.worker)
+
+  const server = createServer({ port, worker }, url => onServe(url, assets))
 
   const watcher = fswatch(root, { ignore })
 
