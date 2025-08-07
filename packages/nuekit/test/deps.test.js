@@ -13,8 +13,8 @@ const paths = [
   '@system/design/components.css',
   '@system/data/authors.yaml',
   '@system/layout/page.html',
-  '@system/controller/utils.js',
   '@system/ui/button.html',
+  '@system/ui/keyboard.js',
 
   // app (4)
   'app/index.html',

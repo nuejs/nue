@@ -121,6 +121,10 @@ export async function renderSPA(spa, { data, assets, deps, libs }) {
   const customHead = deps.find(el => el.tag == 'head')
   const attr = getAttr(data)
 
+  // mounting & HMR
+  if (libs.length) assets.push(parse('@nue/mount.js'))
+  if (!data.is_prod) assets.push(parse('@nue/hmr.js'))
+
   return trim(`
     <!doctype html>
 
@@ -130,7 +134,7 @@ export async function renderSPA(spa, { data, assets, deps, libs }) {
         ${ customHead ? renderNue(customHead, { data, deps })  : '' }
       </head>
 
-      <body :is="${ spa?.is }"></body>
+      <body custom="${ spa?.is || spa.tag }"></body>
 
     </html>
   `)

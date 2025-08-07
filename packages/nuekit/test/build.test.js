@@ -18,12 +18,13 @@ test('stats', () => {
   expect(lines).toEqual([ "JavaScript files: 2", "CSS files: 1" ])
 })
 
-describe('build', async () => {
+
+describe('MPA build', async () => {
 
   beforeEach(async () => {
     await writeAll([
       ['site.yaml', { ignore: '[functions]', port: 6666 }],
-      ['@system/controller/keyboard.ts', 'export const foo = 100'],
+      ['@system/ui/keyboard.ts', 'export const foo = 100'],
       ['@system/design/base.css', '/* CSS */'],
       ['index.md', '# Hello'],
       ['404.md', '# 404'],
@@ -42,7 +43,6 @@ describe('build', async () => {
 
   afterEach(async () => await removeAll())
 
-
   test('buildAsset', async () => {
     const { assets } = await readAssets(testDir)
     const home = assets.get('index.md')
@@ -60,7 +60,7 @@ describe('build', async () => {
     expect(assets.length).toBe(7)
 
     // typescript conversion / minify
-    const js = await results.read('@system/controller/keyboard.js')
+    const js = await results.read('@system/ui/keyboard.js')
     expect(js).toInclude('var o=100;export{o as foo};')
 
     // front page render
@@ -68,11 +68,43 @@ describe('build', async () => {
     expect(home).toInclude('<!doctype html>')
   })
 
+
   test('build filtering', async () => {
     const consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {})
     const { assets } = await readAssets(testDir)
     const subset = await build(assets, { dryrun: true, paths: ['.md', '.css'] })
     expect(subset.length).toBe(5)
+  })
+
+})
+
+describe.only('SPA build', async () => {
+
+  beforeEach(async () => {
+    await writeAll([
+      ['index.html', '<!doctype dhtml><app/>'],
+      ['@system/design/base.css', '/* CSS */'],
+    ])
+  })
+
+  afterEach(async () => await removeAll())
+
+  test('build SPA', async () => {
+    const { assets } = await readAssets(testDir)
+    await buildAll(assets, { root: testDir })
+    const results = await fileset(join(testDir, '.dist'))
+    expect(results.length).toBe(8)
+
+    // html page
+    const html = await results.read('index.html')
+    expect(html).toInclude('<body custom="app"></body>')
+    expect(html).toInclude('/@nue/mount.js')
+    expect(html).toInclude('/@system/design/base.css')
+
+    // reactive parts
+    const js = await results.read('index.html.js')
+    expect(js).toInclude('export const lib')
+
   })
 
 })

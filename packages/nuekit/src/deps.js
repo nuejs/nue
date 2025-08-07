@@ -2,7 +2,7 @@
 import { join, normalize, dirname, extname, basename, sep } from 'node:path'
 
 const ASSETS = ['.html', '.js', '.ts', '.yaml', '.css']
-const SYSTEM_DIRS = ['design', 'data', 'layout', 'controller', 'ui'].map(dir => join('@system', dir))
+const SYSTEM_DIRS = ['design', 'data', 'layout', 'ui'].map(dir => join('@system', dir))
 
 
 export function listDependencies(basepath, { paths, exclude=[], strict }) {
@@ -15,7 +15,9 @@ export function listDependencies(basepath, { paths, exclude=[], strict }) {
 
   // strict design system
   if (strict) {
-    deps = deps.filter(path => extname(path) != '.css' || path.startsWith(SYSTEM_DIRS[0]))
+    deps = deps.filter(path => extname(path) != '.css' ||
+      path.startsWith(join('@system', 'design'))
+    )
   }
 
   // Exclusions
