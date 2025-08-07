@@ -8,7 +8,7 @@ export function nuemark(content, opts) {
   return renderLines(content.split(EOL), opts)
 }
 
-export function nuedoc(content) {
+export function parseNuemark(content) {
   return parseDocument(content.split(EOL))
 }
 

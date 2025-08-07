@@ -92,7 +92,7 @@ test('SPA', async () => {
   const asset = assets.get('app/index.html')
   const { is_spa, html, js } = await renderHTML(asset)
   expect(is_spa).toBeTrue()
-  expect(html).toInclude('<body :is="app"></body>')
+  expect(html).toInclude('<body custom="app"></body>')
   expect(js).toInclude("export const lib = [ { tag: 'body'")
 })
 

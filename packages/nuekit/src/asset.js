@@ -1,12 +1,13 @@
 
 // import { normalize, sep, join } from 'node:path'
 import { parseNue } from 'nuedom'
-import { nuedoc } from 'nuemark'
+import { parseNuemark } from 'nuemark'
 
 import { parseYAML } from './tools/yaml'
 import { minifyCSS } from './tools/css'
 
 import { renderMD, renderSVG, renderHTML } from './html'
+import { getCollections } from './collections'
 import { listDependencies } from './deps'
 
 export function createAsset(file, files=[]) {
@@ -28,6 +29,12 @@ export function createAsset(file, files=[]) {
     return toAssets(deps)
   }
 
+  async function collections(opts) {
+    if (!opts) return
+    const paths = files.filter(f => f.is_md).map(f => f.path)
+    return await getCollections(toAssets(paths), opts)
+  }
+
   async function data() {
     const yaml = getDeps().filter(f => f.is_yaml)
     const data = {}
@@ -35,6 +42,9 @@ export function createAsset(file, files=[]) {
     for (const file of yaml) {
       Object.assign(data, parseYAML(await file.text()))
     }
+
+    // content collections
+    Object.assign(data, await collections(data.collections))
 
     return data
   }
@@ -47,7 +57,7 @@ export function createAsset(file, files=[]) {
   async function document() {
     if (!cachedDoc) {
       const str = await file.text()
-      cachedDoc = file.is_md ? nuedoc(str) : parseNue(str)
+      cachedDoc = file.is_md ? parseNuemark(str) : parseNue(str)
     }
     return cachedDoc
   }
