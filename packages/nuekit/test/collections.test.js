@@ -69,7 +69,7 @@ test('sorting', async () => {
 
 test('rendering', async () => {
   const tmpl = '<pagefoot><p :each="page of pages">${ page.title }</p></pagefoot>'
-  const conf = 'collections:\n  pages:\n    match: [ **/*.md ]'
+  const conf = 'collections:\n  pages:\n    match: [ ** ]'
 
   const files = [
     { is_md: true, path: 'blog/index.md', async text() { return '# Hello' } },

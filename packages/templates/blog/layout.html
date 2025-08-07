@@ -1,0 +1,7 @@
+
+<table :is="pagefoot">
+  <tr :each="el in entries">
+    <td>${ el.date }</td>
+    <td><a href="${ el.file.url }">${ el.title }</a></td>
+  </tr>
+</table>

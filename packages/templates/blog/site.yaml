@@ -1,0 +1,4 @@
+
+collections:
+  entries:
+    match: [ posts/*.md ]

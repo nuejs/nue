@@ -12,7 +12,7 @@ async function importServer({ dir, reload }) {
     const server = await import(join(process.cwd(), path))
     return server.default
   } catch (err) {
-    if (err.code === 'MODULE_NOT_FOUND') return null
+    if (err.code == 'ERR_MODULE_NOT_FOUND') return null
     throw err
   }
 }

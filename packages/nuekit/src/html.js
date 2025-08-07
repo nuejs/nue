@@ -17,6 +17,7 @@ export async function renderMD(asset, is_prod) {
 
   function slot(name) {
     const comp = comps.find(el => [el.is, el.tag].includes(name))
+    if (comp?.is_custom) { delete comp.is_custom; comp.tag = 'div' }
     return comp ? renderNue(comp, { data, deps: comps }) : ''
   }
 

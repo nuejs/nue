@@ -1,3 +1,3 @@
 
 tests:
-	cd test && bun test colle
+	cd test && bun test
