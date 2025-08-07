@@ -1,5 +1,5 @@
 
-import { normalize, sep, join } from 'node:path'
+// import { normalize, sep, join } from 'node:path'
 import { parseNue } from 'nuedom'
 import { nuedoc } from 'nuemark'
 
@@ -9,57 +9,47 @@ import { minifyCSS } from './tools/css'
 import { renderMD, renderSVG, renderHTML } from './html'
 import { listDependencies } from './deps'
 
-
-// only processed file types
-const TYPES = {
-  '.html.js': 'application/javascript',
-  '.js': 'application/javascript',
-  '.svg': 'image/svg+xml',
-  '.html': 'text/html',
-  '.css': 'text/css',
-}
-
-export function createAsset(file, files) {
-  const { path, ext } = file
-  let cachedObj = null
-
-  async function data() {
-    return {
-      ...await readGlobalData(files),
-      ...await readAppData(file.dir, files)
-    }
-  }
-
-  // private
-  async function linkedPaths() {
-    const { lib, use, use_local_css } = await data()
-    const paths = files.map(el => el.path)
-    return listDependencies(path, { paths, lib, use, use_local_css })
-  }
-
-  async function assets() {
-    const paths = await linkedPaths()
-    const linkedFiles = paths.map(path => files.find(file => file.path == path))
-    return linkedFiles.map(file => createAsset(file, files))
-  }
+export function createAsset(file, files=[]) {
+  let cachedDoc = null
 
   function flush() {
-    cachedObj = null
+    cachedDoc = null
     file.flush()
   }
 
-  async function document() {
-    if (!cachedObj) {
-      const str = await file.text()
-      cachedObj = file.is_md ? nuedoc(str) : parseNue(str)
-    }
-    return cachedObj
+  function toAssets(paths) {
+    const arr = paths.map(path => files.find(file => file.path == path))
+    return arr.map(file => createAsset(file, files))
   }
 
-  async function isDHTML() {
-    if (!file.is_html) return false
-    const { doctype } = await document()
-    return doctype == 'dhtml'
+  function getDeps(exclude, strict) {
+    const paths = files.map(f => f.path)
+    const deps = listDependencies(file.path, { paths, exclude, strict })
+    return toAssets(deps)
+  }
+
+  async function data() {
+    const yaml = getDeps().filter(f => f.is_yaml)
+    const data = {}
+
+    for (const file of yaml) {
+      Object.assign(data, parseYAML(await file.text()))
+    }
+
+    return data
+  }
+
+  async function assets() {
+    const { exclude, design } = await data()
+    return getDeps(exclude, design?.strict)
+  }
+
+  async function document() {
+    if (!cachedDoc) {
+      const str = await file.text()
+      cachedDoc = file.is_md ? nuedoc(str) : parseNue(str)
+    }
+    return cachedDoc
   }
 
   async function isPage() {
@@ -68,8 +58,33 @@ export function createAsset(file, files) {
     return doctype == 'html'
   }
 
+  async function isDHTML() {
+    if (!file.is_html) return false
+    const { doctype } = await document()
+    return doctype == 'dhtml'
+  }
+
   async function isSPA() {
     return file.base == 'index.html' && await isDHTML()
+  }
+
+  async function toExt() {
+    return await isDHTML() ? '.html.js'
+      : file.is_md ? '.html'
+      : file.is_ts ? '.js'
+      : file.ext
+  }
+
+  async function contentType() {
+    const types = {
+      '.html.js': 'application/javascript',
+      '.js': 'application/javascript',
+      '.svg': 'image/svg+xml',
+      '.html': 'text/html',
+      '.css': 'text/css',
+    }
+
+    return types[await toExt()]
   }
 
   async function components() {
@@ -80,12 +95,13 @@ export function createAsset(file, files) {
     for (const asset of arr.filter(el => el.is_html)) {
       const { doctype, elements } = await asset.document()
       const reactive = await asset.isDHTML()
+      const comps = asset.path == file.path ? elements.slice(1) : elements
 
-      // client components
-      if (dhtml && reactive) ret.push(...elements)
+      // client components (reactive)
+      if (dhtml && reactive) ret.push(...comps)
 
-      // server components
-      if (!dhtml && !reactive) ret.push(...elements)
+      // server components (layout modules)
+      if (!dhtml && !reactive) ret.push(...comps)
     }
 
     return ret
@@ -102,57 +118,10 @@ export function createAsset(file, files) {
       : null
   }
 
-  async function toExt() {
-    return await isDHTML() ? '.html.js'
-      : file.is_md ? '.html'
-      : file.is_ts ? '.js'
-      : file.ext
-  }
-
-  async function contentType() {
-    return TYPES[await toExt()]
-  }
-
   return {
-    ...file, data, assets, document, flush, components,
-    render, isDHTML, isSPA, isPage, toExt, contentType,
+    ...file, flush, data, assets, document, components,
+    isDHTML, isSPA, isPage, toExt, contentType, render
   }
-
-}
-
-
-// parseDirs('a/b/c') --> ['a', 'a/b', 'a/b/c']
-export function parseDirs(dir) {
-  const els = normalize(dir).split(sep)
-  return els.map((el, i) => els.slice(0, i + 1).join('/'))
-}
-
-export async function readGlobalData(files) {
-  const data = {}
-  for (const file of files) {
-    if (file.is_yaml && file.dir == '@system/data') {
-      Object.assign(data, parseYAML(await file.text()))
-    }
-  }
-  return data
-}
-
-export async function readAppData(dir, files) {
-  const dirs = ['', ...parseDirs(dir)]
-  const ret = {}
-  const use = []
-
-  for (const cwd of dirs) {
-    const path = join(cwd, cwd ? 'app.yaml' : 'site.yaml')
-    const file = files.find(el => el.path == path)
-    if (file) {
-      const data = parseYAML(await file.text())
-      if (Array.isArray(data.use)) use.push(...data.use)
-      Object.assign(ret, data)
-    }
-  }
-
-  return { ...ret, use }
 }
 
 
@@ -167,6 +136,4 @@ export async function compileJS(path, minify, bundle) {
   const [ js ] = result.outputs
   return await js.text()
 }
-
-
 

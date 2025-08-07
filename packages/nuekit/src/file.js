@@ -2,8 +2,6 @@
 import { parse, sep, join } from 'node:path'
 import { lstat } from 'node:fs/promises'
 
-import { fswalk } from './tools/fswalk'
-
 export async function createFile(root, path) {
   try {
     const rootpath = join(root, path)
@@ -60,9 +58,9 @@ export function getFileInfo(path) {
 }
 
 export function toURL(file) {
-  let { name, ext, dir } = file
+  let { name, base, ext, dir } = file
   if (name == 'index') name = ''
-  if (['.html', '.md'].includes(ext)) ext = ''
+  if (ext == '.md' || base == 'index.html') ext = ''
   if (ext == '.ts') ext = '.js'
   const els = dir.split(sep)
   els.push(name + ext)
@@ -70,14 +68,3 @@ export function toURL(file) {
   return `/${ els.join('/') }`.replace('//', '/')
 }
 
-// for debugging / testing
-export async function fileset(dir) {
-  const paths = await fswalk(dir)
-  const files = await Promise.all(paths.map(path => createFile(dir, path)))
-
-  files.read = async function(path) {
-    const file = files.find(el => el.path == path)
-    return await file?.text()
-  }
-  return files
-}

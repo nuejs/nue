@@ -1,260 +1,100 @@
 
-import { applyUsePatterns, listDependencies, filterByLib } from '../src/deps'
+import { test, expect } from 'bun:test'
+import { listDependencies, parseDirs } from '../src/deps'
 
-describe('lib[] filtering', () => {
+const paths = [
 
-  const paths = [
-    '@system/design/button.css',
-    '@system/components/nav.html',
-    'blog/view/layout.html',
-    'blog/components/header.html',
-    'home/view/index.html',
-    'docs/components/sidebar.js',
-    'random/file.css',
-    'blog/nested/components/footer.html'
-  ]
+  // root (2)
+  'site.yaml',
+  'globals.js',
 
-  test('@system paths', () => {
-    expect(filterByLib('blog/post.md', ['@system'], paths)).toEqual([
-      '@system/design/button.css',
-      '@system/components/nav.html'
-    ])
-  })
+  // system (6)
+  '@system/design/base.css',
+  '@system/design/components.css',
+  '@system/data/authors.yaml',
+  '@system/layout/page.html',
+  '@system/controller/utils.js',
+  '@system/ui/button.html',
 
-  test('relative paths', () => {
-    expect(filterByLib('blog/post.md', ['./view'], paths)).toEqual([
-      'blog/view/layout.html'
-    ])
-  })
+  // app (4)
+  'app/index.html',
+  'app/main.js',
+  'app/ui/header.html',
+  'app/views/login.html',
 
-  test('multiple libs', () => {
-    expect(filterByLib('blog/post.md', ['@system', './view'], paths)).toEqual([
-      '@system/design/button.css',
-      '@system/components/nav.html',
-      'blog/view/layout.html'
-    ])
-  })
+  // blog (4)
+  'blog/index.md',
+  'blog/layout.html',
+  'blog/entry/index.md',
+  'blog/entry/content.html',
 
-  test('relative paths from different contexts', () => {
-    expect(filterByLib('docs/article.md', ['./components'], paths)).toEqual([
-      'docs/components/sidebar.js'
-    ])
-  })
+  // marketing (2)
+  'marketing/table.html',
+  'marketing/chart.js'
+]
 
-  test('root level context', () => {
-    expect(filterByLib('index.md', ['./home/view'], paths)).toEqual([
-      'home/view/index.html'
-    ])
-  })
-
-  test('returns empty array when no matches', () => {
-    expect(filterByLib('blog/post.md', ['./missing'], paths)).toEqual([])
-  })
-
-
-  test('filters all libs together', () => {
-    expect(filterByLib('blog/post.md', ['@system', './view', './components'], paths)).toEqual([
-      '@system/design/button.css',
-      '@system/components/nav.html',
-      'blog/view/layout.html',
-      'blog/components/header.html'
-    ])
-  })
+test('SPA deps', () => {
+  const deps = listDependencies('app/index.html', { paths })
+  expect(deps.length).toBe(2 + 6 + 4) // root + system + app (no self)
+  expect(deps).toContain('site.yaml')
+  expect(deps).toContain('globals.js')
 })
 
-describe('use[] filtering', () => {
-  const paths = [
-    '@system/design/button.css',
-    '@system/design/core.css',
-    '@system/modules/syntax.css',
-    '@system/modules/form.css',
-
-    '@system/components/nav.html',
-
-    'blog/view/layout.html',
-    'blog/view/article.html',
-    'blog/components/header.html',
-    'blog/components/form.js'
-  ]
-
-  test('exact file pattern', () => {
-    expect(applyUsePatterns('blog/post.md', { use: ['syntax.css'], paths })).toEqual([
-      '@system/modules/syntax.css'
-    ])
-  })
-
-  test('partial file pattern', () => {
-    expect(applyUsePatterns('index.md', { use: ['syntax'], paths })).toEqual([
-      '@system/modules/syntax.css'
-    ])
-  })
-
-  test('wildcard patterns', () => {
-    expect(applyUsePatterns('about.md', { use: ['design/*.css'], paths })).toEqual([
-      '@system/design/button.css',
-      '@system/design/core.css'
-    ])
-  })
-
-  test('relative patterns', () => {
-    expect(applyUsePatterns('blog/post.md', { use: ['./view/*'], paths })).toEqual([
-      'blog/view/layout.html',
-      'blog/view/article.html'
-    ])
-  })
-
-  test('exclusion patterns', () => {
-    expect(applyUsePatterns('blog/post.md', { use: ['design/*.css', '!syntax.c*s'], paths })).toEqual([
-      '@system/design/button.css',
-      '@system/design/core.css'
-    ])
-  })
-
-  test('patterns in order with overrides', () => {
-    const use = [ 'design/*.css', 'syntax.css', '!button' ]
-
-    expect(applyUsePatterns('blog/post.md', { use, paths })).toEqual([
-      '@system/design/core.css',
-      '@system/modules/syntax.css'
-    ])
-  })
-
-  test('removes duplicates', () => {
-    expect(applyUsePatterns('blog/post.md', { use: ['core.css', 'design/core.css', 'core' ], paths })).toEqual([
-      '@system/design/core.css'
-    ])
-  })
-
-  test('returns empty array for no matches', () => {
-    expect(applyUsePatterns('blog/post.md', { use: ['missing/*.css'], paths })).toEqual([])
-  })
-
-  test('root level relative patterns', () => {
-    expect(applyUsePatterns('index.md', { use: ['./home/view/*'], paths })).toEqual([])
-  })
-
-  test('relative exclusions', () => {
-    expect(applyUsePatterns('blog/post.md', { use: ['form', '!form.css'], paths })).toEqual([
-      'blog/components/form.js',
-    ])
-  })
-
-  test('custom lib', () => {
-    expect(applyUsePatterns('blog/post.md', { use: ['design/*.css'], paths, lib: [] })).toEqual([])
-  })
-
-  test('handles patterns with relative lib context', () => {
-    const paths = [
-      '@system/design/button.css',
-      'blog/view/layout.html',
-      'blog/view/article.html',
-      'blog/components/header.html'
-    ]
-
-    // This should work - pattern should resolve through the relative lib paths
-    const result = applyUsePatterns('blog/post.md', { use: ['./view/*.html'], paths })
-
-    expect(result).toEqual([
-      'blog/view/layout.html',
-      'blog/view/article.html'
-    ])
-  })
-
-  test('main function: listDependencies', () => {
-    const arr = listDependencies('blog/entry.js', { use: ['syntax'], paths })
-    expect(arr).toEqual([ '@system/modules/syntax.css' ])
-  })
-
+test('MPA deps', () => {
+  const deps = listDependencies('blog/entry/index.md', { paths })
+  expect(deps.length).toBe(2 + 6 + 2) // root + system + blog hierarchy
+  expect(deps).toContain('site.yaml')
+  expect(deps).toContain('blog/layout.html')
 })
 
-
-describe('dir level paths', () => {
-
-  test('dir paths', () => {
-    const paths = [
-      '@system/design/button.css',
-      'blog/post.md',
-      'blog/header.html',
-      'blog/utils.js',
-      'blog/types.ts',
-      'blog/local.css',
-      'docs/sidebar.html'
-    ]
-
-    const result = listDependencies('blog/header.html', {
-      paths,
-      lib: ['@system', './blog'],
-      use: [],
-      use_local_css: true
-    })
-
-    // self included
-    expect(result).toContain('blog/header.html')
-    expect(result).toContain('blog/utils.js')
-    expect(result).toContain('blog/types.ts')
-    expect(result).toContain('blog/local.css')
-    expect(result).not.toContain('docs/sidebar.html')
-  })
-
-  test('excludes directory CSS when use_local_css is false', () => {
-    const paths = [
-      '@system/design/button.css',
-      'blog/post.md',
-      'blog/header.html',
-      'blog/utils.js',
-      'blog/local.css'
-    ]
-
-    const result = listDependencies('blog/post.md', {
-      paths,
-      lib: ['@system', './'],
-      use: [],
-      use_local_css: false
-    })
-
-    expect(result).toContain('blog/header.html')
-    expect(result).toContain('blog/utils.js')
-    expect(result).not.toContain('blog/local.css')
-  })
-
-  test('handles root level directory paths', () => {
-    const paths = [
-      'index.md',
-      'layout.html',
-      'app.js',
-      'global.css'
-    ]
-
-    const result = listDependencies('index.md', {
-      paths,
-      lib: ['./'],
-      use: [],
-      use_local_css: true
-    })
-
-    expect(result).toContain('layout.html')
-    expect(result).toContain('app.js')
-    expect(result).toContain('global.css')
-  })
-
-  test('combines directory paths with use patterns', () => {
-    const paths = [
-      '@system/design/button.css',
-      'blog/post.md',
-      'blog/header.html',
-      'blog/utils.js'
-    ]
-
-    const result = listDependencies('blog/post.md', {
-      paths,
-      lib: ['@system', './'],
-      use: ['@system/design/button.css'],
-      use_local_css: false
-    })
-
-    expect(result).toContain('blog/header.html')  // directory file
-    expect(result).toContain('blog/utils.js')     // directory file
-    expect(result).toContain('@system/design/button.css')  // use pattern
-  })
-
+test('standalone html', () => {
+  const deps = listDependencies('marketing/table.html', { paths })
+  expect(deps.length).toBe(2 + 6 + 2) // root + system + marketing
+  expect(deps).toContain('site.yaml')
+  expect(deps).toContain('marketing/chart.js')
+  expect(deps).not.toContain('app/main.js')
 })
+
+test('strict CSS', () => {
+  const deps = listDependencies('app/index.html', {
+    paths: [...paths, 'app/custom.css'],
+    strict: true
+  })
+  expect(deps.length).toBe(2 + 6 + 4) // custom.css blocked
+})
+
+test('allow local CSS', () => {
+  const deps = listDependencies('app/index.html', {
+    paths: [...paths, 'app/custom.css'],
+    strict: false
+  })
+  expect(deps.length).toBe(2 + 6 + 5) // custom.css included
+  expect(deps).toContain('app/custom.css')
+})
+
+test('root CSS follows strict rules', () => {
+  const deps = listDependencies('app/index.html', {
+    paths: [...paths, 'global.css'],
+    strict: true
+  })
+  expect(deps.length).toBe(2 + 6 + 4) // root CSS blocked by strict
+  expect(deps).not.toContain('global.css')
+})
+
+test('exclusions', () => {
+  const deps = listDependencies('app/index.html', {
+    paths,
+    exclude: ['app/ui/*', '@system/design/*', 'site.yaml']
+  })
+  expect(deps.length).toBe(1 + 4 + 3) // globals.js + 4 system + 3 app
+  expect(deps).not.toContain('app/ui/header.html')
+  expect(deps).not.toContain('@system/design/base.css')
+  expect(deps).not.toContain('site.yaml')
+  expect(deps).toContain('globals.js')
+})
+
+test('parseDirs', () => {
+  expect(parseDirs('blog')).toEqual(['blog'])
+  expect(parseDirs('blog/entry')).toEqual(['blog', 'blog/entry'])
+})
+

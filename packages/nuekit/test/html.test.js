@@ -5,7 +5,7 @@ import { readAssets } from '../src/assets'
 
 // converted to YAML by writeAll
 const SITE_DATA = {
-  use: '[ design/*.css, view/*, !app ]',
+  exclude: '[ **/app.css ]',
   brand: 'Acme',
   class: 'wide'
 }
@@ -22,9 +22,9 @@ Description
 const paths = await writeAll([
   ['@system/design/base.css', ':root { --accent: red }'],
   ['@system/design/app.css', 'body { font-size: 14px }'],
-  ['@system/view/header.html', '<header>${ brand }</header>'],
-  ['@system/view/footer.html', '<footer>Copyright</footer>'],
-  ['@system/view/components.html', '<!doctype dhtml><footer>Copyright</footer>'],
+  ['@system/layout/header.html', '<header>${ brand }</header>'],
+  ['@system/layout/footer.html', '<footer>Copyright</footer>'],
+  ['@system/ui/components.html', '<!doctype dhtml><footer>Copyright</footer>'],
 
   ['site.yaml', SITE_DATA],
   ['index.md', HOME],
@@ -53,10 +53,11 @@ test('MD', async () => {
   const asset = assets.get('index.md')
   const html = await renderMD(asset)
 
+
   expect(html).toInclude('<title>Hello</title>')
   expect(html).toInclude('<meta name="description" content="Description">')
   expect(html).toInclude('<link rel="stylesheet" href="/@system/design/base.css">')
-  expect(html).toInclude('<meta name="libs" content="/@system/view/components.html.js">')
+  expect(html).toInclude('<meta name="libs" content="/@system/ui/components.html.js">')
   expect(html).not.toInclude('href="/@system/design/app.css"')
   expect(html).toInclude('<footer>Copyright</footer>')
   expect(html).toInclude('/@nue/hmr.js')

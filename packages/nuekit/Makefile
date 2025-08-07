@@ -1,3 +1,3 @@
 
 tests:
-	cd test && bun test worker/worker
+	cd test && bun test

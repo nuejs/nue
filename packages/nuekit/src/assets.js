@@ -15,7 +15,7 @@ const IGNORE = `_* _*/** .* .*/** node_modules/** @system/worker/**\
 export async function readAssets(root) {
 
   // site config
-  const conf = await isNueDir(root)
+  const conf = await readSiteConf(root)
   if (!conf) return console.error('Not a Nue directory')
 
   // files
@@ -56,7 +56,7 @@ export async function readAssets(root) {
 }
 
 
-async function isNueDir(root) {
+async function readSiteConf(root) {
   const files = await readdir(root)
 
   // site.yaml
@@ -65,7 +65,7 @@ async function isNueDir(root) {
     return await parseYAML(await file.text())
   }
 
-  // index file
+  // empty conf
   const index = files.find(name => ['index.md', 'index.html'].includes(name))
   if (index) return {}
 }

@@ -2,6 +2,9 @@
 import { writeFile, mkdir, rmdir, symlink } from 'node:fs/promises'
 import { join } from 'node:path'
 
+import { fswalk } from '../src/tools/fswalk'
+import { createFile } from '../src/file'
+
 export const testDir = './test_dir'
 
 export async function writeAll(items) {
@@ -51,3 +54,16 @@ export async function removeAll() {
     await rmdir(testDir, { recursive: true, force: true })
   } catch (error) {}
 }
+
+// for debugging / testing
+export async function fileset(dir) {
+  const paths = await fswalk(dir)
+  const files = await Promise.all(paths.map(path => createFile(dir, path)))
+
+  files.read = async function(path) {
+    const file = files.find(el => el.path == path)
+    return await file?.text()
+  }
+  return files
+}
+

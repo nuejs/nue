@@ -1,95 +1,55 @@
-import { Glob } from 'bun'
 
-const DEFAULT_LIB = ['@system', './view', './components']
+import { join, normalize, dirname, extname, basename, sep } from 'node:path'
 
-function resolvePath(pattern, contextPath) {
-  if (!pattern.startsWith('./')) return pattern
-  const pathParts = contextPath.split('/').slice(0, -1)
-  const dir = pathParts.length > 0 ? pathParts.join('/') : ''
-  return pattern.replace('./', dir ? dir + '/' : '')
-}
+const ASSETS = ['.html', '.js', '.ts', '.yaml', '.css']
+const SYSTEM_DIRS = ['design', 'data', 'layout', 'controller', 'ui'].map(dir => join('@system', dir))
 
-function matchPaths(paths, pattern, lib, contextPath) {
 
-  // exact glob matching first
-  const glob = new Glob(pattern)
-  let matches = paths.filter(path => glob.match(path))
+export function listDependencies(basepath, { paths, exclude=[], strict }) {
 
-  // try with lib prefixes for path patterns
-  if (matches.length == 0 && (pattern.includes('/') || pattern.includes('*'))) {
-    for (const libPath of lib) {
-      const resolvedLib = resolvePath(libPath, contextPath)
-      const libPattern = resolvedLib + '/' + pattern
-      const libGlob = new Glob(libPattern)
-      matches = [...matches, ...paths.filter(path => libGlob.match(path))]
-    }
+  // folder dependency
+  let deps = paths.filter(path => isDep(basepath, path))
+
+  // extensions
+  deps = deps.filter(path => ASSETS.includes(extname(path)))
+
+  // strict design system
+  if (strict) {
+    deps = deps.filter(path => extname(path) != '.css' || path.startsWith(SYSTEM_DIRS[0]))
   }
 
-  // fuzzy matching for simple names
-  if (matches.length == 0 && !pattern.includes('/') && !pattern.includes('*')) {
-    matches = paths.filter(path => {
-      const filename = path.split('/').pop()
-      return filename.includes(pattern)
-    })
-  }
-
-  return [...new Set(matches)]
-}
-
-export function filterByLib(filepath, lib = DEFAULT_LIB, paths) {
-  return paths.filter(path =>
-    lib.some(libPath => {
-      const resolved = resolvePath(libPath, filepath)
-      return path.startsWith(resolved + '/')
-    })
-  )
-}
-
-export function applyUsePatterns(filepath, { use, paths, lib = DEFAULT_LIB }) {
-  let result = []
-
-  for (const pattern of use) {
-    const resolved = resolvePath(pattern, filepath)
-
-    if (resolved.startsWith('!')) {
-      const toExclude = matchPaths(paths, resolved.slice(1), lib, filepath)
-      result = result.filter(path => !toExclude.includes(path))
-
-    } else {
-      const matched = matchPaths(paths, resolved, lib, filepath)
-      result = [...result, ...matched]
-    }
-  }
-
-  return [...new Set(result)]
-}
-
-function addDirFiles(filepath, allFiles, use_local_css) {
-  const dir = filepath.split('/').slice(0, -1).join('/')
-  const extensions = ['.html', '.js', '.ts']
-  if (use_local_css) extensions.push('.css')
-
-  return allFiles.filter(path => {
-
-    // exclude self
-    // if (filepath == path) return false
-
-    const fileDir = path.split('/').slice(0, -1).join('/')
-    return fileDir == dir && extensions.some(ext => path.endsWith(ext))
+  // Exclusions
+  exclude.forEach(pattern => {
+    const glob = new Bun.Glob(pattern)
+    deps = deps.filter(path => !glob.match(path))
   })
+
+  return [...new Set(deps)]
 }
 
 
-export function listDependencies(filepath, { paths, lib, use, use_local_css }) {
-  let arr = filterByLib(filepath, lib, paths)
+function isDep(basepath, path) {
 
-  if (!use_local_css) {
-    arr = arr.filter(path => !path.endsWith('.css') || path.startsWith('@system/'))
-  }
+  // self
+  // if (basepath == path) return false
 
-  arr = applyUsePatterns(filepath, { use, lib, paths: arr })
+  // Root level assets (global)
+  const dir = dirname(path)
+  if (dir == '.') return true
 
-  arr.push(...addDirFiles(filepath, paths, use_local_css))
+  // System folders
+  if (SYSTEM_DIRS.some(dir => path.startsWith(dir + sep))) return true
 
-  return [...new Set(arr)]
+  // SPA: entire app tree
+  if (basename(basepath) == 'index.html') return path.startsWith(dirname(basepath) + sep)
+
+  // Everything else: hierarchical inclusion
+  return parseDirs(dirname(basepath)).some(checkDir => dir == checkDir)
+}
+
+
+// parseDirs('a/b/c') --> ['a', 'a/b', 'a/b/c']
+export function parseDirs(dir) {
+  const els = normalize(dir).split(sep)
+  return els.map((el, i) => els.slice(0, i + 1).join('/'))
 }

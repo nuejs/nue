@@ -77,7 +77,6 @@ export async function renderSVG(asset, minify) {
     if (!ast.children) ast.children = []
     ast.children.unshift({ tag: 'style', children: [{ text: minify ? minifyCSS(css) : css }] })
   }
-
   return renderNue(ast, { data, deps })
 }
 
@@ -95,10 +94,10 @@ export async function renderHTML(asset, is_prod) {
   }
 
   if (doctype == 'dhtml') {
-    const is_index = asset.base == 'index.html'
+    const is_spa = await asset.isSPA()
     const js = compileNue(document)
-    const html = is_index ? await renderSPA(main, opts) : null
-    return { is_spa: true, js, html }
+    const html = is_spa ? await renderSPA(main, opts) : null
+    return { is_spa, js, html }
   }
 
   return renderElement(main, opts)
@@ -106,6 +105,7 @@ export async function renderHTML(asset, is_prod) {
 
 // interactive element (embedded with <object> tag)
 export async function renderElement(element, { data, assets, deps, libs }) {
+
   return trim(`
     <!doctype html>
 

@@ -1,9 +1,9 @@
 
 import { join } from 'node:path'
-import { testDir, writeAll, removeAll } from './test-utils'
 import { build, matches, stats, buildAsset, buildAll } from '../src/build'
+import { testDir, writeAll, removeAll, fileset } from './test-utils'
 import { readAssets } from '../src/assets'
-import { fileset } from '../src/file'
+
 
 
 test('matches', () => {
