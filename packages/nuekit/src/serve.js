@@ -5,7 +5,7 @@ import { createServer, sessions } from './tools/server'
 import { fswatch } from './tools/fswatch'
 
 import { getSystemFiles } from './system.js'
-import { getWorker } from './worker'
+import { getServer } from './server'
 
 const sysfiles = getSystemFiles()
 
@@ -25,11 +25,16 @@ export async function onServe(url, assets) {
   if (asset) {
     const result = await asset.render()
     if (!result) return Bun.file(asset.rootpath)
-
     const content = (ext ? result.js : result.html) || result
     const type = ext ? await asset.contentType() : 'text/html'
-
     return { content, type }
+  }
+
+  // SPA entry page
+  if (!ext) {
+    const app = url.split('/')[1]
+    const spa = assets.find(asset => ['index.html', `${app}/index.html`].includes(asset.path))
+    if (spa) return (await spa.render()).html
   }
 
   // custom error page
@@ -48,9 +53,11 @@ export async function serve(assets, args) {
   const { root, port, ignore, silent } = args
   const opts = await assets.get('site.yaml')?.data()
 
-  const worker = await getWorker(opts?.worker)
+  // user server
+  const handler = await getServer(opts?.server)
 
-  const server = createServer({ port, worker }, url => onServe(url, assets))
+  // dev server
+  const server = createServer({ port, handler }, url => onServe(url, assets))
 
   const watcher = fswatch(root, { ignore })
 

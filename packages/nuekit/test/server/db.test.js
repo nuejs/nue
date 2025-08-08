@@ -1,6 +1,6 @@
 
 import { unlinkSync, existsSync } from 'fs'
-import { createDB } from '../../src/worker/db.js'
+import { createDB } from '../../src/server/db.js'
 
 const testDbPath = './test.db'
 

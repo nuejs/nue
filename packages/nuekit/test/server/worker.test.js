@@ -1,5 +1,5 @@
-import { test, expect, afterAll } from '@jest/globals'
-import { createWorker, matches } from '../../src/worker/worker.js'
+
+import { createWorker, matches } from '../../src/server/worker.js'
 import { testDir, writeAll, removeAll } from '../test-utils'
 
 afterAll(async () => await removeAll())

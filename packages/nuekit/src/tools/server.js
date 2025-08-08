@@ -1,13 +1,13 @@
 
 export const sessions = []
 
-export function createServer({ port=4000, worker }, callback) {
+export function createServer({ port=4000, handler }, callback) {
 
   async function fetch(req) {
     const { pathname } = new URL(req.url)
 
-    // worker request
-    const result = worker && await worker(req)
+    // custom handler (proxy or worker)
+    const result = handler && await handler(req)
     if (result) return result
 
     // hot reloading

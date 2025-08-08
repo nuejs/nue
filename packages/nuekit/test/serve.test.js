@@ -16,6 +16,20 @@ test('find app.html.js', () => {
   expect(asset).not.toBeNull()
 })
 
+test('onServe /test', async () => {
+  const page = { url: '/test', render() { return 'hey' } }
+  const result = await onServe('/test', [ page ])
+  expect(result.content).toBe('hey')
+  expect(result.type).toBe('text/html')
+})
+
+test('onServe /app/users', async () => {
+  const spa = { path: 'app/index.html', render() { return { html: 'hey' }} }
+  const result = await onServe('/app/users', [ spa ])
+  expect(result).toBe('hey')
+})
+
+
 describe.skip('serve', async () => {
 
   beforeEach(async () => {
@@ -37,7 +51,9 @@ describe.skip('serve', async () => {
 
   })
 
-  test('serve', async () => {
+
+
+  test.skip('old stuff', async () => {
 
     // server
     const server = site.serve()

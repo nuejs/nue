@@ -8,7 +8,7 @@ import { fswalk } from './tools/fswalk'
 import { createAsset } from './asset'
 import { createFile } from './file'
 
-const IGNORE = `_* _*/** .* .*/** node_modules/** @system/worker/**\
+const IGNORE = `_* _*/** .* .*/** node_modules/** @system/server/**\
  *.toml *.rs *.lock package.json bun.lockb pnpm-lock.yaml README.md`.split(' ')
 
 

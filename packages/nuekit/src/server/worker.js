@@ -19,7 +19,7 @@ async function importServer({ dir, reload }) {
 
 
 export async function createWorker(opts = {}) {
-  const { dir='@system/worker', reload } = opts
+  const { dir='@system/server', reload } = opts
 
   let server = await importServer({ dir, reload })
   if (!server) return null

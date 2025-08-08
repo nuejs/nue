@@ -1,5 +1,5 @@
 
-import { createProxy } from '../../src/worker/proxy.js'
+import { createProxy } from '../../src/server/proxy.js'
 
 test('proxy forwards matching requests', async () => {
   global.fetch = async (url) => {

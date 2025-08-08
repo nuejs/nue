@@ -1,6 +1,6 @@
 
 import { unlinkSync, existsSync } from 'fs'
-import { createKV } from '../../src/worker/kv.js'
+import { createKV } from '../../src/server/kv.js'
 
 const testKvPath = './test-kv.json'
 

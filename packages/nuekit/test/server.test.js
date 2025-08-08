@@ -62,22 +62,22 @@ test('not found', async () => {
   expect(await res.text()).toBe('404 Not Found')
 })
 
-test('worker requests', async () => {
-  const workerServer = createServer({
+test('custom handler', async () => {
+  const server = createServer({
     port: 0,
     dist: testDir,
-    worker: (req) => {
+    handler: (req) => {
       if (new URL(req.url).pathname == '/api/test') {
-        return new Response('worker response')
+        return new Response('handler response')
       }
     }
   }, async ({ pathname }) => Bun.file(`${testDir}${pathname}`))
 
-  const res = await workerServer.fetch(new Request('http://localhost/api/test'))
+  const res = await server.fetch(new Request('http://localhost/api/test'))
   expect(res.status).toBe(200)
-  expect(await res.text()).toBe('worker response')
+  expect(await res.text()).toBe('handler response')
 
-  workerServer.stop()
+  server.stop()
 })
 
 test('HMR', async () => {
