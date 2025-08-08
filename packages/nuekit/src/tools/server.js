@@ -46,6 +46,7 @@ export function createServer({ port=4000, worker }, callback) {
 function handleHMR(req) {
   const url = new URL(req.url)
   const params = url.searchParams
+  let curr
 
   const stream = new ReadableStream({
     start(session) {
@@ -64,6 +65,12 @@ function handleHMR(req) {
       }
 
       sessions.push(session)
+      curr = session
+    },
+
+    cancel() {
+      const i = sessions.indexOf(curr)
+      if (i >= 0) sessions.splice(i, 1)
     }
   })
 
