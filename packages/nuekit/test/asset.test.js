@@ -64,7 +64,7 @@ test('SPA: index.html', async () => {
 
   const files = [
     { is_html: true, path: 'index.html', base: 'index.html',
-      async text() { return '<!doctype dhtml> <app><foo/></app>' }
+      async text() { return '<!doctype dhtml> <body><foo/></body>' }
     },
 
     { is_html: true, path: 'reactive.html', async text() { return '<!doctype dhtml> <foo/>' }},
@@ -90,6 +90,7 @@ test('SPA: index.html', async () => {
   expect(spa.is_spa).toBeTrue()
   expect(spa.js).toInclude('export const lib')
   expect(spa.html).toInclude('<!doctype html>')
+  expect(spa.html).toInclude('<body nue>')
 
 })
 

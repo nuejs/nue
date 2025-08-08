@@ -78,7 +78,7 @@ describe('MPA build', async () => {
 
 })
 
-describe.only('SPA build', async () => {
+describe('SPA build', async () => {
 
   beforeEach(async () => {
     await writeAll([
@@ -97,7 +97,7 @@ describe.only('SPA build', async () => {
 
     // html page
     const html = await results.read('index.html')
-    expect(html).toInclude('<body custom="app"></body>')
+    expect(html).toInclude('<body nue="app"></body>')
     expect(html).toInclude('/@nue/mount.js')
     expect(html).toInclude('/@system/design/base.css')
 

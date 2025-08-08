@@ -286,6 +286,6 @@ function addSpace(to, child, next) {
 function renderClientStub(tag, self) {
   const json = JSON.stringify(self)
   const js = json != '{}' ? `<script type="application/json">${json}</script>` : ''
-  return `<${tag} custom="${tag}"></${tag}>${js}`
+  return `<${tag} nue="${tag}"></${tag}>${js}`
 }
 

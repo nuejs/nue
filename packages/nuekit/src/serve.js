@@ -10,24 +10,30 @@ import { getWorker } from './worker'
 const sysfiles = getSystemFiles()
 
 export function findAssetByURL(url, assets=[]) {
-  return [...sysfiles, ...assets].find(asset =>
-    asset.url == (url.endsWith('.html.js') ? url.slice(0, -8) : url)
-  )
+  return [...sysfiles, ...assets].find(asset => {
+    return url.endsWith('.html.js') ? asset.path == url.slice(1, -3)
+      :  asset.url == url
+  })
 }
 
 // server requests
 export async function onServe(url, assets) {
   const asset = findAssetByURL(url, assets)
+  const ext = extname(url)
 
-  // render or serve file directly
+  // return File || { content, type }
   if (asset) {
     const result = await asset.render()
-    return !result ? Bun.file(asset.rootpath) :
-      { content: result.html || result.js || result, type: await asset.contentType() }
+    if (!result) return Bun.file(asset.rootpath)
+
+    const content = (ext ? result.js : result.html) || result
+    const type = ext ? await asset.contentType() : 'text/html'
+
+    return { content, type }
   }
 
   // custom error page
-  if (!extname(url)) {
+  if (!ext) {
     const err = assets.find(asset => asset.base == '404')
     return err ? { html: await err.render(), status: 404 } : null
   }

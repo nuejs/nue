@@ -213,6 +213,6 @@ test('render functions', () => {
 test('JSON stubs', () => {
   const template = `<div><foo hello="Hello"/></div>`
   const html = renderNue(template)
-  expect(html).toInclude('<foo custom="foo">')
+  expect(html).toInclude('<foo nue="foo">')
   expect(html).toInclude('<script type="application/json">{"hello":"Hello"}')
 })

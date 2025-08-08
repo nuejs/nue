@@ -191,7 +191,7 @@ export function renderIsland(tag, all_data) {
 
   const json = !Object.keys(data)[0] ? '' :
     elem('script', { type: 'application/json' }, JSON.stringify(data))
-  return elem(name, { 'custom': name, ...attr }, json)
+  return elem(name, { 'nue': name, ...attr }, json)
 }
 
 

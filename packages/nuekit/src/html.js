@@ -121,6 +121,7 @@ export async function renderElement(element, { data, assets, deps, libs }) {
 export async function renderSPA(spa, { data, assets, deps, libs }) {
   const customHead = deps.find(el => el.tag == 'head')
   const attr = getAttr(data)
+  const custom = spa.is_custom || spa.is ? `nue="${spa.is || spa.tag}"` : 'nue'
 
   // mounting & HMR
   if (libs.length) assets.push(parse('@nue/mount.js'))
@@ -135,7 +136,7 @@ export async function renderSPA(spa, { data, assets, deps, libs }) {
         ${ customHead ? renderNue(customHead, { data, deps })  : '' }
       </head>
 
-      <body custom="${ spa?.is || spa.tag }"></body>
+      <body ${ custom }></body>
 
     </html>
   `)
@@ -151,7 +152,7 @@ function importCSS(assets) {
 async function getLibs(assets) {
   const paths = []
   for (const asset of assets) {
-    if (await asset.isDHTML()) paths.push(`/${asset.dir}/${asset.name}.html.js`.replace('//', '/'))
+    if (await asset.isDHTML()) paths.push(asset.path)
   }
   return paths
 }

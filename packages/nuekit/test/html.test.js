@@ -57,7 +57,7 @@ test('MD', async () => {
   expect(html).toInclude('<title>Hello</title>')
   expect(html).toInclude('<meta name="description" content="Description">')
   expect(html).toInclude('<link rel="stylesheet" href="/@system/design/base.css">')
-  expect(html).toInclude('<meta name="libs" content="/@system/ui/components.html.js">')
+  expect(html).toInclude('<meta name="libs" content="@system/ui/components.html">')
   expect(html).not.toInclude('href="/@system/design/app.css"')
   expect(html).toInclude('<footer>Copyright</footer>')
   expect(html).toInclude('/@nue/hmr.js')
@@ -92,7 +92,7 @@ test('SPA', async () => {
   const asset = assets.get('app/index.html')
   const { is_spa, html, js } = await renderHTML(asset)
   expect(is_spa).toBeTrue()
-  expect(html).toInclude('<body custom="app"></body>')
+  expect(html).toInclude('<body nue="app"></body>')
   expect(js).toInclude("export const lib = [ { tag: 'body'")
 })
 

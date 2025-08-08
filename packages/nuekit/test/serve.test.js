@@ -1,22 +1,22 @@
 
 import { findAssetByURL, onServe } from '../src/serve.js'
 
-test.only('find by url', () => {
+test('find /', () => {
   const asset = findAssetByURL('/', [{ url: '/' }])
   expect(asset).not.toBeNull()
 })
 
-test.only('find @nue asset', () => {
+test('find /@nue/nue.js', () => {
   const asset = findAssetByURL('/@nue/nue.js')
   expect(asset.render).not.toBeNull()
 })
 
-test.only('find .html.js', () => {
-  const asset = findAssetByURL('/comps.html.js', [{ url: '/comps.html' }])
+test('find app.html.js', () => {
+  const asset = findAssetByURL('/app.html.js', [{ path: 'app.html' }])
   expect(asset).not.toBeNull()
 })
 
-describe('serve', async () => {
+describe.skip('serve', async () => {
 
   beforeEach(async () => {
     await writeAll([

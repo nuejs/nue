@@ -79,19 +79,9 @@ function reloadCSS(asset) {
 }
 
 async function reloadComponents(asset) {
-  const { getImportPaths, mountAll } = await import('./mount.js')
+  const { mountAll } = await import('./mount.js')
   const state = saveState()
-
-
-  const paths = getImportPaths().map(url => {
-    return asset.url + '.html.js' == url  ? `${url}?${reload_count++}` : url
-  })
-
-  console.info('FUX', paths)
-
-  await mountAll(paths)
-
-
+  await mountAll(asset.path)
   restoreState(state)
 }
 

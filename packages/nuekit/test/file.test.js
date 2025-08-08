@@ -7,7 +7,7 @@ import { createFile, getFileInfo, toURL } from '../src/file'
 
 test('.url property', () => {
   expect(toURL(parse('index.md'))).toBe('/')
-  expect(toURL(parse('blog/index.html'))).toBe('/blog/')
+  expect(toURL(parse('app/index.html'))).toBe('/app/')
   expect(toURL(parse('blog/table.html'))).toBe('/blog/table.html')
   expect(toURL(parse('docs/installation.md'))).toBe('/docs/installation')
   expect(toURL(parse('@system/design/base.css'))).toBe('/@system/design/base.css')

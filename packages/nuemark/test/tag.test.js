@@ -140,7 +140,7 @@ test('.stack', () => {
 
 test('client-side island', () => {
   const html = renderLines(['[contact-me]', '  cta: Submit'])
-  expect(html).toStartWith('<contact-me custom="contact-me"><script')
+  expect(html).toStartWith('<contact-me nue="contact-me"><script')
 })
 
 test('table options', () => {

@@ -92,7 +92,7 @@ test('render image', () => {
 })
 
 test('unclosed image', () => {
-  expect(renderInline('![foo]')).toStartWith('!<foo custom')
+  expect(renderInline('![foo]')).toStartWith('!<foo nue')
 })
 
 test('inline HTML', () => {
@@ -254,7 +254,7 @@ test('inline tag with reflink', () => {
 
 test('link with a tag', () => {
   const html = renderInline('[[my-tag]](/)')
-  expect(html).toBe('<a href="/"><my-tag custom="my-tag"></my-tag></a>')
+  expect(html).toBe('<a href="/"><my-tag nue="my-tag"></my-tag></a>')
 })
 
 test('link with image tag', () => {
