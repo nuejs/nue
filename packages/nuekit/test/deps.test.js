@@ -33,11 +33,17 @@ const paths = [
   'marketing/chart.js'
 ]
 
-test('SPA deps', () => {
+test('SPA app', () => {
   const deps = listDependencies('app/index.html', { paths })
   expect(deps.length).toBe(2 + 6 + 4) // root + system + app (no self)
   expect(deps).toContain('site.yaml')
   expect(deps).toContain('globals.js')
+})
+
+test('root SPA', () => {
+  const paths = [ 'css/spa.css', 'ui/users.html', 'index.html' ]
+  const deps = listDependencies('index.html', { paths })
+  expect(deps.length).toBe(3)
 })
 
 test('MPA deps', () => {
@@ -97,4 +103,6 @@ test('parseDirs', () => {
   expect(parseDirs('blog')).toEqual(['blog'])
   expect(parseDirs('blog/entry')).toEqual(['blog', 'blog/entry'])
 })
+
+
 

@@ -43,7 +43,10 @@ function isDep(basepath, path) {
   if (SYSTEM_DIRS.some(dir => path.startsWith(dir + sep))) return true
 
   // SPA: entire app tree
-  if (basename(basepath) == 'index.html') return path.startsWith(dirname(basepath) + sep)
+  if (basename(basepath) == 'index.html') {
+    const dir = dirname(basepath)
+    return dir == '.' ? true : path.startsWith(dir + sep)
+  }
 
   // Everything else: hierarchical inclusion
   return parseDirs(dirname(basepath)).some(checkDir => dir == checkDir)

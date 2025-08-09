@@ -35,6 +35,7 @@ async function importComponents(reload_path) {
     const { lib } = await import(`/${path}.js${count}`)
     if (lib) comps.push(...lib)
   }
+
   return comps
 }
 

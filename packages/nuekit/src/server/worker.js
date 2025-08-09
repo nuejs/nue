@@ -24,13 +24,9 @@ export async function createWorker(opts = {}) {
   let server = await importServer({ dir, reload })
   if (!server) return null
 
-  const dbDir = join(dir, 'db')
-  await mkdir(dbDir, { recursive: true })
-
-  const env = { ...process.env, ...opts,
-    DB: createDB(join(dbDir, 'app.db')),
-    KV: createKV(join(dbDir, 'kv.json')),
-  }
+  const { env={}, db, kv } = opts
+  if (db) env.DB = createDB(join(dir, db))
+  if (kv) env.KV = createKV(join(dir, kv))
 
   return async function(req) {
     if (reload) server = await importServer({ dir, reload })

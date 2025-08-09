@@ -20,6 +20,8 @@ export async function readAssets(root) {
 
   // files
   const ignore = [...IGNORE, ...(conf.ignore || [])]
+  if (conf.server?.dir) ignore.push(conf.server.dir + '/**')
+
   const paths = await fswalk(root, { ignore, followSymlinks: conf.follow_symlinks })
   const files = await Promise.all(paths.map(path => createFile(root, path)))
 

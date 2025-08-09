@@ -50,8 +50,9 @@ export async function onServe(url, assets) {
 
 
 export async function serve(assets, args) {
-  const { root, port, ignore, silent } = args
   const opts = await assets.get('site.yaml')?.data()
+
+  const { root, port=opts.port, ignore, silent } = args
 
   // user server
   const handler = await getServer(opts?.server)

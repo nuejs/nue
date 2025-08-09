@@ -3,11 +3,14 @@ import { Hono } from 'hono'
 
 const server = new Hono()
 
-server.get('/api', async (c) => {
-  const country = c.req.header('cf-ipcountry')
-  const timezone = c.req.header('cf-timezone')
-  const { version='foo' } = c.env
-  return c.json({ version, country, timezone })
+server.get('/users', async (c) => {
+  const { KV } = c.env
+  const { keys } = await KV.list({ prefix: 'user:' })
+  const users = await Promise.all(
+    keys.map(key => KV.get(key.name, { type: 'json' }))
+  )
+  users.sort((a, b) => b.created - a.created)
+  return c.json(users)
 })
 
 export default server
