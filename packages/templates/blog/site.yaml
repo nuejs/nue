@@ -1,4 +1,4 @@
 
 collections:
-  entries:
+  blog:
     match: [ posts/*.md ]

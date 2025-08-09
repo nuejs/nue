@@ -1,7 +1,7 @@
 
 import { loadSchema } from '../data/load.js'
 import { createCRM } from '../model/crm.js'
-import { env } from './mocks.js'
+import { env } from './mock.js'
 
 await loadSchema(env.DB)
 
