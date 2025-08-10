@@ -62,7 +62,7 @@ jobs:
           args: >
             --no-progress
             --include-fragments
-            --accept "403, 429, 503, 999"
+            --accept "200..=299, 403, 429, 503, 999"
             --remap "http://localhost:8080/@ https://nuejs.org/@"
             --remap "http://localhost:8080/todomvc https://nuejs.org/todomvc"
             --remap "http://localhost:8080/glow-demo https://nuejs.org/glow-demo"
