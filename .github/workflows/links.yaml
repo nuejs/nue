@@ -28,7 +28,7 @@ jobs:
             --include-fragments
             --exclude-path "node_modules"
             --exclude "localhost"
-            --base "."
+            --root-dir "$(pwd)"
             --
             "**/README.md"
           token: ${{ secrets.GITHUB_TOKEN }}
