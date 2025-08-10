@@ -73,7 +73,7 @@ Next we examine how these approaches handle increasing complexity. Here's the sa
     href: complex-table.html#oldschool
 
   [! img/complex-table-3.png caption="Hyper"]
-    href: complex-table.html#hyper
+    href: complex-table.html#with-hyper
 
 
 1. **Modern React** is assembled according to ShadCN's [data table](//ui.shadcn.com/docs/components/data-table) documentation. The bundled JavaScript is **91.3KB**. [Source](complex-table.html) • [Demo](/hyper/demo/react/complex-table.html)

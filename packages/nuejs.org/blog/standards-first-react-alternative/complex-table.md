@@ -1,4 +1,3 @@
-
 ---
 back_to: standards-first-react-alternative/
 pagehead: false
@@ -11,7 +10,7 @@ A sortable/filterable table component, wrapped inside a card component. Implemen
 ## With modern React
 Excessive boilerplate through Tanstack Table, ShadCN, and TypeScript interfaces
 
-``` jsx
+```jsx
 import * as React from "react"
 
 import {
@@ -178,7 +177,7 @@ export default function DataTable({ data }: DataTableProps) {
 
 Here is the extra TypeScript needed (not included in the comparison images):
 
-```
+```js
 type Person = {
   id: string;
   name: string;
@@ -196,7 +195,7 @@ interface DataTableProps {
 ## With vanilla TSX { #oldschool }
 This is an oldschool example using external CSS, which is no longer the "idiomatic" way to build React compomnents:
 
-```
+```jsx
 import React, { useState, useMemo } from "react";
 
 import { Person, DataTableProps } from "./DataTable.types.ts";
@@ -312,7 +311,7 @@ export default function DataTable({ data }: DataTableProps) {
 Uses only about 40 lines of code, roughly 75% reduction in code to implement the same features.
 
 
-``` html
+```html
 <div class="card">
   <header>
     <h1>Table example</h1>

@@ -70,7 +70,7 @@ Contrast this to grammar-aware theming systems, like Shiki and *Prism*, where a 
 
 ## Unlimited possibilities
 
-Glow's unique, [classless design system](/docs/syntax-highlighting.html#html-markup) gives you line numbers, selections, error highlights, insertions, deletions, and much, much more.
+Glow's unique, [classless design system](/docs/syntax-highlighting.html) gives you line numbers, selections, error highlights, insertions, deletions, and much, much more.
 
 ``` .gradient.sky numbered
 <script>

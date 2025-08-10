@@ -139,7 +139,7 @@ bun create nue@latest
 
 Choose "nuemark-demo" on the last step and off you go.
 
-PS: Check out [Getting started docs](/docs/#node) if you prefer Node.
+PS: Check out [Getting started docs](/docs/installation.html#node-setup) if you prefer Node.
 
 ### Learn Nuemark
 

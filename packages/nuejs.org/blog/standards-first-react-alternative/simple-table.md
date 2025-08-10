@@ -1,4 +1,3 @@
-
 ---
 back_to: standards-first-react-alternative/
 pagehead: false
