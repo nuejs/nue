@@ -3,7 +3,7 @@
 
 This benchmark compares a single React button component’s full production bundle against a complete Nue single-page application (SPA). Sizes are measured as shown:
 
-[image]
+[image]:
   small: /img/react-button-vs-nue-spa.png
   large: /img/react-button-vs-nue-spa-big.png
 
@@ -12,7 +12,7 @@ This benchmark compares a single React button component’s full production bund
 
 Built with Vite, TypeScript, Tailwind, and Shadcn/UI, following the official [ShadCN/Vite documentation](//ui.shadcn.com/docs/installation/vite) exactly — no additions or removals.
 
-[image]
+[image]:
   small: /img/react-button.png
   large: /img/react-button-big.png
   href: //button.nuejs.org
@@ -32,7 +32,7 @@ nue create simple-mpa
 nue build --production
 ```
 
-[image]
+[image]:
   small: /img/nue-spa.png
   large: /img/nue-spa-big.png
   href: //mpa.nuejs.org/app/
@@ -41,7 +41,7 @@ Production build: [mpa.nuejs.org/app/](//mpa.nuejs.org/app/).
 
 Total size: 39kb (includes all code and SVG icons; excludes JSON data and content images). Here are the 10 largest scripts in the app:
 
-[image]
+[image]:
   src: /img/10-largest-scripts.png
 
 Excludes files you see under the `XHR` tab (17kb) and content images inside the `Img` tab (8.5kb). Check developer console for details.

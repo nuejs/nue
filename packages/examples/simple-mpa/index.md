@@ -13,7 +13,7 @@ Take HTML, CSS, JS, and WASM to their absolute peak
 [button href="https://nuejs.org/docs/"]
   How it works [icon symbol="chevron-right-symbol"]
 
-[image]
+[image]:
   small: https://nuejs.org/img/rust-search.webp
   large: https://nuejs.org/img/rust-search-big.webp
   href: https://mpa.nuejs.org/app/?rust
@@ -26,7 +26,7 @@ Take HTML, CSS, JS, and WASM to their absolute peak
 
 Build simpler and faster products by working closer to metal
 
-[image]
+[image]:
   small: https://nuejs.org/img/react-button-compare.png
   large: https://nuejs.org/img/react-button-compare-big.png
   href: https://nuejs.org/docs/react-button-vs-nue.html
@@ -39,7 +39,7 @@ Build simpler and faster products by working closer to metal
 
 We are rebuilding the entire ecosystem from scratch:
 
-[image]
+[image]:
   small: https://nuejs.org/img/roadmap-2025-2.png
   large: https://nuejs.org/img/roadmap-2025-2-big.png
   href: https://nuejs.org/vision/
