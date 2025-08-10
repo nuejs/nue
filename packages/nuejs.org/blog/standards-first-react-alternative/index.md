@@ -80,7 +80,7 @@ Next we examine how these approaches handle increasing complexity. Here's the sa
 
 2. **Vanilla TSX** uses `useState` and `useMemo` to implement the added functionality, and the HTML is tagged the old school way with numerous class names.
 
-3. **Hyper** uses semantic HTML with minimal class names and two instance methods for sorting and filtering. The resulting JS is only **3.9KB** minzipped (1.2KB + 2.7KB for hyper.js). [Source](complex-table.html#hyper) • [Demo](/hyper/demo/table/complex-table.html)
+3. **Hyper** uses semantic HTML with minimal class names and two instance methods for sorting and filtering. The resulting JS is only **3.9KB** minzipped (1.2KB + 2.7KB for hyper.js). [Source](complex-table.html#with-hyper) • [Demo](/hyper/demo/table/complex-table.html)
 
 
 
