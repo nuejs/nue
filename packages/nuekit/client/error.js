@@ -1,7 +1,7 @@
 
 function renderDialog(e) {
   return `
-    <dialog id="error_modal">
+    <dialog id="nuerror">
       <header>
         <h2>${ e.title }</h2>
         <p>${ e.text } at ${ e.path } (${ e.line } / ${ e.column })</p>
@@ -12,15 +12,15 @@ function renderDialog(e) {
       </pre>
 
       <footer>
-        <button popovertarget="error_modal">Close</button>
+        <button popovertarget="nuerror">Close</button>
       </footer>
     </dialog>
   `
 }
 
 export async function showError(error) {
-  window.error_modal?.remove()
+  window.nuerror?.remove()
   document.body.insertAdjacentHTML('beforeend', renderDialog(error))
-  window.error_modal.showPopover()
+  window.nuerror.showPopover()
 }
 

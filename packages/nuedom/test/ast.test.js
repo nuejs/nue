@@ -1,5 +1,5 @@
 
-import { createASTElement, convertFunctions, convertGetters } from '../src/compiler/ast-element.js'
+import { createAST, convertFunctions, convertGetters } from '../src/compiler/ast.js'
 import { tokenize } from '../src/compiler/tokenizer.js'
 import { parseBlocks } from '../src/compiler/document.js'
 
@@ -7,7 +7,7 @@ import { parseBlocks } from '../src/compiler/document.js'
 function testTag(template, expected) {
   const [ block ] = parseBlocks(tokenize(template))
 
-  const tag  = createASTElement(block)
+  const tag  = createAST(block)
   if (expected === true) return tag
 
   expect(tag).toEqual(expected)
@@ -47,8 +47,8 @@ test('nested tag', () => {
 })
 
 test('element with expression', () => {
-  testTag('<p>${ val } #{ val }</p>', {
-    children: [ {fn: '_.val', }, {fn: '_.val', html: true, }],
+  testTag('<p>{ val } {{ val }}</p>', {
+    children: [ {fn: '_.val', }, { fn: '_.val', html: true }],
     tag: "p",
   })
 })

@@ -4,9 +4,9 @@ import { addContext } from './context.js'
 
 
 export function tokenizeAttr(attrStr) {
-  return (attrStr.match(/[^\s=]+(?:=(?:"[^"]*"|\${[^}]+}|[^\s]+))?/g) || []).map(token =>
-    token.replace(/^([^=]+)="([^"]*)"$/, '$1=$2')
-  )
+ return attrStr.match(/[^\s=]+(="[^"]*"|=[^\s]*|)/g)?.map(token =>
+   token.replace(/="([^"]*)"/, '=$1')
+ ) || []
 }
 
 export function parseAttributes(attrs, imports) {
@@ -93,13 +93,6 @@ export function parseFor(str, imports) {
   return { fn, ...for_args }
 }
 
-export function _parseForArgs(args) {
-  const hasIndex = /[}\]],/.exec(args) || (!'[{'.includes(args[0]) && args.includes(','))
-  const keys = args.replace(/[(){}[\]]/g, '').split(',').map(part => part.trim())
-  const is_entries = args.includes('[')
-  return hasIndex ? { keys: keys.slice(0, -1), index: keys.pop(), is_entries } : { keys, is_entries }
-}
-
 
 export function parseForArgs(args) {
   // Clean parentheses first, which fixes the failing test
@@ -111,19 +104,18 @@ export function parseForArgs(args) {
 }
 
 export function parseExpression(str, attr_name, imports) {
-  const parts = str.split(/(\$?{[^}]+})/)
-  if (parts.length < 2) return
+ const parts = str.split(/(\{[^{}]*\}|\[[^\[\]]*\])/)
+ if (parts.length < 2) return
 
-  return parts.map(part => {
-    if (part[0] == '{' && attr_name == 'class') {
-      return parseClassHelper(part.slice(1, -1).trim(), imports)
+ return parts.map(part => {
+   if (part[0] == '[' && attr_name == 'class') {
+     return parseClassHelper(part.slice(1, -1).trim(), imports)
+   } else if (part[0] == '{') {
+     return `(${ addContext(part.slice(1, -1).trim(), imports) })`
+   }
+   return part ? `"${part}"` : ''
 
-    } else if (part.startsWith('${')) {
-      return `(${ addContext(part.slice(2, -1).trim(), imports) })`
-    }
-    return part ? `"${part}"` : ''
-
-  }).filter(part => part !== '').join(' + ')
+ }).filter(part => part !== '').join(' + ')
 }
 
 export function parseClassHelper(val, imports) {

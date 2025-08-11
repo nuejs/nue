@@ -12,7 +12,7 @@ test('imports', () => {
       import { hello } from 'hello.js'
     </script>
 
-    <a :class="hello" :onclick="hello">\${ hello() }</a>
+    <a :class="hello" :onclick="hello">{ hello() }</a>
   `)
   const [ el ] = page.elements
   expect(el.attr[0].fn).toBe('hello')

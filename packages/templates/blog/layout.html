@@ -1,7 +1,7 @@
 
 <table :is="pagefoot">
-  <tr :each="el in blog">
-    <td>${ el.date }</td>
-    <td><a href="${ el.file.url }">${ el.title }</a></td>
+  <tr :each="page in blog">
+    <td>{ page.date }</td>
+    <td><a href="{ page.url }">{ page.title }</a></td>
   </tr>
 </table>

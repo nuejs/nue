@@ -19,8 +19,9 @@ export function tokenize(template) {
       } else {
         pos = addTag(template, pos, tokens)
       }
-    } else if ('$#'.includes(char) && template[pos + 1] == '{') {
+    } else if (template[pos] == '{') {
       pos = addExpr(template, pos, tokens)
+
     } else {
       pos = addText(template, pos, tokens)
     }
@@ -103,19 +104,29 @@ function addScript(template, pos, tokens) {
 
 
 function addExpr(template, pos, tokens) {
-  const i = template.indexOf('}', pos + 2)
+  const start = template.slice(pos, pos + 3)
+  let braces = 1
+  if (start.startsWith('{{{')) braces = 3
+  else if (start.startsWith('{{')) braces = 2
+
+  const closing = '}'.repeat(braces)
+  const i = template.indexOf(closing, pos + braces)
   if (i == -1) throw new SyntaxError(`Unclosed expression at ${pos}`)
-  const end = i + 1
-  tokens.push(template.slice(pos, end))
+
+  const end = i + braces
+  let token = template.slice(pos, end)
+
+  // normalize {{{ foo }}} to {{ foo }}
+  if (braces == 3) token = '{{' + token.slice(3, -3) + '}}'
+
+  tokens.push(token)
   return end
 }
 
 function addText(template, pos, tokens) {
   let i = pos
   while (i < template.length) {
-    if (template[i] == '<' || (i + 1 < template.length && '$#'.includes(template[i]) && template[i + 1] == '{')) {
-      break
-    }
+    if (template[i] == '<' || (i + 1 < template.length && template[i] == '{')) break
     i++
   }
   tokens.push(template.slice(pos, i))

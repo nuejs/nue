@@ -5,7 +5,7 @@ import { addContext } from './context.js'
 
 
 // former tag.js / parseTag
-export function createASTElement(block, imports) {
+export function createAST(block, imports) {
   const { tag, children, text, meta } = block
   if (text) return parseText(text, imports)
 
@@ -54,7 +54,7 @@ function parseOpeningTag(tag) {
 
 function parseChildren(arr, imports) {
   const scriptEl = arr.find(el => el.tag == '<script>')
-  const children = arr.filter(el => el != scriptEl).map(el => createASTElement(el, imports))
+  const children = arr.filter(el => el != scriptEl).map(el => createAST(el, imports))
   const script = scriptEl ? scriptEl.children[0]?.text.trim() : ''
   return { children: mergeConditionals(children), script }
 }
@@ -79,14 +79,16 @@ function mergeConditionals(arr) {
 
 
 function parseText(text, imports) {
-  const c = text[0]
-  if ('$#'.includes(c) && text[1] == '{' && text.endsWith('}')) {
-    const expr = { fn: addContext(text.slice(2, -1), imports).trim() }
-    if (c == '#') expr.html = true
+  if (text[0] == '{' && text.endsWith('}')) {
+    const is_html = text[1] == '{'
+    const am = is_html ? 2 : 1
+    const expr = { fn: addContext(text.slice(am, -am), imports).trim() }
+    if (is_html) expr.html = is_html
     return expr
   }
   return { text }
 }
+
 
 
 

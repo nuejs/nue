@@ -14,19 +14,19 @@ test('text', () => {
 })
 
 test('expression', () => {
-  expect(renderNue('<div>${ 1 + 2 }</div>')).toBe('<div>3</div>')
+  expect(renderNue('<div>{ 1 + 2 }</div>')).toBe('<div>3</div>')
 })
 
 test('NaN values', () => {
-  expect(renderNue('<div>${ a * b }</div>')).toBe('<div>N/A</div>')
+  expect(renderNue('<div>{ a * b }</div>')).toBe('<div>N/A</div>')
 })
 
 test('expression whitespace', () => {
-  expect(renderNue('<a>${ "a" } ${ "b" }</a>')).toBe('<a>a b</a>')
+  expect(renderNue('<a>{ "a" } { "b" }</a>')).toBe('<a>a b</a>')
 })
 
 test('text whitespace', () => {
-  const template = '<div>${ a } / ${ b } (${ c }) !</div>'
+  const template = '<div>{ a } / { b } ({ c }) !</div>'
   const html = renderNue(template, { data: { a: 1, b: 2, c: 3 } })
   expect(html).toBe('<div>1 / 2 (3) !</div>')
 })
@@ -42,7 +42,7 @@ test('component + text whitespace', () => {
 })
 
 test('errors', () => {
-  const html = renderNue('<div>${ foo() }</div>')
+  const html = renderNue('<div>{ foo() }</div>')
   expect(html).toBe('<div>[Error]</div>')
   expect(console.error).toHaveBeenCalled()
 })
@@ -58,18 +58,18 @@ test('attributes', () => {
 })
 
 test('attribute expressions', () => {
-  const html = renderNue(`<a class="${'f' + 1}"/>`)
+  const html = renderNue(`<a class="{'f' + 1}"/>`)
   expect(html).toBe('<a class="f1"></a>')
 })
 
 test('render prop', () => {
-  const html = renderNue('<h1>${ msg }</h1>', { data: { msg: 'Hello'} })
+  const html = renderNue('<h1>{ msg }</h1>', { data: { msg: 'Hello'} })
   expect(html).toBe('<h1>Hello</h1>')
 })
 
 
 test('nesting', () => {
-  const template = '<div><span>${ text }</span></div>'
+  const template = '<div><span>{ text }</span></div>'
   const html = renderNue(template, { data: { text: 'Nested' } })
   expect(html).toBe('<div><span>Nested</span></div>')
 })
@@ -93,42 +93,42 @@ test('svg', () => {
 })
 
 test('interpolation', () => {
-  const template = '<div class="item ${ type }"/>'
+  const template = '<div class="item { type }"/>'
   const html = renderNue(template, { data: { type: 'active' } })
   expect(html).toBe('<div class="item active"></div>')
 })
 
 test('html', () => {
-  const html = renderNue('<div>#{ html } here</div>', { data: { html: '<b>Bold</b> text' } })
+  const html = renderNue('<div>{{ html }} here</div>', { data: { html: '<b>Bold</b> text' } })
   expect(html).toBe('<div><b>Bold</b> text here</div>')
 })
 
 test('html false', () => {
-  const html = renderNue('<a>#{ html }</a>', { data: { html: false } })
+  const html = renderNue('<a>{{ html }}</a>', { data: { html: false } })
   expect(html).toBe('<a></a>')
 })
 
 test('class mapping', () => {
-  const template = '<label class="{ is-active: foo } bar">Test</label>'
+  const template = '<label class="[ is-active: foo ] bar">Test</label>'
   const html = renderNue(template, { data: { foo: true } })
   expect(html).toBe('<label class="is-active bar">Test</label>')
 })
 
 test('class mapping with functions', () => {
-  const template = '<div class="{ active: isActive(), error: hasError() }">Test</div>'
+  const template = '<div class="[ active: isActive(), error: hasError() ]">Test</div>'
   const data = { isActive: () => true, hasError: () => true }
   const html = renderNue(template, { data })
   expect(html).toBe('<div class="active error">Test</div>')
 })
 
 test(':var-* attributes', () => {
-  const template = '<a --index="1" --random="${ random }"></a>'
+  const template = '<a --index="1" --random="{ random }"></a>'
   const html = renderNue(template, { data: { random: 100 } })
   expect(html).toBe('<a style="--index:1;--random:100;"></a>')
 })
 
 test('max class names', () => {
-  const tmpl = '<a class="${ class }"/>'
+  const tmpl = '<a class="{ class }"/>'
   renderNue(tmpl, { data: { class: 'foo bar baz boo' }})
   renderNue(tmpl, { data: { class: 'foo bar' }, max_class_names: 1 })
   expect(console.error).toHaveBeenCalledTimes(2)
@@ -136,9 +136,8 @@ test('max class names', () => {
 
 test('invalid character warnings', () => {
   renderNue('<a class="hover:md"/>')
-  renderNue('<a class="foo[1]"/>')
   renderNue('<a class="bar"/>')
-  expect(console.error).toHaveBeenCalledTimes(2)
+  expect(console.error).toHaveBeenCalledTimes(1)
 })
 
 

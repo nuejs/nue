@@ -1,14 +1,14 @@
 
 <table :is="contents">
-  <tr :each="el in items">
-    <td><a href="${ el.url }">${ el.title }</a></td>
-    <td><markdown :content="el.desc"/></td>
+  <tr :each="page in items">
+    <td><a href="{ page.url }">{ page.title }</a></td>
+    <td>{{ markdown(page.desc) }}</td>
   </tr>
 </table>
 
 <anchors>
   <p :each="el in links">
-    <a href="#${ el.id }">${ el.text }</a>
+    <a href="#{ el.id }">{ el.text }</a>
   </p>
 
   <script>

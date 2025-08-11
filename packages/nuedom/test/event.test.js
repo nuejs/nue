@@ -3,7 +3,7 @@ import { clickable } from './event.util.js'
 
 
 test('event handler', () => {
-  const template = '<button :onclick="counter[0]++">${ counter[0] }</button>'
+  const template = '<button :onclick="counter[0]++">{ counter[0] }</button>'
   const data = { counter: [1] }
   const root = clickable(template, data)
   expect(root.html).toBe('<button>1</button>')
@@ -15,7 +15,7 @@ test('event handler', () => {
 test('event argument', () => {
   const template = `
     <button :onclick="setName($event)">
-      \${ name }
+      { name }
 
       <script>
         setName(e) {
@@ -48,7 +48,7 @@ test('conditional', () => {
 test('callback', () => {
   const template = `
     <div>
-      <child :callback=\${ callback }/>
+      <child :callback/>
     </div>
 
     <child>
@@ -70,7 +70,7 @@ test('callback', () => {
 test('method', () => {
   const template = `
     <a :onclick="increment()">
-      Count: \${ count }
+      Count: { count }
       <script>
         this.count = 0
 
@@ -89,7 +89,7 @@ test('method', () => {
 test('method syntax', () => {
   const template = `
     <a :onclick="hey()">
-      \${ val }  \${ avg }
+      { val }  { avg }
       <script>
         hey() {
           this.val = 'hey'
@@ -111,7 +111,7 @@ test('method syntax', () => {
 test('child/bind updates', () => {
   const template = `
     <div>
-      <h1>\${ data.hello }</h1>
+      <h1>{ data.hello }</h1>
       <child :bind="data"/>
       <button :onclick="change"/>
       <script>
@@ -129,7 +129,7 @@ test('child/bind updates', () => {
     </div>
 
     <child>
-      <p>\${ world }</p>
+      <p>{ world }</p>
     </child>
   `
 
@@ -142,7 +142,7 @@ test('child/bind updates', () => {
 
 test('event bind shortcut', async () => {
   const template = `
-    <a :onclick disabled="\${ disabled }">
+    <a :onclick disabled="{ disabled }">
       <script>
         onclick() { this.disabled = 1 }
       </script>

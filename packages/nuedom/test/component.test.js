@@ -21,7 +21,7 @@ test(':is=name', () => {
 })
 
 test('params', () => {
-  const html = renderNue(`<hey text="foo" :text="'bar'"/> <hey>\${ text }</hey>`)
+  const html = renderNue(`<hey text="foo" :text="'bar'"/> <hey>{ text }</hey>`)
   expect(html).toBe('<div text="foo">bar</div>')
 })
 
@@ -34,7 +34,7 @@ test('child data', () => {
         rand() { return ['hey'] }
       </script>
     </figure>
-    <bar-chart>\${ hey[0] } \${ value }</bar-chart>
+    <bar-chart>{ hey[0] } { value }</bar-chart>
   `
   expect(renderNue(template)).toInclude('<div>hey 100</div>')
 })
@@ -43,7 +43,7 @@ test('script', () => {
   const template = `
     <hey/>
     <hey>
-      \${ text }
+      { text }
       <script>
         this.text = 'Hello'
       </script>
@@ -71,7 +71,7 @@ test('if-else', () => {
 test('parent & child params', () => {
   const template = `
     <item :amount="2"/>
-    <item class="bar" data-amount="\${ amount }"/>
+    <item class="bar" data-amount="{ amount }"/>
   `
   const html = renderNue(template)
   expect(html).toBe('<div class="bar" data-amount="2"></div>')
@@ -90,8 +90,8 @@ test('class merging', () => {
 
 test(':bind', () => {
   const template = `
-    <item :bind="\${ data }"/>
-    <item><h1>\${title}</h1><p>\${ desc }</p></item>
+    <item :bind="{ data }"/>
+    <item><h1>{title}</h1><p>{ desc }</p></item>
   `
   const data = { title: 'Hello', desc: 'World' }
   const html = renderNue(template, { data: { data } })
@@ -101,15 +101,15 @@ test(':bind', () => {
 test(':bind this', () => {
   const html = renderNue(`
     <div>
-      <item :bind="\${ this }"/>
+      <item :bind="{ this }"/>
       <script>
         this.title = 'Hello'
         this.desc = 'World'
       </script>
     </div>
     <item>
-      <h1>\${ title }</h1>
-      <p>\${ desc }</p>
+      <h1>{ title }</h1>
+      <p>{ desc }</p>
     </item>
   `)
   expect(html).toInclude('<h1>Hello</h1> <p>World</p>')
@@ -118,14 +118,14 @@ test(':bind this', () => {
 
 test('slot', () => {
   const template = `
-    <item :hey="\${ title }">
-      <p>\${ desc }</p>
+    <item :hey="{ title }">
+      <p>{ desc }</p>
       <small>yo</small>
-      \${ desc }
+      { desc }
     </item>
 
     <item>
-      <h1>\${ hey }</h1>
+      <h1>{ hey }</h1>
       <slot/>
     </item>
   `
@@ -138,7 +138,7 @@ test('mount attribute', () => {
   const template = `
     <a :mount="type" :key="id"/>
 
-    <item href="id:\${ key }">
+    <item href="id:{ key }">
       <b>Hello</b>
     </item>
   `

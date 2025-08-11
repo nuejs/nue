@@ -11,8 +11,10 @@ test('self-closing tag', () => {
 })
 
 test('expressions', () => {
-  expect(tokenize('<span>${ text } #{ value }</span>'))
-    .toEqual(['<span>', '${ text }', '#{ value }', '</span>'])
+  const tokens = tokenize('<span>{ text } foo {{ html }} bar {{{ html }}}</span>')
+  expect(tokens).toEqual(
+    [ "<span>", "{ text }", " foo ", "{{ html }}", " bar ", "{{ html }}", "</span>" ]
+  )
 })
 
 test('nested tags', () => {
@@ -47,12 +49,12 @@ test('class helper', () => {
 })
 
 test('single quoted attr', () => {
-  const els = tokenize(`<p :class='\${ boo || "baz" }'>Hi</p>`)
+  const els = tokenize(`<p :class='{ boo || "baz" }'>Hi</p>`)
   expect(els.length).toBe(3)
 })
 
 test('complex attribute', () => {
-  const els = tokenize('<p :class="{ foo: true } baz ${ bar }">Hi</p>')
+  const els = tokenize('<p :class="{ foo: true } baz { bar }">Hi</p>')
   expect(els.length).toBe(3)
 })
 
@@ -71,7 +73,7 @@ test('newlines', () => {
 
 test('if and angle brackets', () => {
   expect(tokenize('<a :if="var > 10"/>').length).toBe(1)
-  expect(tokenize('<a :if="${ var < 10 }"/>').length).toBe(1)
+  expect(tokenize('<a :if="{ var < 10 }"/>').length).toBe(1)
   expect(tokenize('<b :if="am < 50"/>').length).toBe(1)
 })
 
@@ -104,9 +106,9 @@ test('annotations', () => {
 
 
 test('scripts with expressions', () => {
-  const tokens = tokenize('<a><script>`${expr}`</script></a>')
+  const tokens = tokenize('<a><script>`{expr}`</script></a>')
   expect(tokens.length).toBe(5)
-  expect(tokens[2]).toBe('`${expr}`')
+  expect(tokens[2]).toBe('`{expr}`')
 })
 
 test('scripts with inner HTML', () => {

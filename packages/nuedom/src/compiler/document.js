@@ -1,5 +1,5 @@
 
-import { createASTElement } from './ast-element.js'
+import { createAST } from './ast.js'
 import { tokenize } from './tokenizer.js'
 
 /*
@@ -44,7 +44,7 @@ export function parseNue(template) {
 
   // reserved names
   const names = parseNames(page.script)
-  page.elements = elements.map(el => createASTElement(el, names))
+  page.elements = elements.map(el => createAST(el, names))
 
   return page
 }

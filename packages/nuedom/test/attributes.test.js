@@ -1,15 +1,15 @@
 
 import {
+  tokenizeAttr,
   parseAttributes,
   parseClassHelper,
   parseExpression,
   parseFor,
   parseForArgs,
-  tokenizeAttr,
 } from '../src/compiler/attributes.js'
 
 
-test('attr tokenize basics', () => {
+test('tokenize attr', () => {
   const attr = 'class=test disabled :onclick="log($event)"'
   expect(tokenizeAttr(attr)).toEqual(['class=test', 'disabled', ':onclick=log($event)'])
 })
@@ -33,11 +33,11 @@ test('plain value', () => {
 })
 
 test('expression', () => {
-  expect(parseExpression('${ 1 + 1 }')).toBe('(1 + 1)')
+  expect(parseExpression('{ 1 + 1 }')).toBe('(1 + 1)')
 })
 
 test('interpolation', () => {
-  expect(parseExpression("foo ${ cute('hey') } baz")).toBe(`"foo " + (_.cute('hey')) + " baz"`)
+  expect(parseExpression("foo { cute('hey') } baz")).toBe(`"foo " + (_.cute('hey')) + " baz"`)
 })
 
 test('class helper', () => {
@@ -49,7 +49,7 @@ test('class helper plain value', () => {
 })
 
 test('complex class helper', () => {
-  const expr = parseExpression('prefix { hey: bar, boo: baz() }', 'class')
+  const expr = parseExpression('prefix [ hey: bar, boo: baz() ]', 'class')
   expect(expr).toBe('"prefix " + _.$concat({hey: _.bar, boo: _.baz()})')
 })
 

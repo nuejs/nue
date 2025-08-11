@@ -3,12 +3,12 @@
 
 <table :is="user-table">
   <tr :each="user in users">
-    <td><strong>${ user.name }</strong></td>
-    <td><a href="mailto:${ user.email }">${ user.email }</a></td>
-    <td>${ user.country }</td>
-    <td>${ user.role }</td>
-    <td><span class="status ${user.status}">${ user.status }</span></td>
-    <td>${ formatDate(user.created) }</td>
+    <td><strong>{ user.name }</strong></td>
+    <td><a href="mailto:{ user.email }">{ user.email }</a></td>
+    <td>{ user.country }</td>
+    <td>{ user.role }</td>
+    <td><span class="status {user.status}">{ user.status }</span></td>
+    <td>{ formatDate(user.created) }</td>
   </tr>
 
   <script>

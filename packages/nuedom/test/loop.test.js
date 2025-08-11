@@ -3,13 +3,13 @@ import { clickable } from './event.util.js'
 import { renderNue } from '../src/dom/render.js'
 
 test('loop index', () => {
-  const template = '<ul><li :each="(el, i) in items">${i}: ${el}</li></ul>'
+  const template = '<ul><li :each="(el, i) in items">{i}: {el}</li></ul>'
   const html = renderNue(template, { data: { items: ['a', 'b'] } })
   expect(html).toBe('<ul><li>0: a</li><li>1: b</li></ul>')
 })
 
 test('loop data access', () => {
-  const template = '<div><p :each="el in items">${el} ${foo}</p></div>'
+  const template = '<div><p :each="el in items">{el} {foo}</p></div>'
   const html = renderNue(template, { data: { foo: 1, items: ['F', 'F'] }})
   expect(html).toInclude('<p>F 1</p><p>F 1</p>')
 })
@@ -18,8 +18,8 @@ test('template loop', () => {
   const template = `
     <dl>
       <template :each="(el, i) in meta">
-        <dt>\${ el.title }</dt>
-        <dd>\${ el.data }</dd>
+        <dt>{ el.title }</dt>
+        <dd>{ el.data }</dd>
       </template>
     </dl>
   `
@@ -37,8 +37,8 @@ test('Object.entries()', () => {
   const template = `
     <dl>
       <template :each="[key, val] in Object.entries(items)">
-        <td>\${ key }</td>
-        <dd>\${ val }</dd>
+        <td>{ key }</td>
+        <dd>{ val }</dd>
       </template>
     </dl>
   `
@@ -51,8 +51,8 @@ test('loop deconstruct', () => {
   const template = `
     <dl>
       <template :each="{ key, val } in items">
-        <td>\${ key }</td>
-        <dd>\${ val }</dd>
+        <td>{ key }</td>
+        <dd>{ val }</dd>
       </template>
     </dl>
   `
@@ -65,7 +65,7 @@ test('nested loop', () => {
   const template = `
     <ul>
       <li :each="arr in items">
-        <p :each="el in arr">\${ el }</p>
+        <p :each="el in arr">{ el }</p>
       </li>
     </ul>
   `
@@ -77,13 +77,13 @@ test('nested loop', () => {
 test('component loop', () => {
   const template = `
     <ul>
-      <item :each="text of arr" :text="\${ text }"/>
+      <item :each="text of arr" :text="{ text }"/>
       <script>
         this.arr = ['hello', 'world']
       </script>
     </ul>
 
-    <li :is="item">\${ text }</li>
+    <li :is="item">{ text }</li>
   `
   const html = renderNue(template)
   expect(html).toBe('<ul><li>hello</li><li>world</li></ul>')
@@ -93,7 +93,7 @@ test('component loop', () => {
 test('slot loop', () => {
   const html = renderNue(`
     <a>
-      <child :each="el, i in new Array(2).fill(1)">\${i}</child>
+      <child :each="el, i in new Array(2).fill(1)">{i}</child>
     </a>
     <b :is="child">i: <slot/></b>
   `)
@@ -103,7 +103,7 @@ test('slot loop', () => {
 test('loop + if', () => {
   const template = `
     <div>
-      <a :each="val in [1,2]" :if="doit">\${val}</a>
+      <a :each="val in [1,2]" :if="doit">{val}</a>
       <button :onclick="doit = true"/>
     </div>
   `
@@ -118,7 +118,7 @@ test.skip('loop :onclick', () => {
   const template = `
     <div>
       <button :each="el, i of [{ id: 2 }]" :onclick="doit = true">
-        \${ el.id } / \${ i }
+        { el.id } / { i }
       </button>
 
       <p :if="doit">Hey</p>
