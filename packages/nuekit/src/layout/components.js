@@ -3,6 +3,73 @@ import { readFileSync, readdirSync } from 'node:fs'
 import { join } from 'node:path'
 
 import { elem, parseSize, renderInline, renderIcon } from 'nuemark'
+import { toPosix } from '../util.js'
+
+
+export function formatFeedTitle(template, title = '') {
+
+  // Beautifies the given title:
+  // "blog/child-1" to "Blog → Child 1"
+  // "blog_posts" to "Blog Posts"
+
+  const formatted = toPosix(title)
+    .split('/')
+    .map(part => part.replace(/[-+_]/g, ' ').replace(/\b\w/g, c => c.toUpperCase()))
+    .join(' → ')
+
+  // unlikely, but what if
+  if(!template) {
+    return formatted
+  }
+
+  return template.replace('%s', formatted)
+}
+
+export function collectionToFeed(data) {
+
+  return [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    elem('feed', { xmlns: 'http://www.w3.org/2005/Atom' },
+      [
+        // feed info
+        elem('title', formatFeedTitle(data.title_template, data.title)),
+        data.subtitle ? elem('subtitle', data.subtitle) : '',
+        (data.author?.name || data.author?.mail) ? elem('author', [
+            data.author.name ? elem('name', data.author.name) : '',
+            data.author.mail ? elem('email', data.author.mail) : '',
+          ].filter(Boolean).join(''))
+          : '',
+        `<link href="${data.link_alternate}" rel="alternate"/>`,
+        `<link href="${data.link_self}" rel="self" type="application/atom+xml"/>`,
+        elem('id', data.link_self),
+        elem('updated', new Date().toISOString()),
+        elem('generator', { uri: 'https://nuejs.org/', version: data.nuekit_version }, 'Nuekit'),
+        data.icon ? elem('icon', `${data.origin}/${data.icon}`) : '',
+
+        // entries
+        ...data.items.map(({ url, date, title, description, author }) => {
+          const link = `${data.origin}${url}`
+          const authorObj = (author = author || data.author || {})
+
+          return elem('entry', [
+            elem('id', link),
+            elem('title', title),
+            `<link href="${link}"/>`,
+            elem('published', (() => {
+              const parsedDate = new Date(date)
+              return isNaN(parsedDate.getTime()) ? new Date().toISOString() : parsedDate.toISOString()
+            })()),
+            (authorObj.name || authorObj.mail) ? elem('author', [
+              authorObj.name ? elem('name', authorObj.name) : '',
+              authorObj.mail ? elem('email', authorObj.mail) : '',
+            ].filter(Boolean).join('')) : '',
+            elem('summary', { type: 'xhtml' }, renderInline(description)),
+          ].join(''))
+        })
+      ].join('\n')
+    ),
+  ].join('')
+}
 
 export function renderPageList(data) {
   const key = data.collection_name || data.content_collection
