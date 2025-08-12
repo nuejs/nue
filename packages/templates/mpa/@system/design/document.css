@@ -37,7 +37,7 @@
   }
 
   /* columns  */
-  @media (width > 900) {
+  @media (width > 900px) {
     .columns {
       column-count: var(--column-count, 2);
       margin-block: var(--l);

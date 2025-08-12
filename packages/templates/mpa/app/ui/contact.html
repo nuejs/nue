@@ -1,12 +1,13 @@
+<!doctype dhtml>
 
 <script>
-  import { getContact } from '/@system/model/index.js'
-  import { state } from '/@nue/hyperstate.js'
+  import { getContact } from 'app'
+  import { state } from 'state'
 </script>
 
 <article :is="contact-details">
 
-  <h1>${ name || email }</h1>
+  <h1>{ name || email }</h1>
 
   <nav>
     <button onclick="history.go(-1)">Back</button>
@@ -15,18 +16,18 @@
 
   <dl>
     <dt>Registered</dt><dd><pretty-date :date="created"/></dd>
-    <dt>Country</dt><dd><country-emoji :code="country"/> <span>${ country_name }</span></dd>
-    <dt>Email</dt><dd>${ email }</dd>
+    <dt>Country</dt><dd><country-emoji :code="country"/> <span>{ country_name }</span></dd>
+    <dt>Email</dt><dd>{ email }</dd>
 
     <template :if="company_name">
-      <dt>Company</dt><dd>${ company_name }</dd>
+      <dt>Company</dt><dd>{ company_name }</dd>
     </template>
 
     <template :if="website">
-      <dt>Website</dt><dd>${ website }</dd>
+      <dt>Website</dt><dd>{ website }</dd>
     </template>
 
-    <dt>Mailing list</dt><dd>${ subscribed ? '✅ Member' : '❌ Not member' }</dd>
+    <dt>Mailing list</dt><dd>{ subscribed ? '✅ Member' : '❌ Not member' }</dd>
     <!--
     <dt>Status</dt><dd><span class="status active"></span> Active</dd>
     <dt>Last visit</dt><dd>5 days ago</dd>
@@ -34,7 +35,7 @@
 
     <template :if="comment">
       <dt>Comment</dt>
-      <dd>${ comment }</dd>
+      <dd>{ comment }</dd>
     </template>
   </dl>
 

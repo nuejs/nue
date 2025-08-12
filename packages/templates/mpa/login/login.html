@@ -1,9 +1,12 @@
 
+<!doctype dhtml>
+
 <script>
-  import { login } from '/@system/model/index.js'
+  import { login } from 'app'
 </script>
 
-<form :is="login" :submit="login" class="thin">
+
+<form :is="login" :onsubmit="submit" class="thin">
   <div class="error note" :if="failure">
     Failure
   </div>
@@ -25,7 +28,7 @@
   </p>
 
   <script>
-    login(e) {
+    submit(e) {
       const form = e.target
       this.disabled = true
 

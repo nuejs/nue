@@ -1,19 +1,17 @@
 
-view_transitions: true
-
-# use custom CSS (syntax.css) instead of default
-syntax_highlight: false
+# router: true
 
 sections: true
 
-globals:
-  - "@system/design"
-  - "@system/view"
-  - view
+# custom additions
+import-map:
+  app: /@system/app.js
 
-worker:
-  dir: "@system/worker"
-  server: server.js
-  version: 1.0
+server:
+  db: db/app.db
+  kv: db/kv.db
   reload: true
 
+# use a strict design system
+design:
+  strict: true

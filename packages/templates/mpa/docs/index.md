@@ -1,10 +1,6 @@
-
 ---
 title: Documentation
-aside: false
-sections: true
 ---
-
 
 ## Popular
 [contents :items="popular"]

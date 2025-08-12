@@ -1,8 +1,9 @@
 
 import { join, normalize, dirname, extname, basename, sep } from 'node:path'
 
-const ASSETS = ['.html', '.js', '.ts', '.yaml', '.css']
 const SYSTEM_DIRS = ['design', 'data', 'layout', 'ui'].map(dir => join('@system', dir))
+
+const ASSET_TYPES = ['.html', '.js', '.ts', '.yaml', '.css']
 
 
 export function listDependencies(basepath, { paths, exclude=[], strict }) {
@@ -11,7 +12,7 @@ export function listDependencies(basepath, { paths, exclude=[], strict }) {
   let deps = paths.filter(path => isDep(basepath, path, paths))
 
   // extensions
-  deps = deps.filter(path => ASSETS.includes(extname(path)))
+  deps = deps.filter(path => ASSET_TYPES.includes(extname(path)))
 
   // strict design system
   if (strict) {
@@ -22,8 +23,7 @@ export function listDependencies(basepath, { paths, exclude=[], strict }) {
 
   // Exclusions
   exclude.forEach(pattern => {
-    const glob = new Bun.Glob(pattern)
-    deps = deps.filter(path => !glob.match(path))
+    deps = deps.filter(path => !path.includes(pattern))
   })
 
   return [...new Set(deps)]

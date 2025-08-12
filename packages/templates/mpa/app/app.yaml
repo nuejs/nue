@@ -1,2 +1,2 @@
 
-exclude: [ document ]
+exclude: [ document.css ]

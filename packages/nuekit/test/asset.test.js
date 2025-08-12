@@ -132,6 +132,7 @@ test('SPA: index.html', async () => {
   expect(spa.js).toInclude('export const lib')
   expect(spa.html).toInclude('<!doctype html>')
   expect(spa.html).toInclude('<body nue>')
+  expect(spa.html).toInclude('"state":"/@nue/state.js"')
 
 })
 
@@ -164,7 +165,7 @@ test('SSR: user-list.html', async () => {
   expect(html).not.toInclude('<body>')
   expect(html).toInclude('<ul>')
 
-  expect(await page.contentType()).toBe('text/html')
+  expect(await page.contentType()).toInclude('text/html')
 })
 
 test('SVG', async () => {

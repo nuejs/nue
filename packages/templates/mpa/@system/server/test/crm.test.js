@@ -1,5 +1,5 @@
 
-import { loadSchema } from '../data/load.js'
+import { loadSchema } from '../db/init/load.js'
 import { createCRM } from '../model/crm.js'
 import { env } from './mock.js'
 

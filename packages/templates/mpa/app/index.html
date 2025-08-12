@@ -1,5 +1,49 @@
+<!doctype dhtml>
 
-<!-- "custom" defines the app mount point -->
-<body custom="app"></body>
+<script>
+  import { hasSession, logout } from 'app'
+  import { state } from 'state'
 
+  state.setup({
+    query: ['type', 'query', 'start'],
+    emit_only: ['deleted'],
+    memory: ['ondelete'],
+    route: '/app/:id',
+    autolink: true,
+  })
+
+  if (!hasSession()) location.href = '/login/'
+</script>
+
+<body>
+
+  <header>
+    <nav>
+      <a href="/"><img src="/img/logo.png" width="60" height="22"></a>
+      <a href="/app/">Contacts</a>
+    </nav>
+    <nav>
+      <button class="plain" :onclick="logout(); location.href = '/'">Logout</button>
+    </nav>
+  </header>
+
+  <main>
+    <article/>
+  </main>
+
+  <confirm-delete/>
+
+  <script>
+    state.on('id', ({ id }) => {
+      const wrap = this.root.querySelector('article')
+      this.mount(id ? 'contact-details' : 'contact-list', wrap)
+    })
+
+    mounted() {
+      console.log('app mounted')
+      state.init()
+    }
+  </script>
+
+</body>
 

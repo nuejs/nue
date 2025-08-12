@@ -20,7 +20,7 @@ test('onServe /test', async () => {
   const page = { url: '/test', render() { return 'hey' } }
   const result = await onServe('/test', [ page ])
   expect(result.content).toBe('hey')
-  expect(result.type).toBe('text/html')
+  expect(result.type).toInclude('text/html')
 })
 
 test('onServe /app/users', async () => {

@@ -1,4 +1,8 @@
 
+---
+date: 2025-10-09
+---
+
 # Rethinking the startup MVP: Building a competitive product
 
 [pretty-date]

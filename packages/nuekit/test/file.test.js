@@ -6,13 +6,17 @@ import { createFile, getFileInfo, getURL, getSlug } from '../src/file'
 
 
 test('url property', () => {
-  expect(getURL(parse('index.md'))).toBe('/')
-  expect(getURL(parse('blog/entry.md'))).toBe('/blog/entry')
-  expect(getURL(parse('app/index.html'))).toBe('/app/')
-  expect(getURL(parse('blog/table.html'))).toBe('/blog/table.html')
-  expect(getURL(parse('docs/installation.md'))).toBe('/docs/installation')
-  expect(getURL(parse('@system/design/base.css'))).toBe('/@system/design/base.css')
-  expect(getURL(parse('site.yaml'))).toBe('/site.yaml')
+  function testURL(path, expected) {
+    expect(getURL(parse(path))).toBe(expected)
+  }
+  testURL('index.md', '/')
+  testURL('index.css', '/index.css')
+  testURL('blog/entry.md', '/blog/entry')
+  testURL('app/index.html', '/app/')
+  testURL('blog/table.html', '/blog/table.html')
+  testURL('docs/installation.md', '/docs/installation')
+  testURL('@system/design/base.css', '/@system/design/base.css')
+  testURL('site.yaml', '/site.yaml')
 })
 
 test('slug property', () => {

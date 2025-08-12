@@ -89,9 +89,10 @@ test('root CSS follows strict rules', () => {
 
 test('exclusions', () => {
   const deps = listDependencies('app/index.html', {
+    exclude: ['app/ui', '@system/design', 'site.yaml'],
     paths,
-    exclude: ['app/ui/*', '@system/design/*', 'site.yaml']
   })
+
   expect(deps.length).toBe(1 + 4 + 3) // globals.js + 4 system + 3 app
   expect(deps).not.toContain('app/ui/header.html')
   expect(deps).not.toContain('@system/design/base.css')

@@ -1,11 +1,11 @@
 
 import { extname, join } from 'node:path'
 
-import { createServer, sessions } from './tools/server'
+import { createServer, broadcast, sessions } from './tools/server'
 import { fswatch } from './tools/fswatch'
 
-import { getSystemFiles } from './system.js'
 import { getServer } from './server'
+import { getSystemFiles } from './system.js'
 
 const sysfiles = getSystemFiles()
 
@@ -26,7 +26,7 @@ export async function onServe(url, assets) {
     const result = await asset.render()
     if (!result) return Bun.file(asset.rootpath)
     const content = (ext ? result.js : result.html) || result
-    const type = ext ? await asset.contentType() : 'text/html'
+    const type = ext ? await asset.contentType() : 'text/html; charset=utf-8'
     return { content, type }
   }
 
@@ -80,7 +80,7 @@ export async function serve(assets, args) {
 
   watcher.onremove = async function(path) {
     assets.remove(path)
-    server.broadcast({ remove: path })
+    broadcast({ remove: path })
   }
 
   const url = server.url.toString()

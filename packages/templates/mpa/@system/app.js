@@ -3,10 +3,6 @@
   Authentication and server communication
 */
 
-export function hasSession() {
-  return !!localStorage.$sid
-}
-
 export async function login(email, password) {
   const ret = await post('/api/login', { email, password })
   localStorage.$sid = ret.sessionId
@@ -28,11 +24,18 @@ export async function deleteContact(id) {
   return await del(`/admin/contacts/${id}`)
 }
 
+export function hasSession() {
+  return !!localStorage.$sid
+}
+
 export async function logout() {
   await get('/admin/logout')
   delete localStorage.$sid
   return true
 }
+
+
+/* private helper functions */
 
 async function post(route, data) {
   const resp = await fetch(route, {

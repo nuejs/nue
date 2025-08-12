@@ -60,8 +60,12 @@ export function getFileInfo(path) {
 
 export function getURL(file) {
   let { name, base, ext, dir } = file
-  if (name == 'index') name = ''
-  if (ext == '.md' || base == 'index.html') ext = ''
+
+  if (['.md', '.html'].includes(ext)) {
+    if (ext == '.md' || base == 'index.html') ext = ''
+    if (name == 'index') name = ''
+  }
+
   if (ext == '.ts') ext = '.js'
   const els = dir.split(sep)
   els.push(name + ext)

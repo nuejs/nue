@@ -1,11 +1,9 @@
 
-
 # The new standard for modern product development
 With its meticulous design, breathtaking speed and purpose-built workflows, Linear unlocks your team’s full potential. It is the tool of choice for high-performance teams to build products better.
 
 [image.wide.loose]
   src: /img/table-hero-2.png
-
 
 ---
 

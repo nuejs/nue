@@ -1,7 +1,8 @@
+<!doctype dhtml>
 
 <script>
-  import { deleteContact } from '/@system/model/index.js'
-  import { state } from '/@nue/hyperstate.js'
+  import { deleteContact } from 'app'
+  import { state } from 'state'
 </script>
 
 <!-- pretty date -->
@@ -12,7 +13,7 @@
 </script>
 
 <time :is="pretty-date">
-  ${ pretty }
+  { pretty }
 
   <script>
     this.pretty = this.date ? DATE_FORMAT.format(new Date(this.date)) : ''
@@ -23,7 +24,7 @@
   @param { string } code - Two-letter country code (e.g., 'US', 'FR')
 -->
 <b :is="country-emoji">
-  ${ emoji }
+  { emoji }
 
   <script>
     this.emoji = this.code?.toUpperCase().replace(/./g, c =>
@@ -33,7 +34,7 @@
 </b>
 
 <toast class="toast" :role="role || 'status'">
-  <p>${ message }</p>
+  <p>{ message }</p>
 </toast>
 
 
@@ -43,8 +44,8 @@
   <p>This action cannot be undone.</p>
 
   <footer>
-    <button :onclick  popovertarget="${ id }">Delete</button>
-    <button class="plain" popovertarget="${ id }">Cancel</button>
+    <button :onclick  popovertarget="{ id }">Delete</button>
+    <button class="plain" popovertarget="{ id }">Cancel</button>
   </footer>
 
   <script>

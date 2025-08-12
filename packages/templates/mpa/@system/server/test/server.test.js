@@ -1,5 +1,5 @@
 
-import { loadSchema } from '../data/load.js'
+import { loadSchema } from '../db/init/load.js'
 import server from '../server.js'
 import { env } from './mock.js'
 

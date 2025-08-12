@@ -1,7 +1,17 @@
 
 <table>
   <tr :each="page in blog">
-    <td>{ page.date }</td>
+    <td>{ formatDate(page.date) }</td>
     <td><a href="{ page.url }">{ page.title }</a></td>
   </tr>
+
+  <script>
+    formatDate(date) {
+      return new Date(date).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      })
+    }
+  </script>
 </table>

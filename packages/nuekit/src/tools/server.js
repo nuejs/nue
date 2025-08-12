@@ -24,7 +24,7 @@ export function createServer({ port=4000, handler }, callback) {
       // res = { content, type, status } || HTML <string>
       if (res) {
         return new Response(res.content || res, {
-          headers: { 'Content-Type': res.type || 'text/html' },
+          headers: { 'Content-Type': res.type || 'text/html; charset=utf-8' },
           status: res.status || 200
         })
 
@@ -40,6 +40,10 @@ export function createServer({ port=4000, handler }, callback) {
   }
 
   return Bun.serve({ idleTimeout: 0, port, fetch })
+}
+
+export function broadcast(data) {
+  sessions.forEach(session => session.broadcast(data))
 }
 
 

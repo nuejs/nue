@@ -2,8 +2,10 @@
 /* universal modifiers */
 @layer modifier {
 
-  /* size (thin, wide) */
+  /* size  */
+  .thin    { max-width: 25em }
   .wide    { max-width: inherit; width: 100% }
+
 
   /* space (loose, right) */
   .loose   { margin-block: var(--l) }

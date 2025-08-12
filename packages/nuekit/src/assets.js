@@ -15,7 +15,7 @@ const IGNORE = `_* _*/** .* .*/** node_modules/** @system/server/**\
 export async function readAssets(root) {
 
   // site config
-  const conf = await readSiteConf(root)
+  const conf = await readSiteYAML(root)
   if (!conf) return console.error('Not a Nue directory')
 
   // files
@@ -33,8 +33,12 @@ export async function readAssets(root) {
   }
 
   assets.remove = function(path) {
-    const i = files.findIndex(el => el.path == path)
-    if (i >= 0) files.splice(i, 1)
+    function splice(arr) {
+      const i = arr.findIndex(el => el.path == path)
+      if (i >= 0) arr.splice(i, 1)
+    }
+    splice(files)
+    splice(assets)
   }
 
   assets.update = async function(path) {
@@ -58,7 +62,7 @@ export async function readAssets(root) {
 }
 
 
-async function readSiteConf(root) {
+async function readSiteYAML(root) {
   const files = await readdir(root)
 
   // site.yaml

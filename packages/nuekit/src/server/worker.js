@@ -24,7 +24,8 @@ export async function createWorker(opts = {}) {
   let server = await importServer({ dir, reload })
   if (!server) return null
 
-  const { env={}, db, kv } = opts
+  const { db, kv } = opts
+  const env = { ...process.env, ...opts.env }
   if (db) env.DB = createDB(join(dir, db))
   if (kv) env.KV = createKV(join(dir, kv))
 

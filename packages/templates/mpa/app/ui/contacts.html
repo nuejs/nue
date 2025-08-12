@@ -1,7 +1,8 @@
+<!doctype dhtml>
 
 <script>
-  import { getContacts } from '/@system/model/index.js'
-  import { state } from '/@nue/hyperstate.js'
+  import { getContacts } from 'app'
+  import { state } from 'state'
 </script>
 
 <article :is="contact-list">
@@ -13,32 +14,32 @@
     <!-- search -->
     <form :onsubmit="state.query = $event.target.query.value">
       <input type="search" name="query" placeholder="Search..."
-        :oninput="clear" value="${ state.query }">
+        :oninput="clear" value="{ state.query }">
     </form>
 
     <!-- filtering -->
     <fieldset>
       <label :each="{ type, label } in types" :onclick="state.type = type">
-        <input type="radio" name="type" value="${ type }" checked="${ state.type == type }">
-        ${ label }
+        <input type="radio" name="type" value="{ type }" checked="{ state.type == type }">
+        { label }
       </label>
     </fieldset>
 
     <!-- pagination -->
     <nav>
       <button class="plain" :onclick="seek(-1)" :disabled="!coll?.start">←</button>
-      <small>${ status }</small>
+      <small>{ status }</small>
       <button class="plain" :onclick="seek(1)" :disabled="!hasNext()">→</button>
     </nav>
   </header>
 
   <table>
-    <tr :each="el in coll?.results" key="${ el.id }">
+    <tr :each="el in coll?.results" key="{ el.id }">
       <td>
         <country-emoji :code="el.country"/>
-        <a href="${ el.id }">${ el.name || el.email }</a>
+        <a href="{ el.id }">{ el.name || el.email }</a>
       </td>
-      <td>${ el.comment }</td>
+      <td>{ el.comment }</td>
       <td><pretty-date :date="el.created"/></td>
       <td>
         <button class="plain" popovertarget="confirm-delete" title="Delete"

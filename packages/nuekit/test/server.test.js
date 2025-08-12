@@ -41,7 +41,7 @@ test('/', async () => {
 test('html response', async () => {
   const res = await server.fetch(new Request('http://localhost/html'))
   expect(await res.text()).toBe('<p>Hello</p>')
-  expect(res.headers.get('content-type')).toBe('text/html')
+  expect(res.headers.get('content-type')).toInclude('text/html')
 })
 
 test('custom mime type', async () => {

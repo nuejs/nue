@@ -3,7 +3,7 @@ import { elem } from 'nuemark'
 import { version } from './system'
 
 export async function renderHead(data, assets, libs) {
-  const { title, imports } = data
+  const { title } = data
   const head = []
 
   if (title) head.push(elem('title', data.title))
@@ -19,7 +19,7 @@ export async function renderHead(data, assets, libs) {
 
   if (scripts.length || libs.length) {
     head.push(...scripts)
-    head.push(importMap(imports))
+    head.push(importMap(data['import-map']))
   }
 
   return head
@@ -28,8 +28,7 @@ export async function renderHead(data, assets, libs) {
 export function renderMeta(data, libs) {
   const desc = data.desc || data.description
 
-  const meta = {
-    charset:  'utf-8',
+  const props = {
     viewport: 'width=device-width,initial-scale=1',
     'article:published_time': data.date || data.pubDate,
     generator: `Nue v${version} (nuejs.org)`,
@@ -46,11 +45,14 @@ export function renderMeta(data, libs) {
     robots: '',
   }
 
-  return Object.entries(meta).map(([key, val]) => {
-    const content = val || data[key]
-    return content && elem('meta', { name: key, content })
+  const meta = [elem('meta', { charset: 'utf-8'})]
 
-  }).filter(el => !!el)
+  Object.entries(props).map(([key, val]) => {
+    const content = val || data[key]
+    if (content) meta.push(elem('meta', { name: key, content }))
+  })
+
+  return meta
 }
 
 

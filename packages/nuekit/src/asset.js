@@ -88,9 +88,9 @@ export function createAsset(file, files=[]) {
   async function contentType() {
     const types = {
       '.html.js': 'application/javascript',
+      '.html': 'text/html; charset=utf-8',
       '.js': 'application/javascript',
       '.svg': 'image/svg+xml',
-      '.html': 'text/html',
       '.css': 'text/css',
     }
 

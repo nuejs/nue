@@ -5,7 +5,7 @@ import { readAssets } from '../src/assets'
 
 // converted to YAML by writeAll
 const SITE_DATA = {
-  exclude: '[ **/app.css ]',
+  exclude: '[ app.css ]',
   brand: 'Acme',
   class: 'wide'
 }

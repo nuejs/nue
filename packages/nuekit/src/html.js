@@ -137,6 +137,10 @@ export async function renderSPA(spa, { data, assets, deps, libs }) {
   if (libs.length) assets.push(parse('@nue/mount.js'))
   if (!data.is_prod) assets.push(parse('@nue/hmr.js'))
 
+  // "state" to import-map
+  const map = data['import-map'] ??= {}
+  map.state = '/@nue/state.js'
+
   return trim(`
     <!doctype html>
 

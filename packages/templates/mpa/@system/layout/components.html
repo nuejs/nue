@@ -1,0 +1,12 @@
+
+<time :is="pretty-date">
+  { pretty }
+
+  <script>
+    const DATE_FORMAT = new Intl.DateTimeFormat('en-US', {
+      month: 'short', day: 'numeric', year: 'numeric'
+    })
+    const date = this.date || new Date()
+    this.pretty = DATE_FORMAT.format(date)
+  </script>
+</time>

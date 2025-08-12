@@ -39,6 +39,7 @@ test('renderMeta', async () => {
   }, ['/blog/foo.js'])
 
   expect(meta.length).toBeGreaterThan(7)
+  expect(meta.includes('<meta charset="utf-8">')).toBeTrue()
   expect(meta.includes('<meta name="author" content="tipiirai">')).toBeTrue()
   expect(meta.includes('<meta name="libs" content="/blog/foo.js">')).toBeTrue()
 
@@ -48,7 +49,7 @@ test('renderHead', async () => {
   const data = {
     title: 'Hello',
     version: '1.0',
-    imports: { d3: 'd3.js' }
+    'import-map': { d3: 'd3.js' }
   }
 
   const head = await renderHead(data, [

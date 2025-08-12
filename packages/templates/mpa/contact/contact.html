@@ -1,9 +1,10 @@
+<!doctype dhtml>
 
 <script>
-  import { postContact } from '/@system/model/index.js'
+  import { postContact } from 'app'
 </script>
 
-<form :is="contact-form" :onsubmit="onsubmit" class="thin">
+<form :is="contact-form" :onsubmit="submit" class="thin">
   <label>
     <h3>Full name</h3>
     <input type="text" name="name" required autocomplete="name">
@@ -35,10 +36,10 @@
   </p>
 
   <script>
-    async onsubmit(e) {
+    async submit(e) {
       const data = Object.fromEntries(new FormData(e.target))
       await postContact(data)
-      location.href = 'thanks.html'
+      location.href = 'thanks'
     }
   </script>
 

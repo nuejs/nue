@@ -4,50 +4,50 @@ heading_ids: true
 popular:
   - title: Start Guide
     desc: Learn how to use the app and follow best practices for software building
-    url: installation.html
+    url: installation
 
   - title: Import Issues
     desc: Quickly move issues from your existing issue tracker into Linear
-    url: installation.html
+    url: installation
 
   - title: Projects
     desc: Shape your product ideas and plan what to build next
-    url: installation.html
+    url: installation
 
   - title: GitHub Automations
     desc: Link issues and automate pull request workflows
-    url: installation.html
+    url: installation
 
 essentials:
   - title: Workflows
     desc: Create new statuses and design custom issue workflows
-    url: installation.html
+    url: installation
 
   - title: Select Issues
     desc: Learn how to take actions on multiple issues at a time
-    url: installation.html
+    url: installation
 
   - title: Issue Relations
     desc: Indicate blocked, blocking, related, and duplicate issues
-    url: installation.html
+    url: installation
 
   - title: Display Options
     desc: Order, sort, and group issues and projects and customize views
-    url: installation.html
+    url: installation
 
   - title: Triage
     desc: Use a special inbox for issues from integrations and other teams
-    url: installation.html
+    url: installation
 
   - title: Parent and Sub-Issues
     desc: Break down larger tasks into smaller pieces of work
-    url: installation.html
+    url: installation
 
   - title: Notifications
     desc: Learn how to manage notifications and stay up to date
-    url: installation.html
+    url: installation
 
   - title: Teams
     desc: Create teams in your workspace to organize different types of work
-    url: installation.html
+    url: installation
 
