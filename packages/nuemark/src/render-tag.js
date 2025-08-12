@@ -166,6 +166,7 @@ export function renderTag(tag, opts = {}) {
   const tags = { ...TAGS, ...opts.tags }
   const fn = tags[tag.name || 'block']
 
+  // render client stub
   if (!fn) return renderIsland(tag, opts.data)
 
   const data = { ...opts.data, ...extractData(tag.data, opts.data) }

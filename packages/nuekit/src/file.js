@@ -50,14 +50,15 @@ export function getFileInfo(path) {
 
   const { ext, dir } = info
   const type = info.ext.slice(1)
-  const url = toURL(info)
+  const url = getURL(info)
+  const slug = getSlug(info)
 
   if (dir.includes(sep)) info.basedir = dir.split(sep)[0]
 
-  return { ...info, path, type, url, [`is_${type}`]: true }
+  return { ...info, path, type, url, slug, [`is_${type}`]: true }
 }
 
-export function toURL(file) {
+export function getURL(file) {
   let { name, base, ext, dir } = file
   if (name == 'index') name = ''
   if (ext == '.md' || base == 'index.html') ext = ''
@@ -68,3 +69,7 @@ export function toURL(file) {
   return `/${ els.join('/') }`.replace('//', '/')
 }
 
+export function getSlug(file) {
+  let { name, base, ext } = file
+  return name == 'index' ? '' : ext == '.md' ? name : base
+}

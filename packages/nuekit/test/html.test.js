@@ -1,5 +1,5 @@
 
-import { renderMD, renderSVG, renderHTML, renderSPA } from '../src/html'
+import { renderPage, renderSVG, renderHTML, renderSPA } from '../src/html'
 import { writeAll, removeAll, testDir } from './test-utils'
 import { readAssets } from '../src/assets'
 
@@ -22,7 +22,7 @@ Description
 const paths = await writeAll([
   ['@system/design/base.css', ':root { --accent: red }'],
   ['@system/design/app.css', 'body { font-size: 14px }'],
-  ['@system/layout/header.html', '<header>${ brand }</header>'],
+  ['@system/layout/header.html', '<header>{ brand }</header>'],
   ['@system/layout/footer.html', '<footer>Copyright</footer>'],
   ['@system/ui/components.html', '<!doctype dhtml><footer>Copyright</footer>'],
 
@@ -30,7 +30,7 @@ const paths = await writeAll([
   ['index.md', HOME],
 
   // server-side HTML
-  ['server.html', '<!doctype html><main>${ brand }</main>'],
+  ['server.html', '<!doctype html><main>{ brand }</main>'],
 
   // visuals
   ['visuals/components.html', '<foo>Hello</foo>'],
@@ -51,8 +51,7 @@ afterAll(async () => { await removeAll() })
 
 test('MD', async () => {
   const asset = assets.get('index.md')
-  const html = await renderMD(asset)
-
+  const html = await renderPage(asset)
 
   expect(html).toInclude('<title>Hello</title>')
   expect(html).toInclude('<meta name="description" content="Description">')

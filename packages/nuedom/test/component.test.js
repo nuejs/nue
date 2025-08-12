@@ -14,11 +14,26 @@ test('child', () => {
   expect(html).toBe('<a><div>Hello</div></a>')
 })
 
+test('<hey>', () => {
+  const html = renderNue('<hey/> <hey>Hello</hey>')
+  expect(html).toBe('<div>Hello</div>')
+})
 
-test(':is=name', () => {
+test(':is=hey', () => {
   const html = renderNue('<hey/> <a :is="hey">Hello</a>')
   expect(html).toBe('<a>Hello</a>')
 })
+
+test('<app>', () => {
+  const html = renderNue('<app>Hey</app>')
+  expect(html).toBe('<div>Hey</div>')
+})
+
+test('<body app>', () => {
+  const html = renderNue('<body :is="app">Hey</body>')
+  expect(html).toBe('<body>Hey</body>')
+})
+
 
 test('params', () => {
   const html = renderNue(`<hey text="foo" :text="'bar'"/> <hey>{ text }</hey>`)

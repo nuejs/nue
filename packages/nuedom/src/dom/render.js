@@ -19,7 +19,14 @@ export function renderNue(template, opts={}) {
 
 // exported for testing purposes only
 export function mountAST(ast, opts) {
-  if (ast.is_custom && !opts.deps?.length) { delete ast.is_custom; ast.tag = 'div' }
+  const dep = opts.deps?.find(c => ast.tag == (c.is || c.tag))
+
+  if (ast.is_custom && (!dep && !ast.mount || ast == dep)) {
+    ast = Object.assign({}, ast)
+    delete ast.is_custom;
+    ast.tag = 'div'
+  }
+
   const document = domino.createDocument()
   if (!global.document) global.document = document
   const node = createNode(ast, opts.data, opts)

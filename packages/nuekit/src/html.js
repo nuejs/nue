@@ -2,12 +2,18 @@
 import { parse } from 'node:path'
 import { renderScripts, renderHead, inlineCSS } from './head'
 import { renderNue, compileNue } from 'nuedom'
+import { renderInline as markdown } from 'nuemark'
 import { minifyCSS } from './tools/css'
 
 
-export async function renderMD(asset, is_prod) {
+export async function renderPage(asset, is_prod) {
   const doc = await asset.document()
-  const data = { ...await asset.data(), ...doc.meta, is_prod }
+  const { url, slug, dir } = asset
+
+  const data = {
+    ...await asset.data(), ...doc.meta, url, dir, slug,
+    is_prod, markdown, headings: doc.headings,
+  }
   const comps = await asset.components()
   const assets = await asset.assets()
   const libs = await getLibs(assets)
@@ -16,10 +22,14 @@ export async function renderMD(asset, is_prod) {
   if (!is_prod) assets.push(parse('@nue/hmr.js'))
 
   function slot(name) {
-    const comp = comps.find(el => [el.is, el.tag].includes(name))
-    if (comp?.is_custom) { delete comp.is_custom; comp.tag = 'div' }
+    const comp = comps.find(el => el.is ? el.is == name : el.tag == name)
     return comp ? renderNue(comp, { data, deps: comps }) : ''
   }
+
+
+  // .md || index.html
+  const content = asset.is_html ? renderNue(doc.elements[0], { data, deps: comps })
+    : doc.render({ data, sections: data.sections, tags: convertToTags(comps, data) })
 
   const main = `
     <main>
@@ -27,7 +37,7 @@ export async function renderMD(asset, is_prod) {
 
       <article>
         ${ slot('pagehead') }
-        ${ doc.render(data) }
+        ${ content }
         ${ slot('pagefoot') }
       </article>
 
@@ -170,6 +180,26 @@ function trim(str) {
   return str.replace(/^\s*[\r\n]/gm, '').replace(/^ {4}/gm, '')
 }
 
+// custom components as Markdown extensions (tags)
+function convertToTags(deps, data) {
+  const tags = {}
 
+  deps.forEach(ast => {
+    if (!ast.is_custom && !ast.is) return
+    const name = ast.is || ast.tag
+
+    // if (ast.is_custom) { delete ast.is_custom; ast.tag = 'div' }
+
+    tags[name] = function(args) {
+      return renderNue(ast, {
+        data: { ...data, ...args },
+        slot: this.innerHTML,
+        deps
+      })
+    }
+  })
+
+  return tags
+}
 
 

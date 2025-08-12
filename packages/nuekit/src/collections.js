@@ -42,8 +42,8 @@ async function filterPages(pages, config) {
       const shouldSkip = config.skip.some(field => meta[field])
       if (shouldSkip) continue
     }
-
-    ret.push({ ...meta, file: page })
+    const { url, dir, slug } = page
+    ret.push({ ...meta, url, dir, slug })
   }
 
   return ret

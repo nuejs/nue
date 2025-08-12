@@ -1,2 +1,2 @@
 tests:
-	cd test && bun test tag
+	cd test && bun test

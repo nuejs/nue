@@ -2,3 +2,4 @@
 collections:
   blog:
     match: [ posts/*.md ]
+    sort: date desc

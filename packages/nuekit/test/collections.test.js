@@ -68,13 +68,13 @@ test('sorting', async () => {
 
 
 test('rendering', async () => {
-  const tmpl = '<pagefoot><p :each="page of pages">${ page.title }</p></pagefoot>'
-  const conf = 'collections:\n  pages:\n    match: [ ** ]'
+  const pagefoot = '<div :is="pagefoot"><p :each="page of pages">{ page.title }</div>'
+  const conf = 'collections:\n  pages:\n    match: [ blog/** ]'
 
   const files = [
     { is_md: true, path: 'blog/index.md', async text() { return '# Hello' } },
     { is_yaml: true, path: 'blog/app.yaml', async text() { return conf }},
-    { is_html: true, path: '@system/layout/pagefoot.html', async text() { return tmpl } },
+    { is_html: true, path: '@system/layout/pagefoot.html', async text() { return pagefoot } },
   ]
 
   const page = createAsset(files[0], files)

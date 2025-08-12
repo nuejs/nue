@@ -6,7 +6,7 @@ import { parseNuemark } from 'nuemark'
 import { parseYAML } from './tools/yaml'
 import { minifyCSS } from './tools/css'
 
-import { renderMD, renderSVG, renderHTML } from './html'
+import { renderPage, renderSVG, renderHTML } from './html'
 import { getCollections } from './collections'
 import { listDependencies } from './deps'
 
@@ -119,12 +119,13 @@ export function createAsset(file, files=[]) {
 
   async function render(is_prod) {
     const asset = createAsset(file, files)
+    const is_page = file.is_md || file.base == 'index.html' && !(await asset.isDHTML())
 
     return file.is_js && is_prod || file.is_ts ? compileJS(file.rootpath, is_prod)
       : file.is_svg && (await data()).process_svg ? renderSVG(asset, is_prod)
       : file.is_css && is_prod ? minifyCSS(await file.text())
+      : is_page ? await renderPage(asset, is_prod)
       : file.is_html ? await renderHTML(asset, is_prod)
-      : file.is_md ? await renderMD(asset, is_prod)
       : null
   }
 

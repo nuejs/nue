@@ -29,7 +29,7 @@ test('assets', async () => {
 })
 
 
-test('MPA: page.md', async () => {
+test('MD: page assets', async () => {
 
   const files = [
     { is_html: true, path: 'header.html', async text() { return '<header class="foo"/> <navi/>' }},
@@ -59,6 +59,47 @@ test('MPA: page.md', async () => {
 
 })
 
+test('MD: custom tags with <slot/>', async () => {
+  const page = createAsset({
+    async text() { return ['# Hello', '[custom]', '  World'].join('\n') },
+    is_md: true,
+  }, [
+    { is_html: true, path: 'c.html', async text() { return '<custom><slot/></custom>' }}
+  ])
+
+  const html = await page.render()
+  expect(html).toInclude('<div>World</div>')
+})
+
+
+test('Built-in functions & variables', async () => {
+  const page = createAsset({ async text() { return '# Hey' }, is_md: true, url: '/' }, [
+    { is_html: true, path: 'c.html', async text() {
+      return `
+        <header>
+          {{ markdown("*hey*") }}
+          <p>{ headings.length }</p>
+          <p>{ url }</p>
+        </header>`
+    }}
+  ])
+
+  const html = await page.render()
+  expect(html).toInclude('<header><em>hey</em><p>1</p> <p>/</p></header>')
+})
+
+test('SSR: index.html', async () => {
+  const page = createAsset({
+    async text() { return '<!doctype html><h1>{ url }</h1>' },
+    base: 'index.html',
+    is_html: true,
+    url: '/'
+  }, [])
+
+  const html = await page.render()
+  expect(html).toInclude('<article>')
+  expect(html).toInclude('<h1>/</h1>')
+})
 
 test('SPA: index.html', async () => {
 

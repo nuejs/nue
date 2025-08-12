@@ -10,7 +10,7 @@ test('renderScripts', () => {
   expect(bar).toInclude('/blog/bar.js')
 })
 
-test.only('renderStyles', async () => {
+test('renderStyles', async () => {
   const files = [
     { is_css: true, path: 'b/style.css', async text() { return '' } },
     { is_css: true, path: 'base.css', base: 'base.css', async text() { return '' } },

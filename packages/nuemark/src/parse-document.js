@@ -47,11 +47,6 @@ export function parseDocument(lines) {
       return html + renderFootnotes(things.footnotes)
     },
 
-    renderTOC(attr = {}) {
-      const navs = sections.map(renderNav).join('\n').trim()
-      return elem('div', { class: attr.class }, navs)
-    },
-
     get headings() {
       return blocks.filter(b => !!b.level).map(h => {
         const id = h.attr.id || createHeadingId(h.text)
@@ -95,18 +90,6 @@ function renderFootnotes(arr) {
   return elem('ol', { role: 'doc-endnotes' }, html.join('\n'))
 }
 
-
-function renderNav(blocks) {
-  const headings = blocks.filter(b => [2, 3].includes(b.level))
-
-  const links = headings.map(h => {
-    const id = h.attr.id || createHeadingId(h.text)
-    const label = h.level == 2 ? elem('strong', h.text) : h.text
-    return elem('a', { href: `#${id}` }, label)
-  })
-
-  return links[0] ? elem('nav', links.join('\n')) : ''
-}
 
 function getTitle(blocks) {
   const h1 = blocks?.find(el => el.level == 1)

@@ -107,18 +107,3 @@ test('footnotes', () => {
 })
 
 
-
-test('table of contents', () => {
-  const doc = parseDocument([
-    '# Hello', 'World',
-    '## Foo', 'Bar',
-    '## Baz', 'Bruh',
-  ])
-
-  const toc = doc.renderTOC()
-  expect(toc).toStartWith('<div>')
-  expect(toc).toInclude('<nav><a href="#foo"><strong>Foo</strong></a></nav>')
-  expect(toc).toInclude('<nav><a href="#baz"><strong>Baz</strong></a></nav>')
-})
-
-

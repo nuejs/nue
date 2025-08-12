@@ -8,7 +8,7 @@ const SYSTEM_DIRS = ['design', 'data', 'layout', 'ui'].map(dir => join('@system'
 export function listDependencies(basepath, { paths, exclude=[], strict }) {
 
   // folder dependency
-  let deps = paths.filter(path => isDep(basepath, path))
+  let deps = paths.filter(path => isDep(basepath, path, paths))
 
   // extensions
   deps = deps.filter(path => ASSETS.includes(extname(path)))
@@ -30,7 +30,7 @@ export function listDependencies(basepath, { paths, exclude=[], strict }) {
 }
 
 
-function isDep(basepath, path) {
+function isDep(basepath, path, paths) {
 
   // self
   // if (basepath == path) return false
@@ -45,7 +45,7 @@ function isDep(basepath, path) {
   // SPA: entire app tree
   if (basename(basepath) == 'index.html') {
     const dir = dirname(basepath)
-    return dir == '.' ? true : path.startsWith(dir + sep)
+    return dir == '.' ? !paths.some(el => extname(el) == '.md') : path.startsWith(dir + sep)
   }
 
   // Everything else: hierarchical inclusion

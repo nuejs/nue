@@ -28,7 +28,9 @@ export function createAST(block, imports) {
       console.warn(`Fixed SVG case: ${tagName} -> ${correct}`)
     }
 
-  } else if (tagName.includes('-') || !HTML5_TAGS.includes(tagName)) comp.is_custom = true
+  } else if (tagName.includes('-') || !HTML5_TAGS.includes(tagName)) {
+    comp.is_custom = true
+  }
 
   const mount = comp.attr?.find(a => a.name == 'mount')
   if (mount) {
