@@ -13,7 +13,7 @@ async function getVersion() {
 export const version = await getVersion()
 
 export function getClientFiles() {
-  return 'error hmr mount router'.split(' ').map(name => {
+  return 'error hmr mount transitions'.split(' ').map(name => {
     const base = `${name}.js`
     return { base, rootpath: join(import.meta.dir, '../client', base) }
   })

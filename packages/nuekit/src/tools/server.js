@@ -11,8 +11,9 @@ export function createServer({ port=4000, handler }, callback) {
     if (result) return result
 
     // hot reloading
-    if (pathname == '/hmr') return handleHMR(req)
-
+    if (req.headers.get('upgrade') === 'websocket') {
+      return server.upgrade(req, {}) ? undefined : new Response('Upgrade failed', { status: 500 })
+    }
 
     // regular file serving
     try {
@@ -39,51 +40,24 @@ export function createServer({ port=4000, handler }, callback) {
     }
   }
 
-  return Bun.serve({ idleTimeout: 0, port, fetch })
+  const websocket = {
+    open(ws) {
+      sessions.push(ws)
+      console.log(`HMR connected, total: ${sessions.length}`)
+    },
+    close(ws) {
+      const i = sessions.indexOf(ws)
+      if (i >= 0) sessions.splice(i, 1)
+    }
+  }
+
+  const server = Bun.serve({ idleTimeout: 0, port, fetch, websocket })
+  return server
 }
 
 export function broadcast(data) {
-  sessions.forEach(session => session.broadcast(data))
-}
-
-
-function handleHMR(req) {
-  const url = new URL(req.url)
-  const params = url.searchParams
-  let curr
-
-  const stream = new ReadableStream({
-    start(session) {
-
-      session.location = params.get('url')
-
-      session.broadcast = function(data) {
-        try {
-          const message = `data:${JSON.stringify(data)}\n\n`
-          session.enqueue(new TextEncoder().encode(message))
-
-        } catch(e) {
-          const i = sessions.indexOf(session)
-          sessions.splice(i, 1) // cleanup
-        }
-      }
-
-      sessions.push(session)
-      curr = session
-    },
-
-    cancel() {
-      const i = sessions.indexOf(curr)
-      if (i >= 0) sessions.splice(i, 1)
-    }
-  })
-
-  return new Response(stream, {
-    headers: {
-      'Content-Type': 'text/event-stream',
-      'Cache-Control': 'no-cache',
-      'Connection': 'keep-alive'
-    }
+  sessions.forEach(ws => {
+    try { ws.send(JSON.stringify(data)) } catch(e) {}
   })
 }
 

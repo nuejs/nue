@@ -1,9 +1,9 @@
 
-import { mkdir, rmdir } from 'node:fs/promises'
+import { mkdir, rmdir, writeFile, unlink } from 'node:fs/promises'
 import { join } from 'node:path'
+import { tmpdir } from 'os'
 
 import { createSystemFiles } from '../system'
-
 
 export async function build(assets, args) {
   const { paths=[], dryrun, silent } = args
@@ -59,7 +59,10 @@ export async function buildAll(assets, args) {
 export async function buildAsset(asset, dist) {
   const result = await asset.render(true)
 
-  if (result?.js) await asset.write(dist, result.js, '.html.js')
+  if (result?.js) {
+    const minified = await minifyJS(result.js)
+    await asset.write(dist, minified, '.html.js')
+  }
 
   if (result?.html) await asset.write(dist, result.html)
 
@@ -107,3 +110,16 @@ export function matches(path, patterns) {
 }
 
 
+async function minifyJS(code) {
+  const path = join(tmpdir(), `temp-${Date.now()}.js`)
+  await writeFile(path, code)
+
+  const result = await Bun.build({
+    entrypoints: [path],
+    external: ['*'],
+    minify: true
+  })
+
+  await unlink(path)
+  return await result.outputs[0].text()
+}

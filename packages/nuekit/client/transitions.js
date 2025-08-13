@@ -1,5 +1,5 @@
 
-// Router for multipage applications
+// Client-side routing and view transitions for multipage applications
 
 // exported
 export function $(query, root = document) {
@@ -44,7 +44,7 @@ export async function loadPage(path, replace_state) {
 
   loadCSS(css_paths, () => {
     const ignore_main = simpleDiff($('main'), $('main', dom))
-    simpleDiff($('body'), $('body2', dom), ignore_main)
+    simpleDiff($('body'), $('body', dom), ignore_main)
 
     // scroll
     const { hash } = location
@@ -241,6 +241,7 @@ async function getHTML(path) {
   return html
 }
 
+/*
 function mkdom(html) {
   // template tag does not work with <body> tag
   html = html.replace(/<(\/?)body/g, '<$1body2')
@@ -249,6 +250,14 @@ function mkdom(html) {
   tmpl.innerHTML = html.trim()
   return tmpl.content
 }
+*/
+
+function mkdom(html) {
+  const parser = new DOMParser()
+  const doc = parser.parseFromString(html, 'text/html')
+  return doc
+}
+
 
 function loadCSS(paths, fn) {
   let loaded = 0

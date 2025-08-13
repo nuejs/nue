@@ -6,6 +6,7 @@ import { renderInline as markdown } from 'nuemark'
 import { minifyCSS } from './tools/css'
 
 
+
 export async function renderPage(asset, is_prod) {
   const doc = await asset.document()
   const { url, slug, dir } = asset
@@ -18,8 +19,12 @@ export async function renderPage(asset, is_prod) {
   const assets = await asset.assets()
   const libs = await getLibs(assets)
 
-  if (libs.length) assets.push(parse('@nue/mount.js'))
-  if (!is_prod) assets.push(parse('@nue/hmr.js'))
+  // system scripts
+  const push = name => assets.push(parse(`@nue/${name}.js`))
+  if (data.view_transitions) push('transitions')
+  if (libs.length) push('mount')
+  if (!is_prod) push('hmr')
+
 
   function slot(name) {
     const comp = comps.find(el => el.is ? el.is == name : el.tag == name)

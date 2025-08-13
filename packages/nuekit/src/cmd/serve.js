@@ -74,7 +74,7 @@ export async function serve(assets, args) {
         asset.is_spa = await asset.isSPA()
       }
 
-      sessions.forEach(session => session.broadcast(asset))
+      broadcast(asset)
     }
   }
 

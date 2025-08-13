@@ -23,7 +23,7 @@ describe('MPA build', async () => {
 
   beforeEach(async () => {
     await writeAll([
-      ['site.yaml', { ignore: '[functions]', port: 6666 }],
+      ['site.yaml', { ignore: '[functions]', port: 6666, view_transitions: true }],
       ['@system/ui/keyboard.ts', 'export const foo = 100'],
       ['@system/design/base.css', '/* CSS */'],
       ['index.md', '# Hello'],
@@ -43,12 +43,13 @@ describe('MPA build', async () => {
 
   afterEach(async () => await removeAll())
 
-  test('buildAsset', async () => {
+  test('buildAsset: MD', async () => {
     const { assets } = await readAssets(testDir)
     const home = assets.get('index.md')
     await buildAsset(home, testDir)
     const html = await Bun.file(join(testDir, 'index.html')).text()
-    expect(html).toInclude('<!doctype html>')
+    expect(html).toInclude('/@nue/transitions.js')
+    expect(html).toInclude('<h1>Hello</h1>')
   })
 
   test('buildAll', async () => {
@@ -65,7 +66,7 @@ describe('MPA build', async () => {
 
     // front page render
     const home = await results.read('index.html')
-    expect(home).toInclude('<!doctype html>')
+    expect(home).toInclude('<h1>Hello</h1>')
   })
 
 
@@ -82,8 +83,8 @@ describe('SPA build', async () => {
 
   beforeEach(async () => {
     await writeAll([
-      ['index.html', '<!doctype dhtml><app/>'],
-      ['@system/design/base.css', '/* CSS */'],
+      ['index.html', '<!doctype dhtml> <app>Hello</app>'],
+      ['base.css', ':root { --brand: #ccc }'],
     ])
   })
 
@@ -99,11 +100,15 @@ describe('SPA build', async () => {
     const html = await results.read('index.html')
     expect(html).toInclude('<body nue="app"></body>')
     expect(html).toInclude('/@nue/mount.js')
-    expect(html).toInclude('/@system/design/base.css')
+    expect(html).toInclude('/base.css')
 
-    // reactive parts
+    // SPA minify
     const js = await results.read('index.html.js')
-    expect(js).toInclude('export const lib')
+    expect(js).toInclude('is_custom:!0')
+
+    // CSS minify
+    const css = await results.read('base.css')
+    expect(css).toBe(':root{--brand:#ccc}')
 
   })
 

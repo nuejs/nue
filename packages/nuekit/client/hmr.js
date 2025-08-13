@@ -1,8 +1,6 @@
 
-//
-const server = new EventSource(
-  location.origin + '/hmr?url=' + encodeURIComponent(location.pathname)
-)
+
+const server = new WebSocket(`ws://${location.host}`)
 
 let reload_count = 0
 
@@ -34,7 +32,6 @@ server.onmessage = async function(e) {
     : asset.is_yaml ? location.reload()
     : null
 }
-
 
 async function handleError(asset) {
   const { showError } = await import('./error.js')
