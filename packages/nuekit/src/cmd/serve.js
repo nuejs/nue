@@ -1,11 +1,11 @@
 
 import { extname, join } from 'node:path'
 
-import { createServer, broadcast, sessions } from './tools/server'
-import { fswatch } from './tools/fswatch'
+import { createServer, broadcast, sessions } from '../tools/server'
+import { fswatch } from '../tools/fswatch'
 
-import { getServer } from './server'
-import { getSystemFiles } from './system.js'
+import { getServer } from '../server'
+import { getSystemFiles } from '../system.js'
 
 const sysfiles = getSystemFiles()
 
@@ -44,7 +44,7 @@ export async function onServe(url, assets) {
   }
 
   // favicon
-  if (url == '/favicon.ico') return Bun.file(join(import.meta.dir, '../favicon.ico'))
+  if (url == '/favicon.ico') return Bun.file(join(import.meta.dir, '../../favicon.ico'))
 
 }
 

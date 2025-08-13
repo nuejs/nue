@@ -32,20 +32,15 @@ test('returns array of file paths', async () => {
   expect(paths).toContain('nested/nested-file.md')
 })
 
-test('includes dotfiles by default', async () => {
+test('ignores dotfiles', async () => {
   const paths = await fswalk(testDir)
-  expect(paths).toContain('.hidden')
+  expect(paths).not.toContain('.hidden')
 })
 
 test('ignores patterns from ignore array', async () => {
-  const paths = await fswalk(testDir, { ignore: ['node_modules/**'] })
+  const paths = await fswalk(testDir, { ignore: ['node_modules'] })
   const hasNodeModules = paths.some(path => path.includes('node_modules'))
   expect(hasNodeModules).toBe(false)
-})
-
-test('ignores dotfiles when specified', async () => {
-  const paths = await fswalk(testDir, { ignore: ['.*'] })
-  expect(paths).not.toContain('.hidden')
 })
 
 test('follows symlinks', async () => {
@@ -71,7 +66,7 @@ test('returns empty array for empty directory', async () => {
 })
 
 test('multiple ignore patterns', async () => {
-  const paths = await fswalk(testDir, { ignore: ['*.js', 'node_modules/**'] })
+  const paths = await fswalk(testDir, { ignore: ['.js', 'node_modules'] })
 
   expect(paths).not.toContain('file2.js')
   const hasNodeModules = paths.some(path => path.includes('node_modules'))
@@ -85,7 +80,7 @@ test('uses current directory as default root', async () => {
 
 test('combines ignore and followSymlinks options', async () => {
   const paths = await fswalk(testDir, {
-    ignore: ['*.js'],
+    ignore: ['.js'],
   })
 
   expect(paths).not.toContain('file2.js')
@@ -111,7 +106,7 @@ test('works with empty options object', async () => {
 })
 
 test('works with partial options', async () => {
-  const pathsIgnore = await fswalk(testDir, { ignore: ['*.js'], followSymlinks: true })
+  const pathsIgnore = await fswalk(testDir, { ignore: ['.js'], followSymlinks: true })
   expect(pathsIgnore).not.toContain('file2.js')
   expect(pathsIgnore).toContain('symlink-file') // followSymlinks defaults to true
 
@@ -126,7 +121,7 @@ test('respects glob patterns in ignore', async () => {
     ['src/index.js', 'main file'],
   ])
 
-  const paths = await fswalk(testDir, { ignore: ['src/components/**'] })
+  const paths = await fswalk(testDir, { ignore: ['src/components'] })
   expect(paths).toContain('src/index.js')
   expect(paths).not.toContain('src/components/Button.jsx')
 })

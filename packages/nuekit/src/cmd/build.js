@@ -1,24 +1,24 @@
 
-import { mkdir } from 'node:fs/promises'
+import { mkdir, rmdir } from 'node:fs/promises'
 import { join } from 'node:path'
 
-import { createSystemFiles } from './system'
+import { createSystemFiles } from '../system'
 
 
-export async function build(assets, opts) {
-  const { paths=[], dryrun, silent } = opts
+export async function build(assets, args) {
+  const { paths=[], dryrun, silent } = args
 
   // subset
   const subset = paths.length ? assets.filter(el => matches(el.path, paths)) : assets
 
   if (dryrun) {
-    subset.forEach(el => console.log(el.path))
+    subset.filter(el => !el.is_yaml).forEach(el => console.log(el.path))
     return subset
   }
 
   // build subset
   const start = performance.now()
-  await buildAll(subset, opts)
+  await buildAll(subset, args)
 
   // stats
   if (!silent) {
@@ -29,41 +29,50 @@ export async function build(assets, opts) {
 }
 
 
-export async function buildAll(assets, { root, init, verbose }) {
+export async function buildAll(assets, args) {
+  const { root, init, verbose, clean } = args
 
   // .dist directory
   const dist = join(root, '.dist')
+  if (clean) await rmdir(dist, { recursive: true, force: true })
   await mkdir(dist, { recursive: true })
 
   // .dist/@nue directory
   await createSystemFiles(dist, init)
 
+
   // build files
   assets = assets.filter(el => !el.is_yaml)
 
   await Promise.all(assets.map(async asset => {
-    if (verbose) console.log(asset.path)
-    await buildAsset(asset, dist)
+    try {
+      if (verbose) console.log(asset.path)
+      await buildAsset(asset, dist)
+
+    } catch (error) {
+      console.error(`Failed to build ${asset.path}:`, error)
+      throw error // or return null to continue with others
+    }
   }))
 }
 
 export async function buildAsset(asset, dist) {
   const result = await asset.render(true)
 
-  if (result?.is_spa) {
-    const { js, html } = result
-    await asset.write(dist, js, '.html.js')
-    await asset.write(dist, html)
+  if (result?.js) await asset.write(dist, result.js, '.html.js')
 
-  } else if (result) {
+  if (result?.html) await asset.write(dist, result.html)
+
+  if (typeof result == 'string') {
     await asset.write(dist, result, await asset.toExt())
 
-  } else {
+  } else if (!asset.is_html) {
     await asset.copy(dist)
   }
 }
 
 
+// TODO: layout and colors
 export function stats(assets) {
   const lines = []
 

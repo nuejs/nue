@@ -1,5 +1,5 @@
 
-import { findAssetByURL, onServe } from '../src/serve.js'
+import { findAssetByURL, onServe } from '../../src/cmd/serve.js'
 
 test('find /', () => {
   const asset = findAssetByURL('/', [{ url: '/' }])

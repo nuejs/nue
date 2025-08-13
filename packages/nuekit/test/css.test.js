@@ -2,6 +2,7 @@
 import { tokenize, parseCSS, minifyCSS } from '../src/tools/css'
 
 describe('tokenizer', () => {
+
   test('comments', () => {
     const tokens = tokenize('/* header styles */')
     expect(tokens).toEqual([
@@ -55,6 +56,15 @@ describe('tokenizer', () => {
       { type: 'close-brace', value: '}' }
     ])
   })
+
+  test('@layer definition', () => {
+    const tokens = tokenize('@layer base, component;')
+    expect(tokens).toEqual([
+      { type: "text", value: "@layer base, component" },
+      { type: "semicolon", value: ";" }
+    ])
+  })
+
 })
 
 describe('parser', () => {
@@ -109,6 +119,16 @@ describe('minify', () => {
 
   test('comment', () => {
     expect(minifyCSS('/* CSS */')).toBe('')
+  })
+
+  test(':root + @layer', () => {
+    const css = minifyCSS('@layer base { :root { --brand: #ccc } }')
+    expect(css).toBe('@layer base{:root{--brand:#ccc}}')
+  })
+
+  test(':root props', () => {
+    const css = minifyCSS(':root { --brand: #ccc }')
+    expect(css).toBe(':root{--brand:#ccc}')
   })
 
   test('strips comments', () => {

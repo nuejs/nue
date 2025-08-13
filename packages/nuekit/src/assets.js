@@ -1,6 +1,6 @@
 
-import { join, extname, basename } from 'node:path'
 import { mkdir, readdir } from 'node:fs/promises'
+import { join } from 'node:path'
 
 import { parseYAML } from './tools/yaml'
 import { fswalk } from './tools/fswalk'
@@ -8,9 +8,7 @@ import { fswalk } from './tools/fswalk'
 import { createAsset } from './asset'
 import { createFile } from './file'
 
-const IGNORE = `_* _*/** .* .*/** node_modules/** @system/server/**\
- *.toml *.rs *.lock package.json bun.lockb pnpm-lock.yaml README.md`.split(' ')
-
+const IGNORE = `node_modules .toml .rs .lock package.json .lockb lock.yaml README.md Makefile`.split(' ')
 
 export async function readAssets(root) {
 
@@ -20,7 +18,7 @@ export async function readAssets(root) {
 
   // files
   const ignore = [...IGNORE, ...(conf.ignore || [])]
-  if (conf.server?.dir) ignore.push(conf.server.dir + '/**')
+  ignore.push(conf.server?.dir || join('@system', 'server'))
 
   const paths = await fswalk(root, { ignore, followSymlinks: conf.follow_symlinks })
   const files = await Promise.all(paths.map(path => createFile(root, path)))
@@ -62,7 +60,7 @@ export async function readAssets(root) {
 }
 
 
-async function readSiteYAML(root) {
+export async function readSiteYAML(root) {
   const files = await readdir(root)
 
   // site.yaml

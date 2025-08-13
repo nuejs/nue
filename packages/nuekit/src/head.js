@@ -19,7 +19,7 @@ export async function renderHead(data, assets, libs) {
 
   if (scripts.length || libs.length) {
     head.push(...scripts)
-    head.push(importMap(data['import-map']))
+    head.push(importMap(data.import_map))
   }
 
   return head

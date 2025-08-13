@@ -4,7 +4,7 @@
 sections: true
 
 # custom additions
-import-map:
+import_map:
   app: /@system/app.js
 
 server:

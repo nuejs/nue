@@ -1,4 +1,3 @@
-
 export function minifyCSS(str) {
   return parseCSS(str).map(serialize).join('')
 }
@@ -17,10 +16,16 @@ export function parseCSS(str) {
       i++
     }
 
-    // Selector
+    // Selector or at-rule
     if (i < tokens.length && tokens[i].type == 'text') {
       node.name = tokens[i].value
       i++
+
+      // Handle at-rules that end with semicolon (like @layer)
+      if (node.name.startsWith('@') && i < tokens.length && tokens[i].type == 'semicolon') {
+        i++ // skip semicolon
+        return node
+      }
     }
 
     // Opening brace
@@ -79,22 +84,25 @@ function serialize(node) {
   let result = ''
 
   if (node.name) {
-    result += node.name + '{'
+    // Handle at-rules that end with semicolon
+    if (node.name.startsWith('@') && node.props.length == 0 && node.children.length == 0) {
+      result += node.name + ';'
+    } else {
+      result += node.name + '{'
 
-    // Add properties
-    if (node.props.length > 0) {
-      result += node.props.map(prop => prop.name + ':' + prop.value).join(';')
+      // Add properties
+      if (node.props.length > 0) {
+        result += node.props.map(prop => prop.name + ':' + prop.value).join(';')
 
-      // Add semicolon after props if there are children
-      if (node.children.length > 0) {
-        result += ';'
+        // Add semicolon after props if there are children
+        if (node.children.length > 0) result += ';'
       }
+
+      // Add children
+      result += node.children.map(serialize).join('')
+
+      result += '}'
     }
-
-    // Add children
-    result += node.children.map(serialize).join('')
-
-    result += '}'
   }
 
   return result
@@ -116,9 +124,7 @@ export function tokenize(css) {
     if (char == '/' && css[i + 1] == '*') {
       const start = i
       i += 2
-      while (i < css.length && !(css[i] == '*' && css[i + 1] == '/')) {
-        i++
-      }
+      while (i < css.length && !(css[i] == '*' && css[i + 1] == '/')) i++
       i += 2
       tokens.push({ type: 'comment', value: css.slice(start, i) })
       continue
@@ -143,9 +149,14 @@ export function tokenize(css) {
     }
 
     if (char == ':') {
-      tokens.push({ type: 'colon', value: char })
-      i++
-      continue
+      // Don't tokenize colons that are part of selectors
+      // Look back to see if we just had text (property name) or if this starts a selector
+      const lastToken = tokens[tokens.length - 1]
+      if (lastToken && lastToken.type == 'text') {
+        tokens.push({ type: 'colon', value: char })
+        i++
+        continue
+      }
     }
 
     // Text token
@@ -155,7 +166,7 @@ export function tokenize(css) {
     }
     i = end
   }
-  
+
   return tokens
 }
 
@@ -169,17 +180,19 @@ function readTextToken(css, start) {
     if (char == '{' || char == '}' || char == ';') break
     if (char == '/' && css[i + 1] == '*') break
 
-    // For colon, check if it's a property declaration
+    // Stop at colon only if it's preceded by text (making it a property colon)
     if (char == ':') {
-      // Look ahead for semicolon or closing brace
-      let j = i + 1
-      while (j < css.length && css[j] != '{' && css[j] != ';' && css[j] != '}') {
-        j++
-      }
+      // If we're in the middle of text and hit a colon, check if it's a property declaration
+      const textSoFar = css.slice(start, i).trim()
+      if (textSoFar) {
+        // Look ahead for value
+        let j = i + 1
+        while (j < css.length && /\s/.test(css[j])) j++
+        while (j < css.length && css[j] != ';' && css[j] != '}' && css[j] != '{') j++
 
-      // If we found ; or }, this colon starts a property value
-      if (j < css.length && (css[j] == ';' || css[j] == '}')) {
-        break
+        if (j < css.length && (css[j] == ';' || css[j] == '}')) {
+          break
+        }
       }
     }
 

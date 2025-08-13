@@ -17,7 +17,7 @@ export function expandArgs(args) {
 
 
 export function getArgs(argv) {
-  const commands = ['serve', 'build', 'create', 'push']
+  const commands = ['serve', 'build', 'preview', 'create', 'push']
 
   // default values
   const args = { paths: [], root: '.' }
@@ -40,14 +40,15 @@ export function getArgs(argv) {
       else if (['-v', '--version'].includes(arg)) args.version = true
       else if (['-s', '--silent'].includes(arg)) args.silent = true
       else if (['-r', '--root'].includes(arg)) opt = 'root'
+      else if (['--verbose'].includes(arg)) args.verbose = true
 
-      // serve options
+      // serve & preview options
       else if (['-p', '--port'].includes(arg)) opt = 'port'
 
       // build options
       else if (['-n', '--dry-run'].includes(arg)) args.dryrun = true
       else if (['-i', '--init'].includes(arg)) args.init = true
-      else if (['--verbose'].includes(arg)) args.verbose = true
+      else if (['--clean'].includes(arg)) args.clean = true
 
       // values
 
@@ -85,13 +86,22 @@ async function run(args) {
 
 
   // command
-  const { readAssets } = await import('./assets.js')
   const { root, cmd, paths } = args
+
+  // preview
+  if (cmd == 'preview') {
+    const { preview } = await import('./cmd/preview.js')
+    return await preview(args)
+  }
+
+  // assets
+  const { readAssets } = await import('./assets.js')
   const { assets, ignore } = await readAssets(root)
   args.ignore = ignore
 
   // not a nue directory
   if (!assets) return
+
 
   if (cmd == 'push') {
     console.log('pushing', paths)
@@ -101,11 +111,11 @@ async function run(args) {
     console.log('creating', app)
 
   } else if (cmd == 'build' || paths.length) {
-    const { build } = await import('./build.js')
+    const { build } = await import('./cmd/build.js')
     await build(assets, args)
 
   } else if (cmd == 'serve' || !cmd) {
-    const { serve } = await import('./serve.js')
+    const { serve } = await import('./cmd/serve.js')
     await serve(assets, args)
   }
 
@@ -128,17 +138,16 @@ Usage
   nue -h or --help
 
 Commands
-  serve    Start development server (default command)
-  build    Build the site
-  create   Use a project starter template
-  init     Re-generate @nue system files
+  serve     Start development server (default command)
+  build     Build a prouction site
+  preview   Preview the production site
+  create    Use a project starter template
 
 
 Options
   -r or --root          Source directory. Default "." (current working dir)
-  -p or --production    Build production version
-  -n or --dry-run       Show what would be built. Does not create outputs
-  -P or --port          Serves the site on the specified port
+  -n or --dry-run       Show what would be built. Does not build anything
+  -p or --port          Serve/preview the site on this port
 
 File matches
   Only build files that match the rest of the arguments. For example:
@@ -147,9 +156,6 @@ File matches
 Examples
   # serve current directory
   nue
-
-  # build everything to production
-  nue build --production
 
   # build all Markdown and CSS files
   nue build .md .css

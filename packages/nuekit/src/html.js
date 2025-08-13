@@ -28,8 +28,9 @@ export async function renderPage(asset, is_prod) {
 
 
   // .md || index.html
+  const { sections, heading_ids } = data
   const content = asset.is_html ? renderNue(doc.elements[0], { data, deps: comps })
-    : doc.render({ data, sections: data.sections, tags: convertToTags(comps, data) })
+    : doc.render({ data, sections, heading_ids, tags: convertToTags(comps, data) })
 
   const main = `
     <main>
@@ -94,6 +95,8 @@ export async function renderSVG(asset, minify) {
 export async function renderHTML(asset, is_prod) {
   const document = await asset.document()
   const { doctype, elements } = document
+  if (!doctype) return
+
   const assets = await asset.assets()
   const main = elements[0]
 
@@ -137,8 +140,8 @@ export async function renderSPA(spa, { data, assets, deps, libs }) {
   if (libs.length) assets.push(parse('@nue/mount.js'))
   if (!data.is_prod) assets.push(parse('@nue/hmr.js'))
 
-  // "state" to import-map
-  const map = data['import-map'] ??= {}
+  // "state" to importmap
+  const map = data.import_map ??= {}
   map.state = '/@nue/state.js'
 
   return trim(`

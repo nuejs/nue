@@ -1,12 +1,14 @@
 
 import { readdir, stat } from 'node:fs/promises'
-import { join, relative } from 'node:path'
+import { parse, join, relative } from 'node:path'
 
 export function matches(path, patterns) {
-  return patterns.some(pattern => {
-    const glob = new Bun.Glob(pattern)
-    return glob.match(path)
-  })
+  return patterns.some(pattern => path.includes(pattern))
+}
+
+export function isSkipped(path) {
+  const { base, dir } = parse(path)
+  if ('._'.includes(base[0]) || '._'.includes(dir[0])) return true
 }
 
 function warn(message, path) {
@@ -24,7 +26,7 @@ async function walkDirectory(dir, root, opts) {
       const fullPath = join(dir, entry.name)
       const relativePath = relative(root, fullPath)
 
-      if (matches(relativePath, ignore)) continue
+      if (isSkipped(relativePath) || matches(relativePath, ignore)) continue
 
       try {
         if (entry.isDirectory()) {

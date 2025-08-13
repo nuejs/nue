@@ -49,7 +49,7 @@ test('renderHead', async () => {
   const data = {
     title: 'Hello',
     version: '1.0',
-    'import-map': { d3: 'd3.js' }
+    import_map: { d3: 'd3.js' }
   }
 
   const head = await renderHead(data, [
