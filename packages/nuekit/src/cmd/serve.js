@@ -1,11 +1,11 @@
 
 import { extname, join } from 'node:path'
 
-import { createServer, broadcast, sessions } from '../tools/server'
+import { createServer, broadcast } from '../tools/server'
 import { fswatch } from '../tools/fswatch'
 
 import { getServer } from '../server'
-import { getSystemFiles } from '../system.js'
+import { getSystemFiles } from '../system'
 
 const sysfiles = getSystemFiles()
 
