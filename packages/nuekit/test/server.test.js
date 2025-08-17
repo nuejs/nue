@@ -1,6 +1,6 @@
 
 import { testDir, writeAll, removeAll } from './test-utils'
-import { sessions, createServer } from '../src/tools/server'
+import { broadcast, createServer } from '../src/tools/server'
 
 await writeAll([
   ['index.html', '<h1>Home</h1>'],
@@ -80,21 +80,33 @@ test('custom handler', async () => {
   server.stop()
 })
 
-test('HMR', async () => {
-  const res = await server.fetch(new Request('http://localhost/hmr'))
-  expect(res.status).toBe(200)
-  expect(res.headers.get('content-type')).toBe('text/event-stream')
+test('HMR WebSocket connection', async () => {
+  const ws = new WebSocket(`ws://localhost:${server.port}`)
+
+  await new Promise((resolve) => { ws.onopen = resolve })
+
+  expect(ws.readyState).toBe(WebSocket.OPEN)
+  ws.close()
 })
 
+
 test('broadcast', async () => {
-  const res = await server.fetch(new Request('http://localhost/hmr'))
-  const reader = res.body.getReader()
+  const ws = new WebSocket(`ws://localhost:${server.port}`)
 
-  sessions.forEach(session => session.broadcast({ type: 'reload' }))
+  await new Promise((resolve) => {
+    ws.onopen = resolve
+  })
 
-  const { value } = await reader.read()
-  const text = new TextDecoder().decode(value)
-  expect(text).toBe('data:{"type":"reload"}\n\n')
+  const messagePromise = new Promise((resolve) => {
+    ws.onmessage = (event) => {
+      resolve(JSON.parse(event.data))
+    }
+  })
 
-  reader.releaseLock()
+  broadcast({ type: 'reload' })
+
+  const message = await messagePromise
+  expect(message).toEqual({ type: 'reload' })
+
+  ws.close()
 })

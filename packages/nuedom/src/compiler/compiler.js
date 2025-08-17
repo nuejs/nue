@@ -10,13 +10,13 @@ export function compileNue(template) {
 }
 
 function compileDoc(doc) {
-  const { script, elements } = doc
+  const { script, lib } = doc
   const js = []
 
   if (script) js.push(script)
 
-  const lib = compileJS(inspect(elements, { compact: true, depth: Infinity }))
-  js.push(`export const lib = ${ lib }`)
+  const lib_str = compileJS(inspect(lib, { compact: true, depth: Infinity }))
+  js.push(`export const lib = ${ lib_str }`)
 
   return js.join('\n')
 }

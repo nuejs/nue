@@ -1,6 +1,6 @@
 
 import { testDir, write, writeAll, removeAll } from './test-utils'
-import { readAssets } from '../src/assets'
+import { readAssets } from '../src/site'
 
 afterAll(async () => await removeAll())
 
@@ -12,7 +12,7 @@ test('caching', async () => {
     ['blog/index.md', '# Hello'],
   ])
 
-  const { assets } = await readAssets(testDir, paths)
+  const { assets } = await readAssets(testDir)
   expect(assets.length).toBe(3)
 
   // page data
@@ -29,18 +29,7 @@ test('caching', async () => {
 
   // remove -> update cache
   assets.remove('blog/app.yaml')
-  expect(await page.data()).toEqual({ foo: true })
+  expect(await page.data()).toEqual({ foo: true, is_prod: undefined })
 })
 
 
-test('Other assets', async () => {
-  const paths = await writeAll([
-    ['index.html', '<!doctype dhtml><app/>'],
-    ['base.css', '/* CSS */\ body { }'],
-  ])
-
-  const { assets } = await readAssets(testDir, paths)
-  expect(await assets.get('base.css').render(true)).toBe('body{}')
-  const ret = await assets.get('index.html').render()
-  expect(Object.keys(ret)).toEqual(['is_spa', 'js', 'html'])
-})

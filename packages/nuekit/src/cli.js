@@ -90,14 +90,14 @@ async function run(args) {
 
   // preview
   if (cmd == 'preview') {
-    const { preview } = await import('./cmd/preview.js')
+    const { preview } = await import('./cmd/preview')
     return await preview(args)
   }
 
   // assets
-  const { readAssets } = await import('./assets.js')
-  const { assets, ignore } = await readAssets(root)
-  args.ignore = ignore
+  const { readAssets } = await import('./site')
+  const is_prod = cmd == 'build'
+  const { assets, ignore } = await readAssets(root, is_prod) || {}
 
   // not a nue directory
   if (!assets) return
@@ -111,12 +111,12 @@ async function run(args) {
     console.log('creating', app)
 
   } else if (cmd == 'build' || paths.length) {
-    const { build } = await import('./cmd/build.js')
+    const { build } = await import('./cmd/build')
     await build(assets, args)
 
   } else if (cmd == 'serve' || !cmd) {
-    const { serve } = await import('./cmd/serve.js')
-    await serve(assets, args)
+    const { serve } = await import('./cmd/serve')
+    await serve(assets, { ...args, ignore })
   }
 
 }

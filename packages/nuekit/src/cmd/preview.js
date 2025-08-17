@@ -2,7 +2,7 @@
 import { extname, join } from 'node:path'
 
 import { createServer } from '../tools/server'
-import { readSiteYAML } from '../assets'
+import { readSiteYAML } from '../site'
 import { getServer } from '../server'
 
 

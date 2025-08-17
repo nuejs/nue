@@ -57,7 +57,7 @@ export async function buildAll(assets, args) {
 }
 
 export async function buildAsset(asset, dist) {
-  const result = await asset.render(true)
+  const result = await asset.render()
 
   if (result?.js) {
     const minified = await minifyJS(result.js)
@@ -108,7 +108,6 @@ export function matches(path, patterns) {
     return match.startsWith('./') ? path == match.slice(2) : path.includes(match)
   })
 }
-
 
 async function minifyJS(code) {
   const path = join(tmpdir(), `temp-${Date.now()}.js`)

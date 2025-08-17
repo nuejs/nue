@@ -35,7 +35,7 @@ const paths = [
 
 test('SPA app', () => {
   const deps = listDependencies('app/index.html', { paths })
-  expect(deps.length).toBe(2 + 6 + 4) // root + system + app (no self)
+  expect(deps.length).toBe(2 + 6 + 3) // root + system + app (no self)
   expect(deps).toContain('site.yaml')
   expect(deps).toContain('globals.js')
 })
@@ -43,7 +43,7 @@ test('SPA app', () => {
 test('root SPA', () => {
   const paths = [ 'css/spa.css', 'ui/users.html', 'index.html' ]
   const deps = listDependencies('index.html', { paths })
-  expect(deps.length).toBe(3)
+  expect(deps.length).toBe(2)
 })
 
 test('MPA deps', () => {
@@ -55,7 +55,7 @@ test('MPA deps', () => {
 
 test('standalone html', () => {
   const deps = listDependencies('marketing/table.html', { paths })
-  expect(deps.length).toBe(2 + 6 + 2) // root + system + marketing
+  expect(deps.length).toBe(2 + 6 + 1) // root + system + marketing
   expect(deps).toContain('site.yaml')
   expect(deps).toContain('marketing/chart.js')
   expect(deps).not.toContain('app/main.js')
@@ -66,7 +66,7 @@ test('strict CSS', () => {
     paths: [...paths, 'app/custom.css'],
     strict: true
   })
-  expect(deps.length).toBe(2 + 6 + 4) // custom.css blocked
+  expect(deps.length).toBe(2 + 6 + 3) // custom.css blocked
 })
 
 test('allow local CSS', () => {
@@ -74,7 +74,7 @@ test('allow local CSS', () => {
     paths: [...paths, 'app/custom.css'],
     strict: false
   })
-  expect(deps.length).toBe(2 + 6 + 5) // custom.css included
+  expect(deps.length).toBe(2 + 6 + 4) // custom.css included
   expect(deps).toContain('app/custom.css')
 })
 
@@ -83,7 +83,7 @@ test('root CSS follows strict rules', () => {
     paths: [...paths, 'global.css'],
     strict: true
   })
-  expect(deps.length).toBe(2 + 6 + 4) // root CSS blocked by strict
+  expect(deps.length).toBe(2 + 6 + 3) // root CSS blocked by strict
   expect(deps).not.toContain('global.css')
 })
 
@@ -93,7 +93,7 @@ test('exclusions', () => {
     paths,
   })
 
-  expect(deps.length).toBe(1 + 4 + 3) // globals.js + 4 system + 3 app
+  expect(deps.length).toBe(1 + 4 + 2) // globals.js + 4 system + 2 app
   expect(deps).not.toContain('app/ui/header.html')
   expect(deps).not.toContain('@system/design/base.css')
   expect(deps).not.toContain('site.yaml')

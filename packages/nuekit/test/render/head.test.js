@@ -1,5 +1,5 @@
 
-import { renderScripts, renderStyles, renderMeta, renderHead, } from '../src/head'
+import { renderScripts, renderStyles, renderMeta, renderHead, } from '../../src/render/head'
 
 test('renderScripts', () => {
   const [foo, bar] = renderScripts([
@@ -25,7 +25,7 @@ test('renderStyles', async () => {
 
   // inline css
   const style = await renderStyles(files, { is_prod: true, design: { inline_css: true }})
-  expect(style).toBe('<style>body {}</style>')
+  expect(style).toBe('<style>body{}</style>')
 })
 
 test('renderMeta', async () => {

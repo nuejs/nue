@@ -6,16 +6,16 @@ import { tokenize } from './tokenizer.js'
   {
     doctype: 'html',
     script: 'imort { foo, bar } from ...',
-    elements: []
     meta: {},
+    lib: []
   }
 */
 export function parseNue(template) {
   const tokens = tokenize(template)
   const blocks = parseBlocks(tokens)
-  const elements = []
   const script = []
   const page = {}
+  let lib = []
 
   blocks.forEach((el, i) => {
 
@@ -30,7 +30,7 @@ export function parseNue(template) {
         script.push(el.children[0].text.trim())
 
       } else {
-        elements.push(el)
+        lib.push(el)
       }
 
     } else if (el.meta) {
@@ -44,9 +44,19 @@ export function parseNue(template) {
 
   // reserved names
   const names = parseNames(page.script)
-  page.elements = elements.map(el => createAST(el, names))
+  lib = page.lib = lib.map(el => createAST(el, names))
+
+  // root
+  page.root = lib[0]
+  page.is_dhtml = page.doctype?.includes('dhtml')
+    || lib.some(ast => ast.handlers?.length > 0)
+    || page.script?.includes('import ')
 
   return page
+}
+
+function isDHTML(lib) {
+
 }
 
 function isScript(block) {
@@ -71,6 +81,7 @@ export function parseBlocks(tokens) {
   return blocks
 }
 
+
 function parseBlock(tokens, i) {
   const tag = tokens[i]
 
@@ -79,14 +90,14 @@ function parseBlock(tokens, i) {
 
   const low = tag.toLowerCase()
 
-  if (low.startsWith('<?xml')) {
-    const node = { xml: true, standalone: !low.includes('standalone="no"') }
+  // !doctype
+  if (tag.startsWith('<!')) {
+    const node = { doctype: low.slice(2, -1).replace('doctype', '').trim() }
     return { node, next: i++ }
   }
 
-  // !doctype
-  if (low.startsWith('<!doctype')) {
-    const node = { doctype: tag.slice(10, tag.indexOf('>')).trim() }
+  if (low.startsWith('<?xml')) {
+    const node = { xml: true, standalone: !low.includes('standalone="no"') }
     return { node, next: i++ }
   }
 

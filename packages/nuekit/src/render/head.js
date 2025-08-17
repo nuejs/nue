@@ -1,8 +1,11 @@
 
-import { elem } from 'nuemark'
-import { version } from './system'
+import { parse } from 'node:path'
 
-export async function renderHead(data, assets, libs) {
+import { elem } from 'nuemark'
+import { version } from '../system'
+import { minifyCSS } from '../tools/css'
+
+export async function renderHead(data, assets, libs=[]) {
   const { title } = data
   const head = []
 
@@ -14,7 +17,14 @@ export async function renderHead(data, assets, libs) {
   // styles
   head.push(...await renderStyles(assets, data))
 
-  // scripts
+  // system scripts
+  const addJS = name => assets.push(parse(`@nue/${name}.js`))
+  if (data.view_transitions) addJS('transitions')
+  if (libs.length) addJS('mount')
+  if (!data.is_prod) addJS('hmr')
+
+
+  // all scripts
   const scripts = renderScripts(assets)
 
   if (scripts.length || libs.length) {
@@ -61,8 +71,8 @@ export function renderScripts(assets) {
     .map(file => elem('script', { src: `/${file.dir}/${file.name}.js`, type: 'module' }))
 }
 
-export async function renderStyles(assets, opts={}) {
-  const { base='base.css', inline_css } = opts?.design || {}
+export async function renderStyles(assets, data={}) {
+  const { base='base.css', inline_css } = data?.design || {}
   const css = assets.filter(file => file.is_css)
 
   css.sort((a, b) => {
@@ -71,17 +81,20 @@ export async function renderStyles(assets, opts={}) {
     return a.path.localeCompare(b.path)
   })
 
-  if (opts.is_prod && inline_css) {
-    return elem('style', await inlineCSS(css, true))
+  if (data.is_prod && inline_css) {
+    return elem('style', await inlineCSS(css))
   }
 
   return css.map(file => elem('link', { rel: 'stylesheet', href: `/${file.path}` }))
 }
 
-export async function inlineCSS(assets, minify) {
+export async function inlineCSS(assets, minify=true) {
   const css_files = assets.filter(el => el.is_css)
+  if (!css_files.length) return ''
+
   const css = await Promise.all(css_files.map(file => file.text()))
-  return css.join('\n').trim()
+  const str = css.join('\n').trim()
+  return minifyCSS(str)
 }
 
 

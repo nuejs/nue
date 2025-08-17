@@ -67,13 +67,7 @@ export async function serve(assets, args) {
 
     if (asset) {
       asset.content = await asset.render() || await asset.text()
-
-      if (asset.is_html) {
-        asset.is_html_page = await asset.isPage()
-        asset.is_dhtml = await asset.isDHTML()
-        asset.is_spa = await asset.isSPA()
-      }
-
+      asset.doctype = asset.is_html && (await asset.parse()).doctype
       broadcast(asset)
     }
   }

@@ -10,7 +10,7 @@ import { createFile } from './file'
 
 const IGNORE = `node_modules .toml .rs .lock package.json .lockb lock.yaml README.md Makefile`.split(' ')
 
-export async function readAssets(root) {
+export async function readAssets(root, is_prod) {
 
   // site config
   const conf = await readSiteYAML(root)
@@ -24,7 +24,7 @@ export async function readAssets(root) {
   const files = await Promise.all(paths.map(path => createFile(root, path)))
 
   // assets
-  const assets = files.map(file => createAsset(file, files))
+  const assets = files.map(file => createAsset(file, files, is_prod))
 
   assets.get = function(path) {
     return assets.find(el => el.path == path)
@@ -50,7 +50,7 @@ export async function readAssets(root) {
 
     if (file) {
       files.push(file)
-      asset = createAsset(file, files)
+      asset = createAsset(file, files, is_prod)
       assets.push(asset)
       return asset
     }

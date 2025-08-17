@@ -90,7 +90,7 @@ export function parseValue(raw) {
 }
 
 export function parseArrayItems(line) {
-  const match = line.match(/\[(.*)\]/)
+  const match = line?.match(/\[(.*)\]/)
   if (!match) return null
 
   if (match[1].trim() == '') return []

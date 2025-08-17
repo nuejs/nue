@@ -6,15 +6,16 @@ import { parseNuemark } from 'nuemark'
 import { parseYAML } from './tools/yaml'
 import { minifyCSS } from './tools/css'
 
-import { renderPage, renderSVG, renderHTML } from './html'
+import { renderSVG,  } from './render/svg'
+import { renderMD, renderHTML } from './render/page'
 import { getCollections } from './collections'
 import { listDependencies } from './deps'
 
-export function createAsset(file, files=[]) {
-  let cachedDoc = null
+export function createAsset(file, files=[], is_prod) {
+  let cachedAST = null
 
   function flush() {
-    cachedDoc = null
+    cachedAST = null
     file.flush()
   }
 
@@ -37,7 +38,7 @@ export function createAsset(file, files=[]) {
 
   async function data() {
     const yaml = getDeps().filter(f => f.is_yaml)
-    const data = {}
+    const data = { is_prod }
 
     for (const file of yaml) {
       Object.assign(data, parseYAML(await file.text()))
@@ -54,35 +55,20 @@ export function createAsset(file, files=[]) {
     return getDeps(exclude, design?.strict)
   }
 
-  async function document() {
-    if (!cachedDoc) {
+  async function parse() {
+    if (!cachedAST) {
       const str = await file.text()
-      cachedDoc = file.is_md ? parseNuemark(str) : parseNue(str)
+      cachedAST = file.is_md ? parseNuemark(str) : parseNue(str)
     }
-    return cachedDoc
-  }
-
-  async function isPage() {
-    if (!file.is_html) return false
-    const { doctype } = await document()
-    return doctype == 'html'
-  }
-
-  async function isDHTML() {
-    if (!file.is_html) return false
-    const { doctype } = await document()
-    return doctype == 'dhtml'
-  }
-
-  async function isSPA() {
-    return file.base == 'index.html' && await isDHTML()
+    return cachedAST
   }
 
   async function toExt() {
-    return await isDHTML() ? '.html.js'
-      : file.is_md ? '.html'
-      : file.is_ts ? '.js'
-      : file.ext
+    if (file.is_html) {
+      const { is_dhtml } = await parse()
+      if (is_dhtml) return '.html.js'
+    }
+    return file.is_md ? '.html' : file.is_ts ? '.js' : file.ext
   }
 
   async function contentType() {
@@ -98,41 +84,33 @@ export function createAsset(file, files=[]) {
   }
 
   async function components() {
-    const dhtml = await isDHTML()
-    const arr = await assets()
+    const { is_dhtml=false } = await parse()
     const ret = []
 
-    for (const asset of arr.filter(el => el.is_html)) {
-      const { doctype, elements } = await asset.document()
-      const reactive = await asset.isDHTML()
-      const comps = asset.path == file.path ? elements.slice(1) : elements
-
-      // client components (reactive)
-      if (dhtml && reactive) ret.push(...comps)
-
-      // server components (layout modules)
-      if (!dhtml && !reactive) ret.push(...comps)
+    for (const asset of (await assets()).filter(el => el.is_html)) {
+      const { doctype, lib } = await asset.parse()
+      if (doctype?.endsWith('lib') && is_dhtml == doctype.includes('dhtml')) ret.push(...lib)
     }
 
     return ret
   }
 
-  async function render(is_prod) {
+  async function render(params) {
     const asset = createAsset(file, files)
-    const is_page = file.is_md || file.base == 'index.html' && !(await asset.isDHTML())
+
+    if (file.is_svg) {
+      const { svg } = await data()
+      if (svg?.process) return await renderSVG(asset, { fonts: svg.fonts, ...params })
+    }
 
     return file.is_js && is_prod || file.is_ts ? compileJS(file.rootpath, is_prod)
-      : file.is_svg && (await data()).process_svg ? renderSVG(asset, is_prod)
       : file.is_css && is_prod ? minifyCSS(await file.text())
-      : is_page ? await renderPage(asset, is_prod)
-      : file.is_html ? await renderHTML(asset, is_prod)
+      : file.is_html ? await renderHTML(asset)
+      : file.is_md ? await renderMD(asset)
       : null
   }
 
-  return {
-    ...file, flush, data, assets, document, components,
-    isDHTML, isSPA, isPage, toExt, contentType, render
-  }
+  return { ...file, flush, data, assets, parse, components, toExt, contentType, render }
 }
 
 

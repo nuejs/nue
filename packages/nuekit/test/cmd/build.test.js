@@ -2,7 +2,7 @@
 import { join } from 'node:path'
 import { build, matches, stats, buildAsset, buildAll } from '../../src/cmd/build'
 import { testDir, writeAll, removeAll, fileset } from '../test-utils'
-import { readAssets } from '../../src/assets'
+import { readAssets } from '../../src/site'
 
 
 
@@ -44,7 +44,7 @@ describe('MPA build', async () => {
   afterEach(async () => await removeAll())
 
   test('buildAsset: MD', async () => {
-    const { assets } = await readAssets(testDir)
+    const { assets } = await readAssets(testDir, true)
     const home = assets.get('index.md')
     await buildAsset(home, testDir)
     const html = await Bun.file(join(testDir, 'index.html')).text()
@@ -53,7 +53,7 @@ describe('MPA build', async () => {
   })
 
   test('buildAll', async () => {
-    const { assets } = await readAssets(testDir)
+    const { assets } = await readAssets(testDir, true)
 
     await buildAll(assets, { root: testDir })
     const results = await fileset(join(testDir, '.dist'))
@@ -62,6 +62,7 @@ describe('MPA build', async () => {
 
     // typescript conversion / minify
     const js = await results.read('@system/ui/keyboard.js')
+
     expect(js).toInclude('var o=100;export{o as foo};')
 
     // front page render
@@ -72,7 +73,7 @@ describe('MPA build', async () => {
 
   test('build filtering', async () => {
     const consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {})
-    const { assets } = await readAssets(testDir)
+    const { assets } = await readAssets(testDir, true)
     const subset = await build(assets, { dryrun: true, paths: ['.md', '.css'] })
     expect(subset.length).toBe(5)
   })
@@ -83,7 +84,7 @@ describe('SPA build', async () => {
 
   beforeEach(async () => {
     await writeAll([
-      ['index.html', '<!doctype dhtml> <app>Hello</app>'],
+      ['index.html', '<!doctype dhtml> <body>Hello</body>'],
       ['base.css', ':root { --brand: #ccc }'],
     ])
   })
@@ -91,20 +92,21 @@ describe('SPA build', async () => {
   afterEach(async () => await removeAll())
 
   test('build SPA', async () => {
-    const { assets } = await readAssets(testDir)
+    const { assets } = await readAssets(testDir, true)
     await buildAll(assets, { root: testDir })
     const results = await fileset(join(testDir, '.dist'))
     expect(results.length).toBe(8)
 
     // html page
     const html = await results.read('index.html')
-    expect(html).toInclude('<body nue="app"></body>')
+
+    expect(html).toInclude('<body nue="default-app"></body>')
     expect(html).toInclude('/@nue/mount.js')
     expect(html).toInclude('/base.css')
 
     // SPA minify
     const js = await results.read('index.html.js')
-    expect(js).toInclude('is_custom:!0')
+    expect(js).toInclude('var t=[')
 
     // CSS minify
     const css = await results.read('base.css')

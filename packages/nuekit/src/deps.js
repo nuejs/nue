@@ -33,7 +33,7 @@ export function listDependencies(basepath, { paths, exclude=[], strict }) {
 function isDep(basepath, path, paths) {
 
   // self
-  // if (basepath == path) return false
+  if (basepath == path) return false
 
   // Root level assets (global)
   const dir = dirname(path)

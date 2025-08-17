@@ -31,7 +31,7 @@ async function filterPages(pages, config) {
   const ret = []
 
   for (const page of pages) {
-    const { meta } = await page.document()
+    const { meta } = await page.parse()
 
     if (config.require) {
       const hasRequired = config.require.every(field => meta[field] != null)

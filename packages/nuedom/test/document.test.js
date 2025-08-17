@@ -2,8 +2,9 @@
 import { parseNue, parseNames } from '../src/compiler/document.js'
 
 test('minimal', () => {
-  const page = parseNue(' <foo/>')
-  expect(page.elements[0].tag).toEqual('foo')
+  const { doctype, root } = parseNue('<!html+dhtml lib> <foo/>')
+  expect(root.tag).toEqual('foo')
+  expect(doctype).toBe('html+dhtml lib')
 })
 
 test('imports', () => {
@@ -14,10 +15,13 @@ test('imports', () => {
 
     <a :class="hello" :onclick="hello">{ hello() }</a>
   `)
-  const [ el ] = page.elements
-  expect(el.attr[0].fn).toBe('hello')
-  expect(el.handlers[0].h_fn).toBe('hello($e)')
-  expect(el.children[0].fn).toBe('hello()')
+
+
+  const { root } = page
+  expect(root.attr[0].fn).toBe('hello')
+  expect(root.handlers[0].h_fn).toBe('hello($e)')
+  expect(root.children[0].fn).toBe('hello()')
+  expect(page.is_dhtml).toBeTrue()
 })
 
 test('meta', () => {
@@ -40,7 +44,7 @@ test('svg document', () => {
     <svg></svg>
   `)
   expect(page.standalone).toBeFalse()
-  expect(page.elements[0]).toMatchObject({
+  expect(page.lib[0]).toMatchObject({
     meta: { use: "[foo, bar]" },
     svg: true,
   })
@@ -75,7 +79,7 @@ test('full', () => {
   expect(page.doctype).toEqual('dhtml')
 
   // meta
-  const [a, b] = page.elements
+  const [a, b] = page.lib
   expect(page.meta).toEqual({ spa: true })
   expect(a.meta).toEqual({ reactive: true })
   expect(b.meta).toEqual({ author: 'tipiirai' })

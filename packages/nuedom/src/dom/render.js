@@ -11,10 +11,10 @@ function renderAST(ast, opts={}) {
 
 export function renderNue(template, opts={}) {
   if (typeof template != 'string') return renderAST(template, opts)
-  const { elements } = parseNue(template)
+  const { lib } = parseNue(template)
   const { deps=[] } = opts
-  opts.deps = [...elements.slice(1), ...deps]
-  return renderAST(elements[0], opts)
+  opts.deps = [...lib.slice(1), ...deps]
+  return renderAST(lib[0], opts)
 }
 
 // exported for testing purposes only

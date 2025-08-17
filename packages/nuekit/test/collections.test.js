@@ -6,19 +6,19 @@ import { createAsset } from '../src/asset'
 const pages = [
   {
     path: 'blog/post1.md',
-    document: async () => ({ meta: { title: 'First Post', date: '2024-01-01', draft: false } })
+    parse: async () => ({ meta: { title: 'First Post', date: '2024-01-01', draft: false } })
   },
   {
     path: 'blog/post2.md',
-    document: async () => ({ meta: { title: 'Second Post', date: '2024-01-02' } })
+    parse: async () => ({ meta: { title: 'Second Post', date: '2024-01-02' } })
   },
   {
     path: 'blog/draft.md',
-    document: async () => ({ meta: { title: 'Draft Post', draft: true } })
+    parse: async () => ({ meta: { title: 'Draft Post', draft: true } })
   },
   {
     path: 'docs/guide.md',
-    document: async () => ({ meta: { title: 'Guide', order: 1 } })
+    parse: async () => ({ meta: { title: 'Guide', order: 1 } })
   }
 ]
 
@@ -68,7 +68,7 @@ test('sorting', async () => {
 
 
 test('rendering', async () => {
-  const pagefoot = '<div :is="pagefoot"><p :each="page of pages">{ page.title }</div>'
+  const pagefoot = '<!html lib><div :is="pagefoot"><p :each="page of pages">{ page.title }</div>'
   const conf = 'collections:\n  pages:\n    match: [ blog/** ]'
 
   const files = [
