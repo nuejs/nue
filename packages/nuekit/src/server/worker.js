@@ -29,6 +29,7 @@ export async function createWorker(opts = {}) {
   if (db) env.DB = createDB(join(dir, db))
   if (kv) env.KV = createKV(join(dir, kv))
 
+
   return async function(req) {
     if (reload) server = await importServer({ dir, reload })
     const url = new URL(req.url)

@@ -1,14 +1,9 @@
 
-<section>
+<h1>Blog</h1>
 
-  <h1>Blog</h1>
-
-  <table>
-    <tr :each="page in blog">
-      <td><pretty-date :date="page.date"/></td>
-      <td><a href="{ page.url }">{ page.title }</a></td>
-    </tr>
-  </table>
-</section>
-
-
+<table>
+  <tr :each="page in blog">
+    <td><pretty-date :date="page.date"/></td>
+    <td><a href="{ page.url }">{ page.title }</a></td>
+  </tr>
+</table>

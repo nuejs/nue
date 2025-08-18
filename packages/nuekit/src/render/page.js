@@ -58,11 +58,12 @@ export function renderSlots({ head=[], content='', comps=[], data={} }) {
 
 // used by renderMD and renderHTML
 export async function renderPage({ asset, content, comps, data={} }) {
+  const { is_dhtml, doctype } = await asset.parse()
   const assets = await asset.assets()
   const libs = await getLibPaths(assets)
-  const { is_dhtml } = await asset.parse()
 
   if (is_dhtml) libs.unshift(asset.path)
+  if (doctype?.includes('standalone')) data.scope = 'body'
 
   const head = await renderHead(data, assets, libs)
   return renderSlots({ head, content, comps, data })
@@ -76,7 +77,7 @@ export async function renderMD(asset) {
   // data
   const data = await asset.data()
   const { sections, heading_ids } = data
-  Object.assign(data, meta, { headings }, assetMeta(asset))
+  Object.assign(data, meta, { headings }, fileMeta(asset))
 
   const content = render({ data, sections, heading_ids, tags: convertToTags(comps, data) })
 
@@ -94,12 +95,13 @@ export async function renderHTML(asset) {
   // !dhtml -> renderDHTML
   if (doctype == 'dhtml') return await renderDHTML(asset)
 
-  // root
-  const root = getRoot(lib)
-
   // data
   const data = await asset.data()
-  Object.assign(data, meta, { scope: root.tag }, assetMeta(asset))
+  Object.assign(data, meta, fileMeta(asset))
+
+  // root
+  const root = createWrapper(lib, data)
+  data.scope = root.tag
 
   // content
   const comps = await asset.components()
@@ -109,18 +111,28 @@ export async function renderHTML(asset) {
   return await renderPage({ content, comps, data, asset })
 }
 
+function createWrapper(lib, { sections }) {
+  if (lib.length == 1) return lib[0]
+  const wrap = { tag: sections ? 'section' : 'article', children: lib }
 
-function getRoot(lib) {
-  return lib.length > 1 ? { tag: 'article', children: lib } : lib[0]
+  // hoist child scripts into parent
+  const script = []
+  lib.forEach(el => {
+    if (el.script) script.push(el.script)
+    delete el.script
+  })
+  wrap.script = script.join('\n')
+
+  return wrap
 }
 
 
 // <!dhtml>
 export async function renderDHTML(asset) {
   const doc = await asset.parse()
-  const comps = await asset.components()
+  const comps = await asset.components('html')
   const data = await asset.data()
-  const root = getRoot(doc.lib)
+  const root = createWrapper(doc.lib, data)
 
   // force component name
   if (!root.is_custom && !root.is) root.is = 'default-app'
@@ -139,7 +151,7 @@ export async function renderDHTML(asset) {
 
 /***** Helper functions *****/
 
-function assetMeta(asset) {
+function fileMeta(asset) {
   const { url, slug, dir } = asset
   return { url, slug, dir, markdown }
 }

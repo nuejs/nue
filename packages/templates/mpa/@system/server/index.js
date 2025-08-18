@@ -13,6 +13,7 @@ server.get('/api', async (c) => {
 // login
 server.post('/api/login', async (c) => {
   const { email, password } = await c.req.json()
+
   const auth = createAuth(c.env)
 
   if (auth.validate(email, password)) {

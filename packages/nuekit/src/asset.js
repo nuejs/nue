@@ -83,13 +83,19 @@ export function createAsset(file, files=[], is_prod) {
     return types[await toExt()]
   }
 
-  async function components() {
+  async function components(force_type) {
     const { is_dhtml=false } = await parse()
     const ret = []
 
     for (const asset of (await assets()).filter(el => el.is_html)) {
       const { doctype, lib } = await asset.parse()
-      if (doctype?.endsWith('lib') && is_dhtml == doctype.includes('dhtml')) ret.push(...lib)
+
+      if (doctype?.endsWith('lib')) {
+        const same_type = is_dhtml == doctype.startsWith('dhtml')
+        const isomorphic = doctype.startsWith('html+dhtml')
+        const forced = doctype.startsWith(force_type)
+        if (isomorphic || same_type || forced) ret.push(...lib)
+      }
     }
 
     return ret

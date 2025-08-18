@@ -4,8 +4,9 @@ import { extname, join } from 'node:path'
 import { createServer, broadcast } from '../tools/server'
 import { fswatch } from '../tools/fswatch'
 
-import { getServer } from '../server'
 import { getSystemFiles } from '../system'
+import { readSiteYAML } from '../site'
+import { getServer } from '../server'
 
 const sysfiles = getSystemFiles()
 
@@ -48,16 +49,15 @@ export async function onServe(url, assets) {
 
 }
 
-
 export async function serve(assets, args) {
-  const opts = await assets.get('site.yaml')?.data()
-
-  const { root, port=opts.port, ignore, silent } = args
+  const { root, ignore, silent } = args
+  const opts = await readSiteYAML(root)
 
   // user server
   const handler = await getServer(opts?.server)
 
   // dev server
+  const port = args.port || opts.port
   const server = createServer({ port, handler }, url => onServe(url, assets))
 
   const watcher = fswatch(root, { ignore })

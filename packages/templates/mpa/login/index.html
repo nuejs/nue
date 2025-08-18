@@ -1,12 +1,12 @@
-
 <!doctype dhtml>
 
 <script>
   import { login } from 'app'
 </script>
 
+<h1>Log in to Acme</h1>
 
-<form :is="login" :onsubmit="submit" class="thin">
+<form :onsubmit="submit" class="thin">
   <div class="error note" :if="failure">
     Failure
   </div>
@@ -40,4 +40,5 @@
       })
     }
   </script>
+
 </form>
