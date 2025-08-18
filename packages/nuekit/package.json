@@ -14,22 +14,17 @@
     "nue": "./src/cli.js"
   },
   "engines": {
-    "bun": ">= 1.2"
+    "bun": ">= 1.2.2"
   },
   "scripts": {
-    "test": "node --experimental-vm-modules ../../node_modules/jest/bin/jest.js --runInBand"
+    "test": "cd test && bun test"
   },
   "dependencies": {
     "nuedom": "*",
     "nuemark": "*",
     "nue-glow": "*"
   },
-  "jest": {
-    "setupFilesAfterEnv": [
-      "<rootDir>/../../setup-jest.js"
-    ],
-    "collectCoverageFrom": [
-      "<rootDir>/src/**"
-    ]
+  "devDependencies": {
+    "domino": "^2.1.6"
   }
 }

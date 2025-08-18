@@ -1,92 +1,100 @@
-
 // Client-side routing and view transitions for multipage applications
 
-// exported
-export function $(query, root = document) {
+function $(query, root = document) {
   return root.querySelector(query)
 }
 
-export function $$(query, root = document) {
+function $$(query, root = document) {
   return [...root.querySelectorAll(query)]
 }
 
 const scrollPos = {}
+const cache = {}
 
-export async function loadPage(path, replace_state) {
+export async function loadPage(path) {
   dispatchEvent(new Event('before:route'))
 
-  // save scroll position
-  scrollPos[location.pathname] = window.scrollY
-
   // DOM of the new page
-  const dom = mkdom(await getHTML(path))
+  const dom = createDOM(await fetchHTML(path))
 
-  // change title
+  // update page metadata and scripts
+  await updatePageHead(dom)
+
+  // update stylesheets
+  const sheets = updatePageStyles(dom)
+  await loadStylesheets(sheets)
+
+  // inline style tag (single)
+  updateInlineStyle($('style', dom))
+
+  // update page content - keep the working logic
+  const ignoreMain = updateContent($('main'), $('main', dom))
+  updateContent($('body'), $('body', dom), ignoreMain)
+  dispatchRouteEvents()
+  setActive(path)
+}
+
+async function updatePageHead(dom) {
+  // title
   const title = $('title', dom)?.textContent
   if (title) document.title = title
 
   // update component list
-  const comps = $('[name="libs"]', dom)
+  updateMeta('libs', dom)
 
-  // not a Nue page -> full page load
-  if (!comps) return location.href = path
-
-  $('[name="libs"]').content = comps.content
-
-  // forEach() does not work due to timing issues
+  // load scripts (modules are loaded only once by the browser)
   for (const script of $$('script[src]', dom)) {
-
-    // modules are loaded only once by the browser
     await import(script.getAttribute('src'))
   }
-
-  const css_paths = updateStyles(dom)
-
-  loadCSS(css_paths, () => {
-    const ignore_main = simpleDiff($('main'), $('main', dom))
-    simpleDiff($('body'), $('body', dom), ignore_main)
-
-    // scroll
-    const { hash } = location
-    const el = hash && $(hash)
-    scrollTo(0, el ? el.offsetTop - parseInt(getComputedStyle(el).scrollMarginTop) || 0 : 0)
-
-    // route event
-    dispatchEvent(new Event('route'))
-
-    // route:app event
-    const [_, app] = location.pathname.split('/')
-    dispatchEvent(new Event(`route:${app || 'home'}`))
-
-    setActive(path)
-  })
-
-  if (!replace_state) history.pushState({ path }, 0, path)
-
 }
 
+
+function updateMeta(name, dom) {
+  $(`meta[name="${name}"]`)?.remove()
+  const meta = $(`meta[name="${name}"]`, dom)
+  if (meta) $('head').appendChild(meta)
+}
+
+function handlePageScroll() {
+  const { hash } = location
+  const el = hash && $(hash)
+  const scrollTop = el ?
+    el.offsetTop - (parseInt(getComputedStyle(el).scrollMarginTop) || 0) :
+    0
+  scrollTo(0, scrollTop)
+}
+
+function dispatchRouteEvents() {
+  dispatchEvent(new Event('route'))
+  const [_, app] = location.pathname.split('/')
+  dispatchEvent(new Event(`route:${app || 'home'}`))
+}
 
 // setup linking
 export function onclick(root, fn) {
   root.addEventListener('click', e => {
     const el = e.target.closest('[href]')
-    const path = el?.getAttribute('href')
-    const target = el?.getAttribute('target')
-    const name = path?.split('/')?.pop()?.split(/[#?]/)?.shift()
+    if (!el) return
 
-    // event ignore
-    if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey ||
-      !path || path[0] == '#' || path?.includes('//') || path?.startsWith('mailto:') ||
-      (name?.includes('.') && !name?.endsWith('.html')) || !!target) return
+    const path = el.getAttribute('href')
+    const target = el.getAttribute('target')
+    const filename = path?.split('/')?.pop()?.split(/[#?]/)?.shift()
+
+    if (shouldIgnoreClick(e, path, target, filename)) return
 
     // all good
     if (path != location.pathname) fn(el.pathname, el)
     e.preventDefault()
-
   })
 }
 
-function toRelative(path) {
+function shouldIgnoreClick(e, path, target, filename) {
+  return e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey ||
+    !path || path[0] == '#' || path.includes('//') || path.startsWith('mailto:') ||
+    (filename?.includes('.') && !filename.endsWith('.html')) || !!target
+}
+
+export function toRelative(path) {
   const curr = location.pathname
   return curr.slice(0, curr.lastIndexOf('/') + 1) + path
 }
@@ -100,16 +108,12 @@ export function setActive(path, attrname = 'aria-current') {
   // add new ones
   $$('a').forEach(el => {
     if (!el.hash && el.pathname == path) {
-
-      // set timeout needed @ nue docs area. TODO: remove this hack
-      setTimeout(() => el.setAttribute(attrname, 'page'), 50)
+      el.setAttribute(attrname, 'page')
     }
   })
 }
 
-
 export function setupTransitions() {
-
   // view transition fallback (Safari, Firefox) • caniuse.com/view-transitions
   if (!document.startViewTransition) {
     document.startViewTransition = (fn) => fn()
@@ -119,6 +123,11 @@ export function setupTransitions() {
   // https://stackoverflow.com/questions/11092736/window-onpopstate-event-state-null
   history.pushState({ path: location.pathname }, 0)
 
+  // save scroll position whenever user scrolls
+  addEventListener('scroll', () => {
+    scrollPos[location.pathname] = window.scrollY
+  })
+
   // autoroute / document clicks
   onclick(document, async (path, el) => {
     const img = $('img', el)
@@ -126,6 +135,8 @@ export function setupTransitions() {
 
     document.startViewTransition(async () => {
       await loadPage(path)
+      history.pushState({ path }, 0, path)
+      handlePageScroll()
     })
   })
 
@@ -140,90 +151,75 @@ export function setupTransitions() {
       const pos = scrollPos[path]
 
       document.startViewTransition(async () => {
-        await loadPage(path, true)
-        setTimeout(() => window.scrollTo(0, pos || 0), 10)
+        await loadPage(path)
+        scrollTo(0, pos || 0)
       })
     }
   })
 }
 
-
 /* -------- utilities ---------- */
 
+function haveSameChildren(a, b) {
+  if (a.children.length != b.children.length) return false
 
-function sameKids(kids_a, kids_b) {
-  if (kids_a.length != kids_b.length) return false
-
-  for (let i = 0; i < kids_a.length; i++) {
-    if (kids_a[i].tagName != kids_b[i].tagName) return false
+  for (let i = 0; i < a.children.length; i++) {
+    if (a.children[i].tagName != b.children[i].tagName) return false
   }
 
   return true
 }
 
-// primitive DOM diffing
-function simpleDiff(a, b, ignore_main) {
-  if (!a || !b) return true
+// smart DOM diffing and updating
+export function updateContent(current, incoming, ignoreMain) {
+  if (!current || !incoming) return true
 
-  if (sameKids(a.children, b.children)) {
-    ;[...a.children].forEach((el, i) => {
-      if (!(ignore_main && el.tagName == 'MAIN')) updateBlock(el, b.children[i])
+  if (haveSameChildren(current, incoming)) {
+    Array.from(current.children).forEach((el, i) => {
+      if (!(ignoreMain && el.tagName == 'MAIN')) {
+        updateElement(el, incoming.children[i])
+      }
     })
     return true
-
   } else {
-    a.innerHTML = b.innerHTML
+    current.innerHTML = incoming.innerHTML
+    return false
   }
 }
 
-function updateBlock(a, b) {
-  const orig = a.outerHTML.replace(' aria-current="page"', '')
-  if (orig != b.outerHTML) a.replaceWith(b.cloneNode(true))
+function updateElement(current, incoming) {
+  const currentHTML = current.outerHTML.replace(' aria-current="page"', '')
+  if (currentHTML != incoming.outerHTML) {
+    current.replaceWith(incoming.cloneNode(true))
+  }
 }
 
-
-function updateStyles(dom) {
-  // Inline CSS / development
-  const orig = $$('link, style')
-  const new_styles = swapStyles(orig, $$('link, style', dom))
-  new_styles.forEach(style => $('head').appendChild(style))
-
-  // inline style element
-  updateProductionStyles(dom)
-
-  // external CSS
-  return new_styles.filter(el => el.tagName == 'link')
+function updatePageStyles(dom) {
+  const sheets = findNewStyles($$('link'), $$('link', dom))
+  sheets.forEach(style => $('head').appendChild(style))
+  return sheets
 }
 
+export function findNewStyles(current, incoming) {
+  // disable styles not in incoming
+  current.forEach(el => {
+    const href = el.getAttribute('href')
+    el.disabled = !incoming.find(style => style.getAttribute('href') == href)
+  })
 
-function hasStyle(sheet, sheets) {
-  return sheets.find(el => el.getAttribute('href') == sheet.getAttribute('href'))
+  // return styles not in current
+  return incoming.filter(el => {
+    const href = el.getAttribute('href')
+    return !current.find(style => style.getAttribute('href') == href)
+  })
 }
 
-
-// disable / enable
-function swapStyles(orig, styles) {
-  orig.forEach((el, i) => el.disabled = !hasStyle(el, styles))
-  return styles.filter(el => !hasStyle(el, orig))
+function updateInlineStyle(style) {
+  $('style')?.remove()
+  if (style) $('head').appendChild(style)
 }
 
-function findPlainStyle(dom) {
-  return $$('style', dom).find(el => !el.attributes.length)
-}
-
-// production: single inline style element without attributes
-function updateProductionStyles(dom) {
-  const plain = findPlainStyle()
-  const new_plain = findPlainStyle(dom)
-
-  if (plain) plain.replaceWith(new_plain)
-  else if (new_plain) $('head').appendChild(new_plain)
-}
-
-
-const cache = {}
-
-async function getHTML(path) {
+async function fetchHTML(path) {
   let html = cache[path]
   if (html) return html
 
@@ -233,7 +229,6 @@ async function getHTML(path) {
   if (resp.status == 404 && html?.trim()[0] != '<') {
     const title = document.title = 'Page not found'
     $('article').innerHTML = `<section><h1>${title}</h1></section>`
-
   } else {
     cache[path] = html
   }
@@ -241,40 +236,25 @@ async function getHTML(path) {
   return html
 }
 
-/*
-function mkdom(html) {
-  // template tag does not work with <body> tag
-  html = html.replace(/<(\/?)body/g, '<$1body2')
-
-  const tmpl = document.createElement('template')
-  tmpl.innerHTML = html.trim()
-  return tmpl.content
-}
-*/
-
-function mkdom(html) {
+function createDOM(html) {
   const parser = new DOMParser()
-  const doc = parser.parseFromString(html, 'text/html')
-  return doc
+  return parser.parseFromString(html, 'text/html')
 }
 
+async function loadStylesheets(linkElements) {
+  const promises = linkElements.map(link => loadStylesheet(link.href))
+  await Promise.all(promises)
+}
 
-function loadCSS(paths, fn) {
-  let loaded = 0
-
-  !paths[0] ? fn() : paths.forEach((el, i) => {
-    loadSheet(el.href, () => { if (++loaded == paths.length) fn() })
+function loadStylesheet(href) {
+  return new Promise(resolve => {
+    const link = document.createElement('link')
+    link.rel = 'stylesheet'
+    link.href = href
+    link.onload = resolve
+    $('head').appendChild(link)
   })
 }
-
-function loadSheet(path, fn) {
-  const el = document.createElement('link')
-  el.rel = 'stylesheet'
-  el.href = path
-  $('head').appendChild(el)
-  el.onload = fn
-}
-
 
 // browser environment
 if (typeof window == 'object') setupTransitions()
