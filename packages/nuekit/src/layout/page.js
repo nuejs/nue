@@ -11,7 +11,7 @@ const MAIN = parseNue(`
   <main>
     <slot for="aside"/>
 
-    <article>
+    <article id="main-content">
       <slot for="pagehead"/>
       <slot for="content"/>
       <slot for="pagefoot"/>
