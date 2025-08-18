@@ -18,16 +18,16 @@ export function findAssetByURL(url, assets=[]) {
 }
 
 // server requests
-export async function onServe(url, assets) {
+export async function onServe(url, assets, params) {
   const asset = findAssetByURL(url, assets)
   const ext = extname(url)
 
   // return File || { content, type }
   if (asset) {
-    const result = await asset.render()
+    const result = await asset.render(params)
     if (!result) return Bun.file(asset.rootpath)
     const content = (ext ? result.js : result.html) || result
-    const type = ext ? await asset.contentType() : 'text/html; charset=utf-8'
+    const type = ext && params.hmr == null ? await asset.contentType() : 'text/html; charset=utf-8'
     return { content, type }
   }
 
@@ -58,7 +58,7 @@ export async function serve(assets, args) {
 
   // dev server
   const port = args.port || opts.port
-  const server = createServer({ port, handler }, url => onServe(url, assets))
+  const server = createServer({ port, handler }, (url, params) => onServe(url, assets, params))
 
   const watcher = fswatch(root, { ignore })
 

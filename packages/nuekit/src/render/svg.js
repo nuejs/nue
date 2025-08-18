@@ -3,23 +3,25 @@ import { renderNue } from 'nuedom'
 import { elem } from 'nuemark'
 
 import { parseArrayItems } from '../tools/yaml'
-import { inlineCSS } from './head'
+import { inlineCSS, sortCSS } from './head'
 import { trim } from './page'
 
 
 // opts: { hmr, fonts }
 export async function renderSVG(asset, opts={}) {
-  const { meta, root } = await asset.parse()
-  const fonts = await renderFonts(opts.fonts, opts.hmr)
+  const { root } = await asset.parse()
+  const hmr = opts.hmr != null
+  const fonts = await renderFonts(opts.fonts, hmr)
   const deps = await asset.components()
   const data = await asset.data()
 
   pushAttr(root, 'xmlns', 'http://www.w3.org/2000/svg')
   pushViewport(root)
 
-  const styles = getStyles(await asset.assets(), parseArrayItems(meta.css))
+  const styles = getStyles(await asset.assets(), parseArrayItems(root.meta?.css))
+  sortCSS(styles, data.design?.base)
 
-  if (opts.hmr) {
+  if (hmr) {
     const { base } = asset
     const body = renderNue(root, { deps, data })
     return renderHMR({ body, base, fonts, styles })
@@ -29,7 +31,7 @@ export async function renderSVG(asset, opts={}) {
 
     if (css[0]) {
       const kids = root.children ??= []
-      kids.unshift({ tag: 'style', children: [{ text: css.join('\n') }] })
+      kids.unshift({ tag: 'style', children: [{ text: `<![CDATA[${css.join('\n')}]]>` }] })
     }
 
     return renderNue(root, { deps, data })
@@ -67,19 +69,20 @@ export function renderHMR({ body, base, fonts, styles }) {
 
   return trim(`
     <!doctype html>
+    <html>
+      <head>
+        <title>${base} (dev mode)</title>
+        <style>
+        ${ fonts.join('\n') }
+        body { margin: 0 }
+        </style>
 
-    <head>
-      <title>${base} (dev mode)</title>
-      <style>
-      ${ fonts.join('\n') }
-      body { margin: 0 }
-      </style>
+        ${ links.join('\n')}
+        <script type="module" src="/@nue/hmr.js"></script>
+      </head>
 
-      ${ links.join('\n')}
-      <script type="module" src="/@nue/hmr.js"></script>
-    </head>
-
-    <body>${body}</body>
+      <body>${body}</body>
+    </html>
   `)
 }
 
@@ -98,7 +101,8 @@ export async function renderFonts(conf, external) {
 }
 
 function renderFont(name, path) {
-  return `@font-face { font-family: '${name}'; src: url('/${path}')}`
+  if (!path.startsWith('data') && path[0] != '/') path = '/' + path
+  return `@font-face { font-family: '${name}'; src: url('${path}')}`
 }
 
 async function renderInlineFont(name, path) {

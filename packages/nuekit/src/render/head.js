@@ -72,20 +72,24 @@ export function renderScripts(assets) {
 }
 
 export async function renderStyles(assets, data={}) {
-  const { base='base.css', inline_css } = data?.design || {}
+  const { base, inline_css } = data?.design || {}
   const css = assets.filter(file => file.is_css)
 
-  css.sort((a, b) => {
-    if (a.base == base) return -1
-    if (b.base == base) return 1
-    return a.path.localeCompare(b.path)
-  })
+  sortCSS(css, base)
 
   if (data.is_prod && inline_css) {
     return elem('style', await inlineCSS(css))
   }
 
   return css.map(file => elem('link', { rel: 'stylesheet', href: `/${file.path}` }))
+}
+
+export function sortCSS(arr, base='base.css') {
+  arr.sort((a, b) => {
+    if (a.base == base) return -1
+    if (b.base == base) return 1
+    return a.path.localeCompare(b.path)
+  })
 }
 
 export async function inlineCSS(assets, minify=true) {

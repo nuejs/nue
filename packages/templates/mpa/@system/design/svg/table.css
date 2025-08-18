@@ -1,0 +1,15 @@
+
+@layer base {
+  :root {
+    font-family: Inter;
+  }
+}
+
+@layer component {
+  table {
+    border-collapse: collapse; width: 100%;
+    th, td { border-bottom: 1px solid var(--base-200); padding: 0.5em 0; text-align: left; }
+    th:not(:first-child), td:not(:first-child) { padding-left: 2em; }
+    td:first-child { white-space: nowrap; width: 25%; }
+  }
+}

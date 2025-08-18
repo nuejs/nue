@@ -1,0 +1,5 @@
+
+svg:
+  process: true
+  fonts:
+    Inter: @system/design/inter.woff2

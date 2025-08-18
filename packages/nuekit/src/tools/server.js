@@ -2,7 +2,7 @@
 export function createServer({ port=4000, handler }, callback) {
 
   async function fetch(req) {
-    const { pathname } = new URL(req.url)
+    const { pathname, searchParams } = new URL(req.url)
 
     // custom handler (proxy or worker)
     const result = handler && await handler(req)
@@ -15,7 +15,7 @@ export function createServer({ port=4000, handler }, callback) {
 
     // regular file serving
     try {
-      const res = await callback(pathname)
+      const res = await callback(pathname, Object.fromEntries(searchParams))
 
       // res = Bun.file
       if (res?.stream) return new Response(res, { status: 200 })
