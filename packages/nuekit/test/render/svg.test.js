@@ -1,5 +1,5 @@
 
-import { renderFonts, renderHMR, renderSVG } from '../../src/render/svg'
+import { renderFonts, renderHMR, renderSVG, convertHTMLTag } from '../../src/render/svg'
 
 
 test('renderFont / inlined', async () => {
@@ -33,36 +33,30 @@ test('renderHMR', () => {
   expect(html).toInclude('<body><svg></body>')
 })
 
-test.skip('renderHMR', async () => {
+test('renderHMR', async () => {
 
   const asset = {
+    async data() { return {} },
+    async components() { return [] },
+
     base: 'test.svg',
 
     async parse() {
       const attr = [{ name: 'width', val: 100 }, { name: 'height', val: 100 }]
       return {
-        root: { tag: 'svg', attr },
-        meta: { css: '[ table ]' },
+        root: { tag: 'svg', attr, meta: { css: '[ table ]' } },
       }
     },
-
     async assets() {
       async function text() { return `:root { --brand: #ccc }` }
       return [ { is_css: true, path: 'table.css', url: '/table.css', text } ]
     },
 
-    async components() {
-      return []
-    },
-
-    async data() {
-      return {}
-    },
   }
 
-  const html = await renderSVG(asset, { hmr: true, fonts: { Test: 'test.woff' } })
+  const html = await renderSVG(asset, { hmr: '', fonts: { Test: 'test.woff' } })
   expect(html).toInclude('<!doctype html>')
-  expect(html).toInclude('<style>@font-face')
+  expect(html).toInclude('@font-face')
   expect(html).toInclude('<link rel="stylesheet" href="/table.css">')
   expect(html).toInclude('xmlns="http://www.w3.org/2000/svg')
   expect(html).toInclude('0 0 100 100')
@@ -71,6 +65,14 @@ test.skip('renderHMR', async () => {
   expect(svg).toInclude("url('data:font/woff2;base64")
   expect(svg).toInclude(':root{--brand:#ccc}')
   expect(svg).toInclude('</style></svg>')
+
 })
 
 
+test('custom <html> tag', () => {
+  const { tag, children, attr } = convertHTMLTag({ tag: 'html', children: [{ tag: 'table' }] })
+  expect(tag).toBe('foreignObject')
+  expect(attr.length).toBe(4)
+  expect(children[0].attr[0].name).toEqual('xmlns')
+
+})

@@ -15,8 +15,7 @@ export async function renderSVG(asset, opts={}) {
   const deps = await asset.components()
   const data = await asset.data()
 
-  pushAttr(root, 'xmlns', 'http://www.w3.org/2000/svg')
-  pushViewport(root)
+  transform(root)
 
   const styles = getStyles(await asset.assets(), parseArrayItems(root.meta?.css))
   sortCSS(styles, data.design?.base)
@@ -36,22 +35,6 @@ export async function renderSVG(asset, opts={}) {
 
     return renderNue(root, { deps, data })
   }
-}
-
-function pushAttr(ast, name, val) {
-  const attr = ast.attr ??= []
-  if (!attr.find(el => el.name == name)) {
-    attr.push({ name, val })
-  }
-}
-
-function pushViewport(ast) {
-  const { attr=[] } = ast
-  const find = (name) => attr.find(el => el.name == name)
-  const box = find('viewBox')
-  const w = find('width')
-  const h = find('height')
-  if (!box && w && h) attr.push({ name: 'viewBox', val: `0 0 ${w.val} ${h.val}` })
 }
 
 export function getStyles(assets, patterns) {
@@ -110,5 +93,45 @@ async function renderInlineFont(name, path) {
   const data = 'data:font/woff2;base64,' + Buffer.from(buffer).toString('base64')
   return renderFont(name, data)
 }
+
+
+/*** SVG transformations ***/
+function transform(svg) {
+  pushAttr(svg, 'xmlns', 'http://www.w3.org/2000/svg')
+  pushViewport(svg)
+  svg.children?.forEach(el => {
+    if (el.tag == 'html') convertHTMLTag(el)
+  })
+}
+
+
+function pushAttr(svg, name, val) {
+  const attr = svg.attr ??= []
+  if (!attr.find(el => el.name == name)) {
+    attr.push({ name, val })
+  }
+}
+
+function pushViewport(svg) {
+  const { attr=[] } = svg
+  const find = (name) => attr.find(el => el.name == name)
+  const box = find('viewBox')
+  const w = find('width')
+  const h = find('height')
+  if (!box && w && h) attr.push({ name: 'viewBox', val: `0 0 ${w.val} ${h.val}` })
+}
+
+export function convertHTMLTag(tag) {
+  tag.tag = 'foreignObject'
+
+  Object.entries({ x: 0, y: 0, width: '100%', height: '100%'}).forEach(([name, val]) => {
+    pushAttr(tag, name, val)
+  })
+
+  tag.children?.forEach(el => pushAttr(el, 'xmlns', 'http://www.w3.org/1999/xhtml'))
+  return tag
+
+}
+
 
 

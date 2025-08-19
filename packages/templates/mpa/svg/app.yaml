@@ -1,5 +1,5 @@
 
 svg:
   process: true
-  fonts:
+  _fonts:
     Inter: @system/design/inter.woff2

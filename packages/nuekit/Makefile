@@ -1,3 +1,3 @@
 
 tests:
-	cd test && bun test serve.test
+	cd test && bun test svg

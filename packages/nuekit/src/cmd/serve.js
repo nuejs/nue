@@ -66,7 +66,7 @@ export async function serve(assets, args) {
     const asset = await assets.update(path)
 
     if (asset) {
-      asset.content = await asset.render() || await asset.text()
+      asset.content = await asset.render({ hmr: true }) || await asset.text()
       asset.doctype = asset.is_html && (await asset.parse()).doctype
       broadcast(asset)
     }

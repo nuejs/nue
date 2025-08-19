@@ -13,7 +13,7 @@ test('url property', () => {
   testURL('index.css', '/index.css')
   testURL('blog/entry.md', '/blog/entry')
   testURL('app/index.html', '/app/')
-  testURL('blog/table.html', '/blog/table.html')
+  testURL('blog/table.html', '/blog/table')
   testURL('docs/installation.md', '/docs/installation')
   testURL('@system/design/base.css', '/@system/design/base.css')
   testURL('site.yaml', '/site.yaml')
@@ -35,7 +35,7 @@ test('getFileInfo', () => {
     path: "blog/table.html",
     slug: "table.html",
     type: "html",
-    url: "/blog/table.html",
+    url: "/blog/table",
     is_html: true,
   })
 })

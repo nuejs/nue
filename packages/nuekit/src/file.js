@@ -62,8 +62,8 @@ export function getURL(file) {
   let { name, base, ext, dir } = file
 
   if (['.md', '.html'].includes(ext)) {
-    if (ext == '.md' || base == 'index.html') ext = ''
     if (name == 'index') name = ''
+    ext = ''
   }
 
   if (ext == '.ts') ext = '.js'

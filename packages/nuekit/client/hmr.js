@@ -56,6 +56,10 @@ async function reloadContent(asset) {
 
 
 function reloadVisual(asset) {
+
+  // HMR mode
+  if (location.pathname.endsWith('.svg')) return reloadSVG(asset.content)
+
   const { url } = asset
 
   function reload(el, attr) {
@@ -64,6 +68,11 @@ function reloadVisual(asset) {
 
   reload($(`object[data*='${url}']`), 'data')
   reload($(`img[src*='${url}']`), 'src')
+}
+
+function reloadSVG(html) {
+  const svg = html.slice(html.indexOf('<svg '), html.indexOf('</svg>') + 6)
+  document.body.innerHTML = svg
 }
 
 function reloadCSS(asset) {
