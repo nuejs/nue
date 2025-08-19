@@ -14,7 +14,8 @@ describe('internal methods', () => {
 
   test('get query data', () => {
     const params = ['start', 'length']
-    expect(getQueryData(params, '?start=10&length=20&foo=bar')).toEqual({ start: '10', length: '20' })
+    expect(getQueryData(params, '?start=10&length=20&foo=bar'))
+      .toEqual({ start: '10', length: '20' })
   })
 
   test('renderPath', () => {
