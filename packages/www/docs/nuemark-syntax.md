@@ -170,6 +170,29 @@ Second section content...
 Third section content...
 ```
 
+
+## Section wrapper
+Enable automatic sectioning to wrap content in semantic HTML sections:
+
+```md
+ ---
+ section_wrapper: wrap
+ ---
+```
+
+Generates:
+
+```html
+<section>
+  <div class="wrap">
+    <!-- content here -->
+  </div>
+</section>
+```
+
+Wrapper allows more fine tuned design control on backgrounds and inner content blocks with max-width setting.
+
+
 ## Blocks
 
 Create structured layouts with block syntax. Any class name from your design system can be used - blocks simply wrap content in a `<div>` with your specified class:

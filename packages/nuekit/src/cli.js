@@ -39,7 +39,6 @@ export function getArgs(argv) {
       if (['-h', '--help'].includes(arg)) args.help = true
       else if (['-v', '--version'].includes(arg)) args.version = true
       else if (['-s', '--silent'].includes(arg)) args.silent = true
-      else if (['-r', '--root'].includes(arg)) opt = 'root'
       else if (['--verbose'].includes(arg)) args.verbose = true
 
       // serve & preview options
@@ -139,15 +138,17 @@ Usage
 
 Commands
   serve     Start development server (default command)
-  build     Build a prouction site
+  build     Build a production site
   preview   Preview the production site
   create    Use a project starter template
 
-
 Options
-  -r or --root          Source directory. Default "." (current working dir)
-  -n or --dry-run       Show what would be built. Does not build anything
   -p or --port          Serve/preview the site on this port
+  -n or --dry-run       Show what would be built. Does not build anything
+  -s or --silent        Suppress output messages
+  -i or --init          build Nue runtime files (rare need)
+  --verbose             Show detailed output
+  --clean               Clean output directory before building
 
 File matches
   Only build files that match the rest of the arguments. For example:
@@ -160,6 +161,12 @@ Examples
   # build all Markdown and CSS files
   nue build .md .css
 
+  # build with verbose output
+  nue build --verbose
+
+  # preview on specific port
+  nue preview --port 8080
+
   # more examples
   https://nuejs.org/docs/cli
 
@@ -168,6 +175,7 @@ Examples
  ┃┃┃┃┗┛┃┃━┫  nuejs.org
  ┗┛┗┻━━┻━━┛
 `
+
 
 const colors = {
   boldwhite: str => `\x1b[1;37m${str}\x1b[0m`,
