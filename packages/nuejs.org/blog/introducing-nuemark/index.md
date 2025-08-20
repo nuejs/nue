@@ -31,13 +31,14 @@ Nuemark lets you manage content [like a hacker](//tom.preston-werner.com/2008/11
 Nuemark is designed for content creation. It's a simple, concise syntax that is easy to learn. It is pure content, with no HTML, CSS, or JavaScript, so it's hard to break things.
 
 ```md
-[.stack]
+[.hero]
   # Content is king
   Web design is 100% content and 95% typography
 
-  [button "Learn more" href="/docs"]
+  [cta-buttons]
+
   ---
-  [! typography.png ]
+  [image typography.png]
 ```
 
 [image]

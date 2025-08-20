@@ -36,7 +36,7 @@ const TAGS = {
     return elem(attr.popover ? 'dialog' : 'div', attr, html)
   },
 
-
+  // @depreciated
   button(data) {
     const { href } = data
     const label = this.renderInline(data.label || data._) || this.innerHTML || ''

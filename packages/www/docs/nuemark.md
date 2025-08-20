@@ -67,28 +67,21 @@ This generates semantic HTML your design system can style:
 Clean input, clean output. No framework markup, no hydration markers, no client-side JavaScript.
 
 
-## Semantic HTML for your design system
-Nuemark exists to generate predictable, semantic HTML that design systems can rely on. Every Markdown structure maps to meaningful HTML elements, not generic divs with utility classes.
+## Content first
+Nuemark transforms how content-focused applications are built. With Nuemark and a solid design system, content teams work independently on marketing pages, documentation, and blogs without touching code.
 
-A heading is an `<h1>`. An image becomes `<figure>`. A quote renders as `<blockquote>`. Your design system styles semantic elements, not arbitrary class names. Nuemark handles the structure while your design system handles presentation. True separation of concerns.
+Writers focus on content, not implementation. They use familiar Markdown with prepared components like `[.columns]`, `[.stack]` or `[testimonial]`. The design system ensures everything looks right automatically — consistent typography, spacing, colors, and responsive behavior.
 
-This is why Nuemark was built: to embrace modern CSS and [design systems](/docs/design-systems).
+This separation lets everyone work in their expertise. Content teams write. Design systems handle presentation. Developers build capabilities. Nobody blocks anyone else.
 
+Nuemark generates predictable, semantic HTML that design systems can rely on. A heading becomes `<h1>`. An image becomes `<figure>`. A quote becomes `<blockquote>`. Your design system styles semantic elements, not arbitrary class names.
 
-## Scaleable content
+This is why Nuemark exists: to separate content from presentation completely. When done right, both can evolve independently. Update your design system, and thousands of pages update instantly. Scale from ten pages to ten thousand without architectural changes.
 
-Nuemark changes how teams work together:
+See how this works with [design systems](/docs/design-systems).
 
-**Content teams gain independence**. Writers, marketers, and editors create rich pages without developer assistance. They work in familiar Markdown, using components developers have prepared. No Git conflicts, no broken builds, no JavaScript errors.
-
-**Developers focus on capabilities**. Build the tag once, let content teams use it thousands of times. Create a `[testimonial]` component and watch marketing scale testimonials across the site. Define `[pricing-table]` and let sales update prices without touching code.
-
-**Sites scale without complexity**. A thousand-page documentation site has the same architecture as a ten-page blog. Content lives in Markdown files. Components live in templates. Styles live in CSS. Each layer scales independently.
-
-**Real-time content editing**. Nuekit's hot module replacement works with content. Edit Markdown, see changes instantly. No build step, no compilation, no waiting. Content development becomes as fluid as writing in a word processor.
 
 ## Custom extensions
-
 Developers extend Nuemark with custom tags that feel native to content authors:
 
 ```html

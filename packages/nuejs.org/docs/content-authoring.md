@@ -14,14 +14,14 @@ In Nue, every content piece is authored with a specialized Markdown dialect, gre
 
 Modern web content often requires sophisticated layouts, but manually wrapping content in divs or custom HTML is messy and hard to maintain. Nue solves this by analyzing your content structure and generating semantic HTML sections.
 
-You can enable automatic sectioning by adding `sections: true` to your page configuration. When enabled, Nue treats each level 2 heading (`##`) as the start of a new section:
+You can enable automatic sectioning by adding `sections: true` to your page configuration. When enabled, Nue treats each level 1 and 2 heading as the start of a new section:
 
 ```md
 ---
 sections: true
 ---
 
-## Introduction
+# Introduction
 
 The first section content...
 
@@ -39,7 +39,7 @@ This creates semantic HTML sections:
 ```html
 <article>
   <section>
-    <h2>Introduction</h2>
+    <h1>Introduction</h1>
     <p>The first section content...</p>
   </section>
 
@@ -100,7 +100,7 @@ Blocks are Nue's system for creating rich layouts without HTML markup. They gene
 
 ### Basic blocks
 
-A block is created with square brackets and a class name:
+A block is created with square brackets and a class name found on your design system:
 
 ```md
 [.note]
@@ -117,12 +117,11 @@ This generates semantic HTML:
 </div>
 ```
 
-### Grid layouts
-
-Create grid layouts using headings as separators:
+### Nested blocks
+Create multi-element blocks with ...
 
 ```md
-[.grid]
+[.stack]
   ### First feature
   Description of the first feature
 
@@ -136,7 +135,7 @@ Create grid layouts using headings as separators:
 This generates:
 
 ```html
-<div class="grid">
+<div class="stack">
   <div>
     <h3>First feature</h3>
     <p>Description of the first feature</p>

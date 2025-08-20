@@ -40,6 +40,8 @@ export function parseDocument(lines) {
   }
 
   return {
+    blocks,
+
     render(opts = {}) {
       Object.assign(things.reflinks, parseReflinks(opts.links))
       opts = { ...opts, ...things }
