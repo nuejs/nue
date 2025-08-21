@@ -139,9 +139,29 @@ design:
 
   # Limit class names per element (prevent utility class abuse)
   max_class_names: 3
+
+  # inline all css in production build
+  inline_css: true
 ```
 
 See [Design systems](design-systems) for philosophy and [CSS development](css-development) for usage.
+
+## SVG processing
+Generate dynamic SVGs with Nue templates. Configure per directory via `app.yaml`:
+
+```yaml
+# svg/app.yaml
+svg:
+  # Process .svg files as Nue templates (default: false)
+  process: true
+
+  # Embed fonts directly in SVG output
+  fonts:
+    Inter: @system/design/inter.woff2
+    Mono: @system/design/mono.woff2
+```
+
+When enabled, `.svg` files can use Nue syntax for dynamic graphics. See [SVG development](/docs/svg-development) for usage.
 
 
 ## Metadata
@@ -216,5 +236,4 @@ sections: [ hero, features, manifesto ]
 # design.exclude in site.yaml
 exclude: [ syntax, typography ]
 ```
-
 

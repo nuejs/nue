@@ -46,7 +46,7 @@ async function reloadContent(asset) {
 
   // domdiff
   const { mountAll } = await import('./mount.js')
-  const { domdiff } = await import('nue')
+  const { domdiff } = await import('/@nue/nue.js')
 
   const { title, body } = parsePage(asset.content)
   if (title) document.title = title

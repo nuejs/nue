@@ -31,9 +31,15 @@ Here's what Chrome DevTools shows for a simple `.md` file with just `# Hello, Wo
 
 This gives you semantic HTML out of the box. But you'll want to add your own header, footer, and other common elements.
 
-## Slots and blocks
 
-Nue uses **slots** — predefined positions where you can insert **layout blocks**. Think of slots as empty containers and blocks as the HTML that fills them:
+## Layout modules
+Traditional templating systems use a single master template that wraps your content - you define the entire page structure and insert content into one spot.
+
+Nue takes a different approach with **slots** and **layout modules**. Instead of one big wrapper template, you create individual modules (header, footer, sidebar) and Nue assembles them around your content using predefined slots.
+
+**Slots** are predefined positions in your page structure. **Layout modules** are the HTML components that fill those slots. This modular system lets you mix and match different headers, footers, and sidebars for different sections of your site without duplicating the surrounding template structure.
+
+Think of slots as empty containers and modules as the HTML that fills them:
 
 [image.bordered]
   small: /img/layout-slots.png
@@ -54,13 +60,13 @@ Available slots:
 | "footer"     | Global footer                                      |
 | "bottom"     | Overlays or menus below the main footer            |
 
-## Creating layout blocks
 
-Layout blocks are just HTML templates. Create them in any `.html` file.
+## Creating a layout module
+Layout modules are just HTML templates. Create them in any `.html` file.
+
 
 ### HTML5 landmarks
-
-For semantic elements like `<header>` and `<footer>`, use the tag name directly:
+For semantic landmark elements like `<header>` and `<footer>`, use the tag name directly:
 
 ```html
 <header>
@@ -83,7 +89,6 @@ For semantic elements like `<header>` and `<footer>`, use the tag name directly:
 ```
 
 ### Other slots
-
 For non-semantic slots, use the `:is` attribute:
 
 ```html
@@ -99,8 +104,7 @@ For non-semantic slots, use the `:is` attribute:
 ```
 
 ### Head content
-
-Add custom head elements with a `<head>` block:
+Add custom head elements with a `<head>` module:
 
 ```html
 <head>
@@ -109,35 +113,37 @@ Add custom head elements with a `<head>` block:
   <link rel="preconnect" href="https://fonts.googleapis.com">
 </head>
 ```
-
 This content gets added after the auto-generated head elements.
 
-## File organization
 
-You can organize layout blocks however you want:
+## File organization
+You can organize layout modules however you want:
 
 ```
-site.html          // global blocks
+site.html          // global modules
 blog/
-  layout.html      // blog-specific blocks
+  layout.html      // blog-specific modules
   post.html        // individual post layout
 docs/
-  layout.html      // documentation blocks
+  layout.html      // documentation modules
 ```
 
-A single file can contain multiple blocks. Put your header, footer, and navigation all in one file if you prefer.
+A single file can contain multiple modules. Put your header, footer, and navigation all in one file if you prefer.
+
+See [project structure](project-structure) for details on how to organize your layout for small vs large apps.
+
 
 ## Override behavior
 
-More specific blocks override global ones:
+More specific modules override global ones:
 
-- `blog/layout.html` blocks override `site.html` blocks for blog pages
-- `blog/post.html` blocks override `blog/layout.html` for individual posts
+- `blog/layout.html` modules override `site.html` modules for blog pages
+- `blog/post.html` modules override `blog/layout.html` for individual posts
 - Page-level front matter overrides everything
 
-## Disabling blocks
+## Disabling modules
 
-Turn off blocks through YAML configuration:
+Turn off modules through YAML configuration:
 
 ```yaml
 # In app.yaml or page front matter
@@ -172,8 +178,7 @@ For `.html` files, your root element defines the scope automatically:
 ```
 
 ### Dynamic HTML pages
-
-Dynamic HTML pages use the same layout block system:
+Dynamic HTML pages use the same layout system:
 
 ```html
 <!doctype dhtml>
@@ -182,6 +187,22 @@ Dynamic HTML pages use the same layout block system:
 </main>
 ```
 
-The `dhtml` doctype marks the page as client-rendered. Like server-rendered HTML pages, your root element defines the scope. The layout block system works exactly the same way.
+The `dhtml` doctype marks the page as client-rendered. Like server-rendered HTML pages, your root element defines the scope.
 
 This gives you complete control over the page structure while still benefiting from Nue's block system.
+
+
+### Single page apps
+Single page apps are simply a dhtml + body combo:
+
+
+```html
+<!doctype dhtml>
+
+<body>
+  <h1>Full control of the whole page</h1>
+</body>
+```
+
+See [SPA development](spa-development) for details.
+

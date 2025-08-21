@@ -5,7 +5,7 @@ export async function mountAll(reload_path) {
   const deps = roots.length ? await importComponents(reload_path) : []
   if (!deps.length) return
 
-  const { mount } = await import('nue')
+  const { mount } = await import('/@nue/nue.js')
 
   for (const root of [...roots]) {
     const name = root.getAttribute('nue') || root.tagName.toLowerCase()

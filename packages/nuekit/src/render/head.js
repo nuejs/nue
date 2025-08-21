@@ -42,7 +42,7 @@ export function renderMeta(data, libs) {
     viewport: 'width=device-width,initial-scale=1',
     'article:published_time': data.date || data.pubDate,
     generator: `Nue v${version} (nuejs.org)`,
-    'date.updated': new Date().toISOString(),
+    'date.updated': new Date().toISOString().slice(0, 16) + 'Z',
 
     'og:title': data.title,
     'og:description': desc,
@@ -103,8 +103,8 @@ export async function inlineCSS(assets, minify=true) {
 
 
 function importMap(map) {
-  const imports = { nue: '/@nue/nue.js', ...map }
-  return elem('script', { type: 'importmap' }, JSON.stringify({ imports }))
+  return !map || !Object.keys(map.length) ? ''
+    : elem('script', { type: 'importmap' }, JSON.stringify({ map }))
 }
 
 function ogImage(data) {
