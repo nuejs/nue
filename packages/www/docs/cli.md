@@ -67,12 +67,11 @@ This serves the built files from `.dist` directory.
 Create a new project from a starter template:
 
 ```bash
+# minimal, blog, spa, or full
 nue create blog
-nue create spa
-nue create mpa
 ```
 
-This extracts downloaded template creates a new direcory (blog, spa, or mpa) and cd's to it. Issue `nue` and the newly created site is served at http://locahost:4000
+This extracts downloaded template creates a new direcory and cd's to it. Issue `nue` and the newly created site is served at http://locahost:4000
 
 
 ## Global options

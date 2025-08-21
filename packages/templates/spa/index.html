@@ -1,7 +1,24 @@
 
 <!doctype dhtml>
 
+<script>
+  import { state } from 'state'
+  state.setup({ route: '/:id', autolink: true })
+</script>
+
 <body>
-  <h1>Users</h1>
-  <user-table/>
+  <main>
+    <article/>
+  </main>
+
+  <script>
+    state.on('id', ({ id }) => {
+      const root = document.querySelector('article')
+      this.mount(id ? 'user' : 'users', root)
+    })
+
+    mounted() {
+      state.init()
+    }
+  </script>
 </body>

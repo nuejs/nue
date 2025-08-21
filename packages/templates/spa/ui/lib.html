@@ -1,0 +1,67 @@
+<!doctype dhtml lib>
+
+<script>
+  import { state } from 'state'
+</script>
+
+<!-- users -->
+<article :is="users">
+  <h1>Users</h1>
+
+  <table>
+    <tr :each="user in users">
+      <td><a href="/{ user.id }">{ user.name }</a></td>
+      <td><strong>{ user.email }</strong></td>
+      <td>{ user.country }</td>
+      <td>{ user.role }</td>
+      <td><span class="status {user.status}">{ user.status }</span></td>
+      <td><pretty-date :date="user.created"/></td>
+    </tr>
+  </table>
+
+  <script>
+    async mounted() {
+      const users = await fetch('/users').then(r => r.json())
+      this.update({ users })
+    }
+  </script>
+</article>
+
+
+<!-- user -->
+<article :is="user">
+  <h1>{ name || email }</h1>
+
+  <nav>
+    <button onclick="history.go(-1)">Back</button>
+  </nav>
+
+  <dl>
+    <dt>Registered</dt><dd><pretty-date :date="created"/></dd>
+    <dt>Country</dt><dd>{ country }</dd>
+    <dt>Email</dt><dd>{ email }</dd>
+    <dt>Role</dt><dd>{ role }</dd>
+    <dt>Status</dt><dd><span class="status {status}">{ status }</span></dd>
+  </dl>
+
+  <script>
+    state.on('id', async ({ id }) => {
+      const user = id && await fetch(`/users/${id}`).then(r => r.json())
+      this.update(user)
+    })
+  </script>
+
+</article>
+
+<!-- pretty date -->
+<time :is="pretty-date">
+  { formatDate(date) }
+
+  <script>
+    const opts = { year: 'numeric', month: 'short', day: 'numeric' }
+    formatDate(date) {
+      return new Date(date).toLocaleDateString('en-US', opts)
+    }
+  </script>
+</time>
+

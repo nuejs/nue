@@ -102,9 +102,9 @@ export async function inlineCSS(assets, minify=true) {
 }
 
 
-function importMap(map) {
-  return !map || !Object.keys(map.length) ? ''
-    : elem('script', { type: 'importmap' }, JSON.stringify({ map }))
+function importMap(imports) {
+  return !Object.keys(imports || {})[0] ? ''
+    : elem('script', { type: 'importmap' }, JSON.stringify({ imports }))
 }
 
 function ogImage(data) {

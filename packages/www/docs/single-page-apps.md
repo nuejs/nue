@@ -1,0 +1,265 @@
+# Single-page apps
+
+Single-page applications (SPAs) in Nue are dynamic web apps that run entirely in the browser. Unlike content-focused apps that generate static pages, SPAs use client-side routing and state management to create fluid, app-like experiences without page reloads.
+
+## Getting started
+
+Create a SPA template to see how client-side applications work:
+
+```bash
+nue create spa
+```
+
+This generates a complete SPA structure:
+
+```
+├── index.html          # SPA entry point
+└── ui/
+    └── lib.html        # UI components
+├── server/             # CloudFlare-compatible backend
+|   ├── index.js        # Hono-based router
+|   └── users.json      # KV datastore
+└── css/                # Design
+ ```
+
+The structure separates concerns. Routing and state live in `index.html`. UI components live in `ui/`. Server logic lives in `server/`. Design lives in CSS.
+
+
+## SPA entry point
+The `index.html` file controls your entire application. When you use `<!doctype dhtml>` with `<body>` scope, Nue automatically makes this file handle all routes within its directory - `/users`, `/settings`, `/dashboard`, or any other path.
+
+```html
+<!doctype dhtml>
+
+<script>
+  import { state } from 'state'
+
+  // Configure routing with URL parameters
+  state.setup({
+    route: '/:id',
+    autolink: true
+  })
+</script>
+
+<body>
+  <main>
+    <article/>
+  </main>
+
+  <script>
+    // Listen to route changes
+    state.on('id', ({ id }) => {
+      const root = document.querySelector('article')
+      this.mount(id ? 'user' : 'users', root)
+    })
+
+    // Initialize from current URL
+    mounted() {
+      state.init()
+    }
+  </script>
+</body>
+```
+
+### How routing works
+
+**SPA detection** - The combination of `<!doctype dhtml>` and `<body>` scope tells Nue this file should handle all routes in its directory. Any URL like `/123` or `/settings` gets routed to this file.
+
+**URL parameters** - The `route: '/:id'` pattern captures URLs like `/123` or `/alice`. When someone visits `/123`, `state.id` becomes `"123"`.
+
+**Component mounting** - The `state.on('id')` listener decides which component to display. If there's an ID, show the `user` component. If not, show the `users` list.
+
+**Automatic links** - With `autolink: true`, regular `<a href="/123">` links update state instead of reloading the page. No special router components needed.
+
+**Browser navigation** - Back/forward buttons work automatically. Bookmarking works. Sharing URLs works. The browser's navigation just works.
+
+
+## UI libraries
+UI components live in `.html` files marked as `dhtml lib`. These become interactive client-side components that you can mount and unmount dynamically.
+
+### Users list component
+The users component displays a table of all users with links to individual profiles:
+
+```html
+<!doctype dhtml lib>
+
+<script>
+  import { state } from 'state'
+</script>
+
+<article :is="users">
+  <h1>Users</h1>
+
+  <table>
+    <tr :each="user in users">
+      <td><a href="/{ user.id }">{ user.name }</a></td>
+      <td><strong>{ user.email }</strong></td>
+      <td>{ user.country }</td>
+      <td>{ user.role }</td>
+      <td><span class="status {user.status}">{ user.status }</span></td>
+      <td><pretty-date :date="user.created"/></td>
+    </tr>
+  </table>
+
+  <script>
+    async mounted() {
+      const users = await fetch('/users').then(r => r.json())
+      this.update({ users })
+    }
+  </script>
+</article>
+```
+
+**Data loading** - The `mounted()` lifecycle method runs after the component is added to the DOM, perfect for initial data loading.
+
+**Template loops** - The `:each` directive creates table rows for each user. Standard HTML table structure with dynamic content.
+
+**Navigation links** - Each user name links to their detail page using the SPA routing pattern.
+
+
+### User detail component
+The user component shows detailed information for a single user:
+
+```html
+<article :is="user">
+  <h1>{ name || email }</h1>
+
+  <nav>
+    <button onclick="history.go(-1)">Back</button>
+  </nav>
+
+  <dl>
+    <dt>Registered</dt><dd><pretty-date :date="created"/></dd>
+    <dt>Country</dt><dd>{ country }</dd>
+    <dt>Email</dt><dd>{ email }</dd>
+    <dt>Role</dt><dd>{ role }</dd>
+    <dt>Status</dt><dd><span class="status {status}">{ status }</span></dt>
+  </dl>
+
+  <script>
+    state.on('id', async ({ id }) => {
+      const user = id && await fetch(`/users/${id}`).then(r => r.json())
+      this.update(user)
+    })
+  </script>
+</article>
+```
+
+The component listens to `state.id` changes and loads the corresponding user data automatically.
+
+
+### Reusable components
+Create small, focused components that work across your entire application:
+
+```html
+<time :is="pretty-date">
+  { formatDate(date) }
+
+  <script>
+    const opts = { year: 'numeric', month: 'short', day: 'numeric' }
+
+    formatDate(date) {
+      return new Date(date).toLocaleDateString('en-US', opts)
+    }
+  </script>
+</time>
+```
+
+**Single responsibility** - The component does one thing well: format dates.
+
+**Data through attributes** - Pass date values through the `:date` attribute from any parent component.
+
+**Native APIs** - Uses the browser's `Intl.DateTimeFormat` for locale-aware formatting.
+
+
+## Development workflow
+SPAs work best when you start with your data model and build the interface around it.
+
+
+### Start with data structure
+Define your data model first. In the SPA template, users have this structure:
+
+```json
+{
+  "id": "1",
+  "name": "Alice Johnson",
+  "email": "alice@example.com",
+  "country": "United States",
+  "role": "admin",
+  "status": "active",
+  "created": "2024-01-15T10:30:00Z"
+}
+```
+
+While our app has a super simple data model it still shapes how you build components. Each field becomes a display element, each relationship becomes navigation.
+
+
+### Build static components
+Start with hard-coded data to establish your UI structure:
+
+```html
+<article :is="users">
+  <h1>Users</h1>
+  <table>
+    <tr>
+      <td><a href="/1">Alice Johnson</a></td>
+      <td>alice@example.com</td>
+      <td>admin</td>
+    </tr>
+  </table>
+</article>
+```
+
+Focus on structure, not data loading. Get the HTML semantics right first.
+
+### Add data loading
+Replace static content with API calls:
+
+```html
+<script>
+  async mounted() {
+    const users = await fetch('/users').then(r => r.json())
+    this.update({ users })
+  }
+</script>
+```
+
+Now your static structure becomes dynamic without changing the template.
+
+
+### Connect routing
+Link components through the SPA entry point and state listeners:
+
+```javascript
+// In index.html
+state.on('id', ({ id }) => {
+  const root = document.querySelector('article')
+  this.mount(id ? 'user' : 'users', root)
+})
+```
+
+This gives you client-side routing and URL-based state in a fraction of the code you'd need with traditional SPA frameworks. See the [State API reference](/docs/state-api) for complete state management details.  and [Server development](/docs/server-development) for backend integration.
+
+
+## Scaling up
+The patterns you've learned here scale to enterprise-grade applications. To see more advanced implementations:
+
+```bash
+nue create full
+```
+
+The full template demonstrates how these basic concepts extend to complex real-world scenarios:
+
+**SPA + MPA integration** - Combining single-page apps with content areas like blogs and documentation
+
+**Separated business logic** - Moving data operations to dedicated modules (`app.js`) for better testing and organization
+
+**Advanced state patterns** - Search, filtering, and pagination using the same state listeners you learned here
+
+**Authentication flows** - Login pages and session management with server integration
+
+**Database integration** - CloudFlare D1 (SQL) and KV storage for production data persistence
+
+**Enterprise architecture** - How the `@system/` folder organizes design systems, server code, and shared components at scale
+
+The same concepts apply - state listeners, component mounting, and URL-based routing. Just more of them, organized for maintainability and team collaboration.
