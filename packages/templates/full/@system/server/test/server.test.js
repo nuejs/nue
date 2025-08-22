@@ -1,7 +1,7 @@
 
-import { loadSchema } from '../db/init/load.js'
-import server from '../server.js'
-import { env } from './mock.js'
+import { loadSchema } from '../db/init/load'
+import server from '../server'
+import { env } from './mock'
 
 await loadSchema(env.DB)
 

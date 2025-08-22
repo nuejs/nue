@@ -20,9 +20,9 @@ Tools
 Concepts
   Standards first
   Separation of concerns
-  Edge first development
-  Design engineering
-  Less is More
+  Design systems
+  Edge first
+  Minimalism
 
 Developing
   Project structure

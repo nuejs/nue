@@ -72,20 +72,20 @@ server:
   # Server code directory (default: @system/server)
   dir: @system/server
 
-  # Local SQL database, D1 compatible (relative to server dir)
+  # SQL database file (relative to server dir)
   db: db/app.db
 
-  # Key-value store, CloudFlare KV compatible (relative to server dir)
-  kv: db/kv.db
+  # Key-value store data file (relative to server dir)
+  kv: db/kv.json
 
   # Auto-reload server on changes (default: true)
   reload: true
 ```
 
-See [Backend development](/docs/backend-development) for usage.
+See [Server development](/docs/server-development) for usage, [Edge first](/docs/edge-first) for the concept.
 
 
-## Collections
+## Content collections
 Define content collections for blogs, documentation, or any grouped content:
 
 ```yaml
@@ -123,8 +123,8 @@ Collections become accessible in templates:
 - Direction: `asc` or `desc`
 
 
-## Design system
-Enforce design system constraints:
+## Design
+Design system configuration options
 
 ```yaml
 design:

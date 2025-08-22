@@ -22,28 +22,24 @@ Edge-first means your development environment IS an edge environment. Same const
 ```javascript
 import { Hono } from 'hono'
 
-// Hono server: same API locally and at the edge
+// Hono works locally and globally
 const server = new Hono()
-
-server.all('/api/*', async (c, next) => {
-
-  // KV store for sessions - same API locally and globally
-> const { KV } = c.env
-
-  // handle authentication
-  const user = await KV.get(`session:${sessionId}`)
-  if (user) await next()
-
-  // ...
-})
 
 server.get('/api/users', async (c) => {
 
-  // SQLite locally, D1 globally
-> const { DB } = c.env
-
+  // SQLite locally, D1 globally - same API
+  const { DB } = c.env
   const users = await DB.prepare('SELECT * FROM users').all()
   return c.json(users)
+})
+
+server.post('/api/login', async (c) => {
+
+  // JSON files locally, CloudFlare KV globally - same API
+  const { KV } = c.env
+  const sessionId = crypto.randomUUID()
+  await KV.put(`session:${sessionId}`, userData)
+  return c.json({ sessionId })
 })
 
 export default server

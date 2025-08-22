@@ -1,5 +1,5 @@
 
-import { getCountryName } from './countries.js'
+import { getCountryName } from './utils'
 
 export function createCRM(env) {
   const { DB } = env

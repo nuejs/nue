@@ -2,7 +2,7 @@
 import { readFile } from 'node:fs/promises'
 import { Database } from 'bun:sqlite'
 
-async function loadFile(filename, db = new Database('./db/app.db')) {
+async function loadFile(filename, db = new Database('../db/app.db')) {
   const sql = await readFile(`./data/${filename}`, 'utf8')
   db.exec(sql)
 }

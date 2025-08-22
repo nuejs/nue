@@ -1,7 +1,7 @@
 
-import { loadSchema } from '../db/init/load.js'
-import { createCRM } from '../model/crm.js'
-import { env } from './mock.js'
+import { loadSchema } from '../db/init/load'
+import { createCRM } from '../model'
+import { env } from './mock'
 
 await loadSchema(env.DB)
 
