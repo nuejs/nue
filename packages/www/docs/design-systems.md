@@ -1,72 +1,69 @@
 # Design systems
-
-When design lives in JavaScript, you don't have a design system. You have a scattered utility framework. Nue puts design back in CSS so you can build and maintain a real system.
+When design lives in JavaScript, you don't have a design system. You have a scattered utility framework. Nue puts design back in CSS where it belongs, enabling you to build and maintain a real system.
 
 ## The problem we created
-
 For 15 years we've been writing CSS to survive in chaos. We use BEM because we gave up on the cascade. We use CSS-in-JS because we're scared of namespace collisions. We write utility classes because we stopped trusting our ability to name things. We compile, process, and transform CSS because we think native CSS isn't enough.
 
 These practices assume CSS is broken and needs fixing. They're defensive strategies. They're about working around the language rather than harnessing its potential.
 
 
 ## CSS design system defined
-Modern CSS has variables, nesting, container queries, layers, and scope. These are the cornerstones of a design system. Here's how to use them:
+A design system isn't a component library or a utility framework. It's a visual language expressed through CSS. Modern CSS gives us everything we need: variables, nesting, container queries, layers, and scope. Here's what makes a real design system:
 
-### 1. Central, not scattered
+### Central
+A design system lives in one place. Not scattered across components, not mixed with JavaScript, not generated at build time. When you can see the whole system at once, you understand it. When it's fragmented across a thousand files, you have no system—just a collection of accidents waiting to happen.
 
-A design system is a single source of truth. When it lives in one place, you can see the whole system at once. You can understand relationships between components. You can spot inconsistencies. When CSS is scattered across component files, you have no system. Just a collection of accidents waiting to happen.
+### Semantic
+HTML already contains a rich design vocabulary. Lists, tables, forms, buttons, navigation—they all have meaning. A design system extends this vocabulary rather than replacing it. A `<button>` is already interactive. A `<nav>` already means navigation. The system styles what exists instead of recreating it with divs and classes.
 
-### 2. Semantics first
-
-HTML already has a design system built in. A `<button>` knows it's interactive. A `<nav>` knows it contains navigation. A `<section>` creates hierarchy. When you use `<div class="button">`, you're rebuilding what already exists. Use HTML's vocabulary and extend it, don't replace it.
-
-### 3. Class names for spatial concerns
-
-HTML can't express layout or spacing. These aren't semantic. So class names become purely about spatial relationships: `.container`, `.stack`, `.cluster`, `.with-sidebar`. Modifiers express variations: `.inverted`, `.compact`, `.emphasized`. Practically nothing else needs a class.
-
-### 4. Layer everything
-
-Layers solve the specificity wars forever. Base styles in one layer, components in another, utilities in a third. Each layer has clear boundaries and clear purpose. No more specificity hacks, no more source order gymnastics. The cascade becomes predictable.
-
-### 5. Keep things obvious
-
-If a developer needs to read documentation to change a button color, the system has failed. The path from intention to implementation should be straight. Want to change primary color? Change `--primary`. Want more spacing? Adjust `--space`. The system guides you toward good decisions by making them the easy decisions.
-
-Constraints create clarity. When you can only do things one way, that way becomes obvious.
+### Minimal
+Constraints create consistency. A design system with 20 well-chosen classes beats one with 2000 utilities. HTML can't express spatial relationships, so classes handle layout: `.stack`, `.grid`, `.columns`. A few modifiers capture variations: `.primary`, `.compact`, `.inverted`. Everything else? Already in HTML.
 
 
-## The benefits
-Design system gives you three things:
+## Why these principles matter
 
-**Design consistency** Your marketing site, application, email templates, and even generated SVG graphics all speak the same visual language. Change a color variable in one place, it updates everywhere. No more drift between your product and your landing pages.
+These three principles create a system that's invisible to those using it—the ultimate user-friendliness.
 
-**Rapid UI development.** When design is solved at the system level, developers focus only on structure and user flows. They're not making design decisions or fighting specificity. They're assembling interfaces trusting that form follows function.
+**For designers**, a central system means direct control. Change a variable, see it everywhere. No asking developers to update components. No waiting for builds. No translation layer between design intent and implementation. The feedback loop becomes immediate. CSS speaks their language—visual properties, not programming abstractions.
 
-**Maintainable at scale.** One system, one language, predictable outcomes. New team members understand it in a snap. Design updates happen in one file, not across hundreds of components. The system grows with you instead of becoming technical debt.
+**For developers**, semantic HTML and minimal classes mean assembly without thinking about presentation. Grab a `<nav>`, it's already styled. Add a `<button>`, it already works. Wrap content in `.stack`, spacing is handled. No memorizing utilities, no fighting specificity, no debugging why styles don't apply. The design system becomes invisible infrastructure that just works.
+
+When design is truly decoupled from structure, both disciplines work at full speed. Designers iterate on visual language without breaking functionality. Developers build features without breaking design. Neither blocks the other. Neither compromises for the other.
+
+This is what real collaboration looks like—not everyone learning React, but each discipline having the right tools for their domain. The system serves both mindsets equally, making the right way the obvious way.
 
 
 ## Design engineering
-Nue changes the way you think about web development. You start with the user experience, not technical details. UI first, implementation second.
+Web development split into two camps: those who design and those who code. This division is artificial. The web is a design medium that happens to be programmable.
 
 
-### Two mindsets, both valuable
-Design mindset thinks in patterns, rhythms, and relationships. How does this flow? What's the visual hierarchy? Where does the eye go first?
+### Two mindsets, one medium
+Design mindset sees patterns, rhythm, and hierarchy. It asks: How does this feel? What draws the eye? Where does attention flow?
 
-JS mindset thinks in data flow, state management, and abstractions. How do components communicate? What's the testing strategy? How do we handle edge cases?
+Engineering mindset sees data structures, state management, and abstractions. It asks: How does this scale? What are the edge cases? How do we test this?
 
-One person can do both. Teams can specialize. The key is knowing which mindset fits which problem. Design problems need design thinking. Technical problems need technical thinking. The mistake is using technical thinking for everything.
-
-### Why separation of concerns matters
-HTML, CSS, and JavaScript aren't just different languages. They're different ways of thinking. When you force everything into JavaScript, you force everyone into engineering mindset. But most UI problems are design problems.
-
-This separation lets people focus on their strengths. Someone passionate about typography and motion doesn't need to care about state management. Someone who loves data flow doesn't need to stress about color theory. They collaborate without stepping on each other's expertise.
+Both are essential. Neither is sufficient alone. The web demands both mindsets because interfaces are both visual and functional. The mistake is believing one matters more than the other.
 
 
-### True scalability
-Most frameworks are built for JS engineers who occasionally style things. Nue is built for design engineers who occasionally script things. The interface IS the application. The logic supports it, not the other way around.
+### The artificial divide
+Modern frameworks optimize for engineering mindset. Everything becomes a programming problem. CSS becomes CSS-in-JS. Design becomes component props. Layout becomes flexbox utilities. We've turned visual decisions into code decisions.
 
-With solid separation of concerns the burden of the JS engineer can be shared. Design engineers work on CSS. JS engineers work on logic. Each layer has its own mindset, its own experts, its own craft.
-
-CSS isn't the problem. Our approach was.
+Designers must learn React to do their job. They write JavaScript to change a color. They debug webpack to update spacing. The tool shapes the thinking, and the thinking becomes programmatic.
 
 
+### Reuniting the disciplines
+True design engineering happens when both mindsets have equal tools and equal power. CSS for design decisions. HTML for structure. JavaScript for business logic. Each layer owns its domain completely.
+
+This isn't about roles or job titles. One person can embody both mindsets. Teams can specialize. The key is that the technology supports both ways of thinking equally. Design decisions happen in design tools. Programming decisions happen in programming tools. Neither compromises for the other.
+
+
+## The compound effect
+A real design system compounds its value over time. Each project strengthens the system. Each use case refines the patterns. Each team member contributes to a shared language.
+
+**When design is scattered in components, every project starts from scratch.** You rebuild the same button in every framework migration. You rewrite the same styles for every new component library. Nothing compounds. Everything churns.
+
+When design is central and semantic, it goes beyond frameworks. Your CSS design system works with any HTML. It worked with jQuery. It works with React. It will work with whatever comes next. The investment compounds across technologies and time.
+
+This is why CSS matters. Not because it's powerful—though it is. Not because it's fast—though it is. But because CSS is the only layer that survives every paradigm shift. Your React components from 2016 are obsolete. Your CSS from 2016 still works.
+
+Design systems aren't built in JavaScript. They're built in CSS.

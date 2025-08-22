@@ -1,5 +1,5 @@
-# Single-page apps
 
+# Single-page apps
 Single-page applications (SPAs) in Nue are dynamic web apps that run entirely in the browser. Unlike content-focused apps that generate static pages, SPAs use client-side routing and state management to create fluid, app-like experiences without page reloads.
 
 ## Getting started
@@ -14,9 +14,9 @@ This generates a complete SPA structure:
 
 ```
 ├── index.html          # SPA entry point
-└── ui/
-    └── lib.html        # UI components
-├── server/             # CloudFlare-compatible backend
+├── ui/
+|   └── lib.html        # UI components
+├── server/             # Backend (CloudFlare compatible)
 |   ├── index.js        # Hono-based router
 |   └── users.json      # KV datastore
 └── css/                # Design
@@ -67,21 +67,21 @@ The `index.html` file controls your entire application. When you use `<!doctype 
 
 **URL parameters** - The `route: '/:id'` pattern captures URLs like `/123` or `/alice`. When someone visits `/123`, `state.id` becomes `"123"`.
 
-**Component mounting** - The `state.on('id')` listener decides which component to display. If there's an ID, show the `user` component. If not, show the `users` list.
+**Automatic routing** - With `autolink: true`, regular `<a href="/123">` links update state instead of reloading the page. No special router components needed.
 
-**Automatic links** - With `autolink: true`, regular `<a href="/123">` links update state instead of reloading the page. No special router components needed.
+**Component mounting** - The `state.on('id')` listener decides which component to display. If there's an ID, show the `user` component. If not, show the `users` list.
 
 **Browser navigation** - Back/forward buttons work automatically. Bookmarking works. Sharing URLs works. The browser's navigation just works.
 
 
 ## UI libraries
-UI components live in `.html` files marked as `dhtml lib`. These become interactive client-side components that you can mount and unmount dynamically.
+Like the SPA entry point, the dynamic UI components also live in `.html` files. These files can be found anywhere within the application directory, which in this case is the root.
 
 ### Users list component
 The users component displays a table of all users with links to individual profiles:
 
 ```html
-<!doctype dhtml lib>
+<!doctype dhtml>
 
 <script>
   import { state } from 'state'
@@ -110,11 +110,7 @@ The users component displays a table of all users with links to individual profi
 </article>
 ```
 
-**Data loading** - The `mounted()` lifecycle method runs after the component is added to the DOM, perfect for initial data loading.
-
-**Template loops** - The `:each` directive creates table rows for each user. Standard HTML table structure with dynamic content.
-
-**Navigation links** - Each user name links to their detail page using the SPA routing pattern.
+**Standard HTML** - Notice now this is mostly standard HTML. A `<table>` with `<tr>` elements, semantic `<article>` structure, and regular `<a>` links. The dynamic parts are minimal additions - `:each` for loops, `{ }` for data binding, and one `mounted()` method. You're writing HTML that browsers understand natively, just enhanced with the minimum syntax needed for interactivity.
 
 
 ### User detail component
@@ -145,7 +141,7 @@ The user component shows detailed information for a single user:
 </article>
 ```
 
-The component listens to `state.id` changes and loads the corresponding user data automatically.
+**Semantic HTML** - Notice the `<dl>` (description list) element for displaying user properties. This is the semantically correct HTML for name-value pairs. Combined with `<nav>` for navigation and `<article>` for the main content, the structure tells browsers and screen readers exactly what each piece of content represents. Your design system handles the presentation - the HTML focuses purely on meaning and structure.
 
 
 ### Reusable components
@@ -165,11 +161,7 @@ Create small, focused components that work across your entire application:
 </time>
 ```
 
-**Single responsibility** - The component does one thing well: format dates.
-
-**Data through attributes** - Pass date values through the `:date` attribute from any parent component.
-
-**Native APIs** - Uses the browser's `Intl.DateTimeFormat` for locale-aware formatting.
+**Single responsibility** - This component does one thing: format dates. It uses the browser's native `Intl.DateTimeFormat` instead of a date library. The `:date` attribute passes data cleanly without props drilling or context providers. Write small, focused components that solve specific problems using web standards - the UNIX philosophy (do one thing well) applied to UI development.
 
 
 ## Development workflow
@@ -258,8 +250,6 @@ The full template demonstrates how these basic concepts extend to complex real-w
 
 **Authentication flows** - Login pages and session management with server integration
 
-**Database integration** - CloudFlare D1 (SQL) and KV storage for production data persistence
-
-**Enterprise architecture** - How the `@system/` folder organizes design systems, server code, and shared components at scale
+**More complex backend** - CloudFlare D1 (SQL) for contacts and leads, KV storage for authentication and session management.
 
 The same concepts apply - state listeners, component mounting, and URL-based routing. Just more of them, organized for maintainability and team collaboration.
