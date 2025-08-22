@@ -28,7 +28,7 @@ export default server
 Same code runs everywhere. No connection strings, no environment variables, no platform-specific adaptations. See [Edge first](/docs/edge-first) for conceptual details.
 
 
-## Getting started
+## Setting up
 Create a full-stack application to see how edge-first development works:
 
 ```bash

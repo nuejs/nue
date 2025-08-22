@@ -1,42 +1,152 @@
-### Strict mode
 
-When `strict: true`:
-- Only global stylesheets load (no `blog/blog.css`)
-- Forces consistent design across entire site
-- Prevents local style overrides
+# CSS development
+Nue represents a shift from component-scoped styling to [design systems](/docs/design-systems). CSS becomes a centralized visual language that works across your entire site.
 
-### Exclusions
 
-The `exclude` option uses fuzzy matching. These patterns:
-```yaml
-exclude: [table, syntax]
+## Small projects
+Start with global styles plus area-specific CSS. This follows the classic web development pattern that pre-dated the component revolution - global stylesheets with area-specific additions. It's perfect for personal projects, prototypes, or small teams where you need the flexibility to add styles ad-hoc without teaching a formal system to others:
+
+
+```
+├── global.css       # Site-wide design system
+├── index.md
+└── blog/
+    ├── blog.css     # Blog-specific styles
+    ├── css-is-awesome.md
+    ├── design-systems.md
+    └── ...
 ```
 
-Would exclude:
-- `table.css`
-- `table-extras.css`
-- `syntax-highlighting.css`
-- `@system/design/table.css`
+Files are loaded automatically based on location. The `global.css` applies everywhere. The `blog.css` only applies to pages in the blog directory. No imports, no bundling - just files where you need them.
 
 
+## Larger projects
+Scale up with a centralized design system for larger teams, client work, or any project where consistency and maintainability matter more than development speed. This approach enforces constraints that prevent the CSS sprawl that kills long-term projects:
 
-### 1. Central, not scattered
-A design system is a single source of truth. When it lives in one place, you can see the whole system at once. You can understand relationships between components. You can spot inconsistencies. When CSS is scattered across component files, you have no system. Just a collection of accidents waiting to happen.
 
-### 2. Trust HTML semantics
+```bash
+nue create full
+```
+
+This creates a complete design system in `@system/design/`:
+
+```
+@system/design/
+├── base.css         # Typography, colors, spacing
+├── button.css       # All button variants
+├── content.css      # Blog posts, documentation
+├── dialog.css       # Modals, popovers
+├── document.css     # Page structure
+├── form.css         # All form elements
+├── layout.css       # Grid, stack, columns
+├── syntax.css       # Code highlighting
+├── table.css        # Data tables
+└── apps.css         # SPA-specific components
+```
+
+All files load automatically across your entire site. Marketing pages, documentation, blogs, login screens, and single-page apps all use the same visual language. Change a variable in `base.css` and see it everywhere.
+
+
+### Configuration
+Control the design system through `site.yaml`:
+
+```yaml
+design:
+  central: true        # Enforce central system only
+  base: base.css       # Load first for layer ordering
+  exclude: [apps]      # Global exclusions
+```
+
+### App-specific styling
+Override globally through app configuration. In `app/app.yaml`:
+
+```yaml
+design:
+  exclude: [syntax, content]  # Skip code and blog styles
+  include: [apps]             # Add SPA components
+```
+
+Exclusions use fuzzy matching. "syntax" excludes both "syntax.css" and "syntax-extras.css". This lets you fine-tune which parts of the design system apply to different areas.
+
+
+## CSS best practices
+The full template follows these principles for maintainable design systems:
+
+
+### Trust HTML semantics
 HTML already provides most of what a design system needs. Lists have `<ul>`, `<ol>`, `<dl>`. Tables have semantic structure. Forms have fieldsets and labels. Navigation has `<nav>`. Interactive elements have `<button>`, `<details>`, `<dialog>`.
 
-Your design system styles these native elements directly. No need for `.list-component` when `ul` already tells you it's a list. Use attribute selectors (`[disabled]`, `[aria-expanded]`), pseudo-classes (`:invalid`, `:checked`), and `:has()` for state-based styling. The semantic richness is already there.
+Style these native elements directly:
 
-### 3. Class names to fill the gaps
-HTML can't express layout or spacing. These aren't semantic. So class names become purely about spatial relationships: `.columns`, `.grid`, `.stack`, `.cluster`. A few modifiers for variations: `.primary`, `.inverted`, `.compact`.
+```css
+/* Not this: component classes */
+.list-component { }
+.nav-component { }
+.button-component { }
 
-That's it. Even the most complex design system needs surprisingly few classes. Maybe 10-30 total. Not 100. Not 1000. Constraints boost creativity - when you can't add another "utility class", you find the semantic element that already exists.
+/* This: semantic elements */
+ul { }
+nav { }
+button { }
+```
 
-### 4. Layer everything
-Layers solve the specificity wars forever. Base styles in one layer, components in another, utilities in a third. Each layer has clear boundaries and clear purpose. No more specificity hacks, no more source order gymnastics. The cascade becomes predictable.
+Use attribute selectors (`[disabled]`, `[aria-expanded]`), pseudo-classes (`:invalid`, `:checked`), and `:has()` for state-based styling. The browser already knows what's interactive and what's not.
 
-### 5. Make it usable
-A design system fails when developers abandon it for app-specific styles. Make the right way the easy way. If someone needs to change a button color, the path should be obvious: update `--button-color`. If they need more spacing: adjust `--spacing-unit`.
 
-Name things clearly. Document patterns, not classes. Show examples, not specifications. The moment someone writes a one-off style because they couldn't figure out the system way, the system starts fragmenting. Design it so well that using it feels inevitable.
+### Class names for layout
+HTML can't express spatial relationships. These aren't semantic, so class names handle layout:
+
+```css
+.stack { }      /* Vertical spacing */
+.grid { }       /* Responsive grid */
+.columns { }    /* Text columns */
+```
+
+Add minimal modifiers for variations:
+
+```css
+.thin { }       /* Narrower block */
+.wide { }       /* Wider block */
+.compact { }    /* Tighter spacing */
+```
+
+Modern nested CSS eliminates the need for inner class names. A constrained system enables creative combinations without chaos.
+
+### Layer everything
+
+CSS layers solve specificity wars forever:
+
+```css
+@layer base, layout, components, utilities;
+
+@layer base {
+  /* variables, semantic elements */
+}
+
+@layer component {
+  /* component class names (.stack) */
+}
+
+@layer modifier {
+  /* modifier classes (.thin) */
+}
+```
+
+Each layer has clear boundaries and purpose. No more specificity hacks, no more source order gymnastics. The cascade becomes predictable.
+
+### Keep it minimal
+
+Even complex design systems need surprisingly few classes. Maybe 10-30 total. Not 50. Definitely not 500. A design system fails when developers escape to local styling.
+
+The best way to ensure adoption is constraint. Learning 10 classes is manageable. Learning 100 is not. Minimal systems force creative solutions within boundaries - exactly what good design requires.
+
+
+## Brutalist foundation
+The full template uses raw, "brutalist" design principles. It's the thinnest possible layer on top of browser defaults for meaningful graphics. This foundation works for two reasons:
+
+**It's a starting point, not an endpoint** - Build your brand on top of solid fundamentals rather than fighting against opinionated defaults.
+
+**It demonstrates the principles** - Shows how semantic HTML plus minimal CSS creates functional, accessible interfaces without complexity.
+
+This foundation will expand into more expressive templates. See the [roadmap](/docs/roadmap) for the upcoming design systems for more sophisiticated Miesian or Ramsian feel.
+
