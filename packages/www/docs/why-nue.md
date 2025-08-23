@@ -1,37 +1,34 @@
 
 # Why Nue
+Nue liberates developers from massive monoliths to architectural sanity. It makes web development simple, efficient, and fun.
 
-**Modern web development chose complexity. We chose standards.**
 
-When a single button weighs 79KB and your "hello world" requires 300MB of dependencies, the industry has lost it. We're spiraling under layers of abstraction, solving problems we created.
+## Standards first
+React emerged in 2013 to make HTML "reactive." It was elegant at first—a focused library solving a real problem. But then it went on its own trajectory, putting everything into the same massive component, turning everything into JavaScript. The simple idea turned into a sprawling monolith solving problems it created.
 
-Meanwhile, the web evolved. HTML describes rich applications. CSS creates systematic design. JavaScript became a mature language. Nue liberates this nextlevel potential.
+Meanwhile, the web evolved. The web in 2025 is completely different from 2013. HTML can describe complex applications. CSS creates true design systems. JavaScript became ES6—almost a new language.
 
-It's HTML, CSS, and JavaScript taken to their absolute peak.
-
+Nue starts from Web 2025 and elevates it to maximum potential. It adds what's missing while preserving what works. It's HTML, CSS, and JavaScript taken to their absolute peak.
 
 ## The UNIX of the Web
-Nue does one thing and does it perfectly. Like UNIX tools that compose beautifully, Nue gives you focused, powerful primitives that scale infinitely.
+Nue is the entire web ecosystem in 1MB. A complete application builder for everything from content-focused sites to ambitious single-page applications. High-level tooling with low-level control that runs identically on your machine and across 200+ edge locations.
 
-**1MB** Your entire development environment for full-stack applications working on the edge. Everything you need. Nothing you don't.
+Compare this to today's 300MB frameworks with hundreds of dependencies. Nue eliminates entire categories of problems. It's like moving from Windows to UNIX.
 
 
-### New performance tier
-Nue destroys your current framework in every metric that matters:
+## New performance tier
+Remove the framework tax and reach completely different performance levels:
 
-**Build times**: Your site is already built as you release the enter key.
-
-**Bundle sizes**: Complete SPAs smaller than React buttons.
-
-**HMR speed**: Your content is domdiffed as you hit save.
-
-Just try it and see yourself!
+- **Build times**: ~20ms with Nue vs 20+ seconds with Next.js
+- **HMR**: ~10ms vs 1+ seconds
+- **Bundle size**: Complete SPAs smaller than React buttons
 
 
 ## Standards are forever
-Remember jQuery? Angular? Redux? Class components? Your skills expire every 2-3 years.
+React's tragedy is technical debt. Remember Redux? CSS-in-JS? Class components? Each solved problems that existed only in React, now forgotten and replaced with the next hot thing. Skills you learn today become obsolete in 2-3 years.
 
-But standards are forever. HTML knowledge from 2006 still works perfectly. A CSS design system spans decades and multiple projects. Standards are the most powerful development platform ever created.
+Web standards have been rock solid for decades. HTML knowledge from 2006 still works perfectly. A carefully crafted CSS design system spans multiple projects and stays relevant forever.
 
-Learn timeless skills and build products that stands the test of time.
+Learn timeless skills from MDN, not framework corners of the internet. Your investment in standards compounds. Framework knowledge dies.
 
+Standards are the most powerful development platform ever created. Nue makes them shine.
