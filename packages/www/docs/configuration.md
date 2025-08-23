@@ -129,13 +129,10 @@ Design system configuration options
 ```yaml
 design:
   # Enforce central design system (default: false)
-  strict: true
+  central: true
 
   # Base stylesheet loaded first
   base: base.css
-
-  # Exclude patterns from auto-loading
-  exclude: [table, syntax]
 
   # Limit class names per element (prevent utility class abuse)
   max_class_names: 3
@@ -212,7 +209,7 @@ Nue recognizes common metadata aliases:
 - `date` → `pubDate`
 
 
-### Overrides
+### Application- and page specific overrides
 Configuration follows a cascade: global settings in `site.yaml` can be overridden by app-level settings in subdirectories (like `blog/app.yaml`), which can be overridden by page-level front matter. All overrides happen with root-level property names:
 
 
@@ -232,8 +229,5 @@ heading_ids: true
 
 # content.sections in site.yaml
 sections: [ hero, features, manifesto ]
-
-# design.exclude in site.yaml
-exclude: [ syntax, typography ]
 ```
 

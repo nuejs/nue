@@ -54,19 +54,23 @@ Control the design system through `site.yaml`:
 design:
   central: true        # Enforce central system only
   base: base.css       # Load first for layer ordering
-  exclude: [apps]      # Global exclusions
+
+  # Limit class names per element (prevent utility class abuse)
+  max_class_names: 3
+
+  # inline all css to pages in production build (performance optimization)
+  inline_css: true
 ```
 
 ### App-specific styling
 Override globally through app configuration. In `app/app.yaml`:
 
 ```yaml
-design:
-  exclude: [syntax, content]  # Skip code and blog styles
-  include: [apps]             # Add SPA components
+exclude: [content.css]   # Skip content-specific styles
+include: [apps.css]      # Add SPA-specific styles
 ```
 
-Exclusions use fuzzy matching. "syntax" excludes both "syntax.css" and "syntax-extras.css". This lets you fine-tune which parts of the design system apply to different areas.
+Exclusions use fuzzy matching. "apps/" would exclude both "apps/canvas.css" and "apps/ui.css". This lets you fine-tune which parts of the design system apply to different areas.
 
 
 ## CSS best practices
@@ -134,8 +138,8 @@ CSS layers solve specificity wars forever:
 
 Each layer has clear boundaries and purpose. No more specificity hacks, no more source order gymnastics. The cascade becomes predictable.
 
-### Keep it minimal
 
+### Keep it minimal
 Even complex design systems need surprisingly few classes. Maybe 10-30 total. Not 50. Definitely not 500. A design system fails when developers escape to local styling.
 
 The best way to ensure adoption is constraint. Learning 10 classes is manageable. Learning 100 is not. Minimal systems force creative solutions within boundaries - exactly what good design requires.

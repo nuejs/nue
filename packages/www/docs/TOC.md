@@ -16,9 +16,7 @@ Tools
   Roadmap
   Contributing
 
-
 Concepts
-  Standards first
   Separation of concerns
   Design systems
   Edge first
@@ -31,11 +29,11 @@ Developing
   CSS development
   SVG development
   Server development
-  Troubleshooting
 
 Reference
   Build system
   Configuration
+  Asset loading
   Command line (CLI)
   Migration from Next.js
   ---
