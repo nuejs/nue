@@ -1,15 +1,16 @@
 
 # Nue: HTML first UI markup
-A markup language that extends HTML with just enough syntax to build websites, apps and SVG images. It's not another JavaScript framework, but a different development model based on document structure rather than programmatic composition.
+A markup language that extends HTML with just enough syntax to build websites, single-page apps and dynamic SVG. It's a different development model based on document structure rather than JavaScript composition.
 
 ## Why HTML matters
-The difference isn't syntax - it's architecture:
+The difference is architectural:
 
-**Structure over logic** - In Nue, your UI is a document tree with data bindings. In React, it's JavaScript functions returning objects. This fundamental difference changes everything about how you build.
+**Structure over logic** - Your UI component is a document tree structure that closely mimics the browser-native DOM structure. This structure can be manipulated and altered before rendering.
 
-**Modern HTML** - `<dialog>`, `<details>`, `<popover>`, form validation, scroll-snap, container queries. React emerged when HTML was static. Today's HTML is interactive - Nue just fills the gaps.
+**Modern HTML** - `<dialog>`, `<details>`, `<popover>`, form validation, scroll-snap, container queries. Nue elevates this foundation with programmatic power.
 
-**DOM based** - Nue's AST maps directly to DOM operations. No virtual DOM, no reconciliation. A button is a `<button>`, not a "<Button>" component with 50KB of dependencies.
+**DOM based** - Nue's AST maps directly to DOM operations. No virtual DOM, no reconciliation. A button is a vanilla `<button>`, not a "<Button>" component with 50KB of dependencies.
+
 
 ## Quick start
 Open this code on browser:
@@ -77,36 +78,6 @@ Nue runs seamlessly on server and client:
 
 The same `.html` file works as a server template and a client component. No special markers, no "use client" directives, no hydration. Write once, run anywhere.
 
-
-
-## Cleaner, more scaleable code
-Rapidly assemble interface by focusing solely on structure. Let that other concerns of your app do their job in equal clarity:
-
-- **Business model/logic (JS/TS/Rust/Go)** - Your application's core logic
-- **Structure (HTML)** - How the model is laid on the page
-- **Presentation (CSS)** - How it looks
-
-Each concern scales independently. Your design system doesn't bloat your components. Your business logic doesn't tangle with your UI. Teams can work on different layers without conflicts.
-
-
-## Timeless skills and products
-Learn HTML from MDN, not framework documentation. Build with `<dialog>`, not `<Dialog>`
-
-**Skills that last** - HTML, CSS, and JavaScript have been stable for decades. Framework APIs change every few years.
-
-**Products that last** - Your Nue applications will work in browsers 10 years from now. They're accessible by default, SEO-friendly by nature, and maintainable by anyone who knows web standards.
-
-**Documentation that lasts** - Reference MDN for how `<dialog>` works. It's authoritative, comprehensive, and permanent. No need to match framework versions with documentation versions.
-
-
-## Less is More
-The numbers tell the story:
-
-- Counter: ~2.5KB
-- Single-page apps: ~30kb-70kb
-- Material UI Button: 100KB+
-
-Your entire application can be smaller than a single React component. Less code means fewer bugs, faster development, easier maintenance.
 
 
 ## Installation
