@@ -5,6 +5,7 @@ Nue automatically discovers and loads assets (HTML, CSS, JavaScript, YAML) for e
 ## Directory hierarchy
 Assets are loaded in this order of precedence:
 
+
 ### Root level
 Global assets that apply to every page:
 ```
@@ -13,18 +14,7 @@ app.js              # Global JavaScript
 site.yaml           # Site data
 ```
 
-### System directories
-A special @system directory (larger projects) holds global assets available everywhere:
-
-```
-@system/
-├── design/         # Design system CSS files (.css)
-├── layout/         # Shared layouts and components  (.html)
-├── ui/             # Dynamic UI components/controllers (.html, .js, .ts)
-└── data/           # Site-wide data files (.yaml)
-```
-
-### App directories
+### App level
 Area-specific assets that apply to pages within that directory:
 
 ```
@@ -38,7 +28,7 @@ admin/
 └── uilib.html      # Admin UI components
 ```
 
-## Page specific directory
+## Page level
 Assets in the same directory as the page.
 
 ```
@@ -49,6 +39,18 @@ blog/css-is-awesome/
 ```
 
 Page-specific directories are rare but allow construction of specific/complex content.
+
+
+## Larger projects
+Larger projects can use a central @system directory for global assets available everywhere on your apps:
+
+```
+@system/
+├── design/         # Design system CSS files (.css)
+├── layout/         # Shared layouts and components  (.html)
+├── ui/             # Dynamic UI components/controllers (.html, .js, .ts)
+└── data/           # Site-wide data files (.yaml)
+```
 
 
 ## Include and exclude

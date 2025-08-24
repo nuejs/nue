@@ -1,5 +1,5 @@
-# Project structure
 
+# Project structure
 Nue projects are just files and folders. No special directories, no build configurations, no framework scaffolding. Your file structure becomes your website structure.
 
 ## How it works
@@ -28,7 +28,8 @@ Creates:
 └── index.html
 ```
 
-A single-page site. The HTML becomes your homepage, the CSS styles it. Perfect for landing pages, portfolios, or simple static sites.
+A single HTML file and stylesheet - no configuration, no scaffolding, no setup ceremony. Just open `index.html` in a browser and you have a working site. This demonstrates Nue's zero-friction approach: your project structure is your site structure.
+
 
 ## Blog
 
@@ -44,9 +45,8 @@ Creates:
 ├── index.md
 └── posts/
     ├── header.html   # page header aka. "hero" layout
-    ├── css-is-awesome.md
-    ├── design-systems.md
-    └── fast.md
+    ├── first.md
+    └── second.md
 ```
 
 A content-focused site with shared layouts and automatic post collections. The `layout.html` provides common structure, while `posts/` contains your Markdown content. The `site.yaml` configures collections and metadata.
@@ -75,13 +75,15 @@ Creates:
 
 A client-side application with separate CSS, UI components, and a CloudFlare-compatible backend. The `index.html` controls routing and state, while `ui/` contains individual page components. The `server/users.json` acts as a KV datastore, and `server/index.js` uses Hono for seamless CloudFlare deployment.
 
-## Full application
+
+
+## Larger projects
 
 ```bash
 nue create full
 ```
 
-The serious template. Shows how to build maintainable, scalable architectures using Nue's separation of concerns:
+For serious applications, the `@system/` directory separates your application's foundation from individual apps. This division enables application "assembly" - apps focus purely on structure (HTML/Markdown) while the system handles all other concerns:
 
 ```
 ├── @system/           # centralized system
@@ -96,81 +98,61 @@ The serious template. Shows how to build maintainable, scalable architectures us
 └── site.yaml
 ```
 
-## System architecture
+### System directories
 
-The `@system/` folder is standardized across all larger Nue projects:
+These directories have fixed names and special behavior:
 
 ```
 @system/
-├── app/               # client model/logic (can be folder for complex models)
-├── design/            # CSS design system
-│   ├── base.css
-│   ├── button.css
-│   ├── content.css
-│   ├── dialog.css
-│   └── ...
-├── layout/            # server templates
-│   ├── components.html
-│   ├── footer.html
-│   └── header.html
-├── server/            # server (Hono-based, CloudFlare compatible)
-│   ├── db/
-│   ├── index.js
-│   ├── model/
-│   └── test/
-├── ui/                # reusable dynamic components (keyboard.js, tooltips.js)
-└── data/              # SSR content
+├── design/           # CSS design system (auto-loaded client-side)
+├── layout/           # Server-side layout modules
+├── ui/               # Dynamic components (auto-loaded client-side)
+├── data/             # YAML data (server-side processing)
+└── server/           # Backend code (not frontend assets)
 ```
 
-This creates true separation of concerns:
+**Server-side processing** (build time):
 
-**Design lives in one place** - The `design/` folder contains your entire design system. Change a color variable, update the whole site.
+- `layout/` - HTML [layout modules](/docs/layout-system)
+- `data/` - YAML data for HTML templates
 
-**Logic stays separate** - Client logic in `app.js`, server logic in `server/`, no mixing.
 
-**Content is pure** - Markdown files with no embedded styles or JavaScript.
+**Client-side assets** (browser):
 
-**Layouts are reusable** - Shared templates in `layout/` that any app can use.
+- `design/` - Your CSS based design system
+- `ui/` - Dynamic components and controllers
 
-## Application areas
+**Backend only**:
+- `server/` - Edge-first backend code, separate from frontend
 
-Apps become lean and focused:
+
+### Recommended directories
+These client-side directories follow naming conventions but aren't hardcoded:
 
 ```
-app/                   # main application (SPA)
-├── app.yaml           # app-specific config
-├── index.html         # handles all /app/* routes
-└── ui/
-    ├── contact.html
-    ├── contacts.html
-    └── shared.html
-
-blog/                  # content area
-├── *.md               # Nuemark syntax
-
-docs/                  # documentation
-├── *.md
-
-admin/                 # separate SPA
-├── index.html         # handles all /admin/* routes
-└── ui/
-
-svg/                   # graphics
-├── *.html             # Nue templates for SVG
-├── *.svg              # processed via svg/app.yaml
-└── app.yaml           # SVG processing config
+@system/
+├── lib/              # Third-party libraries to import
+└── app/              # Business logic / data models (imported)
 ```
 
-## Development workflow
+It's recommended to add these to import map in site.yaml. For example:
 
-With this structure, development becomes assembly:
+```yaml
+# In site.yaml
+import_map:
+  app: /@system/app/index.js
+  lib: /@system/lib/
+```
 
-**Content creators** work in `.md` files using Nuemark syntax
-**Developers** focus on structure in `.html` files
-**Designers** control everything through the design system
-**Nobody steps on each other**
+This enables clean imports on your frontend code:
 
-The design system ensures consistency across all areas. Whether someone is building the main app, writing blog posts, or creating admin interfaces, everything follows the same visual language automatically.
+```javascript
+import { login } from 'app'           // @system/app/index.js
+import * as d3 from 'lib/d3'          // @system/lib/d3.js
+```
+
+With the system layer handling design, behavior, and logic, application development can focus solely on content and structure. Your system remains simple as your website/business grows.
+
 
 ## File types
 
@@ -183,29 +165,20 @@ The design system ensures consistency across all areas. Whether someone is build
 **`.yaml`** - Configuration and data
 **`404.md`** or **`404.html`** - Custom error pages
 
-## Routing
 
-Nue uses file-based routing with SPA support:
+## Routing
+File names determine routing:
 
 ```
 index.html             → /
 about.md               → /about/
 contact/index.md       → /contact/
-contact/thanks.md      → /contact/thanks/
+contact/thanks.md      → /contact/thanks
 app/index.html         → /app/ (handles all /app/* routes)
 admin/index.html       → /admin/ (handles all /admin/* routes)
 404.md                 → custom error page
 ```
 
-SPA roots (like `app/index.html`) automatically handle all sub-routes within their directory. Routes like `/app/users` or `/app/customers/10` are handled by the `app/index.html` file.
+See [asset loading](/docs/asset-loading) for details on how page dependencies are resolved.
 
-## Configuration cascade
-
-Configuration follows a hierarchy:
-
-1. **`site.yaml`** - Global settings
-2. **`app/app.yaml`** - App-specific overrides
-3. **Front matter** - Page-specific overrides
-
-This lets you set defaults globally while customizing specific areas or pages as needed.
 
