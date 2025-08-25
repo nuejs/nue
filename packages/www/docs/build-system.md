@@ -1,201 +1,112 @@
 
-# Nue's approach to modules
+# Build system
+Nue's build system works differently because of [separation of concerns](/docs/separation-of-concerns). When business logic, design, content, and structure live in separate files, complex bundlers like Vite or Turbopack become unnecessary.
 
-## What: Unbundled ES modules with import maps
 
-Nue takes a different approach to JavaScript modules than mainstream frameworks. Instead of bundling everything into large JavaScript files, Nue keeps modules separate and uses native ES6 imports with import maps to resolve dependencies.
+## How separation enables simplicity
+The architectural difference goes through the entire build system:
 
-Every module in your application - whether it's your business logic, framework utilities, or external libraries - is loaded as an individual ES module. The browser's native module system handles loading, caching, and execution.
+**No unnecessary bundling** - When files have single responsibilities, there's no need for bundlers. A CSS file loads as CSS and JavaScript modules load when needed.
 
-## Why: The bundling myth
+**Surgical optimization** - Instead of bundling everything together and trying to optimize the result, Nue can optimize each concern independently. CSS can inline completely. JavaScript loads precisely. HTML has minimal markup.
 
-The web development industry has normalized bundling as the "correct" way to handle JavaScript modules. This stems from limitations that no longer exist:
+**Direct file relationships** - Changes to one file affect only that file and its direct dependencies. No rebuild cascades through component graphs.
 
-### Historical constraints (no longer relevant)
-- **HTTP/1.1** made multiple requests expensive
-- **No native module support** in browsers required custom loaders
-- **Unreliable CDNs** made local bundling safer
+## Development server
 
-### Modern reality
-- **HTTP/2** makes parallel requests efficient
-- **ES modules** are supported in all modern browsers
-- **Import maps** provide clean dependency resolution
-- **Reliable CDNs** and edge networks are standard
+### Direct serving approach
+Nue processes files on request during development. No build step before you can start working, no `.dist` directory to keep in sync with your source files.
 
-### The bundling cost
+When you request `/blog/my-post/` in the browser:
+1. Nue finds `blog/my-post.md`
+2. Processes the Markdown content
+3. Combines it with layout modules
+4. Applies CSS and JavaScript assets
+5. Serves the complete HTML
 
-Bundling creates problems that we've accepted as normal:
+This happens fast enough to feel instant because Nue operates closer to standards (metal) and each processing step is lightweight.
 
-**Slower development**: Every change requires rebuilding the entire bundle. Hot reloading becomes complex and slow.
+### File processing by type
 
-**Worse caching**: Change one line and users must re-download the entire bundle, even if they already have 99% of the code cached.
+**CSS and JavaScript** - Served directly as written on development mode. No transformation neeed.
 
-**Artificial complexity**: Build tools, transpilers, and bundlers add layers of abstraction between you and web standards.
+**TypeScript** - Converted to JavaScript on each request using Bun's built-in transpiler.
 
-**Megabyte login pages**: Simple pages become JavaScript applications because the framework is bundled with every interaction.
+**Markdown files** - Processed through [Nuemark](/docs/nuemark) parser, combined with layout modules, and served as complete HTML pages.
 
-## Nue's approach to bundling
+**HTML pages** - Similar to Nuemark pages, but layout only.
 
-Nue takes a minimal, purposeful approach to processing JavaScript modules:
+**SPA entry points** - Two files served: server-side HTML and the dynamic parts compiled to JavaScript.
 
-### TypeScript conversion
-TypeScript files are converted to JavaScript using Bun, but remain as separate modules:
 
-```
-src/model/user.ts    →    .dist/model/user.js
-src/utils/dates.ts   →    .dist/utils/dates.js
-```
+### Hot module replacement
+HMR works through WebSocket connections. The server watches file changes and sends targeted updates to the browser.
 
-No bundling occurs - each TypeScript file becomes a corresponding JavaScript file.
+**Content updates** (`.md`, `.html` pages) - Uses DOM diffing to update only changed content. Your scroll position stays put, form inputs remain filled, JavaScript state persists.
 
-### JavaScript copying
-JavaScript files are copied as-is to the `.dist` directory with no transformation:
+**Layout changes** (`.yaml` data, layout `.html`) - Triggers full page reload because layout changes affect page structure.
 
-```
-src/model/api.js     →    .dist/model/api.js
-src/utils/format.js  →    .dist/utils/format.js
-```
+**URL changes** - When you create new pages or rename files, the browser automatically navigates to reflect the new structure.
 
-What you write is what runs. No build step, no abstraction layer, no debugging complexity.
+**Component library updates** - When you modify reusable components, all pages using them update simultaneously.
 
-### Production minification
-In production, files are minified individually using Bun:
+**CSS changes** - New styles inject directly into the page. Removed styles are cleaned up. No page reload needed.
 
-```
-.dist/model/user.js     →    .dist/model/user.min.js (smaller)
-.dist/utils/dates.js    →    .dist/utils/dates.min.js (smaller)
-```
+**SPA updates** - The app is re-mounted. No page reloads.
 
-Each module gets individually optimized but stays separate. You get file size benefits without losing granular caching.
+**Server route changes** - Backend API routes reload without restarting the development server. Nue offers full-stack HMR.
 
-### Why this works better
 
-**Minification ≠ bundling.** You can make files smaller without combining them into monoliths.
+## Production builds
 
-- **Development**: Zero build step for JavaScript, instant feedback
-- **Production**: Smaller files with granular caching still intact
-- **Debugging**: Even in production, trace issues to specific modules
-- **Browser-friendly**: HTTP/2 handles multiple small files efficiently
-
-## How: Import maps and module separation
-
-Nue uses import maps to create clean, declarative dependency management:
-
-```html
-<script type="importmap">
-{
-  "imports": {
-    "nue": "/@system/nue/index.js",
-    "model": "/@system/model/index.js", 
-    "d3": "/@system/lib/d3.js"
-  }
-}
-</script>
-```
-
-Then your code imports naturally:
-
-```javascript
-import { createApp } from 'nue'
-import { model } from 'model'
-import * as d3 from 'd3'
-```
-
-### Module organization
-
-```
-/@system/
-  nue/           # Framework utilities
-  model/         # Business logic
-  lib/           # External libraries
-    d3.js
-    charts.js
-```
-
-### Configuration in site.yaml
-
-```yaml
-imports:
-  model: /@system/model/index.js
-  d3: /@system/lib/d3.js
-  charts: /@system/lib/charts.js
-  # Or load directly from CDN
-  lodash: https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js
-  moment: https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js
-```
-
-## Benefits in practice
-
-### Development speed
-- **10-50ms** content updates
-- **5-20ms** style changes  
-- **20-100ms** component modifications
-
-No build step means changes appear instantly.
-
-### Better caching
-When you change your business logic, users don't re-download the entire framework. Only the changed module is fetched, while everything else remains cached.
-
-### Natural code splitting
-Load what you need, when you need it:
-
-```javascript
-// Load chart library only when needed
-async showChart() {
-  const { createChart } = await import('charts')
-  createChart(this.data)
-}
-```
-
-### Transparent CDN loading
-Import maps provide a clean abstraction over where modules are loaded from. Your code remains the same whether dependencies come from your server or global CDNs:
-
-```javascript
-import _ from 'lodash'          // Could be local or CDN
-import moment from 'moment'    // Client doesn't know or care
-```
-
-The import map handles the resolution transparently. This means you can:
-- Load unlimited external libraries from CDNs like cdnjs.cloudflare.com
-- Switch between local and CDN versions without code changes
-- Mix and match sources based on performance needs
-- Let users benefit from shared CDN caching across websites
-
-### Simplified debugging
-No source maps needed. The code in your browser is the code you wrote.
-
-### Smaller initial payloads
-A login page loads only login logic, not your entire application framework.
-
-## The architecture advantage
-
-This approach reinforces Nue's MVC architecture:
-
-- **Model**: Business logic as ES modules
-- **View**: Nue templates importing what they need
-- **Controller**: Event handling and state management
-
-Everything flows through the same import system. Your business model, framework utilities, and external libraries are all treated equally by the browser's native module system.
-
-## Future tooling
-
-While manual dependency management works today, Nue will add convenience tools:
+### Build process
+Production builds generate everything into the `.dist` directory:
 
 ```bash
-nue install d3
-# Fetches d3.js to /@system/lib/
-# Updates import map automatically
+nue build
 ```
 
-But the foundation remains the same: individual modules loaded by the browser's native ES module system.
+**HTML generation** - Markdown content processed through templates with all layout modules applied. Dynamic expressions resolved with build-time data.
 
-## Getting started
+**CSS processing** - Stylesheets minified and optionally inlined into pages. Unused styles removed when possible.
 
-1. Configure your import map in site.yaml
-2. Organize modules in /@system/
-3. Import naturally with ES6 syntax
-4. Experience the development speed difference
+**JavaScript handling** - TypeScript converted to JavaScript. Reactive HTML components transpiled to minimal client-side code. Everything minified.
 
-The controversial feeling of "no bundling" fades quickly when you experience 10ms hot reloads and see your users loading only what they need.
+**Asset optimization** - Images, fonts, and other assets copied with appropriate optimizations applied.
 
-This isn't a limitation of Nue - it's the web platform working as designed.
+
+### Build performance
+Small to medium sites consistently build under 100ms. This happens because:
+
+**Simple file processing** - Each file type has straightforward processing rules. No complex dependency graphs to resolve.
+
+**1MB toolchain** - The tiny Nue executable handles everything without spawning multiple processes or loading heavy dependencies.
+
+
+### Optimization strategies
+
+Because files have single responsibilities, optimization strategies can be more surgical than bundler-based approaches.
+
+**CSS inlining** - Design systems built with constraints stay small enough to inline completely:
+
+```yaml
+design:
+  inline_css: true
+```
+
+This eliminates the CSS network request entirely. The initial HTML download contains everything needed to render the page correctly. Especially effective when your base CSS is smaller than most framework resets. It's impossible to beat this with any bundler strategy.
+
+**View transitions** - Built-in client-side navigation that feels like a single-page app but works with regular HTML pages:
+
+```yaml
+site:
+  view_transitions: true
+```
+
+Pages load instantly after the first visit because CSS and JavaScript are cached. The browser's native View Transitions API provides smooth animations between pages.
+
+**Precise loading** - JavaScript modules load exactly when needed. No massive vendor bundles containing code you don't use. The Nue.js client runtime is 2.5KB gzipped - your application code stays proportionally minimal.
+
+**HTTP/2 friendly** - Multiple small, focused files work better with HTTP/2 than single large bundles. The server can push exactly what each page needs.
+
+

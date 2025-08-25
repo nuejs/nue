@@ -20,7 +20,7 @@ After migration you'll see:
 ## Project setup
 When moving to Nue, start with a fresh project structure. The monolithic Next.js architecture where everything lives in components doesn't translate directly to Nue's separated concerns. The focus is on cleaning up the entire architecture rather than porting it file-by-file.
 
-The first step is cleaning up unnecessary NPM modules, project scaffolding, and configuration. This is quite significant in Next.js. An empty Next.js project created with `npx create-next-app@latest` contains 336 packages, 18,666 files, and 427MB. That's 8x Windows 95 installations.
+The first step is cleaning up unnecessary NPM modules, project scaffolding, and configuration. This is quite significant in Next.js. An empty Next.js project created with `npx create-next-app@latest` (v15.5) contains 336 packages, 18,666 files, and 427MB. That's literally 8x Windows 95 installations.
 
 Add a component library like ShadCN and you're at 470MB (9x Windows 95). A typical Next.js project has at least the following configuration files to start with:
 
@@ -185,7 +185,7 @@ This literally drops thousands of lines of code, configuration and scaffoling to
 
 **Scalable content** - All pages, from rich front pages to simple blog entries, are editable with pure content. Page development becomes a content project, not a software engineering and TSX debugging project. Writers work independently without breaking builds.
 
-**All features in 1MB** - Syntax highlighting, heading links, collections, RSS feeds, sitemaps, view transitions, responsive images, layout inheritance, and content processing. Everything that required 1.3GB of Next.js packages.
+**All features in 1MB** - Syntax highlighting, heading links, collections, RSS feeds, sitemaps, view transitions, responsive images, layout inheritance, and content processing. Everything that required 1.4GB of Next.js packages.
 
 **Rich layouts** - With [slots and layout modules](/docs/layout-system), create sophisticated page structures without component hierarchies. Section-specific layouts inherit and override automatically.
 
@@ -195,7 +195,7 @@ Migrating your backend infrastructure (server and databases) from third-party AP
 
 ### Next.js: More packages
 
-The backend landscape is fragmented with options ranging from the complex T3 stack to newer Server Actions. This guide assumes tight integration with the Vercel ecosystem using these dependencies:
+The backend landscape is fragmented with options ranging from the complex T3 stack to newer Server Actions. This guide assumes tight integration with the Vercel ecosystem using these dependencies, after which the project size reaches 1.4G:
 
 ```bash
 pnpm install @vercel/kv @vercel/postgres
@@ -680,7 +680,7 @@ CSS handles all presentation decisions in one place. Variants, states, and respo
 ## Migration complete
 After following this migration guide, you've transformed a complex Next.js application into a clean, standards-based architecture. The transformation is quite dramatic:
 
-**From 1.3GB to 1MB** - Your project dependencies dropped from over 300 NPM packages to a single global installation. Configuration files reduced from 15+ to one central `site.yaml`.
+**From 1.4GB to 1MB** - Your project dependencies dropped from over 300 NPM packages to a single global installation. Configuration files reduced from 15+ to one central `site.yaml`.
 
 **From mixed concerns to architectural clarity** - Business logic lives in pure JavaScript modules. Content lives in Markdown files. Design lives in CSS. Structure lives in semantic HTML. Each layer works independently and can scale without affecting others.
 
