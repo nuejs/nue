@@ -23,7 +23,16 @@ Global site behavior:
 site:
   # Enable view transitions between pages (default: false)
   view_transitions: true
+
+  # generate sitemap.xml
+  sitemap: true
+
+  # skip certain files/directories from processing
+  skip: [ test/, @plans/ ]
 ```
+
+These files and directories are already skipped by default: node_modules .toml .rs .lock package.json .lockb lock.yaml README.md Makefile
+
 
 ## Content processing
 Control how Markdown content is processed:
@@ -82,7 +91,7 @@ server:
   reload: true
 ```
 
-See [Server development](/docs/server-development) for usage, [Edge first](/docs/edge-first) for the concept.
+See [Server development](/docs/server-development) for usage, [Edge first](/docs/edge-first) for the concept. The files under server dir are automatically skipped from normal Nue processing.
 
 
 ## Content collections
@@ -209,7 +218,7 @@ Nue recognizes common metadata aliases:
 - `date` → `pubDate`
 
 
-### Application- and page specific overrides
+### Overrides
 Configuration follows a cascade: global settings in `site.yaml` can be overridden by app-level settings in subdirectories (like `blog/app.yaml`), which can be overridden by page-level front matter. All overrides happen with root-level property names:
 
 
@@ -231,3 +240,16 @@ heading_ids: true
 sections: [ hero, features, manifesto ]
 ```
 
+
+## Include and exclude
+Control which assets to load on pages:
+
+```yaml
+# Exclude files
+exclude: [ui/, syntax.css]
+
+# Re-include eager exclude patterns
+include: [ui/apps.css]
+```
+
+See [Asset loading](/docs/asset-loading) for details.

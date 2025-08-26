@@ -1,7 +1,10 @@
 
-view_transitions: true
+site:
+  view_transitions: true
+  sitemap: true
 
-sections: true
+content:
+  sections: true
 
 # custom additions
 import_map:
@@ -12,6 +15,6 @@ server:
   kv: db/kv.db
   reload: true
 
-# use a strict design system
+# use a central design system
 design:
-  strict: true
+  central: true

@@ -24,9 +24,9 @@ export function createAsset(file, files=[], is_prod) {
     return arr.map(file => createAsset(file, files))
   }
 
-  function getDeps(exclude, strict) {
+  function getDeps(exclude, central) {
     const paths = files.map(f => f.path)
-    const deps = listDependencies(file.path, { paths, exclude, strict })
+    const deps = listDependencies(file.path, { paths, exclude, central })
     return toAssets(deps)
   }
 
@@ -52,7 +52,7 @@ export function createAsset(file, files=[], is_prod) {
 
   async function assets() {
     const { exclude, design } = await data()
-    return getDeps(exclude, design?.strict)
+    return getDeps(exclude, design?.central)
   }
 
   async function parse() {

@@ -17,7 +17,7 @@ export async function readAssets(root, is_prod) {
   if (!conf) return console.error('Not a Nue directory')
 
   // ignore
-  const ignore = [...IGNORE, ...(conf.ignore || [])]
+  const ignore = [...IGNORE, ...(conf.site?.skip || [])]
   ignore.push(conf.server?.dir || join('@system', 'server'))
   ignore.push(join('@system', 'test'))
 

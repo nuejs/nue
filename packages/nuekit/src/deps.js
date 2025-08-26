@@ -6,7 +6,7 @@ const SYSTEM_DIRS = ['design', 'data', 'layout', 'ui'].map(dir => join('@system'
 const ASSET_TYPES = ['.html', '.js', '.ts', '.yaml', '.css']
 
 
-export function listDependencies(basepath, { paths, exclude=[], strict }) {
+export function listDependencies(basepath, { paths, exclude=[], include=[], central }) {
 
   // folder dependency
   let deps = paths.filter(path => isDep(basepath, path, paths))
@@ -14,16 +14,23 @@ export function listDependencies(basepath, { paths, exclude=[], strict }) {
   // extensions
   deps = deps.filter(path => ASSET_TYPES.includes(extname(path)))
 
-  // strict design system
-  if (strict) {
+  // central design system
+  if (central) {
     deps = deps.filter(path => extname(path) != '.css' ||
       path.startsWith(join('@system', 'design'))
     )
   }
 
-  // Exclusions
+  // exclusions
   exclude.forEach(pattern => {
     deps = deps.filter(path => !path.includes(pattern))
+  })
+
+  // Re-inclusions
+  include.forEach(pattern => {
+    paths.forEach(path => {
+      if (path.includes(pattern)) deps.push(path)
+    })
   })
 
   return [...new Set(deps)]
@@ -35,11 +42,11 @@ function isDep(basepath, path, paths) {
   // self
   if (basepath == path) return false
 
-  // Root level assets (global)
+  // root level assets (global)
   const dir = dirname(path)
   if (dir == '.') return true
 
-  // System folders
+  // system folders
   if (SYSTEM_DIRS.some(dir => path.startsWith(dir + sep))) return true
 
   // SPA: entire app tree
@@ -48,7 +55,7 @@ function isDep(basepath, path, paths) {
     return dir == '.' ? !paths.some(el => extname(el) == '.md') : path.startsWith(dir + sep)
   }
 
-  // Everything else: hierarchical inclusion
+  // everything else: hierarchical inclusion
   return parseDirs(dirname(basepath)).some(checkDir => dir == checkDir)
 }
 

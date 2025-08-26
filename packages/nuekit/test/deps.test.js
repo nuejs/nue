@@ -61,10 +61,10 @@ test('standalone html', () => {
   expect(deps).not.toContain('app/main.js')
 })
 
-test('strict CSS', () => {
+test('central CSS', () => {
   const deps = listDependencies('app/index.html', {
     paths: [...paths, 'app/custom.css'],
-    strict: true
+    central: true
   })
   expect(deps.length).toBe(2 + 6 + 3) // custom.css blocked
 })
@@ -72,18 +72,18 @@ test('strict CSS', () => {
 test('allow local CSS', () => {
   const deps = listDependencies('app/index.html', {
     paths: [...paths, 'app/custom.css'],
-    strict: false
+    central: false
   })
   expect(deps.length).toBe(2 + 6 + 4) // custom.css included
   expect(deps).toContain('app/custom.css')
 })
 
-test('root CSS follows strict rules', () => {
+test('root CSS follows central rules', () => {
   const deps = listDependencies('app/index.html', {
     paths: [...paths, 'global.css'],
-    strict: true
+    central: true
   })
-  expect(deps.length).toBe(2 + 6 + 3) // root CSS blocked by strict
+  expect(deps.length).toBe(2 + 6 + 3) // root CSS blocked by central
   expect(deps).not.toContain('global.css')
 })
 
@@ -98,6 +98,17 @@ test('exclusions', () => {
   expect(deps).not.toContain('@system/design/base.css')
   expect(deps).not.toContain('site.yaml')
   expect(deps).toContain('globals.js')
+})
+
+test('includions', () => {
+  const deps = listDependencies('app/index.html', {
+    exclude: ['@system/', 'app/ui'],
+    include: ['keyboard.js'],
+    paths,
+  })
+
+  expect(deps.includes('@system/ui/keyboard.js')).toBeTrue()
+  expect(deps.length).toBe(5)
 })
 
 test('parseDirs', () => {

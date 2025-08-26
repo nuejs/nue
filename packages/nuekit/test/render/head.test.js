@@ -45,6 +45,17 @@ test('renderMeta', async () => {
 
 })
 
+test('title_template', async () => {
+  const meta = await renderMeta({
+    title_template: '%s World',
+    'date.updated': false,
+    generator: false,
+    title: 'Hello'
+  })
+  expect(meta.includes('<meta name="og:title" content="Hello World">')).toBeTrue()
+  expect(meta.length).toBe(3)
+})
+
 test('renderHead', async () => {
   const data = {
     title: 'Hello',
@@ -59,10 +70,9 @@ test('renderHead', async () => {
 
   expect(head.length).toBeGreaterThan(7)
 
-  const imap = head.find(el => el.includes('importmap'))
-  expect(imap).toInclude('"nue":')
-  expect(imap).toInclude('"d3":')
-
+  const map = head.find(el => el.includes('importmap'))
+  expect(map).toStartWith('<script type="importmap">')
+  expect(map).toInclude('{"imports":{"d3":"d3.js"}}')
 })
 
 

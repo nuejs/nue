@@ -44,7 +44,7 @@ export function renderMeta(data, libs) {
     generator: `Nue v${version} (nuejs.org)`,
     'date.updated': new Date().toISOString().slice(0, 16) + 'Z',
 
-    'og:title': data.title,
+    'og:title': renderTitle(data.title, data.title_template),
     'og:description': desc,
     'og:image': ogImage(data),
     libs: libs?.join(' '),
@@ -58,13 +58,16 @@ export function renderMeta(data, libs) {
   const meta = [elem('meta', { charset: 'utf-8'})]
 
   Object.entries(props).map(([key, val]) => {
-    const content = val || data[key]
-    if (content) meta.push(elem('meta', { name: key, content }))
+    const content = data[key] || val
+    if (content && data[key] !== false) meta.push(elem('meta', { name: key, content }))
   })
 
   return meta
 }
 
+function renderTitle(title, template) {
+  return template ? template.replace('%s', title) : title
+}
 
 export function renderScripts(assets) {
   return assets.filter(file => ['.js', '.ts'].includes(file.ext))
