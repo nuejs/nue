@@ -62,7 +62,7 @@ import { login, getUsers } from 'app'
 
 
 ## UI controllers
-The second JavaScript pattern: global controllers that manage cross-component behavior. Things like keyboard shortcuts, tooltips, or tracking scripts:
+Some JavaScript needs to work across your entire application - keyboard shortcuts that work on every page, analytics modules that track user behavior globally, or tooltip systems that enhance any element. These cross-cutting concerns don't belong in individual components. Instead, they need their own space as global controllers that run once and manage application-wide behavior.
 
 ```javascript
 // @system/ui/keyboard.js
@@ -90,7 +90,7 @@ Place controllers in `@system/ui/` where they automatically load on every page. 
 
 
 ## External libraries
-Modern web standards reduce the need for external libraries. Date formatting, HTTP requests, and DOM manipulation all have native solutions. But when you need libraries, organize them clearly.
+The modern web platform provides surprisingly complete functionality out of the box. Before reaching for a library, check if native APIs can handle your needs. When you do need external code, simply place it to your system's library folder and avoid the dependency chaos that plagues many projects.
 
 ### Recommended structure
 Download minimal versions to `@system/lib/`:
