@@ -2,8 +2,8 @@
 # Single-page apps
 Single-page applications (SPAs) in Nue are dynamic web apps that run entirely in the browser. Unlike content-focused apps that generate static pages, SPAs use client-side routing and state management to create fluid, app-like experiences without page reloads.
 
-## Getting started
 
+## Getting started
 Create a SPA template to see how client-side applications work:
 
 ```bash
@@ -47,13 +47,12 @@ The `index.html` file controls your entire application. When you use `<!doctype 
   </main>
 
   <script>
-    // Listen to route changes
+    // update view based on state (URL)
     state.on('id', ({ id }) => {
-      const root = document.querySelector('article')
-      this.mount(id ? 'user' : 'users', root)
+      this.mount(id ? 'user' : 'users', 'article')
     })
 
-    // Initialize from current URL
+    // initialize from current URL
     mounted() {
       state.init()
     }

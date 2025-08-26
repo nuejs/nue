@@ -1,6 +1,7 @@
 
 Why Nue
 Get started
+Migration from Next.js
 
 Tools
   Core
@@ -35,7 +36,6 @@ Reference
   Configuration
   Asset loading
   Command line (CLI)
-  Migration from Next.js
   ---
   HTML syntax
   Layout system

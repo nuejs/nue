@@ -16,9 +16,10 @@ export async function readAssets(root, is_prod) {
   const conf = await readSiteYAML(root)
   if (!conf) return console.error('Not a Nue directory')
 
-  // files
+  // ignore
   const ignore = [...IGNORE, ...(conf.ignore || [])]
   ignore.push(conf.server?.dir || join('@system', 'server'))
+  ignore.push(join('@system', 'test'))
 
   const paths = await fswalk(root, { ignore, followSymlinks: conf.follow_symlinks })
   const files = await Promise.all(paths.map(path => createFile(root, path)))
