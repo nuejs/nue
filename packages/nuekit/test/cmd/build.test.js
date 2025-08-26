@@ -23,7 +23,7 @@ describe('MPA build', async () => {
 
   beforeEach(async () => {
     await writeAll([
-      ['site.yaml', { ignore: '[functions]', port: 6666, view_transitions: true }],
+      ['site.yaml', 'site:\n  skip: [functions]\n  view_transitions: true'],
       ['@system/ui/keyboard.ts', 'export const foo = 100'],
       ['@system/design/base.css', '/* CSS */'],
       ['index.md', '# Hello'],

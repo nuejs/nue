@@ -19,7 +19,7 @@ export async function renderHead(data, assets, libs=[]) {
 
   // system scripts
   const addJS = name => assets.push(parse(`@nue/${name}.js`))
-  if (data.view_transitions) addJS('transitions')
+  if (data.site?.view_transitions) addJS('transitions')
   if (libs.length) addJS('mount')
   if (!data.is_prod) addJS('hmr')
 

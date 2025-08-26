@@ -7,11 +7,12 @@ import { elem, renderInline as markdown } from 'nuemark'
 export function renderSlots({ head=[], content='', comps=[], data={} }) {
   const attr = getAttr(data)
   const { scope } = data
+  const { max_class_names } = data.design || {}
 
   function slot(name) {
     if (data[name] === false) return ''
     const comp = comps.find(el => el.is ? el.is == name : el.tag == name)
-    return comp ? renderNue(comp, { data, deps: comps }) : ''
+    return comp ? renderNue(comp, { data, deps: comps, max_class_names }) : ''
   }
 
   const article = scope == 'article' ? content : `
@@ -105,7 +106,8 @@ export async function renderHTML(asset) {
 
   // content
   const comps = await asset.components()
-  const content = renderNue(root, { data, deps: comps })
+  const { max_class_names } = data.design || {}
+  const content = renderNue(root, { data, deps: comps, max_class_names })
 
   // page
   return await renderPage({ content, comps, data, asset })

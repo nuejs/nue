@@ -1,3 +1,3 @@
 
 tests:
-	cd test && bun test head.test
+	cd test && bun test page
