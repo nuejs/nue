@@ -62,8 +62,14 @@ collections:
 
   # Collection name becomes variable for .html templates
   blog:
-    # Files to include (glob patterns: * = any, ** = any depth)
-    match: [posts/*.md]
+    # .md files to include (substring match)
+    include: [posts/]
+
+    # Required front matter fields
+    require: [date]
+
+    # Exclude if these fields exist
+    skip: [draft]
 
     # Sort by front matter field and direction
     sort: date desc
@@ -72,7 +78,8 @@ collections:
     rss: true
 
   team:
-    match: [team/*.md]
+    include: [team/]
+    require: [ role, email ]
     sort: name asc
 
 # Client-side import-map. Can be overridden at app level.
@@ -190,7 +197,8 @@ collections:
 
   # Adds to existing site collections
   featured:
-    match: [featured/*.md]
+    include: [featured/]
+    skip: [ todo ]
     sort: date desc
 
 # Asset loading overrides: replaces site settings for this app

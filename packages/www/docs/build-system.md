@@ -3,12 +3,12 @@
 Nue's build system works differently because of [separation of concerns](/docs/separation-of-concerns). When business logic, design, content, and structure live in separate files, complex bundlers like Vite or Turbopack become unnecessary.
 
 
-## How separation enables simplicity
-The architectural difference goes through the entire build system:
+## How it works
+Separation of concerns enables builder simplicity:
 
 **No unnecessary bundling** - When files have single responsibilities, there's no need for bundlers. A CSS file loads as CSS and JavaScript modules load when needed.
 
-**Surgical optimization** - Instead of bundling everything together and trying to optimize the result, Nue can optimize each concern independently. CSS can inline completely. JavaScript loads precisely. HTML has minimal markup.
+**Effective optimization** - Instead of bundling everything together and trying to optimize the result, Nue can optimize each concern independently. CSS can inline completely. JavaScript loads precisely. HTML has minimal markup.
 
 **Direct file relationships** - Changes to one file affect only that file and its direct dependencies. No rebuild cascades through component graphs.
 

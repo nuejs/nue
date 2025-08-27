@@ -3,7 +3,7 @@ export async function getCollections(pages, opts) {
   const collections = {}
 
   for (const [name, conf] of Object.entries(opts)) {
-    let matchedPages = matchPages(pages, conf.match)
+    let matchedPages = matchPages(pages, conf.include)
     let filteredPages = await filterPages(matchedPages, conf)
     let sortedPages = sortPages(filteredPages, conf.sort)
 
@@ -17,10 +17,8 @@ function matchPages(pages, patterns) {
   const ret = []
 
   for (const pattern of patterns) {
-    const glob = new Bun.Glob(pattern)
-
     for (const page of pages) {
-      if (glob.match(page.path)) ret.push(page)
+      if (page.is_md && page.path.includes(pattern)) ret.push(page)
     }
   }
 

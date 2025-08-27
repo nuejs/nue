@@ -34,12 +34,12 @@ Developing
 Reference
   Build system
   Configuration
-  Asset loading
   Command line (CLI)
   ---
   HTML syntax
-  Template data
   Layout system
+  Page dependencies
+  Template data
   State API
   Nuemark syntax
   Syntax highlighting

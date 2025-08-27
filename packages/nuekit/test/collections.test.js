@@ -5,25 +5,29 @@ import { createAsset } from '../src/asset'
 // Mock page objects
 const pages = [
   {
+    is_md: true,
     path: 'blog/post1.md',
     parse: async () => ({ meta: { title: 'First Post', date: '2024-01-01', draft: false } })
   },
   {
+    is_md: true,
     path: 'blog/post2.md',
     parse: async () => ({ meta: { title: 'Second Post', date: '2024-01-02' } })
   },
   {
+    is_md: true,
     path: 'blog/draft.md',
     parse: async () => ({ meta: { title: 'Draft Post', draft: true } })
   },
   {
+    is_md: true,
     path: 'docs/guide.md',
     parse: async () => ({ meta: { title: 'Guide', order: 1 } })
   }
 ]
 
 test('basic collection matching', async () => {
-  const opts = { blog: { match: ['blog/*.md'] } }
+  const opts = { blog: { include: ['blog/'] } }
 
   const collections = await getCollections(pages, opts)
   expect(collections.blog).toHaveLength(3)
@@ -32,7 +36,7 @@ test('basic collection matching', async () => {
 test('require filtering', async () => {
   const opts = {
     blog: {
-      match: ['blog/*.md'],
+      include: ['blog/'],
       require: ['date']
     }
   }
@@ -44,7 +48,7 @@ test('require filtering', async () => {
 test('skip filtering', async () => {
   const opts = {
     blog: {
-      match: ['blog/*.md'],
+      include: ['blog/'],
       skip: ['draft']
     }
   }
@@ -56,7 +60,7 @@ test('skip filtering', async () => {
 test('sorting', async () => {
   const opts = {
     blog: {
-      match: ['blog/*.md'],
+      include: ['blog/'],
       skip: ['draft'],
       sort: 'date desc'
     }
@@ -69,7 +73,7 @@ test('sorting', async () => {
 
 test('rendering', async () => {
   const pagefoot = '<!html lib><div :is="pagefoot"><p :each="page of pages">{ page.title }</div>'
-  const conf = 'collections:\n  pages:\n    match: [ blog/** ]'
+  const conf = 'collections:\n  pages:\n    include: [ blog/ ]'
 
   const files = [
     { is_md: true, path: 'blog/index.md', async text() { return '# Hello' } },
