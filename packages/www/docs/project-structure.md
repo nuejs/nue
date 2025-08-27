@@ -179,6 +179,6 @@ admin/index.html       → /admin/ (handles all /admin/* routes)
 404.md                 → custom error page
 ```
 
-See [asset loading](/docs/asset-loading) for details on how page dependencies are resolved.
+See [page dependencies](page-dependencies) for details
 
 

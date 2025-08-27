@@ -154,7 +154,7 @@ exclude: [ui/, syntax.css]
 include: [ui/apps.css]
 ```
 
-See [Asset loading](/docs/asset-loading) for include/exclude details.
+See [page dependencies](page-dependencies) for include/exclude details.
 
 
 ### Aliases
