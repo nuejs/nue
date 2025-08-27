@@ -1,7 +1,7 @@
 
 import { Hono } from 'hono'
 import { createAuth } from './model/auth.js'
-import { createCRM } from './model/crm.js'
+import { createCRM } from './model/index.js'
 
 const server = new Hono()
 

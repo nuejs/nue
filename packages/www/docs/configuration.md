@@ -126,6 +126,15 @@ meta:
   # Viewport meta tag
   viewport: width=device-width,initial-scale=1
 
+  # HTML lang attribute
+  language: en-US
+
+  # HTML dir attribute
+  direction: <empty>
+
+  # <body> class name attribute (for app/page specific styling)
+  class: <empty>
+
   # Default publish date. Usually set in front matter only
   pubDate: null
 
@@ -139,7 +148,7 @@ meta:
   robots: index, follow
 
   # For absolute URLs in sitempa, RSS, and OG metadata (default: empty)
-  origin:
+  origin: <empty>
 
 
 # Metadata overrides in production builds
@@ -150,19 +159,7 @@ production:
 
   # If you have something different on localhost
   title_template: "%s / Acme Inc"
-
-
-# Global asset loading settings on root level. Can be overridden
-
-# Exclude files by name or pattern (fuzzy matching)
-exclude: [ui/, syntax.css]
-
-# Force include specific files despite exclusions
-include: [ui/apps.css]
 ```
-
-See [page dependencies](page-dependencies) for include/exclude details.
-
 
 ### Aliases
 Nue recognizes common metadata aliases:
@@ -170,7 +167,6 @@ Nue recognizes common metadata aliases:
 - `desc` → `description`
 - `og` → `og_image`
 - `date` → `pubDate`
-
 
 
 ### App-level overrides (`app.yaml`)
@@ -200,14 +196,6 @@ collections:
     include: [featured/]
     skip: [ todo ]
     sort: date desc
-
-# Asset loading overrides: replaces site settings for this app
-
-# Force include specific files
-include: [blog-specific.css]
-
-# Exclude unwanted files
-exclude: [admin-ui.css]
 ```
 
 ### SVG processing (`app.yaml`)
@@ -243,9 +231,6 @@ og_image: /img/page-specific.png
 
 # Content settings using flat syntax (overrides site.content and app.content)
 sections: [hero, features]
-
-# Asset loading overrides
-include: [special.css]
 ---
 ```
 

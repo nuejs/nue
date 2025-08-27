@@ -28,7 +28,7 @@ test('renderPage', async () => {
     async parse() { return {} },
   }
 
-  const html = await renderPage({ asset, content })
+  const html = await renderPage({ conf: {}, asset, content })
   expect(html).toInclude('/@nue/hmr.js')
 })
 
@@ -38,6 +38,8 @@ test('renderMD', async () => {
   const content = '<h1>Hello</h1>'
 
   const asset = {
+    async config() { return {} },
+
     async data() {
       return { language: 'fi', scope: 'body' }
     },
@@ -64,9 +66,11 @@ test('renderMD', async () => {
   expect(html).toInclude(content)
 })
 
+
 test('renderHTML', async () => {
   const asset = {
     async data() {return {} },
+    async config() { return {} },
     async assets() { return [] },
 
     async parse() {
@@ -90,6 +94,7 @@ test('renderDHTML', async () => {
   const asset = {
     async data() { return {} },
     async assets() { return [] },
+    async config() { return {} },
     async components() { return [] },
 
     async parse() {

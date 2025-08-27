@@ -5,7 +5,7 @@ import { elem } from 'nuemark'
 import { version } from '../system'
 import { minifyCSS } from '../tools/css'
 
-export async function renderHead(data, assets, libs=[]) {
+export async function renderHead({ conf, data, assets, libs=[] }) {
   const { title } = data
   const head = []
 
@@ -19,9 +19,9 @@ export async function renderHead(data, assets, libs=[]) {
 
   // system scripts
   const addJS = name => assets.push(parse(`@nue/${name}.js`))
-  if (data.site?.view_transitions) addJS('transitions')
+  if (conf.site?.view_transitions) addJS('transitions')
   if (libs.length) addJS('mount')
-  if (!data.is_prod) addJS('hmr')
+  if (!conf.is_prod) addJS('hmr')
 
 
   // all scripts
@@ -29,7 +29,7 @@ export async function renderHead(data, assets, libs=[]) {
 
   if (scripts.length || libs.length) {
     head.push(...scripts)
-    head.push(importMap(data.import_map))
+    head.push(importMap(conf.import_map))
   }
 
   return head

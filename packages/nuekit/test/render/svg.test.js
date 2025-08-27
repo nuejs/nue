@@ -38,6 +38,7 @@ test('renderHMR', async () => {
   const asset = {
     async data() { return {} },
     async components() { return [] },
+    async config() { return {} },
 
     base: 'test.svg',
 

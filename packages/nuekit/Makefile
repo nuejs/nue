@@ -1,3 +1,3 @@
 
 tests:
-	cd test && bun test collect
+	cd test && bun test # config.test

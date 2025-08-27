@@ -11,11 +11,15 @@ import { renderMD, renderHTML } from './render/page'
 import { getCollections } from './collections'
 import { listDependencies } from './deps'
 
-export function createAsset(file, files=[], is_prod) {
-  let cachedAST = null
+
+// configuration properties (separate from )
+const CONF = 'collections content design exclude import_map include port production server site svg'.split(' ')
+
+export function createAsset(file, files=[], is_prod=false) {
+  let cachedObj = null
 
   function flush() {
-    cachedAST = null
+    cachedObj = null
     file.flush()
   }
 
@@ -24,43 +28,66 @@ export function createAsset(file, files=[], is_prod) {
     return arr.map(file => createAsset(file, files))
   }
 
-  function getDeps(exclude, central) {
+  function getDeps({ include, exclude, design }) {
     const paths = files.map(f => f.path)
-    const deps = listDependencies(file.path, { paths, exclude, central })
+    const deps = listDependencies(file.path, { paths, include, exclude, central: design?.central })
     return toAssets(deps)
   }
 
   async function collections(opts) {
     if (!opts) return
-    const paths = files.filter(f => f.is_md).map(f => f.path)
-    return await getCollections(toAssets(paths), opts)
+    const md_paths = files.filter(f => f.is_md).map(f => f.path)
+    return await getCollections(toAssets(md_paths), opts)
+  }
+
+  async function config() {
+    const ret = { is_prod }
+    const conf_files = getDeps({}).filter(f => f.is_yaml && ['site', 'app'].includes(f.name))
+
+    for (const asset of conf_files) {
+      const data = await asset.parse()
+      const is_site = asset.name == 'site'
+
+
+      Object.entries(data).forEach(([key, val]) => {
+        if (CONF.includes(key)) {
+          if (is_site) ret[key] = structuredClone(val)
+          else mergeAppConfig(ret, key, val)
+        }
+      })
+    }
+    return ret
   }
 
   async function data() {
-    const yaml = getDeps().filter(f => f.is_yaml)
-    const data = { is_prod }
+    const ret = { is_prod }
 
-    for (const file of yaml) {
-      Object.assign(data, parseYAML(await file.text()))
+    for (const asset of getDeps({}).filter(f => f.is_yaml)) {
+      const data = await asset.parse()
+
+      Object.entries(data).forEach(([key, val]) => {
+        if (key == 'meta') return Object.assign(ret, val)
+        if (!CONF.includes(key)) ret[key] = val
+      })
     }
 
     // content collections
-    Object.assign(data, await collections(data.collections))
+    const conf = await config()
+    Object.assign(ret, await collections(conf.collections))
 
-    return data
+    return ret
   }
 
   async function assets() {
-    const { exclude, design } = await data()
-    return getDeps(exclude, design?.central)
+    return getDeps(await config())
   }
 
   async function parse() {
-    if (!cachedAST) {
+    if (!cachedObj) {
       const str = await file.text()
-      cachedAST = file.is_md ? parseNuemark(str) : parseNue(str)
+      cachedObj = file.is_yaml ? parseYAML(str) : file.is_md ? parseNuemark(str) : parseNue(str)
     }
-    return cachedAST
+    return cachedObj
   }
 
   async function toExt() {
@@ -105,7 +132,7 @@ export function createAsset(file, files=[], is_prod) {
     const asset = createAsset(file, files)
 
     if (file.is_svg) {
-      const { svg } = await data()
+      const { svg } = await config()
       if (svg?.process) return await renderSVG(asset, { fonts: svg.fonts, ...params })
     }
 
@@ -116,7 +143,7 @@ export function createAsset(file, files=[], is_prod) {
       : null
   }
 
-  return { ...file, flush, data, assets, parse, components, toExt, contentType, render }
+  return { ...file, flush, config, data, assets, parse, components, toExt, contentType, render }
 }
 
 
@@ -131,4 +158,24 @@ export async function compileJS(path, minify, bundle) {
   const [ js ] = result.outputs
   return await js.text()
 }
+
+// CONF keys only
+export function mergeAppConfig(conf, key, val) {
+
+  // site level only
+  if ('site design server production port'.split(' ').includes(key)) return
+
+  // extend collections
+  if (key == 'collections') return conf[key] = { ...conf.collections, ...val }
+
+
+  // merge meta / content
+  if (['meta', 'content'].includes(key) && typeof val == 'object') {
+    return conf[key] = { ...conf[key], ...val }
+  }
+
+  // override
+  return conf[key] = val
+}
+
 

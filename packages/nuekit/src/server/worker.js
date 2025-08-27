@@ -6,7 +6,7 @@ import { createDB } from './db.js'
 import { createKV } from './kv.js'
 
 async function importServer({ dir, reload }) {
-  const path = join(dir, 'index') + (reload ? '?t=' + Date.now() : '')
+  const path = join(dir, 'index.js') + (reload ? '?t=' + Date.now() : '')
 
   try {
     const server = await import(join(process.cwd(), path))

@@ -57,16 +57,21 @@ test('title_template', async () => {
 })
 
 test('renderHead', async () => {
-  const data = {
-    title: 'Hello',
-    version: '1.0',
+  const conf = {
     import_map: { d3: 'd3.js' }
   }
 
-  const head = await renderHead(data, [
+  const data = {
+    title: 'Hello',
+    version: '1.0',
+  }
+
+  const assets = [
     { ext: '.css', path: 'foo.css' },
     { ext: '.js', dir: 'blog', name: 'bar' },
-  ])
+  ]
+
+  const head = await renderHead({ conf, data, assets })
 
   expect(head.length).toBeGreaterThan(7)
 

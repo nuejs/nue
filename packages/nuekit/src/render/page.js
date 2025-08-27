@@ -4,10 +4,10 @@ import { renderNue, compileNue } from 'nuedom'
 import { elem, renderInline as markdown } from 'nuemark'
 
 
-export function renderSlots({ head=[], content='', comps=[], data={} }) {
+export function renderSlots({ head=[], content='', comps=[], data={}, conf={} }) {
   const attr = getAttr(data)
   const { scope } = data
-  const { max_class_names } = data.design || {}
+  const { max_class_names } = conf.design || {}
 
   function slot(name) {
     if (data[name] === false) return ''
@@ -58,16 +58,15 @@ export function renderSlots({ head=[], content='', comps=[], data={} }) {
 
 
 // used by renderMD and renderHTML
-export async function renderPage({ asset, content, comps, data={} }) {
+export async function renderPage({ asset, content, comps, data={}, conf }) {
   const { is_dhtml, doctype } = await asset.parse()
   const assets = await asset.assets()
   const libs = await getLibPaths(assets)
 
   if (is_dhtml) libs.unshift(asset.path)
-  if (doctype?.includes('standalone')) data.scope = 'body'
 
-  const head = await renderHead(data, assets, libs)
-  return renderSlots({ head, content, comps, data })
+  const head = await renderHead({ conf, data, assets, libs })
+  return renderSlots({ head, content, comps, data, conf })
 }
 
 
@@ -77,13 +76,18 @@ export async function renderMD(asset) {
   const comps = await asset.components()
 
   // data
+  const conf = await asset.config()
   const data = await asset.data()
-  const { sections, heading_ids } = data
+
+  // content conf
+  const heading_ids = meta?.heading_ids || conf.content?.heading_ids
+  const sections = meta?.sections || conf.content?.sections
+
   Object.assign(data, meta, { headings }, fileMeta(asset))
 
   const content = doc.render({ data, sections, heading_ids, tags: convertToTags(comps, data) })
 
-  return await renderPage({ content, comps, data, asset })
+  return await renderPage({ content, comps, data, asset, conf })
 }
 
 // <!html>
@@ -102,21 +106,23 @@ export async function renderHTML(asset) {
   Object.assign(data, meta, fileMeta(asset))
 
   // root
-  const root = createWrapper(lib, data)
+  const conf = await asset.config()
+  const root = createWrapper(lib, conf.content?.sections)
   data.scope = root.tag
 
   // content
   const comps = await asset.components()
-  const { max_class_names } = data.design || {}
+
+  const { max_class_names } = conf.design || {}
   const content = renderNue(root, { data, deps: comps, max_class_names })
 
   // page
-  return await renderPage({ content, comps, data, asset })
+  return await renderPage({ content, comps, data, asset, conf })
 }
 
-function createWrapper(lib, { sections }) {
+function createWrapper(lib, use_sections) {
   if (lib.length == 1) return lib[0]
-  const wrap = { tag: sections ? 'section' : 'article', children: lib }
+  const wrap = { tag: use_sections ? 'section' : 'article', children: lib }
 
   // hoist child scripts into parent
   const script = []
@@ -135,7 +141,8 @@ export async function renderDHTML(asset) {
   const doc = await asset.parse()
   const comps = await asset.components('html')
   const data = await asset.data()
-  const root = createWrapper(doc.lib, data)
+  const conf = await asset.config()
+  const root = createWrapper(doc.lib, conf.content?.sections)
 
   // force component name
   if (!root.is_custom && !root.is) root.is = 'default-app'
@@ -145,9 +152,9 @@ export async function renderDHTML(asset) {
   data.scope = root.tag
 
   // "state" to importmap (if <body>)
-  const map = data.import_map ??= {}
+  const map = conf.import_map ??= {}
   map.state = '/@nue/state.js'
-  const html = await renderPage({ asset, content, comps, data })
+  const html = await renderPage({ asset, content, comps, data, conf })
 
   return { html, js: compileNue({ ...doc, lib: [ root ]} ) }
 }

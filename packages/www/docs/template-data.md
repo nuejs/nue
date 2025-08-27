@@ -85,6 +85,7 @@ Collections defined in [configuration](configuration) become processed arrays. E
 ```
 
 #### Generated properties
+- `is_prod` - `true` when site is built for production
 - `url` - Complete URL path generated from file path and name
 - `dir` - Directory path where the file is located
 - `slug` - Filename without extension, used for URL-friendly identifiers
@@ -118,6 +119,9 @@ Here's what a typical template context looks like as JSON:
 
 ```javascript
 {
+  // production flag
+  is_prod: false,
+
   // Flattened metadata (from meta namespace)
   "title": "My Site",
   "description": "Standards-first web framework",

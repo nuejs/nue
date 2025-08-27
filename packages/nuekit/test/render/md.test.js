@@ -1,20 +1,6 @@
 
 import { createAsset } from '../../src/asset'
 
-test('data', async () => {
-
-  const files = [
-    { is_yaml: true, path: 'site.yaml', async text() { return 'site: true' } },
-    { is_yaml: true, path: 'blog/app.yaml', async text() { return 'app: true' } },
-    { is_yaml: true, path: 'blog/entry/page.yaml', async text() { return 'page: true' } },
-    { is_yaml: true, path: 'docs/app.yaml', async text() { return 'docs: true' } },
-  ]
-
-  const asset = createAsset({ path: 'blog/entry/index.md' }, files)
-  const data = await asset.data()
-  expect(data).toEqual({ site: true, app: true, page: true })
-})
-
 
 test('MD: page assets', async () => {
 

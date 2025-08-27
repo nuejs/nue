@@ -5,22 +5,18 @@ import { createAsset } from '../src/asset'
 // Mock page objects
 const pages = [
   {
-    is_md: true,
     path: 'blog/post1.md',
     parse: async () => ({ meta: { title: 'First Post', date: '2024-01-01', draft: false } })
   },
   {
-    is_md: true,
     path: 'blog/post2.md',
     parse: async () => ({ meta: { title: 'Second Post', date: '2024-01-02' } })
   },
   {
-    is_md: true,
     path: 'blog/draft.md',
     parse: async () => ({ meta: { title: 'Draft Post', draft: true } })
   },
   {
-    is_md: true,
     path: 'docs/guide.md',
     parse: async () => ({ meta: { title: 'Guide', order: 1 } })
   }
@@ -77,7 +73,7 @@ test('rendering', async () => {
 
   const files = [
     { is_md: true, path: 'blog/index.md', async text() { return '# Hello' } },
-    { is_yaml: true, path: 'blog/app.yaml', async text() { return conf }},
+    { is_yaml: true, name: 'app', path: 'blog/app.yaml', async text() { return conf }},
     { is_html: true, path: '@system/layout/pagefoot.html', async text() { return pagefoot } },
   ]
 

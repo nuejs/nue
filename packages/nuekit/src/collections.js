@@ -1,4 +1,5 @@
 
+// assumes is_md
 export async function getCollections(pages, opts) {
   const collections = {}
 
@@ -18,7 +19,7 @@ function matchPages(pages, patterns) {
 
   for (const pattern of patterns) {
     for (const page of pages) {
-      if (page.is_md && page.path.includes(pattern)) ret.push(page)
+      if (page.path.includes(pattern)) ret.push(page)
     }
   }
 

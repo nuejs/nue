@@ -51,13 +51,13 @@ export async function onServe(url, assets, params) {
 
 export async function serve(assets, args) {
   const { root, ignore, silent } = args
-  const opts = await readSiteYAML(root)
+  const conf = await readSiteYAML(root)
 
   // user server
-  const handler = await getServer(opts?.server)
+  const handler = await getServer(conf?.server)
 
   // dev server
-  const port = args.port || opts.port
+  const port = args.port || conf.port
   const server = createServer({ port, handler }, (url, params) => onServe(url, assets, params))
 
   const watcher = fswatch(root, { ignore })
