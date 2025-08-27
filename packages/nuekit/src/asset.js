@@ -13,7 +13,7 @@ import { listDependencies } from './deps'
 
 
 // configuration properties (separate from )
-const CONF = 'collections content design exclude import_map include port production server site svg'.split(' ')
+const CONF = 'collections content design exclude import_map include port server site svg'.split(' ')
 
 export function createAsset(file, files=[], is_prod=false) {
   let cachedObj = null
@@ -48,7 +48,6 @@ export function createAsset(file, files=[], is_prod=false) {
       const data = await asset.parse()
       const is_site = asset.name == 'site'
 
-
       Object.entries(data).forEach(([key, val]) => {
         if (CONF.includes(key)) {
           if (is_site) ret[key] = structuredClone(val)
@@ -69,11 +68,19 @@ export function createAsset(file, files=[], is_prod=false) {
         if (key == 'meta') return Object.assign(ret, val)
         if (!CONF.includes(key)) ret[key] = val
       })
+
+      // production override
+      if (is_prod && asset.path == 'site.yaml') {
+        Object.assign(ret, data.production)
+      }
     }
 
     // content collections
     const conf = await config()
     Object.assign(ret, await collections(conf.collections))
+
+    // delete production node
+    delete ret.production
 
     return ret
   }

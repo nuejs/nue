@@ -5,7 +5,7 @@
 While Next.js applications can [grow to 1.4GB](/docs/migration) with hundreds of dependencies, Nuekit delivers the complete development experience in a single executable. Content sites, single-page applications, design systems, server routes, and database integration. No configuration theater, no dependency management, no framework updates that break everything.
 
 [complex image showing transformation from bloated Next.js to minimal Nue structure]
-
+  sitemap/rss/collections
 
 ## Rapid application assembly
 Nuekit separates applications into structure and system layers. Applications contain only HTML and Markdown - the skeletal framework of your interface. The system layer handles design, behavior, data, and business logic. This separation enables assembly-line development where you combine semantic markup with prepared components.

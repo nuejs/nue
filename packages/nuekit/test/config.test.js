@@ -35,7 +35,7 @@ test('simple override', () => {
 test('data', async () => {
 
   const files = [
-    { path: 'site.yaml', text: 'port: 5000\nsitename: Acme' },
+    { path: 'site.yaml', text: 'port: 5000\nsitename: Acme\nproduction:\n  origin:  acme.org' },
     { path: 'team.yaml', text: 'team: [ jane, john ]' },
     { path: 'blog/app.yaml', text: 'port: 3000\ninclude: [ syntax ]\nmeta:\n title: Acme' },
     { path: 'blog/entry/data.yaml', text: 'size: 1000' },
@@ -46,21 +46,22 @@ test('data', async () => {
     return { ...getFileInfo(file.path), text: async function() { return text } }
   })
 
-  const asset = createAsset({ path: 'blog/entry/index.md' }, files)
+  const asset = createAsset({ path: 'blog/entry/index.md' }, files, true)
 
 
   expect(await asset.data()).toEqual({
     team: [ "jane", "john" ],
+    origin: 'acme.org',
     sitename: "Acme",
-    is_prod: false,
+    is_prod: true,
     title: "Acme",
     size: 1000,
   })
 
   expect(await asset.config()).toEqual({
-    is_prod: false,
-    port: 5000,
     include: [ "syntax" ],
+    is_prod: true,
+    port: 5000,
   })
 
 })
