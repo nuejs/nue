@@ -42,7 +42,7 @@ test('lib.html', async () => {
 })
 
 
-test.only('dhtml', async () => {
+test('dhtml', async () => {
   const lib = createAsset({
     async text() { return '<!dhtml lib> <comp>Again</comp>' },
     path: 'lib.html',
@@ -59,7 +59,7 @@ test.only('dhtml', async () => {
 
   expect(html).toInclude('<meta name="libs" content="index.html lib.html">')
   expect(html).toInclude('<article nue="default-app"></article>')
-  // expect(html).toInclude('"state":"/@nue/state.js"')
+  expect(html).toInclude('"state":"/@nue/state.js"')
   expect(js).toInclude(`export const lib = [ { tag: 'article'`)
   expect(js).toInclude("is: 'default-app'")
 

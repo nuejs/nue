@@ -66,8 +66,6 @@ Create interactive components for client-side use:
 ```
 <!dhtml lib>
 
-<!doctype dhtml lib>
-
 <script>
   import { postMember } from 'app'
 </script>
@@ -160,13 +158,16 @@ When `<!...>` declaration is missing, Nue automatically detects the type:
 ```
 
 ### Library when:
-- Contains custom elements (hyphenated tag names)
-- No semantic root element
+Nue auto-detects librariws when all elements are custom
 
 ```
 <my-component>
-  <h3>Component content</h3>
+  <h3>Custom component</h3>
 </my-component>
+
+<figure :is="media">
+  <h3>Custom component via :is attribute</h3>
+</figure>
 ```
 
 At minimum you should declare at least <!dhtml> for robustness and clarity.
@@ -175,8 +176,7 @@ At minimum you should declare at least <!dhtml> for robustness and clarity.
 ## Library best practices
 
 - Layout libraries in root-level `layout.html` or `@system/layout/`
-- Shared, dynamic UI libraries in `@system/ui`
+- Shared, dynamic UI libraries in `@system/ui
 - SPA-specific libraries in `app/ui`, `admin/ui` etc..
 - `<!html+dhtml>` is rarely needed
-
 

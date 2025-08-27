@@ -22,9 +22,6 @@ export function parseNue(template) {
     if (el.doctype) {
       page.doctype = el.doctype
 
-    } else if (el.xml) {
-      page.standalone = el.standalone
-
     } else if (el.tag) {
       if (isScript(el)) {
         script.push(el.children[0].text.trim())
@@ -48,7 +45,13 @@ export function parseNue(template) {
 
   // root
   page.root = lib[0]
-  page.is_dhtml = page.doctype?.includes('dhtml')
+
+  // all custom elements
+  const type = page.doctype || ''
+  page.all_custom = lib.every(ast => ast.is_custom || ast.is)
+  page.is_lib = type.endsWith('lib')
+
+  page.is_dhtml = type.includes('dhtml')
     || lib.some(ast => ast.handlers?.length > 0)
     || page.script?.includes('import ')
 
@@ -97,7 +100,7 @@ function parseBlock(tokens, i) {
   }
 
   if (low.startsWith('<?xml')) {
-    const node = { xml: true, standalone: !low.includes('standalone="no"') }
+    const node = { xml: true }
     return { node, next: i++ }
   }
 

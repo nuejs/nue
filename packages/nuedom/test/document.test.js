@@ -1,11 +1,17 @@
 
 import { parseNue, parseNames } from '../src/compiler/document.js'
 
-test('minimal', () => {
-  const { doctype, root } = parseNue('<!html+dhtml lib> <foo/>')
-  expect(root.tag).toEqual('foo')
-  expect(doctype).toBe('html+dhtml lib')
+test('doctype & root', () => {
+  const doc = parseNue('<!dhtml> <app/> <section :is="mod"/>')
+
+  expect(doc).toMatchObject({
+    root: { tag: "app", is_custom: true },
+    all_custom: true,
+    doctype: "dhtml",
+    is_dhtml: true,
+  })
 })
+
 
 test('imports', () => {
   const page = parseNue(`
@@ -36,19 +42,17 @@ test('meta', () => {
 
 test('svg document', () => {
   const page = parseNue(`
-    <?xml version="1.0" standalone="no"?>
+    <?xml version="1.0">
 
     <!--
       @use [foo, bar]
     -->
     <svg></svg>
   `)
-  expect(page.standalone).toBeFalse()
   expect(page.lib[0]).toMatchObject({
     meta: { use: "[foo, bar]" },
     svg: true,
   })
-
 })
 
 

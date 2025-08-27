@@ -122,13 +122,14 @@ export function createAsset(file, files=[], is_prod=false) {
     const ret = []
 
     for (const asset of (await assets()).filter(el => el.is_html)) {
-      const { doctype, lib } = await asset.parse()
+      const ast = await asset.parse()
+      const { doctype } = ast
 
-      if (doctype?.endsWith('lib')) {
-        const same_type = is_dhtml == doctype.startsWith('dhtml')
+      if (ast.is_lib) {
+        const same_type = is_dhtml == ast.is_dhtml
         const isomorphic = doctype.startsWith('html+dhtml')
         const forced = doctype.startsWith(force_type)
-        if (isomorphic || same_type || forced) ret.push(...lib)
+        if (isomorphic || same_type || forced) ret.push(...ast.lib)
       }
     }
 

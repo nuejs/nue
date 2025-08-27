@@ -92,22 +92,22 @@ export async function renderMD(asset) {
 
 // <!html>
 export async function renderHTML(asset) {
-  const doc = await asset.parse()
-  const { doctype, is_dhtml, lib, meta } = doc
+  const ast = await asset.parse()
+  const { is_dhtml } = ast
 
   // library --> skip
-  if (doctype?.includes('lib')) return is_dhtml ? compileNue(doc) : null
+  if (ast.is_lib) return is_dhtml ? compileNue(ast) : null
 
   // !dhtml -> renderDHTML
-  if (doctype == 'dhtml') return await renderDHTML(asset)
+  if (is_dhtml) return await renderDHTML(asset)
 
   // data
   const data = await asset.data()
-  Object.assign(data, meta, fileMeta(asset))
+  Object.assign(data, ast.meta, fileMeta(asset))
 
   // root
   const conf = await asset.config()
-  const root = createWrapper(lib, conf.content?.sections)
+  const root = createWrapper(ast.lib, conf.content?.sections)
   data.scope = root.tag
 
   // content
