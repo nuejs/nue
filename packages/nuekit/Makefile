@@ -1,3 +1,3 @@
 
 tests:
-	cd test && bun test page
+	cd test && bun test serve.test

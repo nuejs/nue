@@ -1,82 +1,48 @@
 
 # Configuration
-Nue configuration lives in `site.yaml` at your project root.
+Nue uses a three-tier configuration system. Site-wide settings in `site.yaml` provide defaults, app-level `app.yaml` files customize sections, and page front matter gives final control. The settings cascade: deeper level settings override parent settings.
 
 
-## Dev server
-Configure the local development environment port:
+## Configuration levels
+
+### Site-wide settings (`site.yaml`)
+Global configuration that affects the entire build:
 
 ```yaml
 # Development server port (default: 4000)
+# Override in command line: nue --port 9090
 port: 8080
-```
 
-Override the port from command line:
-```bash
-nue --port 9090
-```
-
-## Site settings
-Global site behavior:
-
-```yaml
+# Global site behavior. Cannot be overridden
 site:
   # Enable view transitions between pages (default: false)
   view_transitions: true
 
-  # generate sitemap.xml
+  # Generate sitemap.xml automatically for SEO
   sitemap: true
 
-  # skip certain files/directories from processing
-  skip: [ test/, @plans/ ]
-```
+  # Skip files/directories from processing
+  # Appends to:
+  #  node_modules package.json lock.yaml README.md Makefile .toml .rs .lock .lockb
+  skip: [test/, @plans/]
 
-These files and directories are already skipped by default: node_modules .toml .rs .lock package.json .lockb lock.yaml README.md Makefile
+# Design system settings. Cannot be overridden.
+design:
 
+  # Enforce central design system (default: false)
+  central: true
 
-## Content processing
-Control how Markdown content is processed:
+  # Base stylesheet loaded first
+  base: base.css
 
-```yaml
-content:
-  # Add IDs to headings for linking (default: false)
-  heading_ids: false
+  # Limit class names per element (prevent utility abuse)
+  max_class_names: 3
 
-  # Auto-wrap content in sections (default: false)
-  sections: true
-
-  # Assign class names to auto-generated sections
-  sections: [hero, features, testimonials]
-
-  # Wrap section content with inner div for layout control
-  section_wrapper: wrap
-```
-
-See [Nuemark syntax](nuemark-syntax) for details on sections.
+  # Inline all CSS in production builds
+  inline_css: true
 
 
-## Import map
-
-Extend the client-side import map with custom modules:
-
-```yaml
-import_map:
-  app: /@system/app/index.js
-  d3: /lib/d3.js
-```
-
-This lets you import modules by name instead of path:
-
-```javascript
-import { login } from 'app'
-import * as d3 from 'd3'
-```
-
-
-# Server configuration
-Custom server/backend configuration options:
-
-```yaml
+# Server infrastructure - cannot be overridden
 server:
   # Server code directory (default: @system/server)
   dir: @system/server
@@ -87,128 +53,109 @@ server:
   # Key-value store data file (relative to server dir)
   kv: db/kv.json
 
-  # Auto-reload server on changes (default: true)
+  # Auto-reload server on changes during development
   reload: true
-```
-
-See [Server development](/docs/server-development) for usage, [Edge first](/docs/edge-first) for the concept. The files under server dir are automatically skipped from normal Nue processing.
 
 
-## Content collections
-Define content collections for blogs, documentation, or any grouped content:
-
-```yaml
+# Site-wide collections. Can be extended at app level
 collections:
 
-  # Collection name becomes variable
+  # Collection name becomes variable for .html templates
   blog:
     # Files to include (glob patterns: * = any, ** = any depth)
     match: [posts/*.md]
 
-    # Sort by front matter field
+    # Sort by front matter field and direction
     sort: date desc
 
-  docs:
-    match: [docs/**/*.md]
-    sort: order asc
+    # Generate RSS feed
+    rss: true
 
   team:
     match: [team/*.md]
     sort: name asc
-```
 
-Collections become accessible in templates:
-
-```html
-<article :each="post in blog">
-  <h2>{ post.title }</h2>
-  <time>{ post.date }</time>
-</article>
-```
+# Client-side import-map. Can be overridden at app level.
+import_map:
+  app: /@system/app/index.js
+  d3: /lib/d3.js
 
 
-### Sort options
-- Any front matter field (`date`, `title`, `order`, etc.)
-- Direction: `asc` or `desc`
+# Content processing defaults. Can be overridden
+content:
+  # Add IDs to headings for linking (default: false)
+  heading_ids: true
+
+  # Auto-wrap content in sections (default: false)
+  sections: true
+
+  # Assign class names to auto-generated sections
+  sections: [hero, features, testimonials]
+
+  # Wrap section content with inner div for layout control (default: null)
+  section_wrapper: wrap
 
 
-## Design
-Design system configuration options
-
-```yaml
-design:
-  # Enforce central design system (default: false)
-  central: true
-
-  # Base stylesheet loaded first
-  base: base.css
-
-  # Limit class names per element (prevent utility class abuse)
-  max_class_names: 3
-
-  # inline all css in production build
-  inline_css: true
-```
-
-See [Design systems](design-systems) for philosophy and [CSS development](css-development) for usage.
-
-## SVG processing
-Generate dynamic SVGs with Nue templates. Configure per directory via `app.yaml`:
-
-```yaml
-# svg/app.yaml
-svg:
-  # Process .svg files as Nue templates (default: false)
-  process: true
-
-  # Embed fonts directly in SVG output
-  fonts:
-    Inter: @system/design/inter.woff2
-    Mono: @system/design/mono.woff2
-```
-
-When enabled, `.svg` files can use Nue syntax for dynamic graphics. See [SVG development](/docs/svg-development) for usage.
-
-
-## Metadata
-Configure HTML meta tags and SEO:
-
-```yaml
+# Default metadata for all pages. Can be overridden
 meta:
-  # Page title
+  # Default page title
   title: The UNIX of the web
 
-  # Meta description
+  # Title template for non-home pages (%s replaced with title)
+  title_template: "%s / Acme Inc (DEV)"
+
+  # Default meta description
   description: Standards-first web framework
 
   # Favicon path
   favicon: /img/logo.svg
 
-  # Title template for non-home pages
-  # %s is replaced with page title
-  title_template: "%s / Acme Inc"
+  # Open Graph image for social media previews
+  og_image: /img/social.png
 
-  # Open Graph image (social media previews)
-  og_image: /img/social-preview.png
-
-  # Origin for absolute URLs (production only)
+  # Site origin for absolute URLs (production only)
   origin: https://example.com
 
-  # Viewport settings (default shown)
+  # Viewport meta tag
   viewport: width=device-width,initial-scale=1
 
-  # Article publish date (for blog posts)
-  pubDate: 2024-01-15
+  # Default publish date. Usually set in front matter only
+  pubDate: null
 
   # Theme color for mobile browsers
   theme_color: "#0066cc"
 
-  # Author meta tag
+  # Default author
   author: Jane Doe
 
   # Search engine directives
   robots: index, follow
+
+  # For absolute URLs in sitempa, RSS, and OG metadata (default: empty)
+  origin:
+
+
+# Metadata overrides in production builds
+production:
+
+  # The must-have production override
+  origin: https://acme.com
+
+  # If you have something different on localhost
+  title_template: "%s / Acme Inc"
+
+
+# Global asset loading settings on root level. Can be overridden
+
+# Exclude files by name or pattern (fuzzy matching)
+exclude: [ui/, syntax.css]
+
+# Force include specific files despite exclusions
+include: [ui/apps.css]
 ```
+
+See [Asset loading](/docs/asset-loading) for include/exclude details.
+
 
 ### Aliases
 Nue recognizes common metadata aliases:
@@ -218,38 +165,80 @@ Nue recognizes common metadata aliases:
 - `date` → `pubDate`
 
 
-### Overrides
-Configuration follows a cascade: global settings in `site.yaml` can be overridden by app-level settings in subdirectories (like `blog/app.yaml`), which can be overridden by page-level front matter. All overrides happen with root-level property names:
 
-
-```yaml
- ---
- title: Custom Page Title
- description: Overrides global description
- og_image: /img/page-specific.png
- ---
-```
-
-Outside metadata, the following properties can be overriden with root level property name in both app-level and front matter:
-
-```
-# content.heading_ids in site.yaml
-heading_ids: true
-
-# content.sections in site.yaml
-sections: [ hero, features, manifesto ]
-```
-
-
-## Include and exclude
-Control which assets to load on pages:
+### App-level overrides (`app.yaml`)
+Directory-specific settings using nested namespaces. Can override site defaults or extend collections:
 
 ```yaml
-# Exclude files
-exclude: [ui/, syntax.css]
+# blog/app.yaml (for example)
 
-# Re-include eager exclude patterns
-include: [ui/apps.css]
+# Metadata overrides
+meta:
+  # Override site title for the blog
+  title: Blog Title
+
+  # Override site author
+  author: Blog Author
+
+# Content processing overrides
+content:
+  sections: false
+
+
+# Additional collections to site collections
+collections:
+
+  # Adds to existing site collections
+  featured:
+    match: [featured/*.md]
+    sort: date desc
+
+# Asset loading overrides: replaces site settings for this app
+
+# Force include specific files
+include: [blog-specific.css]
+
+# Exclude unwanted files
+exclude: [admin-ui.css]
 ```
 
-See [Asset loading](/docs/asset-loading) for details.
+### SVG processing (`app.yaml`)
+Enable [SVG development](/docs/svg-development) in specific directories. This is an application-only setting in `app.yaml`:
+
+```
+# visuals/app.yaml (for example)
+svg:
+  # Process .svg files as Nue templates
+  process: true
+
+  # Embed fonts directly in SVG output
+  fonts:
+    Inter: @system/design/inter.woff2
+```
+
+
+### Page-level overrides (.md file front matter)
+Individual page settings using flat properties. Highest priority, overrides both site and app settings:
+
+```yaml
+---
+# Metadata using flat syntax (overrides site.meta and app.meta)
+
+# Page-specific title
+title: Page Title
+
+# Page-specific description
+description: Page description
+
+# Page-specific social image
+og_image: /img/page-specific.png
+
+# Content settings using flat syntax (overrides site.content and app.content)
+sections: [hero, features]
+
+# Asset loading overrides
+include: [special.css]
+---
+```
+
+

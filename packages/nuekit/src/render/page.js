@@ -72,7 +72,8 @@ export async function renderPage({ asset, content, comps, data={} }) {
 
 
 export async function renderMD(asset) {
-  const { meta, headings, render } = await asset.parse()
+  const doc = await asset.parse()
+  const { meta, headings } = doc
   const comps = await asset.components()
 
   // data
@@ -80,7 +81,7 @@ export async function renderMD(asset) {
   const { sections, heading_ids } = data
   Object.assign(data, meta, { headings }, fileMeta(asset))
 
-  const content = render({ data, sections, heading_ids, tags: convertToTags(comps, data) })
+  const content = doc.render({ data, sections, heading_ids, tags: convertToTags(comps, data) })
 
   return await renderPage({ content, comps, data, asset })
 }

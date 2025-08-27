@@ -38,6 +38,7 @@ Reference
   Command line (CLI)
   ---
   HTML syntax
+  Template data
   Layout system
   State API
   Nuemark syntax
