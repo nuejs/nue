@@ -6,27 +6,29 @@ Nue uses a three-tier configuration system. Site-wide settings in `site.yaml` pr
 ## Configuration levels
 
 ### Site-wide settings (`site.yaml`)
-Global configuration that affects the entire build:
+Global configuration that affects the entire site:
 
 ```yaml
 # Development server port (default: 4000)
 # Override in command line: nue --port 9090
 port: 8080
 
-# Global site behavior. Cannot be overridden
+# Global site behavior (site.yaml only)
 site:
+
+  # Origin URL for sitemap.xml and RSS feed
+  origin: https://example.com
+
   # Enable view transitions between pages (default: false)
   view_transitions: true
-
-  # Generate sitemap.xml automatically for SEO
-  sitemap: true
 
   # Skip files/directories from processing
   # Appends to:
   #  node_modules package.json lock.yaml README.md Makefile .toml .rs .lock .lockb
   skip: [test/, @plans/]
 
-# Design system settings. Cannot be overridden.
+
+# Design system settings (site.yaml only)
 design:
 
   # Enforce central design system (default: false)
@@ -42,7 +44,7 @@ design:
   inline_css: true
 
 
-# Server infrastructure - cannot be overridden
+# Server infrastructure (site.yaml only)
 server:
   # Server code directory (default: @system/server)
   dir: @system/server
@@ -57,7 +59,7 @@ server:
   reload: true
 
 
-# Site-wide collections. Can be extended at app level
+# Site-wide collections (app.yaml can extend)
 collections:
 
   # Collection name becomes variable for .html templates
@@ -74,21 +76,41 @@ collections:
     # Sort by front matter field and direction
     sort: date desc
 
-    # Generate RSS feed
-    rss: true
-
   team:
     include: [team/]
     require: [ role, email ]
     sort: name asc
 
-# Client-side import-map. Can be overridden at app level.
+
+# Sitemap generation (site.yaml only)
+sitemap:
+  # Generate sitemap.xml for search engines (default: false)
+  enabled: true
+
+  # Skip pages with these front matter fields
+  skip: [draft, private]
+
+
+# RSS feed generation (site.yaml only)
+rss:
+  # Generate /feed.xml with auto-discovery link tag (default: false)
+  enabled: true
+
+  # Use this collection for feed content
+  collection: blog
+
+  # Feed metadata displayed in RSS readers
+  title: Acme developer blog
+  description: Latest news on web technologies
+
+
+# Client-side import-map. (app.yaml can override)
 import_map:
   app: /@system/app/index.js
   d3: /lib/d3.js
 
 
-# Content processing defaults. Can be overridden
+# Content processing defaults. (app.yaml can override)
 content:
   # Add IDs to headings for linking (default: false)
   heading_ids: true
@@ -103,7 +125,7 @@ content:
   section_wrapper: wrap
 
 
-# Default metadata for all pages. Can be overridden
+# Default metadata for all pages. (app.yaml and front matter can override)
 meta:
   # Default page title
   title: The UNIX of the web
@@ -119,9 +141,6 @@ meta:
 
   # Open Graph image for social media previews
   og_image: /img/social.png
-
-  # Site origin for absolute URLs (production only)
-  origin: https://example.com
 
   # Viewport meta tag
   viewport: width=device-width,initial-scale=1
@@ -147,19 +166,19 @@ meta:
   # Search engine directives
   robots: index, follow
 
-  # For absolute URLs in sitempa, RSS, and OG metadata (default: empty)
-  origin: <empty>
 
-
-# Metadata overrides in production builds
+# Production overrides for metadata and template data
 production:
 
-  # The must-have production override
-  origin: https://acme.com
-
-  # If you have something different on localhost
+  # metadata override
   title_template: "%s / Acme Inc"
+
+  # any value becomes template data
+  analytics_id: GA-PROD-789012
 ```
+
+See [template data](template-data) for details.
+
 
 ### Aliases
 Nue recognizes common metadata aliases:
@@ -198,20 +217,6 @@ collections:
     sort: date desc
 ```
 
-### SVG processing (`app.yaml`)
-Enable [SVG development](/docs/svg-development) in specific directories. This is an application-only setting in `app.yaml`:
-
-```
-# visuals/app.yaml (for example)
-svg:
-  # Process .svg files as Nue templates
-  process: true
-
-  # Embed fonts directly in SVG output
-  fonts:
-    Inter: @system/design/inter.woff2
-```
-
 
 ### Page-level overrides (.md file front matter)
 Individual page settings using flat properties. Highest priority, overrides both site and app settings:
@@ -234,4 +239,19 @@ sections: [hero, features]
 ---
 ```
 
+
+
+### SVG processing (`app.yaml`)
+Enable [SVG development](/docs/svg-development) in specific directories. This is an application-only setting in `app.yaml`:
+
+```
+# visuals/app.yaml (for example)
+svg:
+  # Process .svg files as Nue templates
+  process: true
+
+  # Embed fonts directly in SVG output
+  fonts:
+    Inter: @system/design/inter.woff2
+```
 

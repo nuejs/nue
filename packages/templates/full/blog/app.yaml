@@ -1,5 +1,0 @@
-
-collections:
-  blog:
-    match: [ blog/*.md ]
-    sort: date desc

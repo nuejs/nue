@@ -18,7 +18,7 @@ test('find app.html.js', () => {
 
 test('onServe /test', async () => {
   const page = { url: '/test', render() { return 'hey' } }
-  const result = await onServe('/test', [ page ])
+  const result = await onServe('/test', [ page ], {})
   expect(result.content).toBe('hey')
   expect(result.type).toInclude('text/html')
 })
@@ -36,7 +36,7 @@ test('onServe 404.html', async () => {
 })
 
 
-describe.skip('serve', async () => {
+describe.skip('old stuff', async () => {
 
   beforeEach(async () => {
     await writeAll([
@@ -52,14 +52,7 @@ describe.skip('serve', async () => {
   afterEach(async () => await removeAll())
 
 
-  test('onServe', async () => {
-    const { assets } = await readAssets(testDir)
-
-  })
-
-
-
-  test.skip('old stuff', async () => {
+  test('serve', async () => {
 
     // server
     const server = site.serve()

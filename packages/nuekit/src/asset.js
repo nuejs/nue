@@ -13,7 +13,7 @@ import { listDependencies } from './deps'
 
 
 // configuration properties (separate from )
-const CONF = 'collections content design exclude import_map include port server site svg'.split(' ')
+const CONF = 'collections content design exclude import_map include port server site sitemap svg'.split(' ')
 
 export function createAsset(file, files=[], is_prod=false) {
   let cachedObj = null

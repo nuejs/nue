@@ -1,11 +1,12 @@
 
 import { extname, join } from 'node:path'
 
+import { generateSitemap, generateFeed } from '../render/feed'
 import { createServer, broadcast } from '../tools/server'
 import { fswatch } from '../tools/fswatch'
 
 import { getSystemFiles } from '../system'
-import { readSiteYAML } from '../site'
+import { readSiteConf } from '../site'
 import { getServer } from '../server'
 
 const sysfiles = getSystemFiles()
@@ -18,7 +19,8 @@ export function findAssetByURL(url, assets=[]) {
 }
 
 // server requests
-export async function onServe(url, assets, params) {
+export async function onServe(url, assets, opts={}) {
+  const { params={}, conf={} } = opts
   const asset = findAssetByURL(url, assets)
   const ext = extname(url)
 
@@ -38,6 +40,18 @@ export async function onServe(url, assets, params) {
     if (spa) return (await spa.render()).html
   }
 
+  // sitemap.xml
+  if (url == '/sitemap.xml' && conf.sitemap?.enabled) {
+    const content = await generateSitemap(assets, conf)
+    return content ? { content, type: 'application/xml; charset=utf-8' } : null
+  }
+
+  // feed.xml
+  if (url == '/feed.xml' && conf.rss?.enabled) {
+    const content = await generateFeed(assets, conf)
+    return content ? { content, type: 'application/xml; charset=utf-8' } : null
+  }
+
   // custom error page
   if (!ext) {
     const err = assets.find(asset => asset.base == '404')
@@ -50,15 +64,16 @@ export async function onServe(url, assets, params) {
 }
 
 export async function serve(assets, args) {
-  const { root, ignore, silent } = args
-  const conf = await readSiteYAML(root)
+  const { root, ignore, silent, port } = args
+  const conf = await readSiteConf(root, { port })
 
   // user server
   const handler = await getServer(conf?.server)
 
   // dev server
-  const port = args.port || conf.port
-  const server = createServer({ port, handler }, (url, params) => onServe(url, assets, params))
+  const server = createServer({ port: conf.port, handler }, (url, params) =>
+    onServe(url, assets, { params, conf })
+  )
 
   const watcher = fswatch(root, { ignore })
 

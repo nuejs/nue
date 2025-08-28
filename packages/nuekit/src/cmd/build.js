@@ -3,10 +3,16 @@ import { mkdir, rmdir, writeFile, unlink } from 'node:fs/promises'
 import { join } from 'node:path'
 import { tmpdir } from 'os'
 
+import { generateSitemap, generateFeed } from '../render/feed'
 import { createSystemFiles } from '../system'
+import { readSiteConf } from '../site'
 
 export async function build(assets, args) {
-  const { paths=[], dryrun, silent } = args
+  const { root, paths=[], dryrun, silent } = args
+
+  // config
+  const conf = dryrun ? {} : await readSiteConf(root)
+  if (!conf) return console.error('Not a Nue directory')
 
   // subset
   const subset = paths.length ? assets.filter(el => matches(el.path, paths)) : assets
@@ -19,6 +25,18 @@ export async function build(assets, args) {
   // build subset
   const start = performance.now()
   await buildAll(subset, args)
+
+  // sitemap.xml
+  if (!paths.length && conf.sitemap?.enabled) {
+    const xml = await generateSitemap(assets, conf)
+    if (xml) await writeFile(join(root, '.dist', 'sitemap.xml'), xml)
+  }
+
+  // feed.xml
+  if (!paths.length && conf.rss?.enabled) {
+    const xml = await generateFeed(assets, conf)
+    if (xml) await writeFile(join(root, '.dist', 'feed.xml'), xml)
+  }
 
   // stats
   if (!silent) {
@@ -39,7 +57,6 @@ export async function buildAll(assets, args) {
 
   // .dist/@nue directory
   await createSystemFiles(dist, init)
-
 
   // build files
   assets = assets.filter(el => !el.is_yaml)

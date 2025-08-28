@@ -1,24 +1,26 @@
 
 // assumes is_md
-export async function getCollections(pages, opts) {
-  const collections = {}
+export async function getCollections(assets, opts) {
+  const arr = {}
 
   for (const [name, conf] of Object.entries(opts)) {
-    let matchedPages = matchPages(pages, conf.include)
-    let filteredPages = await filterPages(matchedPages, conf)
-    let sortedPages = sortPages(filteredPages, conf.sort)
-
-    collections[name] = sortedPages
+    arr[name] = await createCollection(assets, conf)
   }
 
-  return collections
+  return arr
 }
 
-function matchPages(pages, patterns) {
+export async function createCollection(assets, conf) {
+  let matchedPages = matchPages(assets, conf.include)
+  let filteredPages = await filterPages(matchedPages, conf)
+  return sortPages(filteredPages, conf.sort)
+}
+
+function matchPages(assets, patterns=[]) {
   const ret = []
 
   for (const pattern of patterns) {
-    for (const page of pages) {
+    for (const page of assets) {
       if (page.path.includes(pattern)) ret.push(page)
     }
   }
@@ -26,21 +28,18 @@ function matchPages(pages, patterns) {
   return ret
 }
 
-async function filterPages(pages, config) {
+async function filterPages(assets, conf) {
   const ret = []
 
-  for (const page of pages) {
+  for (const page of assets) {
     const { meta } = await page.parse()
 
-    if (config.require) {
-      const hasRequired = config.require.every(field => meta[field] != null)
-      if (!hasRequired) continue
-    }
+    // require?
+    if (conf.require && !conf.require.every(field => meta[field])) continue
 
-    if (config.skip) {
-      const shouldSkip = config.skip.some(field => meta[field])
-      if (shouldSkip) continue
-    }
+    // skip?
+    if (conf.skip?.some(field => meta[field])) continue
+
     const { url, dir, slug } = page
     ret.push({ ...meta, url, dir, slug })
   }
@@ -48,12 +47,12 @@ async function filterPages(pages, config) {
   return ret
 }
 
-function sortPages(pages, sorting) {
-  if (!sorting) return pages
+function sortPages(assets, sorting) {
+  if (!sorting) return assets
 
   const [field, direction = 'asc'] = sorting.split(' ')
 
-  return pages.toSorted((a, b) => {
+  return assets.toSorted((a, b) => {
     const aVal = a[field]
     const bVal = b[field]
     const result = aVal < bVal ? -1 : aVal > bVal ? 1 : 0

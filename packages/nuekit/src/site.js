@@ -10,10 +10,11 @@ import { createFile } from './file'
 
 const IGNORE = `node_modules .toml .rs .lock package.json .lockb lock.yaml README.md Makefile`.split(' ')
 
-export async function readAssets(root, is_prod) {
+export async function createSite(root, args) {
+  const { is_prod } = args
 
   // site config
-  const conf = await readSiteYAML(root)
+  const conf = await readSiteConf(root, args)
   if (!conf) return console.error('Not a Nue directory')
 
   // ignore
@@ -61,13 +62,15 @@ export async function readAssets(root, is_prod) {
 }
 
 
-export async function readSiteYAML(root) {
+export async function readSiteConf(root, args={}) {
+  const { is_prod=false, port } = args
   const files = await readdir(root)
 
   // site.yaml
   if (files.includes('site.yaml')) {
     const file = Bun.file(join(root, 'site.yaml'))
-    return await parseYAML(await file.text())
+    const conf = await parseYAML(await file.text())
+    return { ...conf, port, is_prod }
   }
 
   // empty conf

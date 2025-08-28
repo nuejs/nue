@@ -2,7 +2,8 @@
 import { join } from 'node:path'
 import { build, matches, stats, buildAsset, buildAll } from '../../src/cmd/build'
 import { testDir, writeAll, removeAll, fileset } from '../test-utils'
-import { readAssets } from '../../src/site'
+import { trim } from '../../src/render/page'
+import { createSite } from '../../src/site'
 
 
 
@@ -19,11 +20,29 @@ test('stats', () => {
 })
 
 
-describe('MPA build', async () => {
+describe('build', async () => {
+
+  const conf = trim(`
+    site:
+      skip: [functions]
+      view_transitions: true
+      origin: https://acme.org
+
+    sitemap:
+      enabled: true
+
+    rss:
+      enabled: true
+      collection: blog
+
+    collections:
+      blog:
+        include: [ blog/ ]
+  `)
 
   beforeEach(async () => {
     await writeAll([
-      ['site.yaml', 'site:\n  skip: [functions]\n  view_transitions: true'],
+      ['site.yaml', conf],
       ['@system/ui/keyboard.ts', 'export const foo = 100'],
       ['@system/design/base.css', '/* CSS */'],
       ['index.md', '# Hello'],
@@ -44,7 +63,7 @@ describe('MPA build', async () => {
   afterEach(async () => await removeAll())
 
   test('buildAsset: MD', async () => {
-    const { assets } = await readAssets(testDir, true)
+    const { assets } = await createSite(testDir, { is_prod: true })
     const home = assets.get('index.md')
     await buildAsset(home, testDir)
     const html = await Bun.file(join(testDir, 'index.html')).text()
@@ -53,7 +72,7 @@ describe('MPA build', async () => {
   })
 
   test('buildAll', async () => {
-    const { assets } = await readAssets(testDir, true)
+    const { assets } = await createSite(testDir, { is_prod: true })
 
     await buildAll(assets, { root: testDir })
     const results = await fileset(join(testDir, '.dist'))
@@ -71,9 +90,25 @@ describe('MPA build', async () => {
   })
 
 
+  test('build feeds', async () => {
+    const { assets } = await createSite(testDir, { is_prod: true })
+
+    await build(assets, { root: testDir, silent: true })
+    const results = await fileset(join(testDir, '.dist'))
+
+    // sitemap
+    const sitemap = await results.read('sitemap.xml')
+    expect(sitemap.length).toBeGreaterThan(250)
+
+
+    const feed = await results.read('feed.xml')
+    expect(sitemap.length).toBeGreaterThan(300)
+  })
+
+
   test('build filtering', async () => {
     const consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {})
-    const { assets } = await readAssets(testDir, true)
+    const { assets } = await createSite(testDir, { is_prod: true })
     const subset = await build(assets, { dryrun: true, paths: ['.md', '.css'] })
     expect(subset.length).toBe(5)
   })
@@ -92,7 +127,7 @@ describe('SPA build', async () => {
   afterEach(async () => await removeAll())
 
   test('build SPA', async () => {
-    const { assets } = await readAssets(testDir, true)
+    const { assets } = await createSite(testDir, { is_prod: true })
     await buildAll(assets, { root: testDir })
     const results = await fileset(join(testDir, '.dist'))
     expect(results.length).toBe(8)

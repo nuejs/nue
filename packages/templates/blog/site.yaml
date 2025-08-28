@@ -1,5 +1,15 @@
 
+site:
+  origin: https://acme.org
+
+rss:
+  enabled: true
+  title: Acme blog
+  description: Latest news on web development
+  collection: blog
+
 collections:
   blog:
-    match: [ posts/*.md ]
+    include: [ posts/ ]
+    require: [ title ]
     sort: date desc

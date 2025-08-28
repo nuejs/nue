@@ -2,7 +2,7 @@
 import { extname, join } from 'node:path'
 
 import { createServer } from '../tools/server'
-import { readSiteYAML } from '../site'
+import { readSiteConf } from '../site'
 import { getServer } from '../server'
 
 
@@ -28,7 +28,7 @@ export async function getFile(dist, url) {
 
 
 export async function preview({ root, port }) {
-  const conf = await readSiteYAML(root)
+  const conf = await readSiteConf(root, { port, is_prod: true })
   if (!conf) return console.error('Not a Nue directory')
 
   // dist directory

@@ -85,7 +85,7 @@ async function run(args) {
 
 
   // command
-  const { root, cmd, paths } = args
+  const { root, cmd, port, paths } = args
 
   // preview
   if (cmd == 'preview') {
@@ -94,9 +94,9 @@ async function run(args) {
   }
 
   // assets
-  const { readAssets } = await import('./site')
+  const { createSite } = await import('./site')
   const is_prod = cmd == 'build'
-  const { assets, ignore } = await readAssets(root, is_prod) || {}
+  const { assets, ignore } = await createSite(root, { is_prod, port }) || {}
 
   // not a nue directory
   if (!assets) return

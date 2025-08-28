@@ -1,10 +1,21 @@
 
 site:
   view_transitions: true
-  sitemap: true
+  origin: https://acme.org
+
+sitemap:
+  enabled: true
+
 
 content:
   sections: true
+
+collections:
+  blog:
+    include: [ blog/ ]
+    skip: [ draft, private ]
+    sort: date desc
+
 
 # custom additions
 import_map:
