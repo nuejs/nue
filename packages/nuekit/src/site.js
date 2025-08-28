@@ -1,8 +1,9 @@
 
+import { parseYAML } from 'nueyaml'
+
 import { mkdir, readdir } from 'node:fs/promises'
 import { join } from 'node:path'
 
-import { parseYAML } from './tools/yaml'
 import { fswalk } from './tools/fswalk'
 
 import { createAsset } from './asset'

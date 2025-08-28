@@ -153,8 +153,6 @@ export function parseInline(str) {
         delete item.end; break
       }
     }
-
-    // if (iter++ > 3) { console.info('loop'); break }
   }
 
   // merge text siblings into one

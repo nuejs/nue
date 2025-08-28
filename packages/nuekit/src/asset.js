@@ -2,8 +2,8 @@
 // import { normalize, sep, join } from 'node:path'
 import { parseNue } from 'nuedom'
 import { parseNuemark } from 'nuemark'
+import { parseYAML } from 'nueyaml'
 
-import { parseYAML } from './tools/yaml'
 import { minifyCSS } from './tools/css'
 
 import { renderSVG,  } from './render/svg'

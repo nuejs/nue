@@ -1,5 +1,5 @@
 
-import { load as parseYAML } from 'js-yaml'
+import { parseYAML } from 'nueyaml'
 
 import { parseInline, parseLinkTitle } from './parse-inline.js'
 import { parseTag } from './parse-tag.js'
@@ -184,9 +184,7 @@ function processNestedBlocks(block, capture) {
 
     try {
       if (body && name && isYAML(body.trim())) {
-        let data = parseYAML(body)
-        if (Array.isArray(data)) data = { items: data }
-        Object.assign(block.data, data)
+        Object.assign(block.data, parseYAML(body))
         block.has_data = true
       }
     } catch (e) {

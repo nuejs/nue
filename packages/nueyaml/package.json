@@ -1,0 +1,14 @@
+{
+  "name": "nueyaml",
+  "version": "0.1.0",
+  "description": "YAML without the problems",
+  "homepage": "https://nuejs.org/docs/nueyaml",
+  "license": "MIT",
+  "type": "module",
+
+  "repository": {
+    "url": "https://github.com/nuejs/nue",
+    "directory": "packages/nueyaml",
+    "type": "git"
+  }
+}

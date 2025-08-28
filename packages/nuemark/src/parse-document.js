@@ -1,5 +1,5 @@
 
-import { load as parseYAML } from 'js-yaml'
+import { parseYAML } from 'nueyaml'
 
 import { parseBlocks } from './parse-blocks.js'
 import { parseLinkTitle } from './parse-inline.js'

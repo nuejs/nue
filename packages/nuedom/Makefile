@@ -1,6 +1,6 @@
 
 run-tests:
-	bun test docum
+	bun test
 
 minify:
 	@ bun bin/minify.js

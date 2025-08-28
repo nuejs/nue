@@ -15,7 +15,7 @@
     "test": "node --experimental-vm-modules ../../node_modules/jest/bin/jest.js --runInBand"
   },
   "dependencies": {
-    "js-yaml": "^4.1.0",
+    "nueyaml": "*",
     "nue-glow": "*"
   },
   "jest": {

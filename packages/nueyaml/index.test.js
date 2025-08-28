@@ -3,12 +3,12 @@ import {
   measureIndent,
   isNumber,
   parseValue,
-  parseArrayItems,
+  parseYAMLArray,
   detectStructure,
   buildObject,
   validateIndentation,
   parseYAML
-} from '../src/tools/yaml'
+} from '.'
 
 // stripComments tests
 describe('stripComments', () => {
@@ -75,13 +75,13 @@ describe('parseValue', () => {
   })
 })
 
-// parseArrayItems tests
-describe('parseArrayItems', () => {
+// parseYAMLArray tests
+describe('parseYAMLArray', () => {
   test('arrays', () => {
-    expect(parseArrayItems('tags: [one, two, three]')).toEqual(['one', 'two', 'three'])
-    expect(parseArrayItems('nums: [1, 2, 3]')).toEqual([1, 2, 3])
-    expect(parseArrayItems('empty: []')).toEqual([])
-    expect(parseArrayItems('key: value')).toBe(null)
+    expect(parseYAMLArray('tags: [one, two, three]')).toEqual(['one', 'two', 'three'])
+    expect(parseYAMLArray('nums: [1, 2, 3]')).toEqual([1, 2, 3])
+    expect(parseYAMLArray('empty: []')).toEqual([])
+    expect(parseYAMLArray('key: value')).toBe(null)
   })
 })
 

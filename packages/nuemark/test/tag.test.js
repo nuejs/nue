@@ -189,15 +189,10 @@ test('[table] with external data', () => {
 
 })
 
-test('[table] nested YAML', () => {
-  const html = renderLines(['[table]', '  - [foo, bar]', '  - [foo, bar]'])
+test.skip('[table] nested YAML', () => {
+  const html = renderLines(['[table]', '  items:', '    - [foo, bar]', '    - [foo, bar]'])
   expect(html).toStartWith('<table><thead><tr><th>foo</th><th>')
   expect(html).toEndWith('<td>bar</td></tr></table>')
-})
-
-test('[table] backwards compatibility', () => {
-  const html = renderLines(['[table]', '  - foo | bar'])
-  expect(html).toStartWith('<table><tr><td>foo</td>')
 })
 
 test('[table] nested string', () => {

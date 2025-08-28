@@ -89,7 +89,7 @@ export function parseValue(raw) {
   return val
 }
 
-export function parseArrayItems(line) {
+export function parseYAMLArray(line) {
   const match = line?.match(/\[(.*)\]/)
   if (!match) return null
 
@@ -179,7 +179,7 @@ export function buildObject(blocks) {
 
       // Check for inline array
       if (block.value != '') {
-        const arrayItems = parseArrayItems(block.key + ': ' + block.value)
+        const arrayItems = parseYAMLArray(block.key + ': ' + block.value)
         if (arrayItems) {
           value = arrayItems
         } else {
