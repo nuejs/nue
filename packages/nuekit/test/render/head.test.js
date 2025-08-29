@@ -12,9 +12,9 @@ test('renderScripts', () => {
 
 test('renderStyles', async () => {
   const files = [
-    { is_css: true, path: 'b/style.css', async text() { return '' } },
     { is_css: true, path: 'base.css', base: 'base.css', async text() { return '' } },
     { is_css: true, path: 'a/style.css', async text() { return 'body {}' } },
+    { is_css: true, path: 'b/style.css', async text() { return '' } },
   ]
 
   // sort base first

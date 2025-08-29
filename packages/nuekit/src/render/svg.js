@@ -4,7 +4,7 @@ import { parseYAMLArray } from 'nueyaml'
 import { renderNue } from 'nuedom'
 import { elem } from 'nuemark'
 
-import { inlineCSS, sortCSS } from './head'
+import { inlineCSS } from './head'
 import { trim } from './page'
 
 
@@ -15,12 +15,10 @@ export async function renderSVG(asset, opts={}) {
   const fonts = await renderFonts(opts.fonts, hmr)
   const deps = await asset.components()
   const data = await asset.data()
-  const conf = await asset.config()
 
   transform(root)
 
   const styles = getStyles(await asset.assets(), parseYAMLArray(root.meta?.css))
-  sortCSS(styles, conf.design?.base)
 
   if (hmr) {
     const { base } = asset

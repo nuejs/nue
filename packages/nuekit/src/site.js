@@ -1,5 +1,5 @@
 
-import { dirname } from 'node:path'
+import { parse } from 'node:path'
 import { fswalk } from './tools/fswalk'
 import { createAsset } from './asset'
 import { createFile } from './file'
@@ -8,7 +8,7 @@ export async function createSite(conf) {
   const { root, ignore } = conf
 
   // assets
-  const paths = sortPaths(await fswalk(root, { ignore }))
+  const paths = sortPaths(await fswalk(root, { ignore }), conf.design?.base)
   const files = await Promise.all(paths.map(path => createFile(root, path)))
   const assets = files.map(file => createAsset(file, files, conf))
 
@@ -45,11 +45,11 @@ export async function createSite(conf) {
   return { assets, conf, get, remove, update }
 }
 
-export function sortPaths(paths) {
+export function sortPaths(paths, priority='base.css') {
 
   function prio(path) {
-    const dir = dirname(path)
-    return dir.startsWith('@system') ? 0 : dir == '.' ? 1 : 2
+    const { dir, base } = parse(path)
+    return base == priority ? 0 : dir.startsWith('@system') ? 1 : !dir ? 2 : 3
   }
 
   return paths.sort((a, b) => {
