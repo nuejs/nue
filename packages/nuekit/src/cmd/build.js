@@ -5,14 +5,11 @@ import { tmpdir } from 'os'
 
 import { generateSitemap, generateFeed } from '../render/feed'
 import { createSystemFiles } from '../system'
-import { readSiteConf } from '../site'
 
-export async function build(assets, args) {
-  const { root, paths=[], dryrun, silent } = args
-
-  // config
-  const conf = dryrun ? {} : await readSiteConf(root)
-  if (!conf) return console.error('Not a Nue directory')
+export async function build(site, args) {
+  const { paths=[], dryrun, silent } = args
+  const { conf, assets } = site
+  const { dist } = conf
 
   // subset
   const subset = paths.length ? assets.filter(el => matches(el.path, paths)) : assets
@@ -24,18 +21,18 @@ export async function build(assets, args) {
 
   // build subset
   const start = performance.now()
-  await buildAll(subset, args)
+  await buildAll(subset, { ...args, dist })
 
   // sitemap.xml
   if (!paths.length && conf.sitemap?.enabled) {
     const xml = await generateSitemap(assets, conf)
-    if (xml) await writeFile(join(root, '.dist', 'sitemap.xml'), xml)
+    if (xml) await writeFile(join(dist, 'sitemap.xml'), xml)
   }
 
   // feed.xml
   if (!paths.length && conf.rss?.enabled) {
     const xml = await generateFeed(assets, conf)
-    if (xml) await writeFile(join(root, '.dist', 'feed.xml'), xml)
+    if (xml) await writeFile(join(dist, 'feed.xml'), xml)
   }
 
   // stats
@@ -47,11 +44,10 @@ export async function build(assets, args) {
 }
 
 
-export async function buildAll(assets, args) {
-  const { root, init, verbose, clean } = args
+export async function buildAll(subset, args) {
+  const { dist, init, verbose, clean } = args
 
   // .dist directory
-  const dist = join(root, '.dist')
   if (clean) await rmdir(dist, { recursive: true, force: true })
   await mkdir(dist, { recursive: true })
 
@@ -59,9 +55,9 @@ export async function buildAll(assets, args) {
   await createSystemFiles(dist, init)
 
   // build files
-  assets = assets.filter(el => !el.is_yaml)
+  subset = subset.filter(el => !el.is_yaml)
 
-  await Promise.all(assets.map(async asset => {
+  await Promise.all(subset.map(async asset => {
     try {
       if (verbose) console.log(asset.path)
       await buildAsset(asset, dist)

@@ -54,6 +54,7 @@ export function createNode(ast, data={}, opts={}, parent) {
   }
 
   self.mount = function(name, wrap, data) {
+    if (typeof wrap == 'string') wrap = root?.querySelector(wrap)
     const ast = opts.deps?.find(c => name == (c.is || c.tag))
     const block = createNode(ast, data, opts, self)
     block.mount(wrap)

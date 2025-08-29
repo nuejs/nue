@@ -1,0 +1,15 @@
+{
+  "name": "nuestate",
+  "version": "0.1.0",
+  "description": "URL-first state management",
+  "homepage": "https://nuejs.org/docs/nuestate",
+  "license": "MIT",
+  "type": "module",
+  "files": [ "src" ],
+
+  "repository": {
+    "url": "https://github.com/nuejs/nue",
+    "directory": "packages/nuestate",
+    "type": "git"
+  }
+}

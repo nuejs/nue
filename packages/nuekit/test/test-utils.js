@@ -1,5 +1,5 @@
 
-import { writeFile, mkdir, rmdir, symlink } from 'node:fs/promises'
+import { writeFile, mkdir, rmdir } from 'node:fs/promises'
 import { join } from 'node:path'
 
 import { fswalk } from '../src/tools/fswalk'
@@ -14,11 +14,6 @@ export async function writeAll(items) {
     if (Array.isArray(el)) {
       await write(el[0], el[1])
       paths.push(el[0])
-
-    } else if (typeof el == 'object') {
-      const [target, link] = Object.entries(el)[0]
-      await symlink(target, join(testDir, link))
-      paths.push(link)
 
     } else {
       await write(el, '')

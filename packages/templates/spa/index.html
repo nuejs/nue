@@ -1,4 +1,3 @@
-
 <!doctype dhtml>
 
 <script>
@@ -13,8 +12,7 @@
 
   <script>
     state.on('id', ({ id }) => {
-      const root = document.querySelector('article')
-      this.mount(id ? 'user' : 'users', root)
+      this.mount(id ? 'user' : 'users', 'article')
     })
 
     mounted() {

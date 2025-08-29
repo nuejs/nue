@@ -68,7 +68,7 @@ The `index.html` file controls your entire application. When you use `<!doctype 
 
 **Automatic routing** - With `autolink: true`, regular `<a href="/123">` links update state instead of reloading the page. No special router components needed.
 
-**Component mounting** - The `state.on('id')` listener decides which component to display. If there's an ID, show the `user` component. If not, show the `users` list.
+**Dynamic mounting** - The `state.on('id')` listener decides which component to display. If there's an ID, show the `user` component. If not, show the `users` list. See [dynamic mounting](#dynamic-mounting) later on this document.
 
 **Browser navigation** - Back/forward buttons work automatically. Bookmarking works. Sharing URLs works. The browser's navigation just works.
 
@@ -161,6 +161,87 @@ Create small, focused components that work across your entire application:
 ```
 
 **Single responsibility** - This component does one thing: format dates. It uses the browser's native `Intl.DateTimeFormat` instead of a date library. The `:date` attribute passes data cleanly without props drilling or context providers. Write small, focused components that solve specific problems using web standards - the UNIX philosophy (do one thing well) applied to UI development.
+
+
+
+Looking at single-page-apps.md, I'd add a new section called **Dynamic component mounting** right after the "UI libraries" section (around line 90) and before the "Development workflow" section (around line 160).
+
+Here's what to add:
+
+
+## Dynamic mounting
+The `this.mount()` method lets you change which component displays based on application state. This is the core mechanism that makes SPAs work - instead of navigating to different pages, you mount different components in the same container.
+
+```html
+<!doctype dhtml>
+
+<script>
+  import { state } from 'state'
+
+  state.setup({
+    route: '/:section/:id'
+  })
+</script>
+
+<body>
+  <main>
+    <article/>
+  </main>
+
+  <script>
+    // Listen to route changes and mount appropriate components
+    state.on('section id', ({ section, id }) => {
+      const root = this.querySelector('article')
+
+      if (section == 'users') {
+        this.mount(id ? 'user-detail' : 'user-list', root)
+      } else if (section == 'products') {
+        this.mount('product-catalog', root)
+      } else {
+        this.mount('home-page', root)
+      }
+    })
+
+    // Initialize from current URL
+    mounted() {
+      state.init()
+    }
+  </script>
+</body>
+```
+
+### Passing data to components
+
+Components can receive data when mounted:
+
+```javascript
+// Mount with state data
+this.mount('user-profile', root, {
+  userId: state.id,
+  editMode: state.edit
+})
+
+// Mount with API data
+const userData = await fetch(`/api/users/${state.id}`).then(r => r.json())
+this.mount('user-profile', root, userData)
+```
+
+### Component cleanup
+
+When you mount a new component, the previous component is automatically unmounted and cleaned up. No manual cleanup needed:
+
+```javascript
+// This automatically unmounts the previous component
+state.on('view', ({ view }) => {
+  const container = this.querySelector('main')
+
+  // Previous component is cleaned up automatically
+  this.mount(view == 'settings' ? 'settings-page' : 'dashboard', container)
+})
+```
+
+This mounting system is what makes Nue SPAs feel like traditional multi-page sites while maintaining the performance benefits of client-side routing.
+
 
 
 ## Development workflow

@@ -48,7 +48,7 @@ const sessions = []
 const websocket = {
   open(ws) {
     sessions.push(ws)
-    console.log(`HMR connected, total: ${sessions.length}`)
+    // console.log(`HMR connected, total: ${sessions.length}`)
   },
   close(ws) {
     const i = sessions.indexOf(ws)

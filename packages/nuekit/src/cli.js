@@ -20,7 +20,7 @@ export function getArgs(argv) {
   const commands = ['serve', 'build', 'preview', 'create', 'push']
 
   // default values
-  const args = { paths: [], root: '.' }
+  const args = { paths: [] }
   let opt
 
   expandArgs(argv).forEach((arg) => {
@@ -30,6 +30,7 @@ export function getArgs(argv) {
 
     // command
     } else if (!args.cmd && commands.includes(arg)) {
+      args.is_prod = arg == 'build'
       args.cmd = arg
 
     // options
@@ -85,22 +86,23 @@ async function run(args) {
 
 
   // command
-  const { root, cmd, port, paths } = args
+  const { cmd, paths } = args
 
   // preview
   if (cmd == 'preview') {
     const { preview } = await import('./cmd/preview')
-    return await preview(args)
+    return await preview(site, args)
   }
+
+  // site config
+  const { readSiteConf } = await import('./conf')
+  const conf = await readSiteConf(args)
+  if (!conf) return console.error('Not a Nue directory')
+
 
   // assets
   const { createSite } = await import('./site')
-  const is_prod = cmd == 'build'
-  const { assets, ignore } = await createSite(root, { is_prod, port }) || {}
-
-  // not a nue directory
-  if (!assets) return
-
+  const site = await createSite(conf)
 
   if (cmd == 'push') {
     console.log('pushing', paths)
@@ -111,11 +113,11 @@ async function run(args) {
 
   } else if (cmd == 'build' || paths.length) {
     const { build } = await import('./cmd/build')
-    await build(assets, args)
+    await build(site, args)
 
   } else if (cmd == 'serve' || !cmd) {
     const { serve } = await import('./cmd/serve')
-    await serve(assets, { ...args, ignore })
+    await serve(site, args)
   }
 
 }
@@ -126,8 +128,6 @@ if (argv[1].endsWith('cli.js')) {
   const args = getArgs(argv.slice(2))
   await run(args)
 }
-
-
 
 
 const HELP = `

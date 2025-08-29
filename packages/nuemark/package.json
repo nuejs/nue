@@ -18,6 +18,7 @@
     "nueyaml": "*",
     "nue-glow": "*"
   },
+  "files": [ "src" ],
   "jest": {
     "setupFilesAfterEnv": [
       "<rootDir>/../../setup-jest.js"

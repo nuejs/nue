@@ -22,6 +22,9 @@
   "dependencies": {
     "domino": "^2.1.6"
   },
+
+  "files": [ "src" ],
+
   "jest": {
     "setupFilesAfterEnv": [
       "<rootDir>/../../setup-jest.js"

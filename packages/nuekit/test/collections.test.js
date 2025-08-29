@@ -67,17 +67,18 @@ test('sorting', async () => {
 })
 
 
-test('rendering', async () => {
+test.only('rendering', async () => {
   const pagefoot = '<!html lib><div :is="pagefoot"><p :each="page of pages">{ page.title }</div>'
-  const conf = 'collections:\n  pages:\n    include: [ blog/ ]'
 
   const files = [
     { is_md: true, path: 'blog/index.md', async text() { return '# Hello' } },
-    { is_yaml: true, name: 'app', path: 'blog/app.yaml', async text() { return conf }},
     { is_html: true, path: '@system/layout/pagefoot.html', async text() { return pagefoot } },
   ]
 
-  const page = createAsset(files[0], files)
+  const page = createAsset(files[0], files, {
+    collections: { pages: { include: [ 'blog/' ]} }
+  })
+
   const html = await page.render()
   expect(html).toInclude('<div><p>Hello</p></div>')
 

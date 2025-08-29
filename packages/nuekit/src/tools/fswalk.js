@@ -35,25 +35,8 @@ async function walkDirectory(dir, root, opts) {
 
         } else if (entry.isFile()) {
           results.push(relativePath)
-
-        } else if (entry.isSymbolicLink() && followSymlinks) {
-          try {
-            const stats = await stat(fullPath)
-            if (stats.isDirectory()) {
-              const subResults = await walkDirectory(fullPath, root, opts)
-              results.push(...subResults)
-            } else if (stats.isFile()) {
-              results.push(relativePath)
-            }
-
-          } catch (symlinkError) {
-            if (symlinkError.code == 'ENOENT') {
-              warn('Broken symlink', relativePath)
-            } else {
-              warn('Error following symlink', relativePath)
-            }
-          }
         }
+
       } catch (error) {
         if (error.code == 'ENOENT') {
           warn('Broken symlink', relativePath)

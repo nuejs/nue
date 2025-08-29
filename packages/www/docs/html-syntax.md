@@ -164,7 +164,7 @@ Components default to `<div>` wrapper. Change with `:is`:
 
 
 ## Event handlers
-Handle user interactions:
+**Client-only** - Handle user interactions:
 
 ```html
 <counter>
@@ -243,8 +243,16 @@ Handle user interactions:
 </user-profile>
 ```
 
-### Async operations
-Manual updates needed after promises:
+
+### Manual updates
+**Client-only** - Trigger component re-render with new data:
+
+```javascript
+this.update(data)
+```
+
+Event handlers update automatically, but async operations or external events (like web socket messages) need manual updates:
+
 
 ```html
 <script>
@@ -252,11 +260,39 @@ Manual updates needed after promises:
     const data = await fetch('/api/user')
     const user = await data.json()
 
->   // manually trigger update
->   this.update({ user })
+    // Manual update required after async operations
+    this.update({ user })
   }
 </script>
 ```
+
+
+## Dynamic mounting
+**Client-only** - Mount components programmatically inside a single-page app:
+
+```javascript
+this.mount(name, target, data)
+```
+
+**name** - Component name
+**target** - DOM element or CSS selector
+**data** - Optional data to pass to component
+
+```html
+<my-app>
+
+  <article/>
+
+  <script>
+    state.on('id', ({ id }) => {
+      this.mount(id ? 'user-details' : user-list', 'article')
+    })
+  </script>
+
+</my-app>
+```
+
+See [single-page apps](/docs/single-page-apps) for routing patterns.
 
 
 ## Shared scripts
@@ -312,7 +348,7 @@ Define functions and data for multiple components:
 
 
 ## Passthrough scripts
-Scripts with `type` or `src` pass through unchanged:
+**Server-only** - Scripts with `type` or `src` pass through unchanged:
 
 ```html
 <!-- these render as-is to the client -->

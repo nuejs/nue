@@ -20,11 +20,16 @@
     "test": "cd test && bun test"
   },
   "dependencies": {
+    "nueyaml": "*",
     "nuedom": "*",
     "nuemark": "*",
     "nue-glow": "*"
   },
+
+  "files": [ "src", "client" ],
+
   "devDependencies": {
     "domino": "^2.1.6"
   }
+
 }

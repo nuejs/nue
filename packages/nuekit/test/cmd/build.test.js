@@ -20,29 +20,33 @@ test('stats', () => {
 })
 
 
+const CONF = {
+  root: testDir,
+  is_prod: true,
+  dist: join(testDir, '.dist'),
+
+  ignore: [ 'node_modules', 'functions' ],
+
+  site: {
+    view_transitions: true,
+    origin: 'https://acme.org'
+  },
+  sitemap: { enabled: true },
+
+  rss: {
+    enabled: true,
+    collection: 'blog'
+  },
+
+  collections: {
+    blog:{include: [ 'blog/' ] }
+  }
+}
+
 describe('build', async () => {
-
-  const conf = trim(`
-    site:
-      skip: [functions]
-      view_transitions: true
-      origin: https://acme.org
-
-    sitemap:
-      enabled: true
-
-    rss:
-      enabled: true
-      collection: blog
-
-    collections:
-      blog:
-        include: [ blog/ ]
-  `)
 
   beforeEach(async () => {
     await writeAll([
-      ['site.yaml', conf],
       ['@system/ui/keyboard.ts', 'export const foo = 100'],
       ['@system/design/base.css', '/* CSS */'],
       ['index.md', '# Hello'],
@@ -53,18 +57,17 @@ describe('build', async () => {
       // should be ignored
       'node_modules/test',
       'functions/test',
-      '.gitignore',
-      'README.md',
-      '_skipped',
-
     ])
   })
 
   afterEach(async () => await removeAll())
 
+
+
   test('buildAsset: MD', async () => {
-    const { assets } = await createSite(testDir, { is_prod: true })
-    const home = assets.get('index.md')
+    const site = await createSite(CONF)
+    const home = site.get('index.md')
+
     await buildAsset(home, testDir)
     const html = await Bun.file(join(testDir, 'index.html')).text()
     expect(html).toInclude('/@nue/transitions.js')
@@ -72,12 +75,14 @@ describe('build', async () => {
   })
 
   test('buildAll', async () => {
-    const { assets } = await createSite(testDir, { is_prod: true })
+    const { dist } = CONF
+    const { assets } = await createSite(CONF)
 
-    await buildAll(assets, { root: testDir })
-    const results = await fileset(join(testDir, '.dist'))
+    await buildAll(assets, { dist })
+    const results = await fileset(dist)
+
     expect(results.length).toBe(11)
-    expect(assets.length).toBe(7)
+    expect(assets.length).toBe(6)
 
     // typescript conversion / minify
     const js = await results.read('@system/ui/keyboard.js')
@@ -91,9 +96,9 @@ describe('build', async () => {
 
 
   test('build feeds', async () => {
-    const { assets } = await createSite(testDir, { is_prod: true })
+    const site = await createSite(CONF)
 
-    await build(assets, { root: testDir, silent: true })
+    await build(site, {  silent: true })
     const results = await fileset(join(testDir, '.dist'))
 
     // sitemap
@@ -108,8 +113,8 @@ describe('build', async () => {
 
   test('build filtering', async () => {
     const consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {})
-    const { assets } = await createSite(testDir, { is_prod: true })
-    const subset = await build(assets, { dryrun: true, paths: ['.md', '.css'] })
+    const site = await createSite(CONF)
+    const subset = await build(site, { dryrun: true, paths: ['.md', '.css'] })
     expect(subset.length).toBe(5)
   })
 
@@ -127,9 +132,10 @@ describe('SPA build', async () => {
   afterEach(async () => await removeAll())
 
   test('build SPA', async () => {
-    const { assets } = await createSite(testDir, { is_prod: true })
-    await buildAll(assets, { root: testDir })
-    const results = await fileset(join(testDir, '.dist'))
+    const { assets } = await createSite(CONF)
+    const { dist } = CONF
+    await buildAll(assets, { dist })
+    const results = await fileset(dist)
     expect(results.length).toBe(8)
 
     // html page

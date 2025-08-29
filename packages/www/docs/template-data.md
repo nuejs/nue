@@ -122,31 +122,31 @@ Here's what a typical template context looks like as JSON:
   // production flag
   is_prod: false,
 
-  // Flattened metadata (from meta namespace)
+  // flattened metadata (from meta namespace and front matter)
   "title": "My Site",
   "description": "Standards-first web framework",
   "author": "Jane Doe",
 
-  // Root-level data from YAML files
+  // root-level data from YAML files
   "site_name": "Acme Inc",
   "company_email": "hello@acme.com",
 
-  // Current page properties
+  // current page properties
   "url": "/blog/my-post/",
   "dir": "/blog/",
   "slug": "my-post",
 
-  // Parsed content structure
+  // parsed content structure
   "headings": [
     { id: "hello", text: "Hello, World", level: 1 },
     { "id": "overview", "text": "Overview", "level": 2 },
     { "id": "features", "text": "Features", "level": 2 }
   ],
 
-  // Built-in functions to process markdown to HTML
+  // built-in functions to process markdown to HTML
   "markdown": function,
 
-  // Team data from @system/data/team.yaml
+  // team data from @system/data/team.yaml
   "team": [
     {
       "name": "Alice Johnson",
@@ -160,7 +160,7 @@ Here's what a typical template context looks like as JSON:
     }
   ],
 
-  // Content collection
+  // content collection
   "blog": [
     {
       "title": "Design Systems at Scale",

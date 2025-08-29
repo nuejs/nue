@@ -6,7 +6,7 @@
 curl -fsSL https://bun.sh/install | bash
 
 # Install Nuekit globally
-bun install --global nuekit
+bun install --global --production nuekit
 
 # Create your first project
 nue create blog    # or minimal, spa, full
@@ -37,6 +37,10 @@ While Node support would be convenient, Bun-only is what enables Nue's extreme p
 
 ## Why global install?
 Nue works like UNIX tools: `grep`, `sort`, or `git`. Just create an empty directory, add `index.html`, and run `nue`. No 300MB of dependencies. No complex scaffolding. Start building immediately.
+
+## Why the --production flag?
+The --production flag excludes development dependencies, keeping the install size smaller. Most installs don't need development tools anyway.
+
 
 ## Project templates
 

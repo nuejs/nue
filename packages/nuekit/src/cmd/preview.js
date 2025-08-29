@@ -2,9 +2,29 @@
 import { extname, join } from 'node:path'
 
 import { createServer } from '../tools/server'
-import { readSiteConf } from '../site'
 import { getServer } from '../server'
 
+
+export async function preview(site, { silent }) {
+  const { conf } = site
+  const { port, dist } = conf
+
+  // dist directory
+  const has_index = await Bun.file(join(dist, 'index.html')).exists()
+  if (!has_index) return console.error('run `nue build` first')
+
+  // user server
+  const handler = await getServer(conf?.server)
+
+  // dev server
+  const server = createServer({ port, handler }, url => getFile(dist, url))
+
+  const url = server.url.toString()
+  console.log('Serving on', url)
+
+  return { stop() { server.stop() }, url, port, }
+
+}
 
 export async function getFile(dist, url) {
 
@@ -24,28 +44,5 @@ export async function getFile(dist, url) {
     const err = Bun.file(join(dist, '404.html'))
     if (await err.exits()) return err
   }
-}
-
-
-export async function preview({ root, port }) {
-  const conf = await readSiteConf(root, { port, is_prod: true })
-  if (!conf) return console.error('Not a Nue directory')
-
-  // dist directory
-  const dist = join(root, '.dist')
-  const exists = await Bun.file(join(dist, 'index.html')).exists()
-  if (!exists) return console.error('run `nue build` first')
-
-  // user server
-  const handler = await getServer(conf?.server)
-
-  // dev server
-  const server = createServer({ port, handler }, url => getFile(dist, url))
-
-  const url = server.url.toString()
-  console.log('Serving on', url)
-
-  return { stop() { server.stop() }, url, port, }
-
 }
 

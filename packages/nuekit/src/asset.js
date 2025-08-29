@@ -1,21 +1,17 @@
 
-// import { normalize, sep, join } from 'node:path'
-import { parseNue } from 'nuedom'
 import { parseNuemark } from 'nuemark'
 import { parseYAML } from 'nueyaml'
+import { parseNue } from 'nuedom'
 
 import { minifyCSS } from './tools/css'
-
-import { renderSVG,  } from './render/svg'
+import { renderSVG } from './render/svg'
 import { renderMD, renderHTML } from './render/page'
 import { getCollections } from './collections'
+import { mergeConf, mergeData } from './conf'
 import { listDependencies } from './deps'
 
 
-// configuration properties (separate from )
-const CONF = 'collections content design exclude import_map include port server site sitemap svg'.split(' ')
-
-export function createAsset(file, files=[], is_prod=false) {
+export function createAsset(file, files=[], conf={}) {
   let cachedObj = null
 
   function flush() {
@@ -25,66 +21,37 @@ export function createAsset(file, files=[], is_prod=false) {
 
   function toAssets(paths) {
     const arr = paths.map(path => files.find(file => file.path == path))
-    return arr.map(file => createAsset(file, files))
+    return arr.map(file => createAsset(file, files, conf))
   }
 
-  function getDeps({ include, exclude, design }) {
+  function getDeps(opts={}) {
+    const { include, exclude, design } = opts
     const paths = files.map(f => f.path)
     const deps = listDependencies(file.path, { paths, include, exclude, central: design?.central })
     return toAssets(deps)
   }
 
-  async function collections(opts) {
-    if (!opts) return
-    const md_paths = files.filter(f => f.is_md).map(f => f.path)
-    return await getCollections(toAssets(md_paths), opts)
-  }
-
   async function config() {
-    const ret = { is_prod }
-    const conf_files = getDeps({}).filter(f => f.is_yaml && ['site', 'app'].includes(f.name))
-
-    for (const asset of conf_files) {
-      const data = await asset.parse()
-      const is_site = asset.name == 'site'
-
-      Object.entries(data).forEach(([key, val]) => {
-        if (CONF.includes(key)) {
-          if (is_site) ret[key] = structuredClone(val)
-          else mergeAppConfig(ret, key, val)
-        }
-      })
-    }
-    return ret
+    const asset = getDeps().find(f => f.base == 'app.yaml')
+    return asset ? mergeConf(conf, await asset.parse()) : conf
   }
 
   async function data() {
-    const ret = { is_prod }
-
-    for (const asset of getDeps({}).filter(f => f.is_yaml)) {
-      const data = await asset.parse()
-
-      Object.entries(data).forEach(([key, val]) => {
-        if (key == 'meta') return Object.assign(ret, val)
-        if (!CONF.includes(key)) ret[key] = val
-      })
-
-      // production override
-      if (is_prod && asset.path == 'site.yaml') {
-        Object.assign(ret, data.production)
-      }
-    }
-
-    // content collections
-    const conf = await config()
-    Object.assign(ret, await collections(conf.collections))
-
-    // delete production node
-    delete ret.production
-
-    return ret
+    const yaml_files = getDeps().filter(f => f.is_yaml && f.name != 'site')
+    const dataset = await Promise.all(yaml_files.map(f => f.parse()))
+    const data = mergeData([ conf, ...dataset ])
+    return await mergeCollections(data, conf.collections)
   }
 
+  async function mergeCollections(data, opts) {
+    if (opts) {
+      const md_paths = files.filter(f => f.is_md).map(f => f.path)
+      Object.assign(data, await getCollections(toAssets(md_paths), opts))
+    }
+    return data
+  }
+
+  // list all dependencies (public method)
   async function assets() {
     return getDeps(await config())
   }
@@ -137,7 +104,8 @@ export function createAsset(file, files=[], is_prod=false) {
   }
 
   async function render(params) {
-    const asset = createAsset(file, files)
+    const asset = createAsset(file, files, conf)
+    const { is_prod } = conf
 
     if (file.is_svg) {
       const { svg } = await config()
@@ -166,24 +134,4 @@ export async function compileJS(path, minify, bundle) {
   const [ js ] = result.outputs
   return await js.text()
 }
-
-// CONF keys only
-export function mergeAppConfig(conf, key, val) {
-
-  // site level only
-  if ('site design server production port'.split(' ').includes(key)) return
-
-  // extend collections
-  if (key == 'collections') return conf[key] = { ...conf.collections, ...val }
-
-
-  // merge meta / content
-  if (['meta', 'content'].includes(key) && typeof val == 'object') {
-    return conf[key] = { ...conf[key], ...val }
-  }
-
-  // override
-  return conf[key] = val
-}
-
 
