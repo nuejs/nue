@@ -58,10 +58,6 @@ export function parseNue(template) {
   return page
 }
 
-function isDHTML(lib) {
-
-}
-
 function isScript(block) {
   return block.tag?.startsWith('<script')
 }

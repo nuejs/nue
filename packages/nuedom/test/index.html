@@ -1,0 +1,35 @@
+
+<!doctype html>
+<script src="../src/nue-jit.js" type="module"></script>
+
+<style>
+  body {
+   font-family: system-ui;
+   display: grid;
+   place-items: center;
+   min-height: 100vh;
+   margin: 0;
+  }
+  button {
+   font-family: inherit;
+   padding: .5em 1.5em;
+   background-color: black;
+   border-radius: .25em;
+   cursor: pointer;
+   color: white;
+   border: 0;
+  }
+</style>
+
+
+<template>
+
+  <button :onclick="count++">
+    Count: <b>{ count }</b>
+
+    <script>
+      this.count = 0
+    </script>
+  </button>
+
+</template>

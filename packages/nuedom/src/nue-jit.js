@@ -2,12 +2,12 @@
 import { parseNue } from './compiler/document.js'
 import { createNode } from './dom/node.js'
 
-export { domdiff } from './dom/diff.js'
+const template = document.querySelector('template')?.innerHTML
 
-export function mount(template, opts={}) {
-  const els = parseNue(tokenize(template)).lib
-  opts.deps = [...els.slice(1), ...(opts.deps || [])]
-  const node = createNode(els[0], opts)
-  node.mount(opts.root)
-  return node
+if (template) {
+  const { root, lib } = parseNue(template)
+  const app = createNode(root, {}, { deps: lib })
+  const wrap = document.createElement('div')
+  document.body.appendChild(wrap)
+  app.mount(wrap)
 }
