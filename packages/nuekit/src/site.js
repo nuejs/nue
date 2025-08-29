@@ -1,4 +1,5 @@
 
+import { dirname } from 'node:path'
 import { fswalk } from './tools/fswalk'
 import { createAsset } from './asset'
 import { createFile } from './file'
@@ -7,7 +8,7 @@ export async function createSite(conf) {
   const { root, ignore } = conf
 
   // assets
-  const paths = await fswalk(root, { ignore })
+  const paths = sortPaths(await fswalk(root, { ignore }))
   const files = await Promise.all(paths.map(path => createFile(root, path)))
   const assets = files.map(file => createAsset(file, files, conf))
 
@@ -42,4 +43,19 @@ export async function createSite(conf) {
   }
 
   return { assets, conf, get, remove, update }
+}
+
+export function sortPaths(paths) {
+
+  function prio(path) {
+    const dir = dirname(path)
+    return dir.startsWith('@system') ? 0 : dir == '.' ? 1 : 2
+  }
+
+  return paths.sort((a, b) => {
+    const prioA = prio(a)
+    const prioB = prio(b)
+    return prioA == prioB ? a.localeCompare(b) : prioA - prioB
+  })
+
 }
