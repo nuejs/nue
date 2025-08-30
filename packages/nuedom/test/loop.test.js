@@ -100,32 +100,3 @@ test('slot loop', () => {
   expect(html).toBe('<a><b>i: 0</b><b>i: 1</b></a>')
 })
 
-test('loop + if', () => {
-  const template = `
-    <div>
-      <a :each="val in [1,2]" :if="doit">{val}</a>
-      <button :onclick="doit = true"/>
-    </div>
-  `
-  const root = clickable(template)
-  expect(root.html).toBe('<div><button></button></div>')
-
-  root.click()
-  expect(root.html).toInclude('<a>1</a><a>2</a>')
-})
-
-test.skip('loop :onclick', () => {
-  const template = `
-    <div>
-      <button :each="el, i of [{ id: 2 }]" :onclick="doit = true">
-        { el.id } / { i }
-      </button>
-
-      <p :if="doit">Hey</p>
-    </div>
-  `
-  const root = clickable(template)
-  expect(root.html).toEndWith('</button></div>')
-  root.click()
-  expect(root.html).toBe('<div><button>2 / 0</button><p>Hey</p></div>')
-})

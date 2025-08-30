@@ -10,12 +10,10 @@ export function clickable(template, data) {
 
   function click(selector='button') {
     const el = root.querySelector(selector)
-    if (el) {
-      const e = document.createEvent('Event')
-      e.initEvent('click', true, true)
-      el.dispatchEvent(e)
-    }
+    el?.dispatchEvent({ type: 'click' })
   }
-
   return { block, click, get html() { return root.innerHTML || '' } }
 }
+
+
+

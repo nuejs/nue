@@ -1,8 +1,8 @@
 
 run-tests:
-	bun test
+	bun test # fakedom
 
-serve:
+demo:
 	@ bun bin/serve
 
 minify:

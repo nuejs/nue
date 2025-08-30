@@ -26,10 +26,5 @@
     "nue-glow": "*"
   },
 
-  "files": [ "src", "client" ],
-
-  "devDependencies": {
-    "domino": "^2.1.6"
-  }
-
+  "files": [ "src", "client" ]
 }

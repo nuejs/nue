@@ -78,12 +78,11 @@ test('nesting', () => {
 test('svg', () => {
   const template = `
     <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24">
-      <foreignobject/>
+      <foreignObject/>
       <path d="M6 8a6 6 0 0 1 12"/>
     </svg>
   `
   const svg = renderNue(template)
-
   expect(svg).toStartWith('<svg xmlns="http://www.w3.org/2000/svg"')
   expect(svg).toInclude('<path d="M6 8a6 6 0 0 1 12">')
 

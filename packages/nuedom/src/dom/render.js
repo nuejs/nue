@@ -1,12 +1,11 @@
 
-import domino from 'domino'
-
+import { createDocument } from './fakedom.js'
 import { parseNue } from '../compiler/document.js'
 import { createNode } from './node.js'
 
-
 function renderAST(ast, opts={}) {
-  return mountAST(ast, opts).root.innerHTML
+  const { root } = mountAST(ast, opts)
+  return root.innerHTML
 }
 
 export function renderNue(template, opts={}) {
@@ -27,8 +26,7 @@ export function mountAST(ast, opts) {
     ast.tag = 'div'
   }
 
-  const document = domino.createDocument()
-  if (!global.document) global.document = document
+  global.document = createDocument()
   const node = createNode(ast, opts.data, opts)
   node.mount(document.body)
   return node

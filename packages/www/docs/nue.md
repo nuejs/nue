@@ -17,15 +17,19 @@ Open this code on browser:
 
 ```html
 <!doctype html>
-<script src="https://cdn.skypack.dev/nuedom" type="module"></script>
+<script src="https://cdn.jsdelivr.net/gh/nuejs/nue@2.0/packages/nuedom/src/nue-jit.js" type="module"></script>" type="module">
 
-<button :onclick="count++">
-  { count }
+<template>
 
-  <script>
-    this.count = 0
-  </script>
-</button>
+  <button :onclick="count++">
+    Count: <b>{ count }</b>
+
+    <script>
+      this.count = 0
+    </script>
+  </button>
+
+</template>
 ```
 
 Save as HTML, open in localhost (http protocol needed for modules). The component auto-mounts and runs.

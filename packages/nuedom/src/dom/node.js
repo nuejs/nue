@@ -82,14 +82,15 @@ export function createNode(ast, data={}, opts={}, parent) {
       console.error(`Too many class names (${am}) for ${tag.tagName} tag`)
     }
 
-    const cls = tag.className
-    if (typeof cls == 'string' && /[:\[\]]/.test(cls)) {
+    const cls = tag.classList?.toString()
+    if (/[:\[\]]/.test(cls)) {
       console.error(`Invalid characters in class name: ${cls}`)
     }
 
 
     ast.handlers?.forEach(h => {
-      const name = h.name.slice(2)
+      const name = h.name.slice(2) // onclick --> click
+
       tag.addEventListener(name, function(e) {
         if (name == 'submit') e.preventDefault()
         exec(h.h_fn, self, e)
@@ -263,10 +264,8 @@ function exec(fn, self, e) {
 }
 
 function renderHTML(html) {
-  const frag = createFragment()
-  const temp = document.createElement('div')
-  temp.innerHTML = html || ''
-  while (temp.firstChild) frag.appendChild(temp.firstChild)
+  const frag = document.createDocumentFragment()
+  frag.innerHTML = html || ''
   return frag
 }
 

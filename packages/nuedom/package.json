@@ -6,6 +6,7 @@
   "main": "src/index.js",
   "license": "MIT",
   "type": "module",
+  "module": "src/nue-jit.js",
 
   "repository": {
     "url": "https://github.com/nuejs/nue",
@@ -13,14 +14,12 @@
     "type": "git"
   },
   "engines": {
-    "bun": ">= 1.2"
+    "bun": ">= 1.2",
+    "node": ">= 20.0.0"
   },
   "scripts": {
     "test": "node --experimental-vm-modules ../../node_modules/jest/bin/jest.js --runInBand",
     "minify": "bun bin/minify.js && cp -r dist demo/dist"
-  },
-  "dependencies": {
-    "domino": "^2.1.6"
   },
 
   "files": [ "src" ],
