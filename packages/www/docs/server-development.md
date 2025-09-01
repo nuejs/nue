@@ -1,20 +1,16 @@
 
 # Server development
-Edge-first development means writing server code that works identically on your machine and across 200+ global edge locations. ie. your development environment IS an edge environment. Here's how it looks:
+Nue embraces [edge-first](edge-first) development: writing server code that works identically on your machine and across all global edge locations. Your development environment IS the edge environment. Here's how it looks:
 
 ```javascript
-import { Hono } from 'hono'
-
-const server = new Hono()
-
-server.get('/api/users', async (c) => {
+get('/api/users', async (c) => {
   // SQLite locally, D1 globally - same API
   const { DB } = c.env
   const users = await DB.prepare('SELECT * FROM users').all()
   return c.json(users)
 })
 
-server.post('/api/login', async (c) => {
+post('/api/login', async (c) => {
   // JSON files locally, CloudFlare KV globally - same API
   const { KV } = c.env
   const sessionId = crypto.randomUUID()
@@ -25,7 +21,7 @@ server.post('/api/login', async (c) => {
 export default server
 ```
 
-Same code runs everywhere. No connection strings, no environment variables, no platform-specific adaptations. See [Edge first](/docs/edge-first) for conceptual details.
+Same code runs everywhere. No connection strings, no environment variables, no platform-specific adaptations. See [Server APIs](server-api) for conceptual details.
 
 
 ## Setting up
@@ -115,6 +111,7 @@ export function createCRM(env) {
 
 This pattern separates data access from business logic while maintaining the same API across environments.
 
+
 ## Key-value storage
 Use KV storage for sessions, caching, and simple data that doesn't need SQL queries. Local development uses JSON files, production uses CloudFlare KV.
 
@@ -173,8 +170,9 @@ export function createCRM(env) {
 Routes handle HTTP specifics and delegate business logic to model functions:
 
 ```javascript
-// In index.js
-server.post('/api/contacts', async (c) => {
+// index.js
+
+post('/api/contacts', async (c) => {
 
   // All CloudFlare headers are also mocked locally
   const country = c.req.header('cf-ipcountry')
@@ -191,7 +189,7 @@ This separation makes business logic testable independently of HTTP concerns. Se
 Our authentication uses bearer tokens with KV storage for sessions:
 
 ```javascript
-server.use('/admin/*', async (c, next) => {
+use('/admin/*', async (c, next) => {
   const user = await createAuth(c.env).getUser(c.req)
   if (!user) return c.json({ error: 'Invalid session' }, 401)
   await next()
@@ -216,15 +214,12 @@ function getAuthHeader() {
 
 Browser `localStorage` persists sessions across page reloads while remaining secure for SPA authentication flows.
 
+
 ## Testing
-Test business logic independently using mock databases and KV storage:
+Test business logic independently using mock databases and KV storage available in `nuererver/mock`:
 
 ```javascript
-// In test/mock.js
-export const env = {
-  DB: new Database(':memory:'),  // In-memory SQLite
-  KV: new Map()                  // Mock KV with Map
-}
+import { env } from 'nueserver/mock'
 
 // In test/crm.test.js
 test('addContact', async () => {
@@ -256,7 +251,7 @@ The proxy configuration works in both development and production, letting you in
 
 
 ## Preparing for deployment
-Edge-first development means your local code is already deployment-ready. When CloudFlare Workers deployment arrives (see [Roadmap](/docs/roadmap)), your existing code will work without changes.
+Edge-first development means your local code is already deployment-ready. When CloudFlare Workers deployment arrives (see [Roadmap](roadmap)), your existing code will work without changes.
 
 The model, server routes, and databases will transition automatically from local files to distributed edge infrastructure. You can already build with confidence that your architecture scales globally.
 

@@ -1,26 +1,25 @@
 
 Why Nue
 Get started
+---
+Roadmap
+Contributing
 Migration from Next.js
 
 Tools
-  Core
-    Nue
-    Nuestate
-    Nuemark
-    Nuekit
+  Nue
+  Nuestate
+  Nuemark
+  Nueserver
+  Nuekit
+  ---
+  Nueglow
+  Nueyaml
 
-  Supporting
-    Nueglow
-    Nueyaml
-
-  Roadmap
-  Contributing
 
 Concepts
   Separation of concerns
   Design systems
-  Edge first
   Minimalism
 
 Developing
@@ -41,5 +40,7 @@ Reference
   Page dependencies
   Template data
   State API
+  Server API
+  Server testing API
   Nuemark syntax
   Syntax highlighting
