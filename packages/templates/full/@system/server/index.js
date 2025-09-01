@@ -1,17 +1,15 @@
 
-import { Hono } from 'hono'
 import { createAuth } from './model/auth.js'
 import { createCRM } from './model/index.js'
 
-const server = new Hono()
 
-server.get('/api', async (c) => {
+get('/api', async (c) => {
   const { version } = c.env
   return c.json({ version })
 })
 
 // login
-server.post('/api/login', async (c) => {
+post('/api/login', async (c) => {
   const { email, password } = await c.req.json()
 
   const auth = createAuth(c.env)
@@ -24,7 +22,7 @@ server.post('/api/login', async (c) => {
   return c.json({ error: 'Invalid credentials' }, 401)
 })
 
-server.post('/api/contacts', async (c) => {
+post('/api/contacts', async (c) => {
   const country = c.req.header('cf-ipcountry')
   const data = await c.req.json()
   const contact = await createCRM(c.env).addContact({ ...data, country })
@@ -33,20 +31,20 @@ server.post('/api/contacts', async (c) => {
 
 
 // authenticated requests
-server.use('/admin/*', async (c, next) => {
+use('/admin/*', async (c, next) => {
   const user = await createAuth(c.env).getUser(c.req)
   if (!user) return c.json({ error: 'Invalid session' }, 401)
   await next()
 })
 
 // contacts
-server.get('/admin/contacts', async (c) => {
+get('/admin/contacts', async (c) => {
   const crm = createCRM(c.env)
   const contacts = await crm.getContacts(c.req.query())
   return c.json(contacts)
 })
 
-server.get('/admin/contacts/:id', async (c) => {
+get('/admin/contacts/:id', async (c) => {
   const crm = createCRM(c.env)
   const id = parseInt(c.req.param('id'))
 
@@ -56,13 +54,13 @@ server.get('/admin/contacts/:id', async (c) => {
   return c.json(customer)
 })
 
-server.delete('/admin/contacts/:id', async (c) => {
+del('/admin/contacts/:id', async (c) => {
   const id = parseInt(c.req.param('id'))
   return c.json(createCRM(c.env).deleteContact(id))
 })
 
 // search
-server.get('/admin/search', async (c) => {
+get('/admin/search', async (c) => {
   const crm = createCRM(c.env)
   const query = c.req.query('q')
 
@@ -73,8 +71,6 @@ server.get('/admin/search', async (c) => {
 })
 
 // logout
-server.get('/admin/logout', async (c) => {
+get('/admin/logout', async (c) => {
   return c.json({ success: await createAuth(c.env).logout(c.req) })
 })
-
-export default server

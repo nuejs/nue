@@ -1,16 +1,18 @@
 
-import { mkdir } from 'node:fs/promises'
 import { join } from 'node:path'
+import { mkdir } from 'node:fs/promises'
+import { routes, fetch, matches } from 'nueserver'
 
 import { createDB } from './db.js'
 import { createKV } from './kv.js'
 
-async function importServer({ dir, reload }) {
-  const path = join(dir, 'index.js') + (reload ? '?t=' + Date.now() : '')
+export async function importRoutes({ dir, reload }) {
+  const path = join(process.cwd(), dir, 'index.js') + (reload ? '?t=' + Date.now() : '')
 
   try {
-    const server = await import(join(process.cwd(), path))
-    return server.default
+    routes.length = 0
+    await import(path)
+
   } catch (err) {
     if (err.code == 'ERR_MODULE_NOT_FOUND') return null
     throw err
@@ -21,8 +23,8 @@ async function importServer({ dir, reload }) {
 export async function createWorker(opts = {}) {
   const { dir='@system/server', reload } = opts
 
-  let server = await importServer({ dir, reload })
-  if (!server) return null
+  await importRoutes({ dir, reload })
+  if (!routes.length) return null
 
   const { db, kv } = opts
   const env = { ...process.env, ...opts.env }
@@ -31,42 +33,19 @@ export async function createWorker(opts = {}) {
 
 
   return async function(req) {
-    if (reload) server = await importServer({ dir, reload })
+    if (reload)  await importRoutes({ dir, reload })
     const url = new URL(req.url)
     const { method, body } = req
 
-    const match = matches(server.routes, { url: url.pathname + url.search, method })
+    const match = matches(method, url.pathname)
     if (!match) return null
 
     const headers = { ...getCFHeaders(), ...Object.fromEntries(req.headers) }
-    const proxyRequest = new Request(req.url, { method, headers, body })
+    const workerReq = new Request(req.url, { method, headers, body })
 
-    return await server.fetch(proxyRequest, env)
+    return await fetch(workerReq, env)
   }
 }
-
-export function matches(routes, { url, method }) {
-  return routes.some(route => {
-    const { path } = route
-    if (route.method != method) return false
-
-    const urlPath = url.split('?')[0]
-
-    if (path == urlPath) return true
-
-    if (path.endsWith('/*')) return urlPath.startsWith(path.slice(0, -1))
-
-    if (path.includes(':')) {
-      const routeParts = path.split('/')
-      const pathParts = urlPath.split('/')
-      return routeParts.length == pathParts.length &&
-        routeParts.every((part, i) => part.startsWith(':') || part == pathParts[i])
-    }
-
-    return false
-  })
-}
-
 
 function getCFHeaders() {
   return {

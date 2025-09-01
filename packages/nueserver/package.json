@@ -1,0 +1,17 @@
+{
+  "name": "nueserver",
+  "version": "0.1.0",
+  "description": "Edge first server development",
+  "homepage": "https://nuejs.org/docs/nueserver",
+  "license": "MIT",
+  "type": "module",
+
+  "files": [ "src" ],
+  "main": "src/server.js",
+
+  "repository": {
+    "url": "https://github.com/nuejs/nue",
+    "directory": "packages/nueserver",
+    "type": "git"
+  }
+}

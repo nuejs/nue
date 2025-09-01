@@ -2,18 +2,14 @@
 import { unlinkSync, existsSync } from 'fs'
 import { createKV } from '../../src/server/kv.js'
 
-const testKvPath = './test-kv.json'
+const KV = './test-kv.json'
 
 beforeEach(() => {
- if (existsSync(testKvPath)) {
-   unlinkSync(testKvPath)
- }
+ if (existsSync(KV)) unlinkSync(KV)
 })
 
 afterEach(() => {
- if (existsSync(testKvPath)) {
-   unlinkSync(testKvPath)
- }
+ if (existsSync(KV)) unlinkSync(KV)
 })
 
 test('put and get strings', async () => {
@@ -85,10 +81,10 @@ test('list with limit', async () => {
 })
 
 test('persistence', async () => {
- const kv1 = createKV(testKvPath)
+ const kv1 = createKV(KV)
  await kv1.put('persistent', 'data')
 
- const kv2 = createKV(testKvPath)
+ const kv2 = createKV(KV)
  await new Promise(resolve => setTimeout(resolve, 10))
  
  expect(await kv2.get('persistent')).toBe('data')

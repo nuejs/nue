@@ -1,9 +1,5 @@
 
-import { Hono } from 'hono'
-
-const server = new Hono()
-
-server.get('/users', async (c) => {
+get('/users', async (c) => {
   const { KV } = c.env
   const { keys } = await KV.list({ prefix: 'user:' })
   const users = await Promise.all(
@@ -17,7 +13,7 @@ server.get('/users', async (c) => {
   return c.json(users)
 })
 
-server.get('/users/:id', async (c) => {
+get('/users/:id', async (c) => {
  const { KV } = c.env
  const id = c.req.param('id')
  const user = await KV.get(`user:${id}`, { type: 'json' })
@@ -25,5 +21,3 @@ server.get('/users/:id', async (c) => {
  if (!user) return c.json({ error: 'User not found' }, 404)
  return c.json({ ...user, id })
 })
-
-export default server
