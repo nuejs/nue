@@ -1,6 +1,6 @@
 
 # Nueserver API
-Nueserver is a minimal HTTP server that runs identically in development and on CloudFlare Workers. Write once, deploy everywhere.
+[Nueserver](nueserver) is a minimal HTTP server that runs identically in development and on CloudFlare Workers. Write once, deploy everywhere.
 
 # Design principles
 Nueserver draws inspiration from Hono's clean API while staying focused on [separation of concerns](separation-of-concerns). The design prioritizes simplicity and edge-first development over comprehensive features.

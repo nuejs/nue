@@ -94,10 +94,10 @@ export function createCRM(env) {
 
   async function getContacts({ query, start = 0, length = 20 }) {
     const sql = `SELECT * FROM contacts 
-                 WHERE email LIKE ? 
-                 ORDER BY created DESC 
-                 LIMIT ? OFFSET ?`
-    
+      WHERE email LIKE ?
+      ORDER BY created DESC
+      LIMIT ? OFFSET ?`
+
     const results = await DB.prepare(sql)
       .bind(`%${query}%`, length, start)
       .all()
@@ -216,24 +216,79 @@ Browser `localStorage` persists sessions across page reloads while remaining sec
 
 
 ## Testing
-Test business logic independently using mock databases and KV storage available in `nuererver/mock`:
+Test business logic independently using mock databases and KV storage that match the CloudFlare runtime APIs exactly. This separation lets you verify your data operations work correctly without spinning up servers or managing test databases.
+
+
+### Mock environment
+Import the testing environment from `nueserver/mock`:
 
 ```javascript
 import { env } from 'nueserver/mock'
-
-// In test/crm.test.js
-test('addContact', async () => {
-  const crm = createCRM(env)
-  const contact = await crm.addContact({
-    email: 'test@example.com',
-    country: 'US'
-  })
-  
-  expect(contact.id).toBe(1)
-})
+// The env object provides DB and KV that work identically to CloudFlare
 ```
 
-Mock environments let you test data operations without external dependencies while using the same business logic code that runs in production.
+The mock environment gives you:
+
+**In-memory SQLite database** - Same prepared statement API as CloudFlare D1, but runs entirely in memory for fast tests
+
+**Map-based KV store** - Same get/put/delete API as CloudFlare KV, but uses a JavaScript Map under the hood
+
+**Identical behavior** - JSON serialization, parameter binding, and error handling work exactly like production
+
+### Testing business models
+Your business model contains the core logic of your application. Test it independently of HTTP routes:
+
+```javascript
+// In test/crm.test.js
+import { env } from 'nueserver/mock'
+import { createCRM } from '../model/crm.js'
+
+test('addContact creates contact with auto-increment ID', async () => {
+  await env.DB.exec('CREATE TABLE contacts (...)')
+
+  const crm = createCRM(env)
+  const contact = await crm.addContact({
+    email: 'alice@example.com',
+    country: 'US'
+  })
+
+  expect(contact.id).toBe(1)
+})
+
+// etc...
+```
+
+### Testing KV operations
+Session management and caching logic work the same way:
+
+```javascript
+test('createSession stores user data in KV', async () => {
+  const auth = createAuth(env)
+  const sessionId = await auth.createSession({ email: 'alice@example.com' })
+
+  const session = await env.KV.get(`session:${sessionId}`, { type: 'json' })
+  expect(session.email).toBe('alice@example.com')
+})
+
+// etc...
+```
+
+### Benefits of this approach
+
+**Fast test execution** - In-memory operations run in microseconds, not milliseconds
+
+**No external dependencies** - Tests don't need real databases or network connections
+
+**Same code paths** - Your business logic runs identical code in tests and production
+
+**Easy setup** - No database migrations or test data seeding required
+
+**Isolation** - Each test gets a fresh environment with no data contamination
+
+This testing pattern ensures your core business logic works correctly before you integrate it with HTTP routes. When your model tests pass, you know the data operations are solid.
+
+See [Server testing API](/docs/server-testing) for complete documentation of the mock environment and all available testing methods.
+
 
 
 ## External servers

@@ -1,6 +1,5 @@
 
 # State API
-
 Complete reference for Nuestate's state management API. For an overview and introduction, see the [Nuestate documentation](/docs/nuestate).
 
 ## state object

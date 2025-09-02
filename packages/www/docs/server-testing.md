@@ -1,6 +1,6 @@
 
 # Server testing API
-Complete reference for testing edge-first business models with Nueserver's mock environment. The testing API provides SQLite and KV storage mocks that match the CloudFlare runtime APIs exactly.
+Nueserver comes with a testing API with SQLite and KV storage mocks that match the CloudFlare runtime APIs exactly. You can use these mocks to develop your business model that works locally and globally on the edge.
 
 ## Mock environment
 Import the mock environment for testing:
@@ -11,30 +11,135 @@ import { env } from 'nueserver/mock'
 
 The `env` object provides `DB` and `KV` properties that implement the same APIs as CloudFlare D1 and KV storage. Both operate solely in memory.
 
-## Database API (env.DB)
-Access the database through `env.DB`, which provides an in-memory SQLite database with the CloudFlare D1 API:
+### Database API
 
-**prepare(sql)** - Create a prepared statement
-**exec(sql)** - Execute SQL directly
-**batch(statements)** - Execute multiple statements in a transaction
+**prepare(sql)** - Create a prepared statement:
+
+```javascript
+const stmt = env.DB.prepare('SELECT * FROM users WHERE id = ?')
+```
+
+**exec(sql)** - Execute SQL directly:
+
+```javascript
+await env.DB.exec(`
+  CREATE TABLE users (id INTEGER PRIMARY KEY, email TEXT UNIQUE NOT NULL)
+`)
+```
+
+**batch(statements)** - Execute multiple statements in a transaction:
+
+```javascript
+const statements = [
+  env.DB.prepare('INSERT INTO users (name) VALUES (?)').bind('Alice'),
+  env.DB.prepare('INSERT INTO users (name) VALUES (?)').bind('Bob')
+]
+await env.DB.batch(statements)
+```
 
 ### Prepared statement methods
-**first(...params)** - Execute and return first row
-**all(...params)** - Execute and return all rows
-**run(...params)** - Execute and return metadata
-**bind(...params)** - Bind parameters and return new statement
 
-## Key-value API (env.KV)
+**first(...params)** - Execute and return first row:
+
+```javascript
+const user = await stmt.first(123)
+```
+
+**all(...params)** - Execute and return all rows:
+
+```javascript
+const users = await stmt.all()
+```
+
+**run(...params)** - Execute and return metadata:
+
+```javascript
+const result = await stmt.run('Alice', 'alice@example.com')
+console.log(result.lastInsertRowid) // Auto-increment ID
+```
+
+**bind(...params)** - Bind parameters and return new statement:
+
+```javascript
+const boundStmt = stmt.bind(123)
+const user = await boundStmt.first()
+```
+
+### Chaining parameters
+
+Parameters can be bound and additional parameters passed:
+
+```javascript
+const stmt = env.DB.prepare('SELECT * FROM users WHERE role = ? AND status = ?')
+const boundStmt = stmt.bind('admin')
+const users = await boundStmt.all('active') // role='admin', status='active'
+```
+
+## Key-value testing (KV)
+
 Access the KV store through `env.KV`, which provides a Map-based store with the CloudFlare KV API:
 
-**get(key, options)** - Retrieve a value. Use `{ type: 'json' }` for objects
-**put(key, value)** - Store a value. Objects are automatically JSON serialized
-**delete(key)** - Remove a key
-**list(options)** - List keys with optional `prefix` and `limit`
+```javascript
+const { KV } = env
+```
+
+### KV API
+
+**get(key, options)** - Retrieve a value:
+
+```javascript
+// Get as string (default)
+const value = await env.KV.get('session:123')
+
+// Get as JSON
+const session = await env.KV.get('session:123', { type: 'json' })
+```
+
+Returns `null` if key doesn't exist.
+
+**put(key, value)** - Store a value:
+
+```javascript
+// Store string
+await env.KV.put('config:theme', 'dark')
+
+// Store object (auto-serialized to JSON)
+await env.KV.put('session:123', { user: 'alice', created: Date.now() })
+```
+
+Objects are automatically JSON.stringify'd on storage.
+
+**delete(key)** - Remove a key:
+
+```javascript
+const deleted = await env.KV.delete('session:123')
+// Returns true if key existed, false otherwise
+```
+
+**list(options)** - List keys with optional filtering:
+
+```javascript
+// List all keys
+const result = await env.KV.list()
+
+// List with prefix
+const sessions = await env.KV.list({ prefix: 'session:' })
+
+// Limit results
+const recent = await env.KV.list({ limit: 10 })
+
+// Result structure:
+{
+  keys: [{ name: 'session:123' }, { name: 'session:456' }],
+  list_complete: true,
+  cursor: null
+}
+```
 
 
-## Model factory pattern
-Create testable business models using factory functions that accept the environment:
+## Developing testable business models
+Your business model contains the core data operations and business logic of your application - functions that create users, process orders, manage sessions, and handle all the essential operations your app performs. Keeping this logic separate from HTTP routes makes it portable across different environments, easy to unit test without spinning up servers, and allows you to change your web framework without rewriting your core application logic. The factory pattern achieves this separation by accepting an environment object as a parameter and returning an object with your business methods, making the same code work identically in development, testing, and production.
+
 
 ```javascript
 // model/crm.js
@@ -62,7 +167,8 @@ export function createCRM(env) {
 ```
 
 ## Testing business models
-Test data operations independently of HTTP routes:
+Unit test your business operations using the mock environment to simulate database and key-value operations. Write tests that verify your data logic works correctly without any HTTP complexity.
+
 
 ```javascript
 
@@ -73,17 +179,16 @@ import { env } from 'nueserver/mock'
 import { createCRM } from './model/crm.js'
 
 test('addContact creates contact with ID', async () => {
+
   // Set up test schema
   await env.DB.exec(`
-    CREATE TABLE contacts (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT NOT NULL,
-      email TEXT NOT NULL,
-      created DATETIME DEFAULT CURRENT_TIMESTAMP
-    )
+    CREATE TABLE contacts (...)
   `)
 
+  // create CRM instance
   const crm = createCRM(env)
+
+  // test a matho
   const contact = await crm.addContact({
     name: 'Alice Johnson',
     email: 'alice@example.com'
@@ -93,6 +198,8 @@ test('addContact creates contact with ID', async () => {
   expect(contact.name).toBe('Alice Johnson')
 })
 
+
+// another test
 test('cacheContact stores in KV', async () => {
   const crm = createCRM(env)
   const contact = { id: 1, name: 'Alice', email: 'alice@example.com' }
@@ -102,51 +209,16 @@ test('cacheContact stores in KV', async () => {
   const cached = await env.KV.get('contact:1', { type: 'json' })
   expect(cached.name).toBe('Alice')
 })
+
+// etc..
 ```
 
-## Authentication model pattern
-Test session management and authentication logic:
-
-```javascript
-// model/auth.js
-export function createAuth(env) {
-  const { KV } = env
-
-  async function createSession(userData) {
-    const sessionId = crypto.randomUUID()
-    await KV.put(`session:${sessionId}`, {
-      ...userData,
-      created: Date.now()
-    })
-    return sessionId
-  }
-
-  async function getUser(sessionId) {
-    return await KV.get(`session:${sessionId}`, { type: 'json' })
-  }
-
-  return { createSession, getUser }
-}
-
-// auth.test.js
-test('session management', async () => {
-  const auth = createAuth(env)
-
-  const sessionId = await auth.createSession({
-    email: 'user@example.com',
-    role: 'admin'
-  })
-
-  const user = await auth.getUser(sessionId)
-  expect(user.email).toBe('user@example.com')
-  expect(user.role).toBe('admin')
-})
-```
 
 ## Route integration
-Models integrate cleanly into route handlers:
+Use the factory pattern in route handlers by passing c.env to create model instances. This maintains clean separation between HTTP concerns and business logic.RetryClaude can make mistakes. Please double-check responses.
 
 ```javascript
+
 // server/index.js
 import { createCRM } from './model/crm.js'
 import { createAuth } from './model/auth.js'
@@ -172,79 +244,7 @@ post('/api/login', async (c) => {
   const sessionId = await auth.createSession({ email })
   return c.json({ sessionId })
 })
+
+// etc...
 ```
 
-## Testing patterns
-### Schema setup
-Create test tables before each test:
-
-```javascript
-test('contact operations', async () => {
-  await env.DB.exec(`
-    CREATE TABLE contacts (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT NOT NULL,
-      email TEXT UNIQUE NOT NULL
-    )
-  `)
-
-  // Test operations...
-})
-```
-
-### Batch operations
-Test transaction patterns:
-
-```javascript
-test('batch contact creation', async () => {
-  const crm = createCRM(env)
-  const contacts = [
-    { name: 'Alice', email: 'alice@example.com' },
-    { name: 'Bob', email: 'bob@example.com' }
-  ]
-
-  const statements = contacts.map(contact =>
-    env.DB.prepare('INSERT INTO contacts (name, email) VALUES (?, ?)')
-      .bind(contact.name, contact.email)
-  )
-
-  await env.DB.batch(statements)
-
-  const result = await env.DB.prepare('SELECT COUNT(*) as count FROM contacts').first()
-  expect(result.count).toBe(2)
-})
-```
-
-### Complex queries
-Test business logic with joins and conditions:
-
-```javascript
-test('contact search', async () => {
-  const crm = createCRM(env)
-
-  // Set up test data...
-
-  const results = await crm.searchContacts({ query: 'alice', limit: 10 })
-  expect(results.length).toBe(1)
-  expect(results[0].name).toBe('Alice Johnson')
-})
-```
-
-## Environment isolation
-Each test gets a fresh, isolated environment. Tests don't affect each other and can run in parallel:
-
-```javascript
-test('first test', async () => {
-  await env.KV.put('key', 'value1')
-  const value = await env.KV.get('key')
-  expect(value).toBe('value1')
-})
-
-test('second test', async () => {
-  // KV is empty again
-  const value = await env.KV.get('key')
-  expect(value).toBe(null)
-})
-```
-
-This isolation ensures reliable, predictable tests that can be executed independently.

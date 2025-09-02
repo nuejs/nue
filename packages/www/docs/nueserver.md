@@ -137,4 +137,5 @@ Or install Nueserver directly as a library:
 bun install nueserver
 ```
 
-See the [Server API reference](server-api) for complete routing and context documentation.
+See the [Server API reference](server-api) and [Server testing](server-testing) for complete routing, context, D1, KV, and testing documentation.
+
