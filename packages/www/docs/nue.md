@@ -83,6 +83,20 @@ Nue runs seamlessly on server and client:
 The same `.html` file works as a server template and a client component. No special markers, no "use client" directives, no hydration. Write once, run anywhere.
 
 
+## No compromises
+Nue enforces strict [separation of concerns](/docs/separation-of-concerns) through architectural constraints. This isn't optional - the system actively prevents mixing concerns.
+
+**No style blocks** - CSS belongs in `.css` files, not embedded in HTML. Style blocks are stripped during processing.
+
+**No inline styles** - The `style` attribute is ignored completely. All presentation decisions happen in your [design system](/docs/design-systems).
+
+**Class name limits** - Maximum 3 class names per element (configurable). This prevents utility class bloat and forces systematic design thinking.
+
+**Clean class syntax** - Class names must be valid CSS identifiers. No colons, no special characters, no framework artifacts.
+
+These constraints aren't limitations - they're guardrails toward maintainable architecture. When you can't mix concerns, you're forced to separate them properly. The result is cleaner code that scales better and breaks less often.
+
+
 
 ## Installation
 For real projects, use Nuekit for the full development experience:

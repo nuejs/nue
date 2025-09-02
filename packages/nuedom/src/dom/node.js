@@ -16,7 +16,7 @@ export function createNode(ast, data={}, opts={}, parent) {
     if (fire('onupdate') !== false) {
       const next = render(ast, self).firstChild
 
-      // Domino: cannot be swapped
+      // Domino: cannot be swapped (TODO: check with fakedom)
       if (is_browser || parent) domdiff(root, next, root.parentNode)
       else domdiff(root.firstChild, next, root)
 
@@ -56,6 +56,10 @@ export function createNode(ast, data={}, opts={}, parent) {
   self.mount = function(name, wrap, data) {
     if (typeof wrap == 'string') wrap = root?.querySelector(wrap)
     const ast = opts.deps?.find(c => name == (c.is || c.tag))
+
+    // convert to <div> (TODO: do this at compile time)
+    if (ast.is_custom) { ast.is = ast.tag; ast.tag = 'div'; delete ast.is_custom }
+
     const block = createNode(ast, data, opts, self)
     block.mount(wrap)
   }

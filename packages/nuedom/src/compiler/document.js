@@ -129,12 +129,10 @@ function parseBlock(tokens, i) {
 export function parseNames(script) {
   const lines = script.trim().split('\n')
   const arr = []
-
   for (const line of lines) {
     if (line.trim().startsWith('//')) continue
-
     arr.push(
-      ...getFunctioneNames(line),
+      ...getFunctionNames(line),
       ...getVariableNames(line)
     )
   }
@@ -142,13 +140,24 @@ export function parseNames(script) {
 }
 
 function getVariableNames(line) {
-  const match = line.match(/(import|const|var|let)\s*({\s*([^}]+)\s*})/)
-  return !match ? [] : match[3].split(',').map(el => {
-    return el.includes(' as ') ? el.split(' as ')[1].trim() : el.trim()
-  })
+  // Match destructuring: import { ... } or const { ... } =
+  const destructMatch = line.match(/(import|const|var|let)\s*{\s*([^}]+)\s*}/)
+  if (destructMatch) {
+    return destructMatch[2].split(',').map(el => {
+      return el.includes(' as ') ? el.split(' as ')[1].trim() : el.trim()
+    })
+  }
+
+  // Match regular declarations: const FOO =
+  const regularMatch = line.match(/(const|var|let)\s+([A-Za-z_$][A-Za-z0-9_$]*)\s*=/)
+  if (regularMatch) {
+    return [regularMatch[2]]
+  }
+
+  return []
 }
 
-function getFunctioneNames(line) {
+function getFunctionNames(line) {
   const match = line.match(/function\s*([^\(]+)\s*\(/)
   return match ? [match[1]] : []
 }

@@ -291,8 +291,36 @@ See [Server testing API](/docs/server-testing) for complete documentation of the
 
 
 
-## External servers
+## External server integration
 For existing backends or non-JavaScript servers, configure Nue as a proxy:
+
+
+```yaml
+server:
+  # Point to your existing backend server
+  url: http://localhost:5000
+
+  # Which routes get forwarded to that server
+  routes: [/api/, /private/]
+```
+
+**How it works:**
+- Requests to `/api/users` get proxied to `http://localhost:5000/api/users`
+- Requests to `/private/dashboard` get proxied to `http://localhost:5000/private/dashboard`
+- All other requests (`/`, `/blog/`, `/docs/`) are served by Nue normally
+
+**Use cases:**
+- You have an existing Express, FastAPI, or Rails backend
+- You want to gradually migrate to edge-first development
+- Your team uses different languages for the backend (Python, Go, Rust)
+- You're integrating with legacy systems
+
+The proxy works in both development and production, so you can mix Nue's static site generation with any existing backend infrastructure.
+
+
+
+## External servers
+
 
 ```yaml
 server:

@@ -20,7 +20,7 @@ After migration you'll see:
 ## Project setup
 When moving to Nue, start with a fresh project structure. The monolithic Next.js architecture where everything lives in components doesn't translate directly to Nue's separated concerns. The focus is on cleaning up the entire architecture rather than porting it file-by-file.
 
-The first step is cleaning up unnecessary NPM modules, project scaffolding, and configuration. This is quite significant in Next.js. An empty Next.js project created with `npx create-next-app@latest` (v15.5) contains 336 packages, 18,666 files, and 427MB. That's literally 8x Windows 95 installations.
+The first step is cleaning up unnecessary NPM modules, project scaffolding, and configuration. This is quite significant in Next.js. An empty Next.js project created with `npx create-next-app@latest` (v15.5) contains 336 packages, 18,666 files, and 427MB. A size of eight Windows 95 installations.
 
 Add a component library like ShadCN and you're at 470MB (9x Windows 95). A typical Next.js project has at least the following configuration files to start with:
 
@@ -67,14 +67,14 @@ Since Next.js provides no content authoring tools natively, you need these addit
 
 ```bash
 # MDX, MD extensions, content processing and view transitions
-pnpm install @next/mdx @mdx-js/loader @mdx-js/react
-pnpm install gray-matter contentlayer next-contentlayer
-pnpm install remark-gfm rehype-autolink-headings rehype-slug
-pnpm install shiki date-fns next-seo feed next-sitemap
-pnpm install framer-motion
+npm install @next/mdx @mdx-js/loader @mdx-js/react
+npm install gray-matter contentlayer next-contentlayer
+npm install remark-gfm rehype-autolink-headings rehype-slug
+npm install shiki date-fns next-seo feed next-sitemap
+npm install framer-motion
 ```
 
-This causes your repository size to balloon from 470MB to a whopping **1.3GB**. We're now at 26 Windows 95 installations for a content site.
+This causes your repository size to balloon from 470MB to a whopping 550MB, over 500 times of Nue without even reaching the complete feature set yet.
 
 
 ### Next.js content architecture
@@ -151,8 +151,6 @@ Nue gives you the same functionality with this stucture:
 └── index.md
 ```
 
-All features from that 1.3GB Next.js setup are included in the  1MB global Nue installation.
-
 ### Nue configuration
 Enable all the features (collections, RSS feeds, sitemaps, view transitions) with this `site.yaml` config:
 
@@ -174,7 +172,6 @@ collections:
   docs:
     match: [docs/*.md]
     sort: order asc
-
 ```
 
 This literally drops thousands of lines of code, configuration and scaffoling to get a versatile content engine running  under Next.js.
@@ -185,7 +182,7 @@ This literally drops thousands of lines of code, configuration and scaffoling to
 
 **Scalable content** - All pages, from rich front pages to simple blog entries, are editable with pure content. Page development becomes a content project, not a software engineering and TSX debugging project. Writers work independently without breaking builds.
 
-**All features in 1MB** - Syntax highlighting, heading links, collections, RSS feeds, sitemaps, view transitions, responsive images, layout inheritance, and content processing. Everything that required 1.4GB of Next.js packages.
+**All features in 1MB** - Syntax highlighting, heading links, collections, RSS feeds, sitemaps, view transitions, responsive images, layout inheritance, and content processing.
 
 **Rich layouts** - With [slots and layout modules](/docs/layout-system), create sophisticated page structures without component hierarchies. Section-specific layouts inherit and override automatically.
 
@@ -198,10 +195,10 @@ Migrating your backend infrastructure (server and databases) from third-party AP
 The backend landscape is fragmented with options ranging from the complex T3 stack to newer Server Actions. This guide assumes tight integration with the Vercel ecosystem using these dependencies, after which the project size reaches 1.4G:
 
 ```bash
-pnpm install @vercel/kv @vercel/postgres
-pnpm install drizzle-orm drizzle-kit
-pnpm install next-auth@beta @auth/drizzle-adapter
-pnpm install @types/node
+npm install @vercel/kv @vercel/postgres
+npm install drizzle-orm drizzle-kit
+npm install next-auth@beta @auth/drizzle-adapter
+npm install @types/node
 ```
 
 This requires at least the following TypeScript configuration files:
@@ -326,9 +323,9 @@ On this step, our goal is to build an isolated, testable business logic layer th
 Next.js has no notion of a decoupled business logic layer. Instead there are multiple options to integrate business logic into your components. Tools like Redux Toolkit, RTK Query and Formik. Or SWR, Valtio, and React Final Form. However the most popular stack currently is likely TanStack Query, Zustand and React Hook Form. This has become the de facto standard for modern React applications in 2024-2025. So let's add some more packages:
 
 ```bash
-pnpm add @tanstack/react-query zustand react-hook-form
-pnpm add -D @tanstack/react-query-devtools
-pnpm add @hookform/resolvers zod
+npm add @tanstack/react-query zustand react-hook-form
+npm add -D @tanstack/react-query-devtools
+npm add @hookform/resolvers zod
 ```
 
 ### Next.js: Non-standard APIs
@@ -680,7 +677,7 @@ CSS handles all presentation decisions in one place. Variants, states, and respo
 ## Migration complete
 After following this migration guide, you've transformed a complex Next.js application into a clean, standards-based architecture. The transformation is quite dramatic:
 
-**From 1.4GB to 1MB** - Your project dependencies dropped from over 300 NPM packages to a single global installation. Configuration files reduced from 15+ to one central `site.yaml`.
+**From 575MB to 1MB** - Your project dependencies dropped from over 450+ NPM packages to a single global installation with zero external dependencies Configuration files reduced from 15+ to one central `site.yaml`.
 
 **From mixed concerns to architectural clarity** - Business logic lives in pure JavaScript modules. Content lives in Markdown files. Design lives in CSS. Structure lives in semantic HTML. Each layer works independently and can scale without affecting others.
 

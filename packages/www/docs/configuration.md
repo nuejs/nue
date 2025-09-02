@@ -59,6 +59,16 @@ server:
   reload: true
 
 
+# Alternatively: use a reverse proxy
+server:
+
+  # Point to your existing backend server
+  url: http://localhost:5000
+
+  # Which routes get forwarded to that server
+  routes: [/api/, /private/]
+
+
 # Site-wide collections (app.yaml can extend)
 collections:
 

@@ -98,10 +98,14 @@ test('full', () => {
 test('parseNames', () => {
   const template = `
     import { getContacts } from 'model.js'
-    import { foo as state } from 'foo.js'
+
+    import {foo as state, another } from 'foo.js'
+
     // import { nothing } from 'nothing.js'
 
     const { MEME, PRANK } = await import('/kama')
+
+    const FOO = [ 100 ]
 
     export function format() {
 
@@ -111,8 +115,9 @@ test('parseNames', () => {
 
     }
   `
+
   expect(parseNames(template)).toEqual([
-    "getContacts", "state", "MEME", "PRANK", "format", "trick"
+   'getContacts', 'state', 'another', 'MEME', 'PRANK', 'FOO', 'format', 'trick'
   ])
 
 })
