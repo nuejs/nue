@@ -23,12 +23,10 @@ server.onmessage = async function(e) {
   const asset = JSON.parse(e.data)
 
   return asset.error ? await handleError(asset)
-    : asset.is_dhtml ? await reloadComponents(asset)
     : asset.is_md ? await reloadContent(asset)
+    : asset.is_html ? await reloadHTML(asset)
+    : asset.is_svg ? reloadVisual(asset)
     : asset.is_css ? reloadCSS(asset)
-    : asset.is_svg || asset.is_html_page ? reloadVisual(asset)
-
-    : asset.is_html ? location.reload() // server layout
     : asset.is_yaml ? location.reload()
     : null
 }
@@ -50,7 +48,18 @@ async function reloadContent(asset) {
 
   const { title, body } = parsePage(asset.content)
   if (title) document.title = title
-  domdiff($('body'), body)
+  const lib = asset.ast?.lib
+
+  // focused HMR
+  if (lib?.length == 1) {
+    const { tag } = lib[0]
+    domdiff($(tag), body.querySelector(tag))
+
+  // diff everything
+  } else {
+    domdiff($('body'), body)
+  }
+
   await mountAll()
 }
 
@@ -60,6 +69,7 @@ function reloadVisual(asset) {
   // HMR mode
   if (location.pathname.endsWith('.svg')) return reloadSVG(asset.content)
 
+  // reload <svg> and <object> tags
   const { url } = asset
 
   function reload(el, attr) {
@@ -82,6 +92,13 @@ function reloadCSS(asset) {
 
   if (orig) orig.replaceWith(style)
   else document.head.appendChild(style)
+}
+
+
+async function reloadHTML(asset) {
+  return asset.is_dhtml ? await reloadComponents(asset)
+    : asset.is_lib ? location.reload()
+    : await reloadContent(asset)
 }
 
 async function reloadComponents(asset) {

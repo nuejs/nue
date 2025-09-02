@@ -1,3 +1,3 @@
 
 tests:
-	cd test && bun test server/worker
+	cd test && bun test render/svg

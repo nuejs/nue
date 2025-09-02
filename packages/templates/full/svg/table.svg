@@ -3,10 +3,10 @@
   @css [ base, svg/table ]
 -->
 <svg width="500" height="500">
-  <foreignObject x="0" y="0" width="100%" height="100%">
-    <table xmlns="http://www.w3.org/1999/xhtml">
+  <html>
+    <table>
       <tr>
-        <td>Jakarta bones</td>
+        <td>Jakarta zones</td>
         <td>Kotain</td>
       </tr>
       <tr>
@@ -14,5 +14,5 @@
         <td>Jotain</td>
       </tr>
     </table>
-  </foreignObject>
+  </html>
 </svg>

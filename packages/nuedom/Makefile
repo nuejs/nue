@@ -1,6 +1,6 @@
 
 run-tests:
-	bun test # fakedom
+	bun test render.test
 
 demo:
 	@ bun bin/serve

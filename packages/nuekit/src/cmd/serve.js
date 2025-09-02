@@ -28,7 +28,10 @@ export async function serve(site, { silent }) {
 
     if (asset) {
       asset.content = await asset.render({ hmr: true }) || await asset.text()
-      asset.doctype = asset.is_html && (await asset.parse()).doctype
+      if (asset.is_html) {
+        asset.ast = await asset.parse()
+        delete asset.ast.root
+      }
       broadcast(asset)
     }
   }

@@ -33,7 +33,7 @@ test('renderHMR', () => {
   expect(html).toInclude('<body><svg></body>')
 })
 
-test('renderHMR', async () => {
+test('renderSVG', async () => {
 
   const asset = {
     async data() { return {} },
@@ -52,20 +52,22 @@ test('renderHMR', async () => {
       async function text() { return `:root { --brand: #ccc }` }
       return [ { is_css: true, path: 'table.css', url: '/table.css', text } ]
     },
-
   }
 
-  const html = await renderSVG(asset, { hmr: '', fonts: { Test: 'test.woff' } })
+
+  // SVG
+  const svg = await renderSVG(asset, { fonts: { Test: 'render/svg.test.js' } })
+  expect(svg).toInclude("url('data:font/woff2;base64")
+  expect(svg).toInclude(':root{--brand:#ccc}')
+  expect(svg).toInclude('</style></svg>')
+
+  // HTML (HMR)
+  const html = await renderSVG(asset, { hmr: true, fonts: { Test: 'test.woff' } })
   expect(html).toInclude('<!doctype html>')
   expect(html).toInclude('@font-face')
   expect(html).toInclude('<link rel="stylesheet" href="/table.css">')
   expect(html).toInclude('xmlns="http://www.w3.org/2000/svg')
   expect(html).toInclude('0 0 100 100')
-
-  const svg = await renderSVG(asset, { fonts: { Test: 'render/svg.test.js' } })
-  expect(svg).toInclude("url('data:font/woff2;base64")
-  expect(svg).toInclude(':root{--brand:#ccc}')
-  expect(svg).toInclude('</style></svg>')
 
 })
 
