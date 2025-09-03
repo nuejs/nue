@@ -1,14 +1,14 @@
 {
   "name": "nue-glow",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Markdown syntax highlighter for CSS developers",
   "homepage": "https://nuejs.org/blog/introducing-glow/",
   "license": "MIT",
   "type": "module",
-  "main": "index.js",
+
   "repository": {
     "url": "https://github.com/nuejs/nue",
-    "directory": "packages/glow",
+    "directory": "packages/nueglow",
     "type": "git"
   },
   "engines": {
@@ -20,7 +20,7 @@
     "test": "node --experimental-vm-modules ../../node_modules/jest/bin/jest.js --runInBand"
   },
 
-  "files": [ "index.js", "src" ],
+  "files": ["index.js"],
 
   "jest": {
     "setupFilesAfterEnv": [

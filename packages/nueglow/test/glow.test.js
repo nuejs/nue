@@ -1,4 +1,4 @@
-import { parseRow, parseSyntax, renderRow } from '../src/glow.js'
+import { parseRow, parseSyntax, renderRow } from '..'
 
 
 test('HTML', () => {

@@ -20,17 +20,17 @@ function renderBlock(block, opts) {
   const fn = opts?.beforerender
   if (fn) fn(block)
 
-  return block.is_content ? renderContent(block.content, opts) :
-    block.is_heading ? renderHeading(block, opts) :
-      block.is_quote ? elem('blockquote', renderBlocks(block.blocks, opts)) :
-        block.is_tag ? renderTag(block, opts) :
-          block.is_table ? renderTable(block, opts) :
-            block.is_list ? renderList(block, opts) :
-              block.is_code ? renderCode(block, opts) :
-                block.is_newline ? '' :
-                  block.is_break ? '<hr>' :
-                    block.is_html ? block.html :
-                      console.error('Unknown block', block)
+  return block.is_content ? renderContent(block.content, opts)
+    : block.is_heading ? renderHeading(block, opts)
+    : block.is_quote ? elem('blockquote', renderBlocks(block.blocks, opts))
+    : block.is_tag ? renderTag(block, opts)
+    : block.is_table ? renderTable(block, opts)
+    : block.is_list ? renderList(block, opts)
+    : block.is_code ? renderCode(block, opts)
+    : block.is_newline ? ''
+    : block.is_break ? '<hr>'
+    : block.is_html ? block.html
+    : console.error('Unknown block', block)
 }
 
 // recursive
