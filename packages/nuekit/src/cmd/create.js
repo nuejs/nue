@@ -1,25 +1,77 @@
 
-// pseudocode
+import { mkdir } from 'node:fs/promises'
+import { join } from 'node:path'
 
-export async function create(name=minimal) {
+export const NAMES = 'blog full minimal spa'.split(' ')
 
-  if (await Bun.file(name).exists()) return console.log('Already created')
+export async function create(name, { dir, baseurl }) {
 
-  await fs.mkdir(name, { recursive: true })
+  if (!name) return console.log('❌ USAGE: nue create <template-name>')
 
-  // download archive
-  const url = `https://github.com/nuejs/nue/releases/latest/download/${name}.zip`
-  const zip = await fetch(url)
+  if (!NAMES.includes(name)) {
+    return console.log('❌ Choose one: ' + NAMES.join(', '))
+  }
 
-  // error?
-  if (zip.status != 200) return console.error(`Error loading ${url}`)
+  if (await Bun.file(name).exists()) {
+    return console.log(`✨ ${name} directory already exists`)
+  }
 
-  // unzip
+  try {
+    // load zip from local or remote
+    const zip = dir ? await getLocalZip(name, dir) : await fetchZip(name, baseurl)
+    await unzip(name, zip)
 
-  // remove zip
+    // success message
+    console.log(`\n🎉  "${name}" directory created. Your next steps:`)
+    console.log(`   cd ${name}`)
+    console.log(`   nue\n`)
 
-  // inform
-  console.info(`Created template "${name}"`)
-  console.info(`Next step: cd ${name} \n nue`)
+    return true
 
+  } catch (error) {
+    console.error(`❌ ${error.message}`)
+  }
+}
+
+
+export async function getLocalZip(name, dir) {
+  const path = join(dir, `${name}.zip`)
+  if (!await Bun.file(path).exists()) throw new Error(`${path} not found`)
+  console.log(`📦 Loading local template: ${path}`)
+  return Bun.file(path)
+}
+
+// download from github
+export async function fetchZip(name, baseurl='https://github.com/nuejs/nue/releases/latest/download') {
+  const url = `${baseurl}/${name}.zip`
+  const resp = await fetch(url)
+  if (resp.status != 200) throw new Error(`${url} not found`)
+  console.log(`📦 Downloading ${name} template...`)
+  return resp
+}
+
+
+// unzip.js
+export async function unzip(dir, zip) {
+  const filename = `${dir}.zip`
+
+  try {
+    // write zip file
+    await Bun.write(filename, zip)
+
+    // extract (expects "minimal" directory inside zip)
+    const proc = Bun.spawn(['unzip', '-q', filename])
+    const exitCode = await proc.exited
+
+    if (exitCode !== 0) {
+      const stderr = await new Response(proc.stderr).text()
+      throw new Error(`unzip failed with exit code ${exitCode}: ${stderr}`)
+    }
+
+  // clean up
+  } finally {
+    try {
+      await Bun.file(filename).delete()
+    } catch (e) {console.info(e)}
+  }
 }

@@ -92,6 +92,11 @@ async function run(args) {
   if (cmd == 'preview') {
     const { preview } = await import('./cmd/preview')
     return await preview(site, args)
+
+  } else if (cmd == 'create') {
+    const { create } = await import('./cmd/create')
+    const [ name, dir ] = paths
+    return await create(name, { dir })
   }
 
   // site config
@@ -106,10 +111,6 @@ async function run(args) {
 
   if (cmd == 'push') {
     console.log('pushing', paths)
-
-  } else if (cmd == 'create') {
-    const [ app ] = paths
-    console.log('creating', app)
 
   } else if (cmd == 'build' || paths.length) {
     const { build } = await import('./cmd/build')

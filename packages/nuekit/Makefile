@@ -1,3 +1,3 @@
 
 tests:
-	cd test && bun test render/svg
+	cd test && bun test create

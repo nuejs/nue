@@ -3,7 +3,7 @@ name: Build template zips
 
 on:
   push:
-    branches: [ "2.0" ]
+    branches: [ master, "2.0" ]
 
 jobs:
   build-templates:
@@ -20,17 +20,18 @@ jobs:
           zip -r full.zip full/
           ls -la *.zip
 
-      # Dev - artifacts for testing
-      - name: Upload artifacts
-        if: github.event_name == 'push'
+      # Dev push
+      - name: Test zip creation
+        # if: github.event_name == 'push'
+        if: false
         uses: actions/upload-artifact@v4
         with:
           name: templates
           path: packages/templates/*.zip
           retention-days: 1
 
-      # Prod - attach to release
-      - name: Upload to release
+      # Prod release
+      - name: Release zip files
         if: github.event_name == 'release'
         uses: softprops/action-gh-release@v1
         with:
