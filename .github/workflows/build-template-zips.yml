@@ -1,0 +1,37 @@
+
+name: Build template zips
+
+on:
+  push:
+    branches: [ "2.0" ]
+
+jobs:
+  build-templates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create template zips
+        run: |
+          cd templates
+          zip -r minimal.zip minimal/
+          zip -r blog.zip blog/
+          zip -r spa.zip spa/
+          zip -r full.zip full/
+          ls -la *.zip
+
+      # Dev - artifacts for testing
+      - name: Upload artifacts
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@v4
+        with:
+          name: templates
+          path: templates/*.zip
+          retention-days: 1
+
+      # Prod - attach to release
+      - name: Upload to release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v1
+        with:
+          files: templates/*.zip
