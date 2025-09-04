@@ -36,7 +36,7 @@ export async function createSite(conf) {
 
     if (file) {
       files.push(file)
-      asset = createAsset(file, files, is_prod)
+      asset = createAsset(file, files, conf)
       assets.push(asset)
       return asset
     }

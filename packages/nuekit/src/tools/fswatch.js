@@ -6,7 +6,7 @@ import { fswalk, matches } from './fswalk'
 // Main fswatch function
 export function fswatch(root, opts = {}) {
   const { ignore = ['.*', '_*', 'node_modules'] } = opts
-  const shouldProcess = createDeduplicator()
+  // const shouldProcess = createDeduplicator()
 
   // Start watching
   const watcher = watch(root, { recursive: true }, async function(event, path) {
@@ -17,7 +17,7 @@ export function fswatch(root, opts = {}) {
     if (isEditorBackup(path)) return
 
     // Skip if this is a duplicate event
-    if (!shouldProcess()) return
+    // if (!shouldProcess()) return
 
     // Check if path should be ignored
     if (matches(path, ignore)) return
