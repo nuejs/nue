@@ -16,12 +16,12 @@ test('index.html', async () => {
 })
 
 
-test('lib.html', async () => {
+test('html lib', async () => {
   const files = [
     { is_html: true, path: 'user-list.html', ext: '.html',
-      async text() { return '<user-list/>' }
+      async text() { return '<main><user-list/></main>' }
     },
-    { is_html: true, path: 'lib.html', async text() { return '<!html lib> <ul :is="user-list"/>' }},
+    { is_html: true, path: 'lib.html', async text() { return '<ul :is="user-list"/>' }},
   ]
 
   const page = createAsset(files[0], files)
@@ -37,7 +37,7 @@ test('lib.html', async () => {
 
   // render HTML
   const html = await page.render()
-  expect(html).toInclude('<ul>')
+  expect(html).toInclude('<main><ul></ul></main>')
   expect(await page.contentType()).toInclude('text/html')
 })
 

@@ -84,7 +84,6 @@ Small to medium sites consistently build under 100ms. This happens because:
 
 
 ### Optimization strategies
-
 Because files have single responsibilities, optimization strategies can be more surgical than bundler-based approaches.
 
 **CSS inlining** - Design systems built with constraints stay small enough to inline completely:

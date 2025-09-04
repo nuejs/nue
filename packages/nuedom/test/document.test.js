@@ -6,9 +6,9 @@ test('doctype & root', () => {
 
   expect(doc).toMatchObject({
     root: { tag: "app", is_custom: true },
-    all_custom: true,
     doctype: "dhtml",
     is_dhtml: true,
+    is_lib: true,
   })
 })
 

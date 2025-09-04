@@ -9,7 +9,7 @@ export async function renderHead({ conf, data, assets, libs=[] }) {
   const { title } = data
   const head = []
 
-  if (title) head.push(elem('title', data.title))
+  if (title) head.push(elem('title', renderTitle(title, data.title_template)))
 
   // meta
   head.push(...renderMeta(data, libs))

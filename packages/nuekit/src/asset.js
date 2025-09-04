@@ -90,7 +90,7 @@ export function createAsset(file, files=[], conf={}) {
 
     for (const asset of (await assets()).filter(el => el.is_html)) {
       const ast = await asset.parse()
-      const { doctype } = ast
+      const { doctype='' } = ast
 
       if (ast.is_lib) {
         const same_type = is_dhtml == ast.is_dhtml

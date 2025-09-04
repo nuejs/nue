@@ -1,6 +1,12 @@
 
+meta:
+  title: Emma Bennet / Design Engineering Blog
+  title_template: %s / Emma Bennet
+  author: Emma Bennet
+
 site:
   origin: https://acme.org
+  view_transitions: true
 
 rss:
   enabled: true
@@ -8,8 +14,12 @@ rss:
   description: Latest news on web development
   collection: blog
 
+design:
+  inline_css: true
+
 collections:
   blog:
     include: [ posts/ ]
     require: [ title ]
     sort: date desc
+

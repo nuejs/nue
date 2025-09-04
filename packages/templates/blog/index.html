@@ -2,14 +2,17 @@
 <!doctype html>
 
 <article>
-  <h1>Kalmari</h1>
+  <h1>Design engineering blog</h1>
 
-  <table>
-    <tr :each="page in blog">
-      <td>{ formatDate(page.date) }</td>
-      <td><a href="{ page.url }">{ page.title }</a></td>
-    </tr>
-  </table>
+  <ul>
+    <li :each="page in blog">
+      <a href="{ page.url }">
+        <p><time>{ formatDate(page.date) }</time></p>
+        <h3>{ page.title }</h3>
+        <p>{{ markdown(page.description) }}</p>
+      </a>
+    </li>
+  </ul>
 
   <script>
     formatDate(date) {

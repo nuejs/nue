@@ -1,0 +1,19 @@
+
+
+<header :is="pagehead">
+  { formatDate(date) }
+
+  <script>
+    formatDate(date) {
+      return new Date(date).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      })
+    }
+  </script>
+</header>
+
+<figure :is="placeholder" class="blue hero { attr?.class }">
+  <div --height="{ height }px"/>
+</figure>

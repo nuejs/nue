@@ -1,3 +1,3 @@
 
 tests:
-	cd test && bun test create
+	cd test && bun test # render/asset

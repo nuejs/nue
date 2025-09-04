@@ -48,8 +48,8 @@ export function parseNue(template) {
 
   // all custom elements
   const type = page.doctype || ''
-  page.all_custom = lib.every(ast => ast.is_custom || ast.is)
-  page.is_lib = type.endsWith('lib')
+  const all_custom = lib.every(ast => ast.is_custom || ast.is)
+  page.is_lib = all_custom || type.endsWith('lib')
 
   page.is_dhtml = type.includes('dhtml')
     || lib.some(ast => ast.handlers?.length > 0)

@@ -1,5 +1,6 @@
+
 # Design systems
-When design lives in JavaScript, you don't have a design system. You have a scattered utility framework. Nue puts design back in CSS where it belongs, enabling you to build and maintain a real system.
+Modern CSS has everything needed for real design systems. Variables, nesting, layers, and scope create visual languages that scale across product lines. When design lives in one place, both designers and developers work at full speed.
 
 ## The problem we created
 For 15 years we've been writing CSS to survive in chaos. We use BEM because we gave up on the cascade. We use CSS-in-JS because we're scared of namespace collisions. We write utility classes because we stopped trusting our ability to name things. We compile, process, and transform CSS because we think native CSS isn't enough.
@@ -21,7 +22,6 @@ Constraints create consistency. A design system with 20 well-chosen classes beat
 
 
 ## Why these principles matter
-
 These three principles create a system that's invisible to those using it—the ultimate user-friendliness.
 
 **For designers**, a central system means direct control. Change a variable, see it everywhere. No asking developers to update components. No waiting for builds. No translation layer between design intent and implementation. The feedback loop becomes immediate. CSS speaks their language—visual properties, not programming abstractions.
@@ -34,7 +34,7 @@ This is what real collaboration looks like—not everyone learning React, but ea
 
 
 ## Design engineering
-Web development split into two camps: those who design and those who code. This division is artificial. The web is a design medium that happens to be programmable.
+Toady web development is split into two camps: those who design and those who code. This division is artificial. The web is a design medium that happens to be programmable.
 
 
 ### Two mindsets, one medium

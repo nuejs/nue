@@ -1,9 +1,161 @@
 
-*, *:before, *:after {
-  box-sizing: border-box;
+/* settings  */
+@layer base, components;
+
+@layer base {
+
+  *, *:before, *:after {
+    box-sizing: border-box;
+  }
+
+  /* colors */
+  :root {
+    --base-100: #f5f7f9;
+    --base-200: #E2E8F0;
+    --base-400: #94A3B8;
+    --base-600: #475569;
+    --base-800: #1E293B;
+  }
+
+  /* global layout & styling */
+  body {
+    line-height: 1.5;
+    font-family: system-ui;
+    color: var(--base-600);
+    padding: 1rem 1.5rem;
+    margin: 0;
+
+    /* header */
+    > header {
+      border-bottom: 1px solid var(--base-200);
+      padding-bottom: 1rem;
+      a {
+        text-decoration: none;
+        color: var(--base-800);
+        font-weight: 600;
+      }
+    }
+
+    > main {
+      max-width: 72ch;
+      margin: 6rem auto;
+      min-height: calc(100vh - 32rem);
+    }
+
+    /* footer */
+    > footer {
+      text-align: center;
+      border-top: 1px solid var(--base-200);
+      color: var(--base-800);
+      padding-block: 6rem;
+    }
+  }
+
+
+  /* typography */
+  h1, h2, h3, strong {
+    color: var(--base-800);
+  }
+
+  h1 {
+    font-size: 2.5em;
+    font-weight: 800;
+    line-height: 1.125;
+    letter-spacing: -.02em;
+    margin-block: .25em;
+
+    + p {
+      font-size: 1.25em;
+      margin: 0;
+    }
+  }
+
+  h2 {
+    margin-block: 3em -.25em;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* placeholder images */
+  figure {
+    background-color: var(--base-200);
+    margin: 1.5em 0;
+
+    > div {
+      height: var(--height);
+    }
+
+    @media (width > 900px) {
+      &.hero {
+        margin: 3em -15vw;
+      }
+    }
+
+    /* bauhaus coloring */
+    &.yellow  { background-color: yellow }
+    &.blue    { background-color: blue }
+    &.red     { background-color: red }
+  }
+
+
+  /* syntax blocks */
+  pre {
+    background-color: var(--base-100);
+    color: #005bff;
+    margin-block: 1em 2em;
+    padding: 2em;
+
+    /* primary accent color */
+    b { color: #ff3aa1; font-weight: normal }
+
+    /* secondary accent color */
+    em { color: #278e4f; font-style: normal; }
+
+    /* special emphasis */
+    strong { color: #00c9ff; font-weight: normal }
+
+    /* brackets, commas, semicolons... */
+    i { color: var(--base-400); font-style: normal; }
+
+    /* comments */
+    sup {
+      opacity: .5;
+      vertical-align: inherit;
+      color: var(--base-600);
+      font-size: inherit;
+    }
+
+    /* highlight */
+    label {
+      font-weight: bold;
+      color: #0069d4;
+    }
+  }
 }
 
-body {
-  line-height: 1.5;
-  font-family: system-ui;
+@layer components {
+
+  /* major listings */
+  ul:has(h2, h3) {
+    list-style-type: none;
+    margin-block: 3rem;
+    padding: 0;
+
+    a { text-decoration: none }
+
+    h3, p { margin-block: .25em }
+
+    p { color: var(--base-600) }
+
+    time { color: var(--base-400) }
+
+    li {
+      margin-bottom: 2em;
+      &:hover h3 { text-decoration: underline }
+    }
+
+  }
+
 }
