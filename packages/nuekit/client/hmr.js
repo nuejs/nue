@@ -16,6 +16,7 @@ let reload_count = 0
 
 server.onmessage = async function(e) {
   const asset = JSON.parse(e.data)
+  console.log(asset)
 
   return asset.error ? await handleError(asset)
     : asset.is_md ? await reloadContent(asset)
@@ -34,6 +35,7 @@ async function handleError(asset) {
 
 async function reloadContent(asset) {
   const { url } = asset
+
 
   if (url != location.pathname) return location.href = url
 

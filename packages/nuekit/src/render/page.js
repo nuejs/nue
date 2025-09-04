@@ -43,7 +43,7 @@ export function renderSlots({ head=[], content='', comps=[], data={}, conf={} })
     </body>
   `
 
-  return trim(`
+  return `
     <!doctype html>
 
     <html lang="${attr.language}"${attr.dir}>
@@ -53,7 +53,7 @@ export function renderSlots({ head=[], content='', comps=[], data={}, conf={} })
       </head>
       ${body}
     </html>
-  `)
+  `
 }
 
 

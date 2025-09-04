@@ -26,6 +26,13 @@ export async function serve(site, { silent }) {
   watcher.onupdate = async function(path) {
     const asset = await site.update(path)
 
+    // site.yaml update
+    if (asset.base == 'site.yaml') {
+      const data = asset.content = await asset.parse()
+      Object.assign(conf, data)
+      return broadcast(asset)
+    }
+
     if (asset) {
       asset.content = await asset.render({ hmr: true }) || await asset.text()
       if (asset.is_html) {

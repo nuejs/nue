@@ -37,7 +37,7 @@
     }
 
     > main {
-      max-width: 72ch;
+      max-width: 650px;
       margin: 6rem auto;
       min-height: calc(100vh - 32rem);
     }

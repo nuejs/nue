@@ -1,4 +1,4 @@
-import { parseRow, parseSyntax, renderRow } from '..'
+import { parseRow, parseSyntax, renderRow, glow } from '..'
 
 
 test('HTML', () => {
@@ -39,7 +39,6 @@ test('parse JS comment', () => {
   expect(blocks[0].comment).toEqual(['/* First */'])
   expect(blocks[2].comment[0]).toEqual('/*')
 })
-
 
 /* prefix and mark */
 test('disable mark', () => {

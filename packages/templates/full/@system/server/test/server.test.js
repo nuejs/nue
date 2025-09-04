@@ -1,7 +1,9 @@
 
-import { loadSchema } from '../db/init/load'
-import server from '../server'
-import { env } from './mock'
+import { fetch } from 'nueserver'
+import { env } from 'nueserver/mock'
+
+import { loadSchema } from '../db/init/load-data'
+import '..'
 
 await loadSchema(env.DB)
 
@@ -19,14 +21,14 @@ test('post contact', async () => {
     body: JSON.stringify({ email: 'test@test.com' })
   })
 
-  const resp = await server.fetch(req, env)
+  const resp = await fetch(req, env)
   expect(await resp.json()).toMatchObject({ id: 1, country: 'FI' })
 })
 
 
 test('failed auth', async () => {
   const req = new Request(`http://localhost/admin/contacts`)
-  const resp = await server.fetch(req, env)
+  const resp = await fetch(req, env)
   expect(resp.status).toBe(401)
 })
 
@@ -39,7 +41,7 @@ async function login() {
       password: 'test'
     })
   })
-  return await server.fetch(req, env)
+  return await fetch(req, env)
 }
 
 test('login', async () => {
@@ -58,7 +60,7 @@ test('get contacts', async () => {
     headers: { 'Authorization': `Bearer ${sessionId}` }
   })
 
-  const resp2 = await server.fetch(req, env)
+  const resp2 = await fetch(req, env)
   expect(resp2.status).toBe(200)
 })
 
@@ -70,7 +72,7 @@ test('logout', async () => {
     headers: { 'Authorization': `Bearer ${sessionId}` }
   })
 
-  const resp3 = await server.fetch(req3, env)
+  const resp3 = await fetch(req3, env)
   expect(await resp3.json()).toEqual({ success: true })
   expect(resp3.status).toBe(200)
 

@@ -1,7 +1,8 @@
 
-import { loadSchema } from '../db/init/load'
+import { env } from 'nueserver/mock'
+
+import { loadSchema } from '../db/init/load-data'
 import { createCRM } from '../model'
-import { env } from './mock'
 
 await loadSchema(env.DB)
 

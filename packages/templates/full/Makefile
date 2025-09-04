@@ -1,8 +1,9 @@
 
-test:
-	cd @system/worker  && bun test crm
-
 init:
-	cd @system/worker && bun data/load autoload
+	cd @system/server && bun db/init/load-data autoload
+
+test:
+	cd @system/server  && bun test
+
 
 

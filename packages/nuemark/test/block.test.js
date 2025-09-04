@@ -145,7 +145,6 @@ test('fenced code with caption', () => {
   expect(html).toEndWith('</i></code></pre></figure>')
 })
 
-
 test('multi-line list entries', () => {
   const list = parseBlocks(['* foo', '  boy', '* bar']).blocks[0]
   expect(list.entries).toEqual([["foo", "boy"], ["bar"]])
