@@ -5,6 +5,9 @@ date: 2025-08-01
 # What is a CSS design system?
 Modern CSS has everything needed for real design systems. Variables, nesting, layers, and scope create visual languages that scale across product lines. When design lives in one place, both designers and developers work at full speed.
 
+
+[placeholder.red.hero height="500"]
+
 ## The problem we created
 
 For 15 years we've been writing CSS to survive in chaos. We use BEM because we gave up on the cascade. We use CSS-in-JS because we're scared of namespace collisions. We write utility classes because we stopped trusting our ability to name things. We compile, process, and transform CSS because we think native CSS isn't enough.

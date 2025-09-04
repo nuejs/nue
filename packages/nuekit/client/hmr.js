@@ -5,17 +5,12 @@ const server = new WebSocket(`ws://${location.host}`)
 let reload_count = 0
 
 /*
+  // asset properties
   {
-    dir: '',
-    base: 'index.md',
-    ext: '.md',
-    name: 'index',
-    path: 'index.md',
-    type: 'md',
-    url: '/',
-    is_md: true,
-    rootpath: 'index.md',
-    content: '...'
+    dir: '', base: 'index.md', ext: '.md', name: 'index', path: 'index.md', type: 'md',
+    rootpath: 'index.md', url: '/', is_md: true,
+    lib: [ast, ast, ...],
+    content: '...',
   }
 */
 
@@ -86,9 +81,10 @@ function reloadSVG(html) {
 }
 
 function reloadCSS(asset) {
-  const { path } = asset
-  const orig = $(`[href="${path}"]`)
-  const style = createStyle(path, asset.content)
+  const { url, content } = asset
+  const orig = $(`[href="${url}"]`)
+  const style = createStyle(url, content)
+
 
   if (orig) orig.replaceWith(style)
   else document.head.appendChild(style)
@@ -113,9 +109,9 @@ async function reloadComponents(asset) {
 
 /***** helper functions *****/
 
-function createStyle(path, content) {
+function createStyle(url, content) {
   const el = document.createElement('style')
-  el.setAttribute('href', path)
+  el.setAttribute('href', url)
   el.innerHTML = content
   return el
 }

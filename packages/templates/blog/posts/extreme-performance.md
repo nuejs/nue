@@ -6,6 +6,10 @@ date: 2025-09-15
 # Extreme performance
 Today the web performance industry optimizes the wrong things. Complex bundlers, code splitting, and tree shaking treat symptoms while ignoring the root cause: JavaScript dependency for basic functionality.
 
+
+[placeholder.blue.hero height="450"]
+
+
 ## The bundler trap
 Modern web development assumes you need complex build tools to achieve performance. Webpack configurations span hundreds of lines. Vite promises speed through clever caching. Next.js provides automatic optimization through framework magic.
 
@@ -44,6 +48,10 @@ design:
 When your entire design system weighs less than Tailwind's reset CSS, inlining becomes viable. The initial HTML download contains everything needed for perfect rendering. No secondary requests, no flash of unstyled content, no layout shifts.
 
 This eliminates the CSS network request entirely. While bundlers debate optimal chunking strategies, inlined CSS delivers instantaneous rendering. Nothing can beat zero network requests.
+
+
+[placeholder.red height="250"]
+
 
 ### HTML-driven interactivity
 

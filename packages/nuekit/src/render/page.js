@@ -177,8 +177,9 @@ function convertToTags(deps, data) {
     // if (ast.is_custom) { delete ast.is_custom; ast.tag = 'div' }
 
     tags[name] = function(args) {
+      const { attr, blocks } = this
       return renderNue(ast, {
-        data: { ...data, ...args },
+        data: { ...args, ...attr, attr, blocks },
         slot: this.innerHTML,
         deps
       })

@@ -3,8 +3,10 @@ date: 2025-08-05
 ---
 
 # Modern CSS is awesome
-
 CSS has transformed dramatically over the past decade, but the JavaScript ecosystem hasn't noticed. While React developers debate CSS-in-JS solutions, the language itself evolved into something unrecognizable from its 2013 limitations.
+
+[placeholder.blue.hero height="400"]
+
 
 ## Stuck in the past
 React emerged when CSS was genuinely limited. No variables, no nesting, no real layout system. Global scope created conflicts. Cascade felt unpredictable. The community built tools to work around these limitations: preprocessors, naming conventions, CSS-in-JS.

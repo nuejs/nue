@@ -34,14 +34,16 @@ test('MD: page assets', async () => {
 
 test('MD: custom tags with <slot/>', async () => {
   const page = createAsset({
-    async text() { return ['# Hello', '[custom]', '  World'].join('\n') },
+    async text() { return ['# Hello', '[custom.blue]', '  World'].join('\n') },
     is_md: true,
   }, [
-    { is_html: true, path: 'c.html', async text() { return '<!html lib><custom><slot/></custom>' }}
+    { is_html: true, path: 'c.html', async text() {
+      return '<!html lib><custom class="{ class } { nothing }"><slot/></custom>'
+    }}
   ])
 
   const html = await page.render()
-  expect(html).toInclude('<div>World</div>')
+  expect(html).toInclude('<div class="blue">World</div>')
 })
 
 

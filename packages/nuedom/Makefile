@@ -1,6 +1,6 @@
 
 run-tests:
-	bun test document
+	bun test # document
 
 demo:
 	@ bun bin/serve

@@ -5,7 +5,7 @@ date: 2025-08-15
 # What is design engineering?
 Web development split into two camps: those who design and those who code. This division is artificial. The web is a design medium that happens to be programmable.
 
-[placeholder.blue.hero height="400"]
+[placeholder.yellow.hero height="400"]
 
 ## The artificial divide
 Modern frameworks optimize for engineering mindset. Everything becomes a programming problem. CSS becomes CSS-in-JS. Design becomes component props. Layout becomes flexbox utilities. We've turned visual decisions into code decisions.
@@ -24,6 +24,10 @@ Engineering mindset sees data structures, state management, and abstractions. It
 
 Both are essential. Neither is sufficient alone. The web demands both mindsets because interfaces are both visual and functional. The mistake is believing one matters more than the other.
 
+
+[placeholder.blue height="300"]
+
+
 ## Reuniting the disciplines
 
 True design engineering happens when both mindsets have equal tools and equal power. CSS for design decisions. HTML for structure. JavaScript for business logic. Each layer owns its domain completely.
@@ -41,6 +45,10 @@ When a designer changes a color, it changes everywhere instantly. When an engine
 **Clear boundaries** - Design system lives in CSS files. Business logic lives in JavaScript modules. Content lives in Markdown files. Each discipline owns its layer completely.
 
 **Shared vocabulary** - Both mindsets understand the same concepts: semantic elements, design tokens, component APIs. Communication becomes precise because the tools create common ground.
+
+
+[placeholder.red height="150"]
+
 
 ## The benefits
 

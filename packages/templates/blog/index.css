@@ -94,9 +94,9 @@
     }
 
     /* bauhaus coloring */
-    &.yellow  { background-color: yellow }
-    &.blue    { background-color: blue }
-    &.red     { background-color: red }
+    &.yellow  { background-color: #F6C950 }
+    &.blue    { background-color: #2A63B3 }
+    &.red     { background-color: #CB3B32 }
   }
 
 

@@ -260,6 +260,8 @@ function exec(fn, self, e) {
   try {
     if (typeof fn == 'string') fn = new Function('_', '$e', 'return ' + fn)
     let val = fn(self, e)
+    if (typeof val == 'string') val = val.replaceAll('undefined', '')
+
     return val == null ? '' : Number.isNaN(val) ? 'N/A' : val
   } catch (e) {
     console.error('Nue error:', e.message)
