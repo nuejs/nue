@@ -2,9 +2,8 @@
 title: Documentation
 ---
 
-## Popular
-[contents :items="popular"]
+## Design
+[contents :items="design"]
 
-
-## Essentials
-[contents :items="essentials"]
+## Development
+[contents :items="dev"]

@@ -3,9 +3,10 @@
 <table :is="contents">
   <tr :each="page in items">
     <td><a href="{ page.url }">{ page.title }</a></td>
-    <td>{{ markdown(page.desc) }}</td>
+    <td>{{ markdown(page.description) }}</td>
   </tr>
 </table>
+
 
 <anchors>
   <p :each="el in links">

@@ -1,7 +1,7 @@
 
-@layer base {
+@layer component {
 
-  button {
+  button, .button {
     background-color: var(--base-800);
     text-align: center;
     font-family: inherit;
@@ -25,5 +25,9 @@
       border: 0;
       padding: 0;
     }
+  }
+
+  .button {
+    padding-block: .25em;
   }
 }

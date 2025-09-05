@@ -5,6 +5,10 @@
     border-collapse: collapse;
     width: 100%;
 
+    tr {
+      vertical-align: baseline;
+    }
+
     th, td {
       border-bottom: 1px solid var(--base-200);
       padding: .5em 0;

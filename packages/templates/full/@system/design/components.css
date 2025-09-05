@@ -1,6 +1,14 @@
 
 
 @layer component {
+
+  .logo {
+    font-weight: 550;
+    b { color: var(--red) }
+    &:hover { color: black }
+  }
+
+
   .toast {
     background-color: var(--base-800);
     padding: .5em 1em;

@@ -1,11 +1,17 @@
 
+meta:
+  title_template: %s / Form & Function
+  description: The new standard for web design and development
+
+  # default author for blog entries
+  author: Emma Bennet
+
 site:
-  view_transitions: true
   origin: https://acme.org
+  view_transitions: true
 
 sitemap:
   enabled: true
-
 
 content:
   sections: true
@@ -13,8 +19,18 @@ content:
 collections:
   blog:
     include: [ blog/ ]
-    skip: [ draft, private ]
+    skip: [ skip ]
     sort: date desc
+
+  design:
+    include: [ docs/ ]
+    require: [ design ]
+    sort: order
+
+  dev:
+    include: [ docs/ ]
+    require: [ dev ]
+    sort: order
 
 
 # custom additions
@@ -30,3 +46,6 @@ server:
 design:
   central: true
   max_class_names: 2
+
+
+exclude: [ svg/ ]

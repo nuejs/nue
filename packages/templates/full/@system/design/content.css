@@ -12,11 +12,6 @@
     font-family: system-ui;
   }
 
-  figure {
-    padding: 0;
-    margin: 0;
-  }
-
   img {
     max-width: 100%;
     height: auto;
@@ -29,7 +24,7 @@
     + p { margin-top: 0 }
   }
 
-  ol, ul, figure, table {
+  ol, ul, table {
     margin-block: var(--m)
   }
 

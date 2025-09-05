@@ -9,7 +9,7 @@
     gap: var(--xl); /* section gaps */
   }
 
-  h1, h2, h3, p, li, figure {
+  h1, h2, h3, p, li {
     max-width: var(--max-line-width)
   }
 

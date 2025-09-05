@@ -1,6 +1,8 @@
 
 
-# Contact sales
-Please provide your contact information.
+# Contact us
 
-[contact-form]
+[.columns]
+  [contact-form]
+  ---
+  [placeholder.yellow height="500"]

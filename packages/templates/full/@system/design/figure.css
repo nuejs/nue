@@ -1,0 +1,25 @@
+
+@layer component {
+
+  /* placeholder images */
+  figure {
+    background-color: var(--base-200);
+    margin: var(--m) 0;
+
+    > div {
+      height: var(--height);
+    }
+
+    @media (width > 900px) {
+      &.hero {
+        margin: 3em -15vw;
+      }
+    }
+
+    /* bauhaus coloring */
+    &.yellow  { background-color: var(--yellow) }
+    &.blue    { background-color: var(--blue) }
+    &.red     { background-color: var(--red) }
+  }
+
+}

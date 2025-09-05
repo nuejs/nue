@@ -1,81 +1,67 @@
 
-# The new standard for modern product development
-With its meticulous design, breathtaking speed and purpose-built workflows, Linear unlocks your team’s full potential. It is the tool of choice for high-performance teams to build products better.
+# The new standard for web design and development
+Form & Function is an example brand created to demonstrate this multi-page application template with placeholder content. The images are simple HTML divs with Bauhaus-inspired colors and the CSS uses an intentionally minimal brutalist approach. Just 4-5kb covers both the content site and a single-page app.
 
-[image.wide.loose]
-  src: /img/table-hero-2.png
+[placeholder.blue height="450"]
 
 ---
 
-# Create new issues in a matter of seconds
-Create bug reports, feature requests, and other tasks in a streamlined interface that’s designed to get you in and out as quickly as possible.
+# Design systems that scale with your business
+Build consistent interfaces, streamlined workflows, and maintainable codebases with our systematic approach to web development.
 
 [.columns]
-  ## Align everyone on the strategy
-  Provide a detailed summary for each initiative and link to resources and related documents.
+  ## Standards-first development approach
+  We build with semantic HTML, modern CSS, and clean JavaScript that browsers understand natively.
 
-  [image]
-    src: /img/details-1.png
+  [placeholder height="300"]
 
-  ## Quickly respond to what matters most
-  Keep updated on your most important streams of work. React to critical issues and snooze the rest for later.
+  ## Performance without compromise
+  Lightning-fast websites that work perfectly on every device. No bloated frameworks or unnecessary complexity.
 
-  [image]
-    src: /img/details-2.png
+  [placeholder.red height="300"]
 
 
 [.blocks]
-  ### Something alskfj aslkf
-  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-  quis nostrud exercitation ullamco.
+  ### Clean code architecture
+  Separation of concerns means your content, design, and functionality stay organized and maintainable as you grow.
 
-  ### Something alskfj aslkf
-  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-  quis nostrud exercitation ullamco.
+  ### Future-proof foundations
+  Web standards evolve slowly. Your investment in HTML, CSS, and JS compounds over decades.
 
-  ### Something alskfj aslkf
-  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-  quis nostrud exercitation ullamco.
+  ### Designer-developer harmony
+  Clear boundaries between design and code enable teams to work in parallel without stepping on each other.
 
 ---
 
 [.columns]
-  # Align everyone on the strategy
-  Provide a detailed summary for each initiative and link to resources and related documents.
+  # Design systems built to last
+  Central visual language expressed through CSS that works across your entire product ecosystem and brand identity.
 
-  [image ]
-    src: /img/graph-lines.png
+  [placeholder.yellow height="250"]
 
-  - **Link and automate PRs** Automatically change issue status based on pull/merge request updates.
+  - **Semantic HTML structure** Build with elements that browsers and assistive technologies understand by default.
 
-  - **Magic words** Add magic words like ‘close’ or ‘fixes’ to your commit messages to automatically update issue status.
+  - **Systematic CSS design** Consistent colors, typography, and spacing controlled from a single source of truth.
 
-  - **Auto-assign and update** Auto-assign issues and move them to a started status when you copy the git branch name.
+  - **Minimal class systems** Constrained design vocabulary that prevents inconsistency and reduces maintenance overhead.
 
   ---
-  [image ]
-    src: /img/graph-tall.svg
-
+  [placeholder height="730"]
 
 
 ---
 
-# Plan the present. Build the future.
-orem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+# Built for the present. Ready for the future.
+Modern web standards provide everything you need to build fast, accessible, and maintainable digital products.
 
-[image.wide]
-  src: /img/table-hero.png
+[placeholder.red height="330"]
 
 [.columns]
-  [image "/img/graph-scatter.png"]
+  [placeholder height="230"]
 
-  **Lorem ipsum dolor sit amet**, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
+  **Web standards never expire**, unlike framework APIs that change every few years. HTML from 2006 still works. CSS only grows more powerful. JavaScript remains the language of the web. These skills compound over decades and your products stay fresh without constant rewrites or technical debt accumulation.
 
 
-  **Cnsectetur adipisicing elit**, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  **Performance through simplicity** means faster load times, better user experience, and lower hosting costs. When every piece serves a purpose, your sites become lean and efficient. No unnecessary abstractions, no bloated dependencies, no complex build processes that slow down development cycles.
 
-  [image "/img/graph-bars.png"]
-
+  [placeholder height="230"]
