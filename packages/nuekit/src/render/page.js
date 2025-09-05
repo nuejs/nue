@@ -139,7 +139,7 @@ function createWrapper(lib, use_sections) {
 // <!dhtml>
 export async function renderDHTML(asset) {
   const doc = await asset.parse()
-  const comps = await asset.components('html')
+  const comps = await asset.components(true)
   const data = await asset.data()
   const conf = await asset.config()
   const root = createWrapper(doc.lib, conf.content?.sections)

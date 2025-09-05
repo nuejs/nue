@@ -80,6 +80,9 @@ collections:
     # Required front matter fields
     require: [date]
 
+    # Required tags property to include "design"
+    require: [ design ]
+
     # Exclude if these fields exist
     skip: [draft]
 

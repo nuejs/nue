@@ -84,7 +84,7 @@ export function createAsset(file, files=[], conf={}) {
     return types[await toExt()]
   }
 
-  async function components(force_type) {
+  async function components(force_html) {
     const { is_dhtml=false } = await parse()
     const ret = []
 
@@ -95,7 +95,7 @@ export function createAsset(file, files=[], conf={}) {
       if (ast.is_lib) {
         const same_type = is_dhtml == ast.is_dhtml
         const isomorphic = doctype.startsWith('html+dhtml')
-        const forced = doctype.startsWith(force_type)
+        const forced = force_html && !ast.is_dhtml
         if (isomorphic || same_type || forced) ret.push(...ast.lib)
       }
     }

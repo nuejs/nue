@@ -24,12 +24,12 @@ collections:
 
   design:
     include: [ docs/ ]
-    require: [ design ]
+    tags: [ design ]
     sort: order
 
   dev:
     include: [ docs/ ]
-    require: [ dev ]
+    tags: [ dev ]
     sort: order
 
 

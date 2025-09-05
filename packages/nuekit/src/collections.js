@@ -37,6 +37,9 @@ async function filterPages(assets, conf) {
     // require?
     if (conf.require && !conf.require.every(field => meta[field])) continue
 
+    // tags?
+    if (conf.tags && !conf.tags.some(tag => meta.tags?.includes(tag))) continue
+
     // skip?
     if (conf.skip?.some(field => meta[field])) continue
 

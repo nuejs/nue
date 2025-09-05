@@ -1,6 +1,6 @@
 
 ---
-dev: true
+tags: [ dev ]
 order: 4
 ---
 

@@ -10,7 +10,7 @@ const pages = [
   },
   {
     path: 'blog/post2.md',
-    parse: async () => ({ meta: { title: 'Second Post', date: '2024-01-02' } })
+    parse: async () => ({ meta: { title: 'Second Post', date: '2024-01-02', tags: ['design'] } })
   },
   {
     path: 'blog/draft.md',
@@ -53,6 +53,19 @@ test('skip filtering', async () => {
   expect(collections.blog).toHaveLength(2)
 })
 
+test('tags filtering', async () => {
+  const opts = {
+    blog: {
+      include: ['blog/'],
+      tags: ['design']
+    }
+  }
+
+  const collections = await getCollections(pages, opts)
+  expect(collections.blog).toHaveLength(1)
+  expect(collections.blog[0].tags).toEqual(['design'])
+})
+
 test('sorting', async () => {
   const opts = {
     blog: {
@@ -67,7 +80,7 @@ test('sorting', async () => {
 })
 
 
-test.only('rendering', async () => {
+test('rendering', async () => {
   const pagefoot = '<!html lib><div :is="pagefoot"><p :each="page of pages">{ page.title }</div>'
 
   const files = [

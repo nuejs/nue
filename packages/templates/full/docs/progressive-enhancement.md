@@ -1,5 +1,5 @@
 ---
-dev: true
+tags: [ dev ]
 order: 3
 ---
 

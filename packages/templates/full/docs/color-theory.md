@@ -1,5 +1,5 @@
 ---
-design: true
+tags: [ design ]
 order: 3
 ---
 

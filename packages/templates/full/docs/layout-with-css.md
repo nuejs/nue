@@ -1,6 +1,6 @@
 
 ---
-design: true
+tags: [ design ]
 order: 4
 ---
 
