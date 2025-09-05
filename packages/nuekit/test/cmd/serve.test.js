@@ -30,9 +30,9 @@ test('onServe /app/users', async () => {
 })
 
 test('onServe 404.html', async () => {
-  const page = { base: '404', render() { return 'error' } }
+  const page = { name: '404', render() { return 'error' } }
   const result = await onServe('/failure', [ page ])
-  expect(result).toEqual({ html: 'error', status: 404 })
+  expect(result).toEqual({ content: 'error', status: 404 })
 })
 
 

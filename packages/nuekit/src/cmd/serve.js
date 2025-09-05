@@ -92,8 +92,8 @@ export async function onServe(url, assets, opts={}) {
 
   // custom error page
   if (!ext) {
-    const err = assets.find(asset => asset.base == '404')
-    return err ? { html: await err.render(), status: 404 } : null
+    const err = assets.find(asset => asset.name == '404')
+    return err ? { content: await err.render(), status: 404 } : null
   }
 
   // favicon

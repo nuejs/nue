@@ -1,3 +1,3 @@
 
 tests:
-	cd test && bun test # fswatch # md.test
+	cd test && bun test serve.test
