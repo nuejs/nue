@@ -7,7 +7,7 @@
 
 <article :is="contact-details">
 
-  <h1>{ name || email }</h1>
+  <h1>Contact</h1>
 
   <nav>
     <button onclick="history.go(-1)">Back</button>
@@ -15,6 +15,11 @@
   </nav>
 
   <dl>
+    <template :if="name">
+      <dt>Name</dt><dd>{ name }</dd>
+    </template>
+
+    <dt>Email</dt><dd>{ email }</dd>
     <dt>Registered</dt><dd><pretty-date :date="created"/></dd>
     <dt>Country</dt><dd><country-emoji :code="country"/> <span>{ country_name }</span></dd>
     <dt>Email</dt><dd>{ email }</dd>

@@ -11,7 +11,9 @@
     const DATE_FORMAT = new Intl.DateTimeFormat('en-US', {
       month: 'short', day: 'numeric', year: 'numeric'
     })
-    const date = this.date || new Date()
+    console.info('hsadflsjda', this.date)
+    let date = this.date || new Date()
+    if (typeof date == 'string') date = new Date(date)
     this.pretty = DATE_FORMAT.format(date)
   </script>
 </time>
