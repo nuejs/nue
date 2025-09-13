@@ -53,7 +53,7 @@ export const api = {
   },
 
   init() {
-    this.set(getURLData(location), true)
+    fire(getURLData(location))
   },
 
   clear() {

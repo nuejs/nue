@@ -1,31 +1,33 @@
 
 
-const server = new WebSocket(`ws://${location.host}`)
+function createConnection() {
+  const server = new WebSocket(`ws://${location.host}`)
 
-let reload_count = 0
+  server.onmessage = async function(e) {
+    const asset = JSON.parse(e.data)
 
-/*
-  // asset properties
-  {
-    dir: '', base: 'index.md', ext: '.md', name: 'index', path: 'index.md', type: 'md',
-    rootpath: 'index.md', url: '/', is_md: true,
-    lib: [ast, ast, ...],
-    content: '...',
+    return (asset.is_yaml || asset.is_js || asset.is_ts) ? location.reload()
+      : asset.error ? await handleError(asset)
+      : asset.is_md ? await reloadContent(asset)
+      : asset.is_html ? await reloadHTML(asset)
+      : asset.is_svg ? reloadVisual(asset)
+      : asset.is_css ? reloadCSS(asset)
+      : null
   }
-*/
 
-server.onmessage = async function(e) {
-  const asset = JSON.parse(e.data)
-  console.log(asset)
+  // reconnect after 1 second
+  server.onclose = function() {
+    console.log('HMR reconnecting...')
+    setTimeout(createConnection, 3000)
+  }
 
-  return asset.error ? await handleError(asset)
-    : asset.is_md ? await reloadContent(asset)
-    : asset.is_html ? await reloadHTML(asset)
-    : asset.is_svg ? reloadVisual(asset)
-    : asset.is_css ? reloadCSS(asset)
-    : asset.is_yaml ? location.reload()
-    : null
+  server.onerror = function() {
+    server.close()
+  }
 }
+
+createConnection()
+
 
 async function handleError(asset) {
   const { showError } = await import('./error.js')
@@ -35,7 +37,6 @@ async function handleError(asset) {
 
 async function reloadContent(asset) {
   const { url } = asset
-
 
   if (url != location.pathname) return location.href = url
 
@@ -60,6 +61,8 @@ async function reloadContent(asset) {
   await mountAll()
 }
 
+
+let reload_count = 0
 
 function reloadVisual(asset) {
 

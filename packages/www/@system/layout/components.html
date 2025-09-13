@@ -1,0 +1,29 @@
+
+<figure :is="placeholder" class="{ class }">
+  <div --height="{ height }px"/>
+</figure>
+
+
+<cta-buttons>
+  <a href="/docs/get-started" class="button">Get started</a>
+  <a href="/docs" class="button">Learn Nue</a>
+</cta-buttons>
+
+
+<nue-stack class="ui card pad-l">
+
+  <section class="grid gap-s">
+    <div :each="tool in tooling" class="card" title="{ tool.info }">
+      <h3>{ tool.title }</h3>
+      <p>{ tool.desc }</p>
+    </div>
+  </section>
+
+  <aside class="grid gap-l grid-4 pad-m">
+    <div :each="[ title, feats ] in Object.entries(features)">
+      <h3>{ title }</h3>
+      <p :each="feat in feats">{ feat }</p>
+    </div>
+  </aside>
+
+</nue-stack>

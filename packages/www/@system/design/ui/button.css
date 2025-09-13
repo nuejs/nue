@@ -1,0 +1,33 @@
+
+@layer component {
+
+  button, .button {
+    background-color: var(--base-800);
+    text-align: center;
+    font-family: inherit;
+    font-size: inherit;
+    padding: .5em 1em;
+    cursor: pointer;
+    color: var(--base-200);
+    border-radius: .25em;
+    gap: .5em;
+    border: unset;
+
+
+    &[disabled] {
+      pointer-events: none;
+      opacity: .33;
+    }
+
+    &.plain {
+      background-color: unset;
+      color: var(--base-600);
+      border: 0;
+      padding: 0;
+    }
+  }
+
+  .button {
+    padding-block: .25em;
+  }
+}

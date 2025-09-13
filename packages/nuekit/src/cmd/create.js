@@ -37,7 +37,7 @@ export async function create(name, { dir, baseurl }) {
 export async function getLocalZip(name, dir) {
   const path = join(dir, `${name}.zip`)
   if (!await Bun.file(path).exists()) throw new Error(`${path} not found`)
-  console.log(`📦 Loading local template: ${path}`)
+  console.log(`📦 Using local template: ${path}`)
   return Bun.file(path)
 }
 

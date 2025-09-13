@@ -82,7 +82,7 @@ export function createNode(ast, data={}, opts={}, parent) {
     if (parent && ast.is_child) setAttributes(tag, parent.ast, parent.self)
 
     const am = tag.classList.length
-    if (am > (opts.max_class_names || 3)) {
+    if (am > (opts.max_class_names || 5)) {
       console.error(`Too many class names (${am}) for ${tag.tagName} tag`)
     }
 

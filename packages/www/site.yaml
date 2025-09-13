@@ -1,11 +1,20 @@
 
 # Nue settings
-view_transitions: true
-heading_ids: true
-sections: true
+site:
+  view_transitions: true
+  origin: https://nuejs.org
 
-# Content settings
-title: The UNIX of the web
-description: Nue is a standards-first framework pushing HTML, CSS, and JS to their absolute peak. You'll build apps lighter than a React button.
-og: /img/standards-first.png
-favicon: /img/logo.svg
+content:
+  heading_ids: true
+  sections: true
+  wrap: wrap
+
+
+meta:
+  title: The UNIX of the Web
+  description: Nue is a standards first web framework. It takes modern HTML, CSS, and JavaScript to their absolute peak.
+  favicon: /img/favicon-small.png
+  og: /img/og.png
+
+
+

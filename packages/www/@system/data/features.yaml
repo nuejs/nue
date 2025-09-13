@@ -1,0 +1,61 @@
+
+tooling:
+  - title: Nuekit
+    desc: Standards first web framework
+    info: Full-stack web framework based on modern HTML, CSS, and JavaScript
+
+  - title: Nuedom
+    desc: HTML first UI markup
+    info: Build reactive components with semantic HTML instead of virtual DOM abstractions
+
+  - title: Nuestate
+    desc: URL first state management
+    info: Incredibly simple state management based on native pushState and modern web storage
+
+  - title: Nuemark
+    desc: Content first web development
+    info: Build rich, interactive sites focusing purely on content
+
+  - title: Nueserver
+    desc: Edge-first server development
+    info: Write server code that works identically locally and on CloudFlare Workers
+
+  - title: Nueglow
+    desc: CSS first syntax highlighting
+    info: Semantic, design system compatible syntax blocks. Style with CSS, not class names
+
+
+features:
+  Dev server:
+    - Direct serving
+    - Universal HMR
+    - SPA development
+    - SVG development
+    - Instant startup
+    - Zero config
+
+  Backend layer:
+    - CloudFlare compatibiliity
+    - SQLite/D1 databases
+    - KV storage
+    - API routing
+    - Environment mocking
+    - Testing framework
+
+  Static site generator:
+    - Extended Markdown
+    - Layout module system
+    - Dynamic islands
+    - View transitions
+    - Content collections
+    - RSS feeds & sitemaps
+
+  Production builds:
+    - TypeScript transpiling
+    - CSS inlining
+    - JS/CSS minification
+    - SPA optimization
+    - Full-stack preview
+    - Extreme performance
+
+

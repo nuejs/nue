@@ -1,0 +1,14 @@
+
+@layer base {
+  .ui {
+    font-size: var(--ui-sizing, 15px);
+    line-height: 1.3;
+
+    h3 {
+      font-size: 1em;
+    }
+    p {
+      margin: .5em 0;
+    }
+  }
+}

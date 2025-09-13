@@ -30,6 +30,8 @@ export async function loadPage(path) {
   // update page content - keep the working logic
   const ignoreMain = updateContent($('main'), $('main', dom))
   updateContent($('body'), $('body', dom), ignoreMain)
+
+
   dispatchRouteEvents()
   setActive(path)
 }
@@ -173,6 +175,8 @@ function haveSameChildren(a, b) {
 // smart DOM diffing and updating
 export function updateContent(current, incoming, ignoreMain) {
   if (!current || !incoming) return true
+
+  current.className = incoming.className
 
   if (haveSameChildren(current, incoming)) {
     Array.from(current.children).forEach((el, i) => {

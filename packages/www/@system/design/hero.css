@@ -1,0 +1,43 @@
+
+@layer modifier {
+
+  .dark {
+    background-color: #111;
+
+    .logo {
+      filter: invert(100);
+    }
+
+    h1, h2, h3 {
+      color: white;
+    }
+    p, a, li {
+      color: var(--base-400);
+    }
+  }
+
+  .heroic {
+    h1 {
+      font-size: 4.5em;
+      max-width: unset;
+      letter-spacing: -.03em;
+      font-weight: 600;
+      line-height: 1;
+      margin-block: 1em .125em;
+      + p {
+        font-size: 1.5em;
+        max-width: inherit;
+      }
+    }
+
+    h2 {
+      font-size: 2.5em;
+      font-weight: 550;
+      line-height: 1;
+      margin-block: 1em .25em;
+      + p {
+        font-size: 1.25em;
+      }
+    }
+  }
+}

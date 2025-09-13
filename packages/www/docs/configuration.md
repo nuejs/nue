@@ -37,7 +37,7 @@ design:
   # Base stylesheet loaded first
   base: base.css
 
-  # Limit class names per element (prevent utility abuse)
+  # Limit class names per element to prevent utility abuse. Default 5.
   max_class_names: 3
 
   # Inline all CSS in production builds

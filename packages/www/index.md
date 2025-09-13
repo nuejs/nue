@@ -1,20 +1,26 @@
 
-# The UNIX of the Web
-Nue takes HTML, CSS, and JavaScript to their absolute peak
+---
+class: dark heroic
+---
 
-! HMR video
-  See every change live in millisecondss
+# The UNIX of the Web
+Nue takes modern HTML, CSS, and JavaScript to their absolute peak.
+[cta-buttons]
+
+// [console]
+Nue introduces a new performance tier
+
 
 
 ## The entire ecosystem in 1MB
-Everything you need in one focused tool
+Full backend/frontend infrastructure designed the UNIX way
 
-! stack image
-  Full backend/frontend infrasructure designed the UNIX way
+[nue-stack]
+The tools do one thing and do it well
 
 
-## A new performance tier
-Complex builds finish as you hit Enter
+## Rapid application assembly
+Move fast by focusing solely on content and structure
 
-! build video
-  Large marketing/docs/blog/SPA hybrid built in 50ms
+! architecture image
+  Let your concerns do one thing and do it well

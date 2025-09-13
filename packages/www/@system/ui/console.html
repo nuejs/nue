@@ -1,0 +1,60 @@
+<!doctype dhtml lib>
+
+<script>
+  import { createConsole } from './console.js'
+</script>
+
+<console class="console">
+
+  <header>
+    <a :onclick="model.prev()">←</a>
+    <a :onclick="model.next()">→</a>
+  </header>
+
+  <pre></pre>
+
+  <script>
+    async mounted() {
+      const res = await fetch('/@system/ui/scenes.txt')
+      const scenes = await res.text()
+      const { root } = this
+      const pre = root.querySelector('pre')
+
+      let playing = false
+      let currScene = 0
+      let prompt
+
+      const model = this.model = createConsole(scenes, e => {
+        const { line } = e
+
+        if (e.scene_started) {
+          currScene = e.scene
+          pre.innerHTML = ''
+          return playing = true
+        }
+
+        if (e.line_started) {
+          if (prompt) prompt.classList.remove('is-typing')
+          prompt = document.createElement('div')
+          prompt.className = e.is_command ? 'command is-typing' : 'response'
+          pre.appendChild(prompt)
+        }
+
+
+        if (line != null) {
+          prompt.innerHTML = line || ''
+          if (line == '#') prompt.classList.add('is-comment')
+        }
+
+        if (e.scene_ended) playing = false
+      })
+
+      model.start()
+
+      addEventListener('keydown', function(e) {
+        if (e.key == 'Enter' && !playing) model.next()
+      })
+
+    }
+  </script>
+</console>

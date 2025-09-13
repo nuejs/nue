@@ -55,7 +55,7 @@ design:
   central: true        # Enforce central system only
   base: base.css       # Load first for layer ordering
 
-  # Limit class names per element (prevent utility class abuse)
+  # Limit class names per element to prevent utility abuse
   max_class_names: 3
 
   # inline all css to pages in production build (performance optimization)
