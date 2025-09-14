@@ -2,7 +2,7 @@
 @layer component {
 
   .console {
-    height: 500px;
+    height: 520px;
     background-image: linear-gradient(333deg, #222, #2f2f2f);
     margin-top: var(--l);
     color: white;
@@ -36,6 +36,7 @@
 
     header {
       float: right;
+      padding: .75em 1em;
 
     }
 
@@ -61,7 +62,7 @@
       }
 
       &.is-comment {
-        color: #6d6d6d;
+        color: #518568;
         &:after { animation: blink 1s infinite .5s; }
       }
     }
@@ -74,16 +75,5 @@
     0%, 50% { opacity: 1 }
     51%, 100% { opacity: 0 }
   }
-
-  /*
-  animation: shadowMorph 10s ease-in-out infinite alternate;
-
-  @keyframes shadowMorph {
-    0% { box-shadow: 0 0 1em #222 }
-    25% { box-shadow: 0 0 2em #00afff }
-    66% { box-shadow: 0 0 1em #3700ff }
-    100% { box-shadow: 0 0 1em #222 }
-  }
-  */
-
 }
+

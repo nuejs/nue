@@ -3,13 +3,13 @@
 class: dark heroic
 ---
 
+
 # The UNIX of the Web
 Nue takes modern HTML, CSS, and JavaScript to their absolute peak.
 [cta-buttons]
 
-// [console]
+[console]
 Nue introduces a new performance tier
-
 
 
 ## The entire ecosystem in 1MB
