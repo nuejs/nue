@@ -1,5 +1,7 @@
 <!doctype html lib>
 
+<!-- layout modules: header, footer, beside -->
+
 <header class="ui">
   <nav>
     <a href="/" class="logo"><img src="/img/logo-small.png" width="60" height="27"></a>
@@ -14,3 +16,16 @@
   </nav>
 </header>
 
+<aside :is="beside" class="ui">
+  <h2>Nue 3.0 is coming</h2>
+  <p>Get notified when <a href="/docs/roadmap">multi-site development</a> and Nue Edge are available.</p>
+
+  <form>
+    <input type="email" placeholder="Your email">
+    <button>Notify me</button>
+  </form>
+</aside>
+
+<footer>
+  Footer
+</footer>

@@ -31,8 +31,8 @@ features:
     - Universal HMR
     - SPA development
     - SVG development
-    - Instant startup
-    - Zero config
+    - Near-instant startup
+    - Minimal config
 
   Backend layer:
     - CloudFlare compatibiliity

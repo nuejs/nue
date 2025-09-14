@@ -1,0 +1,17 @@
+@layer modifier {
+
+  .dark {
+    background-color: #111;
+
+    .logo {
+      filter: invert(100);
+    }
+
+    h1, h2, h3 {
+      color: white;
+    }
+    p, a, li {
+      color: var(--base-400);
+    }
+  }
+}
