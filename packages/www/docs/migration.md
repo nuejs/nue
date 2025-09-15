@@ -377,7 +377,7 @@ This approach tangles business logic with UI concerns. Data fetching, validation
 Nue separates business logic into pure, testable modules. Your application model lives independently of any UI framework:
 
 ```
-@system/
+@shared/
 ├── app/
 │   ├── index.js          # Main app exports
 │   ├── users.js          # User operations
@@ -393,7 +393,7 @@ Configure the import map in `site.yaml`:
 
 ```yaml
 import_map:
-  app: /@system/app/index.js
+  app: /@shared/app/index.js
 ```
 
 ### Pure business logic
@@ -636,7 +636,7 @@ This approach stems from fears of global namespace pollution, desire for co-loca
 Nue embraces central, semantic, and constrained design systems. You can return to clean, isolated CSS code structured as a proper system and avoid all problems that drove developers to CSS-in-JS:
 
 ```
-@system/design/
+@shared/design/
 ├── base.css         # Typography, colors, spacing
 ├── button.css       # All button variants
 ├── content.css      # Blog posts, documentation

@@ -83,10 +83,10 @@ A client-side application with separate CSS, UI components, and a CloudFlare-com
 nue create full
 ```
 
-For serious applications, the `@system/` directory separates your application's foundation from individual apps. This division enables application "assembly" - apps focus purely on structure (HTML/Markdown) while the system handles all other concerns:
+For serious applications, the `@shared/` directory separates your application's foundation from individual apps. This division enables application "assembly" - apps focus purely on structure (HTML/Markdown) while the system handles all other concerns:
 
 ```
-├── @system/           # centralized system
+├── @shared/           # centralized system
 ├── app/               # application pages
 ├── blog/              # content areas
 ├── contact/
@@ -103,34 +103,18 @@ For serious applications, the `@system/` directory separates your application's 
 These directories have fixed names and special behavior:
 
 ```
-@system/
+@shared/
 ├── design/           # CSS design system (auto-loaded client-side)
-├── layout/           # Server-side layout modules
-├── ui/               # Dynamic components (auto-loaded client-side)
-├── data/             # YAML data (server-side processing)
+├── ui/               # UI components. On server & Client. (auto-loaded client-side)
+├── data/             # YAML data for HTML templates (server-side processing)
 └── server/           # Backend code (not frontend assets)
 ```
-
-**Server-side processing** (build time):
-
-- `layout/` - HTML [layout modules](/docs/layout-system)
-- `data/` - YAML data for HTML templates
-
-
-**Client-side assets** (browser):
-
-- `design/` - Your CSS based design system
-- `ui/` - Dynamic components and controllers
-
-**Backend only**:
-- `server/` - Edge-first backend code, separate from frontend
-
 
 ### Recommended directories
 These client-side directories follow naming conventions but aren't hardcoded:
 
 ```
-@system/
+@shared/
 ├── lib/              # Third-party libraries to import
 └── app/              # Business logic / data models (imported)
 ```
@@ -140,15 +124,15 @@ It's recommended to add these to import map in site.yaml. For example:
 ```yaml
 # In site.yaml
 import_map:
-  app: /@system/app/index.js
-  lib: /@system/lib/
+  app: /@shared/app/index.js
+  lib: /@shared/lib/
 ```
 
 This enables clean imports on your frontend code:
 
 ```javascript
-import { login } from 'app'           // @system/app/index.js
-import * as d3 from 'lib/d3'          // @system/lib/d3.js
+import { login } from 'app'           // @shared/app/index.js
+import * as d3 from 'lib/d3'          // @shared/lib/d3.js
 ```
 
 With the system layer handling design, behavior, and logic, application development can focus solely on content and structure. Your system remains simple as your website/business grows.

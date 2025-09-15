@@ -21,7 +21,7 @@ export async function importRoutes({ dir, reload }) {
 
 
 export async function createWorker(opts = {}) {
-  const { dir='@system/server', reload } = opts
+  const { dir='@shared/server', reload } = opts
 
   await importRoutes({ dir, reload })
   if (!routes.length) return null

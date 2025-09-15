@@ -31,10 +31,10 @@ Create a full-stack application to see how edge-first development works:
 nue create full
 ```
 
-This generates a complete backend structure in `@system/server/`:
+This generates a complete backend structure in `@shared/server/`:
 
 ```
-@system/server/
+@shared/server/
 ├── index.js         # Hono-based routes
 ├── model/           # Business logic
 │   ├── index.js     # The business model
@@ -200,7 +200,7 @@ use('/admin/*', async (c, next) => {
 Frontend code uses the same authentication tokens locally and in production:
 
 ```javascript
-// In @system/app.js
+// In @shared/app.js
 export async function login(email, password) {
   const { sessionId } = await post('/api/login', { email, password })
   localStorage.$sid = sessionId

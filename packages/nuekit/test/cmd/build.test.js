@@ -47,8 +47,8 @@ describe('build', async () => {
 
   beforeEach(async () => {
     await writeAll([
-      ['@system/ui/keyboard.ts', 'export const foo = 100'],
-      ['@system/design/base.css', '/* CSS */'],
+      ['@shared/ui/keyboard.ts', 'export const foo = 100'],
+      ['@shared/design/base.css', '/* CSS */'],
       ['index.md', '# Hello'],
       ['404.md', '# 404'],
       'blog/index.md',
@@ -85,7 +85,7 @@ describe('build', async () => {
     expect(assets.length).toBe(6)
 
     // typescript conversion / minify
-    const js = await results.read('@system/ui/keyboard.js')
+    const js = await results.read('@shared/ui/keyboard.js')
 
     expect(js).toInclude('var o=100;export{o as foo};')
 

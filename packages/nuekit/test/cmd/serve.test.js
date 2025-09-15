@@ -71,7 +71,7 @@ describe.skip('old stuff', async () => {
 
     // request CSS
     await site.build({ filters: ['**/*.css'] })
-    const css = await fetch(new Request(server.url + '@system/design/base.css'))
+    const css = await fetch(new Request(server.url + '@shared/design/base.css'))
     expect(await css.text()).toBe('/* hey */')
 
     server.stop()

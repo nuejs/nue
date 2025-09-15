@@ -49,7 +49,7 @@ export function sortPaths(paths, priority='base.css') {
 
   function prio(path) {
     const { dir, base } = parse(path)
-    return base == priority ? 0 : dir.startsWith('@system') ? 1 : !dir ? 2 : 3
+    return base == priority ? 0 : dir.startsWith('@shared') ? 1 : !dir ? 2 : 3
   }
 
   return paths.sort((a, b) => {

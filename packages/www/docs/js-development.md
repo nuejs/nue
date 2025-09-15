@@ -10,7 +10,7 @@ Your application's core logic should live independently of any UI framework. Thi
 For simple SPAs, use a single model file:
 
 ```javascript
-// @system/app.js
+// @shared/app.js
 export async function login(email, password) {
   const ret = await post('/api/login', { email, password })
   localStorage.$sid = ret.sessionId
@@ -25,7 +25,7 @@ export async function getUsers() {
 Scale with separate modules for different domains:
 
 ```
-@system/
+@shared/
 ├── app/
 │   ├── index.js          # Main app exports
 │   ├── users.js          # User operations
@@ -41,7 +41,7 @@ Configure imports in `site.yaml`:
 
 ```yaml
 import_map:
-  app: /@system/app/index.js
+  app: /@shared/app/index.js
 ```
 
 Use the model in your UI components, pages, and SPA entry points:
@@ -65,7 +65,7 @@ import { login, getUsers } from 'app'
 Some JavaScript needs to work across your entire application - keyboard shortcuts that work on every page, analytics modules that track user behavior globally, or tooltip systems that enhance any element. These cross-cutting concerns don't belong in individual components. Instead, they need their own space as global controllers that run once and manage application-wide behavior.
 
 ```javascript
-// @system/ui/keyboard.js
+// @shared/ui/keyboard.js
 document.addEventListener('keydown', (evt) => {
   const { target, key } = evt
 
@@ -79,7 +79,7 @@ document.addEventListener('keydown', (evt) => {
 })
 ```
 
-Place controllers in `@system/ui/` where they automatically load on every page. They run globally across your entire application.
+Place controllers in `@shared/ui/` where they automatically load on every page. They run globally across your entire application.
 
 ### Benefits of controllers
 **Global behavior** - Handle interactions that span multiple pages and components.
@@ -93,12 +93,12 @@ Place controllers in `@system/ui/` where they automatically load on every page. 
 The modern web platform provides surprisingly complete functionality out of the box. Before reaching for a library, check if native APIs can handle your needs. When you do need external code, simply place it to your system's library folder and avoid the dependency chaos that plagues many projects.
 
 ### Recommended structure
-Download minimal versions to `@system/lib/`:
+Download minimal versions to `@shared/lib/`:
 
 ```yaml
 import_map:
-  d3: /@system/lib/d3.js
-  utils: /@system/lib/utils.js
+  d3: /@shared/lib/d3.js
+  utils: /@shared/lib/utils.js
 ```
 
 Use on your JS modules:

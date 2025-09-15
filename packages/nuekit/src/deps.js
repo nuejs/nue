@@ -1,7 +1,8 @@
 
 import { join, normalize, dirname, extname, basename, sep } from 'node:path'
 
-const SYSTEM_DIRS = ['design', 'data', 'layout', 'ui'].map(dir => join('@system', dir))
+// other shared dirs: "app" and "server" — but not for auto-loading assets
+const SHARED_DIRS = ['design', 'data', 'ui'].map(dir => join('@shared', dir))
 
 const ASSET_TYPES = ['.html', '.js', '.ts', '.yaml', '.css']
 
@@ -17,7 +18,7 @@ export function listDependencies(basepath, { paths, exclude=[], include=[], cent
   // central design system
   if (central) {
     deps = deps.filter(path => extname(path) != '.css' ||
-      path.startsWith(join('@system', 'design'))
+      path.startsWith(join('@shared', 'design'))
     )
   }
 
@@ -46,8 +47,8 @@ function isDep(basepath, path, paths) {
   const dir = dirname(path)
   if (dir == '.') return true
 
-  // system folders
-  if (SYSTEM_DIRS.some(dir => path.startsWith(dir + sep))) return true
+  // shared folders
+  if (SHARED_DIRS.some(dir => path.startsWith(dir + sep))) return true
 
   // SPA: entire app tree
   if (basename(basepath) == 'index.html') {

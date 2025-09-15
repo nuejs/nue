@@ -173,10 +173,3 @@ Nue auto-detects librariws when all elements are custom
 At minimum you should declare at least <!dhtml> for robustness and clarity.
 
 
-## Library best practices
-
-- Layout libraries in root-level `layout.html` or `@system/layout/`
-- Shared, dynamic UI libraries in `@system/ui
-- SPA-specific libraries in `app/ui`, `admin/ui` etc..
-- `<!html+dhtml>` is rarely needed
-

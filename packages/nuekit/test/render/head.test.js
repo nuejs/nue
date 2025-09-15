@@ -3,10 +3,10 @@ import { renderScripts, renderStyles, renderMeta, renderHead, } from '../../src/
 
 test('renderScripts', () => {
   const [foo, bar] = renderScripts([
-    { ext: '.ts', dir: '@system', name: 'foo' },
+    { ext: '.ts', dir: '@shared', name: 'foo' },
     { ext: '.js', dir: 'blog', name: 'bar' },
   ])
-  expect(foo).toBe('<script src="/@system/foo.js" type="module"></script>')
+  expect(foo).toBe('<script src="/@shared/foo.js" type="module"></script>')
   expect(bar).toInclude('/blog/bar.js')
 })
 

@@ -15,7 +15,7 @@ test('url property', () => {
   testURL('app/index.html', '/app/')
   testURL('blog/table.html', '/blog/table')
   testURL('docs/installation.md', '/docs/installation')
-  testURL('@system/design/base.css', '/@system/design/base.css')
+  testURL('@shared/design/base.css', '/@shared/design/base.css')
   testURL('site.yaml', '/site.yaml')
 })
 
@@ -41,14 +41,14 @@ test('getFileInfo', () => {
 })
 
 test('createFile', async () => {
-  const path = await write('@system/model/index.ts', '// hello')
+  const path = await write('@shared/model/index.ts', '// hello')
   const file = await createFile(testDir, path)
 
   expect(file).toMatchObject({
-    rootpath: 'test_dir/@system/model/index.ts',
-    path: '@system/model/index.ts',
-    dir: '@system/model',
-    basedir: '@system',
+    rootpath: 'test_dir/@shared/model/index.ts',
+    path: '@shared/model/index.ts',
+    dir: '@shared/model',
+    basedir: '@shared',
     base: 'index.ts',
     name: 'index',
     is_ts: true,

@@ -85,7 +85,7 @@ test('rendering', async () => {
 
   const files = [
     { is_md: true, path: 'blog/index.md', async text() { return '# Hello' } },
-    { is_html: true, path: '@system/layout/pagefoot.html', async text() { return pagefoot } },
+    { is_html: true, path: '@shared/layout/pagefoot.html', async text() { return pagefoot } },
   ]
 
   const page = createAsset(files[0], files, {

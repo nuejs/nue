@@ -41,14 +41,14 @@ blog/css-is-awesome/
 
 Page-specific directories are rare but allow construction of complex content that needs dedicated assets.
 
-## System-level assets
-Larger projects can use a central @system directory for global assets available everywhere:
+
+## Shared assets
+Larger projects can use @shared directory for globally available assets:
 
 ```
-@system/
+@shared/
+├── ui/             # UI components/controllers. Client an server. (.html, .js, .ts)
 ├── design/         # Design system CSS files (.css)
-├── layout/         # Shared layouts and components  (.html)
-├── ui/             # Dynamic UI components/controllers (.html, .js, .ts)
 └── data/           # Site-wide data files (.yaml)
 ```
 

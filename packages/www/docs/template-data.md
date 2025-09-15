@@ -48,7 +48,7 @@ docs/
 **Global data**
 
 ```
-@system/data/
+@shared/data/
 ├── products.yaml
 ├── plans.yaml
 └── social.yaml
@@ -57,7 +57,7 @@ docs/
 ## Data compilation
 Data precedence from lowest to highest priority:
 
-1. **Start with global data** - Load all `@system/data/*.yaml` files
+1. **Start with global data** - Load all `@shared/data/*.yaml` files
 2. **Add root-level data** - From `site.yaml`  and other root level .yaml files
 3. **Add app-level data** - From `app.yaml` and app-specific .yaml files
 4. **Add page front matter** - Page-specific overrides
@@ -146,7 +146,7 @@ Here's what a typical template context looks like as JSON:
   // built-in functions to process markdown to HTML
   "markdown": function,
 
-  // team data from @system/data/team.yaml
+  // team data from @shared/data/team.yaml
   "team": [
     {
       "name": "Alice Johnson",

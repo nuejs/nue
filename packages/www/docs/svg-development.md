@@ -36,7 +36,7 @@ Mix SVG elements with HTML and Nue's template syntax:
 
 **Dynamic syntax** - Use the full [HTML syntax](/docs/html-syntax) reference: loops, conditionals, expressions, and data binding.
 
-**Data cascade** - Variables come from the same sources as HTML templates: parent YAML files, `@system/data/`, and front matter.
+**Data cascade** - Variables come from the same sources as HTML templates: parent YAML files, `@shared/data/`, and front matter.
 
 **HTML embedding** - The `<html>` tag becomes a `<foreignObject>` automatically, letting you embed rich HTML content inside SVG graphics.
 
@@ -90,7 +90,7 @@ Include your CSS design system in SVG output:
 Your CSS design system styles both SVG elements and HTML content:
 
 ```css
-/* In @system/design/graphics.css */
+/* In @shared/design/graphics.css */
 .accent {
   fill: var(--accent-color);
   stroke: var(--border-color);
@@ -117,8 +117,8 @@ Configure fonts at the directory level:
 # In visuals/app.yaml
 svg:
   fonts:
-    Inter: @system/design/inter.woff2
-    Mono: @system/design/mono.woff2
+    Inter: @shared/design/inter.woff2
+    Mono: @shared/design/mono.woff2
 ```
 
 Or customize per file with HTML comments:
@@ -196,7 +196,7 @@ Define interactive SVG in library files:
 Style with your design system:
 
 ```css
-/* In @system/design/graphics.css */
+/* In @shared/design/graphics.css */
 .bar {
   fill: var(--muted-color);
   transition: fill 0.2s;

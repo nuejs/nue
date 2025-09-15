@@ -62,7 +62,7 @@ test('full', () => {
     <!doctype dhtml>
 
     <script>
-      import { getContacts } from '/@system/model.js'
+      import { getContacts } from '/@shared/model.js'
     </script>
 
     <!-- @reactive -->

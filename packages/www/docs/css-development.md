@@ -28,10 +28,10 @@ Scale up with a centralized design system for larger teams, client work, or any 
 nue create full
 ```
 
-This creates a complete design system in `@system/design/`:
+This creates a complete design system in `@shared/design/`:
 
 ```
-@system/design/
+@shared/design/
 ├── base.css         # Typography, colors, spacing
 ├── button.css       # All button variants
 ├── content.css      # Blog posts, documentation

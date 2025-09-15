@@ -5,16 +5,16 @@ test('sortPaths', () => {
   const sorted = sortPaths([
     'blog/post.md',
     'index.html',
-    '@system/design/area.css',
+    '@shared/design/area.css',
     'docs/getting-started.md',
     'global.css',
-    '@system/design/base.css',
+    '@shared/design/base.css',
     'about.md'
   ])
 
   expect(sorted).toEqual([
-    "@system/design/base.css",
-    "@system/design/area.css",
+    "@shared/design/base.css",
+    "@shared/design/area.css",
     "about.md",
     "global.css",
     "index.html",

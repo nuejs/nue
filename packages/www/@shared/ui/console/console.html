@@ -15,7 +15,7 @@
 
   <script>
     async mounted() {
-      const res = await fetch('/@system/ui/console/scenes.txt')
+      const res = await fetch('/@shared/ui/console/scenes.txt')
       const $pre = this.root.querySelector('pre')
 
       let playing = false

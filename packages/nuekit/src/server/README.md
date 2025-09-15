@@ -16,7 +16,7 @@ Development environment for the user's server-side code. Provides runtime compat
 
 ## Usage
 
-The server environment handles your `@system/server/` code during development, providing the same APIs you'll have in production but running locally.
+The server environment handles your `@shared/server/` code during development, providing the same APIs you'll have in production but running locally.
 
 ```js
 import { getServer } from './server/index.js'
@@ -28,4 +28,4 @@ const handler = await getServer()
 const handler = await getServer({ url: 'https://myapp.com' })
 ```
 
-Your actual server code goes in `@system/server/` in your project, not here.
+Your actual server code goes in `@shared/server/` in your project, not here.

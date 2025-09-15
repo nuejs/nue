@@ -35,7 +35,7 @@ collections:
 
 # custom additions
 import_map:
-  app: /@system/app.js
+  app: /@shared/app.js
 
 server:
   db: db/app.db

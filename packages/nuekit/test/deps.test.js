@@ -8,13 +8,13 @@ const paths = [
   'site.yaml',
   'globals.js',
 
-  // system (6)
-  '@system/design/base.css',
-  '@system/design/components.css',
-  '@system/data/authors.yaml',
-  '@system/layout/page.html',
-  '@system/ui/button.html',
-  '@system/ui/keyboard.js',
+  // shared (6)
+  '@shared/design/base.css',
+  '@shared/design/components.css',
+  '@shared/data/authors.yaml',
+  '@shared/layout/page.html',
+  '@shared/ui/button.html',
+  '@shared/ui/keyboard.js',
 
   // app (4)
   'app/index.html',
@@ -35,7 +35,7 @@ const paths = [
 
 test('SPA app', () => {
   const deps = listDependencies('app/index.html', { paths })
-  expect(deps.length).toBe(2 + 6 + 3) // root + system + app (no self)
+  expect(deps.length).toBe(2 + 6 + 3) // root + shared + app (no self)
   expect(deps).toContain('site.yaml')
   expect(deps).toContain('globals.js')
 })
@@ -48,14 +48,14 @@ test('root SPA', () => {
 
 test('MPA deps', () => {
   const deps = listDependencies('blog/entry/index.md', { paths })
-  expect(deps.length).toBe(2 + 6 + 2) // root + system + blog hierarchy
+  expect(deps.length).toBe(2 + 6 + 2) // root + shared + blog hierarchy
   expect(deps).toContain('site.yaml')
   expect(deps).toContain('blog/layout.html')
 })
 
 test('standalone html', () => {
   const deps = listDependencies('marketing/table.html', { paths })
-  expect(deps.length).toBe(2 + 6 + 1) // root + system + marketing
+  expect(deps.length).toBe(2 + 6 + 1) // root + shared + marketing
   expect(deps).toContain('site.yaml')
   expect(deps).toContain('marketing/chart.js')
   expect(deps).not.toContain('app/main.js')
@@ -89,25 +89,25 @@ test('root CSS follows central rules', () => {
 
 test('exclusions', () => {
   const deps = listDependencies('app/index.html', {
-    exclude: ['app/ui', '@system/design', 'site.yaml'],
+    exclude: ['app/ui', '@shared/design', 'site.yaml'],
     paths,
   })
 
-  expect(deps.length).toBe(1 + 4 + 2) // globals.js + 4 system + 2 app
+  expect(deps.length).toBe(1 + 4 + 2) // globals.js + 4 shared + 2 app
   expect(deps).not.toContain('app/ui/header.html')
-  expect(deps).not.toContain('@system/design/base.css')
+  expect(deps).not.toContain('@shared/design/base.css')
   expect(deps).not.toContain('site.yaml')
   expect(deps).toContain('globals.js')
 })
 
 test('includions', () => {
   const deps = listDependencies('app/index.html', {
-    exclude: ['@system/', 'app/ui'],
+    exclude: ['@shared/', 'app/ui'],
     include: ['keyboard.js'],
     paths,
   })
 
-  expect(deps.includes('@system/ui/keyboard.js')).toBeTrue()
+  expect(deps.includes('@shared/ui/keyboard.js')).toBeTrue()
   expect(deps.length).toBe(5)
 })
 

@@ -46,8 +46,8 @@ design:
 
 # Server infrastructure (site.yaml only)
 server:
-  # Server code directory (default: @system/server)
-  dir: @system/server
+  # Server code directory (default: @shared/server)
+  dir: @shared/server
 
   # SQL database file (relative to server dir)
   db: db/app.db
@@ -119,7 +119,7 @@ rss:
 
 # Client-side import-map. (app.yaml can override)
 import_map:
-  app: /@system/app/index.js
+  app: /@shared/app/index.js
   d3: /lib/d3.js
 
 
@@ -265,6 +265,6 @@ svg:
 
   # Embed fonts directly in SVG output
   fonts:
-    Inter: @system/design/inter.woff2
+    Inter: @shared/design/inter.woff2
 ```
 
