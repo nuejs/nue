@@ -5,7 +5,7 @@ class: dark heroic
 
 
 # The UNIX of the Web
-Nue takes modern HTML, CSS, and JavaScript to their absolute peak.
+Nue takes modern HTML, CSS, and JavaScript to their absolute peak
 [cta-buttons]
 
 [console]
@@ -22,5 +22,5 @@ The tools do one thing and do it well
 ## Rapid application assembly
 Move fast by focusing solely on content and structure
 
-! architecture image
-  Let your concerns do one thing and do it well
+[nue-assembly]
+Let your concerns do one thing and do it well

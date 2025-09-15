@@ -59,3 +59,11 @@ features:
     - Extreme performance
 
 
+assembly:
+  - index.md
+  - app/index.html
+  - blog/index.md
+  - login/index.html
+  - about/index.md
+  - join/index.html
+  - contact/index.md

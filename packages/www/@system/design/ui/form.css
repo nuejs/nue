@@ -2,11 +2,7 @@
 @layer base {
 
   form {
-    flex-direction: column;
     margin-block: 1em;
-    display: flex;
-    gap: 1em;
-
   }
 
   label h3 {
@@ -21,8 +17,8 @@
     font-family: inherit;
     font-size: inherit;
     padding: 0.5em;
+    width: 100%;
     margin: 0;
-    h3 + & { width: 100% }
   }
 
   /* container for checkboxes and radio buttons */

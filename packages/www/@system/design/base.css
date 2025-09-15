@@ -5,14 +5,21 @@
 
   :root {
 
+    /* font */
+    --font: helvetica neue, system-ui;
+    --monospace: courier, monospace;
+
     /* base colors */
+    --base-100: #eee;
     --base-200: #E2E8F0;
+    --base-300: #ccc;
     --base-400: #94A3B8;
     --base-600: #475569;
     --base-800: #1E293B;
 
     /* bauhaus colors  */
-    --accent: #0085ff;
+    --accent: #0053dc;
+    --accent-light: #42A4FF;
 
     /* link colors */
     --link: #00e;

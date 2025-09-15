@@ -1,26 +1,5 @@
 
 @layer component {
-  .stack {
-    flex-direction: column;
-    display: flex;
-    gap: var(--s);
-  }
-
-  .flex {
-    display: flex;
-    gap: var(--l);
-    > * { flex: 1 }
-
-    &.wrap {
-      flex-wrap: wrap;
-      > * {
-        flex: 1 1 150px; /* grow, shrink, base width */
-      }
-    }
-
-    > .size-2 { flex: 2 }
-    > .size-3 { flex: 3 }
-  }
 
   .grid {
     display: grid;
@@ -30,8 +9,27 @@
 
     &.grid-2 { --cell-width: 300px }
     &.grid-4 { --cell-width: 200px }
-    &.gap-s { gap: .75em }
-    &.gap-l { gap: 1.5em }
+  }
+
+  .flex {
+    display: flex;
+    gap: 1em;
+    > * { flex: 1 }
+
+    &.wrap {
+      flex-wrap: wrap;
+      > * { flex: 1 1 var(--cell-width, 200px) }
+    }
+
+    > .flex-2 { flex: 2 }
+    > .flex-3 { flex: 3 }
+    > .flex-4 { flex: 4 }
+  }
+
+  .stack {
+    flex-direction: column;
+    display: flex;
+    gap: 1em;
   }
 
   .columns {
@@ -40,21 +38,4 @@
     column-gap: var(--s);
     div { break-inside: avoid }
   }
-
-  .card {
-    background-color: rgba(100, 100, 100, .2);
-    border-radius: var(--radius-m, 4px);
-    padding: .75em 1em;
-
-    &.accent {
-      background-color: #70b4d933;
-    }
-
-    > :first-child { margin-top: 0 }
-    > :last-child { margin-bottom: 0 }
-  }
-
-  .pad-m { padding: .75em 1em }
-  .pad-l { padding: 1.25em }
-
 }

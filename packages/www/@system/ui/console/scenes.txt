@@ -10,7 +10,7 @@ $ nue crate^^^eate full --to my-site
 ✓ Unpacking "full" to my-site [10ms]
 ✓ Site created in 462ms
 
-$ # press enter to develop with nue
+$ # press enter to see `nue dev`
 
 ---
 $ # 2/3: developing with Nue
@@ -38,7 +38,7 @@ $ # press enter for `nue build`
 $ # 3/3: building for production
 
 $ nue build
-📦 <b>Building system libs:</b>
+📦 <b>Building shared libs:</b>
 ✓ Business model: 5 TS files (8KB) [28ms]
 ✓ Design system: 14 CSS files (8KB) [35ms]
 ✓ UI components: 5 files [42ms]
@@ -54,4 +54,4 @@ $ nue build
 ✓ admin (8 files) [22ms]
 ✓ Build complete in <u>198ms</u>
 
-$ # less is more
+$ # nue is fast

@@ -12,9 +12,20 @@ content:
 
 meta:
   title: The UNIX of the Web
-  description: Nue is a standards first web framework. It takes modern HTML, CSS, and JavaScript to their absolute peak.
+  tagline: The UNIX of the Web
+  title_template: %s / Nue
+  description: Nue takes modern HTML, CSS, and JS to their absolute peak.
   favicon: /img/favicon-small.png
   og: /img/og.png
 
 
+teaser:
+  text: Nue 2.0 is out! →
+  url: /blog/nue-2.0/
+  tag: New
 
+join:
+  title: 3.0 is coming
+  cta: Ping me
+  desc:
+    Get a small ping to your email when **multi-site development**, **Nue edge** and **templates** are ready. Check [roadmap](/docs/roadmap) for details

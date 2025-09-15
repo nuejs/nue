@@ -7,7 +7,10 @@
     <a href="/" class="logo"><img src="/img/logo-small.png" width="60" height="27"></a>
     <a href="/docs/">Docs</a>
     <a href="/blog/">Blog</a>
-    <a href="/blog/nue-2.0/"><span class="tag">New</span> Nue 2.0 is out →</a>
+    <a :if="teaser" href="{ teaser.url }">
+      <span class="tag">{ teaser.tag}</span>
+      { teaser.text }
+    </a>
   </nav>
 
   <nav>
@@ -16,16 +19,11 @@
   </nav>
 </header>
 
-<aside :is="beside" class="ui">
-  <h2>Nue 3.0 is coming</h2>
-  <p>Get notified when <a href="/docs/roadmap">multi-site development</a> and Nue Edge are available.</p>
-
-  <form>
-    <input type="email" placeholder="Your email">
-    <button>Notify me</button>
-  </form>
+<!-- join mailing list -->
+<aside :is="beside" class="ui thin">
+  <join-list :join :markdown/>
 </aside>
 
 <footer>
-  Footer
+  <strong>Nue</strong><span>— { tagline }</span>
 </footer>

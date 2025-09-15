@@ -2,21 +2,21 @@
 <!-- Nue pecific UI components (server rendered) -->
 
 <cta-buttons>
+  <a href="/docs" class="primary button">Learn Nue</a>
   <a href="/docs/get-started" class="button">Get started</a>
-  <a href="/docs" class="button">Learn Nue</a>
 </cta-buttons>
 
 
-<nue-stack class="ui card pad-l">
+<nue-stack class="ui card">
 
   <section class="grid gap-s">
-    <div :each="tool in tooling" class="card" title="{ tool.info }">
+    <div :each="tool in tooling" class="card accent padding-s" title="{ tool.info }">
       <h3>{ tool.title }</h3>
       <p>{ tool.desc }</p>
     </div>
   </section>
 
-  <aside class="grid gap-l grid-4 pad-m">
+  <aside class="grid gap-l grid-4 padding-s">
     <div :each="[ title, feats ] in Object.entries(features)">
       <h3>{ title }</h3>
       <p :each="feat in feats">{ feat }</p>
@@ -26,7 +26,44 @@
 </nue-stack>
 
 
-<nue-assembly>
+<nue-assembly class="assembly ui card flex gap-0">
+  <aside class="card">
+    <h3>@shared</h3>
+    <p>├── <b>ui</b></p>
+    <p>├── <b>app</b></p>
+    <p>├── <b>data</b></p>
+    <p>├── <b>design</b></p>
+    <p>└── <b>server</b></p>
+  </aside>
 
+  <arrow-right/>
+
+  <ul class="clear" --items="{ assembly.length }">
+    <li :each="path, i in assembly" class="card" --index="{ i }">
+      <h4>{ path }</h4>
+      <hr :each="el in new Array(10).fill(0)" --random="{ Math.random() }">
+    </li>
+  </ul>
 
 </nue-assembly>
+
+<join-list>
+  <h2>{ join.title }</h2>
+  <p>{{ markdown(join.desc) }}</p>
+
+  <form class="flex">
+    <div class="stack">
+      <input type="email" placeholder="Your email" class="flex-3">
+      <textarea placeholder="Comment (optional, but valued!)"></textarea>
+    </div>
+    <div>
+      <button>{ join.cta }</button>
+    </div>
+  </form>
+</join-list>
+
+<svg :is="arrow-right" width="24" height="24" viewBox="0 0 24 24" fill="none"
+  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" />
+</svg>

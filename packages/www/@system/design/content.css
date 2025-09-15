@@ -9,7 +9,7 @@
   body {
     line-height: 1.5;
     color: var(--base-800);
-    font-family: helvetica neue, system-ui;
+    font-family: var(--font);
   }
 
   img {
@@ -35,7 +35,10 @@
     &:target { background-color: #fff3cd }
   }
 
-  strong { color: var(--base-800) }
+  strong {
+    color: var(--base-800);
+    font-weight: 550;
+  }
 
 
   p, li, td {
@@ -44,7 +47,7 @@
 
     code {
       background-color: var(--base-200);
-      font-family: courier, monospace;
+      font-family: var(--monospace);
       padding: .125em .25em;
       font-size: .875em;
     }

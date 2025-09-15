@@ -1,4 +1,4 @@
-@layer modifier {
+@layer base {
 
   .dark {
     background-color: #111;
@@ -8,8 +8,13 @@
     }
 
     h1, h2, h3 {
-      color: white;
+      color: var(--base-100);
     }
+
+    strong, b {
+      color: var(--base-300);
+    }
+
     p, a, li {
       color: var(--base-400);
     }

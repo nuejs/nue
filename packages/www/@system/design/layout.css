@@ -12,7 +12,7 @@
     > main { flex: 1 }
   }
 
-  header, footer {
+  header {
     align-items: center;
     display: flex;
     gap: 1em;
@@ -20,6 +20,15 @@
     nav:last-of-type {
       margin-left: auto;
       justify-content: right;
+    }
+  }
+
+  footer {
+    border-top: 1px solid var(--base-800);
+    padding: 3em 0;
+    color: var(--base-400);
+    strong {
+      font-weight: 500;
     }
   }
 

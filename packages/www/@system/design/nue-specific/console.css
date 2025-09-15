@@ -8,8 +8,8 @@
     color: white;
 
     pre {
-      font-family: Consolas, Monaco;
-      max-width: 30em;
+      font-family: var(--monospace);
+      max-width: 35em;
       padding: 1em;
       margin: 0;
     }
@@ -23,15 +23,9 @@
        &::first-letter { color: cyan }
 
       time {
-        color: lime;
+        color: var(--accent-light);
         float: right;
       }
-    }
-
-    cursor {
-      display: inline-block;
-      width: 1em;
-      background-color: red;
     }
 
     header {
@@ -46,7 +40,7 @@
       color: #888;
       &:before {
         content: "$ ";
-        color: magenta;
+        color: var(--accent-light);
       }
 
       /* cursor */

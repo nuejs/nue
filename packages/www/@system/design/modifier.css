@@ -3,17 +3,29 @@
 @layer modifier {
 
   /* size  */
-  .thin    { max-width: 25em }
+  .thin    { max-width: 50% }
   .wide    { max-width: inherit; width: 100% }
 
+  /* margin */
+  .margin-l   { margin-block: var(--l) }
 
-  /* space (loose, right) */
-  .loose   { margin-block: var(--l) }
+  /* gap */
+  .gap-0 { gap: 0 }
+  .gap-s { gap: .75em }
+  .gap-l { gap: 1.5em }
 
-  /* typography
+  /* padding */
+  .padding-s  { padding: .75em 1em }
+
+  /* typography */
   .small   { font-size: .875em }
   .large   { font-size: 1.25em }
-  */
+
+  .clear {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
 
   /* browser fixes */
   [hidden] { display: none }

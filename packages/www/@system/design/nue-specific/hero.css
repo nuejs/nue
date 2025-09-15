@@ -1,16 +1,16 @@
 
 @layer modifier {
 
-  .heroic article {
+  .heroic {
     h1 {
-      font-size: 4.5em;
+      font-size: 4.2em;
       max-width: unset;
       letter-spacing: -.03em;
       font-weight: 600;
       line-height: 1;
       margin-block: 1em .125em;
       + p {
-        font-size: 1.5em;
+        font-size: 1.25em;
         max-width: inherit;
       }
     }
@@ -24,5 +24,6 @@
         font-size: 1.25em;
       }
     }
+
   }
 }

@@ -1,0 +1,64 @@
+
+@layer component {
+
+  .assembly {
+    aside {
+      font-family: var(--monospace);
+      background-color: var(--accent);
+      font-size: 1em;
+      max-width: 200px;
+      padding: 2em;
+
+      p { margin: 0; color: #fff4; }
+      b { color: #00ff60; font-weight: 550 }
+    }
+
+    ul {
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* pulsating arrow */
+    svg {
+      max-width: 3em;
+      color: white;
+      align-self: center;
+      margin: -1em 0 0 -.5em;
+      animation: flow .75s ease-in-out infinite alternate;
+      display: block;
+    }
+
+    li {
+      position: absolute;
+      width: 150px;
+      height: 100%;
+      background: #333;
+      animation: move calc(var(--items) * 2s) infinite linear;
+      animation-delay: calc(var(--index) * -2s);
+      h4 {
+        font-size: .9em;
+        font-weight: 500;
+        white-space: nowrap;
+        color: white;
+      }
+    }
+
+    /* code lines */
+    hr {
+      margin: .75em 0;
+      width: calc(20% + calc(70% * var(--random)));
+      opacity: .5;
+    }
+
+  }
+
+  @keyframes flow {
+    0% { opacity: 0.5; transform: translatex(-.1em) }
+    100% { opacity: 1; transform: scale(1.05) translatex(.1em); }
+  }
+
+  @keyframes move {
+    0% { transform: translateX(-150px) }
+    100% { transform: translateX(calc(900px + 150px)) }
+  }
+}
