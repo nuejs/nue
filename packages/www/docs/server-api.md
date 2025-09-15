@@ -285,4 +285,4 @@ post('/webhook', handleWebhook)
 del('/cache/:key', clearCache)
 ```
 
-The server handles everything automatically. Same code runs in development with `nue serve` and in production on CloudFlare Workers.
+The server handles everything automatically. Same code runs in development with `nue dev` and in production on CloudFlare Workers.

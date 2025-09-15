@@ -17,7 +17,7 @@ export function expandArgs(args) {
 
 
 export function getArgs(argv) {
-  const commands = ['serve', 'build', 'preview', 'create', 'push']
+  const commands = ['serve', 'dev', 'build', 'preview', 'create', 'push']
 
   // default values
   const args = { paths: [] }
@@ -42,7 +42,7 @@ export function getArgs(argv) {
       else if (['-s', '--silent'].includes(arg)) args.silent = true
       else if (['--verbose'].includes(arg)) args.verbose = true
 
-      // serve & preview options
+      // dev & preview options
       else if (['-p', '--port'].includes(arg)) opt = 'port'
 
       // build options
@@ -116,7 +116,7 @@ async function run(args) {
     const { build } = await import('./cmd/build')
     await build(site, args)
 
-  } else if (cmd == 'serve' || !cmd) {
+  } else if (!cmd || cmd == 'dev' || cmd == 'serve') {
     const { serve } = await import('./cmd/serve')
     await serve(site, args)
   }

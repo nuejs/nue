@@ -17,7 +17,7 @@ global.yaml       # Shared configuration
 Develop all sites with global hot reloading:
 
 ```sh
-nue serve --all
+nue dev --all
 
 acme.org      → http://localhost:4000
 app.acme.com  → http://localhost:4001

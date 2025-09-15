@@ -59,7 +59,7 @@ server:
 Start development with one command:
 
 ```bash
-nue serve
+nue dev
 ```
 
 This runs both frontend and backend together with hot reload for all changes - client assets, server routes, and database schema.

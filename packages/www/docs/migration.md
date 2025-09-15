@@ -308,7 +308,7 @@ export default server
 
 **Edge first architecture** - Server routes, KV storage, and SQL databases work seamlessly locally and globally with identical APIs.
 
-**Integrated development** - Frontend and backend on same port with `nue serve`. Instant startup, built-in HMR for all server routes and database changes.
+**Integrated development** - Frontend and backend on same port with `nue dev`. Instant startup, built-in HMR for all server routes and database changes.
 
 **Web standards** - Work with standard `Request`/`Response` objects, not framework abstractions. Code that runs anywhere.
 

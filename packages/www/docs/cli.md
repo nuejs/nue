@@ -16,10 +16,10 @@ The `nue` command becomes available globally after installation.
 nue [command] [options] [file_matches]
 ```
 
-If no command is specified, `serve` is used by default:
+If no command is specified, `dev` is used by default:
 
 ```bash
-nue                    # same as "nue serve"
+nue                    # same as "nue dev"
 nue --port 8080        # serve on port 8080 (default 4000)
 nue build              # build production site
 nue preview            # preview built site
@@ -27,12 +27,13 @@ nue preview            # preview built site
 
 ## Commands
 
-### serve (default)
+### dev (default)
 Start the development server with hot reloading:
 
 ```bash
-nue serve
-nue                    # same as above
+nue dev
+nue serve              # asias to dev
+nue                    # short alias
 nue --port 8080        # serve on specific port
 ```
 
