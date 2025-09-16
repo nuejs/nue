@@ -16,7 +16,7 @@ Developers discovered **React** and single-page applications. **Facebook** took 
 
 ## Nue brings the fun back { #magic }
 
-Nue brings perfromance-, degsign-, and UX engineering back to the forefront. What used to take  an absurd amount of TypeScript/TSX can now be done with a fraction of the code, your codebases look clean, and the results are leaner. You begin to wonder why you ever built website any other way.
+Nue brings perfromance-, design-, and UX engineering back to the forefront. What used to take an absurd amount of TypeScript/TSX can now be done with a fraction of the code, your codebases look clean, and the results are leaner. You begin to wonder why you ever built website any other way.
 
 ### Peace ❤️
 
