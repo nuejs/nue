@@ -7,9 +7,10 @@
   }
 
   body {
-    line-height: 1.5;
-    color: var(--base-800);
+    background-color: var(--bg-body);
     font-family: var(--font);
+    color: var(--base);
+    line-height: 1.5;
   }
 
   img {
@@ -18,6 +19,7 @@
   }
 
   h1, h2, h3, h4 {
+    color: var(--base-700);
     margin-block: 0.5em;
     text-wrap: balance;
     line-height: 1.25;
@@ -30,19 +32,18 @@
 
   a {
     color: var(--link);
-    &:visited { color: var(--visited); }
+    &:visited { opacity: .5 }
     &[name] { color: inherit }
-    &:target { background-color: #fff3cd }
+    &:target { background-color: var(--accent-muted) }
   }
 
   strong {
-    color: var(--base-800);
+    color: var(--base-500);
     font-weight: 550;
   }
 
 
   p, li, td {
-    color: var(--base-600);
     text-wrap: pretty;
 
     code {
@@ -71,7 +72,7 @@
   small, figcaption {
     font-weight: 400;
     font-size: .875em;
-    color: var(--base-600);
+    color: var(--base-300);
   }
 
   dl {

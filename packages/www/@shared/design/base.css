@@ -9,22 +9,6 @@
     --font: helvetica neue, system-ui;
     --monospace: courier, monospace;
 
-    /* base colors */
-    --base-100: #eee;
-    --base-200: #E2E8F0;
-    --base-300: #ccc;
-    --base-400: #94A3B8;
-    --base-600: #475569;
-    --base-800: #1E293B;
-
-    /* bauhaus colors  */
-    --accent: #0053dc;
-    --accent-light: #42A4FF;
-
-    /* link colors */
-    --link: #00e;
-    --visited: #551a8b;
-
     /* radius */
     --radius-s: 2px;
     --radius-m: 3px;
@@ -40,5 +24,3 @@
     --ui-sizing: 14.5px;
   }
 }
-
-
