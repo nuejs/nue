@@ -158,7 +158,7 @@ When `<!...>` declaration is missing, Nue automatically detects the type:
 ```
 
 ### Library when:
-Nue auto-detects librariws when all elements are custom
+Nue auto-detects libraries when all elements are custom
 
 ```
 <my-component>
