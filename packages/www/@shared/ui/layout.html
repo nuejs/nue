@@ -7,7 +7,7 @@
     <a href="/" class="logo"><img src="/img/logo-small.png" width="60" height="27"></a>
     <a href="/docs/">Docs</a>
     <a href="/blog/">Blog</a>
-    <a :if="teaser" href="{ teaser.url }">
+    <a :if="teaser" class="row" href="{ teaser.url }">
       <span class="tag">{ teaser.tag}</span>
       { teaser.text }
     </a>

@@ -1,17 +1,17 @@
 
 <!-- Nue pecific UI components (server rendered) -->
 
-<cta-buttons>
+<cta-buttons class="row">
   <a href="/docs" class="primary button">Learn Nue</a>
   <a href="/docs/get-started" class="button">Get started</a>
 </cta-buttons>
 
 
-<nue-stack class="ui card">
+<nue-stack class="ui stack card">
 
-  <section class="grid gap-s">
-    <div :each="tool in tooling" class="card accent padding-s" title="{ tool.info }">
-      <h3>{ tool.title }</h3>
+  <section class="grid">
+    <div :each="tool, i in tooling" class="card" title="{ tool.info }">
+      <h3 class="row"><box class="brand"/> { tool.title }</h3>
       <p>{ tool.desc }</p>
     </div>
   </section>
@@ -51,13 +51,13 @@
   <h2>{ join.title }</h2>
   <p>{{ markdown(join.desc) }}</p>
 
-  <form class="flex">
+  <form class="flex" --width="40em">
     <div class="stack">
       <input type="email" placeholder="Your email" class="flex-3">
       <textarea placeholder="Comment (optional, but valued!)"></textarea>
     </div>
     <div>
-      <button>{ join.cta }</button>
+      <button class="primary">{ join.cta }</button>
     </div>
   </form>
 </join-list>
@@ -66,4 +66,9 @@
   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
   <path d="M5 12h14" />
   <path d="m12 5 7 7-7 7" />
+</svg>
+
+<svg :is="box" width="18" height="18" viewBox="0 0 24 24" fill="none"
+  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/>
 </svg>
