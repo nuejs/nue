@@ -20,7 +20,7 @@ This generates a complete SPA structure:
 |   ├── index.js        # Hono-based router
 |   └── users.json      # KV datastore
 └── css/                # Design
- ```
+```
 
 The structure separates concerns. Routing and state live in `index.html`. UI components live in `ui/`. Server logic lives in `server/`. Design lives in CSS.
 

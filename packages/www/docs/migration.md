@@ -10,11 +10,12 @@ After migration you'll see:
 
 **90% less project scaffolding** - From hundreds of megabytes of NPM modules and dozens of configuration files (TypeScript, ESLint, Tailwind, PostCSS, Webpack) to minimal configuration and zero redundancy.
 
-**Significantly cleaner codebase** - Similar to simplified project setup, your monolithic components become leaner with architectural clarity. App concerns live in isolated layers that can be managed and scaled independently.
+**Cleaner and smaller codebase** - Similar to simplified project setup, your monolithic components become leaner with architectural clarity. App concerns live in isolated layers that can be managed and scaled independently.
+
+**Lightweight pages and apps** - Order of magnitude smaller footprint across all pages. Content-heavy marketing sites, documentation, blogs, and full single-page applications all become dramatically lighter. We're talking single-page apps that take less bandwidth than a single React button component.
 
 **Faster builds** - Build times drop from seconds to milliseconds. HMR spans all pages, apps, assets, and server routes. Every update takes around 20ms.
 
-**Smaller, snappier sites** - Order of magnitude smaller footprint across all pages. Content-heavy marketing sites, documentation, blogs, and full single-page applications all become dramatically lighter. We're talking single-page apps that take less bandwidth than a single React button component.
 
 
 ## Project setup
@@ -62,7 +63,7 @@ The shift is from configuration theater with third-party syntaxes to minimalism 
 Migrating from monolithic components and MDX to a content-first architecture.
 
 
-### Next.js: 900MB of redundancy
+### Next.js: 500MB of redundancy
 Since Next.js provides no content authoring tools natively, you need these additional packages for a content-focused site with blogs, documentation, and marketing pages:
 
 ```bash
@@ -243,8 +244,8 @@ Nue skips NPM installs and configuration files. Jump straight to development usi
 
 ```
 server/
-├── index.js              # Hono server routes
-├── db/                   # Database files
+├── index.js             # Server routes
+├── db/                  # Database files
 │   ├── app.db           # SQLite database
 │   ├── kv.json          # KV store data
 │   └── init/            # Schema and sample data
@@ -263,7 +264,7 @@ Configure the entire system centrally in `site.yaml
 
 ```yaml
 server:
-  dir: server           # Server directory
+  dir: server          # Server directory
   db: db/app.db        # SQL database location
   kv: db/kv.json       # KV database location
   reload: true         # Server route HMR
@@ -273,13 +274,9 @@ server:
 
 Write code that works identically locally and globally:
 
-```javascript
-import { Hono } from 'hono'
-
-const server = new Hono()
-
+```js
 // Authentication middleware
-server.use('/admin/*', async (c, next) => {
+use('/admin/*', async (c, next) => {
   // Same API locally and on CloudFlare Edge
   const { KV, DB } = c.env
 
@@ -293,25 +290,22 @@ server.use('/admin/*', async (c, next) => {
 })
 
 // API routes with standard Request/Response
-server.get('/api/users', async (c) => {
+get('/api/users', async (c) => {
   const { DB } = c.env
   const users = await DB.prepare('SELECT * FROM users').all()
   return c.json(users)
 })
-
-export default server
 ```
 
 ### Nue benefits
 
-**90% less server scaffolding** - No TypeScript configs, no authentication setup files, no database connection boilerplate, no middleware configuration.
+**90% less boilerplate** - No TypeScript configs, no authentication setup files, no database connection boilerplate, no middleware configuration.
 
 **Edge first architecture** - Server routes, KV storage, and SQL databases work seamlessly locally and globally with identical APIs.
 
 **Integrated development** - Frontend and backend on same port with `nue dev`. Instant startup, built-in HMR for all server routes and database changes.
 
 **Web standards** - Work with standard `Request`/`Response` objects, not framework abstractions. Code that runs anywhere.
-
 
 
 
@@ -421,9 +415,7 @@ export async function getContacts(params) {
 
 **Testability** - Unit test your application logic without mixing frontend concenrs. Pure functions are trivial to test.
 
-**Portability** - Your business model works with any UI layer. Migrate from React to Vue to vanilla JavaScript without rewriting core application logic.
-
-**TypeScript support** - Thanks to Bun, Nue supports TypeScript out of the box.
+**Portability** - Your business model works with any UI layer. Migrate from React to Vue to vanilla JavaScript (or TypeScript) without rewriting core application logic.
 
 **Future-proof architecture** - Pure JavaScript stays relevant forever. No trendy frontend tools risk making your model outdated.
 
@@ -500,18 +492,14 @@ export default function LoginForm() {
       <div className="max-w-md w-full space-y-8">
         <Card className="w-full">
           <CardHeader>
-            {/* Semantic HTML buried under framework abstractions */}
+            // Semantic HTML buried under framework abstractions
             <CardTitle className="text-2xl font-bold text-center">
               Sign in to your account
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 
-              {/* etc... */}
+          // etc...
 
-            </form>
-          </CardContent>
         </Card>
       </div>
     </div>
@@ -553,14 +541,14 @@ Nue separates UI structure from all other concerns. Components focus purely on s
       autocomplete="current-password" class="fullsize">
   </label>
 
-  <!-- etc... -->
 
+  <!-- event handlers here  -->
   <script>
     async submit(e) {
       const { email, password } = e.target
 
       try {
-        // business logic abstracted away from the UI code
+        // handlers call methods in your business model
         await login(email, password)
         location.href = '/app/'
 

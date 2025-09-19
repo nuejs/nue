@@ -223,7 +223,7 @@ export function renderRow(row, lang, mark = true) {
 
 
 // comment start & end
-const COMMENT = [/(\/\*|^ *{# |<!--|'''|=begin)/, /(\*\/|#}|-->|'''|=end)$/]
+const COMMENT = [/(\/\* |^ *{# |<!--|'''|=begin)/, /(\*\/|#}|-->|'''|=end)$/]
 
 export function parseSyntax(lines, lang, prefix = true) {
   const [comm_start, comm_end] = COMMENT

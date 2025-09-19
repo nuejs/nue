@@ -1,6 +1,6 @@
-# Nueglow: CSS first syntax highlighting
 
-Nueglow is syntax highlighting that works with your design system. Instead of forcing predefined themes, it generates semantic HTML that your CSS can style. One lightweight highlighter for all languages.
+# Nueglow: CSS first syntax highlighting
+Nueglow is syntax highlighting that works with your design system. Itt generates semantic HTML that your CSS can style. One minuscule highlighter for all languages.
 
 [image.large]
   caption: 30+ languages highlighted. Click for standalone demo.
@@ -10,8 +10,9 @@ Nueglow is syntax highlighting that works with your design system. Instead of fo
 
 
 ## The highlighter problem
+Popular syntax highlighters have issues:
 
-**Massive projects** - Popular syntax highlighters like Shiki ship 14MB and 44 packages. Each language needs its own grammar file with thousands of cryptic regex rules.
+**Massive codebases** - tools like Shiki ship 14MB and 44 packages. Each language needs its own grammar file with thousands of cryptic regex rules.
 
 **Theme lock-in** - Themes come as giant JSON files with 300+ predefined colors. You can't easily adapt them to your brand or design system.
 

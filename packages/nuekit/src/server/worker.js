@@ -53,12 +53,12 @@ function getCFHeaders() {
     'cf-ipcountry': 'FI',
     'cf-ipcity': 'Helsinki',
     'cf-ipcontinent': 'EU',
-    'cf-iplongitude': '24.9384',
-    'cf-iplatitude': '60.1699',
+    'cf-iplongitude': '24.95034',
+    'cf-iplatitude': '60.18427',
     'cf-region': 'Uusimaa',
     'cf-region-code': 'FI-18',
     'cf-metro-code': '0',
-    'cf-postal-code': '00100',
+    'cf-postal-code': '00500',
     'cf-timezone': 'Europe/Helsinki',
 
     // Other CF headers

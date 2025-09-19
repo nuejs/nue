@@ -2,10 +2,7 @@
 # Nuekit
 **The entire web ecosystem in 1MB**
 
-While Next.js applications can [grow to 1.4GB](migration) with hundreds of dependencies, Nuekit delivers the complete development experience in a single, minuscule executable. Content sites, single-page applications, design systems, server routes, and database integration. No configuration theater, no dependency management, no framework updates that break everything.
-
-[complex image showing transformation from bloated Next.js to minimal Nue structure]
-  sitemap/rss/collections
+Nuekit offers a complete client/server development environment for content sites and single-page applications in a single, 1MB executable.
 
 
 ## Rapid application assembly
@@ -145,4 +142,4 @@ Build times measure in milliseconds, not seconds. Hot reload happens in under 20
 
 
 ## Installation
-Check [Getting started](get-started) for details.
+Check [Getting started](getting-started) for details.

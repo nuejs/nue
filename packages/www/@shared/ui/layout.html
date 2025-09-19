@@ -1,7 +1,5 @@
 <!doctype html lib>
 
-<!-- layout modules: header, footer, beside -->
-
 <header class="ui">
   <nav>
     <a href="/" class="logo"><img src="/img/logo-small.png" width="60" height="27"></a>
@@ -14,8 +12,13 @@
   </nav>
 
   <nav>
-    <a href="/contact/">Contact</a>
-    <a class="button" href="/login/">Login</a>
+    <a  href="{ slack.url }" class="row">
+      <slack-icon width="18" height="18"/> Slack
+    </a>
+
+    <a  href="{ gh.url }" class="row pill">
+      <github-icon width="18" height="18"/> { gh.count }
+    </a>
   </nav>
 </header>
 
@@ -25,5 +28,29 @@
 </aside>
 
 <footer>
-  <strong>Nue</strong><span>— { tagline }</span>
+  <hr>
+  <strong>NUE</strong><span>— { tagline }</span>
 </footer>
+
+
+<nav :is="navi" class="stack">
+  <a :each="link in links" href="{ link.url }">
+    <template :if="!link.desc">{ link.title }</template>
+    <div :if="link.desc" class="row">
+      <strong>{ link.title }</strong>
+      <small>{ link.desc }</small>
+    </div>
+  </a>
+
+  <script>
+    function parseNavEntry(el) {
+      if (typeof el == 'string') el = { title: el }
+      let { title, slug, desc='' } = el
+      if (!slug) slug = title.toLowerCase().replaceAll(' ', '-')
+      return { title, url: `/docs/${ slug }`, desc }
+    }
+
+    const arr = this.docs[this.items] || []
+    this.links = arr.map(parseNavEntry)
+  </script>
+</nav>

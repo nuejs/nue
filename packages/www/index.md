@@ -5,22 +5,23 @@ class: dark heroic
 
 
 # The UNIX of the Web
-Nue takes modern HTML, CSS, and JavaScript to their absolute peak
+Nue takes modern HTML, CSS, and JavaScript to their absolute peak. What used to be 500MB is now 1MB
+
 [cta-buttons]
 
 [console]
-Nue introduces a new performance tier
+Nue is minuscule and fast
 
 
 ## The entire ecosystem in 1MB
 Full backend/frontend infrastructure designed the UNIX way
 
 [nue-stack]
-The tools do one thing and do it well
+What used to be 500MB is now 1MB
 
 
 ## Rapid application assembly
 Move fast by focusing solely on content and structure
 
 [nue-assembly]
-Let your concerns do one thing and do it well
+Build a scaleable architecture

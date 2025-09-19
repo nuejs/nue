@@ -1,48 +1,20 @@
 
-# Nue: HTML first UI markup
-A markup language that extends HTML with just enough syntax to build websites, single-page apps and dynamic SVG. It's a different development model based on document structure rather than JavaScript composition.
+# Nue: HTML first UI assembly
+Nue is a markup language that extends HTML with just enough syntax to build websites, apps and SVG images. It's a different development model based on document structure rather than programmatic composition.
 
-## Why HTML matters
-The difference is architectural:
+## UI assembly
+The difference is both syntax and architecture:
 
-**Structure over logic** - Your UI component is a document tree structure that closely mimics the browser-native DOM structure. This structure can be manipulated and altered before rendering.
+**HTML over JavaScript** - In Nue, your UI is a document tree with data bindings and event listeners. In React, it's JavaScript functions returning objects. This difference changes the way you think about application structure.
 
-**Modern HTML** - `<dialog>`, `<details>`, `<popover>`, form validation, scroll-snap, container queries. Nue elevates this foundation with programmatic power.
+**Standards first** - `<dialog>`, `<details>`, `<popover>`, form validation, scroll-snap, container queries. React emerged when HTML was static. Today's HTML is interactive - Nue just fills the gaps.
 
-**DOM based** - Nue's AST maps directly to DOM operations. No virtual DOM, no reconciliation. A button is a vanilla `<button>`, not a "<Button>" component with 50KB of dependencies.
+**DOM based** - Nue's AST maps directly to DOM operations. No virtual DOM, no reconciliation. A button is a `<button>`, not a "<Button>" component with 50KB of dependencies and hundreds of megabytes of runtime.
 
-
-## Quick start
-Open this code on browser:
+### How it looks
 
 ```html
 <!doctype html>
-<script src="https://cdn.jsdelivr.net/gh/nuejs/nue@2.0/packages/nuedom/src/nue-jit.js" type="module"></script>" type="module">
-
-<template>
-
-  <button :onclick="count++">
-    Count: <b>{ count }</b>
-
-    <script>
-      this.count = 0
-    </script>
-  </button>
-
-</template>
-```
-
-Save as HTML, open in localhost (http protocol needed for modules). The component auto-mounts and runs.
-
-[View live demo](/docs/examples/nue-counter)
-
-
-## The structural advantage
-Document structure enables different patterns than programmatic composition:
-
-```html
-<!doctype html>
-<script src="https://cdn.skypack.dev/nuedom"></script>
 
 <!-- form with native validation -->
 <form :onsubmit="submit">
@@ -68,8 +40,7 @@ Document structure enables different patterns than programmatic composition:
 </dialog>
 ```
 
-No validation library. No form state management. No modal component. No  orchestration. The browser provides everything through HTML - validation, form data serialization, popover control. The document structure IS the application architecture.
-
+No validation library. No form state management. No modal component. No orchestration code. The browser provides everything through HTML - validation, form data serialization, popover control. The document structure IS the application architecture.
 
 ## Server and client
 Nue runs seamlessly on server and client:
@@ -82,9 +53,8 @@ Nue runs seamlessly on server and client:
 
 The same `.html` file works as a server template and a client component. No special markers, no "use client" directives, no hydration. Write once, run anywhere.
 
-
-## No compromises
-Nue enforces strict [separation of concerns](/docs/separation-of-concerns) through architectural constraints. This isn't optional - the system actively prevents mixing concerns.
+## Architectural constraints
+Nue enforces [separation of concerns](/docs/separation-of-concerns) through built-in constraints:
 
 **No style blocks** - CSS belongs in `.css` files, not embedded in HTML. Style blocks are stripped during processing.
 
@@ -96,7 +66,29 @@ Nue enforces strict [separation of concerns](/docs/separation-of-concerns) throu
 
 These constraints aren't limitations - they're guardrails toward maintainable architecture. When you can't mix concerns, you're forced to separate them properly. The result is cleaner code that scales better and breaks less often.
 
+## In-browser compilation
+Nue compiles directly in the browser with a 2KB compiler - no build tools, no Babel, no webpack:
 
+```html
+<!doctype html>
+<script src="https://cdn.jsdelivr.net/gh/nuejs/nue@2.0/packages/nuedom/src/nue-jit.js" type="module"></script>
+
+<template>
+  <button :onclick="count++">
+    Count: <b>{ count }</b>
+
+    <script>
+      this.count = 0
+    </script>
+  </button>
+</template>
+```
+
+Save as HTML, open on localhost (http protocol needed for modules). The component auto-mounts and runs.
+
+[View live demo](/docs/examples/nue-counter)
+
+This isn't a development convenience - it's architectural. Nue syntax is simple enough to compile in real-time without massive toolchains. Compare this to React's Babel transform that requires hundreds of megabytes of dependencies just to turn JSX into JavaScript.
 
 ## Installation
 For real projects, use Nuekit for the full development experience:
@@ -111,7 +103,7 @@ Or install Nue directly as a library:
 bun install nuedom
 ```
 
-For experiments and prototypes, just include the script tag as shown in Quick start - perfect for CodePen, JSFiddle, or local HTML files.
+For experiments and prototypes, just include the script tag as shown above - perfect for CodePen, JSFiddle, or local HTML files.
 
 See the [HTML syntax reference](/docs/html-syntax) for the complete API.
 

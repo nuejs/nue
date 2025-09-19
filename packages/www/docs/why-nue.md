@@ -1,22 +1,20 @@
 
 # Why Nue
-"Do one thing and do it well". Nue is the UNIX of the Web. It's the shift from kitchen sinks to architectural sanity. It changes the way you think about web development.
+"Do one thing and do it well". Nue is a shift from monolithic components to architectural sanity. It changes the way you think about web development.
 
 
-## The cost of React
+## The kitchen sink problem
 React emerged in 2013 to make HTML "reactive." It started small and focused: the first version was just the view layer. But then it went on a trajectory nobody could foresee. The ecosystem grew into a mountain of packages beyond anything imaginable. Today, a Next.js project created with `create-next-app` weighs 427MB just to display "Hello, World."
 
 The UNIX tradition has a name for this: kitchen sink software. Codebases that try to do everything inevitably do nothing well. They become unmaintainable, unpredictable, and harder to reason about.
 
 Meanwhile, the web evolved dramatically. The web in 2025 has capabilities that didn't exist in 2013. HTML can describe complex applications. CSS creates real design systems. JavaScript became ES6: practically a new language. Browser APIs handle what once required libraries.
 
-While React stayed on its own path, dropping more and more packages to the sink. Nue stays closer to the metal and takes HTML, CSS, and JavaScript to their absolute peak.
-
-**For Nue, the modern web is the starting point.**
+While React stayed on its own path, adding more and more packages. Nue stays close to metal and takes HTML, CSS, and JavaScript to their absolute peak.
 
 
 ## The UNIX of the Web
-The React ecosystem normalized massive dependency trees and fragmented tooling. Nue takes the opposite approach: zero external dependencies, every piece handcrafted to integrate perfectly, all focused on delivering the absolute best developer experience.
+Nue is a new take on web frameworks. It uses zero external dependencies, every piece handcrafted to integrate perfectly, all focused on delivering the absolute best developer experience.
 
 The result is remarkable: a complete **full-stack development environment in 1MB**. That includes content-focused apps, single-page applications, server-side rendering, hot reloading, syntax highlighting, CloudFlare compatible local dev environment with SQL database, KV database, and more. You'd need both Next.js and Astro to get even close to the feature set.
 
@@ -24,11 +22,9 @@ While an empty Next.js project weighs 427MB, an empty Nue project is just an `in
 
 
 ### New performance tier
-When every piece is carefully designed to work together, Nue can operate at a completely different performance tier:
+Nue operates at a completely different performance tier: **Build times** drop from 10+ seconds to 100 milliseconds. **Hot reload** happens in 10ms instead of taking seconds. **Bundle sizes** shrink so dramatically that entire single-page applications weigh less than individual React components.
 
-**Build times** drop from 10+ seconds to 100 milliseconds. **Hot reload** happens in 10ms instead of taking seconds. **Bundle sizes** shrink so dramatically that entire single-page applications weigh less than individual React components.
-
-This changes everything. You get instant feedback loops, dramatically less complexity, fewer bugs, easier debugging with thinner stack traces, and easier to maintain products.
+You get instant feedback loops, dramatically less complexity, fewer bugs, easier debugging with thinner stack traces, and easier to maintain products.
 
 
 ### Rapid application development
@@ -36,7 +32,7 @@ React's component model encourages everything-in-one thinking. Your application 
 
 Nue enforces architectural clarity. System code (logic, data, design) stays separate from application code (structure and content). Your SPAs focus solely on HTML structure. Your marketing pages become pure content.
 
-The result: codebases that are easier to understand, maintain, and scale. You build applications by assembling pieces, not debugging with JavaScript monolithw.
+The result: codebases that are easier to understand, maintain, and scale. You build applications by assembling pieces, not debugging JavaScript monoliths.
 
 
 ## Standards are forever

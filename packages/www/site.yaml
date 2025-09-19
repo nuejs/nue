@@ -18,14 +18,20 @@ meta:
   favicon: /img/favicon-small.png
   og: /img/og.png
 
-
 teaser:
   text: Nue 2.0 is out! →
   url: /blog/nue-2.0/
   tag: New
 
+gh:
+  url: https://github.com/nuejs/nue
+  count: 8.8k
+
+slack:
+  url: //join.slack.com/t/nuejs/shared_invite/zt-2wf8ozu5i-N2Y9PA_D17weIWuN2QPOqQ
+
 join:
-  title: 3.0 is coming
+  title: Up next: 3.0 with multi-site
   cta: Ping me
   desc:
-    Get a small ping to your email when **multi-site development**, **Nue edge** and **templates** are ready. Check [roadmap](/docs/roadmap) for details
+    Get an email when the next major version with [multi-site development](/docs/roadmap) is ready

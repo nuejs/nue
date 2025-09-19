@@ -5,7 +5,7 @@ tooling:
     info: Full-stack web framework based on modern HTML, CSS, and JavaScript
 
   - title: Nuedom
-    desc: HTML first UI markup
+    desc: HTML first UI assembly
     info: Build reactive components with semantic HTML instead of virtual DOM abstractions
 
   - title: Nuestate
