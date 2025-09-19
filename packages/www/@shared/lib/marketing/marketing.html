@@ -1,0 +1,50 @@
+
+<!-- Nue pecific UI components (server rendered) -->
+
+<cta-buttons class="row">
+  <a href="/docs" class="primary button">Learn Nue</a>
+  <a href="/docs/getting-started" class="button">Get started</a>
+</cta-buttons>
+
+
+<nue-stack class="ui stack card">
+
+  <section class="grid">
+    <div :each="tool, i in tooling" class="card" title="{ tool.info }">
+      <h3 class="row"><box-icon class="brand-color"/> { tool.title }</h3>
+      <p>{ tool.desc }</p>
+    </div>
+  </section>
+
+  <aside class="grid gap-l grid-4 padding-s">
+    <div :each="[ title, feats ] in Object.entries(features)">
+      <h3>{ title }</h3>
+      <p :each="feat in feats">{ feat }</p>
+    </div>
+  </aside>
+
+</nue-stack>
+
+
+<nue-assembly class="assembly ui card flex gap-0">
+  <aside class="card">
+    <h3>@shared</h3>
+    <p>├── <b>ui</b></p>
+    <p>├── <b>app</b></p>
+    <p>├── <b>data</b></p>
+    <p>├── <b>design</b></p>
+    <p>└── <b>server</b></p>
+  </aside>
+
+  <arrow-right/>
+
+  <ul class="clear" --items="{ assembly.length }">
+    <li :each="path, i in assembly" class="card" --index="{ i }">
+      <h4>{ path }</h4>
+      <hr :each="el in new Array(10).fill(0)" --random="{ Math.random() }">
+    </li>
+  </ul>
+</nue-assembly>
+
+
+

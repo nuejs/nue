@@ -7,20 +7,24 @@ const paths = [
   // root (2)
   'site.yaml',
   'globals.js',
+  'index.md',
 
   // shared (6)
   '@shared/design/base.css',
-  '@shared/design/components.css',
+  '@shared/layout/global.css',
   '@shared/data/authors.yaml',
-  '@shared/layout/page.html',
+  '@shared/ui/page.html',
   '@shared/ui/button.html',
   '@shared/ui/keyboard.js',
+
+  // libs
+  '@shared/lib/calendar.js',
 
   // app (4)
   'app/index.html',
   'app/main.js',
-  'app/ui/header.html',
-  'app/views/login.html',
+  'app/layout/header.html',
+  'app/ui/login.html',
 
   // blog (4)
   'blog/index.md',
@@ -30,8 +34,17 @@ const paths = [
 
   // marketing (2)
   'marketing/table.html',
-  'marketing/chart.js'
+  'marketing/chart.js',
+
+  // home directory
+  'home/layout.css',
+  'home/home.yaml',
 ]
+
+test('parseDirs', () => {
+  expect(parseDirs('blog')).toEqual(['blog'])
+  expect(parseDirs('blog/entry')).toEqual(['blog', 'blog/entry'])
+})
 
 test('SPA app', () => {
   const deps = listDependencies('app/index.html', { paths })
@@ -41,13 +54,14 @@ test('SPA app', () => {
 })
 
 test('root SPA', () => {
-  const paths = [ 'css/spa.css', 'ui/users.html', 'index.html' ]
+  const paths = [ 'ui/spa.css', 'ui/users.html', 'index.html' ]
   const deps = listDependencies('index.html', { paths })
   expect(deps.length).toBe(2)
 })
 
 test('MPA deps', () => {
   const deps = listDependencies('blog/entry/index.md', { paths })
+
   expect(deps.length).toBe(2 + 6 + 2) // root + shared + blog hierarchy
   expect(deps).toContain('site.yaml')
   expect(deps).toContain('blog/layout.html')
@@ -61,59 +75,42 @@ test('standalone html', () => {
   expect(deps).not.toContain('app/main.js')
 })
 
-test('central CSS', () => {
-  const deps = listDependencies('app/index.html', {
-    paths: [...paths, 'app/custom.css'],
-    central: true
-  })
-  expect(deps.length).toBe(2 + 6 + 3) // custom.css blocked
-})
 
-test('allow local CSS', () => {
-  const deps = listDependencies('app/index.html', {
-    paths: [...paths, 'app/custom.css'],
-    central: false
-  })
+test('local CSS', () => {
+  const deps = listDependencies('app/index.html', { paths: [...paths, 'app/custom.css'] })
   expect(deps.length).toBe(2 + 6 + 4) // custom.css included
   expect(deps).toContain('app/custom.css')
 })
 
-test('root CSS follows central rules', () => {
-  const deps = listDependencies('app/index.html', {
-    paths: [...paths, 'global.css'],
-    central: true
-  })
-  expect(deps.length).toBe(2 + 6 + 3) // root CSS blocked by central
-  expect(deps).not.toContain('global.css')
-})
-
 test('exclusions', () => {
   const deps = listDependencies('app/index.html', {
-    exclude: ['app/ui', '@shared/design', 'site.yaml'],
+    exclude: ['app/ui', '@shared', 'site.yaml'],
     paths,
   })
 
-  expect(deps.length).toBe(1 + 4 + 2) // globals.js + 4 shared + 2 app
+  expect(deps.length).toBe(1 + 2) // globals.js + 2 app
   expect(deps).not.toContain('app/ui/header.html')
-  expect(deps).not.toContain('@shared/design/base.css')
   expect(deps).not.toContain('site.yaml')
   expect(deps).toContain('globals.js')
 })
 
-test('includions', () => {
+test('inclusions', () => {
   const deps = listDependencies('app/index.html', {
     exclude: ['@shared/', 'app/ui'],
-    include: ['keyboard.js'],
+    include: ['keyboard', 'calendar'],
     paths,
   })
 
   expect(deps.includes('@shared/ui/keyboard.js')).toBeTrue()
-  expect(deps.length).toBe(5)
+  expect(deps.includes('@shared/lib/calendar.js')).toBeTrue()
+  expect(deps.length).toBe(6)
 })
 
-test('parseDirs', () => {
-  expect(parseDirs('blog')).toEqual(['blog'])
-  expect(parseDirs('blog/entry')).toEqual(['blog', 'blog/entry'])
+
+test('home auto-include', () => {
+  const deps = listDependencies('index.md', { paths, exclude: [ '@' ] })
+  expect(deps.includes('home/layout.css')).toBeTrue()
+  expect(deps.length).toBe(4)
 })
 
 

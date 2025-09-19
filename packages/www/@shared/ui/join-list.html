@@ -1,0 +1,15 @@
+
+<join-list>
+  <h2>{ join.title }</h2>
+  <p>{{ markdown(join.desc) }}</p>
+
+  <form class="flex" --width="40em">
+    <div class="stack">
+      <input type="email" placeholder="Your email" class="flex-3">
+      <textarea placeholder="Comment (optional, but valued!)"></textarea>
+    </div>
+    <div>
+      <button class="primary">{ join.cta }</button>
+    </div>
+  </form>
+</join-list>

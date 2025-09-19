@@ -1,0 +1,73 @@
+
+@layer component {
+
+  .console {
+    height: 520px;
+    background-color: var(--bg-300);
+    margin-top: var(--l);
+    color: var(--fg-600);
+
+    pre {
+      font-family: var(--monospace);
+      max-width: 35em;
+      padding: 1em;
+      margin: 0;
+    }
+
+    div {
+      white-space: nowrap;
+      &:empty { height: 1.5em }
+    }
+
+    .response {
+       &::first-letter { color: var(--brand) }
+
+      time {
+        color: var(--brand);
+        float: right;
+      }
+    }
+
+    header {
+      float: right;
+      padding: .75em 1em;
+
+    }
+
+    &.is-playing header { display: none }
+
+    .command {
+      color: var(--accent-muted);
+      &:before {
+        content: "$ ";
+        color: var(--brand);
+      }
+
+      /* cursor */
+      &.is-typing:after {
+        content: '';
+        display: inline-block;
+        width: 0.5em;
+        height: 1em;
+        background-color: var(--accent-muted);
+        margin-left: .15em;
+        position: relative;
+        top: 0.15em;
+      }
+
+      &.is-comment {
+        color: var(--fg-300);
+        &:after { animation: blink 1s infinite .5s; }
+      }
+    }
+
+    /* caption */
+    + p { font-size: .875em }
+  }
+
+  @keyframes blink {
+    0%, 50% { opacity: 1 }
+    51%, 100% { opacity: 0 }
+  }
+}
+

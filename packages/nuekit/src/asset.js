@@ -25,9 +25,9 @@ export function createAsset(file, files=[], conf={}) {
   }
 
   function getDeps(opts={}) {
-    const { include, exclude, design } = opts
+    const { include, exclude } = opts
     const paths = files.map(f => f.path)
-    const deps = listDependencies(file.path, { paths, include, exclude, central: design?.central })
+    const deps = listDependencies(file.path, { paths, include, exclude })
     return toAssets(deps)
   }
 

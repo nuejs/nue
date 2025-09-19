@@ -621,7 +621,7 @@ This approach stems from fears of global namespace pollution, desire for co-loca
 
 
 ### Nue: design system
-Nue embraces central, semantic, and constrained design systems. You can return to clean, isolated CSS code structured as a proper system and avoid all problems that drove developers to CSS-in-JS:
+Nue embraces minimal and semantic design systems that are centrailly maintained. You can return to clean, isolated CSS code structured as a proper system and avoid all problems that drove developers to CSS-in-JS:
 
 ```
 @shared/design/

@@ -1,0 +1,40 @@
+
+@layer modifier {
+
+  /* special */
+  .dark .logo {
+    filter: invert(100);
+  }
+
+  .heroic {
+    h1 {
+      font-size: 4.6em;
+      max-width: unset;
+      letter-spacing: -.03em;
+      line-height: 1;
+      margin-block: 1em .125em;
+      background-image: linear-gradient(to bottom right, #fff 30%, #ffffff80);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-family: garamond, serif;
+      font-weight: 500;
+
+      + p {
+        font-size: 1.25em;
+        max-width: inherit;
+      }
+    }
+
+    h2 {
+      font-size: 2.25em;
+      font-weight: 500;
+      letter-spacing: -.02em;
+      line-height: 1;
+      margin-block: 1em .25em;
+      + p {
+        font-size: 1.25em;
+      }
+    }
+
+  }
+}
