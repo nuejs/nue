@@ -1,6 +1,6 @@
 
 # Nuemark syntax
-Complete reference for Nuemark's content-first markup syntax. For an overview and introduction, see the [Nuemark documentation](/docs/nuemark).
+Complete reference for Nuemark's content-first markup syntax. See the [Nuemark introduction](/docs/nuemark) for an overview.
 
 ## File structure
 Nuemark files use `.md` extension and can include optional YAML front matter:

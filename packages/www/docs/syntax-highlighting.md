@@ -1,6 +1,6 @@
 
 # Syntax highlighting
-Complete reference for Nueglow's syntax highlighting in Nuemark. For an overview and introduction, see the [Nueglow documentation](/docs/nueglow).
+Reference for Nueglow's syntax highlighting. See the [Nueglow introduction](/docs/nueglow) for an overview.
 
 ## How it works
 Nueglow generates semantic HTML without class names. Your design system controls the appearance through CSS element selectors.

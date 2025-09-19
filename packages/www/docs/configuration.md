@@ -31,10 +31,7 @@ site:
 # Design system settings (site.yaml only)
 design:
 
-  # Enforce central design system (default: false)
-  central: true
-
-  # Base stylesheet loaded first
+  # which stylesheet is loaded first (that defines CSS @layers)
   base: base.css
 
   # Limit class names per element to prevent utility abuse. Default 5.
@@ -81,7 +78,7 @@ collections:
     require: [date]
 
     # Required tags property to include "design"
-    require: [ design ]
+    tags: [ design ]
 
     # Exclude if these fields exist
     skip: [draft]

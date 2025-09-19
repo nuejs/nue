@@ -1,8 +1,12 @@
 
 # Page dependencies
-Understanding how Nue automatically discovers and includes files for each page is crucial for building maintainable sites. Unlike bundlers that require explicit imports, Nue uses directory-based conventions to determine which CSS, JavaScript, HTML components, and data files each page needs.
+How Nue automatically discovers and includes files for each page.
 
-This system eliminates import statements while ensuring pages get exactly what they need - no more, no less. It's what makes Nue projects feel like organized file systems rather than complex dependency graphs.
+## Convention-based loading
+Nue uses directory-based conventions to determine which CSS, JavaScript, HTML components, and data files each page needs. Unlike bundlers that require explicit imports, files are included automatically based on their location in your project structure.
+
+This system eliminates import statements while ensuring pages get exactly what they need. Nue projects feel like organized file systems rather than complex dependency graphs.
+
 
 ## Directory hierarchy
 Assets are loaded in this order of precedence:
@@ -47,10 +51,13 @@ Larger projects can use @shared directory for globally available assets:
 
 ```
 @shared/
-├── ui/             # UI components/controllers. Client an server. (.html, .js, .ts)
-├── design/         # Design system CSS files (.css)
-└── data/           # Site-wide data files (.yaml)
+├── ui/          # Auto-included UI components/controllers.
+├── lib/         # Selective UI components/controllers
+├── design/      # Design system CSS files (.css)
+└── data/        # Site-wide data files (.yaml)
 ```
+
+The UI components can operate either on client, on server, or both. The ui and lib directories can contain .html, .js, .ts, and component specific .css files.
 
 System-level assets load before root-level assets, establishing the foundation that everything else builds upon.
 

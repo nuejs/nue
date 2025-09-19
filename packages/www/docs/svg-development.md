@@ -1,6 +1,6 @@
 
 # SVG development
-Nue is a full development environment for building dynamic SVG graphics. A programmatic alternative to design tools, for creating static and interactive visuals that integrate with your design system.
+Nue offers a focused development environment for developing SVG graphics. A programmatic alternative to design tools, for creating static and interactive visuals that integrate with your design system.
 
 ## Setting up
 By default, SVG files are served directly without processing. Enable SVG processing at the directory level with `app.yaml`:
@@ -136,9 +136,9 @@ Or customize per file with HTML comments:
 
 **Per-file control** - Use `@fonts false` to disable embedding, or `@fonts [Inter]` to include specific fonts only.
 
-## Development workflow
 
-### Hot reloading
+
+## Hot reloading
 View SVG files with live updates during development:
 
 ```

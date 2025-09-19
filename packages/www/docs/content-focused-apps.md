@@ -32,6 +32,7 @@ Content-focused apps share common elements across pages. Headers, footers, navig
 Put site-wide elements in `layout.html` at your project root:
 
 ```html
+<!-- this becomes your global site header -->
 <header>
   <a href="/" class="logo">{ site_name }</a>
   <nav>
@@ -41,6 +42,8 @@ Put site-wide elements in `layout.html` at your project root:
   </nav>
 </header>
 
+
+<!-- this becomes your global site footer -->
 <footer>
   <p>&copy; 2025 { site_name }. All rights reserved.</p>
   <nav>
@@ -72,11 +75,11 @@ Blog posts often need special hero sections with titles, dates, and author infor
 
 ```html
 <!-- In posts/header.html or blog/layout.html -->
-<section :is="pagehead">
+<pagehead>
   <h1>{ title }</h1>
   <time>{ date }</time>
   <p>{ description }</p>
-</section>
+</pagehead>
 ```
 
 This appears above your post content, creating a consistent header design across all blog posts.
@@ -279,15 +282,13 @@ While Nuemark handles most content needs, sometimes you need full structural con
 </main>
 ```
 
-### Trade-offs
+### When to use HTML vs Nuemark
 
-**HTML gives you full layout control** - You can create any structure, nest elements however you want, and add forms or interactive elements anywhere.
+**Use Nuemark for content pages** when writers need to safely edit content without breaking layouts. Blog posts, documentation, and marketing pages work well with Nuemark's structured approach and predefined components.
 
-**But content gets mixed with layout** - Writers can't safely edit the page without potentially breaking the structure. The hero section, newsletter signup, and content list are all tangled together.
+**Use HTML for complex layouts** when you need precise structural control that Nuemark's block syntax can't express. Admin interfaces, dashboards, and forms with complex validation often require the full flexibility of HTML.
 
-**Design system constraints disappear** - With full HTML control, developers can create any structure, and add class names as they will.This breaks the design system's ability to enforce consistency through semantic elements and predefined components.
-
-Choose HTML when you need precise structural control that Nuemark can't express. Choose Nuemark when content should be editable by non-developers and consistency matters more than layout flexibility.
+Both approaches work together in the same project. Your homepage might use HTML for a custom hero section while your blog uses Nuemark for consistent, editable content.
 
 
 ## Add interactivity

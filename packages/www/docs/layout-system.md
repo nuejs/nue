@@ -1,6 +1,5 @@
 
 # Layout system
-
 Most websites share common elements like headers, footers, navigation, and sidebars across pages. Nue's layout system lets you define these once and reuse them everywhere - whether your pages are static or dynamic.
 
 ## How it works

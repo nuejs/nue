@@ -1,6 +1,6 @@
 
 # Server testing API
-Nueserver comes with a testing API with SQLite and KV storage mocks that match the CloudFlare runtime APIs exactly. You can use these mocks to develop your business model that works locally and globally on the edge.
+Nueserver comes with a testing API with SQLite and KV storage mocks that match the CloudFlare runtime APIs. You can use these mocks to develop your business model that works locally and globally on the edge.
 
 ## Mock environment
 Import the mock environment for testing:

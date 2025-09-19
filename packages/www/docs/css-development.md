@@ -1,6 +1,6 @@
 
 # CSS development
-Nue represents a shift from component-scoped styling to [design systems](/docs/design-systems). CSS becomes a centralized visual language that works across your entire site.
+Nue represents a shift from component-scoped styling to [design systems](/docs/design-systems). CSS becomes a visual language that works across your entire site.
 
 
 ## Small projects
@@ -21,7 +21,7 @@ Files are loaded automatically based on location. The `global.css` applies every
 
 
 ## Larger projects
-Scale up with a centralized design system for larger teams, client work, or any project where consistency and maintainability matter more than development speed. This approach enforces constraints that prevent the CSS sprawl that kills long-term projects:
+Scale up with a focused design system for larger teams, client work, or any project where consistency and maintainability matter more than development speed. This approach enforces constraints that prevent the CSS sprawl that kills long-term projects:
 
 
 ```bash
@@ -52,7 +52,6 @@ Control the design system through `site.yaml`:
 
 ```yaml
 design:
-  central: true        # Enforce central system only
   base: base.css       # Load first for layer ordering
 
   # Limit class names per element to prevent utility abuse

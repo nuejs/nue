@@ -1,6 +1,7 @@
-# Build system
 
-Nue's build system works differently. When business logic, design, content, and structure live in separate files, the build process becomes remarkably simple.
+# Build system
+Nue's build system is designed around file-based separation of concerns. Each file type has a specific role - content, design, structure, or logic - which allows for granular processing and optimization.
+
 
 ## How it works
 
@@ -56,6 +57,7 @@ nue build
 **JavaScript handling** - TypeScript converted to JavaScript. Reactive components transpiled to minimal client-side code.
 
 **Asset optimization** - Images, fonts, and other assets copied with optimizations applied.
+
 
 ### Build performance
 

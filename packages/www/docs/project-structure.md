@@ -1,6 +1,7 @@
 
 # Project structure
-Nue projects are just files and folders. No special directories, no build configurations, no framework scaffolding. Your file structure becomes your website structure.
+Nue projects use a file-based routing system where your directory structure maps directly to your website's URLs. Understanding how Nue organizes files helps you build maintainable sites that scale from simple pages to complex applications.
+
 
 ## How it works
 

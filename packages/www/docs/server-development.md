@@ -287,7 +287,7 @@ test('createSession stores user data in KV', async () => {
 
 This testing pattern ensures your core business logic works correctly before you integrate it with HTTP routes. When your model tests pass, you know the data operations are solid.
 
-See [Server testing API](/docs/server-testing) for complete documentation of the mock environment and all available testing methods.
+See [Server testing API](/docs/server-testing-api) for complete documentation of the mock environment and all available testing methods.
 
 
 

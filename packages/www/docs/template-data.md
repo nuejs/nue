@@ -1,5 +1,6 @@
+
 # Template data
-Nue templates receive data from multiple sources that cascade and combine into a single context. Understanding how this data flows from YAML files to templates is essential for building dynamic sites.
+Nue templates receive data from multiple sources that cascade and combine into a single context. This guide covers how data flows from YAML files to templates.
 
 
 ## Data files
