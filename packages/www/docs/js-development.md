@@ -1,9 +1,17 @@
 
 # JavaScript development
-Nue treats JavaScript as a supporting layer, not the foundation. While other frameworks put everything in JavaScript, Nue uses JS only where needed: business logic for SPAs, global controllers for cross-component behavior, and minimal external libraries. This creates cleaner architectures that are easier to test and maintain.
+Nue uses JavaScript for specific purposes: business logic in SPAs, global controllers for cross-component behavior, and external library integration. The single-responsibility principle keeps your JavaScript focused and minimal.
 
-## Business model for SPAs
-Your application's core logic should live independently of any UI framework. This is essential for testing, scaling, and future-proofing your code with clean standards-first architecture. When business logic stays separate from components, you can unit test without mounting DOM elements, migrate between frameworks without rewriting core functionality, and even replace JavaScript entirely for performance-critical applications.
+
+## Business logic separation
+Your application's core logic should live independently of any UI framework. This separation enables testing without DOM dependencies, framework migrations without rewriting business logic, and even language changes for performance-critical applications.
+
+When business logic stays separate from components, you can:
+- Unit test core functionality directly
+- Switch UI frameworks without touching application logic
+- Replace JavaScript with other languages when needed
+
+This architectural pattern keeps your most valuable code - the business logic - portable and maintainable across technology changes.
 
 
 ### Small apps
@@ -62,7 +70,7 @@ import { login, getUsers } from 'app'
 
 
 ## UI controllers
-Some JavaScript needs to work across your entire application - keyboard shortcuts that work on every page, analytics modules that track user behavior globally, or tooltip systems that enhance any element. These cross-cutting concerns don't belong in individual components. Instead, they need their own space as global controllers that run once and manage application-wide behavior.
+Some JavaScript needs to work across your entire application: keyboard shortcuts that work on every page, analytics modules that track user behavior globally, or tooltip systems that enhance any element. These cross-cutting concerns don't belong in individual components. Instead, they need their own space as global controllers that run once and manage application-wide behavior.
 
 ```javascript
 // @shared/ui/keyboard.js
@@ -119,3 +127,4 @@ Non-module scripts like Google Analytics load through [layout modules](/docs/lay
 ```
 
 Or in the "bottom" slot for scripts that should load after page content.
+

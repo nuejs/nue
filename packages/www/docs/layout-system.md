@@ -32,9 +32,9 @@ This gives you semantic HTML out of the box. But you'll want to add your own hea
 
 
 ## Layout modules
-Traditional templating systems use a single master template that wraps your content - you define the entire page structure and insert content into one spot.
+Traditional templating systems use a single master template that wraps your content. You define the entire page structure and insert content into one spot.
 
-Nue takes a different approach with **slots** and **layout modules**. Instead of one big wrapper template, you create individual modules (header, footer, sidebar) and Nue assembles them around your content using predefined slots.
+Nue uses **slots** and **layout modules**. Instead of one wrapper template, you create individual modules (header, footer, sidebar) and Nue assembles them around your content using predefined slots.
 
 **Slots** are predefined positions in your page structure. **Layout modules** are the HTML components that fill those slots. This modular system lets you mix and match different headers, footers, and sidebars for different sections of your site without duplicating the surrounding template structure.
 

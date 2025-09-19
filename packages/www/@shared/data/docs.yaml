@@ -34,6 +34,7 @@ docs:
     - Content-focused apps
     - Single-page apps
     - CSS development
+    - JS development
     - SVG development
     - Server development
 
@@ -43,6 +44,7 @@ docs:
       slug: cli
     - Build system
     - HTML syntax
+    - HTML doctypes
     - Layout system
     - Page dependencies
     - Template data
@@ -50,5 +52,6 @@ docs:
     - Server API
     - Server testing API
     - Nuemark syntax
+    - YAML syntax
     - Syntax highlighting
 

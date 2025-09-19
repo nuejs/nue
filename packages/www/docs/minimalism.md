@@ -9,13 +9,13 @@ This didn't happen overnight. Each package solved a real problem, but we stopped
 The absurdity becomes clear when you step back. We need hundreds of megabytes and thousands of files to serve HTML, CSS, and JavaScript - the same technologies that built the web with kilobytes for decades. Something fundamental went wrong.
 
 ## The 1MB ecosystem
-Nue provides a complete full-stack development environment in 1MB. This includes everything you need: a dev server with universal hot reloading, static site generator with extended Markdown, component system with reactive updates, backend layer with CloudFlare compatibility, SQL and KV databases, API routing, testing framework, TypeScript transpiling, CSS processing, and production optimization.
+Nue provides a complete full-stack development environment in 1MB. This includes everything you need: dev server with hot reloading, static site generator, component system, backend layer with CloudFlare compatibility, SQL and KV databases, API routing, testing framework, TypeScript transpiling, CSS processing, and production optimization.
 
-This isn't about having fewer features. It's about having more capabilities through better architecture. When every piece is designed to work together from the ground up, you eliminate the redundancy that comes from assembling disparate packages. No duplicate parsers, no competing abstractions, no compatibility layers between tools that were never meant to work together.
+This follows **Dieter Rams**' principle: **less, but better**. When every piece is designed to work together from the ground up, you eliminate the redundancy that comes from assembling disparate packages. No duplicate parsers, no competing abstractions, no compatibility layers.
 
-The UNIX philosophy applies perfectly to web development: write programs that do one thing well, write programs that work together, write programs that handle text streams. Nue follows this principle - each tool focused, all tools integrated, everything working on the foundational web technologies.
+The UNIX philosophy applies to web development: write programs that do one thing well and work together. Nue follows this principle - each tool focused, all tools integrated, everything working on web standards.
 
-Zero external dependencies means zero supply chain vulnerabilities, zero version conflicts, zero time spent resolving package compatibility issues. The entire system is comprehensible, maintainable, and under your control.
+Zero external dependencies means zero supply chain vulnerabilities, zero version conflicts, zero time resolving package compatibility issues. The entire system is comprehensible and under your control.
 
 
 ## Less is more

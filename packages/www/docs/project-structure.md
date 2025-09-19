@@ -1,6 +1,7 @@
 
 # Project structure
-Nue projects use a file-based routing system where your directory structure maps directly to your website's URLs. Understanding how Nue organizes files helps you build maintainable sites that scale from simple pages to complex applications.
+Nue projects use a file-based routing system where your directory structure maps directly to your website's URLs. This guide covers how Nue organizes files and scales from simple pages to complex applications.
+
 
 
 ## How it works

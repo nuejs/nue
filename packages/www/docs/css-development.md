@@ -4,7 +4,7 @@ Nue represents a shift from component-scoped styling to [design systems](/docs/d
 
 
 ## Small projects
-Start with global styles plus area-specific CSS. This follows the classic web development pattern that pre-dated the component revolution - global stylesheets with area-specific additions. It's perfect for personal projects, prototypes, or small teams where you need the flexibility to add styles ad-hoc without teaching a formal system to others:
+Start with global styles plus area-specific CSS. This follows the classic web development pattern that pre-dated the component revolution: global stylesheets with area-specific additions. It's perfect for personal projects, prototypes, or small teams where you need the flexibility to add styles ad-hoc without teaching a formal system to others:
 
 
 ```
@@ -17,7 +17,7 @@ Start with global styles plus area-specific CSS. This follows the classic web de
     └── ...
 ```
 
-Files are loaded automatically based on location. The `global.css` applies everywhere. The `blog.css` only applies to pages in the blog directory. No imports, no bundling - just files where you need them.
+Files are loaded automatically based on location. The `global.css` applies everywhere. The `blog.css` only applies to pages in the blog directory. No imports, no bundling. Just files where you need them.
 
 
 ## Larger projects

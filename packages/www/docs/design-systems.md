@@ -29,22 +29,16 @@ These three principles create a system that's invisible to those using it - the 
 ### For designers
 A cascading system means direct control. Change a variable, see it everywhere. No asking developers to update components. No waiting for builds. No translation layer between design intent and implementation. The feedback loop becomes immediate. CSS speaks their language - visual properties, not programming abstractions.
 
+
 ### For developers
 Semantic HTML and minimal classes mean assembly without thinking about presentation. Grab a `<nav>`, it's already styled. Add a `<button>`, it already works. Wrap content in `.stack`, spacing is handled. No memorizing utilities, no fighting specificity, no debugging why styles don't apply. The design system becomes invisible infrastructure that just works.
 
 When design is truly decoupled from structure, both disciplines work at full speed. Designers iterate on visual language without breaking functionality. Developers build features without breaking design. Neither blocks the other. Neither compromises for the other.
 
 
-## The compound effect
-A real design system compounds its value over time. Each project strengthens the system. Each use case refines the patterns. Each team member contributes to a shared language.
+## Long-term value
+A design system grows more valuable over time. Each project adds to the system. Each use case improves the patterns. Each team member builds on shared foundations.
 
-When design is scattered in components, every project starts from scratch. You rebuild the same button in every framework migration. You rewrite the same styles for every new component library. Nothing compounds. Everything churns.
+This approach scales with [multi-site development](/docs/roadmap). Managing design systems across multiple brands, products, and domains becomes manageable. Shared inheritance scales from one site to entire ecosystems.
 
-When design is cascading and semantic, it goes beyond frameworks. Your CSS design system works with any HTML. It worked with jQuery. It works with React. It will work with whatever comes next. The investment compounds across technologies and time.
-
-This approach becomes even more powerful with [multi-site development](/docs/roadmap). Imagine managing design systems across multiple brands, products, and domains. The cascading inheritance suddenly scales from one site to an entire ecosystem. Base philosophy shared, expression customized, everything inheriting cleanly.
-
-This is why CSS matters. It's the only layer that survives every paradigm shift. Your React components from 2016 are obsolete. Your CSS from 2016 still works.
-
-Design systems aren't built in JavaScript. They're built in CSS.
-
+CSS persists through paradigm shifts. Your React components from 2016 need updates. Your CSS from 2016 still works.

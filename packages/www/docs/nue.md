@@ -7,7 +7,7 @@ The difference is both syntax and architecture:
 
 **HTML over JavaScript** - In Nue, your UI is a document tree with data bindings and event listeners. In React, it's JavaScript functions returning objects. This difference changes the way you think about application structure.
 
-**Standards first** - `<dialog>`, `<details>`, `<popover>`, form validation, scroll-snap, container queries. React emerged when HTML was static. Today's HTML is interactive - Nue just fills the gaps.
+**Standards first** - `<dialog>`, `<details>`, `<popover>`, form validation, scroll-snap, container queries. Modern HTML is interactive. Nue adds the missing pieces for dynamic behavior.
 
 **DOM based** - Nue's AST maps directly to DOM operations. No virtual DOM, no reconciliation. A button is a `<button>`, not a "<Button>" component with 50KB of dependencies and hundreds of megabytes of runtime.
 
@@ -88,7 +88,7 @@ Save as HTML, open on localhost (http protocol needed for modules). The componen
 
 [View live demo](/docs/examples/nue-counter)
 
-This isn't a development convenience - it's architectural. Nue syntax is simple enough to compile in real-time without massive toolchains. Compare this to React's Babel transform that requires hundreds of megabytes of dependencies just to turn JSX into JavaScript.
+Nue syntax is simple enough to compile in real-time without massive toolchains. Compare this to React's Babel transform that requires hundreds of megabytes of dependencies just to turn JSX into JavaScript.
 
 ## Installation
 For real projects, use Nuekit for the full development experience:

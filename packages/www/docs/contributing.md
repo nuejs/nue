@@ -14,10 +14,10 @@ I maintain strong opinions about Nue's direction, especially around separation o
 ## Best ways to help
 
 ### Spread the word
-The most valuable contribution isn't code - it's showing people how web standards are more powerful than frameworks. Write blog posts, create tutorials, share your experiences migrating from React or Next.js.
+Perhaps the most valuable contribution is showing people how web standards are more powerful than frameworks. Write blog posts, create tutorials, share your experiences on Nue.
 
 ### Documentation and examples
-Help others understand Nue by improving documentation, creating examples, or writing migration guides. Real-world use cases are valuable.
+Help others understand Nue by improving documentation with illustrative examples. Real-world use cases are valuable.
 
 ### Bug reports and testing
 Test Nue in your projects. Report issues with clear reproduction steps.

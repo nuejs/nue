@@ -1,6 +1,6 @@
 
 # HTML document types
-Nue uses document type declarations to determine how `.html` files should be processed. Understanding these types is essential for building pages, components, and layouts effectively.
+Nue uses document type declarations to determine how `.html` files should be processed. Each type serves a different purpose for pages, components, and layouts.
 
 
 ## HTML pages
