@@ -53,7 +53,7 @@ Below is a basic `<table>` component defined in three ways:
     href: simple-table.html#hyper
 
 
-1. **Modern React** Modern React represents a common approach to building user interfaces today using component libraries such as ShadCN/UI, Material UI, Chakra, or Tailwind Catalyst. In this example, we chose ShadCN as it's gained significant popularity in recent years and has strong AI tool support. For example, Claude and ChatGPT offer built-in support for ShadCN in their code previews. [Source](simple-table.html) • [Demo](/hyper/demo/react/simple-table.html)
+1. **Modern React** represents a common approach to building user interfaces today using component libraries such as ShadCN/UI, Material UI, Chakra, or Tailwind Catalyst. In this example, we chose ShadCN as it's gained significant popularity in recent years and has strong AI tool support. For example, Claude and ChatGPT offer built-in support for ShadCN in their code previews. [Source](simple-table.html) • [Demo](/hyper/demo/react/simple-table.html)
 
 2. **Old school React** is how React components were built back in the days when styling was decoupled from the component code. [Source](simple-table.html#oldschool) • [Demo](/hyper/demo/react/simple-table-oldschool.html)
 
