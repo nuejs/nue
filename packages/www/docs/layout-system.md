@@ -24,8 +24,7 @@ Every page starts with a basic HTML structure. Your content gets wrapped automat
 Here's what Chrome DevTools shows for a simple `.md` file with just `# Hello, World!`:
 
 [image.bordered]
-  small: /img/default-layout.png
-  large: /img/default-layout-big.png
+  src: img/default-layout.png
   size: 400 x 262
 
 This gives you semantic HTML out of the box. But you'll want to add your own header, footer, and other common elements.
@@ -41,8 +40,8 @@ Nue uses **slots** and **layout modules**. Instead of one wrapper template, you 
 Think of slots as empty containers and modules as the HTML that fills them:
 
 [image.bordered]
-  small: /img/layout-slots.png
-  large: /img/layout-slots-big.png
+  small: img/layout-slots.png
+  large: img/layout-slots-big.png
   size: 500 x 543
 
 Available slots:

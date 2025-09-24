@@ -1,6 +1,9 @@
+---
+title: The UNIX of the Web
+---
 
-# The UNIX of the Web
-Nue takes modern HTML, CSS, and JavaScript to their absolute peak.
+# Fastest way to build modern websites
+Nue is a development environment designed the UNIX way
 
 [cta-buttons]
 
@@ -9,16 +12,17 @@ Nue is small and fast
 
 
 ## The entire ecosystem in 1MB
-Full backend/frontend infrastructure designed the UNIX way
+What used to be 500MB is now 1MB
 
 [nue-stack]
-What used to be 500MB is now 1MB
+Full-stack development without the bloat and complexity
 
 
 ## Rapid application assembly
 Move fast by focusing on content and structure
 
 [nue-assembly]
-Build a scaleable architecture
+Construct apps and pages with a scalable architecture
+
 
 

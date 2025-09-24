@@ -2,14 +2,17 @@
 @layer component {
 
   .assembly {
+    margin-top: 2em;
+
     aside {
       font-family: var(--monospace);
+      border: 1px solid var(--brand);
       font-size: 1em;
       max-width: 200px;
       padding: 2em;
 
-      p { margin: 0; color: var(--fg-200); }
-      b { color: var(--accent-muted); font-weight: 550 }
+      p { margin: 0; color: var(--gray-strong); }
+      b { color: var(--brand); font-weight: 600 }
     }
 
     ul {
@@ -19,8 +22,8 @@
 
     /* pulsating arrow */
     svg {
-      max-width: 3em;
-      color: var(--fg-700);
+      max-width: 2em;
+      color: var(--text-strong);
       align-self: center;
       margin: -1em 0 0 -.5em;
       animation: flow .75s ease-in-out infinite alternate;
@@ -30,14 +33,13 @@
     li {
       position: absolute;
       width: 150px;
-      height: 100%;
       animation: move calc(var(--items) * 2s) infinite linear;
       animation-delay: calc(var(--index) * -2s);
       h4 {
         font-size: .9em;
         font-weight: 500;
         white-space: nowrap;
-        color: var(--fg-600);
+        color: var(--text-strong);
       }
     }
 
@@ -50,7 +52,7 @@
   }
 
   @keyframes flow {
-    0% { opacity: 0.5; transform: translatex(-.1em) }
+    0% { opacity: 0.5; transform: translatex(-.2em) }
     100% { opacity: 1; transform: scale(1.05) translatex(.1em); }
   }
 

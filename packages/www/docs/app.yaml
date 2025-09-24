@@ -1,2 +1,6 @@
 
+beside: false
 include: [ syntax ]
+
+content:
+  heading_ids: true

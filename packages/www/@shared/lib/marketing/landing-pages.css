@@ -1,0 +1,33 @@
+
+@layer design {
+
+  h1 {
+    font-size: 4em;
+    max-width: unset;
+    letter-spacing: -.025em;
+    line-height: 1;
+    background-image: linear-gradient(to bottom right, #fff 30%, #ffffff80);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-top: .5em;
+
+    + p {
+      font-size: 1.25em;
+      max-width: inherit;
+    }
+
+    @media (width < 750px) { font-size: 3.25em }
+  }
+
+  h2 {
+    font-size: 2em;
+    font-weight: 600;
+    line-height: 1;
+    margin-block: 1em .25em;
+
+    + p {
+      font-size: 1.125em;
+      margin-bottom: 1.5em;
+    }
+  }
+}

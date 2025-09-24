@@ -9,12 +9,12 @@ Nueglow generates semantic HTML without class names. Your design system controls
 This Markdown code block:
 
 ````md
-```javascript
-// Calculate total
-const total = items.reduce((sum, item) => {
-  return sum + item.price
-}, 0)
-```
+ ```javascript
+ // Calculate total
+ const total = items.reduce((sum, item) => {
+   return sum + item.price
+ }, 0)
+ ```
 ````
 
 Generates this HTML:

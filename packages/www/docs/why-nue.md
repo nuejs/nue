@@ -1,10 +1,10 @@
 
-# Why Nue
+# The UNIX of the Web
 "Do one thing and do it well". Nue is a shift from monolithic components to architectural sanity. It changes the way you think about web development.
 
 
 ## The kitchen sink problem
-React emerged in 2013 to make HTML "reactive." It started small and focused: the first version was just the view layer. But then it went on a trajectory nobody could foresee. The ecosystem grew into a mountain of packages beyond anything imaginable. Today, a Next.js project created with `create-next-app` weighs 427MB just to display "Hello, World."
+React emerged in 2013 to make HTML "reactive". It started small and focused: the first version was just the view layer, deliberately leaving state management and routing to other tools. But then it went on a trajectory nobody could foresee. The ecosystem grew into a mountain of packages beyond anything imaginable. Today, a Next.js project created with `create-next-app` weighs 427MB just to display "Hello, World."
 
 The UNIX tradition has a name for this: kitchen sink software. Codebases that try to do everything inevitably do nothing well. They become unmaintainable, unpredictable, and harder to reason about.
 
@@ -13,7 +13,7 @@ Meanwhile, the web evolved dramatically. The web in 2025 has capabilities that d
 While React stayed on its own path, adding more and more packages. Nue stays close to metal and takes HTML, CSS, and JavaScript to their absolute peak.
 
 
-## The UNIX of the Web
+## The UNIX way
 Nue is a new take on web frameworks. It uses zero external dependencies, every piece handcrafted to integrate perfectly, all focused on delivering the absolute best developer experience.
 
 The result is remarkable: a complete **full-stack development environment in 1MB**. That includes content-focused apps, single-page applications, server-side rendering, hot reloading, syntax highlighting, CloudFlare compatible local dev environment with SQL database, KV database, and more. You'd need both Next.js and Astro to get even close to the feature set.

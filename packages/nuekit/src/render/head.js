@@ -14,6 +14,10 @@ export async function renderHead({ conf, data, assets, libs=[] }) {
   // meta
   head.push(...renderMeta(data, libs))
 
+  // @layers
+  const layers = conf.design?.layers
+  if (layers) head.push(elem('style', `@layer ${layers.join(', ')}`))
+
   // styles
   head.push(...await renderStyles(assets, data))
 

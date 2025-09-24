@@ -1,16 +1,16 @@
 
-# Nueglow: CSS first syntax highlighting
-Nueglow is syntax highlighting that works with your design system. Itt generates semantic HTML that your CSS can style. One minuscule highlighter for all languages.
+# **Nueglow:** CSS first syntax highlighting
+Nueglow is syntax highlighting that works with your design system. It generates semantic HTML that your CSS can style. One minuscule highlighter for all languages.
 
-[image.large]
+[image]
   caption: 30+ languages highlighted. Click for standalone demo.
-  large: /img/glow-og-big.png
-  small: /img/glow-og.png
+  large: img/glow-dark-big.png
+  small: img/glow-dark.png
   href: /glow-demo/
 
 
 ## The highlighter problem
-Popular syntax highlighters have issues:
+Popular syntax highlighters can be troublesome:
 
 **Massive codebases** - tools like Shiki ship 14MB and 44 packages. Each language needs its own grammar file with thousands of cryptic regex rules.
 
@@ -33,9 +33,9 @@ These syntax highlighters were built for code editors, not websites. They assume
 
 **Lightweight** - Complete highlighting for all languages in under 3KB of CSS. No JavaScript runtime, no theme bundles.
 
-[image.larger]
-  small: /img/glow-light.png
-  large: /img/glow-light-big.png
+[image]
+  small: img/glow-light.png
+  large: img/glow-light-big.png
   href: /glow-demo/light.html
   caption: Light mode styling across 30+ languages
 
@@ -57,10 +57,17 @@ Your CSS defines the appearance:
 
 ```css
 pre {
-  b { color: var(--keyword) }     /* Keywords */
-  em { color: var(--value) }      /* Values */
-  i { color: var(--punct) }       /* Punctuation */
-  sup { color: var(--comment) }   /* Comments */
+  /* Keywords */
+  b { color: var(--keyword) }
+
+  /* Values */
+  em { color: var(--value) }
+
+  /* Punctuation */
+  i { color: var(--punct) }
+
+  /* Comments */
+  sup { color: var(--comment) }
 }
 ```
 
@@ -94,4 +101,4 @@ Or use Nueglow outside the Nue ecosystem with your own site generator:
 bun install nueglow
 ```
 
-See the [Syntax highlighting reference](/docs/syntax-highlighting) for complete documentation of all features and styling options.
+See the [Syntax highlighting reference](syntax-highlighting) for complete documentation of all features and styling options.

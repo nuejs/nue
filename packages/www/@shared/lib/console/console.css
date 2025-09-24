@@ -2,15 +2,16 @@
 @layer component {
 
   .console {
-    height: 520px;
-    background-color: var(--bg-300);
-    margin-top: var(--l);
-    color: var(--fg-600);
+    background-color: var(--gray-subtle);
+    margin-block: 2em -.5em;
+    color: var(--text);
+    height: 33em;
 
     pre {
       font-family: var(--monospace);
-      max-width: 35em;
-      padding: 1em;
+      color: var(--text-subtle);
+      font-size: .875em;
+      max-width: 38em;
       margin: 0;
     }
 
@@ -19,28 +20,32 @@
       &:empty { height: 1.5em }
     }
 
+    b {
+      color: var(--text-strong);
+      font-weight: 450;
+    }
+
     .response {
        &::first-letter { color: var(--brand) }
+    }
 
-      time {
-        color: var(--brand);
-        float: right;
-      }
+    time {
+      color: var(--brand);
+      float: right;
     }
 
     header {
       float: right;
-      padding: .75em 1em;
-
+      padding: 1.25em 1.5em;
     }
 
     &.is-playing header { display: none }
 
     .command {
-      color: var(--accent-muted);
+      color: var(--brand);
       &:before {
         content: "$ ";
-        color: var(--brand);
+        color: var(--brand-subtle);
       }
 
       /* cursor */
@@ -49,20 +54,18 @@
         display: inline-block;
         width: 0.5em;
         height: 1em;
-        background-color: var(--accent-muted);
+        background-color: var(--accent);
         margin-left: .15em;
         position: relative;
+        opacity: .75;
         top: 0.15em;
       }
 
       &.is-comment {
-        color: var(--fg-300);
+        color: var(--accent);
         &:after { animation: blink 1s infinite .5s; }
       }
     }
-
-    /* caption */
-    + p { font-size: .875em }
   }
 
   @keyframes blink {

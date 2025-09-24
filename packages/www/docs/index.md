@@ -1,13 +1,15 @@
 
 ---
-beside: false
 footer: false
+heading_ids: false
+title_template: false
+noindex: true
 ---
 
 # Learn Nue
 The UNIX of the Web
 
-[.flex.wrap.ui]
+[.topics]
 
   ### Essentials
   [navi items="essentials"]

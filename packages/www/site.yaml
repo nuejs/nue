@@ -1,25 +1,41 @@
 
 # Nue settings
 site:
-  view_transitions: true
   origin: https://nuejs.org
-
-content:
-  heading_ids: true
-  sections: true
-  wrap: wrap
-
+  view_transitions: true
 
 meta:
   title: The UNIX of the Web
   tagline: The UNIX of the Web
   title_template: %s / Nue
-  description: Nue takes modern HTML, CSS, and JS to their absolute peak.
+  description: Nue is the fastest way to build modern websites
   favicon: /img/favicon-small.png
   og: /img/og.png
 
+content:
+  sections: true
+
+collections:
+  blog:
+    include: [ blog ]
+    skip: [ noindex, draft ]
+
+design:
+  layers: [ design, layout, component ]
+  inline_css: true
+
+sitemap:
+  enabled: true
+
+rss:
+  title: Nue developer blog
+  description: The UNIX of the Web
+  collection: blog
+  enabled: true
+
+
 teaser:
-  text: Nue 2.0 is out! →
+  text: Nue 2.0 is out ->
   url: /blog/nue-2.0/
   tag: New
 
@@ -31,7 +47,8 @@ slack:
   url: //join.slack.com/t/nuejs/shared_invite/zt-2wf8ozu5i-N2Y9PA_D17weIWuN2QPOqQ
 
 join:
-  title: Up next: 3.0 with multi-site
+  title: 3.0 is coming
+  comment: Comment (optional, but valued!)
   cta: Ping me
   desc:
-    Get an email when the next major version with [multi-site development](/docs/roadmap) is ready
+    Get email when [multi-site development](/docs/roadmap) is ready

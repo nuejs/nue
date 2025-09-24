@@ -1,5 +1,8 @@
 
+<!-- navigation for topics.yaml entries -->
+
 <nav :is="navi" class="stack">
+
   <a :each="link in links" href="{ link.url }">
     <template :if="!link.desc">{ link.title }</template>
     <div :if="link.desc" class="row">

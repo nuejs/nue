@@ -1,9 +1,9 @@
 
-# HTML document types
+# HTML page types
 Nue uses document type declarations to determine how `.html` files should be processed. Each type serves a different purpose for pages, components, and layouts.
 
 
-## HTML pages
+## Server-side HTML
 Server-rendered static pages that generate complete HTML documents:
 
 ```
@@ -14,7 +14,7 @@ Server-rendered static pages that generate complete HTML documents:
 
 Generates a complete HTML document with head, body, and meta tags during build time. Best for static content, landing pages, and server-rendered templates.
 
-## DHTML pages
+## Dynamic HTML pages
 Client-rendered dynamic pages with interactive behavior:
 
 ```

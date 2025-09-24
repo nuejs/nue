@@ -1,5 +1,5 @@
 
-# Nueserver: Edge-first development
+# **Nueserver:** Edge-first development
 Nueserver is an HTTP server that runs identically in development and on CloudFlare Workers. Write code once, deploy everywhere. No environment variables, no connection strings, no platform-specific adaptations.
 
 

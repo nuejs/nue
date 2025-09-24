@@ -5,29 +5,29 @@ $ bun install --global nuekit
 ✓ Downloading packages... [850ms]
 ✓ 5 packages installed (0.875MB) [51ms]
 
-$ nue crate^^^eate full --to my-site
-✓ Downloading template... [452ms]
-✓ Unpacking "full" to my-site [10ms]
-✓ Site created in 462ms
+$ nue crate^^^eate full
+✓ Downloading template... [352ms]
+✓ Unpacked "full" (1.5MB) [10ms]
+✓ Site loaded & created in <u>362ms</u>
 
 $ # press enter to see `nue dev`
 
 ---
 $ # 2/3: developing with Nue
 
-$ cd mysi^^-site && nue dev
+$ cd full && nue dev
 ✓ Read 8 pages and 43 assets [10ms]
 ✓ KV database loaded (1kb) [3ms]
 ✓ D1 database loaded (3kb) [2ms]
 ✓ 3 worker routes loaded at /api/* [4ms]
 ✓ Started serving: <u>http://localhost:4000</u> [41ms]
 
-→ HMR: Watching for file updates:
- 1s: ⚡ pushed index.md [15ms]
- 2s: ⚡ pushed base.css [8ms]
- 2s: ⚡ pushed components.html [12ms]
- 1s: ⚡ site.yaml update [25ms]
- 1s: ⚡ server routes updated [5ms]
+⚡ <b>HMR: Watching for file updates:</b>
+1s: ✓ pushed index.md [15ms]
+2s: ✓ pushed base.css [8ms]
+2s: ✓ pushed components.html [12ms]
+1s: ✓ site.yaml update [25ms]
+1s: ✓ server routes updated [5ms]
 
 ^C
 5 files updated
@@ -43,13 +43,13 @@ $ nue build
 ✓ Design system: 14 CSS files (8KB) [35ms]
 ✓ UI components: 5 files [42ms]
 
-📦 Generating pages:
+📦 <b>Building pages:</b>
 ✓ products/ (6 pages) [18ms]
 ✓ blog/ (28 pages) [38ms]
 ✓ docs/ (33 pages) [45ms]
 ✓ Front page [3ms]
 
-📦 Building apps:
+📦 <b>Building apps:</b>
 ✓ login (1 file) [4ms]
 ✓ admin (8 files) [22ms]
 ✓ Build complete in <u>198ms</u>

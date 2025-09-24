@@ -1,5 +1,5 @@
 
-# Nueyaml: YAML without the problems
+# **Nueyaml:** YAML without the problems
 Nueyaml is YAML stripped down to its essence so you can write complex configurations without the usual YAML pitfalls.
 
 

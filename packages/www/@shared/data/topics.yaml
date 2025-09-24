@@ -8,10 +8,10 @@ docs:
     - Contributing
 
   tools:
-    - title: Nue
-      desc: HTML first UI assembly
     - title: Nuekit
       desc: Standards first web framework
+    - title: Nuedom
+      desc: HTML first UI assembly
     - title: Nuestate
       desc: URL first state management
     - title: Nuemark
@@ -44,7 +44,7 @@ docs:
       slug: cli
     - Build system
     - HTML syntax
-    - HTML doctypes
+    - HTML page types
     - Layout system
     - Page dependencies
     - Template data

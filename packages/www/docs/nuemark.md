@@ -1,10 +1,15 @@
 
-# Nuemark: Content first web development
+# **Nuemark:** Content first web development
 Nuemark is a Markdown-based authoring format for rich, interactive content. It places content at the heart of web development, delivering a true content-first approach where writing comes before coding, and structure drives presentation.
 
+[image]
+  large: img/nuemark-content-big.jpg
+  small: img/nuemark-content.png
+  size: 650 x 1321
 
-## The problem
-Modern tooling has a content development problem:
+
+## The problem with content
+Modern tooling poses challenges to content development:
 
 **JavaScript frameworks trap content in code**. A blog post becomes a React component. A landing page requires TypeScript knowledge. Marketing teams wait for developers to update copy. Content lives inside JavaScript bundles, invisible to search engines without complex hydration strategies.
 

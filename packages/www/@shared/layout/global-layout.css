@@ -1,0 +1,71 @@
+
+/* global layout */
+
+@layer layout {
+  body {
+    max-width: var(--page-width);
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0 auto;
+    display: flex;
+
+    > * { padding: 1em }
+    > main { flex: 1 }
+
+
+    > header {
+      align-items: center;
+      margin-bottom: 3em;
+      display: flex;
+      gap: 1em;
+
+      nav {
+        align-items: center;
+        display: flex;
+        gap: 2em;
+
+        &:last-of-type {
+          margin-left: auto;
+          justify-content: right;
+        }
+      }
+
+      /* mobile layout */
+      @media (width < 750px) {
+        .teaser, .social { display: none }
+      }
+    }
+
+
+    > footer {
+      color: var(--text-subtle);
+      padding-bottom: 4.5em;
+    }
+
+    /* section gaps */
+    main > article {
+      flex-direction: column;
+      display: flex;
+      gap: 3em;
+
+      section {
+        > h3, > h4 { margin-top: 2.5em }
+      }
+
+      .thin { max-width: 75% }
+
+      .wide {
+        max-width: inherit;
+        width: 100%
+      }
+    }
+
+    /* bottom cta */
+    main > aside {
+      margin-block: 5em;
+    }
+  }
+}
+
+
+

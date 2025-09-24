@@ -6,7 +6,6 @@ dist
 _test
 test_dir
 playground
-nuecolor
 performance.js
 
 .DS_Store

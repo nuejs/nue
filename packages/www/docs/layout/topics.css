@@ -1,0 +1,18 @@
+
+@layer layout {
+  .topics {
+    font-size: var(--ui-sizing);
+    margin-block: 3em;
+    display: flex;
+    flex-wrap: wrap;
+
+    nav {
+      margin: 0 10vw 3em 0;
+    }
+
+    small {
+      font-size: inherit;
+      color: var(--text-subtle);
+    }
+  }
+}

@@ -1,18 +1,15 @@
 
-@layer component {
+@layer layout {
 
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(var(--cell-width, 250px), 1fr));
     gap: 1em;
-
-    &.grid-2 { --cell-width: 300px }
-    &.grid-4 { --cell-width: 200px }
   }
 
   .row {
-    display: flex;
     align-items: center;
+    display: flex;
     gap: .5em;
   }
 
@@ -25,10 +22,6 @@
       flex-wrap: wrap;
       > * { flex: 1 1 var(--cell-width, 200px) }
     }
-
-    > .flex-2 { flex: 2 }
-    > .flex-3 { flex: 3 }
-    > .flex-4 { flex: 4 }
   }
 
   .stack {
@@ -41,25 +34,10 @@
   @media (width > 900px) {
     .columns {
       column-count: var(--count, 2);
-      margin-block: var(--l);
-      column-gap: var(--s);
+      margin-block: 2em;
+      column-gap: 1.5em;
       div { break-inside: avoid }
     }
   }
-
-}
-
-@layer modifier {
-
-  /* margin */
-  .margin-l   { margin-block: var(--l) }
-
-  /* gap */
-  .gap-0 { gap: 0 }
-  .gap-s { gap: .75em }
-  .gap-l { gap: 1.5em }
-
-  /* padding */
-  .padding-s  { padding: .75em 1em }
 
 }

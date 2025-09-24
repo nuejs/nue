@@ -1,4 +1,7 @@
 
 class: dark heroic
-include: [ console, marketing ]
+include: [ console, marketing, syntax ]
 title_template: false
+
+design:
+  inline_css: true

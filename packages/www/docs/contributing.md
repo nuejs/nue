@@ -1,14 +1,14 @@
 # Contributing
 I'm **Tero Piirainen**, Nue's creator. Here's how I work and the best ways to contribute.
 
-## How I work
-I work in focused bursts. This means occasional gaps in community responses, delayed pull request reviews, and periods of radio silence. Progress might look slow from the outside, but I'm working constantly.
+## Work in bursts
+I work in bursts. This means occasional gaps in community responses, delayed pull request reviews, and periods of radio silence. Progress might look slow from the outside, but I'm working constantly.
 
-### Clear roadmap ahead
+### According to roadmap
 The roadmap is now well-defined: multi-site development, Nue Edge deployment platform, and professional templates with design systems. The wild pivots of early development are behind us.
 
 
-### Vision matters
+### Vision is important
 I maintain strong opinions about Nue's direction, especially around separation of concerns and web standards. This can make contributing to core architecture challenging. I'm protective of the principles that make Nue different from other frameworks.
 
 ## Best ways to help

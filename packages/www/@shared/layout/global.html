@@ -2,18 +2,20 @@
 
 <header class="ui">
   <nav>
-    <a href="/" class="logo"><img src="/img/logo-small.png" width="60" height="27"></a>
+    <a href="/"><b class="wordmark">NUE</b></a>
     <a href="/docs/">Docs</a>
     <a href="/blog/">Blog</a>
-    <a :if="teaser" class="row" href="{ teaser.url }">
-      <span class="tag">{ teaser.tag}</span>
+
+    <a :if="teaser" class="teaser row" href="{ teaser.url }">
+      <span class="inverse tag">{ teaser.tag}</span>
       { teaser.text }
     </a>
   </nav>
 
   <nav>
-    <a  href="{ slack.url }" class="row">
-      <slack-icon width="18" height="18"/> Slack
+    <a  href="{ slack.url }" class="social row">
+      <slack-icon width="18" height="18"/>
+      <strong>Slack</strong>
     </a>
 
     <a  href="{ gh.url }" class="row pill">
@@ -23,13 +25,14 @@
 </header>
 
 <!-- join mailing list -->
-<aside :is="beside" class="ui thin">
+<aside :is="beside" class="ui">
   <join-list :join :markdown/>
 </aside>
 
-<footer>
+<footer class="ui">
   <hr>
-  <strong>NUE</strong><span>— { tagline }</span>
+  <b class="wordmark">NUE</b>
+  <span>— { tagline }</span>
 </footer>
 
 

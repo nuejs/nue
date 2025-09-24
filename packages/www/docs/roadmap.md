@@ -1,19 +1,16 @@
 
 # Roadmap
-Our next major steps:
 
 
 ## Multi-site development
 Build multiple websites from one shared system. Think of it like having a design system that works across different brands, but for everything - layouts, business logic, and data.
 
 ```
-.
-@shared/          # Global design system, components, logic
-acme.org/         # Marketing site
-app.acme.com/     # Web application
-blog.acme.com/    # Company blog
-partners.com/     # Partner portal
-global.yaml       # Shared configuration
+@base/           # Global design system, components, logic
+acme.org/        # Marketing site. Inherits @base
+app.acme.com/    # Web application
+blog.acme.com/   # Company blog
+partners.com/    # Partner portal
 ```
 
 Develop all sites with global hot reloading:

@@ -1,11 +1,13 @@
 
-@layer base {
+@layer design {
 
   pre {
-    border: 1px solid var(--fg-200);
+    background-color: var(--gray-subtle);
+    border-radius: var(--radius-m);
     counter-reset: line-number 0;
-    color: var(--fg-600);
-    padding: 2em;
+    color: var(--accent);
+    overflow: hidden;
+    padding: 1.5em;
 
     /* reset */
     * {
@@ -14,28 +16,28 @@
       text-decoration: inherit
     }
 
-    /* primary accent color */
-    b { color: #ff3aa1 }
+    b { color: var(--brand); }
 
-    /* secondary accent color */
-    em { color: #4065ff }
+    em { color: var(--accent) }
 
     /* special emphasis */
-    strong { color: #419fff }
+    strong {
+      color: var(--pop);
+    }
 
     /* brackets, commas, semicolons... */
-    i { color: var(--fg-400) }
+    i { color: var(--text-subtle) }
 
     /* comments */
     sup {
-      opacity: .5;
+      color: var(--text-subtle);
       vertical-align: inherit;
       font-size: inherit;
     }
 
     /* marked segments */
     mark {
-      background-color: #2bb8ff26;
+      background-color: color-mix(in srgb, var(--brand) 30%, transparent);
       color: inherit;
       border-radius: .2em;
       padding-block: .25em;
@@ -43,8 +45,8 @@
 
     /* spotlight */
     label {
+      color: var(--text-strong);
       font-weight: bold;
-      color: var(--fg-800);
     }
 
     /* line numbers */
