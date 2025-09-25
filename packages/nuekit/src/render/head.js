@@ -36,6 +36,13 @@ export async function renderHead({ conf, data, assets, libs=[] }) {
     head.push(importMap(conf.import_map))
   }
 
+  // RSS feed
+  if (conf.rss?.enabled) {
+    const { title } = conf.rss
+    const link = elem('link', { rel: 'alternate', type: 'application/rss+xml', title, href: '/feed.xml' })
+    head.push(link)
+  }
+
   return head
 }
 

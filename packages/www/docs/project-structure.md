@@ -54,6 +54,7 @@ Creates:
 A content-focused site with shared layouts and automatic post collections. The `layout.html` provides common structure, while `posts/` contains your Markdown content. The `site.yaml` configures collections and metadata.
 
 
+
 ## Single-page application
 
 ```bash
@@ -76,7 +77,6 @@ Creates:
 ```
 
 A client-side application with separate CSS, UI components, and a CloudFlare-compatible backend. The `index.html` controls routing and state, while `ui/` contains individual page components. The `server/users.json` acts as a KV datastore, and `server/index.js` uses Hono for seamless CloudFlare deployment.
-
 
 
 ## Larger projects
@@ -138,6 +138,13 @@ import * as d3 from 'lib/d3'          // @shared/lib/d3.js
 ```
 
 With the system layer handling design, behavior, and logic, application development can focus solely on content and structure. Your system remains simple as your website/business grows.
+
+
+### Application UI folder
+If your application has several CSS/JS assets, place them in a `ui` folder within the app (like `blog/ui`) instead of cluttering the application root.
+
+### Home folder
+Your home page assets can go in a `home` folder to separate them from root assets that are shared across all applications.
 
 
 ## File types

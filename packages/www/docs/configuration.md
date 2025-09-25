@@ -34,7 +34,7 @@ design:
   # which stylesheet is loaded first (that defines CSS @layers)
   base: base.css
 
-  # Limit class names per element to prevent utility abuse. Default 5.
+  # Limit class names per element to prevent utility abuse. Default 3.
   max_class_names: 3
 
   # Inline all CSS in production builds

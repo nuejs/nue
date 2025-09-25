@@ -11,7 +11,7 @@ const paths = [
 
   // shared (6)
   '@shared/design/base.css',
-  '@shared/layout/global.css',
+  '@shared/ui/global.css',
   '@shared/data/authors.yaml',
   '@shared/ui/page.html',
   '@shared/ui/button.html',
@@ -23,7 +23,7 @@ const paths = [
   // app (4)
   'app/index.html',
   'app/main.js',
-  'app/layout/header.html',
+  'app/ui/header.html',
   'app/ui/login.html',
 
   // blog (4)
@@ -88,10 +88,7 @@ test('exclusions', () => {
     paths,
   })
 
-  expect(deps.length).toBe(1 + 2) // globals.js + 2 app
-  expect(deps).not.toContain('app/ui/header.html')
-  expect(deps).not.toContain('site.yaml')
-  expect(deps).toContain('globals.js')
+  expect(deps).toEqual(['globals.js', 'app/main.js'])
 })
 
 test('inclusions', () => {
@@ -103,7 +100,7 @@ test('inclusions', () => {
 
   expect(deps.includes('@shared/ui/keyboard.js')).toBeTrue()
   expect(deps.includes('@shared/lib/calendar.js')).toBeTrue()
-  expect(deps.length).toBe(6)
+  expect(deps.length).toBe(5)
 })
 
 

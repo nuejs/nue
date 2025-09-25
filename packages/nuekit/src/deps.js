@@ -2,7 +2,7 @@
 import { join, normalize, dirname, extname, basename, sep } from 'node:path'
 
 // app, lib, server are @shared, but not auto-included
-const AUTO_INCLUDED = ['data', 'design', 'layout', 'ui'].map(dir => join('@shared', dir))
+const AUTO_INCLUDED = ['data', 'design', 'ui'].map(dir => join('@shared', dir))
 
 const ASSET_TYPES = ['.html', '.js', '.ts', '.yaml', '.css']
 
