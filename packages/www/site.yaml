@@ -19,6 +19,7 @@ collections:
   blog:
     include: [ blog ]
     skip: [ noindex, draft ]
+    sort: date desc
 
 design:
   layers: [ design, layout, component ]

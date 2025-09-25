@@ -2,17 +2,17 @@
 @layer layout {
   .topics {
     font-size: var(--ui-sizing);
-    margin-block: 3em;
-    display: flex;
+    margin-top: 2em;
     flex-wrap: wrap;
+    display: flex;
 
-    nav {
-      margin: 0 10vw 3em 0;
-    }
+    nav { margin: 0 10vw 3em 0 }
 
     small {
       font-size: inherit;
       color: var(--text-subtle);
+      @media (500px < width < 900px) { display: none; }
     }
+
   }
 }

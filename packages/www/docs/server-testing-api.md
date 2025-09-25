@@ -171,7 +171,6 @@ Unit test your business operations using the mock environment to simulate databa
 
 
 ```javascript
-
 // Bun testing interfaces are auto-imported
 // import { test, expect } from 'bun:test'
 
@@ -218,7 +217,6 @@ test('cacheContact stores in KV', async () => {
 Use the factory pattern in route handlers by passing c.env to create model instances. This maintains clean separation between HTTP concerns and business logic.RetryClaude can make mistakes. Please double-check responses.
 
 ```javascript
-
 // server/index.js
 import { createCRM } from './model/crm.js'
 import { createAuth } from './model/auth.js'

@@ -1,0 +1,13 @@
+
+authors:
+  default: tero
+
+  tero:
+    name: Tero Piirainen
+    img: /img/tero.webp
+    username: tipiirai
+
+  john:
+    name: John Doe
+    img: /img/john.webp
+    username: johndoe

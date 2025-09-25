@@ -1,9 +1,10 @@
 
 ---
-footer: false
 heading_ids: false
 title_template: false
 noindex: true
+footer: true
+beside: true
 ---
 
 # Learn Nue

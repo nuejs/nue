@@ -1,0 +1,27 @@
+
+@layer layout {
+  .list {
+    margin-top: 2em;
+
+    strong { flex: 3 }
+
+    a {
+      text-decoration: none;
+      padding-block: .125em;
+    }
+  }
+
+  .author {
+    font-size: .875em;
+    margin-top: 1em;
+    gap: 1em;
+    align-items; center;
+
+    img {
+      border-radius: var(--radius-s);
+      margin-bottom: -.25em;
+    }
+
+    h3 { margin: 0 }
+  }
+}
