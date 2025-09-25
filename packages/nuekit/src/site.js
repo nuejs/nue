@@ -8,7 +8,7 @@ export async function createSite(conf) {
   const { root, ignore } = conf
 
   // assets
-  const paths = sortPaths(await fswalk(root, { ignore }), conf.design?.base)
+  const paths = sortPaths(await fswalk(root, { ignore }))
   const files = await Promise.all(paths.map(path => createFile(root, path)))
   const assets = files.map(file => createAsset(file, files, conf))
 
@@ -45,11 +45,11 @@ export async function createSite(conf) {
   return { assets, conf, get, remove, update }
 }
 
-export function sortPaths(paths, priority='base.css') {
+export function sortPaths(paths) {
 
   function prio(path) {
     const { dir, base } = parse(path)
-    return base == priority ? 0 : dir.startsWith('@shared') ? 1 : !dir ? 2 : 3
+    return base == dir.startsWith('@shared') ? 0 : !dir ? 2 : 1
   }
 
   return paths.sort((a, b) => {

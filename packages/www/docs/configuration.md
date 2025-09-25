@@ -19,7 +19,7 @@ site:
   # Origin URL for sitemap.xml and RSS feed
   origin: https://example.com
 
-  # Enable view transitions between pages (default: false)
+  # Enable view transitions between pages (default = false)
   view_transitions: true
 
   # Skip files/directories from processing
@@ -31,8 +31,8 @@ site:
 # Design system settings (site.yaml only)
 design:
 
-  # which stylesheet is loaded first (that defines CSS @layers)
-  base: base.css
+  # Configure CSS @layer cascade order (added to head with style tag)
+  layers: [ settings, elements, components ]
 
   # Limit class names per element to prevent utility abuse. Default 3.
   max_class_names: 3

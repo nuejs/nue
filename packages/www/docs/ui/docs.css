@@ -1,5 +1,6 @@
 
 @layer layout {
+
   .topics {
     font-size: var(--ui-sizing);
     margin-top: 2em;
@@ -13,6 +14,23 @@
       color: var(--text-subtle);
       @media (500px < width < 900px) { display: none; }
     }
+  }
 
+  .learn-more {
+
+    .stack {
+      margin-block: 1.5em 2em;
+      max-width: 12em;
+      gap: .75em;
+    }
+
+    [aria-current] {
+      background-color: var(--inverse);
+      color: var(--inverse-text);
+      padding: .25em .5em;
+      pointer-events: none;
+      margin-left: -.5em;
+      width: auto;
+    }
   }
 }

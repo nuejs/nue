@@ -13,13 +13,13 @@ test('sortPaths', () => {
   ])
 
   expect(sorted).toEqual([
-    "@shared/design/base.css",
     "@shared/design/area.css",
+    "@shared/design/base.css",
+    "blog/post.md",
+    "docs/getting-started.md",
     "about.md",
     "global.css",
     "index.html",
-    "blog/post.md",
-    "docs/getting-started.md"
   ])
 })
 

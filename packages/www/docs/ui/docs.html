@@ -2,7 +2,6 @@
 <!-- navigation for topics.yaml entries -->
 
 <nav :is="navi" class="stack">
-
   <a :each="link in links" href="{ link.url }">
     <template :if="!link.desc">{ link.title }</template>
     <div :if="link.desc" class="row">
@@ -23,3 +22,27 @@
     this.links = arr.map(parseNavEntry)
   </script>
 </nav>
+
+<!--
+[navi items="essentials"]
+-->
+<pagefoot class="learn-more">
+
+  <h2>Learn more</h2>
+
+  <navi :docs :items/>
+
+  <p>
+    <a href="/docs/"><strong>View all topics</strong></a>
+  </p>
+
+  <script>
+    Object.keys(this.docs).forEach(cat => {
+      this.docs[cat].forEach(el => {
+        const slug = el.slug || (el.title || el).replaceAll(' ', '-').toLowerCase()
+        if (this.slug == slug) this.items = cat
+      })
+    })
+  </script>
+
+</pagefoot>
