@@ -32,7 +32,7 @@ Start the development server with hot reloading:
 
 ```bash
 nue dev
-nue serve              # asias to dev
+nue serve              # alias to dev
 nue                    # short alias
 nue --port 8080        # serve on specific port
 ```
