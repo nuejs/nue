@@ -131,7 +131,7 @@ After implementing a handful of blog entries, documentation, and marketing pages
 ```
 
 ### Nue migration
-Nue gives you the same functionality with this stucture:
+Nue gives you the same functionality with this structure:
 
 ```
 .

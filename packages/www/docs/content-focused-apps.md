@@ -292,7 +292,7 @@ Both approaches work together in the same project. Your homepage might use HTML 
 
 
 ## Add interactivity
-Content-focused apps often need interactive elements like newsletter signups, contact forms, or feedback widgets. Create these as dynamic, resusable HTML:
+Content-focused apps often need interactive elements like newsletter signups, contact forms, or feedback widgets. Create these as dynamic, reusable HTML:
 
 ```
 <!-- In components.html (a new document) -->
