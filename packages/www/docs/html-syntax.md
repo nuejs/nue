@@ -275,7 +275,9 @@ this.mount(name, target, data)
 ```
 
 **name** - Component name
+
 **target** - DOM element or CSS selector
+
 **data** - Optional data to pass to component
 
 ```html
