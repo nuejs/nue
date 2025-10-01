@@ -9,15 +9,20 @@ export async function mountAll(reload_path) {
 
   for (const root of [...roots]) {
     const name = root.getAttribute('nue') || root.tagName.toLowerCase()
-    const next = root.nextElementSibling
-    const data = next?.type == 'application/json' ? JSON.parse(next.textContent) : {}
     const comp = deps.find(a => [a.is, a.tag].includes(name))
 
+      console.info(root, !comp)
     if (comp) {
-      const node = mount(comp, { root, data, deps })
+      const node = mount(comp, { root, deps, data: getData(root) })
       node.root.setAttribute('nue', name)
     }
   }
+}
+
+function getData(root) {
+  if (root.firstChild?.tagName == 'SCRIPT') root.after(root.firstChild)
+  const script = root.nextElementSibling
+  if (script?.type == 'application/json') return JSON.parse(script.textContent)
 }
 
 export function getImportPaths() {

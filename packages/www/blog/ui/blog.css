@@ -11,6 +11,12 @@
     }
   }
 
+  header > time {
+    font-size: .875em;
+    margin-bottom: 1em;
+    display: inline-block;
+  }
+
   .author {
     font-size: .875em;
     margin-top: 1em;
@@ -18,7 +24,7 @@
     align-items; center;
 
     img {
-      border-radius: var(--radius-s);
+      border-radius: var(--radius-m);
       margin-bottom: -.25em;
     }
 

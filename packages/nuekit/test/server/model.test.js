@@ -1,6 +1,6 @@
 
-import { createEnv } from '../../src/server/env.js'
 import { testDir, writeAll, removeAll } from '../test-utils'
+import { createEnv } from '../../src/server/model'
 
 
 afterAll(async () => await removeAll())

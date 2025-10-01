@@ -39,8 +39,11 @@ document.addEventListener('click', e => {
   const el = e.target
   const parent = el.closest('.player')
   const video = el.matches('video') ? el : parent?.querySelector('video')
+  if (!video) return
 
-  if (video && !el.matches('.fullscreen')) {
+  if (el.matches('.maximize')) {
+    video.requestFullscreen()
+  } else {
     video.paused ? video.play() : video.pause()
     parent?.classList.toggle('paused', video.paused)
   }

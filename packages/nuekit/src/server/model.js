@@ -1,7 +1,8 @@
 
-import { readdir, readFile } from 'node:fs/promises'
+import { readdir, mkdir, readFile, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 
+const SESSIONS_PATH = join(process.cwd(), '.nue', 'sessions.json')
 const NOW = Date.now()
 const DAY = 86400000
 
@@ -46,10 +47,27 @@ function createModel(items) {
   return { all, create, get }
 }
 
+
+async function saveSessions(sessions) {
+  await mkdir(join(process.cwd(), '.nue'), { recursive: true })
+  await writeFile(SESSIONS_PATH, JSON.stringify([...sessions], null, 2))
+}
+
+async function readSessions() {
+  try {
+    const data = await readFile(SESSIONS_PATH, 'utf-8')
+    return new Set(JSON.parse(data))
+  } catch {
+    return new Set()
+  }
+}
+
+
+
 // specialized models
-function createUserModel(items) {
+async function createUserModel(items) {
   const users = createModel(items)
-  const sessions = new Set()
+  const sessions = await readSessions()
 
   async function login(email, password) {
     const user = (await users.all()).find(el => el.email == email)
@@ -58,6 +76,7 @@ function createUserModel(items) {
     if (user?.password == password) {
       const sessionId = crypto.randomUUID()
       sessions.add(sessionId)
+      await saveSessions(sessions)
       return { sessionId, user }
     }
   }
@@ -68,10 +87,13 @@ function createUserModel(items) {
 
   async function logout(sessionId) {
     sessions.delete(sessionId)
+    await saveSessions(sessions)
   }
 
   return { ...users, login, logout, authenticate }
 }
+
+
 
 export async function createEnv(dir) {
   const files = await readdir(join(process.cwd(), dir))
@@ -82,7 +104,7 @@ export async function createEnv(dir) {
       const type = file.replace('.json', '')
       const path = join(process.cwd(), dir, file)
       const items = JSON.parse(await readFile(path, 'utf8'))
-      env[type] = type == 'users' ? createUserModel(items) : createModel(items)
+      env[type] = type == 'users' ? await createUserModel(items) : createModel(items)
     }
   }
 

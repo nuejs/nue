@@ -26,27 +26,14 @@ Here’s the same app, now with a **Rust** computation engine and **Event Sourci
 
 [video-player]
   videoId: eb65fcdd-5be4-4923-a783-f41efafe58a7
-  caption: Instant operations across 150,000 records with Rust/WASM
-  poster: /img/rust-splash.png
+  poster: ./rust-splash.png
   width: 704
   height: 440
 
-This demo is [here ›](//mpa.nuejs.org/app/?rust)
+In the [above demo](//mpa.nuejs.org/app/?rust) you can see instant operations across 150,000 records with Rust/WASM
 
 
-## Tooling
-
-Nue crushes HMR and build speed records and sets you up with a millisecond feedback loop for your everyday VSCode/Sublime file-save operations:
-
-[video-player]
-  videoId: ffbb6d40-5b74-4176-a115-d0ed040edca5
-  caption: Immediate feedback for design and component updates, preserving app state
-  // poster: thumbnail_1ca1bd66.jpg
-
-
-&nbsp;
-
-Here's what this means:
+## Here's what this means
 
 
 ### For Rust, Go, and JS engineers

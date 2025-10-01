@@ -3,7 +3,7 @@ import { join } from 'node:path'
 
 import { routes, fetch, matches } from 'nueserver'
 
-import { createEnv } from './env'
+import { createEnv } from './model'
 
 export async function importWorker({ dir, reload }) {
   const path = join(process.cwd(), dir, 'index.js') + (reload ? '?t=' + Date.now() : '')

@@ -1,3 +1,3 @@
 
 tests:
-	cd test && bun test env.test # site # page.test
+	cd test && bun test model.test # site # page.test

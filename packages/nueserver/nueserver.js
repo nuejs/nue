@@ -1,5 +1,5 @@
 
-// Nueserver - Edge-first HTTP server
+// Nueserver: Edge-first HTTP server
 export const routes = []
 
 // Context for each request
@@ -46,23 +46,23 @@ export function matches(method, path) {
 export function matchPath(pattern, path) {
   if (pattern == '*') return { match: true, params: {} }
 
-  const patternParts = pattern.split('/')
+  const parts = pattern.split('/')
   const pathParts = path.split('/')
 
   // Handle trailing wildcard
-  const hasWildcard = patternParts[patternParts.length - 1] == '*'
-  const compareLength = hasWildcard ? patternParts.length - 1 : patternParts.length
+  const hasWildcard = parts[parts.length - 1] == '*'
+  const len = hasWildcard ? parts.length - 1 : parts.length
 
-  // For wildcards, path must be LONGER than pattern (minus *)
-  // For exact matches, lengths must be equal
-  if (hasWildcard ? pathParts.length <= compareLength : pathParts.length != compareLength) {
+  // wildcard -> path must be LONGER than pattern (minus *)
+  // exact match -> lengths must be equal
+  if (hasWildcard ? pathParts.length <= len : pathParts.length != len) {
     return { match: false }
   }
 
   const params = {}
 
-  for (let i = 0; i < compareLength; i++) {
-    const patternPart = patternParts[i]
+  for (let i = 0; i < len; i++) {
+    const patternPart = parts[i]
     const pathPart = pathParts[i]
 
     if (patternPart.startsWith(':')) {
@@ -116,11 +116,12 @@ export async function fetch(request, env = {}) {
       context.req._params = params
 
       if (!route.method) {
-        // Middleware - call with next() function
+        // Middleware: call with next() function
         const result = await route.handler(context, () => Promise.resolve())
         if (result instanceof Response) return result
+
       } else {
-        // Regular route - call directly
+        // Regular route: call directly
         const result = await route.handler(context)
         if (result instanceof Response) return result
       }
