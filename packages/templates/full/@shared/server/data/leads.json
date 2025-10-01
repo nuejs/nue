@@ -1,0 +1,513 @@
+[
+  {
+    "email": "sarah.johnson@gmail.com",
+    "country": "US",
+    "subscribed": true,
+    "source": "www.google.com",
+    "comment": "Love the speed focus!"
+  },
+  {
+    "email": "alex.mueller@web.de",
+    "country": "DE",
+    "subscribed": true
+  },
+  {
+    "email": "james.smith@outlook.com",
+    "country": "GB",
+    "subscribed": true,
+    "source": "news.ycombinator.com",
+    "comment": "Finally, minimal design that works"
+  },
+  {
+    "email": "marie.dubois@orange.fr",
+    "country": "FR",
+    "subscribed": true,
+    "source": "medium.com",
+    "comment": "Web standards FTW"
+  },
+  {
+    "email": "yuki.tanaka@yahoo.co.jp",
+    "country": "JP",
+    "subscribed": true
+  },
+  {
+    "email": "carlos.silva@gmail.com",
+    "country": "BR",
+    "subscribed": true,
+    "source": "www.reddit.com"
+  },
+  {
+    "email": "emily.davis@hotmail.com",
+    "country": "US",
+    "subscribed": true,
+    "source": "github.com",
+    "comment": "CSS wizardry impressed me"
+  },
+  {
+    "email": "thomas.wagner@gmx.de",
+    "country": "DE",
+    "subscribed": true,
+    "source": "www.google.com"
+  },
+  {
+    "email": "olivia.brown@yahoo.co.uk",
+    "country": "GB",
+    "subscribed": true,
+    "comment": "Clean code = clean design"
+  },
+  {
+    "email": "pierre.martin@free.fr",
+    "country": "FR",
+    "subscribed": true,
+    "source": "substack.com"
+  },
+  {
+    "email": "hiroshi.sato@gmail.com",
+    "country": "JP",
+    "subscribed": true,
+    "source": "www.linkedin.com",
+    "comment": "Performance metrics blew my mind"
+  },
+  {
+    "email": "ana.santos@uol.com.br",
+    "country": "BR",
+    "subscribed": true
+  },
+  {
+    "email": "michael.wilson@gmail.com",
+    "country": "US",
+    "subscribed": true,
+    "source": "t.co",
+    "comment": "Separation of concerns done right"
+  },
+  {
+    "email": "lisa.schneider@t-online.de",
+    "country": "DE",
+    "subscribed": true,
+    "source": "duckduckgo.com"
+  },
+  {
+    "email": "david.taylor@btinternet.com",
+    "country": "GB",
+    "subscribed": true,
+    "comment": "Minimalism but maximum impact"
+  },
+  {
+    "email": "sophie.bernard@gmail.com",
+    "country": "FR",
+    "subscribed": true,
+    "source": "api.daily.dev"
+  },
+  {
+    "email": "kenji.nakamura@docomo.ne.jp",
+    "country": "JP",
+    "subscribed": true,
+    "source": "www.bing.com",
+    "comment": "Content-first approach is genius"
+  },
+  {
+    "email": "ricardo.oliveira@hotmail.com",
+    "country": "BR",
+    "subscribed": true
+  },
+  {
+    "email": "jennifer.martinez@yahoo.com",
+    "country": "US",
+    "subscribed": true,
+    "source": "search.brave.com",
+    "comment": "No bloat, just results"
+  },
+  {
+    "email": "hans.fischer@web.de",
+    "country": "DE",
+    "subscribed": true,
+    "source": "news.ycombinator.com"
+  },
+  {
+    "email": "charlotte.jones@gmail.com",
+    "country": "GB",
+    "subscribed": true,
+    "comment": "Semantic HTML appreciation"
+  },
+  {
+    "email": "luc.moreau@wanadoo.fr",
+    "country": "FR",
+    "subscribed": true,
+    "source": "www.ecosia.org"
+  },
+  {
+    "email": "sakura.yamamoto@softbank.ne.jp",
+    "country": "JP",
+    "subscribed": true,
+    "source": "www.reddit.com",
+    "comment": "Design systems done properly"
+  },
+  {
+    "email": "pedro.costa@gmail.com",
+    "country": "BR",
+    "subscribed": true
+  },
+  {
+    "email": "robert.clark@hotmail.com",
+    "country": "US",
+    "subscribed": true,
+    "source": "github.com",
+    "comment": "Performance budget respect"
+  },
+  {
+    "email": "inge.hoffmann@gmx.de",
+    "country": "DE",
+    "subscribed": true,
+    "source": "medium.com"
+  },
+  {
+    "email": "george.white@sky.com",
+    "country": "GB",
+    "subscribed": true,
+    "comment": "Progressive enhancement rocks"
+  },
+  {
+    "email": "claire.rousseau@laposte.net",
+    "country": "FR",
+    "subscribed": true,
+    "source": "www.google.com"
+  },
+  {
+    "email": "taro.suzuki@nifty.com",
+    "country": "JP",
+    "subscribed": true,
+    "source": "substack.com",
+    "comment": "Accessibility built-in, not bolted-on"
+  },
+  {
+    "email": "lucia.ferreira@terra.com.br",
+    "country": "BR",
+    "subscribed": true
+  },
+  {
+    "email": "kevin.thompson@gmail.com",
+    "country": "US",
+    "subscribed": true,
+    "source": "www.linkedin.com",
+    "comment": "Core Web Vitals champion"
+  },
+  {
+    "email": "petra.klein@t-online.de",
+    "country": "DE",
+    "subscribed": true,
+    "source": "t.co"
+  },
+  {
+    "email": "harry.evans@virgin.net",
+    "country": "GB",
+    "subscribed": true,
+    "comment": "Standards compliance beauty"
+  },
+  {
+    "email": "antoine.durand@sfr.fr",
+    "country": "FR",
+    "subscribed": true,
+    "source": "api.daily.dev"
+  },
+  {
+    "email": "mai.kobayashi@yahoo.co.jp",
+    "country": "JP",
+    "subscribed": true,
+    "source": "duckduckgo.com",
+    "comment": "100/100 Lighthouse scores possible!"
+  },
+  {
+    "email": "bruno.pereira@bol.com.br",
+    "country": "BR",
+    "subscribed": true
+  },
+  {
+    "email": "ashley.harris@outlook.com",
+    "country": "US",
+    "subscribed": true,
+    "source": "www.bing.com",
+    "comment": "CSS architecture masterclass"
+  },
+  {
+    "email": "stefan.weber@web.de",
+    "country": "DE",
+    "subscribed": true,
+    "source": "search.brave.com"
+  },
+  {
+    "email": "lucy.walker@tiscali.co.uk",
+    "country": "GB",
+    "subscribed": true
+  },
+  {
+    "email": "jean.leclerc@club-internet.fr",
+    "country": "FR",
+    "subscribed": true,
+    "source": "www.ecosia.org",
+    "comment": "Form follows function perfection"
+  },
+  {
+    "email": "akira.watanabe@au.com",
+    "country": "JP",
+    "subscribed": true,
+    "source": "news.ycombinator.com"
+  },
+  {
+    "email": "mariana.alves@ig.com.br",
+    "country": "BR",
+    "subscribed": true
+  },
+  {
+    "email": "daniel.lee@verizon.net",
+    "country": "US",
+    "subscribed": true,
+    "source": "www.reddit.com"
+  },
+  {
+    "email": "birgit.schulz@gmx.de",
+    "country": "DE",
+    "subscribed": true,
+    "source": "github.com"
+  },
+  {
+    "email": "paul.robinson@o2.co.uk",
+    "country": "GB",
+    "subscribed": true
+  },
+  {
+    "email": "camille.robert@alice.fr",
+    "country": "FR",
+    "subscribed": true,
+    "source": "medium.com"
+  },
+  {
+    "email": "yuki.inoue@biglobe.ne.jp",
+    "country": "JP",
+    "subscribed": true,
+    "source": "substack.com"
+  },
+  {
+    "email": "rafael.souza@globo.com",
+    "country": "BR",
+    "subscribed": true
+  },
+  {
+    "email": "michelle.garcia@aol.com",
+    "country": "US",
+    "subscribed": true,
+    "source": "www.google.com"
+  },
+  {
+    "email": "wolfgang.bauer@yahoo.de",
+    "country": "DE",
+    "subscribed": true,
+    "source": "www.linkedin.com"
+  },
+  {
+    "email": "john.peterson@techcorp.com",
+    "name": "John Peterson",
+    "country": "US",
+    "subscribed": false,
+    "source": "www.linkedin.com",
+    "website": "https://techcorp.com",
+    "comment": "Interested in enterprise design system implementation - what packages do you offer?"
+  },
+  {
+    "email": "anna.schulte@innovate.de",
+    "name": "Anna Schulte",
+    "country": "DE",
+    "subscribed": true,
+    "website": "https://innovate.de",
+    "comment": "Need to rebuild our webapp with better performance. Can we schedule a technical discussion?"
+  },
+  {
+    "email": "richard.thompson@dataflow.co.uk",
+    "name": "Richard Thompson",
+    "country": "GB",
+    "subscribed": false,
+    "source": "github.com",
+    "website": "https://dataflow.co.uk",
+    "comment": "Evaluating template solutions for 50+ landing pages. What customization options are available?"
+  },
+  {
+    "email": "isabelle.moreau@digitech.fr",
+    "name": "Isabelle Moreau",
+    "country": "FR",
+    "subscribed": true,
+    "source": "www.google.com",
+    "website": "https://digitech.fr"
+  },
+  {
+    "email": "takeshi.yamada@cloudtech.jp",
+    "name": "Takeshi Yamada",
+    "country": "JP",
+    "subscribed": false,
+    "website": "https://cloudtech.jp",
+    "comment": "Our current site scores 40 on Lighthouse. How quickly can you help us reach 90+?"
+  },
+  {
+    "email": "fernando.santos@innovabr.com.br",
+    "name": "Fernando Santos",
+    "country": "BR",
+    "subscribed": true,
+    "source": "news.ycombinator.com",
+    "website": "https://innovabr.com.br",
+    "comment": "Looking for content-first CMS integration. Do your templates support headless architecture?"
+  },
+  {
+    "email": "sarah.collins@nexustech.com",
+    "name": "Sarah Collins",
+    "country": "US",
+    "subscribed": false,
+    "source": "medium.com",
+    "website": "https://nexustech.com",
+    "comment": "Team wants to adopt your CSS methodology. Do you offer training or documentation?"
+  },
+  {
+    "email": "marcus.hoffmann@futureware.de",
+    "name": "Marcus Hoffmann",
+    "country": "DE",
+    "subscribed": true,
+    "website": "https://futureware.de"
+  },
+  {
+    "email": "helen.ward@smartsys.co.uk",
+    "name": "Helen Ward",
+    "country": "GB",
+    "subscribed": false,
+    "source": "www.reddit.com",
+    "website": "https://smartsys.co.uk",
+    "comment": "Impressed by separation of concerns approach. Can we see case studies from similar B2B companies?"
+  },
+  {
+    "email": "philippe.martin@webpro.fr",
+    "name": "Philippe Martin",
+    "country": "FR",
+    "subscribed": true,
+    "source": "substack.com",
+    "website": "https://webpro.fr",
+    "comment": "Need white-label solution for client projects. What licensing terms do you offer?"
+  },
+  {
+    "email": "hiroki.tanaka@digitalsol.jp",
+    "name": "Hiroki Tanaka",
+    "country": "JP",
+    "subscribed": false,
+    "website": "https://digitalsol.jp"
+  },
+  {
+    "email": "carlos.rodrigues@techmind.com.br",
+    "name": "Carlos Rodrigues",
+    "country": "BR",
+    "subscribed": true,
+    "source": "t.co",
+    "website": "https://techmind.com.br",
+    "comment": "Our dev team struggles with performance optimization. Do you provide consulting services?"
+  },
+  {
+    "email": "david.miller@alphatech.com",
+    "name": "David Miller",
+    "country": "US",
+    "subscribed": false,
+    "source": "api.daily.dev",
+    "website": "https://alphatech.com",
+    "comment": "Considering migration from React bloat to web standards. What migration path do you recommend?"
+  },
+  {
+    "email": "sabine.fischer@quantum.de",
+    "name": "Sabine Fischer",
+    "country": "DE",
+    "subscribed": true,
+    "website": "https://quantum.de"
+  },
+  {
+    "email": "james.clark@velocity.co.uk",
+    "name": "James Clark",
+    "country": "GB",
+    "subscribed": false,
+    "source": "duckduckgo.com",
+    "website": "https://velocity.co.uk",
+    "comment": "Budget approved for Q3 redesign. Can we discuss enterprise pricing and timeline?"
+  },
+  {
+    "email": "marie.bernard@nexwave.fr",
+    "name": "Marie Bernard",
+    "country": "FR",
+    "subscribed": true,
+    "source": "www.bing.com",
+    "website": "https://nexwave.fr",
+    "comment": "Multi-language site requirements. How do your templates handle internationalization?"
+  },
+  {
+    "email": "kenji.sato@streamtech.jp",
+    "name": "Kenji Sato",
+    "country": "JP",
+    "subscribed": false,
+    "website": "https://streamtech.jp"
+  },
+  {
+    "email": "patricia.lima@digibras.com.br",
+    "name": "Patricia Lima",
+    "country": "BR",
+    "subscribed": true,
+    "source": "search.brave.com",
+    "website": "https://digibras.com.br",
+    "comment": "Compliance team loves your accessibility approach. What WCAG level do you guarantee?"
+  },
+  {
+    "email": "robert.anderson@coretech.com",
+    "name": "Robert Anderson",
+    "country": "US",
+    "subscribed": false,
+    "source": "www.ecosia.org",
+    "website": "https://coretech.com",
+    "comment": "Need templates that work with our existing CI/CD pipeline. What build tools do you support?"
+  },
+  {
+    "email": "greta.muller@innovatech.de",
+    "name": "Greta Muller",
+    "country": "DE",
+    "subscribed": true,
+    "website": "https://innovatech.de"
+  },
+  {
+    "email": "andrew.wilson@cybernet.co.uk",
+    "name": "Andrew Wilson",
+    "country": "GB",
+    "subscribed": false,
+    "source": "github.com",
+    "website": "https://cybernet.co.uk",
+    "comment": "Stakeholders want proof of performance claims. Can you share before/after metrics from similar projects?"
+  },
+  {
+    "email": "sylvie.dubois@techvision.fr",
+    "name": "Sylvie Dubois",
+    "country": "FR",
+    "subscribed": true,
+    "source": "www.linkedin.com",
+    "website": "https://techvision.fr"
+  },
+  {
+    "email": "masaki.honda@hypertech.jp",
+    "name": "Masaki Honda",
+    "country": "JP",
+    "subscribed": false,
+    "website": "https://hypertech.jp"
+  },
+  {
+    "email": "ricardo.machado@cloudware.com.br",
+    "name": "Ricardo Machado",
+    "country": "BR",
+    "subscribed": true,
+    "source": "news.ycombinator.com",
+    "website": "https://cloudware.com.br"
+  },
+  {
+    "email": "karen.taylor@digitech.com",
+    "name": "Karen Taylor",
+    "country": "US",
+    "subscribed": false,
+    "source": "medium.com",
+    "website": "https://digitech.com"
+  }
+]

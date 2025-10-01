@@ -1,6 +1,20 @@
 
 # The UNIX of the Web
-"Do one thing and do it well". Nue is a shift from monolithic components to architectural sanity. It changes the way you think about web development.
+Web development became complicated. Hundreds of packages, gigabytes of dependencies, hours of configuration before writing a single line of code. We forgot that it doesn't have to be this way.
+
+Nue brings back the fundamentals: HTML for structure, CSS for design, JavaScript for logic. But taken to their absolute peak with modern capabilities.
+
+
+## How web development should work
+**Content sites:** Write Markdown, add layouts, deploy. No build tools, no framework lock-in.
+
+**Single-page apps:** Write HTML with reactive expressions. Add business logic in pure JavaScript. Style with a design system.
+
+**Backend:** Standard Request/Response APIs that work locally and on the edge. No platform-specific adapters.
+
+**Full stack:** Everything works together in 1MB. Content sites, SPAs, server routes, databases, hot reload.
+
+One tool. Zero dependencies. Complete system: The UNIX philosophy applied to web development.
 
 
 ## The kitchen sink problem
@@ -10,35 +24,46 @@ The UNIX tradition has a name for this: kitchen sink software. Codebases that tr
 
 Meanwhile, the web evolved dramatically. The web in 2025 has capabilities that didn't exist in 2013. HTML can describe complex applications. CSS creates real design systems. JavaScript became ES6: practically a new language. Browser APIs handle what once required libraries.
 
-While React stayed on its own path, adding more and more packages. Nue stays close to metal and takes HTML, CSS, and JavaScript to their absolute peak.
+While React stayed on its own path, adding more and more packages, Nue stays close to metal and takes HTML, CSS, and JavaScript to their absolute peak.
 
 
-## The UNIX way
-Nue is a new take on web frameworks. It uses zero external dependencies, every piece handcrafted to integrate perfectly, all focused on delivering the absolute best developer experience.
+## Why this matters
 
-The result is remarkable: a complete **full-stack development environment in 1MB**. That includes content-focused apps, single-page applications, server-side rendering, hot reloading, syntax highlighting, CloudFlare compatible local dev environment with SQL database, KV database, and more. You'd need both Next.js and Astro to get even close to the feature set.
+**Instant feedback:** Build times in milliseconds, not seconds. Hot reload across all assets in 10ms.
 
-While an empty Next.js project weighs 427MB, an empty Nue project is just an `index.html` file.
+**Tiny bundles:** Complete SPAs smaller than individual React components. Marketing sites under 30KB.
 
+**Clear architecture:** Business logic separated from design separated from content. Each layer scales independently.
 
-### New performance tier
-Nue operates at a completely different performance tier: **Build times** drop from 10+ seconds to 100 milliseconds. **Hot reload** happens in 10ms instead of taking seconds. **Bundle sizes** shrink so dramatically that entire single-page applications weigh less than individual React components.
-
-You get instant feedback loops, dramatically less complexity, fewer bugs, easier debugging with thinner stack traces, and easier to maintain products.
+**Standards-based:** HTML, CSS, and JavaScript that work everywhere. No framework APIs to learn, no migration paths to navigate.
 
 
-### Rapid application development
-React's component model encourages everything-in-one thinking. Your application code becomes another kitchen sink: business logic mixed with styling mixed with markup mixed with data fetching.
-
-Nue enforces architectural clarity. System code (logic, data, design) stays separate from application code (structure and content). Your SPAs focus solely on HTML structure. Your marketing pages become pure content.
-
-The result: codebases that are easier to understand, maintain, and scale. You build applications by assembling pieces, not debugging JavaScript monoliths.
-
-
-## Standards are forever
+### Standards are forever
 The biggest tragedy in React is technical debt. Remember Redux? Higher-Order Components? Class components? Enzyme? Each solving problems that exist in the React ecosystem only, now forgotten and replaced with the next trend. Skills you learn today risk becoming obsolete in 2-3 years.
 
-Web standards persist. HTML from 2006 still works. CSS only grows more powerful. JavaScript remains the language of the web. These skills compound over decades to come.
+Web standards persist. HTML from 2006 still works. CSS only grows more powerful. JavaScript remains the language of the web. These skills compound over decades.
 
 Products built on standards remain fresh forever. Your investment in web fundamentals never expires.
 
+
+## Who this is for
+
+**Solo developers** building client projects who want to 10x their output.
+
+**Technical founders** who need to ship products fast without framework overhead.
+
+**Full-stack developers** who prefer backends but need admin interfaces.
+
+**Agencies** delivering custom dashboards to small businesses.
+
+**Anyone** who remembers when web development was straightforward and wants that back.
+
+
+## Try it
+
+```bash
+bun install -g nuekit
+nue create blog
+cd blog
+nue
+```

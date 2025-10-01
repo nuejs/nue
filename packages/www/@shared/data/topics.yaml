@@ -1,5 +1,5 @@
 
-docs:
+topics:
   essentials:
     - Why Nue
     - Getting started
@@ -8,23 +8,17 @@ docs:
     - Contributing
 
   tools:
-    - title: Nuekit
-      desc: Standards first web framework
-    - title: Nuedom
-      desc: HTML first UI assembly
-    - title: Nuestate
-      desc: URL first state management
-    - title: Nuemark
-      desc: Content first web development
-    - title: Nueserver
-      desc: Edge-first server development
-    - title: Nueglow
-      desc: CSS first syntax highlighting
-    - title: Nueyaml
-      desc: YAML without the problems
+    - Nuekit / Standards first web framework
+    - Nuedom / HTML first UI assembly
+    - Nuestate / URL first state management
+    - Nuemark / Content first web development
+    - Nueserver / Edge-first server development
+    - Nueglow / CSS first syntax highlighting
+    - Nueyaml / YAML without the problems
 
   concepts:
     - Minimalism
+    - Frontend-only development
     - Separation of concerns
     - Design systems
     - Design engineering
@@ -40,8 +34,7 @@ docs:
 
   reference:
     - Configuration
-    - title: Command line (CLI)
-      slug: cli
+    - Command line (CLI) | cli
     - Build system
     - HTML syntax
     - HTML page types
@@ -50,7 +43,6 @@ docs:
     - Template data
     - State API
     - Server API
-    - Server testing API
     - Nuemark syntax
     - YAML syntax
     - Syntax highlighting

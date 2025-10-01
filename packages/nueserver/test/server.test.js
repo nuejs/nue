@@ -1,4 +1,4 @@
-import { fetch, routes } from '../src/server'
+import { fetch, routes } from '..'
 
 // clear routes
 afterAll(() => routes.length = 0)

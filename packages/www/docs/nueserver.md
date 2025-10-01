@@ -1,95 +1,52 @@
+# **Nueserver:** Edge first development
+Nueserver is an HTTP server built for edge deployment. Write code using CloudFlare Workers patterns during local development, deploy globally when ready.
 
-# **Nueserver:** Edge-first development
-Nueserver is an HTTP server that runs identically in development and on CloudFlare Workers. Write code once, deploy everywhere. No environment variables, no connection strings, no platform-specific adaptations.
 
-
-## Why edge-first
+## Why edge first
 Most web frameworks treat edge deployment as an afterthought. You develop with Node locally, then discover your code doesn't work at the edge. You build with traditional databases, then learn edge can't maintain connections.
 
 Every Next.js developer knows this journey:
 
-**NPM everywhere** - Your `npm run dev` spin
-s up a Node.js server. Full runtime, any npm package, unlimited memory. You install packages freely - bcrypt, sharp, mongoose.
+**NPM everywhere** - Your `npm run dev` spins up a Node.js server. Full runtime, any npm package, unlimited memory. You install packages freely: bcrypt, sharp, mongoose.
 
 **Database connections** - You connect to Postgres or MySQL. Connection pooling handles load. Prisma makes queries elegant. Your `.env.local` has `DATABASE_URL` pointing to localhost.
 
-**Production reality** - You deploy to production and things break. Replace bcrypt with Web Crypto? Swap sharp for browser-compatible alternatives? Abandon your ORM for raw SQL? Set up Postgres edge proxies?
+**Production reality** - You deploy and things break. Replace bcrypt with Web Crypto? Swap sharp for browser-compatible alternatives? Abandon your ORM for raw SQL? Set up Postgres edge proxies?
 
-The problem: you develop one way and deploy another. Your simple app turns complex.
+The problem: you develop one way and deploy another. Your simple app turns complex. Nueserver flips this. Your development environment uses edge-compatible patterns from day one.
 
-## The edge-first approach
 
-Nueserver flips this. Your development environment IS an edge environment. Same constraints, same APIs, same behavior:
+## Disclaimer
+Nueserver currently works for local development only. It's the foundation for Nue's complete backend vision, which includes CloudFlare Workers deployment and business model abstractions like `customers`, `leads`, `charges`, and `items` available through `c.env`.
 
-```javascript
-// Works locally and globally
-get('/api/users', async (c) => {
-  // SQLite locally, D1 globally - same API
-  const { DB } = c.env
-  const users = await DB.prepare('SELECT * FROM users').all()
-  return c.json(users)
-})
+This vision enables [frontend-only development](frontend-only-development) where you describe your business and Nue builds it. See the [roadmap](roadmap) for details on when deployments and business model concepts launch.
 
-post('/api/login', async (c) => {
-  // JSON files locally, CloudFlare KV globally - same API
-  const { KV } = c.env
-  const sessionId = crypto.randomUUID()
-  await KV.put(`session:${sessionId}`, userData)
-  return c.json({ sessionId })
-})
-```
-
-**Same APIs** - The code above runs identically on your machine and on 200+ edge locations.
-
-**Same environment** - No choosing between serverless and edge. No environment-specific code. What runs locally runs globally.
-
-**Same development flow** - One command: `nue serve`. Frontend and backend together with hot reload for everything.
 
 ## How it works
-
-### Database abstraction
-SQLite in development becomes CloudFlare D1 in production. Both are available through `c.env` and use the same prepared statement API:
+Nueserver provides a simple HTTP server with global route handlers. No classes, no imports, no server setup:
 
 ```javascript
 get('/api/users', async (c) => {
-  const { DB } = c.env
-  const users = await DB.prepare('SELECT * FROM users').all()
+  const users = await fetchUsers()
   return c.json(users)
 })
 
 post('/api/users', async (c) => {
-  const { DB } = c.env
-  const { name } = await c.req.json()
-  const result = await DB.prepare('INSERT INTO users (name) VALUES (?)').bind(name).run()
-  return c.json({ id: result.lastInsertRowid })
+  const data = await c.req.json()
+  const user = await createUser(data)
+  return c.json(user, 201)
+})
+
+use('/admin/*', async (c, next) => {
+  const auth = c.req.header('authorization')
+  if (!auth) return c.json({ error: 'Unauthorized' }, 401)
+  await next()
 })
 ```
 
-No connection strings. No environment variables. No database client configuration.
+Routes work immediately. No build step, no configuration. Hot reload updates both client and server code instantly.
 
-### Key-value storage
-JSON files locally become CloudFlare KV globally. Available through `c.env` with the same API for sessions, caching, and simple data:
-
-```javascript
-post('/api/login', async (c) => {
-  const { KV } = c.env
-  const sessionId = crypto.randomUUID()
-  await KV.put(`session:${sessionId}`, { user: 'alice' })
-  return c.json({ sessionId })
-})
-
-get('/api/session', async (c) => {
-  const { KV } = c.env
-  const sessionId = c.req.header('authorization')
-  const session = await KV.get(`session:${sessionId}`, { type: 'json' })
-  return c.json(session)
-})
-```
-
-Automatic JSON serialization. Distributed edge storage without code changes.
-
-### CloudFlare headers
-Edge-specific features work in both environments through the same request API:
+CloudFlare headers are mocked locally for edge-compatible development:
 
 ```javascript
 post('/api/contact', async (c) => {
@@ -101,27 +58,34 @@ post('/api/contact', async (c) => {
 })
 ```
 
-Geolocation and network data available during development. No environment detection needed.
+When deployment arrives, these headers provide real geolocation and network data at the edge.
 
-## Development benefits
 
-**Instant startup** - No build step. Routes work immediately. Hot reload updates both client and server code.
+## Design principles
+Nueserver draws inspiration from Hono's clean API while staying focused on [separation of concerns](separation-of-concerns). The design prioritizes simplicity and edge-first development over comprehensive features.
 
-**Zero configuration** - Define routes as global functions. No imports, no server setup, no middleware configuration.
+**Minimal surface area** - Only the essentials for HTTP handling. No templating, no file serving, no kitchen sink features. Other layers handle their concerns.
 
-**Testable by design** - Mock databases and KV storage let you unit test business logic without external dependencies.
+**Edge-native APIs** - Built around Web Standards (Request, Response). What works locally works globally.
 
-**True full-stack development** - Frontend and backend on the same port. State management works across both layers.
+**Global functions** - Routes are simple function calls, not class methods or framework abstractions. Write `get('/users', handler)` anywhere in your code.
 
-## Architecture patterns
+**Context over magic** - Everything flows through the explicit context object. No hidden globals, no framework-specific request parsing, no implicit dependencies.
 
-**Business model separation** - Keep HTTP routing separate from data operations. Model functions handle business logic, routes handle HTTP concerns.
 
-**Edge-native features** - CloudFlare headers work in both environments. Geolocation, IP detection, and security features available during development.
+### What's different from Hono
 
-**Progressive enhancement** - Start with simple JSON APIs. Add authentication, caching, and database operations without architectural changes.
+**No HTML responses** - Use `c.json()` and `c.text()` only. HTML generation belongs in the frontend.
 
-When your development environment matches production reality, you stop managing infrastructure and start shipping features.
+**No file serving** - Static assets are handled by the build system, not the server layer. Each concern stays in its domain.
+
+**No complex routing** - Simple patterns that map to CloudFlare's routing capabilities. No regex routes, no complex parameter validation.
+
+**No middleware chaining complexity** - Linear middleware execution with explicit `next()` calls. Predictable flow, easy debugging.
+
+This focused API makes the server layer predictable and portable. Your HTTP logic stays clean while other layers handle their specific concerns.
+
+
 
 ## Installation
 
@@ -137,5 +101,4 @@ Or install Nueserver directly as a library:
 bun install nueserver
 ```
 
-See the [Server API reference](server-api) and [Server testing API](server-testing-api) for complete routing, context, D1, KV, and testing documentation.
-
+See the [Server API reference](server-api) for complete routing and context documentation.

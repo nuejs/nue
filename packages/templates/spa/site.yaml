@@ -3,5 +3,4 @@ title: Minimal SPA
 
 server:
   dir: server
-  kv: users.json
   reload: true

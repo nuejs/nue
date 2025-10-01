@@ -42,19 +42,24 @@ function isDep(page_path, asset_path, all_paths) {
   // shared dir -> auto-included
   if (AUTO_INCLUDED.some(dir => asset_path.startsWith(dir + sep))) return true
 
+  // SPA: entire app tree
+  if (basename(page_path) == 'index.html') {
+    const dir = dirname(page_path)
+    return dir == '.' ? !all_paths.some(el => extname(el) == '.md') : asset_path.startsWith(dir + sep)
+  }
+
   // index.md -> home dir
   const pagedir = dirname(page_path)
   if (pagedir == '.' && basename(page_path) == 'index.md') return dirname(asset_path) == 'home'
 
-  // hierarchical inclusion (handles root ui/layout and app ui/layout)
+  // hierarchical inclusion (handles root ui and app ui)
   const page_dirs = parseDirs(dirname(page_path))
   const asset_dir = dirname(asset_path)
 
-  // check if asset is in ui/layout of any parent directory
+  // check if asset is in ui of any parent directory
   return page_dirs.some(pageDir => {
     const ui_dir = pageDir ? join(pageDir, 'ui') : 'ui'
-    const layout_dir = pageDir ? join(pageDir, 'layout') : 'layout'
-    return asset_dir == ui_dir || asset_dir == layout_dir || asset_dir == pageDir
+    return asset_dir == ui_dir || asset_dir == pageDir
   })
 }
 

@@ -6,12 +6,8 @@
   "license": "MIT",
   "type": "module",
 
-  "files": [ "src" ],
-
-  "exports": {
-    ".": "./src/server.js",
-    "./mock": "./src/mock.js"
-  },
+  "main": "nueserver",
+  "files": [ "nueserver.js" ],
 
   "repository": {
     "url": "https://github.com/nuejs/nue",

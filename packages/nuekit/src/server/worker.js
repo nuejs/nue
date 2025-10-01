@@ -1,12 +1,11 @@
 
 import { join } from 'node:path'
-import { mkdir } from 'node:fs/promises'
+
 import { routes, fetch, matches } from 'nueserver'
 
-import { createDB } from './db.js'
-import { createKV } from './kv.js'
+import { createEnv } from './env'
 
-export async function importRoutes({ dir, reload }) {
+export async function importWorker({ dir, reload }) {
   const path = join(process.cwd(), dir, 'index.js') + (reload ? '?t=' + Date.now() : '')
 
   try {
@@ -19,21 +18,17 @@ export async function importRoutes({ dir, reload }) {
   }
 }
 
-
 export async function createWorker(opts = {}) {
   const { dir='@shared/server', reload } = opts
 
-  await importRoutes({ dir, reload })
+  await importWorker({ dir, reload })
   if (!routes.length) return null
 
-  const { db, kv } = opts
-  const env = { ...process.env, ...opts.env }
-  if (db) env.DB = createDB(join(dir, db))
-  if (kv) env.KV = createKV(join(dir, kv))
+  const env = await createEnv(join(dir, 'data'))
 
 
   return async function(req) {
-    if (reload)  await importRoutes({ dir, reload })
+    if (reload)  await importWorker({ dir, reload })
     const url = new URL(req.url)
     const { method, body } = req
 

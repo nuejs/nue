@@ -31,16 +31,8 @@ features:
     - Universal HMR
     - SPA development
     - SVG development
-    - Near-instant startup
     - Minimal config
-
-  Backend layer:
-    - CloudFlare compatibiliity
-    - SQLite/D1 databases
-    - KV storage
-    - API routing
-    - Environment mocking
-    - Testing framework
+    - 10ms startup
 
   Static site generator:
     - Extended Markdown
@@ -50,13 +42,14 @@ features:
     - Content collections
     - RSS feeds & sitemaps
 
-  Production builds:
+  Application builder:
     - TypeScript transpiling
+    - JS/CSS optimization
     - CSS inlining
-    - JS/CSS minification
-    - SPA optimization
-    - Full-stack preview
-    - Extreme performance
+    - API routing
+    - Full-stack previews
+    - CloudFlare compatibiliity
+
 
 
 assembly:

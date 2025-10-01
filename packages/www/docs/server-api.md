@@ -1,30 +1,5 @@
-
 # Nueserver API
-[Nueserver](nueserver) is a minimal HTTP server that runs identically in development and on CloudFlare Workers. Write once, deploy everywhere.
-
-# Design principles
-Nueserver draws inspiration from Hono's clean API while staying focused on [separation of concerns](separation-of-concerns). The design prioritizes simplicity and edge-first development over comprehensive features.
-
-**Minimal surface area** - Only the essentials for HTTP handling. No templating, no file serving, no kitchen sink features. Other layers handle their concerns.
-
-**Edge-native APIs** - Built around Web Standards (Request, Response) and CloudFlare primitives (D1, KV). What works locally works globally.
-
-**Global functions** - Routes are simple function calls, not class methods or framework abstractions. Write `get('/users', handler)` anywhere in your code.
-
-**Context over magic** - Everything flows through the explicit context object. No hidden globals, no framework-specific request parsing, no implicit dependencies.
-
-
-## What's different from Hono
-
-**No HTML responses** - Use `c.json()` and `c.text()` only. HTML generation belongs in the frontend.
-
-**No file serving** - Static assets are handled by the build system, not the server layer. Each concern stays in its domain.
-
-**No complex routing** - Simple patterns that map to CloudFlare's routing capabilities. No regex routes, no complex parameter validation.
-
-**No middleware chaining complexity** - Linear middleware execution with explicit `next()` calls. Predictable flow, easy debugging.
-
-This focused API makes the server layer predictable and portable. Your HTTP logic stays clean while other layers handle their specific concerns.
+[Nueserver](nueserver) is a minimal HTTP server built for edge deployment. Write code using CloudFlare Workers patterns during local development.
 
 
 ## Quick start
@@ -126,14 +101,14 @@ Every handler receives a context object with request and response helpers.
 get('/example', async (c) => {
   // Get route parameters
   const id = c.req.param('id')
-  
+
   // Get query parameters
   const page = c.req.query('page')     // single param
   const params = c.req.query()         // all params as object
-  
+
   // Get headers
   const auth = c.req.header('authorization')
-  
+
   // Parse request body
   const data = await c.req.json()      // JSON
   const text = await c.req.text()      // plain text
@@ -146,69 +121,41 @@ get('/example', async (c) => {
 get('/example', async (c) => {
   // JSON response
   return c.json({ message: 'Hello' })
-  
+
   // JSON with status
   return c.json({ error: 'Not found' }, 404)
-  
+
   // Text response
   return c.text('Hello world')
-  
+
   // Status then JSON
   return c.status(201).json({ created: true })
 })
 ```
 
 ### Environment (c.env)
-Access CloudFlare bindings or local environment:
-
-```javascript
-get('/data', async (c) => {
-  const { DB, KV } = c.env
-  
-  // SQL database (SQLite locally, D1 globally)
-  const users = await DB.prepare('SELECT * FROM users').all()
-  
-  // Key-value store (JSON locally, KV globally)  
-  const session = await KV.get('session:123', { type: 'json' })
-  
-  return c.json({ users, session })
-})
-```
-
-## Edge-first patterns
-
-### Database access
-Same API locally and globally:
-
-```javascript
-get('/users', async (c) => {
-  const { DB } = c.env
-  const users = await DB.prepare('SELECT * FROM users').all()
-  return c.json(users)
-})
-```
-
-### Key-value storage
-JSON files locally, CloudFlare KV globally:
-
-```javascript
-post('/login', async (c) => {
-  const { KV } = c.env
-  const sessionId = crypto.randomUUID()
-  await KV.put(`session:${sessionId}`, userData)
-  return c.json({ sessionId })
-})
-```
-
-### CloudFlare headers
-Available in both environments:
+Access environment-specific resources. Currently supports CloudFlare headers during development:
 
 ```javascript
 post('/contact', async (c) => {
+  // CloudFlare headers (mocked locally)
   const country = c.req.header('cf-ipcountry')
   const ip = c.req.header('cf-connecting-ip')
-  
-  return c.json({ country, ip })
+
+  const data = await c.req.json()
+  return c.json({ ...data, country, ip })
+})
+```
+
+Future versions will provide business model abstractions through `c.env`:
+
+```javascript
+// Coming: business model primitives
+const { customers, leads, charges } = c.env
+
+get('/api/customers', async (c) => {
+  const all = await customers.all()
+  return c.json(all)
 })
 ```
 
@@ -285,4 +232,4 @@ post('/webhook', handleWebhook)
 del('/cache/:key', clearCache)
 ```
 
-The server handles everything automatically. Same code runs in development with `nue dev` and in production on CloudFlare Workers.
+The server handles everything automatically. Same code runs in development with `nue serve` and will run in production on CloudFlare Workers when deployment arrives.

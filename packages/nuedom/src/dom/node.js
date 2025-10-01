@@ -25,7 +25,7 @@ export function createNode(ast, data={}, opts={}, parent) {
   }
 
   // Object.assign(self, getAttrData(ast, self))
-  const self = { ...data, ...getAttrData(ast, data), update, parent }
+  const self = { ...data, ...opts.globals, ...getAttrData(ast, data), update, parent }
 
 
   if (script) {
@@ -83,7 +83,7 @@ export function createNode(ast, data={}, opts={}, parent) {
 
     const am = tag.classList.length
     if (am > (opts.max_class_names || 3)) {
-      console.error(`Too many class names: ${tag.classList.join(' ')}. Max: ${am}`)
+      console.error(`More than ${am} class names in class="${tag.classList }"`)
     }
 
     const cls = tag.classList?.toString()

@@ -1,0 +1,24 @@
+<!doctype dhtml lib>
+
+<script>
+  import { createVideo } from './controller.js'
+</script>
+
+<video-player class="player paused">
+
+  <a class="play"></a>
+  <a class="fullscreen" :onclick="fullscreen"></a>
+
+  <script>
+    const video = createVideo(this)
+
+    mounted() {
+      this.root.appendChild(video)
+    }
+
+    fullscreen() {
+      video.requestFullscreen()
+    }
+  </script>
+
+</video-player>

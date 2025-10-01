@@ -1,0 +1,52 @@
+<!doctype dhtml lib>
+
+<script>
+  import { state } from 'state'
+  import { get } from 'crud'
+</script>
+
+<article :is="contact-details">
+
+  <h1>Contact</h1>
+
+  <nav>
+    <button onclick="history.go(-1)">Back</button>
+    <button popovertarget="confirm-delete">Delete</button>
+  </nav>
+
+  <dl>
+    <template :if="name">
+      <dt>Name</dt><dd>{ name }</dd>
+    </template>
+
+    <dt>Email</dt><dd>{ email }</dd>
+    <dt>Registered</dt><dd><pretty-date :date="created"/></dd>
+    <dt>Country</dt><dd><country-emoji :code="country"/> <span>{ country_name }</span></dd>
+    <dt>Email</dt><dd>{ email }</dd>
+
+    <template :if="company_name">
+      <dt>Company</dt><dd>{ company_name }</dd>
+    </template>
+
+    <template :if="website">
+      <dt>Website</dt><dd>{ website }</dd>
+    </template>
+
+    <dt>Mailing list</dt><dd>{ subscribed ? '✅ Member' : '❌ Not member' }</dd>
+
+    <template :if="comment">
+      <dt>Comment</dt>
+      <dd>{ comment }</dd>
+    </template>
+  </dl>
+
+  <script>
+
+    async onmount() {
+      const lead = await get(`/api/admin/leads/${state.id}`)
+      this.update(lead)
+    }
+  </script>
+
+</article>
+

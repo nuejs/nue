@@ -1,17 +1,21 @@
 
+import { join } from 'node:path'
+
 import { parseNuemark } from 'nuemark'
 import { parseYAML } from 'nueyaml'
 import { parseNue } from 'nuedom'
 
-import { minifyCSS } from './tools/css'
-import { renderSVG } from './render/svg'
 import { renderMD, renderHTML } from './render/page'
 import { getCollections } from './collections'
 import { mergeConf, mergeData } from './conf'
 import { listDependencies } from './deps'
+import { mergeSharedData } from './site'
+import { renderSVG } from './render/svg'
+import { minifyCSS } from './tools/css'
 
 
-export function createAsset(file, files=[], conf={}) {
+export function createAsset(file, site={}) {
+  const { files=[], conf={} } = site
   let cachedObj = null
 
   function flush() {
@@ -21,7 +25,7 @@ export function createAsset(file, files=[], conf={}) {
 
   function toAssets(paths) {
     const arr = paths.map(path => files.find(file => file.path == path))
-    return arr.map(file => createAsset(file, files, conf))
+    return arr.map(file => createAsset(file, site))
   }
 
   function getDeps(opts={}) {
@@ -37,18 +41,23 @@ export function createAsset(file, files=[], conf={}) {
   }
 
   async function data() {
-    const yaml_files = getDeps().filter(f => f.is_yaml && f.name != 'site')
-    const dataset = await Promise.all(yaml_files.map(f => f.parse()))
-    const data = mergeData([ conf, ...dataset ])
-    return await mergeCollections(data, conf.collections)
-  }
+    const assets = getDeps()
+    const app_files = assets.filter(f => f.is_yaml && f.name != 'site' && f.basedir != '@shared')
+    const app_data = await Promise.all(app_files.map(f => f.parse()))
+    const ret = mergeData([conf, ...app_data])
 
-  async function mergeCollections(data, opts) {
-    if (opts) {
+    // content collections
+    const colls = conf.collections
+
+    if (colls) {
       const md_paths = files.filter(f => f.is_md).map(f => f.path)
-      Object.assign(data, await getCollections(toAssets(md_paths), opts))
+      Object.assign(ret, await getCollections(toAssets(md_paths), colls))
     }
-    return data
+
+    // shared data, functions, and transformation
+    await mergeSharedData(assets, ret)
+
+    return ret
   }
 
   // list all dependencies (public method)
@@ -59,7 +68,12 @@ export function createAsset(file, files=[], conf={}) {
   async function parse() {
     if (!cachedObj) {
       const str = await file.text()
-      cachedObj = file.is_yaml ? parseYAML(str) : file.is_md ? parseNuemark(str) : parseNue(str)
+
+      cachedObj = file.is_js || file.is_ts ? await import(join(process.cwd(), file.path) + '?' + Math.random())
+        : file.is_json ? JSON.parsek(str)
+        : file.is_md ? parseNuemark(str)
+        : file.is_yaml ? parseYAML(str)
+        : parseNue(str)
     }
     return cachedObj
   }
@@ -104,7 +118,7 @@ export function createAsset(file, files=[], conf={}) {
   }
 
   async function render(params) {
-    const asset = createAsset(file, files, conf)
+    const asset = createAsset(file, site)
     const { is_prod } = conf
 
     if (file.is_svg) {

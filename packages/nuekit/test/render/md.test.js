@@ -14,7 +14,7 @@ test('MD: page assets', async () => {
     async text() { return '# Hello' },
     path: 'page.md',
     is_md: true,
-  }, files)
+  }, { files })
 
   // document meta
   const doc = await page.parse()
@@ -33,14 +33,15 @@ test('MD: page assets', async () => {
 })
 
 test('MD: custom tags with <slot/>', async () => {
-  const page = createAsset({
-    async text() { return ['# Hello', '[custom.blue]', '  World'].join('\n') },
-    is_md: true,
-  }, [
+  const files = [
     { is_html: true, path: 'c.html', async text() {
       return '<!html lib><custom class="{ class } { nothing }"><slot/></custom>'
     }}
-  ])
+  ]
+  const page = createAsset({
+    async text() { return ['# Hello', '[custom.blue]', '  World'].join('\n') },
+    is_md: true,
+  }, { files })
 
   const html = await page.render()
   expect(html).toInclude('<div class="blue">World</div>')
@@ -48,23 +49,28 @@ test('MD: custom tags with <slot/>', async () => {
 
 
 test('Built-in functions & variables', async () => {
+  const file = { is_html: true, path: 'c.html', async text() {
+    return `
+      <!html lib>
+      <header>
+        <pretty-title/>
+        <p>{ headings.length }</p>
+        <p>{ url }</p>
+      </header>
+
+      <pretty-title>
+        {{ markdown("*hey*") }}
+      </pretty-title>
+    `
+  }}
+
   const page = createAsset({
     async text() { return '# Hey' },
     is_md: true,
     url: '/'
-  }, [
-    { is_html: true, path: 'c.html', async text() {
-      return `
-        <!html lib>
-        <header>
-          {{ markdown("*hey*") }}
-          <p>{ headings.length }</p>
-          <p>{ url }</p>
-        </header>`
-    }}
-  ])
+  }, { files: [file] })
 
   const html = await page.render()
-  expect(html).toInclude('<header><em>hey</em><p>1</p> <p>/</p></header>')
+  expect(html).toInclude('<header><div><em>hey</em></div> <p>1</p> <p>/</p></header>')
 })
 

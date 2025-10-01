@@ -1,0 +1,54 @@
+<!doctype dhtml>
+
+<script>
+  import { get, post } from 'crud'
+  import { state } from 'state'
+
+  state.setup({
+    query: ['type', 'query', 'start'],
+    emit_only: ['deleted'],
+    memory: ['ondelete'],
+    route: '/admin/:id',
+    autolink: true,
+  })
+
+  if (!localStorage.$sid) location.href = '/login/'
+</script>
+
+<body>
+
+  <header>
+    <nav>
+      <a href="/admin/" class="logo"><b>■</b> Admin</a>
+    </nav>
+    <nav>
+      <button class="plain" :onclick="logout">Logout</button>
+    </nav>
+  </header>
+
+  <main>
+    <article/>
+  </main>
+
+  <confirm-delete/>
+
+  <script>
+    async onmount() {
+      const all = await get('/api/admin/all')
+
+      state.on('id', ({ id }) => {
+        this.mount(id ? 'contact-details' : 'contact-list', 'article', all)
+      })
+
+      state.init()
+    }
+
+    async logout() {
+      await post('/api/logout')
+      delete localStorage.$sid
+      location.href = '/'
+    }
+  </script>
+
+</body>
+

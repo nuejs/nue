@@ -1,5 +1,5 @@
 
-import { matchPath } from '../src/server'
+import { matchPath } from '..'
 
 const cases = [
   // Basic matching

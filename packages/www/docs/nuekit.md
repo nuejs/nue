@@ -103,34 +103,19 @@ Develop SVG visuals with design system integration and embedded HTML. Live-reloa
 
 
 ## HMR everything
-
 Traditional development requires constant context switching. Edit Markdown or CSS, then reload page. Change layout, lose form state. Update server routes, restart everything. Nuekit maintains your development flow across every type of change.
 
 **Immediate updates**: Content changes update through DOM diffing while preserving scroll position and form state. CSS modifications inject directly without page reloads. Component library updates cascade to all pages using them.
 
-**Full-stack development**: Server route changes reload instantly without restarting the development server. Database schema updates reflect immediately. Frontend and backend develop in perfect sync.
+**Full stack**: Server route changes reload instantly without restarting the development server.
 
 **Creative flow**: When the feedback loop disappears, development becomes exploration. Try design variations instantly. Test content changes without losing context. The creative process stays unbroken.
 
 
-## Edge first development
-Most frameworks develop with Node.js locally then discover their code doesn't work at the edge. Nuekit inverts this - your development environment IS an edge environment. Same constraints, same APIs, same behavior from localhost to global deployment.
-
-```javascript
-server.get('/api/users', async (c) => {
-  // SQLite locally, D1 globally - identical API
-  const { DB } = c.env
-  const users = await DB.prepare('SELECT * FROM users').all()
-  return c.json(users)
-})
-```
-
-When development matches production reality, deployment becomes trivial. No environment variables, no connection strings, no platform-specific adaptations.
-
 ## Extreme performance
-Nuekit achieves incredible speed in three ways:
+Nuekit achieves new levels of speed:
 
-**Closer to metal**: Built on Bun's native APIs for file operations, WebSocket connections, and SQL databases. Fewer abstractions mean direct hardware utilization. Native glob patterns, built-in transpilation, zero-copy file serving.
+**Closer to metal**: Built on Bun's native APIs for file operations and WebSocket connections. Fewer abstractions mean direct hardware utilization. Native glob patterns, built-in transpilation, zero-copy file serving.
 
 **Separation of concerns**: When business logic, design, content, and structure live in separate files, complex bundlers become unnecessary. Each layer optimizes independently without coordination overhead.
 

@@ -1,0 +1,18 @@
+[
+  {"name":"Sarah Chen","email":"sarah.chen@example.com","country":"Singapore","role":"Product Manager","status":"active"},
+  {"name":"Marcus Johnson","email":"marcus.j@example.com","country":"USA","role":"Frontend Developer","status":"active"},
+  {"name":"Priya Sharma","email":"priya.sharma@example.com","country":"India","role":"UX Designer","status":"active"},
+  {"name":"Lars Andersson","email":"lars.a@example.com","country":"Sweden","role":"Backend Developer","status":"inactive"},
+  {"name":"Maria Rodriguez","email":"maria.r@example.com","country":"Spain","role":"Content Writer","status":"active"},
+  {"name":"James Wilson","email":"james.wilson@example.com","country":"UK","role":"Marketing Lead","status":"active"},
+  {"name":"Yuki Tanaka","email":"yuki.t@example.com","country":"Japan","role":"UI Designer","status":"active"},
+  {"name":"Ahmed Hassan","email":"ahmed.h@example.com","country":"Egypt","role":"Product Owner","status":"active"},
+  {"name":"Emma Thompson","email":"emma.t@example.com","country":"Canada","role":"Content Strategist","status":"pending"},
+  {"name":"Carlos Silva","email":"carlos.silva@example.com","country":"Brazil","role":"Full Stack Developer","status":"active"},
+  {"name":"Fatima Al-Zahra","email":"fatima.z@example.com","country":"Morocco","role":"UX Researcher","status":"active"},
+  {"name":"Oliver Schmidt","email":"oliver.s@example.com","country":"Germany","role":"DevOps Engineer","status":"active"},
+  {"name":"Anastasia Petrov","email":"anastasia.p@example.com","country":"Russia","role":"Brand Designer","status":"inactive"},
+  {"name":"Michael O'Connor","email":"michael.oc@example.com","country":"Ireland","role":"Marketing Manager","status":"active"},
+  {"name":"Li Wei","email":"li.wei@example.com","country":"China","role":"Mobile Developer","status":"active"},
+  {"name":"Isabella Rossi","email":"isabella.r@example.com","country":"Italy","role":"Content Manager","status":"pending"}
+]

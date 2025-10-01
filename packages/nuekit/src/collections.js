@@ -1,26 +1,26 @@
 
 // assumes is_md
-export async function getCollections(assets, opts) {
+export async function getCollections(files, opts) {
   const arr = {}
 
   for (const [name, conf] of Object.entries(opts)) {
-    arr[name] = await createCollection(assets, conf)
+    arr[name] = await createCollection(files, conf)
   }
 
   return arr
 }
 
-export async function createCollection(assets, conf) {
-  let matchedPages = matchPages(assets, conf.include)
+export async function createCollection(files, conf) {
+  let matchedPages = matchPages(files, conf.include)
   let filteredPages = await filterPages(matchedPages, conf)
   return sortPages(filteredPages, conf.sort)
 }
 
-function matchPages(assets, patterns=[]) {
+function matchPages(files, patterns=[]) {
   const ret = []
 
   for (const pattern of patterns) {
-    for (const page of assets) {
+    for (const page of files) {
       if (page.path.includes(pattern)) ret.push(page)
     }
   }
@@ -28,10 +28,10 @@ function matchPages(assets, patterns=[]) {
   return ret
 }
 
-async function filterPages(assets, conf) {
+async function filterPages(files, conf) {
   const ret = []
 
-  for (const page of assets) {
+  for (const page of files) {
     const { meta } = await page.parse()
 
     // require?
@@ -50,12 +50,12 @@ async function filterPages(assets, conf) {
   return ret
 }
 
-function sortPages(assets, sorting) {
-  if (!sorting) return assets
+function sortPages(files, sorting) {
+  if (!sorting) return files
 
   const [field, direction = 'asc'] = sorting.split(' ')
 
-  return assets.toSorted((a, b) => {
+  return files.toSorted((a, b) => {
     const aVal = a[field]
     const bVal = b[field]
     const result = aVal < bVal ? -1 : aVal > bVal ? 1 : 0

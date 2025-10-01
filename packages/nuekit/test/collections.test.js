@@ -81,16 +81,19 @@ test('sorting', async () => {
 
 
 test('rendering', async () => {
-  const pagefoot = '<!html lib><div :is="pagefoot"><p :each="page of pages">{ page.title }</div>'
-
   const files = [
     { is_md: true, path: 'blog/index.md', async text() { return '# Hello' } },
-    { is_html: true, path: '@shared/layout/pagefoot.html', async text() { return pagefoot } },
+
+    { is_html: true, path: '@shared/ui/pagefoot.html', async text() {
+      return '<pagefoot><p :each="page of pages">{ page.title }</p></pagefoot>'
+    }},
   ]
 
-  const page = createAsset(files[0], files, {
+  const conf = {
     collections: { pages: { include: [ 'blog/' ]} }
-  })
+  }
+
+  const page = createAsset(files[0], { files, conf })
 
   const html = await page.render()
   expect(html).toInclude('<div><p>Hello</p></div>')

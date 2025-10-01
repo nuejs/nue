@@ -1,3 +1,3 @@
 
 run-tests:
-	cd test && bun test browser
+	cd test && bun test state

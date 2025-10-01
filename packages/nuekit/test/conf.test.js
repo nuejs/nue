@@ -89,7 +89,9 @@ test('asset data/config', async () => {
     return { ...getFileInfo(file.path), text: async function() { return text } }
   })
 
-  const asset = createAsset({ path: 'blog/entry/index.md' }, files, { is_prod: true, port: 5000 })
+  const conf = { is_prod: true, port: 5000 }
+
+  const asset = createAsset({ path: 'blog/entry/index.md' }, { files, conf })
 
   expect(await asset.data()).toEqual({
     is_prod: true,

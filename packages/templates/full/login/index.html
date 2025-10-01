@@ -1,7 +1,7 @@
 <!doctype dhtml>
 
 <script>
-  import { login } from 'app'
+  import { post } from 'crud'
 </script>
 
 <h1>Admin login</h1>
@@ -29,11 +29,12 @@
 
   <script>
     submit(e) {
-      const form = e.target
       this.disabled = true
+      const data = Object.fromEntries(new FormData(e.target))
 
-      login(form.email.value, form.password.value).then(res => {
-        location.href = '/app/'
+      post('/api/login', data).then(ret => {
+        localStorage.$sid = ret.sessionId
+        location.href = '/admin/'
 
       }).catch(err => {
         this.update({ failure: true, disabled: false })

@@ -12,8 +12,8 @@ name: My App
 version: 1.0.0
 
 # Invalid - root array
-- item1
-- item2
+\- item1
+\- item2
 ```
 
 Files are encoded in UTF-8.

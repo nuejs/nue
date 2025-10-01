@@ -18,7 +18,7 @@ export async function renderSVG(asset, opts={}) {
 
   transform(root)
 
-  const styles = getStyles(await asset.assets(), parseYAMLArray(root.meta?.css))
+  const styles = getStyles(await asset.assets(), parseYAMLArray('tmp: ' + root.meta?.css))
 
   if (hmr) {
     const { base } = asset

@@ -19,9 +19,10 @@ export const api = {
   },
 
   get data() {
-    return cleanNulls(!window ? memory : {
+    return translate(!window ? memory : {
       ...getStoreData(sessionStorage),
       ...getStoreData(localStorage),
+      ...getURLData(location),
       ...memory
     })
   },
@@ -77,9 +78,13 @@ export const state = new Proxy(api, {
 })
 
 
-function cleanNulls(obj) {
+function translate(obj) {
   for (const key in obj) {
-    if (obj[key] == null) delete obj[key]
+    const val = obj[key]
+    if (val == null) delete obj[key]
+    else if (val == 'true') obj[key] = true
+    else if (val == 'false') obj[key] = false
+    else if (typeof val == 'string' && val != '' && !isNaN(+val)) obj[key] = +val
   }
   return obj
 }

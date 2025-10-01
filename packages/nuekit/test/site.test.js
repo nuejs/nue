@@ -1,8 +1,8 @@
 
-import { sortPaths } from '../src/site'
+import { sortAssets, mergeSharedData } from '../src/site'
 
-test('sortPaths', () => {
-  const sorted = sortPaths([
+test('sortAssets', () => {
+  const sorted = sortAssets([
     'blog/post.md',
     'index.html',
     '@shared/design/area.css',
@@ -23,3 +23,25 @@ test('sortPaths', () => {
   ])
 })
 
+test('sort assets', () => {
+  const assets = [{ path: 'b' }, { path: 'a' }]
+  const sorted = sortAssets(assets)
+
+  // both should be sorted
+  expect(assets[0].path).toBe('a')
+  expect(sorted[0].path).toBe('a')
+})
+
+
+test('mergeSharedData', async () => {
+  const dir = '@shared/data'
+
+  const assets = [
+    { dir, is_yaml: true, parse() { return { port: 100 } }},
+    { dir, is_js: true, parse() { return { default: function(data) { data.port = 200 }} }},
+  ]
+
+  const data = await mergeSharedData(assets)
+  expect(data).toEqual({ port: 200 })
+
+})

@@ -19,6 +19,7 @@
   .learn-more {
 
     .stack {
+      font-size: var(--ui-sizing);
       margin-block: 1.5em 2em;
       max-width: 12em;
       gap: .75em;

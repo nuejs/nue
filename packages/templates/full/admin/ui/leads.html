@@ -1,0 +1,77 @@
+<!doctype dhtml lib>
+
+<script>
+  import { state } from 'state'
+</script>
+
+<article :is="contact-list">
+
+  <h1>Leads</h1>
+
+  <header>
+    <!-- search -->
+    <input type="search" name="query" placeholder="Search..."
+      :oninput="state.query = $event.target.value" value="{ state.query }">
+
+    <!-- pagination -->
+    <nav>
+      <button class="plain" :onclick="seek(-1)" :disabled="!hasPrev()">←</button>
+      <small>{ status }</small>
+      <button class="plain" :onclick="seek(1)" :disabled="!hasNext()">→</button>
+    </nav>
+  </header>
+
+  <table>
+    <tr :each="el in items" key="{ el.id }">
+      <td>
+        <country-emoji :code="el.country"/>
+        <a href="{ el.id }">{ el.email }</a>
+      </td>
+      <td>{ el.comment }</td>
+      <td><pretty-date :date="el.created"/></td>
+      <td>
+        <button class="plain" popovertarget="confirm-delete" title="Delete"
+          :onclick="state.ondelete = el.id">×</button>
+      </td>
+    </tr>
+  </table>
+
+  <toast :message :if="message"/>
+
+  <script>
+    const { leads } = this
+    const page_size = 15
+
+    get status() {
+      const { start=0 } = state
+      return `${ start + 1 } – ${ start + page_size } of ${ leads.length }`
+    }
+
+    hasNext() {
+      return page_size + (state.start || 0) < leads.length
+    }
+
+    hasPrev() {
+      return state.start - page_size >= 0
+    }
+
+    seek(direction) {
+      state.start = (state.start || 0) + page_size * direction
+    }
+
+    state.on('deleted', ({ deleted }) => {
+      this.items = this.items.filter(el => el.id != deleted)
+      this.update({ message: 'Lead deleted succesfully' })
+      setTimeout(() => this.update({ message: null }), 3000)
+    })
+
+    state.on('id type query start', args => {
+      const { start=0, type, query } = args
+      let all = query ? leads.filter(el => el.email.includes(query)) : leads
+      this.update({ items: all.slice(start, page_size + start) })
+    })
+  </script>
+
+</article>
+
+

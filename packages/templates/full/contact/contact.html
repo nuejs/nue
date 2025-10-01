@@ -1,7 +1,7 @@
 <!doctype dhtml lib>
 
 <script>
-  import { postContact } from 'app'
+  import { post } from 'crud'
 </script>
 
 <form :is="contact-form" :onsubmit="submit" class="thin">
@@ -38,7 +38,7 @@
   <script>
     async submit(e) {
       const data = Object.fromEntries(new FormData(e.target))
-      await postContact(data)
+      await post('/api/leads', data)
       location.href = 'thanks'
     }
   </script>

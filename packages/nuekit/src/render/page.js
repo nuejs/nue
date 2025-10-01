@@ -3,6 +3,7 @@ import { renderScripts, renderHead } from './head'
 import { renderNue, compileNue } from 'nuedom'
 import { elem, renderInline as markdown } from 'nuemark'
 
+const globals = { markdown }
 
 export function renderSlots({ head=[], content='', comps=[], data={}, conf={} }) {
   const attr = getAttr(data)
@@ -12,7 +13,7 @@ export function renderSlots({ head=[], content='', comps=[], data={}, conf={} })
   function slot(name) {
     if (data[name] === false) return ''
     const comp = comps.find(el => el.is ? el.is == name : el.tag == name)
-    return comp ? renderNue(comp, { data, deps: comps, max_class_names }) : ''
+    return comp ? renderNue(comp, { data, deps: comps, globals, max_class_names }) : ''
   }
 
   const article = scope == 'article' ? content : `
@@ -114,7 +115,7 @@ export async function renderHTML(asset) {
   const comps = await asset.components()
 
   const { max_class_names } = conf.design || {}
-  const content = renderNue(root, { data, deps: comps, max_class_names })
+  const content = renderNue(root, { data, deps: comps, globals, max_class_names })
 
   // page
   return await renderPage({ content, comps, data, asset, conf })
@@ -163,7 +164,7 @@ export async function renderDHTML(asset) {
 
 function fileMeta(asset) {
   const { url, slug, dir } = asset
-  return { url, slug, dir, markdown }
+  return { url, slug, dir }
 }
 
 // custom components as Markdown extensions (tags)
@@ -181,6 +182,7 @@ function convertToTags(deps, data) {
       return renderNue(ast, {
         data: { ...args, ...attr, attr, blocks },
         slot: this.innerHTML,
+        globals,
         deps
       })
     }

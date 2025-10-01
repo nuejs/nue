@@ -1,6 +1,6 @@
-# Server
 
-Development environment for the user's server-side code. Provides runtime compatibility with edge platforms like Cloudflare Workers. Not to confuse with tools/server.js, which is the Nue development server.
+# User server
+Development environment for the user's server-side code. Not to confuse with tools/server.js, which is the Nue development server.
 
 ## Files
 
@@ -10,22 +10,7 @@ Development environment for the user's server-side code. Provides runtime compat
 
 **proxy.js** - Creates proxy to remote server for testing against live environments  
 
-**db.js** - Database interface that mimics Cloudflare D1 in development
+**env.js** - Simplified mocks for real server models (done later)
 
-**kv.js** - Key-value storage that mimics Cloudflare KV in development
 
-## Usage
 
-The server environment handles your `@shared/server/` code during development, providing the same APIs you'll have in production but running locally.
-
-```js
-import { getServer } from './server/index.js'
-
-// Get local development runtime
-const handler = await getServer()
-
-// Or proxy to remote server
-const handler = await getServer({ url: 'https://myapp.com' })
-```
-
-Your actual server code goes in `@shared/server/` in your project, not here.

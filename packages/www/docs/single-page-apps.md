@@ -330,6 +330,4 @@ The full template demonstrates how these basic concepts extend to complex real-w
 
 **Authentication flows** - Login pages and session management with server integration
 
-**More complex backend** - CloudFlare D1 (SQL) for contacts and leads, KV storage for authentication and session management.
-
 The same concepts apply - state listeners, component mounting, and URL-based routing. Just more of them, organized for maintainability and team collaboration.

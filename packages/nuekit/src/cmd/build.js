@@ -1,6 +1,6 @@
 
 import { mkdir, rmdir, writeFile, unlink } from 'node:fs/promises'
-import { join } from 'node:path'
+import { join, sep } from 'node:path'
 import { tmpdir } from 'os'
 
 import { generateSitemap, generateFeed } from '../render/feed'
@@ -55,7 +55,7 @@ export async function buildAll(subset, args) {
   await createSystemFiles(dist, init)
 
   // build files
-  subset = subset.filter(el => !el.is_yaml)
+  subset = subset.filter(el => !el.is_yaml && !el.dir.startsWith(`@shared${sep}data`))
 
   await Promise.all(subset.map(async asset => {
     try {

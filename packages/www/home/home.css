@@ -9,7 +9,8 @@
     font-size: .875em
   }
 
-  .nue-stack {
+  /* nue stack */
+  .ui.stack {
     aside {
       --cell-width: 175px;
       font-size: .875em;

@@ -1,0 +1,18 @@
+<!doctype html+dhtml lib>
+
+<!--
+  Used on server layouts and in client app
+-->
+
+<time :is="pretty-date">
+  { pretty }
+
+  <script>
+    const DATE_FORMAT = new Intl.DateTimeFormat('en-US', {
+      month: 'short', day: 'numeric', year: 'numeric'
+    })
+    let date = this.date || new Date()
+    if (typeof date == 'string') date = new Date(date)
+    this.pretty = DATE_FORMAT.format(date)
+  </script>
+</time>

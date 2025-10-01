@@ -1,3 +1,3 @@
 
 test:
-	bun test index.test.js
+	bun test

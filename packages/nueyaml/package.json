@@ -5,7 +5,8 @@
   "homepage": "https://nuejs.org/docs/nueyaml",
   "license": "MIT",
   "type": "module",
-  "files": [ "index.js" ],
+  "main": "nueyaml",
+  "files": [ "nueyaml.js" ],
 
   "repository": {
     "url": "https://github.com/nuejs/nue",

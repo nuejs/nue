@@ -1,48 +1,24 @@
 
-<!-- navigation for topics.yaml entries -->
+<!--
+  topics and getTopicCategory defined in @shared/data/data.js
+-->
 
-<nav :is="navi" class="stack">
-  <a :each="link in links" href="{ link.url }">
-    <template :if="!link.desc">{ link.title }</template>
-    <div :if="link.desc" class="row">
-      <strong>{ link.title }</strong>
-      <small>{ link.desc }</small>
+<nav :is="topics" class="stack">
+  <a :each="{ slug, desc, title } in topics[category]" href="/docs/{ slug }">
+    <template :if="!desc">{ title }</template>
+    <div :if="desc" class="row">
+      <strong>{ title }</strong>
+      <small>{ desc }</small>
     </div>
   </a>
-
-  <script>
-    function parseNavEntry(el) {
-      if (typeof el == 'string') el = { title: el }
-      let { title, slug, desc='' } = el
-      if (!slug) slug = title.toLowerCase().replaceAll(' ', '-')
-      return { title, url: `/docs/${ slug }`, desc }
-    }
-
-    const arr = this.docs[this.items] || []
-    this.links = arr.map(parseNavEntry)
-  </script>
 </nav>
 
-<!--
-[navi items="essentials"]
--->
 <pagefoot class="learn-more">
-
   <h2>Learn more</h2>
 
-  <navi :docs :items/>
+  <topics :topics :category="getTopicCategory(slug)"/>
 
   <p>
     <a href="/docs/"><strong>View all topics</strong></a>
   </p>
-
-  <script>
-    Object.keys(this.docs).forEach(cat => {
-      this.docs[cat].forEach(el => {
-        const slug = el.slug || (el.title || el).replaceAll(' ', '-').toLowerCase()
-        if (this.slug == slug) this.items = cat
-      })
-    })
-  </script>
-
 </pagefoot>

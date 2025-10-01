@@ -48,6 +48,7 @@ describe('build', async () => {
   beforeEach(async () => {
     await writeAll([
       ['@shared/ui/keyboard.ts', 'export const foo = 100'],
+      ['@shared/data/author.json', '{ "foo": 10 }'],
       ['@shared/design/base.css', '/* CSS */'],
       ['index.md', '# Hello'],
       ['404.md', '# 404'],
@@ -81,8 +82,8 @@ describe('build', async () => {
     await buildAll(assets, { dist })
     const results = await fileset(dist)
 
+    expect(assets.length).toBe(7)
     expect(results.length).toBe(11)
-    expect(assets.length).toBe(6)
 
     // typescript conversion / minify
     const js = await results.read('@shared/ui/keyboard.js')

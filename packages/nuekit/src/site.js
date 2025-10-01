@@ -1,5 +1,5 @@
 
-import { parse } from 'node:path'
+import { parse, sep } from 'node:path'
 import { fswalk } from './tools/fswalk'
 import { createAsset } from './asset'
 import { createFile } from './file'
@@ -8,9 +8,13 @@ export async function createSite(conf) {
   const { root, ignore } = conf
 
   // assets
-  const paths = sortPaths(await fswalk(root, { ignore }))
+  const paths = sortAssets(await fswalk(root, { ignore }))
   const files = await Promise.all(paths.map(path => createFile(root, path)))
-  const assets = files.map(file => createAsset(file, files, conf))
+
+  // createAsset options
+  const site_opts = { files, conf }
+
+  const assets = files.map(file => createAsset(file, site_opts))
 
   function get(path) {
     return assets.find(el => el.path == path)
@@ -36,26 +40,53 @@ export async function createSite(conf) {
 
     if (file) {
       files.push(file)
-      asset = createAsset(file, files, conf)
+      asset = createAsset(file, site_opts)
       assets.push(asset)
+
+      sortAssets(files)
+      sortAssets(assets)
       return asset
     }
   }
 
   return { assets, conf, get, remove, update }
+
 }
 
-export function sortPaths(paths) {
+export function sortAssets(items) {
 
   function prio(path) {
     const { dir, base } = parse(path)
     return base == dir.startsWith('@shared') ? 0 : !dir ? 2 : 1
   }
 
-  return paths.sort((a, b) => {
+  return items.sort((a, b) => {
+    if (a.path) { a = a.path; b = b.path }
     const prioA = prio(a)
     const prioB = prio(b)
     return prioA == prioB ? a.localeCompare(b) : prioA - prioB
   })
 
 }
+
+
+export async function mergeSharedData(assets, data={}) {
+  const shared = assets.filter(a => a.dir?.startsWith(`@shared${sep}data`))
+  const statics = shared.filter(f => f.is_json || f.is_yaml)
+
+  const dataset = await Promise.all(statics.map(f => f.parse()))
+
+  dataset.forEach(more => Object.assign(data, more))
+
+  // modifier scripts
+  const mods = shared.filter(f => (f.is_js || f.is_ts) && !f.name?.endsWith('.test'))
+
+  for (const mod of mods) {
+    const fns = await mod.parse()
+    await fns.default?.(data)
+  }
+
+  return data
+}
+
+

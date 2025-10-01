@@ -3,10 +3,8 @@
 Nue uses a three-tier configuration system. Site-wide settings in `site.yaml` provide defaults, app-level `app.yaml` files customize sections, and page front matter gives final control. The settings cascade: deeper level settings override parent settings.
 
 
-## Configuration levels
-
-### Site-wide settings (`site.yaml`)
-Global configuration that affects the entire site:
+## Site-wide settings
+Global configuration in `site.yaml` that affects the entire site:
 
 ```yaml
 # Development server port (default: 4000)
@@ -45,12 +43,6 @@ design:
 server:
   # Server code directory (default: @shared/server)
   dir: @shared/server
-
-  # SQL database file (relative to server dir)
-  db: db/app.db
-
-  # Key-value store data file (relative to server dir)
-  kv: db/kv.json
 
   # Auto-reload server on changes during development
   reload: true
@@ -183,7 +175,7 @@ production:
   # metadata override
   title_template: "%s / Acme Inc"
 
-  # any value becomes template data
+  # any value here overrides development data
   analytics_id: GA-PROD-789012
 ```
 

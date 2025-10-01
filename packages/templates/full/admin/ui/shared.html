@@ -1,0 +1,62 @@
+<!doctype dhtml lib>
+
+<script>
+  import { state } from 'state'
+  import { del } from 'crud'
+</script>
+
+<!-- pretty date -->
+<script>
+  const DATE_FORMAT = new Intl.DateTimeFormat('en-US', {
+    month: 'short', day: 'numeric', year: 'numeric'
+  })
+</script>
+
+<time :is="pretty-date">
+  { pretty }
+
+  <script>
+    this.pretty = this.date ? DATE_FORMAT.format(new Date(this.date)) : ''
+  </script>
+</time>
+
+<!--
+  @param { string } code - Two-letter country code (e.g., 'US', 'FR')
+-->
+<b :is="country-emoji">
+  { emoji }
+
+  <script>
+    this.emoji = this.code?.toUpperCase().replace(/./g, c =>
+      String.fromCodePoint(c.charCodeAt(0) + 127397)
+    )
+  </script>
+</b>
+
+<toast class="toast" :role="role || 'status'">
+  <p>{ message }</p>
+</toast>
+
+
+<!-- delete dialog -->
+<dialog :is="confirm-delete" id="confirm-delete" popover>
+  <h2>Delete this lead?</h2>
+  <p>This action cannot be undone.</p>
+
+  <footer>
+    <button :onclick  popovertarget="{ id }">Delete</button>
+    <button class="plain" popovertarget="{ id }">Cancel</button>
+  </footer>
+
+  <script>
+    async onclick() {
+      const id = state.id || state.ondelete
+
+      if (id) {
+        await del(`/api/admin/leads/${id}`)
+        if (state.id) state.id = null
+        state.set({ ondelete: null, deleted: id })
+      }
+    }
+  </script>
+</dialog>

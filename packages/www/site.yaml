@@ -9,7 +9,7 @@ meta:
   tagline: The UNIX of the Web
   title_template: %s / Nue
   description: Nue is the fastest way to build modern websites
-  favicon: /img/favicon-small.png
+  favicon: /img/favicon.svg
   og: /img/og.png
 
 content:
@@ -49,7 +49,7 @@ slack:
 
 join:
   title: 3.0 is coming
-  comment: Comment (optional, but valued!)
+  comment: Comment (Optional, but valued!)
+  desc: Get email when [multi-site development](/docs/roadmap) is ready
   cta: Ping me
-  desc:
-    Get email when [multi-site development](/docs/roadmap) is ready
+

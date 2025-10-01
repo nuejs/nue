@@ -1,16 +1,16 @@
-
-# Roadmap
-
+# **Roadmap:** our next major steps
 
 ## Multi-site development
 Build multiple websites from one shared system. Think of it like having a design system that works across different brands, but for everything - layouts, business logic, and data.
 
 ```
-@base/           # Global design system, components, logic
-acme.org/        # Marketing site. Inherits @base
-app.acme.com/    # Web application
-blog.acme.com/   # Company blog
-partners.com/    # Partner portal
+.
+@shared/          # Global design system, components, logic
+acme.org/         # Marketing site
+app.acme.com/     # Web application
+blog.acme.com/    # Company blog
+partners.com/     # Partner portal
+global.yaml       # Shared configuration
 ```
 
 Develop all sites with global hot reloading:
@@ -38,17 +38,27 @@ nue push --all
 →  app.acme.com   5 files    [220ms]
 →  blog.acme.com  12 files   [200ms]
 →  partners.com   8 files
-
 ```
 
 Instead of rebuilding everything from scratch, only the actual changes get streamed through one connection. Like everything else in Nue, deployments across multiple websites become almost instant.
 
-Nue Edge also brings the [edge first](edge-first) vision to life, so your local D1 and KV mocks work seamlessly in the cloud.
-
 All `yoursite.nuejs.org` subdomains are free, with paid tiers starting at $2/month for custom domains. We want to bring back the joy and experimentation of Geocities to modern web development.
 
 
-## Templates
+## Frontend-only development
+Frontend-only development means building complete business applications without writing backend code. This is enabled with a universal backend that every application needs: team management, authentication, customer records, payment tracking:
+
+
+**Core models** - Team (authentication and permissions), leads (mailing lists and conversions), emails (communication).
+
+**Event sourcing** - All business data loads as immutable monthly chunks. Past months cached forever, current month updates via SSE.
+
+**Multi-site** - Each site instance gets its own isolated dataspace. acme.org leads stay separate from blog.acme.com leads, while you still get shared access to all instances.
+
+This minimal set enables content-focused sites with mailing lists and basic customer tracking. Perfect for bloggers, newsletters, and early-stage startups. See [frontend-only development](/docs/frontend-only-development) for the complete vision.
+
+
+## Website templates
 Create a professional website instantly with a template:
 
 ```sh
@@ -69,9 +79,17 @@ Templates work seamlessly with Nue Edge:
 nue push --all
 ```
 
-Global systems, local expressions, instant deployment, and fair pricing.
-
-Nue changes the way you think about web development.
+By this point, nuejs.org runs on BMaaS. Templates come with proven architecture, not theoretical concepts.
 
 
+## Business model as a service
+Frontend-only development is only possible when all models are implemented and businesses can fully forget backend development:
 
+**Additional models** - Customers (user accounts), charges (payments), items (products/inventory), traffic (analytics)
+
+**Complete revenue cycle** - Leads convert to customers, customers generate charges, charges create users
+
+**Application templates** - SAAS starter, e-commerce, marketplace, learning platform. Each template uses the same universal backend with specialized frontend.
+
+
+Business Model as a Service (BMaaS), global design systems, local expressions, instant deployment, and fair pricing. Nue changes the way you think about web development.

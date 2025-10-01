@@ -3,6 +3,7 @@
 heading_ids: false
 title_template: false
 noindex: true
+pagefoot: false
 footer: true
 beside: true
 ---
@@ -13,21 +14,21 @@ The UNIX of the Web
 [.topics]
 
   ### Essentials
-  [navi items="essentials"]
+  [topics category="essentials"]
 
   ### Developing
-  [navi items="developing"]
+  [topics category="developing"]
 
   ---
 
   ### Tools
-  [navi items="tools"]
+  [topics category="tools"]
 
 
   ### Concepts
-  [navi items="concepts"]
+  [topics category="concepts"]
 
   ---
 
   ### Reference
-  [navi items="reference"]
+  [topics category="reference"]

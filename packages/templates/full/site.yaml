@@ -1,7 +1,7 @@
 
 meta:
   title_template: %s / Form & Function
-  description: The new standard for web design and development
+  description: Designer and UX developer
 
   # default author for blog entries
   author: Emma Bennet
@@ -11,6 +11,11 @@ site:
   view_transitions: true
 
 sitemap:
+  enabled: true
+
+rss:
+  title: UX developer blog
+  collection: blog
   enabled: true
 
 content:
@@ -33,19 +38,11 @@ collections:
     sort: order
 
 
-# custom additions
+# custom imports
 import_map:
-  app: /@shared/app.js
+  crud: /@shared/lib/crud.js
+  admin: /admin/admin.js
 
 server:
-  db: db/app.db
-  kv: db/kv.db
   reload: true
 
-# use a central design system
-design:
-  central: true
-  max_class_names: 2
-
-
-exclude: [ svg/ ]

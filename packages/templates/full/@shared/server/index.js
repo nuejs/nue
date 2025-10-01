@@ -1,76 +1,55 @@
 
-import { createAuth } from './model/auth.js'
-import { createCRM } from './model/index.js'
-
-
-get('/api', async (c) => {
-  const { version } = c.env
-  return c.json({ version })
-})
 
 // login
 post('/api/login', async (c) => {
+  const { users } = c.env
   const { email, password } = await c.req.json()
 
-  const auth = createAuth(c.env)
-
-  if (auth.validate(email, password)) {
-    const sessionId = await auth.addSession({ email })
-    return c.json({ sessionId })
-  }
-
-  return c.json({ error: 'Invalid credentials' }, 401)
+  const ret = await users.login(email, password)
+  return ret ? c.json(ret) : c.json({ error: 'Invalid credentials' }, 401)
 })
 
-post('/api/contacts', async (c) => {
+post('/api/logout', async (c) => {
+  const { users } = c.env
+  const sessionId = c.req.header('Authorization')?.replace('Bearer ', '')
+  await users.logout(sessionId)
+  return c.json({ success: true })
+})
+
+post('/api/leads', async (c) => {
+  const { users } = c.env
   const country = c.req.header('cf-ipcountry')
   const data = await c.req.json()
-  const contact = await createCRM(c.env).addContact({ ...data, country })
-  return c.json(contact)
+  const user = await users.create({ ...data, country })
+  return c.json(user)
 })
-
 
 // authenticated requests
-use('/admin/*', async (c, next) => {
-  const user = await createAuth(c.env).getUser(c.req)
-  if (!user) return c.json({ error: 'Invalid session' }, 401)
-  await next()
+use('/api/admin/*', async (c, next) => {
+  const { users } = c.env
+  const sessionId = c.req.header('Authorization')?.replace('Bearer ', '')
+  if (await users.authenticate(sessionId)) await next()
+  else return c.json({ error: 'Invalid session' }, 401)
 })
 
-// contacts
-get('/admin/contacts', async (c) => {
-  const crm = createCRM(c.env)
-  const contacts = await crm.getContacts(c.req.query())
-  return c.json(contacts)
+get('/api/admin/all', async (c) => {
+  const { leads } = c.env
+  return c.json({ leads: await leads.all() })
 })
 
-get('/admin/contacts/:id', async (c) => {
-  const crm = createCRM(c.env)
-  const id = parseInt(c.req.param('id'))
-
-  const customer = await crm.getContact(id)
-  if (!customer) return c.json({ error: 'Customer not found' }, 404)
-
-  return c.json(customer)
+get('/api/admin/leads/:id', async (c) => {
+  const { leads } = c.env
+  const lead = await leads.get(c.req.param('id'))
+  return lead ? c.json(lead) : c.json({ error: 'Lead not found' }, 404)
 })
 
-del('/admin/contacts/:id', async (c) => {
-  const id = parseInt(c.req.param('id'))
-  return c.json(createCRM(c.env).deleteContact(id))
+del('/api/admin/leads/:id', async (c) => {
+  const { leads } = c.env
+  const lead = await leads.get(c.req.param('id'))
+  if (!lead) return c.json({ error: 'Not found' }, 404)
+  await lead.remove()
+  return c.json({ success: true })
 })
 
-// search
-get('/admin/search', async (c) => {
-  const crm = createCRM(c.env)
-  const query = c.req.query('q')
 
-  if (!query) return c.json({ error: 'Query parameter required' }, 400)
 
-  const results = await crm.search(query)
-  return c.json(results)
-})
-
-// logout
-get('/admin/logout', async (c) => {
-  return c.json({ success: await createAuth(c.env).logout(c.req) })
-})

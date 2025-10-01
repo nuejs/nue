@@ -1,0 +1,15 @@
+
+@layer component {
+  .video {
+    border-radius: var(--radius-m);
+    position: relative;
+    display: block;
+    margin: 1.5em 0;
+    
+    video {
+      border-radius: var(--radius-m);
+      max-width: 100%;
+      min-width: 100%;
+    }
+  }
+}

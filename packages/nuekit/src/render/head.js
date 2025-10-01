@@ -1,15 +1,17 @@
 
-import { parse } from 'node:path'
+import { parse, sep } from 'node:path'
 
 import { elem } from 'nuemark'
 import { version } from '../system'
 import { minifyCSS } from '../tools/css'
 
 export async function renderHead({ conf, data, assets, libs=[] }) {
-  const { title } = data
+  const { title, favicon } = data
   const head = []
 
   if (title) head.push(elem('title', renderTitle(title, data.title_template)))
+
+  if (favicon) head.push(elem('link', { rel: 'icon', href: favicon }))
 
   // meta
   head.push(...renderMeta(data, libs))
@@ -81,8 +83,8 @@ function renderTitle(title, template) {
 }
 
 export function renderScripts(assets) {
-  return assets.filter(file => ['.js', '.ts'].includes(file.ext))
-    .map(file => elem('script', { src: `/${file.dir}/${file.name}.js`, type: 'module' }))
+  const scripts = assets.filter(f => ['.js', '.ts'].includes(f.ext) && f.dir != `@shared${sep}data`)
+  return scripts.map(s => elem('script', { src: `/${s.dir}/${s.name}.js`, type: 'module' }))
 }
 
 export async function renderStyles(assets, data={}) {

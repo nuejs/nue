@@ -6,7 +6,7 @@ date: 2025-04-01
 
 On this release, we’re showing what happens when you push modern web standards — HTML, CSS, and JS — to their peak:
 
-[bunny-video]
+[video-player]
   videoId: 39b76cca-e55b-4e9b-8583-b053f9dbd55d
   poster: thumbnail_70d8de32.jpg
   width: 704
@@ -24,7 +24,7 @@ This entire [app](//mpa.nuejs.org/app/) is _lighter_ than a React/ShadCN button:
 ## Going large-scale
 Here’s the same app, now with a **Rust** computation engine and **Event Sourcing** for instant search and other operations over **150,000** records — far past where [JS-version](//github.com/nuejs/nue/blob/master/packages/examples/simple-mpa/app/model/engines/javascript.js) of the engine crashed with a maximum call stack exception.
 
-[bunny-video]
+[video-player]
   videoId: eb65fcdd-5be4-4923-a783-f41efafe58a7
   caption: Instant operations across 150,000 records with Rust/WASM
   poster: /img/rust-splash.png
@@ -38,13 +38,10 @@ This demo is [here ›](//mpa.nuejs.org/app/?rust)
 
 Nue crushes HMR and build speed records and sets you up with a millisecond feedback loop for your everyday VSCode/Sublime file-save operations:
 
-[bunny-video]
+[video-player]
   videoId: ffbb6d40-5b74-4176-a115-d0ed040edca5
   caption: Immediate feedback for design and component updates, preserving app state
   // poster: thumbnail_1ca1bd66.jpg
-
-
-[video /img/mpa-build.mp4 autoplay loop muted width=350]
 
 
 &nbsp;
@@ -56,8 +53,8 @@ Here's what this means:
 
 This is a game-changer for Rust, Go, and JS engineers stuck wrestling with React idioms instead of leaning on timeless software patterns. Nue emphasizes a model-first approach, delivering modular design with simple, testable functions, true static typing, and minimal dependencies. Nue is a liberating experience for system devs whose skills can finally shine in a separated model layer.
 
-### For Design Engineers
 
+### For design engineers
 This is an important shift for design engineers bogged down by React patterns and [40,000+ line][new_york] design systems. Build radically simpler systems with modern CSS (@layers, variables, calc()) and take control of your typography and whitespace.
 
 

@@ -1,5 +1,12 @@
 
-import { renderSlots, renderPage, renderMD, renderHTML, renderDHTML } from '../../src/render/page'
+import {
+  renderMD,
+  renderPage,
+  renderSlots,
+  renderDHTML,
+  renderHTML,
+
+} from '../../src/render/page'
 
 
 test('renderSlots', () => {
