@@ -1,15 +1,30 @@
+<!doctype dhtml lib>
 
 <join-list>
-  <h2>{ join.title }</h2>
-  <p>{{ markdown(join.desc) }}</p>
 
-  <form class="ui flex" --width="40em">
+  <p :if="sessionStorage.joined">{ done }</p>
+
+  <form :else class="ui flex" --width="40em" :onsubmit="submit">
     <div class="stack">
       <input type="email" placeholder="Your email" class="flex-3">
-      <textarea placeholder="{ join.comment }"></textarea>
+      <textarea placeholder="{ comment }"></textarea>
     </div>
     <div>
-      <button class="brand">{ join.cta }</button>
+      <button class="brand">{ cta }</button>
     </div>
   </form>
+
+  <script>
+    submit({ target }) {
+      const data = Object.fromEntries(new FormData(target).entries())
+
+      false && fetch('/public/members', {
+        'Content-Type': 'application/json',
+        body: JSON.stringify(data),
+        method: 'POST',
+      })
+
+      sessionStorage.joined = true
+    }
+  </script>
 </join-list>

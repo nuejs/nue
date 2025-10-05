@@ -16,7 +16,7 @@ Or use it directly from a CDN:
 
 ```html
 <script type="module">
-  import { state } from 'https://cdn.skypack.dev/nuestate'
+  import { state } from '//esm.sh/nuestate'
 </script>
 ```
 

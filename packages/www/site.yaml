@@ -49,7 +49,9 @@ slack:
 
 join:
   title: 3.0 is coming
-  comment: Comment (Optional, but valued!)
   desc: Get email when [multi-site development](/docs/roadmap) is ready
-  cta: Ping me
+  form:
+    comment: Comment (Optional, but valued!)
+    done: We'll email you when the next major release is out
+    cta: Ping me
 

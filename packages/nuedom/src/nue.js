@@ -1,4 +1,5 @@
 
+// The browser API
 import { createNode } from './dom/node.js'
 
 export { domdiff } from './dom/diff.js'

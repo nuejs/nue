@@ -1,6 +1,6 @@
 
 # Template data
-Nue templates receive data from multiple sources that cascade and combine into a single context. This guide covers how data flows from YAML files to templates.
+Nue templates receive data from multiple sources that cascade and combine into a single context. This guide covers how data flows from YAML files, JSON files, and manipulation scripts to templates.
 
 
 ## Data files
@@ -16,7 +16,6 @@ site.yaml              # Metadata and custom properties only
 Example metadata and custom properties in site.yaml:
 
 ```yaml
-
 # site.yaml metadata
 meta:
   title: The UNIX of the web
@@ -55,10 +54,72 @@ docs/
 └── social.yaml
 ```
 
+### JSON files
+JSON files work identically to YAML files but are typically machine-generated from tools like TypeDoc, API documentation generators, or build processes:
+
+```json
+{
+  "api_version": "2.0",
+  "endpoints": [
+    {
+      "path": "/users",
+      "method": "GET",
+      "description": "List all users"
+    }
+  ]
+}
+```
+
+JSON data merges with YAML data at the same hierarchy level. Properties from both file types combine into a single context.
+
+
+## Data manipulation scripts
+Transform and enrich your data using JavaScript or TypeScript scripts. Place `.js` or `.ts` files in `@shared/data/` directory:
+
+```
+@shared/data/
+├── products.yaml
+├── team.yaml
+└── process.js         # Data manipulation script
+```
+
+### Script signature
+Export a default function that receives and returns the accumulated data:
+
+```javascript
+// @shared/data/process.js
+export default function(data) {
+  // data contains all merged YAML and JSON from this directory level
+  
+  // add computed properties
+  data.featured_products = data.products.filter(p => p.featured)
+  
+  // enrich existing data
+  data.team = data.team.map(member => ({
+    ...member,
+    avatar_url: `/img/team/${member.avatar}`
+  }))
+  
+  // return modified data
+  return data
+}
+```
+
+### Processing order
+Scripts run after all YAML and JSON files at the same level are merged:
+
+1. Load all `.yaml` and `.json` files in the directory
+2. Merge them into a single data object
+3. Run any `.js` or `.ts` scripts in alphabetical order
+4. Each script receives the current merged data and returns modified data
+
+
+
+
 ## Data compilation
 Data precedence from lowest to highest priority:
 
-1. **Start with global data** - Load all `@shared/data/*.yaml` files
+1. **Start with global data** - Load all `@shared/data/*.yaml` and `*.json` files, then run any `.js`/`.ts` scripts
 2. **Add root-level data** - From `site.yaml`  and other root level .yaml files
 3. **Add app-level data** - From `app.yaml` and app-specific .yaml files
 4. **Add page front matter** - Page-specific overrides
@@ -147,17 +208,19 @@ Here's what a typical template context looks like as JSON:
   // built-in functions to process markdown to HTML
   "markdown": function,
 
-  // team data from @shared/data/team.yaml
+  // team data from @shared/data/team.yaml (processed by scripts)
   "team": [
     {
       "name": "Alice Johnson",
       "role": "Lead Designer",
-      "avatar": "alice.jpg"
+      "avatar": "alice.jpg",
+      "avatar_url": "/img/team/alice.jpg"
     },
     {
       "name": "Bob Smith",
       "role": "Frontend Developer",
-      "avatar": "bob.jpg"
+      "avatar": "bob.jpg",
+      "avatar_url": "/img/team/bob.jpg"
     }
   ],
 

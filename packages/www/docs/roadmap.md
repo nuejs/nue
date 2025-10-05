@@ -1,7 +1,8 @@
+
 # **Roadmap:** our next major steps
 
 ## Multi-site development
-Build multiple websites from one shared system. Think of it like having a design system that works across different brands, but for everything - layouts, business logic, and data.
+Build multiple websites from one shared system.
 
 ```
 .
@@ -28,8 +29,8 @@ Edit a shared component and watch it update across all running sites. Change the
 
 
 
-## Nue Edge
-Deploy and manage your sites on a global CDN:
+## Deployments
+Deploy your multi-site setup to CloudFlare CDN:
 
 ```sh
 # Push all sites (only changed files)
@@ -37,25 +38,27 @@ nue push --all
 
 →  app.acme.com   5 files    [220ms]
 →  blog.acme.com  12 files   [200ms]
-→  partners.com   8 files
+→  partners.com   8 files    [110ms]
 ```
 
-Instead of rebuilding everything from scratch, only the actual changes get streamed through one connection. Like everything else in Nue, deployments across multiple websites become almost instant.
+Instead of rebuilding everything from scratch, only the actual changes get **streamed** through one connection. Like everything else in Nue, deployments across multiple websites become almost instant.
 
-All `yoursite.nuejs.org` subdomains are free, with paid tiers starting at $2/month for custom domains. We want to bring back the joy and experimentation of Geocities to modern web development.
-
-
-## Frontend-only development
-Frontend-only development means building complete business applications without writing backend code. This is enabled with a universal backend that every application needs: team management, authentication, customer records, payment tracking:
+All `yoursite.nuejs.org` subdomains are free, with paid tiers starting at $2/month for custom domains.
 
 
-**Core models** - Team (authentication and permissions), leads (mailing lists and conversions), emails (communication).
+## Universal data model (Foundation)
+One data architecture that works for any online business.
 
-**Event sourcing** - All business data loads as immutable monthly chunks. Past months cached forever, current month updates via SSE.
+**Basic CRM models** - Users (authentication and permissions), leads (mailing lists and conversions), emails (communication).
 
-**Multi-site** - Each site instance gets its own isolated dataspace. acme.org leads stay separate from blog.acme.com leads, while you still get shared access to all instances.
+**Event sourcing** - Load event data as cacheable chunks for client-side processing.
 
-This minimal set enables content-focused sites with mailing lists and basic customer tracking. Perfect for bloggers, newsletters, and early-stage startups. See [frontend-only development](/docs/frontend-only-development) for the complete vision.
+**Multi-site isolation** - Each site gets its own models. acme.org leads stay separate from blog.acme.com leads, while you still get shared access to all instances.
+
+This minimal set enables content sites with mailing lists and basic customer tracking. Perfect for bloggers, newsletters, and early-stage startups.
+
+See [universal data model](universal-data-model) for details.
+
 
 
 ## Website templates
@@ -63,7 +66,7 @@ Create a professional website instantly with a template:
 
 ```sh
 # Early-stage startup with Miesian design language
-nue create early-stage --design mies
+nue create mvp --design mies
 
 # Full startup template with Ramsian principles
 nue create startup --design rams
@@ -72,24 +75,33 @@ nue create startup --design rams
 nue create blog --design muriel
 ```
 
-Templates work seamlessly with Nue Edge:
+Templates deploy seamlessly:
 
 ```sh
 # Push your new multi-site system
 nue push --all
 ```
 
-By this point, nuejs.org runs on BMaaS. Templates come with proven architecture, not theoretical concepts.
+
+## Universal data model (Complete)
+Complete the rest of the models and functionality:
+
+**All models** - Customers (user accounts), charges (payments), records (products/inventory), traffic (analytics).
+
+**Analytics** - Aggregation model for website traffic. Combines with event data to provide insights across your entire history.
+
+**Event streaming** - Live streaming of conversion events to all active admin interfaces.
+
+This completes the universal backend, enabling full business applications with real-time analytics and customer management.
 
 
-## Business model as a service
-Frontend-only development is only possible when all models are implemented and businesses can fully forget backend development:
+## Admin interfaces
+Complete admin products built on the universal data model. Works with any design system and matches your public interface.
 
-**Additional models** - Customers (user accounts), charges (payments), items (products/inventory), traffic (analytics)
+**Universal UI library** - Components for all data model patterns. Tables, forms, charts, and filters that work across users, leads, customers, and records.
 
-**Complete revenue cycle** - Leads convert to customers, customers generate charges, charges create users
+**Data mocking** - Generate realistic business data from high-level parameters. Develop against believable scenarios, not random noise.
 
-**Application templates** - SAAS starter, e-commerce, marketplace, learning platform. Each template uses the same universal backend with specialized frontend.
+**Admin templates** - Analytics dashboards, mailing list management, customer relations, and communication tools. Ready to customize for your business.
 
 
-Business Model as a Service (BMaaS), global design systems, local expressions, instant deployment, and fair pricing. Nue changes the way you think about web development.

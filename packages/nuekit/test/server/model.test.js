@@ -14,7 +14,7 @@ test('createEnv', async () => {
 
   const { users, leads } = await createEnv(testDir)
 
-  const [ john ] = await users.all()
+  const [ john ] = await users.getAll()
   expect(john).toMatchObject({ id: 1, name: 'John' })
 
   expect((await leads.get(1))).toMatchObject({ id: 1, name: 'Jane' })

@@ -1,7 +1,7 @@
 {
   "name": "nuekit",
   "version": "2.0-beta",
-  "description": "Standards first web framework",
+  "description": "The UNIX of the Web",
   "homepage": "https://nuejs.org",
   "license": "MIT",
   "type": "module",
@@ -20,10 +20,10 @@
     "test": "cd test && bun test"
   },
   "dependencies": {
-    "nueyaml": "*",
-    "nuedom": "*",
-    "nuemark": "*",
-    "nue-glow": "*"
+    "nueyaml": "^0.1.0",
+    "nuedom": "^0.1.0",
+    "nuemark": "^0.7.0",
+    "nue-glow": "^0.2.0"
   },
 
   "files": [ "src", "client" ]

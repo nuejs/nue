@@ -40,9 +40,7 @@ test('renderPage', async () => {
 })
 
 
-
 test('renderMD', async () => {
-  const content = '<h1>Hello</h1>'
 
   const asset = {
     async config() { return {} },
@@ -52,7 +50,7 @@ test('renderMD', async () => {
     },
     async parse() {
       return {
-        render() { return content }
+        render() { return '<h1>Hello</h1>' }
       }
     },
     async assets() {
@@ -70,7 +68,7 @@ test('renderMD', async () => {
   expect(html).toInclude('<meta name="libs" content="comps.html">')
   expect(html).toInclude('script src="/@nue/mount.js"')
   expect(html).not.toInclude('<body>')
-  expect(html).toInclude(content)
+  expect(html).toInclude('<h1>Hello</h1>')
 })
 
 
@@ -94,6 +92,21 @@ test('renderHTML', async () => {
 
   const html = await renderHTML(asset)
   expect(html).toInclude('<main>Hello<div>World</div></main>')
+})
+
+test('standalone HTML', async () => {
+  const asset = {
+    async parse() {
+      return { doctype: 'html', root: { tag: 'html' } }
+    },
+
+    async text() {
+      return '<html/>'
+    }
+  }
+
+  const html = await renderHTML(asset)
+  expect(html).toBe('<html/>')
 })
 
 

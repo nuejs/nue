@@ -1,7 +1,8 @@
 
+// users model auto-loaded from users.json
 get('/users', async (c) => {
   const { users } = c.env
-  return c.json(await users.all())
+  return c.json(await users.getAll())
 })
 
 get('/users/:id', async (c) => {

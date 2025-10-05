@@ -1,5 +1,5 @@
 
-import { importRoutes, createWorker } from '../../src/server/worker.js'
+import { importWorker, createWorker } from '../../src/server/worker'
 import { testDir, write, removeAll } from '../test-utils'
 import { routes, fetch, matches } from 'nueserver'
 
@@ -16,9 +16,9 @@ beforeAll(async () => {
 afterAll(async () => await removeAll())
 
 
-test('importRoutes', async () => {
+test('importWorker', async () => {
 
-  await importRoutes({ dir: testDir })
+  await importWorker({ dir: testDir })
 
   // routes
   expect(routes.length).toBe(1)

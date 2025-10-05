@@ -7,7 +7,6 @@ import { createHeadingId, elem, renderBlocks } from './render-blocks.js'
 import { renderInline } from './render-inline.js'
 
 
-// OPTS: { data, sections, content_wrapper, heading_ids, links, tags }
 export function parseDocument(lines) {
   const meta = stripMeta(lines)
   const things = parseBlocks(lines)
@@ -42,6 +41,7 @@ export function parseDocument(lines) {
   return {
     blocks,
 
+    // OPTS: { data, sections, content_wrapper, heading_ids, links, tags }
     render(opts = {}) {
       Object.assign(things.reflinks, parseReflinks(opts.links))
       opts = { ...opts, ...things }

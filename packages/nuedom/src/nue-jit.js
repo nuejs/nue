@@ -1,4 +1,5 @@
 
+// The browser API with compiler
 import { parseNue } from './compiler/document.js'
 import { createNode } from './dom/node.js'
 

@@ -1,6 +1,6 @@
 {
   "name": "nuemark",
-  "version": "0.6.3",
+  "version": "0.7.0",
   "description": "Markdown flavour for rich, interactive websites",
   "homepage": "https://nuejs.org",
   "license": "MIT",
@@ -15,8 +15,8 @@
     "test": "node --experimental-vm-modules ../../node_modules/jest/bin/jest.js --runInBand"
   },
   "dependencies": {
-    "nueyaml": "*",
-    "nue-glow": "*"
+    "nueyaml": "^0.1.0",
+    "nue-glow": "^0.2.0"
   },
   "files": [ "src" ],
   "jest": {

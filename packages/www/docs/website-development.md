@@ -1,15 +1,15 @@
 
-# Content-focused apps
-Content-focused apps are websites where the content drives the experience. Blogs, documentation sites, marketing pages, company websites, and portfolios all fall into this category.
+# Website development
+Websites are content-driven applications where information comes first. Blogs, documentation, marketing pages, company sites, and portfolios all follow this pattern: the content defines the structure, and the design system presents it.
 
 ## Getting started
-Create a blog template to see how content-focused apps work:
+Let's start with the the simplests of websites:
 
 ```bash
 nue create blog
 ```
 
-This generates a complete content-focused structure:
+This generates a content-focused file structure:
 
 ```
 ├── site.yaml          # global configuration

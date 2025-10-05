@@ -30,7 +30,6 @@ Client-rendered dynamic pages with interactive behavior:
 
 Becomes a client-side component that mounts and runs in the browser. Used for interactive pages, forms, dashboards, and single-page applications.
 
-
 ## HTML libraries
 Create reusable components and [layout modules](/docs/layout-system) for server-rendered pages:
 

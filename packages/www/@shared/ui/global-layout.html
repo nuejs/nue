@@ -26,7 +26,9 @@
 
 <!-- join mailing list -->
 <aside :is="beside">
-  <join-list :join/>
+  <h2>{ join.title }</h2>
+  <p>{{ markdown(join.desc) }}</p>
+  <join-list :bind="join.form"/>
 </aside>
 
 <footer class="ui">

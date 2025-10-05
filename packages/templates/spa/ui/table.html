@@ -1,0 +1,39 @@
+
+<!doctype dhtml lib>
+
+<!-- user table -->
+<article :is="users">
+  <h1>Users</h1>
+
+  <table>
+    <tr :each="user in users">
+      <td><a href="/{ user.id }">{ user.name }</a></td>
+      <td><strong>{ user.email }</strong></td>
+      <td>{ user.country }</td>
+      <td>{ user.role }</td>
+      <td><span class="status { user.status }">{ user.status }</span></td>
+      <td><pretty-date :date="user.created"/></td>
+    </tr>
+  </table>
+
+  <script>
+    async mounted() {
+      const users = await fetch('/users').then(r => r.json())
+      this.update({ users })
+    }
+  </script>
+</article>
+
+
+<!-- pretty date -->
+<time :is="pretty-date">
+  { formatDate(date) }
+
+  <script>
+    const opts = { year: 'numeric', month: 'short', day: 'numeric' }
+    formatDate(date) {
+      return new Date(date).toLocaleDateString('en-US', opts)
+    }
+  </script>
+</time>
+

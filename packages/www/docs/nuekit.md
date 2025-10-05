@@ -101,7 +101,6 @@ Rich content creation with layout blocks. Design system classes provide consiste
 Develop SVG visuals with design system integration and embedded HTML. Live-reload from `my-graphic.svg?hmr` for instant updates to data, CSS, and markup without browser reload.
 
 
-
 ## HMR everything
 Traditional development requires constant context switching. Edit Markdown or CSS, then reload page. Change layout, lose form state. Update server routes, restart everything. Nuekit maintains your development flow across every type of change.
 
@@ -110,18 +109,6 @@ Traditional development requires constant context switching. Edit Markdown or CS
 **Full stack**: Server route changes reload instantly without restarting the development server.
 
 **Creative flow**: When the feedback loop disappears, development becomes exploration. Try design variations instantly. Test content changes without losing context. The creative process stays unbroken.
-
-
-## Extreme performance
-Nuekit achieves new levels of speed:
-
-**Closer to metal**: Built on Bun's native APIs for file operations and WebSocket connections. Fewer abstractions mean direct hardware utilization. Native glob patterns, built-in transpilation, zero-copy file serving.
-
-**Separation of concerns**: When business logic, design, content, and structure live in separate files, complex bundlers become unnecessary. Each layer optimizes independently without coordination overhead.
-
-**Minimalism**: Less code executes faster. The entire client runtime weighs 2.5KB gzipped. Your applications become proportionally lightweight - single-page apps smaller than individual React components.
-
-Build times measure in milliseconds, not seconds. Hot reload happens in under 20ms. The development experience approaches native application responsiveness while maintaining web deployment simplicity.
 
 
 ## Installation

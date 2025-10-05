@@ -1,5 +1,6 @@
 
 import { join } from 'node:path'
+import { existsSync } from 'fs'
 
 import { routes, fetch, matches } from 'nueserver'
 
@@ -24,8 +25,10 @@ export async function createWorker(opts = {}) {
   await importWorker({ dir, reload })
   if (!routes.length) return null
 
-  const env = await createEnv(join(dir, 'data'))
+  const data_dir = join(process.cwd(), dir, 'data')
+  const env = existsSync(data_dir) ? await createEnv(data_dir) : {}
 
+  console.log(`Backend server started with ${routes.length} routes`, reload ? '(reloadable)' : '')
 
   return async function(req) {
     if (reload)  await importWorker({ dir, reload })

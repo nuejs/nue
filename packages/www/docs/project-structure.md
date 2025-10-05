@@ -64,19 +64,21 @@ nue create spa
 Creates:
 
 ```
-├── css/
-│   ├── spa.css
-│   └── status.css
+.
+├── css
+│  ├── base.css
+│  └── components.css
 ├── index.html
-├── server/
-│   ├── index.js
-│   └── users.json
+├── server
+│  ├── data
+│  │  └── users.json
+│  └── index.js
 ├── site.yaml
-└── ui/
-    └── users.html
+└── ui
+    └── lib.html
 ```
 
-A client-side application with separate CSS, UI components, and a CloudFlare-compatible backend. The `index.html` controls routing and state, while `ui/` contains individual page components. The `server/users.json` acts as a KV datastore, and `server/index.js` uses Hono for seamless CloudFlare deployment.
+The `index.html` controls routing and state, while `ui/` contains individual page components. The `server/users.json` becomes a CloudFlare compatible datastore, and `server/index.js` define your routes. See [SPA development](single-page-apps) for details.
 
 
 ## Larger projects

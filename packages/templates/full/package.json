@@ -2,6 +2,6 @@
   "description": "Full nue template with raw/brutalist design system",
   "type": "module",
   "dependencies": {
-    "nueserver": "latest"
+    "nueserver": "^0.1.0"
   }
 }

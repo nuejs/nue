@@ -1,5 +1,6 @@
 
-import { compileNue, compileFn } from '../src/compiler/compiler.js'
+import { compileFn } from '../src/compiler/compiler.js'
+import { compileNue  } from '..'
 
 
 test('empty template', () => {

@@ -1,28 +1,5 @@
 {
-  "name": "nue",
-  "version": "0.0.0",
-  "license": "MIT",
-  "type": "module",
+  "name": "nue-monorepo",
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
-  "engines": {
-    "bun": ">=1.2",
-    "node": ">=20.8"
-  },
-  "scripts": {
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand"
-  },
-  "jest": {
-    "setupFilesAfterEnv": [
-      "<rootDir>/setup-jest.js"
-    ],
-    "collectCoverageFrom": [
-      "<rootDir>/packages/*/src/**"
-    ]
-  },
-  "dependencies": {
-    "hono": "^4.8.12"
-  }
+  "workspaces": [ "packages/*" ]
 }

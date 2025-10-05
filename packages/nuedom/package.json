@@ -1,22 +1,26 @@
 {
   "name": "nuedom",
-  "version": "2.0-beta",
-  "description": "HTML first UI language",
-  "homepage": "https://nuejs.org/docs/nue-templating/",
-  "main": "src/index.js",
+  "version": "0.1.0",
+  "description": "HTML first UI assembly",
+  "homepage": "https://nuejs.org/docs/nuedom",
   "license": "MIT",
   "type": "module",
-  "module": "src/nue-jit.js",
+
+  "main": "src/index.js",
+  "browser": "src/nue-jit.js",
+
 
   "repository": {
     "url": "https://github.com/nuejs/nue",
     "directory": "packages/nuedom",
     "type": "git"
   },
+
   "engines": {
     "bun": ">= 1.2",
     "node": ">= 20.0.0"
   },
+
   "scripts": {
     "test": "node --experimental-vm-modules ../../node_modules/jest/bin/jest.js --runInBand",
     "minify": "bun bin/minify.js && cp -r dist demo/dist"

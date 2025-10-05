@@ -17,9 +17,9 @@ $ # 2/3: developing with Nue
 
 $ cd full && nue dev
 ✓ Read 8 pages and 43 assets [10ms]
-✓ KV database loaded (1kb) [3ms]
-✓ D1 database loaded (3kb) [2ms]
-✓ 3 worker routes loaded at /api/* [4ms]
+✓ Users dev model loaded (3 records) [3ms]
+✓ Leads dev model loaded (100 records) [2ms]
+✓ 5 worker routes loaded at /api/* [4ms]
 ✓ Started serving: <u>http://localhost:4000</u> [41ms]
 
 ⚡ <b>HMR: Watching for file updates:</b>
@@ -39,19 +39,19 @@ $ # 3/3: building for production
 
 $ nue build
 📦 <b>Building shared libs:</b>
-✓ Business model: 5 TS files (8KB) [28ms]
-✓ Design system: 14 CSS files (8KB) [35ms]
-✓ UI components: 5 files [42ms]
+✓ Business model: 5 TS files (8KB) [8ms]
+✓ Design system: 14 CSS files (8KB) [9ms]
+✓ UI components: 5 files [7ms]
 
 📦 <b>Building pages:</b>
-✓ products/ (6 pages) [18ms]
-✓ blog/ (28 pages) [38ms]
-✓ docs/ (33 pages) [45ms]
+✓ products/ (6 pages) [11ms]
+✓ blog/ (28 pages) [22ms]
+✓ docs/ (33 pages) [25ms]
 ✓ Front page [3ms]
 
 📦 <b>Building apps:</b>
 ✓ login (1 file) [4ms]
-✓ admin (8 files) [22ms]
-✓ Build complete in <u>198ms</u>
+✓ admin (8 files) [9ms]
+✓ Build complete in <u>98ms</u>
 
 $ # nue is fast

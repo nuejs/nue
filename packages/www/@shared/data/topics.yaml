@@ -18,19 +18,18 @@ topics:
 
   concepts:
     - Minimalism
-    - Frontend-only development
     - Separation of concerns
     - Design systems
     - Design engineering
+    - Universal data model
 
   developing:
     - Project structure
-    - Content-focused apps
-    - Single-page apps
+    - Website development
     - CSS development
-    - JS development
+    - JS enhancements
     - SVG development
-    - Server development
+    - SPA development
 
   reference:
     - Configuration

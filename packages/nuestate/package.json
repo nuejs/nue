@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "URL-first state management",
   "homepage": "https://nuejs.org/docs/nuestate",
+  "main": "src/state.js",
   "license": "MIT",
   "type": "module",
   "files": [ "src" ],

@@ -204,3 +204,14 @@ Single page apps are simply a dhtml + body combo:
 
 See [SPA development](spa-development) for details.
 
+
+### Raw HTML page
+If the page starts with `<!doctype html>` and contains `<html>` or `<head>` tag at the root level, the page is rendered as is without Nue processing
+
+```html
+<!doctype html>
+
+<head>
+  ...
+</head>
+```

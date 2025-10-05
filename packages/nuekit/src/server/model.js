@@ -23,8 +23,12 @@ function createModel(items) {
   }
 
   // implemented with true event sourcing later
-  async function all() {
+  async function getAll() {
     return items
+  }
+
+  async function size() {
+    return items.length
   }
 
   async function get(id) {
@@ -44,7 +48,7 @@ function createModel(items) {
     }
   }
 
-  return { all, create, get }
+  return { getAll, size, create, get }
 }
 
 
@@ -70,7 +74,7 @@ async function createUserModel(items) {
   const sessions = await readSessions()
 
   async function login(email, password) {
-    const user = (await users.all()).find(el => el.email == email)
+    const user = (await users.getAll()).find(el => el.email == email)
 
     // mock: plaintext passwords. production uses hashed
     if (user?.password == password) {
@@ -96,15 +100,16 @@ async function createUserModel(items) {
 
 
 export async function createEnv(dir) {
-  const files = await readdir(join(process.cwd(), dir))
+  const files = await readdir(dir)
   const env = {}
 
   for (const file of files) {
     if (file.endsWith('.json')) {
       const type = file.replace('.json', '')
-      const path = join(process.cwd(), dir, file)
+      const path = join(dir, file)
       const items = JSON.parse(await readFile(path, 'utf8'))
-      env[type] = type == 'users' ? await createUserModel(items) : createModel(items)
+      const model = env[type] = type == 'users' ? await createUserModel(items) : createModel(items)
+      console.log(`Model "${type}" loaded (${ await model.size() } records)`)
     }
   }
 

@@ -34,7 +34,7 @@ use('/api/admin/*', async (c, next) => {
 
 get('/api/admin/all', async (c) => {
   const { leads } = c.env
-  return c.json({ leads: await leads.all() })
+  return c.json({ leads: await leads.getAll() })
 })
 
 get('/api/admin/leads/:id', async (c) => {

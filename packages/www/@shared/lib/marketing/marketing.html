@@ -41,7 +41,8 @@
   <ul class="list" --items="{ assembly.length }">
     <li :each="path, i in assembly" class="card" --index="{ i }">
       <h4>{ path }</h4>
-      <hr :each="el in new Array(10).fill(0)" --random="{ Math.random() }">
+      <hr :each="el in new Array(10).fill(0)"
+        --random="{ Math.round(Math.random() * 100) / 100 }">
     </li>
   </ul>
 </nue-assembly>

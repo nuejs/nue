@@ -1,0 +1,32 @@
+
+<!doctype dhtml lib>
+
+<script>
+  import { state } from 'state'
+</script>
+
+<!-- user -->
+<article :is="user">
+  <h1>{ name || email }</h1>
+
+  <nav>
+    <button onclick="history.go(-1)">Back</button>
+  </nav>
+
+  <dl>
+    <dt>Registered</dt><dd><pretty-date :date="created"/></dd>
+    <dt>Country</dt><dd>{ country }</dd>
+    <dt>Email</dt><dd>{ email }</dd>
+    <dt>Role</dt><dd>{ role }</dd>
+    <dt>Status</dt><dd><span class="status {status}">{ status }</span></dd>
+  </dl>
+
+  <script>
+    state.on('id', async ({ id }) => {
+      if (!id) return
+      const user = await fetch(`/users/${id}`).then(r => r.json())
+      this.update(user)
+    })
+  </script>
+
+</article>

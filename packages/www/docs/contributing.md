@@ -1,30 +1,39 @@
 # Contributing
 I'm **Tero Piirainen**, Nue's creator. Here's how I work and the best ways to contribute.
 
-## Work in bursts
-I work in bursts. This means occasional gaps in community responses, delayed pull request reviews, and periods of radio silence. Progress might look slow from the outside, but I'm working constantly.
+## Work happens in bursts
+I work in bursts. This means gaps in community responses, delayed pull request reviews, and periods of radio silence. Progress might look slow from the outside, but I'm working constantly.
 
-### According to roadmap
-The roadmap is now well-defined: multi-site development, Nue Edge deployment platform, and professional templates with design systems. The wild pivots of early development are behind us.
+### Major steps in the roadmap
+Up next are multi-site development, deployments, multi-site templates and design systems. The wild pivots of early development are behind us.
 
+### Vision matters
+I have strong opinions about Nue's direction, especially around separation of concerns. I'm protective of the principles that make Nue different from other frameworks.
 
-### Vision is important
-I maintain strong opinions about Nue's direction, especially around separation of concerns and web standards. This can make contributing to core architecture challenging. I'm protective of the principles that make Nue different from other frameworks.
 
 ## Best ways to help
 
-### Spread the word
-Perhaps the most valuable contribution is showing people how web standards are more powerful than frameworks. Write blog posts, create tutorials, share your experiences on Nue.
+### Bug reports
+Test Nue in your projects and [report issues](//github.com/nuejs/nue/issues). Clear reproduction steps help the most.
 
-### Documentation and examples
-Help others understand Nue by improving documentation with illustrative examples. Real-world use cases are valuable.
+### Coding
+For code contributions, reach out on [Slack](//join.slack.com/t/nuejs/shared_invite/zt-2wf8ozu5i-N2Y9PA_D17weIWuN2QPOqQ) first. **Let's talk about your idea before writing code**. This saves time and ensures your contribution aligns with the project's direction.
 
-### Bug reports and testing
-Test Nue in your projects. Report issues with clear reproduction steps.
+Small, focused pull requests have the best chance of getting merged. Large architectural changes require discussion first.
 
 
-## Getting involved
-For code contributions, reach out on [Slack](https://join.slack.com/t/nuejs/shared_invite/zt-2wf8ozu5i-N2Y9PA_D17weIWuN2QPOqQ) first. Discuss your idea before writing code. This saves time and ensures your contribution aligns with the project's direction.
+## Development setup
+Run Nue directly from source for testing changes
 
-Looking forward to building the future of web development together.
+```
+git clone https://github.com/nuejs/nue
+cd nue
+bun install
 
+# Test with a template using local nuekit
+cd packages/templates/full
+../../nuekit/src/cli.js
+
+→ Nue 2.0-beta • Bun 1.2.22
+→ Serving on http://localhost:4000/
+```

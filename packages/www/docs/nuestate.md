@@ -136,6 +136,6 @@ Or use it directly in the browser:
 
 ```html
 <script type="module">
-  import { state } from 'https://cdn.skypack.dev/nuestate'
+  import { state } from '//esm.sh/nuestate'
 </script>
 ```

@@ -168,8 +168,14 @@ meta:
   # Search engine directives
   robots: index, follow
 
+# Global link definitions for Nuemark pages
+links:
+  # Example: See [dev branch][dev] on Github
+  dev: //github.com/nuejs/nue/tree/dev/packages
+  css_vars: //developer.mozilla.org/en-US/docs/Web/CSS/var
 
-# Production overrides for metadata and template data
+
+# Production overrides for metadata
 production:
 
   # metadata override

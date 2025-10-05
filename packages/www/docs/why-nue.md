@@ -1,20 +1,23 @@
 
 # The UNIX of the Web
+
 Web development became complicated. Hundreds of packages, gigabytes of dependencies, hours of configuration before writing a single line of code. We forgot that it doesn't have to be this way.
 
 Nue brings back the fundamentals: HTML for structure, CSS for design, JavaScript for logic. But taken to their absolute peak with modern capabilities.
 
-
 ## How web development should work
-**Content sites:** Write Markdown, add layouts, deploy. No build tools, no framework lock-in.
 
-**Single-page apps:** Write HTML with reactive expressions. Add business logic in pure JavaScript. Style with a design system.
+**Instant start** - Create `index.html` or `index.md` and you're running. No setup, no configuration, no waiting.
 
-**Backend:** Standard Request/Response APIs that work locally and on the edge. No platform-specific adapters.
+**Single-page apps** - Write semantic HTML with reactive expressions. Import business logic from pure JavaScript modules. Let your design system handle presentation.
 
-**Full stack:** Everything works together in 1MB. Content sites, SPAs, server routes, databases, hot reload.
+**Content sites** - Front pages, documentation, blogs, marketing pages. Write Nuemark content, add layout modules for structure, trust your design system for consistency.
 
-One tool. Zero dependencies. Complete system: The UNIX philosophy applied to web development.
+**Universal hot reload** - Content, CSS, layouts, data, components, server routes, configurations. Save and watch the browser update instantly.
+
+**Complete system** - Content sites, SPAs, server routes, backend models. Everything integrated in 1MB with zero dependencies.
+
+One tool, complete control. The UNIX philosophy applied to web development.
 
 
 ## The kitchen sink problem

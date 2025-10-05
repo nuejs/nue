@@ -86,7 +86,11 @@ export async function renderMD(asset) {
 
   Object.assign(data, meta, { headings }, fileMeta(asset))
 
-  const content = doc.render({ data, sections, heading_ids, tags: convertToTags(comps, data) })
+  const content = doc.render({
+    data, sections, heading_ids,
+    tags: convertToTags(comps, data),
+    links: conf.links
+  })
 
   return await renderPage({ content, comps, data, asset, conf })
 }
@@ -95,6 +99,10 @@ export async function renderMD(asset) {
 export async function renderHTML(asset) {
   const ast = await asset.parse()
   const { is_dhtml } = ast
+
+  // raw HTML
+  const is_raw = ast.doctype == 'html' && ['html', 'head'].includes(ast.root.tag)
+  if (is_raw) return await asset.text()
 
   // library --> skip
   if (ast.is_lib) return is_dhtml ? compileNue(ast) : null
