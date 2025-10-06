@@ -46,7 +46,7 @@ Instead of rebuilding everything from scratch, only the actual changes get **str
 All `yoursite.nuejs.org` subdomains are free, with paid tiers starting at $2/month for custom domains.
 
 
-## Universal data model (Foundation)
+## One data model (Basics)
 One data architecture that works for any online business.
 
 **Basic CRM models** - Users (authentication and permissions), leads (mailing lists and conversions), emails (communication).
@@ -57,7 +57,7 @@ One data architecture that works for any online business.
 
 This minimal set enables content sites with mailing lists and basic customer tracking. Perfect for bloggers, newsletters, and early-stage startups.
 
-See [universal data model](universal-data-model) for details.
+See [one data model](one-data-model) for details.
 
 
 
@@ -83,25 +83,27 @@ nue push --all
 ```
 
 
-## Universal data model (Complete)
+## One data model (Completed)
 Complete the rest of the models and functionality:
 
-**All models** - Customers (user accounts), charges (payments), records (products/inventory), traffic (analytics).
+**All models** - Customers (user accounts), charges (payments) and collections (products, issues, .. any item type)
 
 **Analytics** - Aggregation model for website traffic. Combines with event data to provide insights across your entire history.
 
-**Event streaming** - Live streaming of conversion events to all active admin interfaces.
+**Event streaming** - Live streaming of key events to all active admin interfaces.
 
-This completes the universal backend, enabling full business applications with real-time analytics and customer management.
+This completes the singuar backend, enabling full business applications with real-time analytics and customer management.
 
 
 ## Admin interfaces
-Complete admin products built on the universal data model. Works with any design system and matches your public interface.
+Complete admin products built on the one data model. Works with any design system and matches your public interface.
 
-**Universal UI library** - Components for all data model patterns. Tables, forms, charts, and filters that work across users, leads, customers, and records.
+**Frontend framework** - UI components, data models, and design systems working seamlessly together.
 
 **Data mocking** - Generate realistic business data from high-level parameters. Develop against believable scenarios, not random noise.
 
 **Admin templates** - Analytics dashboards, mailing list management, customer relations, and communication tools. Ready to customize for your business.
+
+
 
 

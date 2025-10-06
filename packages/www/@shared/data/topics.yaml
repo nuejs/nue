@@ -21,12 +21,13 @@ topics:
     - Separation of concerns
     - Design systems
     - Design engineering
-    - Universal data model
+    - One data model
 
   developing:
     - Project structure
     - Website development
     - CSS development
+    - Interactive components
     - JS enhancements
     - SVG development
     - SPA development
@@ -35,8 +36,8 @@ topics:
     - Configuration
     - Command line (CLI) | cli
     - Build system
+    - HTML file types
     - HTML syntax
-    - HTML page types
     - Layout system
     - Page dependencies
     - Template data

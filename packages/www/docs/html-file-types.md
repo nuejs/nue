@@ -1,5 +1,5 @@
 
-# HTML page types
+# HTML file types
 Nue uses document type declarations to determine how `.html` files should be processed. Each type serves a different purpose for pages, components, and layouts.
 
 
@@ -11,8 +11,8 @@ Server-rendered static pages that generate complete HTML documents:
 <h1>About Us</h1>
 <p>We build standards-first web experiences.</p>
 ```
-
 Generates a complete HTML document with head, body, and meta tags during build time. Best for static content, landing pages, and server-rendered templates.
+
 
 ## Dynamic HTML pages
 Client-rendered dynamic pages with interactive behavior:
@@ -120,7 +120,21 @@ Components that work on both server and client:
 
 Isomorphic libraries render on the server during build and can also be used as interactive components on the client. Essential for design systems and reusable UI components.
 
-## Shorthand syntax
+
+### Raw HTML page
+If the page starts with `<!doctype html>` and contains `<html>` or `<head>` tag at the root level, the page is rendered as is without Nue processing
+
+```html
+<!doctype html>
+
+<head>
+  ...
+</head>
+```
+
+
+
+## Doctype syntax
 You can omit the `doctype` keyword:
 
 ```
@@ -133,7 +147,7 @@ You can omit the `doctype` keyword:
 
 The `<!doctype ...>` prefix is recommended for pages, and should be omitted from libraries.
 
-## Auto-detection
+### Auto-detection
 When `<!...>` declaration is missing, Nue automatically detects the type:
 
 ### DHTML when it finds:
@@ -146,9 +160,7 @@ When `<!...>` declaration is missing, Nue automatically detects the type:
 ```
 
 ### HTML when:
-- First element is semantic (`<main>`, `<article>`, `<section>`, `<body>`)
-- No dynamic features detected
-- Pure content structure
+Pure content structure and no dynamic features detected
 
 ```
 <main>
