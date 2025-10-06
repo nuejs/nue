@@ -21,17 +21,14 @@ nue dev    # Starts serving at http://localhost:4000
 
 ## Template types
 
-### `minimal`
-A single HTML file and CSS stylesheet. Shows how little scaffolding you need while keeping the same hot reloading experience as larger projects.
+**minimal** - Just `index.html` and `index.css` to start from scratch
 
-### `blog`
-Content-focused site with collections, layouts, and Nuemark. Demonstrates how content creators and developers work independently.
+**blog** - Simple Markdown based blog with minimal coding/configuration
 
-### `spa`
-Single-page application with user management, database integration, and routing. Uses Hono server with CloudFlare-compatible storage and hot reloading for both client and server.
+**spa** - Single-page application with a simple server and UI
 
-### `full`
-Production-ready foundation for ambitious projects. Includes design system, authentication, CRM demo, isolated business logic, test suite, and both MPA/SPA areas working together.
+**full** - Full stack web with blog, docs, marketing pages, authentication, and SPA
+
 
 ## Upgrading
 Update the global nue command to the newest version:
