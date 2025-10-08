@@ -25,7 +25,7 @@ export async function loadPage(path) {
   await loadStylesheets(sheets)
 
   // inline style tag (single)
-  updateInlineStyle($('style', dom))
+  updateInlineStyle(dom)
 
   // update page content - keep the working logic
   const ignoreMain = updateContent($('main'), $('main', dom))
@@ -218,9 +218,9 @@ export function findNewStyles(current, incoming) {
   })
 }
 
-function updateInlineStyle(style) {
-  $('style')?.remove()
-  if (style) $('head').appendChild(style)
+function updateInlineStyle(dom) {
+  $$('style').forEach(el => el.remove())
+  $$('style', dom).forEach(el => $('head').appendChild(el))
 }
 
 async function fetchHTML(path) {

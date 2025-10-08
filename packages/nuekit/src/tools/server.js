@@ -9,7 +9,7 @@ export function createServer({ port=4000, handler }, callback) {
     if (result) return result
 
     // WebSocket connection for HMR
-    if (req.headers.get('upgrade') === 'websocket') {
+    if (req.headers.get('upgrade') == 'websocket') {
       return server.upgrade(req) ? undefined : new Response('Upgrade failed', { status: 500 })
     }
 

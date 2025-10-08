@@ -5,9 +5,9 @@ import { createServer } from '../tools/server'
 import { getServer } from '../server'
 
 
-export async function preview(site, { silent }) {
-  const { conf } = site
-  const { port, dist } = conf
+export async function preview(conf, opts) {
+  const { dist=".dist" } = conf
+  const port = opts.port || 4040
 
   // dist directory
   const has_index = await Bun.file(join(dist, 'index.html')).exists()

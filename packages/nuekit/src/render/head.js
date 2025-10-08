@@ -21,7 +21,7 @@ export async function renderHead({ conf, data, assets, libs=[] }) {
   if (layers) head.push(elem('style', `@layer ${layers.join(', ')}`))
 
   // styles
-  head.push(...await renderStyles(assets, data))
+  head.push(...await renderStyles(assets, conf))
 
   // system scripts
   const addJS = name => assets.push(parse(`@nue/${name}.js`))
@@ -79,7 +79,10 @@ export function renderMeta(data, libs) {
 }
 
 function renderTitle(title, template) {
-  return template ? template.replace('%s', title) : title
+  const str = template ? template.replace('%s', title) : title
+
+  // Strip Markdown formatting (bold only for now)
+  return str?.replaceAll('**', '')
 }
 
 export function renderScripts(assets) {
@@ -87,15 +90,16 @@ export function renderScripts(assets) {
   return scripts.map(s => elem('script', { src: `/${s.dir}/${s.name}.js`, type: 'module' }))
 }
 
-export async function renderStyles(assets, data={}) {
-  const { inline_css } = data?.design || {}
-  const css = assets.filter(file => file.is_css)
+export async function renderStyles(assets, conf={}) {
+  const { inline_css } = conf?.design || {}
+  const css_files = assets.filter(file => file.is_css)
 
-  if (data.is_prod && inline_css) {
-    return elem('style', await inlineCSS(css))
+  if (conf.is_prod && inline_css) {
+    const css = await inlineCSS(css_files)
+    return [ elem('style', css) ]
   }
 
-  return css.map(file => elem('link', { rel: 'stylesheet', href: `/${file.path}` }))
+  return css_files.map(file => elem('link', { rel: 'stylesheet', href: `/${file.path}` }))
 }
 
 export async function inlineCSS(assets, minify=true) {

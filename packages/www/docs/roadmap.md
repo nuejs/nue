@@ -1,8 +1,9 @@
 
-# **Roadmap:** our next major steps
+# Roadmap
+Our next major steps:
 
 ## Multi-site development
-Build multiple websites from one shared system.
+Build multiple websites from one shared system. Think of it like having a design system that works across different brands, but for everything - layouts, business logic, and data.
 
 ```
 .
@@ -28,9 +29,8 @@ partners.com  → http://localhost:4003
 Edit a shared component and watch it update across all running sites. Change the global color scheme and see it cascade everywhere. Add a new API endpoint and it's available to all sites.
 
 
-
 ## Deployments
-Deploy your multi-site setup to CloudFlare CDN:
+Deploy your multi-site setup directly to cloud:
 
 ```sh
 # Push all sites (only changed files)
@@ -41,28 +41,11 @@ nue push --all
 →  partners.com   8 files    [110ms]
 ```
 
-Instead of rebuilding everything from scratch, only the actual changes get **streamed** through one connection. Like everything else in Nue, deployments across multiple websites become almost instant.
-
-All `yoursite.nuejs.org` subdomains are free, with paid tiers starting at $2/month for custom domains.
+Only the actual changes get **streamed** through one connection. Like everything else in Nue, deployments across multiple websites become almost instant. All `yoursite.nuejs.com` subdomains are free, with paid tiers starting at $2/month for custom domains later on.
 
 
-## One data model (Basics)
-One data architecture that works for any online business.
-
-**Basic CRM models** - Users (authentication and permissions), leads (mailing lists and conversions), emails (communication).
-
-**Event sourcing** - Load event data as cacheable chunks for client-side processing.
-
-**Multi-site isolation** - Each site gets its own models. acme.org leads stay separate from blog.acme.com leads, while you still get shared access to all instances.
-
-This minimal set enables content sites with mailing lists and basic customer tracking. Perfect for bloggers, newsletters, and early-stage startups.
-
-See [one data model](one-data-model) for details.
-
-
-
-## Website templates
-Create a professional website instantly with a template:
+## Templates
+Create a professional website instantly from a template:
 
 ```sh
 # Early-stage startup with Miesian design language
@@ -75,35 +58,32 @@ nue create startup --design rams
 nue create blog --design muriel
 ```
 
-Templates deploy seamlessly:
+Templates work seamlessly with multi-site deployment:
 
 ```sh
-# Push your new multi-site system
+# Push your new system
 nue push --all
 ```
 
+## Analytics application
+We're building a complete analytics platform. Not a demo, not a prototype - a production application that handles millions of visitors.
 
-## One data model (Completed)
-Complete the rest of the models and functionality:
+**Multi-site tracking** - One dashboard for all your sites. Track acme.org, blog.acme.com, and app.acme.com separately while comparing metrics across your network. Privacy-friendly by design so no consent banners needed.
 
-**All models** - Customers (user accounts), charges (payments) and collections (products, issues, .. any item type)
+**Full-stack foundation** - Building analytics forces us to solve the hard problems every business application faces. Event sourcing for high-volume data. Aggregation for historical queries. Client-side processing of cacheable chunks. UI components for charts, customer dashboards, admin panels, and any data-heavy application.
 
-**Analytics** - Aggregation model for website traffic. Combines with event data to provide insights across your entire history.
+**The ultimate stress test** - Analytics demands scale from day one. Millions of page views generate continuous event streams. Users expect instant visualizations across arbitrary time ranges. Aggregations need to handle months of historical data without sampling.
 
-**Event streaming** - Live streaming of key events to all active admin interfaces.
-
-This completes the singuar backend, enabling full business applications with real-time analytics and customer management.
-
-
-## Admin interfaces
-Complete admin products built on the one data model. Works with any design system and matches your public interface.
-
-**Frontend framework** - UI components, data models, and design systems working seamlessly together.
-
-**Data mocking** - Generate realistic business data from high-level parameters. Develop against believable scenarios, not random noise.
-
-**Admin templates** - Analytics dashboards, mailing list management, customer relations, and communication tools. Ready to customize for your business.
+If the foundation works here, it works anywhere.
 
 
+## More to come
+We're building both frontend and backend ecosystems that grow together.
+
+**Universal data model** - Authentication, user accounts, email notifications, mailing lists, payment processing, refunds. The fundamental operations every online business needs, built on the same foundation we develop for analytics.
+
+**Local dev environment** - Generate realistic business scenarios from high-level parameters. A thousand customers with purchase histories. Email campaigns with open rates and conversions. Support tickets with resolution times. Develop against data that looks like production.
+
+**SPA templates** - Pre-built admin interfaces for common business needs. Analytics dashboards, customer relationship management, mailing list administration, payment processing. Each template demonstrates the patterns while giving you a working starting point. Customize the design system, extend the data model, deploy immediately.
 
 

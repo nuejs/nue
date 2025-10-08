@@ -1,3 +1,3 @@
 
 tests:
-	cd test && bun test model
+	cd test && bun test build

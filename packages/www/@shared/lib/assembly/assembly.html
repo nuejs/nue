@@ -1,0 +1,24 @@
+
+<nue-assembly class="assembly ui flex">
+  <aside class="card">
+    <h3>@shared</h3>
+    <p>├── <b>ui</b></p>
+    <p>├── <b>app</b></p>
+    <p>├── <b>data</b></p>
+    <p>├── <b>design</b></p>
+    <p>└── <b>server</b></p>
+  </aside>
+
+  <arrow-right/>
+
+  <ul class="list" --items="{ assembly.length }">
+    <li :each="path, i in assembly" class="card" --index="{ i }">
+      <h4>{ path }</h4>
+      <hr :each="el in new Array(10).fill(0)"
+        --random="{ Math.round(Math.random() * 100) / 100 }">
+    </li>
+  </ul>
+</nue-assembly>
+
+
+

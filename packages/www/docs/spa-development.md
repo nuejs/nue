@@ -2,7 +2,7 @@
 # Single-page application (SPA) development
 Single-page applications in Nue are dynamic web apps that run entirely in the browser. Unlike content-focused apps that generate static pages, SPAs use client-side routing and state management to create fluid, app-like experiences without page reloads.
 
-> **Local development only**: SPA's currently work only as a local mockup to get a glimpse of what's coming. Production deployments with CloudFlare integration and one data model come later. See [roadmap](roadmap) for details.
+> **Local development only**: SPA's currently work only as a local mockup to get a glimpse of what's coming. Production deployments with CloudFlare integration and [universal data model](universal-data-model) come later.
 
 
 ## Getting started
@@ -128,7 +128,7 @@ get('/users', async (c) => {
 ```
 
 ### Data modeling
-The future version of Nue will provide a [one data model](one-data-model) that works identically in local development and on the cloud. This model offers ready-made objects for common web development needs: authentication, lead generation, customer management, payments, and more.
+The future version of Nue will provide a [universal data model](universal-data-model) that works identically in local development and on the cloud. This model offers ready-made objects for common web development needs: authentication, lead generation, customer management, payments, and more.
 
 During development, these models are automatically generated from JSON files in the `server/data/` folder. The `spa` template includes this `server/data/users.json` file:
 

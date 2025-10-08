@@ -16,6 +16,7 @@ export function expandArgs(args) {
 }
 
 
+
 export function getArgs(argv) {
   const commands = ['serve', 'dev', 'build', 'preview', 'create', 'push']
 
@@ -88,22 +89,23 @@ async function run(args) {
   // command
   const { cmd, paths } = args
 
-  // preview
-  if (cmd == 'preview') {
-    const { preview } = await import('./cmd/preview')
-    return await preview(site, args)
-
-  } else if (cmd == 'create') {
+  // create
+  if (cmd == 'create') {
     const { create } = await import('./cmd/create')
     const [ name, dir ] = paths
     return await create(name, { dir })
   }
 
-  // site config
+  // config
   const { readSiteConf } = await import('./conf')
   const conf = await readSiteConf(args)
   if (!conf) return console.error('Not a Nue directory')
 
+  // preview
+  if (cmd == 'preview') {
+    const { preview } = await import('./cmd/preview')
+    return await preview(conf, args)
+  }
 
   // assets
   const { createSite } = await import('./site')

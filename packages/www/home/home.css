@@ -1,6 +1,5 @@
 
 @layer component {
-
   .cta-buttons { gap: .75em }
 
   /* captions */
@@ -8,19 +7,4 @@
     color: var(--text-subtle);
     font-size: .875em
   }
-
-  /* nue stack */
-  .ui.stack {
-    aside {
-      --cell-width: 175px;
-      font-size: .875em;
-      margin: 1em;
-      p { color: var(--text-subtle) }
-    }
-
-    @media (width < 900px) {
-      section { --cell-width: 200px }
-    }
-  }
-
 }

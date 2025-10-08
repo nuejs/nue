@@ -1,6 +1,10 @@
 
-# **Nue 2.0:** The UNIX of the web
-Today I'm launching Nue 2.0 — a complete website development environment in 1MB.
+---
+title: **Nue 2.0:** The UNIX of the web
+# date: 2023-09-18
+---
+
+Here's Nue 2.0 — a complete website development environment in 1MB.
 
 [console]
 
@@ -24,11 +28,20 @@ We also switched from supporting both Bun and Node to Bun only. This decision en
 All HTML files now use the same `.html` extension. The document type declaration determines how Nue processes each file:
 
 ```html
-<!doctype html>      <!-- Server-rendered page -->
-<!doctype dhtml>     <!-- Client-rendered page -->
-<!html lib>          <!-- Server-side components -->
-<!dhtml lib>         <!-- Client-side components -->
-<!html+dhtml>        <!-- Isomorphic components -->
+<!-- Server-rendered page -->
+<!doctype html>
+
+<!-- Dynamic, client-rendered page -->
+<!doctype dhtml>
+
+<!-- Server-side component library -->
+<!html lib>
+
+<!-- Client-side library -->
+<!dhtml lib>
+
+<!-- Isomorphic library -->
+<!html+dhtml>
 ```
 
 When you omit the doctype, Nue detects the type automatically based on your markup. If your file has event handlers or imports, it becomes dynamic. If it's pure content structure, it renders server-side.
@@ -60,7 +73,7 @@ This gives us a lean developer experience without the typical framework bloat.
 ### SPA development
 Single-page applications get a new development model built on Nuestate. Define your route patterns in one place and let the URL drive your application. Regular `<a href>` links become SPA navigation automatically with the `autolink` option.
 
-The upcoming [one data model](one-data-model) will unify how data flows through SPAs, but the foundation is here now: clean separation between routing, data model, state, and the UI layer.
+The upcoming [universal data model](universal-data-model) will unify how data flows through SPAs, but the foundation is here now: clean separation between routing, data model, state, and the UI layer.
 
 
 ### New tools
@@ -69,7 +82,7 @@ The upcoming [one data model](one-data-model) will unify how data flows through 
 
 **Nueserver** - "Edge-first" backend development. Write server code once and run it identically on your machine and across global edge locations.
 
-**External server support** - Not ready for edge-first? Configure Nue to proxy API calls to your existing backend.
+**Server proxy** - Not ready for edge-first? Configure Nue to proxy API calls to your existing backend.
 
 
 ### New templates

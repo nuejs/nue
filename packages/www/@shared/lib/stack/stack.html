@@ -1,0 +1,18 @@
+
+<nue-stack class="card ui stack">
+
+  <section class="grid">
+    <div :each="tool, i in tooling" class="card" title="{ tool.info }">
+      <h3 class="row"><box-icon class="branded"/> { tool.title }</h3>
+      <p>{ tool.desc }</p>
+    </div>
+  </section>
+
+  <aside class="grid">
+    <div :each="[ title, feats ] in Object.entries(features)">
+      <h3>{ title }</h3>
+      <p :each="feat in feats">{ feat }</p>
+    </div>
+  </aside>
+
+</nue-stack>

@@ -1,6 +1,6 @@
 
 class: dark heroic
-include: [ console, marketing, syntax ]
+include: [ assembly, console, hero, stack, syntax ]
 title_template: false
 
 design:

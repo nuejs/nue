@@ -31,6 +31,11 @@ const CONF = {
     view_transitions: true,
     origin: 'https://acme.org'
   },
+
+  design: {
+    inline_css: true
+  },
+
   sitemap: { enabled: true },
 
   rss: {
@@ -50,6 +55,7 @@ describe('build', async () => {
       ['@shared/ui/keyboard.ts', 'export const foo = 100'],
       ['@shared/data/author.json', '{ "foo": 10 }'],
       ['@shared/design/base.css', '/* CSS */'],
+      ['@shared/design/global.css', 'body { font-size: 15px }'],
       ['index.md', '# Hello'],
       ['404.md', '# 404'],
       'blog/index.md',
@@ -64,13 +70,14 @@ describe('build', async () => {
   afterEach(async () => await removeAll())
 
 
-
   test('buildAsset: MD', async () => {
     const site = await createSite(CONF)
     const home = site.get('index.md')
 
     await buildAsset(home, testDir)
     const html = await Bun.file(join(testDir, 'index.html')).text()
+
+    expect(html).toInclude('<style>body{font-size:15px}</style>')
     expect(html).toInclude('/@nue/transitions.js')
     expect(html).toInclude('<h1>Hello</h1>')
   })
@@ -82,8 +89,8 @@ describe('build', async () => {
     await buildAll(assets, { dist })
     const results = await fileset(dist)
 
-    expect(assets.length).toBe(7)
-    expect(results.length).toBe(11)
+    expect(assets.length).toBe(8)
+    expect(results.length).toBe(12)
 
     // typescript conversion / minify
     const js = await results.read('@shared/ui/keyboard.js')
@@ -116,7 +123,7 @@ describe('build', async () => {
     const consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {})
     const site = await createSite(CONF)
     const subset = await build(site, { dryrun: true, paths: ['.md', '.css'] })
-    expect(subset.length).toBe(5)
+    expect(subset.length).toBe(6)
   })
 
 })
@@ -144,13 +151,14 @@ describe('SPA build', async () => {
 
     expect(html).toInclude('<body nue="default-app"></body>')
     expect(html).toInclude('/@nue/mount.js')
-    expect(html).toInclude('/base.css')
+    expect(html).not.toInclude('/base.css')
+    expect(html).toInclude('<style>:root{--brand:#ccc}</style>')
 
     // SPA minify
     const js = await results.read('index.html.js')
     expect(js).toInclude('var t=[')
 
-    // CSS minify
+    // minified CSS files should still exist
     const css = await results.read('base.css')
     expect(css).toBe(':root{--brand:#ccc}')
 
