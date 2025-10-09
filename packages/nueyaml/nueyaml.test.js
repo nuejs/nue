@@ -55,6 +55,7 @@ test('valid numbers', () => {
 
 test('invalid numbers', () => {
   expect(isNumber('hello')).toBe(false)
+  expect(isNumber('00800')).toBe(false)
   expect(isNumber('')).toBe(false)
   expect(isNumber('-')).toBe(false)
 })

@@ -63,7 +63,7 @@ export function validateIndentation(lines) {
 }
 
 export function isNumber(str) {
-  if (str == '' || str == '-' || str == '+') return false
+  if (str == '' || str == '-' || str == '+' || str[0] == '0') return false
   return /^-?\d+(\.\d+)?$/.test(str)
 }
 
