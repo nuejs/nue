@@ -96,6 +96,14 @@ async function run(args) {
     return await create(name, { dir })
   }
 
+  // push (private repo ATM)
+  if (cmd == 'push') {
+    const { fswalk } = await import('./tools/fswalk')
+    const { push } = await import('nuepush')
+    const files = await fswalk('.dist')
+    return await push(files, args)
+  }
+
   // config
   const { readSiteConf } = await import('./conf')
   const conf = await readSiteConf(args)
@@ -107,17 +115,16 @@ async function run(args) {
     return await preview(conf, args)
   }
 
-  // assets
+  // site
   const { createSite } = await import('./site')
   const site = await createSite(conf)
 
-  if (cmd == 'push') {
-    console.log('pushing', paths)
-
-  } else if (cmd == 'build' || paths.length) {
+  // build
+  if (cmd == 'build' || paths.length) {
     const { build } = await import('./cmd/build')
     await build(site, args)
 
+  // dev | serve
   } else if (!cmd || cmd == 'dev' || cmd == 'serve') {
     const { serve } = await import('./cmd/serve')
     await serve(site, args)

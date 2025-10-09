@@ -92,7 +92,7 @@ Change your color variables and every code block updates instantly. No theme swi
 Get started with Nueglow through Nuekit for the full development experience:
 
 ```bash
-bun install nuekit
+bun install --global nuekit
 ```
 
 Or use Nueglow outside the Nue ecosystem with your own site generator:

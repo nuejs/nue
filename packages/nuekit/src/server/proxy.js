@@ -13,4 +13,5 @@ export function createProxy(opts) {
 
     return await fetch(fullUrl, { headers, method, body })
   }
+
 }

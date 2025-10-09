@@ -25,7 +25,7 @@ test('renderStyles', async () => {
 
   // inline css
   const style = await renderStyles(files, { is_prod: true, design: { inline_css: true }})
-  expect(style).toBe('<style>body{}</style>')
+  expect(style[0]).toBe('<style>body{}</style>')
 })
 
 test('renderMeta', async () => {

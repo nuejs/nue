@@ -98,7 +98,7 @@ Nue syntax is simple enough to compile in real-time without massive toolchains. 
 For real projects, use Nuekit for the full development experience:
 
 ```bash
-bun install nuekit
+bun install --global nuekit
 ```
 
 Or install Nue directly as a library:

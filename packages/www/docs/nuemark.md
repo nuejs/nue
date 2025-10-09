@@ -118,7 +118,7 @@ Content authors use it naturally:
 Get started with Nuemark through Nuekit for the full development experience:
 
 ```bash
-bun install nuekit
+bun install --global nuekit
 ```
 
 Or use Nuemark outside the Nue ecosystem on your own site generators

@@ -1,119 +1,71 @@
 
-# Nuestate
+# Nuestate: URL-first state management
+Nuestate puts your application state in the URL by default. This makes bookmarking, sharing, and browser navigation work naturally without extra code. State changes automatically update the URL and trigger component re-renders.
 
-## Introduction
-
-Nuestate is a minimal state management library designed to work with Nue's standard first approach. It handles URL synchronization, browser storage, and reactive updates in just a few kilobytes. State changes automatically update the URL and trigger component re-renders.
-
-The library provides a simple `state` proxy object that lets you read and write application state directly. Changes are automatically persisted to session storage, local storage, or kept in memory based on your configuration.
-
-## Rationale
-
-Most state management solutions are either too complex or don't handle URL synchronization well. Nuestate fills this gap by:
-
-**URL-first approach** - Your application state lives in the URL by default. This makes features like bookmarking, sharing, and browser navigation work naturally without extra code.
-
-**Zero configuration** - No stores, reducers, or actions. Just read and write to the state object like any JavaScript object.
-
-**Storage flexibility** - Choose where each piece of state lives: URL params, query string, session storage, local storage, or memory.
-
-**Tiny footprint** - Under 2KB compressed. No dependencies.
+The library provides a simple `state` proxy object for reading and writing application state directly. Changes are automatically persisted to the URL, browser storage, or kept in memory based on your configuration.
 
 
-## Examples
+## Why URL-first?
+Most state management solutions treat the URL as an afterthought. You have to manually sync state with the URL, handle browser navigation, and write extra code for bookmarking and sharing.
 
-### Basic setup
+Nuestate flips this around. Your state lives in the URL by default, so these features work automatically:
+
+**Bookmarking works** - Users can bookmark any application state and return to it later
+
+**Sharing works** - Send someone a URL and they see exactly what you see
+
+**Browser navigation works** - Back/forward buttons navigate through state changes
+
+**Standard routing works** - Regular `<a href>` tags become SPA navigation with `autolink`
+
+**No sync code** - No need to manually keep URL and state in sync
+
+## How it works
+
+Import and use the state object anywhere in your application:
 
 ```javascript
 import { state } from 'state'
 
-// Configure which data goes where
-state.setup({
-  route: '/contacts/:view/:id',
-  query: ['search', 'page'],
-  session: ['user'],
-  local: ['theme'],
-  memory: ['temp_data']
-})
-
-// Use state anywhere
-state.view = 'users' // Updates URL: /contacts/users
-state.search = 'john'  // Updates query string: ?search=john
-state.user = { name: 'Alice' }  // Saves to sessionStorage
-state.theme = 'dark'  // Saves to localStorage
+// Read and write state
+state.view = 'users'     // URL updates to include view=users
+state.search = 'john'    // URL becomes ?view=users&search=john
 ```
 
-### Listen to changes
+Configure where different pieces of state should live:
 
 ```javascript
-// Listen to specific state changes
-state.on('search page', (changes) => {
-  console.log('Search or page changed:', changes)
-})
-
-// Listen to user data changes
-state.on('user', ({ user }) => {
-  updateUserProfile(user)
-})
-```
-
-### Route parameters
-
-```javascript
-// Setup route with parameters
 state.setup({
-  route: '/products/:category/:id',
-  query: ['color', 'size']
+  route: '/app/:section/:id',
+  query: ['search', 'filter', 'page'],
+  session: ['user', 'preferences'],
+  local: ['theme', 'language']
 })
 
-// Navigate programmatically
-state.category = 'shoes'
+// Route parameters update the URL path
+state.section = 'products'
 state.id = '123'
-// URL becomes: /products/shoes/123
+// URL becomes: /app/products/123
 
-// Add query params
-state.color = 'red'
-state.size = 'large'
-// URL becomes: /products/shoes/123?color=red&size=large
+// Query parameters update the URL search
+state.search = 'shoes'
+// URL becomes: /app/products/123?search=shoes
 ```
 
-### Nue's standard first approach component integration
+Listen to state changes:
+
+```javascript
+state.on('search filter', async (changes) => {
+  const results = await fetchResults(changes.search, changes.filter)
+  state.results = results
+})
+```
+
+Use state directly in components with standard DOM events:
 
 ```html
-<script>
-  import { state } from 'state'
-
-  state.setup({
-    query: ['search', 'filter'],
-    memory: ['items']
-  })
-</script>
-
-<div>
-  <input type="search"
-    value="${ state.search }"
-    :oninput="state.search = $event.target.value">
-
-  <select :onchange="state.filter = $event.target.value">
-    <option value="">All items</option>
-    <option value="active">Active</option>
-  </select>
-
-  <div :each="item in filteredItems" key="${ item.id }">
-    ${ item.name }
-  </div>
-
-  <script>
-    // React to state changes
-    state.on('search filter', async () => {
-      const items = await fetchItems(state.search, state.filter)
-      state.items = items
-      this.update()
-    })
-
-    get filteredItems() {
-      return state.items || []
-    }
-  </script>
-</div>
+<input value="{ state.search }" :oninput="state.search = $event.target.value">
 ```
+
+See the [State API documentation](https://nuejs.org/docs/state-api) for complete details on all methods and configuration options.
+

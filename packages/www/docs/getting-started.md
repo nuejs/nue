@@ -42,7 +42,7 @@ bun install --global nuekit@latest
 Nue 2.0 is not backwards compatible with the previous version. The safest upgrade path is to install locally in your project:
 
 ```bash
-bun install nuekit@latest
+bun install --global nuekit@latest
 ```
 
 Run commands with `bunx`:

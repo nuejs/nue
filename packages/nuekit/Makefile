@@ -1,3 +1,5 @@
 
+push:
+
 tests:
-	cd test && bun test build
+	cd test && bun test

@@ -1,23 +1,23 @@
 
 # The UNIX of the Web
+Web development became complicated. Hundreds of packages, 400MB of dependencies, hours of configuration before writing a single line of code. We forgot that it doesn't have to be this way.
 
-Web development became complicated. Hundreds of packages, gigabytes of dependencies, hours of configuration before writing a single line of code. We forgot that it doesn't have to be this way.
-
-Nue brings back the fundamentals: HTML for structure, CSS for design, JavaScript for logic. But taken to their absolute peak with modern capabilities.
 
 ## How web development should work
 
 **Instant start** - Create `index.html` or `index.md` and you're running. No setup, no configuration, no waiting.
 
-**Single-page apps** - Write semantic HTML with reactive expressions. Import business logic from pure JavaScript modules. Let your design system handle presentation.
+**Single-page apps** - Write semantic HTML with dynamic expressions. Import business logic from pure JavaScript modules. Let your design system handle presentation.
 
 **Content sites** - Front pages, documentation, blogs, marketing pages. Write Nuemark content, add layout modules for structure, trust your design system for consistency.
 
 **Universal hot reload** - Content, CSS, layouts, data, components, server routes, configurations. Save and watch the browser update instantly.
 
-**Complete system** - Content sites, SPAs, server routes, backend models. Everything integrated in 1MB with zero dependencies.
+**Complete system** - Content sites, SPAs, server routes, backend models.
 
 One tool, complete control. The UNIX philosophy applied to web development.
+
+**Nue is the entire ecosystem in 1MB**
 
 
 ## The kitchen sink problem

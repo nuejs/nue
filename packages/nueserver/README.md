@@ -1,9 +1,8 @@
 
-# **Nueserver:** Edge first development
+# Nueserver: Edge first development
 Nueserver is an HTTP server built for edge deployment. Write code locally, deploy globally when ready.
 
-> **Disclaimer** Nueserver currently works for local development only. It's the foundation for Nue's upcoming backend vision. See the [roadmap](roadmap) for details
-
+> **Disclaimer** Nueserver currently works for local development only. It's the foundation for Nue's upcoming backend vision. See the [roadmap](https://nuejs.org/docs/roadmap) for details
 
 ## What is edge first
 Most web frameworks treat edge deployment as an afterthought. You develop with Node locally, then discover your code doesn't work at the edge. You build with traditional databases, then learn edge can't maintain connections.
@@ -41,7 +40,7 @@ use('/admin/*', async (c, next) => {
 })
 ```
 
-When working with Nuekit CloudFlare headers are mocked locally for edge-compatible development:
+CloudFlare headers are mocked locally for edge-compatible development:
 
 ```javascript
 post('/api/contact', async (c) => {
@@ -71,8 +70,6 @@ Nueserver draws inspiration from Hono's clean API while with the follwing differ
 
 This focused API makes the server layer predictable and portable. Your HTTP logic stays clean while other layers handle their specific concerns.
 
-
-
 ## Installation
 
 For real projects, use Nuekit for the full development experience:
@@ -87,4 +84,5 @@ Or install Nueserver directly as a library:
 bun install nueserver
 ```
 
-See the [Server API reference](server-api) for complete routing and context documentation.
+See the [Server API reference](https://nuejs.org/docs/server-api) for complete routing and context documentation.
+

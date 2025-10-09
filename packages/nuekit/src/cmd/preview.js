@@ -33,8 +33,10 @@ export async function getFile(dist, url) {
 
   // file
   let path = join(dist, url)
-  const ext = extname(url)
-  if (!ext) path += url.endsWith('/') ? 'index.html' : '.html'
+  if (url.endsWith('/')) path += 'index.html'
+
+  const ext = extname(path)
+  if (!ext) path += '.html'
 
   const file = Bun.file(path)
   if (await file.exists()) return file

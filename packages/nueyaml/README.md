@@ -1,34 +1,32 @@
-
-# nueyaml
-
-YAML without the problems.
-
-**⚠️ Internal use only** — This project is not yet officially launched and is currently used within the Nue ecosystem.
-
-## What is nueyaml?
-
-A cleaner, simpler approach to YAML that fixes the common pain points developers face with traditional YAML syntax. Built with the same standards-first philosophy as Nue — less complexity, more clarity.
-
-## Why nueyaml?
-
-YAML was supposed to be human-readable, but it became a source of frustration:
-
-- Indentation errors that break everything
-- Inconsistent boolean handling
-- Complex multiline string syntax
-- Surprising type coercion
-- Poor error messages
-
-nueyaml solves these problems while keeping the good parts of structured data.
+# Nueyaml: YAML without the problems
+Nueyaml is YAML stripped down to its essence so you can write complex configurations without the usual YAML pitfalls.
 
 
-## Documentation
+## The problem with standard YAML
+The original YAML specification buried a beautiful idea under 80 pages of features that cause more problems than they solve. It guesses what you mean, often guessing wrong:
 
-Syntax details and examples: **https://nuejs.org/docs/nueyaml**
+```yaml
+# YAML surprises
+country: NO      # may become false (Norway problem)
+time: 12:30      # may become 750 (minutes)
+version: 1.10    # may become 1.1 (float)
+port: 08080      # may become 4176 (octal)
+```
 
-## Status
-Public release timeline will be announced when ready.
+These "conveniences" turn configuration files into minefields. You quote some values defensively, but not others. You remember some gotchas, but not all. Your configuration works until it doesn't.
 
----
 
-**Learn more about Nue:** https://nuejs.org
+## How Nueyaml fixes it
+Nueyaml has one rule: be predictable. If it looks like a string to a human, it's a string:
+
+```yaml
+# Nueyaml: No surprises
+country: NO       # string "NO"
+time: 12:30       # string "12:30"
+version: 1.10     # number 1.10
+port: 08080       # string "08080"
+```
+
+Only obvious numbers (`123`, `45.67`) become numbers. Only `true` and `false` become booleans. Everything else stays a string.
+
+Learn the details from [Nue website](https://nuejs.org/docs/nueyaml)
