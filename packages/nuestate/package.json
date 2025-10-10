@@ -1,6 +1,6 @@
 {
   "name": "nuestate",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "URL-first state management",
   "homepage": "https://nuejs.org/docs/nuestate",
   "main": "src/state.js",

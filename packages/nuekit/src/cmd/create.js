@@ -42,7 +42,8 @@ export async function getLocalZip(name, dir) {
 }
 
 // download from github
-export async function fetchZip(name, baseurl='https://github.com/nuejs/nue/releases/latest/download') {
+//
+export async function fetchZip(name, baseurl='https://github.com/nuejs/nue/raw/master/packages/templates') {
   const url = `${baseurl}/${name}.zip`
   const resp = await fetch(url)
   if (resp.status != 200) throw new Error(`${url} not found`)
