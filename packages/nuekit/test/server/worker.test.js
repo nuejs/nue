@@ -1,8 +1,7 @@
 
 import { importWorker, createWorker } from '../../src/server/worker'
 import { testDir, write, removeAll } from '../test-utils'
-import { routes, fetch, matches } from 'nueserver'
-
+import { routes, fetch, matches } from 'nue-edgeserver'
 
 // create server
 beforeAll(async () => {

@@ -20,6 +20,8 @@
     "test": "cd test && bun test"
   },
   "dependencies": {
+    "nue-edgeserver": "^0.1.0",
+    "nuestate": "^0.1.0",
     "nueyaml": "^0.1.0",
     "nuedom": "^0.1.0",
     "nuemark": "^0.7.0",

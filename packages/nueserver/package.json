@@ -1,5 +1,5 @@
 {
-  "name": "nueserver",
+  "name": "nue-edgeserver",
   "version": "0.1.0",
   "description": "Edge first server development",
   "homepage": "https://nuejs.org/docs/nueserver",

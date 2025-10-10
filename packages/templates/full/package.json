@@ -1,7 +1,4 @@
 {
   "description": "Full nue template with raw/brutalist design system",
-  "type": "module",
-  "dependencies": {
-    "nueserver": "^0.1.0"
-  }
+  "type": "module"
 }

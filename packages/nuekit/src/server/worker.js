@@ -2,7 +2,7 @@
 import { join } from 'node:path'
 import { existsSync } from 'fs'
 
-import { routes, fetch, matches } from 'nueserver'
+import { routes, fetch, matches } from 'nue-edgeserver'
 
 import { createEnv } from './model'
 

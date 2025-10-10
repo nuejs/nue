@@ -81,7 +81,7 @@ bun install --global nuekit
 Or install Nueserver directly as a library:
 
 ```bash
-bun install nueserver
+bun install nue-edgeserver
 ```
 
 See the [Server API reference](https://nuejs.org/docs/server-api) for complete routing and context documentation.
