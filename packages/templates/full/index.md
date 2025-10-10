@@ -1,6 +1,6 @@
 
 # The new standard for web design and development
-Form & Function is an example brand created to demonstrate this multi-page application template with placeholder content. The images are simple HTML divs with Bauhaus-inspired colors and the CSS uses an intentionally minimal brutalist approach. Just 4-6kb covers both the content site and a single-page app.
+Form & Function is an example brand created to demonstrate this multi-page application template with placeholder content. The images are simple HTML divs with Bauhaus-inspired colors and the CSS uses an intentionally minimal brutalist approach. Just 4-5kb covers both the content site and a single-page app.
 
 [placeholder.blue height="450"]
 
