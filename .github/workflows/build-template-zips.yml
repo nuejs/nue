@@ -1,9 +1,11 @@
 name: Build template zips
 on:
   push:
-    branches: [ master, 2.0 ]
+    branches: [ master ]
     paths:
       - 'packages/templates/**'
+permissions:
+  contents: write
 jobs:
   build-templates:
     runs-on: ubuntu-latest
