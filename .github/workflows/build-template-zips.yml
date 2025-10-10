@@ -16,13 +16,10 @@ jobs:
           zip -r blog.zip blog/
           zip -r spa.zip spa/
           zip -r full.zip full/
-      - name: Push to releases branch
+      - name: Commit zips
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git checkout --orphan releases
-          git rm -rf .
-          mv packages/templates/*.zip .
-          git add *.zip
-          git commit -m "Update template zips"
-          git push -f origin releases
+          git add packages/templates/*.zip
+          git diff --quiet && git diff --staged --quiet || git commit -m "Update template zips"
+          git push
