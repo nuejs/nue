@@ -71,6 +71,71 @@ export function getArgs(argv) {
   return args
 }
 
+const HELP = `
+Usage
+  nue [command] [options] [file_matches]
+  nue -v or --version
+  nue -h or --help
+
+Commands
+  serve     Start development server (default command)
+  build     Build a production site
+  preview   Preview the production site
+  create    Use a project starter template
+
+Options
+  -p or --port          Serve/preview the site on this port
+  -n or --dry-run       Show what would be built. Does not build anything
+  -s or --silent        Suppress output messages
+  -i or --init          build Nue runtime files (rare need)
+  --verbose             Show detailed output
+  --clean               Clean output directory before building
+
+File matches
+  Only build files that match the rest of the arguments. For example:
+  "nue build .ts .css" will build all TypeScript and CSS files
+
+Examples
+  # serve current directory
+  nue
+
+  # build all Markdown and CSS files
+  nue build .md .css
+
+  # build with verbose output
+  nue build --verbose
+
+  # preview on specific port
+  nue preview --port 8080
+
+  # more examples
+  https://nuejs.org/docs/cli
+
+ ┏━┓┏┓┏┳━━┓
+ ┃┏┓┫┃┃┃┃━┫  ${version}
+ ┃┃┃┃┗┛┃┃━┫  nuejs.org
+ ┗┛┗┻━━┻━━┛
+`
+
+
+const colors = {
+  boldwhite: str => `\x1b[1;37m${str}\x1b[0m`,
+  gray: str => `\x1b[90m${str}\x1b[0m`,
+  green: str => `\x1b[32m${str}\x1b[0m`,
+  cyan: str => `\x1b[36m${str}\x1b[0m`,
+}
+
+function format(line) {
+  return line.match(/^\w[\w ]+$/) ? colors.boldwhite(line) // titles
+    : '┏┃┗'.includes(line.trim()[0]) ? colors.green(line) // ascii art
+    : line.includes('#') ? colors.cyan(line) // comments
+    : colors.gray(line)
+}
+
+export function printHelp() {
+  console.info(HELP.split('\n').map(format).join('\n'))
+}
+
 
 function printVersion() {
   console.log(`Nue ${ version } • Bun ${ Bun.version }`)
@@ -140,67 +205,3 @@ if (argv[1].endsWith('cli.js')) {
 }
 
 
-const HELP = `
-Usage
-  nue [command] [options] [file_matches]
-  nue -v or --version
-  nue -h or --help
-
-Commands
-  serve     Start development server (default command)
-  build     Build a production site
-  preview   Preview the production site
-  create    Use a project starter template
-
-Options
-  -p or --port          Serve/preview the site on this port
-  -n or --dry-run       Show what would be built. Does not build anything
-  -s or --silent        Suppress output messages
-  -i or --init          build Nue runtime files (rare need)
-  --verbose             Show detailed output
-  --clean               Clean output directory before building
-
-File matches
-  Only build files that match the rest of the arguments. For example:
-  "nue build .ts .css" will build all TypeScript and CSS files
-
-Examples
-  # serve current directory
-  nue
-
-  # build all Markdown and CSS files
-  nue build .md .css
-
-  # build with verbose output
-  nue build --verbose
-
-  # preview on specific port
-  nue preview --port 8080
-
-  # more examples
-  https://nuejs.org/docs/cli
-
- ┏━┓┏┓┏┳━━┓
- ┃┏┓┫┃┃┃┃━┫  ${version}
- ┃┃┃┃┗┛┃┃━┫  nuejs.org
- ┗┛┗┻━━┻━━┛
-`
-
-
-const colors = {
-  boldwhite: str => `\x1b[1;37m${str}\x1b[0m`,
-  gray: str => `\x1b[90m${str}\x1b[0m`,
-  green: str => `\x1b[32m${str}\x1b[0m`,
-  cyan: str => `\x1b[36m${str}\x1b[0m`,
-}
-
-function format(line) {
-  return line.match(/^\w[\w ]+$/) ? colors.boldwhite(line) // titles
-    : '┏┃┗'.includes(line.trim()[0]) ? colors.green(line) // ascii art
-    : line.includes('#') ? colors.cyan(line) // comments
-    : colors.gray(line)
-}
-
-export function printHelp() {
-  console.info(HELP.split('\n').map(format).join('\n'))
-}
