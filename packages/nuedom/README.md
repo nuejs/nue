@@ -9,7 +9,7 @@ Nue differs from React "composition" in both syntax and architecture:
 
 **Standards first** - `<dialog>`, `<details>`, `<popover>`, form validation, scroll-snap, container queries. Modern HTML is interactive. Nue adds the missing pieces for dynamic behavior.
 
-**DOM based** - Nue's AST maps directly to DOM operations. No virtual DOM, no reconciliation. A button is a `<button>`, not a "<Button>" component with 50KB of dependencies and hundreds of megabytes of runtime.
+**DOM based** - Nue's AST maps directly to DOM operations. No virtual DOM, no reconciliation. A button is a `<button>`, not a "`<Button>`" component with 50KB of dependencies and hundreds of megabytes of runtime.
 
 ### How it looks
 
