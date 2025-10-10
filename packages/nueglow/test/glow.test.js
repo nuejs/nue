@@ -37,7 +37,7 @@ test('parse HTML comment', () => {
 test('parse JS comment', () => {
   const blocks = parseSyntax(['/* First */', 'function() {', '/*', 'Second', '*/'])
   expect(blocks[0].comment).toEqual(['/* First */'])
-  expect(blocks[2].comment[0]).toEqual('/*')
+  expect(blocks[2].line).toEqual('/*')
 })
 
 /* prefix and mark */

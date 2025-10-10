@@ -9,7 +9,6 @@
   "main": "src/index.js",
   "browser": "src/nue-jit.js",
 
-
   "repository": {
     "url": "https://github.com/nuejs/nue",
     "directory": "packages/nuedom",
@@ -22,18 +21,8 @@
   },
 
   "scripts": {
-    "test": "node --experimental-vm-modules ../../node_modules/jest/bin/jest.js --runInBand",
-    "minify": "bun bin/minify.js && cp -r dist demo/dist"
+    "minify": "bun bin/minify.js"
   },
 
-  "files": [ "src" ],
-
-  "jest": {
-    "setupFilesAfterEnv": [
-      "<rootDir>/../../setup-jest.js"
-    ],
-    "collectCoverageFrom": [
-      "<rootDir>/src/**"
-    ]
-  }
+  "files": [ "src" ]
 }

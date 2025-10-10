@@ -74,7 +74,7 @@ Nue compiles directly in the browser with a 2KB compiler - no build tools, no Ba
 
 <head>
   <title>Nue In-browser compilation</title>
-  <script src="//esm.sh/nuedom/jit" type="module"></script>
+  <script src="//esm.sh/nuedom" type="module"></script>
 </head>
 
 <template>

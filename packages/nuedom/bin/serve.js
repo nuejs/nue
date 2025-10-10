@@ -1,12 +1,13 @@
 
 const server = Bun.serve({
-  port: 8000,
+  port: 4400,
 
   routes: {
     '/favicon.ico': async () => {
-      return Response.text('')
+      return new Response('', { headers: { 'Content-Type': 'text/plain' } })
     },
   },
+
 
   fetch(req) {
     let path = new URL(req.url).pathname
