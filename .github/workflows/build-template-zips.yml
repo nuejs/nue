@@ -1,7 +1,7 @@
 name: Build template zips
 on:
   push:
-    branches: [ master ]
+    branches: [ master, 2.0 ]
     paths:
       - 'packages/templates/**'
 permissions:
