@@ -1,5 +1,6 @@
 
-title: Minimal SPA
+meta:
+  title: Minimal SPA
 
 server:
   dir: server

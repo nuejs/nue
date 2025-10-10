@@ -1,5 +1,9 @@
 
-// users model auto-loaded from users.json
+/*
+  users model auto-generated from users.json mockup
+  later users is available on cloudflare as real, functional model
+*/
+
 get('/users', async (c) => {
   const { users } = c.env
   return c.json(await users.getAll())

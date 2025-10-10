@@ -129,6 +129,11 @@ This lets you test the new version without breaking anything. Once you've migrat
 bun install --global nuekit@latest
 ```
 
+## Beta notice
+
+This is a beta release. Tested on macOS only. Linux and Windows compatibility unknown. Report issues on [GitHub](https://github.com/nuejs/nue/issues).
+
+
 ## Get started
 
 ```bash

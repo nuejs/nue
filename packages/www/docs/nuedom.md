@@ -105,9 +105,12 @@ Or install Nue directly as a library:
 
 ```bash
 bun install nuedom
+
+## try the demo with in-browser compilation
+bun bin/serve
 ```
 
-For experiments and prototypes, just include the script tag as shown above - perfect for CodePen, JSFiddle, or local HTML files.
+For experiments and prototypes.
 
 See the [HTML syntax reference](/docs/html-syntax) for the complete API.
 

@@ -1,16 +1,14 @@
-
 name: Build template zips
-
 on:
   push:
-    branches: [ master, "2.0" ]
-
+    branches: [ master, 2.0 ]
+    paths:
+      - 'packages/templates/**'
 jobs:
   build-templates:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - name: Create template zips
         run: |
           cd packages/templates
@@ -18,21 +16,13 @@ jobs:
           zip -r blog.zip blog/
           zip -r spa.zip spa/
           zip -r full.zip full/
-          ls -la *.zip
-
-      # Dev push
-      - name: Test zip creation
-        # if: github.event_name == 'push'
-        if: false
-        uses: actions/upload-artifact@v4
-        with:
-          name: templates
-          path: packages/templates/*.zip
-          retention-days: 1
-
-      # Prod release
-      - name: Release zip files
-        if: github.event_name == 'release'
-        uses: softprops/action-gh-release@v1
-        with:
-          files: packages/templates/*.zip
+      - name: Push to releases branch
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git checkout --orphan releases
+          git rm -rf .
+          mv packages/templates/*.zip .
+          git add *.zip
+          git commit -m "Update template zips"
+          git push -f origin releases

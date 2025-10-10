@@ -1,6 +1,6 @@
 
 import { join } from 'node:path'
-import { build, matches, stats, buildAsset, buildAll } from '../../src/cmd/build'
+import { build, matches, stats, buildAsset, buildAll, minifyJS } from '../../src/cmd/build'
 import { testDir, writeAll, removeAll, fileset } from '../test-utils'
 import { trim } from '../../src/render/page'
 import { createSite } from '../../src/site'
@@ -165,3 +165,17 @@ describe('SPA build', async () => {
   })
 
 })
+
+
+test('Minify JS', async () => {
+  const code = `
+    async function test()  {
+      const nue = await import('/@nue/nue.js')
+      nue.hello()
+    }
+    await test()
+  `
+  expect(await minifyJS(code)).toStartWith('var')
+})
+
+

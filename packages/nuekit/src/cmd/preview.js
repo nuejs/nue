@@ -43,8 +43,8 @@ export async function getFile(dist, url) {
 
   // 404
   if (!ext) {
-    const err = Bun.file(join(dist, '404.html'))
-    if (await err.exits()) return err
+    const err_page = Bun.file(join(dist, '404.html'))
+    if (await err_page.exists()) return err_page
   }
 }
 

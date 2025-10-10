@@ -26,7 +26,7 @@
     .stack {
       font-size: var(--ui-sizing);
       margin-block: 1.5em 2em;
-      max-width: 12em;
+      a { max-width: 13em }
       gap: .75em;
     }
 
@@ -37,6 +37,9 @@
       pointer-events: none;
       margin-left: -.5em;
       width: auto;
+
+      strong { color: white }
+      &:has(.row) { max-width: 25em }
     }
   }
 }

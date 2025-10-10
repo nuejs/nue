@@ -34,7 +34,7 @@ export async function readSiteConf(args={}) {
   ignore.push(join('@shared', 'test'))
 
   // production override
-  if (is_prod) {
+  if (is_prod && conf.meta) {
     Object.assign(conf.meta, conf.production)
     delete conf.production
   }

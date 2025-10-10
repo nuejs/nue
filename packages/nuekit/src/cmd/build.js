@@ -122,7 +122,7 @@ export function matches(path, patterns) {
   })
 }
 
-async function minifyJS(code) {
+export async function minifyJS(code) {
   const path = join(tmpdir(), `temp-${Date.now()}.js`)
   await writeFile(path, code)
 

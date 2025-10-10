@@ -2,10 +2,10 @@ node_modules
 
 coverage
 .dist
+.nue
 dist
 _test
 test_dir
-playground
 performance.js
 
 .DS_Store
