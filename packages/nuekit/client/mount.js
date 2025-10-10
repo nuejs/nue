@@ -11,7 +11,6 @@ export async function mountAll(reload_path) {
     const name = root.getAttribute('nue') || root.tagName.toLowerCase()
     const comp = deps.find(a => [a.is, a.tag].includes(name))
 
-      console.info(root, !comp)
     if (comp) {
       const node = mount(comp, { root, deps, data: getData(root) })
       node.root.setAttribute('nue', name)

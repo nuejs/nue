@@ -123,7 +123,7 @@ function ogImage(data) {
 
   if (og) {
     const img = og[0] == '/' ? og : `/${data.dir}/${og}`
-    return data.is_prod ? origin : '' + img
+    return (data.is_prod ? origin : '') + img
   }
 }
 

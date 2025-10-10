@@ -10,6 +10,7 @@ meta:
   title_template: %s / Nue
   description: Nue is the fastest way to build modern websites
   favicon: /img/favicon.svg
+  origin: https://nuejs.org
   og: /img/og.png
 
 content:

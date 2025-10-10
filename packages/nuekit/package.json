@@ -1,6 +1,6 @@
 {
   "name": "nuekit",
-  "version": "2.0.0-beta.1",
+  "version": "2.0.0-beta.2",
   "description": "The UNIX of the Web",
   "homepage": "https://nuejs.org",
   "license": "MIT",
@@ -28,5 +28,5 @@
     "nue-glow": "^0.2.0"
   },
 
-  "files": [ "src", "client" ]
+  "files": [ "src", "client", "favicon.ico" ]
 }

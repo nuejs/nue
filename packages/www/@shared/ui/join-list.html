@@ -6,8 +6,8 @@
 
   <form :else class="ui flex" --width="40em" :onsubmit="submit">
     <div class="stack">
-      <input type="email" placeholder="Your email" class="flex-3">
-      <textarea placeholder="{ comment }"></textarea>
+      <input type="email" placeholder="Your email" class="flex-3" name="email">
+      <textarea placeholder="{ comment }" name="comment"></textarea>
     </div>
     <div>
       <button class="brand">{ cta }</button>
@@ -15,10 +15,10 @@
   </form>
 
   <script>
-    submit({ target }) {
-      const data = Object.fromEntries(new FormData(target).entries())
+    submit(e) {
+      const data = Object.fromEntries(new FormData(e.target).entries())
 
-      false && fetch('/public/members', {
+      fetch('/public/members', {
         'Content-Type': 'application/json',
         body: JSON.stringify(data),
         method: 'POST',
