@@ -212,8 +212,11 @@ Backend:  http://localhost:4000/api/*
 Changes to any part of your application reload instantly:
 
 **Frontend changes** - Components, state, and UI update in milliseconds
+
 **Backend changes** - Server routes reload without restarting
+
 **Model changes** - Business logic propagates to both layers
+
 **CSS changes** - Styles inject directly without page reloads
 
 
@@ -227,7 +230,10 @@ nue create full
 The full template adds:
 
 **Authentication flows** - Login, sessions, and route protection
+
 **Advanced state patterns** - Search, filtering, pagination across collections
+
 **Hybrid architecture** - Marketing site, documentation, and SPA in one project
+
 **Shared design system** - Single CSS foundation for all applications
 
