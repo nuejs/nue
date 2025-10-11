@@ -152,12 +152,19 @@ Your home page assets can go in a `home` folder to separate them from root asset
 ## File types
 
 **`.html`** - Pages, components, and layouts
+
 **`.md`** - Content using Nuemark syntax
+
 **`.css`** - Stylesheets (loaded automatically)
+
 **`.js`** - Client-side JavaScript
+
 **`.ts`** - TypeScript (transpiled to JavaScript)
+
 **`.svg`** - Graphics (processed via app.yaml config)
+
 **`.yaml`** - Configuration and data
+
 **`404.md`** or **`404.html`** - Custom error pages
 
 
