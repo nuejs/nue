@@ -3,7 +3,7 @@
 Websites are content-driven applications where information comes first. Blogs, documentation, marketing pages, company sites, and portfolios all follow this pattern: the content defines the structure, and the design system presents it.
 
 ## Getting started
-Let's start with the the simplests of websites:
+Let's start with the the simplest of websites:
 
 ```bash
 nue create blog
@@ -89,7 +89,7 @@ This appears above your post content, creating a consistent header design across
 Nuemark is Nue's content format. It extends standard Markdown with layout capabilities, making it perfect for content-focused apps.
 
 ### Basic content
-Write naturally using standard Markdown:
+Write naturally, using standard Markdown:
 
 ```md
 ---
