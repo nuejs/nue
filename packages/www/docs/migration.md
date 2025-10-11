@@ -413,7 +413,7 @@ export async function getContacts(params) {
 
 **Architectural clarity** - Business logic, data operations, and validation live separately from UI components. Each layer can be developed independently.
 
-**Testability** - Unit test your application logic without mixing frontend concenrs. Pure functions are trivial to test.
+**Testability** - Unit test your application logic without mixing frontend concerns. Pure functions are trivial to test.
 
 **Portability** - Your business model works with any UI layer. Migrate from React to Vue to vanilla JavaScript (or TypeScript) without rewriting core application logic.
 
