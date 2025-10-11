@@ -665,7 +665,7 @@ CSS handles all presentation decisions in one place. Variants, states, and respo
 ## Migration complete
 After following this migration guide, you've transformed a complex Next.js application into a clean, standards-based architecture. The transformation is quite dramatic:
 
-**From 575MB to 1MB** - Your project dependencies dropped from over 450+ NPM packages to a single global installation with zero external dependencies Configuration files reduced from 15+ to one central `site.yaml`.
+**From 575MB to 1MB** - Your project dependencies dropped from over 450+ NPM packages to a single global installation with zero external dependencies. Configuration files reduced from 15+ to one central `site.yaml`.
 
 **From mixed concerns to architectural clarity** - Business logic lives in pure JavaScript modules. Content lives in Markdown files. Design lives in CSS. Structure lives in semantic HTML. Each layer works independently and can scale without affecting others.
 
