@@ -23,8 +23,6 @@ Nue processes files on request during development. The server can start instantl
 
 This happens fast enough to feel instant because each processing step is lightweight.
 
-Here's a new "Hot module replacement" section based on that code:
-
 ### Hot module replacement
 HMR works through WebSocket connections. The server watches file changes and sends targeted updates based on file type:
 

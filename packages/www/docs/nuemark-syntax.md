@@ -65,7 +65,7 @@ Nuemark extends standard Markdown with additional formatting options:
 `code`                   → <code>code</code>
 ~strikethrough~          → <s>strikethrough</s>
 "quoted text"            → <q>quoted text</q>
-|highlighted|            → <mark>highlighted</mark>
+\|highlighted|            → <mark>highlighted</mark>
 ```
 
 The bullet character `•` provides non-semantic bold:
