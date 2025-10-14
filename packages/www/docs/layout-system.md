@@ -51,6 +51,7 @@ Available slots:
 | "banner"     | Temporary announcements above the header           |
 | "header"     | Global site header                                 |
 | "subheader"  | Breadcrumbs or secondary navigation                |
+| "main"       | Global main                                        |
 | "aside"      | Sidebars for documentation or catalogs             |
 | "pagehead"   | Hero areas for blog posts or marketing pages       |
 | "pagefoot"   | Call-to-action sections                            |
