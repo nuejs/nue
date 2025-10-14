@@ -83,7 +83,7 @@ Use bullet markers to highlight specific parts:
 ````md
  ```javascript
  const config = {
-   •name: "My App"•,
+   \•name: "My App"\•,
    version: "1.0.0"
  }
  ```
@@ -99,7 +99,7 @@ Double bullets mark errors:
 
 ````md
  ```javascript
- const data = ••undefned•• // typo
+ const data = \•\•undefned\•\• // typo
  ```
 ````
 
