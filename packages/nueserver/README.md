@@ -58,7 +58,7 @@ When deployment arrives, these headers provide real geolocation and network data
 ## Design principles
 Nueserver draws inspiration from Hono's clean API while with the follwing differences:
 
-**Global methods** — No Hono imports or server exports. Use `get()`, `post()`, or `use()` directly on the code.
+**Global methods** - No Hono imports or server exports. Use `get()`, `post()`, or `use()` directly on the code.
 
 **No HTML responses** - Use `c.json()` and `c.text()` only. HTML generation belongs in the frontend.
 

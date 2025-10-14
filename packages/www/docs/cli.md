@@ -72,7 +72,7 @@ Create a new project from a starter template:
 nue create blog
 ```
 
-This extracts downloaded template creates a new directory and cd's to it. Issue `nue` and the newly created site is served at http://localhost:4000
+This extracts a downloaded template to a new directory. Issue `nue` from the directory and the newly created site is served at http://localhost:4000
 
 
 ## Global options

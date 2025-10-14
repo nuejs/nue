@@ -1,6 +1,6 @@
 
 # **Nuekit:** Standards first web framework
-Nuekit offers a complete client/server development environment for content sites and single-page applications in a single, 1MB executable. It takes HTML, CSS; and JavaScript to their absolute peak.
+Nuekit offers a complete client/server development environment for content sites and single-page applications in a single, 1MB executable. It takes HTML, CSS, and JavaScript to their absolute peak.
 
 
 ## Rapid application assembly
