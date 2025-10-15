@@ -1,8 +1,13 @@
 
-import { join, normalize, dirname, extname, basename, sep } from 'node:path'
+import { join, dirname, extname, basename, sep } from 'node:path'
+
+// Normalize path separators to POSIX format
+function toPosix(path) {
+  return path.split(sep).join('/')
+}
 
 // app, lib, server are @shared, but not auto-included
-const AUTO_INCLUDED = ['data', 'design', 'ui'].map(dir => join('@shared', dir))
+const AUTO_INCLUDED = ['data', 'design', 'ui'].map(dir => toPosix(join('@shared', dir)))
 
 const ASSET_TYPES = ['.html', '.js', '.ts', '.yaml', '.css']
 
@@ -40,12 +45,12 @@ function isDep(page_path, asset_path, all_paths) {
   if (dir == '.') return true
 
   // shared dir -> auto-included
-  if (AUTO_INCLUDED.some(dir => asset_path.startsWith(dir + sep))) return true
+  if (AUTO_INCLUDED.some(dir => asset_path.startsWith(dir + '/'))) return true
 
   // SPA: entire app tree
   if (basename(page_path) == 'index.html') {
     const dir = dirname(page_path)
-    return dir == '.' ? !all_paths.some(el => extname(el) == '.md') : asset_path.startsWith(dir + sep)
+    return dir == '.' ? !all_paths.some(el => extname(el) == '.md') : asset_path.startsWith(dir + '/')
   }
 
   // index.md -> home dir
@@ -58,7 +63,7 @@ function isDep(page_path, asset_path, all_paths) {
 
   // check if asset is in ui of any parent directory
   return page_dirs.some(pageDir => {
-    const ui_dir = pageDir ? join(pageDir, 'ui') : 'ui'
+    const ui_dir = pageDir ? toPosix(join(pageDir, 'ui')) : 'ui'
     return asset_dir == ui_dir || asset_dir == pageDir
   })
 }
@@ -66,6 +71,6 @@ function isDep(page_path, asset_path, all_paths) {
 
 // parseDirs('a/b/c') --> ['a', 'a/b', 'a/b/c']
 export function parseDirs(dir) {
-  const els = normalize(dir).split(sep)
+  const els = dir.split('/')
   return els.map((el, i) => els.slice(0, i + 1).join('/'))
 }

@@ -53,7 +53,7 @@ export function getFileInfo(path) {
   const url = getURL(info)
   const slug = getSlug(info)
 
-  if (dir.includes(sep)) info.basedir = dir.split(sep)[0]
+  if (dir.includes('/')) info.basedir = dir.split('/')[0]
 
   return { ...info, path, type, url, slug, [`is_${type}`]: true }
 }
@@ -67,7 +67,7 @@ export function getURL(file) {
   }
 
   if (ext == '.ts') ext = '.js'
-  const els = dir.split(sep)
+  const els = dir ? dir.split('/') : []
   els.push(name + ext)
 
   return `/${ els.join('/') }`.replace('//', '/')

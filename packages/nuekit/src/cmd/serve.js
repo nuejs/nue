@@ -59,6 +59,20 @@ export async function serve(site, { silent }) {
 // server requests
 export async function onServe(url, assets, opts={}) {
   const { params={}, conf={} } = opts
+
+  // Redirect to trailing slash if it's a directory
+  if (!url.endsWith('/') && !extname(url)) {
+    const basePath = url.slice(1);
+    const htmlPath = basePath ? `${basePath}/index.html` : 'index.html';
+    const mdPath = basePath ? `${basePath}/index.md` : 'index.md';
+
+    const indexAsset = assets.find(asset => asset.path === htmlPath || asset.path === mdPath);
+
+    if (indexAsset) {
+      return { redirect: url + '/' };
+    }
+  }
+
   const asset = findAssetByURL(url, assets)
   const ext = extname(url)
 
@@ -106,7 +120,7 @@ const sysfiles = getSystemFiles()
 
 export function findAssetByURL(url, assets=[]) {
   return [...sysfiles, ...assets].find(asset => {
-    return url.endsWith('.html.js') ? asset.path == url.slice(1, -3)
+    return url.endsWith('.html.js') ? asset.path && asset.path.replace(/\\/g, '/') == url.slice(1, -3)
       :  asset.url == url
   })
 }

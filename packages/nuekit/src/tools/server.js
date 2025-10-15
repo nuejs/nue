@@ -22,6 +22,11 @@ export function createServer({ port=4000, handler }, callback) {
 
       // res = { content, type, status } || HTML <string>
       if (res) {
+        // Handle redirects from onServe
+        if (res.redirect) {
+          return Response.redirect(res.redirect, 301)
+        }
+
         return new Response(res.content || res, {
           headers: { 'Content-Type': res.type || 'text/html; charset=utf-8' },
           status: res.status || 200
@@ -61,4 +66,3 @@ export function broadcast(data) {
     try { ws.send(JSON.stringify(data)) } catch(e) {}
   })
 }
-
