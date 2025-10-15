@@ -1,5 +1,5 @@
 
-import { mkdir } from 'node:fs/promises'
+import { mkdir, rename, rm, readdir } from 'node:fs/promises' // <-- Nuevas importaciones
 import { join } from 'node:path'
 
 export const NAMES = 'blog full minimal spa'.split(' ')
@@ -52,13 +52,18 @@ export async function fetchZip(name, baseurl='https://github.com/nuejs/nue/raw/m
 }
 
 
-// unzip.js
+// Función de descompresión multiplataforma con TAR y post-procesamiento
 export async function unzip(dir, zip) {
   const filename = `${dir}.zip`
+  // Usamos un nombre único y simple para el directorio temporal
+  const tempDir = `TEMP_${dir}`
+
+  // 1. Escribir el zip temporalmente
+  await Bun.write(filename, zip)
 
   try {
-    // write zip file
-    await Bun.write(filename, zip)
+    // 2. Crear el directorio temporal y extraer el ZIP en él
+    await mkdir(tempDir)
 
     // extract (expects "minimal" directory inside zip)
     const cmd = process.platform == 'win32' ? ['tar', '-xf', filename] : ['unzip', '-q', filename]
@@ -70,10 +75,34 @@ export async function unzip(dir, zip) {
       throw new Error(`Unpacking archive failed with exit code ${exitCode}: ${stderr}`)
     }
 
-  // clean up
+    // 3. Mover el contenido:
+    // Sabemos que la extracción creó: TEMP_minimal/minimal/...
+
+    // El directorio que queremos mover es: TEMP_minimal/minimal
+    const extractedRootPath = join(tempDir, dir)
+
+    // Mover (renombrar) TEMP_minimal/minimal a minimal
+    // Si 'minimal' ya existe, la operación de 'rename' fallará.
+    // Debemos asegurarnos de que el directorio final 'dir' no exista antes de esta llamada,
+    // o usar un enfoque de copia/eliminación.
+
+    // El 'create' inicial ya verifica si 'dir' existe.
+    // Por lo tanto, el directorio 'dir' *no existe* en este punto,
+    // lo que hace que rename sea seguro y efectivo.
+    await rename(extractedRootPath, dir)
+
+    // 4. Limpieza: Eliminar el directorio temporal.
+    await rm(tempDir, { recursive: true, force: true })
+
+
+  } catch (error) {
+    // Asegurarse de que la limpieza ocurra incluso en caso de fallo intermedio
+    try { await rm(tempDir, { recursive: true, force: true }) } catch (e) { console.info(e) }
+    throw error // Relanzar el error para que sea capturado por 'create'
   } finally {
+    // 5. Limpieza final: Eliminar el archivo .zip temporal
     try {
       await Bun.file(filename).delete()
-    } catch (e) {console.info(e)}
+    } catch (e) { console.info(e) }
   }
 }

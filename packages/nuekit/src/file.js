@@ -2,6 +2,11 @@
 import { parse, sep, join } from 'node:path'
 import { lstat } from 'node:fs/promises'
 
+// Normalize path separators to POSIX format (forward slashes)
+function toPosix(path) {
+  return path.split(sep).join('/')
+}
+
 export async function createFile(root, path) {
   try {
     const rootpath = join(root, path)
@@ -36,7 +41,7 @@ export async function createFile(root, path) {
       return to
     }
 
-    return { ...info, rootpath, mtime, text, copy, write, flush }
+    return { ...info, rootpath: toPosix(rootpath), mtime, text, copy, write, flush }
 
   } catch (error) {
     console.warn(`Warning: Error reading ${path}: ${error.message}`)
@@ -55,7 +60,7 @@ export function getFileInfo(path) {
 
   if (dir.includes('/')) info.basedir = dir.split('/')[0]
 
-  return { ...info, path, type, url, slug, [`is_${type}`]: true }
+  return { ...info, path: toPosix(path), type, url, slug, [`is_${type}`]: true }
 }
 
 export function getURL(file) {

@@ -71,7 +71,12 @@ export function sortAssets(items) {
 
 
 export async function mergeSharedData(assets, data={}) {
-  const shared = assets.filter(a => a.dir?.startsWith(`@shared${sep}data`))
+  const SHARED_DATA_DIR = '@shared/data';
+
+  const shared = assets.filter(a => {
+    const dir = a.dir?.replace(/\\/g, '/'); // Normalize to '/'
+    return dir?.startsWith(SHARED_DATA_DIR);
+  });
   const statics = shared.filter(f => f.is_json || f.is_yaml)
 
   const dataset = await Promise.all(statics.map(f => f.parse()))
@@ -88,5 +93,3 @@ export async function mergeSharedData(assets, data={}) {
 
   return data
 }
-
-

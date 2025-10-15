@@ -55,7 +55,12 @@ export async function buildAll(subset, args) {
   await createSystemFiles(dist, init)
 
   // build files
-  subset = subset.filter(el => !el.is_yaml && !el.dir.startsWith(`@shared${sep}data`))
+  const SHARED_DATA_DIR = `@shared/data`;
+
+  subset = subset.filter(el => {
+    const dir = el.dir?.replace(/\\/g, '/');
+    return !el.is_yaml && !dir?.startsWith(SHARED_DATA_DIR);
+  });
 
   await Promise.all(subset.map(async asset => {
     try {

@@ -1,5 +1,6 @@
 import { test, expect } from 'bun:test'
 import { promises as fs } from 'node:fs'
+import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 
 import {
@@ -35,7 +36,7 @@ test.skip('deduplicator blocks rapid events', async () => {
 })
 
 test('watches single file changes', async () => {
-  const tmpDir = await fs.mkdtemp('/tmp/fswatch-test-')
+  const tmpDir = await fs.mkdtemp(join(tmpdir(), 'fswatch-test-'))
   const testFile = join(tmpDir, 'test.txt')
 
   const changes = []
@@ -55,7 +56,7 @@ test('watches single file changes', async () => {
 })
 
 test('watches directory creation and processes files', async () => {
-  const tmpDir = await fs.mkdtemp('/tmp/fswatch-test-')
+  const tmpDir = await fs.mkdtemp(join(tmpdir(), 'fswatch-test-'))
   const newDir = join(tmpDir, 'newdir')
 
   const changes = []
@@ -78,7 +79,7 @@ test('watches directory creation and processes files', async () => {
 })
 
 test('ignores files matching patterns', async () => {
-  const tmpDir = await fs.mkdtemp('/tmp/fswatch-test-')
+  const tmpDir = await fs.mkdtemp(join(tmpdir(), 'fswatch-test-'))
 
   const changes = []
   const watcher = fswatch(tmpDir, { ignore: ['*.log', '.hidden*'] })
@@ -100,7 +101,7 @@ test('ignores files matching patterns', async () => {
 })
 
 test('handles file removal', async () => {
-  const tmpDir = await fs.mkdtemp('/tmp/fswatch-test-')
+  const tmpDir = await fs.mkdtemp(join(tmpdir(), 'fswatch-test-'))
   const testFile = join(tmpDir, 'test.txt')
 
   const removed = []
@@ -122,7 +123,7 @@ test('handles file removal', async () => {
 })
 
 test('ignores files without extensions', async () => {
-  const tmpDir = await fs.mkdtemp('/tmp/fswatch-test-')
+  const tmpDir = await fs.mkdtemp(join(tmpdir(), 'fswatch-test-'))
 
   const changes = []
   const watcher = fswatch(tmpDir)
