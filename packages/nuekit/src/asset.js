@@ -143,7 +143,7 @@ export async function compileJS(path, minify, bundle) {
     entrypoints: [path],
     target: 'browser',
     minify,
-    sourcemap: 'none' // <-- ¡Esto desactiva el archivo .map y corrige el fallo!
+    sourcemap: 'none', // <-- Disables the .map file and fixes the bug/issue!
   })
 
   const [ js ] = result.outputs
