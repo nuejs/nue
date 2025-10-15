@@ -1,4 +1,3 @@
-
 import { create, unzip, getLocalZip, fetchZip } from '../../src/cmd/create'
 import { rm, readdir } from 'node:fs/promises'
 
@@ -23,8 +22,9 @@ test('unzip', async () => {
   const dir = 'minimal'
   const zip = await getLocalZip(dir, 'cmd')
   await unzip(dir, zip)
-  const files = await readdir(dir)
-  expect(files).toEqual([ "index.html", "index.css" ])
+  // read files inside minimal/minimal
+  const files = await readdir(`${dir}/${dir}`)
+  expect(files.sort()).toEqual(['index.css', 'index.html'])
 })
 
 test('create', async () => {
