@@ -24,7 +24,7 @@ test('unzip', async () => {
   const zip = await getLocalZip(dir, 'cmd')
   await unzip(dir, zip)
   const files = await readdir(dir)
-  expect(files).toEqual([ "index.html", "index.css" ])
+  expect(new Set(files)).toEqual(new Set(["index.html", "index.css"]))
 })
 
 test('create', async () => {
