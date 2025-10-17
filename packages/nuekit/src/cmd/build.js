@@ -1,6 +1,6 @@
 
 import { mkdir, rmdir, writeFile, unlink } from 'node:fs/promises'
-import { join, sep } from 'node:path'
+import path, { join } from 'node:path'
 import { tmpdir } from 'os'
 
 import { generateSitemap, generateFeed } from '../render/feed'
@@ -58,7 +58,7 @@ export async function buildAll(subset, args) {
   const SHARED_DATA_DIR = `@shared/data`;
 
   subset = subset.filter(el => {
-    const dir = el.dir?.replace(/\\/g, '/');
+    const dir = el.dir ? path.posix.normalize(el.dir) : undefined
     return !el.is_yaml && !dir?.startsWith(SHARED_DATA_DIR);
   });
 
