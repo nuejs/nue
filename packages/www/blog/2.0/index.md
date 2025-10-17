@@ -1,7 +1,7 @@
 
 ---
 title: **Nue 2.0:** The UNIX of the web
-# date: 2023-09-18
+date: 2025-10-14
 ---
 
 Here's Nue 2.0 — a complete website development environment in 1MB.
