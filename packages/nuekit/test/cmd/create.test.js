@@ -2,6 +2,8 @@
 import { create, unzip, getLocalZip, fetchZip } from '../../src/cmd/create'
 import { rm, readdir } from 'node:fs/promises'
 
+const testdir = import.meta.dirname
+
 // suppress console messages
 jest.spyOn(console, 'log').mockImplementation(() => {})
 
@@ -10,7 +12,7 @@ afterEach(async () => {
 })
 
 test('getLocalZip', async () => {
-  const zip = await getLocalZip('minimal', 'cmd')
+  const zip = await getLocalZip('minimal', testdir)
   expect(await zip.exists()).toBeTrue()
 })
 
@@ -21,12 +23,12 @@ test.skip('fetchZip', async () => {
 
 test('unzip', async () => {
   const dir = 'minimal'
-  const zip = await getLocalZip(dir, 'cmd')
+  const zip = await getLocalZip(dir, testdir)
   await unzip(dir, zip)
   const files = await readdir(dir)
   expect(files).toEqual([ "index.html", "index.css" ])
 })
 
 test('create', async () => {
-  expect(await create('minimal', { dir: 'cmd' })).toBeTrue()
+  expect(await create('minimal', { dir: testdir })).toBeTrue()
 })
