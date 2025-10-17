@@ -1,6 +1,7 @@
 
 import { getPathData, getQueryData, renderPath, renderQuery, api, state } from '../src/state.js'
 
+beforeAll(() => global.window = null)
 
 describe('internal methods', () => {
 
