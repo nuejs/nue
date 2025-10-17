@@ -142,8 +142,7 @@ export async function compileJS(path, minify, bundle) {
     external: bundle ? undefined : ['*'],
     entrypoints: [path],
     target: 'browser',
-    minify,
-    sourcemap: 'none', // <-- Disables the .map file and fixes the bug/issue!
+    minify
   })
 
   const [ js ] = result.outputs
