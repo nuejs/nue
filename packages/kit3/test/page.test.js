@@ -11,10 +11,10 @@ test('createPage', async () => {
     return parseNuemark('# Hello')
   }
 
-  const assets = new Map([
-    ['acme/global.js', getPathInfo('acme/global.js', 'acme')],
-    ['acme/index.md', index],
-  ])
+  const assets = [
+    getPathInfo('acme/global.js', 'acme'),
+    index,
+  ]
 
   const page = await createPage(index, ['acme', '@base'], assets)
   const html = await page.render(true)

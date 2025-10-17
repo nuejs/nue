@@ -99,8 +99,8 @@ function reloadCSS(asset) {
 async function reloadHTML(asset) {
   const { ast } = asset
 
-  return ast.is_dhtml ? await reloadComponents(asset)
-    : ast.is_lib ? location.reload()
+  return ast.is_dhtml ? await reloadComponents(asset) // dynamic component
+    : ast.is_lib ? location.reload()  // server-side layout
     : await reloadContent(asset)
 }
 

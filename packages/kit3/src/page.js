@@ -13,11 +13,8 @@ export async function createPage(asset, chain, assets) {
 
   const deps = await getDeps(asset, chain, assets)
 
+  // .md only
   async function render(is_prod) {
-    return asset.is_html ? renderSPA(is_prod) : renderMD(is_prod)
-  }
-
-  async function renderMD(is_prod) {
     const document = await asset.parse()
     const { meta, headings } = document
 
@@ -27,7 +24,7 @@ export async function createPage(asset, chain, assets) {
     const comps = await getComponents(deps)
 
     // content conf
-    Object.assign(data, getPathMeta(asset))
+    Object.assign(data, { dir: asset.dir, slug: asset.slug, url: asset.url })
 
     const content = document.render({
       heading_ids: meta?.heading_ids || conf.content?.heading_ids,
@@ -42,11 +39,7 @@ export async function createPage(asset, chain, assets) {
     return renderContent(content, { head, comps, data, conf })
   }
 
-  function contentType() {
-    return 'text/html; charset=utf-8'
-  }
-
-  return { ...asset, render, contentType }
+  return { ...asset, render }
 }
 
 
@@ -65,36 +58,6 @@ export async function getComponents(deps, dynamic) {
 
   return ret
 }
-
-export function getURL(asset) {
-  let { name, base, ext, dir } = asset
-
-  if (['.md', '.html'].includes(ext)) {
-    if (name == 'index') name = ''
-    ext = ''
-  }
-
-  if (ext == '.ts') ext = '.js'
-  const els = dir.split(sep)
-  els.push(name + ext)
-
-  return `/${ els.join('/') }`.replace('//', '/')
-}
-
-export function getSlug(asset) {
-  let { name, base, ext } = asset
-  return name == 'index' ? '' : ext == '.md' ? name : base
-}
-
-
-function getPathMeta(asset) {
-  return {
-    slug: getSlug(asset),
-    url: getURL(asset),
-    dir: asset.dir,
-  }
-}
-
 
 // custom components as Markdown extensions (tags)
 function convertToTags(deps, data) {

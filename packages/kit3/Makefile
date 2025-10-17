@@ -1,3 +1,3 @@
 
 run-tests:
-	cd test && bun test serve
+	cd test && bun test

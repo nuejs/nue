@@ -56,6 +56,7 @@ export function getPathInfo(filepath, sitename=null) {
   const app = pathParts.length > 1 ? pathParts[0] : null
   const is_spa = !path.includes('@') && path.endsWith('index.html')
 
+
   return {
     name: info.name,
     base: info.base,
@@ -64,6 +65,8 @@ export function getPathInfo(filepath, sitename=null) {
 
     is_base: sitename == '@base',
     [`is_${type}`]: true,
+    slug: getSlug(info),
+    url: getURL(info),
     site: sitename,
     is_spa,
     folder,
@@ -72,6 +75,28 @@ export function getPathInfo(filepath, sitename=null) {
     app,
   }
 }
+
+
+export function getURL(info) {
+  let { name, base, ext, dir } = info
+
+  if (['.md', '.html'].includes(ext)) {
+    if (name == 'index') name = ''
+    ext = ''
+  }
+
+  if (ext == '.ts') ext = '.js'
+  const els = dir.split(sep)
+  els.push(name + ext)
+
+  return `/${ els.join('/') }`.replace('//', '/')
+}
+
+export function getSlug(info) {
+  let { name, base, ext } = info
+  return name == 'index' ? '' : ext == '.md' ? name : base
+}
+
 
 export async function compileJS(path, minify, bundle) {
   const result = await Bun.build({

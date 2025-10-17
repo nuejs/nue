@@ -1,12 +1,13 @@
 
 import { sep } from 'node:path'
 import { createServer, broadcast } from './tools/server'
+import { getChain, findAsset } from './find'
 import { fswatch } from './tools/fswatch'
 import { fswalk } from './tools/fswalk'
 import { createAsset } from './asset'
-import { findAsset } from './find'
+import { createPage } from './page'
 
-const assets = new Map()
+const assetMap = new Map()
 
 async function loadAssets() {
   const paths = await fswalk()
@@ -16,10 +17,16 @@ async function loadAssets() {
 async function serve({ host, pathname, params }) {
   const { sitename, is_prod } = parseHost(host)
 
-  // find asset
-  const asset = await findAsset(pathname, sitename, assets)
+  // find
+  const assets = [ ...assetMap.values() ] // .values() cannot be re-iterated
+  const chain = await getChain(sitename, assets)
+  const asset = await findAsset(pathname, chain, assets)
 
   // render
+  if (asset?.is_md) {
+    return { content: await renderPage(asset, is_prod), type: 'text/html; charset=utf-8' }
+  }
+
   if (asset?.render) {
     const content = await asset.render(is_prod)
     return { content, type: await asset.contentType() }
@@ -28,25 +35,39 @@ async function serve({ host, pathname, params }) {
   return asset
 }
 
+
+async function renderPage(asset, is_prod) {
+  const assets = [ ...assetMap.values() ]
+  const chain = await getChain(asset.site, assets)
+  const page = await createPage(asset, chain, assets)
+  return await page.render(is_prod)
+}
+
 export async function start() {
   await loadAssets()
 
   const watcher = fswatch()
 
-  watcher.onupdate = async (path) => {
-    broadcast({ path })
-    putAsset(path)
+  watcher.onupdate = async path => {
+    const asset = putAsset(path)
+    asset.content = asset.is_md ? await renderPage(asset) : await asset.render()
+    broadcast(asset)
   }
 
-  watcher.onremove = (path) => {
-    assets.delete(path.replaceAll(sep, '/'))
+  watcher.onremove = path => {
+    const asset = assetMap.get(path)
+
+    if (asset) {
+      assetMap.delete(path)
+      broadcast({ remove: asset })
+    }
   }
 
   // dev server
   const server = createServer({ port: 5050 }, serve)
 
   // print
-  console.log(getSitenames(assets.keys()))
+  console.log(getSitenames(assetMap.keys()))
 }
 
 function parseHost(host) {
@@ -56,20 +77,20 @@ function parseHost(host) {
   return { sitename, is_prod }
 }
 
-function putAsset(path, keys=assets.keys()) {
-  const sitenames = getSitenames(keys)
+function putAsset(path, paths=assetMap.keys()) {
+  const sitenames = getSitenames(paths)
   const sitename = parseSitename(path, sitenames)
   const asset = createAsset(path, sitename)
-  const key = path.replaceAll(sep, '/').replace(asset.folder + '/', '')
-  assets.set(key, asset)
+  assetMap.set(path, asset)
+  return asset
 }
 
-export function getSitenames(keys) {
+export function getSitenames(paths) {
   const filenames = ['site.yaml', 'index.md', 'index.html']
   const names = new Set()
 
-  for (const key of keys) {
-    const els = key.split('/')
+  for (const path of paths) {
+    const els = path.split('/')
 
     for (const filename of filenames) {
       const i = els.indexOf(filename)

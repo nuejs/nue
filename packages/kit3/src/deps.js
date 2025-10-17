@@ -9,8 +9,7 @@ const TYPES = ['html', 'js', 'ts', 'yaml', 'css']
 export async function getDeps(asset, chain, assets) {
   const { include, exclude } = await getIncludeOpts(asset, chain, assets)
 
-  return [...assets.values()].filter(dep => {
-
+  return assets.filter(dep => {
 
     // ignore self
     if (asset.path == dep.path) return false
@@ -30,7 +29,6 @@ export async function getDeps(asset, chain, assets) {
     // ui
     if (dep.dir?.endsWith(asset.dir + sep + 'ui')) return true
 
-
     // index.md -> home dir
     if (asset.path == 'index.md' && dep.dir == 'home') return true
 
@@ -40,19 +38,23 @@ export async function getDeps(asset, chain, assets) {
 
 export async function getIncludeOpts(asset, chain, assets) {
   const opts = { include: [], exclude: [] }
-  const { appdir } = asset
 
   function push({ include, exclude }) {
     if (include) opts.include.push(...include)
     if (exclude) opts.exclude.push(...exclude)
   }
 
-  for (const sitename of chain) {
-    const conf = assets.get(`${sitename}/site.yaml`)
+  for (const site of chain) {
+
+    function find(path) {
+      return assets.find(el => el.site == site && el.path == path)
+    }
+
+    const conf = find('site.yaml')
     if (conf) push(await conf.parse())
 
-    if (appdir) {
-      const conf = assets.get(`${sitename}/${appdir}/app.yaml`)
+    if (asset.app) {
+      const conf = find(join(asset.app, 'app.yaml'))
       if (conf) push(await conf.parse())
     }
   }

@@ -11,13 +11,13 @@ const CONF = [
 export async function getConf(app, chain, assets, is_prod) {
   const conf = { is_prod }
 
-  for (const sitename of chain.toReversed()) {
-    const file = assets.get(`${sitename}/site.yaml`)
+  for (const site of chain.toReversed()) {
+    const file = assets.find(el => el.site == site && el.path == 'site.yaml')
     if (file) Object.assign(conf, await file.parse())
   }
 
-  for (const sitename of chain.toReversed()) {
-    const file = assets.get(`${sitename}/${app}/app.yaml`)
+  for (const site of chain.toReversed()) {
+    const file = assets.find(el => el.site == site && el.app == app && el.base == 'app.yaml')
     if (file) Object.assign(conf, await file.parse())
   }
 
@@ -34,7 +34,8 @@ export async function getData(deps, is_prod) {
 
   for (const dep of deps.filter(el => el.is_yaml)) {
     const yaml = await dep.parse()
-    if (is_prod && yaml.meta) Object.assign(yaml.meta, yaml.production)
+
+    if (is_prod) Object.assign(yaml.meta ??= {}, yaml.production)
 
     Object.entries(yaml).forEach(([key, val]) => {
       if (key == 'meta') return Object.assign(data, val)

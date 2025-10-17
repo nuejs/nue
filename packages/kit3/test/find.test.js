@@ -2,38 +2,31 @@
 import { findAsset, getChain } from '../src/find'
 
 test('findAsset', async () => {
-  const assets = new Map([
-    ['@base/blog/index.md', { is_base: true, path: 'blog/index.md'}],
-    ['@base/404.md', { is_base: true, path: '404.md'}],
-
-    ['acme/site.yaml', { parse: () => ({ }) }],
-    ['acme/blog/index.md', { site: 'acme', parse: () => ({ }) }],
-
-    ['beta/site.yaml', {}],
-    ['acme/ui/form.html', { is_html: true }],
-  ])
+  const assets = [
+    { site: '@base', path: 'blog/index.md'},
+    { site: '@base', path: '404.md'},
+    { site: 'acme', path: 'blog/index.md'},
+    { site: 'acme', path: 'ui/form.html' },
+  ]
+  const chain = ['acme', '@base']
 
 
-  expect(await findAsset('/blog/', 'acme', assets)).toMatchObject({ site: 'acme' })
+  expect(await findAsset('/blog/', chain, assets)).toMatchObject({ site: 'acme', path: 'blog/index.md'})
 
-  expect(await findAsset('/ui/form.html.js', 'acme', assets)).toMatchObject({ is_html: true })
-  // expect().toMatchObject({ is_html: true })
+  expect(await findAsset('/ui/form.html.js', chain, assets)).toMatchObject({ path: 'ui/form.html' })
 
-  expect(await findAsset('/notexist', 'acme', assets)).toMatchObject({ is_base: true, path: '404.md' })
-  expect(await findAsset('notexist.css', 'acme', assets)).toBeNull()
-})
+  expect(await findAsset('/notexist', chain, assets)).toMatchObject({ path: '404.md' })
 
-test('@nue assets', async () => {
-
+  expect(await findAsset('notexist.css', chain, assets)).toBeNull()
 })
 
 
 test('getChain', async () => {
-  const assets = new Map([
-    ['acme/site.yaml', { parse: () => ({ inherits: 'mies' }) }],
-    ['mies/site.yaml', { parse: () => ({ inherits: 'minimal' }) }],
-    ['minimal/site.yaml', { parse: () => ({}) }]
-  ])
+  const assets = [
+    { site: 'mies', path: 'site.yaml', parse: () => ({ inherits: 'minimal' }) },
+    { site: 'acme', path: 'site.yaml', parse: () => ({ inherits: 'mies' }) },
+    { site: 'minimal', path: 'site.yaml', parse: () => ({}) }
+  ]
 
   const chain = await getChain('acme', assets)
   expect(chain).toEqual(['acme', 'mies', 'minimal', '@base'])
