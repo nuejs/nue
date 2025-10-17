@@ -1,13 +1,8 @@
 
-import { join, dirname, extname, basename, sep } from 'node:path'
-
-// Normalize path separators to POSIX format
-function toPosix(path) {
-  return path.split(sep).join('/')
-}
+import { posix, join, dirname, extname, basename } from 'node:path'
 
 // app, lib, server are @shared, but not auto-included
-const AUTO_INCLUDED = ['data', 'design', 'ui'].map(dir => toPosix(join('@shared', dir)))
+const AUTO_INCLUDED = ['data', 'design', 'ui'].map(dir => posix.join('@shared', dir))
 
 const ASSET_TYPES = ['.html', '.js', '.ts', '.yaml', '.css']
 
@@ -63,7 +58,7 @@ function isDep(page_path, asset_path, all_paths) {
 
   // check if asset is in ui of any parent directory
   return page_dirs.some(pageDir => {
-    const ui_dir = pageDir ? toPosix(join(pageDir, 'ui')) : 'ui'
+    const ui_dir = pageDir ? posix.join(pageDir, 'ui') : 'ui'
     return asset_dir == ui_dir || asset_dir == pageDir
   })
 }
