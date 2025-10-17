@@ -1,0 +1,2 @@
+[test]
+coveragePathIgnorePatterns = ["**/test/**", "**/test_dir/**"]
