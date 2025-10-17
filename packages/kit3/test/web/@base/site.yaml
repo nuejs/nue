@@ -1,0 +1,6 @@
+
+site:
+  view_transitions: true
+
+meta:
+  title: Something
