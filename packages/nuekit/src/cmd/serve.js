@@ -1,5 +1,5 @@
 
-import { extname, join } from 'node:path'
+import path, { extname, join } from 'node:path'
 
 import { generateSitemap, generateFeed } from '../render/feed'
 import { createServer, broadcast } from '../tools/server'
@@ -118,9 +118,10 @@ export async function onServe(url, assets, opts={}) {
 
 const sysfiles = getSystemFiles()
 
-export function findAssetByURL(url, assets=[]) {
+export function findAssetByURL(url, assets = []) {
+  const targetPath = url.endsWith('.html.js') ? url.slice(1, -3) : url
   return [...sysfiles, ...assets].find(asset => {
-    return url.endsWith('.html.js') ? asset.path && asset.path.replace(/\\/g, '/') == url.slice(1, -3)
-      :  asset.url == url
+    const assetPath = asset.path ? path.posix.normalize(asset.path) : undefined
+    return assetPath === targetPath || asset.url === url
   })
 }
