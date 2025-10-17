@@ -5,6 +5,11 @@ import { parseNuemark } from 'nuemark'
 import { parseYAML } from 'nueyaml'
 import { minifyCSS } from './tools/css'
 
+const mime = {
+  js: 'application/javascript',
+  html: 'text/html; charset=utf-8',
+}
+
 const parsers = {
   md: parseNuemark,
   yaml: parseYAML,
@@ -27,9 +32,11 @@ export function createAsset(filepath, sitename) {
   }
 
   async function contentType() {
-    return asset.is_html ? 'text/html; charset=utf-8'
-      : asset.is_ts ? 'application/javascript'
-      : file.type
+    if (asset.is_html) {
+      const doc = await parse()
+      return doc.is_dhtml ? mime.js : mime.html
+    }
+    return asset.is_ts ? mime.js : file.type
   }
 
   async function render(is_prod) {

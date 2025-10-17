@@ -1,24 +1,23 @@
 
 
-function createConnection() {
+function connect() {
   const server = new WebSocket(`ws://${location.host}`)
 
   server.onmessage = async function(e) {
     const asset = JSON.parse(e.data)
 
-    return (asset.is_yaml || asset.is_js || asset.is_ts) ? location.reload()
-      : asset.error ? await handleError(asset)
+    return asset.is_error ? await handleError(asset)
+      : asset.is_dhtml ? await reloadComponents(asset)
       : asset.is_md ? await reloadContent(asset)
-      : asset.is_html ? await reloadHTML(asset)
       : asset.is_svg ? reloadVisual(asset)
       : asset.is_css ? reloadCSS(asset)
-      : null
+      : location.reload()
   }
 
   // reconnect after 1 second
   server.onclose = function() {
     console.log('HMR reconnecting...')
-    setTimeout(createConnection, 3000)
+    setTimeout(connect, 3000)
   }
 
   server.onerror = function() {
@@ -26,7 +25,7 @@ function createConnection() {
   }
 }
 
-createConnection()
+connect()
 
 
 async function handleError(asset) {
@@ -66,10 +65,10 @@ let reload_count = 0
 
 function reloadVisual(asset) {
 
-  // HMR mode
+  // svg HMR mode
   if (location.pathname.endsWith('.svg')) return reloadSVG(asset.content)
 
-  // reload <svg> and <object> tags
+  // <img> and <object> tags
   const { url } = asset
 
   function reload(el, attr) {
@@ -95,14 +94,6 @@ function reloadCSS(asset) {
   else document.head.appendChild(style)
 }
 
-
-async function reloadHTML(asset) {
-  const { ast } = asset
-
-  return ast.is_dhtml ? await reloadComponents(asset) // dynamic component
-    : ast.is_lib ? location.reload()  // server-side layout
-    : await reloadContent(asset)
-}
 
 async function reloadComponents(asset) {
   const { mountAll } = await import('./mount.js')

@@ -17,16 +17,20 @@ async function loadAssets() {
 async function serve({ host, pathname, params }) {
   const { sitename, is_prod } = parseHost(host)
 
-  // find
+  // find asset
   const assets = [ ...assetMap.values() ] // .values() cannot be re-iterated
   const chain = await getChain(sitename, assets)
   const asset = await findAsset(pathname, chain, assets)
 
-  // render
+  // render page
   if (asset?.is_md) {
-    return { content: await renderPage(asset, is_prod), type: 'text/html; charset=utf-8' }
+    return {
+      content: await renderPage(asset, is_prod),
+      type: 'text/html; charset=utf-8'
+    }
   }
 
+  // render page asset
   if (asset?.render) {
     const content = await asset.render(is_prod)
     return { content, type: await asset.contentType() }
@@ -50,7 +54,16 @@ export async function start() {
 
   watcher.onupdate = async path => {
     const asset = putAsset(path)
-    asset.content = asset.is_md ? await renderPage(asset) : await asset.render()
+
+    if (asset.is_md) asset.content = await renderPage(asset)
+    if (asset.is_css) asset.content = await asset.render()
+
+    if (asset.is_html) {
+      const doc = await asset.parse()
+      asset.is_dhtml = doc.is_dhtml
+      asset.is_lib = doc.is_lib
+    }
+
     broadcast(asset)
   }
 
@@ -90,7 +103,7 @@ export function getSitenames(paths) {
   const names = new Set()
 
   for (const path of paths) {
-    const els = path.split('/')
+    const els = path.split(sep)
 
     for (const filename of filenames) {
       const i = els.indexOf(filename)
