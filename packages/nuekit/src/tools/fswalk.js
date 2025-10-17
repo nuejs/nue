@@ -2,11 +2,6 @@
 import { readdir, stat } from 'node:fs/promises'
 import { parse, join, relative, sep } from 'node:path'
 
-// Normalize path separators to POSIX format (forward slashes)
-function toPosix(path) {
-  return path.split(sep).join('/')
-}
-
 export function matches(path, patterns) {
   return patterns.some(pattern => path.includes(pattern))
 }
@@ -29,9 +24,7 @@ async function walkDirectory(dir, root, opts) {
 
     for (const entry of entries) {
       const fullPath = join(dir, entry.name)
-      let relativePath = relative(root, fullPath)
-      // Normalize to POSIX path separators
-      relativePath = toPosix(relativePath)
+      let relativePath = relative(root, fullPath).split(sep).join('/')
 
       if (isSkipped(relativePath) || matches(relativePath, ignore)) continue
 

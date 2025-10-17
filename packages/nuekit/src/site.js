@@ -1,5 +1,5 @@
 
-import { parse, sep } from 'node:path'
+import { posix, parse } from 'node:path'
 import { fswalk } from './tools/fswalk'
 import { createAsset } from './asset'
 import { createFile } from './file'
@@ -74,7 +74,7 @@ export async function mergeSharedData(assets, data={}) {
   const SHARED_DATA_DIR = '@shared/data';
 
   const shared = assets.filter(a => {
-    const dir = a.dir?.replace(/\\/g, '/'); // Normalize to '/'
+    const dir = a.dir ? posix.normalize(a.dir) : null
     return dir?.startsWith(SHARED_DATA_DIR);
   });
   const statics = shared.filter(f => f.is_json || f.is_yaml)

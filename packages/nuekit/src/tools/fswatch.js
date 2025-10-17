@@ -1,11 +1,7 @@
 
 import { promises as fs, watch } from 'node:fs'
-import { join, extname, sep } from 'node:path'
+import { join, extname, posix } from 'node:path'
 import { fswalk, matches } from './fswalk'
-
-function toPosix(path) {
-  return path.split(sep).join('/')
-}
 
 // Main fswatch function
 export function fswatch(root, opts = {}) {
@@ -16,7 +12,7 @@ export function fswatch(root, opts = {}) {
   const watcher = watch(root, { recursive: true }, async function (event, raw_path) {
     const { onupdate, onremove } = watcher
     if (!raw_path) return
-    const path = toPosix(raw_path)
+    const path = posix.normalize(raw_path)
     
     // Skip editor backup files
     if (isEditorBackup(path)) return
@@ -37,7 +33,7 @@ export function fswatch(root, opts = {}) {
 
         for (const subPath of paths) {
           // Ensure the full path is also POSIX normalized
-          await onupdate(toPosix(join(path, subPath)))
+          await onupdate(join(path, subPath))
         }
       }
 
