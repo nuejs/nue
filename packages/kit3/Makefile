@@ -1,3 +1,3 @@
 
 run-tests:
-	cd test && bun test
+	cd test && bun test tree

@@ -1,5 +1,6 @@
 
-import { getPathInfo, createAsset } from '../src/asset'
+import { getPathInfo, createAsset, getURL, getSlug } from '../src/asset'
+import { parse } from 'node:path'
 
 test('acme blog asset', () => {
   const info = getPathInfo('projects/acme/blog/index.md', 'acme')
@@ -57,5 +58,23 @@ test('createAsset', async () => {
   await file.delete()
 })
 
+test('url property', () => {
+  function testURL(path, expected) {
+    expect(getURL(parse(path))).toBe(expected)
+  }
+  testURL('index.md', '/')
+  testURL('index.css', '/index.css')
+  testURL('blog/entry.md', '/blog/entry')
+  testURL('app/index.html', '/app/')
+  testURL('blog/table.html', '/blog/table')
+  testURL('docs/installation.md', '/docs/installation')
+  testURL('@shared/design/base.css', '/@shared/design/base.css')
+  testURL('site.yaml', '/site.yaml')
+})
+
+test('slug property', () => {
+  expect(getSlug(parse('blog/entry.md'))).toBe('entry')
+  expect(getSlug(parse('blog/index.html'))).toBe('')
+})
 
 

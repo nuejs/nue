@@ -8,13 +8,15 @@ export function createServer({ port=4000, handler }, callback) {
     if (result) return result
 
     // WebSocket connection for HMR
+    const url = new URL(req.url)
+
     if (req.headers.get('upgrade') == 'websocket') {
+      hmr.host = url.host
       return server.upgrade(req) ? undefined : new Response('Upgrade failed', { status: 500 })
     }
 
     // regular file serving
     try {
-      const url = new URL(req.url)
       const res = await callback(url)
 
       // res = Bun.file
@@ -38,27 +40,34 @@ export function createServer({ port=4000, handler }, callback) {
     }
   }
 
+  const websocket = {
+    open(ws) {
+      sessions.push(ws)
+    },
+    close(ws) {
+      const i = sessions.indexOf(ws)
+      if (i >= 0) sessions.splice(i, 1)
+    }
+  }
+
   const server = Bun.serve({ idleTimeout: 0, port, fetch, websocket })
   return server
 }
 
-
 const sessions = []
 
-const websocket = {
-  open(ws) {
-    sessions.push(ws)
-    // console.log(`HMR connected, total: ${sessions.length}`)
-  },
-  close(ws) {
-    const i = sessions.indexOf(ws)
-    if (i >= 0) sessions.splice(i, 1)
+export const hmr = {
+  host: null,
+
+  sessions,
+
+  broadcast(data) {
+    sessions.forEach(ws => {
+      try { ws.send(JSON.stringify(data)) } catch(e) {}
+    })
   }
 }
 
-export function broadcast(data) {
-  sessions.forEach(ws => {
-    try { ws.send(JSON.stringify(data)) } catch(e) {}
-  })
-}
+
+
 

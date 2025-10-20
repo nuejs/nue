@@ -1,2 +1,2 @@
 
-inherits: @projects
+extend: [ @base, @projects ]

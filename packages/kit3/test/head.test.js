@@ -1,5 +1,5 @@
 
-import { renderHead } from '../../src/render/head'
+import { renderHead } from '../src/render/head'
 
 test('renderHead', async () => {
   const conf = {

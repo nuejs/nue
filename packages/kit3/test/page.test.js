@@ -1,10 +1,10 @@
 
-import { createPage, getComponents } from '../src/page'
+import { renderPage, getComponents } from '../src/render/page'
 import { getPathInfo } from '../src/asset'
 import { parseNuemark } from 'nuemark'
 
 
-test('createPage', async () => {
+test('renderPage', async () => {
   const index = getPathInfo('acme/index.md', 'acme')
 
   index.parse = function() {
@@ -16,9 +16,7 @@ test('createPage', async () => {
     index,
   ]
 
-  const page = await createPage(index, ['acme', '@base'], assets)
-  const html = await page.render(true)
-
+  const html = await renderPage(index, ['acme', '@base'], assets, true)
   expect(html).toInclude('global.js" type="module"')
   expect(html).toInclude('<h1>Hello</h1>')
   expect(html).not.toInclude('hmr.js')

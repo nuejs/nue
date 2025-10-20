@@ -125,6 +125,7 @@ async function run(args) {
   // push
   if (cmd == 'push') {
     const { push } = await import('./cmd/push')
+    await push(args)
   }
 
   if (!cmd) {

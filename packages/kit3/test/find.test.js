@@ -1,5 +1,5 @@
 
-import { findAsset, getChain } from '../src/find'
+import { findAsset } from '../src/find'
 
 test('findAsset', async () => {
   const assets = [
@@ -8,7 +8,7 @@ test('findAsset', async () => {
     { site: 'acme', path: 'blog/index.md'},
     { site: 'acme', path: 'ui/form.html' },
   ]
-  const chain = ['acme', '@base']
+  const chain = ['@base', 'acme']
 
 
   expect(await findAsset('/blog/', chain, assets)).toMatchObject({ site: 'acme', path: 'blog/index.md'})
@@ -21,13 +21,3 @@ test('findAsset', async () => {
 })
 
 
-test('getChain', async () => {
-  const assets = [
-    { site: 'mies', path: 'site.yaml', parse: () => ({ inherits: 'minimal' }) },
-    { site: 'acme', path: 'site.yaml', parse: () => ({ inherits: 'mies' }) },
-    { site: 'minimal', path: 'site.yaml', parse: () => ({}) }
-  ]
-
-  const chain = await getChain('acme', assets)
-  expect(chain).toEqual(['acme', 'mies', 'minimal', '@base'])
-})

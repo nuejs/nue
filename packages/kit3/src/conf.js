@@ -3,20 +3,20 @@ import { readdir } from 'node:fs/promises'
 import { join } from 'node:path'
 
 const CONF = [
-  'site', 'is_prod', 'design', 'server', 'collections', 'production', 'sitemap', 'rss',
-  'include', 'exclude', 'meta', 'content', 'import_map', 'svg', 'links'
+  'extends', 'site', 'is_prod', 'design', 'server', 'collections', 'production',
+  'sitemap', 'rss', 'include', 'exclude', 'meta', 'content', 'import_map', 'svg', 'links'
 ]
 
 
 export async function getConf(app, chain, assets, is_prod) {
   const conf = { is_prod }
 
-  for (const site of chain.toReversed()) {
+  for (const site of chain) {
     const file = assets.find(el => el.site == site && el.path == 'site.yaml')
     if (file) Object.assign(conf, await file.parse())
   }
 
-  for (const site of chain.toReversed()) {
+  for (const site of chain) {
     const file = assets.find(el => el.site == site && el.app == app && el.base == 'app.yaml')
     if (file) Object.assign(conf, await file.parse())
   }

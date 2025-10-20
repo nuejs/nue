@@ -1,14 +1,8 @@
 
 import { parse, sep } from 'node:path'
-import { parseNue, compileNue } from 'nuedom'
+import { parseNue } from 'nuedom'
 import { parseNuemark } from 'nuemark'
 import { parseYAML } from 'nueyaml'
-import { minifyCSS } from './tools/css'
-
-const mime = {
-  js: 'application/javascript',
-  html: 'text/html; charset=utf-8',
-}
 
 const parsers = {
   md: parseNuemark,
@@ -31,26 +25,11 @@ export function createAsset(filepath, sitename) {
     return cached.obj ??= parsers[asset.type]?.(content) ?? content
   }
 
-  async function contentType() {
-    if (asset.is_html) {
-      const doc = await parse()
-      return doc.is_dhtml ? mime.js : mime.html
-    }
-    return asset.is_ts ? mime.js : file.type
-  }
-
-  async function render(is_prod) {
-    return asset.is_js && is_prod || asset.is_ts ? compileJS(filepath, is_prod)
-      : asset.is_css && is_prod ? minifyCSS(await text())
-      : asset.is_html ? compileNue(await parse())
-      : await text()
-  }
-
-  return { ...asset, file, text, parse, render, contentType }
+  return { ...asset, file, text, parse }
 }
 
-
-export function getPathInfo(filepath, sitename=null) {
+// single-site mode --> @base
+export function getPathInfo(filepath, sitename='@base') {
   const parts = filepath.split(sep)
   const siteIndex = parts.indexOf(sitename)
 
@@ -104,16 +83,4 @@ export function getSlug(info) {
   return name == 'index' ? '' : ext == '.md' ? name : base
 }
 
-
-export async function compileJS(path, minify, bundle) {
-  const result = await Bun.build({
-    external: bundle ? undefined : ['*'],
-    entrypoints: [path],
-    target: 'browser',
-    minify
-  })
-
-  const [ js ] = result.outputs
-  return await js.text()
-}
 
