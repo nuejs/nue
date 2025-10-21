@@ -61,12 +61,13 @@ export async function unzip(dir, zip) {
     await Bun.write(filename, zip)
 
     // extract (expects "minimal" directory inside zip)
-    const proc = Bun.spawn(['unzip', '-q', filename])
+    const cmd = process.platform == 'win32' ? ['tar', '-xf', filename] : ['unzip', '-q', filename]
+    const proc = Bun.spawn(cmd)
     const exitCode = await proc.exited
 
     if (exitCode !== 0) {
       const stderr = await new Response(proc.stderr).text()
-      throw new Error(`unzip failed with exit code ${exitCode}: ${stderr}`)
+      throw new Error(`Unpacking archive failed with exit code ${exitCode}: ${stderr}`)
     }
 
   // clean up
