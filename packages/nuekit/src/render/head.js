@@ -34,8 +34,8 @@ export async function renderHead({ conf, data, assets, libs=[] }) {
   const scripts = renderScripts(assets)
 
   if (scripts.length || libs.length) {
-    head.push(...scripts)
     head.push(importMap(conf.import_map))
+    head.push(...scripts)
   }
 
   // RSS feed
