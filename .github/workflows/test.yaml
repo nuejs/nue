@@ -1,0 +1,35 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - .github/**
+      - packages/templates/**
+      - packages/www/**
+  pull_request:
+    paths-ignore:
+      - .github/**
+      - packages/templates/**
+      - packages/www/**
+  workflow_dispatch:
+
+jobs:
+  test:
+    if: ${{ github.repository_owner == 'nuejs' || github.event_name == 'workflow_dispatch' }}
+    strategy:
+      matrix:
+        os: ['ubuntu-latest', 'macos-latest', 'windows-latest']
+
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+
+      - name: Install and test with Bun
+        run: |
+          bun -v
+          bun install
+          bun test --coverage

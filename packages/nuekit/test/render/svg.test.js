@@ -1,9 +1,10 @@
 
 import { renderFonts, renderHMR, renderSVG, convertHTMLTag } from '../../src/render/svg'
 
+const testfile = import.meta.filename
 
 test('renderFont / inlined', async () => {
-  const [ css ] = await renderFonts({ Test: 'render/svg.test.js' })
+  const [ css ] = await renderFonts({ Test: testfile })
   expect(css).toInclude('data:font/woff2;base64')
   expect(css.length).toBeGreaterThan(200)
   expect(css).toInclude('@font-face')
@@ -56,7 +57,7 @@ test('renderSVG', async () => {
 
 
   // SVG
-  const svg = await renderSVG(asset, { fonts: { Test: 'render/svg.test.js' } })
+  const svg = await renderSVG(asset, { fonts: { Test: testfile } })
   expect(svg).toInclude("url('data:font/woff2;base64")
   expect(svg).toInclude(':root{--brand:#ccc}')
   expect(svg).toInclude('</style></svg>')
