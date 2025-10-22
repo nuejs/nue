@@ -71,7 +71,7 @@ Nuemark extends standard Markdown with additional formatting options:
 The bullet character `•` provides non-semantic bold:
 
 ```md
-•bold text•              → <b>bold text</b>
+\•bold text\•              → <b>bold text</b>
 ```
 
 
