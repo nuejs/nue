@@ -45,7 +45,7 @@ Create reusable components and [layout modules](/docs/layout-system) for server-
 </footer>
 
 <author class="card">
-  <img src="{ avatar }" alt="{ name }">
+  <img src="{ avatar }" alt="{ name }" />
   <h3>{ name }</h3>
   <p>{ role }</p>
 
