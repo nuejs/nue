@@ -1,50 +1,53 @@
-
 import { promises as fs, watch } from 'node:fs'
-import { join, extname } from 'node:path'
+import { join, extname, sep } from 'node:path'
 import { fswalk, matches } from './fswalk'
 
-// Main fswatch function
+function toPosix(path) {
+  return path.split(sep).join('/')
+}
+
 export function fswatch(root, opts = {}) {
   const { ignore = ['.*', '_*', 'node_modules'] } = opts
-  // const shouldProcess = createDeduplicator()
+  const shouldProcess = createDeduplicator()
 
-  // Start watching
-  const watcher = watch(root, { recursive: true }, async function(event, path) {
-    const { onupdate, onremove } = watcher
-    if (!path) return
+  const watcher = watch(root, { recursive: true }, async (event, raw) => {
+    if (!raw) return
 
-    // Skip editor backup files
-    if (isEditorBackup(path)) return
+    const relPath = toPosix(raw)
 
-    // Skip if this is a duplicate event
-    // if (!shouldProcess()) return
+    // 1) filter duplicates, backups and ignores
+    if (!shouldProcess(relPath)) return
+    if (isEditorBackup(relPath)) return
+    if (matches(relPath, ignore)) return
 
-    // Check if path should be ignored
-    if (matches(path, ignore)) return
+    const fullPath = join(root, relPath)
 
     try {
-      const fullPath = join(root, path)
       const stat = await fs.lstat(fullPath)
 
-      // Process all files in the directory
-      if (onupdate && stat.isDirectory()) {
-        const paths = await fswalk(fullPath, ignore)
-
-        for (const subPath of paths) {
-          await onupdate(join(path, subPath))
+      // 2) if new dir, traverse and fire onupdate for each file
+      if (stat.isDirectory()) {
+        const entries = await fswalk(fullPath, ignore)
+        for (const sub of entries) {
+          const subRel = toPosix(join(relPath, sub))
+          if (!shouldProcess(subRel)) continue
+          if (isEditorBackup(subRel)) continue
+          if (matches(subRel, ignore)) continue
+          if (!extname(subRel)) continue
+          watcher.onupdate?.(subRel)
+        }
+      } else {
+        // 3) if file with extension
+        if (extname(relPath)) {
+          watcher.onupdate?.(relPath)
         }
       }
-
-      if (onupdate && extname(path)) {
-        await onupdate(path)
-      }
-
-    } catch (error) {
-      if (error.errno == -2 && onremove) {
-        await onremove(path)
-
-      } else if (error.errno != -2) {
-        console.error('fswatch error:', error)
+    } catch (err) {
+      // 4) if no longer exists, remove
+      if (err.code === 'ENOENT') {
+        watcher.onremove?.(relPath)
+      } else {
+        console.error('fswatch error:', err)
       }
     }
   })
@@ -57,13 +60,17 @@ export function isEditorBackup(path) {
   return path.endsWith('~') || path.endsWith('.bck')
 }
 
-// Deduplicate rapid fire events
-export function createDeduplicator() {
+// Blocks duplicate events in a time window
+export function createDeduplicator(debounceMs = 50) {
+  let lastName = null
   let lastTime = 0
-  return function shouldProcess() {
+  return (name) => {
     const now = Date.now()
-    if (now - lastTime < 50) return false
-    lastTime = now
-    return true
+    if (name !== lastName || now - lastTime > debounceMs) {
+      lastName = name
+      lastTime = now
+      return true
+    }
+    return false
   }
 }
