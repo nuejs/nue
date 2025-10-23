@@ -1,6 +1,6 @@
 
 import { promises as fs, watch } from 'node:fs'
-import { join, extname } from 'node:path'
+import { join, extname, posix } from 'node:path'
 import { fswalk, matches } from './fswalk'
 
 // Main fswatch function
@@ -9,10 +9,11 @@ export function fswatch(root, opts = {}) {
   // const shouldProcess = createDeduplicator()
 
   // Start watching
-  const watcher = watch(root, { recursive: true }, async function(event, path) {
+  const watcher = watch(root, { recursive: true }, async function (event, raw_path) {
     const { onupdate, onremove } = watcher
-    if (!path) return
-
+    if (!raw_path) return
+    const path = posix.normalize(raw_path)
+    
     // Skip editor backup files
     if (isEditorBackup(path)) return
 
@@ -31,6 +32,7 @@ export function fswatch(root, opts = {}) {
         const paths = await fswalk(fullPath, ignore)
 
         for (const subPath of paths) {
+          // Ensure the full path is also POSIX normalized
           await onupdate(join(path, subPath))
         }
       }
@@ -38,11 +40,9 @@ export function fswatch(root, opts = {}) {
       if (onupdate && extname(path)) {
         await onupdate(path)
       }
-
     } catch (error) {
       if (error.errno == -2 && onremove) {
         await onremove(path)
-
       } else if (error.errno != -2) {
         console.error('fswatch error:', error)
       }

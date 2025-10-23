@@ -1,4 +1,3 @@
-
 import { create, unzip, getLocalZip, fetchZip } from '../../src/cmd/create'
 import { rm, readdir } from 'node:fs/promises'
 

@@ -1,10 +1,10 @@
 
-import { parse, sep, join } from 'node:path'
+import { posix, parse } from 'node:path'
 import { lstat } from 'node:fs/promises'
 
 export async function createFile(root, path) {
   try {
-    const rootpath = join(root, path)
+    const rootpath = posix.join(root, path)
     const stat = await lstat(rootpath)
     const info = getFileInfo(path)
     const file = Bun.file(rootpath)
@@ -24,19 +24,19 @@ export async function createFile(root, path) {
     }
 
     async function copy(dist) {
-      const to = join(dist, path)
+      const to = posix.join(dist, path)
       await Bun.write(to, file)
       return to
     }
 
     async function write(dist, content, ext) {
       const toname = ext ? info.base.replace(info.ext, ext) : info.base
-      const to = join(dist, info.dir, toname)
+      const to = posix.join(dist, info.dir, toname)
       await Bun.write(to, content)
       return to
     }
 
-    return { ...info, rootpath, mtime, text, copy, write, flush }
+    return { ...info, rootpath: posix.normalize(rootpath), mtime, text, copy, write, flush }
 
   } catch (error) {
     console.warn(`Warning: Error reading ${path}: ${error.message}`)
@@ -45,7 +45,7 @@ export async function createFile(root, path) {
 }
 
 export function getFileInfo(path) {
-  const info = parse(path)
+  const info = parse(posix.normalize(path))
   delete info.root
 
   const { ext, dir } = info
@@ -53,9 +53,9 @@ export function getFileInfo(path) {
   const url = getURL(info)
   const slug = getSlug(info)
 
-  if (dir.includes(sep)) info.basedir = dir.split(sep)[0]
+  if (dir.includes('/')) info.basedir = dir.split('/')[0]
 
-  return { ...info, path, type, url, slug, [`is_${type}`]: true }
+  return { ...info, path: posix.normalize(path), type, url, slug, [`is_${type}`]: true }
 }
 
 export function getURL(file) {
@@ -67,7 +67,7 @@ export function getURL(file) {
   }
 
   if (ext == '.ts') ext = '.js'
-  const els = dir.split(sep)
+  const els = dir ? dir.split('/') : []
   els.push(name + ext)
 
   return `/${ els.join('/') }`.replace('//', '/')
