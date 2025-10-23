@@ -98,7 +98,7 @@ function parseText(text, imports) {
 export function convertFunctions(script) {
   return script.replace(
     /^( *)(async\s+)?(\w+)\s*\(([^)]*)\)\s*{/gm, (_, indent, asy, name, args) => {
-      if (_.includes('function') || ['for', 'if'].includes(name)) return _
+      if (_.includes('function') || ['for', 'if', 'switch'].includes(name)) return _
       return `${indent}this.${name} = ${asy ? 'async ' : ''}function(${args.trim()}) {`
     }
   )
