@@ -3,14 +3,10 @@ import { mkdir, rm } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import { join } from 'node:path'
 
+import { version as pkgVersion } from '../package.json' with { type: 'json' }
 import { compileJS } from './asset'
 
-async function getVersion() {
-  const file = Bun.file(join(import.meta.dir, '../package.json'))
-  return (await file.json()).version
-}
-
-export const version = await getVersion()
+export const version = pkgVersion
 
 export function getClientFiles() {
   return 'error hmr mount transitions'.split(' ').map(name => {

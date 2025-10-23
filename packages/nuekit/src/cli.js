@@ -1,5 +1,6 @@
 #!/usr/bin/env bun
 
+import { styleText } from 'node:util'
 import { version } from './system'
 
 // [-npe] --> [-n, -p, -e]
@@ -118,18 +119,11 @@ Examples
 `
 
 
-const colors = {
-  boldwhite: str => `\x1b[1;37m${str}\x1b[0m`,
-  gray: str => `\x1b[90m${str}\x1b[0m`,
-  green: str => `\x1b[32m${str}\x1b[0m`,
-  cyan: str => `\x1b[36m${str}\x1b[0m`,
-}
-
 function format(line) {
-  return line.match(/^\w[\w ]+$/) ? colors.boldwhite(line) // titles
-    : '┏┃┗'.includes(line.trim()[0]) ? colors.green(line) // ascii art
-    : line.includes('#') ? colors.cyan(line) // comments
-    : colors.gray(line)
+  return line.match(/^\w[\w ]+$/) ? styleText(['bold', 'white'],line) // titles
+    : '┏┃┗'.includes(line.trim()[0]) ? styleText(['green'], line) // ascii art
+    : line.includes('#') ? styleText(['cyan'], line) // comments
+    : styleText(['gray'], line)
 }
 
 export function printHelp() {
