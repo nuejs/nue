@@ -27,7 +27,7 @@ const RE_FN = /(script|h_fn|fn):\s*(['"`])([^\2]*?)\2/g
 
 export function compileJS(js) {
   return js.replace(RE_FN, function(_, key, __, expr) {
-    return key == 'script' ? `${key}: function() { ${expr.trim().replaceAll('\\n', '\n')} \n\t\t}`
+    return key == 'script' ? `${key}: function() { ${expr.trim().replaceAll('\\n', '\n').replaceAll('\\r', '\r').replaceAll('\\t', '\t')} \n\t\t}`
       : `${key}: ${compileFn(expr, key[0] == 'h')}`
   })
 }

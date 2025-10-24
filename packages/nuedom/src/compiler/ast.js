@@ -97,8 +97,8 @@ function parseText(text, imports) {
 // foo() {} --> this.foo = function() { }
 export function convertFunctions(script) {
   return script.replace(
-    /^( *)(async\s+)?(\w+)\s*\(([^)]*)\)\s*{/gm, (_, indent, asy, name, args) => {
-      if (_.includes('function') || ['for', 'if'].includes(name)) return _
+    /^(\s*)(async\s+)?(\w+)\s*\(([^)]*)\)\s*{/gm, (_, indent, asy, name, args) => {
+      if (_.includes('function') || ['for', 'while', 'if', 'switch'].includes(name)) return _
       return `${indent}this.${name} = ${asy ? 'async ' : ''}function(${args.trim()}) {`
     }
   )
@@ -108,14 +108,14 @@ export function convertGetters(script) {
   return script
     // Handle multiline getters first
     .replace(
-      /^( *)get (\w+)\(\)\s*\{([\s\S]*?)\n\1\}/gm,
+      /^(\s*)get (\w+)\(\)\s*\{([\s\S]*?)\n\1\}/gm,
       (_, indent, name, body) => {
         return `${indent}Object.defineProperty(this, '${name}', { get() {${body}} })`
       }
     )
     // Then handle single-line getters
     .replace(
-      /^( *)get (\w+)\(\)\s*\{([^}]*)\}/gm,
+      /^(\s*)get (\w+)\(\)\s*\{([^}]*)\}/gm,
       (_, indent, name, body) => {
         return `${indent}Object.defineProperty(this, '${name}', { get() {${body}} })`
       }
