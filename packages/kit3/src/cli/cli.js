@@ -3,14 +3,14 @@
 import { join } from 'node:path'
 
 async function getVersion() {
-  const file = Bun.file(join(import.meta.dir, '../package.json'))
+  const file = Bun.file(join(import.meta.dir, '../../package.json'))
   return (await file.json()).version
 }
 
 export const version = await getVersion()
 
 export function getArgs(argv) {
-  const commands = ['create', 'push']
+  const commands = ['create', 'deploy']
 
   // default values
   const args = { paths: [] }
@@ -58,18 +58,18 @@ export function getArgs(argv) {
 }
 
 const HELP = `
-  nue                   # develop all sites
-  nue -p 5000           # use a different port (default: 4000)
+  nue                     # develop all sites
+  nue -p 5000             # use a different port (default: 4000)
 
-  nue push              # push all sites to production
-  nue push <pattern>    # push only selected sites/files
-  nue push --show       # only show what's being pushed
-  nue push -h           # print push help
+  nue deploy              # deploy all sites to production
+  nue deploy <pattern>    # deploy only selected sites/files
+  nue deploy --show       # only show what's being pushed
+  nue deploy -h           # print deploy help
 
-  nue create demo       # create an example multi-site setup
+  nue create demo         # create an example multi-site setup
 
-  nue -v or --version   # print version number
-  nue -h or --help      # print this help
+  nue -v or --version     # print version number
+  nue -h or --help        # print this help
 `
 
 function format(line) {
@@ -85,7 +85,7 @@ function format(line) {
 
   let result = main
     .replace(/\bnue create\b/g, colors.white('nue create'))
-    .replace(/\bnue push\b/g, colors.white('nue push'))
+    .replace(/\bnue deploy\b/g, colors.white('nue deploy'))
     .replace(/\bnue\b/g, colors.white('nue'))
     .replace(/(-[a-z]|--\w+)/g, match => colors.cyan(match))
     .replace(/\b\d+\b|<\w+>|\bdemo\b/g, match => colors.green(match))
@@ -117,19 +117,19 @@ async function run(args) {
 
   // create
   if (cmd == 'create') {
-    const { create } = await import('./cmd/create')
+    const { create } = await import('./create')
     const [ name, dir ] = paths
     return await create(name, { dir })
   }
 
-  // push
-  if (cmd == 'push') {
-    const { push } = await import('./cmd/push')
-    await push(args)
+  // deploy
+  if (cmd == 'deploy') {
+    const { deploy } = await import('./deploy')
+    await deploy(args)
   }
 
   if (!cmd) {
-    const { start } = await import('./serve')
+    const { start } = await import('../serve')
     await start(args)
   }
 }

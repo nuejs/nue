@@ -2,7 +2,7 @@
 import { parse, sep } from 'node:path'
 
 import { minifyCSS } from '../tools/css'
-import { version } from '../cli'
+import { version } from '../cli/cli'
 import { elem } from 'nuemark'
 
 export async function renderHead({ conf={}, data={}, deps=[] }) {
