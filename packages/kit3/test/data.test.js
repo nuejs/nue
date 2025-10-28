@@ -1,6 +1,7 @@
 
-import { getConf, getData } from '../src/conf'
-import { getPathInfo } from '../src/asset'
+import { getConf, getData, runDataScripts } from '../src/data'
+import { createAsset, getPathInfo } from '../src/asset'
+
 
 function mockYaml(site, path, data) {
   return { ...getPathInfo(path, site), async parse() { return data }}
@@ -54,4 +55,20 @@ test('production data', async () => {
   const data = await getData(deps, true)
   expect(data.url).toBe('example.com')
 })
+
+
+test('runDataScripts', async () => {
+  const mockPath = './test-fn.js'
+  const file = Bun.file(mockPath)
+  await Bun.write(mockPath, 'export default function(data) { data.foo = true }')
+
+  const deps = [
+    { dir: '@shared/data', is_js: true, path: mockPath }
+  ]
+
+  const data = await runDataScripts({}, deps)
+  expect(data.foo).toBeTrue()
+  await file.delete()
+})
+
 

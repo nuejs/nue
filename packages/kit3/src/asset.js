@@ -29,7 +29,7 @@ export function createAsset(filepath, sitename) {
 }
 
 // single-site mode --> @base
-export function getPathInfo(filepath, sitename='@base') {
+export function getPathInfo(filepath, sitename=null) {
   const parts = filepath.split(sep)
   const siteIndex = parts.indexOf(sitename)
 
@@ -41,15 +41,10 @@ export function getPathInfo(filepath, sitename='@base') {
   const type = info.ext.slice(1)
   const app = pathParts.length > 1 ? pathParts[0] : null
   const is_spa = !path.includes('@') && path.endsWith('index.html')
-
+  delete info.root
 
   return {
-    name: info.name,
-    base: info.base,
-    dir: info.dir,
-    ext: info.ext,
-
-    is_base: sitename == '@base',
+    ...info,
     [`is_${type}`]: true,
     slug: getSlug(info),
     url: getURL(info),

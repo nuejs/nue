@@ -1,12 +1,15 @@
 
+// .md page rendering
 import { sep } from 'node:path'
 
 import { renderNue } from 'nuedom'
 
-import { getConf, getData } from '../conf'
-import { renderContent } from './slot'
+import { getDeps, getComponents } from '../deps'
+import { renderContent, globals } from './slot'
+import { getCollections } from '../collections'
+import { getData, getConf } from '../data'
 import { renderHead } from './head'
-import { getDeps } from '../deps'
+
 
 
 export async function renderPage(asset, chain, assets, is_prod) {
@@ -19,12 +22,18 @@ export async function renderPage(asset, chain, assets, is_prod) {
   const data = await getData(deps, is_prod)
   const comps = await getComponents(deps)
 
+  Object.assign(data, meta, { dir: asset.dir, slug: asset.slug, url: asset.url })
+
+  // content collections
+  Object.assign(data, await getCollections(assets, conf.collections))
+
   // content conf
-  Object.assign(data, { dir: asset.dir, slug: asset.slug, url: asset.url })
+  const c_conf = conf.content || {}
 
   const content = document.render({
-    heading_ids: meta?.heading_ids || conf.content?.heading_ids,
-    sections: meta?.sections || conf.content?.sections,
+    content_wrapper: meta?.content_wrapper || c_conf.content_wrapper,
+    heading_ids: meta?.heading_ids || c_conf.heading_ids,
+    sections: meta?.sections || c_conf.sections,
     tags: convertToTags(comps, data),
     links: conf.links,
     data,
@@ -35,22 +44,6 @@ export async function renderPage(asset, chain, assets, is_prod) {
   return renderContent(content, { head, comps, data, conf })
 }
 
-
-export async function getComponents(deps, dynamic) {
-  const ret = []
-
-  for (const asset of deps.filter(el => el.is_html)) {
-    const ast = await asset.parse()
-
-    if (ast.is_lib) {
-      const same_type = !dynamic == !ast.is_dhtml
-      const isomorphic = ast.doctype?.startsWith('html+dhtml')
-      if (isomorphic || same_type) ret.push(...ast.lib)
-    }
-  }
-
-  return ret
-}
 
 // custom components as Markdown extensions (tags)
 function convertToTags(deps, data) {

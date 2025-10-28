@@ -124,7 +124,7 @@ content:
   sections: [hero, features, testimonials]
 
   # Wrap section content with inner div for layout control (default: null)
-  section_wrapper: wrap
+  content_wrapper: wrap
 
 
 # Default metadata for all pages. (app.yaml and front matter can override)

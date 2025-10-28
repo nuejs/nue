@@ -1,6 +1,6 @@
 
 
-test('push test', async () => {
+test.skip('push test', async () => {
   const resp = await fetch('https://push.nuejs.com/acme/www/index.html', {
     headers: { 'Authorization': 'Bearer acme-test-123' },
     body: '<h1>Hello Worldi!</h1>',
@@ -11,7 +11,7 @@ test('push test', async () => {
   console.info(await resp.text())
 })
 
-test('upload site.json', async () => {
+test.skip('upload site.json', async () => {
   const resp = await fetch('https://push.nuejs.com/acme/www/site.json', {
     headers: { Authorization: 'Bearer acme-test-123' },
     body: '{ "chain": [ "www", "blog" ] }',

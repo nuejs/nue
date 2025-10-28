@@ -39,7 +39,6 @@ export function createTree() {
     const { site, is_prod } = parseHost(url.host)
     const assets = getAll()
     const chain = await getChain(site, assets)
-
     const asset = await findAsset(url.pathname, chain, assets)
     if (!asset) return null
 
@@ -60,7 +59,7 @@ export function createTree() {
 
 export function parseHost(host) {
   const els = host.split('.')
-  const site = els.length == 1 ? '@base' : els[0]
+  const site = els.length == 1 ? null : els[0]
   return { site, is_prod: host.includes('production') }
 }
 

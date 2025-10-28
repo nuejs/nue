@@ -1,0 +1,81 @@
+
+import { getCollections } from '../src/collections'
+
+// Mock page objects
+const pages = [
+  {
+    path: 'blog/post1.md',
+    parse: async () => ({ meta: { title: 'First Post', date: '2024-01-01', draft: false } })
+  },
+  {
+    path: 'blog/post2.md',
+    parse: async () => ({ meta: { title: 'Second Post', date: '2024-01-02', tags: ['design'] } })
+  },
+  {
+    path: 'blog/draft.md',
+    parse: async () => ({ meta: { title: 'Draft Post', draft: true } })
+  },
+  {
+    path: 'docs/guide.md',
+    parse: async () => ({ meta: { title: 'Guide', order: 1 } })
+  }
+]
+
+test('basic collection matching', async () => {
+  const opts = { blog: { include: ['blog/'] } }
+
+  const collections = await getCollections(pages, opts)
+  expect(collections.blog).toHaveLength(3)
+})
+
+test('require filtering', async () => {
+  const opts = {
+    blog: {
+      include: ['blog/'],
+      require: ['date']
+    }
+  }
+
+  const collections = await getCollections(pages, opts)
+  expect(collections.blog).toHaveLength(2)
+})
+
+test('skip filtering', async () => {
+  const opts = {
+    blog: {
+      include: ['blog/'],
+      skip: ['draft']
+    }
+  }
+
+  const collections = await getCollections(pages, opts)
+  expect(collections.blog).toHaveLength(2)
+})
+
+test('tags filtering', async () => {
+  const opts = {
+    blog: {
+      include: ['blog/'],
+      tags: ['design']
+    }
+  }
+
+  const collections = await getCollections(pages, opts)
+  expect(collections.blog).toHaveLength(1)
+  expect(collections.blog[0].tags).toEqual(['design'])
+})
+
+test('sorting', async () => {
+  const opts = {
+    blog: {
+      include: ['blog/'],
+      skip: ['draft'],
+      sort: 'date desc'
+    }
+  }
+
+  const collections = await getCollections(pages, opts)
+  expect(collections.blog[0].title).toBe('Second Post')
+})
+
+

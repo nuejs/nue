@@ -1,10 +1,10 @@
 
 import { readdir } from 'node:fs/promises'
-import { join } from 'node:path'
+import { join, sep } from 'node:path'
 
 const CONF = [
   'extends', 'site', 'is_prod', 'design', 'server', 'collections', 'production',
-  'sitemap', 'rss', 'include', 'exclude', 'meta', 'content', 'import_map', 'svg', 'links'
+  'sitemap', 'rss', 'include', 'exclude', 'meta', 'content', 'import_map', 'svg',
 ]
 
 
@@ -32,7 +32,7 @@ export async function getConf(app, chain, assets, is_prod) {
 export async function getData(deps, is_prod) {
   const data = { is_prod }
 
-  for (const dep of deps.filter(el => el.is_yaml)) {
+  for (const dep of deps.filter(el => el.is_yaml || el.is_json)) {
     const yaml = await dep.parse()
 
     if (is_prod) Object.assign(yaml.meta ??= {}, yaml.production)
@@ -43,6 +43,30 @@ export async function getData(deps, is_prod) {
     })
   }
 
+  await runDataScripts(data, deps)
+
   return data
 }
+
+
+// modifier scripts
+export async function runDataScripts(data, deps) {
+
+  const mods = deps.filter(f =>
+    (f.is_js || f.is_ts) &&
+    !f.name?.endsWith('.test') &&
+    f.dir?.startsWith(`@shared${sep}data`)
+  )
+
+  for (const mod of mods) {
+    const fns = await import(join(process.cwd(), mod.path) + '?' + Math.random())
+    await fns.default?.(data)
+  }
+
+  return data
+}
+
+
+
+
 

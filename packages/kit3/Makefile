@@ -1,3 +1,3 @@
 
 run-tests:
-	cd test && bun test tree
+	cd test && bun test render.md

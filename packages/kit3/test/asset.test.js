@@ -26,7 +26,6 @@ test('@base asset', () => {
     ext: '.md',
     type: 'md',
     is_md: true,
-    is_base: true,
     folder: null,
   })
 })
@@ -36,7 +35,7 @@ test('@base info', () => {
   expect(info).toMatchObject({ is_html: true, app: null, folder: null, dir: '' })
 })
 
-test('getPathInfo', () => {
+test('single-site mode', () => {
   const info = getPathInfo('blog/index.md')
   expect(info).toMatchObject({ site: null, folder: null, path: "blog/index.md" })
 })

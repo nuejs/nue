@@ -2,6 +2,8 @@
 import { extname, join } from 'node:path'
 
 export async function findAsset(url, chain, assets) {
+  if (!chain?.[0]) chain = [null]
+
   const name = url.split('/').pop()
   const ext = extname(name)
   let path = url.slice(1)

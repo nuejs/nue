@@ -2,7 +2,7 @@
 import { renderNue } from 'nuedom'
 import { renderInline } from 'nuemark'
 
-const globals = { markdown: renderInline }
+export const globals = { markdown: renderInline }
 
 export function renderContent(content, { head=[], comps=[], data={}, conf={} }) {
   const attr = getAttr(data)

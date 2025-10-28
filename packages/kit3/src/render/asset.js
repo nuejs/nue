@@ -1,16 +1,16 @@
 
 import { join } from 'node:path'
-import { compileNue } from 'nuedom'
+
 import { fileURLToPath } from 'node:url'
 import { minifyCSS } from '../tools/css'
 import { renderPage } from './page'
 
 export async function renderAsset(asset, chain, assets, is_prod) {
   const content = asset.is_md ? await renderPage(asset, chain, assets, is_prod)
+    : asset.is_html ? await renderHTML(asset, chain, assets, is_prod)
     : asset.is_js && is_prod || asset.is_ts ? await compileJS(filepath, is_prod)
     : asset.is_css && is_prod ? minifyCSS(await asset.text())
     : asset.is_nue ? await readNueAsset(asset.name, is_prod)
-    : asset.is_html ? compileNue(await asset.parse())
     : await asset.text()
 
   return { content, type: await getContentType(asset) }

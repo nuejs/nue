@@ -15,14 +15,6 @@ test('createTree', async () => {
   expect(page).toMatchObject({ site: 'acme', path: 'index.md' })
 })
 
-
-test('single-site mode', async () => {
-  const tree = createTree()
-  await tree.load([ 'index.md' ])
-  const page = await tree.find({ host: 'localhost', pathname: '/' })
-  expect(page.is_base).toBeTrue()
-})
-
 test('getSitenames', () => {
   const paths = [
     '@base/site.yaml',
@@ -42,11 +34,6 @@ test('parseSitename', () => {
   expect(parseSitename('acme/index.md', ['acme'])).toBe('acme')
 })
 
-test('parseHost', () => {
-  expect(parseHost('acme.production.localhost')).toEqual({ site: 'acme', is_prod: true })
-
-})
-
 test('getChain', async () => {
   const assets = [
     { site: 'acme', path: 'site.yaml', parse: () => ({ extend: ['@base'] }) },
@@ -54,4 +41,19 @@ test('getChain', async () => {
 
   const chain = await getChain('acme', assets)
   expect(chain).toEqual(['@base', 'acme'])
+})
+
+test('parseHost', () => {
+  expect(parseHost('acme.production.localhost')).toEqual({ site: 'acme', is_prod: true })
+})
+
+test('single-site mode', async () => {
+  const tree = createTree()
+  await tree.load([ 'index.md' ])
+  const page = await tree.find({ host: 'localhost', pathname: '/' })
+  expect(page.name).toEqual('index')
+})
+
+test('single-mode chain', async () => {
+  expect(await getChain(null, [])).toEqual([ null ])
 })

@@ -9,6 +9,7 @@ const TYPES = ['html', 'js', 'ts', 'yaml', 'css']
 export async function getDeps(asset, chain, assets) {
   const { include, exclude } = await getIncludeOpts(asset, chain, assets)
 
+
   return assets.filter(dep => {
 
     // ignore self
@@ -18,7 +19,7 @@ export async function getDeps(asset, chain, assets) {
     if (!TYPES.includes(dep.type)) return false
 
     // not on inheritance chain
-    if (!chain.includes(dep.site)) return false
+    if (dep.site && !chain.includes(dep.site)) return false
 
     // root asset
     if (!dep.dir) return true
@@ -66,4 +67,21 @@ export async function getIncludeOpts(asset, chain, assets) {
   }
 
   return opts
+}
+
+
+export async function getComponents(deps, dynamic) {
+  const ret = []
+
+  for (const asset of deps.filter(el => el.is_html)) {
+    const ast = await asset.parse()
+
+    if (ast.is_lib) {
+      const same_type = !dynamic == !ast.is_dhtml
+      const isomorphic = ast.doctype?.startsWith('html+dhtml')
+      if (isomorphic || same_type) ret.push(...ast.lib)
+    }
+  }
+
+  return ret
 }

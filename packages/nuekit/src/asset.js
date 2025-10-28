@@ -70,7 +70,7 @@ export function createAsset(file, site={}) {
       const str = await file.text()
 
       cachedObj = file.is_js || file.is_ts ? await import(join(process.cwd(), file.path) + '?' + Math.random())
-        : file.is_json ? JSON.parsek(str)
+        : file.is_json ? JSON.parse(str)
         : file.is_md ? parseNuemark(str)
         : file.is_yaml ? parseYAML(str)
         : parseNue(str)

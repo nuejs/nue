@@ -58,7 +58,7 @@ export async function renderHead({ conf={}, data={}, deps=[] }) {
 }
 
 export function renderMeta(data) {
-  const desc = data.desc || data.description
+  const desc = unmarkdown(data.desc || data.description)
 
   const props = {
     viewport: 'width=device-width,initial-scale=1',
@@ -86,17 +86,20 @@ export function renderMeta(data) {
 }
 
 function renderTitle(title, template) {
-  if (title) {
-    const str = template ? template.replace('%s', title) : title
+  return title ? unmarkdown(template ? template.replace('%s', title) : title) : ''
+}
 
-    // Strip Markdown formatting (bold only for now)
-    return str?.replaceAll('**', '')
-  }
+// Strip Markdown formatting. TODO: make legit
+function unmarkdown(str) {
+  return str?.replaceAll('*', '')
 }
 
 export function renderScripts(deps) {
   const scripts = deps.filter(f => ['.js', '.ts'].includes(f.ext) && f.dir != `@shared${sep}data`)
-  return scripts.map(s => elem('script', { src: `/${s.dir}/${s.name}.js`, type: 'module' }))
+  return scripts.map(s => {
+    const src = `/${s.dir}/${s.name}.js`.replace('//', '/')
+    return elem('script', { src, type: 'module' })
+  })
 }
 
 export async function renderStyles(deps, conf={}) {
