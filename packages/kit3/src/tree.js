@@ -5,7 +5,7 @@ import { renderAsset, renderFeed } from './render/asset'
 import { createAsset } from './asset'
 import { fswalk } from './tools/fswalk'
 import { findAsset } from './find'
-
+import { compileNue } from 'nuedom'
 
 export function createTree() {
   const map = new Map()
@@ -39,15 +39,16 @@ export function createTree() {
     if (pathname.endsWith('.xml')) {
       const content = asset ? await asset.read()
         : await renderFeed(pathname, site, await getConf(chain), assets)
-
       return content && { content, type: MIME.xml }
     }
 
+    if (asset && pathname.endsWith('.html.js')) {
+      return { content: compileNue(await asset.parse()), type: MIME.js }
+    }
+
     if (asset) {
-      let content = await renderAsset(asset, chain, assets, is_prod)
-      const is_js = pathname.endsWith('.js')
-      if (content.html) content = is_js ? content.js : content.html
-      return { content, type: is_js ? MIME.js : getMimeType(asset) }
+      const content = await renderAsset(asset, chain, assets, is_prod)
+      return { content, type: getMimeType(asset) }
     }
   }
 

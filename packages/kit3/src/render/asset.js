@@ -11,7 +11,7 @@ import { renderHTML } from './html'
 export async function renderAsset(asset, chain, assets, is_prod) {
   return asset.is_md ? await renderPage(asset, chain, assets, is_prod)
     : asset.is_html ? await renderHTML(asset, chain, assets, is_prod)
-    : asset.is_js && is_prod || asset.is_ts ? await compileJS(filepath, is_prod)
+    : asset.is_js && is_prod || asset.is_ts ? await compileJS(asset.filepath, is_prod)
     : asset.is_css && is_prod ? minifyCSS(await asset.text())
     : asset.is_nue ? await readNueAsset(asset.name, is_prod)
     : await asset.text()

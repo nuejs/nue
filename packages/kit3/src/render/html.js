@@ -61,9 +61,6 @@ export async function renderSPA(asset, chain, assets, is_prod) {
   const deps = await getDeps(asset, chain, assets)
   const data = await getData(deps, is_prod)
   const comps = await getComponents(deps, true)
-  const doc = await asset.parse()
-  const { root } = doc
-  root.is ??= 'default-app'
 
   // state.js
   const map = conf.import_map ??= {}
@@ -74,10 +71,8 @@ export async function renderSPA(asset, chain, assets, is_prod) {
 
   // html page
   const head = await renderHead({ conf, data, deps })
-  const body = elem('body', { nue: root.is })
-  const html = renderContent(body, { head, comps, data, conf })
-
-  return { html, js: compileNue(doc) }
+  const body = elem('body', { nue: 'default-app' })
+  return renderContent(body, { head, comps, data, conf })
 }
 
 

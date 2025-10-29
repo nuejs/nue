@@ -8,8 +8,12 @@ export async function mountAll(reload_path) {
   const { mount } = await import('/@nue/nue.js')
 
   for (const root of [...roots]) {
-    const name = root.getAttribute('nue') || root.tagName.toLowerCase()
-    const comp = deps.find(a => [a.is, a.tag].includes(name))
+    const rootTag = root.tagName.toLowerCase()
+    const name = root.getAttribute('nue') || rootTag
+    let comp = deps.find(a => [a.is, a.tag].includes(name))
+
+    // SPA
+    if (rootTag == 'body' && deps[0]?.tag == 'body') comp = deps[0]
 
     if (comp) {
       const node = mount(comp, { root, deps, data: getData(root) })
