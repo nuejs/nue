@@ -28,15 +28,34 @@ test('acme home', async () => {
   expect(content).toInclude('href="/feed.xml"')
 })
 
-
-test('CSS file', async () => {
+test('production CSS', async () => {
   const { content, type } = await tree.render({
-    host: 'acme.localhost',
+    host: 'acme.production.localhost',
     pathname: '/acme.css'
   })
 
-  expect(content).toInclude('body { padding: 1em }')
+  expect(content).toInclude('body{padding:1em}')
   expect(type).toInclude('text/css')
+})
+
+test('inherited JS ', async () => {
+  const { content, type } = await tree.render({
+    host: 'acme.localhost',
+    pathname: '/base.js'
+  })
+
+  expect(content).toInclude('export const foo = true')
+  expect(type).toInclude('application/javascript')
+})
+
+test('minified JS ', async () => {
+  const { content, type } = await tree.render({
+    host: 'acme.localhost.production:4000',
+    pathname: '/base.js'
+  })
+
+  expect(content).toInclude('var o=!0;export{o as foo};')
+  expect(type).toInclude('application/javascript')
 })
 
 

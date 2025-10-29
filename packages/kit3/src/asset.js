@@ -50,6 +50,7 @@ export function getPathInfo(filepath, sitename=null) {
     slug: getSlug(info),
     url: getURL(info),
     site: sitename,
+    filepath,
     is_spa,
     folder,
     path,
