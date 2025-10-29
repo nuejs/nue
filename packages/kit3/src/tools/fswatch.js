@@ -1,11 +1,10 @@
 
 import { promises as fs, watch } from 'node:fs'
 import { join, extname } from 'node:path'
-import { fswalk, matches } from './fswalk'
+import { fswalk, isIgnored } from './fswalk'
 
 // Main fswatch function
-export function fswatch(root='.', opts = {}) {
-  const { ignore = ['.*', '_*', 'node_modules'] } = opts
+export function fswatch(root='.') {
   // const shouldProcess = createDeduplicator()
 
   // Start watching
@@ -20,7 +19,7 @@ export function fswatch(root='.', opts = {}) {
     // if (!shouldProcess()) return
 
     // Check if path should be ignored
-    if (matches(path, ignore)) return
+    if (isIgnored(path)) return
 
     try {
       const fullPath = join(root, path)
@@ -28,7 +27,7 @@ export function fswatch(root='.', opts = {}) {
 
       // Process all files in the directory
       if (onupdate && stat.isDirectory()) {
-        const paths = await fswalk(fullPath, ignore)
+        const paths = await fswalk(fullPath)
 
         for (const subPath of paths) {
           await onupdate(join(path, subPath))

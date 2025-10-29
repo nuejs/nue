@@ -2,7 +2,7 @@
 import { extname, join } from 'node:path'
 
 export async function findAsset(url, chain, assets) {
-  if (!chain?.[0]) chain = [null]
+  if (!chain?.[0]) chain = [ null, '@base' ]
 
   const name = url.split('/').pop()
   const ext = extname(name)
@@ -49,10 +49,6 @@ export async function findAsset(url, chain, assets) {
   if (url == '/favicon.ico') {
     return Bun.file(join(import.meta.dir, '../client/favicon.ico'))
   }
-
-  // sitemap.xml
-
-  // feed.xml
 
   // explicit not found
   return null

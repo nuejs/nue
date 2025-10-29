@@ -14,6 +14,7 @@ const parsers = {
 export function createAsset(filepath, sitename) {
   const asset = getPathInfo(filepath, sitename)
   const file = Bun.file(filepath)
+  const mtime = new Date(file.lastModified)
   const cached = {}
 
   async function text() {
@@ -25,7 +26,7 @@ export function createAsset(filepath, sitename) {
     return cached.obj ??= parsers[asset.type]?.(content) ?? content
   }
 
-  return { ...asset, file, text, parse }
+  return { ...asset, mtime, file, text, parse }
 }
 
 // single-site mode --> @base
@@ -56,7 +57,6 @@ export function getPathInfo(filepath, sitename=null) {
     app,
   }
 }
-
 
 export function getURL(info) {
   let { name, base, ext, dir } = info

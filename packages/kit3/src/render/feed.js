@@ -1,8 +1,8 @@
 
 import { createCollection } from '../collections'
-import { trim } from './page'
 
 const XML = '<?xml version="1.0" encoding="UTF-8"?>'
+
 
 export async function generateSitemap(assets, conf) {
   const origin = getOrigin(conf)
@@ -23,7 +23,7 @@ export async function generateSitemap(assets, conf) {
 
 export async function generateFeed(assets, conf) {
   const key = conf.rss.collection
-  if (!key) return console.warn('rss.collection missing from site.yaml')
+  if (!key) return console.warn('RSS collection missing from site.yaml')
 
   const coll = conf.collections?.[key]
   const origin = getOrigin(conf)
@@ -41,15 +41,15 @@ export function renderSitemap(pages) {
   pages.forEach(page => {
     if (page.url == '/404') return
 
-    xml.push(trim(`
+    xml.push(`
     <url>
       <loc>${ page.origin }${ page.url }</loc>
-      <lastmod>${ page.mtime.toISOString().slice(0, 10) }</lastmod>
-    </url>`))
+      <lastmod>${ page.mtime?.toISOString().slice(0, 10) }</lastmod>
+    </url>`)
   })
 
   xml.push('</urlset>')
-  return xml.join('\n')
+  return xml.join('').replaceAll('    ', '')
 }
 
 export function renderFeed(meta, pages) {
@@ -63,20 +63,20 @@ export function renderFeed(meta, pages) {
   `)
 
   pages.forEach(page => {
-    const date = page.pubDate || page.date || ''
+    const date = page.pubDate || page.date || page.mtime || ''
     const desc = page.description || page.desc || ''
 
-    xml.push(trim(`
+    xml.push(`
     <item>
       <title>${ page.title }</title>
       <description>${ desc }</description>
       <pubDate>${ date.toISOString?.().slice(0, 10) }</pubDate>
       <link>${ origin }${ page.url }</link>
-    </item>`))
+    </item>`)
   })
 
   xml.push('</channel>', '</rss>')
-  return xml.join('\n')
+  return xml.join('\n').replaceAll('    ', '')
 }
 
 

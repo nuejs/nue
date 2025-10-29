@@ -1,6 +1,8 @@
 
 import { createServer, hmr } from './tools/server'
+import { createEdgeServer } from './edge/server'
 import { fswatch } from './tools/fswatch'
+import { createProxy } from './proxy'
 import { createTree } from './tree'
 
 
@@ -13,18 +15,17 @@ export async function start({ port=5050 }) {
   watcher.onupdate = async path => {
     const asset = tree.update(path)
 
-    if (asset.is_md || asset.is_css) {
-      const { content } = await asset.render(hmr.host)
-      asset.content = content
-    }
-
     if (asset.is_html) {
-      const doc = await asset.parse()
-      asset.is_dhtml = doc.is_dhtml
-      asset.is_lib = doc.is_lib
+      const ast = await asset.parse()
+      asset.is_dhtml = ast.is_dhtml
+      asset.is_lib = ast.is_lib
     }
 
-    hmr.broadcast(asset)
+    // TODO: tree.resolve(path, url)
+    for (const browser of hrm.sessions) {
+      asset.content = tree.render(browser.url)
+      browser.broadcast(asset)
+    }
   }
 
   watcher.onremove = path => {
@@ -36,11 +37,15 @@ export async function start({ port=5050 }) {
     }
   }
 
+  // handler (custm proxy or edge server mock)
+  const conf = await tree.getConf()
+  const handler = conf.proxy ? createProxy(conf.proxy) : createEdgeServer(tree, conf)
+
   // dev server
-  const server = createServer({ port }, async url => {
-    const asset = await tree.find(url)
-    return asset?.render ? await asset.render() : asset
+  const server = createServer({ port, handler }, async url => {
+    return await tree.render(url)
   })
+
 }
 
 

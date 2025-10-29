@@ -144,7 +144,7 @@ async function getLibs(deps) {
   const paths = []
   for (const asset of deps.filter(el => el.is_html)) {
     const doc = await asset.parse()
-    if (doc.is_dhtml && doc.is_lib) paths.push(asset.path)
+    if (doc.is_dhtml) paths.push(asset.path)
   }
   return paths
 }

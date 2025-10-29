@@ -70,11 +70,12 @@ export async function renderSPA(asset, chain, assets, is_prod) {
   map.state = '/@nue/state.js'
   data.scope = 'body'
 
+  deps.push(asset)
+
   // html page
   const head = await renderHead({ conf, data, deps })
   const body = elem('body', { nue: root.is })
   const html = renderContent(body, { head, comps, data, conf })
-
 
   return { html, js: compileNue(doc) }
 }

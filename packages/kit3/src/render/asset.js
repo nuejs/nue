@@ -1,34 +1,32 @@
 
 import { join } from 'node:path'
-
 import { fileURLToPath } from 'node:url'
+
+import { generateSitemap, generateFeed } from './feed'
 import { minifyCSS } from '../tools/css'
 import { renderPage } from './page'
+import { renderHTML } from './html'
+
 
 export async function renderAsset(asset, chain, assets, is_prod) {
-  const content = asset.is_md ? await renderPage(asset, chain, assets, is_prod)
+  return asset.is_md ? await renderPage(asset, chain, assets, is_prod)
     : asset.is_html ? await renderHTML(asset, chain, assets, is_prod)
     : asset.is_js && is_prod || asset.is_ts ? await compileJS(filepath, is_prod)
     : asset.is_css && is_prod ? minifyCSS(await asset.text())
     : asset.is_nue ? await readNueAsset(asset.name, is_prod)
     : await asset.text()
-
-  return { content, type: await getContentType(asset) }
 }
 
-const MIME = {
-  js: 'application/javascript',
-  html: 'text/html; charset=utf-8',
-}
+export async function renderFeed(url, site, conf, assets) {
+  const pages = assets.filter(el => el.is_md && el.site == site)
 
-async function getContentType(asset) {
-  if (asset.is_html) {
-    const { is_dhtml } = await asset.parse()
-    return is_dhtml ? MIME.js : MIME.html
+  // sitemap.xml
+  if (url == '/sitemap.xml' && conf.sitemap?.enabled) {
+    return await generateSitemap(pages, conf)
+
+  } else if (url == '/feed.xml' && conf.rss?.enabled) {
+    return await generateFeed(pages, conf)
   }
-  return asset.is_ts ? MIME.js
-    : asset.is_md ? MIME.html
-    : (MIME[asset.type] || asset.file?.type)
 }
 
 export async function compileJS(path, minify, bundle) {

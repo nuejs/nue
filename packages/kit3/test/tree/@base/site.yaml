@@ -1,0 +1,21 @@
+
+site:
+  view_transitions: true
+  origin: https://acme.org
+
+meta:
+  title: Something
+
+sitemap:
+  enabled: true
+
+rss:
+  enabled: true
+  title: Acme blog
+  collection: blog
+
+collections:
+  blog:
+    include: [ blog/ ]
+    sort: date desc
+

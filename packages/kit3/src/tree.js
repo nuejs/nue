@@ -1,7 +1,7 @@
 
 import { sep, join } from 'node:path'
 
-import { renderAsset } from './render/asset'
+import { renderAsset, renderFeed } from './render/asset'
 import { createAsset } from './asset'
 import { fswalk } from './tools/fswalk'
 import { findAsset } from './find'
@@ -21,38 +21,53 @@ export function createTree() {
     const site = parseSitename(path, sites)
     const asset = createAsset(path, site)
     map.set(path, asset)
-
-    async function render(host) {
-      const { site, is_prod } = parseHost(host)
-      const chain = await getChain(site,  getAll())
-      return await renderAsset(asset, chain,  getAll(), is_prod)
-    }
-
-    return { ...asset, render }
   }
 
   function getAll() {
     return [ ...map.values() ]
   }
 
-  async function find(url) {
-    const { site, is_prod } = parseHost(url.host)
+  async function render(url) {
+    if (typeof url == 'string') url = { pathname: url, host: '' }
+
+    const { pathname, host } = url
+    const { site, is_prod } = parseHost(host)
     const assets = getAll()
     const chain = await getChain(site, assets)
-    const asset = await findAsset(url.pathname, chain, assets)
-    if (!asset) return null
+    const asset = await findAsset(pathname, chain, assets)
 
-    async function render() {
-      return await renderAsset(asset, chain, assets, is_prod)
+    if (pathname.endsWith('.xml')) {
+      const content = asset ? await asset.read()
+        : await renderFeed(pathname, site, await getConf(chain), assets)
+
+      return content && { content, type: MIME.xml }
     }
 
-    return { ...asset, render }
+    if (asset) {
+      let content = await renderAsset(asset, chain, assets, is_prod)
+      const is_js = pathname.endsWith('.js')
+      if (content.html) content = is_js ? content.js : content.html
+      return { content, type: is_js ? MIME.js : getMimeType(asset) }
+    }
+  }
+
+  async function getConf(chain) {
+    if (!chain) chain = [null, '@base']
+
+    for (const name of chain) {
+      const yaml = getAll().find(el => el.site == name && el.path == 'site.yaml')
+      if (yaml) return yaml.parse()
+    }
   }
 
   return {
-    get: path =>  map.get(path),
     delete: path =>  map.delete(path),
-    load, find, update, getAll,
+    get: path =>  map.get(path),
+    getConf,
+    update,
+    getAll,
+    render,
+    load,
   }
 
 }
@@ -67,17 +82,32 @@ export function getSitenames(paths) {
   const filenames = ['@shared', 'site.yaml', 'index.md', 'index.html']
   const names = new Set()
 
+  // build a map of which directories have marker files
+  const dirsWithMarkers = new Set()
   for (const path of paths) {
-    const els = path.split(sep)
+    const els = path.split('/')
+    for (let i = 0; i < els.length; i++) {
+      if (filenames.includes(els[i])) {
+        dirsWithMarkers.add(els.slice(0, i).join('/'))
+      }
+    }
+  }
 
-    for (const filename of filenames) {
-      const i = els.indexOf(filename)
-      if (i > 0) names.add(els[i -1])
+  // for each path, find the shortest dir with a marker
+  for (const path of paths) {
+    const els = path.split('/')
+    for (let i = 1; i < els.length; i++) {
+      const dir = els.slice(0, i).join('/')
+      if (dirsWithMarkers.has(dir)) {
+        names.add(els[i - 1])
+        break
+      }
     }
   }
 
   return [...names]
 }
+
 
 export function parseSitename(path, names) {
   for (const name of names) {
@@ -87,10 +117,25 @@ export function parseSitename(path, names) {
 }
 
 export async function getChain(site, assets) {
+  if (site == null) return [ null, '@base' ]
+
   const asset = assets.find(el => el.site == site && el.path == 'site.yaml')
   if (asset) {
     const { extend } = await asset.parse()
     if (extend) return [ ...extend, site ]
   }
+
   return [ site ]
 }
+
+
+const MIME = {
+  xml: 'application/xml; charset=utf-8',
+  html: 'text/html; charset=utf-8',
+  js: 'application/javascript',
+}
+
+function getMimeType(asset) {
+  return asset.is_ts ? MIME.js : asset.is_md ? MIME.html : (MIME[asset.type] || asset.file?.type)
+}
+

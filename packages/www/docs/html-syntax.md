@@ -156,10 +156,10 @@ Components default to `<div>` wrapper. Change with `:is`:
 
 ```html
 <!-- this component renders as <figure> -->
-<image-card •:is="figure"•>
+<figure •:is="image-card"•>
   <img src="{ url }">
   <figcaption>{ caption }</figcaption>
-</image-card>
+</figure>
 ```
 
 

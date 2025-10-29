@@ -45,8 +45,8 @@ async function filterPages(assets, conf) {
     // skip?
     if (conf.skip?.some(field => meta[field])) continue
 
-    const { url, dir, slug } = page
-    ret.push({ ...meta, url, dir, slug })
+    const { url, dir, slug, mtime } = page
+    ret.push({ ...meta, url, dir, slug, mtime })
   }
 
   return ret

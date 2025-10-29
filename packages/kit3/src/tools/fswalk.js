@@ -4,8 +4,8 @@ import { parse, join, relative } from 'node:path'
 
 const IGNORE = `node_modules .toml .rs .lock package.json .lockb lock.yaml README.md Makefile`.split(' ')
 
-export function matches(path, patterns) {
-  return patterns.some(pattern => path.includes(pattern))
+export function isIgnored(path) {
+  return IGNORE.some(pattern => path.includes(pattern))
 }
 
 export function isSkipped(path) {
@@ -17,8 +17,7 @@ function warn(message, path) {
   console.warn(`Warning: ${message} ${path}`)
 }
 
-async function walkDirectory(dir, root, opts) {
-  const { ignore = IGNORE, followSymlinks } = opts
+async function walkDirectory(dir, root) {
   const results = []
 
   try {
@@ -28,11 +27,11 @@ async function walkDirectory(dir, root, opts) {
       const fullPath = join(dir, entry.name)
       const relativePath = relative(root, fullPath)
 
-      if (isSkipped(relativePath) || matches(relativePath, ignore)) continue
+      if (isSkipped(relativePath) || isIgnored(relativePath)) continue
 
       try {
         if (entry.isDirectory()) {
-          const subResults = await walkDirectory(fullPath, root, opts)
+          const subResults = await walkDirectory(fullPath, root)
           results.push(...subResults)
 
         } else if (entry.isFile()) {
@@ -56,12 +55,12 @@ async function walkDirectory(dir, root, opts) {
   return results
 }
 
-export async function fswalk(root = '.', opts = {}) {
+export async function fswalk(root = '.') {
   try {
     await stat(root)
   } catch (error) {
     throw new Error(`Root directory does not exist: ${root}`)
   }
 
-  return await walkDirectory(root, root, opts)
+  return await walkDirectory(root, root)
 }
