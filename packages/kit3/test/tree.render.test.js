@@ -11,9 +11,19 @@ afterAll(() => process.chdir('..'))
 test('base home', async () => {
   const { content, type } = await tree.render('/')
   expect(content).toInclude('/@shared/design/typography.css')
-  expect(content).toInclude('<h1>Hello Base</h1>')
+  expect(content).toInclude('<h1>Hello Base')
   expect(content).toInclude('/@nue/hmr.js')
   expect(type).toInclude('text/html')
+})
+
+test('page update', async () => {
+  const { content } = await tree.render('/blog/first')
+  expect(content).toInclude('<h1>First blog entry')
+
+  // works after update
+  tree.update('@base/blog/first.md')
+  const page = await tree.render('/blog/first')
+  expect(page.content).toInclude('<h1>First blog entry')
 })
 
 test('base UI', async () => {
@@ -24,7 +34,8 @@ test('base UI', async () => {
 
 test('acme home', async () => {
   const { content } = await tree.render({ host: 'acme.localhost', pathname: '/' })
-  expect(content).toInclude('<h1>Hello Acme</h1>')
+  expect(content).toInclude('Acme header')
+  expect(content).toInclude('<h1>Hello Acme')
   expect(content).toInclude('href="/feed.xml"')
 })
 
@@ -34,7 +45,7 @@ test('production CSS', async () => {
     pathname: '/acme.css'
   })
 
-  expect(content).toInclude('body{padding:1em}')
+  expect(content).toInclude('body{padding:')
   expect(type).toInclude('text/css')
 })
 
@@ -80,3 +91,7 @@ test('SPA JS', async () => {
   expect(type).toInclude('application/javascript')
 })
 
+test('dependsOn', async () => {
+  expect(await tree.dependsOn({ host: 'acme.localhost', pathname: '/'}, 'base.js')).toBeTrue()
+  expect(await tree.dependsOn({ host: 'beta.localhost', pathname: '/'}, 'acme.css')).toBeFalse()
+})

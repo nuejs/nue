@@ -12,7 +12,7 @@ test('createTree', async () => {
   expect(tree.get('acme/index.css')).toMatchObject({ site: 'acme', path: 'index.css' })
 })
 
-test.only('getSitenames', () => {
+test('getSitenames', () => {
   const paths = [
     '@base/site.yaml',
     'acme/blog/index.md',
@@ -22,8 +22,7 @@ test.only('getSitenames', () => {
   ]
 
   const names = getSitenames(paths)
-  console.info(names)
-  // expect(names).toEqual(["@base", "beta"])
+  expect(names).toEqual(["@base", "acme", "beta"])
 })
 
 test('parseSitename', () => {
@@ -42,8 +41,10 @@ test('getChain', async () => {
 
 test('parseHost', () => {
   expect(parseHost('acme.production.localhost')).toEqual({ site: 'acme', is_prod: true })
+  expect(parseHost('production.localhost')).toEqual({ site: null, is_prod: true })
+  expect(parseHost('localhost')).toEqual({ site: null, is_prod: false })
 })
 
 test('single-mode chain', async () => {
-  expect(await getChain(null, [])).toEqual([ null ])
+  expect(await getChain(null, [])).toEqual([ null, '@base' ])
 })

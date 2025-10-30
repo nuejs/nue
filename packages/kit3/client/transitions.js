@@ -91,7 +91,7 @@ export function onclick(root, fn) {
 }
 
 function shouldIgnoreClick(e, path, target, filename) {
-  return e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey ||
+  return window.ignoreClick || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey ||
     !path || path[0] == '#' || path.includes('//') || path.startsWith('mailto:') ||
     (filename?.includes('.') && !filename.endsWith('.html')) || !!target
 }

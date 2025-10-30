@@ -11,8 +11,7 @@ export function createServer({ port=4000, handler }, callback) {
     const url = new URL(req.url)
 
     if (req.headers.get('upgrade') == 'websocket') {
-      hmr.host = url.host
-      return server.upgrade(req) ? undefined : new Response('Upgrade failed', { status: 500 })
+      return server.upgrade(req, { data: { url } })
     }
 
     // regular file serving
@@ -41,13 +40,16 @@ export function createServer({ port=4000, handler }, callback) {
   }
 
   const websocket = {
-    open(ws) {
+    open(ws, req) {
       sessions.push(ws)
     },
     close(ws) {
       const i = sessions.indexOf(ws)
       if (i >= 0) sessions.splice(i, 1)
-    }
+    },
+    message(ws, url) {
+      ws.data.url = new URL(url)
+    },
   }
 
   const server = Bun.serve({ idleTimeout: 0, port, fetch, websocket })
@@ -57,9 +59,14 @@ export function createServer({ port=4000, handler }, callback) {
 const sessions = []
 
 export const hmr = {
-  host: null,
-
-  sessions,
+  get browsers() {
+    return sessions.map(ws => ({
+      url: ws.data.url,
+      broadcast(data) {
+        try { ws.send(JSON.stringify(data)) } catch(e) {}
+      }
+    }))
+  },
 
   broadcast(data) {
     sessions.forEach(ws => {

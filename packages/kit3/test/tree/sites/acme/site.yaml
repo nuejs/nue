@@ -1,2 +1,5 @@
 
 extend: [ @base ]
+
+meta:
+  title: Acme

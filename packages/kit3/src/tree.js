@@ -1,11 +1,12 @@
 
 import { sep, join } from 'node:path'
+import { compileNue } from 'nuedom'
 
 import { renderAsset, renderFeed } from './render/asset'
 import { createAsset } from './asset'
 import { fswalk } from './tools/fswalk'
 import { findAsset } from './find'
-import { compileNue } from 'nuedom'
+import { getDeps } from './deps'
 
 export function createTree() {
   const map = new Map()
@@ -16,11 +17,13 @@ export function createTree() {
     for (const path of paths) update(path, paths)
   }
 
-  function update(path, paths=map.keys()) {
+  function update(path, _paths) {
+    const paths = _paths || [...map.keys()]
     const sites = getSitenames(paths)
     const site = parseSitename(path, sites)
     const asset = createAsset(path, site)
     map.set(path, asset)
+    return asset
   }
 
   function getAll() {
@@ -52,6 +55,15 @@ export function createTree() {
     }
   }
 
+  async function dependsOn(pageURL, path) {
+    const { site } = parseHost(pageURL.host)
+    const assets = getAll()
+    const chain = await getChain(site, assets)
+    const asset = await findAsset(pageURL.pathname, chain, assets)
+    const deps = await getDeps(asset, chain, assets)
+    return deps.some(el => el.path == path)
+  }
+
   async function getConf(chain) {
     if (!chain) chain = [null, '@base']
 
@@ -61,9 +73,11 @@ export function createTree() {
     }
   }
 
+  // Tree API
   return {
     delete: path =>  map.delete(path),
     get: path =>  map.get(path),
+    dependsOn,
     getConf,
     update,
     getAll,
@@ -74,9 +88,11 @@ export function createTree() {
 }
 
 export function parseHost(host) {
+  const prod = 'production'
   const els = host.split('.')
   const site = els.length == 1 ? null : els[0]
-  return { site, is_prod: host.includes('production') }
+  if (site == prod) return { site: null, is_prod: true }
+  return { site, is_prod: host.includes(prod) }
 }
 
 export function getSitenames(paths) {

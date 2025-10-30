@@ -7,8 +7,9 @@ const SHARED = ['data', 'design', 'ui'].map(dir => join('@shared', dir))
 const TYPES = ['html', 'js', 'ts', 'yaml', 'css']
 
 export async function getDeps(asset, chain, assets) {
-  const { include, exclude } = await getIncludeOpts(asset, chain, assets)
+  assets = sortAssets(assets, chain.toReversed())
 
+  const { include, exclude } = await getIncludeOpts(asset, chain, assets)
 
   return assets.filter(dep => {
 
@@ -35,6 +36,12 @@ export async function getDeps(asset, chain, assets) {
 
   })
 
+}
+
+function sortAssets(assets, chain) {
+  return assets.toSorted((a, b) =>
+    chain.findIndex(s => s == a.site) - chain.findIndex(s => s == b.site)
+  )
 }
 
 export async function getIncludeOpts(asset, chain, assets) {

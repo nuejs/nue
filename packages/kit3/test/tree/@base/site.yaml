@@ -5,6 +5,8 @@ site:
 
 meta:
   title: Something
+  desc: This is the desc
+  og: /og.png
 
 sitemap:
   enabled: true

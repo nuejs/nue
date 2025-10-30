@@ -1,28 +1,35 @@
 
 
 function connect() {
-  const server = new WebSocket(`ws://${location.host}`)
+  const ws = new WebSocket(location.href.replace('http:', 'ws:'))
 
-  server.onmessage = async function(e) {
+  ws.onmessage = async function(e) {
     const asset = JSON.parse(e.data)
 
-    return asset.is_error ? await handleError(asset)
+    // : asset.is_error ? await handleError(asset)
+    // : asset.is_svg ? reloadVisual(asset)
+
+    if (asset.redirect) return location.href = asset.url
+
+    return asset.content ? await reloadContent(asset)
       : asset.is_dhtml ? await reloadComponents(asset)
-      : asset.is_md ? await reloadContent(asset)
-      : asset.is_svg ? reloadVisual(asset)
-      : asset.is_css ? reloadCSS(asset)
-      : location.reload()
+      : asset.css ? reloadCSS(asset)
+      : asset.remove ? removeAsset(asset)
+      : asset.is_ext ? location.reload()
+      : console.info('HMR void', asset)
   }
 
-  // reconnect after 1 second
-  server.onclose = function() {
+  // reconnect
+  ws.onclose = function() {
     console.log('HMR reconnecting...')
     setTimeout(connect, 3000)
   }
 
-  server.onerror = function() {
-    server.close()
+  ws.onerror = function() {
+    ws.close()
   }
+
+  // addEventListener('route', () =>  ws.send(location.href))
 }
 
 connect()
@@ -36,8 +43,6 @@ async function handleError(asset) {
 
 async function reloadContent(asset) {
   const { url } = asset
-
-  if (url != location.pathname) return location.href = url
 
   // domdiff
   const { mountAll } = await import('./mount.js')
@@ -58,6 +63,8 @@ async function reloadContent(asset) {
   }
 
   await mountAll()
+
+  window.ignoreClick = true
 }
 
 
@@ -79,16 +86,21 @@ function reloadVisual(asset) {
   reload($(`img[src*='${url}']`), 'src')
 }
 
+
+function removeAsset(asset) {
+  if (asset.is_css) $(`[href="${asset.url}"]`)?.remove()
+}
+
 function reloadSVG(html) {
   const svg = html.slice(html.indexOf('<svg '), html.indexOf('</svg>') + 6)
   document.body.innerHTML = svg
 }
 
 function reloadCSS(asset) {
-  const { url, content } = asset
-  const orig = $(`[href="${url}"]`)
-  const style = createStyle(url, content)
+  const { url, css } = asset
 
+  const orig = $(`[href="${url}"]`)
+  const style = createStyle(url, css)
 
   if (orig) orig.replaceWith(style)
   else document.head.appendChild(style)
@@ -105,10 +117,10 @@ async function reloadComponents(asset) {
 
 /***** helper functions *****/
 
-function createStyle(url, content) {
+function createStyle(url, css) {
   const el = document.createElement('style')
   el.setAttribute('href', url)
-  el.innerHTML = content
+  el.innerHTML = css
   return el
 }
 

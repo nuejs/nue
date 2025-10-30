@@ -14,18 +14,17 @@ export async function start({ port=5050 }) {
 
   watcher.onupdate = async path => {
     const asset = tree.update(path)
+    // cli.siteUpdated(asset)
 
-    if (asset.is_html) {
-      const ast = await asset.parse()
-      asset.is_dhtml = ast.is_dhtml
-      asset.is_lib = ast.is_lib
+    for (const browser of hmr.browsers) {
+      const diff = await patch(browser.url, asset, tree)
+      if (diff) {
+        browser.broadcast(diff)
+        // cli.browserUpdated(browser)
+      }
     }
 
-    // TODO: tree.resolve(path, url)
-    for (const browser of hrm.sessions) {
-      asset.content = tree.render(browser.url)
-      browser.broadcast(asset)
-    }
+    // cli.render()
   }
 
   watcher.onremove = path => {
@@ -48,6 +47,30 @@ export async function start({ port=5050 }) {
 
 }
 
+// HMR update
+async function patch(url, asset, tree) {
 
+  // redirect
+  if (asset.is_md && url.pathname != asset.url) return { ...asset, redirect: true }
 
+  // dhtml component
+  if (asset.is_html) {
+    const { is_dhtml } = await asset.parse()
+    return { ...asset, is_dhtml: true }
+  }
+
+  asset.is_ext = asset.is_css || asset.is_js || asset.is_ts
+
+  // external dependency
+  if (asset.is_ext && await tree.dependsOn(url, asset.path)) {
+    if (asset.is_css) asset.css = await asset.text()
+    return asset
+
+  // page update
+  } else if (asset.is_md || asset.is_yaml || asset.is_html) {
+    const ret = await tree.render(url)
+    if (ret) return { ...asset, content: ret.content }
+  }
+
+}
 
