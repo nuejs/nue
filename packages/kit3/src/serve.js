@@ -1,30 +1,32 @@
 
 import { createServer, hmr } from './tools/server'
 import { createEdgeServer } from './edge/server'
+import { createLog } from './cli/log/dev'
 import { fswatch } from './tools/fswatch'
 import { createProxy } from './proxy'
 import { createTree } from './tree'
 
 
-export async function start({ port=5050 }) {
-  const watcher = fswatch()
+export async function start({ port=5050, version }) {
 
+  const log = createLog({ version, port })
+  const watcher = fswatch()
   const tree = createTree()
   await tree.load()
 
   watcher.onupdate = async path => {
     const asset = tree.update(path)
-    // cli.siteUpdated(asset)
+    log.trackUpdate(asset)
 
     for (const browser of hmr.browsers) {
       const diff = await patch(browser.url, asset, tree)
       if (diff) {
         browser.broadcast(diff)
-        // cli.browserUpdated(browser)
+        log.trackHMR(browser.url.host)
       }
     }
 
-    // cli.render()
+    log.render()
   }
 
   watcher.onremove = path => {
@@ -33,6 +35,7 @@ export async function start({ port=5050 }) {
     if (asset) {
       tree.delete(path)
       hmr.broadcast({ remove: asset })
+      log.trackRemove(asset)
     }
   }
 

@@ -1,3 +1,3 @@
 
 run-tests:
-	cd test && bun test tree.render
+	cd test && bun test # tree.render

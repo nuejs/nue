@@ -13,7 +13,7 @@ export function getArgs(argv) {
   const commands = ['create', 'deploy']
 
   // default values
-  const args = { paths: [] }
+  const args = { paths: [], version }
   let opt
 
   argv.forEach((arg) => {
@@ -31,7 +31,7 @@ export function getArgs(argv) {
       // global options
       if (['-h', '--help'].includes(arg)) args.help = true
 
-      else if (['-v', '--version'].includes(arg)) args.version = true
+      else if (['-v', '--version'].includes(arg)) args.printVersion = true
 
       // dev & preview options
       else if (['-p', '--port'].includes(arg)) opt = 'port'
@@ -109,8 +109,7 @@ async function run(args) {
 
   // version
   printVersion()
-  if (args.version) return
-
+  if (args.printVersion) return
 
   // command
   const { cmd, paths } = args

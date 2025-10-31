@@ -20,6 +20,7 @@ test('page update', async () => {
   const { content } = await tree.render('/blog/first')
   expect(content).toInclude('<h1>First blog entry')
 
+
   // works after update
   tree.update('@base/blog/first.md')
   const page = await tree.render('/blog/first')
@@ -34,6 +35,8 @@ test('base UI', async () => {
 
 test('acme home', async () => {
   const { content } = await tree.render({ host: 'acme.localhost', pathname: '/' })
+
+  expect(content).toInclude('"og:description" content="Acme desc"')
   expect(content).toInclude('Acme header')
   expect(content).toInclude('<h1>Hello Acme')
   expect(content).toInclude('href="/feed.xml"')

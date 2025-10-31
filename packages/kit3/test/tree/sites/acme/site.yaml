@@ -3,3 +3,5 @@ extend: [ @base ]
 
 meta:
   title: Acme
+  desc: Acme desc
+  og: /acme-og.png

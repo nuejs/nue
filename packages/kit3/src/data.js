@@ -32,7 +32,8 @@ export async function getConf(app, chain, assets, is_prod) {
 export async function getData(deps, is_prod) {
   const data = { is_prod }
 
-  for (const dep of deps.filter(el => el.is_yaml || el.is_json)) {
+  // @base first
+  for (const dep of deps.toReversed().filter(el => el.is_yaml || el.is_json)) {
     const yaml = await dep.parse()
 
     if (is_prod) Object.assign(yaml.meta ??= {}, yaml.production)

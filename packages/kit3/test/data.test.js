@@ -48,8 +48,8 @@ test('merge meta', async () => {
 
 test('production data', async () => {
   const deps = [
-    { is_yaml: true, parse() { return { meta:{ url: 'bad' } }}},
     { is_yaml: true, parse() { return { production: { url: 'example.com' } }}},
+    { is_yaml: true, parse() { return { meta:{ url: 'bad' } }}},
   ]
 
   const data = await getData(deps, true)

@@ -78,7 +78,7 @@ export function renderMeta(data) {
   const meta = [elem('meta', { charset: 'utf-8'})]
 
   Object.entries(props).map(([key, val]) => {
-    const content = data[key] || val
+    const content = val || data[key]
     if (content && data[key] !== false) meta.push(elem('meta', { name: key, content }))
   })
 
