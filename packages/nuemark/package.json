@@ -11,20 +11,9 @@
     "directory": "packages/nuemark",
     "type": "git"
   },
-  "scripts": {
-    "test": "node --experimental-vm-modules ../../node_modules/jest/bin/jest.js --runInBand"
-  },
   "dependencies": {
-    "nueyaml": "^0.1.0",
-    "nue-glow": "^0.2.0"
+    "nueyaml": "workspace:^",
+    "nue-glow": "workspace:^"
   },
-  "files": [ "src" ],
-  "jest": {
-    "setupFilesAfterEnv": [
-      "<rootDir>/../../setup-jest.js"
-    ],
-    "collectCoverageFrom": [
-      "<rootDir>/src/**"
-    ]
-  }
+  "files": [ "src", "index.js" ]
 }

@@ -16,16 +16,13 @@
   "engines": {
     "bun": ">= 1.2.2"
   },
-  "scripts": {
-    "test": "cd test && bun test"
-  },
   "dependencies": {
-    "nue-edgeserver": "^0.1.0",
-    "nuestate": "^0.1.0",
-    "nueyaml": "^0.1.0",
-    "nuedom": "^0.1.0",
-    "nuemark": "^0.7.0",
-    "nue-glow": "^0.2.0"
+    "nue-edgeserver": "workspace:^",
+    "nuestate": "workspace:^",
+    "nueyaml": "workspace:^",
+    "nuedom": "workspace:^",
+    "nuemark": "workspace:^",
+    "nue-glow": "workspace:^"
   },
 
   "files": [ "src", "client", "favicon.ico" ]
