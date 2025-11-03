@@ -1,6 +1,8 @@
 #!/usr/bin/env bun
 
 import { join } from 'node:path'
+import { styleText as color } from 'node:util'
+
 
 async function getVersion() {
   const file = Bun.file(join(import.meta.dir, '../../package.json'))
@@ -73,24 +75,14 @@ const HELP = `
 `
 
 function format(line) {
-  const colors = {
-    white: str => `\x1b[37m${str}\x1b[0m`,
-    gray: str => `\x1b[90m${str}\x1b[0m`,
-    green: str => `\x1b[32m${str}\x1b[0m`,
-    cyan: str => `\x1b[36m${str}\x1b[0m`,
-  }
-
   const [main, comment] = line.split('#')
   if (!main) return
 
   let result = main
-    .replace(/\bnue create\b/g, colors.white('nue create'))
-    .replace(/\bnue deploy\b/g, colors.white('nue deploy'))
-    .replace(/\bnue\b/g, colors.white('nue'))
-    .replace(/(-[a-z]|--\w+)/g, match => colors.cyan(match))
-    .replace(/\b\d+\b|<\w+>|\bdemo\b/g, match => colors.green(match))
+    .replace(/(-[a-z]|--\w+)/g, match => color('cyan', match))
+    .replace(/\b\d+\b|<\w+>|\bdemo\b/g, match => color('green', match))
 
-  return result + colors.gray('#' + comment)
+  return result + color('gray', '#' + comment)
 }
 
 export function printHelp() {
