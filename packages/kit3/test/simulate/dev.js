@@ -1,5 +1,5 @@
 
-import { createLog } from '../../src/cli/log/dev'
+import { createLog } from '../../src/cli/dev'
 
 const cli = createLog({ version: '3.0.0-beta.1' })
 
@@ -51,6 +51,6 @@ while (true) {
   cli.render()
 
   await Bun.sleep(50 * Math.random())
-  if (count == 150) break
+  if (count > 70) break
 }
 

@@ -1,7 +1,7 @@
 
 import { styleText as color } from 'node:util'
 
-const COLORS = { yaml: '🟡', js: '🟠', ts: '🔴', html: '🔵', md: '🟢', css: '🟣', }
+const ICONS = { yaml: '🟡', js: '🔴', ts: '⚫', html: '🔵', md: '🟢', css: '🟣', }
 
 const cyan = (text) => color('cyan', '' + text)
 const gray = (text) => color('gray', '' + text)
@@ -27,7 +27,8 @@ export function createLog({ interval=60*1000, version, port }) {
   function renderLastFile(file) {
     const age = Date.now() - times.lastmod
     const ago = age >= min/2 ? timeElapsed(age) + ' ago' : 'Just now'
-    return COLORS[file.type] + ` ${ago} ` + cyan(file.path) + ' ' + gray('=>')
+    // ICONS[file.type] +
+    return ago + ': ' + cyan(file.path) + ' ' + gray('=>')
   }
 
   function renderSection(title, data, max) {
@@ -35,8 +36,10 @@ export function createLog({ interval=60*1000, version, port }) {
     const dot = '•' + (max < 25 ? '  ' : max < 50 ? ' ' : '')
     const arr = []
 
-    for (const label in data) {
+    for (let label in data) {
       const am = data[label]
+
+      if (title == 'Files') label = ICONS[label.toLowerCase()] + ' ' + label
       const max_dots = Math.min(am, 110)
       const count = `(${am})`.padEnd(6)
       arr.push(gray(label.padEnd(25) + cyan(count) + dot.repeat(max_dots)))
@@ -68,8 +71,12 @@ export function createLog({ interval=60*1000, version, port }) {
     const { start, lastmod, devtime } = times
     const now = Date.now()
     times.uptime = now - start
-    times.devtime = (lastmod && now - lastmod < interval) ? now - start : devtime
-    times.devratio = Math.round(times.devtime / times.uptime * 100)
+
+    if (lastmod && now - lastmod < interval) {
+      times.devtime += interval
+    }
+
+    times.devratio = Math.floor(times.devtime / times.uptime * 100)
   }
 
   const timer = setInterval(() => { updateTimes(); render() }, interval)
@@ -138,11 +145,6 @@ export function createLog({ interval=60*1000, version, port }) {
     trackRemove(file) {
       addup('removes', file)
       render()
-    },
-
-    // for testing
-    get data() {
-      return { sections, totals, times, latest }
     },
 
     render

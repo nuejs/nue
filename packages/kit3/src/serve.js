@@ -1,9 +1,9 @@
 
 import { createServer, hmr } from './tools/server'
 import { createEdgeServer } from './edge/server'
-import { createLog } from './cli/log/dev'
 import { fswatch } from './tools/fswatch'
 import { createProxy } from './proxy'
+import { createLog } from './cli/dev'
 import { createTree } from './tree'
 
 
