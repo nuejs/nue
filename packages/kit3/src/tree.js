@@ -30,6 +30,11 @@ export function createTree() {
     return [ ...map.values() ]
   }
 
+  // deployable sites
+  async function getSites() {
+
+  }
+
   async function render(url) {
     if (typeof url == 'string') url = { pathname: url, host: '' }
 

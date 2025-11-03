@@ -149,13 +149,19 @@ export function tokenize(css) {
     }
 
     if (char == ':') {
-      // Don't tokenize colons that are part of selectors
+      // Don't tokenize colons that are part of URLs (like http://) or selectors
       // Look back to see if we just had text (property name) or if this starts a selector
       const lastToken = tokens[tokens.length - 1]
       if (lastToken && lastToken.type == 'text') {
-        tokens.push({ type: 'colon', value: char })
-        i++
-        continue
+        // Check if this is part of a URL (protocol://)
+        if (css[i + 1] == '/' && css[i + 2] == '/') {
+          // Part of URL, don't tokenize - will be included in text token
+          // Continue to let readTextToken handle it
+        } else {
+          tokens.push({ type: 'colon', value: char })
+          i++
+          continue
+        }
       }
     }
 
@@ -180,8 +186,15 @@ function readTextToken(css, start) {
     if (char == '{' || char == '}' || char == ';') break
     if (char == '/' && css[i + 1] == '*') break
 
-    // Stop at colon only if it's preceded by text (making it a property colon)
+    // Stop at colon only if it's a property colon (not part of URL or selector)
     if (char == ':') {
+      // Check if this is part of a URL (protocol://)
+      if (css[i + 1] == '/' && css[i + 2] == '/') {
+        // Part of URL, keep reading
+        i++
+        continue
+      }
+
       // If we're in the middle of text and hit a colon, check if it's a property declaration
       const textSoFar = css.slice(start, i).trim()
       if (textSoFar) {
