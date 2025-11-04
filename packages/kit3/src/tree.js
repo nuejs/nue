@@ -30,19 +30,10 @@ export function createTree() {
     return [ ...map.values() ]
   }
 
-  // deployable sites
-  async function getSites() {
-
-  }
-
   async function render(url) {
     if (typeof url == 'string') url = { pathname: url, host: '' }
-
     const { pathname, host } = url
-    const { site, is_prod } = parseHost(host)
-    const assets = getAll()
-    const chain = await getChain(site, assets)
-    const asset = await findAsset(pathname, chain, assets)
+    const { site, is_prod, chain, assets, asset } = await getThings(url)
 
     if (pathname.endsWith('.xml')) {
       const content = asset ? await asset.read()
@@ -60,12 +51,23 @@ export function createTree() {
     }
   }
 
-  async function dependsOn(pageURL, path) {
-    const { site } = parseHost(pageURL.host)
+  async function getThings(url) {
+    const { site, is_prod } = parseHost(url.host)
     const assets = getAll()
     const chain = await getChain(site, assets)
-    const asset = await findAsset(pageURL.pathname, chain, assets)
-    const deps = await getDeps(asset, chain, assets)
+    const asset = await findAsset(url.pathname, chain, assets)
+    return { site, is_prod, chain, assets, asset }
+  }
+
+  async function build(asset) {
+    const assets = getAll()
+    const chain = await getChain(asset.site, assets)
+    return await renderAsset(asset, chain, assets, true)
+  }
+
+  async function dependsOn(url, path) {
+    const els = await getThings(url)
+    const deps = await getDeps(els.asset, els.chain, els.assets)
     return deps.some(el => el.path == path)
   }
 
@@ -76,6 +78,8 @@ export function createTree() {
       const yaml = getAll().find(el => el.site == name && el.path == 'site.yaml')
       if (yaml) return yaml.parse()
     }
+
+    return {}
   }
 
   // Tree API
@@ -87,6 +91,7 @@ export function createTree() {
     update,
     getAll,
     render,
+    build,
     load,
   }
 

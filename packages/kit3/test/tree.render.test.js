@@ -73,16 +73,30 @@ test('minified JS ', async () => {
 })
 
 
+test('content/artsy', async () => {
+  const { content } = await tree.render({
+    host: 'beta.localhost',
+    pathname: '/'
+  })
+
+  expect(content).toInclude('<h1>This is art</h1>')
+  expect(content).toInclude('<style>@layer base, components</style>')
+  expect(content).toInclude('href="/epic-layout.css"')
+  expect(content).toInclude('href="/epic-colors.css"')
+
+})
+
 test('SPA', async () => {
   const { content, type } = await tree.render({
     host: 'beta.localhost',
     pathname: '/app/'
   })
-  expect(content).toInclude('"libs" content="app/index.html"')
+  expect(content).toInclude('"libs" content="@shared/ui/join.html app/index.html"')
   expect(content).toInclude('<body nue="default-app"></body>')
   expect(content).toInclude('"/@nue/state.js"')
   expect(type).toInclude('text/html')
 })
+
 
 test('SPA JS', async () => {
   const { content, type } = await tree.render({
@@ -97,4 +111,11 @@ test('SPA JS', async () => {
 test('dependsOn', async () => {
   expect(await tree.dependsOn({ host: 'acme.localhost', pathname: '/'}, 'base.js')).toBeTrue()
   expect(await tree.dependsOn({ host: 'beta.localhost', pathname: '/'}, 'acme.css')).toBeFalse()
+})
+
+
+test('build', async () => {
+  const page = tree.get('sites/acme/index.md')
+  const html = await tree.build(page)
+  expect(html).toInclude('<h1>Hello Acme')
 })

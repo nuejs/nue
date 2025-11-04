@@ -38,6 +38,8 @@ export function getArgs(argv) {
       // dev & preview options
       else if (['-p', '--port'].includes(arg)) opt = 'port'
 
+      else if (['-s', '--silent'].includes(arg)) args.silent = true
+
       // build options
       else if (['-n', '--dry-run'].includes(arg)) args.dryrun = true
 
@@ -60,18 +62,20 @@ export function getArgs(argv) {
 }
 
 const HELP = `
-  nue                     # develop all sites
-  nue -p 5000             # use a different port (default: 4000)
+  nue -h or --help         # print this help
+  nue -v or --version      # print version number
 
-  nue deploy              # deploy all sites to production
-  nue deploy <pattern>    # deploy only selected sites/files
-  nue deploy --show       # only show what's being pushed
-  nue deploy -h           # print deploy help
+  nue                      # develop all sites
+  nue -p 5000              # use a different port (default: 4000)
+  nue -s or --silent       # silent dev mode
 
-  nue create demo         # create an example multi-site setup
+  nue deploy               # deploy all sites to production
+  nue deploy blog/ .css    # only deploy matching files/folders
+  nue deploy --show        # only show what's being pushed
+  nue deploy -h            # print deploy help
 
-  nue -v or --version     # print version number
-  nue -h or --help        # print this help
+  nue create multi-site    # create multi-site setup
+
 `
 
 function format(line) {
@@ -79,8 +83,8 @@ function format(line) {
   if (!main) return
 
   let result = main
-    .replace(/(-[a-z]|--\w+)/g, match => color('cyan', match))
-    .replace(/\b\d+\b|<\w+>|\bdemo\b/g, match => color('green', match))
+    .replace(/deploy|create/, match => color('green', match))
+    .replace(/ (-[a-z]|--\w+)/g, match => color('cyan', match))
 
   return result + color('gray', '#' + comment)
 }

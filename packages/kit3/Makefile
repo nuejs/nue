@@ -1,3 +1,3 @@
 
 run-tests:
-	cd test && bun test css # tree.render
+	cd test && bun test mock

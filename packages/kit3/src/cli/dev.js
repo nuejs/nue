@@ -6,7 +6,7 @@ const ICONS = { yaml: '🟡', js: '🔴', ts: '⚫', html: '🔵', md: '🟢', c
 const cyan = (text) => color('cyan', '' + text)
 const gray = (text) => color('gray', '' + text)
 
-export function createLog({ interval=60*1000, version, port }) {
+export function createLog({ interval=60*1000, version, port, silent }) {
   const sections = { Files: {}, Sites: {}, HMR: {} }
   const totals = { updates: 0, removes: 0, hmr: 0 }
   const times = { start: new Date(), devtime: 0, lastmod: new Date() }
@@ -83,6 +83,8 @@ export function createLog({ interval=60*1000, version, port }) {
 
   // render all
   function render() {
+    if (silent) return
+
     console.clear()
 
     // header

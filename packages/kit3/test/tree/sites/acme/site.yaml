@@ -1,7 +1,14 @@
 
 extend: [ @base ]
 
+site:
+  origin: https://acme.org
+
 meta:
   title: Acme
   desc: Acme desc
   og: /acme-og.png
+
+rss:
+  enabled: true
+  title: Acme blog

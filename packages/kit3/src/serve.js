@@ -1,15 +1,15 @@
 
 import { createServer, hmr } from './tools/server'
-import { createEdgeServer } from './edge/server'
+import { createMockServer } from './mock'
 import { fswatch } from './tools/fswatch'
 import { createProxy } from './proxy'
 import { createLog } from './cli/dev'
 import { createTree } from './tree'
 
 
-export async function start({ port=5050, version }) {
+export async function start({ port=5050, version, silent }) {
 
-  const log = createLog({ version, port })
+  const log = createLog({ version, port, silent })
   const watcher = fswatch()
   const tree = createTree()
   await tree.load()
@@ -41,7 +41,8 @@ export async function start({ port=5050, version }) {
 
   // handler (custm proxy or edge server mock)
   const conf = await tree.getConf()
-  const handler = conf.proxy ? createProxy(conf.proxy) : createEdgeServer(tree, conf)
+
+  const handler = conf.proxy ? createProxy(conf.proxy) : await createMockServer()
 
   // dev server
   const server = createServer({ port, handler }, async url => {
@@ -59,7 +60,7 @@ async function patch(url, asset, tree) {
   // dhtml component
   if (asset.is_html) {
     const { is_dhtml } = await asset.parse()
-    return { ...asset, is_dhtml: true }
+    if (is_dhtml) return { ...asset, is_dhtml }
   }
 
   asset.is_ext = asset.is_css || asset.is_js || asset.is_ts

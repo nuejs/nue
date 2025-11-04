@@ -41,7 +41,6 @@ export function getPathInfo(filepath, sitename=null) {
   const info = parse(path)
   const type = info.ext.slice(1)
   const app = pathParts.length > 1 ? pathParts[0] : null
-  const is_spa = !path.includes('@') && path.endsWith('index.html')
   delete info.root
 
   return {
@@ -51,7 +50,6 @@ export function getPathInfo(filepath, sitename=null) {
     url: getURL(info),
     site: sitename,
     filepath,
-    is_spa,
     folder,
     path,
     type,

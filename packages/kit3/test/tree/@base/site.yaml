@@ -1,11 +1,8 @@
 
 site:
   view_transitions: true
-  origin: https://acme.org
 
 meta:
-  title: Something
-  desc: This is the desc
   og: /og.png
 
 sitemap:
@@ -13,8 +10,10 @@ sitemap:
 
 rss:
   enabled: true
-  title: Acme blog
   collection: blog
+
+design:
+  layers: [ base, components ]
 
 collections:
   blog:
