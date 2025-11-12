@@ -1,6 +1,6 @@
 
+import { getMockDir, createMockServer } from './mock'
 import { createServer, hmr } from './tools/server'
-import { createMockServer } from './mock'
 import { fswatch } from './tools/fswatch'
 import { createProxy } from './proxy'
 import { createLog } from './cli/dev'
@@ -41,8 +41,11 @@ export async function start({ port=5050, version, silent }) {
 
   // handler (custm proxy or edge server mock)
   const conf = await tree.getConf()
+  const mockDir = await getMockDir()
 
-  const handler = conf.proxy ? createProxy(conf.proxy) : await createMockServer()
+  const handler = conf.proxy ? createProxy(conf.proxy)
+    : mockDir ? await createMockServer(mockDir)
+    : null
 
   // dev server
   const server = createServer({ port, handler }, async url => {
@@ -63,9 +66,9 @@ async function patch(url, asset, tree) {
     if (is_dhtml) return { ...asset, is_dhtml }
   }
 
+  // external dependency
   asset.is_ext = asset.is_css || asset.is_js || asset.is_ts
 
-  // external dependency
   if (asset.is_ext && await tree.dependsOn(url, asset.path)) {
     if (asset.is_css) asset.css = await asset.text()
     return asset

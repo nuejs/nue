@@ -100,3 +100,10 @@ function randomID() {
   return Math.random().toString(36).slice(2, 8)
 }
 
+export async function getMockDir() {
+  const dirs = [join('@base', '@mocks'), '@mocks']
+  for (const dir of dirs) {
+    if (await Bun.file(join(dir, 'users.json')).exists()) return dir
+  }
+}
+

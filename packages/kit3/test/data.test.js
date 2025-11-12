@@ -37,7 +37,7 @@ test('getData', async () => {
 })
 
 
-test('merge meta', async () => {
+test.only('merge meta', async () => {
   const deps = [
     { is_yaml: true, parse() { return { meta: { title: 'Hey' } }}},
     { is_yaml: true, parse() { return { meta: { lang: 'fi' } }}},

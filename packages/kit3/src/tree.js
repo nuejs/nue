@@ -1,8 +1,7 @@
 
 import { sep, join } from 'node:path'
-import { compileNue } from 'nuedom'
 
-import { renderAsset, renderFeed } from './render/asset'
+import { renderAsset } from './render/asset'
 import { createAsset } from './asset'
 import { fswalk } from './tools/fswalk'
 import { findAsset } from './find'
@@ -32,31 +31,17 @@ export function createTree() {
 
   async function render(url) {
     if (typeof url == 'string') url = { pathname: url, host: '' }
-    const { pathname, host } = url
-    const { site, is_prod, chain, assets, asset } = await getThings(url)
-
-    if (pathname.endsWith('.xml')) {
-      const content = asset ? await asset.read()
-        : await renderFeed(pathname, site, await getConf(chain), assets)
-      return content && { content, type: MIME.xml }
-    }
-
-    if (asset && pathname.endsWith('.html.js')) {
-      return { content: compileNue(await asset.parse()), type: MIME.js }
-    }
-
-    if (asset) {
-      const content = await renderAsset(asset, chain, assets, is_prod)
-      return { content, type: getMimeType(asset) }
-    }
+    const env = await getEnv(url)
+    return await renderAsset(env)
   }
 
-  async function getThings(url) {
+  async function getEnv(url) {
     const { site, is_prod } = parseHost(url.host)
     const assets = getAll()
     const chain = await getChain(site, assets)
     const asset = await findAsset(url.pathname, chain, assets)
-    return { site, is_prod, chain, assets, asset }
+    const conf = await getConf(chain)
+    return { ...url, site, is_prod, chain, assets, asset, conf }
   }
 
   async function build(asset) {
@@ -66,8 +51,8 @@ export function createTree() {
   }
 
   async function dependsOn(url, path) {
-    const els = await getThings(url)
-    const deps = await getDeps(els.asset, els.chain, els.assets)
+    const env = await getEnv(url)
+    const deps = await getDeps(env.asset, env.chain, env.assets)
     return deps.some(el => el.path == path)
   }
 
@@ -154,15 +139,3 @@ export async function getChain(site, assets) {
 
   return [ site ]
 }
-
-
-const MIME = {
-  xml: 'application/xml; charset=utf-8',
-  html: 'text/html; charset=utf-8',
-  js: 'application/javascript',
-}
-
-function getMimeType(asset) {
-  return asset.is_ts ? MIME.js : asset.is_md ? MIME.html : (MIME[asset.type] || asset.file?.type)
-}
-

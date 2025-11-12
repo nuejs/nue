@@ -1,6 +1,8 @@
 
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
+import { compileNue } from 'nuedom'
+
 import { fileURLToPath } from 'node:url'
 
 import { generateSitemap, generateFeed } from './feed'
@@ -9,16 +11,38 @@ import { renderPage } from './page'
 import { renderHTML } from './html'
 
 
-export async function renderAsset(asset, chain, assets, is_prod) {
-  return asset.is_md ? await renderPage(asset, chain, assets, is_prod)
+export async function renderAsset({ pathname, asset, chain, conf, assets, is_prod }) {
+
+  if (!asset || asset?.bytes) return asset
+
+  if (pathname.endsWith('.xml')) {
+    const content = asset ? await asset.read() : await renderFeed(opts)
+    return content && { content, type: MIME.xml }
+  }
+
+  if (pathname.endsWith('.html.js')) {
+    return { content: compileNue(await asset.parse()), type: MIME.js }
+  }
+
+  // CSS processor
+  if (asset.is_css) {
+    const fn = await getCSSProcessor(conf.design?.processor)
+    const css = fn && fn(asset, conf)
+    if (css) return { content: css, type: 'text/css' }
+  }
+
+  const content = asset.is_md ? await renderPage(asset, chain, assets, is_prod)
     : asset.is_html ? await renderHTML(asset, chain, assets, is_prod)
-    : asset.is_js && is_prod || asset.is_ts ? await minifyJS(await asset.text(), is_prod)
-    : asset.is_css && is_prod ? minifyCSS(await asset.text())
+    : asset.is_js ? (is_prod || asset.is_ts ? await minifyJS(await asset.text()) : asset.file)
+    : asset.is_css ? (is_prod ? minifyCSS(await asset.text()) : asset.file)
     : asset.is_nue ? await readNueAsset(asset.name, is_prod)
-    : await asset.text()
+    : asset.bytes ? asset
+    : asset.file
+
+  return { content, type: getMimeType(asset) }
 }
 
-export async function renderFeed(url, site, conf, assets) {
+async function renderFeed({ url, site, conf, assets }) {
   const pages = assets.filter(el => el.is_md && el.site == site)
 
   // sitemap.xml
@@ -27,6 +51,18 @@ export async function renderFeed(url, site, conf, assets) {
 
   } else if (url == '/feed.xml' && conf.rss?.enabled) {
     return await generateFeed(pages, conf)
+  }
+}
+
+async function getCSSProcessor(path) {
+  if (!path) return
+  const src = join(process.cwd(), path)
+  try {
+    const fns = await import(src)
+    return fns.default
+
+  } catch (e) {
+    console.error('CSS processor not found', src)
   }
 }
 
@@ -69,6 +105,16 @@ async function readNueAsset(name, is_prod) {
   return await compileJS(path, is_prod, name == 'nue.js')
 }
 
+
+const MIME = {
+  xml: 'application/xml; charset=utf-8',
+  html: 'text/html; charset=utf-8',
+  js: 'application/javascript',
+}
+
+function getMimeType(asset) {
+  return asset.is_ts ? MIME.js : asset.is_md ? MIME.html : (MIME[asset.type] || asset.file?.type)
+}
 
 
 

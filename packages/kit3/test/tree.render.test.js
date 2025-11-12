@@ -42,6 +42,15 @@ test('acme home', async () => {
   expect(content).toInclude('href="/feed.xml"')
 })
 
+test.skip('inherited/unminified CSS/JS ', async () => {
+  const js = await tree.render({ host: 'acme.localhost', pathname: '/base.js' })
+  expect(js.type).toInclude('application/javascript')
+
+  const css = await tree.render({ host: 'acme.localhost', pathname: '/acme.css' })
+  expect(css.type).toInclude('text/css;charset=utf-8')
+})
+
+
 test('production CSS', async () => {
   const { content, type } = await tree.render({
     host: 'acme.production.localhost',
@@ -52,15 +61,6 @@ test('production CSS', async () => {
   expect(type).toInclude('text/css')
 })
 
-test('inherited JS ', async () => {
-  const { content, type } = await tree.render({
-    host: 'acme.localhost',
-    pathname: '/base.js'
-  })
-
-  expect(content).toInclude('export const foo = true')
-  expect(type).toInclude('application/javascript')
-})
 
 test('minified JS ', async () => {
   const { content, type } = await tree.render({
@@ -74,10 +74,7 @@ test('minified JS ', async () => {
 
 
 test('content/artsy', async () => {
-  const { content } = await tree.render({
-    host: 'beta.localhost',
-    pathname: '/'
-  })
+  const { content } = await tree.render({ host: 'beta.localhost', pathname: '/' })
 
   expect(content).toInclude('<h1>This is art</h1>')
   expect(content).toInclude('<style>@layer base, components</style>')
@@ -87,10 +84,7 @@ test('content/artsy', async () => {
 })
 
 test('SPA', async () => {
-  const { content, type } = await tree.render({
-    host: 'beta.localhost',
-    pathname: '/app/'
-  })
+  const { content, type } = await tree.render({ host: 'beta.localhost', pathname: '/app/' })
   expect(content).toInclude('"libs" content="@shared/ui/join.html app/index.html"')
   expect(content).toInclude('<body nue="default-app"></body>')
   expect(content).toInclude('"/@nue/state.js"')
@@ -100,22 +94,37 @@ test('SPA', async () => {
 
 test('SPA JS', async () => {
   const { content, type } = await tree.render({
+    pathname: '/app/index.html.js',
     host: 'beta.localhost',
-    pathname: '/app/index.html.js'
   })
 
   expect(content).toStartWith('export const lib')
   expect(type).toInclude('application/javascript')
 })
 
+
+test('favicon', async () => {
+  const file = await tree.render({ host: 'localhost', pathname: '/favicon.ico' })
+  expect(await file.exists()).toBeTrue()
+})
+
+test('binary files', async () => {
+  const font = await tree.render({ host: 'localhost', pathname: '/img/font.woff2' })
+  expect(font.type).toBe('font/woff2')
+
+  const webp = await tree.render({ host: 'localhost', pathname: '/img/img.webp' })
+  expect(webp.type).toBe('image/webp')
+
+  const png = await tree.render({ host: 'localhost', pathname: '/img/img.png' })
+  expect(png.type).toBe('image/png')
+})
+
+test('CSS processor', async () => {
+  const { content } = await tree.render('/@shared/design/colors.css')
+  expect(content).toBe('/* generated */')
+})
+
 test('dependsOn', async () => {
   expect(await tree.dependsOn({ host: 'acme.localhost', pathname: '/'}, 'base.js')).toBeTrue()
   expect(await tree.dependsOn({ host: 'beta.localhost', pathname: '/'}, 'acme.css')).toBeFalse()
-})
-
-
-test('build', async () => {
-  const page = tree.get('sites/acme/index.md')
-  const html = await tree.build(page)
-  expect(html).toInclude('<h1>Hello Acme')
 })

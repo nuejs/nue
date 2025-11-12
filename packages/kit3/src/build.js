@@ -2,7 +2,7 @@
 import { join } from 'path'
 import { createTree } from './tree'
 
-const WEB_TYPES = ['css', 'js', 'html', 'md']
+const TYPES = ['css', 'js', 'html', 'md']
 const MAX_SIZE = 2_000_000  // 2MB
 
 export async function build(opts) {
@@ -18,7 +18,7 @@ export async function build(opts) {
   const subset = tree.getAll().filter(asset => {
 
     // web files only
-    if (!WEB_TYPES.includes(asset.type)) return false
+    if (!TYPES.includes(asset.type)) return false
 
     // matches only
     if (only.length) return only.some(str => asset.filepath.includes(str))

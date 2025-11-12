@@ -15,13 +15,15 @@ export function parseDocument(lines) {
   // title
   if (!meta.title) {
     const tag = blocks.find(el => el.is_tag)
-    meta.title = getTitle(blocks) || tag && getTitle(tag.blocks) || ''
+    const title = getTitle(blocks) || tag && getTitle(tag.blocks)
+    if (title) meta.title = title
   }
 
   // description
   if (!meta.description) {
     const block = blocks.find(el => el.is_content)
-    meta.description = block?.content[0]
+    const desc = block?.content[0]
+    if (desc) meta.description = desc
   }
 
   const sections = sectionize(blocks) || [blocks]

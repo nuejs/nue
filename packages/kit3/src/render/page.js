@@ -22,7 +22,7 @@ export async function renderPage(asset, chain, assets, is_prod) {
   const data = await getData(deps, is_prod)
   const comps = await getComponents(deps)
 
-  Object.assign(data, meta, { dir: asset.dir, slug: asset.slug, url: asset.url })
+  Object.assign(data, data.meta, meta, { dir: asset.dir, slug: asset.slug, url: asset.url })
 
   // content collections
   Object.assign(data, await getCollections(assets, conf.collections))
