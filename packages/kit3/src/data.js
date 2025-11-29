@@ -60,7 +60,7 @@ export async function runDataScripts(data, deps) {
   )
 
   for (const mod of mods) {
-    const fns = await import(join(process.cwd(), mod.path) + '?' + Math.random())
+    const fns = await import(join(process.cwd(), mod.filepath) + '?' + Math.random())
     await fns.default?.(data)
   }
 

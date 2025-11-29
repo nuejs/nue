@@ -42,7 +42,7 @@ test('acme home', async () => {
   expect(content).toInclude('href="/feed.xml"')
 })
 
-test.skip('inherited/unminified CSS/JS ', async () => {
+test('inherited/unminified CSS/JS ', async () => {
   const js = await tree.render({ host: 'acme.localhost', pathname: '/base.js' })
   expect(js.type).toInclude('application/javascript')
 
@@ -75,7 +75,6 @@ test('minified JS ', async () => {
 
 test('content/artsy', async () => {
   const { content } = await tree.render({ host: 'beta.localhost', pathname: '/' })
-
   expect(content).toInclude('<h1>This is art</h1>')
   expect(content).toInclude('<style>@layer base, components</style>')
   expect(content).toInclude('href="/epic-layout.css"')
@@ -85,7 +84,9 @@ test('content/artsy', async () => {
 
 test('SPA', async () => {
   const { content, type } = await tree.render({ host: 'beta.localhost', pathname: '/app/' })
-  expect(content).toInclude('"libs" content="@shared/ui/join.html app/index.html"')
+  expect(content).toInclude('"libs" content="@shared/ui/join.html')
+  expect(content).toInclude('app/index.html')
+  expect(content).toInclude('<script src="/@shared/lib/extra.js"')
   expect(content).toInclude('<body nue="default-app"></body>')
   expect(content).toInclude('"/@nue/state.js"')
   expect(type).toInclude('text/html')
@@ -100,6 +101,14 @@ test('SPA JS', async () => {
 
   expect(content).toStartWith('export const lib')
   expect(type).toInclude('application/javascript')
+})
+
+test('include / exclude', async () => {
+  const { content } = await tree.render({ host: 'beta.localhost', pathname: '/hey' })
+
+  expect(content).toInclude('href="/@shared/lib/extra.css"')
+  expect(content).toInclude('src="/@shared/lib/extra.js')
+  expect(content).not.toInclude('@shared/lib/extra.html')
 })
 
 
@@ -119,10 +128,6 @@ test('binary files', async () => {
   expect(png.type).toBe('image/png')
 })
 
-test('CSS processor', async () => {
-  const { content } = await tree.render('/@shared/design/colors.css')
-  expect(content).toBe('/* generated */')
-})
 
 test('dependsOn', async () => {
   expect(await tree.dependsOn({ host: 'acme.localhost', pathname: '/'}, 'base.js')).toBeTrue()

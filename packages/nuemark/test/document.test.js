@@ -47,13 +47,16 @@ test('sectionize', () => {
     ['# h1', 'para', '## h2', 'para', '### h3', 'para'],
     ['para', '## h3', '---', 'para', '## h2'],
     ['## lol', '---', '## bol'],
+    ['para', '## h2', 'para'],
     ['lol', '---', 'bol'],
   ]
 
   for (const test of tests) {
     const { blocks } = parseBlocks(test)
-    expect(sectionize(blocks).length).toBe(2)
+    expect(sectionize(blocks, 3).length).toBe(2)
   }
+
+
 })
 
 test('non section', () => {

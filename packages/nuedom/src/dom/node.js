@@ -252,7 +252,8 @@ function setAttributes(el, ast, self) {
   })
 
   if (vars.length) {
-    el.setAttribute('style', vars.map(v => `--${v.name}:${v.val};`).join(''))
+    el.setAttribute('style', vars.filter(v => !!v.val || el.val === 0)
+      .map(v => `--${v.name}:${v.val};`).join(''))
   }
 }
 

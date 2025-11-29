@@ -9,6 +9,7 @@ import { parseNue } from 'nuedom'
 const MD = `
 ---
 desc: *Hello*
+sections: [ dark, light ]
 ---
 
 # Hello
@@ -26,9 +27,23 @@ test('metadata', async () => {
     return {
       og: '/og.png',
       design: { layers: ['base' ] },
-      import_map: {
-        foo: 'bar.js'
-      },
+      import_map: { foo: 'bar.js' },
+    }
+  }
+
+  const html = await renderPage(page, ['acme'], [page, data])
+  expect(html).toInclude('<meta name="description" content="Hello">')
+  expect(html).toInclude('<meta property="og:image" content="/og.png">')
+  expect(html).toInclude('<style>@layer base</style>')
+  expect(html).toInclude('<script type="importmap">{"imports":{"foo":"bar.js"}}</script>')
+})
+
+
+test('sections & wrap', async () => {
+  const data = getPathInfo('site.yaml', 'acme')
+
+  data.parse = function() {
+    return {
       content: {
         content_wrapper: 'wrap',
         heading_ids: true,
@@ -38,14 +53,9 @@ test('metadata', async () => {
   }
 
   const html = await renderPage(page, ['acme'], [page, data])
-  expect(html).toInclude('<meta name="description" content="Hello">')
-  expect(html).toInclude('<meta property="og:image" content="/og.png">')
-  expect(html).toInclude('<style>@layer base</style>')
-  expect(html).toInclude('<script type="importmap">{"imports":{"foo":"bar.js"}}</script>')
-  expect(html).toInclude('<section><div class="wrap">')
+  expect(html).toInclude('<section class="dark"><div class="wrap">')
   expect(html).toInclude('<h1 id="hello"><a href="#hello"')
 })
-
 
 test('CSS and JS deps', async () => {
   const assets = [
@@ -116,7 +126,7 @@ test('client components', async () => {
 })
 
 
-test.only('collections', async () => {
+test('collections', async () => {
 
   // conf
   const conf = getPathInfo('site.yaml', 'acme')

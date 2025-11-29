@@ -14,7 +14,6 @@ rss:
 
 design:
   layers: [ base, components ]
-  processor: @base/@shared/_colors.js
 
 
 collections:

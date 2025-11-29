@@ -63,19 +63,19 @@ export function parseDocument(lines) {
   }
 }
 
-export function sectionize(blocks = []) {
+export function sectionize(blocks = [], max_level=2) {
   const arr = []
   let section
 
   // first (sub)heading
   const hr = blocks.find(el => el.is_separator)
-  const level = blocks.find(el => el.level <= 3)?.level
+  const level = blocks.find(el => el.level > 1 && el.level <= max_level)?.level
 
   // no heading nor separator -> no sections
   if (!level && !hr) return
 
   blocks.forEach((el, i) => {
-    const cut = hr ? el.is_separator : level == 3 ? el.level == 3 : el.level <= 2
+    const cut = hr ? el.is_separator : el.level <= level
 
     // add new section
     if (!section || cut) arr.push(section = [])

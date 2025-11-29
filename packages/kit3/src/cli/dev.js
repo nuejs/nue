@@ -124,9 +124,10 @@ export function createLog({ interval=60*1000, version, port, silent }) {
     })
   }
 
-  muteCursor(process)
-
-  render()
+  if (!silent) {
+    muteCursor(process)
+    render()
+  }
 
   return {
 

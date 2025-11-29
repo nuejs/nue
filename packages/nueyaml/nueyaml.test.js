@@ -27,6 +27,10 @@ test('hash in string', () => {
   expect(stripComments('key: value#notcomment')).toBe('key: value#notcomment')
 })
 
+test('hex colors', () => {
+  expect(stripComments('color: #ccc')).toBe('color: #ccc')
+})
+
 // measureIndent tests
 test('measureIndent', () => {
   expect(measureIndent('key: value')).toBe(0)

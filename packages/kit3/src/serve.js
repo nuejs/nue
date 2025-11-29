@@ -76,7 +76,10 @@ async function patch(url, asset, tree) {
   // page update
   } else if (asset.is_md || asset.is_yaml || asset.is_html) {
     const ret = await tree.render(url)
-    if (ret) return { ...asset, content: ret.content }
+    if (ret) {
+      const conf = asset.base == 'site.yaml' ? await tree.getConf() : undefined
+      return { ...asset, conf, content: ret.content }
+    }
   }
 
 }

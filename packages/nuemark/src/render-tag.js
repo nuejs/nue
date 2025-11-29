@@ -28,7 +28,7 @@ const TAGS = {
 
   block() {
     const { render, attr, blocks } = this
-    const divs = sectionize(blocks)
+    const divs = sectionize(blocks, 3) // heading level
 
     const html = !divs || !divs[1] ? render(blocks) :
       divs.map(blocks => elem('div', render(blocks))).join('\n')

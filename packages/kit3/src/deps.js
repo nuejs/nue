@@ -28,11 +28,17 @@ export async function getDeps(asset, chain, assets) {
     // shared
     if (SHARED.some(dir => dep.path.startsWith(dir + sep))) return true
 
-    // ui
+    // /ui && <app>/ui
     if (dep.dir?.endsWith(asset.dir + sep + 'ui')) return true
 
     // index.md -> home dir
     if (asset.path == 'index.md' && dep.dir == 'home') return true
+
+    // exclude (before include)
+    if (exclude.some(el => dep.path.includes(el))) return false
+
+    // include
+    if (include.some(el => dep.path.includes(el))) return true
 
   })
 

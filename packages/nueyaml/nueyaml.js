@@ -4,7 +4,7 @@ export function stripComments(line) {
   if (line.trim().startsWith('#')) return ''
 
   // Inline comment (# preceded by whitespace)
-  const match = line.match(/\s#/)
+  const match = line.match(/\s#\s/)
   if (!match) return line
   return line.substring(0, match.index)
 }

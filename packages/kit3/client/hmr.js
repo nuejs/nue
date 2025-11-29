@@ -1,7 +1,8 @@
 
 
 function connect() {
-  const ws = new WebSocket(location.href.replace('http:', 'ws:'))
+  const href = location.href.split('#')[0]
+  const ws = new WebSocket(href.replace('http:', 'ws:'))
 
   ws.onmessage = async function(e) {
     const asset = JSON.parse(e.data)
@@ -64,6 +65,8 @@ async function reloadContent(asset) {
 
   await mountAll()
 
+  await reloadProcessedCSS(asset.conf?.design?.hmr)
+
   window.ignoreClick = true
 }
 
@@ -86,6 +89,13 @@ function reloadVisual(asset) {
   reload($(`img[src*='${url}']`), 'src')
 }
 
+
+async function reloadProcessedCSS(urls=[]) {
+  for (const url of urls) {
+    const css = await fetch(url)
+    reloadCSS({ css: await css.text(), url })
+  }
+}
 
 function removeAsset(asset) {
   if (asset.is_css) $(`[href="${asset.url}"]`)?.remove()

@@ -35,15 +35,6 @@ export function createTree() {
     return await renderAsset(env)
   }
 
-  async function getEnv(url) {
-    const { site, is_prod } = parseHost(url.host)
-    const assets = getAll()
-    const chain = await getChain(site, assets)
-    const asset = await findAsset(url.pathname, chain, assets)
-    const conf = await getConf(chain)
-    return { ...url, site, is_prod, chain, assets, asset, conf }
-  }
-
   async function build(asset) {
     const assets = getAll()
     const chain = await getChain(asset.site, assets)
@@ -58,13 +49,25 @@ export function createTree() {
 
   async function getConf(chain) {
     if (!chain) chain = [null, '@base']
+    const conf = {}
 
     for (const name of chain) {
       const yaml = getAll().find(el => el.site == name && el.path == 'site.yaml')
-      if (yaml) return yaml.parse()
+      if (yaml) Object.assign(conf, await yaml.parse())
     }
 
-    return {}
+    return conf
+  }
+
+
+  async function getEnv(url) {
+    const { pathname } = url
+    const { site, is_prod } = parseHost(url.host)
+    const assets = getAll()
+    const chain = await getChain(site, assets)
+    const asset = await findAsset(pathname, chain, assets)
+    const conf = await getConf(chain)
+    return { pathname, site, is_prod, chain, assets, asset, conf }
   }
 
   // Tree API

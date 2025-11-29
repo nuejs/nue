@@ -24,13 +24,6 @@ export async function renderAsset({ pathname, asset, chain, conf, assets, is_pro
     return { content: compileNue(await asset.parse()), type: MIME.js }
   }
 
-  // CSS processor
-  if (asset.is_css) {
-    const fn = await getCSSProcessor(conf.design?.processor)
-    const css = fn && fn(asset, conf)
-    if (css) return { content: css, type: 'text/css' }
-  }
-
   const content = asset.is_md ? await renderPage(asset, chain, assets, is_prod)
     : asset.is_html ? await renderHTML(asset, chain, assets, is_prod)
     : asset.is_js ? (is_prod || asset.is_ts ? await minifyJS(await asset.text()) : asset.file)
@@ -51,18 +44,6 @@ async function renderFeed({ url, site, conf, assets }) {
 
   } else if (url == '/feed.xml' && conf.rss?.enabled) {
     return await generateFeed(pages, conf)
-  }
-}
-
-async function getCSSProcessor(path) {
-  if (!path) return
-  const src = join(process.cwd(), path)
-  try {
-    const fns = await import(src)
-    return fns.default
-
-  } catch (e) {
-    console.error('CSS processor not found', src)
   }
 }
 

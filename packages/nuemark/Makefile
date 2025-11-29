@@ -1,2 +1,2 @@
 tests:
-	cd test && bun test # block
+	cd test && bun test # document
