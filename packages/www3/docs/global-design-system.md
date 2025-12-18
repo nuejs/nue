@@ -22,8 +22,6 @@ A global design system is built from three standard web technologies. The word "
 
 
 
-
-
 ## Semantic structure
 
 ### Semantic HTML as foundation
