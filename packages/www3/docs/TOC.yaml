@@ -1,0 +1,35 @@
+
+docs:
+
+  essentials:
+    - Why Nue
+    - Getting started
+    - FAQ
+    - Upgrading
+    - Roadmap
+    - Contributing
+
+  core concepts:
+    - Multi-site development
+    - Global design system
+    - Content-first development
+
+  reference:
+    - Configuration
+    - Command line (CLI) | cli
+    - Page dependencies
+    - Context data
+    - Page layout
+    - Layout modules
+    - Markdown syntax
+    - Markdown extensions
+    - Interactive components
+    - Single-page apps
+
+  tools:
+    - Nuedom
+    - Nuemark
+    - Nueyaml
+    - Nueglow
+    - Nuestate
+

@@ -1,6 +1,6 @@
 
 # Page dependencies
-How Nue automatically discovers and includes files for each page.
+How Nue automatically discovers and includes dependenices for each page.
 
 ## Convention-based loading
 Nue uses directory-based conventions to determine which CSS, JavaScript, HTML components, and data files each page needs. Unlike bundlers that require explicit imports, files are included automatically based on their location in your project structure.
