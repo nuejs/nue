@@ -246,7 +246,7 @@ function setAttributes(el, ast, self) {
       if (val) el.setAttribute(name, '')
     } else if (name == 'class') {
       el.classList.add(...val.trim().split(/ +/))
-    } else {
+    } else if (val) {
       el.setAttribute(name, val)
     }
   })

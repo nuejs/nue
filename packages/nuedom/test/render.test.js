@@ -57,6 +57,11 @@ test('attributes', () => {
   expect(html).toBe('<a class="btn" disabled=""></a>')
 })
 
+test('empty attributes', () => {
+  const html = renderNue(`<a href="{ url }"/>`)
+  expect(html).toBe('<a></a>')
+})
+
 test('attribute expressions', () => {
   const html = renderNue(`<a class="{'f' + 1}"/>`)
   expect(html).toBe('<a class="f1"></a>')
