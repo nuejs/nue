@@ -36,27 +36,12 @@ const TAGS = {
     return elem(attr.popover ? 'dialog' : 'div', attr, html)
   },
 
-  // @depreciated
   button(data) {
     const { href } = data
     const label = this.renderInline(data.label || data._) || this.innerHTML || ''
-
-    return href ? elem('a', { ...this.attr, href, role: 'button' }, label) :
-      elem('button', this.attr, label)
+    const button = elem('button', this.attr, label)
+    return href ? elem('a', { href }, button) : button
   },
-
-  define() {
-    const html = this.sections?.map((blocks, i) => {
-      const { attr, text } = blocks[0]
-      const title = attr.id ? elem('a', { name: `^${attr.id}` }, text) : text
-      const dt = elem('dt', { class: attr.class }, title)
-      const dd = elem('dd', this.render(blocks.slice(1)))
-      return dt + dd
-    })
-
-    return html && elem('dl', this.attr, html.join('\n'))
-  },
-
 
   image() {
     const { attr, data } = this
@@ -79,6 +64,36 @@ const TAGS = {
     return elem('figure', attr, img)
   },
 
+  table() {
+    const { attr, data, body, opts } = this
+    let table = { rows: data.rows || data.items }
+    if (!table.rows && body) table = parseTable(body)
+
+    const html = renderTable({ attr, ...data, ...table }, opts)
+    return wrap(data.wrapper, html)
+  },
+
+  video() {
+    const { data } = this
+    const src = data.src || data._
+    const type = getMimeType(src)
+    const attr = { ...this.attr, src, type, ...getVideoAttrs(data) }
+    return elem('video', attr, this.innerHTML)
+  },
+
+
+  // @depreciated: define, list, svg, icon, object, !
+  define() {
+    const html = this.sections?.map((blocks, i) => {
+      const { attr, text } = blocks[0]
+      const title = attr.id ? elem('a', { name: `^${attr.id}` }, text) : text
+      const dt = elem('dt', { class: attr.class }, title)
+      const dd = elem('dd', this.render(blocks.slice(1)))
+      return dt + dd
+    })
+
+    return html && elem('dl', this.attr, html.join('\n'))
+  },
 
   list() {
     const items = this.sections || getListItems(this.blocks)
@@ -97,22 +112,6 @@ const TAGS = {
     return renderIcon(data.src || data._, data.symbol, data.icon_dir)
   },
 
-  table() {
-    const { attr, data, body, opts } = this
-    let table = { rows: data.rows || data.items }
-    if (!table.rows && body) table = parseTable(body)
-
-    const html = renderTable({ attr, ...data, ...table }, opts)
-    return wrap(data.wrapper, html)
-  },
-
-  video() {
-    const { data } = this
-    const src = data.src || data._
-    const type = getMimeType(src)
-    const attr = { ...this.attr, src, type, ...getVideoAttrs(data) }
-    return elem('video', attr, this.innerHTML)
-  },
 
   object() {
     const { attr, data } = this
