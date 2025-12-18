@@ -21,6 +21,7 @@ docs:
     - Context data
     - Page layout
     - Layout modules
+    - Complex content layouts
     - Markdown syntax
     - Markdown extensions
     - Interactive components
