@@ -22,8 +22,8 @@ export async function getDeps(asset, chain, assets) {
     // not on inheritance chain
     if (dep.site && !chain.includes(dep.site)) return false
 
-    // root asset
-    if (!dep.dir) return true
+    // root asset or same folder asset
+    if (!dep.dir || dep.dir == asset.dir) return true
 
     // shared
     if (SHARED.some(dir => dep.path.startsWith(dir + sep))) return true

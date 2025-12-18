@@ -2,7 +2,7 @@
 import { createTree, parseHost, getSitenames, parseSitename, getChain } from '../src/tree'
 
 
-test('createTree', async () => {
+test('add asset', async () => {
   const tree = createTree()
 
   await tree.load([ 'acme/index.md' ])
@@ -11,6 +11,18 @@ test('createTree', async () => {
   expect(tree.getAll().length).toBe(2)
   expect(tree.get('acme/index.css')).toMatchObject({ site: 'acme', path: 'index.css' })
 })
+
+test('add site', async () => {
+  const tree = createTree()
+
+  await tree.load([])
+  tree.update('acme/site.yaml')
+  tree.update('beta/site.yaml')
+  tree.update('beta/docs/index.md')
+  const sites = tree.getAll().map(el => el.site)
+  expect(sites).toEqual([ "acme", "beta", "beta" ])
+})
+
 
 test('getSitenames', () => {
   const paths = [

@@ -18,7 +18,7 @@ export function createTree() {
 
   function update(path, _paths) {
     const paths = _paths || [...map.keys()]
-    const sites = getSitenames(paths)
+    const sites = getSitenames([...paths, path ])
     const site = parseSitename(path, sites)
     const asset = createAsset(path, site)
     map.set(path, asset)
@@ -32,6 +32,10 @@ export function createTree() {
   async function render(url) {
     if (typeof url == 'string') url = { pathname: url, host: '' }
     const env = await getEnv(url)
+
+    // refresh page before rendering
+    if (!env.is_prod && env.asset?.is_md) await update(env.asset.filepath)
+
     return await renderAsset(env)
   }
 

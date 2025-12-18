@@ -4,30 +4,48 @@ import { getDeps, getIncludeOpts, getComponents } from '../src/deps'
 
 test('getDeps', async () => {
   const assets = [
-    { site: '@base', path: '@shared/design/main.css', type: 'css' },
+    { site: '@base', path: '@shared/design/base.css', type: 'css' },
+    { site: '@base', path: 'docs/layout.html', type: 'html', dir: 'docs' },
+
+    // always included
+    { site: 'miesian', path: 'mies.css', type: 'css' },
+
     { site: 'acme', path: 'index.md', type: 'md' },
     { site: 'acme', path: 'script.js', type: 'js' },
     { site: 'acme', path: 'app/index.html', type: 'html', dir: 'app' },
     { site: 'acme', path: 'app/ui/button.html', type: 'html', dir: 'app/ui' },
 
-    { site: 'site2', path: 'index.html', type: 'html' },
-    { site: 'site2', path: 'layout.html', type: 'html' },
+    { site: 'beta', path: 'index.html', type: 'html' },
+    { site: 'beta', path: 'layout.html', type: 'html' },
+
+    { site: 'sub', path: 'root.css', type: 'css' },
+    { site: 'sub', path: 'index.md', type: 'md' },
+    { site: 'sub', path: 'docs/docs.css', type: 'css', dir: 'docs' },
+    { site: 'sub', path: 'docs/index.md', type: 'css', dir: 'docs' },
   ]
 
 
-  async function testDeps(path, expected) {
-    const asset = assets.find(el => el.path == path)
-    const deps = await getDeps(asset, [asset.site, '@base'], assets)
+  async function testDeps(asset_path, expected) {
+    const asset = assets.find(el => el.path == asset_path)
+    const deps = await getDeps(asset, [asset.site, 'miesian', '@base'], assets)
     const paths = [...deps.map(el => el.path)]
     if (expected) expect(paths).toEqual(expected)
     else return paths
   }
 
-  // TODO: add more tests
-  await testDeps('index.md', ['@shared/design/main.css', 'script.js'])
-  await testDeps('app/index.html', [ "@shared/design/main.css", "script.js", "app/ui/button.html"])
-  await testDeps('index.html', [ "@shared/design/main.css", "layout.html" ])
+
+  await testDeps('index.md', ['@shared/design/base.css', 'mies.css', 'script.js'])
+  await testDeps('app/index.html', [ "@shared/design/base.css", 'mies.css', "script.js", "app/ui/button.html"])
+  await testDeps('index.html', [ "@shared/design/base.css", 'mies.css', "layout.html" ])
+
+
+  // subfolders
+  await testDeps('docs/index.md', [
+    "@shared/design/base.css", "docs/layout.html", 'mies.css', "root.css", "docs/docs.css"
+  ])
+
 })
+
 
 
 test('home folder', async () => {
@@ -100,4 +118,5 @@ test('getComponents', async () => {
   // client-side (dhtml)
   const dynamic_comps = await getComponents(deps, true)
   expect(dynamic_comps).toEqual(['comp3', 'comp4'])
+
 })
