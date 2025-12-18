@@ -39,23 +39,20 @@ export function parseNue(template) {
 
   page.script = script.join('\n')
 
-  // reserved names
   const names = parseNames(page.script)
-  lib = page.lib = lib.map(el => createAST(el, names))
+  lib = lib.map(el => createAST(el, names))
 
-  // root
-  page.root = lib[0]
+  const [ root ] = lib
+  const { doctype } = page
 
-  // all custom elements
-  const type = page.doctype || ''
-  const all_custom = lib.every(ast => ast.is_custom || ast.is)
-  page.is_lib = all_custom || type.endsWith('lib')
+  const is_page = doctype?.includes('doctype') && !doctype?.includes(' lib')
+    || ['html', 'body', 'main'].includes(root?.tag)
 
-  page.is_dhtml = type.includes('dhtml')
+  const is_dhtml = doctype?.includes('dhtml')
     || lib.some(ast => ast.handlers?.length > 0)
     || page.script?.includes('import ')
 
-  return page
+  return { ...page, lib, root, is_page, is_dhtml, is_lib: !is_page }
 }
 
 function isScript(block) {
@@ -91,7 +88,7 @@ function parseBlock(tokens, i) {
 
   // !doctype
   if (tag.startsWith('<!')) {
-    const node = { doctype: low.slice(2, -1).replace('doctype', '').trim() }
+    const node = { doctype: low.slice(2, -1).trim() }
     return { node, next: i++ }
   }
 

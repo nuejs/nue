@@ -272,9 +272,9 @@ test('[svg]', () => {
   expect(html).toBe('<svg class="icon"/>')
 })
 
-test.only('[svg] nested in [button]', () => {
+test('[svg] nested in [button]', () => {
   const html = renderLines(['[button href="/"]', `  [svg ${svgpath}] *Yo*`])
-  expect(html).toBe('<a href="/" role="button"><svg class="icon"/> <em>Yo</em></a>')
+  expect(html).toBe('<a href="/"><button><svg class="icon"/> <em>Yo</em></button></a>')
 })
 
 

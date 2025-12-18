@@ -1,2 +1,2 @@
 tests:
-	cd test && bun test tag.test # document
+	cd test && bun test # document

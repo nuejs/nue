@@ -1,5 +1,0 @@
-
-
-[button] --> <a><button></a>
-h2 no longer works as section separator
---- makes HR, === makes section separator

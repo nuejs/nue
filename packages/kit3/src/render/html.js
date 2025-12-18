@@ -14,7 +14,7 @@ export async function renderHTML(asset, chain, assets, is_prod) {
   const { is_dhtml } = ast
 
   // raw HTML
-  const is_raw = ast.doctype == 'html' && ['html', 'head'].includes(ast.root.tag)
+  const is_raw = !is_dhtml && ['html', 'head'].includes(ast.root.tag)
   if (is_raw) return await asset.text()
 
   // library --> compile

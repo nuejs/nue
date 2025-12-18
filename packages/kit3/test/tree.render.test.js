@@ -36,6 +36,7 @@ test('base UI', async () => {
 test('acme home', async () => {
   const { content } = await tree.render({ host: 'acme.localhost', pathname: '/' })
 
+  // return console.info(content.length)
   expect(content).toInclude('"og:description" content="Acme desc"')
   expect(content).toInclude('Acme header')
   expect(content).toInclude('<h1>Hello Acme')

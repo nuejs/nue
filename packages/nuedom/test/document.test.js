@@ -1,7 +1,18 @@
 
 import { parseNue, parseNames } from '../src/compiler/document.js'
 
-test('doctype & root', () => {
+test('HTML page', () => {
+  const page = parseNue('<body><h1>Hello</h1></body>')
+  expect(page).toMatchObject({ is_page: true, is_dhtml: false })
+})
+
+test('HTML page', () => {
+  const page = parseNue('<!DOCTYPE HTML><hello/>')
+  expect(page).toMatchObject({ is_page: true, is_dhtml: false })
+})
+
+
+test('DTHML lib', () => {
   const doc = parseNue('<!dhtml> <app/> <section :is="mod"/>')
 
   expect(doc).toMatchObject({
@@ -13,6 +24,7 @@ test('doctype & root', () => {
 })
 
 
+
 test('imports', () => {
   const page = parseNue(`
     <script>
@@ -22,8 +34,8 @@ test('imports', () => {
     <a :class="hello" :onclick="hello">{ hello() }</a>
   `)
 
-
   const { root } = page
+
   expect(root.attr[0].fn).toBe('hello')
   expect(root.handlers[0].h_fn).toBe('hello($e)')
   expect(root.children[0].fn).toBe('hello()')
@@ -37,6 +49,7 @@ test('meta', () => {
       import { hello } from 'hello.js'
     </script>
   `)
+
   expect(page.meta.license).toBe('MIT')
 })
 
@@ -49,6 +62,7 @@ test('svg document', () => {
     -->
     <svg></svg>
   `)
+
   expect(page.lib[0]).toMatchObject({
     meta: { use: "[foo, bar]" },
     svg: true,
@@ -80,7 +94,7 @@ test('full', () => {
     </script>
   `)
 
-  expect(page.doctype).toEqual('dhtml')
+  expect(page.doctype).toEqual('doctype dhtml')
 
   // meta
   const [a, b] = page.lib
