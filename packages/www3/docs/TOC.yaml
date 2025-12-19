@@ -14,6 +14,8 @@ docs:
     - Global design system
     - Content-first development
 
+
+
   reference:
     - Configuration
     - Command line (CLI) | cli
@@ -24,13 +26,10 @@ docs:
     - Complex content layouts
     - Markdown syntax
     - Markdown extensions
+    - HTML syntax
+    - HTML page types
     - Interactive components
+    - JS enhancements
     - Single-page apps
-
-  tools:
-    - Nuedom
-    - Nuemark
-    - Nueyaml
-    - Nueglow
-    - Nuestate
+    - Nue internals
 
