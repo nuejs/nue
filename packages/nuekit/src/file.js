@@ -1,5 +1,5 @@
 
-import { parse, sep, join } from 'node:path'
+import { parse, join } from 'node:path'
 import { lstat } from 'node:fs/promises'
 
 export async function createFile(root, path) {
@@ -53,7 +53,7 @@ export function getFileInfo(path) {
   const url = getURL(info)
   const slug = getSlug(info)
 
-  if (dir.includes(sep)) info.basedir = dir.split(sep)[0]
+  if (dir.includes('/')) info.basedir = dir.split('/')[0]
 
   return { ...info, path, type, url, slug, [`is_${type}`]: true }
 }
@@ -67,7 +67,7 @@ export function getURL(file) {
   }
 
   if (ext == '.ts') ext = '.js'
-  const els = dir.split(sep)
+  const els = dir.split('/')
   els.push(name + ext)
 
   return `/${ els.join('/') }`.replace('//', '/')

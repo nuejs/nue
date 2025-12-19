@@ -1,6 +1,7 @@
 import { test, expect } from 'bun:test'
 import { promises as fs } from 'node:fs'
 import { join } from 'node:path'
+import { tmpdir } from 'node:os'
 
 import {
   createDeduplicator,
@@ -11,7 +12,7 @@ import {
 // Helper function to wait for expected array length
 async function waitForEvents(array, expectedCount, maxWait = 1000) {
   const start = Date.now()
-  while (array.length < expectedCount && Date.now() - start < maxWait) {
+  while (new Set(array).size < expectedCount && Date.now() - start < maxWait) {
     await new Promise(resolve => setTimeout(resolve, 5))
   }
 }
@@ -35,7 +36,7 @@ test.skip('deduplicator blocks rapid events', async () => {
 })
 
 test('watches single file changes', async () => {
-  const tmpDir = await fs.mkdtemp('/tmp/fswatch-test-')
+  const tmpDir = await fs.mkdtemp(join(tmpdir(), 'fswatch-test-'))
   const testFile = join(tmpDir, 'test.txt')
 
   const changes = []
@@ -55,7 +56,7 @@ test('watches single file changes', async () => {
 })
 
 test('watches directory creation and processes files', async () => {
-  const tmpDir = await fs.mkdtemp('/tmp/fswatch-test-')
+  const tmpDir = await fs.mkdtemp(join(tmpdir(), 'fswatch-test-'))
   const newDir = join(tmpDir, 'newdir')
 
   const changes = []
@@ -70,15 +71,16 @@ test('watches directory creation and processes files', async () => {
   // Wait for events
   await waitForEvents(changes, 2)
 
-  expect(changes).toContain('newdir/file1.txt')
-  expect(changes).toContain('newdir/file2.js')
+  const uniqueChanges = [...new Set(changes)]
+  expect(uniqueChanges).toContain('newdir/file1.txt')
+  expect(uniqueChanges).toContain('newdir/file2.js')
 
   watcher.close()
   await fs.rm(tmpDir, { recursive: true })
 })
 
 test('ignores files matching patterns', async () => {
-  const tmpDir = await fs.mkdtemp('/tmp/fswatch-test-')
+  const tmpDir = await fs.mkdtemp(join(tmpdir(), 'fswatch-test-'))
 
   const changes = []
   const watcher = fswatch(tmpDir, { ignore: ['*.log', '.hidden*'] })
@@ -100,7 +102,7 @@ test('ignores files matching patterns', async () => {
 })
 
 test('handles file removal', async () => {
-  const tmpDir = await fs.mkdtemp('/tmp/fswatch-test-')
+  const tmpDir = await fs.mkdtemp(join(tmpdir(), 'fswatch-test-'))
   const testFile = join(tmpDir, 'test.txt')
 
   const removed = []
@@ -122,7 +124,7 @@ test('handles file removal', async () => {
 })
 
 test('ignores files without extensions', async () => {
-  const tmpDir = await fs.mkdtemp('/tmp/fswatch-test-')
+  const tmpDir = await fs.mkdtemp(join(tmpdir(), 'fswatch-test-'))
 
   const changes = []
   const watcher = fswatch(tmpDir)

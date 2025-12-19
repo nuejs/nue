@@ -1,5 +1,5 @@
 
-import { parse, sep } from 'node:path'
+import { parse } from 'node:path'
 
 import { elem } from 'nuemark'
 import { version } from '../system'
@@ -86,7 +86,7 @@ function renderTitle(title, template) {
 }
 
 export function renderScripts(assets) {
-  const scripts = assets.filter(f => ['.js', '.ts'].includes(f.ext) && f.dir != `@shared${sep}data`)
+  const scripts = assets.filter(f => ['.js', '.ts'].includes(f.ext) && f.dir != '@shared/data')
   return scripts.map(s => elem('script', { src: `/${s.dir}/${s.name}.js`, type: 'module' }))
 }
 

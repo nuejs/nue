@@ -1,5 +1,5 @@
 
-import { parse, sep } from 'node:path'
+import { parse } from 'node:path'
 import { fswalk } from './tools/fswalk'
 import { createAsset } from './asset'
 import { createFile } from './file'
@@ -71,7 +71,7 @@ export function sortAssets(items) {
 
 
 export async function mergeSharedData(assets, data={}) {
-  const shared = assets.filter(a => a.dir?.startsWith(`@shared${sep}data`))
+  const shared = assets.filter(a => a.dir?.startsWith(`@shared/data`))
   const statics = shared.filter(f => f.is_json || f.is_yaml)
 
   const dataset = await Promise.all(statics.map(f => f.parse()))

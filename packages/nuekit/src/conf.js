@@ -30,8 +30,8 @@ export async function readSiteConf(args={}) {
 
   // build ignore list into config
   const ignore = [...SKIP, ...(conf.site?.skip || [])]
-  ignore.push(conf.server?.dir || join('@shared', 'server'))
-  ignore.push(join('@shared', 'test'))
+  ignore.push(conf.server?.dir || '@shared/server')
+  ignore.push('@shared/test')
 
   // production override
   if (is_prod && conf.meta) {

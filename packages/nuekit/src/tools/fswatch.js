@@ -1,7 +1,7 @@
 
 import { promises as fs, watch } from 'node:fs'
 import { join, extname } from 'node:path'
-import { fswalk, matches } from './fswalk'
+import { fswalk, matches, toPosix } from './fswalk'
 
 // Main fswatch function
 export function fswatch(root, opts = {}) {
@@ -9,7 +9,8 @@ export function fswatch(root, opts = {}) {
   // const shouldProcess = createDeduplicator()
 
   // Start watching
-  const watcher = watch(root, { recursive: true }, async function(event, path) {
+  const watcher = watch(root, { recursive: true }, async function (event, rawPath) {
+    const path = toPosix(rawPath)
     const { onupdate, onremove } = watcher
     if (!path) return
 
@@ -31,7 +32,7 @@ export function fswatch(root, opts = {}) {
         const paths = await fswalk(fullPath, ignore)
 
         for (const subPath of paths) {
-          await onupdate(join(path, subPath))
+          await onupdate(toPosix(join(path, subPath)))
         }
       }
 

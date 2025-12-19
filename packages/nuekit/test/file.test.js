@@ -45,7 +45,7 @@ test('createFile', async () => {
   const file = await createFile(testDir, path)
 
   expect(file).toMatchObject({
-    rootpath: 'test_dir/@shared/model/index.ts',
+    rootpath: join(testDir, '@shared/model/index.ts'),
     path: '@shared/model/index.ts',
     dir: '@shared/model',
     basedir: '@shared',
