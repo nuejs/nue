@@ -167,6 +167,19 @@ docs/
 Modules in application directories (like `blog/` or `docs/`) automatically apply to pages in that application.
 
 
+### Accessing data
+Modules have access to all context data: front matter, site configuration, and YAML data files. Use curly braces to inject values:
+
+```html
+<header>
+  <a href="/">{ site_name }</a>
+  <p>{ tagline }</p>
+</header>
+```
+
+See [Context data](context-data) for how data flows through the system.
+
+
 ### Module inheritance
 In multi-site development, modules follow the inheritance chain. When Nue needs a module, it scans backwards through the chain until it finds one:
 
@@ -207,6 +220,7 @@ pagehead: false
 ```
 
 This prevents those modules from rendering, giving you a cleaner page structure when certain elements aren't needed.
+
 
 
 ## Content structure
