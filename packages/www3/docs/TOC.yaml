@@ -16,6 +16,7 @@ docs:
   guides:
     - Building a global design system
     - Setting up page layout
+    - Site structure and navigation
     - Adding interactivity
     - Building single-page apps
 
