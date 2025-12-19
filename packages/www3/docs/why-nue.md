@@ -1,4 +1,3 @@
-
 [eyebrow "Why Nue"]
 # Multi-site development
 
@@ -8,7 +7,7 @@ Nue lets you build unlimited sites from one global system. This capability defin
 
 Think about all the sites you maintain. Your portfolio. Your blog. Client projects. Side experiments. Regional variants. Right now, each one is its own isolated thing. You scaffold a 300MB framework for each site. You copy components between projects. You debug complex JavaScript even on simple content sites.
 
-With Nue, you build the foundation once and every site inherits from it. Your portfolio becomes the starting point for client work. Your current project improves the foundation. The next one starts even stronger. You're not maintaining separate repositories. You're growing a connected system where every improvement compounds.
+With Nue, you build the foundation once and every site inherits from it. Your portfolio becomes the starting point for client work. Your current project improves the foundation and the next one starts stronger. You're building a system where every improvement compounds.
 
 
 ### What this enables
@@ -20,54 +19,55 @@ With Nue, you build the foundation once and every site inherits from it. Your po
 [.aside]
   ### Who is this a good fit?
   - Agencies managing multiple clients
-  - Content marketers with multiple domains
   - Teams with complex/hybrid sites (marketing, docs, blogs, stores, ...)
   - Anyone maintaining 3+ sites
-  - Designers building design systems as products
-  - Developers looking for simplicity, web standards, and performance
-
 
 
 ## Global design system
-The shift from building isolated components to building reusable systems.
+Global design system is the shift from component- driven development to building a reusable foundation that brings world-class design to every site you build.
 
 [animation: GDS assembly line with real site images]
 
-Imagine building a design system once - typography, color, spacing, layout, components, interactions - and having it work across every site you'll ever build.
+Think about the sites you admire. Apple. Linear. Stripe. A proper design system makes this level of polish available for everyone. Marketing sites, documentation, blogs, stores all inherit the same quality.
 
-Global design system is your foundation that every site inherits from. Tweak the typography and see it update across 20 sites with hot reload. Refine a component, it improves everywhere instantly. Build a new feature, it's immediately available to all your projects.
+It's not a Figma binary. It's a complete system expressed in code. Typography, color, spacing, interactions, motion design. Static layouts, interactive components, dynamic applications. Desktop, tablet, mobile. All layers covered.
 
-The design system ships as working code: responsive, interactive, and dynamic. Not a static Figma file that developers reconstruct. Designers and developers work on the same artifact. The result is richer and more consistent than any handoff process can produce.
+The word "global" carries extra weight: for every site you build, 90% is already done. The final 10% adds personality and makes each site unique.
+
+This system lets you mass-produce professional design at scale.
 
 
 ### What this enables
-- **Complete systems** - Layout, colors, responsivity, interactivity, and motion ship as editable code, not static Figma files with some design subset that developers attempt to match in code for every project.
-
-- **Build once, use everywhere** - Typography, components, interactions work across unlimited sites from day one
-
-- **Quick design variants** - Minimalist, corporate or playful expressions from the same foundation through minimal overrides
+- **World-class design** - Apple/Linear level polish
+- **Attention to detail** - responsivity, interactions, motion
+- **Scale** - deploy sites with minimal designwork
 
 
-## Content first development
-Here's where web development is heading: AI generates content, your system handles the rest.
+[.aside]
+  ### Who is this a good fit?
+  - Design engineers building real systems without React complexity
+  - Agencies mass-producing world-class design for clients
+  - Anyone who wants professional design without hiring a design team
+
+
+## Content-first development
+When the design system is in place, you focus on what matters: content, strategy, story. The actual value.
 
 [video: Claude code -> HMR]
 
-Your global design system has everything that makes the site work and look good. So what's left? Content. Strategy. Story. The actual value.
+With Nue your focus shifts to creating content. Testing messaging. Generating variations. Trying different marketing angles. Experimenting with new designs and domain names. Maximizing SEO with multiple domains. Producing documentation at volume. The system handles presentation, consistency, and quality automatically.
 
-AI can now produce content at scale: product descriptions, documentation pages, blog posts, landing page variations. Nue is the perfect platform for AI-assisted development. The focus is solely on content with no time wasted debugging complexity that doesn't belong in content-focused sites.
-
-Your focus shifts to what matters: creating content. Testing messaging. Generating variations. Trying different marketing angles. Experimenting with new designs and domain names. Maximizing SEO with multiple domains. Producing documentation at volume. The system handles presentation, consistency, and quality automatically.
+This is where AI shines. It can mass-generate professional content that fits your guidelines. Nue is the perfect platform for AI-assisted development. The focus stays on content with no time wasted debugging complexity that doesn't belong in content-focused sites.
 
 
 ### What this enables
-
-- Content generation with guaranteed design consistency
-- Structured formats (markdown, YAML) that AI excels at producing
-- No complex state or imperative logic to reason through
-- Instant visual results through the inherited design system
-- True separation between content creation and presentation
+- **Better content** - Focus on messaging and strategy
+- **Better design** - Best designs are rooted in content
+- **AI workflows** - AI generates professional content at volume
 
 
-
-
+[.aside]
+  ### Who is this a good fit?
+  - Content marketers producing high volumes of landing pages and campaigns
+  - Documentation teams maintaining technical content at scale
+  - Agencies delivering professional content faster with consistent design

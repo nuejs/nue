@@ -1,4 +1,3 @@
-
 docs:
 
   essentials:
@@ -14,22 +13,19 @@ docs:
     - Global design system
     - Content-first development
 
-
+  guides:
+    - Building a global design system
+    - Setting up semantic structure
+    - Global and local design
+    - Adding interactivity
+    - Building single-page apps
 
   reference:
     - Configuration
     - Command line (CLI) | cli
     - Page dependencies
     - Context data
-    - Page layout
-    - Layout modules
-    - Complex content layouts
     - Markdown syntax
     - Markdown extensions
     - HTML syntax
     - HTML page types
-    - Interactive components
-    - JS enhancements
-    - Single-page apps
-    - Nue internals
-

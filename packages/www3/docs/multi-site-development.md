@@ -1,365 +1,96 @@
 
 # Multi-site development
+Multi-site development is the architectural shift from isolated projects to connected systems. Instead of scaffolding separate frameworks for each site, you build one foundation that multiple sites inherit from. This changes how you think about code reuse, design consistency, and project relationships.
 
-[diagram: @base → acme.com + beta.org + startup.com]
+The shift matters because most frameworks optimize for single projects. React, Next.js, Astro - they all assume each site is independent. You create a new project, install dependencies, scaffold components, and build in isolation. When you need similar functionality on another site, you copy code or maintain separate repositories. Each project becomes its own maintenance burden.
 
-Multi-site development means building multiple websites from one shared codebase. Instead of maintaining separate projects, you create a foundation once and spin out variations. Each site inherits the core system and overrides only what makes it unique.
+Nue is different. You build the foundation once in a base directory. Every site that extends this base inherits the complete system. Typography, layout patterns, interactive components, motion design - all shared by default. Sites override only what makes them unique.
 
-This is fundamentally different from how most frameworks work. React scaffolds a new 300MB project for each site. You copy components between repositories. You maintain duplicate code. Every site is isolated.
 
-Nue changes this. You build the foundation in `@base`. Create your global design system in `@base/@shared`. Define application patterns for blogs and documentation. Then new sites inherit everything and override only what makes them unique. A client project becomes a few dozen lines of CSS and content. The focus shifts to content, not code.
+## The shared foundation
 
-This article explains how multi-site development works. We'll cover the two modes (multi-site and single-site), show how inheritance chains work, and walk through the file system patterns you'll use daily.
+The foundation lives in a directory called `@base`. This is where you build the global design system, define application patterns, and create everything that sites will inherit from.
 
+Think of it as the 90% that stays the same across all your sites. Typography, layout patterns, components, interactions, motion design. Sites inherit this complete foundation and override only what makes them unique.
 
-## Two development modes
+Sites declare that they extend this base, creating a chain from base to site.
 
-Nue supports two ways of organizing your work. You can build multiple sites that share a foundation, or you can build standalone sites with no inheritance. Both modes use the same tools and conventions.
+This chain defines how files are discovered. When a browser requests a file, Nue scans backwards through the chain until it finds a match.
 
+A simple example: `@base` → `acme.com`
 
-### Multi-site mode
-Multi-site mode is when you have a `@base` directory containing shared code and multiple site directories that inherit from it.
+When a browser requests a file, Nue looks in this order:
+1. Check the site directory first
+2. Check the base directory second
+3. Return the first match found
 
-```
-project/
-├── @base/
-│   ├── @shared/
-│   │   ├── design/
-│   │   └── lib/
-│   ├── blog/
-│   └── docs/
-├── acme.com/
-│   ├── site.yaml
-│   └── index.md
-└── beta.org/
-    ├── site.yaml
-    └── index.md
-```
+This applies to everything. CSS files, layout modules, images, application pages. The browser requests typography styles, and Nue checks the site directory first, then the base directory. The first match gets returned.
 
-Each site declares what it inherits in `site.yaml`:
+Chains can extend multiple layers: `@base` → `startup-template` → `beta.org`
 
-```yaml
-# acme.com/site.yaml
-extend: [ @base ]
-```
+Now files are discovered across three layers. The site can override the template. The template can override the base. Each layer adds specificity while inheriting everything below it.
 
-Run `nue serve` from the project root and all sites start together:
+This scanning makes inheritance practical. You don't declare dependencies or configure module resolution. Files in the inheritance chain are automatically available to sites that extend them.
 
-```
-@base     → localhost:4000
-acme.com  → acme-com.localhost:4000
-beta.org  → beta-org.localhost:4000
-```
 
-The development server supports hot module replacement across all sites. Edit a file in `@base/@shared/design/` and see changes instantly in every browser tab. This is what makes multi-site development practical. You can refine the foundation and see results across your entire portfolio immediately.
+## Applications as inherited patterns
 
+Applications like blogs and documentation are defined once in the base and inherited by all sites. This means you build the blog structure, styling, and layout modules in `@base/blog/`, and every site gets a working blog automatically.
 
-### Single-site mode
+The base defines the pattern. A blog application might include:
+- Layout specific for the blogging app
+- Styling for article typography
+- Collection configuration for post metadata
+- Navigation patterns
 
-Single-site mode is when you build a standalone website with no inheritance. The directory contains everything the site needs.
+Sites that extend the base get all of this. They can override any piece by creating matching file paths in their own directory. Want to alter the blog layout? Create `acme.com/blog/blog.css` that tweaks the styling rules of the layout grid.
 
-```
-my-blog/
-├── @shared/
-│   ├── design/
-│   └── lib/
-├── posts/
-├── site.yaml
-└── index.md
-```
+This lets you define application patterns once and reuse them across every site. Documentation works the same way. Store catalogs work the same way. Any repeating pattern becomes an application in the base that sites inherit and optionally customize.
 
-Navigate into the directory and run `nue serve`. The site starts at `localhost:4000`. No inheritance chain, no `@base`, just one self-contained project.
+The key insight: applications are not isolated features. They're inherited patterns that cascade through your system.
 
-This mode works for simple sites, experiments, or when you want complete isolation. It uses the same conventions as multi-site mode. The `@shared` directory works the same way. Layout modules work the same way. The difference is scope: everything stays within one directory.
 
+## Design inheritance and overrides
 
-## Multi-site development
+The `@base` directory is your global design system. Sites inherit everything from it and override only what makes them unique.
 
-Multi-site development is about organizing shared code so multiple sites can inherit from it. The mechanics are straightforward: sites declare what they extend, and Nue follows the inheritance chain to find files.
+Most sites inherit 80-90% of their code from the base. A new site might override colors and add a few application-specific styles. That's it. The foundation handles the rest.
 
-### The `@base` directory
+This creates consistency without rigidity. Every site uses the same layout primitives and interaction patterns, but each one looks distinct through targeted overrides. The Linear-inspired site defines its purple accent and tight spacing. The Apple-inspired site defines its minimalist typography and generous whitespace. Both inherit the complete foundation.
 
-The `@base` directory is your foundation. It contains the global design system in `@base/@shared` and any application patterns you want to reuse.
+Overrides work through CSS layers and the inheritance chain. If a site defines `colors.css`, it overrides the base `colors.css` for that site. If it defines `blog/blog.css`, those styles apply only to that site's blog pages. The cascade gives you precise control over what stays global and what becomes site-specific.
 
-```
-@base/
-├── @shared/
-│   ├── design/        # Auto-loaded styles
-│   ├── lib/           # Optional components
-│   └── data/          # Shared data
-├── blog/
-│   ├── layout.html
-│   ├── styles.css
-│   └── index.md
-└── docs/
-    ├── layout.html
-    ├── styles.css
-    └── index.md
-```
+The mental model: start with maximum sharing, then override where differentiation matters.
 
-The `@base` is actually a working site. You can preview it at `localhost:4000` when running the development server. The look and feel should be plain since it's the foundation other sites build upon. Think of it as a headless design system that demonstrates the patterns.
 
-See [global design system](global-design-system) for details on what goes into `@shared` and how to organize your foundation.
+## How this differs from other approaches
+Most frameworks treat each site as independent. You scaffold a new project, install packages, copy components from previous work, and maintain everything separately. Code reuse happens through copying or package systems, never through direct inheritance.
 
+Component libraries try to solve this by packaging reusable pieces. You install a library, import components, and customize through props or CSS overrides. But this assumes components are the unit of reuse. In practice, you need to share much more: typography systems, layout patterns, data structures, routing conventions. Component libraries don't provide this.
 
-### Extending sites
+Monorepos let you share code across projects in one repository. You create shared packages that multiple apps depend on. This works for large teams with complex build systems, but it adds significant tooling overhead. You manage package versions, handle build dependencies, and coordinate releases. For most sites, this complexity isn't justified.
 
-Sites inherit from `@base` using the `extend` configuration in `site.yaml`:
+Multi-site development in Nue makes sharing the default. You don't package components or manage dependencies. You don't configure module resolution or set up build pipelines. Files in the base directory are automatically available to sites that extend them. The inheritance chain handles discovery. CSS layers handle styling priority. The system stays simple because sharing is built into the architecture.
 
-```yaml
-# acme.com/site.yaml
-extend: [ @base ]
-```
+The difference in scale: an empty Next.js project created with `npx create-next-app@latest` contains 336 packages, 18,666 files, and 427MB. You install this for each site. Nue is under 500KB with no external dependencies and is shared across all your sites. One installation serves unlimited sites. The effort goes into the inheritance model and developer experience - a versatile HMR system that spans all sites and asset types.
 
-You can extend multiple layers:
 
-```yaml
-# beta.org/site.yaml
-extend: [ @base, startup ]
-```
+## When this approach makes sense
+Multi-site development works best when you're building multiple related sites that share design language and functionality. Agencies managing client work. Teams maintaining marketing sites, documentation, and blogs. Anyone with three or more sites that should feel connected.
 
-This creates an inheritance chain: `@base` → `startup` → `beta.org`. Files are resolved by scanning the chain in reverse order. If `beta.org` needs `colors.css`, Nue checks `beta.org/@shared/design/colors.css` first, then `startup/@shared/design/colors.css`, then `@base/@shared/design/colors.css`.
+It also works for experiments and variations. Regional variants of the same site. A/B testing different messaging. Separate domains for SEO. The base provides consistency while sites diverge in specific ways.
 
-The first match wins. This means sites can override any file from the inheritance chain by creating a file with the same path.
+Single sites can use Nue without inheritance. Put everything in one directory with no `@base`. The system works the same way, just without the inheritance chain. This makes sense for standalone projects or when you want complete isolation.
 
+The decision comes down to relationships between your sites. If they share design patterns, content types, or functionality, inheritance makes that sharing explicit and automatic. If they're truly independent, keep them separate.
 
-### Inheritance chain scanning
 
-When Nue needs a file, it scans the inheritance chain in reverse order until found. This applies to everything: CSS files, layout modules, images, application pages, even 404 pages.
+## The compounding effect
+Every improvement to the base improves every site that extends it. Fix a bug in the navigation component and it's fixed everywhere. Add a new layout module and it's available everywhere. Refine the typography system and every site gets better.
 
-Request for `/blog/about`:
-1. Check `beta.org/blog/about.md`
-2. Check `startup/blog/about.md`
-3. Check `@base/blog/about.md`
-4. Return first match or 404
+This compounds over time. Your second site is easier than your first because the foundation exists. Your tenth site takes a few hours because you're mostly writing content and light overrides. The system gets stronger with each addition.
 
-Request for `/@shared/design/colors.css`:
-1. Check `beta.org/@shared/design/colors.css`
-2. Check `startup/@shared/design/colors.css`
-3. Check `@base/@shared/design/colors.css`
-4. Return first match or 404
+The alternative is maintaining separate projects that drift apart. You fix the same bug multiple times. You implement the same feature in three places. You spend time keeping things synchronized manually.
 
-This scanning makes inheritance practical. You don't declare dependencies manually. You don't configure module resolution. Files in the inheritance chain are automatically available to sites that extend them.
-
-See [page dependencies](page-dependencies) for complete details on how CSS, JS, HTML, and YAML files are resolved for each request.
-
-
-### URL mapping
-
-Markdown files map directly to URLs. The file system is the router.
-
-```
-acme.com/index.md              → /
-acme.com/about.md              → /about
-acme.com/blog/index.md         → /blog/
-acme.com/blog/first-post.md    → /blog/first-post
-acme.com/404.md                → custom error page
-```
-
-Assets like CSS and JavaScript files are also URL-addressable:
-
-```
-acme.com/styles.css            → /styles.css
-acme.com/blog/blog.css         → /blog/blog.css
-acme.com/script.js             → /script.js
-```
-
-If a file isn't found in the site directory, Nue scans the inheritance chain. This means `/@shared/design/colors.css` resolves from whichever layer provides it, usually `@base/@shared/design/colors.css`.
-
-
-### Development server
-
-The development server starts all sites simultaneously when you run `nue serve` from the project root.
-
-```
-@base     → localhost:4000
-acme.com  → acme-com.localhost:4000
-beta.org  → beta-org.localhost:4000
-```
-
-Site names with dots become hyphens in the subdomain: `acme.com` becomes `acme-com.localhost:4000`. This keeps the URLs consistent and easy to remember.
-
-The server supports production preview mode for testing minified assets and inlined CSS:
-
-```
-acme.production.localhost:4000
-```
-
-This shows exactly what gets deployed without running a separate build step.
-
-
-### Mass builds and HMR
-
-Multi-site development enables two powerful capabilities: mass builds and cross-site hot module replacement.
-
-**Mass builds** mean rebuilding all sites in under a second. Run `nue build` and every site in your project compiles with shared code deduplicated. Twenty sites build as fast as one because they're mostly rendering the same foundation.
-
-**Cross-site HMR** means editing a file in `@base/@shared/design/` and seeing changes instantly across all open browser tabs. The system is smart about what to update. Edit CSS and only styles refresh. Change markdown content and only the content area updates. Modify a client-side component and it hot-reloads. Update navigation data in YAML and only the navigation refreshes. Your scroll position and browser state stay intact. Each tab updates independently based on what changed.
-
-This makes iterating on the foundation practical. You can have `acme.com` and `beta.org` open side by side, adjust the typography in your global design system, and watch both sites update live.
-
-
-## Single-site development
-
-Single-site development is simpler. Everything lives in one directory with no inheritance chain. This works for standalone sites, experiments, or when you want complete isolation.
-
-### Minimal site
-
-The absolute minimum is an HTML or Markdown file:
-
-```
-my-site/
-└── index.md
-```
-
-Or with some styling:
-
-```
-my-site/
-├── index.css
-└── index.md
-```
-
-This is a complete working site. Run `nue serve` and it starts at `localhost:4000`.
-
-
-### Blog example
-
-A typical blog uses layout modules, application-specific styling, and content files:
-
-```
-my-blog/
-├── site.yaml
-├── layout.html        # Global header and footer
-├── styles.css
-├── index.md
-└── posts/
-    ├── header.html    # Page header layout
-    ├── first.md
-    └── second.md
-```
-
-The `layout.html` file contains slot-based layout modules that wrap your content. The `posts/header.html` provides a page header (often called "hero" in other systems) specific to blog posts.
-
-See [layout system](layout-system) for details on how slots and modules work.
-
-
-### Full website
-
-A complete site with multiple applications looks like this:
-
-```
-my-site/
-├── @shared/
-│   ├── design/        # Auto-loaded styles
-│   ├── lib/           # Optional components
-│   └── data/          # Shared data
-├── blog/
-├── docs/
-├── contact/
-├── img/
-├── index.md
-├── 404.md
-└── site.yaml
-```
-
-This structure mirrors what you'd put in `@base` for multi-site development. The difference is scope: everything stays within this one site directory.
-
-
-### Special directories
-
-These directories have fixed names and special behavior in Nue:
-```
-@shared/
-├── design/           # Base design (auto-loaded client-side)
-├── lib/              # Optional components and scripts
-├── data/             # YAML data for templates (server-side)
-└── ui/               # UI components (auto-loaded client-side)
-```
-
-**`design/`** contains CSS files that load automatically in all pages. This is your base styling layer.
-
-**`lib/`** contains optional components, effects, and scripts that sites opt into using the `include` configuration.
-
-**`data/`** holds YAML files that templates can access during server-side rendering.
-
-**`ui/`** contains UI components that load automatically. These can be server-side layout modules or client-side reactive components.
-
-You can make any directory auto-load like `design/` and `ui/` by adding it to the `include` array in `@base/site.yaml`. This lets you organize auto-loaded assets however makes sense for your system.
-
-The `@shared` directory works the same way in both single-site and multi-site modes. In multi-site mode, it lives in `@base/@shared` and sites inherit from it. In single-site mode, it lives at the root and serves just that one site.
-
-
-### Home folder
-
-Your home page assets can go in a `home/` folder to separate them from root-level assets that are shared across all applications:
-
-```
-my-site/
-├── @shared/
-├── blog/
-├── docs/
-├── home/              # Home page specific assets
-│   ├── hero.html
-│   └── styles.css
-├── index.md
-└── site.yaml
-```
-
-This keeps your root directory clean when you have many applications and your home page needs specific components or styling.
-
-
-## File system reference
-
-This section covers the technical details of how files map to URLs and what each file type does.
-
-### File types
-
-**`.html`** - Pages, layout modules, and components
-
-**`.md`** - Content using Nuemark syntax
-
-**`.css`** - Stylesheets (auto-loaded from specific directories)
-
-**`.js`** - Client-side JavaScript
-
-**`.ts`** - TypeScript (transpiled to JavaScript)
-
-**`.yaml`** - Configuration and data
-
-**`.png`, `.jpg`, `.svg`, `.mp4`, etc.** - Static assets served directly
-
-See [file types reference](file-types) for complete details on how each file type works.
-
-
-### Directory structure patterns
-Applications typically use this structure:
-
-```
-blog/
-├── layout.html        # Application-specific layouts
-├── blog.css           # Application-specific styles
-├── index.md           # Application home page
-└── posts/
-    ├── first.md
-    └── second.md
-```
-
-The `layout.html` and `styles.css` files automatically apply to all pages within the `blog/` directory and its subdirectories. This lets you define patterns once for the entire application.
-
-Nue has no strict file naming conventions. The `blog.css` could be named `styles.css` and `layout.html` file could be `blog-layout.html`. Nue scans for components and the first match wins. For example, when building a page's `<header>`, Nue looks for a header component in the inheritance chain and uses the first one it finds.
-
-In multi-site mode, inheriting sites get these applications automatically and can override or extend them by creating matching directory structures with their own assets.
-
-
-## Wrapping up
-You now understand how multi-site development works in Nue. The key ideas are simple: sites inherit from a shared foundation, files are resolved through an inheritance chain, and the file system maps directly to URLs.
-
-Multi-site mode lets you build a foundation once and spin out variations. Single-site mode gives you a simpler structure when you don't need inheritance. Both modes use the same conventions and tools.
-
-The power comes from the combination: a global design system in `@base/@shared`, application patterns like blogs and documentation, and site-specific overrides that create unique expressions from the shared foundation. Your first site takes time to build. Your second site is mostly content and a few overrides. Your twentieth site takes an afternoon.
-
-See [global design system](global-design-system) for building your foundation and [getting started](getting-started) for setting up your first project.
-
-
+Inheritance makes improvement automatic. Build the foundation once, let it compound.
 
