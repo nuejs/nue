@@ -15,8 +15,7 @@ docs:
 
   guides:
     - Building a global design system
-    - Setting up semantic structure
-    - Global and local design
+    - Setting up page layout
     - Adding interactivity
     - Building single-page apps
 
