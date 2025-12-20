@@ -2,15 +2,13 @@
 # Building a global design system
 The `@base` directory is your global design system - the foundation that all sites inherit from. You build it once, then new sites need only minimal overrides to express their personality.
 
-This guide shows you how to organize this directory:
-
 **@shared/design** - CSS files that load automatically in all inheriting sites. Your base typography, colors, layout patterns.
 
 **@shared/lib** - Optional components and effects that sites choose to include. Charts, animations, specialized interactions.
 
 **@shared/data** - YAML and JSON files that provide template data across all sites.
 
-**Application dirs** - like blogs and documentation that sites inherit.
+**Application directories** - Patterns like blogs and documentation that sites inherit and customize.
 
 The goal: any new site is a minimal amount of CSS for personality and everything else is just content (`.md` files).
 
@@ -27,25 +25,26 @@ project/
 │   │   ├── lib/
 │   │   └── data/
 │   ├── blog/
-│   └── docs/
+│   ├── docs/
+│   └── home/
 ├── acme.com/
 └── beta.org/
 ```
 
-The `@base` directory is a working site. Run `nue` from the project root and preview it at `localhost:4000`. The look and feel should be plain or "headless" since it's the foundation other sites build upon. Think of it as the raw core that is easy to extend with project-specific look and feel.
+The `@base` directory is a working site. Run `nue` from the project root and preview it at `localhost:4000`. The look and feel should be plain or "headless" since it's the foundation other sites build upon. Think of it as the raw core that is easy to extend with project-specific personality.
 
 
 ### The @shared directory
 
 The `@shared` directory contains code that all inheriting sites automatically receive. It has three main subdirectories:
 
-**`design/`** - CSS files that load automatically in all pages. This is your base styling layer that sites inherit by default.
+**`design/`** - CSS files that load automatically on all pages. This is your base styling layer that every site inherits by default.
 
-**`lib/`** - Optional components, effects, and scripts that sites opt into using the `include` configuration.
+**`lib/`** - Optional components, effects, and scripts. Sites choose what they need from here.
 
-**`data/`** - YAML, JSON, dynamic, and fetched data that templates have access during server-side rendering.
+**`data/`** - YAML and JSON files that provide template data during server-side rendering.
 
-This separation lets you control what's automatic versus what's optional. Base typography and layout go in `design/` because every site needs them. Specialized chart components or animation effects go in `lib/` because only some sites need them.
+This separation gives you control over what's universal versus what's optional. Base typography and layout belong in `design/` because every site needs them. Specialized chart components or animation effects belong in `lib/` because only some sites need them.
 
 
 ### Application directories
@@ -66,7 +65,24 @@ Applications like `blog/` and `docs/` sit at the `@base` root level alongside `@
     └── getting-started.md
 ```
 
-Sites that extend `@base` get these applications automatically. They can override any piece by creating matching file paths in their own directory or extend with differing file names. This means you define blog structure once and all sites inherit it, but each site can customize as needed.
+Sites that extend `@base` get these applications automatically. They can override any piece by creating matching file paths in their own directory. This means you define blog structure once and all sites inherit it, but each site can customize as needed.
+
+
+### The home directory
+Your home page often needs its own components and styling that don't belong in the shared foundation or application directories. Use a `home/` folder to keep these separate:
+
+```
+@base/
+├── @shared/
+├── blog/
+├── docs/
+├── home/
+│   ├── hero.html
+│   └── home.css
+└── index.md
+```
+
+This separates root-level assets shared across all applications from home page assets, which typically need specialized styling that doesn't belong in the foundation. The root `index.md` automatically includes files from the `home/` directory.
 
 
 ## The @shared/design directory
@@ -93,7 +109,7 @@ Files in `design/` should define the patterns that make your sites feel consiste
 
 The strategy is finding balance between shared and site-specific. If you work with brands that have distinctive typography, your typography.css should be minimal or even absent. You want enough shared foundation to avoid duplication, but not so much that it constrains individual site expression.
 
-Think about what stays the same across your sites versus what changes. Layout grids probably stay the same. Color palettes/variables definitely change. Button structure probably stays the same. Button styling change. This thinking guides what goes in `design/` versus what sites override.
+Think about what stays the same across your sites versus what changes. Layout grids probably stay the same. Color palettes definitely change. Button structure probably stays the same. Button colors and sizes change. This thinking guides what goes in `design/` versus what sites override.
 
 
 ### CSS layers
@@ -105,7 +121,7 @@ design:
   layers: [base, layout, components]
 ```
 
-Each file uses `@layer` to specify which layer it belongs to. This gives you predictable control over which styles take precedence without depending on file load order. Sites can define their own layer structure that builds on top of the base layers. Use CSS layers to control styling precedence. Nue doesn't guarantee stylesheet load order.
+Each file uses `@layer` to specify which layer it belongs to. This gives you predictable control over which styles take precedence without depending on file load order. Sites can define their own layer structure that builds on top of the base layers.
 
 
 ## The @shared/lib directory
@@ -139,8 +155,8 @@ Put specialized functionality here. Components that only some sites need. Animat
 The decision: would every site in your system use this? If yes, it probably belongs in `design/`. If no, put it in `lib/` and let sites opt in.
 
 
-### How sites include components
-Sites use the `include` configuration in their `site.yaml`:
+### How sites include libraries
+Sites declare what they need from `lib/` in their `site.yaml`:
 
 ```yaml
 # acme.com/site.yaml
@@ -148,18 +164,48 @@ extend: [@base]
 include: [components/tabs, components/charts, effects]
 ```
 
-The matching is fuzzy. `components/tabs` includes just that component. `effects` includes everything in the effects directory. Sites can also exclude specific items to avoid unnecessary files from increasing page weight or causing unwanted functionality:
+Applications can define their own includes in `app.yaml`. For example, a blog might need syntax highlighting while the marketing site doesn't:
 
 ```yaml
-exclude: [effects/parallax]
+# @base/blog/app.yaml
+include: [syntax-highlighting]
 ```
 
-Application folders can define their own includes in `app.yaml`. Both arrays expand through the inheritance chain, so a site gets includes from `@base`, the site level, and the application level.
+You can also define includes in `@base/site.yaml` to make specific libraries auto-load for all inheriting sites. This is useful for functionality that every site needs but doesn't belong in the automatic design layer.
 
-You can also define includes in @base/site.yaml to make specific libraries auto-load for all inheriting sites. This is useful for functionality that every site needs but doesn't belong in the design layer.
+For complete details on include/exclude mechanics and how they work through the inheritance chain, see [Page dependencies](page-dependencies).
 
 
-## Application dirs
+## The @shared/data directory
+
+The `data/` directory contains YAML and JSON files that provide template data to all sites:
+
+```
+@base/@shared/data/
+├── team.yaml
+├── products.yaml
+└── plans.yaml
+```
+
+Example team data:
+
+```yaml
+# @base/@shared/data/team.yaml
+- name: Alice Johnson
+  role: Lead Designer
+  avatar: alice.jpg
+
+- name: Bob Smith
+  role: Frontend Developer
+  avatar: bob.jpg
+```
+
+This data becomes available to all layout modules, components, and Markdown files across every site that extends `@base`. Sites can override by creating their own data files at the site level.
+
+The data directory can also contain JS files that can dynamically add, fetch and manipulate data. For details on data processing, JavaScript transformations, and how data cascades through the inheritance chain, see [Context data](context-data).
+
+
+## Application directories
 Applications like blogs and documentation live at the `@base` root level. These define reusable patterns that all inheriting sites get automatically.
 
 ```
@@ -168,6 +214,7 @@ Applications like blogs and documentation live at the `@base` root level. These 
 ├── blog/
 │   ├── layout.html      # Blog-specific layout modules
 │   ├── blog.css         # Blog-specific styles
+│   ├── app.yaml         # Blog configuration
 │   ├── index.md         # Blog home page
 │   └── posts/
 │       ├── first.md
@@ -175,6 +222,7 @@ Applications like blogs and documentation live at the `@base` root level. These 
 └── docs/
     ├── layout.html      # Docs-specific layout modules
     ├── docs.css         # Docs-specific styles
+    ├── app.yaml         # Docs configuration
     ├── index.md         # Docs home page
     └── getting-started.md
 ```
@@ -188,28 +236,22 @@ The `layout.html` and CSS files in each application directory automatically appl
 Sites can override these by creating matching directory structures. If `acme.com` wants a different blog header, it creates `acme.com/blog/layout.html` with its own layout modules. The inheritance chain means the site version takes precedence.
 
 
+### Application includes
+Applications can have their own `app.yaml` with include/exclude rules:
+
+```yaml
+# @base/blog/app.yaml
+include: [syntax-highlighting, code-themes]
+exclude: [charts]
+```
+
+These adds to site-level includes, so blog pages get both site-wide and blog-specific libraries. This lets you load specialized components only where they're needed.
+
+
 ### The @base as preview
 Since `@base` is a working site, you can preview these applications with `nue serve` at `localhost:4000/blog/` and `localhost:4000/docs/`. This lets you develop and test application patterns before sites inherit them.
 
 The preview should be plain. You're building patterns, not final designs. Think headless design system. Sites add personality through overrides.
-
-
-
-## Home folder
-Your home page often needs its own components and styling that don't belong in the shared foundation or application directories. Use a `home/` folder to keep these separate:
-
-```
-@base/
-├── @shared/
-├── blog/
-├── docs/
-├── home/
-│   ├── hero.html
-│   └── home.css
-└── index.md
-```
-
-This separates root-level assets shared across all applications from home page assets, which typically need specialized styling that doesn't belong in the foundation.
 
 
 ## First inheriting site
@@ -246,7 +288,7 @@ acme.com/
     └── logo.svg
 ```
 
-If a site needs more than 10% custom code, either the foundation is missing essential patterns or the site is genuinely unique. The goal is maximum reuse with targeted overrides. Nothing stops you from building another @base for a whole different kind of design branch.
+If a site needs more than 10% custom code, either the foundation is missing essential patterns or the site is genuinely unique. The goal is maximum reuse with targeted overrides. Nothing stops you from building another `@base` for a whole different kind of design branch.
 
 
 ### Testing inheritance
@@ -258,4 +300,5 @@ Common issues are usually configuration. Make sure the `extend` array is correct
 ## Next steps
 Your foundation is ready. See [Setting up page layout](page-layout) for creating layout modules and [Adding interactivity](interactivity) for progressive enhancement patterns.
 
+For technical details on how Nue discovers and loads files through the inheritance chain, see [Page dependencies](page-dependencies).
 

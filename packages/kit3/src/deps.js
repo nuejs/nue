@@ -2,7 +2,7 @@
 import { join, dirname, extname, sep } from 'node:path'
 
 // shared directorier
-const SHARED = ['data', 'design', 'ui'].map(dir => join('@shared', dir))
+const SHARED = [`@shared${sep}design`, `@shared${sep}data`]
 
 const TYPES = ['html', 'js', 'ts', 'yaml', 'css']
 
@@ -27,10 +27,6 @@ export async function getDeps(asset, chain, assets) {
 
     // shared
     if (SHARED.some(dir => dep.path.startsWith(dir + sep))) return true
-
-    // /ui && <app>/ui
-    if (dep.dir?.endsWith(asset.dir + sep + 'ui')) return true
-
     // index.md -> home dir
     if (asset.path == 'index.md' && dep.dir == 'home') return true
 
