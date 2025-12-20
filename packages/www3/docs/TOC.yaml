@@ -7,6 +7,7 @@ docs:
     - Upgrading
     - Roadmap
     - Contributing
+    - Nue internals
 
   core concepts:
     - Multi-site development
@@ -16,16 +17,19 @@ docs:
   guides:
     - Building a global design system
     - Setting up page layout
-    - Site structure and navigation
     - Adding interactivity
     - Building single-page apps
 
   reference:
     - Configuration
-    - Command line (CLI) | cli
+    - Command line interface
     - Page dependencies
     - Context data
     - Markdown syntax
     - Markdown extensions
     - HTML syntax
-    - HTML page types
+    - HTML file types
+    - YAML syntax
+    - State API
+    - Nue internals
+

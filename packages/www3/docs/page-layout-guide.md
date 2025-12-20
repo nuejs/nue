@@ -1,15 +1,20 @@
 
 # Setting up page layout
-Every page in Nue starts with a semantic HTML structure that's generated automatically. Your content gets wrapped in meaningful elements, meta tags are added, and layout modules assemble around your content to form the complete page.
+Nue generates semantic HTML structure automatically for every Markdown-based document. This gives your design system clean layout to work with - like CSS Zen Garden, where one HTML file expressed hundreds of different designs through CSS alone.
 
-This guide covers this semantic structure from the automatic core, to the modular components that wrap around your content, to the ways you can structure complex content layouts for rich marketing pages. The key principle throughout: HTML defines structure and meaning, CSS defines presentation. Like CSS Zen Garden demonstrated, one HTML structure can express infinite visual designs through CSS alone.
+This guide shows you how to set up this structure:
 
-Layout modules are your reusable wrappers - headers, footers, sidebars - that fill predefined slots around content. Content structure tools like sections and blocks let you organize rich pages with hero areas, feature grids, and testimonials. Technical documentation and most blogs don't need this complexity - they work with the simpler automatic structure.
+**Document body** - Semantic HTML elements (body, main, article) that wrap your content automatically.
 
-Your design system controls how everything looks. This guide shows you how to control what appears and where.
+**Layout modules** - Reusable components like headers, footers, and sidebars that fill predefined slots around your content.
+
+**Content structure** - Dividers that split complex marketing pages into sections and blocks. Most documentation and blogs don't need these.
+
+**Document head** - Meta tags and dependencies generated from front matter and configuration.
 
 
-## Automatic page structure
+
+## Document body
 When you create a Markdown file:
 
 ```md
@@ -167,17 +172,57 @@ docs/
 Modules in application directories (like `blog/` or `docs/`) automatically apply to pages in that application.
 
 
-### Accessing data
-Modules have access to all context data: front matter, site configuration, and YAML data files. Use curly braces to inject values:
+
+### Module data
+Modules have access to all context data: front matter, site configuration, and YAML data files. Use curly braces to inject values.
+
+Here's a header module that uses data from site configuration:
 
 ```html
+<!-- @base/@shared/layout/header.html -->
 <header>
   <a href="/">{ site_name }</a>
-  <p>{ tagline }</p>
+  <nav>
+    <a :each="item in header_nav" href="{ item.url }">
+      { item.label }
+    </a>
+  </nav>
 </header>
 ```
 
+Define the navigation in your base configuration:
+
+```yaml
+# @base/site.yaml
+site_name: Base Template
+header_nav:
+  - label: Documentation
+    url: /docs
+  - label: Blog
+    url: /blog
+  - label: About
+    url: /about
+```
+
+Inheriting sites override with their own data:
+
+```yaml
+# acme.com/site.yaml
+extend: [@base]
+site_name: Acme Inc
+header_nav:
+  - label: Products
+    url: /products
+  - label: Pricing
+    url: /pricing
+  - label: Contact
+    url: /contact
+```
+
+The header module stays reusable because sites override only the data, not the structure.
+
 See [Context data](context-data) for how data flows through the system.
+
 
 
 ### Module inheritance
@@ -480,7 +525,7 @@ Content structure creates semantic HTML that your design system can style predic
 The key principle: you define structure and meaning in Markdown. The design system defines presentation in CSS. They stay separate.
 
 
-## Head generation
+## Document head
 Nue automatically generates `<head>` content based on your front matter and configuration:
 
 ```yaml

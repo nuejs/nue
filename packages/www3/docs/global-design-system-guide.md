@@ -1,14 +1,21 @@
 
 # Building a global design system
-A global design system is your entire `@base` directory. It contains the shared foundation in `@base/@shared` that all sites inherit from, plus application patterns like blogs and documentation that sites can use and customize. This is what enables the 90% reuse principle: you build the foundation once, and new sites need only minimal overrides to express their unique personality.
+The `@base` directory is your global design system - the foundation that all sites inherit from. You build it once, then new sites need only minimal overrides to express their personality.
 
-This guide walks through organizing your `@base` directory. We'll cover what goes where, why each directory exists, and how to think about what belongs in the shared foundation versus what should be site-specific. The goal is a system where any site you build is a single CSS file providing personality and the rest is (AI-assisted) content.
+This guide shows you how to organize this directory:
 
-The examples follow the structure created by `nue create multi-site`, which demonstrates the essential organization without going deep into design implementation.
+**@shared/design** - CSS files that load automatically in all inheriting sites. Your base typography, colors, layout patterns.
+
+**@shared/lib** - Optional components and effects that sites choose to include. Charts, animations, specialized interactions.
+
+**@shared/data** - YAML and JSON files that provide template data across all sites.
+
+**Application dirs** - like blogs and documentation that sites inherit.
+
+The goal: any new site is a minimal amount of CSS for personality and everything else is just content (`.md` files).
 
 
-## Creating the @base structure
-
+## The @base structure
 Start by creating the `@base` directory at the root of your project. This becomes your foundation that all sites inherit from.
 
 ```
@@ -152,7 +159,7 @@ Application folders can define their own includes in `app.yaml`. Both arrays exp
 You can also define includes in @base/site.yaml to make specific libraries auto-load for all inheriting sites. This is useful for functionality that every site needs but doesn't belong in the design layer.
 
 
-## Application patterns
+## Application dirs
 Applications like blogs and documentation live at the `@base` root level. These define reusable patterns that all inheriting sites get automatically.
 
 ```

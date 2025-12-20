@@ -1,6 +1,6 @@
 
 # Single-page apps
-Single-page applications (SPAs) in Nue are dynamic web apps that run entirely in the browser. Unlike content-focused apps that generate static pages, SPAs use client-side routing and state management to create fluid, app-like experiences without page reloads.
+Single-page applications (SPAs) are dynamic apps that run in the browser. Unlike content-focused apps that generate static pages, SPAs use client-side rendering and state management to create app-like experiences without page reloads.
 
 
 ## Getting started
