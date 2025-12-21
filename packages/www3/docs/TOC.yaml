@@ -1,18 +1,17 @@
+
+mastnav:
+  - How it works
+  - Docs
+  - Blog
+
+
 docs:
-
-  essentials:
-    - Why Nue
-    - Getting started
-    - FAQ
-    - Upgrading
-    - Roadmap
-    - Contributing
-    - Nue internals
-
-  core concepts:
-    - Multi-site development
-    - Global design system
-    - Content-first development
+  - Getting started
+  - Upgrading
+  - Contributing
+  - Nue internals
+  - Roadmap
+  - FAQ
 
   guides:
     - Building a global design system

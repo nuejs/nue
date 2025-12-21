@@ -1,8 +1,8 @@
 
 
-[button] --> <a><button></a>
-@depreciated: [define], [list], [svg], [icon], [!]
-
+// [button] --> <a><button></a>
+// @depreciated: [define], [list], [svg], [icon], [!]
+// no @design/ui folder support
 
 h2 no longer works as section separator
 

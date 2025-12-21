@@ -1,5 +1,4 @@
 
-import { getMockDir, createMockServer } from './mock'
 import { createServer, hmr } from './tools/server'
 import { fswatch } from './tools/fswatch'
 import { createProxy } from './proxy'
@@ -39,15 +38,11 @@ export async function start({ port=5050, version, silent }) {
     }
   }
 
-  // handler (custm proxy or edge server mock)
+  // proxy server
   const conf = await tree.getConf()
-  const mockDir = await getMockDir()
+  const handler = conf.proxy ? createProxy(conf.proxy) : null
 
-  const handler = conf.proxy ? createProxy(conf.proxy)
-    : mockDir ? await createMockServer(mockDir)
-    : null
-
-  // dev server
+  // multi-site server
   const server = createServer({ port, handler }, async url => {
     return await tree.render(url)
   })
