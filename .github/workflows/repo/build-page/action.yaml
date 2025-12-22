@@ -19,9 +19,11 @@ runs:
       shell: bash
       run: |
         bun install
-        cd packages/nuekit/
+        cd "packages/nuekit/"
         bun link
 
     - name: Build Nue Project
       shell: bash
-      run: nue build -pr "${{ inputs.root }}"
+      run: |
+        cd "${{ inputs.root }}"
+        nue build
