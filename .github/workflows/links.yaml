@@ -6,11 +6,11 @@ on:
       - master
     paths:
       - '**/README.md'
-      - 'packages/nuejs.org/**'
+      - 'packages/www/**'
   pull_request:
     paths:
       - '**/README.md'
-      - 'packages/nuejs.org/**'
+      - 'packages/www/**'
   workflow_dispatch:
 
 jobs:
