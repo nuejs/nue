@@ -1,0 +1,64 @@
+name: Check Links
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - '**/README.md'
+      - 'packages/www/**'
+  pull_request:
+    paths:
+      - '**/README.md'
+      - 'packages/www/**'
+  workflow_dispatch:
+
+jobs:
+  readme:
+    if: ${{ github.repository_owner == 'nuejs' || github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check README links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          lycheeVersion: nightly
+          args: >
+            --no-progress
+            --include-fragments
+            --exclude-path "node_modules"
+            --exclude "localhost"
+            --root-dir "."
+            --
+            "**/README.md"
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  site:
+    if: ${{ github.repository_owner == 'nuejs' || github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build docs
+        uses: ./.github/workflows/repo/build-page
+        with:
+          root: packages/www/
+
+      # keep server running in background
+      - name: Run server
+        run: |
+          cd packages/www/
+          nue preview &
+
+      - name: Check site links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          lycheeVersion: nightly
+          args: >
+            --no-progress
+            --include-fragments
+            --remap "http://localhost:4040/@ https://nuejs.org/@"
+            --
+            `find packages/www/.dist/ -name "*.html" -printf "http://localhost:4040/%P "`
+          token: ${{ secrets.GITHUB_TOKEN }}
