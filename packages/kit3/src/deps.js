@@ -1,8 +1,8 @@
 
 import { join, dirname, extname, sep } from 'node:path'
 
-// shared directorier
-const SHARED = [`@shared${sep}design`, `@shared${sep}data`]
+// default include
+const INCLUDE = [`@shared${sep}layout`, `@shared${sep}data`, `@shared${sep}design`]
 
 const TYPES = ['html', 'js', 'ts', 'yaml', 'css']
 
@@ -25,8 +25,8 @@ export async function getDeps(asset, chain, assets) {
     // root asset or same folder asset
     if (!dep.dir || dep.dir == asset.dir) return true
 
-    // shared
-    if (SHARED.some(dir => dep.path.startsWith(dir + sep))) return true
+    // if (INCLUDE.some(dir => dep.path.startsWith(dir + sep))) return true
+
     // index.md -> home dir
     if (asset.path == 'index.md' && dep.dir == 'home') return true
 
@@ -47,7 +47,7 @@ function sortAssets(assets, chain) {
 }
 
 export async function getIncludeOpts(asset, chain, assets) {
-  const opts = { include: [], exclude: [] }
+  const opts = { include: [ ...INCLUDE ], exclude: [] }
 
   function push({ include, exclude }) {
     if (include) opts.include.push(...include)

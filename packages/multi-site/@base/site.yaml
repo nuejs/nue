@@ -1,0 +1,9 @@
+
+# custom imports
+import_map:
+  crud: /@shared/lib/crud.js
+  admin: /admin/admin.js
+
+
+design:
+  layers: [ base, component, modifier ]

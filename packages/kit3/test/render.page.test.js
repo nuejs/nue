@@ -59,7 +59,7 @@ test('sections & wrap', async () => {
 
 test('CSS and JS deps', async () => {
   const assets = [
-    getPathInfo('@shared/ui/analytics.js', '@base'),
+    getPathInfo('@shared/layout/analytics.js', '@base'),
     getPathInfo('@shared/design/base.css', 'acme'),
     getPathInfo('acme/global.js', 'acme'),
     page
@@ -69,7 +69,7 @@ test('CSS and JS deps', async () => {
 
   expect(html).toInclude('href="/@shared/design/base.css"')
   expect(html).toInclude('src="/global.js" type="module"')
-  expect(html).toInclude('src="/@shared/ui/analytics.js"')
+  expect(html).toInclude('src="/@shared/layout/analytics.js"')
   expect(html).toInclude('<h1>Hello</h1>')
   expect(html).not.toInclude('hmr.js')
 })
@@ -78,7 +78,7 @@ test('CSS and JS deps', async () => {
 test('server data & layout', async () => {
 
   // @base: layout
-  const layout = getPathInfo('@shared/ui/layout.html', '@base')
+  const layout = getPathInfo('@shared/layout.html', '@base')
   const data = getPathInfo('@shared/data/links.yaml', '@base')
   const comps = getPathInfo('comps.html', 'acme')
 

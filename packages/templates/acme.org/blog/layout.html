@@ -1,0 +1,15 @@
+
+<pagehead>
+  <pretty-date :date="date"/> • <span>{ author }</span>
+</pagehead>
+
+
+<table :is="blog-entries">
+  <tr :each="page in blog">
+    <td><pretty-date :date="page.date"/></td>
+    <td>
+      <a href="{ page.url }">{ page.title }</a>
+      <p>{{ markdown(page.description) }}</p>
+    </td>
+  </tr>
+</table>

@@ -1,0 +1,14 @@
+
+dialog {
+  margin-top: 10em;
+  padding: 1.5em;
+  max-width: 100%;
+  width: 25em;
+
+  > :first-child { margin: 0 }
+
+  &::backdrop {
+    background-color: rgba(0,0,0, 50%);
+    backdrop-filter: blur(5px);
+  }
+}

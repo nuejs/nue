@@ -1,0 +1,41 @@
+
+extend: [ @base ]
+
+meta:
+  title_template: %s / Acme inc.
+  description: Acme design agency
+
+  # default author for blog entries
+  author: Emma Bennet
+
+site:
+  origin: https://acme.org
+  view_transitions: true
+
+sitemap:
+  enabled: true
+
+rss:
+  title: Acme design/engineering blog
+  collection: blog
+  enabled: true
+
+content:
+  sections: true
+
+collections:
+  blog:
+    include: [ blog/ ]
+    skip: [ skip ]
+    sort: date desc
+
+  design:
+    include: [ docs/ ]
+    tags: [ design ]
+    sort: order
+
+  dev:
+    include: [ docs/ ]
+    tags: [ dev ]
+    sort: order
+

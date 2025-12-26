@@ -1,0 +1,35 @@
+
+mastnav:
+  - How it works
+  - Docs
+  - Blog
+
+docs:
+  - Getting started
+  - Upgrading
+  - Contributing
+  - Nue internals
+  - Roadmap
+  - FAQ
+
+  guides:
+    - Building a global design system
+    - Setting up page layout
+    - Adding interactivity
+    - Working with Claude Code
+    - Building single-page apps
+
+  reference:
+    - Configuration
+    - Command line interface
+    - Page dependencies
+    - Context data
+    - Markdown syntax
+    - Markdown extensions
+    - HTML syntax
+    - HTML file types
+    - JavaScript enhancements
+    - YAML syntax
+    - State API
+    - Nue internals
+

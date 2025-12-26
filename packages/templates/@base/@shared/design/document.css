@@ -1,0 +1,64 @@
+
+/* For content heavy documents only (excluded from single-page-apps) */
+
+@layer base {
+
+  article {
+    flex-direction: column;
+    display: flex;
+    gap: var(--xl); /* section gaps */
+  }
+
+  h1, h2, h3, p, li {
+    max-width: var(--max-line-width)
+  }
+
+  h1 {
+    font-size: 2.25em;
+    & + p, & + time + p {
+      font-size: 1.125em;
+      text-wrap: balance;
+    }
+  }
+
+  section > :is(h3, h4) {
+    margin-top: var(--l)
+  }
+}
+
+@layer component {
+
+  /* place things in a row  */
+  .blocks {
+    align-items: center;
+    flex-direction: row;
+    display: flex;
+    gap: var(--m);
+  }
+
+  /* columns  */
+  @media (width > 900px) {
+    .columns {
+      column-count: var(--column-count, 2);
+      margin-block: var(--l);
+      column-gap: var(--xl);
+      div { break-inside: avoid }
+
+      > :first-child {
+        &, h2, h3 {
+          margin-top: 0
+        }
+      }
+    }
+  }
+
+  /* note  */
+  .note {
+    background-color: var(--base-200);
+    max-width: var(--max-line-width);
+    margin-block: var(--m);
+    padding: 1em;
+    p { margin: 0 }
+  }
+
+}

@@ -1,0 +1,15 @@
+
+brand_name: (Base)
+
+
+header:
+  nav:
+    - label: Docs
+      url: /docs/
+
+    - label: Blog
+      url: /blog/
+
+  toolbar:
+    - label: Foo
+      url: /bar/

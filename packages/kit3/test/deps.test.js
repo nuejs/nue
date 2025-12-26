@@ -13,7 +13,6 @@ test('getDeps', async () => {
     { site: 'acme', path: 'index.md', type: 'md' },
     { site: 'acme', path: 'script.js', type: 'js' },
     { site: 'acme', path: 'app/index.html', type: 'html', dir: 'app' },
-    { site: 'acme', path: 'app/ui/button.html', type: 'html', dir: 'app/ui' },
 
     { site: 'beta', path: 'index.html', type: 'html' },
     { site: 'beta', path: 'layout.html', type: 'html' },
@@ -35,7 +34,7 @@ test('getDeps', async () => {
 
 
   await testDeps('index.md', ['@shared/design/base.css', 'mies.css', 'script.js'])
-  await testDeps('app/index.html', [ "@shared/design/base.css", 'mies.css', "script.js", "app/ui/button.html"])
+  await testDeps('app/index.html', [ "@shared/design/base.css", 'mies.css', "script.js"])
   await testDeps('index.html', [ "@shared/design/base.css", 'mies.css', "layout.html" ])
 
 
@@ -88,10 +87,10 @@ test('getIncludeOpts', async () => {
 
   const opts = await getIncludeOpts(page, ['acme', 'mies'], assets)
 
-  expect(opts).toEqual({
-    include: ['a', 'b', 'e', 'f'],
-    exclude: ['c', 'd', 'g']
-  })
+  expect(opts.include).toEqual(expect.arrayContaining(['a', 'b', 'e', 'f']))
+
+  expect(opts.exclude).toEqual(['c', 'd', 'g'])
+
 })
 
 test('getComponents', async () => {

@@ -1,0 +1,85 @@
+
+/* Content elements (headings, paragraphs, lists, images, blockquotes, ...) */
+
+@layer base {
+  *, *:before, *:after {
+    box-sizing: border-box;
+  }
+
+  body {
+    line-height: 1.5;
+    color: var(--base-800);
+    font-family: system-ui;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  h1, h2, h3, h4 {
+    margin-block: 0.5em;
+    text-wrap: balance;
+    line-height: 1.25;
+    + p { margin-top: 0 }
+  }
+
+  ol, ul, table {
+    margin-block: var(--m)
+  }
+
+  a {
+    color: var(--link);
+    &:visited { color: var(--visited); }
+    &[name] { color: inherit }
+    &:target { background-color: #fff3cd }
+  }
+
+  strong { color: var(--base-800) }
+
+
+  p, li, td {
+    color: var(--base-600);
+    text-wrap: pretty;
+
+    code {
+      background-color: var(--base-200);
+      font-family: courier, monospace;
+      padding: .125em .25em;
+      font-size: .875em;
+    }
+  }
+
+  ol, ul { padding-left: 1em }
+
+  li { padding-left: .5em }
+
+  hr {
+    border: 1px solid var(--base-200);
+    margin-block: var(--l);
+    border-width: 1px 0 0;
+  }
+
+  blockquote {
+    font-weight: bold;
+    margin: var(--l) 0;
+  }
+
+  small, figcaption {
+    font-weight: 400;
+    font-size: .875em;
+    color: var(--base-600);
+  }
+
+  dl {
+    display: grid;
+    grid-template-columns:25% 1fr;
+    > * { margin: .25em 0 }
+    dt { font-weight: 500 }
+    p:first-child { margin-top: 0 }
+  }
+
+  time {
+    white-space: nowrap
+  }
+}

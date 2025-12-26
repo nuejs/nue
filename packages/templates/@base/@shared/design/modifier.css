@@ -1,0 +1,22 @@
+
+/* universal modifiers */
+@layer modifier {
+
+  /* size  */
+  .thin    { max-width: 25em }
+  .wide    { max-width: inherit; width: 100% }
+
+
+  /* space (loose, right) */
+  .loose   { margin-block: var(--l) }
+
+  /* typography
+  .small   { font-size: .875em }
+  .large   { font-size: 1.25em }
+  */
+
+  /* browser fixes */
+  [hidden] { display: none }
+  a:has(img:only-child) { font-size: 0 }
+
+}

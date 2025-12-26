@@ -28,7 +28,7 @@ test('page update', async () => {
 })
 
 test('base UI', async () => {
-  const { content, type } = await tree.render('/@shared/ui/join.html.js')
+  const { content, type } = await tree.render('/@shared/layout/join.html.js')
   expect(content).toStartWith('export const lib')
   expect(type).toInclude('application/javascript')
 })
@@ -85,7 +85,7 @@ test('content/artsy', async () => {
 
 test('SPA', async () => {
   const { content, type } = await tree.render({ host: 'beta.localhost', pathname: '/app/' })
-  expect(content).toInclude('"libs" content="@shared/ui/join.html')
+  expect(content).toInclude('"libs" content="@shared/layout/join.html')
   expect(content).toInclude('app/index.html')
   expect(content).toInclude('<script src="/@shared/lib/extra.js"')
   expect(content).toInclude('<body nue="default-app"></body>')

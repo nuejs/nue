@@ -1,0 +1,48 @@
+
+@layer base {
+
+  form {
+    flex-direction: column;
+    margin-block: 1em;
+    display: flex;
+    gap: 1em;
+
+  }
+
+  label h3 {
+    font-size: 1em;
+    margin-block: .5em;
+  }
+
+  input, textarea {
+    border: 1px solid var(--base-400);
+    background-color: transparent;
+    color: var(--base-800);
+    font-family: inherit;
+    font-size: inherit;
+    padding: 0.5em;
+    margin: 0;
+    h3 + & { width: 100% }
+  }
+
+  /* container for checkboxes and radio buttons */
+  fieldset {
+    display: flex;
+    gap: 1em;
+
+    label {
+      display: inline-flex;
+      align-items: baseline;
+      cursor: pointer;
+      gap: .25em;
+    }
+
+    &:not(:has(legend)) {
+      border: unset;
+      padding: 0;
+    }
+  }
+}
+
+
+
