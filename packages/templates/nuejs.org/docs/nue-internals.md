@@ -5,17 +5,17 @@
 
 Nue frontend ecosystem weights under 500KB with zero external dependencies when installed. It holds following packages:
 
-**[nuekit](https://github.com/nuejs/nue/tree/master/packages/nuekit)** - Multi-site web framework
+**[nuekit](//github.com/nuejs/nue/tree/master/packages/nuekit)** - Multi-site web framework
 
-**[nuedom](https://github.com/nuejs/nue/tree/master/packages/nuedom)** - HTML syntax for server- and client-side components
+**[nuedom](//github.com/nuejs/nue/tree/master/packages/nuedom)** - HTML syntax for component development
 
-**[nuemark](https://github.com/nuejs/nue/tree/master/packages/nuemark)** - Markdown flavour for rich, interactive pages
+**[nuemark](//github.com/nuejs/nue/tree/master/packages/nuemark)** - Markdown flavour for rich, interactive pages
 
-**[nueglow](https://github.com/nuejs/nue/tree/master/packages/nueglow)** - Code highlighting that outputs semantic HTML
+**[nueglow](//github.com/nuejs/nue/tree/master/packages/nueglow)** - CSS friendly syntax highlighting
 
-**[nueyaml](https://github.com/nuejs/nue/tree/master/packages/nueyaml)** - Unproblematic YAML format for structured content
+**[nueyaml](//github.com/nuejs/nue/tree/master/packages/nueyaml)** - YAML without the problems
 
-**[nuestate](https://github.com/nuejs/nue/tree/master/packages/nuestate)** - URL first state management for single-page applications
+**[nuestate](//github.com/nuejs/nue/tree/master/packages/nuestate)** - URL first state management
 
 Each package solves one problem. Together they form a complete system for building websites and applications. No external dependencies means no version conflicts, no supply chain risks, no surprise breaking changes from upstream packages. One installation serves unlimited sites.
 

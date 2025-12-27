@@ -1,21 +1,20 @@
 
 # Roadmap
 
-
-## Webiste templates with world-class design
-Launch with three production-ready design systems, each demonstrated
-across 6 site types (startup, blog, docs, agency, personal profile):
+## World-class templates
+Launch a new website with world-class design and your desired template type:
 
 ```sh
 nue create agency --design massimo
-nue create startup --design mies
-nue create blog --design rams
+nue create startup --design inter
+nue create blog --design aalto
 ```
+
+Get Apple/Linear-level design instantly. No design team required.
+
 
 ## Hosting and deployments
 Push all your sites to production with a single command:
-
-Add image/video (already using internally)
 
 ```sh
 # Push all sites (only changed files)
@@ -25,42 +24,38 @@ nue push --all
 → partners.com    8 files   [110ms]
 ```
 
-Subdomains yoursite.nuejs.com are free, hosting with custom domains starts at $2.
+Subdomains at yoursite.nuejs.com will be free. Custom domain hosting start at $2/month.
 
 
 ## Agentic development
-Our goal is to make Nue the best framework for agentic development. This includes two things:
+Make Nue the best framework for AI-assisted development:
 
-1. **Global design system**: We want to design system development to be accessible to everyone, not just CSS professionals. We'll show how Claude Code helps build production-grade design systems even without deep CSS knowledge.
+**Global design system for everyone** - Show how Claude Code helps build production-grade design systems even without deep CSS knowledge. Design system development becomes accessible, not just for CSS professionals.
 
-2. **Content at scale**: GDS makes Nue the best platform for AI-assisted content development. When presentation is completely taken care of by the system, AI can focus purely on content.
-
-What used to require design reviews and engineering handoffs becomes: generate content, publish sites.
+**Content at scale** - When presentation is handled by the system, AI focuses purely on content. What used to require design reviews and engineering handoffs becomes: generate content, publish sites.
 
 
-## Headless services
-payments.
-Contacts, analytics. Simple APIs that work with file-based content.
+## What's next
+After templates, deployments, and AI content, the exact sequence depends on what ships first. But these are all coming since we're building them on nuejs.org:
 
+**Headless services** - Payments, contact forms, analytics. Each is a complete client/server app with management interface. CLI-first, then web UI.
 
-## Single-page apps
-With same design system inheritance, same content-first philosophy.
+**E-commerce templates** - Full commerce platform with product catalogs, checkout, and order management. Same design system inheritance, same one-command deployment.
 
-SPAs are possible. Here's a complex app built with Nuestate and a design system:
+**Single-page applications** - Build complex SPAs that integrate to your headless services and by inheriting 90% from the base system. The result is a world-class application that you can use your own or use as basis for your customers-apps.
+
+Nue will be equally capable with apps as it is with websites: here's a glimplse of what's coming. A full app with complex state management:
 
 [IMAGE + LINK]
 
-What's remarkable is that this app is smaller than a single React/ShadCN button.
-
-There's more. Here's a Rust/WASM version handling 150k rows in memory:
-
-[RUST VERSION]
-
-What you see here is a glimpse of what's coming after we perfect websites. The goal is to make SPA development mimic the website development flow and optimize it for AI generators - which would operate purely with YAML while the design system takes care of the rest.
+The app is actually smaller than a single React/ShadCN button. There's also a [Rust/WASM version](link) handling 150k rows.
 
 
+## Get involved
+The first three items - templates, deployments, and agentic development - are the priority. Everything after depends on how those land and what users need most.
 
+**Want to follow progress?** Join the mailing list for updates when each piece ships:
 
+[mailing-list]
 
-
-
+**Want to build now?** The framework is production-ready. CSS professionals can start with `nue create multi-site` and build their own design systems while waiting for templates.
