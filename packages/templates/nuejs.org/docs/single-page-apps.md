@@ -5,6 +5,18 @@ Single-page applications are dynamic apps that run entirely in the browser. They
 This guide shows you how to build SPAs that integrate seamlessly with your multi-site architecture.
 
 
+## Where SPAs are heading
+This document covers the basic building blocks for SPAs. Later, you'll see how to spin world-class apps without a design/engineering team, similar to how you spin websites today. SPAs are equally important for Nue as websites - the global design system approach works perfectly for both. The future involves multiple design options and more declarative development based on YAML configuration.
+
+Here's a glimpse of what's possible:
+
+[demo]
+
+This is a full app with complex state management. Nue's standards-first approach uses minimal abstraction layers, resulting in a smaller footprint than a single React/ShadCN button. There's also a [Rust/WASM version](link) handling 150k rows.
+
+But for now, lets focus on the building blocks available today.
+
+
 ## The admin template
 Create a working SPA to see the structure:
 
@@ -90,12 +102,11 @@ See [State API](state-api) for complete details on state management.
 ## UI components
 Components live in `.html` files within the application directory. They use the same HTML syntax as other Nue components but run entirely in the browser.
 
+
 ### Users list component
 Display all users with links to individual profiles:
 
 ```html
-<!doctype dhtml>
-
 <script>
   import { state } from 'state'
 </script>
@@ -133,6 +144,7 @@ Show detailed information for a single user:
 <article :is="user">
   <h1>{ name || email }</h1>
 
+  <!-- nuestate detects native browser history events -->
   <nav>
     <button onclick="history.go(-1)">Back</button>
   </nav>
@@ -160,8 +172,6 @@ Show detailed information for a single user:
 The `this.mount()` method switches between components based on application state. This is how SPAs work - instead of navigating to different pages, you mount different components in the same container.
 
 ```html
-<!doctype dhtml>
-
 <script>
   import { state } from 'state'
 
@@ -289,3 +299,6 @@ This is the same pattern as blog and documentation apps. Most styling comes from
 
 ## Next steps
 This covers building SPAs within the multi-site architecture. See [State API](state-api) for complete details on state management and routing patterns.
+
+What's missing is world-class design. The templates coming later will provide that same Apple/Linear polish for apps too. Complex SPAs that are 90% done through inheritance.
+

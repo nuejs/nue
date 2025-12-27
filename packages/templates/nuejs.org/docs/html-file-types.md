@@ -1,8 +1,11 @@
 
 # HTML file types
-By default, .html files are component libraries. This is the most common case since web pages are mostly .md files. Sometimes you need to craft pages with raw HTML - for standalone demos, pages with little content, or complete control over the structure. The doctype declaration changes this default behavior.
+HTML files in Nue serve different purposes depending on their doctype declaration:
 
-This article explains each file type and when to use them. We'll cover library files (the default), static HTML pages, dynamic client-side pages/SPAs, isomorphic components, and raw HTML for standalone demos.
+- **No doctype** - Component library (default)
+- **`<!doctype html>`** - Static page
+- **`<!doctype dhtml>`** - Single-page app
+- **`<html>` at root** - Raw HTML passthrough
 
 
 ## Library files
@@ -91,8 +94,9 @@ Components that work on both server and client start with `<!html+dhtml>`:
 </time>
 ```
 
-These components render on the server during build and can also work as interactive components on the client. This is useful for design systems and reusable UI components that need to work in both contexts. This is a rare case - most components are either server-side or client-side, not both.
+These components render on the server during build and can also work as interactive components on the client. This is useful for design systems and reusable UI components that need to work in both contexts.
 
+Note that this is a rare case - most components are either server-side or client-side, not both. A more common scenario is to use a mix: enrich the server-generated HTML with client-side components.
 
 
 ## HTML pages
