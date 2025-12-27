@@ -12,6 +12,8 @@ nue create blog --design aalto
 
 Get Apple/Linear-level design instantly. No design team required.
 
+These templates are backed by 25+ years of CSS and design system experience - as long as CSS has existed. They represent battle-tested patterns refined across hundreds of projects, now available as complete, production-ready systems you can deploy immediately.
+
 
 ## Hosting and deployments
 Push all your sites to production with a single command:

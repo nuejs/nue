@@ -1,11 +1,10 @@
 
 # Contributing
+I'm **Tero Piirainen**, Nue's creator. I've spent 25+ years building for the web across the entire stack - from cloud infrastructure to the intersection of HTML and CSS where _design engineering_ happens. This full perspective is shaping Nue's architecture from the ground up.
 
-I'm **Tero Piirainen**, Nue's creator. Here's how I work and the best ways to contribute.
 
 ## Work happens in bursts
 I work in bursts. This means gaps in community responses, delayed pull request reviews, and periods of radio silence. Progress might look slow from the outside, but I'm working constantly according to the [roadmap](roadmap)
-
 
 ## Vision matters
 I have strong opinions about Nue's direction. I'm protective of the principles that make Nue unique and powerful.

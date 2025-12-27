@@ -15,7 +15,7 @@ Nue is a **multi-site web framework**. It lets you develop twenty sites simultan
 
 
 ## Global design system
-Nue uses a **global design system** that all sites inherit from. You build the foundation once, then spin unlimited sites with consistent quality:
+The power of multi-site comes from a **global design system**. You build this foundation once, and all your sites inherit it automatically:
 
 [video: edit @base content -> split screen + one mobile]
   caption: Work on multiple designs with the same content
