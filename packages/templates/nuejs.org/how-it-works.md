@@ -2,7 +2,7 @@
 [eyebrow: "How it works"]
 
 ## Multi-site development
-Work on twenty sites as easily as working on one:
+Nue is a **multi-site web framework**. It lets you develop twenty sites simultaneously as easily as working with one:
 
 [img: ls -l // nue serve]
   caption: Your multi-site project directory in development mode.
@@ -14,8 +14,8 @@ Work on twenty sites as easily as working on one:
   caption: Edit multiple sites. Only the matching browser updates.
 
 
-## Multi-site design engineering
-Ship world-class design without a design team:
+## Global design system
+Nue uses a **global design system** that all sites inherit from. You build the foundation once, then spin unlimited sites with consistent quality:
 
 [video: edit @base content -> split screen + one mobile]
   caption: Work on multiple designs with the same content
@@ -24,15 +24,16 @@ Ship world-class design without a design team:
   caption: Perfect your grid system in varying contexts
 
 
-## Multi-site content development
-Let AI handle content at scale:
+## AI-assisted content development
+Nue separates content from design. AI generates the content, your design system handles presentation automatically:
 
 [video: Claude Code editing -> Browser windows updating]
   caption: AI generates content, the design system perfects it
 
 
-## Multi-site builds
-Blast new domains like tweets:
+## Website mass generation
+Nue builds and deploys sites with **incredible speed**. You can spin new websites almost like social media posts:
+
 
 [console video: nue build showing multiple sites]
   caption: One command builds all siteseverything. Only changed files rebuild.
@@ -63,7 +64,7 @@ This is how you spin world-class sites without a design/engineering team.
 
 **Content marketers** - Push AI-assisted content to multiple domains.
 
-**Documentation teams** - Scale technical content without sacrificing design quality.
+**Documentation teams** - Scale technical content without sacrificing quality.
 
 **CSS developers** - Build a global design system and scale your expertise.
 
@@ -71,7 +72,7 @@ This is how you spin world-class sites without a design/engineering team.
 
 
 ## What next
-The framework is production-ready. You can create your first multi-site now.
+The framework is production-ready. You can create your first multi-site setup now.
 
 **CSS professionals:** Use `nue create multi-site` to get a working foundation. Build your global design system on top of it.
 

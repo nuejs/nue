@@ -15,6 +15,8 @@ nue create blog --design rams
 ## Hosting and deployments
 Push all your sites to production with a single command:
 
+Add image/video (already using internally)
+
 ```sh
 # Push all sites (only changed files)
 nue push --all
@@ -36,13 +38,29 @@ Our goal is to make Nue the best framework for agentic development. This include
 What used to require design reviews and engineering handoffs becomes: generate content, publish sites.
 
 
+## Headless services
+payments.
+Contacts, analytics. Simple APIs that work with file-based content.
 
 
-## Later
-Depending on the situation:
+## Single-page apps
+With same design system inheritance, same content-first philosophy.
 
-**Single-page apps** - Functional tools like CRM built on the services. Same design system inheritance, same content-first philosophy.
+SPAs are possible. Here's a complex app built with Nuestate and a design system:
 
-**AI generator** - Generate sites that understand your design system. Content + structure in natural language, design handled automatically.
+[IMAGE + LINK]
 
-**Headless services** - Contacts, analytics, and payments. Simple APIs that work with file-based content.
+What's remarkable is that this app is smaller than a single React/ShadCN button.
+
+There's more. Here's a Rust/WASM version handling 150k rows in memory:
+
+[RUST VERSION]
+
+What you see here is a glimpse of what's coming after we perfect websites. The goal is to make SPA development mimic the website development flow and optimize it for AI generators - which would operate purely with YAML while the design system takes care of the rest.
+
+
+
+
+
+
+
