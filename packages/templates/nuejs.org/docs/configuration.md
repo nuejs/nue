@@ -1,8 +1,12 @@
 
 # Configuration
-Nue uses YAML files to configure sites, applications, and pages. Settings cascade through the inheritance chain and down the directory hierarchy, with more specific settings overriding general ones.
+Configuration in Nue follows a cascade:
 
-In multi-site setups, configuration files are read in order through the `extend` chain (e.g., `@base/site.yaml` then `acme.com/site.yaml`), with later layers overriding earlier ones. Within each site, settings cascade from `site.yaml` to `app.yaml` to page front matter, with deeper levels taking precedence.
+1. **`site.yaml`** - Site-wide defaults
+2. **`app.yaml`** - Application overrides (blog, docs)
+3. **Page front matter** - Individual page settings
+
+More specific settings override general ones. In multi-site setups, the `extend` chain adds another layer: `@base/site.yaml` → `acme.com/site.yaml` → `acme.com/blog/app.yaml` → page front matter.
 
 
 ## Site-wide settings

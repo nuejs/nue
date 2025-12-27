@@ -1,11 +1,9 @@
 
 # Markdown extensions
-Markdown extensions let you embed rich components in your content using tag syntax. Images with captions, videos with controls, accordions, tables, or custom components. Both static and reactive. All through simple square bracket notation.
+Nue extends standard Markdown with components like responsive images, videos, and accordions. You can also build custom components with Nue's [HTML syntax](html-syntax). Here's how it works.
 
-These extensions work alongside standard Markdown. You write paragraphs and headings as usual, then add rich components where needed.
 
 ## Tag syntax
-
 Tags use square brackets with a name and optional attributes:
 
 ```md

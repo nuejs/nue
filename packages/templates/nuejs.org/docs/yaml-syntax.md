@@ -1,9 +1,9 @@
 
 # YAML syntax
-Nue uses a YAML variant called **Nueyaml** for structured content. It keeps YAML's syntax but removes all the problems and unnecessary complexity.
+Nue uses a YAML variant called **Nueyaml** for structured content. It keeps YAML's syntax but removes all the problems.
 
 
-## File structure
+## File structur
 All Nueyaml files must start with an object at the root level. The parser always returns an object, never an array or primitive value.
 
 ```yaml

@@ -1,10 +1,13 @@
 
 # Context data
-The pages in Nue receive data from multiple sources that cascade and combine into a single context. This context flows to layout modules, components, and Markdown expressions throughout your pages.
+Templates in Nue access data from multiple sources:
 
-Data comes from YAML files, JSON files, JavaScript processing functions, and from MD files' front matter. It cascades through your inheritance chain in multi-site setups, with more specific data overriding general data. Front matter from individual pages sits near the top of the cascade. Component attributes have the highest priority - values passed directly to a component override everything else.
+- **YAML/JSON files** - Team members, products, navigation
+- **JavaScript processors** - Transform data, fetch from APIs
+- **Front matter** - Page-specific overrides
+- **Component attributes** - Highest priority, passed directly to components
 
-You can also fetch data from external sources. The JavaScript processing functions are async, so you can call headless CMS APIs, databases, or any external service to enrich your context data.
+Data cascades similarly to configuration (site → app → front matter) with additional layers: `@shared/data/` at the @base, JavaScript processing for transformations, and component attributes at the top.
 
 
 ## Data files

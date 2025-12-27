@@ -1,6 +1,15 @@
-# HTML syntax
 
-Nue uses HTML as its templating language. Every HTML document is valid Nue syntax:
+# Nue HTML syntax
+
+Nue extends standard HTML with dynamic features so it can be used as a template language for:
+
+- **Layout modules** - Reusable headers, footers, and page structure
+- **Markdown extensions** - Custom tags you use in content files
+- **Reactive components** - Interactive elements that run in the browser
+- **Server-side pages** - Static pages rendered at build time
+- **Single-page apps** - Complete, dynamic applications
+
+Nue is literally HTML so that every HTML snippet is valid Nue:
 
 ```html
 <article>
@@ -10,21 +19,10 @@ Nue uses HTML as its templating language. Every HTML document is valid Nue synta
 </article>
 ```
 
-This HTML syntax is used throughout Nue for:
-
-- **Layout modules** - Reusable headers, footers, and page structure
-- **Markdown extensions** - Custom tags you use in content files
-- **Reactive components** - Interactive elements that run in the browser
-- **Server-side pages** - Static pages rendered at build time
-- **Single-page apps** - Complete, dynamic applications
-
-The focus is purely on structure and behavior. Your global design system handles all visual presentation through CSS. You define what elements appear and how they respond to user interaction. The design system defines how they look.
-
-Nue extends standard HTML with expressions for dynamic values, attributes for loops and conditionals, and a component system. The extensions are minimal - just enough to make HTML work as a complete templating language.
+Standard HTML is extended with expressions, loops, conditionals, and a component system. It's designed to provide the semantic "Zen Garden" for a global design system.
 
 
 ## Expressions
-
 Insert dynamic values using curly brackets. This works anywhere you'd normally put text content:
 
 ```html

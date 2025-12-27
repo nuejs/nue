@@ -1,6 +1,6 @@
 
 # Markdown syntax
-Nue uses an extended Markdown syntax called Nuemark for authoring web pages. You write content in Markdown files with a `.md` extension, and Nue transforms them into semantic HTML.
+Nue uses an extended Markdown syntax called "Nuemark" for authoring web pages. You write content in Markdown files with a `.md` extension, and Nue transforms them into semantic HTML.
 
 This guide covers basic content authoring: headings, paragraphs, formatting, links, images, and code blocks. The syntax you use for writing text.
 

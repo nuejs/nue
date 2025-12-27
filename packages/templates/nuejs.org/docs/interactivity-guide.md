@@ -1,6 +1,7 @@
 
+
 # Adding interactivity
-This guide shows you three approaches to adding interactive features to your global design system:
+Here are the key approaches to adding interactive features to your global design system:
 
 **Progressive enhancement** - Use JavaScript to enhance the static HTML
 
