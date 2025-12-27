@@ -1,60 +1,61 @@
 
 # Nue internals
 
-## Packages
 
-Nue frontend ecosystem weights under 500KB with zero external dependencies when installed. It holds following packages:
+## Multi-site architecture
+Nue is a multi-site web framework assuming you're building a network of related sites. This makes a completely different internal architecture than what you see in traditional frameworks:
 
-**[nuekit](//github.com/nuejs/nue/tree/master/packages/nuekit)** - Multi-site web framework
+- **Inheritance chains** - Sites inherit from `@base` and each other. Styles, components, layouts, and content cascade through the chain.
+
+- **Enforced separation** - CSS-in-JS, inline styles, and utility classes are strictly forbidden. This forces you to think in terms of true reusability across sites.
+
+- **Standards first** - Nue adds minimal abstractions over web standards and lets you use the modern web stack as directly as possible.
+
+Nue was built from scratch because the existing frameworks are so strongly biased towards single-site and component first mindset.
+
+
+## Multi-site build system
+The development server works differently from traditional bundlers. Instead of building to a dist folder, Nue serves files directly from your inheritance chain and compiles on demand. When you request a file, the server transpiles it in memory and sends it back. Nothing writes to disk during development.
+
+Changes trigger surgical updates through WebSocket connections. Each browser tab maintains its own connection. The server tracks which site each tab represents and routes updates only where they apply. Edit a shared file and all inheriting sites update. Edit a site-specific file and only that tab updates.
+
+The build system is optimized for two use cases:
+
+1. **Content developers** - Edit markdown or YAML and only the changed section updates. Navigation changes update the related parts only. Paragraph edits patch the matching text only.
+
+2. **Design system developers** - Modify components and they remount with new code. Edit stylesheets and changes patch in. The page preserves its state: form inputs keep their values and dialogs stay open.
+
+This architecture eliminates the wait between editing and seeing results. Changes appear in milliseconds across every site that inherits them.
+
+
+
+## The UNIX of the web
+The UNIX philosophy teaches that software should do one thing well and compose cleanly with other tools. This principle shaped every package in Nue from the start:
 
 **[nuedom](//github.com/nuejs/nue/tree/master/packages/nuedom)** - HTML syntax for component development
 
 **[nuemark](//github.com/nuejs/nue/tree/master/packages/nuemark)** - Markdown flavour for rich, interactive pages
 
-**[nueglow](//github.com/nuejs/nue/tree/master/packages/nueglow)** - CSS friendly syntax highlighting
+**[nueglow](//github.com/nuejs/nue/tree/master/packages/nueglow)** - Design system friendly syntax highlighting
 
 **[nueyaml](//github.com/nuejs/nue/tree/master/packages/nueyaml)** - YAML without the problems
 
 **[nuestate](//github.com/nuejs/nue/tree/master/packages/nuestate)** - URL first state management
 
-Each package solves one problem. Together they form a complete system for building websites and applications. No external dependencies means no version conflicts, no supply chain risks, no surprise breaking changes from upstream packages. One installation serves unlimited sites.
+**[nuekit](//github.com/nuejs/nue/tree/master/packages/nuekit)** - The framework core
 
-This focused environment eliminates the complexity that comes with large dependency trees. You're working with a stable, predictable system where every piece is designed to work together. Less abstraction layers. Less debugging mysterious package interactions. Less time spent on tooling problems.
+The entire frontend stack weighs under 500KB with zero external dependencies. No version conflicts, no supply chain risks, no surprise breaking changes from upstream packages. One installation serves unlimited sites.
+
+This focused approach eliminates complexity from large dependency trees. You're working with a stable, predictable system where every piece is designed to work together. Less abstraction layers, less debugging mysterious package interactions, less time spent on tooling problems.
 
 
-## Multi-site HMR
-Hot module replacement in Nue works differently from traditional bundler-based systems. Instead of building to a dist folder and watching for changes, Nue serves files directly from your source directories and compiles on demand.
 
-### How it works
+## Give it a try
 
-When you run `nue serve`, the development server starts watching all files across your inheritance chain. Files compile in memory as the browser requests them.
+The framework is production-ready. You can create your first multi-site setup now.
 
-**On-demand compilation:**
-- HTML components compile to JavaScript when requested
-- TypeScript files transpile to JavaScript on the fly
-- Markdown files process through the complete rendering pipeline: layout generation, meta tags, dependency collection, component mounting
-- CSS files serve directly without transformation
+**CSS professionals:** Use `nue create multi-site` to get a working foundation. Build your global design system on top of it.
 
-The browser receives working code, but nothing gets written to disk. This eliminates the build step during development.
+**Everyone else:** Production-ready templates with Apple/Linear-level polish are coming next. Join the mailing list and we'll notify you when they're available:
 
-### Surgical updates
-
-When you edit a file, Nue detects the change and sends updates to the browser via WebSocket. Each file type updates differently:
-
-**HTML components** - The changed component remounts with new code. Page state preserves: form values stay filled, dialogs remain open, scroll position holds.
-
-**CSS files** - Modified styles patch into the existing stylesheet. The page doesn't reload.
-
-**Content files (Markdown and YAML)** - The server re-renders the complete HTML and sends it through the WebSocket. The new HTML diffs against the current DOM and only changed sections patch. Components remount where needed. Page state preserves across the update.
-
-This applies to any content change. Edit navigation in a YAML file and only the header updates. Change a paragraph in Markdown and only that text patches. Modify a layout module or custom component and it remounts without losing page state. The rest of the page stays intact.
-
-### Multi-site awareness
-
-The development server tracks which site is open in each browser tab. When you edit a file, the server checks which sites inherit it and pushes updates only to the relevant tabs.
-
-Open your `@base` site in one tab and an inheriting site in another. Edit a shared CSS file and both tabs update simultaneously. Edit a site-specific file and only that site's tab updates.
-
-This works because each tab maintains its own WebSocket connection. The server knows which site each connection represents and routes updates accordingly. You see the impact of your changes across your entire system in real time, but only where those changes apply.
-
-The development experience scales with your architecture. Whether you're working on one site or ten, HMR responds to changes in milliseconds.
+[mailing-list]
