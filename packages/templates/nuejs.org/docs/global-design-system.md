@@ -435,7 +435,7 @@ The `site.yaml` declares inheritance:
 extend: [@base]
 ```
 
-That's it. The site inherits everything from `@base/@shared` and gets all the application patterns. Run `nue` from the project root and the site appears at `acme-com.localhost:4000` with full access to the foundation.
+That's it. The site inherits everything from `@base/@shared` and gets all the application patterns. Run `nue` from the project root and the site appears at `acme.com.localhost:4000` with full access to the foundation.
 
 
 ### The 10% override principle

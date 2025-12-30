@@ -30,7 +30,7 @@ This launches all sites in development mode with hot reload:
 
 ```bash
 @base      -> http://localhost:4000
-acme.com   -> http://acme-com.localhost:4000
+acme.com   -> http://acme.com.localhost:4000
 admin      -> http://admin.localhost:4000
 ```
 

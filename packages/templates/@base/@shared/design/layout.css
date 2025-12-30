@@ -27,7 +27,7 @@
 
     nav {
       grid-column: 2;
-      @media(width < 500px) { display: none }
+      @media(width < 600px) { display: none }
     }
 
     aside {

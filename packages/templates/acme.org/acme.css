@@ -1,0 +1,63 @@
+
+@layer design {
+  :root {
+    --serif: "Bodoni 72", "Times New Roman", Times;
+    --brand: #ff2734;
+  }
+
+  body {
+    padding-top: 2.5em;
+  }
+
+  p { color: #444 }
+
+  .logo {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 1.5em;
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.75em, 6vw, 4.5em);
+    letter-spacing: -0.02em;
+    text-align: center;
+    max-width: 15em;
+    font-weight: 400;
+    line-height: 1.05;
+  }
+
+  h2 {
+    font-size: 2em;
+    letter-spacing: -0.01em;
+    font-weight: 600;
+    + p { font-size: 1.25em }
+  }
+
+
+  .cta {
+    max-width: 20em;
+    margin: 7.5em auto 10em;
+
+    h2 {
+      letter-spacing: -0.02em;
+      font-weight: 750;
+      font-size: 5em;
+      margin: 0;
+    }
+
+    button {
+      width: 100%;
+      padding-block: .75em;
+    }
+  }
+
+  button {
+    border-radius: 9em;
+    &.primary { background-color: var(--brand) }
+  }
+
+  figure img {
+    border-radius: 1.5em;
+  }
+}

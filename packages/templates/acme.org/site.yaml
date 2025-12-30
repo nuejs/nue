@@ -1,12 +1,32 @@
 
 extend: [ @base ]
 
+brand_name: Acme Inc.
+
 meta:
   title_template: %s / Acme inc.
   description: Acme design agency
 
   # default author for blog entries
   author: Emma Bennet
+
+nav:
+  master:
+    - label: Work
+    - label: Services
+    - label: Careers
+
+
+  toolbar:
+    - label: Contact us
+      class: primary
+
+  footer:
+    - label: Industries
+    - label: Culture
+    - label: About
+    - label: Legal
+
 
 site:
   origin: https://acme.org
@@ -20,22 +40,8 @@ rss:
   collection: blog
   enabled: true
 
-content:
-  sections: true
-
-collections:
+_collections:
   blog:
     include: [ blog/ ]
     skip: [ skip ]
     sort: date desc
-
-  design:
-    include: [ docs/ ]
-    tags: [ design ]
-    sort: order
-
-  dev:
-    include: [ docs/ ]
-    tags: [ dev ]
-    sort: order
-

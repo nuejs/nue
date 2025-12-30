@@ -10,7 +10,7 @@ State the core benefit in one sentence
 
 
 [.split]
-  ### First benefit
+  ## First benefit
   Explain what problem this solves and how it makes the user's work easier. Use simple language and avoid marketing speak.
 
   ---
@@ -18,7 +18,7 @@ State the core benefit in one sentence
 
 
 [.split.reverse]
-  ### Second benefit
+  ## Second benefit
   Explain what problem this solves and how it makes the user's work easier. Use simple language and avoid marketing speak.
 
   ---
@@ -26,7 +26,7 @@ State the core benefit in one sentence
 
 
 [.split]
-  ### Third benefit
+  ## Third benefit
   Explain what problem this solves and how it makes the user's work easier. Use simple language and avoid marketing speak.
 
   ---

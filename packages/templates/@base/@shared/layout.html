@@ -2,7 +2,7 @@
 <!-- global header -->
 <header>
   <a href="/">
-    <strong>{ brand_name }</strong>
+    <strong class="logo">{ brand_name }</strong>
   </a>
 
   <nav class="mastnav">
@@ -19,7 +19,7 @@
 
 <!-- global footer -->
 <footer>
-  <strong>{ brand_name }</strong>
+  <strong class="logo">{ brand_name }</strong>
 
   <nav>
     <a :each="el in nav.footer" href="{ el.url }">{ el.label }</a>
@@ -29,7 +29,10 @@
 <!-- contact form -->
 <form :is="contact-us" action="/api/feedback">
   <p><input type="email" name="email" placeholder="Your email" required></p>
-  <p><textarea name="comment" placeholder="Optional comment"></textarea></p>
-  <p><button class="primary">Notify me</button></p>
+  <p>
+    <textarea name="comment"
+      placeholder="{ placeholder || 'Optional comment' }"></textarea>
+  </p>
+  <p><button class="primary">{ button || 'Notify me' }</button></p>
 </form>
 
