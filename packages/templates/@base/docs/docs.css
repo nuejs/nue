@@ -1,0 +1,10 @@
+
+@layer ui {
+  .note {
+    background-color: lightblue;
+    max-width: var(--max-line-width);
+    margin-block: 2em;
+    padding: 1em;
+    p { margin: 0 }
+  }
+}

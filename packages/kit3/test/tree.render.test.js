@@ -43,6 +43,12 @@ test('acme home', async () => {
   expect(content).toInclude('href="/feed.xml"')
 })
 
+test('dev.io', async () => {
+  const ret = await tree.render({ host: 'dev.io.localhost', pathname: '/' })
+  expect(ret.content).not.toBeNull()
+  expect(ret.content).toInclude('href="/dev-io.css"')
+})
+
 test('inherited/unminified CSS/JS ', async () => {
   const js = await tree.render({ host: 'acme.localhost', pathname: '/base.js' })
   expect(js.type).toInclude('application/javascript')
@@ -65,7 +71,7 @@ test('production CSS', async () => {
 
 test('minified JS ', async () => {
   const { content, type } = await tree.render({
-    host: 'acme.localhost.production:4000',
+    host: 'acme.production.localhost:4000',
     pathname: '/base.js'
   })
 

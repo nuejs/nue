@@ -1,15 +1,26 @@
 
-brand_name: (Base)
+brand_name: LOGO
 
+design:
+  layers: [ base, ui, design ]
 
-header:
-  nav:
+nav:
+  master:
     - label: Docs
       url: /docs/
 
     - label: Blog
       url: /blog/
 
+    - label: Pricing
+
+
   toolbar:
-    - label: Foo
-      url: /bar/
+    - label: Call to action
+      class: primary
+
+  footer:
+    - label: Docs
+    - label: Blog
+    - label: About
+    - label: Legal

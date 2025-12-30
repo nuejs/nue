@@ -1,30 +1,62 @@
 
-@layer base, component, modifier;
-
 @layer base {
 
   :root {
-
-    /* base colors */
-    --base-200: #E2E8F0;
-    --base-400: #94A3B8;
-    --base-600: #475569;
-    --base-800: #1E293B;
-
-    --yellow: #F6C950;
-    --blue: #2A63B3;
-    --red: #CB3B32;
-
-    /* link colors */
-    --link: #00e;
-    --visited: #551a8b;
-
-    /* typographic grid */
-    --m: 1.5rem;
-    --l: 3rem;
-    --xl: 4.5rem;
-    --max-line-width: 45rem;
+    --border: #eee;
   }
-}
 
+  *, *:before, *:after {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: system-ui;
+    line-height: 1.5;
+  }
+
+  h1, h2, h3, h4 {
+    margin-block: 0.25em;
+    text-wrap: balance;
+    line-height: 1.25;
+    + p { margin-top: 0 }
+  }
+
+  h1 {
+    font-size: 3.8em;
+    letter-spacing: -.01em;
+    margin: 0;
+    + p { font-size: 1.25em }
+  }
+
+
+  strong { color: black }
+
+  a { text-decoration: none }
+
+  p, li, td { text-wrap: pretty }
+
+  ol, ul {
+    padding-left: 1em;
+    margin-block: 2em;
+  }
+
+  li { padding-left: .5em }
+
+  hr {
+    border: 1px solid #eee;
+    border-width: 1px 0 0;
+    margin-block: 5em;
+  }
+
+  figure {
+    margin: 0;
+    &.tall { margin-block: 3em }
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+}
 

@@ -1,3 +1,3 @@
 
 run-tests:
-	cd test && bun test # render.page # deps
+	cd test && bun test # tree.render.test

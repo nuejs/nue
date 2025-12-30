@@ -19,8 +19,8 @@ test('add site', async () => {
   tree.update('acme/site.yaml')
   tree.update('beta/site.yaml')
   tree.update('beta/docs/index.md')
-  const sites = tree.getAll().map(el => el.site)
-  expect(sites).toEqual([ "acme", "beta", "beta" ])
+  const arr = tree.getAll().map(el => el.site)
+  expect(arr).toEqual([ 'acme', 'beta', 'beta' ])
 })
 
 
@@ -30,11 +30,12 @@ test('getSitenames', () => {
     'acme/blog/index.md',
     'acme/site.yaml',
     'sites/beta/app/index.html',
-    'sites/beta/index.md'
+    'sites/beta/index.md',
+    'dev.io/site.yaml'
   ]
 
   const names = getSitenames(paths)
-  expect(names).toEqual(["@base", "acme", "beta"])
+  expect(names).toEqual(['@base', 'acme', 'beta', 'dev.io'])
 })
 
 test('parseSitename', () => {
@@ -55,6 +56,7 @@ test('parseHost', () => {
   expect(parseHost('acme.production.localhost')).toEqual({ site: 'acme', is_prod: true })
   expect(parseHost('production.localhost')).toEqual({ site: null, is_prod: true })
   expect(parseHost('localhost')).toEqual({ site: null, is_prod: false })
+  expect(parseHost('dev.io.localhost').site).toBe('dev.io')
 })
 
 test('single-mode chain', async () => {

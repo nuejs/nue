@@ -1,0 +1,75 @@
+
+@layer base {
+
+  button {
+    font-family: inherit;
+    white-space: nowrap;
+    font-size: inherit;
+    padding: .5em 1em;
+    cursor: pointer;
+    border: 0;
+
+    &:hover {
+      background-color: #ddd;
+    }
+
+    &.primary {
+      background-color: #333;
+      color: white;
+
+      &:hover {
+        background-color: black;
+      }
+    }
+
+    + button { margin-left: .25em }
+  }
+
+  /* inputs */
+  input, textarea {
+    background-color: transparent;
+    border: 1px solid #ddd;
+    font-family: inherit;
+    font-size: inherit;
+    max-width: 20em;
+    padding: 0.75em;
+    width: 100%;
+    margin: 0;
+  }
+
+
+  table {
+    border-collapse: collapse;
+    margin-block: 2em;
+    width: 100%;
+
+    tr {
+      vertical-align: baseline;
+    }
+
+    th, td {
+      border-bottom: var(--line);
+      padding: .5em 0;
+      text-align: left;
+
+      /* gap */
+      &:not(:first-child) { padding-left: 2em }
+    }
+
+    td:first-child {
+      white-space: nowrap;
+      width: 25%;
+    }
+
+    tfoot td {
+      font-weight: 500;
+      border: 0;
+    }
+  }
+
+  blockquote {
+    margin-block: 2em;
+    font-weight: bold;
+    margin-inline: 0;
+  }
+}

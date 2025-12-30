@@ -1,0 +1,16 @@
+
+@layer base {
+
+  dl {
+    display: grid;
+    grid-template-columns:25% 1fr;
+    > * { margin: .25em 0 }
+    dt { font-weight: 500 }
+    p:first-child { margin-top: 0 }
+  }
+
+  time {
+    white-space: nowrap
+  }
+
+}

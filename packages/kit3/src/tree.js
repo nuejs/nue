@@ -89,12 +89,14 @@ export function createTree() {
 
 }
 
-export function parseHost(host) {
-  const prod = 'production'
+export function parseHost(hostname) {
+  const is_prod = hostname.includes('production')
+
+  let host = hostname.replace('production.', '').replace('localhost', '')
+
   const els = host.split('.')
-  const site = els.length == 1 ? null : els[0]
-  if (site == prod) return { site: null, is_prod: true }
-  return { site, is_prod: host.includes(prod) }
+  const site = els.length == 1 ? null : els.slice(0, -1).join('.')
+  return { site, is_prod }
 }
 
 export function getSitenames(paths) {

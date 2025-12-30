@@ -29,28 +29,53 @@ nue push --all
 Subdomains at yoursite.nuejs.com will be free. Custom domain hosting start at $2/month.
 
 
-## Agentic development
-Make Nue the best framework for AI-assisted development:
 
-**Global design system for everyone** - Show how Claude Code helps build production-grade design systems even without deep CSS knowledge. Design system development becomes accessible, not just for CSS professionals.
+## AI-assisted site generation
+World-class templates and the global design system allow us to build the best AI-powered website generator:
 
-**Content at scale** - When presentation is handled by the system, AI focuses purely on content. What used to require design reviews and engineering handoffs becomes: generate content, publish sites.
+**Single site:**
+```bash
+nue create "Documentation site about Rust. Generate front page
+and 5 guides covering ownership, borrowing, lifetimes, smart
+pointers, and concurrency"
+```
+→ Working site at `rust-docs.localhost:4000` in 30 seconds
+
+**Multiple related sites:**
+```bash
+nue create "Three landing pages for our SaaS product: one for
+developers, one for designers, and one for product managers.
+Each highlights role-specific benefits"
+```
+→ Three sites, consistent design, tailored content
+
+**Agency workflow:**
+```bash
+nue create "Portfolio sites for five clients: coffee shop,
+yoga studio, law firm, dental practice, and boutique hotel.
+Each gets appropriate personality"
+```
+→ Five production-ready sites from one command
+
+
+With one-command deployments, the process of creating and launching a new website is almost like posting a tweet.
 
 
 ## What's next
-After templates, deployments, and AI content, the exact sequence depends on what ships first. But these are all coming since we're building them on nuejs.org:
+After templates, deployments, and AI generation, the exact sequence depends on the situation at that point. But these are all coming since we're building them for our own website:
 
 **Headless services** - Payments, contact forms, analytics. Each is a complete client/server app with management interface. CLI-first, then web UI.
 
 **E-commerce templates** - Full commerce platform with product catalogs, checkout, and order management. Same design system inheritance, same one-command deployment.
 
-**Single-page applications** - Build complex SPAs that integrate to your headless services and by inheriting 90% from the base system. The result is a world-class application that you can use your own or use as basis for your customers-apps.
+**SPA templates** - Build complex SPAs that integrate with your headless services while inheriting 90% from the base system. Build world-class applications for your own use and for your customers.
 
-Nue will be equally capable with apps as it is with websites: here's a glimplse of what's coming. A full app with complex state management:
+Nue will be equally capable with apps as it is with websites. Here's a glimpse of what's already possible - a full app with complex state management:
 
 [IMAGE + LINK]
 
 The app is actually smaller than a single React/ShadCN button. There's also a [Rust/WASM version](link) handling 150k rows.
+
 
 
 ## Get involved

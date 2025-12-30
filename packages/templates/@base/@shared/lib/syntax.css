@@ -1,10 +1,10 @@
 
 @layer base {
   pre {
-    border: 1px solid var(--base-200);
     counter-reset: line-number 0;
-    color: var(--base-600);
+    border: var(--line);
     padding: 2em;
+    color: #999;
 
     /* reset */
     * {
@@ -23,7 +23,7 @@
     strong { color: #419fff }
 
     /* brackets, commas, semicolons... */
-    i { color: var(--base-400) }
+    i { color: #ccc }
 
     /* comments */
     sup {
@@ -43,7 +43,7 @@
     /* spotlight */
     label {
       font-weight: bold;
-      color: var(--base-800);
+      color: black;
     }
 
     /* line numbers */

@@ -1,37 +1,35 @@
 
 <!-- global header -->
 <header>
-  <a href="/"><strong>{ brand_name }</strong></a>
+  <a href="/">
+    <strong>{ brand_name }</strong>
+  </a>
 
-  <nav>
-    <a :each="el in header.nav" href="{ el.url }">{ el.label }</a>
+  <nav class="mastnav">
+    <a :each="el in nav.master" href="{ el.url }">{ el.label }</a>
   </nav>
 
-  <nav>
-    <a :each="el in header.toolbar" href="{ el.url }">{ el.label }</a>
-  </nav>
+  <aside>
+    <a :each="el in nav.toolbar" href="{ el.url }">
+      <button class="{ el.class }">{ el.label }</button>
+    </a>
+  </aside>
 </header>
 
 
 <!-- global footer -->
 <footer>
-  © 2025 { brand_name }
+  <strong>{ brand_name }</strong>
 
   <nav>
-    <a href="/legal/">Legal</a>
-    <a href="/terms/">Terms</a>
+    <a :each="el in nav.footer" href="{ el.url }">{ el.label }</a>
   </nav>
 </footer>
-
-<!-- placeholder images -->
-<figure :is="placeholder" class="{ class }">
-  <div --height="{ height }px"/>
-</figure>
 
 <!-- contact form -->
 <form :is="contact-us" action="/api/feedback">
   <p><input type="email" name="email" placeholder="Your email" required></p>
   <p><textarea name="comment" placeholder="Optional comment"></textarea></p>
-  <p><button>Notify me</button></p>
+  <p><button class="primary">Notify me</button></p>
 </form>
 

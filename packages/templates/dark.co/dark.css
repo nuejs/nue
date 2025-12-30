@@ -1,0 +1,20 @@
+
+@layer design {
+  body {
+    background-color: #111;
+    color: #bbb;
+  }
+
+  hr, footer, input, textarea {
+    border-color: #333;
+  }
+
+  nav a {
+    color: #999;
+  }
+
+  h1, strong, h2, h3 {
+    color: white;
+  }
+
+}

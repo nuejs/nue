@@ -28,9 +28,10 @@ Nue solves a completely different problem.
 
 The problem shifts from engineering to design: you're building a **global design system** that serves unlimited sites, not styling individual components. It's a shift from a component mindset to systematic CSS/design engineering.
 
-You're no longer worrying about namespace collisions; you're strategizing layers and components in your design system. You're not co-locating styles with individual components; you're organizing your entire visual language: typography scales, color systems, spacing rhythms, layout patterns. You're not styling one button at a time; you're defining how all buttons work across all sites.
+You're no longer worrying about namespace collisions; you're strategizing the layers and components in your design system. You're not co-locating styles with individual components; you're organizing your entire visual language: typography scales, color systems, spacing rhythms, layout patterns. You're not styling one button at a time; you're defining how all buttons work across all sites.
 
 When you work at the system level, not the component level, entire categories of problems disappear. Instead, you start optimizing for multi-site development and AI-driven content workflows. You move faster because every new site is 90% ready before you even start.
+
 
 
 ## Is Nue production-ready?

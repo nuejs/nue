@@ -3,34 +3,75 @@
   body {
     max-width: 1000px;
     margin: 0 auto;
-    > * { padding: 1em }
-  }
-
-  header, footer {
-    align-items: center;
-    display: flex;
-    gap: 1em;
-
-    nav:last-of-type {
-      margin-left: auto;
-      justify-content: right;
-    }
+    padding: 1.5em;
   }
 
   nav {
     align-items: center;
     display: flex;
     gap: 2em;
+    a { color: #666 }
+  }
 
-    a {
-      &, &:visited { color: var(--base-600) }
-      text-decoration: none;
-      white-space: nowrap;
+  body > header {
+    margin-bottom: 7.5em;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    gap: 2em;
 
-      &[aria-current="page"] {
-        font-weight: 800;
-        color: var(--base-800);
-      }
+    @media (width > 1000px) {
+      grid-template-columns: 1fr auto 1fr;
+      display: grid;
+    }
+
+    nav {
+      grid-column: 2;
+      @media(width < 500px) { display: none }
+    }
+
+    aside {
+      align-items: center;
+      display: flex;
+      grid-column: 3;
+      justify-self: end;
+      display: flex;
+      gap: .5em;
+      button { font-size: 85% }
     }
   }
+
+  .split {
+    align-items: center;
+    flex-direction: row;
+    margin-block: 5em;
+    gap: 5em;
+
+    p {
+      max-width: 30em;
+      text-wrap: balance;
+    }
+
+    > * { flex: 1 }
+
+    &.reverse { flex-direction: row-reverse }
+
+    @media (width > 1000px) {
+      display: flex;
+    }
+  }
+
+  body > footer {
+    border-top: 1px solid #eee;
+    padding-block: 5em;
+    margin-top: 7.5em;
+    display: flex;
+    justify-content: space-between;
+    gap: 1em;
+
+    @media (width < 600px) {
+      flex-direction: column;
+    }
+  }
+
 }
