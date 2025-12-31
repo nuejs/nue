@@ -14,24 +14,20 @@
     line-height: 1.5;
   }
 
-  h1, h2, h3, h4 {
+  h1, h2, h3 {
     margin-block: 0.25em;
     text-wrap: balance;
     line-height: 1.25;
     + p { margin-top: 0 }
   }
 
-  h1 {
-    font-size: 3.8em;
-    letter-spacing: -.01em;
-    margin: 0;
-    + p { font-size: 1.25em }
+  h4 {
+    margin-bottom: .5em;
   }
 
+  a { text-decoration: none }
 
   strong { color: black }
-
-  a { text-decoration: none }
 
   p, li, td { text-wrap: pretty }
 

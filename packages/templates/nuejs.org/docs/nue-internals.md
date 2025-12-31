@@ -3,23 +3,23 @@
 
 
 ## Multi-site architecture
-Nue is a multi-site web framework assuming you're building a network of related sites. This makes a completely different internal architecture than what you see in traditional frameworks:
+Nue is a web framework optimized for building a stack of related sites. This makes a completely different internal architecture than what you see in traditional frameworks:
 
 - **Inheritance chains** - Sites inherit from `@base` and each other. Styles, components, layouts, and content cascade through the chain.
 
 - **Enforced separation** - CSS-in-JS, inline styles, and utility classes are strictly forbidden. This forces you to think in terms of true reusability across sites.
 
-- **Standards first** - Nue adds minimal abstractions over web standards and lets you use the modern web stack as directly as possible.
+- **Web standards first** - Nue adds minimal abstractions over web standards allowing you use the modern web stack as directly as possible.
 
-Nue was built from scratch because the existing frameworks are so strongly biased towards single-site and component first mindset.
+Nue was built from scratch because because it's impossible to bolt a multi-site capability on top of Next.js, Vite, or Astro.
 
 
 ## Multi-site build system
-The development server works differently from traditional bundlers. Instead of building to a dist folder, Nue serves files directly from your inheritance chain and compiles on demand. When you request a file, the server transpiles it in memory and sends it back. Nothing writes to disk during development.
+Nue's build system is drastically different from React-based bundlers. Instead of building to a dist folder, Nue serves files directly from your inheritance chain and compiles on demand. When you request a file, the server transpiles it in memory and sends it back. You can freely re-organize your files and sites and the system won't break as there is nothing to sync.
 
-Changes trigger surgical updates through WebSocket connections. Each browser tab maintains its own connection. The server tracks which site each tab represents and routes updates only where they apply. Edit a shared file and all inheriting sites update. Edit a site-specific file and only that tab updates.
+Any change you make to your source files trigger updates to your browser tabs through WebSocket connections. Each tab maintains its own connection. The server tracks which site each tab represents and routes updates only where they apply. Edit a shared file and all inheriting sites update. Edit a site-specific file and only that tab updates.
 
-The build system is optimized for two use cases:
+This multi-site HMR is optimized for two use cases:
 
 1. **Content developers** - Edit markdown or YAML and only the changed section updates. Navigation changes update the related parts only. Paragraph edits patch the matching text only.
 

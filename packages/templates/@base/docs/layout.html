@@ -1,18 +1,25 @@
 
-<table :is="contents">
-  <tr :each="page in items">
-    <td><a href="{ page.url }">{ page.title }</a></td>
-    <td>{{ markdown(page.description) }}</td>
-  </tr>
-</table>
+<aside>
+  <label class="breadcrumb">
+    <input type="checkbox" id="toc-toggle" hidden>
+    <b>☰</b> Documentation › { title }
+  </label>
 
+  <toc :items="topics"/>
+</aside>
 
-<anchors>
-  <p :each="el in links">
-    <a href="#{ el.id }">{ el.text }</a>
-  </p>
+<toc class="toc">
+  <nav :each="cat, i in cats">
+    <h4>{ cat.title }</h4>
+    <p :each="label in cat.items">
+      <a href="#">{ label }</a>
+    </p>
+  </nav>
 
   <script>
-    this.links = this.headings.filter(el => el.level == 2)
+    this.cats = Object.keys(this.items).map(title => {
+      const items = this.items[title]
+      return { title, items }
+    })
   </script>
-</anchors>
+</toc>

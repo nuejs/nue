@@ -9,6 +9,33 @@
     border-color: #333;
   }
 
+  button {
+    border-radius: .25em;
+  }
+
+  .hero {
+    text-align: center;
+
+    h1 {
+      font-size: 10em;
+      text-transform: uppercase;
+      font-weight: 900;
+      text-align: center;
+      letter-spacing: -.03em;
+      margin: 0 0 -.1em;
+      + p {
+        font-size: 2em;
+        color: white;
+      }
+    }
+
+    button {
+      padding: .75em 2em;
+      font-weight: 500;
+    }
+  }
+
+
   nav a {
     color: #999;
   }

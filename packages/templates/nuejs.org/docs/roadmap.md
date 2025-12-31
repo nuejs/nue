@@ -1,32 +1,35 @@
 
 # Roadmap
 
+
+## Multi-site deployments
+Push all your sites to production with a single command:
+
+```sh
+nue push --all
+→ @base            12 files   [220ms]
+→ app.acme.com     5 files    [220ms]
+→ blog.acme.com    7 files    [200ms]
+→ partners.com     8 files    [110ms]
+```
+
+One command minifies, inlines critical CSS, uploads changed files, and purges CDN caches across all sites. For example; if you fix a typo in your shared design system you'd see the change live on three sites in seconds.
+
+This is quite a different experience from traditional deployments, where the same change means separate build pipelines, separate CI runs, and separate cache invalidations for each project.
+
+
 ## World-class templates
 Launch a new website with world-class design and your desired template type:
 
 ```sh
-nue create agency --design massimo
-nue create startup --design inter
-nue create blog --design aalto
+nue create blog --design rams
+nue create agency --design aalto
+nue create startup --design mies-dark
 ```
 
-Get Apple/Linear-level design instantly. No design team required.
+Get Apple/Linear-level design instantly without a design/engineering team.
 
 These templates are backed by 25+ years of CSS and design system experience - as long as CSS has existed. They represent battle-tested patterns refined across hundreds of projects, now available as complete, production-ready systems you can deploy immediately.
-
-
-## Hosting and deployments
-Push all your sites to production with a single command:
-
-```sh
-# Push all sites (only changed files)
-nue push --all
-→ app.acme.com    5 files   [220ms]
-→ blog.acme.com   12 files  [200ms]
-→ partners.com    8 files   [110ms]
-```
-
-Subdomains at yoursite.nuejs.com will be free. Custom domain hosting start at $2/month.
 
 
 

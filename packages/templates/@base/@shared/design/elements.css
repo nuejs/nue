@@ -5,7 +5,7 @@
     font-family: inherit;
     white-space: nowrap;
     font-size: inherit;
-    padding: .5em 1em;
+    padding: .75em 1.25em;
     cursor: pointer;
     border: 0;
 
@@ -25,7 +25,20 @@
     + button { margin-left: .25em }
   }
 
-  /* inputs */
+
+  nav {
+
+    a {
+      color: #666;
+      &:hover { color: inherit }
+    }
+    p {
+      font-size: 95%;
+      margin-block: .75em;
+    }
+  }
+
+  /* form inputs */
   input, textarea {
     background-color: transparent;
     border: 1px solid #ddd;
@@ -66,6 +79,7 @@
       border: 0;
     }
   }
+
 
   blockquote {
     margin-block: 2em;

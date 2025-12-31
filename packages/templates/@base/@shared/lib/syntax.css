@@ -2,9 +2,8 @@
 @layer base {
   pre {
     counter-reset: line-number 0;
-    border: var(--line);
+    border: 1px solid #eee;
     padding: 2em;
-    color: #999;
 
     /* reset */
     * {

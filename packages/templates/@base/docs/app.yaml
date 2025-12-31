@@ -1,2 +1,24 @@
 
 heading_ids: true
+include: [ syntax ]
+sections: false
+
+
+topics:
+  First topic:
+    - First article
+    - Second article
+    - Third article
+    - Fourth article
+
+  Second topic:
+    - Fifth article
+    - Sixth article
+    - Seventh article
+    - Eighth article
+
+  Third topic:
+    - Ninth article
+    - Tenth article
+    - Eleventh article
+    - Twelfth article

@@ -6,18 +6,22 @@
     padding: 1.5em;
   }
 
-  nav {
-    align-items: center;
-    display: flex;
-    gap: 2em;
-    a { color: #666 }
+  header, footer {
+    font-size: 95%;
+    nav {
+      display: flex;
+      gap: 2em;
+    }
+    button {
+      font-size: 95%;
+    }
   }
 
   body > header {
+    justify-content: space-between;
     margin-bottom: 7.5em;
     align-items: center;
     display: flex;
-    justify-content: space-between;
     gap: 2em;
 
     @media (width > 1000px) {
@@ -31,13 +35,14 @@
     }
 
     aside {
-      align-items: center;
       display: flex;
       grid-column: 3;
       justify-self: end;
       display: flex;
       gap: .5em;
-      button { font-size: 85% }
+      button {
+        padding: .5em 1em;
+      }
     }
   }
 
