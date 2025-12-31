@@ -1,6 +1,7 @@
 
 ---
 sections: [ intro, cta ]
+class: marketing
 ---
 
 # We are a team of designers, writers, and engineers building exceptional companies from nothing.

@@ -1,5 +1,5 @@
 
-@layer design {
+@layer base {
 
   .breadcrumb {
     display: flex;
@@ -32,11 +32,11 @@
     }
 
     .toc {
-      background-color: white;
+      border-top: 1px solid var(--border);
+      background-color: var(--bgcolor);
       height: calc(100vh - 7.5em);
-      border: 1px solid #eee;
+      padding-inline: 1.75em;
       position: absolute;
-      padding: 1.5em;
       overflow: auto;
       width: 100%;
       left: 0;
@@ -63,6 +63,19 @@
 
   aside nav {
     margin-bottom: 3em;
+  }
+
+
+  /* doc typography */
+  article {
+    p, li {
+      max-width: 45em;
+      text-wrap: pretty;
+    }
+
+    h2 {
+      margin-top: 3em;
+    }
   }
 
   /* doc specific components */

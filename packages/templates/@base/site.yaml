@@ -24,3 +24,10 @@ nav:
     - label: Blog
     - label: About
     - label: Legal
+
+
+collections:
+  blog:
+    include: [ blog/ ]
+    skip: [ skip ]
+    sort: date desc

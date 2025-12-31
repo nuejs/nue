@@ -2,6 +2,7 @@
 @layer base {
 
   :root {
+    --bgcolor: white;
     --border: #eee;
   }
 
@@ -10,6 +11,7 @@
   }
 
   body {
+    background-color: var(--bgcolor);
     font-family: system-ui;
     line-height: 1.5;
   }
@@ -27,6 +29,11 @@
 
   a { text-decoration: none }
 
+  article a:hover {
+    text-decoration: underline;
+    text-underline-offset: .25em;
+  }
+
   strong { color: black }
 
   p, li, td { text-wrap: pretty }
@@ -39,7 +46,7 @@
   li { padding-left: .5em }
 
   hr {
-    border: 1px solid #eee;
+    border: 1px solid var(--border);
     border-width: 1px 0 0;
     margin-block: 5em;
   }

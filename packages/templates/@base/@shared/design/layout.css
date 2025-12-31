@@ -67,7 +67,7 @@
   }
 
   body > footer {
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--border);
     padding-block: 5em;
     margin-top: 7.5em;
     display: flex;

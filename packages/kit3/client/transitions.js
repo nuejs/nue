@@ -220,7 +220,9 @@ export function findNewStyles(current, incoming) {
 
 function updateInlineStyle(dom) {
   $$('style').forEach(el => el.remove())
-  $$('style', dom).forEach(el => $('head').appendChild(el))
+
+  // prepend: @layer order needs to be defined before stylesheets
+  $$('style', dom).forEach(el => $('head').prepend(el))
 }
 
 async function fetchHTML(path) {

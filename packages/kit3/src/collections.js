@@ -34,7 +34,7 @@ async function filterPages(assets, conf) {
   const ret = []
 
   for (const page of assets) {
-    const { meta } = await page.parse() || {}
+    const { meta={} } = await page.parse()
 
     // require?
     if (conf.require && !conf.require.every(field => meta[field])) continue

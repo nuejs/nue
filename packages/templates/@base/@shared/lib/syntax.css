@@ -2,7 +2,7 @@
 @layer base {
   pre {
     counter-reset: line-number 0;
-    border: 1px solid #eee;
+    border: 1px solid var(--border);
     padding: 2em;
 
     /* reset */
@@ -19,7 +19,7 @@
     em { color: #4065ff }
 
     /* special emphasis */
-    strong { color: #419fff }
+    strong, label { color: #419fff }
 
     /* brackets, commas, semicolons... */
     i { color: #ccc }
@@ -42,7 +42,6 @@
     /* spotlight */
     label {
       font-weight: bold;
-      color: black;
     }
 
     /* line numbers */

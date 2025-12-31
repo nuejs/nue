@@ -27,7 +27,7 @@ export async function renderHead({ conf={}, data={}, deps=[] }) {
 
   // @layers
   const layers = conf.design?.layers
-  if (layers) arr.push(elem('style', `@layer ${layers.join(', ')}`))
+  if (layers) arr.push(elem('style', `@layer ${layers.join(', ')};`))
 
   // styles
   arr.push(...await renderStyles(deps, conf))
