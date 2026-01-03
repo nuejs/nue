@@ -38,7 +38,7 @@ export async function renderHTMLPage(asset, chain, assets, is_prod) {
   Object.assign(data, { dir: asset.dir, slug: asset.slug, url: asset.url })
 
   // content collections
-  Object.assign(data, await getCollections(assets, conf.collections))
+  Object.assign(data, await getCollections(assets, conf.collections, chain))
 
   // root
   const root = createWrapper(ast.lib, conf.content?.sections)

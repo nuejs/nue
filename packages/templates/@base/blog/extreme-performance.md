@@ -1,13 +1,14 @@
 
 ---
 date: 2025-09-15
+author: Jane Doe
+thumb: /img/filler.svg
 ---
 
 # Extreme performance
 Today the web performance industry optimizes the wrong things. Complex bundlers, code splitting, and tree shaking treat symptoms while ignoring the root cause: JavaScript dependency for basic functionality.
 
-
-[placeholder.blue.hero height="450"]
+[image.tall "/img/filler.svg" size="1000 x 500"]
 
 
 ## The bundler trap

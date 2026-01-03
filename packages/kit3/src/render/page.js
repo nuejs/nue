@@ -25,7 +25,7 @@ export async function renderPage(asset, chain, assets, is_prod) {
   Object.assign(data, data.meta, meta, { dir: asset.dir, slug: asset.slug, url: asset.url })
 
   // content collections
-  Object.assign(data, await getCollections(assets, conf.collections))
+  Object.assign(data, await getCollections(assets, conf.collections, chain))
 
   // content conf
   const c_conf = conf.content || {}

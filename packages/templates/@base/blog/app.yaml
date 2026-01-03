@@ -1,0 +1,4 @@
+
+class: blog-entry
+author: Jane Doe
+include: [ syntax ]

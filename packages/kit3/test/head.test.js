@@ -66,7 +66,7 @@ test('production', async () => {
 
   expect(html).toInclude('<title>Acme / Hello</title>')
   expect(html).toInclude('name="og:title" content="Acme / Hello"')
-  expect(html).toInclude('<style>@layer base, layout</style>')
+  expect(html).toInclude('<style>@layer base, layout;</style>')
   expect(html).toInclude('<style>--color: #ccc{}</style>')
   expect(html).not.toInclude('hmr.js')
   expect(html).toInclude('"og:image" content="https://acme.org/img/og.webp"')

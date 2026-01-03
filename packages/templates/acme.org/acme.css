@@ -20,6 +20,9 @@
   h1, h2 {
     font-weight: 600;
   }
+
+  article img { border-radius: .25em }
+
   .marketing {
     h1 {
       font-family: var(--serif);
@@ -37,6 +40,8 @@
       font-weight: 600;
       + p { font-size: 1.25em }
     }
+
+    article img { border-radius: 1.5em }
   }
 
   .cta {
@@ -61,7 +66,4 @@
     &.primary { background-color: var(--brand) }
   }
 
-  figure img {
-    border-radius: 1.5em;
-  }
 }

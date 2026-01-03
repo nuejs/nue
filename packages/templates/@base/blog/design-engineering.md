@@ -1,11 +1,13 @@
 ---
 date: 2025-08-15
+author: Jane Doe
+thumb: /img/filler.svg
 ---
 
 # What is design engineering?
 Web development split into two camps: those who design and those who code. This division is artificial. The web is a design medium that happens to be programmable.
 
-[placeholder.yellow.hero height="400"]
+[image.tall "/img/filler.svg" size="1000 x 500"]
 
 ## The artificial divide
 Modern frameworks optimize for engineering mindset. Everything becomes a programming problem. CSS becomes CSS-in-JS. Design becomes component props. Layout becomes flexbox utilities. We've turned visual decisions into code decisions.

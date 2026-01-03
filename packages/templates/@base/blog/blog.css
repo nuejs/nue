@@ -1,0 +1,71 @@
+
+@layer ui {
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    margin-block: 3em;
+    display: grid;
+    gap: 3em;
+
+    a {
+      color: inherit;
+
+      &:hover {
+        text-decoration: none;
+
+        h3 {
+          text-decoration: underline;
+          text-underline-offset: .25em;
+          text-decoration-color: #aaa;
+        }
+      }
+    }
+
+    img {
+      object-fit: cover;
+      width: 100%;
+      height: 250px;
+    }
+
+    /* description, max 2 lines */
+    p {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      max-width: 30em;
+      -webkit-line-clamp: 3;
+      overflow: hidden;
+      opacity: .75;
+    }
+  }
+
+  .entry-list {
+    p {
+      margin-block: .5em;
+      grid-template-columns: 7.5em 1fr;
+      display: grid;
+    }
+    a {
+      font-weight: 500;
+      color: inherit;
+    }
+  }
+
+  .blog-entry {
+    article {
+      max-width: 700px;
+      margin-inline: auto;
+    }
+
+    h1 + p {
+      font-size: 1.125em;
+      text-wrap: pretty;
+    }
+
+    h2 {
+      margin-block: 3em .75em;
+    }
+
+    h3 {
+      margin-block: 2.5em .5em;
+    }
+  }
+}

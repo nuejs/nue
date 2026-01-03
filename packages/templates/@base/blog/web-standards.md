@@ -2,12 +2,13 @@
 ---
 date: 2025-09-05
 author: Maude Bonnet
+thumb: /img/filler.svg
 ---
 
 # Web standards never get old
 HTML from 2006 still works. CSS only grows more powerful. JavaScript remains the language of the web. Framework APIs change every few years, but web standards compound over decades.
 
-[placeholder.blue height="350"]
+[image.tall "/img/filler.svg" size="1000 x 500"]
 
 ## The framework cycle
 

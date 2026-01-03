@@ -28,10 +28,21 @@ Nue solves a completely different problem.
 
 The problem shifts from engineering to design: you're building a **global design system** that serves unlimited sites, not styling individual components. It's a shift from a component mindset to systematic CSS/design engineering.
 
-You're no longer worrying about namespace collisions; you're strategizing the layers and components in your design system. You're not co-locating styles with individual components; you're organizing your entire visual language: typography scales, color systems, spacing rhythms, layout patterns. You're not styling one button at a time; you're defining how all buttons work across all sites.
+You're no longer worrying about namespace collisions; you're strategizing layers and components in your design system. You're not styling one button at a time; you're defining how all buttons work across all sites.
 
 When you work at the system level, not the component level, entire categories of problems disappear. Instead, you start optimizing for multi-site development and AI-driven content workflows. You move faster because every new site is 90% ready before you even start.
 
+
+## What about React?
+React's component model couples structure, logic and styling together. This works well for individual components but makes it impossible to establish a shared foundation across multiple sites. Each site essentially starts from scratch.
+
+Nue's inheritance model does the opposite: sites inherit from `@base` and override only what makes them unique. The result:
+
+- Smaller codebases (most code lives in the shared system)
+- Smaller output (no runtime, less abstraction overhead)
+- Faster builds (sub-second per site)
+
+The tradeoff: React has a massive ecosystem. Nue requires comfort with vanilla CSS and HTML-first thinking.
 
 
 ## Is Nue production-ready?

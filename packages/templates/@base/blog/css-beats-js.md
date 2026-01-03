@@ -1,12 +1,14 @@
 
 ---
 date: 2025-08-05
+author: Jane Doe
+thumb: /img/filler.svg
 ---
 
 # Why CSS beats CSS-in-JS
 CSS-in-JS promised to solve CSS problems by moving styles into JavaScript. Instead, it created new problems while ignoring the solutions that already exist. Real CSS has evolved past the limitations that drove developers to JavaScript in the first place.
 
-[placeholder.yellow height="400"]
+[image.tall "/img/filler.svg" size="1000 x 500"]
 
 ## The promise that didn't deliver
 

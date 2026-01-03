@@ -5,23 +5,27 @@ import { getCollections } from '../src/collections'
 const pages = [
   {
     path: 'blog/post1.md',
-    parse: async () => ({ meta: { title: 'First Post', date: '2024-01-01', draft: false } })
+    parse: async () => ({ meta: { title: 'First Post', date: '2024-01-01' } }),
+    is_md: true
   },
   {
     path: 'blog/post2.md',
-    parse: async () => ({ meta: { title: 'Second Post', date: '2024-01-02', tags: ['design'] } })
+    parse: async () => ({ meta: { title: 'Second Post', date: '2024-01-02', tags: ['design'] } }),
+    is_md: true
   },
   {
     path: 'blog/draft.md',
-    parse: async () => ({ meta: { title: 'Draft Post', draft: true } })
+    parse: async () => ({ meta: { title: 'Draft Post', draft: true } }),
+    is_md: true
   },
   {
     path: 'docs/guide.md',
-    parse: async () => ({ meta: { title: 'Guide', order: 1 } })
+    parse: async () => ({ meta: { title: 'Guide', order: 1 } }),
+    is_md: true
   }
 ]
 
-test('basic collection matching', async () => {
+test('site collection matching', async () => {
   const opts = { blog: { include: ['blog/'] } }
 
   const collections = await getCollections(pages, opts)

@@ -1,4 +1,15 @@
 
+extend: [ @base ]
+
+include: [ blog, syntax ]
+brand_name: Design.blog
+
+nav:
+  master: []
+  toolbar:
+    - label: Contact
+      class: primary
+
 meta:
   title: Emma Bennet / Design Engineering Blog
   title_template: %s / Emma Bennet
@@ -7,19 +18,4 @@ meta:
 site:
   origin: https://acme.org
   view_transitions: true
-
-rss:
-  enabled: true
-  title: Acme blog
-  description: Latest news on web development
-  collection: blog
-
-design:
-  inline_css: true
-
-collections:
-  blog:
-    include: [ posts/ ]
-    require: [ title ]
-    sort: date desc
 

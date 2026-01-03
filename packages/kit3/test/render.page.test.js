@@ -34,7 +34,7 @@ test('metadata', async () => {
   const html = await renderPage(page, ['acme'], [page, data])
   expect(html).toInclude('<meta name="description" content="Hello">')
   expect(html).toInclude('<meta property="og:image" content="/og.png">')
-  expect(html).toInclude('<style>@layer base</style>')
+  expect(html).toInclude('<style>@layer base;</style>')
   expect(html).toInclude('<script type="importmap">{"imports":{"foo":"bar.js"}}</script>')
 })
 
@@ -77,11 +77,8 @@ test('CSS and JS deps', async () => {
 
 test('server data & layout', async () => {
 
-  // @base: layout
+  // layout
   const layout = getPathInfo('@shared/layout.html', '@base')
-  const data = getPathInfo('@shared/data/links.yaml', '@base')
-  const comps = getPathInfo('comps.html', 'acme')
-
   layout.parse = function() {
     return parseNue(`
       <!html lib>
@@ -89,10 +86,14 @@ test('server data & layout', async () => {
     `)
   }
 
+  // data
+  const data = getPathInfo('@shared/data/links.yaml', '@base')
   data.parse = function() {
     return { links: ['a', 'b']}
   }
 
+  // components
+  const comps = getPathInfo('comps.html', 'acme')
   comps.parse = function() {
     return parseNue(`
       <!html lib>
@@ -130,7 +131,11 @@ test('collections', async () => {
 
   // conf
   const conf = getPathInfo('site.yaml', 'acme')
-  conf.parse = () => ({ scope: 'body', collections: { pages: { include: [ 'blog/' ]} }})
+  conf.parse = () => ({
+    collections: {
+      pages: { include: [ 'blog/' ]}
+    }
+  })
 
   // item
   const item = getPathInfo('blog/hello.md', 'acme')
@@ -144,7 +149,10 @@ test('collections', async () => {
     </custom>
   `)
 
-  const html = await renderPage(page, ['acme'], [page, conf, comp, item])
+  // should ignore this
+  const page2 = getPathInfo('blog/hello.md', 'beta')
+
+  const html = await renderPage(page, ['@base', 'acme'], [page, page2, conf, comp, item])
 
   expect(html).toInclude('<div><p>Hey</p></div>')
 

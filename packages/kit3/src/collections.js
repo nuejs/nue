@@ -1,29 +1,34 @@
 
 // assumes is_md
-export async function getCollections(assets, coll_conf) {
+export async function getCollections(assets, coll_conf, chain) {
   if (!coll_conf) return
 
   const data = {}
 
   for (const [name, conf] of Object.entries(coll_conf)) {
-    data[name] = await createCollection(assets, conf)
+    data[name] = await createCollection(assets, conf, chain)
   }
 
   return data
 }
 
-export async function createCollection(assets, conf) {
-  let matchedPages = matchPages(assets, conf.include)
-  let filteredPages = await filterPages(matchedPages, conf)
-  return sortPages(filteredPages, conf.sort)
+export async function createCollection(assets, conf, chain=[null]) {
+
+  for (const site of chain.toReversed()) {
+    const matchedPages = matchPages(assets, conf.include, site)
+    const pages = await filterPages(matchedPages, conf)
+    if (pages.length) return sortPages(pages, conf.sort)
+  }
+
+  return []
 }
 
-function matchPages(assets, patterns=[]) {
+function matchPages(assets, patterns=[], site) {
   const ret = []
 
   for (const pattern of patterns) {
     for (const page of assets) {
-      if (page.path.includes(pattern)) ret.push(page)
+      if ((!site || page.site == site) && page.path.includes(pattern)) ret.push(page)
     }
   }
 
@@ -35,6 +40,9 @@ async function filterPages(assets, conf) {
 
   for (const page of assets) {
     const { meta={} } = await page.parse()
+
+    // non-markdown
+    if (!page.is_md) continue
 
     // require?
     if (conf.require && !conf.require.every(field => meta[field])) continue

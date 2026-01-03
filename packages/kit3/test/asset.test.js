@@ -15,6 +15,7 @@ test('acme blog asset', () => {
   })
 })
 
+
 test('@base asset', () => {
   const info = getPathInfo('@base/blog/index.md', '@base')
   // console.info(asset)

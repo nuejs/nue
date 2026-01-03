@@ -1,11 +1,13 @@
 ---
 date: 2025-08-05
+author: Jane Doe
+thumb: /img/filler.svg
 ---
 
 # Modern CSS is awesome
 CSS has transformed dramatically over the past decade, but the JavaScript ecosystem hasn't noticed. While React developers debate CSS-in-JS solutions, the language itself evolved into something unrecognizable from its 2013 limitations.
 
-[placeholder.blue.hero height="400"]
+[image.tall "/img/filler.svg" size="1000 x 500"]
 
 
 ## Stuck in the past

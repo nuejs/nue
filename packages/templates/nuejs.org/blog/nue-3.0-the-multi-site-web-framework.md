@@ -2,7 +2,7 @@
 # Nue 3.0: The multi-site web framework
 Today we're releasing Nue 3.0, a web framework that lets you spin world-class sites quickly without a design/engineering team:
 
-[gallery]
+**!! gallery**
 
 The above sites are working examples, each in a separate domain, generated with the new multi-site architecture. At the core is a **global design system** that every site inherits from. Here's how it works.
 
@@ -76,3 +76,4 @@ nue create multi-site
 **Everyone else:** Production-ready templates with Apple/Linear-level polish are coming next. Join the mailing list and we'll notify you when they're available:
 
 [mailing-list]
+

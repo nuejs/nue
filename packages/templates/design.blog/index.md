@@ -5,7 +5,7 @@ class: blog-index
 skip: true
 ---
 
-# Blog
+# Design Blog
 
 [latest-entries]
 

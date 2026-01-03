@@ -18,6 +18,10 @@
     border-radius: .5em;
   }
 
+  a {
+    color: white;
+  }
+
   nav a {
     color: #999;
   }
@@ -25,7 +29,6 @@
   h1, strong, h2, h3, h4 {
     color: white;
   }
-
 
   .hero {
     text-align: center;

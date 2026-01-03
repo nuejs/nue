@@ -49,6 +49,14 @@ test('dev.io', async () => {
   expect(ret.content).toInclude('href="/dev-io.css"')
 })
 
+test('/blog/dev-2.0-feature-x', async () => {
+  const ret = await tree.render({
+    pathname: '/blog/dev-2.0-feature-x',
+    host: 'dev.io.localhost',
+  })
+  expect(ret.content).toInclude('<h1>Hello 2.0</h1>')
+})
+
 test('inherited/unminified CSS/JS ', async () => {
   const js = await tree.render({ host: 'acme.localhost', pathname: '/base.js' })
   expect(js.type).toInclude('application/javascript')
@@ -83,7 +91,7 @@ test('minified JS ', async () => {
 test('content/artsy', async () => {
   const { content } = await tree.render({ host: 'beta.localhost', pathname: '/' })
   expect(content).toInclude('<h1>This is art</h1>')
-  expect(content).toInclude('<style>@layer base, components</style>')
+  expect(content).toInclude('<style>@layer base, components;</style>')
   expect(content).toInclude('href="/epic-layout.css"')
   expect(content).toInclude('href="/epic-colors.css"')
 

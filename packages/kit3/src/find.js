@@ -5,7 +5,7 @@ export async function findAsset(url, chain, assets) {
   if (!chain?.[0]) chain = [ null, '@base' ]
 
   const name = url.split('/').pop()
-  const ext = extname(name)
+  const ext = getExt(name)
   let path = url.slice(1)
 
   // @nue asset
@@ -52,4 +52,10 @@ export async function findAsset(url, chain, assets) {
 
   // explicit not found
   return null
+}
+
+// extname does not work when dot is in filename (.woff2 length = 6)
+function getExt(name) {
+  const ext = extname(name)
+  return ext?.length <= 6 && !ext?.includes('-') ? ext : null
 }

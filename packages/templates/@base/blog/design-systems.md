@@ -1,12 +1,14 @@
 ---
 date: 2025-08-01
+author: Jane Doe
+thumb: /img/filler.svg
 ---
 
 # What is a CSS design system?
 Modern CSS has everything needed for real design systems. Variables, nesting, layers, and scope create visual languages that scale across product lines. When design lives in one place, both designers and developers work at full speed.
 
 
-[placeholder.red.hero height="500"]
+[image.tall "/img/filler.svg" size="1000 x 500"]
 
 ## The problem we created
 
