@@ -1,24 +1,19 @@
+topics:
+  Essentials:
+    - Getting started
+    - FAQ
+    - Roadmap
+    - Nue internals
+    - Contributing
 
-mastnav:
-  - How it works
-  - Docs
-  - Blog
-
-docs:
-  - Getting started
-  - Contributing
-  - Nue internals
-  - Roadmap
-  - FAQ
-
-  guides:
-    - Building a global design system
+  Guides:
+    - Global design systems
     - Setting up page layout
     - Adding interactivity
-    - Working with Claude Code
-    - Building single-page apps
+    - Working with Claude
+    - Single-page applications
 
-  reference:
+  Reference:
     - Configuration
     - Command line interface
     - Page dependencies

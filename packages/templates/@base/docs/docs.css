@@ -35,7 +35,7 @@
       border-top: 1px solid var(--border);
       background-color: var(--bgcolor);
       height: calc(100vh - 7.5em);
-      padding-inline: 1.75em;
+      padding-inline: 1.75em;;
       position: absolute;
       overflow: auto;
       width: 100%;
@@ -51,12 +51,15 @@
 
     main {
       display: grid;
-      grid-template-columns: 15em 1fr;
+      grid-template-columns: 14em 1fr;
+      gap: 1em;
     }
 
     aside {
       align-self: flex-start;
       position: sticky;
+      overflow-y: auto;
+      max-height: 95vh;
       top: 0;
     }
   }
@@ -74,7 +77,7 @@
     }
 
     h2 {
-      margin-top: 3em;
+      margin-block: 3em .75em;
     }
   }
 

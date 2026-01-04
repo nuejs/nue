@@ -1,0 +1,17 @@
+
+@layer design {
+  .toc {
+    font-size: 15px;
+  }
+
+  article {
+    h2 {
+      font-weight: 600;
+      font-size: 1.25em;
+    }
+
+    p, li {
+      color: #52585e;
+    }
+  }
+}

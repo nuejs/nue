@@ -1,6 +1,13 @@
 
-# Multi-site web framework
-Spin world-class sites without a design/engineering team
+---
+sections: [ marketing ]
+footer: false
+---
 
-[How it works] Get started ->
+
+Multi-site web framework
+# Spin world-class sites without a design team
+
+[button.primary "Why Nue" href="/why"]
+[button "Get started" href="/docs/"]
 

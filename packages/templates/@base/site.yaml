@@ -1,5 +1,6 @@
 
 brand_name: LOGO
+author: Tero Piirainen
 
 design:
   layers: [ base, ui, design ]

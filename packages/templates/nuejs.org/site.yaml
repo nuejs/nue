@@ -1,2 +1,17 @@
 
 extend: [ @base ]
+
+brand_name: NUE
+
+nav:
+  master:
+    - label: Why
+      url: /why
+    - label: Docs
+      url: /docs/
+    - label: Blog
+      url: /blog/
+
+  toolbar:
+    - label: Contact
+      class: primary
