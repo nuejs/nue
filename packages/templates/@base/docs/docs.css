@@ -40,6 +40,10 @@
       overflow: auto;
       width: 100%;
       left: 0;
+
+      a[aria-current] {
+        font-weight: bold;
+      }
     }
 
   }

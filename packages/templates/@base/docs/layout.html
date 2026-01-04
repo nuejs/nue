@@ -11,14 +11,17 @@
 <toc class="toc">
   <nav :each="cat, i in cats">
     <h4>{ cat.title }</h4>
-    <p :each="label in cat.items">
-      <a href="#">{ label }</a>
+    <p :each="item in cat.items">
+      <a href="{ item.url }">{ item.label }</a>
     </p>
   </nav>
 
   <script>
     this.cats = Object.keys(this.items).map(title => {
-      const items = this.items[title]
+      const items = this.items[title].map(label => {
+        const url = label.toLowerCase().replaceAll(' ', '-')
+        return { label, url }
+      })
       return { title, items }
     })
   </script>

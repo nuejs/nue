@@ -1,9 +1,12 @@
 
 brand_name: LOGO
-author: Tero Piirainen
+author: Jane Doe
 
 design:
   layers: [ base, ui, design ]
+
+site:
+  view_transitions: true
 
 nav:
   master:

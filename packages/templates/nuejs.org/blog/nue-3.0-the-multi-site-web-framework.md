@@ -38,7 +38,7 @@ A global design system changes the equation: You build this system once and ever
 
 
 ## Get started
-The framework is production-ready. Create your first multi-site setup now:
+The framework is production-ready:
 
 ```sh
 bun install --global nuekit

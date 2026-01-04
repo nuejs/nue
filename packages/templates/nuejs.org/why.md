@@ -70,14 +70,22 @@ You build this system once and every new project inherits it: layout, design, in
 **Solo developers** - Use one shared system for all your work.
 
 
-## Get strated
-The framework is production-ready. You can create your first multi-site setup now.
+## Get started
+Multi-site development is production-ready:
 
-**CSS professionals:** Use `nue create multi-site` to get a working foundation. Build your global design system on top of it.
+```sh
+bun install --global nuekit
+nue create multi-site
+nue serve
+```
 
-**Everyone else:** Deployments and production-ready templates with Apple/Linear-level polish are [coming next](/docs/roadmap). Join the mailing list and we'll notify you when they're available:
+1. **CSS professionals:** Extend the starter template to your multi-site development needs.
 
-[mailing-list]
+2. **Everyone else:** Join the mailing list to get Apple/Linear-level polish when our professional templates are [available](/docs/roadmap):
 
+
+### Notify me
+
+[contact-us]
 
 
