@@ -4,6 +4,7 @@
   :root {
     --bgcolor: white;
     --border: #eee;
+    --monospace: courier;
   }
 
   *, *:before, *:after {
@@ -39,11 +40,13 @@
   p, li, td { text-wrap: pretty }
 
   ol, ul {
-    padding-left: 1em;
+    padding-left: 1.5em;
     margin-block: 2em;
   }
 
-  li { padding-left: .5em }
+  li {
+    padding-left: .5em;
+  }
 
   hr {
     border: 1px solid var(--border);
@@ -59,6 +62,14 @@
   img {
     max-width: 100%;
     height: auto;
+  }
+
+  p code {
+    border: 1px solid var(--border);
+    font-family: var(--monospace);
+    padding: .125em .25em;
+    display: inline-block;
+    font-size: .875em;
   }
 
 }

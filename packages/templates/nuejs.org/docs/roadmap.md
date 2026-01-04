@@ -33,37 +33,6 @@ These templates are backed by 25+ years of CSS and design system experience - as
 
 
 
-## AI-assisted site generation
-World-class templates and the global design system allow us to build the best AI-powered website generator:
-
-**Single site:**
-```bash
-nue create "Documentation site about Rust. Generate front page
-and 5 guides covering ownership, borrowing, lifetimes, smart
-pointers, and concurrency"
-```
-→ Working site at `rust-docs.localhost:4000` in 30 seconds
-
-**Multiple related sites:**
-```bash
-nue create "Three landing pages for our SaaS product: one for
-developers, one for designers, and one for product managers.
-Each highlights role-specific benefits"
-```
-→ Three sites, consistent design, tailored content
-
-**Agency workflow:**
-```bash
-nue create "Portfolio sites for five clients: coffee shop,
-yoga studio, law firm, dental practice, and boutique hotel.
-Each gets appropriate personality"
-```
-→ Five production-ready sites from one command
-
-
-With one-command deployments, the process of creating and launching a new website is almost like posting a tweet.
-
-
 ## What's next
 After templates, deployments, and AI generation, the exact sequence depends on the situation at that point. But these are all coming since we're building them for our own website:
 

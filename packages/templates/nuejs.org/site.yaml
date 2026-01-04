@@ -2,7 +2,6 @@
 extend: [ @base ]
 
 brand_name: NUE
-author: Tero Piirainen
 
 nav:
   master:

@@ -1,18 +1,17 @@
 
 topics:
   Essentials:
-    - Getting started
+    - Getting started | /docs/
     - FAQ
     - Roadmap
-    - Nue internals
     - Contributing
 
   Guides:
-    - Global design systems
+    - Global design system
     - Setting up page layout
     - Adding interactivity
-    - Working with Claude
-    - Single-page applications
+    - Creating sites with AI
+    - Single-page apps
 
   Reference:
     - Configuration

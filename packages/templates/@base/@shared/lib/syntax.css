@@ -3,6 +3,7 @@
   pre {
     counter-reset: line-number 0;
     border: 1px solid var(--border);
+    font-family: var(--monospace);
     padding: 2em;
 
     /* reset */

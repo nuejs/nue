@@ -16,6 +16,13 @@
     }
   }
 
+  .toc [aria-current] {
+    border-bottom: 1px solid currentColor;
+    padding-bottom: .125em;
+    font-weight: 500;
+    color: inherit;
+  }
+
   /* layout */
 
   @media (width <= 900px) {
@@ -24,7 +31,7 @@
     }
 
     body:has(#toc-toggle:checked) {
-      overflow: clip;
+      overflow-y: clip;
     }
 
     label:not(:has(#toc-toggle:checked)) ~ .toc {
@@ -40,12 +47,7 @@
       overflow: auto;
       width: 100%;
       left: 0;
-
-      a[aria-current] {
-        font-weight: bold;
-      }
     }
-
   }
 
   @media (width > 900px) {
@@ -55,16 +57,18 @@
 
     main {
       display: grid;
-      grid-template-columns: 14em 1fr;
-      gap: 1em;
+      grid-template-columns: 13em 1fr;
+      gap: 3em;
     }
 
     aside {
+      border-right: 1px solid var(--border);
       align-self: flex-start;
       position: sticky;
       overflow-y: auto;
       max-height: 95vh;
       top: 0;
+
     }
   }
 
@@ -80,7 +84,7 @@
       text-wrap: pretty;
     }
 
-    h2 {
+    h2, h3 {
       margin-block: 3em .75em;
     }
   }

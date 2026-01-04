@@ -6,44 +6,39 @@ sections: [ marketing, centered descriptive ]
 
 # Build twenty sites as easily as one
 
+// video: editor -> browser
 [image.tall "/img/filler.svg" size="1000 x 550"]
 
-[video: editor -> browser]
-  caption: Nue is a multi-site web framework
 
+## Share one design system
+Use a global design system that all your sites inherit from
 
-## Global design system
-A shared foundation that all your sites inherit
-
+// video: edit @base content/styles -> 3 browsers (split screen + mobile)
 [image "/img/filler.svg" size="1000 x 550"]
 
-[video: edit @base content/styles -> 3 browsers (split screen + mobile)]
-  caption: Work on multiple designs with the same content
 
+## Let AI help with content
+Use AI for what it's best for: language, content, storytelling.
 
-## Built for AI
-Let AI do what it's best at: content, structure, variations. The design system handles the rest
-
+// video: Claude Code editing -> Browser windows updating
 [image "/img/filler.svg" size="1000 x 550"]
 
-[video: Claude Code editing -> Browser windows updating]
-  caption: AI generates content, the design system perfects it
 
 
-## It's fast
-Build sites with incredible speed
+## Build twenty sites as fast as one
+Nue builds multiple sites in milliseconds
 
+// video:
 [image "/img/filler.svg" size="1000 x 550"]
 
-[console video: nue build showing multiple sites]
-  caption: One command builds everything.
+
 
 
 ===
 
 - - -
 
-# Spin world-class sites without a design team
+## Spin world-class sites without a design team
 Think about the sites you admire. Apple. Linear. Stripe. Behind each one sits a team of designers and engineers working to maintain that level of polish. Years of iteration. Millions in payroll.
 
 **A global design system changes the equation.**

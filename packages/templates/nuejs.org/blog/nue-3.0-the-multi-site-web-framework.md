@@ -1,29 +1,33 @@
 
+---
+thumb: /img/filler.svg
+---
+
 # Nue 3.0: Build twenty sites as easily as one
 Today we're releasing a framework that lets you spin multiple sites quickly from one, shared codebase:
 
 **!! gallery**
 
 
-## Multi-site development
+## Develop multiple sites at once
 Nue 3.0 lets you develop multiple sites simultaneously:
 
 ! video
 
 
-## Global design system
+## Share one design system
 Each site inherits 90% of the work: layout, design, interactions, and motion from a _global design system_. The remaining 10% is what makes the site unique:
 
 ! video
 
 
-## Built for AI
+## Let AI help with content
 Nue lets AI focus on what it's best at: content, strategy, storytelling. The global design system handles everything else:
 
 ! video
 
 
-## It's fast
+## Build twenty sites as fast as one
 Nue 3.0 builds sites with speed that changes how you write and distribute content:
 
 ! video

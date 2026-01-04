@@ -7,11 +7,10 @@
   article {
     h2 {
       font-weight: 600;
-
     }
 
     p, li {
-      color: #52585e;
+      color: #646e78;
     }
   }
 }

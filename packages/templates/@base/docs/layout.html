@@ -18,8 +18,9 @@
 
   <script>
     this.cats = Object.keys(this.items).map(title => {
-      const items = this.items[title].map(label => {
-        const url = label.toLowerCase().replaceAll(' ', '-')
+      const items = this.items[title].map(item => {
+        let [ label, url ] = item.split(' | ')
+        if (!url) url = label.toLowerCase().replaceAll(' ', '-')
         return { label, url }
       })
       return { title, items }

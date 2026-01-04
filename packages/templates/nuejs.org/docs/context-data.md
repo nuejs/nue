@@ -1,10 +1,10 @@
 
 # Context data
-Templates in Nue access data from multiple sources:
+Pages, layout modules, and components receive data from multiple sources:
 
 - **YAML/JSON files** - Team members, products, navigation
-- **JavaScript processors** - Transform data, fetch from APIs
 - **Front matter** - Page-specific overrides
+- **JavaScript processors** - Transform data, fetch from APIs
 - **Component attributes** - Highest priority, passed directly to components
 
 Data cascades similarly to configuration (site → app → front matter) with additional layers: `@shared/data/` at the @base, JavaScript processing for transformations, and component attributes at the top.

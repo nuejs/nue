@@ -1,6 +1,6 @@
 
 # Nue internals
-How Nue enforces separation of concerns and enables multi-site development.
+How separation of concerns enables multi-site development
 
 ## Architecture
 
