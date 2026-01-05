@@ -92,6 +92,22 @@
         font-weight: 650;
         color: #4762F4;
       }
+
+      /* anchor links */
+      a {
+        text-decoration: none;
+        opacity: .33;
+
+        &:before {
+          content: "#";
+          margin-right: .25em;
+        }
+
+        &:hover {
+          opacity: 1;
+          color: blue;
+        }
+      }
     }
   }
 

@@ -1,4 +1,12 @@
 
+extend: [ @base ]
+
+brand_name: Nue docs
+
+nav:
+  master: []
+
+
 topics:
   Essentials:
     - Getting started | /docs/

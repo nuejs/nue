@@ -23,9 +23,22 @@
     }
   }
 
+  /* links */
+  article a {
+    text-underline-offset: .25em;
+    text-decoration-color: blue;
+    font-weight: 450;
+    color: black;
+
+    &:hover {
+      text-decoration-thickness: 2px;
+    }
+  }
+
   nav {
 
     a {
+      text-decoration: none;
       color: #666;
       &:hover { color: inherit }
     }

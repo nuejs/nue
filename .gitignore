@@ -2,12 +2,11 @@ node_modules
 
 coverage
 .dist
-.nue
 dist
 _test
 test_dir
 performance.js
-multisite-demo
+nuejs.org
 
 web
 .DS_Store

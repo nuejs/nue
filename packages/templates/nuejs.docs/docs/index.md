@@ -1,6 +1,6 @@
 
-# Get started
-The steps to get your first multi-site setup up and running with HMR:
+# Getting started
+Get started with multi-site development:
 
 
 ```sh

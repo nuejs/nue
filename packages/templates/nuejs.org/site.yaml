@@ -1,12 +1,12 @@
 
-extend: [ @base ]
+extend: [ @base, nuejs.docs ]
 
 brand_name: NUE
 
 nav:
   master:
     - label: Why
-      url: /why
+      url: /why/
     - label: Docs
       url: /docs/
     - label: Blog

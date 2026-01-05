@@ -1,13 +1,13 @@
 
 ---
-sections: [ marketing ]
+sections: [ full ]
 footer: false
 ---
 
+[eyebrow "**Nue 3.0:** A multi-site framework"]
 
-Multi-site web framework
-# Spin world-class sites without a design team
+# Spin world-class sites without a design */* engineering team
+[button "How it works ->"]
 
-[button.primary "Why Nue" href="/why"]
-[button "Get started" href="/docs/"]
+
 

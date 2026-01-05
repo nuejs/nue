@@ -28,13 +28,6 @@
     margin-bottom: .5em;
   }
 
-  a { text-decoration: none }
-
-  article a:hover {
-    text-decoration: underline;
-    text-underline-offset: .25em;
-  }
-
   strong { color: black }
 
   p, li, td { text-wrap: pretty }
@@ -67,9 +60,11 @@
   p code {
     border: 1px solid var(--border);
     font-family: var(--monospace);
-    padding: .125em .25em;
+    background-color: #eafaff;
+    padding-inline: .125em;
     display: inline-block;
-    font-size: .875em;
+    font-size: 95%;
+    color: #246da2;
   }
 
 }

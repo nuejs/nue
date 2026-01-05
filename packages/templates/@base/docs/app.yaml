@@ -1,8 +1,9 @@
 
-heading_ids: true
 include: [ syntax ]
-sections: false
 
+content:
+  sections: false
+  heading_ids: true
 
 topics:
   First topic:
