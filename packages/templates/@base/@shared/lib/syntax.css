@@ -1,17 +1,6 @@
 
 @layer base {
   pre {
-    counter-reset: line-number 0;
-    border: 1px solid var(--border);
-    font-family: var(--monospace);
-    padding: 2em;
-
-    /* reset */
-    * {
-      font-weight: 400;
-      font-style: inherit;
-      text-decoration: inherit
-    }
 
     /* primary accent color */
     b { color: #ff3aa1 }
@@ -35,17 +24,14 @@
     /* marked segments */
     mark {
       background-color: #2bb8ff26;
-      color: inherit;
       border-radius: .2em;
       padding-block: .25em;
-    }
-
-    /* spotlight */
-    label {
-      font-weight: bold;
+      color: inherit;
     }
 
     /* line numbers */
+    counter-reset: line-number 0;
+
     span {
       counter-increment: line-number 1;
 

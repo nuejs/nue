@@ -3,20 +3,16 @@
 I'm **Tero Piirainen**, Nue's creator. I've spent 25+ years building for the web across the entire stack - from cloud infrastructure to the intersection of HTML and CSS where _design engineering_ happens. This full perspective is shaping Nue's architecture from the ground up.
 
 
-## Work happens in bursts
-I work in bursts. This means gaps in community responses, delayed pull request reviews, and periods of radio silence. Progress might look slow from the outside, but I'm working constantly according to the [roadmap](roadmap)
-
-## Vision matters
+### Vision matters
 I have strong opinions about Nue's direction. I'm protective of the principles that make Nue unique and powerful.
 
 
-## Contributing code
-I'm not accepting pull requests right now. Reviewing contributions takes time away from building the foundation.
-
-However, if you love CSS and have professional experience building design systems, I'd love to work on this together somehow. Rare people today think outside the component-first mindset. If this describes you, reach out on [Slack][slack].
+### Work happens in bursts
+I work in bursts. This means gaps in community responses, delayed pull request reviews, and periods of radio silence. Progress might look slow from the outside, but I'm working constantly according to the [roadmap](roadmap). Right now I'm implementing website hosting and multi-site deployments.
 
 
-## How to help
+### How to help
+I'm not accepting pull requests right now because reviewing contributions takes time away from building the foundation. But you can help in other ways:
 
 **Build with it** - Use Nue for real projects. Break things. Tell us what broke.
 
@@ -25,10 +21,5 @@ However, if you love CSS and have professional experience building design system
 **Talk about it** - Write, tweet, or tell other developers who'd benefit.
 
 
-## Get notified when templates ship
-
-World-class templates with Apple/Linear-level polish are next. Join the mailing list and we'll let you know when they're ready:
-
-[mailing-list component]
 
 

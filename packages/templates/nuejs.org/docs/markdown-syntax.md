@@ -1,10 +1,13 @@
 
 # Markdown syntax
-Nue uses an extended Markdown syntax called "Nuemark" for authoring web pages. You write content in Markdown files with a `.md` extension, and Nue transforms them into semantic HTML.
+Nue uses an extended Markdown syntax dubbed "Nuemark" for authoring rich, interactive web pages. You write content in Markdown files with a `.md` extension, and Nue transforms them into semantic HTML.
 
 This guide covers basic content authoring: headings, paragraphs, formatting, links, images, and code blocks. The syntax you use for writing text.
 
-For structuring content on the page with sections, grids, and blocks, see [Page layout](page-layout). For embedding rich components like videos, accordions, and custom tags, see [Markdown extensions](markdown-extensions). Together, these three capabilities let you create rich, interactive pages purely in Markdown.
+### Related content
+[Page layout](page-layout) for structuring content on the page with sections, grids, and blocks.
+
+[Markdown extensions](markdown-extensions) for embedding components like videos, accordions, and custom tags.
 
 
 ## Front matter
@@ -55,17 +58,47 @@ plus `inline code`.
 
 Nothing surprising here. If you know Markdown, you know this part.
 
+
+## Inline HTML
+Nue does not allow HTML within Markdown files. This restriction enforces separation of concerns: `.md` files contain content only, while structural elements belong to the global design system.
+
+So instead of embedding HTML directly:
+
+```md
+<!-- this doesn't work -->
+<div class="note">
+  <strong>Note:</strong> Important information here
+</div>
+```
+
+Create a [markdown extension](markdown-extensions)
+
+```html
+<div :is="note" class="note">
+  <strong>{ label || 'Note'}</strong> <slot/>
+</div>
+```
+
+Then use it in Markdown:
+
+```md
+[note]
+  Important information here
+```
+
+
+
 ## Enhanced formatting
 
 Nuemark adds a few formatting shortcuts:
 
 ```md
-**bold** or __bold__     → <strong>bold</strong>
-*italic* or _italic_     → <em>italic</em>  
-`code`                   → <code>code</code>
-~strikethrough~          → <s>strikethrough</s>
-"quoted text"            → <q>quoted text</q>
-|highlighted|            → <mark>highlighted</mark>
+ **bold** or __bold__     → <strong>bold</strong>
+ *italic* or _italic_     → <em>italic</em>
+ `code`                   → <code>code</code>
+ ~strikethrough~          → <s>strikethrough</s>
+ "quoted text"            → <q>quoted text</q>
+ |highlighted|            → <mark>highlighted</mark>
 ```
 
 
@@ -127,7 +160,7 @@ Basic image syntax works as expected:
 ![Alt text](photo.jpg)
 ```
 
-For more control, use the image tag (covered in [Markdown extensions](markdown-extensions)).
+For more control, use the image tag covered in [Markdown extensions](markdown-extensions).
 
 ## Footnotes
 
@@ -148,6 +181,5 @@ Named footnotes work too:
 ```
 
 Nue automatically numbers and links footnotes at the bottom of your content.
-
 
 

@@ -77,10 +77,26 @@
     }
   }
 
-
   blockquote {
     margin-block: 2em;
     font-weight: bold;
     margin-inline: 0;
   }
+
+  /* code blocks without coloring */
+  pre {
+    font-family: var(--monospace);
+    background-color: #223;
+    border-radius: .25em;
+    padding: 1em 1.5em;
+    color: #bbb;
+
+    /* reset */
+    * {
+      font-weight: 400;
+      font-style: inherit;
+      text-decoration: inherit
+    }
+  }
+
 }

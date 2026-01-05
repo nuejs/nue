@@ -3,7 +3,7 @@
 Page dependencies are the CSS, JavaScript, HTML components, and data files that each page needs to render and function. Nue automatically discovers and includes these files based on directory location and inheritance chain.
 
 
-## What gets included
+### Asset types
 Nue scans for these file types:
 
 **CSS files (.css)** - Styling that gets injected into the page head. Files load in order of specificity, from global foundation to page-specific overrides.
@@ -62,11 +62,12 @@ blog/css-is-awesome/
 └── data.yaml       # Page-specific data
 ```
 
-Page-specific directories are rare. Most pages use root and application assets. But when a page needs dedicated components or styling, this pattern keeps those assets isolated.
+Most pages use root and application assets. But when a page needs dedicated components or styling, this pattern keeps those assets isolated. Page-specific directories shoudl be avoided because page-level inheritance (reuse) is rare.
 
 
 ## Multi-site dependency discovery
 In multi-site projects, dependencies cascade through the inheritance chain. When Nue needs a file, it scans backwards from the site through each extended layer until it finds a match.
+
 
 ### The inheritance chain
 Sites declare what they extend in `site.yaml`:

@@ -2,9 +2,9 @@
 # Configuration
 Configuration in Nue follows a cascade:
 
-1. **`site.yaml`** - Site-wide defaults
-2. **`app.yaml`** - Application overrides (blog, docs)
-3. **Page front matter** - Individual page settings
+1. `site.yaml` - Site-wide defaults
+2. `app.yaml` - Application overrides (blog, docs)
+3. **Front matter** - Individual page settings
 
 More specific settings override general ones. In multi-site setups, the `extend` chain adds another layer: `@base/site.yaml` → `acme.com/site.yaml` → `acme.com/blog/app.yaml` → page front matter.
 
@@ -41,8 +41,8 @@ design:
   # Configure CSS @layer cascade order (added to head with style tag)
   layers: [ settings, elements, components ]
 
-  # Limit class names per element to prevent utility abuse. Default 3.
-  max_class_names: 3
+  # Prevent inline styling through "utility classes". Max 4 by default
+  max_class_names: 4
 
   # Inline all CSS in production builds
   inline_css: true

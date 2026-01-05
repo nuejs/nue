@@ -1,11 +1,15 @@
 
 # HTML file types
-HTML files in Nue serve different purposes depending on their doctype declaration:
+HTML files in Nue serve different purposes depending on how they are declared:
 
 - **No doctype** - Component library (default)
-- **`<!doctype html>`** - Static page
+- **`<!dhtml>`** - Client-side (reactive) component library
 - **`<!doctype dhtml>`** - Single-page app
+
+### Rarely used
+- **`<!doctype html>`** - Static HTML page
 - **`<html>` at root** - Raw HTML passthrough
+- **`<!html+dhtml>`** - Isomorphic: works client and server
 
 
 ## Library files
@@ -99,22 +103,6 @@ These components render on the server during build and can also work as interact
 Note that this is a rare case - most components are either server-side or client-side, not both. A more common scenario is to use a mix: enrich the server-generated HTML with client-side components.
 
 
-## HTML pages
-Server-rendered static pages that generate complete HTML documents use the standard doctype declaration:
-
-```html
-<!doctype html>
-
-<h1>About Us</h1>
-<p>We build standards-first web experiences.</p>
-```
-
-This generates a complete HTML document with head, body, and meta tags during build time. The page inherits your layout modules and design system automatically.
-
-This is great for getting to know Nue and enjoying web standards without the bloat of current ecosystems. When you're ready to build professional websites with a global design system and scalable content, you'll ultimately move to Markdown. Markdown gives you better control over output and works naturally with design systems.
-
-
-
 ## Single-page apps
 Client-rendered applications use `<!doctype dhtml>`:
 
@@ -133,7 +121,23 @@ This becomes a client-side application that mounts and runs in the browser. The 
 See [single-page apps](single-page-apps) for building interactive applications with Nue.
 
 
-## Raw HTML pages
+## HTML pages
+Server-rendered static pages that generate complete HTML documents use the standard doctype declaration:
+
+```html
+<!doctype html>
+
+<h1>About Us</h1>
+<p>We build standards-first web experiences.</p>
+```
+
+This generates a complete HTML document with head, body, and meta tags during build time. The page inherits your layout modules and design system automatically.
+
+[.note]
+  **Note:** HTML files are not recommended for content-heavy websites. Use Markdown with custom HTML components instead.
+
+
+### Raw HTML
 Pages with complete HTML structure at the root level bypass Nue processing entirely:
 
 ```html

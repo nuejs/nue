@@ -1,6 +1,6 @@
 
 # Markdown extensions
-Nue extends standard Markdown with components like responsive images, videos, and accordions. You can also build custom components with Nue's [HTML syntax](html-syntax). Here's how it works.
+Nue extends standard Markdown with components like responsive images, videos, and accordions. You can also create custom components with [HTML](html-syntax).
 
 
 ## Tag syntax
@@ -138,7 +138,7 @@ Video with options:
 ```
 
 ### Tables
-Enhanced table syntax:
+Simplified table syntax:
 
 ```md
 [table]
@@ -230,7 +230,7 @@ Developers create custom tags that content authors use naturally. Components are
 
 Use in Markdown:
 ```md
-[card.feature"]
+[card.feature]
   title: Key Feature
   footer: Learn more
   

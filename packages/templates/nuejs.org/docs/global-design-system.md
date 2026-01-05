@@ -1,22 +1,53 @@
 
 # Building a global design system
-The `@base` directory is your global design system - the foundation that all sites inherit from. This is how you build the system that lets you spin up world-class sites with minimal code.
+A global design system is a shared foundation that all your sites inherit from. You build it once and every new project gets the same layouts, data structures, components, and styling automatically.
 
-A complete design system has three pillars working together:
+This foundation lives in the `@base` directory as follows:
 
-**Structural layout** (`@shared/layout/`) - Headers, footers, page assembly
+**Layout** (`@shared/layout/`) - Headers, footers, server-side components
 
-**Structured data** (`@shared/data/`) - Navigation structure, metadata, shared content
+**Data** (`@shared/data/`) - Navigation structure, metadata, shared content
 
-**Visual presentation** (`@shared/design/`) - Typography, colors, spacing, component styles
+**Design** (`@shared/design/`) - Typography, coloring, spacing, component styles
 
-**Optional extensions** (`@shared/lib/`) - Components, interactivity, and features that sites opt into
+**Extensions** (`@shared/lib/`) - optional features and interactivity that sites opt into
 
-The goal: new sites are mostly content (`.md` files) with minimal CSS overrides for personality.
+New sites are mostly content (`.md` files) with targeted overrides for personality, letting you kickstart new projects rapidly with AI.
+
+Global design system is the defining feature of the Nue framework.
 
 
-## The @base structure
-Start by creating the `@base` directory at the root of your project. This becomes your foundation that all sites inherit from.
+## Multi-site directory structure
+Before diving in, create a local multi-site setup so you can experiment while reading:
+
+```sh
+nue create multi-site
+```
+
+This installs:
+
+```
+@base         # global design system
+acme.org      # website example
+beta.com      # alternate design
+gamma.blog    # blog only
+admin.dev     # SPA example
+```
+
+Run `nue` from the project root and open several browser tabs:
+
+```
+localhost:4000              # @base preview
+acme.org.localhost:4000     # site instance
+beta.com.localhost:4000     # alternate instance
+```
+
+Edits appear in real time across all tabs. Change something in `@base` and watch it cascade to every site.
+
+
+
+### The @base directory
+The `@base` directory is the root folder for the global design system. This becomes your foundation that all sites inherit from.
 
 ```
 project/
@@ -33,7 +64,7 @@ project/
 └── beta.org/
 ```
 
-The `@base` directory is a working site. Run `nue` from the project root and preview it at `localhost:4000`. The look and feel should be plain or "headless" since it's the foundation other sites build upon. Think of it as the raw core that's easy to extend with project-specific personality.
+The `@base` directory is a working site you can see at `localhost:4000`. The look and feel should be plain or "headless" since it's the foundation other sites build upon. Think of it as the raw core that's easy to extend with project-specific personality.
 
 
 ### The @shared directory
@@ -83,7 +114,7 @@ Layout modules are the HTML components that wrap around your content. Every page
 └── head.html
 ```
 
-Small systems can use one file instead:
+Small systems, like the one created with `nue create multi-site`, use one file instead:
 
 ```
 @base/@shared/
@@ -308,7 +339,7 @@ Use CSS layers to control styling precedence across the inheritance chain:
 ```yaml
 # @base/site.yaml
 design:
-  layers: [base, layout, components]
+  layers: [base, ui, design]
 ```
 
 Each file uses `@layer` to specify which layer it belongs to. This gives you predictable control over which styles take precedence without depending on file load order. Sites can define their own layer structure that builds on top of the base layers.

@@ -1,23 +1,23 @@
 
 # FAQ
 
-## How is Nue different from other frameworks?
+## How is Nue different?
 Nue is a web framework built around a site-wide inheritance model. It gives you:
 
 **Multi-site development** - Nue is optimized for multi-site HMR and mass builds. You work on twenty sites as easily as you work on one site.
 
-**Design engineering at scale** - One global design system serves all your sites. New sites are 90% done before you write a line of code.
+**Global design systems** - One design system to serve all your sites. New sites are 90% done before you write a line of code.
 
-**AI-native content workflow** - AI generates content, your design system handles presentation. The focus shifts to content, strategy, and story. The actual value.
+**AI-native content workflow** - AI generates content, your design system handles presentation. The focus shifts to content, strategy, and story.
 
 
-## How do I benefit as a designer/engineer?
+## How do I benefit as a developer?
 
-**Minimal stack** - You install once (under 500KB, zero dependencies) and it serves unlimited sites. Builds are fast, deploys are fast, pages load fast. When there's less code, less breaks. When there's less complexity, you spend less time debugging.
-
-**Separation of concerns** - Content lives in Markdown files. Design lives in CSS files. Interactions live in JavaScript files. Each concern scales independently without stepping on the others. No coordination overhead, no merge conflicts.
+**Minimal stack** - You install once (under 500KB, zero dependencies) and it serves unlimited sites. Builds are fast, deploys are fast, pages load fast. Less code means less issues, less complexity, less debugging.
 
 **Web standards** - HTML for structure, CSS for design, JavaScript for interaction. The skills you build today will still be valuable in ten years. They won't become obsolete when the next framework arrives.
+
+**Content first** - When a design system handles presentation you can focus on storytelling. Less time debugging JavaScript, more time on business value.
 
 
 
@@ -30,11 +30,11 @@ The problem shifts from engineering to design: you're building a **global design
 
 You're no longer worrying about namespace collisions; you're strategizing layers and components in your design system. You're not styling one button at a time; you're defining how all buttons work across all sites.
 
-When you work at the system level, not the component level, entire categories of problems disappear. Instead, you start optimizing for multi-site development and AI-driven content workflows. You move faster because every new site is 90% ready before you even start.
+When you work at the system level, not the component level, entire categories of problems disappear. You start optimizing for multi-site development and AI-driven content workflows. You can move faster because for every new site 90% is already done.
 
 
-## What about React?
-React's component model couples structure, logic and styling together. This works well for individual components but makes it impossible to establish a shared foundation across multiple sites. Each site essentially starts from scratch.
+## How about React?
+React's component model couples structure, logic and styling together. This works well for individual components but makes multi-site development impossible. Every site must start from scratch.
 
 Nue's inheritance model does the opposite: sites inherit from `@base` and override only what makes them unique. The result:
 
@@ -43,8 +43,4 @@ Nue's inheritance model does the opposite: sites inherit from `@base` and overri
 - Faster builds (sub-second per site)
 
 The tradeoff: React has a massive ecosystem. Nue requires comfort with vanilla CSS and HTML-first thinking.
-
-
-## Is Nue production-ready?
-The framework is production-ready: the multi-site architecture, design system inheritance, and multi-site HMR all work. Templates and deployments are the key pieces missing from a complete production system. Check out the [roadmap](/docs/roadmap/) for what's coming next.
 

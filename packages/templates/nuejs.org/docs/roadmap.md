@@ -1,8 +1,9 @@
 
 # Roadmap
+Deployments tirst, then templates, then everything else.
 
 
-## Multi-site deployments
+## *Up next*: Multi-site deployments
 Push all your sites to production with a single command:
 
 ```sh
@@ -13,13 +14,13 @@ nue push --all
 → partners.com     8 files    [110ms]
 ```
 
-One command minifies, inlines critical CSS, uploads changed files, and purges CDN caches across all sites. For example; if you fix a typo in your shared design system you'd see the change live on three sites in seconds.
+One command minifies assets, inlines CSS, uploads files, and purges CDN across all sites. Only changed files are pushed, so typo fixes take just seconds.
 
-This is quite a different experience from traditional deployments, where the same change means separate build pipelines, separate CI runs, and separate cache invalidations for each project.
+Compare this to traditional deployments where the same change means separate build pipelines, separate CI runs, and separate cache invalidations for each project.
 
 
-## World-class templates
-Launch a new website with world-class design and your desired template type:
+## *Then*: World-class templates
+Use a world-class template in your customer projects:
 
 ```sh
 nue create blog --design rams
@@ -29,24 +30,20 @@ nue create startup --design mies-dark
 
 Get Apple/Linear-level design instantly without a design/engineering team.
 
-These templates are backed by 25+ years of CSS and design system experience - as long as CSS has existed. They represent battle-tested patterns refined across hundreds of projects, now available as complete, production-ready systems you can deploy immediately.
+These templates are backed by 25+ years of CSS and design system experience. They represent battle-tested patterns refined across hundreds of projects, now available as complete, production-ready systems you can deploy immediately.
 
 
+## *Later*: Cloud infrastructure
+The goal: a complete multi-site platform with the same minimalism and standards-first approach as the framework itself.
 
-## What's next
-After templates, deployments, and AI generation, the exact sequence depends on the situation at that point. But these are all coming since we're building them for our own website:
+**Multi-site CRM** - Payments, contact forms, mailing lists, emailing. We're building this infrastructure for ourselves first, then exposing it. Starts as headless services with CLI access, then gets a proper admin UI.
 
-**Headless services** - Payments, contact forms, analytics. Each is a complete client/server app with management interface. CLI-first, then web UI.
+**Multi-site analytics** - Lives alongside your CRM data. One dashboard for all your sites.
 
 **E-commerce templates** - Full commerce platform with product catalogs, checkout, and order management. Same design system inheritance, same one-command deployment.
 
-**SPA templates** - Build complex SPAs that integrate with your headless services while inheriting 90% from the base system. Build world-class applications for your own use and for your customers.
+**SPA templates** - Complex single-page applications that integrate with your headless services while inheriting 90% from the base system. Build world-class apps for yourself or your customers.
 
-Nue will be equally capable with apps as it is with websites. Here's a glimpse of what's already possible - a full app with complex state management:
-
-[IMAGE + LINK]
-
-The app is actually smaller than a single React/ShadCN button. There's also a [Rust/WASM version](link) handling 150k rows.
 
 
 

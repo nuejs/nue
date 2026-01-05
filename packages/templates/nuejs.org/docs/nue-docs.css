@@ -1,10 +1,16 @@
 
 @layer design {
   .toc {
-    font-size: 15px;
+    font-size: 14.5px;
+
+    p {
+      margin-block: .5em;
+    }
   }
 
   article {
+    font-size: 95%;
+
     h2 {
       font-weight: 600;
     }

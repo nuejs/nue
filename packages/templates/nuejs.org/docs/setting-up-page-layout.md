@@ -1,6 +1,6 @@
 
 # Setting up page layout
-Nue generates semantic HTML structure automatically for every Markdown-based document. This gives your design system clean layout to work with - like CSS Zen Garden, where one HTML file expressed hundreds of different designs through CSS alone.
+Nue generates semantic HTML structure for every Markdown page. This gives your design system clean layout to work with. Think of it like your custom *CSS Zen Garden* (those who remember), where one HTML file expressed hundreds of different designs through CSS alone.
 
 This guide shows you how to set up this structure:
 
@@ -47,27 +47,29 @@ The structure gives you semantic HTML without configuration. Your content lives 
 ## Layout modules
 Layout modules are reusable components that wrap around your content. A header module. A footer module. A sidebar module. Nue assembles them around your content to build the complete page.
 
-A page with modules looks like this:
+A HTML page generated with modules looks like this:
 
 ```html
 <html>
   <head>
     <!-- auto-generated -->
   </head>
+
   <body>
     <header>
-      <!-- header module -->
+      <!-- custom header module -->
     </header>
     <main>
       <aside>
-        <!-- aside module -->
+        <!-- custom aside / "sidebar" module -->
       </aside>
+
       <article>
-        <!-- your content -->
+        <!-- the Markdown-based content comes here-->
       </article>
     </main>
     <footer>
-      <!-- footer module -->
+      <!-- custom footer module -->
     </footer>
   </body>
 </html>
@@ -95,7 +97,7 @@ Modules fill these predefined positions in your page:
 
 
 ### Creating modules
-Layout modules are HTML templates. Create them in any `.html` file.
+Layout modules are HTML templates. Create them in any `.html` file. The filename can be anything, but a common name is to use `layout.html` and add multiple modules to it.
 
 For semantic landmark elements like `<header>` and `<footer>`, use the tag name directly:
 
@@ -132,7 +134,7 @@ For non-semantic slots, use the `:is` attribute:
 </section>
 ```
 
-### File organization
+## File organization
 
 You can organize layout modules however makes sense for your project. A single file can contain multiple modules:
 
@@ -159,7 +161,7 @@ Or split them across multiple files:
 │   └── sidebar.html
 ```
 
-Common patterns:
+### Common patterns:
 
 ```
 site.html              # Global modules for all pages
@@ -173,7 +175,7 @@ Modules in application directories (like `blog/` or `docs/`) automatically apply
 
 
 
-### Module data
+## Module data
 Modules have access to all context data: front matter, site configuration, and YAML data files. Use curly braces to inject values.
 
 Here's a header module that uses data from site configuration:
@@ -225,7 +227,7 @@ See [Context data](context-data) for how data flows through the system.
 
 
 
-### Module inheritance
+## Module inheritance
 In multi-site development, modules follow the inheritance chain. When Nue needs a module, it scans backwards through the chain until it finds one:
 
 1. Check the current site directory
@@ -251,7 +253,6 @@ The first match wins. This means:
 This lets you customize the header or footer for specific sections while reusing the base design. Most sites inherit all modules from `@base` and override only what makes them unique.
 
 
-
 ### Disabling modules
 Turn off modules through front matter:
 
@@ -265,7 +266,6 @@ pagehead: false
 ```
 
 This prevents those modules from rendering, giving you a cleaner page structure when certain elements aren't needed.
-
 
 
 ## Content structure
@@ -319,7 +319,7 @@ Generates:
 The `===` divider creates explicit section boundaries. You control where sections break.
 
 
-#### Section classes
+### Section classes
 Assign semantic classes to sections:
 
 ```yaml
@@ -337,7 +337,7 @@ sections: [ hero, benefits, how-it-works, pricing, faq, cta ]
 These settings belong in `site.yaml` or `app.yaml`, not page front matter. They're design system decisions that ensure consistent structure across all pages in your site or application.
 
 
-#### Section wrapper
+### Section wrapper
 Wrap each section's content in an inner div for layout control:
 
 ```yaml
@@ -360,7 +360,7 @@ The wrapper div lets your design system apply max-width constraints to content w
 Like sections configuration, this belongs in `site.yaml` or `app.yaml`. It's a design system setting that affects how all pages render.
 
 
-### Blocks
+## Blocks
 Blocks wrap content in divs with your chosen class name. Any class from your design system works:
 
 ```md
@@ -387,7 +387,7 @@ The class name is entirely up to you. Use whatever makes sense for your design s
 [.photo-gallery]    → <div class="photo-gallery">...</div>
 ```
 
-#### Nested divs
+### Nested divs
 
 Blocks automatically create nested divs based on content structure. The first heading level determines how content is grouped:
 
@@ -443,7 +443,7 @@ Generates:
 </div>
 ```
 
-#### Common patterns
+### Common layouts
 
 **Grid layouts** - For responsive multi-column layouts:
 
@@ -475,7 +475,7 @@ Generates:
 
 These work because your CSS defines how `.grid` and `.stack` behave. Nuemark provides the structure. Your design system controls the presentation.
 
-#### Nested blocks
+### Nested blocks
 
 Blocks can nest inside each other:
 

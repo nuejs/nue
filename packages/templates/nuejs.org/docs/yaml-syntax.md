@@ -3,17 +3,17 @@
 Nue uses a YAML variant called **Nueyaml** for structured content. It keeps YAML's syntax but removes all the problems.
 
 
-## File structur
+## File structure
 All Nueyaml files must start with an object at the root level. The parser always returns an object, never an array or primitive value.
 
 ```yaml
-# Valid - root object
-name: My App
-version: 1.0.0
+ # Valid - root object
+ name: My App
+ version: 1.0.0
 
-# Invalid - root array
-- item1
-- item2
+ # Invalid: root array
+ - item1
+ - item2
 ```
 
 Files are encoded in UTF-8.
