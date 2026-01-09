@@ -17,10 +17,10 @@ test('getDeps', async () => {
     { site: 'beta', path: 'index.html', type: 'html' },
     { site: 'beta', path: 'layout.html', type: 'html' },
 
-    { site: 'sub', path: 'root.css', type: 'css' },
-    { site: 'sub', path: 'index.md', type: 'md' },
-    { site: 'sub', path: 'docs/docs.css', type: 'css', dir: 'docs' },
-    { site: 'sub', path: 'docs/index.md', type: 'css', dir: 'docs' },
+    { site: 'foo', path: 'root.css', type: 'css' },
+    { site: 'foo', path: 'index.md', type: 'md' },
+    { site: 'foo', path: 'docs/docs.css', type: 'css', dir: 'docs' },
+    { site: 'foo', path: 'docs/index.md', type: 'css', dir: 'docs' },
   ]
 
 
@@ -55,6 +55,19 @@ test('home folder', async () => {
 
   const deps = await getDeps(assets[0], ['acme'], assets)
   expect(deps.some(d => d.path == 'home/layout.html')).toBe(true)
+})
+
+test('nested dirs', async () => {
+  const page = { path: 'blog/entry.md', site: 'acme', app: 'blog', dir: 'blog' }
+
+  const assets = [
+    { type: 'html', path: 'blog/layout.html', site: '@base', app: 'blog', dir: 'blog' },
+    { type: 'html', path: 'blog/layout.html', site: 'acme',  app: 'blog', dir: 'blog' },
+    { type: 'html', path: 'blog/ui/layout.html', site: 'acme',  app: 'blog', dir: 'blog/ui' },
+  ]
+
+  const deps = await getDeps(page, ['acme', '@base'], assets)
+  expect(deps.length).toBe(2)
 })
 
 

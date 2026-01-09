@@ -44,8 +44,8 @@ design:
   # Prevent inline styling through "utility classes". Max 4 by default
   max_class_names: 4
 
-  # Inline all CSS in production builds
-  inline_css: true
+  # Inline all CSS in production builds (default true)
+  inline_css: false
 
 
 # server config for SPAs (reverse proxy)

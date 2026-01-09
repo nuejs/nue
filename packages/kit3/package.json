@@ -1,7 +1,7 @@
 {
   "name": "nuekit",
   "version": "3.0.0-beta",
-  "description": "The UNIX of the Web",
+  "description": "The multi-site web framework",
   "homepage": "https://nuejs.org",
   "license": "MIT",
   "type": "module",

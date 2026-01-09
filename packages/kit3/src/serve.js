@@ -3,15 +3,11 @@ import { createServer, hmr } from './tools/server'
 import { fswatch } from './tools/fswatch'
 import { createProxy } from './proxy'
 import { createLog } from './cli/dev'
-import { createTree } from './tree'
 
-
-export async function start({ port=5050, version, silent }) {
+export async function start(tree, { port=4000, version, silent }) {
 
   const log = createLog({ version, port, silent })
   const watcher = fswatch()
-  const tree = createTree()
-  await tree.load()
 
   watcher.onupdate = async path => {
     const asset = tree.update(path)
@@ -44,7 +40,7 @@ export async function start({ port=5050, version, silent }) {
 
   // multi-site server
   const server = createServer({ port, handler }, async url => {
-    return await tree.render(url)
+    return await tree.renderURL(url)
   })
 
 }
@@ -64,13 +60,13 @@ async function patch(url, asset, tree) {
   // external dependency
   asset.is_ext = asset.is_css || asset.is_js || asset.is_ts
 
-  if (asset.is_ext && await tree.dependsOn(url, asset.path)) {
+  if (asset.is_ext) {
     if (asset.is_css) asset.css = await asset.text()
     return asset
 
   // page update
   } else if (asset.is_md || asset.is_yaml || asset.is_html) {
-    const ret = await tree.render(url)
+    const ret = await tree.renderURL(url)
     if (ret) {
       const conf = asset.base == 'site.yaml' ? await tree.getConf() : undefined
       return { ...asset, conf, content: ret.content }

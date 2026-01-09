@@ -1,25 +1,31 @@
 
-<pagehead>
+<header :is="pagehead">
   <a href="/blog/">Blog</a> / <pretty-date :date/> • <span>{ author }</span>
-</pagehead>
+</header>
 
 <!-- latest four entries -->
 <latest-entries class="grid">
   <a :each="page in blog.slice(0, 4)" href="{ page.url }">
-    <figure :if="page.thumb">
-      <img src="{ page.thumb }">
+    <figure>
+      <img src="{ getHero(page) }">
     </figure>
-    <small>{ page.author } • <pretty-date :date="page.date"/></small>
+    <p><small><pretty-date :date="page.date"/></small></p>
     <h3>{ page.title }</h3>
     <p>{{ markdown(page.description) }}</p>
   </a>
+
+  <script>
+    getHero(page) {
+      return page.thumb || `/${ page.dir }/${ page.og }`
+    }
+  </script>
 </latest-entries>
 
 <!-- the rest -->
 <entry-list class="entry-list">
   <p :each="page in blog.slice(4)">
     <pretty-date :date="page.date"/>
-    <a href="{ page.url }">{ page.title }</a>
+    <a href="{ page.url }">{{ markdown(page.title) }}</a>
   </p>
 </entry-list>
 

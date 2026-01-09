@@ -9,17 +9,12 @@
     cursor: pointer;
     border: 0;
 
-    &:hover {
-      background-color: #ddd;
-    }
+    &:hover { background-color: #ddd }
 
     &.primary {
       background-color: #333;
       color: white;
-
-      &:hover {
-        background-color: black;
-      }
+      &:hover { background-color: black }
     }
   }
 
@@ -29,22 +24,18 @@
     text-decoration-color: blue;
     font-weight: 450;
     color: black;
-
-    &:hover {
-      text-decoration-thickness: 2px;
-    }
+    &:hover { text-decoration-thickness: 2px }
   }
 
   nav {
-
+    p {
+      font-size: 95%;
+      margin-block: .75em;
+    }
     a {
       text-decoration: none;
       color: #666;
       &:hover { color: inherit }
-    }
-    p {
-      font-size: 95%;
-      margin-block: .75em;
     }
   }
 
@@ -66,9 +57,7 @@
     margin-block: 2em;
     width: 100%;
 
-    tr {
-      vertical-align: baseline;
-    }
+    tr { vertical-align: baseline }
 
     th, td {
       border-bottom: var(--line);

@@ -1,7 +1,8 @@
 
 import { sep, join } from 'node:path'
 
-import { renderAsset } from './render/asset'
+import { generateSitemap, generateFeed } from './render/feed'
+import { renderAsset, MIME } from './render/asset'
 import { createAsset } from './asset'
 import { fswalk } from './tools/fswalk'
 import { findAsset } from './find'
@@ -29,30 +30,67 @@ export function createTree() {
     return [ ...map.values() ]
   }
 
-  async function render(url) {
+  async function renderURL(url) {
     if (typeof url == 'string') url = { pathname: url, host: '' }
-    const env = await getEnv(url)
+    const { pathname } = url
+    const site = parseHost(url.host)
 
-    // refresh page before rendering
-    if (!env.is_prod && env.asset?.is_md) await update(env.asset.filepath)
+    if (['/sitemap.xml', '/feed.xml'].includes(pathname)) {
+      const content = await renderFeed(site, pathname.slice(1))
+      return { content, type: MIME.xml }
+    }
 
-    return await renderAsset(env)
-  }
-
-  async function build(asset) {
     const assets = getAll()
-    const chain = await getChain(asset.site, assets)
-    return await renderAsset(asset, chain, assets, true)
+    const chain = await getChain(site)
+    const asset = await findAsset(pathname, chain, assets)
+
+    // update page before rendering
+    if (asset?.is_md) await update(asset.filepath)
+
+    const as_js = pathname.endsWith('.html.js')
+    return await renderAsset(asset, { chain, assets, as_js })
   }
 
-  async function dependsOn(url, path) {
-    const env = await getEnv(url)
-    const deps = await getDeps(env.asset, env.chain, env.assets)
-    return deps.some(el => el.path == path)
+  async function renderFeed(site, filename) {
+    const pages = getAll().filter(el => el.is_md && el.site == site)
+    const fn = filename == 'feed.xml' ? generateFeed : generateSitemap
+    return await fn(pages, await getConf(site))
   }
 
-  async function getConf(chain) {
-    if (!chain) chain = [null, '@base']
+  async function buildFeed(site, filename) {
+    const xml = await renderFeed(site, filename)
+    const path = join('.dist', site, filename)
+    await Bun.file(path).write(xml)
+    return { path, xml }
+  }
+
+  async function buildAsset(asset, opts={}) {
+    const { is_prod = true, dist = '.dist' } = opts
+    const chain = await getChain(asset.site)
+    const ret = await renderAsset(asset, { assets: getAll(), chain, is_prod })
+
+    if (ret && dist) {
+      const path = join(dist, join(asset.site, asset.path).replace('.md', '.html'))
+      await Bun.file(path).write(ret.content)
+    }
+
+    return ret?.content
+  }
+
+  async function getChain(site) {
+    if (site == null) return [ null, '@base' ]
+
+    const asset = getAll().find(el => el.site == site && el.path == 'site.yaml')
+    if (asset) {
+      const { extend } = await asset.parse()
+      if (extend) return [ ...extend, site ]
+    }
+
+    return [ site ]
+  }
+
+  async function getConf(site) {
+    const chain = await getChain(site)
     const conf = {}
 
     for (const name of chain) {
@@ -63,40 +101,25 @@ export function createTree() {
     return conf
   }
 
-
-  async function getEnv(url) {
-    const { pathname } = url
-    const { site, is_prod } = parseHost(url.host)
-    const assets = getAll()
-    const chain = await getChain(site, assets)
-    const asset = await findAsset(pathname, chain, assets)
-    const conf = await getConf(chain)
-    return { pathname, site, is_prod, chain, assets, asset, conf }
-  }
-
   // Tree API
   return {
     delete: path =>  map.delete(path),
     get: path =>  map.get(path),
-    dependsOn,
+    buildAsset,
+    buildFeed,
+    renderURL,
+    getChain,
     getConf,
     update,
     getAll,
-    render,
-    build,
     load,
   }
 
 }
 
 export function parseHost(hostname) {
-  const is_prod = hostname.includes('production')
-
-  let host = hostname.replace('production.', '').replace('localhost', '')
-
-  const els = host.split('.')
-  const site = els.length == 1 ? null : els.slice(0, -1).join('.')
-  return { site, is_prod }
+  const i = hostname.lastIndexOf('.')
+  return i > 0 ? hostname.slice(0, i) : null
 }
 
 export function getSitenames(paths) {
@@ -105,6 +128,7 @@ export function getSitenames(paths) {
 
   // build a map of which directories have marker files
   const dirsWithMarkers = new Set()
+
   for (const path of paths) {
     const els = path.split('/')
     for (let i = 0; i < els.length; i++) {
@@ -129,7 +153,6 @@ export function getSitenames(paths) {
   return [...names]
 }
 
-
 export function parseSitename(path, names) {
   for (const name of names) {
     const els = path.split(sep)
@@ -137,14 +160,4 @@ export function parseSitename(path, names) {
   }
 }
 
-export async function getChain(site, assets) {
-  if (site == null) return [ null, '@base' ]
 
-  const asset = assets.find(el => el.site == site && el.path == 'site.yaml')
-  if (asset) {
-    const { extend } = await asset.parse()
-    if (extend) return [ ...extend, site ]
-  }
-
-  return [ site ]
-}

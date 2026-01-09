@@ -1,5 +1,5 @@
 
-import { createFlow } from './progress/flow'
+import { createFlow } from './flow'
 
 export async function setupAccount(api) {
   const flow = createFlow()

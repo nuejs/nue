@@ -26,7 +26,7 @@ export async function renderHTML(asset, chain, assets, is_prod) {
 }
 
 
-// <!html> page
+// <!doctype html> page
 export async function renderHTMLPage(asset, chain, assets, is_prod) {
   const ast = await asset.parse()
   const deps = await getDeps(asset, chain, assets)
@@ -55,7 +55,7 @@ export async function renderHTMLPage(asset, chain, assets, is_prod) {
 }
 
 
-// SPA: <!dhtml> && <body>
+// <!doctype dhtml>
 export async function renderSPA(asset, chain, assets, is_prod) {
   const conf = await getConf(asset.app, chain, assets, is_prod)
   const deps = await getDeps(asset, chain, assets)

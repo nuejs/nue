@@ -1,15 +1,123 @@
 
+import { test, expect, afterAll, spyOn } from 'bun:test'
+
 import { createTree } from '../src/tree'
-import { build } from '../src/build'
+
+import {
+  getSharedAssets,
+  getAffectedPages,
+  getInheritedContent,
+  printSummaryTable,
+  getBuildables,
+  build,
+} from '../src/build'
+
 
 process.chdir('tree')
-
 
 afterAll(() => process.chdir('..'))
 
 
-test.skip('base home', async () => {
+test('printSummaryTable', async () => {
+  const spy = spyOn(console, 'log').mockImplementation(() => {})
+
+  printSummaryTable([
+    { site: '@base' },
+    { site: '@base' },
+    { site: 'acme.org' },
+    { site: 'beta.org' },
+  ])
+
+  const { calls } = spy.mock
+  expect(calls[0][0]).toInclude('2 files')
+  expect(calls.length).toBe(3)
+  spy.mockRestore()
+})
+
+test('getBuildables', async () => {
   const tree = createTree()
   await tree.load()
-  await build({ only: ['.css'], verbose: true, tree })
+  const arr = await getBuildables(tree, { only: ['epic-layout'] })
+  expect(arr.length).toBe(1)
 })
+
+
+test('getSharedAssets', () => {
+  const buildables = [
+    { site: '@base', dir: '@shared', path: '@shared/join.html', is_dhtml_lib: true },
+    { site: 'beta', dir: '', path: 'globals.ts', is_ts: true },
+  ]
+
+  const arr = getSharedAssets('acme', ['@base', 'beta', 'acme'], buildables)
+
+  expect(arr.length).toBe(2)
+  expect(arr[0].site).toBe('acme')
+})
+
+test('getInheritedContent', () => {
+  const assets = [
+    { site: '@base', dir: 'blog', path: 'blog/post.md', is_md: true },
+  ]
+
+  const arr = getInheritedContent('acme', ['@base', 'acme'], assets)
+  expect(arr.length).toBe(1)
+  expect(arr[0].site).toBe('acme')
+})
+
+
+test('getAffectedPages', () => {
+  const all = [
+    { site: 'acme', path: 'index.md', is_md: true },
+  ]
+
+  const buildables = [
+    { site: '@base', path: '@shared/design/base.css', is_css: true },
+  ]
+
+  const arr = getAffectedPages('acme', ['@base', 'acme'], all, buildables)
+  expect(arr.length).toBe(1)
+
+})
+
+test('tree.buildAsset', async () => {
+  const tree = createTree()
+  await tree.load()
+  const page = tree.get('sites/acme/index.md')
+  const html = await tree.buildAsset(page, { is_prod: true })
+  expect(html).toInclude(';body{padding:1em')
+
+  const file = Bun.file('.dist/acme/index.html')
+  expect(await file.text()).toInclude('<title>Hello Acme</title>')
+})
+
+
+test('build', async () => {
+  const tree = createTree()
+  await tree.load()
+
+  const arr = await build(tree, { only: [ 'acme' ], silent: true})
+  expect(arr.length).toBe(2)
+})
+
+
+test.skip('production CSS', async () => {
+  const { content, type } = await tree.renderURL({
+    host: 'acme.production.localhost',
+    pathname: '/acme.css'
+  })
+
+  expect(content).toInclude('body{padding:')
+  expect(type).toInclude('text/css')
+})
+
+
+test.skip('minified JS ', async () => {
+  const { content, type } = await tree.renderURL({
+    host: 'acme.production.localhost:4000',
+    pathname: '/base.js'
+  })
+
+  expect(content).toInclude('var o=!0;export{o as foo};')
+  expect(type).toInclude('application/javascript')
+})
+

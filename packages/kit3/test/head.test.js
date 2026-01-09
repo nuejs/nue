@@ -1,5 +1,5 @@
 
-import { renderHead } from '../src/render/head'
+import { renderHead, renderStyles } from '../src/render/head'
 
 test('renderHead', async () => {
   const conf = {
@@ -39,18 +39,13 @@ test('renderHead', async () => {
 })
 
 
-test('production', async () => {
-
+test('data and inline css', async () => {
   const conf = {
     is_prod: true,
-
     site: { origin: 'https://acme.org' },
-
-    design: {
-      layers: [ 'base', 'layout' ],
-      inline_css: true
-    }
+    design: { layers: [ 'base', 'layout' ] }
   }
+
   const data = {
     og_image: '/img/og.webp',
     title_template: 'Acme / %s',
@@ -58,17 +53,34 @@ test('production', async () => {
   }
 
   const deps = [
-    { is_css: true, text() { return '--color: #ccc'} },
+    { is_css: true, text() { return 'html { --color: #ccc }' }, path: 'nope.css' },
   ]
 
   const html = await renderHead({ conf, data, deps })
 
-
   expect(html).toInclude('<title>Acme / Hello</title>')
   expect(html).toInclude('name="og:title" content="Acme / Hello"')
-  expect(html).toInclude('<style>@layer base, layout;</style>')
-  expect(html).toInclude('<style>--color: #ccc{}</style>')
+  expect(html).toInclude('<style>@layer base, layout;html{--color:#ccc}</style>')
+  expect(html).not.toInclude('stylesheet')
   expect(html).not.toInclude('hmr.js')
   expect(html).toInclude('"og:image" content="https://acme.org/img/og.webp"')
 })
 
+
+test('renderStyles', async () => {
+  const design = { layers: [ 'base' ] }
+
+  const deps = [
+    { is_css: true, text() { return 'p { color: red }' }, path: 'nope.css' },
+  ]
+
+  // @layer order and stylesheets
+  const [ style, link ] = await renderStyles(deps, { design })
+  expect(style).toBe('<style>@layer base;</style>')
+  expect(link).toBe('<link rel="stylesheet" href="/nope.css">')
+
+  // inline CSS
+  const arr = await renderStyles(deps, { design, is_prod: true })
+  expect(arr).toEqual([ "<style>@layer base;p{color:red}</style>" ])
+
+})

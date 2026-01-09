@@ -25,10 +25,6 @@ export async function renderHead({ conf={}, data={}, deps=[] }) {
   const libs = await getLibs(deps)
   if (libs.length) arr.push(elem('meta', { name: 'libs', content: libs?.join(' ') }))
 
-  // @layers
-  const layers = conf.design?.layers
-  if (layers) arr.push(elem('style', `@layer ${layers.join(', ')};`))
-
   // styles
   arr.push(...await renderStyles(deps, conf))
 
@@ -102,17 +98,22 @@ export function renderScripts(deps) {
   })
 }
 
-export async function renderStyles(deps, conf={}) {
+
+export async function renderStyles(deps, { is_prod, design={} }) {
+  const { layers, inline_css = true } = design
+  const layer_order = layers ? `@layer ${layers.join(', ')};` : ''
   const css_files = deps.filter(file => file.is_css)
-  const { inline_css } = conf?.design || {}
-  const { is_prod } = conf
 
   if (is_prod && inline_css) {
     const css = await inlineCSS(css_files, is_prod)
-    return [ elem('style', css) ]
+    return [ elem('style', layer_order + css) ]
   }
 
-  return css_files.map(file => elem('link', { rel: 'stylesheet', href: `/${file.path}` }))
+  const sheets = css_files.map(file => elem('link', {
+    rel: 'stylesheet', href: `/${file.path}`
+  }))
+
+  return [ elem('style', layer_order), ...sheets ]
 }
 
 export async function inlineCSS(deps, minify=true) {

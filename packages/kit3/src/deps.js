@@ -22,8 +22,11 @@ export async function getDeps(asset, chain, assets) {
     // not on inheritance chain
     if (dep.site && !chain.includes(dep.site)) return false
 
-    // root asset or same folder asset
-    if (!dep.dir || dep.dir == asset.dir) return true
+    // root asset or same dir
+    if (!dep.dir || asset.dir?.startsWith(dep.dir)) return true
+
+    // same app
+    // if (asset.app && asset.app == dep.app) return true
 
     // if (INCLUDE.some(dir => dep.path.startsWith(dir + sep))) return true
 

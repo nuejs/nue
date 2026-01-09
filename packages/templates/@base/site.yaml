@@ -2,11 +2,27 @@
 brand_name: LOGO
 author: Jane Doe
 
+include: [ forms.js ]
+
 design:
   layers: [ base, ui, design ]
 
 site:
   view_transitions: true
+
+collections:
+  blog:
+    include: [ blog/ ]
+    skip: [ skip ]
+    sort: date desc
+
+rss:
+  enabled: true
+  collection: blog
+
+sitemap:
+  enabled: true
+
 
 nav:
   master:
@@ -18,7 +34,6 @@ nav:
 
     - label: Pricing
 
-
   toolbar:
     - label: Call to action
       class: primary
@@ -28,10 +43,3 @@ nav:
     - label: Blog
     - label: About
     - label: Legal
-
-
-collections:
-  blog:
-    include: [ blog/ ]
-    skip: [ skip ]
-    sort: date desc

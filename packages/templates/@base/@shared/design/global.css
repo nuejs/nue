@@ -8,12 +8,12 @@
 
   header, footer {
     font-size: 95%;
+    a { text-decoration: none }
+    button { font-size: 95% }
+
     nav {
       display: flex;
       gap: 2em;
-    }
-    button {
-      font-size: 95%;
     }
   }
 
@@ -46,26 +46,6 @@
     }
   }
 
-  .split {
-    align-items: center;
-    flex-direction: row;
-    margin-block: 5em;
-    gap: 5em;
-
-    p {
-      max-width: 30em;
-      text-wrap: balance;
-    }
-
-    > * { flex: 1 }
-
-    &.reverse { flex-direction: row-reverse }
-
-    @media (width > 1000px) {
-      display: flex;
-    }
-  }
-
   body > footer {
     border-top: 1px solid var(--border);
     padding-block: 5em;
@@ -78,5 +58,4 @@
       flex-direction: column;
     }
   }
-
 }

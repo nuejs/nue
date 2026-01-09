@@ -1,0 +1,36 @@
+@layer base {
+
+  .row {
+    display: flex;
+    gap: 1em;
+  }
+
+  .split {
+    align-items: center;
+    flex-direction: row;
+    margin-block: 5em;
+    gap: 5em;
+
+    p {
+      max-width: 30em;
+      text-wrap: balance;
+    }
+
+    > * { flex: 1 }
+
+    &.reverse { flex-direction: row-reverse }
+
+    @media (width > 1000px) {
+      display: flex;
+    }
+  }
+
+  .note {
+    background-color: #f5f5f5;
+    padding: 1em 1.5em;
+    margin-block: 2em;
+    > * { margin-block: .25em }
+  }
+
+
+}

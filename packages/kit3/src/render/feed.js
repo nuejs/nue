@@ -4,33 +4,33 @@ import { createCollection } from '../collections'
 const XML = '<?xml version="1.0" encoding="UTF-8"?>'
 
 
-export async function generateSitemap(assets, conf) {
+export async function generateSitemap(pages, conf) {
   const origin = getOrigin(conf)
   const { skip } = conf.sitemap
 
-  const pages = []
+  const sitemap = []
 
-  for (const asset of assets.filter(el => el.is_md)) {
-    const { meta } = await asset.parse()
-    const { mtime, url } = asset
+  for (const page of pages) {
+    const { meta } = await page.parse()
+    const { mtime, url } = page
 
     // skip?
     if (skip?.some(field => meta[field])) continue
-    pages.push({ mtime, origin, url })
+    sitemap.push({ mtime, origin, url })
   }
-  return renderSitemap(pages)
+
+  return renderSitemap(sitemap)
 }
 
-export async function generateFeed(assets, conf) {
-  const key = conf.rss.collection
+export async function generateFeed(pages, conf) {
+  const key = conf.rss?.collection
   if (!key) return console.warn('RSS collection missing from site.yaml')
-
   const coll = conf.collections?.[key]
-  const origin = getOrigin(conf)
 
   if (coll) {
-    const pages = await createCollection(assets.filter(el => el.is_md), coll)
-    return renderFeed({ ...conf.rss, origin }, pages)
+    const origin = getOrigin(conf)
+    const feed_coll = await createCollection(pages, coll)
+    return renderFeed({ ...conf.rss, origin }, feed_coll)
   }
 }
 

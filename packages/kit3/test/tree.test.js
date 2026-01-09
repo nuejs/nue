@@ -53,10 +53,9 @@ test('getChain', async () => {
 })
 
 test('parseHost', () => {
-  expect(parseHost('acme.production.localhost')).toEqual({ site: 'acme', is_prod: true })
-  expect(parseHost('production.localhost')).toEqual({ site: null, is_prod: true })
-  expect(parseHost('localhost')).toEqual({ site: null, is_prod: false })
-  expect(parseHost('dev.io.localhost').site).toBe('dev.io')
+  expect(parseHost('localhost')).toEqual(null)
+  expect(parseHost('acme.localhost')).toEqual('acme')
+  expect(parseHost('dev.io.localhost')).toBe('dev.io')
 })
 
 test('single-mode chain', async () => {

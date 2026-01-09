@@ -2,6 +2,7 @@
 
 import { join } from 'node:path'
 import { styleText as color } from 'node:util'
+import { createTree } from '../tree'
 
 
 async function getVersion() {
@@ -12,7 +13,7 @@ async function getVersion() {
 export const version = await getVersion()
 
 export function getArgs(argv) {
-  const commands = ['create', 'deploy']
+  const commands = [ 'create', 'build', 'push' ]
 
   // default values
   const args = { paths: [], version }
@@ -69,10 +70,10 @@ const HELP = `
   nue -p 5000              # use a different port (default: 4000)
   nue -s or --silent       # silent dev mode
 
-  nue deploy               # deploy all sites to production
-  nue deploy blog/ .css    # only deploy matching files/folders
-  nue deploy --show        # only show what's being pushed
-  nue deploy -h            # print deploy help
+  nue push               # push all sites to production
+  nue push blog/ .css    # only push matching files/folders
+  nue push --show        # only show what's being pushed
+  nue push -h            # print push help
 
   nue create multi-site    # create multi-site setup
 
@@ -83,7 +84,7 @@ function format(line) {
   if (!main) return
 
   let result = main
-    .replace(/deploy|create/, match => color('green', match))
+    .replace(/push|create/, match => color('green', match))
     .replace(/ (-[a-z]|--\w+)/g, match => color('cyan', match))
 
   return result + color('gray', '#' + comment)
@@ -110,6 +111,7 @@ async function run(args) {
   // command
   const { cmd, paths } = args
 
+
   // create
   if (cmd == 'create') {
     const { create } = await import('./create')
@@ -117,15 +119,25 @@ async function run(args) {
     return await create(name, { dir })
   }
 
-  // deploy
-  if (cmd == 'deploy') {
-    const { deploy } = await import('./deploy')
-    await deploy(args)
+  // tree
+  const tree = createTree()
+  await tree.load()
+
+  // build
+  if (cmd == 'build') {
+    const { build } = await import('../build')
+    await build(tree, args)
   }
 
-  if (!cmd) {
+  // push
+  if (cmd == 'push') {
+    const { push } = await import('./push')
+    await push(tree, args)
+  }
+
+  if (!cmd || cmd == 'serve' || cmd == 'dev') {
     const { start } = await import('../serve')
-    await start(args)
+    await start(tree, args)
   }
 }
 

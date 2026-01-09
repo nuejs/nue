@@ -44,14 +44,14 @@ export async function getData(deps, is_prod) {
     })
   }
 
-  await runDataScripts(data, deps)
+  await runDataScripts(data, deps, is_prod)
 
   return data
 }
 
 
 // modifier scripts
-export async function runDataScripts(data, deps) {
+export async function runDataScripts(data, deps, is_prod) {
 
   const mods = deps.filter(f =>
     (f.is_js || f.is_ts) &&
@@ -60,7 +60,8 @@ export async function runDataScripts(data, deps) {
   )
 
   for (const mod of mods) {
-    const fns = await import(join(process.cwd(), mod.filepath) + '?' + Math.random())
+    const url = join(process.cwd(), mod.filepath) + (is_prod ? '' : '?' + Math.random())
+    const fns = await import(url)
     await fns.default?.(data)
   }
 
