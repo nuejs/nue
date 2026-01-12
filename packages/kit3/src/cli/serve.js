@@ -1,14 +1,20 @@
 
+import { styleText } from 'node:util'
 import { createServer, hmr } from '../tools/server'
+import { printSummaryTable, log } from './build'
 import { fswatch } from '../tools/fswatch'
 import { createProxy } from '../proxy'
 
 export async function start(tree, { port=4000, version, silent }) {
   const watcher = fswatch()
+  const all = tree.getAll()
+
+  printSummaryTable(all)
+  printWatching(all)
 
   watcher.onupdate = async path => {
     const asset = tree.update(path)
-    asset.hosts = hmr.hosts
+    log(asset)
 
     for (const browser of hmr.browsers) {
       const update = await getUpdate(browser.url, asset, tree)
@@ -22,6 +28,7 @@ export async function start(tree, { port=4000, version, silent }) {
     if (asset) {
       tree.delete(path)
       hmr.broadcast({ remove: asset })
+      log(asset, 'red')
     }
   }
 
@@ -33,7 +40,6 @@ export async function start(tree, { port=4000, version, silent }) {
   const server = createServer({ port, handler }, async url => {
     return await tree.renderURL(url)
   })
-
 }
 
 // HMR update
@@ -57,5 +63,10 @@ async function getUpdate(url, asset, tree) {
 
   return asset
 
+}
+
+function printWatching(all) {
+  const msg = `Watching ${ all.length } files @ http://<sitename>.localhost:${port}`
+  console.log(`\n   ${ styleText('magenta', msg) } \n`)
 }
 

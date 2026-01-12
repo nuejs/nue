@@ -1,13 +1,13 @@
 
-import { join } from 'path'
-import { createTree } from '../tree'
+import { styleText as color } from 'node:util'
 import { readNueAsset } from '../render/asset'
+import { createTree } from '../tree'
+import { join } from 'path'
 
 export async function getBuildables(tree, args) {
 
   // buildables
-  const last_deploy = !args.force && await getLastDeployTime()
-  const buildables = filterBuildables(tree.getAll(), { ...args, last_deploy })
+  const buildables = filterBuildables(tree.getAll(), await getLastDeployTime(), args)
 
   // more
   const more = await getMore(tree, buildables)
@@ -41,6 +41,7 @@ async function setHTMLProps(assets) {
       asset.is_spa = true
     }
   }
+
 }
 
 
@@ -48,13 +49,10 @@ function getSites(buildables) {
   return [...new Set(buildables.map(b => b.site))]
 }
 
-export function filterBuildables(assets, args) {
-  const { only, no_media, last_deploy } = args
+function filterBuildables(assets, last_deploy, args) {
+  const { paths, no_media } = args
 
   return assets.filter(asset => {
-
-    // matches only
-    if (only.length) return only.some(match => asset.filepath.includes(match))
 
     // skip media
     if (no_media && isMedia(asset.file.type)) return false
@@ -66,8 +64,15 @@ export function filterBuildables(assets, args) {
       return false
     }
 
+    // all
+    if (args.all) return true
+
     // updated files only
-    if (last_deploy && asset.file.lastModified < last_deploy) return false
+    if (last_deploy && !args.force && asset.file.lastModified < last_deploy) return false
+
+    // matches only
+    if (paths.length) return paths.some(match => asset.filepath.includes(match))
+
 
     return true
 
@@ -115,12 +120,12 @@ export function getSharedAssets(site, chain, buildables) {
   // find shared assets in chain (JS, fonts, client components)
   const more = buildables.filter(a =>
     (a.is_js || a.is_ts || a.is_woff2 || a.is_dhtml_lib) &&
-    (!a.dir || a.dir.includes('@shared')) &&
+    (!a.app || a.app == '@shared') &&
     chain.includes(a.site) &&
     a.site != site
   )
 
-  return more.map(asset => ({ ...asset, site }))
+  return more.map(asset => ({ ...asset, site, orig: asset.site }))
 }
 
 export function getInheritedContent(site, chain, buildables) {
@@ -135,17 +140,21 @@ export function getInheritedContent(site, chain, buildables) {
     !siteDirs.includes(a.dir) // site has no content in this dir
   )
 
-  return more.map(asset => ({ ...asset, site }))
+  return more.map(asset => ({ ...asset, site, orig: asset.site }))
 }
 
 
 export async function build(tree, args) {
   const all = await getBuildables(tree, args)
   const { dryrun, verbose, silent, init } = args
+  const buildables = all.filter(el => !(el.is_css || el.is_yaml || el.is_html_lib || el.site == '@base'))
 
-  if (dryrun) return all.forEach(el => console.log(el.path))
+  // --dryrun
+  if (dryrun) {
+    buildables.forEach(asset => log(asset))
+    return console.log('\n   ' + buildables.length, 'files' + '\n')
+  }
 
-  const buildables = all.filter(el => !(el.is_css || el.is_yaml || el.is_html_lib))
   const sites = getSites(buildables.filter(el => el.is_md))
 
   if (init) {
@@ -154,14 +163,15 @@ export async function build(tree, args) {
   }
 
   if (!silent) {
-    console.log('Building', buildables.length, 'files')
+    const am = sites.length
+    console.log(`   Building ${am} site${am == 1 ? '' : 's'}`)
     printSummaryTable(buildables)
   }
 
 
   await Promise.all(buildables.map(async asset => {
     await tree.buildAsset(asset)
-    if (verbose) console.info(asset.filepath)
+    if (verbose) log(asset)
   }))
 
   // build sitemap & RSS if content has changed
@@ -171,6 +181,9 @@ export async function build(tree, args) {
   }
 
   await saveLastDeployTime()
+
+  console.log('\n')
+
   return { sites, buildables }
 }
 
@@ -184,16 +197,28 @@ export async function buildNueAssets(site) {
 }
 
 
+export function log(asset, tint='green') {
+  const path = asset.site + '/' + asset.path
+  const orig = asset.orig ? ' ' + asset.orig + color('green', ' →') : ''
+  console.log(`   ${color(tint, '⇒') } ${ orig } ${color('gray', path) }`)
+}
+
 export function printSummaryTable(assets) {
   const names = assets.map(el => el.site)
   const counts = {}
   for (const name of names) counts[name] = (counts[name] || 0) + 1
-
   const maxLen = Math.max(...Object.keys(counts).map(n => n.length))
 
-  for (const [name, count] of Object.entries(counts)) {
+  const sorted = Object.entries(counts).sort(([a], [b]) => {
+    if (a == '@base') return -1
+    if (b == '@base') return 1
+    return counts[b] - counts[a]
+  })
+
+  for (const [name, count] of sorted) {
     const files = count == 1 ? 'file' : 'files'
-    console.log(`${name.padEnd(maxLen + 10)}${count} ${files}`)
+    const site = color('gray', name.padEnd(maxLen + 10))
+    console.log(`   ${site}${count} ${files}`)
   }
 }
 

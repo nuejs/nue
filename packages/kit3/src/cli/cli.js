@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
 
-import { join } from 'node:path'
 import { styleText as color } from 'node:util'
+import { join  } from 'node:path'
 import { createTree } from '../tree'
 
 
@@ -39,10 +39,14 @@ export function getArgs(argv) {
       // dev & preview options
       else if (['-p', '--port'].includes(arg)) opt = 'port'
 
-      else if (['-s', '--silent'].includes(arg)) args.silent = true
-
       // build options
+      else if (['-s', '--silent'].includes(arg)) args.silent = true
       else if (['-n', '--dry-run'].includes(arg)) args.dryrun = true
+      else if (['--verbose'].includes(arg)) args.verbose = true
+      else if (['--no-media'].includes(arg)) args.no_media = true
+      else if (['--force'].includes(arg)) args.force = true
+      else if (['--init'].includes(arg)) args.init = true
+      else if (['--all'].includes(arg)) args.all = true
 
       // bad argument
       else throw `Unknown option: "${arg}"`
@@ -96,7 +100,8 @@ export function printHelp() {
 
 
 function printVersion() {
-  console.log(`Nue ${ version } • Bun ${ Bun.version }`)
+  const msg = `Nue ${ version } • Bun ${ Bun.version }`
+  console.log(`\n   ${ color('cyan', msg) }  \n`)
 }
 
 async function run(args) {
