@@ -65,13 +65,13 @@ test('CSS and JS deps', async () => {
     page
   ]
 
-  const html = await renderPage(page, ['acme', '@base'], assets, true)
+  const html = await renderPage(page, ['acme', '@base'], assets)
 
   expect(html).toInclude('href="/@shared/design/base.css"')
   expect(html).toInclude('src="/global.js" type="module"')
   expect(html).toInclude('src="/@shared/layout/analytics.js"')
   expect(html).toInclude('<h1>Hello</h1>')
-  expect(html).not.toInclude('hmr.js')
+  expect(html).toInclude('hmr.js')
 })
 
 

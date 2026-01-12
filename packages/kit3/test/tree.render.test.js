@@ -131,5 +131,3 @@ test('binary files', async () => {
   expect(png.type).toBe('image/png')
 })
 
-
-

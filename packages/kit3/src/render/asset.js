@@ -70,7 +70,7 @@ function resolvePackage(path) {
   return fileURLToPath(import.meta.resolve(path))
 }
 
-async function readNueAsset(name, is_prod) {
+export async function readNueAsset(name, is_prod) {
   const path = name == 'nue.js' ? resolvePackage('nuedom/src/nue.js')
     : name == 'state.js' ? resolvePackage('nuestate/src/state.js')
     : join(import.meta.dir, '../../client', name)

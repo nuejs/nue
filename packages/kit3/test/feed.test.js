@@ -2,7 +2,7 @@
 import { generateSitemap, generateFeed, renderSitemap, renderFeed } from '../src/render/feed'
 
 test('generateSitemap', async () => {
-  const asset = {
+  const page = {
     is_md: true,
     url: '/page1',
     mtime: new Date('2024-01-01'),
@@ -16,10 +16,13 @@ test('generateSitemap', async () => {
 
   const conf = {
     site: { origin: 'https://example.com' },
-    sitemap: { skip: ['draft'] }
+    sitemap: {
+      enabled: true,
+      skip: ['draft'],
+    }
   }
 
-  const xml = await generateSitemap([asset, draft ], conf)
+  const xml = await generateSitemap([ page, draft ], conf)
   expect(xml.length > 150).toBeTrue()
   expect(xml).toInclude('<loc>https://example.com/page1</loc>')
 })
@@ -44,7 +47,8 @@ test('generateFeed', async () => {
     rss: {
       title: 'Acme Blog',
       collection: 'blog',
-      description: 'Acme desc'
+      description: 'Acme desc',
+      enabled: true,
     },
     collections: {
       blog: {

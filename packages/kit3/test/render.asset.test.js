@@ -1,4 +1,5 @@
 
+import { renderAsset } from '../src/render/asset'
 import { renderHTML } from '../src/render/html'
 import { parseNue } from 'nuedom'
 
@@ -36,5 +37,18 @@ test('SPA', async () => {
   const html = await renderHTML(asset, [], [])
   expect(html).toInclude('<body nue="default-app"></body>')
   expect(html).toInclude('{"state":"/@nue/state.js"}')
+})
+
+test('minified JS ', async () => {
+  const asset = {
+    is_js: true,
+    type: 'js',
+    text() {return 'console.log(10 + 10)' }
+  }
+
+  const { content, type } = await renderAsset(asset, { is_prod: true})
+
+  expect(content).toInclude('log(20)')
+  expect(type).toInclude('application/javascript')
 })
 

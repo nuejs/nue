@@ -34,7 +34,7 @@ export function getArgs(argv) {
       // global options
       if (['-h', '--help'].includes(arg)) args.help = true
 
-      else if (['-v', '--version'].includes(arg)) args.printVersion = true
+      else if (['-v', '--version'].includes(arg)) args.versionOnly = true
 
       // dev & preview options
       else if (['-p', '--port'].includes(arg)) opt = 'port'
@@ -106,7 +106,7 @@ async function run(args) {
 
   // version
   printVersion()
-  if (args.printVersion) return
+  if (args.versionOnly) return
 
   // command
   const { cmd, paths } = args
@@ -125,7 +125,7 @@ async function run(args) {
 
   // build
   if (cmd == 'build') {
-    const { build } = await import('../build')
+    const { build } = await import('./build')
     await build(tree, args)
   }
 
@@ -136,7 +136,7 @@ async function run(args) {
   }
 
   if (!cmd || cmd == 'serve' || cmd == 'dev') {
-    const { start } = await import('../serve')
+    const { start } = await import('./serve')
     await start(tree, args)
   }
 }

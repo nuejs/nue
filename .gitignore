@@ -5,6 +5,7 @@ coverage
 dist
 _test
 test_dir
+account
 performance.js
 nuejs.org
 

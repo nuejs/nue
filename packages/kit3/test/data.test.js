@@ -37,7 +37,7 @@ test('getData', async () => {
 })
 
 
-test.only('merge meta', async () => {
+test('merge meta', async () => {
   const deps = [
     { is_yaml: true, parse() { return { meta: { title: 'Hey' } }}},
     { is_yaml: true, parse() { return { meta: { lang: 'fi' } }}},
@@ -63,7 +63,7 @@ test('runDataScripts', async () => {
   await Bun.write(mockPath, 'export default function(data) { data.foo = true }')
 
   const deps = [
-    { dir: '@shared/data', is_js: true, path: mockPath }
+    { dir: '@shared/data', is_js: true, filepath: mockPath }
   ]
 
   const data = await runDataScripts({}, deps)

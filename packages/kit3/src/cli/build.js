@@ -1,11 +1,12 @@
 
 import { join } from 'path'
-import { createTree } from './tree'
+import { createTree } from '../tree'
+import { readNueAsset } from '../render/asset'
 
 export async function getBuildables(tree, args) {
 
   // buildables
-  const last_deploy = !args.build_all && await getLastDeployTime()
+  const last_deploy = !args.force && await getLastDeployTime()
   const buildables = filterBuildables(tree.getAll(), { ...args, last_deploy })
 
   // more
@@ -43,6 +44,10 @@ async function setHTMLProps(assets) {
 }
 
 
+function getSites(buildables) {
+  return [...new Set(buildables.map(b => b.site))]
+}
+
 export function filterBuildables(assets, args) {
   const { only, no_media, last_deploy } = args
 
@@ -76,18 +81,13 @@ async function getMore(tree, buildables) {
   await setHTMLProps(assets)
 
   // loop sites
-  const sites = [...new Set(buildables.map(b => b.site))]
+  const sites = getSites(buildables)
 
   for (const site of sites) {
     const chain = await tree.getChain(site)
     more.push(...getAffectedPages(site, chain, assets, buildables))
     more.push(...getInheritedContent(site, chain, buildables))
     more.push(...getSharedAssets(site, chain, buildables))
-
-    // sitemap & RSS
-    const conf = await tree.getConf(site)
-    if (conf.sitemap?.enabled) more.push({ site, feed: 'sitemap.xml' })
-    if (conf.rss?.enabled) more.push({ site, feed: 'feed.xml' })
   }
 
   return more
@@ -141,27 +141,47 @@ export function getInheritedContent(site, chain, buildables) {
 
 export async function build(tree, args) {
   const all = await getBuildables(tree, args)
-  const { dryrun, verbose, silent } = args
+  const { dryrun, verbose, silent, init } = args
 
   if (dryrun) return all.forEach(el => console.log(el.path))
 
-  if (!silent) {
-    console.log('Building', all.length, 'files')
-    printSummaryTable(all)
+  const buildables = all.filter(el => !(el.is_css || el.is_yaml || el.is_html_lib))
+  const sites = getSites(buildables.filter(el => el.is_md))
+
+  if (init) {
+    for (const site of sites) await buildNueAssets(site)
+    return
   }
 
-  const buildables = all.filter(el => !(el.is_css || el.is_yaml || el.is_html_lib))
+  if (!silent) {
+    console.log('Building', buildables.length, 'files')
+    printSummaryTable(buildables)
+  }
+
 
   await Promise.all(buildables.map(async asset => {
-    asset.feed ? await tree.buildFeed(asset.site, asset.feed) : await tree.buildAsset(asset)
-    if (verbose) console.info(asset.filepath || asset.feed)
+    await tree.buildAsset(asset)
+    if (verbose) console.info(asset.filepath)
   }))
 
-  await saveLastDeployTime()
+  // build sitemap & RSS if content has changed
+  for (const site of sites) {
+    await tree.buildFeed(site, 'sitemap.xml')
+    await tree.buildFeed(site, 'feed.xml')
+  }
 
-  return buildables
+  await saveLastDeployTime()
+  return { sites, buildables }
 }
 
+
+export async function buildNueAssets(site) {
+  for (const name of ['transitions.js', 'mount.js', 'state.js', 'nue.js']) {
+    const js = await readNueAsset(name, true)
+    const file = Bun.file(join('.dist', site, '@nue', name))
+    await file.write(js)
+  }
+}
 
 
 export function printSummaryTable(assets) {
@@ -189,11 +209,20 @@ function formatSize(bytes) {
 }
 
 
-async function getLastDeployTime() {
-  return null
-}
+const timestamp = Bun.file(join('.dist', 'timestamp.txt'))
 
 async function saveLastDeployTime() {
-
+  const now = Date.now()
+  await timestamp.write(now)
+  return now
 }
+
+async function getLastDeployTime() {
+  try {
+    return 1 * await timestamp.text()
+  } catch (e) {
+    return await saveLastDeployTime()
+  }
+}
+
 

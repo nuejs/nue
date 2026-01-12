@@ -59,9 +59,11 @@ export function createTree() {
 
   async function buildFeed(site, filename) {
     const xml = await renderFeed(site, filename)
-    const path = join('.dist', site, filename)
-    await Bun.file(path).write(xml)
-    return { path, xml }
+    if (xml) {
+      const path = join('.dist', site, filename)
+      await Bun.file(path).write(xml)
+      return path
+    }
   }
 
   async function buildAsset(asset, opts={}) {

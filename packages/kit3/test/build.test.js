@@ -8,9 +8,10 @@ import {
   getAffectedPages,
   getInheritedContent,
   printSummaryTable,
+  buildNueAssets,
   getBuildables,
   build,
-} from '../src/build'
+} from '../src/cli/build'
 
 
 process.chdir('tree')
@@ -95,29 +96,12 @@ test('build', async () => {
   const tree = createTree()
   await tree.load()
 
-  const arr = await build(tree, { only: [ 'acme' ], silent: true})
-  expect(arr.length).toBe(2)
+  const { sites, buildables } = await build(tree, { only: [ 'acme' ], silent: true})
+  expect(buildables.length).toBe(1)
+  expect(sites).toEqual(['acme'])
 })
 
-
-test.skip('production CSS', async () => {
-  const { content, type } = await tree.renderURL({
-    host: 'acme.production.localhost',
-    pathname: '/acme.css'
-  })
-
-  expect(content).toInclude('body{padding:')
-  expect(type).toInclude('text/css')
-})
-
-
-test.skip('minified JS ', async () => {
-  const { content, type } = await tree.renderURL({
-    host: 'acme.production.localhost:4000',
-    pathname: '/base.js'
-  })
-
-  expect(content).toInclude('var o=!0;export{o as foo};')
-  expect(type).toInclude('application/javascript')
+test('buildNueAssets', async () => {
+  await buildNueAssets('acme')
 })
 

@@ -4,7 +4,7 @@ sections: [ intro, cta ]
 class: marketing
 ---
 
-# We are a team of designers, writers, and engineers building exceptional companies from nothing.
+# We are a team of designers, writers, and engineers building exceptional companies from scratch.
 
 [image.tall "/img/shot.webp"]
 

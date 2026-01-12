@@ -5,10 +5,11 @@ const XML = '<?xml version="1.0" encoding="UTF-8"?>'
 
 
 export async function generateSitemap(pages, conf) {
-  const origin = getOrigin(conf)
-  const { skip } = conf.sitemap
+  const { skip, enabled } = conf.sitemap || {}
+  if (!enabled) return null
 
   const sitemap = []
+  const origin = getOrigin(conf)
 
   for (const page of pages) {
     const { meta } = await page.parse()
@@ -23,6 +24,8 @@ export async function generateSitemap(pages, conf) {
 }
 
 export async function generateFeed(pages, conf) {
+  if (!conf.rss?.enabled) return null
+
   const key = conf.rss?.collection
   if (!key) return console.warn('RSS collection missing from site.yaml')
   const coll = conf.collections?.[key]

@@ -59,6 +59,11 @@ export function createServer({ port=4000, handler }, callback) {
 const sessions = []
 
 export const hmr = {
+
+  get hosts() {
+    return sessions.map(ws => ws.data.url.host)
+  },
+
   get browsers() {
     return sessions.map(ws => ({
       url: ws.data.url,

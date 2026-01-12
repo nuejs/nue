@@ -6,17 +6,14 @@ function connect() {
 
   ws.onmessage = async function(e) {
     const asset = JSON.parse(e.data)
+    const url = getURL(asset)
 
-    // : asset.is_error ? await handleError(asset)
-    // : asset.is_svg ? reloadVisual(asset)
-
-    if (asset.redirect) return location.href = asset.url
-
-    return asset.content ? await reloadContent(asset)
+    return url ? location.href = url
+      : asset.content ? await reloadContent(asset)
       : asset.is_dhtml ? await reloadComponents(asset)
+      : asset.is_js || asset.is_ts ? location.reload()
       : asset.css ? reloadCSS(asset)
       : asset.remove ? removeAsset(asset)
-      : asset.is_ext ? location.reload()
       : console.info('HMR void', asset)
   }
 
@@ -36,10 +33,22 @@ function connect() {
 connect()
 
 
-async function handleError(asset) {
-  const { showError } = await import('./error.js')
-  const { error, path } = asset
-  showError({ ...error, path })
+function getURL(asset) {
+  const { url, site } = asset
+  const host = (site == '@base' ? '' : site + '.') + 'localhost'
+
+  if (host == location.hostname) {
+    return url != location.pathname ? url : null
+
+  } else if (!document.hidden) {
+    return `http://${ host }:${ location.port }${ url }`
+  }
+
+}
+
+
+function $(query, root=document) {
+  return root.querySelector(query)
 }
 
 async function reloadContent(asset) {
@@ -50,7 +59,7 @@ async function reloadContent(asset) {
   const { domdiff } = await import('/@nue/nue.js')
 
   const { title, body } = parsePage(asset.content)
-  if (title) document.title = title
+  if (title != document.title) document.title = title
   const lib = asset.ast?.lib
 
   // focused HMR
@@ -65,36 +74,7 @@ async function reloadContent(asset) {
 
   await mountAll()
 
-  await reloadProcessedCSS(asset.conf?.design?.hmr)
-
   window.ignoreClick = true
-}
-
-
-let reload_count = 0
-
-function reloadVisual(asset) {
-
-  // svg HMR mode
-  if (location.pathname.endsWith('.svg')) return reloadSVG(asset.content)
-
-  // <img> and <object> tags
-  const { url } = asset
-
-  function reload(el, attr) {
-    if (el) el[attr] = `${url}?${reload_count++}`
-  }
-
-  reload($(`object[data*='${url}']`), 'data')
-  reload($(`img[src*='${url}']`), 'src')
-}
-
-
-async function reloadProcessedCSS(urls=[]) {
-  for (const url of urls) {
-    const css = await fetch(url)
-    reloadCSS({ css: await css.text(), url })
-  }
 }
 
 function removeAsset(asset) {
@@ -170,6 +150,31 @@ function parsePage(html) {
   return { title: $('title', root)?.textContent, body: $('body', root) }
 }
 
-function $(query, root=document) {
-  return root.querySelector(query)
+
+/*
+
+async function handleError(asset) {
+  const { showError } = await import('./error.js')
+  const { error, path } = asset
+  showError({ ...error, path })
 }
+
+
+let reload_count = 0
+
+function reloadVisual(asset) {
+
+  // svg HMR mode
+  if (location.pathname.endsWith('.svg')) return reloadSVG(asset.content)
+
+  // <img> and <object> tags
+  const { url } = asset
+
+  function reload(el, attr) {
+    if (el) el[attr] = `${url}?${reload_count++}`
+  }
+
+  reload($(`object[data*='${url}']`), 'data')
+  reload($(`img[src*='${url}']`), 'src')
+}
+*/
