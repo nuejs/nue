@@ -1,6 +1,7 @@
 
 @layer base {
   pre {
+    color: #aaa;
 
     /* primary accent color */
     b { color: #ff3aa1 }
@@ -16,16 +17,17 @@
 
     /* comments */
     sup {
-      opacity: .5;
+      color: #888;
       vertical-align: inherit;
       font-size: inherit;
     }
 
     /* marked segments */
     mark {
-      background-color: #2bb8ff26;
+      background-color: #2bb8ff47;
       border-radius: .2em;
-      padding-block: .25em;
+      padding: .125em .25em;
+      margin-inline: -.25em;
       color: inherit;
     }
 
@@ -45,5 +47,20 @@
         width: 2.5em;
       }
     }
+  }
+
+  code[language=sh] {
+    color: #58c6d0;
+    i { color: #888 }
+  }
+
+  pre:has([language=tree]) {
+    color: #666;
+    line-height: 1.25;
+    b { color: #58c6d0 }
+  }
+
+  code[language=html] {
+    i { color: #777 }
   }
 }

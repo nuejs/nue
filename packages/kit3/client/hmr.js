@@ -6,15 +6,15 @@ function connect() {
 
   ws.onmessage = async function(e) {
     const asset = JSON.parse(e.data)
-    const url = getURL(asset)
+    const url = asset.is_md && getURL(asset)
 
     return url ? location.href = url
+      : asset.css ? reloadCSS(asset)
       : asset.content ? await reloadContent(asset)
       : asset.is_dhtml ? await reloadComponents(asset)
       : asset.is_js || asset.is_ts ? location.reload()
-      : asset.css ? reloadCSS(asset)
       : asset.remove ? removeAsset(asset)
-      : console.info('HMR void', asset)
+      : console.log('HMR void', asset)
   }
 
   // reconnect
@@ -34,7 +34,8 @@ connect()
 
 
 function getURL(asset) {
-  const { url, site } = asset
+  const { chain, url } = asset
+  const site = chain.at(-1)
   const host = (site == '@base' ? '' : site + '.') + 'localhost'
 
   if (host == location.hostname) {

@@ -38,7 +38,7 @@ test('printSummaryTable', async () => {
 test('getBuildables', async () => {
   const tree = createTree()
   await tree.load()
-  const arr = await getBuildables(tree, { only: ['epic-layout'] })
+  const arr = await getBuildables(tree, { paths: ['epic-layout'], force: true })
   expect(arr.length).toBe(1)
 })
 
@@ -91,17 +91,18 @@ test('tree.buildAsset', async () => {
   expect(await file.text()).toInclude('<title>Hello Acme</title>')
 })
 
-
 test('build', async () => {
   const tree = createTree()
   await tree.load()
 
-  const { sites, buildables } = await build(tree, { only: [ 'acme' ], silent: true})
+  const { sites, buildables } = await build(tree, { paths: [ 'acme' ], silent: true, force: true })
   expect(buildables.length).toBe(1)
   expect(sites).toEqual(['acme'])
 })
 
 test('buildNueAssets', async () => {
-  await buildNueAssets('acme')
+  await buildNueAssets('acme', true)
+  const file = Bun.file('.dist/acme/@nue/mount.js')
+  expect(await file.exists()).toBeTrue()
 })
 

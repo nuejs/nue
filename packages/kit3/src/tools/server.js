@@ -29,7 +29,7 @@ export function createServer({ port=4000, handler }, callback) {
         })
 
       } else {
-        console.error('Not found', url.pathname)
+        console.error('   Not found', url.pathname)
         return new Response('404 Not Found', { status: 404 })
       }
 

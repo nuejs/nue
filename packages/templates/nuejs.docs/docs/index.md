@@ -11,8 +11,8 @@ nue create multi-site                      # 3. install multi-site
 
 This creates a project with multiple connected sites:
 
-```
-@base/       # Global design system
+```sh
+@base        # Global design system
 acme.com     # Example company site
 bigger.co    # Alternate look and feel
 admin.dev    # Single-page app example
@@ -21,12 +21,21 @@ admin.dev    # Single-page app example
 
 Start watching them all with `nue` command in the multi-site directory. This launches the sites on separate subdomains of localhost:
 
-```bash
+```sh
 nue
-  -> @base        http://localhost:4000
-  -> acme.com     http://acme.com.localhost:4000
-  -> bigger.co    http://bigger.co.localhost:4000
-...
+
+Nue 3.0.0-beta • Bun 1.3.5
+
+@base                26 files
+nuejs.org            90 files
+nuejs.docs           25 files
+acme.org             15 files
+admin.dev            10 files
+beta.com             5 files
+admin.org            5 files
+design.blog          2 files
+
+Watching 178 files @ http://<sitename>.localhost:4000
 ```
 
 

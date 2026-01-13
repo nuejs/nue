@@ -27,7 +27,7 @@ export async function generateFeed(pages, conf) {
   if (!conf.rss?.enabled) return null
 
   const key = conf.rss?.collection
-  if (!key) return console.warn('RSS collection missing from site.yaml')
+  if (!key) return console.error('   collection config missing for RSS feed')
   const coll = conf.collections?.[key]
 
   if (coll) {
@@ -85,6 +85,6 @@ export function renderFeed(meta, pages) {
 
 function getOrigin(conf) {
   const { origin='' } = conf.site || {}
-  if (!origin) console.warn('site.origin missing from site.yaml')
+  if (!origin) console.error('   site.origin missing from site.yaml')
   return origin
 }

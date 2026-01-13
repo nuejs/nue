@@ -25,15 +25,13 @@ specs/acme/
 └── tone.md        # how you speak
 ```
 
-You can reuse these filess across every site and landing page for this client.
+You can reuse these files across every site and landing page for this client.
 
 
-## Plan
-Before generating content, ask AI to show its plan:
+## Plan mode
+Before generating content, use Claude with `--plan` configuration option to see what the plan is before the actual generation:
 
 ```sh
-cd clients/acme.com
-
 claude --plan "Rewrite all content in clients/acme.com using the specs in specs/acme/"
 ```
 
@@ -59,7 +57,7 @@ Nue HMR shows changes as they happen.
 
 
 ## Other uses
-The pattern stays the same: templates define the structure, specs define the substance, AI does the transformation. The same workflow can be used for:
+This same workflow (templates + specs + AI) can be used for:
 
 **Bulk content generation** populate an entire blog with AI-written posts based on topic outlines
 

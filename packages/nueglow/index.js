@@ -9,7 +9,7 @@ const COMMON_WORDS = 'null|true|false|undefined|import|from|async|await|package|
 |interface|class|new|int|func|function|get|set|export|default|const|var|let\
 |return|yield|for|while|defer|if|then|else|elif|fi|int|string|number|def|public|static|void\
 |continue|break|switch|case|final|finally|try|catch|while|super|long|float\
-|throw|fun|val|use|fn|my|end|local|until|next|bool|ns|defn|puts|require|each'
+|throw|fun|val|use|fn|my|end|local|until|next|bool|ns|defn|puts|require|each|bun|curl|nue'
 
 // Implement most~50% of words to cover 95% of cases
 const SPECIAL_WORDS = {
@@ -109,8 +109,27 @@ function elem(name, str) {
   different from others (not a programming language)
 */
 function isMD(lang) {
-  return ['md', 'mdx', 'nuemark'].includes(lang)
+  return ['md', 'markdown', 'mdx', 'nuemark'].includes(lang)
 }
+
+function getSHTags(str) {
+  return [
+    { tag: 'sup', re: /# .+/ },
+    { tag: 'sup', re: / --?\w+/gi },
+    { tag: 'strong', re: /^(bun|curl|nue)\b/ },
+    { tag: 'i', re: /[^\w •]/g },
+  ]
+}
+
+function getTreeTags(str) {
+  return [
+    { tag: 'sup', re: /# .+/ },
+    { tag: 'strong', re: /[\w\.@\/]+\//i },
+    { tag: 'b', re: /[\w\-]+\.\w+/gi },
+  ]
+}
+
+
 
 function getMDTags(str) {
   const s = str.trim()
@@ -158,7 +177,11 @@ function getMDTags(str) {
 
 
 export function parseRow(row, lang) {
-  const tags = isMD(lang) ? getMDTags(row) : getTags(lang)
+  const tags = lang == 'sh' ? getSHTags(row)
+    : lang == 'tree' ? getTreeTags(row)
+    : isMD(lang) ? getMDTags(row)
+    : getTags(lang)
+
   const tokens = []
 
   // line comment (language specific)

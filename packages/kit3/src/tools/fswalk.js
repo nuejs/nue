@@ -14,7 +14,7 @@ export function isSkipped(path) {
 }
 
 function warn(message, path) {
-  console.warn(`Warning: ${message} ${path}`)
+  console.error(`   Warning: ${message} ${path}`)
 }
 
 async function walkDirectory(dir, root) {

@@ -26,7 +26,7 @@ nue create multi-site
 
 This installs:
 
-```
+```sh
 @base         # global design system
 acme.org      # website example
 beta.com      # alternate design
@@ -36,7 +36,7 @@ admin.dev     # SPA example
 
 Run `nue` from the project root and open several browser tabs:
 
-```
+```sh
 localhost:4000              # @base preview
 acme.org.localhost:4000     # site instance
 beta.com.localhost:4000     # alternate instance
@@ -49,7 +49,7 @@ Edits appear in real time across all tabs. Change something in `@base` and watch
 ### The @base directory
 The `@base` directory is the root folder for the global design system. This becomes your foundation that all sites inherit from.
 
-```
+```tree
 project/
 ├── @base/
 │   ├── site.yaml
@@ -85,7 +85,7 @@ This separation lets you control what's automatic versus what's optional. Core t
 ### Application directories
 Applications like `blog/` and `docs/` sit at the `@base` root level alongside `@shared`. These define patterns that sites inherit and can customize.
 
-```
+``` tree
 @base/
 ├── @shared/
 ├── blog/
@@ -107,7 +107,7 @@ Sites that extend `@base` get these applications automatically. They can overrid
 ## The layout layer
 Layout modules are the HTML components that wrap around your content. Every page needs a header, footer, and other structural elements. Define them once in `@shared/layout/` and all inheriting sites get the same page structure.
 
-```
+``` tree
 @base/@shared/layout/
 ├── header.html
 ├── footer.html
@@ -116,7 +116,7 @@ Layout modules are the HTML components that wrap around your content. Every page
 
 Small systems, like the one created with `nue create multi-site`, use one file instead:
 
-```
+``` tree
 @base/@shared/
 └── layout.html    # all modules in one file
 ```
@@ -162,7 +162,7 @@ For non-semantic slots, use the `:is` attribute:
 ### Application layouts
 Applications can define their own layout modules that override or extend the global ones:
 
-```
+```tree
 @base/
 ├── @shared/
 │   └── layout/
@@ -180,7 +180,7 @@ Application modules automatically apply to pages within that application based o
 ### Layout inheritance
 Inheriting sites can add their own layout modules or override existing ones:
 
-```
+```tree
 acme.com/
 └── layout.html   # More modules, scanned before @base modules
 ```
@@ -212,8 +212,8 @@ site_name: Nue
 company_email: hello@nuejs.org
 
 social_links:
-  twitter: https://twitter.com/nuejs
-  github: https://github.com/nuejs
+  twitter: //twitter.com/nuejs
+  github: //github.com/nuejs
 ```
 
 Configuration properties like `site`, `content`, and `collections` are reserved for Nue's configuration system. Everything else becomes template data available in your layout modules and components.
@@ -226,7 +226,7 @@ The `@shared/data/` directory holds YAML and JSON files that define content shar
 
 Typical organization:
 
-```
+```tree
 @base/@shared/data/
 ├── navigation.yaml
 ├── team.yaml
@@ -286,7 +286,7 @@ Team data, product information, or any content that appears across sites works t
 ### Data manipulation
 Transform and enrich your data using JavaScript or TypeScript. Place `.js` or `.ts` files in the data directory:
 
-```javascript
+```js
 // @shared/data/process.js
 export default async function(data) {
 
@@ -312,7 +312,7 @@ The `design/` directory contains CSS files that automatically load in all inheri
 
 Example organization:
 
-```
+```tree
 @base/@shared/design/
 ├── globals.css
 ├── colors.css
@@ -350,7 +350,7 @@ The `lib/` directory contains optional extensions that sites choose to include. 
 
 Example organization:
 
-```
+```tree
 @base/@shared/lib/
 ├── components/
 │   ├── tabs.html
@@ -398,7 +398,7 @@ You can also define includes in `@base/site.yaml` to make specific libraries aut
 ## Application directories
 Applications like blogs and documentation live at the `@base` root level. These define reusable patterns that all inheriting sites get automatically.
 
-```
+```tree
 @base/
 ├── @shared/
 ├── blog/
@@ -433,7 +433,7 @@ The preview should be plain. You're building patterns, not final designs. Think 
 ## Home folder
 Your home page often needs its own components and styling that don't belong in the shared foundation or application directories. Use a `home/` folder to keep these separate:
 
-```
+```tree
 @base/
 ├── @shared/
 ├── blog/
@@ -450,7 +450,7 @@ This separates root-level assets shared across all applications from home page a
 ## First inheriting site
 Create a site directory and declare what it extends:
 
-```
+```tree
 project/
 ├── @base/
 ├── acme.com/
@@ -472,10 +472,10 @@ That's it. The site inherits everything from `@base/@shared` and gets all the ap
 ### The 10% override principle
 Most sites should need only minimal overrides to create their unique expression. A typical site might have one root-level CSS file that defines colors, adjusts spacing, and adds personality:
 
-```
+```tree
 acme.com/
 ├── site.yaml
-├── acme.css        # Site-specific overrides
+├── •acme.css•        # Site-specific overrides
 ├── index.md
 └── img/
     └── logo.svg

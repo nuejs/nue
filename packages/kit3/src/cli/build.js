@@ -60,7 +60,7 @@ function filterBuildables(assets, last_deploy, args) {
     // max size 2MB
     if (asset.file.size > 2_000_000) {
       const pretty = formatSize(asset.file.size)
-      console.warn(`Skipping ${asset.path} (${pretty}). Max file size 2MB`)
+      console.error(`   Skipping ${asset.path} (${pretty}). Max file size 2MB`)
       return false
     }
 
@@ -157,10 +157,13 @@ export async function build(tree, args) {
 
   const sites = getSites(buildables.filter(el => el.is_md))
 
-  if (init) {
-    for (const site of sites) await buildNueAssets(site)
-    return
+  // nue assets
+  for (const site of sites) {
+    const site_exists = await Bun.file(join('.dist', site)).exists()
+    if (init || !site_exists) await buildNueAssets(site, args.silent)
   }
+
+  if (init) return
 
   if (!silent) {
     const am = sites.length
@@ -188,11 +191,13 @@ export async function build(tree, args) {
 }
 
 
-export async function buildNueAssets(site) {
+export async function buildNueAssets(site, silent) {
   for (const name of ['transitions.js', 'mount.js', 'state.js', 'nue.js']) {
     const js = await readNueAsset(name, true)
-    const file = Bun.file(join('.dist', site, '@nue', name))
+    const path = join('.dist', site, '@nue', name)
+    const file = Bun.file(path)
     await file.write(js)
+    if (!silent) log({ site, path })
   }
 }
 

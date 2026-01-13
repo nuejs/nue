@@ -10,7 +10,7 @@ export async function start(tree, { port=4000, version, silent }) {
   const all = tree.getAll()
 
   printSummaryTable(all)
-  printWatching(all)
+  printWatching(all, port)
 
   watcher.onupdate = async path => {
     const asset = tree.update(path)
@@ -54,8 +54,8 @@ async function getUpdate(url, asset, tree) {
 
   // page update
   if (asset.is_md || asset.is_yaml || asset.is_server_html) {
-    const { content } = await tree.renderURL(url)
-    return { ...asset, content }
+    const ret = await tree.renderURL(url)
+    return { ...asset, ...ret }
   }
 
   // CSS text
@@ -65,7 +65,7 @@ async function getUpdate(url, asset, tree) {
 
 }
 
-function printWatching(all) {
+function printWatching(all, port) {
   const msg = `Watching ${ all.length } files @ http://<sitename>.localhost:${port}`
   console.log(`\n   ${ styleText('magenta', msg) } \n`)
 }

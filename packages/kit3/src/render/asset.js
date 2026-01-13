@@ -35,7 +35,8 @@ export async function renderAsset(asset, { chain, assets, as_js, is_prod }) {
     : asset.bytes ? asset
     : asset.file
 
-  return { content, type: getMimeType(asset) }
+  // chain data goes to hmr.js (client)
+  return { content, type: getMimeType(asset), chain }
 }
 
 
