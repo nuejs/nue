@@ -62,6 +62,11 @@
       header {
         margin-block: 1.5em;
       }
+
+      figure:first-of-type {
+        view-transition-name: active-image
+      }
+
     }
 
     h1 + p {

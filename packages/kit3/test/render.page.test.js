@@ -59,17 +59,17 @@ test('sections & wrap', async () => {
 
 test('CSS and JS deps', async () => {
   const assets = [
-    getPathInfo('@shared/layout/analytics.js', '@base'),
-    getPathInfo('@shared/design/base.css', 'acme'),
+    getPathInfo('analytics.js', '@base'),
+    getPathInfo('base.css', 'acme'),
     getPathInfo('acme/global.js', 'acme'),
     page
   ]
 
   const html = await renderPage(page, ['acme', '@base'], assets)
 
-  expect(html).toInclude('href="/@shared/design/base.css"')
+  expect(html).toInclude('href="/base.css"')
   expect(html).toInclude('src="/global.js" type="module"')
-  expect(html).toInclude('src="/@shared/layout/analytics.js"')
+  expect(html).toInclude('src="/analytics.js"')
   expect(html).toInclude('<h1>Hello</h1>')
   expect(html).toInclude('hmr.js')
 })
@@ -78,7 +78,7 @@ test('CSS and JS deps', async () => {
 test('server data & layout', async () => {
 
   // layout
-  const layout = getPathInfo('@shared/layout.html', '@base')
+  const layout = getPathInfo('layout.html', '@base')
   layout.parse = function() {
     return parseNue(`
       <!html lib>
@@ -87,7 +87,7 @@ test('server data & layout', async () => {
   }
 
   // data
-  const data = getPathInfo('@shared/data/links.yaml', '@base')
+  const data = getPathInfo('links.yaml', '@base')
   data.parse = function() {
     return { links: ['a', 'b']}
   }

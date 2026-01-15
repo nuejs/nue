@@ -1,14 +1,14 @@
 
 # FAQ
 
-## How is Nue different?
-Nue is a web framework built around a site-wide inheritance model. It gives you:
+## What is special about Nue?
+Nue is the fastest way to build websites. It gives you:
 
 **Multi-site development** - Nue is optimized for multi-site HMR and mass builds. You work on twenty sites as easily as you work on one site.
 
 **Global design systems** - One design system to serve all your sites. New sites are 90% done before you write a line of code.
 
-**AI-native content workflow** - AI generates content, your design system handles presentation. The focus shifts to content, strategy, and story.
+**AI-friendly workflows** - AI generates content, your design system handles presentation. The focus shifts to content, strategy, and story.
 
 
 ## How do I benefit as a developer?
@@ -26,11 +26,11 @@ CSS-in-JS solved the global namespace problem. Tailwind solved co-location and o
 
 Nue solves a completely different problem.
 
-The problem shifts from engineering to design: you're building a **global design system** that serves unlimited sites, not styling individual components. It's a shift from a component mindset to systematic CSS/design engineering.
+With Nue your goal is to build a global system that serves unlimited sites. The problem shifts from component development to building re-usable systems that any new site can inherit.
 
-You're no longer worrying about namespace collisions; you're strategizing layers and components in your design system. You're not styling one button at a time; you're defining how all buttons work across all sites.
+When you work at the system level, entire categories of problems disappear. You're no longer worrying about namespace collisions; you're strategizing layers and components in your design system. You're not styling one button at a time; you're defining how all buttons work across all sites.
 
-When you work at the system level, not the component level, entire categories of problems disappear. You start optimizing for multi-site development and AI-driven content workflows. You can move faster because for every new site 90% is already done.
+You start optimizing for multi-site development and AI-driven workflows. You can move faster because for every new site 90% is already done.
 
 
 ## How about React?
@@ -42,5 +42,5 @@ Nue's inheritance model does the opposite: sites inherit from `@base` and overri
 - Smaller output (no runtime, less abstraction overhead)
 - Faster builds (sub-second per site)
 
-The tradeoff: React has a massive ecosystem. Nue requires comfort with vanilla CSS and HTML-first thinking.
+The tradeoff: React has a massive ecosystem. Nue requires years of expertise with CSS and HTML-first thinking. At least until the [templates](roadmap) arrive.
 

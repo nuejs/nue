@@ -31,8 +31,6 @@ export async function loadPage(path) {
   const ignoreMain = updateContent($('main'), $('main', dom))
   updateContent($('body'), $('body', dom), ignoreMain)
 
-
-  dispatchRouteEvents()
   setActive(path)
 }
 
@@ -66,9 +64,9 @@ function handlePageScroll() {
   scrollTo(0, scrollTop)
 }
 
-function dispatchRouteEvents() {
+function fireRouteEvents() {
   dispatchEvent(new Event('route'))
-  const [_, app] = location.pathname.split('/')
+  const app = location.pathname.split('/')[1]
   dispatchEvent(new Event(`route:${app || 'home'}`))
 }
 
@@ -76,13 +74,13 @@ function dispatchRouteEvents() {
 export function onclick(root, fn) {
   root.addEventListener('click', e => {
     const el = e.target.closest('[href]')
-    if (!el) return
+
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
+    if (window.ignoreClick || e.defaultPrevented) return
+    if (!el || el.getAttribute('target') || el.dataset.transition == 'false') return
 
     const path = el.getAttribute('href')
-    const target = el.getAttribute('target')
-    const filename = path?.split('/')?.pop()?.split(/[#?]/)?.shift()
-
-    if (shouldIgnoreClick(e, path, target, filename)) return
+    if (ignorePath(path)) return
 
     // all good
     if (path != location.pathname) fn(el.pathname, el)
@@ -90,10 +88,12 @@ export function onclick(root, fn) {
   })
 }
 
-function shouldIgnoreClick(e, path, target, filename) {
-  return window.ignoreClick || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey ||
-    !path || path[0] == '#' || path.includes('//') || path.startsWith('mailto:') ||
-    (filename?.includes('.') && !filename.endsWith('.html')) || !!target
+function ignorePath(path) {
+  if (!path || path[0] == '#' || path.includes('//') || path.startsWith('mailto:')) return true
+
+  // filename check
+  const filename = path?.split('/')?.pop()?.split(/[#?]/)?.shift()
+  if (filename?.includes('.') && !filename.endsWith('.html')) return true
 }
 
 export function toRelative(path) {
@@ -125,6 +125,8 @@ export function setupTransitions() {
   // https://stackoverflow.com/questions/11092736/window-onpopstate-event-state-null
   history.pushState({ path: location.pathname }, 0)
 
+  fireRouteEvents()
+
   // save scroll position whenever user scrolls
   addEventListener('scroll', () => {
     scrollPos[location.pathname] = window.scrollY
@@ -139,6 +141,7 @@ export function setupTransitions() {
       await loadPage(path)
       history.pushState({ path }, 0, path)
       handlePageScroll()
+      fireRouteEvents()
     })
   })
 
@@ -236,7 +239,7 @@ async function fetchHTML(path) {
     const title = document.title = 'Page not found'
     $('article').innerHTML = `<section><h1>${title}</h1></section>`
   } else {
-    cache[path] = html
+    // cache[path] = html
   }
 
   return html

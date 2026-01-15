@@ -1,8 +1,9 @@
 
+
 brand_name: LOGO
 author: Jane Doe
 
-include: [ forms.js ]
+include: [ @design, forms.js ]
 
 design:
   layers: [ base, ui, design ]

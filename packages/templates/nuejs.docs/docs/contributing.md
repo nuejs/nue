@@ -20,6 +20,8 @@ I'm not accepting pull requests right now because reviewing contributions takes 
 
 **Talk about it** - Write, tweet, or tell other developers who'd benefit.
 
+**Development help** — Reach me in [Slack](/slack/). I'm eager to talk if the idea aligns with the vision.
+
 
 
 

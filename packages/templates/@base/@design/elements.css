@@ -6,10 +6,14 @@
     white-space: nowrap;
     font-size: inherit;
     padding: .75em 1.25em;
+    display: inline-flex;
     cursor: pointer;
+    gap: .5em;
     border: 0;
 
-    &:hover { background-color: #ddd }
+    &:hover {
+      filter: brightness(.975);
+    }
 
     &.primary {
       background-color: #333;

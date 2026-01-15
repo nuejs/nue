@@ -4,23 +4,30 @@ import { getDeps, getIncludeOpts, getComponents } from '../src/deps'
 
 test('getDeps', async () => {
   const assets = [
-    { site: '@base', path: '@shared/design/base.css', type: 'css' },
-    { site: '@base', path: 'docs/layout.html', type: 'html', dir: 'docs' },
 
-    // always included
-    { site: 'miesian', path: 'mies.css', type: 'css' },
+    // @base
+    { site: '@base', dir: '@global', path: '@global/base.css', type: 'css' },
+    { site: '@base', dir: 'docs', path: 'docs/layout.html', type: 'html' },
 
+    //  acme
+    { site: 'acme', path: 'site.yaml', parse() { return { include: ['@global' ] } } },
     { site: 'acme', path: 'index.md', type: 'md' },
     { site: 'acme', path: 'script.js', type: 'js' },
     { site: 'acme', path: 'app/index.html', type: 'html', dir: 'app' },
 
+    // miesian
+    { site: 'miesian', path: 'mies.css', type: 'css' },
+
+    // beta
     { site: 'beta', path: 'index.html', type: 'html' },
     { site: 'beta', path: 'layout.html', type: 'html' },
 
-    { site: 'foo', path: 'root.css', type: 'css' },
-    { site: 'foo', path: 'index.md', type: 'md' },
-    { site: 'foo', path: 'docs/docs.css', type: 'css', dir: 'docs' },
-    { site: 'foo', path: 'docs/index.md', type: 'css', dir: 'docs' },
+    // gamma
+    { site: 'gamma', path: 'root.css', type: 'css' },
+    { site: 'gamma', path: 'index.md', type: 'md' },
+    { site: 'gamma', path: 'docs/docs.css', type: 'css', dir: 'docs' },
+    { site: 'gamma', path: 'docs/index.md', type: 'css', dir: 'docs' },
+
   ]
 
 
@@ -32,15 +39,14 @@ test('getDeps', async () => {
     else return paths
   }
 
-
-  await testDeps('index.md', ['@shared/design/base.css', 'mies.css', 'script.js'])
-  await testDeps('app/index.html', [ "@shared/design/base.css", 'mies.css', "script.js"])
-  await testDeps('index.html', [ "@shared/design/base.css", 'mies.css', "layout.html" ])
+  await testDeps('index.md', ['@global/base.css', 'mies.css', 'script.js'])
+  await testDeps('app/index.html', [ "@global/base.css", 'mies.css', "script.js"])
+  await testDeps('index.html', [ 'mies.css', "layout.html" ])
 
 
   // subfolders
   await testDeps('docs/index.md', [
-    "@shared/design/base.css", "docs/layout.html", 'mies.css', "root.css", "docs/docs.css"
+    "docs/layout.html", 'mies.css', "root.css", "docs/docs.css"
   ])
 
 })

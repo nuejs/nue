@@ -2,8 +2,6 @@
 import { join, dirname, extname, sep } from 'node:path'
 
 // default include
-const INCLUDE = [`@shared${sep}layout`, `@shared${sep}data`, `@shared${sep}design`]
-
 const TYPES = ['html', 'js', 'ts', 'yaml', 'css']
 
 export async function getDeps(asset, chain, assets) {
@@ -25,11 +23,6 @@ export async function getDeps(asset, chain, assets) {
     // root asset or same dir
     if (!dep.dir || asset.dir?.startsWith(dep.dir)) return true
 
-    // same app
-    // if (asset.app && asset.app == dep.app) return true
-
-    // if (INCLUDE.some(dir => dep.path.startsWith(dir + sep))) return true
-
     // index.md -> home dir
     if (asset.path == 'index.md' && dep.dir == 'home') return true
 
@@ -50,11 +43,11 @@ function sortAssets(assets, chain) {
 }
 
 export async function getIncludeOpts(asset, chain, assets) {
-  const opts = { include: [ ...INCLUDE ], exclude: [] }
+  const ret = { include: [], exclude: [] }
 
   function push({ include, exclude }) {
-    if (include) opts.include.push(...include)
-    if (exclude) opts.exclude.push(...exclude)
+    if (include) ret.include.push(...include)
+    if (exclude) ret.exclude.push(...exclude)
   }
 
   for (const site of chain) {
@@ -78,7 +71,7 @@ export async function getIncludeOpts(asset, chain, assets) {
     if (meta) push(meta)
   }
 
-  return opts
+  return ret
 }
 
 

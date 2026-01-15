@@ -1,7 +1,7 @@
 
 <!-- global header -->
 <header>
-  <a href="/">
+  <a href="/" data-transition="false">
     <strong class="logo">{ brand_name }</strong>
   </a>
 
@@ -9,11 +9,18 @@
     <a :each="el in nav.master" href="{ el.url }">{ el.label }</a>
   </nav>
 
-  <aside>
-    <a :each="el in nav.toolbar" href="{ el.url }">
-      <button class="{ el.class }">{ el.label }</button>
+  <nav>
+    <a :each="el in nav.toolbar"
+      data-transition="{ el.transition }"
+      target="{ el.target }"
+      href="{ el.url }">
+
+      <button class="{ el.class }">
+        <img :if="el.img" src="{ el.img }">
+        { el.label }
+      </button>
     </a>
-  </aside>
+  </nav>
 </header>
 
 

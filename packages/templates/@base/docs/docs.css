@@ -59,20 +59,19 @@
       display: grid;
       grid-template-columns: 13em 1fr;
       gap: 3em;
+      aside {
+        border-right: 1px solid var(--border);
+        align-self: flex-start;
+        position: sticky;
+        overflow-y: auto;
+        max-height: 95vh;
+        top: 0;
+      }
     }
 
-    aside {
-      border-right: 1px solid var(--border);
-      align-self: flex-start;
-      position: sticky;
-      overflow-y: auto;
-      max-height: 95vh;
-      top: 0;
-
-    }
   }
 
-  aside nav {
+  main aside nav {
     margin-bottom: 3em;
   }
 

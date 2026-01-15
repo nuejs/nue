@@ -1,4 +1,6 @@
 
+include: [ @shared ]
+
 site:
   view_transitions: true
 
