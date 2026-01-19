@@ -1,10 +1,12 @@
 
-import { extname, join } from 'node:path'
+import { extname, join, sep } from 'node:path'
 
 export async function findAsset(url, chain, assets) {
+
   if (!chain?.[0]) chain = [ null, '@base' ]
 
-  const name = url.split('/').pop()
+  const parts = url.split('/')
+  const name = parts.at(-1)
   const ext = getExt(name)
   let path = url.slice(1)
 
@@ -30,14 +32,22 @@ export async function findAsset(url, chain, assets) {
 
     // home page
     } else if (url == '/') {
-      const asset = find('home/index.md')
+      const asset = find(`home${sep}index.md`)
       if (asset) return asset
     }
 
     // /, blog/, app/, docs/
     if (url.endsWith('/')) {
-      const asset = find(`${path}index.md`) || find(`${path}index.html`)
+      const asset = find(`${path}index.md`)
       if (asset) return asset
+    }
+
+    // SPA entry
+    if (!ext) {
+      for (const app of parts.slice(0, -1)) {
+        const asset = find(`${app}${app ? sep : ''}index.html`)
+        if (asset) return asset
+      }
     }
 
     // error page
@@ -47,15 +57,17 @@ export async function findAsset(url, chain, assets) {
   }
 
   if (url == '/favicon.ico') {
-    return Bun.file(join(import.meta.dir, '../client/favicon.ico'))
+    return Bun.file(join(import.meta.dir, `..${sep}client${sep}favicon.ico`))
   }
 
   // explicit not found
   return null
 }
 
-// extname does not work when dot is in filename (.woff2 length = 6)
+// extname does not work when dot is in filename (/blog/v2.0-release)
 function getExt(name) {
   const ext = extname(name)
+
+  // ".woff2" length is 6
   return ext?.length <= 6 && !ext?.includes('-') ? ext : null
 }

@@ -1,5 +1,5 @@
 
-// Nue • (c) 2025 Tero Piirainen & contributors, MIT Licensed
+// Nue • (c) 2026 Tero Piirainen & contributors, MIT Licensed
 
 import { domdiff } from './diff.js'
 
@@ -27,17 +27,6 @@ export function createNode(ast, data={}, opts={}, parent) {
   // Object.assign(self, getAttrData(ast, self))
   const self = { ...data, ...opts.globals, ...getAttrData(ast, data), update, parent }
 
-
-  if (script) {
-    try {
-      if (typeof script == 'string') new Function(script).call(self)
-      else script.call(self)
-
-    } catch (e) {
-      console.error('<script> error:', script, e)
-    }
-  }
-
   function fire(name, wrap) {
     const fn = self[name]
     if (wrap?.tagName) root = self.root = wrap
@@ -58,12 +47,25 @@ export function createNode(ast, data={}, opts={}, parent) {
     const ast = opts.deps?.find(c => name == (c.is || c.tag))
 
     // convert to <div> (TODO: do this at compile time)
-    if (ast.is_custom) { ast.is = ast.tag; ast.tag = 'div'; delete ast.is_custom }
+    if (ast.is_custom) {
+      ast.is = ast.tag;
+      ast.tag = 'div';
+      delete ast.is_custom
+    }
 
     const block = createNode(ast, data, opts, self)
     block.mount(wrap)
   }
 
+  if (script) {
+    try {
+      if (typeof script == 'string') new Function(script).call(self)
+      else script.call(self)
+
+    } catch (e) {
+      console.error('<script> error:', script, e)
+    }
+  }
 
   function render(_ast=ast, data=self) {
     return _ast.text || _ast.fn ? renderText(_ast, data) :
@@ -244,7 +246,7 @@ function setAttributes(el, ast, self) {
       vars.push({ name, val })
     } else if (a.bool) {
       if (val) el.setAttribute(name, '')
-    } else if (name == 'class') {
+    } else if (name == 'class' && val) {
       el.classList.add(...val.trim().split(/ +/))
     } else if (val) {
       el.setAttribute(name, val)

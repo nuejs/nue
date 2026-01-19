@@ -1,12 +1,12 @@
 
-
 brand_name: LOGO
+
 author: Jane Doe
 
 include: [ @design, forms.js ]
 
 design:
-  layers: [ base, ui, design ]
+  layers: [ base, ui, app, site ]
 
 site:
   view_transitions: true
@@ -24,6 +24,10 @@ rss:
 sitemap:
   enabled: true
 
+# reverse proxy
+server:
+  url: http://localhost:3000
+  routes: [ /api/ ]
 
 nav:
   master:

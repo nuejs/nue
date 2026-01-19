@@ -2,7 +2,7 @@
 <!-- global header -->
 <header>
   <a href="/" data-transition="false">
-    <strong class="logo">{ brand_name }</strong>
+    <strong class="logo">{{ markdown(brand_name) }}</strong>
   </a>
 
   <nav class="mastnav">
@@ -26,7 +26,7 @@
 
 <!-- global footer -->
 <footer>
-  <strong class="logo">{ brand_name }</strong>
+  <strong class="logo">{{ markdown(brand_name) }}</strong>
 
   <nav>
     <a :each="el in nav.footer" href="{ el.url }">{ el.label }</a>

@@ -1,5 +1,6 @@
 
-@layer ui {
+@layer app {
+
   .grid {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     margin-block: 2em 4em;

@@ -5,7 +5,7 @@ import { sep } from 'node:path'
 import { renderNue } from 'nuedom'
 
 import { getDeps, getComponents } from '../deps'
-import { renderContent, globals } from './slot'
+import { renderSlots, globals } from './slot'
 import { getCollections } from '../collections'
 import { getData, getConf } from '../data'
 import { renderHead } from './head'
@@ -41,7 +41,7 @@ export async function renderPage(asset, chain, assets, is_prod) {
 
   const head = await renderHead({ conf, data, deps })
 
-  return renderContent(content, { head, comps, data, conf })
+  return renderSlots(content, { head, comps, data, conf })
 }
 
 

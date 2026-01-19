@@ -1,5 +1,0 @@
-
-extend: [ @base ]
-
-meta:
-  title: Minimal SPA

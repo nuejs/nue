@@ -1,0 +1,24 @@
+<!doctype dhtml>
+
+<script>
+  import { state } from 'state'
+  state.setup({ route: '/:item', autolink: true })
+</script>
+
+<article>
+
+  <div/>
+
+  <script>
+    state.on('item', async ({ item }) => {
+      const res = await fetch(item ? `/api/item/${ item }` : '/api/items')
+      const data = await res.json()
+
+      item ? this.mount('gallery-item', ':first-child', data)
+        : this.mount('gallery', ':first-child', { items: data })
+    })
+
+    state.init()
+  </script>
+
+</article>

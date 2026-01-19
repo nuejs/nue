@@ -1,5 +1,5 @@
 
-@layer base {
+@layer app {
 
   .breadcrumb {
     display: flex;

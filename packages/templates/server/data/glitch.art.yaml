@@ -1,0 +1,18 @@
+
+default:
+  title: Epic clitch
+  desc: Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+  src: /img/glitch.jpg
+  index: 1
+
+boosty:
+  title: Boosty clitch
+  desc: Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+  src: /img/glitch.jpg
+  index: 2
+
+marvellous:
+  title: Boosty clitch
+  desc: Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+  src: /img/glitch.jpg
+  index: 3

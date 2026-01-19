@@ -4,9 +4,8 @@ import { renderInline } from 'nuemark'
 
 export const globals = { markdown: renderInline }
 
-export function renderContent(content, { head=[], comps=[], data={}, conf={} }) {
+export function renderSlots(content, { head=[], comps=[], data={}, conf={} }) {
   const attr = getAttr(data)
-  const { scope } = data
   const { max_class_names } = conf.design || {}
 
   function slot(name) {
@@ -15,7 +14,7 @@ export function renderContent(content, { head=[], comps=[], data={}, conf={} }) 
     return comp ? renderNue(comp, { data, deps: comps, globals, max_class_names }) : ''
   }
 
-  const article = scope == 'article' ? content : `
+  const article = data.scope == 'article' ? content : `
     <article>
       ${ slot('pagehead') }
       ${ content }
@@ -23,7 +22,7 @@ export function renderContent(content, { head=[], comps=[], data={}, conf={} }) 
     </article>
   `
 
-  const main = scope == 'main' ? content : `
+  const main = data.scope == 'main' ? content : `
     <main>
       ${ slot('aside') }
       ${ article }
@@ -32,7 +31,7 @@ export function renderContent(content, { head=[], comps=[], data={}, conf={} }) 
   `
 
 
-  const body = scope == 'body' ? content : `
+  const body = data.scope == 'body' ? content : `
     <body${attr.class}>
       ${ slot('banner') }
       ${ slot('header') }

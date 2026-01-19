@@ -3,7 +3,7 @@ import { compileNue, renderNue } from 'nuedom'
 import { elem } from 'nuemark'
 
 import { getDeps, getComponents } from '../deps'
-import { renderContent, globals } from './slot'
+import { renderSlots, globals } from './slot'
 import { getCollections } from '../collections'
 import { getData, getConf } from '../data'
 import { renderHead } from './head'
@@ -51,7 +51,7 @@ export async function renderHTMLPage(asset, chain, assets, is_prod) {
   // page
   const head = await renderHead({ conf, data, deps })
 
-  return renderContent(html, { head, comps, data, conf })
+  return renderSlots(html, { head, comps, data, conf })
 }
 
 
@@ -60,19 +60,21 @@ export async function renderSPA(asset, chain, assets, is_prod) {
   const conf = await getConf(asset.app, chain, assets, is_prod)
   const deps = await getDeps(asset, chain, assets)
   const data = await getData(deps, is_prod)
-  const comps = await getComponents(deps, true)
 
   // state.js
   const map = conf.import_map ??= {}
   map.state = '/@nue/state.js'
-  data.scope = 'body'
 
+  // scope
+  const ast = await asset.parse()
+  data.scope = ast.root.tag // 'body'
   deps.push(asset)
 
   // html page
   const head = await renderHead({ conf, data, deps })
-  const body = elem('body', { nue: 'default-app' })
-  return renderContent(body, { head, comps, data, conf })
+  const body = elem(data.scope, { nue: ast.root.is || data.scope })
+  const comps = await getComponents(deps)
+  return renderSlots(body, { head, comps, data, conf })
 }
 
 

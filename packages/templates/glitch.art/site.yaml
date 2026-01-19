@@ -1,0 +1,4 @@
+
+extend: [ @base, gallery.dev ]
+
+brand_name: Glitch **Art**!

@@ -12,9 +12,6 @@ export async function mountAll(reload_path) {
     const name = root.getAttribute('nue') || rootTag
     let comp = deps.find(a => [a.is, a.tag].includes(name))
 
-    // SPA
-    if (rootTag == 'body') comp = deps.find(el => el.tag == 'body')
-
     if (comp) {
       const node = mount(comp, { root, deps, data: getData(root) })
       node.root.setAttribute('nue', name)

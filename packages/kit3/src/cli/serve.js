@@ -34,7 +34,7 @@ export async function start(tree, { port=4000, version, silent }) {
 
   // proxy server
   const conf = await tree.getConf()
-  const handler = conf.proxy ? createProxy(conf.proxy) : null
+  const handler = conf.server ? createProxy(conf.server) : null
 
   // multi-site server
   const server = createServer({ port, handler }, async url => {

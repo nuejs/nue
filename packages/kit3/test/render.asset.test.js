@@ -30,12 +30,12 @@ test('HTML page', async () => {
 test('SPA', async () => {
   const asset = {
     async parse() {
-      return parseNue('<!doctype dhtml> <body><h1>Hello</h1></body>')
+      return parseNue('<!doctype dhtml> <article><h1>Hello</h1></article>')
     },
   }
 
   const html = await renderHTML(asset, [], [])
-  expect(html).toInclude('<body nue="default-app"></body>')
+  expect(html).toInclude('<article nue="article"></article>')
   expect(html).toInclude('{"state":"/@nue/state.js"}')
 })
 

@@ -90,9 +90,15 @@ test('SPA', async () => {
   expect(content).toInclude('"libs" content="@shared/layout/join.html')
   expect(content).toInclude('app/index.html')
   expect(content).toInclude('<script src="/@shared/lib/extra.js"')
-  expect(content).toInclude('<body nue="default-app"></body>')
+  expect(content).toInclude('<body nue="body"></body>')
   expect(content).toInclude('"/@nue/state.js"')
   expect(type).toInclude('text/html')
+})
+
+
+test('SPA nested entry', async () => {
+  const ret = await tree.renderURL({ host: 'beta.localhost', pathname: '/app/anything' })
+  expect(ret.content).toInclude('<body nue="body"></body>')
 })
 
 

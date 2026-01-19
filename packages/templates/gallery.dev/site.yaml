@@ -1,0 +1,17 @@
+
+extend: [ @base ]
+
+brand_name: GALLERY BASE
+
+include: [ app/ ]
+
+title: Gallery base
+
+site:
+  view_transitions: false
+
+nav:
+  toolbar:
+    - label: Get started
+    - label: Login
+      class: primary
