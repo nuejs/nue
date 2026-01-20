@@ -1,0 +1,91 @@
+
+@layer site {
+  :root {
+    --bgcolor: #050505;
+    --border: #333;
+  }
+
+  body {
+    max-width: 1400px;
+    padding: 2em;
+  }
+
+  .logo {
+    color: white;
+    font-size: 2.5em;
+    line-height: 1;
+    strong { color: #006279 }
+  }
+
+  h2 {
+    color: #ddd;
+    font-size: 1.75em;
+  }
+
+  p {
+    color: white;
+    opacity: .5;
+  }
+
+  button {
+    border-radius: .666em;
+
+    &.secondary {
+      border-color: #444;
+      color: #999;
+    }
+  }
+
+  .gallery {
+    gap: 2em;
+
+    .item {
+      position: relative;
+
+      header {
+        position: absolute;
+        padding: 1em 1.5em;
+        background-image: linear-gradient(rgba(0,0,0,.5), transparent);
+        width: 100%;
+        z-index: 1;
+        opacity: 0;
+        transition: opacity .2s;
+      }
+
+      &:hover header {
+        opacity: 1;
+      }
+    }
+  }
+
+  .item {
+    max-width: 900px;
+  }
+
+  figure {
+    border-radius: .25rem;
+    font-size: 0;
+  }
+
+  .img-1 {
+    filter: grayscale(1);
+  }
+
+  .img-2 {
+    transform: scale(2.5);
+    transform-origin: 0 0;
+  }
+
+  .img-3 {
+    filter: brightness(.75) hue-rotate(125deg);
+    transform: scale(1.5);
+  }
+
+  .img-4 {
+    transform: rotate(180deg);
+    filter: hue-rotate(30deg);
+  }
+
+
+}
+

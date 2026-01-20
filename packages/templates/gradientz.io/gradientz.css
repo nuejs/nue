@@ -1,0 +1,51 @@
+
+@layer site {
+  :root {
+    --bgcolor: #f9f9f9;
+  }
+
+  body {
+    max-width: 1300px;
+    padding: 2em;
+  }
+
+  .logo {
+    font-size: 1.25em;
+  }
+
+  button { border-radius: 1em }
+
+  .gallery { gap: 2em }
+
+  .item {
+    background-color: white;
+    border-radius: .5rem;
+    box-shadow: 1px 1px .3em #eee;
+    padding: 1.5em;
+
+    h2 { margin: 0; }
+    p { color: #777 }
+  }
+
+  figure {
+    border-radius: inherit;
+    font-size: 0;
+    img { min-height: 400px }
+  }
+
+  .img-2 {
+    transform: rotate(180deg) scale(2);
+    filter: hue-rotate(-33deg);
+  }
+
+  .img-3 {
+    filter: grayscale(.5);
+    transform: scale(2) rotate(25deg);
+  }
+
+  .img-4 {
+    filter: sepia(.7);
+    transform: rotate(180deg);
+  }
+}
+

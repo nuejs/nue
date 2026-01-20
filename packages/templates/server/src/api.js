@@ -1,15 +1,16 @@
 
 async function getData(hostname) {
   const data = await import(`../data/${ hostname }.yaml`)
-  return data.default
+  return data.default.map((el, i) => {
+    return { ...el, index: i + 1 }
+  })
 }
 
 export async function getItems(hostname) {
-  const data = await getData(hostname)
-  return Object.keys(data).map(key => ({ key, ...data[key]}))
+  return await getData(hostname)
 }
 
-export async function getItem(hostname, key) {
+export async function getItem(hostname, id) {
   const items = await getItems(hostname)
-  return items.find(el => el.key == key)
+  return items.find(el => el.id == id)
 }

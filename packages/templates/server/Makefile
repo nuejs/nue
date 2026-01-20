@@ -1,6 +1,6 @@
 
+server-tests:
+	@ bun test
+
 start:
 	@ bun src/server
-
-mock-test:
-	bun test #

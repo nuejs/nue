@@ -1,0 +1,16 @@
+
+- id: spectrum-a12
+  title: Spectrum Baseline
+  desc: Unprocessed color field transition from cool to warm
+
+- id: thermal-k1
+  title: Thermal Inversion
+  desc: Reversed heat map with shifted wavelength values
+
+- id: signalfatique
+  title: Signal Fatigue
+  desc: Partial desaturation under rotational stress
+
+- id: archivaltone-kk2
+  title: Archival Tone
+  desc: Aged chromatic data with inverted orientation

@@ -1,7 +1,7 @@
 
 extend: [ @base ]
 
-brand_name: GALLERY BASE
+brand_name: BASEAPP
 
 include: [ app/ ]
 
@@ -12,6 +12,6 @@ site:
 
 nav:
   toolbar:
-    - label: Get started
+    - label: Settings
     - label: Login
       class: primary

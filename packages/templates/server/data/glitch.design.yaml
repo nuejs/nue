@@ -1,0 +1,16 @@
+
+- id: monochrome-s7
+  title: "Entropy Study #7"
+  desc: Signal decay in monochrome
+
+- id: corruption-k5
+  title: Macro Corruption
+  desc: Detail loss at 250% magnification
+
+- id: drift-c15
+  title: Phosphor Drift
+  desc: CRT color channel degradation
+
+- id: protocol-a6
+  title: Mirror Protocol
+  desc: Inverted data stream artifact

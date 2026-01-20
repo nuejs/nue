@@ -1,0 +1,25 @@
+
+@layer app {
+
+  main { min-height: 75vh }
+
+  .gallery {
+    display: grid;
+    gap: 2em 3em;
+    > a { text-decoration: none }
+
+    @media (width > 900px) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  /* back button */
+  button.secondary {
+    margin-bottom: 2em;
+    border: 1px solid #ccc;
+    background-color: unset;
+    .gallery & { display: none }
+  }
+
+  .item figure { overflow: clip }
+}
