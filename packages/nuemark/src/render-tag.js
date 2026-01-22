@@ -2,7 +2,6 @@
 import { join, extname } from 'node:path'
 import { readFileSync } from 'node:fs'
 
-import { sectionize } from './parse-document.js'
 import { elem, renderBlocks } from './render-blocks.js'
 import { renderInline } from './render-inline.js'
 
@@ -28,7 +27,7 @@ const TAGS = {
 
   block() {
     const { render, attr, blocks } = this
-    const divs = sectionize(blocks, 3) // heading level
+    const divs = sectionize(blocks)
 
     const html = !divs || !divs[1] ? render(blocks) :
       divs.map(blocks => elem('div', render(blocks))).join('\n')
@@ -212,6 +211,32 @@ function getMimeType(path = '') {
   const type = extname(path).slice(1)
   return type ? MIME[type] || `image/${type}` : 'text/html'
 }
+
+
+export function sectionize(blocks = []) {
+  const arr = []
+  let section
+
+  // first (sub)heading
+  const separ = blocks.find(el => el.is_block_separator)
+  const level = blocks.find(el => el.level == 2 || el.level == 3)?.level
+
+  // no heading nor separator -> no sections
+  if (!level && !separ) return
+
+  blocks.forEach((el, i) => {
+    const cut = separ ? el.is_block_separator : el.level <= level
+
+    // add new section
+    if (!section || cut) arr.push(section = [])
+
+    // add content to section
+    if (!el.is_block_separator) section?.push(el)
+  })
+
+  return arr[0] && arr
+}
+
 
 export function createPicture(img_attr, data) {
   const { small, offset = 750 } = data

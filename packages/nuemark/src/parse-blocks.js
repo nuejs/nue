@@ -242,7 +242,11 @@ export function getBreak(str) {
 
   for (const hr of HR) {
     if (str.startsWith(hr) && !/[^\*\-\_\= ]/.test(str)) {
-      return { is_break: true, is_separator: hr == '---' || hr == '===' }
+      return {
+        is_section_separator: hr.startsWith('==='),
+        is_block_separator: hr.startsWith('---'),
+        is_break: true,
+      }
     }
   }
 }

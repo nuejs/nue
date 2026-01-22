@@ -42,21 +42,17 @@ test('render method', () => {
 
 
 test('sectionize', () => {
-  const tests = [
-    ['### h3', 'para', '### h3', 'para', '#### h4', 'para'],
-    ['# h1', 'para', '## h2', 'para', '### h3', 'para'],
-    ['para', '## h3', '---', 'para', '## h2'],
-    ['## lol', '---', '## bol'],
-    ['para', '## h2', 'para'],
-    ['lol', '---', 'bol'],
-  ]
+  const no = parseBlocks(['A', '---', 'B'])
+  expect(sectionize(no.blocks)).toBeUndefined()
 
-  for (const test of tests) {
-    const { blocks } = parseBlocks(test)
-    expect(sectionize(blocks, 3).length).toBe(2)
-  }
+  const yes = parseBlocks(['A', '=====', 'B'])
+  const sect = sectionize(yes.blocks)
+  expect(sect.length).toBe(2)
 
-
+  expect(sect[0][0]).toEqual({
+    is_content: true,
+    content: [ "A" ],
+  })
 })
 
 test('non section', () => {
