@@ -42,8 +42,20 @@ export function createNode(ast, data={}, opts={}, parent) {
     return root
   }
 
-  self.mount = function(name, wrap, data) {
-    if (typeof wrap == 'string') wrap = root?.querySelector(wrap)
+  self.mount = function(name, to, data) {
+    if (typeof to == 'string') to = root?.querySelector(to)
+
+    // mount('gallery', data) — no target given
+    if (to && !to.nodeType) { data = to; to = null }
+
+    if (!to) to = root.firstChild
+
+    // add first child
+    if (!to && !root.firstChild) {
+      to = document.createElement('div')
+      this.root.appendChild(to)
+    }
+
     const ast = opts.deps?.find(c => name == (c.is || c.tag))
 
     // convert to <div> (TODO: do this at compile time)
@@ -54,7 +66,7 @@ export function createNode(ast, data={}, opts={}, parent) {
     }
 
     const block = createNode(ast, data, opts, self)
-    block.mount(wrap)
+    block.mount(to)
   }
 
   if (script) {

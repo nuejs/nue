@@ -13,7 +13,7 @@ function connect() {
       : asset.content ? await reloadContent(asset)
       : asset.is_dhtml ? await reloadComponents(asset)
       : asset.is_js || asset.is_ts ? location.reload()
-      : asset.remove ? removeAsset(asset)
+      : asset.is_remove ? removeAsset(asset)
       : console.log('HMR void', asset)
   }
 

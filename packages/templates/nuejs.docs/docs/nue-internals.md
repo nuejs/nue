@@ -12,7 +12,7 @@ When styles live in separate files, they become sharable across components, page
 
 **Inheritance chains** - With content, structure, and presentation in separate files, each can cascade independently through directory hierarchies. A site declares `extend: [@base]` and receives all CSS, layouts, components, and data from that foundation. Multiple sites can extend the same base. Sites can extend other sites. The inheritance resolver walks backward through the chain until it finds each requested file.
 
-This creates global design systems by default. Typography defined in `@base/@shared/design/` applies to every inheriting site. A site overrides only what differs. New sites require minimal code because they inherit most of their functionality from the shared codebase.
+This creates global design systems by default. Typography defined in `@base/@design/` applies to every inheriting site. A site overrides only what differs. New sites require minimal code because they inherit most of their functionality from the shared codebase.
 
 
 **Web standards** - Separation of concerns defines Nue's API surface. Structure is defined with HTML. Presentation uses CSS. Behavior is JavaScript. Each concern maps directly to its web standard without framework-specific abstractions layered on top.
@@ -59,3 +59,6 @@ The HMR handles content and presentation differently based on what changed:
 **Content development** - Markdown edits diff against the current DOM and patch only the changed elements. Edit a paragraph and that paragraph updates. Add a heading and it inserts in place. YAML data changes propagate to every template expression that references the modified value. The system tracks these dependencies at build time so updates are surgical rather than page-wide.
 
 This architecture eliminates the wait between editing and seeing results. Changes appear in milliseconds across every site that inherits them.
+
+
+

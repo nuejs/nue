@@ -18,7 +18,7 @@ Global configuration in `site.yaml` that affects the entire site:
 port: 8080
 
 # Inheritance chain. Typically just @base, but can be more
-extend: [ @base ]
+extend: [ @base, baseblog ]
 
 # Global site behavior (site.yaml only)
 site:
@@ -39,7 +39,7 @@ site:
 design:
 
   # Configure CSS @layer cascade order (added to head with style tag)
-  layers: [ settings, elements, components ]
+  layers: [ base, ui, app, site ]
 
   # Prevent inline styling through "utility classes". Max 4 by default
   max_class_names: 4
@@ -108,8 +108,8 @@ rss:
 
 # Client-side import-map. (app.yaml can override)
 import_map:
-  app: /@shared/app/index.js
-  d3: /lib/d3.js
+  app: /app/lib/index.js
+  d3: /@lib/d3.js
 
 
 # Content processing defaults. (app.yaml can override)
@@ -121,7 +121,7 @@ content:
   sections: true
 
   # Assign class names to auto-generated sections
-  sections: [hero, features, testimonials]
+  sections: [ hero, explainer, features, cta ]
 
   # Wrap section content with inner div for layout control (default: null)
   content_wrapper: wrap
@@ -244,6 +244,9 @@ og_image: /img/page-specific.png
 
 # Content settings using flat syntax (overrides site.content and app.content)
 sections: [hero, features]
+
+# page-level inclusions
+include: [ syntax-extras ]
 ---
 ```
 

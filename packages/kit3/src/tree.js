@@ -21,9 +21,12 @@ export function createTree() {
     const paths = _paths || [...map.keys()]
     const sites = getSitenames([...paths, path ])
     const site = parseSitename(path, sites)
-    const asset = createAsset(path, site)
-    map.set(path, asset)
-    return asset
+
+    if (site) {
+      const asset = createAsset(path, site)
+      map.set(path, asset)
+      return asset
+    }
   }
 
   function getAll() {
@@ -103,9 +106,16 @@ export function createTree() {
     return conf
   }
 
+  function remove(path) {
+    const asset = map.get(path)
+    if (asset) {
+      map.delete(path)
+      return asset
+    }
+  }
+
   // Tree API
   return {
-    delete: path =>  map.delete(path),
     get: path =>  map.get(path),
     buildAsset,
     buildFeed,
@@ -113,6 +123,7 @@ export function createTree() {
     getChain,
     getConf,
     update,
+    remove,
     getAll,
     load,
   }

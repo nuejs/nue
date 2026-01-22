@@ -284,9 +284,9 @@ See [Context data](context-data) for complete details on what data is available 
 
 Custom components typically live in these locations:
 
-- `@shared/lib/components.html` - Reusable components shared across all sites
+- `layout.html` - Components alongside layout modules in smaller sites
 - `blog/components.html` - Application-specific components
-- `@shared/layout.html` - Components alongside layout modules in smaller sites
+- `@lib/components.html` - Reusable components shared across all sites
 
 These are recommended patterns, not requirements. Component files can have any name and live anywhere in your directory structure or inheritance chain. Nue finds and includes them automatically.
 

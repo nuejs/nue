@@ -4,6 +4,7 @@ import { createServer, hmr } from '../tools/server'
 import { printSummaryTable, log } from './build'
 import { fswatch } from '../tools/fswatch'
 import { createProxy } from '../proxy'
+import { parseHost } from '../tree'
 
 export async function start(tree, { port=4000, version, silent }) {
   const watcher = fswatch()
@@ -14,20 +15,21 @@ export async function start(tree, { port=4000, version, silent }) {
 
   watcher.onupdate = async path => {
     const asset = tree.update(path)
+    if (!asset) return
+
     log(asset)
 
     for (const browser of hmr.browsers) {
       const update = await getUpdate(browser.url, asset, tree)
-      browser.broadcast(update)
+      if (update) browser.broadcast(update)
     }
   }
 
   watcher.onremove = path => {
-    const asset = tree.get(path)
+    const asset = tree.remove(path)
 
     if (asset) {
-      tree.delete(path)
-      hmr.broadcast({ remove: asset })
+      hmr.broadcast({ ...asset, is_remove: true })
       log(asset, 'red')
     }
   }
@@ -44,6 +46,13 @@ export async function start(tree, { port=4000, version, silent }) {
 
 // HMR update
 async function getUpdate(url, asset, tree) {
+
+  // not in chain -> skip
+  const chain = await tree.getChain(parseHost(url.host))
+  if (!chain.includes(asset.site)) {
+    console.info('skipping', asset.site, chain)
+    return
+  }
 
   // html extra props
   if (asset.is_html) {
@@ -62,7 +71,6 @@ async function getUpdate(url, asset, tree) {
   if (asset.is_css) asset.css = await asset.text()
 
   return asset
-
 }
 
 function printWatching(all, port) {

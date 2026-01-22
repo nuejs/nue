@@ -6,20 +6,21 @@
 </script>
 
 <article>
-  <div/>
 
   <script>
     state.on('item', async ({ item }) => {
       const res = await fetch(item ? `/api/item/${ item }` : '/api/items')
       const data = await res.json()
-
-      item ? this.mount('item', ':first-child', data)
-        : this.mount('gallery', ':first-child', { items: data })
+      item ? this.mount('item', data) : this.mount('gallery', { items: data })
     })
 
     state.init()
   </script>
+
 </article>
+
+
+<mount></mount>
 
 <gallery class="gallery">
   <a :each="el, i in items" href="/{ el.id }">

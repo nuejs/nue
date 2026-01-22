@@ -135,7 +135,6 @@ For non-semantic slots, use the `:is` attribute:
 ```
 
 ## File organization
-
 You can organize layout modules however makes sense for your project. A single file can contain multiple modules:
 
 ```html
@@ -151,15 +150,23 @@ You can organize layout modules however makes sense for your project. A single f
 </footer>
 ```
 
-Or split them across multiple files:
+Or split them across multiple files in @base or your site folder:
 
 ```
-@shared/
-├── layout/
-│   ├── header.html
-│   ├── footer.html
-│   └── sidebar.html
+@layout/
+├── header.html
+├── footer.html
+└── sidebar.html
 ```
+
+```yaml
+# site.yaml
+include: [@design, @layout]
+```
+
+The `include` directive makes every file in the folder available to all pages. Without it, layout modules in subdirectories won't be discovered.
+
+
 
 ### Common patterns:
 
@@ -181,7 +188,7 @@ Modules have access to all context data: front matter, site configuration, and Y
 Here's a header module that uses data from site configuration:
 
 ```html
-<!-- @base/@shared/layout/header.html -->
+<!-- @base/layout/header.html -->
 <header>
   <a href="/">{ site_name }</a>
   <nav>

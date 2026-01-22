@@ -1,5 +1,3 @@
-
-
 # Adding interactivity
 Here are the key approaches to adding interactive features to your global design system:
 
@@ -9,26 +7,27 @@ Here are the key approaches to adding interactive features to your global design
 
 **Global JavaScript** - App-wide behavior via UI controllers
 
+**External libraries** - Third-party code via import maps
+
 
 ## Progressive enhancement
 Progressive enhancement adds JavaScript to make server-rendered HTML work better. The HTML structure stays the same. JavaScript improves the behavior.
 
-Enhancement scripts live alongside their HTML in `@shared/lib/`:
+The recommended place for enhancement scripts is `@lib/`:
 
 ```
 @base/
-└── @shared/
-    └── lib/
-        └── contact-form/
-            ├── contact.html  # server-side rendered form
-            └── contact.js    # client enhancement
+└── @lib/
+    └── contact-form/
+        ├── contact.html  # server-side rendered form
+        └── contact.js    # client enhancement
 ```
 
 ### Example
 Create the form as a reusable module:
 
 ```html
-<!-- @base/@shared/lib/contact-form/contact.html -->
+<!-- @base/@lib/contact-form/contact.html -->
 
 <form :is="contact-form" action="/api/subscribe" method="POST">
   <input type="email" name="email" required>
@@ -39,10 +38,11 @@ Create the form as a reusable module:
 Embed it in the pagefoot slot:
 
 ```html
-<!-- @base/@shared/layout/pagefoot.html -->
-<pagefoot>
+<!-- @base/layout.html -->
+
+<section :is="pagefoot">
   <contact-form/>
-</pagefoot>
+</section>
 ```
 
 See [Page layout](page-layout) for details on layout modules and slots.
@@ -51,8 +51,8 @@ This form works without JavaScript. It renders in the pagefoot slot and submits 
 
 Now create the enhancement script:
 
-```javascript
-// @base/@shared/lib/contact-form/contact.js
+```js
+// @base/@lib/contact-form/contact.js
 document.querySelectorAll('form[action^="/api/"]').forEach(form => {
   form.addEventListener('submit', async (e) => {
     e.preventDefault()
@@ -68,11 +68,11 @@ document.querySelectorAll('form[action^="/api/"]').forEach(form => {
 })
 ```
 
-Include both files in your site configuration:
+Include the folder in your site configuration:
 
 ```yaml
 # @base/site.yaml
-include: [contact-form]
+include: [@lib/contact-form]
 ```
 
 The form renders in the pagefoot slot on every page. The script enhances it to submit via fetch instead of full page reload. If JavaScript fails, the form still works through standard browser submission.
@@ -82,8 +82,8 @@ The form renders in the pagefoot slot on every page. The script enhances it to s
 
 Web Components offer a standards-based API for the same pattern:
 
-```javascript
-// @base/@shared/lib/contact-form/contact.js
+```js
+// @base/@lib/contact-form/contact.js
 class ContactForm extends HTMLElement {
   connectedCallback() {
     this.addEventListener('submit', async (e) => {
@@ -101,23 +101,69 @@ Use Web Components if you need those features or prefer that structure. For most
 **Note:** Don't use Shadow DOM in Web Components. Shadow DOM creates style isolation, which breaks your global design system. Web Components in Nue work as light wrappers around existing HTML that respect your global CSS.
 
 
+### With view transitions
+When view transitions are enabled in your site configuration:
+
+```yaml
+# @base/site.yaml
+site:
+  view_transitions: true
+```
+
+Pages transition smoothly without full reloads. But this means enhancement scripts that run on page load won't re-run when users navigate. The DOM changes, but your event listeners are attached to elements that no longer exist.
+
+The solution is the `route` event, which fires after each navigation:
+
+```js
+// @base/@lib/contact-form/contact.js
+addEventListener('route', () => {
+  document.querySelectorAll('form[action^="/api/"]').forEach(form => {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault()
+      const data = Object.fromEntries(new FormData(e.target))
+
+      await fetch(form.action, {
+        method: 'POST',
+        body: JSON.stringify(data)
+      })
+
+      location.href = '/thanks'
+    })
+  })
+})
+```
+
+The `route` event fires after each navigation. Your script re-attaches listeners to the new page content.
+
+For application-specific logic, use the scoped event:
+
+```js
+// only runs when navigating within /blog/
+addEventListener('route:blog', () => {
+  // blog-specific enhancements
+})
+```
+
+Web Components don't need this wrapper. The browser automatically calls `connectedCallback` when elements mount to the DOM, whether from initial page load or view transition.
+
+
 ## Dynamic HTML components
 
-Dynamic HTML components generate markup on the client based on changing data. Components live in `@shared/lib/` alongside any component-specific styling:
+Dynamic HTML components generate markup on the client based on changing data. Components live in `@lib/` alongside any component-specific styling:
 
 ```
 @base/
-└── @shared/
-    └── lib/
-        └── search/
-            ├── search.html  # Search component
-            └── search.css   # Search-specific styling
+└── @lib/
+    └── search/
+        ├── search.html  # search component
+        └── search.css   # search-specific styling
 ```
 
 ### Example
 
 ```html
-<!-- @base/@shared/lib/search/search.html -->
+<!-- @base/@lib/search/search.html -->
+
 <dialog :is="search-overlay">
   <input type="search" :oninput="search" placeholder="Search...">
 
@@ -143,20 +189,20 @@ Dynamic HTML components generate markup on the client based on changing data. Co
 </dialog>
 ```
 
-The search.css file contains styling specific to the search overlay - layout of the results list, positioning of the dialog, search-specific spacing. General styling like how inputs and dialog look comes from `@shared/design/`. The component CSS only handles what's unique to this component.
+The search.css file contains styling specific to the search overlay - layout of the results list, positioning of the dialog, search-specific spacing. General styling like how inputs and dialogs look comes from `@design/`. The component CSS only handles what's unique to this component.
 
 Include it automatically for every site:
 
 ```yaml
 # @base/site.yaml
-include: [search]
+include: [@lib/search]
 ```
 
 Or include for a specific site only:
 
 ```yaml
-# acme.com/site.yaml
-include: [search]
+# acme.org/site.yaml
+include: [@lib/search]
 ```
 
 ### Mounting components
@@ -165,16 +211,16 @@ Dynamic HTML components can be embedded in three places depending on where you n
 **In layout modules** for site-wide components:
 
 ```html
-<!-- @base/@shared/layout/header.html -->
+<!-- @base/layout.html -->
+
 <header>
   <nav>...</nav>
   <button popovertarget="search">Search</button>
 </header>
 
-<!-- @base/@shared/layout/bottom.html -->
-<bottom>
+<div :is="bottom">
   <search-overlay/>
-</bottom>
+</div>
 ```
 
 The search button in the header triggers the overlay that lives in the bottom slot.
@@ -211,10 +257,25 @@ These cross-cutting concerns don't belong in individual components. They need th
 
 ### UI controllers
 
-Create controllers in `@shared/ui/` where they automatically load on every page:
+Create controllers in a dedicated folder and include it globally:
 
-```javascript
-// @shared/ui/keyboard.js
+```
+@base/
+└── @ui/
+    ├── keyboard.js
+    ├── analytics.js
+    └── tooltips.js
+```
+
+```yaml
+# @base/site.yaml
+include: [@design, @ui]
+```
+
+Example keyboard controller:
+
+```js
+// @base/@ui/keyboard.js
 document.addEventListener('keydown', (evt) => {
   const { target, key } = evt
 
@@ -242,8 +303,54 @@ Use global controllers for:
 
 The pattern: one script handles behavior that spans multiple components and pages. Individual components stay focused on their own structure and local interactions.
 
-See [JavaScript enhancements](/docs/js-enhancements) for complete details on UI controllers, external libraries, and import maps.
+
+## External libraries
+The modern web platform provides surprisingly complete functionality out of the box. Before reaching for a library, check if native APIs can handle your needs. When you do need external code, download minimal versions to `@lib/` and configure them through `import_map`.
+
+### Recommended structure
+Download libraries to `@lib/`:
+
+```
+@base/@lib/
+├── d3.js
+└── utils.js
+```
+
+Configure imports in `site.yaml`:
+
+```yaml
+import_map:
+  d3: /@lib/d3.js
+  utils: /@lib/utils.js
+```
+
+Use in your JavaScript modules:
+
+```js
+import * as d3 from 'd3'
+import { formatCurrency } from 'utils'
+```
+
+### External scripts
+Non-module scripts like Google Analytics load through layout modules:
+
+```html
+<!-- @base/layout.html -->
+
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js"></script>
+</head>
+```
+
+Or in the "bottom" slot for scripts that should load after page content:
+
+```html
+<div :is="bottom">
+  <script src="/heavy-widget.js"></script>
+</div>
+```
 
 
 ## Next steps
 This covers adding interactivity to content sites. For building complete single-page applications with Nue, see [Building single-page apps](building-single-page-apps).
+
