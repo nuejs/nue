@@ -3,4 +3,4 @@ extend: [ @base, baseapp ]
 
 brand_name: Gradientz
 
-titie: Gradientz
+title: Gradientz

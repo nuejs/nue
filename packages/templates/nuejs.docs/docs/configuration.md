@@ -20,6 +20,12 @@ port: 8080
 # Inheritance chain. Typically just @base, but can be more
 extend: [ @base, baseblog ]
 
+
+# Data processor for fetching from external sources (headless CMS, APIs, databases)
+# See Context data docs for details
+processor: @data/process.js
+
+
 # Global site behavior (site.yaml only)
 site:
 

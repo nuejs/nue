@@ -1,6 +1,8 @@
 
 include: [ @shared ]
 
+processor: @shared/processor.js
+
 site:
   view_transitions: true
 

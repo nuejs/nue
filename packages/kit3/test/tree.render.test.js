@@ -137,3 +137,7 @@ test('binary files', async () => {
   expect(png.type).toBe('image/png')
 })
 
+test('processor', async () => {
+  const { content } = await tree.renderURL({ host: 'acme.localhost', pathname: '/' })
+  expect(content).toInclude('<footer><p>processed</p></footer>')
+})

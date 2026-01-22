@@ -3,8 +3,9 @@ import { readdir } from 'node:fs/promises'
 import { join, sep } from 'node:path'
 
 const CONF = [
-  'extends', 'site', 'is_prod', 'design', 'server', 'collections', 'production',
+  'extend', 'site', 'is_prod', 'design', 'server', 'collections', 'production',
   'sitemap', 'rss', 'include', 'exclude', 'meta', 'content', 'import_map', 'svg',
+  'processor'
 ]
 
 

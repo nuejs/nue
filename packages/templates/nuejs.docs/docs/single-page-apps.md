@@ -1,8 +1,7 @@
-
 # Building single-page apps
 Single-page applications follow the same inheritance model as content sites. The key difference is that data comes from a server or database rather than Markdown files.
 
-[screenshotss: glitch.design + CRM]
+[screenshots: glitch.design + CRM]
 
 This guide covers:
 
@@ -12,7 +11,7 @@ This guide covers:
 
 **Creating variations** - What makes each app unique (usually just one CSS file)
 
-**Server isolation** - Any backend, any language, completely decoupled from the frontend
+**Multi-site backend** - Any server engine, any programming language, completely decoupled from the frontend
 
 The goal: new apps inherit 90% of their code and differ only in visual identity.
 
@@ -101,91 +100,8 @@ The base app holds everything functional: Fix a bug in `baseapp/` and all variat
 The base app contains everything functional. Components, routing, data fetching, layout patterns. Individual apps inherit all of it.
 
 
-### SPA entry point
-The entry point is `baseapp/index.html`. The doctype declares this as a dynamic HTML file:
-
-```html
-<!doctype dhtml>
-
-<article>
-  <div/>
-
-  <script>
-    import { state } from 'state'
-    state.setup({ route: '/:item', autolink: true })
-
-    state.on('item', async ({ item }) => {
-      const res = await fetch(item ? `/api/item/${item}` : '/api/items')
-      const data = await res.json()
-
-      item ? this.mount('item', ':first-child', data)
-        : this.mount('gallery', ':first-child', { items: data })
-    })
-
-    state.init()
-  </script>
-</article>
-```
-
-The `dhtml` doctype tells Nue to process this as an interactive component rather than a static page. The development server routes all URLs matching the app to this single file. Visiting `/`, `/monochrome-s7`, or `/corruption-k5` all load the same entry point. The app reads the URL and renders the appropriate view.
-
-### State setup
-
-```js
-import { state } from 'state'
-state.setup({ route: '/:item', autolink: true })
-```
-
-The `route` parameter defines URL patterns. Here `/:item` captures everything after the slash as the `item` variable. Visiting `/monochrome-s7` sets `item` to `"monochrome-s7"`. Visiting `/` leaves `item` empty.
-
-The `autolink` option intercepts clicks on internal links. Instead of full page reloads, links trigger state changes and the URL updates via History API. The page stays loaded while content swaps in place.
-
-### The mount target
-
-```html
-<article>
-  <div/>
-  ...
-</article>
-```
-
-The empty `<div/>` serves as the mount target. Components render here based on URL state.
-
-### State listeners
-
-```js
-state.on('item', async ({ item }) => {
-  const res = await fetch(item ? `/api/item/${item}` : '/api/items')
-  const data = await res.json()
-
-  item ? this.mount('item', ':first-child', data)
-    : this.mount('gallery', ':first-child', { items: data })
-})
-```
-
-When `item` changes, the callback fires. The logic branches: if `item` is empty (root URL), fetch all items from `/api/items`. If `item` has a value, fetch that specific item from `/api/item/:id`.
-
-### Component mounting
-
-```js
-this.mount('gallery', ':first-child', { items: data })
-```
-
-The `mount()` method renders a component into a target element. First argument is the component name. Second is a CSS selector (or a DOM node) for where to render. Third is the data to pass.
-
-Different URL states mount different components. Root URL mounts the gallery with all items. Detail URL mounts the item view with one item. Same mount point, different content based on URL.
-
-### Initialization
-
-```js
-state.init()
-```
-
-This reads the current URL and triggers the appropriate listener. Handles direct URL access, page refreshes, and bookmarked links.
-
-
 ### Components
-The components referenced by `mount()` are defined in the same `index.html` file, after the entry point:
+Components define structure and data binding. No colors, no spacing, no visual effects. The design system handles presentation through CSS.
 
 ```html
 <gallery class="gallery">
@@ -203,16 +119,102 @@ The components referenced by `mount()` are defined in the same `index.html` file
 </item>
 ```
 
+These components know nothing about data fetching or URL routing. They receive data and render it. This separation is what makes variations possible: same components, different styling.
+
 For larger apps, components can live in separate files. A `components.html` file, or a dedicated `app/` directory with multiple files organized by feature. Include them in `site.yaml`:
 
 ```yaml
 include: [ app/ ]
 ```
 
-The gallery example keeps everything in one file for simplicity. The pattern stays the same regardless of file organization.
 
-These components define structure and data binding. No colors, no spacing, no visual effects. The design system handles presentation through CSS. This separation is what makes variations possible: same components, different styling.
+### Orchestration
+The entry point handles routing and data fetching, then hands data to components for rendering. This keeps orchestration logic in one place while components focus purely on layout.
 
+```html
+<!doctype dhtml>
+
+<article>
+  <script>
+    import { state } from 'state'
+
+    state.setup({ route: '/:item', autolink: true })
+
+    state.on('item', async ({ item }) => {
+      const url = item ? `/api/item/${item}` : '/api/items'
+      const data = await fetch(url).then(r => r.json())
+
+      item ? this.mount('item', data)
+        : this.mount('gallery', { items: data })
+    })
+
+    state.init()
+  </script>
+</article>
+```
+
+The `dhtml` doctype tells Nue to process this as an interactive component. The development server routes all URLs matching the app to this single file.
+
+You could move this logic to a separate `controller.js` to make the entry point purely structural. The pattern stays the same: orchestration is centralized, components handle layout.
+
+
+### State setup
+
+```js
+state.setup({ route: '/:item', autolink: true })
+```
+
+The `route` parameter defines URL patterns. Here `/:item` captures everything after the slash as the `item` variable. Visiting `/monochrome-s7` sets `item` to `"monochrome-s7"`. Visiting `/` leaves `item` empty.
+
+The `autolink` option intercepts clicks on internal links. Instead of full page reloads, links trigger state changes and the URL updates via History API.
+
+
+### State listeners
+
+```js
+state.on('item', async ({ item }) => {
+  // fetch data based on URL
+  // mount appropriate component
+})
+```
+
+When `item` changes, the callback fires. The logic branches based on URL state: root URL fetches all items, detail URL fetches one item.
+
+
+### The mount method
+The `mount()` method renders a component with data:
+```js
+this.mount(name, data?)
+```
+
+**name** - Component tag name to render
+
+**data** - Object passed to the component as properties
+
+Mount centralizes the connection between URL state and component rendering. Components don't know where their data comes from. They just receive it and render.
+
+For more control, you can specify a target element:
+
+```js
+// CSS selector (queries within component root)
+this.mount('gallery', '.content > :first-child', { items: data })
+
+// DOM node reference
+this.mount('item', document.getElementById('detail'), data)
+```
+
+When using a selector, mount replaces the matched element. If your selector targets a class like `.content`, the new component needs that same class for subsequent mounts to work. Using `.content > :first-child` avoids this: the container stays in place while its child gets swapped.
+
+If no target is given, mount uses the first child of the component root. If no children exist, a `<div>` is created automatically.
+
+
+### Initialization
+
+```js
+state.init()
+```
+
+This reads the current URL and triggers the appropriate listener. Handles direct URL access, page refreshes, and bookmarked links.
 
 
 ### Base CSS
@@ -287,7 +289,7 @@ A different app, different aesthetic, same underlying code.
 
 
 ## The backend
-The `server/` directory in the template is just for convenience. In real projects, the backend is typically a separate repository, a managed service, or an existing API. It could be Django on Heroku, Express on Vercel, a headless CMS like Sanity, or a commerce platform like Shopify.
+The `server/` directory in the template is just for demonstration. In real projects, the backend is typically a separate repository, a managed service, or an existing API. It could be Django on Heroku, Express on Vercel, a headless CMS like Sanity, or a commerce platform like Shopify.
 
 Nue doesn't care. The frontend makes HTTP requests. The backend responds with JSON. Everything else is up to you.
 

@@ -2,3 +2,5 @@
 extend: [ @base, baseapp ]
 
 brand_name: Glitch**!**
+
+title: Glitch Design

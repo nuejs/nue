@@ -24,11 +24,11 @@ nue create multi-site
 This installs:
 
 ```sh
-@base         # global design system
-acme.org      # website example
-beta.com      # alternate design
-gamma.blog    # blog only
-admin.dev     # SPA example
+@base          # global design system
+acme.org       # website example
+beta.com       # alternate design
+nuejs.docs     # docs site only
+design.blog    # blog only
 ```
 
 Run `nue` from the project root and open several browser tabs:

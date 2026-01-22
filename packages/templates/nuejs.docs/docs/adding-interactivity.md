@@ -19,8 +19,8 @@ The recommended place for enhancement scripts is `@lib/`:
 @base/
 └── @lib/
     └── contact-form/
-        ├── contact.html  # server-side rendered form
-        └── contact.js    # client enhancement
+        ├── contact.html    # server-side rendered form
+        └── contact.js      # client enhancement
 ```
 
 ### Example

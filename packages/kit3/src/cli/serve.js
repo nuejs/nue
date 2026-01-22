@@ -49,10 +49,8 @@ async function getUpdate(url, asset, tree) {
 
   // not in chain -> skip
   const chain = await tree.getChain(parseHost(url.host))
-  if (!chain.includes(asset.site)) {
-    console.info('skipping', asset.site, chain)
-    return
-  }
+  if (!chain.includes(asset.site)) return
+
 
   // html extra props
   if (asset.is_html) {

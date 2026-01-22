@@ -1,6 +1,6 @@
 
 // .md page rendering
-import { sep } from 'node:path'
+import { join, sep } from 'node:path'
 
 import { renderNue } from 'nuedom'
 
@@ -22,7 +22,18 @@ export async function renderPage(asset, chain, assets, is_prod) {
   const data = await getData(deps, is_prod)
   const comps = await getComponents(deps)
 
-  Object.assign(data, data.meta, meta, { dir: asset.dir, slug: asset.slug, url: asset.url })
+  Object.assign(
+    data,
+    data.meta,
+    meta,
+    { dir: asset.dir, slug: asset.slug, url: asset.url }
+  )
+
+  // processor
+  const processors = deps.filter(dep => conf.processor == dep.path)
+  for (const p of processors || []) {
+    Object.assign(data, await runProcessor(p.filepath, asset, data))
+  }
 
   // content collections
   Object.assign(data, await getCollections(assets, conf.collections, chain))
@@ -42,6 +53,15 @@ export async function renderPage(asset, chain, assets, is_prod) {
   const head = await renderHead({ conf, data, deps })
 
   return renderSlots(content, { head, comps, data, conf })
+}
+
+async function runProcessor(path, asset, data) {
+  try {
+    const mod = await import(join(process.cwd(), path))
+    return await mod.default(asset, data)
+  } catch (e) {
+    console.error('  ', e)
+  }
 }
 
 
