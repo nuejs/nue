@@ -11,7 +11,7 @@ h2 no longer works as section separator
 
 ## Removed
 SVG file development, in favor to server-side HTML/SVG components
+@shared folder and nested folder special treatments
+@shared/data/*.js processors
 
 
-## Single-page apps on hold
-Focus shifts to website templates and design systems

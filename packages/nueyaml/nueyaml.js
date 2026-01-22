@@ -1,12 +1,7 @@
-
 export function stripComments(line) {
-  // Full line comment
   if (line.trim().startsWith('#')) return ''
-
-  // Inline comment (# preceded by whitespace)
   const match = line.match(/\s#\s/)
-  if (!match) return line
-  return line.substring(0, match.index)
+  return match ? line.substring(0, match.index) : line
 }
 
 export function measureIndent(line) {
@@ -22,15 +17,13 @@ export function detectIndentSize(lines) {
   for (let line of lines) {
     const stripped = stripComments(line)
     if (stripped.trim() == '') continue
-
     const indent = measureIndent(stripped)
     if (indent > 0) return indent
   }
-  return 2 // default to 2 spaces
+  return 2
 }
 
 export function validateIndentation(lines) {
-  // Check for tabs in indentation (beginning of line only)
   for (let i = 0; i < lines.length; i++) {
     const line = stripComments(lines[i])
     const leadingWhitespace = line.match(/^[\s]*/)[0]
@@ -42,17 +35,13 @@ export function validateIndentation(lines) {
   const indentSize = detectIndentSize(lines)
   const indentLevels = new Set()
 
-  for (let i = 0; i < lines.length; i++) {
-    const line = stripComments(lines[i])
-    if (line.trim() == '') continue
-
-    const indent = measureIndent(line)
-    if (indent > 0) {
-      indentLevels.add(indent)
-    }
+  for (let line of lines) {
+    const stripped = stripComments(line)
+    if (stripped.trim() == '') continue
+    const indent = measureIndent(stripped)
+    if (indent > 0) indentLevels.add(indent)
   }
 
-  // Check that all indentation levels are multiples of the base indent size
   for (let level of indentLevels) {
     if (level % indentSize != 0) {
       throw new Error(`Inconsistent indentation. Expected multiples of ${indentSize} spaces.`)
@@ -75,13 +64,11 @@ export function parseValue(raw) {
   if (val == 'false') return false
   if (isNumber(val)) return parseFloat(val)
 
-  // Unwrap quoted strings
   if ((val.startsWith('"') && val.endsWith('"')) ||
       (val.startsWith("'") && val.endsWith("'"))) {
     return val.slice(1, -1)
   }
 
-  // ISO date format
   if (/^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2}:\d{2}Z)?$/.test(val)) {
     return new Date(val)
   }
@@ -89,13 +76,11 @@ export function parseValue(raw) {
   return val
 }
 
-// cannot be made public. requires prop name "foo: [1, a, b]"
 export function parseYAMLArray(line) {
   const match = line?.match(/^\s*\w+\s*:\s*\[(.*)\]$/)
   if (!match) return null
   if (match[1].trim() == '') return []
-  const items = match[1].split(',').map(item => parseValue(item))
-  return items
+  return match[1].split(',').map(item => parseValue(item))
 }
 
 export function detectStructure(lines) {
@@ -104,18 +89,16 @@ export function detectStructure(lines) {
   for (let i = 0; i < lines.length; i++) {
     const line = stripComments(lines[i])
     const trimmed = line.trim()
-
     if (trimmed == '') continue
 
     const indent = measureIndent(line)
 
-    // Check for array item first
+    // Array item
     if (trimmed.startsWith('- ')) {
       const content = trimmed.slice(2).trim()
       const colonIndex = content.indexOf(': ')
 
       if (colonIndex > 0) {
-        // Array item with key-value: - key: value
         blocks.push({
           type: 'arrayitem',
           key: content.slice(0, colonIndex),
@@ -124,10 +107,9 @@ export function detectStructure(lines) {
           lineIndex: i
         })
       } else {
-        // Simple array item: - value
         blocks.push({
           type: 'arrayitem',
-          value: parseValue(content),
+          value: content,
           indent,
           lineIndex: i
         })
@@ -135,7 +117,7 @@ export function detectStructure(lines) {
       continue
     }
 
-    // Check for key-value pair
+    // Key-value pair
     const colonSpaceIndex = trimmed.indexOf(': ')
     const colonIndex = trimmed.indexOf(':')
 
@@ -154,7 +136,7 @@ export function detectStructure(lines) {
       continue
     }
 
-    // Multi-line string continuation
+    // Multi-line continuation
     blocks.push({
       type: 'multiline',
       value: trimmed,
@@ -166,6 +148,97 @@ export function detectStructure(lines) {
   return blocks
 }
 
+// get children at next indent level
+function getChildren(blocks, start, parentIndent) {
+  const children = []
+  let i = start
+
+  while (i < blocks.length && blocks[i].indent > parentIndent) {
+    children.push({ ...blocks[i], originalIndex: i })
+    i++
+  }
+
+  return children
+}
+
+// build array from array item blocks
+function buildArray(blocks, baseIndent) {
+  const result = []
+  let i = 0
+
+  while (i < blocks.length) {
+    const block = blocks[i]
+
+    // only process items at this indent level
+    if (block.type != 'arrayitem' || block.indent != baseIndent) {
+      i++
+      continue
+    }
+
+    // get nested content for this array item
+    const nested = []
+    let j = i + 1
+    while (j < blocks.length && blocks[j].indent > baseIndent) {
+      nested.push(blocks[j])
+      j++
+    }
+
+    if ('key' in block) {
+      // array item with key: - name: value
+      const obj = {}
+      const inlineArray = parseYAMLArray(block.key + ': ' + block.value)
+      obj[block.key] = inlineArray ?? parseValue(block.value)
+
+      // add nested properties
+      if (nested.length > 0) {
+        const nestedObj = buildValue(nested, baseIndent + 2)
+        if (typeof nestedObj == 'object' && !Array.isArray(nestedObj)) {
+          Object.assign(obj, nestedObj)
+        }
+      }
+
+      result.push(obj)
+    } else {
+      // simple array item: - value
+      if (nested.length > 0 && nested[0].type == 'arrayitem') {
+        // nested array under simple value
+        const nestedArray = buildArray(nested, nested[0].indent)
+        result.push({ value: block.value, items: nestedArray })
+      } else if (nested.length > 0) {
+        // nested object under simple value
+        const nestedObj = buildValue(nested, baseIndent + 2)
+        result.push({ value: block.value, ...nestedObj })
+      } else {
+        result.push(parseValue(block.value))
+      }
+    }
+
+    i = j
+  }
+
+  return result
+}
+
+// build value from child blocks
+function buildValue(children, parentIndent) {
+  if (children.length == 0) return null
+
+  const first = children[0]
+
+  // multiline string
+  if (first.type == 'multiline') {
+    return children.map(c => c.value).join('\n')
+  }
+
+  // array
+  if (first.type == 'arrayitem') {
+    return buildArray(children, first.indent)
+  }
+
+  // nested object
+  return buildObject(children)
+}
+
 export function buildObject(blocks) {
   const result = {}
   let i = 0
@@ -173,123 +246,25 @@ export function buildObject(blocks) {
   while (i < blocks.length) {
     const block = blocks[i]
 
-    if (block.type == 'keyvalue') {
-      let value
-
-      // Check for inline array
-      if (block.value != '') {
-        const arrayItems = parseYAMLArray(block.key + ': ' + block.value)
-        if (arrayItems) {
-          value = arrayItems
-        } else {
-          value = parseValue(block.value)
-        }
-      } else {
-        // Look ahead for children
-        const children = []
-        let j = i + 1
-
-        while (j < blocks.length && blocks[j].indent > block.indent) {
-          children.push(blocks[j])
-          j++
-        }
-
-        if (children.length > 0) {
-          // Check if first child is array item
-          if (children[0].type == 'arrayitem') {
-            value = []
-            let k = 0
-
-            while (k < children.length) {
-              const child = children[k]
-
-              if (child.type == 'arrayitem' && child.indent == children[0].indent) {
-                // Check if array item has a key (object) or just a value
-                if ('key' in child) {
-                  // Array item with object content: - name: value
-                  const itemObj = {}
-                  itemObj[child.key] = parseValue(child.value)
-
-                  // Look for additional properties of this array item
-                  let m = k + 1
-                  while (m < children.length && children[m].indent > child.indent) {
-                    const nestedChild = children[m]
-
-                    if (nestedChild.type == 'keyvalue') {
-                      // Handle nested key-value pairs
-                      if (nestedChild.value != '') {
-                        // Check for inline array in nested property
-                        const nestedArrayItems = parseYAMLArray(nestedChild.key + ': ' + nestedChild.value)
-                        if (nestedArrayItems) {
-                          itemObj[nestedChild.key] = nestedArrayItems
-                        } else {
-                          itemObj[nestedChild.key] = parseValue(nestedChild.value)
-                        }
-                      } else {
-                        // Look for children of this nested key
-                        const nestedChildren = []
-                        let n = m + 1
-
-                        while (n < children.length && children[n].indent > nestedChild.indent) {
-                          nestedChildren.push(children[n])
-                          n++
-                        }
-
-                        if (nestedChildren.length > 0 && nestedChildren[0].type == 'arrayitem') {
-                          // Nested array
-                          const nestedArray = []
-                          for (let nestedArrayChild of nestedChildren) {
-                            if (nestedArrayChild.type == 'arrayitem' && nestedArrayChild.indent == nestedChildren[0].indent) {
-                              if ('key' in nestedArrayChild) {
-                                const nestedItemObj = {}
-                                nestedItemObj[nestedArrayChild.key] = parseValue(nestedArrayChild.value)
-                                nestedArray.push(nestedItemObj)
-                              } else {
-                                nestedArray.push(nestedArrayChild.value)
-                              }
-                            }
-                          }
-                          itemObj[nestedChild.key] = nestedArray
-                          m = n - 1 // Skip processed nested children
-                        } else {
-                          itemObj[nestedChild.key] = null
-                        }
-                      }
-                    }
-                    m++
-                  }
-
-                  value.push(itemObj)
-                  k = m
-                } else {
-                  // Simple array item: - value
-                  value.push(child.value)
-                  k++
-                }
-              } else {
-                k++
-              }
-            }
-          }
-          // Check if first child is multiline
-          else if (children[0].type == 'multiline') {
-            value = children.map(c => c.value).join('\n')
-          }
-          // Otherwise it's a nested object
-          else {
-            value = buildObject(children)
-          }
-
-          i = j - 1 // Skip processed children
-        } else {
-          value = null
-        }
-      }
-
-      result[block.key] = value
+    if (block.type != 'keyvalue') {
+      i++
+      continue
     }
 
-    i++
+    const children = getChildren(blocks, i + 1, block.indent)
+
+    if (block.value != '') {
+      // inline value or array
+      const inlineArray = parseYAMLArray(block.key + ': ' + block.value)
+      result[block.key] = inlineArray ?? parseValue(block.value)
+    } else if (children.length > 0) {
+      // nested content
+      result[block.key] = buildValue(children, block.indent)
+    } else {
+      result[block.key] = null
+    }
+
+    i += 1 + children.length
   }
 
   return result
