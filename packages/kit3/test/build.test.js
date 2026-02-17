@@ -1,108 +1,101 @@
-
-import { test, expect, afterAll, spyOn } from 'bun:test'
-
-import { createTree } from '../src/tree'
-
-import {
-  getSharedAssets,
-  getAffectedPages,
-  getInheritedContent,
-  printSummaryTable,
-  buildNueAssets,
-  getBuildables,
-  build,
-} from '../src/cli/build'
+// build.test.js
+import { unique, getSites, shouldIncludePage, hasCSSDep, isMedia } from '../src/cli/build'
 
 
-process.chdir('tree')
-
-afterAll(() => process.chdir('..'))
-
-
-test('printSummaryTable', async () => {
-  const spy = spyOn(console, 'log').mockImplementation(() => {})
-
-  printSummaryTable([
-    { site: '@base' },
-    { site: '@base' },
-    { site: 'acme.org' },
-    { site: 'beta.org' },
-  ])
-
-  const { calls } = spy.mock
-  expect(calls[0][0]).toInclude('2 files')
-  expect(calls.length).toBe(3)
-  spy.mockRestore()
-})
-
-test('getBuildables', async () => {
-  const tree = createTree()
-  await tree.load()
-  const arr = await getBuildables(tree, { paths: ['epic-layout'], force: true })
-  expect(arr.length).toBe(1)
-})
-
-
-test('getSharedAssets', () => {
-  const buildables = [
-    { site: '@base', dir: '@shared', path: '@shared/join.html', is_dhtml_lib: true },
-    { site: 'beta', dir: '', path: 'globals.ts', is_ts: true },
-  ]
-
-  const arr = getSharedAssets('acme', ['@base', 'beta', 'acme'], buildables)
-
-  expect(arr.length).toBe(2)
-  expect(arr[0].site).toBe('acme')
-})
-
-test('getInheritedContent', () => {
+test('unique', () => {
   const assets = [
-    { site: '@base', dir: 'blog', path: 'blog/post.md', is_md: true },
+    { site: 'acme', path: 'index.html' },
+    { site: 'acme', path: 'index.html' },
+    { site: 'acme', path: 'about.html' },
+    { site: 'beta', path: 'index.html' },
   ]
-
-  const arr = getInheritedContent('acme', ['@base', 'acme'], assets)
-  expect(arr.length).toBe(1)
-  expect(arr[0].site).toBe('acme')
+  expect(unique(assets).length).toBe(3)
 })
 
 
-test('getAffectedPages', () => {
-  const all = [
-    { site: 'acme', path: 'index.md', is_md: true },
+test('getSites excludes @base', () => {
+  const assets = [
+    { site: '@base' },
+    { site: 'acme' },
+    { site: 'beta' },
   ]
+  expect(getSites(assets)).toEqual(['acme', 'beta'])
+})
 
-  const buildables = [
-    { site: '@base', path: '@shared/design/base.css', is_css: true },
+
+test('shouldIncludePage local', () => {
+  const assets = [{ site: 'acme', is_page: true, url: '/' }]
+  const page = assets[0]
+  expect(shouldIncludePage(page, 'acme', assets)).toBe(true)
+})
+
+
+test('shouldIncludePage inherited root', () => {
+  const assets = [
+    { site: '@base', is_page: true, url: '/', is_md: true },
   ]
-
-  const arr = getAffectedPages('acme', ['@base', 'acme'], all, buildables)
-  expect(arr.length).toBe(1)
-
+  expect(shouldIncludePage(assets[0], 'acme', assets)).toBe(true)
 })
 
-test('tree.buildAsset', async () => {
-  const tree = createTree()
-  await tree.load()
-  const page = tree.get('sites/acme/index.md')
-  const html = await tree.buildAsset(page, { is_prod: true })
-  expect(html).toInclude(';body{padding:1em')
 
-  const file = Bun.file('.dist/acme/index.html')
-  expect(await file.text()).toInclude('<title>Hello Acme</title>')
+test('shouldIncludePage inherited blocked by local', () => {
+  const assets = [
+    { site: '@base', is_page: true, url: '/', is_md: true },
+    { site: 'acme', is_page: true, url: '/' },
+  ]
+  expect(shouldIncludePage(assets[0], 'acme', assets)).toBe(false)
 })
 
-test('build', async () => {
-  const tree = createTree()
-  await tree.load()
 
-  const { sites, buildables } = await build(tree, { paths: [ 'acme' ], silent: true, force: true })
-  expect(buildables.length).toBe(1)
-  expect(sites).toEqual(['acme'])
+test('shouldIncludePage html wins over md', () => {
+  const assets = [
+    { site: '@base', is_page: true, url: '/', is_md: true },
+    { site: 'baseapp', is_page: true, url: '/', is_html: true },
+  ]
+  expect(shouldIncludePage(assets[0], 'acme', assets)).toBe(false)
+  expect(shouldIncludePage(assets[1], 'acme', assets)).toBe(true)
 })
 
-test('buildNueAssets', async () => {
-  await buildNueAssets('acme', true)
-  const file = Bun.file('.dist/acme/@nue/mount.js')
-  expect(await file.exists()).toBeTrue()
+
+test('shouldIncludePage app not in site', () => {
+  const assets = [
+    { site: '@base', is_page: true, url: '/blog/', app: 'blog' },
+  ]
+  expect(shouldIncludePage(assets[0], 'acme', assets)).toBe(false)
 })
 
+
+test('shouldIncludePage app in site', () => {
+  const assets = [
+    { site: '@base', is_page: true, url: '/blog/post', app: 'blog' },
+    { site: 'acme', app: 'blog' },
+  ]
+  expect(shouldIncludePage(assets[0], 'acme', assets)).toBe(true)
+})
+
+
+test('hasCSSDep', () => {
+  const deps = [
+    { is_css: true, path: 'style.css', site: '@base' },
+    { is_js: true, path: 'app.js', site: '@base' },
+  ]
+  const changed = [{ path: 'style.css', site: '@base' }]
+  expect(hasCSSDep(deps, changed)).toBe(true)
+})
+
+
+test('hasCSSDep no match', () => {
+  const deps = [
+    { is_css: true, path: 'style.css', site: '@base' },
+  ]
+  const changed = [{ path: 'other.css', site: '@base' }]
+  expect(hasCSSDep(deps, changed)).toBe(false)
+})
+
+
+test('isMedia', () => {
+  expect(isMedia('image/png')).toBe(true)
+  expect(isMedia('video/mp4')).toBe(true)
+  expect(isMedia('text/html')).toBe(false)
+  expect(isMedia(undefined)).toBe(false)
+})

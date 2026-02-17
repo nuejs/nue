@@ -47,6 +47,7 @@ export function getArgs(argv) {
       else if (['--force'].includes(arg)) args.force = true
       else if (['--init'].includes(arg)) args.init = true
       else if (['--all'].includes(arg)) args.all = true
+      else if (['--site'].includes(arg)) opt = 'site'
 
       // bad argument
       else throw `Unknown option: "${arg}"`

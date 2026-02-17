@@ -106,8 +106,12 @@ test('parseYAML multiline string', () => {
   })
 })
 
-test('parseYAML complex keys', () => {
+test('parse complex key', () => {
   expect(parseYAML('/api/:id: handler')).toEqual({ '/api/:id': 'handler' })
+})
+
+test('parse complex value', () => {
+  expect(parseYAML('test: "hello: world"')).toEqual({ test: 'hello: world' })
 })
 
 test('parseYAML real config', () => {
