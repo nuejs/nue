@@ -1,4 +1,3 @@
-
 // Nue • (c) 2025 Tero Piirainen & contributors, MIT Licensed
 
 /*
@@ -27,13 +26,17 @@ export function domdiff(prev, next) {
   const parent = prev.parentNode
   if (prev == next) return prev
   if (!prev && next) return parent?.appendChild(next)
-  if (!next && prev) return parent?.removeChild(prev)
+  if (!next && prev){
+    cleanupObserver(prev)
+    return parent?.removeChild(prev)
+  }
 
   if (prev.nodeType == 3 && next.nodeType == 3) {
     prev.textContent = next.textContent
     return prev
   }
   if (prev.nodeType != next.nodeType || prev.tagName != next.tagName) {
+    cleanupObserver(prev)
     return parent.replaceChild(next, prev)
   }
 
@@ -61,7 +64,11 @@ function diffChildren(prev, kids) {
     const prevKid = prevKids[i]
     const kid = kids[i]
     if (!prevKid) prev.appendChild(kid)
-    else if (!kid) prev.removeChild(prevKids[i])
+    else if (!kid)
+    { 
+      cleanupObserver(prevKids[i])
+      prev.removeChild(prevKids[i])
+    }
     else domdiff(prevKid, kid, prev)
   }
 }
@@ -70,10 +77,32 @@ function diffChildrenByKey(prev, kids) {
   const prevKids = Array.from(prev.childNodes)
   const keyMap = {}
   for (let kid of prevKids) keyMap[kid.getAttribute('key')] = kid
+
+
+  for (let kid of prevKids) {
+    const key = kid.getAttribute('key')
+    if (!kids.find(k => k.getAttribute('key') === key)) {
+      cleanupObserver(kid)
+    }
+  }
+
   while (prev.firstChild) prev.removeChild(prev.firstChild)
   for (let kid of kids) {
     const key = kid.getAttribute('key')
     const prevKid = keyMap[key]
     prev.appendChild(prevKid ? domdiff(prevKid, kid, prev) : kid)
+  }
+}
+
+
+function cleanupObserver(node) {
+  if (node._nueObserver) {
+    node._nueObserver.disconnect()
+    delete node._nueObserver
+  }
+  
+
+  if (node.childNodes) {
+    Array.from(node.childNodes).forEach(child => cleanupObserver(child))
   }
 }

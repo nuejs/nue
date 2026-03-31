@@ -1,10 +1,8 @@
-
 // Nue • (c) 2025 Tero Piirainen & contributors, MIT Licensed
 
 import { domdiff } from './diff.js'
 
 const is_browser = typeof window == 'object'
-
 
 export function createNode(ast, data={}, opts={}, parent) {
   const { script } = ast
@@ -25,7 +23,7 @@ export function createNode(ast, data={}, opts={}, parent) {
   }
 
   // Object.assign(self, getAttrData(ast, self))
-  const self = { ...data, ...opts.globals, ...getAttrData(ast, data), update, parent }
+  const self = { ...data, ...opts.globals, ...getAttrData(ast, data), update, cleanup,parent }
 
 
   if (script) {
@@ -80,7 +78,31 @@ export function createNode(ast, data={}, opts={}, parent) {
 
     setAttributes(tag, ast, self)
     if (parent && ast.is_child) setAttributes(tag, parent.ast, parent.self)
+    
 
+    if (is_browser) {
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (mutation.type === 'attributes') {
+            const attrName = mutation.attributeName
+            const attr = ast.attr?.find(a => a.name === attrName)
+            
+            if (attr && !attr.is_data) {
+              const newValue = tag.getAttribute(attrName)
+              if (attr.bool) {
+                self[attrName] = tag.hasAttribute(attrName)
+              } else {
+                self[attrName] = newValue
+              }
+            }
+          }
+        })
+      })
+      
+      observer.observe(tag, { attributes: true })
+      
+      tag._nueObserver = observer
+    }
     const am = tag.classList.length
     if (am > (opts.max_class_names || 3)) {
       console.error(`More than ${am} class names in class="${tag.classList }"`)
@@ -202,6 +224,13 @@ export function createNode(ast, data={}, opts={}, parent) {
     return frag
   }
 
+  function cleanup() {
+    if (root) {
+      cleanupObserver(root)
+    }
+    fire('oncleanup')
+  }
+
   function findComponent(ast, self) {
     let { mount, tag } = ast
     if (mount) tag = mount.fn ? exec(mount.fn, self) : mount.val
@@ -209,7 +238,18 @@ export function createNode(ast, data={}, opts={}, parent) {
   }
 
   return {
-    mount, update, render, ast, self, fire, get root() { return root },
+    mount, update, render, ast, self, fire,cleanup, get root() { return root },
+  }
+}
+
+function cleanupObserver(node) {
+  if (node._nueObserver) {
+    node._nueObserver.disconnect()
+    delete node._nueObserver
+  }
+  
+  if (node.childNodes) {
+    Array.from(node.childNodes).forEach(child => cleanupObserver(child))
   }
 }
 
